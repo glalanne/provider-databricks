@@ -137,9 +137,6 @@ type SQLEndpointInitParameters struct {
 	// Minimum number of clusters available when a SQL warehouse is running. The default is 1.
 	MinNumClusters *float64 `json:"minNumClusters,omitempty" tf:"min_num_clusters,omitempty"`
 
-	// Name of the SQL warehouse. Must be unique.
-	Name *string `json:"name,omitempty" tf:"name,omitempty"`
-
 	// The spot policy to use for allocating instances to clusters: COST_OPTIMIZED or RELIABILITY_OPTIMIZED. This field is optional. Default is COST_OPTIMIZED.
 	SpotInstancePolicy *string `json:"spotInstancePolicy,omitempty" tf:"spot_instance_policy,omitempty"`
 
@@ -189,9 +186,6 @@ type SQLEndpointObservation struct {
 
 	// Minimum number of clusters available when a SQL warehouse is running. The default is 1.
 	MinNumClusters *float64 `json:"minNumClusters,omitempty" tf:"min_num_clusters,omitempty"`
-
-	// Name of the SQL warehouse. Must be unique.
-	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// The current number of clusters used by the endpoint.
 	NumActiveSessions *float64 `json:"numActiveSessions,omitempty" tf:"num_active_sessions,omitempty"`
@@ -251,10 +245,6 @@ type SQLEndpointParameters struct {
 	// Minimum number of clusters available when a SQL warehouse is running. The default is 1.
 	// +kubebuilder:validation:Optional
 	MinNumClusters *float64 `json:"minNumClusters,omitempty" tf:"min_num_clusters,omitempty"`
-
-	// Name of the SQL warehouse. Must be unique.
-	// +kubebuilder:validation:Optional
-	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// The spot policy to use for allocating instances to clusters: COST_OPTIMIZED or RELIABILITY_OPTIMIZED. This field is optional. Default is COST_OPTIMIZED.
 	// +kubebuilder:validation:Optional
@@ -325,7 +315,6 @@ type SQLEndpoint struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.clusterSize) || (has(self.initProvider) && has(self.initProvider.clusterSize))",message="spec.forProvider.clusterSize is a required parameter"
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.name) || (has(self.initProvider) && has(self.initProvider.name))",message="spec.forProvider.name is a required parameter"
 	Spec   SQLEndpointSpec   `json:"spec"`
 	Status SQLEndpointStatus `json:"status,omitempty"`
 }

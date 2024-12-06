@@ -63,7 +63,7 @@ UPTEST_VERSION = v0.5.0
 # ====================================================================================
 # Setup Images
 
-REGISTRY_ORGS ?= ghcr.io/glalanne
+REGISTRY_ORGS ?= xpkg.upbound.io/lalanne
 IMAGES = $(PROJECT_NAME)
 -include build/makelib/imagelight.mk
 

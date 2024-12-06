@@ -1401,9 +1401,6 @@ type JobInitParameters struct {
 	// (Integer) An optional minimal interval in milliseconds between the start of the failed run and the subsequent retry run. The default behavior is that unsuccessful runs are immediately retried.
 	MinRetryIntervalMillis *float64 `json:"minRetryIntervalMillis,omitempty" tf:"min_retry_interval_millis,omitempty"`
 
-	// An optional name for the job. The default value is Untitled.
-	Name *string `json:"name,omitempty" tf:"name,omitempty"`
-
 	// Task will run on a dedicated cluster.  See databricks_cluster documentation for specification. Some parameters, such as
 	NewCluster []JobNewClusterInitParameters `json:"newCluster,omitempty" tf:"new_cluster,omitempty"`
 
@@ -2377,9 +2374,6 @@ type JobObservation struct {
 	// (Integer) An optional minimal interval in milliseconds between the start of the failed run and the subsequent retry run. The default behavior is that unsuccessful runs are immediately retried.
 	MinRetryIntervalMillis *float64 `json:"minRetryIntervalMillis,omitempty" tf:"min_retry_interval_millis,omitempty"`
 
-	// An optional name for the job. The default value is Untitled.
-	Name *string `json:"name,omitempty" tf:"name,omitempty"`
-
 	// Task will run on a dedicated cluster.  See databricks_cluster documentation for specification. Some parameters, such as
 	NewCluster []JobNewClusterObservation `json:"newCluster,omitempty" tf:"new_cluster,omitempty"`
 
@@ -2515,10 +2509,6 @@ type JobParameters struct {
 	// (Integer) An optional minimal interval in milliseconds between the start of the failed run and the subsequent retry run. The default behavior is that unsuccessful runs are immediately retried.
 	// +kubebuilder:validation:Optional
 	MinRetryIntervalMillis *float64 `json:"minRetryIntervalMillis,omitempty" tf:"min_retry_interval_millis,omitempty"`
-
-	// An optional name for the job. The default value is Untitled.
-	// +kubebuilder:validation:Optional
-	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// Task will run on a dedicated cluster.  See databricks_cluster documentation for specification. Some parameters, such as
 	// +kubebuilder:validation:Optional

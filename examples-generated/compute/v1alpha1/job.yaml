@@ -16,7 +16,6 @@ spec:
       - nodeTypeId: ${data.databricks_node_type.smallest.id}
         numWorkers: 2
         sparkVersion: ${data.databricks_spark_version.latest.id}
-    name: Job with multiple tasks
     task:
     - newCluster:
       - nodeTypeId: ${data.databricks_node_type.smallest.id}

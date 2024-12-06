@@ -814,10 +814,6 @@ spec:
                       run. The default behavior is that unsuccessful runs are immediately
                       retried.
                     type: number
-                  name:
-                    description: An optional name for the job. The default value is
-                      Untitled.
-                    type: string
                   newCluster:
                     description: Task will run on a dedicated cluster.  See databricks_cluster
                       documentation for specification. Some parameters, such as
@@ -4648,10 +4644,6 @@ spec:
                       run. The default behavior is that unsuccessful runs are immediately
                       retried.
                     type: number
-                  name:
-                    description: An optional name for the job. The default value is
-                      Untitled.
-                    type: string
                   newCluster:
                     description: Task will run on a dedicated cluster.  See databricks_cluster
                       documentation for specification. Some parameters, such as
@@ -8630,10 +8622,6 @@ spec:
                       run. The default behavior is that unsuccessful runs are immediately
                       retried.
                     type: number
-                  name:
-                    description: An optional name for the job. The default value is
-                      Untitled.
-                    type: string
                   newCluster:
                     description: Task will run on a dedicated cluster.  See databricks_cluster
                       documentation for specification. Some parameters, such as

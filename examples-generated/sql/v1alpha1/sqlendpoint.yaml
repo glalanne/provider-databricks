@@ -10,7 +10,6 @@ spec:
   forProvider:
     clusterSize: Small
     maxNumClusters: 1
-    name: Endpoint of ${data.databricks_current_user.me.alphanumeric}
     tags:
     - customTags:
       - key: City
