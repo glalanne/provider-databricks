@@ -22,7 +22,7 @@ type TokenInitParameters struct {
 
 	ExpiryTime *float64 `json:"expiryTime,omitempty" tf:"expiry_time,omitempty"`
 
-	// (Integer) The lifetime of the token, in seconds. If no lifetime is specified, the token remains valid indefinitely.
+	// (Integer) The lifetime of the token, in seconds. If no lifetime is specified, then expire time will be set to maximum allowed by the workspace configuration or platform.
 	LifetimeSeconds *float64 `json:"lifetimeSeconds,omitempty" tf:"lifetime_seconds,omitempty"`
 
 	// Canonical unique identifier for the token.
@@ -41,7 +41,7 @@ type TokenObservation struct {
 	// Canonical unique identifier for the token.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
-	// (Integer) The lifetime of the token, in seconds. If no lifetime is specified, the token remains valid indefinitely.
+	// (Integer) The lifetime of the token, in seconds. If no lifetime is specified, then expire time will be set to maximum allowed by the workspace configuration or platform.
 	LifetimeSeconds *float64 `json:"lifetimeSeconds,omitempty" tf:"lifetime_seconds,omitempty"`
 
 	// Canonical unique identifier for the token.
@@ -60,7 +60,7 @@ type TokenParameters struct {
 	// +kubebuilder:validation:Optional
 	ExpiryTime *float64 `json:"expiryTime,omitempty" tf:"expiry_time,omitempty"`
 
-	// (Integer) The lifetime of the token, in seconds. If no lifetime is specified, the token remains valid indefinitely.
+	// (Integer) The lifetime of the token, in seconds. If no lifetime is specified, then expire time will be set to maximum allowed by the workspace configuration or platform.
 	// +kubebuilder:validation:Optional
 	LifetimeSeconds *float64 `json:"lifetimeSeconds,omitempty" tf:"lifetime_seconds,omitempty"`
 

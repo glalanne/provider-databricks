@@ -198,12 +198,16 @@ type ClusterClusterLogConfInitParameters struct {
 	Dbfs []ClusterClusterLogConfDbfsInitParameters `json:"dbfs,omitempty" tf:"dbfs,omitempty"`
 
 	S3 []ClusterClusterLogConfS3InitParameters `json:"s3,omitempty" tf:"s3,omitempty"`
+
+	Volumes []ClusterClusterLogConfVolumesInitParameters `json:"volumes,omitempty" tf:"volumes,omitempty"`
 }
 
 type ClusterClusterLogConfObservation struct {
 	Dbfs []ClusterClusterLogConfDbfsObservation `json:"dbfs,omitempty" tf:"dbfs,omitempty"`
 
 	S3 []ClusterClusterLogConfS3Observation `json:"s3,omitempty" tf:"s3,omitempty"`
+
+	Volumes []ClusterClusterLogConfVolumesObservation `json:"volumes,omitempty" tf:"volumes,omitempty"`
 }
 
 type ClusterClusterLogConfParameters struct {
@@ -213,6 +217,9 @@ type ClusterClusterLogConfParameters struct {
 
 	// +kubebuilder:validation:Optional
 	S3 []ClusterClusterLogConfS3Parameters `json:"s3,omitempty" tf:"s3,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	Volumes []ClusterClusterLogConfVolumesParameters `json:"volumes,omitempty" tf:"volumes,omitempty"`
 }
 
 type ClusterClusterLogConfS3InitParameters struct {
@@ -269,6 +276,20 @@ type ClusterClusterLogConfS3Parameters struct {
 
 	// +kubebuilder:validation:Optional
 	Region *string `json:"region,omitempty" tf:"region,omitempty"`
+}
+
+type ClusterClusterLogConfVolumesInitParameters struct {
+	Destination *string `json:"destination,omitempty" tf:"destination,omitempty"`
+}
+
+type ClusterClusterLogConfVolumesObservation struct {
+	Destination *string `json:"destination,omitempty" tf:"destination,omitempty"`
+}
+
+type ClusterClusterLogConfVolumesParameters struct {
+
+	// +kubebuilder:validation:Optional
+	Destination *string `json:"destination" tf:"destination,omitempty"`
 }
 
 type ClusterGCPAttributesInitParameters struct {
@@ -1165,8 +1186,7 @@ type PipelineInitParameters struct {
 
 	RestartWindow []RestartWindowInitParameters `json:"restartWindow,omitempty" tf:"restart_window,omitempty"`
 
-	// A user-friendly name for this pipeline. The name can be used to identify pipeline jobs in the UI.
-	RunAsUserName *string `json:"runAsUserName,omitempty" tf:"run_as_user_name,omitempty"`
+	RunAs []PipelineRunAsInitParameters `json:"runAs,omitempty" tf:"run_as,omitempty"`
 
 	// The default schema (database) where tables are read from or published to. The presence of this attribute implies that the pipeline is in direct publishing mode.
 	Schema *string `json:"schema,omitempty" tf:"schema,omitempty"`
@@ -1334,6 +1354,8 @@ type PipelineObservation struct {
 
 	RestartWindow []RestartWindowObservation `json:"restartWindow,omitempty" tf:"restart_window,omitempty"`
 
+	RunAs []PipelineRunAsObservation `json:"runAs,omitempty" tf:"run_as,omitempty"`
+
 	// A user-friendly name for this pipeline. The name can be used to identify pipeline jobs in the UI.
 	RunAsUserName *string `json:"runAsUserName,omitempty" tf:"run_as_user_name,omitempty"`
 
@@ -1452,9 +1474,8 @@ type PipelineParameters struct {
 	// +kubebuilder:validation:Optional
 	RestartWindow []RestartWindowParameters `json:"restartWindow,omitempty" tf:"restart_window,omitempty"`
 
-	// A user-friendly name for this pipeline. The name can be used to identify pipeline jobs in the UI.
 	// +kubebuilder:validation:Optional
-	RunAsUserName *string `json:"runAsUserName,omitempty" tf:"run_as_user_name,omitempty"`
+	RunAs []PipelineRunAsParameters `json:"runAs,omitempty" tf:"run_as,omitempty"`
 
 	// The default schema (database) where tables are read from or published to. The presence of this attribute implies that the pipeline is in direct publishing mode.
 	// +kubebuilder:validation:Optional
@@ -1481,6 +1502,35 @@ type PipelineParameters struct {
 	// URL of the DLT pipeline on the given workspace.
 	// +kubebuilder:validation:Optional
 	URL *string `json:"url,omitempty" tf:"url,omitempty"`
+}
+
+type PipelineRunAsInitParameters struct {
+
+	// A user-friendly name for this pipeline. The name can be used to identify pipeline jobs in the UI.
+	ServicePrincipalName *string `json:"servicePrincipalName,omitempty" tf:"service_principal_name,omitempty"`
+
+	// A user-friendly name for this pipeline. The name can be used to identify pipeline jobs in the UI.
+	UserName *string `json:"userName,omitempty" tf:"user_name,omitempty"`
+}
+
+type PipelineRunAsObservation struct {
+
+	// A user-friendly name for this pipeline. The name can be used to identify pipeline jobs in the UI.
+	ServicePrincipalName *string `json:"servicePrincipalName,omitempty" tf:"service_principal_name,omitempty"`
+
+	// A user-friendly name for this pipeline. The name can be used to identify pipeline jobs in the UI.
+	UserName *string `json:"userName,omitempty" tf:"user_name,omitempty"`
+}
+
+type PipelineRunAsParameters struct {
+
+	// A user-friendly name for this pipeline. The name can be used to identify pipeline jobs in the UI.
+	// +kubebuilder:validation:Optional
+	ServicePrincipalName *string `json:"servicePrincipalName,omitempty" tf:"service_principal_name,omitempty"`
+
+	// A user-friendly name for this pipeline. The name can be used to identify pipeline jobs in the UI.
+	// +kubebuilder:validation:Optional
+	UserName *string `json:"userName,omitempty" tf:"user_name,omitempty"`
 }
 
 type PipelineTriggerInitParameters struct {

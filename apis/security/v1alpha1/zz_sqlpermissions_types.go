@@ -56,7 +56,7 @@ type SQLPermissionsInitParameters struct {
 	// (Boolean) If this access control for the entire catalog. Defaults to false.
 	Catalog *bool `json:"catalog,omitempty" tf:"catalog,omitempty"`
 
-	// Id of an existing databricks_cluster, where the appropriate GRANT/REVOKE commands are executed. This cluster must have the appropriate data security mode (USER_ISOLATION or LEGACY_TABLE_ACL specified).
+	// Id of an existing databricks_cluster, where the appropriate GRANT/REVOKE commands are executed. This cluster must have the appropriate access mode (USER_ISOLATION or LEGACY_TABLE_ACL specified).
 	ClusterID *string `json:"clusterId,omitempty" tf:"cluster_id,omitempty"`
 
 	// Name of the database. Has default value of default.
@@ -82,7 +82,7 @@ type SQLPermissionsObservation struct {
 	// (Boolean) If this access control for the entire catalog. Defaults to false.
 	Catalog *bool `json:"catalog,omitempty" tf:"catalog,omitempty"`
 
-	// Id of an existing databricks_cluster, where the appropriate GRANT/REVOKE commands are executed. This cluster must have the appropriate data security mode (USER_ISOLATION or LEGACY_TABLE_ACL specified).
+	// Id of an existing databricks_cluster, where the appropriate GRANT/REVOKE commands are executed. This cluster must have the appropriate access mode (USER_ISOLATION or LEGACY_TABLE_ACL specified).
 	ClusterID *string `json:"clusterId,omitempty" tf:"cluster_id,omitempty"`
 
 	// Name of the database. Has default value of default.
@@ -113,7 +113,7 @@ type SQLPermissionsParameters struct {
 	// +kubebuilder:validation:Optional
 	Catalog *bool `json:"catalog,omitempty" tf:"catalog,omitempty"`
 
-	// Id of an existing databricks_cluster, where the appropriate GRANT/REVOKE commands are executed. This cluster must have the appropriate data security mode (USER_ISOLATION or LEGACY_TABLE_ACL specified).
+	// Id of an existing databricks_cluster, where the appropriate GRANT/REVOKE commands are executed. This cluster must have the appropriate access mode (USER_ISOLATION or LEGACY_TABLE_ACL specified).
 	// +kubebuilder:validation:Optional
 	ClusterID *string `json:"clusterId,omitempty" tf:"cluster_id,omitempty"`
 

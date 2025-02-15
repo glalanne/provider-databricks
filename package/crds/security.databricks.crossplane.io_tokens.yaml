@@ -82,7 +82,8 @@ spec:
                     type: number
                   lifetimeSeconds:
                     description: (Integer) The lifetime of the token, in seconds.
-                      If no lifetime is specified, the token remains valid indefinitely.
+                      If no lifetime is specified, then expire time will be set to
+                      maximum allowed by the workspace configuration or platform.
                     type: number
                   tokenId:
                     description: Canonical unique identifier for the token.
@@ -111,7 +112,8 @@ spec:
                     type: number
                   lifetimeSeconds:
                     description: (Integer) The lifetime of the token, in seconds.
-                      If no lifetime is specified, the token remains valid indefinitely.
+                      If no lifetime is specified, then expire time will be set to
+                      maximum allowed by the workspace configuration or platform.
                     type: number
                   tokenId:
                     description: Canonical unique identifier for the token.
@@ -302,7 +304,8 @@ spec:
                     type: string
                   lifetimeSeconds:
                     description: (Integer) The lifetime of the token, in seconds.
-                      If no lifetime is specified, the token remains valid indefinitely.
+                      If no lifetime is specified, then expire time will be set to
+                      maximum allowed by the workspace configuration or platform.
                     type: number
                   tokenId:
                     description: Canonical unique identifier for the token.

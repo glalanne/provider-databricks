@@ -107,52 +107,52 @@ type AzureAttributesLogAnalyticsInfoParameters struct {
 
 type CleanRoomsNotebookTaskInitParameters struct {
 
-	// An optional name for the job. The default value is Untitled.
+	// The clean room that the notebook belongs to.
 	CleanRoomName *string `json:"cleanRoomName,omitempty" tf:"clean_room_name,omitempty"`
 
-	// name of the Git branch to use. Conflicts with branch and commit.
+	// Checksum to validate the freshness of the notebook resource.
 	Etag *string `json:"etag,omitempty" tf:"etag,omitempty"`
 
-	// (Map) Base parameters to be used for each run of this job. If the run is initiated by a call to run-now with parameters specified, the two parameters maps will be merged. If the same key is specified in base_parameters and in run-now, the value from run-now will be used. If the notebook takes a parameter that is not specified in the job’s base_parameters or the run-now override parameters, the default value from the notebook will be used. Retrieve these parameters in a notebook using dbutils.widgets.get.
+	// (Map) Base parameters to be used for the clean room notebook job.
 	// +mapType=granular
 	NotebookBaseParameters map[string]*string `json:"notebookBaseParameters,omitempty" tf:"notebook_base_parameters,omitempty"`
 
-	// An optional name for the job. The default value is Untitled.
+	// Name of the notebook being run.
 	NotebookName *string `json:"notebookName,omitempty" tf:"notebook_name,omitempty"`
 }
 
 type CleanRoomsNotebookTaskObservation struct {
 
-	// An optional name for the job. The default value is Untitled.
+	// The clean room that the notebook belongs to.
 	CleanRoomName *string `json:"cleanRoomName,omitempty" tf:"clean_room_name,omitempty"`
 
-	// name of the Git branch to use. Conflicts with branch and commit.
+	// Checksum to validate the freshness of the notebook resource.
 	Etag *string `json:"etag,omitempty" tf:"etag,omitempty"`
 
-	// (Map) Base parameters to be used for each run of this job. If the run is initiated by a call to run-now with parameters specified, the two parameters maps will be merged. If the same key is specified in base_parameters and in run-now, the value from run-now will be used. If the notebook takes a parameter that is not specified in the job’s base_parameters or the run-now override parameters, the default value from the notebook will be used. Retrieve these parameters in a notebook using dbutils.widgets.get.
+	// (Map) Base parameters to be used for the clean room notebook job.
 	// +mapType=granular
 	NotebookBaseParameters map[string]*string `json:"notebookBaseParameters,omitempty" tf:"notebook_base_parameters,omitempty"`
 
-	// An optional name for the job. The default value is Untitled.
+	// Name of the notebook being run.
 	NotebookName *string `json:"notebookName,omitempty" tf:"notebook_name,omitempty"`
 }
 
 type CleanRoomsNotebookTaskParameters struct {
 
-	// An optional name for the job. The default value is Untitled.
+	// The clean room that the notebook belongs to.
 	// +kubebuilder:validation:Optional
 	CleanRoomName *string `json:"cleanRoomName" tf:"clean_room_name,omitempty"`
 
-	// name of the Git branch to use. Conflicts with branch and commit.
+	// Checksum to validate the freshness of the notebook resource.
 	// +kubebuilder:validation:Optional
 	Etag *string `json:"etag,omitempty" tf:"etag,omitempty"`
 
-	// (Map) Base parameters to be used for each run of this job. If the run is initiated by a call to run-now with parameters specified, the two parameters maps will be merged. If the same key is specified in base_parameters and in run-now, the value from run-now will be used. If the notebook takes a parameter that is not specified in the job’s base_parameters or the run-now override parameters, the default value from the notebook will be used. Retrieve these parameters in a notebook using dbutils.widgets.get.
+	// (Map) Base parameters to be used for the clean room notebook job.
 	// +kubebuilder:validation:Optional
 	// +mapType=granular
 	NotebookBaseParameters map[string]*string `json:"notebookBaseParameters,omitempty" tf:"notebook_base_parameters,omitempty"`
 
-	// An optional name for the job. The default value is Untitled.
+	// Name of the notebook being run.
 	// +kubebuilder:validation:Optional
 	NotebookName *string `json:"notebookName" tf:"notebook_name,omitempty"`
 }
@@ -225,6 +225,20 @@ type ClusterLogConfS3Parameters struct {
 
 	// +kubebuilder:validation:Optional
 	Region *string `json:"region,omitempty" tf:"region,omitempty"`
+}
+
+type ClusterLogConfVolumesInitParameters struct {
+	Destination *string `json:"destination,omitempty" tf:"destination,omitempty"`
+}
+
+type ClusterLogConfVolumesObservation struct {
+	Destination *string `json:"destination,omitempty" tf:"destination,omitempty"`
+}
+
+type ClusterLogConfVolumesParameters struct {
+
+	// +kubebuilder:validation:Optional
+	Destination *string `json:"destination" tf:"destination,omitempty"`
 }
 
 type ClusterMountInfoNetworkFilesystemInfoInitParameters struct {
@@ -1351,20 +1365,6 @@ type InitScriptsGcsParameters struct {
 	Destination *string `json:"destination" tf:"destination,omitempty"`
 }
 
-type InitScriptsVolumesInitParameters struct {
-	Destination *string `json:"destination,omitempty" tf:"destination,omitempty"`
-}
-
-type InitScriptsVolumesObservation struct {
-	Destination *string `json:"destination,omitempty" tf:"destination,omitempty"`
-}
-
-type InitScriptsVolumesParameters struct {
-
-	// +kubebuilder:validation:Optional
-	Destination *string `json:"destination" tf:"destination,omitempty"`
-}
-
 type InitScriptsWorkspaceInitParameters struct {
 	Destination *string `json:"destination,omitempty" tf:"destination,omitempty"`
 }
@@ -1430,6 +1430,7 @@ type JobInitParameters struct {
 	// An optional description for the job. The maximum length is 1024 characters in UTF-8 encoding.
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
 
+	// If "UI_LOCKED", the user interface for the job will be locked. If "EDITABLE" (the default), the user interface will be editable.
 	EditMode *string `json:"editMode,omitempty" tf:"edit_mode,omitempty"`
 
 	// (List) An optional set of email addresses notified when runs of this job begins, completes or fails. The default behavior is to not send any emails. This field is a block and is documented below.
@@ -1477,6 +1478,8 @@ type JobInitParameters struct {
 
 	// Specifices job parameter for the job. See parameter Configuration Block
 	Parameter []ParameterInitParameters `json:"parameter,omitempty" tf:"parameter,omitempty"`
+
+	PerformanceTarget *string `json:"performanceTarget,omitempty" tf:"performance_target,omitempty"`
 
 	// A list of task specification that the job will execute. See task Configuration Block below.
 	PipelineTask []PipelineTaskInitParameters `json:"pipelineTask,omitempty" tf:"pipeline_task,omitempty"`
@@ -1791,12 +1794,16 @@ type JobNewClusterClusterLogConfInitParameters struct {
 	Dbfs []NewClusterClusterLogConfDbfsInitParameters `json:"dbfs,omitempty" tf:"dbfs,omitempty"`
 
 	S3 []NewClusterClusterLogConfS3InitParameters `json:"s3,omitempty" tf:"s3,omitempty"`
+
+	Volumes []NewClusterClusterLogConfVolumesInitParameters `json:"volumes,omitempty" tf:"volumes,omitempty"`
 }
 
 type JobNewClusterClusterLogConfObservation struct {
 	Dbfs []NewClusterClusterLogConfDbfsObservation `json:"dbfs,omitempty" tf:"dbfs,omitempty"`
 
 	S3 []NewClusterClusterLogConfS3Observation `json:"s3,omitempty" tf:"s3,omitempty"`
+
+	Volumes []NewClusterClusterLogConfVolumesObservation `json:"volumes,omitempty" tf:"volumes,omitempty"`
 }
 
 type JobNewClusterClusterLogConfParameters struct {
@@ -1806,6 +1813,9 @@ type JobNewClusterClusterLogConfParameters struct {
 
 	// +kubebuilder:validation:Optional
 	S3 []NewClusterClusterLogConfS3Parameters `json:"s3,omitempty" tf:"s3,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	Volumes []NewClusterClusterLogConfVolumesParameters `json:"volumes,omitempty" tf:"volumes,omitempty"`
 }
 
 type JobNewClusterClusterMountInfoInitParameters struct {
@@ -2029,7 +2039,7 @@ type JobNewClusterInitScriptsInitParameters struct {
 
 	S3 []JobNewClusterInitScriptsS3InitParameters `json:"s3,omitempty" tf:"s3,omitempty"`
 
-	Volumes []NewClusterInitScriptsVolumesInitParameters `json:"volumes,omitempty" tf:"volumes,omitempty"`
+	Volumes []JobNewClusterInitScriptsVolumesInitParameters `json:"volumes,omitempty" tf:"volumes,omitempty"`
 
 	Workspace []NewClusterInitScriptsWorkspaceInitParameters `json:"workspace,omitempty" tf:"workspace,omitempty"`
 }
@@ -2046,7 +2056,7 @@ type JobNewClusterInitScriptsObservation struct {
 
 	S3 []JobNewClusterInitScriptsS3Observation `json:"s3,omitempty" tf:"s3,omitempty"`
 
-	Volumes []NewClusterInitScriptsVolumesObservation `json:"volumes,omitempty" tf:"volumes,omitempty"`
+	Volumes []JobNewClusterInitScriptsVolumesObservation `json:"volumes,omitempty" tf:"volumes,omitempty"`
 
 	Workspace []NewClusterInitScriptsWorkspaceObservation `json:"workspace,omitempty" tf:"workspace,omitempty"`
 }
@@ -2070,7 +2080,7 @@ type JobNewClusterInitScriptsParameters struct {
 	S3 []JobNewClusterInitScriptsS3Parameters `json:"s3,omitempty" tf:"s3,omitempty"`
 
 	// +kubebuilder:validation:Optional
-	Volumes []NewClusterInitScriptsVolumesParameters `json:"volumes,omitempty" tf:"volumes,omitempty"`
+	Volumes []JobNewClusterInitScriptsVolumesParameters `json:"volumes,omitempty" tf:"volumes,omitempty"`
 
 	// +kubebuilder:validation:Optional
 	Workspace []NewClusterInitScriptsWorkspaceParameters `json:"workspace,omitempty" tf:"workspace,omitempty"`
@@ -2130,6 +2140,20 @@ type JobNewClusterInitScriptsS3Parameters struct {
 
 	// +kubebuilder:validation:Optional
 	Region *string `json:"region,omitempty" tf:"region,omitempty"`
+}
+
+type JobNewClusterInitScriptsVolumesInitParameters struct {
+	Destination *string `json:"destination,omitempty" tf:"destination,omitempty"`
+}
+
+type JobNewClusterInitScriptsVolumesObservation struct {
+	Destination *string `json:"destination,omitempty" tf:"destination,omitempty"`
+}
+
+type JobNewClusterInitScriptsVolumesParameters struct {
+
+	// +kubebuilder:validation:Optional
+	Destination *string `json:"destination" tf:"destination,omitempty"`
 }
 
 type JobNewClusterLibraryInitParameters struct {
@@ -2424,6 +2448,7 @@ type JobObservation struct {
 	// An optional description for the job. The maximum length is 1024 characters in UTF-8 encoding.
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
 
+	// If "UI_LOCKED", the user interface for the job will be locked. If "EDITABLE" (the default), the user interface will be editable.
 	EditMode *string `json:"editMode,omitempty" tf:"edit_mode,omitempty"`
 
 	// (List) An optional set of email addresses notified when runs of this job begins, completes or fails. The default behavior is to not send any emails. This field is a block and is documented below.
@@ -2474,6 +2499,8 @@ type JobObservation struct {
 
 	// Specifices job parameter for the job. See parameter Configuration Block
 	Parameter []ParameterObservation `json:"parameter,omitempty" tf:"parameter,omitempty"`
+
+	PerformanceTarget *string `json:"performanceTarget,omitempty" tf:"performance_target,omitempty"`
 
 	// A list of task specification that the job will execute. See task Configuration Block below.
 	PipelineTask []PipelineTaskObservation `json:"pipelineTask,omitempty" tf:"pipeline_task,omitempty"`
@@ -2554,6 +2581,7 @@ type JobParameters struct {
 	// +kubebuilder:validation:Optional
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
 
+	// If "UI_LOCKED", the user interface for the job will be locked. If "EDITABLE" (the default), the user interface will be editable.
 	// +kubebuilder:validation:Optional
 	EditMode *string `json:"editMode,omitempty" tf:"edit_mode,omitempty"`
 
@@ -2618,6 +2646,9 @@ type JobParameters struct {
 	// Specifices job parameter for the job. See parameter Configuration Block
 	// +kubebuilder:validation:Optional
 	Parameter []ParameterParameters `json:"parameter,omitempty" tf:"parameter,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	PerformanceTarget *string `json:"performanceTarget,omitempty" tf:"performance_target,omitempty"`
 
 	// A list of task specification that the job will execute. See task Configuration Block below.
 	// +kubebuilder:validation:Optional
@@ -3038,12 +3069,16 @@ type JobTaskNewClusterClusterLogConfInitParameters struct {
 	Dbfs []JobTaskNewClusterClusterLogConfDbfsInitParameters `json:"dbfs,omitempty" tf:"dbfs,omitempty"`
 
 	S3 []JobTaskNewClusterClusterLogConfS3InitParameters `json:"s3,omitempty" tf:"s3,omitempty"`
+
+	Volumes []JobTaskNewClusterClusterLogConfVolumesInitParameters `json:"volumes,omitempty" tf:"volumes,omitempty"`
 }
 
 type JobTaskNewClusterClusterLogConfObservation struct {
 	Dbfs []JobTaskNewClusterClusterLogConfDbfsObservation `json:"dbfs,omitempty" tf:"dbfs,omitempty"`
 
 	S3 []JobTaskNewClusterClusterLogConfS3Observation `json:"s3,omitempty" tf:"s3,omitempty"`
+
+	Volumes []JobTaskNewClusterClusterLogConfVolumesObservation `json:"volumes,omitempty" tf:"volumes,omitempty"`
 }
 
 type JobTaskNewClusterClusterLogConfParameters struct {
@@ -3053,6 +3088,9 @@ type JobTaskNewClusterClusterLogConfParameters struct {
 
 	// +kubebuilder:validation:Optional
 	S3 []JobTaskNewClusterClusterLogConfS3Parameters `json:"s3,omitempty" tf:"s3,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	Volumes []JobTaskNewClusterClusterLogConfVolumesParameters `json:"volumes,omitempty" tf:"volumes,omitempty"`
 }
 
 type JobTaskNewClusterClusterLogConfS3InitParameters struct {
@@ -3109,6 +3147,20 @@ type JobTaskNewClusterClusterLogConfS3Parameters struct {
 
 	// +kubebuilder:validation:Optional
 	Region *string `json:"region,omitempty" tf:"region,omitempty"`
+}
+
+type JobTaskNewClusterClusterLogConfVolumesInitParameters struct {
+	Destination *string `json:"destination,omitempty" tf:"destination,omitempty"`
+}
+
+type JobTaskNewClusterClusterLogConfVolumesObservation struct {
+	Destination *string `json:"destination,omitempty" tf:"destination,omitempty"`
+}
+
+type JobTaskNewClusterClusterLogConfVolumesParameters struct {
+
+	// +kubebuilder:validation:Optional
+	Destination *string `json:"destination" tf:"destination,omitempty"`
 }
 
 type JobTaskNewClusterClusterMountInfoInitParameters struct {
@@ -4190,6 +4242,8 @@ type JobTaskSparkJarTaskInitParameters struct {
 
 	// Parameters for the task
 	Parameters []*string `json:"parameters,omitempty" tf:"parameters,omitempty"`
+
+	RunAsRepl *bool `json:"runAsRepl,omitempty" tf:"run_as_repl,omitempty"`
 }
 
 type JobTaskSparkJarTaskObservation struct {
@@ -4200,6 +4254,8 @@ type JobTaskSparkJarTaskObservation struct {
 
 	// Parameters for the task
 	Parameters []*string `json:"parameters,omitempty" tf:"parameters,omitempty"`
+
+	RunAsRepl *bool `json:"runAsRepl,omitempty" tf:"run_as_repl,omitempty"`
 }
 
 type JobTaskSparkJarTaskParameters struct {
@@ -4214,6 +4270,9 @@ type JobTaskSparkJarTaskParameters struct {
 	// Parameters for the task
 	// +kubebuilder:validation:Optional
 	Parameters []*string `json:"parameters,omitempty" tf:"parameters,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	RunAsRepl *bool `json:"runAsRepl,omitempty" tf:"run_as_repl,omitempty"`
 }
 
 type JobTaskSparkPythonTaskInitParameters struct {
@@ -4673,12 +4732,16 @@ type NewClusterClusterLogConfInitParameters struct {
 	Dbfs []ClusterLogConfDbfsInitParameters `json:"dbfs,omitempty" tf:"dbfs,omitempty"`
 
 	S3 []ClusterLogConfS3InitParameters `json:"s3,omitempty" tf:"s3,omitempty"`
+
+	Volumes []ClusterLogConfVolumesInitParameters `json:"volumes,omitempty" tf:"volumes,omitempty"`
 }
 
 type NewClusterClusterLogConfObservation struct {
 	Dbfs []ClusterLogConfDbfsObservation `json:"dbfs,omitempty" tf:"dbfs,omitempty"`
 
 	S3 []ClusterLogConfS3Observation `json:"s3,omitempty" tf:"s3,omitempty"`
+
+	Volumes []ClusterLogConfVolumesObservation `json:"volumes,omitempty" tf:"volumes,omitempty"`
 }
 
 type NewClusterClusterLogConfParameters struct {
@@ -4688,6 +4751,9 @@ type NewClusterClusterLogConfParameters struct {
 
 	// +kubebuilder:validation:Optional
 	S3 []ClusterLogConfS3Parameters `json:"s3,omitempty" tf:"s3,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	Volumes []ClusterLogConfVolumesParameters `json:"volumes,omitempty" tf:"volumes,omitempty"`
 }
 
 type NewClusterClusterLogConfS3InitParameters struct {
@@ -4744,6 +4810,20 @@ type NewClusterClusterLogConfS3Parameters struct {
 
 	// +kubebuilder:validation:Optional
 	Region *string `json:"region,omitempty" tf:"region,omitempty"`
+}
+
+type NewClusterClusterLogConfVolumesInitParameters struct {
+	Destination *string `json:"destination,omitempty" tf:"destination,omitempty"`
+}
+
+type NewClusterClusterLogConfVolumesObservation struct {
+	Destination *string `json:"destination,omitempty" tf:"destination,omitempty"`
+}
+
+type NewClusterClusterLogConfVolumesParameters struct {
+
+	// +kubebuilder:validation:Optional
+	Destination *string `json:"destination" tf:"destination,omitempty"`
 }
 
 type NewClusterClusterMountInfoInitParameters struct {
@@ -5053,7 +5133,7 @@ type NewClusterInitScriptsInitParameters struct {
 
 	S3 []NewClusterInitScriptsS3InitParameters `json:"s3,omitempty" tf:"s3,omitempty"`
 
-	Volumes []InitScriptsVolumesInitParameters `json:"volumes,omitempty" tf:"volumes,omitempty"`
+	Volumes []NewClusterInitScriptsVolumesInitParameters `json:"volumes,omitempty" tf:"volumes,omitempty"`
 
 	Workspace []InitScriptsWorkspaceInitParameters `json:"workspace,omitempty" tf:"workspace,omitempty"`
 }
@@ -5070,7 +5150,7 @@ type NewClusterInitScriptsObservation struct {
 
 	S3 []NewClusterInitScriptsS3Observation `json:"s3,omitempty" tf:"s3,omitempty"`
 
-	Volumes []InitScriptsVolumesObservation `json:"volumes,omitempty" tf:"volumes,omitempty"`
+	Volumes []NewClusterInitScriptsVolumesObservation `json:"volumes,omitempty" tf:"volumes,omitempty"`
 
 	Workspace []InitScriptsWorkspaceObservation `json:"workspace,omitempty" tf:"workspace,omitempty"`
 }
@@ -5094,7 +5174,7 @@ type NewClusterInitScriptsParameters struct {
 	S3 []NewClusterInitScriptsS3Parameters `json:"s3,omitempty" tf:"s3,omitempty"`
 
 	// +kubebuilder:validation:Optional
-	Volumes []InitScriptsVolumesParameters `json:"volumes,omitempty" tf:"volumes,omitempty"`
+	Volumes []NewClusterInitScriptsVolumesParameters `json:"volumes,omitempty" tf:"volumes,omitempty"`
 
 	// +kubebuilder:validation:Optional
 	Workspace []InitScriptsWorkspaceParameters `json:"workspace,omitempty" tf:"workspace,omitempty"`
@@ -6546,52 +6626,52 @@ type TableUpdateParameters struct {
 
 type TaskCleanRoomsNotebookTaskInitParameters struct {
 
-	// An optional name for the job. The default value is Untitled.
+	// The clean room that the notebook belongs to.
 	CleanRoomName *string `json:"cleanRoomName,omitempty" tf:"clean_room_name,omitempty"`
 
-	// name of the Git branch to use. Conflicts with branch and commit.
+	// Checksum to validate the freshness of the notebook resource.
 	Etag *string `json:"etag,omitempty" tf:"etag,omitempty"`
 
-	// (Map) Base parameters to be used for each run of this job. If the run is initiated by a call to run-now with parameters specified, the two parameters maps will be merged. If the same key is specified in base_parameters and in run-now, the value from run-now will be used. If the notebook takes a parameter that is not specified in the job’s base_parameters or the run-now override parameters, the default value from the notebook will be used. Retrieve these parameters in a notebook using dbutils.widgets.get.
+	// (Map) Base parameters to be used for the clean room notebook job.
 	// +mapType=granular
 	NotebookBaseParameters map[string]*string `json:"notebookBaseParameters,omitempty" tf:"notebook_base_parameters,omitempty"`
 
-	// An optional name for the job. The default value is Untitled.
+	// Name of the notebook being run.
 	NotebookName *string `json:"notebookName,omitempty" tf:"notebook_name,omitempty"`
 }
 
 type TaskCleanRoomsNotebookTaskObservation struct {
 
-	// An optional name for the job. The default value is Untitled.
+	// The clean room that the notebook belongs to.
 	CleanRoomName *string `json:"cleanRoomName,omitempty" tf:"clean_room_name,omitempty"`
 
-	// name of the Git branch to use. Conflicts with branch and commit.
+	// Checksum to validate the freshness of the notebook resource.
 	Etag *string `json:"etag,omitempty" tf:"etag,omitempty"`
 
-	// (Map) Base parameters to be used for each run of this job. If the run is initiated by a call to run-now with parameters specified, the two parameters maps will be merged. If the same key is specified in base_parameters and in run-now, the value from run-now will be used. If the notebook takes a parameter that is not specified in the job’s base_parameters or the run-now override parameters, the default value from the notebook will be used. Retrieve these parameters in a notebook using dbutils.widgets.get.
+	// (Map) Base parameters to be used for the clean room notebook job.
 	// +mapType=granular
 	NotebookBaseParameters map[string]*string `json:"notebookBaseParameters,omitempty" tf:"notebook_base_parameters,omitempty"`
 
-	// An optional name for the job. The default value is Untitled.
+	// Name of the notebook being run.
 	NotebookName *string `json:"notebookName,omitempty" tf:"notebook_name,omitempty"`
 }
 
 type TaskCleanRoomsNotebookTaskParameters struct {
 
-	// An optional name for the job. The default value is Untitled.
+	// The clean room that the notebook belongs to.
 	// +kubebuilder:validation:Optional
 	CleanRoomName *string `json:"cleanRoomName" tf:"clean_room_name,omitempty"`
 
-	// name of the Git branch to use. Conflicts with branch and commit.
+	// Checksum to validate the freshness of the notebook resource.
 	// +kubebuilder:validation:Optional
 	Etag *string `json:"etag,omitempty" tf:"etag,omitempty"`
 
-	// (Map) Base parameters to be used for each run of this job. If the run is initiated by a call to run-now with parameters specified, the two parameters maps will be merged. If the same key is specified in base_parameters and in run-now, the value from run-now will be used. If the notebook takes a parameter that is not specified in the job’s base_parameters or the run-now override parameters, the default value from the notebook will be used. Retrieve these parameters in a notebook using dbutils.widgets.get.
+	// (Map) Base parameters to be used for the clean room notebook job.
 	// +kubebuilder:validation:Optional
 	// +mapType=granular
 	NotebookBaseParameters map[string]*string `json:"notebookBaseParameters,omitempty" tf:"notebook_base_parameters,omitempty"`
 
-	// An optional name for the job. The default value is Untitled.
+	// Name of the notebook being run.
 	// +kubebuilder:validation:Optional
 	NotebookName *string `json:"notebookName" tf:"notebook_name,omitempty"`
 }
@@ -7264,12 +7344,16 @@ type TaskNewClusterClusterLogConfInitParameters struct {
 	Dbfs []TaskNewClusterClusterLogConfDbfsInitParameters `json:"dbfs,omitempty" tf:"dbfs,omitempty"`
 
 	S3 []TaskNewClusterClusterLogConfS3InitParameters `json:"s3,omitempty" tf:"s3,omitempty"`
+
+	Volumes []TaskNewClusterClusterLogConfVolumesInitParameters `json:"volumes,omitempty" tf:"volumes,omitempty"`
 }
 
 type TaskNewClusterClusterLogConfObservation struct {
 	Dbfs []TaskNewClusterClusterLogConfDbfsObservation `json:"dbfs,omitempty" tf:"dbfs,omitempty"`
 
 	S3 []TaskNewClusterClusterLogConfS3Observation `json:"s3,omitempty" tf:"s3,omitempty"`
+
+	Volumes []TaskNewClusterClusterLogConfVolumesObservation `json:"volumes,omitempty" tf:"volumes,omitempty"`
 }
 
 type TaskNewClusterClusterLogConfParameters struct {
@@ -7279,6 +7363,9 @@ type TaskNewClusterClusterLogConfParameters struct {
 
 	// +kubebuilder:validation:Optional
 	S3 []TaskNewClusterClusterLogConfS3Parameters `json:"s3,omitempty" tf:"s3,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	Volumes []TaskNewClusterClusterLogConfVolumesParameters `json:"volumes,omitempty" tf:"volumes,omitempty"`
 }
 
 type TaskNewClusterClusterLogConfS3InitParameters struct {
@@ -7335,6 +7422,20 @@ type TaskNewClusterClusterLogConfS3Parameters struct {
 
 	// +kubebuilder:validation:Optional
 	Region *string `json:"region,omitempty" tf:"region,omitempty"`
+}
+
+type TaskNewClusterClusterLogConfVolumesInitParameters struct {
+	Destination *string `json:"destination,omitempty" tf:"destination,omitempty"`
+}
+
+type TaskNewClusterClusterLogConfVolumesObservation struct {
+	Destination *string `json:"destination,omitempty" tf:"destination,omitempty"`
+}
+
+type TaskNewClusterClusterLogConfVolumesParameters struct {
+
+	// +kubebuilder:validation:Optional
+	Destination *string `json:"destination" tf:"destination,omitempty"`
 }
 
 type TaskNewClusterClusterMountInfoInitParameters struct {
@@ -8733,6 +8834,8 @@ type TaskSparkJarTaskInitParameters struct {
 
 	// Parameters for the task
 	Parameters []*string `json:"parameters,omitempty" tf:"parameters,omitempty"`
+
+	RunAsRepl *bool `json:"runAsRepl,omitempty" tf:"run_as_repl,omitempty"`
 }
 
 type TaskSparkJarTaskObservation struct {
@@ -8743,6 +8846,8 @@ type TaskSparkJarTaskObservation struct {
 
 	// Parameters for the task
 	Parameters []*string `json:"parameters,omitempty" tf:"parameters,omitempty"`
+
+	RunAsRepl *bool `json:"runAsRepl,omitempty" tf:"run_as_repl,omitempty"`
 }
 
 type TaskSparkJarTaskParameters struct {
@@ -8757,6 +8862,9 @@ type TaskSparkJarTaskParameters struct {
 	// Parameters for the task
 	// +kubebuilder:validation:Optional
 	Parameters []*string `json:"parameters,omitempty" tf:"parameters,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	RunAsRepl *bool `json:"runAsRepl,omitempty" tf:"run_as_repl,omitempty"`
 }
 
 type TaskSparkPythonTaskInitParameters struct {

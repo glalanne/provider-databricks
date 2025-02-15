@@ -103,6 +103,12 @@ spec:
                           type: array
                       type: object
                     type: array
+                  fallback:
+                    description: Indicates whether fallback mode is enabled for this
+                      external location. When fallback mode is enabled (disabled by
+                      default), the access to the location falls back to cluster credentials
+                      if UC credentials are not sufficient.
+                    type: boolean
                   forceDestroy:
                     description: Destroy external location regardless of its dependents.
                     type: boolean
@@ -183,6 +189,12 @@ spec:
                           type: array
                       type: object
                     type: array
+                  fallback:
+                    description: Indicates whether fallback mode is enabled for this
+                      external location. When fallback mode is enabled (disabled by
+                      default), the access to the location falls back to cluster credentials
+                      if UC credentials are not sufficient.
+                    type: boolean
                   forceDestroy:
                     description: Destroy external location regardless of its dependents.
                     type: boolean
@@ -408,8 +420,20 @@ spec:
                     description: The ARN of the s3 access point to use with the external
                       location (AWS).
                     type: string
+                  browseOnly:
+                    type: boolean
                   comment:
                     description: User-supplied free-form text.
+                    type: string
+                  createdAt:
+                    description: Time at which this external location was created,
+                      in epoch milliseconds.
+                    type: number
+                  createdBy:
+                    description: Username of external location creator.
+                    type: string
+                  credentialId:
+                    description: Unique ID of the location's storage credential.
                     type: string
                   credentialName:
                     description: Name of the databricks_storage_credential to use
@@ -435,6 +459,12 @@ spec:
                           type: array
                       type: object
                     type: array
+                  fallback:
+                    description: Indicates whether fallback mode is enabled for this
+                      external location. When fallback mode is enabled (disabled by
+                      default), the access to the location falls back to cluster credentials
+                      if UC credentials are not sufficient.
+                    type: boolean
                   forceDestroy:
                     description: Destroy external location regardless of its dependents.
                     type: boolean
@@ -468,6 +498,13 @@ spec:
                     description: Suppress validation errors if any & force save the
                       external location
                     type: boolean
+                  updatedAt:
+                    description: Time at which external location this was last modified,
+                      in epoch milliseconds.
+                    type: number
+                  updatedBy:
+                    description: Username of user who last modified the external location.
+                    type: string
                   url:
                     description: 'Path URL in cloud storage, of the form: s3://[bucket-host]/[bucket-dir]
                       (AWS), abfss://[user]@[host]/[path] (Azure), gs://[bucket-host]/[bucket-dir]

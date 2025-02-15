@@ -46,6 +46,9 @@ type ExternalLocationInitParameters struct {
 	// The options for Server-Side Encryption to be used by each Databricks s3 client when connecting to S3 cloud storage (AWS).
 	EncryptionDetails []EncryptionDetailsInitParameters `json:"encryptionDetails,omitempty" tf:"encryption_details,omitempty"`
 
+	// Indicates whether fallback mode is enabled for this external location. When fallback mode is enabled (disabled by default), the access to the location falls back to cluster credentials if UC credentials are not sufficient.
+	Fallback *bool `json:"fallback,omitempty" tf:"fallback,omitempty"`
+
 	// Destroy external location regardless of its dependents.
 	ForceDestroy *bool `json:"forceDestroy,omitempty" tf:"force_destroy,omitempty"`
 
@@ -79,14 +82,28 @@ type ExternalLocationObservation struct {
 	// The ARN of the s3 access point to use with the external location (AWS).
 	AccessPoint *string `json:"accessPoint,omitempty" tf:"access_point,omitempty"`
 
+	BrowseOnly *bool `json:"browseOnly,omitempty" tf:"browse_only,omitempty"`
+
 	// User-supplied free-form text.
 	Comment *string `json:"comment,omitempty" tf:"comment,omitempty"`
+
+	// Time at which this external location was created, in epoch milliseconds.
+	CreatedAt *float64 `json:"createdAt,omitempty" tf:"created_at,omitempty"`
+
+	// Username of external location creator.
+	CreatedBy *string `json:"createdBy,omitempty" tf:"created_by,omitempty"`
+
+	// Unique ID of the location's storage credential.
+	CredentialID *string `json:"credentialId,omitempty" tf:"credential_id,omitempty"`
 
 	// Name of the databricks_storage_credential to use with this external location.
 	CredentialName *string `json:"credentialName,omitempty" tf:"credential_name,omitempty"`
 
 	// The options for Server-Side Encryption to be used by each Databricks s3 client when connecting to S3 cloud storage (AWS).
 	EncryptionDetails []EncryptionDetailsObservation `json:"encryptionDetails,omitempty" tf:"encryption_details,omitempty"`
+
+	// Indicates whether fallback mode is enabled for this external location. When fallback mode is enabled (disabled by default), the access to the location falls back to cluster credentials if UC credentials are not sufficient.
+	Fallback *bool `json:"fallback,omitempty" tf:"fallback,omitempty"`
 
 	// Destroy external location regardless of its dependents.
 	ForceDestroy *bool `json:"forceDestroy,omitempty" tf:"force_destroy,omitempty"`
@@ -117,6 +134,12 @@ type ExternalLocationObservation struct {
 
 	// Path URL in cloud storage, of the form: s3://[bucket-host]/[bucket-dir] (AWS), abfss://[user]@[host]/[path] (Azure), gs://[bucket-host]/[bucket-dir] (GCP).
 	URL *string `json:"url,omitempty" tf:"url,omitempty"`
+
+	// Time at which external location this was last modified, in epoch milliseconds.
+	UpdatedAt *float64 `json:"updatedAt,omitempty" tf:"updated_at,omitempty"`
+
+	// Username of user who last modified the external location.
+	UpdatedBy *string `json:"updatedBy,omitempty" tf:"updated_by,omitempty"`
 }
 
 type ExternalLocationParameters struct {
@@ -136,6 +159,10 @@ type ExternalLocationParameters struct {
 	// The options for Server-Side Encryption to be used by each Databricks s3 client when connecting to S3 cloud storage (AWS).
 	// +kubebuilder:validation:Optional
 	EncryptionDetails []EncryptionDetailsParameters `json:"encryptionDetails,omitempty" tf:"encryption_details,omitempty"`
+
+	// Indicates whether fallback mode is enabled for this external location. When fallback mode is enabled (disabled by default), the access to the location falls back to cluster credentials if UC credentials are not sufficient.
+	// +kubebuilder:validation:Optional
+	Fallback *bool `json:"fallback,omitempty" tf:"fallback,omitempty"`
 
 	// Destroy external location regardless of its dependents.
 	// +kubebuilder:validation:Optional

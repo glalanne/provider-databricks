@@ -73,8 +73,8 @@ spec:
               forProvider:
                 properties:
                   catalogName:
-                    description: Name of parent catalog. Change forces creation of
-                      a new resource.
+                    description: Name of parent catalog. Change forces the creation
+                      of a new resource.
                     type: string
                   clusterId:
                     description: All table CRUD operations must be executed on a running
@@ -165,16 +165,16 @@ spec:
                     items:
                       properties:
                         comment:
-                          description: User-supplied free-form text. Changing comment
-                            is not currently supported on VIEW table_type.
+                          description: User-supplied free-form text. Changing the
+                            comment is not currently supported on the VIEW table type.
                           type: string
                         identity:
-                          description: Whether field is an identity column. Can be
-                            default, always or unset. It is unset by default.
+                          description: Whether the field is an identity column. Can
+                            be default, always, or unset. It is unset by default.
                           type: string
                         name:
                           description: Name of table relative to parent catalog and
-                            schema. Change forces creation of a new resource.
+                            schema. Change forces the creation of a new resource.
                           type: string
                         nullable:
                           description: 'Whether field is nullable (Default: true)'
@@ -188,18 +188,19 @@ spec:
                       type: object
                     type: array
                   comment:
-                    description: User-supplied free-form text. Changing comment is
-                      not currently supported on VIEW table_type.
+                    description: User-supplied free-form text. Changing the comment
+                      is not currently supported on the VIEW table type.
                     type: string
                   dataSourceFormat:
                     description: External tables are supported in multiple data source
                       formats. The string constants identifying these formats are
-                      DELTA, CSV, JSON, AVRO, PARQUET, ORC, TEXT. Change forces creation
-                      of a new resource. Not supported for MANAGED tables or VIEW.
+                      DELTA, CSV, JSON, AVRO, PARQUET, ORC, and TEXT. Change forces
+                      the creation of a new resource. Not supported for MANAGED tables
+                      or VIEW.
                     type: string
                   name:
                     description: Name of table relative to parent catalog and schema.
-                      Change forces creation of a new resource.
+                      Change forces the creation of a new resource.
                     type: string
                   options:
                     additionalProperties:
@@ -209,12 +210,12 @@ spec:
                     type: object
                     x-kubernetes-map-type: granular
                   owner:
-                    description: Username/groupname/sp application_id of the schema
+                    description: User name/group name/sp application_id of the schema
                       owner.
                     type: string
                   partitions:
                     description: a subset of columns to partition the table by. Change
-                      forces creation of a new resource. Conflicts with cluster_keys.
+                      forces the creation of a new resource. Conflicts with cluster_keys.
                       Change forces creation of a new resource.
                     items:
                       type: string
@@ -222,16 +223,16 @@ spec:
                   properties:
                     additionalProperties:
                       type: string
-                    description: Map of table properties.
+                    description: A map of table properties.
                     type: object
                     x-kubernetes-map-type: granular
                   schemaName:
                     description: Name of parent Schema relative to parent Catalog.
-                      Change forces creation of a new resource.
+                      Change forces the creation of a new resource.
                     type: string
                   storageCredentialName:
                     description: 'For EXTERNAL Tables only: the name of storage credential
-                      to use. Change forces creation of a new resource.'
+                      to use. Change forces the creation of a new resource.'
                     type: string
                   storageLocation:
                     description: URL of storage location for Table data . Not supported
@@ -239,7 +240,8 @@ spec:
                     type: string
                   tableType:
                     description: Distinguishes a view vs. managed/external Table.
-                      MANAGED, EXTERNAL or VIEW. Change forces creation of a new resource.
+                      MANAGED, EXTERNAL, or VIEW. Change forces the creation of a
+                      new resource.
                     type: string
                   viewDefinition:
                     description: SQL text defining the view (for table_type == "VIEW").
@@ -340,8 +342,8 @@ spec:
                   autoscaler.
                 properties:
                   catalogName:
-                    description: Name of parent catalog. Change forces creation of
-                      a new resource.
+                    description: Name of parent catalog. Change forces the creation
+                      of a new resource.
                     type: string
                   clusterId:
                     description: All table CRUD operations must be executed on a running
@@ -432,16 +434,16 @@ spec:
                     items:
                       properties:
                         comment:
-                          description: User-supplied free-form text. Changing comment
-                            is not currently supported on VIEW table_type.
+                          description: User-supplied free-form text. Changing the
+                            comment is not currently supported on the VIEW table type.
                           type: string
                         identity:
-                          description: Whether field is an identity column. Can be
-                            default, always or unset. It is unset by default.
+                          description: Whether the field is an identity column. Can
+                            be default, always, or unset. It is unset by default.
                           type: string
                         name:
                           description: Name of table relative to parent catalog and
-                            schema. Change forces creation of a new resource.
+                            schema. Change forces the creation of a new resource.
                           type: string
                         nullable:
                           description: 'Whether field is nullable (Default: true)'
@@ -455,18 +457,19 @@ spec:
                       type: object
                     type: array
                   comment:
-                    description: User-supplied free-form text. Changing comment is
-                      not currently supported on VIEW table_type.
+                    description: User-supplied free-form text. Changing the comment
+                      is not currently supported on the VIEW table type.
                     type: string
                   dataSourceFormat:
                     description: External tables are supported in multiple data source
                       formats. The string constants identifying these formats are
-                      DELTA, CSV, JSON, AVRO, PARQUET, ORC, TEXT. Change forces creation
-                      of a new resource. Not supported for MANAGED tables or VIEW.
+                      DELTA, CSV, JSON, AVRO, PARQUET, ORC, and TEXT. Change forces
+                      the creation of a new resource. Not supported for MANAGED tables
+                      or VIEW.
                     type: string
                   name:
                     description: Name of table relative to parent catalog and schema.
-                      Change forces creation of a new resource.
+                      Change forces the creation of a new resource.
                     type: string
                   options:
                     additionalProperties:
@@ -476,12 +479,12 @@ spec:
                     type: object
                     x-kubernetes-map-type: granular
                   owner:
-                    description: Username/groupname/sp application_id of the schema
+                    description: User name/group name/sp application_id of the schema
                       owner.
                     type: string
                   partitions:
                     description: a subset of columns to partition the table by. Change
-                      forces creation of a new resource. Conflicts with cluster_keys.
+                      forces the creation of a new resource. Conflicts with cluster_keys.
                       Change forces creation of a new resource.
                     items:
                       type: string
@@ -489,16 +492,16 @@ spec:
                   properties:
                     additionalProperties:
                       type: string
-                    description: Map of table properties.
+                    description: A map of table properties.
                     type: object
                     x-kubernetes-map-type: granular
                   schemaName:
                     description: Name of parent Schema relative to parent Catalog.
-                      Change forces creation of a new resource.
+                      Change forces the creation of a new resource.
                     type: string
                   storageCredentialName:
                     description: 'For EXTERNAL Tables only: the name of storage credential
-                      to use. Change forces creation of a new resource.'
+                      to use. Change forces the creation of a new resource.'
                     type: string
                   storageLocation:
                     description: URL of storage location for Table data . Not supported
@@ -506,7 +509,8 @@ spec:
                     type: string
                   tableType:
                     description: Distinguishes a view vs. managed/external Table.
-                      MANAGED, EXTERNAL or VIEW. Change forces creation of a new resource.
+                      MANAGED, EXTERNAL, or VIEW. Change forces the creation of a
+                      new resource.
                     type: string
                   viewDefinition:
                     description: SQL text defining the view (for table_type == "VIEW").
@@ -783,8 +787,8 @@ spec:
               atProvider:
                 properties:
                   catalogName:
-                    description: Name of parent catalog. Change forces creation of
-                      a new resource.
+                    description: Name of parent catalog. Change forces the creation
+                      of a new resource.
                     type: string
                   clusterId:
                     description: All table CRUD operations must be executed on a running
@@ -801,16 +805,16 @@ spec:
                     items:
                       properties:
                         comment:
-                          description: User-supplied free-form text. Changing comment
-                            is not currently supported on VIEW table_type.
+                          description: User-supplied free-form text. Changing the
+                            comment is not currently supported on the VIEW table type.
                           type: string
                         identity:
-                          description: Whether field is an identity column. Can be
-                            default, always or unset. It is unset by default.
+                          description: Whether the field is an identity column. Can
+                            be default, always, or unset. It is unset by default.
                           type: string
                         name:
                           description: Name of table relative to parent catalog and
-                            schema. Change forces creation of a new resource.
+                            schema. Change forces the creation of a new resource.
                           type: string
                         nullable:
                           description: 'Whether field is nullable (Default: true)'
@@ -824,27 +828,28 @@ spec:
                       type: object
                     type: array
                   comment:
-                    description: User-supplied free-form text. Changing comment is
-                      not currently supported on VIEW table_type.
+                    description: User-supplied free-form text. Changing the comment
+                      is not currently supported on the VIEW table type.
                     type: string
                   dataSourceFormat:
                     description: External tables are supported in multiple data source
                       formats. The string constants identifying these formats are
-                      DELTA, CSV, JSON, AVRO, PARQUET, ORC, TEXT. Change forces creation
-                      of a new resource. Not supported for MANAGED tables or VIEW.
+                      DELTA, CSV, JSON, AVRO, PARQUET, ORC, and TEXT. Change forces
+                      the creation of a new resource. Not supported for MANAGED tables
+                      or VIEW.
                     type: string
                   effectiveProperties:
                     additionalProperties:
                       type: string
-                    description: Map of table properties.
+                    description: A map of table properties.
                     type: object
                     x-kubernetes-map-type: granular
                   id:
-                    description: ID of this table in form of <catalog_name>.<schema_name>.<name>.
+                    description: ID of this table in the form of <catalog_name>.<schema_name>.<name>.
                     type: string
                   name:
                     description: Name of table relative to parent catalog and schema.
-                      Change forces creation of a new resource.
+                      Change forces the creation of a new resource.
                     type: string
                   options:
                     additionalProperties:
@@ -854,12 +859,12 @@ spec:
                     type: object
                     x-kubernetes-map-type: granular
                   owner:
-                    description: Username/groupname/sp application_id of the schema
+                    description: User name/group name/sp application_id of the schema
                       owner.
                     type: string
                   partitions:
                     description: a subset of columns to partition the table by. Change
-                      forces creation of a new resource. Conflicts with cluster_keys.
+                      forces the creation of a new resource. Conflicts with cluster_keys.
                       Change forces creation of a new resource.
                     items:
                       type: string
@@ -867,16 +872,16 @@ spec:
                   properties:
                     additionalProperties:
                       type: string
-                    description: Map of table properties.
+                    description: A map of table properties.
                     type: object
                     x-kubernetes-map-type: granular
                   schemaName:
                     description: Name of parent Schema relative to parent Catalog.
-                      Change forces creation of a new resource.
+                      Change forces the creation of a new resource.
                     type: string
                   storageCredentialName:
                     description: 'For EXTERNAL Tables only: the name of storage credential
-                      to use. Change forces creation of a new resource.'
+                      to use. Change forces the creation of a new resource.'
                     type: string
                   storageLocation:
                     description: URL of storage location for Table data . Not supported
@@ -884,7 +889,8 @@ spec:
                     type: string
                   tableType:
                     description: Distinguishes a view vs. managed/external Table.
-                      MANAGED, EXTERNAL or VIEW. Change forces creation of a new resource.
+                      MANAGED, EXTERNAL, or VIEW. Change forces the creation of a
+                      new resource.
                     type: string
                   viewDefinition:
                     description: SQL text defining the view (for table_type == "VIEW").

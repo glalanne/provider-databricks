@@ -521,11 +521,11 @@ type GoogleCloudVertexAIConfigParameters struct {
 
 	// This is the Google Cloud project id that the service account is associated with.
 	// +kubebuilder:validation:Optional
-	ProjectID *string `json:"projectId,omitempty" tf:"project_id,omitempty"`
+	ProjectID *string `json:"projectId" tf:"project_id,omitempty"`
 
 	// This is the region for the Google Cloud Vertex AI Service.
 	// +kubebuilder:validation:Optional
-	Region *string `json:"region,omitempty" tf:"region,omitempty"`
+	Region *string `json:"region" tf:"region,omitempty"`
 }
 
 type GuardrailsInitParameters struct {
@@ -660,7 +660,7 @@ type ModelServingInitParameters struct {
 	// A block with AI Gateway configuration for the serving endpoint. Note: only external model endpoints are supported as of now.
 	AIGateway []AIGatewayInitParameters `json:"aiGateway,omitempty" tf:"ai_gateway,omitempty"`
 
-	// The model serving endpoint configuration.
+	// The model serving endpoint configuration. This is optional and can be added and modified after creation. If config was provided in a previous apply but is not provided in the current apply, no change to the model serving endpoint will occur. To recreate the model serving endpoint without the config block, the model serving endpoint must be destroyed and recreated.
 	Config []ConfigInitParameters `json:"config,omitempty" tf:"config,omitempty"`
 
 	// The name of the model serving endpoint. This field is required and must be unique across a workspace. An endpoint name can consist of alphanumeric characters, dashes, and underscores. NOTE: Changing this name will delete the existing endpoint and create a new endpoint with the updated name.
@@ -681,7 +681,7 @@ type ModelServingObservation struct {
 	// A block with AI Gateway configuration for the serving endpoint. Note: only external model endpoints are supported as of now.
 	AIGateway []AIGatewayObservation `json:"aiGateway,omitempty" tf:"ai_gateway,omitempty"`
 
-	// The model serving endpoint configuration.
+	// The model serving endpoint configuration. This is optional and can be added and modified after creation. If config was provided in a previous apply but is not provided in the current apply, no change to the model serving endpoint will occur. To recreate the model serving endpoint without the config block, the model serving endpoint must be destroyed and recreated.
 	Config []ConfigObservation `json:"config,omitempty" tf:"config,omitempty"`
 
 	// Equal to the name argument and used to identify the serving endpoint.
@@ -709,7 +709,7 @@ type ModelServingParameters struct {
 	// +kubebuilder:validation:Optional
 	AIGateway []AIGatewayParameters `json:"aiGateway,omitempty" tf:"ai_gateway,omitempty"`
 
-	// The model serving endpoint configuration.
+	// The model serving endpoint configuration. This is optional and can be added and modified after creation. If config was provided in a previous apply but is not provided in the current apply, no change to the model serving endpoint will occur. To recreate the model serving endpoint without the config block, the model serving endpoint must be destroyed and recreated.
 	// +kubebuilder:validation:Optional
 	Config []ConfigParameters `json:"config,omitempty" tf:"config,omitempty"`
 
@@ -953,7 +953,7 @@ type OutputPiiParameters struct {
 
 	// a string that describes the behavior for PII filter. Currently only BLOCK value is supported.
 	// +kubebuilder:validation:Optional
-	Behavior *string `json:"behavior" tf:"behavior,omitempty"`
+	Behavior *string `json:"behavior,omitempty" tf:"behavior,omitempty"`
 }
 
 type PalmConfigInitParameters struct {
@@ -1001,7 +1001,7 @@ type PiiParameters struct {
 
 	// a string that describes the behavior for PII filter. Currently only BLOCK value is supported.
 	// +kubebuilder:validation:Optional
-	Behavior *string `json:"behavior" tf:"behavior,omitempty"`
+	Behavior *string `json:"behavior,omitempty" tf:"behavior,omitempty"`
 }
 
 type RateLimitsInitParameters struct {
@@ -1409,7 +1409,6 @@ type ModelServingStatus struct {
 type ModelServing struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.config) || (has(self.initProvider) && has(self.initProvider.config))",message="spec.forProvider.config is a required parameter"
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.name) || (has(self.initProvider) && has(self.initProvider.name))",message="spec.forProvider.name is a required parameter"
 	Spec   ModelServingSpec   `json:"spec"`
 	Status ModelServingStatus `json:"status,omitempty"`

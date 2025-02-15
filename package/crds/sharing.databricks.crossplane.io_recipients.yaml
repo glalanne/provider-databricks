@@ -82,6 +82,9 @@ spec:
                   dataRecipientGlobalMetastoreId:
                     description: Required when authentication_type is DATABRICKS.
                     type: string
+                  expirationTime:
+                    description: Expiration timestamp of the token in epoch milliseconds.
+                    type: number
                   ipAccessList:
                     description: Recipient IP access list.
                     items:
@@ -164,6 +167,9 @@ spec:
                   dataRecipientGlobalMetastoreId:
                     description: Required when authentication_type is DATABRICKS.
                     type: string
+                  expirationTime:
+                    description: Expiration timestamp of the token in epoch milliseconds.
+                    type: number
                   ipAccessList:
                     description: Recipient IP access list.
                     items:
@@ -431,6 +437,9 @@ spec:
                   dataRecipientGlobalMetastoreId:
                     description: Required when authentication_type is DATABRICKS.
                     type: string
+                  expirationTime:
+                    description: Expiration timestamp of the token in epoch milliseconds.
+                    type: number
                   id:
                     description: the ID of the recipient - the same as the name.
                     type: string

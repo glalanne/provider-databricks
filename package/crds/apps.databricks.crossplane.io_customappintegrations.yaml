@@ -137,6 +137,12 @@ spec:
                           type: number
                       type: object
                     type: array
+                  userAuthorizedScopes:
+                    description: 'OAuth scopes granted to the application. Supported
+                      scopes: all-apis, sql, offline_access, openid, profile, email.'
+                    items:
+                      type: string
+                    type: array
                 type: object
               initProvider:
                 description: |-
@@ -214,6 +220,12 @@ spec:
                             token cannot be lower than TTL of access token.
                           type: number
                       type: object
+                    type: array
+                  userAuthorizedScopes:
+                    description: 'OAuth scopes granted to the application. Supported
+                      scopes: all-apis, sql, offline_access, openid, profile, email.'
+                    items:
+                      type: string
                     type: array
                 type: object
               managementPolicies:
@@ -436,6 +448,12 @@ spec:
                             token cannot be lower than TTL of access token.
                           type: number
                       type: object
+                    type: array
+                  userAuthorizedScopes:
+                    description: 'OAuth scopes granted to the application. Supported
+                      scopes: all-apis, sql, offline_access, openid, profile, email.'
+                    items:
+                      type: string
                     type: array
                 type: object
               conditions:

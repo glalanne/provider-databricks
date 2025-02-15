@@ -65,6 +65,9 @@ type RecipientInitParameters struct {
 	// Required when authentication_type is DATABRICKS.
 	DataRecipientGlobalMetastoreID *string `json:"dataRecipientGlobalMetastoreId,omitempty" tf:"data_recipient_global_metastore_id,omitempty"`
 
+	// Expiration timestamp of the token in epoch milliseconds.
+	ExpirationTime *float64 `json:"expirationTime,omitempty" tf:"expiration_time,omitempty"`
+
 	// Recipient IP access list.
 	IPAccessList []IPAccessListInitParameters `json:"ipAccessList,omitempty" tf:"ip_access_list,omitempty"`
 
@@ -107,6 +110,9 @@ type RecipientObservation struct {
 
 	// Required when authentication_type is DATABRICKS.
 	DataRecipientGlobalMetastoreID *string `json:"dataRecipientGlobalMetastoreId,omitempty" tf:"data_recipient_global_metastore_id,omitempty"`
+
+	// Expiration timestamp of the token in epoch milliseconds.
+	ExpirationTime *float64 `json:"expirationTime,omitempty" tf:"expiration_time,omitempty"`
 
 	// the ID of the recipient - the same as the name.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
@@ -152,6 +158,10 @@ type RecipientParameters struct {
 	// Required when authentication_type is DATABRICKS.
 	// +kubebuilder:validation:Optional
 	DataRecipientGlobalMetastoreID *string `json:"dataRecipientGlobalMetastoreId,omitempty" tf:"data_recipient_global_metastore_id,omitempty"`
+
+	// Expiration timestamp of the token in epoch milliseconds.
+	// +kubebuilder:validation:Optional
+	ExpirationTime *float64 `json:"expirationTime,omitempty" tf:"expiration_time,omitempty"`
 
 	// Recipient IP access list.
 	// +kubebuilder:validation:Optional
