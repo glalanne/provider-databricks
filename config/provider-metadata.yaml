@@ -142,6 +142,56 @@ resources:
             servicePrincipals/{applicationId}: (also exposed as acl_principal_id attribute of databricks_service_principal resource).
             users/{username}: (also exposed as acl_principal_id attribute of databricks_user resource).
         importStatements: []
+    databricks_aibi_dashboard_embedding_access_policy_setting:
+        subCategory: ""
+        name: databricks_aibi_dashboard_embedding_access_policy_setting
+        title: databricks_aibi_dashboard_embedding_access_policy_setting Resource
+        examples:
+            - name: this
+              manifest: |-
+                {
+                  "aibi_dashboard_embedding_access_policy": [
+                    {
+                      "access_policy_type": "ALLOW_APPROVED_DOMAINS"
+                    }
+                  ]
+                }
+        argumentDocs:
+            access_policy_type: '- (Required) Configured embedding policy. Possible values are ALLOW_ALL_DOMAINS, ALLOW_APPROVED_DOMAINS, DENY_ALL_DOMAINS.'
+            aibi_dashboard_embedding_access_policy: 'block with following attributes:'
+        importStatements: []
+    databricks_aibi_dashboard_embedding_approved_domains_setting:
+        subCategory: ""
+        name: databricks_aibi_dashboard_embedding_approved_domains_setting
+        title: databricks_aibi_dashboard_embedding_approved_domains_setting Resource
+        examples:
+            - name: this
+              manifest: |-
+                {
+                  "aibi_dashboard_embedding_approved_domains": [
+                    {
+                      "approved_domains": [
+                        "test.com"
+                      ]
+                    }
+                  ],
+                  "depends_on": [
+                    "${databricks_aibi_dashboard_embedding_access_policy_setting.this}"
+                  ]
+                }
+              dependencies:
+                databricks_aibi_dashboard_embedding_access_policy_setting.this: |-
+                    {
+                      "aibi_dashboard_embedding_access_policy": [
+                        {
+                          "access_policy_type": "ALLOW_APPROVED_DOMAINS"
+                        }
+                      ]
+                    }
+        argumentDocs:
+            aibi_dashboard_embedding_approved_domains: 'block with following attributes:'
+            approved_domains: '- (Required) the list of approved domains. To allow all subdomains for a given domain, use a wildcard symbol (*) before the domain name, i.e., *.databricks.com will allow to embed into any site under the databricks.com.'
+        importStatements: []
     databricks_alert:
         subCategory: ""
         name: databricks_alert
@@ -709,6 +759,9 @@ resources:
                 }
         argumentDocs:
             AUTO: ': Databricks picks an availability zone to schedule the cluster on.'
+            DATA_SECURITY_MODE_AUTO: ': Databricks will choose the most appropriate access mode depending on your compute configuration.'
+            DATA_SECURITY_MODE_DEDICATED: ': Alias for SINGLE_USER.'
+            DATA_SECURITY_MODE_STANDARD: ': Alias for USER_ISOLATION.'
             HA: '(default): High availability, spread nodes across availability zones for a Databricks deployment region.'
             allow_cluster_create: argument set would still be able to create clusters, but within the boundary of the policy.
             apply_policy_default_values: '- (Optional) Whether to use policy default values for missing cluster attributes.'
@@ -734,7 +787,7 @@ resources:
             cluster_mount_info.remote_mount_dir_path: '- (Optional) string specifying path to mount on the remote service.'
             cluster_name: '- (Optional) Cluster name, which doesn’t have to be unique. If not specified at creation, the cluster name will be an empty string.'
             custom_tags: '- (Optional) Additional tags for cluster resources. Databricks will tag all cluster resources (e.g., AWS EC2 instances and EBS volumes) with these tags in addition to default_tags. If a custom cluster tag has the same name as a default cluster tag, the custom tag is prefixed with an x_ when it is propagated.'
-            data_security_mode: '- (Optional) Select the security features of the cluster. Unity Catalog requires SINGLE_USER or USER_ISOLATION mode. LEGACY_PASSTHROUGH for passthrough cluster and LEGACY_TABLE_ACL for Table ACL cluster. If omitted, default security features are enabled. To disable security features use NONE or legacy mode NO_ISOLATION. In the Databricks UI, this has been recently been renamed Access Mode and USER_ISOLATION has been renamed Shared, but use these terms here.'
+            data_security_mode: '- (Optional) Select the security features of the cluster (see API docs for full list of values). Unity Catalog requires SINGLE_USER or USER_ISOLATION mode. LEGACY_PASSTHROUGH for passthrough cluster and LEGACY_TABLE_ACL for Table ACL cluster. If omitted, default security features are enabled. To disable security features use NONE or legacy mode NO_ISOLATION.  If kind is specified, then the following options are available:'
             dbfs:/mnt/name: .
             default_tags: '- (map) Tags that are added by Databricks by default, regardless of any custom_tags that may have been added. These include: Vendor: Databricks, Creator: <username_of_creator>, ClusterName: <name_of_cluster>, ClusterId: <id_of_cluster>, Name: , and any workspace and pool tags.'
             destination: '- S3 destination, e.g., s3://my-bucket/some-prefix You must configure the cluster with an instance profile, and the instance profile must have write access to the destination. You cannot use AWS keys.'
@@ -758,6 +811,8 @@ resources:
             instance_pool_id: (Optional - required if node_type_id is not given) - To reduce cluster start time, you can attach a cluster to a predefined pool of idle instances. When attached to a pool, a cluster allocates its driver and worker nodes from the pool. If the pool does not have sufficient idle resources to accommodate the cluster’s request, it expands by allocating new instances from the instance provider. When an attached cluster changes its state to TERMINATED, the instances it used are returned to the pool and reused by a different cluster.
             instance_profile_arn: (AWS only) can control which data a given cluster can access through cloud-native controls.
             is_pinned: '- (Optional) boolean value specifying if the cluster is pinned (not pinned by default). You must be a Databricks administrator to use this.  The pinned clusters'' maximum number is limited to 100, so apply may fail if you have more than that (this number may change over time, so check Databricks documentation for actual number).'
+            is_single_node: '- (Optional, Boolean, only with kind) When set to true, Databricks will automatically set single node related custom_tags, spark_conf, and num_workers.'
+            kind: '- (Optional, enum) The kind of compute described by this compute specification.  Possible values (see API docs for full list): CLASSIC_PREVIEW (if corresponding public preview is enabled).'
             kms_key: '- (Optional) KMS key used if encryption is enabled and encryption type is set to sse-kms.'
             mount_options: '- (Optional) string that will be passed as options passed to the mount command.'
             no_wait: '- (Optional) If true, the provider will not wait for the cluster to reach RUNNING state when creating the cluster, allowing cluster creation and library installation to continue asynchronously. Defaults to false (the provider will wait for cluster creation and library installation to succeed).'
@@ -767,7 +822,7 @@ resources:
             region: '- (Optional) S3 region, e.g. us-west-2. Either region or endpoint must be set. If both are set, the endpoint is used.'
             runtime_engine: '- (Optional) The type of runtime engine to use. If not specified, the runtime engine type is inferred based on the spark_version value. Allowed values include: PHOTON, STANDARD.'
             server_address: '- (Required) host name.'
-            single_user_name: '- (Optional) The optional user name of the user to assign to an interactive cluster. This field is required when using data_security_mode set to SINGLE_USER or AAD Passthrough for Azure Data Lake Storage (ADLS) with a single-user cluster (i.e., not high-concurrency clusters).'
+            single_user_name: '- (Optional) The optional user name of the user (or group name if kind if specified) to assign to an interactive cluster. This field is required when using data_security_mode set to SINGLE_USER or AAD Passthrough for Azure Data Lake Storage (ADLS) with a single-user cluster (i.e., not high-concurrency clusters).'
             spark.databricks.cluster.profile: set to serverless
             spark.databricks.repl.allowedLanguages: 'set to a list of supported languages, for example: python,sql, or python,sql,r.  Scala is not supported!'
             spark_conf: '- (Optional) Map with key-value pairs to fine-tune Spark clusters, where you can provide custom Spark configuration properties in a cluster configuration.'
@@ -775,6 +830,7 @@ resources:
             spark_version: '- (Required) Runtime version of the cluster. Any supported databricks_spark_version id.  We advise using Cluster Policies to restrict the list of versions for simplicity while maintaining enough control.'
             ssh_public_keys: '- (Optional) SSH public key contents that will be added to each Spark node in this cluster. The corresponding private keys can be used to login with the user name ubuntu on port 2200. You can specify up to 10 keys.'
             state: '- (string) State of the cluster.'
+            use_ml_runtime: '- (Optional, Boolean, only with kind) Whenever ML runtime should be selected or not.  Actual runtime is determined by spark_version (DBR release), this field use_ml_runtime, and whether node_type_id is GPU node or not.'
             workload_type.jobs: '- (Optional) boolean flag defining if it''s possible to run Databricks Jobs on this cluster. Default: true.'
             workload_type.notebooks: '- (Optional) boolean flag defining if it''s possible to run notebooks on this cluster. Default: true.'
         importStatements: []
@@ -955,7 +1011,7 @@ resources:
                     {}
                   ],
                   "name": "gcp_sa_credential",
-                  "purpose": "STORAGE"
+                  "purpose": "SERVICE"
                 }
               dependencies:
                 databricks_grants.external_creds: |-
@@ -1287,9 +1343,13 @@ resources:
         argumentDocs:
             access_point: '- (Optional) The ARN of the s3 access point to use with the external location (AWS).'
             comment: '- (Optional) User-supplied free-form text.'
+            created_at: '- Time at which this external location was created, in epoch milliseconds.'
+            created_by: '-  Username of external location creator.'
+            credential_id: '- Unique ID of the location''s storage credential.'
             credential_name: '- Name of the databricks_storage_credential to use with this external location.'
             databricks_external_location: are objects that combine a cloud storage path with a Storage Credential that can be used to access the location.
             encryption_details: '- (Optional) The options for Server-Side Encryption to be used by each Databricks s3 client when connecting to S3 cloud storage (AWS).'
+            fallback: '- (Optional) Indicates whether fallback mode is enabled for this external location. When fallback mode is enabled (disabled by default), the access to the location falls back to cluster credentials if UC credentials are not sufficient.'
             force_destroy: '- (Optional) Destroy external location regardless of its dependents.'
             force_update: '- (Optional) Update external location regardless of its dependents.'
             id: '- ID of this external location - same as name.'
@@ -1298,6 +1358,8 @@ resources:
             owner: '- (Optional) Username/groupname/sp application_id of the external location owner.'
             read_only: '- (Optional) Indicates whether the external location is read-only.'
             skip_validation: '- (Optional) Suppress validation errors if any & force save the external location'
+            updated_at: '- Time at which external location this was last modified, in epoch milliseconds.'
+            updated_by: '- Username of user who last modified the external location.'
             url: '- Path URL in cloud storage, of the form: s3://[bucket-host]/[bucket-dir] (AWS), abfss://[user]@[host]/[path] (Azure), gs://[bucket-host]/[bucket-dir] (GCP).'
         importStatements: []
     databricks_file:
@@ -2525,10 +2587,10 @@ resources:
             - name: this
               manifest: |-
                 {
-                  "instance_profile_arn": "${aws_iam_instance_profile.shared.arn}"
+                  "instance_profile_arn": "${aws_iam_instance_profile.shared.id}"
                 }
               references:
-                instance_profile_arn: aws_iam_instance_profile.shared.arn
+                instance_profile_arn: aws_iam_instance_profile.shared.id
               dependencies:
                 databricks_group_instance_profile.all: |-
                     {
@@ -2739,13 +2801,18 @@ resources:
             - name: this
               manifest: |-
                 {
-                  "library": [
+                  "task": [
                     {
-                      "pypi": [
+                      "library": [
                         {
-                          "package": "databricks-mosaic==0.3.14"
+                          "pypi": [
+                            {
+                              "package": "databricks-mosaic==0.3.14"
+                            }
+                          ]
                         }
-                      ]
+                      ],
+                      "task_key": "some_task"
                     }
                   ]
                 }
@@ -2805,6 +2872,7 @@ resources:
             branch: '- name of the Git branch to use. Conflicts with tag and commit.'
             budget_policy_id: '- (Optional) The ID of the user-specified budget policy to use for this job. If not specified, a default budget policy may be applied when creating or modifying the job.'
             catalog: '- (Optional) The name of the catalog to use inside Unity Catalog.'
+            clean_room_name: (Required) The clean room that the notebook belongs to.
             client: '- (Required, string) client version used by the environment.'
             commands: '- (Required) (Array) Series of dbt commands to execute in sequence. Every command must start with "dbt".'
             commit: '- hash of Git commit to use. Conflicts with branch and tag.'
@@ -2820,10 +2888,12 @@ resources:
             depends_on: '- (Optional) block specifying dependency(-ies) for a given task.'
             description: '- (Optional) An optional description for the job. The maximum length is 1024 characters in UTF-8 encoding.'
             disable_auto_optimization: '- (Optional) A flag to disable auto optimization in serverless tasks.'
+            edit_mode: '- (Optional) If "UI_LOCKED", the user interface for the job will be locked. If "EDITABLE" (the default), the user interface will be editable.'
             email_notifications: '- (Optional) (List) An optional set of email addresses notified when runs of this job begins, completes or fails. The default behavior is to not send any emails. This field is a block and is documented below.'
             enabled: '- (Required) If true, enable queueing for the job.'
             entry_point: '- (Optional) Python function as entry point for the task'
             environment_key: '- (Optional) identifier of an environment block that is used to specify libraries.  Required for some tasks (spark_python_task, python_wheel_task, ...) running on serverless compute.'
+            etag: (Optional) Checksum to validate the freshness of the notebook resource.
             existing_cluster_id: '- (Optional) Identifier of the interactive cluster to run job on.  Note: running tasks on interactive clusters may lead to increased costs!'
             file: '- (Optional) block consisting of single string fields:'
             full_refresh: '- (Optional) (Bool) Specifies if there should be full refresh of the pipeline.'
@@ -2854,6 +2924,8 @@ resources:
             new_cluster: '- (Optional) Task will run on a dedicated cluster.  See databricks_cluster documentation for specification. Some parameters, such as'
             no_alert_for_canceled_runs: '- (Optional) (Bool) don''t send alert for cancelled runs.'
             no_alert_for_skipped_runs: '- (Optional) (Bool) don''t send alert for skipped runs. (It''s recommended to use the corresponding setting in the notification_settings configuration block).'
+            notebook_base_parameters: (Optional) (Map) Base parameters to be used for the clean room notebook job.
+            notebook_name: (Required) Name of the notebook being run.
             notebook_path: '- (Required) The path of the databricks_notebook to be run in the Databricks workspace or remote repository. For notebooks stored in the Databricks workspace, the path must be absolute and begin with a slash. For notebooks stored in a remote repository, the path must be relative. This field is required.'
             notification_settings: '- (Optional) An optional block controlling the notification settings on the job level documented below.'
             on_duration_warning_threshold_exceeded: '- (Optional) (List) list of emails to notify when the duration of a run exceeds the threshold specified by the RUN_DURATION_SECONDS metric in the health block.'
@@ -3499,7 +3571,7 @@ resources:
             cohere_api_key: '- The Databricks secret key reference for a Cohere API key.'
             cohere_api_key_plaintext: '- The Cohere API key provided as a plaintext string.'
             cohere_config: '- Cohere Config'
-            config: '- (Required) The model serving endpoint configuration.'
+            config: '- The model serving endpoint configuration. This is optional and can be added and modified after creation. If config was provided in a previous apply but is not provided in the current apply, no change to the model serving endpoint will occur. To recreate the model serving endpoint without the config block, the model serving endpoint must be destroyed and recreated.'
             databricks_api_token: '- The Databricks secret key reference for a Databricks API token that corresponds to a user or service principal with Can Query access to the model serving endpoint pointed to by this external model.'
             databricks_api_token_plaintext: '- The Databricks API token that corresponds to a user or service principal with Can Query access to the model serving endpoint pointed to by this external model provided as a plaintext string.'
             databricks_model_serving_config: '- Databricks Model Serving Config'
@@ -6015,6 +6087,28 @@ resources:
                     {
                       "display_name": "Engineering"
                     }
+            - name: app_usage
+              manifest: |-
+                {
+                  "access_control": [
+                    {
+                      "group_name": "users",
+                      "permission_level": "CAN_USE"
+                    },
+                    {
+                      "group_name": "${databricks_group.eng.display_name}",
+                      "permission_level": "CAN_MANAGE"
+                    }
+                  ],
+                  "app_name": "myapp"
+                }
+              references:
+                access_control.group_name: databricks_group.eng.display_name
+              dependencies:
+                databricks_group.eng: |-
+                    {
+                      "display_name": "Engineering"
+                    }
             - name: model_usage
               manifest: |-
                 {
@@ -6887,7 +6981,7 @@ resources:
             comment: (Optional) -  Description about the object.
             created_at: '- Time when the share was created.'
             created_by: '- The principal that created the share.'
-            data_object_type: (Required) - Type of the data object, currently TABLE, SCHEMA, VOLUME, and MODEL are supported.
+            data_object_type: (Required) - Type of the data object, currently TABLE, VIEW, SCHEMA, VOLUME, and MODEL are supported.
             history_data_sharing_status: '(Optional) - Whether to enable history sharing, one of: ENABLED, DISABLED. When a table has history sharing enabled, recipients can query table data by version, starting from the current table version. If not specified, clients can only query starting from the version of the object at the time it was added to the share. NOTE: The start_version should be less than or equal the current version of the object. When this field is set, field cdf_enabled can not be set.'
             id: '- the ID of the share, the same as name.'
             name: (Required) - Name of share. Change forces creation of a new resource.
@@ -7094,7 +7188,7 @@ resources:
             any_file: '- (Boolean) If this access control for reading/writing any file. Defaults to false.'
             catalog: '- (Boolean) If this access control for the entire catalog. Defaults to false.'
             catalog/: '- entire catalog. / suffix is mandatory.'
-            cluster_id: '- (Optional) Id of an existing databricks_cluster, where the appropriate GRANT/REVOKE commands are executed. This cluster must have the appropriate data security mode (USER_ISOLATION or LEGACY_TABLE_ACL specified). If no cluster_id is specified, a single-node TACL cluster named terraform-table-acl is automatically created.'
+            cluster_id: '- (Optional) Id of an existing databricks_cluster, where the appropriate GRANT/REVOKE commands are executed. This cluster must have the appropriate access mode (USER_ISOLATION or LEGACY_TABLE_ACL specified). If no cluster_id is specified, a single-node TACL cluster named terraform-table-acl is automatically created.'
             database: '- Name of the database. Has default value of default.'
             database/bar: '- bar database.'
             privilege_assignments.CREATE: '- gives the ability to create an object (for example, a table in a database).'
@@ -7379,23 +7473,23 @@ resources:
                       }
                     }
         argumentDocs:
-            catalog_name: '- Name of parent catalog. Change forces creation of a new resource.'
+            catalog_name: '- Name of parent catalog. Change forces the creation of a new resource.'
             cluster_id: '- (Optional) All table CRUD operations must be executed on a running cluster or SQL warehouse. If a cluster_id is specified, it will be used to execute SQL commands to manage this table. If empty, a cluster will be created automatically with the name terraform-sql-table.'
             cluster_keys: '- (Optional) a subset of columns to liquid cluster the table by. Conflicts with partitions.'
-            comment: '- (Optional) User-supplied free-form text. Changing comment is not currently supported on VIEW table_type.'
-            data_source_format: '- (Optional) External tables are supported in multiple data source formats. The string constants identifying these formats are DELTA, CSV, JSON, AVRO, PARQUET, ORC, TEXT. Change forces creation of a new resource. Not supported for MANAGED tables or VIEW.'
-            id: '- ID of this table in form of <catalog_name>.<schema_name>.<name>.'
-            identity: '- (Optional) Whether field is an identity column. Can be default, always or unset. It is unset by default.'
-            name: '- Name of table relative to parent catalog and schema. Change forces creation of a new resource.'
+            comment: '- (Optional) User-supplied free-form text. Changing the comment is not currently supported on the VIEW table type.'
+            data_source_format: '- (Optional) External tables are supported in multiple data source formats. The string constants identifying these formats are DELTA, CSV, JSON, AVRO, PARQUET, ORC, and TEXT. Change forces the creation of a new resource. Not supported for MANAGED tables or VIEW.'
+            id: '- ID of this table in the form of <catalog_name>.<schema_name>.<name>.'
+            identity: '- (Optional) Whether the field is an identity column. Can be default, always, or unset. It is unset by default.'
+            name: '- Name of table relative to parent catalog and schema. Change forces the creation of a new resource.'
             nullable: '- (Optional) Whether field is nullable (Default: true)'
             options: '- (Optional) Map of user defined table options. Change forces creation of a new resource.'
-            owner: '- (Optional) Username/groupname/sp application_id of the schema owner.'
-            partitions: '- (Optional) a subset of columns to partition the table by. Change forces creation of a new resource. Conflicts with cluster_keys. Change forces creation of a new resource.'
-            properties: '- (Optional) Map of table properties.'
-            schema_name: '- Name of parent Schema relative to parent Catalog. Change forces creation of a new resource.'
-            storage_credential_name: '- (Optional) For EXTERNAL Tables only: the name of storage credential to use. Change forces creation of a new resource.'
+            owner: '- (Optional) User name/group name/sp application_id of the schema owner.'
+            partitions: '- (Optional) a subset of columns to partition the table by. Change forces the creation of a new resource. Conflicts with cluster_keys. Change forces creation of a new resource.'
+            properties: '- (Optional) A map of table properties.'
+            schema_name: '- Name of parent Schema relative to parent Catalog. Change forces the creation of a new resource.'
+            storage_credential_name: '- (Optional) For EXTERNAL Tables only: the name of storage credential to use. Change forces the creation of a new resource.'
             storage_location: '- (Optional) URL of storage location for Table data (required for EXTERNAL Tables). Not supported for VIEW or MANAGED table_type.'
-            table_type: '- Distinguishes a view vs. managed/external Table. MANAGED, EXTERNAL or VIEW. Change forces creation of a new resource.'
+            table_type: '- Distinguishes a view vs. managed/external Table. MANAGED, EXTERNAL, or VIEW. Change forces the creation of a new resource.'
             type: '- Column type spec (with metadata) as SQL text. Not supported for VIEW table_type.'
             view_definition: '- (Optional) SQL text defining the view (for table_type == "VIEW"). Not supported for MANAGED or EXTERNAL table_type.'
             warehouse_id: '- (Optional) All table CRUD operations must be executed on a running cluster or SQL warehouse. If a warehouse_id is specified, that SQL warehouse will be used to execute SQL commands to manage this table. Conflicts with cluster_id.'
@@ -7626,7 +7720,7 @@ resources:
         argumentDocs:
             comment: '- (Optional) (String) Comment that will appear on the user’s settings page for this token.'
             id: '- Canonical unique identifier for the token.'
-            lifetime_seconds: '- (Optional) (Integer) The lifetime of the token, in seconds. If no lifetime is specified, the token remains valid indefinitely.'
+            lifetime_seconds: '- (Optional) (Integer) The lifetime of the token, in seconds. If no lifetime is specified, then expire time will be set to maximum allowed by the workspace configuration or platform.'
             token_value: '- Sensitive value of the newly-created token.'
         importStatements: []
     databricks_user:

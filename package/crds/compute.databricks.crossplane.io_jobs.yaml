@@ -166,6 +166,9 @@ spec:
                       length is 1024 characters in UTF-8 encoding.
                     type: string
                   editMode:
+                    description: If "UI_LOCKED", the user interface for the job will
+                      be locked. If "EDITABLE" (the default), the user interface will
+                      be editable.
                     type: string
                   emailNotifications:
                     description: (List) An optional set of email addresses notified
@@ -449,6 +452,13 @@ spec:
                                           kmsKey:
                                             type: string
                                           region:
+                                            type: string
+                                        type: object
+                                      type: array
+                                    volumes:
+                                      items:
+                                        properties:
+                                          destination:
                                             type: string
                                         type: object
                                       type: array
@@ -924,6 +934,13 @@ spec:
                                       type: string
                                   type: object
                                 type: array
+                              volumes:
+                                items:
+                                  properties:
+                                    destination:
+                                      type: string
+                                  type: object
+                                type: array
                             type: object
                           type: array
                         clusterMountInfo:
@@ -1280,6 +1297,8 @@ spec:
                           type: string
                       type: object
                     type: array
+                  performanceTarget:
+                    type: string
                   pipelineTask:
                     description: A list of task specification that the job will execute.
                       See task Configuration Block below.
@@ -1466,31 +1485,22 @@ spec:
                           items:
                             properties:
                               cleanRoomName:
-                                description: An optional name for the job. The default
-                                  value is Untitled.
+                                description: The clean room that the notebook belongs
+                                  to.
                                 type: string
                               etag:
-                                description: name of the Git branch to use. Conflicts
-                                  with branch and commit.
+                                description: Checksum to validate the freshness of
+                                  the notebook resource.
                                 type: string
                               notebookBaseParameters:
                                 additionalProperties:
                                   type: string
                                 description: (Map) Base parameters to be used for
-                                  each run of this job. If the run is initiated by
-                                  a call to run-now with parameters specified, the
-                                  two parameters maps will be merged. If the same
-                                  key is specified in base_parameters and in run-now,
-                                  the value from run-now will be used. If the notebook
-                                  takes a parameter that is not specified in the job’s
-                                  base_parameters or the run-now override parameters,
-                                  the default value from the notebook will be used.
-                                  Retrieve these parameters in a notebook using dbutils.widgets.get.
+                                  the clean room notebook job.
                                 type: object
                                 x-kubernetes-map-type: granular
                               notebookName:
-                                description: An optional name for the job. The default
-                                  value is Untitled.
+                                description: Name of the notebook being run.
                                 type: string
                             type: object
                           type: array
@@ -1669,34 +1679,24 @@ spec:
                                       items:
                                         properties:
                                           cleanRoomName:
-                                            description: An optional name for the
-                                              job. The default value is Untitled.
+                                            description: The clean room that the notebook
+                                              belongs to.
                                             type: string
                                           etag:
-                                            description: name of the Git branch to
-                                              use. Conflicts with branch and commit.
+                                            description: Checksum to validate the
+                                              freshness of the notebook resource.
                                             type: string
                                           notebookBaseParameters:
                                             additionalProperties:
                                               type: string
                                             description: (Map) Base parameters to
-                                              be used for each run of this job. If
-                                              the run is initiated by a call to run-now
-                                              with parameters specified, the two parameters
-                                              maps will be merged. If the same key
-                                              is specified in base_parameters and
-                                              in run-now, the value from run-now will
-                                              be used. If the notebook takes a parameter
-                                              that is not specified in the job’s base_parameters
-                                              or the run-now override parameters,
-                                              the default value from the notebook
-                                              will be used. Retrieve these parameters
-                                              in a notebook using dbutils.widgets.get.
+                                              be used for the clean room notebook
+                                              job.
                                             type: object
                                             x-kubernetes-map-type: granular
                                           notebookName:
-                                            description: An optional name for the
-                                              job. The default value is Untitled.
+                                            description: Name of the notebook being
+                                              run.
                                             type: string
                                         type: object
                                       type: array
@@ -2075,6 +2075,13 @@ spec:
                                                       kmsKey:
                                                         type: string
                                                       region:
+                                                        type: string
+                                                    type: object
+                                                  type: array
+                                                volumes:
+                                                  items:
+                                                    properties:
+                                                      destination:
                                                         type: string
                                                     type: object
                                                   type: array
@@ -2599,6 +2606,8 @@ spec:
                                             items:
                                               type: string
                                             type: array
+                                          runAsRepl:
+                                            type: boolean
                                         type: object
                                       type: array
                                     sparkPythonTask:
@@ -3076,6 +3085,13 @@ spec:
                                           kmsKey:
                                             type: string
                                           region:
+                                            type: string
+                                        type: object
+                                      type: array
+                                    volumes:
+                                      items:
+                                        properties:
+                                          destination:
                                             type: string
                                         type: object
                                       type: array
@@ -3569,6 +3585,8 @@ spec:
                                 items:
                                   type: string
                                 type: array
+                              runAsRepl:
+                                type: boolean
                             type: object
                           type: array
                         sparkPythonTask:
@@ -4094,6 +4112,9 @@ spec:
                       length is 1024 characters in UTF-8 encoding.
                     type: string
                   editMode:
+                    description: If "UI_LOCKED", the user interface for the job will
+                      be locked. If "EDITABLE" (the default), the user interface will
+                      be editable.
                     type: string
                   emailNotifications:
                     description: (List) An optional set of email addresses notified
@@ -4377,6 +4398,13 @@ spec:
                                           kmsKey:
                                             type: string
                                           region:
+                                            type: string
+                                        type: object
+                                      type: array
+                                    volumes:
+                                      items:
+                                        properties:
+                                          destination:
                                             type: string
                                         type: object
                                       type: array
@@ -4854,6 +4882,13 @@ spec:
                                       type: string
                                   type: object
                                 type: array
+                              volumes:
+                                items:
+                                  properties:
+                                    destination:
+                                      type: string
+                                  type: object
+                                type: array
                             type: object
                           type: array
                         clusterMountInfo:
@@ -5212,6 +5247,8 @@ spec:
                           type: string
                       type: object
                     type: array
+                  performanceTarget:
+                    type: string
                   pipelineTask:
                     description: A list of task specification that the job will execute.
                       See task Configuration Block below.
@@ -5398,31 +5435,22 @@ spec:
                           items:
                             properties:
                               cleanRoomName:
-                                description: An optional name for the job. The default
-                                  value is Untitled.
+                                description: The clean room that the notebook belongs
+                                  to.
                                 type: string
                               etag:
-                                description: name of the Git branch to use. Conflicts
-                                  with branch and commit.
+                                description: Checksum to validate the freshness of
+                                  the notebook resource.
                                 type: string
                               notebookBaseParameters:
                                 additionalProperties:
                                   type: string
                                 description: (Map) Base parameters to be used for
-                                  each run of this job. If the run is initiated by
-                                  a call to run-now with parameters specified, the
-                                  two parameters maps will be merged. If the same
-                                  key is specified in base_parameters and in run-now,
-                                  the value from run-now will be used. If the notebook
-                                  takes a parameter that is not specified in the job’s
-                                  base_parameters or the run-now override parameters,
-                                  the default value from the notebook will be used.
-                                  Retrieve these parameters in a notebook using dbutils.widgets.get.
+                                  the clean room notebook job.
                                 type: object
                                 x-kubernetes-map-type: granular
                               notebookName:
-                                description: An optional name for the job. The default
-                                  value is Untitled.
+                                description: Name of the notebook being run.
                                 type: string
                             type: object
                           type: array
@@ -5601,34 +5629,24 @@ spec:
                                       items:
                                         properties:
                                           cleanRoomName:
-                                            description: An optional name for the
-                                              job. The default value is Untitled.
+                                            description: The clean room that the notebook
+                                              belongs to.
                                             type: string
                                           etag:
-                                            description: name of the Git branch to
-                                              use. Conflicts with branch and commit.
+                                            description: Checksum to validate the
+                                              freshness of the notebook resource.
                                             type: string
                                           notebookBaseParameters:
                                             additionalProperties:
                                               type: string
                                             description: (Map) Base parameters to
-                                              be used for each run of this job. If
-                                              the run is initiated by a call to run-now
-                                              with parameters specified, the two parameters
-                                              maps will be merged. If the same key
-                                              is specified in base_parameters and
-                                              in run-now, the value from run-now will
-                                              be used. If the notebook takes a parameter
-                                              that is not specified in the job’s base_parameters
-                                              or the run-now override parameters,
-                                              the default value from the notebook
-                                              will be used. Retrieve these parameters
-                                              in a notebook using dbutils.widgets.get.
+                                              be used for the clean room notebook
+                                              job.
                                             type: object
                                             x-kubernetes-map-type: granular
                                           notebookName:
-                                            description: An optional name for the
-                                              job. The default value is Untitled.
+                                            description: Name of the notebook being
+                                              run.
                                             type: string
                                         type: object
                                       type: array
@@ -6007,6 +6025,13 @@ spec:
                                                       kmsKey:
                                                         type: string
                                                       region:
+                                                        type: string
+                                                    type: object
+                                                  type: array
+                                                volumes:
+                                                  items:
+                                                    properties:
+                                                      destination:
                                                         type: string
                                                     type: object
                                                   type: array
@@ -6533,6 +6558,8 @@ spec:
                                             items:
                                               type: string
                                             type: array
+                                          runAsRepl:
+                                            type: boolean
                                         type: object
                                       type: array
                                     sparkPythonTask:
@@ -7010,6 +7037,13 @@ spec:
                                           kmsKey:
                                             type: string
                                           region:
+                                            type: string
+                                        type: object
+                                      type: array
+                                    volumes:
+                                      items:
+                                        properties:
+                                          destination:
                                             type: string
                                         type: object
                                       type: array
@@ -7505,6 +7539,8 @@ spec:
                                 items:
                                   type: string
                                 type: array
+                              runAsRepl:
+                                type: boolean
                             type: object
                           type: array
                         sparkPythonTask:
@@ -8189,6 +8225,9 @@ spec:
                       length is 1024 characters in UTF-8 encoding.
                     type: string
                   editMode:
+                    description: If "UI_LOCKED", the user interface for the job will
+                      be locked. If "EDITABLE" (the default), the user interface will
+                      be editable.
                     type: string
                   emailNotifications:
                     description: (List) An optional set of email addresses notified
@@ -8476,6 +8515,13 @@ spec:
                                           kmsKey:
                                             type: string
                                           region:
+                                            type: string
+                                        type: object
+                                      type: array
+                                    volumes:
+                                      items:
+                                        properties:
+                                          destination:
                                             type: string
                                         type: object
                                       type: array
@@ -8932,6 +8978,13 @@ spec:
                                       type: string
                                   type: object
                                 type: array
+                              volumes:
+                                items:
+                                  properties:
+                                    destination:
+                                      type: string
+                                  type: object
+                                type: array
                             type: object
                           type: array
                         clusterMountInfo:
@@ -9270,6 +9323,8 @@ spec:
                           type: string
                       type: object
                     type: array
+                  performanceTarget:
+                    type: string
                   pipelineTask:
                     description: A list of task specification that the job will execute.
                       See task Configuration Block below.
@@ -9456,31 +9511,22 @@ spec:
                           items:
                             properties:
                               cleanRoomName:
-                                description: An optional name for the job. The default
-                                  value is Untitled.
+                                description: The clean room that the notebook belongs
+                                  to.
                                 type: string
                               etag:
-                                description: name of the Git branch to use. Conflicts
-                                  with branch and commit.
+                                description: Checksum to validate the freshness of
+                                  the notebook resource.
                                 type: string
                               notebookBaseParameters:
                                 additionalProperties:
                                   type: string
                                 description: (Map) Base parameters to be used for
-                                  each run of this job. If the run is initiated by
-                                  a call to run-now with parameters specified, the
-                                  two parameters maps will be merged. If the same
-                                  key is specified in base_parameters and in run-now,
-                                  the value from run-now will be used. If the notebook
-                                  takes a parameter that is not specified in the job’s
-                                  base_parameters or the run-now override parameters,
-                                  the default value from the notebook will be used.
-                                  Retrieve these parameters in a notebook using dbutils.widgets.get.
+                                  the clean room notebook job.
                                 type: object
                                 x-kubernetes-map-type: granular
                               notebookName:
-                                description: An optional name for the job. The default
-                                  value is Untitled.
+                                description: Name of the notebook being run.
                                 type: string
                             type: object
                           type: array
@@ -9659,34 +9705,24 @@ spec:
                                       items:
                                         properties:
                                           cleanRoomName:
-                                            description: An optional name for the
-                                              job. The default value is Untitled.
+                                            description: The clean room that the notebook
+                                              belongs to.
                                             type: string
                                           etag:
-                                            description: name of the Git branch to
-                                              use. Conflicts with branch and commit.
+                                            description: Checksum to validate the
+                                              freshness of the notebook resource.
                                             type: string
                                           notebookBaseParameters:
                                             additionalProperties:
                                               type: string
                                             description: (Map) Base parameters to
-                                              be used for each run of this job. If
-                                              the run is initiated by a call to run-now
-                                              with parameters specified, the two parameters
-                                              maps will be merged. If the same key
-                                              is specified in base_parameters and
-                                              in run-now, the value from run-now will
-                                              be used. If the notebook takes a parameter
-                                              that is not specified in the job’s base_parameters
-                                              or the run-now override parameters,
-                                              the default value from the notebook
-                                              will be used. Retrieve these parameters
-                                              in a notebook using dbutils.widgets.get.
+                                              be used for the clean room notebook
+                                              job.
                                             type: object
                                             x-kubernetes-map-type: granular
                                           notebookName:
-                                            description: An optional name for the
-                                              job. The default value is Untitled.
+                                            description: Name of the notebook being
+                                              run.
                                             type: string
                                         type: object
                                       type: array
@@ -10065,6 +10101,13 @@ spec:
                                                       kmsKey:
                                                         type: string
                                                       region:
+                                                        type: string
+                                                    type: object
+                                                  type: array
+                                                volumes:
+                                                  items:
+                                                    properties:
+                                                      destination:
                                                         type: string
                                                     type: object
                                                   type: array
@@ -10567,6 +10610,8 @@ spec:
                                             items:
                                               type: string
                                             type: array
+                                          runAsRepl:
+                                            type: boolean
                                         type: object
                                       type: array
                                     sparkPythonTask:
@@ -11047,6 +11092,13 @@ spec:
                                             type: string
                                         type: object
                                       type: array
+                                    volumes:
+                                      items:
+                                        properties:
+                                          destination:
+                                            type: string
+                                        type: object
+                                      type: array
                                   type: object
                                 type: array
                               clusterMountInfo:
@@ -11518,6 +11570,8 @@ spec:
                                 items:
                                   type: string
                                 type: array
+                              runAsRepl:
+                                type: boolean
                             type: object
                           type: array
                         sparkPythonTask:

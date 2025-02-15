@@ -87,7 +87,7 @@ spec:
                   clusterId:
                     description: Id of an existing databricks_cluster, where the appropriate
                       GRANT/REVOKE commands are executed. This cluster must have the
-                      appropriate data security mode (USER_ISOLATION or LEGACY_TABLE_ACL
+                      appropriate access mode (USER_ISOLATION or LEGACY_TABLE_ACL
                       specified).
                     type: string
                   database:
@@ -143,7 +143,7 @@ spec:
                   clusterId:
                     description: Id of an existing databricks_cluster, where the appropriate
                       GRANT/REVOKE commands are executed. This cluster must have the
-                      appropriate data security mode (USER_ISOLATION or LEGACY_TABLE_ACL
+                      appropriate access mode (USER_ISOLATION or LEGACY_TABLE_ACL
                       specified).
                     type: string
                   database:
@@ -358,7 +358,7 @@ spec:
                   clusterId:
                     description: Id of an existing databricks_cluster, where the appropriate
                       GRANT/REVOKE commands are executed. This cluster must have the
-                      appropriate data security mode (USER_ISOLATION or LEGACY_TABLE_ACL
+                      appropriate access mode (USER_ISOLATION or LEGACY_TABLE_ACL
                       specified).
                     type: string
                   database:

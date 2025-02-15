@@ -32,9 +32,9 @@ const (
 	keyAzureClientId            = "azure_client_id"
 	keyAzureClientSecret        = "azure_client_secret"
 	keyAzureTenantId            = "azure_tenant_id"
-	keyClientId      			= "client_id"
-	keyClientSecret 			= "client_secret"
-	keyAccountId	 			= "account_id"
+	keyClientId                 = "client_id"
+	keyClientSecret             = "client_secret"
+	keyAccountId                = "account_id"
 	keyAuthType                 = "auth_type"
 	keyAuthToken                = "token"
 )

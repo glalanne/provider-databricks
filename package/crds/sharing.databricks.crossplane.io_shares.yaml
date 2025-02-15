@@ -102,8 +102,8 @@ spec:
                         content:
                           type: string
                         dataObjectType:
-                          description: Type of the data object, currently TABLE, SCHEMA,
-                            VOLUME, and MODEL are supported.
+                          description: Type of the data object, currently TABLE, VIEW,
+                            SCHEMA, VOLUME, and MODEL are supported.
                           type: string
                         historyDataSharingStatus:
                           description: 'Whether to enable history sharing, one of:
@@ -234,8 +234,8 @@ spec:
                         content:
                           type: string
                         dataObjectType:
-                          description: Type of the data object, currently TABLE, SCHEMA,
-                            VOLUME, and MODEL are supported.
+                          description: Type of the data object, currently TABLE, VIEW,
+                            SCHEMA, VOLUME, and MODEL are supported.
                           type: string
                         historyDataSharingStatus:
                           description: 'Whether to enable history sharing, one of:
@@ -533,8 +533,8 @@ spec:
                         content:
                           type: string
                         dataObjectType:
-                          description: Type of the data object, currently TABLE, SCHEMA,
-                            VOLUME, and MODEL are supported.
+                          description: Type of the data object, currently TABLE, VIEW,
+                            SCHEMA, VOLUME, and MODEL are supported.
                           type: string
                         historyDataSharingStatus:
                           description: 'Whether to enable history sharing, one of:

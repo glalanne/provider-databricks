@@ -26,7 +26,7 @@ type ObjectInitParameters struct {
 
 	Content *string `json:"content,omitempty" tf:"content,omitempty"`
 
-	// Type of the data object, currently TABLE, SCHEMA, VOLUME, and MODEL are supported.
+	// Type of the data object, currently TABLE, VIEW, SCHEMA, VOLUME, and MODEL are supported.
 	DataObjectType *string `json:"dataObjectType,omitempty" tf:"data_object_type,omitempty"`
 
 	// Whether to enable history sharing, one of: ENABLED, DISABLED. When a table has history sharing enabled, recipients can query table data by version, starting from the current table version. If not specified, clients can only query starting from the version of the object at the time it was added to the share. NOTE: The start_version should be less than or equal the current version of the object. When this field is set, field cdf_enabled can not be set.
@@ -63,7 +63,7 @@ type ObjectObservation struct {
 
 	Content *string `json:"content,omitempty" tf:"content,omitempty"`
 
-	// Type of the data object, currently TABLE, SCHEMA, VOLUME, and MODEL are supported.
+	// Type of the data object, currently TABLE, VIEW, SCHEMA, VOLUME, and MODEL are supported.
 	DataObjectType *string `json:"dataObjectType,omitempty" tf:"data_object_type,omitempty"`
 
 	// Whether to enable history sharing, one of: ENABLED, DISABLED. When a table has history sharing enabled, recipients can query table data by version, starting from the current table version. If not specified, clients can only query starting from the version of the object at the time it was added to the share. NOTE: The start_version should be less than or equal the current version of the object. When this field is set, field cdf_enabled can not be set.
@@ -106,7 +106,7 @@ type ObjectParameters struct {
 	// +kubebuilder:validation:Optional
 	Content *string `json:"content,omitempty" tf:"content,omitempty"`
 
-	// Type of the data object, currently TABLE, SCHEMA, VOLUME, and MODEL are supported.
+	// Type of the data object, currently TABLE, VIEW, SCHEMA, VOLUME, and MODEL are supported.
 	// +kubebuilder:validation:Optional
 	DataObjectType *string `json:"dataObjectType" tf:"data_object_type,omitempty"`
 

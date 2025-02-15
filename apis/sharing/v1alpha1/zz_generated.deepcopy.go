@@ -732,6 +732,11 @@ func (in *RecipientInitParameters) DeepCopyInto(out *RecipientInitParameters) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.ExpirationTime != nil {
+		in, out := &in.ExpirationTime, &out.ExpirationTime
+		*out = new(float64)
+		**out = **in
+	}
 	if in.IPAccessList != nil {
 		in, out := &in.IPAccessList, &out.IPAccessList
 		*out = make([]IPAccessListInitParameters, len(*in))
@@ -853,6 +858,11 @@ func (in *RecipientObservation) DeepCopyInto(out *RecipientObservation) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.ExpirationTime != nil {
+		in, out := &in.ExpirationTime, &out.ExpirationTime
+		*out = new(float64)
+		**out = **in
+	}
 	if in.ID != nil {
 		in, out := &in.ID, &out.ID
 		*out = new(string)
@@ -937,6 +947,11 @@ func (in *RecipientParameters) DeepCopyInto(out *RecipientParameters) {
 	if in.DataRecipientGlobalMetastoreID != nil {
 		in, out := &in.DataRecipientGlobalMetastoreID, &out.DataRecipientGlobalMetastoreID
 		*out = new(string)
+		**out = **in
+	}
+	if in.ExpirationTime != nil {
+		in, out := &in.ExpirationTime, &out.ExpirationTime
+		*out = new(float64)
 		**out = **in
 	}
 	if in.IPAccessList != nil {

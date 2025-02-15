@@ -283,7 +283,7 @@ type ClusterInitParameters struct {
 	// +mapType=granular
 	CustomTags map[string]*string `json:"customTags,omitempty" tf:"custom_tags,omitempty"`
 
-	// Select the security features of the cluster. Unity Catalog requires SINGLE_USER or USER_ISOLATION mode. LEGACY_PASSTHROUGH for passthrough cluster and LEGACY_TABLE_ACL for Table ACL cluster. If omitted, default security features are enabled. To disable security features use NONE or legacy mode NO_ISOLATION. In the Databricks UI, this has been recently been renamed Access Mode and USER_ISOLATION has been renamed Shared, but use these terms here.
+	// Select the security features of the cluster (see API docs for full list of values). Unity Catalog requires SINGLE_USER or USER_ISOLATION mode. LEGACY_PASSTHROUGH for passthrough cluster and LEGACY_TABLE_ACL for Table ACL cluster. If omitted, default security features are enabled. To disable security features use NONE or legacy mode NO_ISOLATION.  If kind is specified, then the following options are available:
 	DataSecurityMode *string `json:"dataSecurityMode,omitempty" tf:"data_security_mode,omitempty"`
 
 	DockerImage []DockerImageInitParameters `json:"dockerImage,omitempty" tf:"docker_image,omitempty"`
@@ -313,8 +313,10 @@ type ClusterInitParameters struct {
 	// boolean value specifying if the cluster is pinned (not pinned by default). You must be a Databricks administrator to use this.  The pinned clusters' maximum number is limited to 100, so apply may fail if you have more than that (this number may change over time, so check Databricks documentation for actual number).
 	IsPinned *bool `json:"isPinned,omitempty" tf:"is_pinned,omitempty"`
 
+	// When set to true, Databricks will automatically set single node related custom_tags, spark_conf, and num_workers.
 	IsSingleNode *bool `json:"isSingleNode,omitempty" tf:"is_single_node,omitempty"`
 
+	// The kind of compute described by this compute specification.  Possible values (see API docs for full list): CLASSIC_PREVIEW (if corresponding public preview is enabled).
 	Kind *string `json:"kind,omitempty" tf:"kind,omitempty"`
 
 	Library []LibraryInitParameters `json:"library,omitempty" tf:"library,omitempty"`
@@ -337,7 +339,7 @@ type ClusterInitParameters struct {
 	// SSH public key contents that will be added to each Spark node in this cluster. The corresponding private keys can be used to login with the user name ubuntu on port 2200. You can specify up to 10 keys.
 	SSHPublicKeys []*string `json:"sshPublicKeys,omitempty" tf:"ssh_public_keys,omitempty"`
 
-	// The optional user name of the user to assign to an interactive cluster. This field is required when using data_security_mode set to SINGLE_USER or AAD Passthrough for Azure Data Lake Storage (ADLS) with a single-user cluster (i.e., not high-concurrency clusters).
+	// The optional user name of the user (or group name if kind if specified) to assign to an interactive cluster. This field is required when using data_security_mode set to SINGLE_USER or AAD Passthrough for Azure Data Lake Storage (ADLS) with a single-user cluster (i.e., not high-concurrency clusters).
 	SingleUserName *string `json:"singleUserName,omitempty" tf:"single_user_name,omitempty"`
 
 	// Map with key-value pairs to fine-tune Spark clusters, where you can provide custom Spark configuration properties in a cluster configuration.
@@ -351,6 +353,7 @@ type ClusterInitParameters struct {
 	// Runtime version of the cluster. Any supported databricks_spark_version id.  We advise using Cluster Policies to restrict the list of versions for simplicity while maintaining enough control.
 	SparkVersion *string `json:"sparkVersion,omitempty" tf:"spark_version,omitempty"`
 
+	// Whenever ML runtime should be selected or not.  Actual runtime is determined by spark_version (DBR release), this field use_ml_runtime, and whether node_type_id is GPU node or not.
 	UseMLRuntime *bool `json:"useMlRuntime,omitempty" tf:"use_ml_runtime,omitempty"`
 
 	WorkloadType []WorkloadTypeInitParameters `json:"workloadType,omitempty" tf:"workload_type,omitempty"`
@@ -360,12 +363,16 @@ type ClusterLogConfInitParameters struct {
 	Dbfs []DbfsInitParameters `json:"dbfs,omitempty" tf:"dbfs,omitempty"`
 
 	S3 []S3InitParameters `json:"s3,omitempty" tf:"s3,omitempty"`
+
+	Volumes []VolumesInitParameters `json:"volumes,omitempty" tf:"volumes,omitempty"`
 }
 
 type ClusterLogConfObservation struct {
 	Dbfs []DbfsObservation `json:"dbfs,omitempty" tf:"dbfs,omitempty"`
 
 	S3 []S3Observation `json:"s3,omitempty" tf:"s3,omitempty"`
+
+	Volumes []VolumesObservation `json:"volumes,omitempty" tf:"volumes,omitempty"`
 }
 
 type ClusterLogConfParameters struct {
@@ -375,6 +382,9 @@ type ClusterLogConfParameters struct {
 
 	// +kubebuilder:validation:Optional
 	S3 []S3Parameters `json:"s3,omitempty" tf:"s3,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	Volumes []VolumesParameters `json:"volumes,omitempty" tf:"volumes,omitempty"`
 }
 
 type ClusterMountInfoInitParameters struct {
@@ -444,7 +454,7 @@ type ClusterObservation struct {
 	// +mapType=granular
 	CustomTags map[string]*string `json:"customTags,omitempty" tf:"custom_tags,omitempty"`
 
-	// Select the security features of the cluster. Unity Catalog requires SINGLE_USER or USER_ISOLATION mode. LEGACY_PASSTHROUGH for passthrough cluster and LEGACY_TABLE_ACL for Table ACL cluster. If omitted, default security features are enabled. To disable security features use NONE or legacy mode NO_ISOLATION. In the Databricks UI, this has been recently been renamed Access Mode and USER_ISOLATION has been renamed Shared, but use these terms here.
+	// Select the security features of the cluster (see API docs for full list of values). Unity Catalog requires SINGLE_USER or USER_ISOLATION mode. LEGACY_PASSTHROUGH for passthrough cluster and LEGACY_TABLE_ACL for Table ACL cluster. If omitted, default security features are enabled. To disable security features use NONE or legacy mode NO_ISOLATION.  If kind is specified, then the following options are available:
 	DataSecurityMode *string `json:"dataSecurityMode,omitempty" tf:"data_security_mode,omitempty"`
 
 	// (map) Tags that are added by Databricks by default, regardless of any custom_tags that may have been added. These include: Vendor: Databricks, Creator: <username_of_creator>, ClusterName: <name_of_cluster>, ClusterId: <id_of_cluster>, Name: , and any workspace and pool tags.
@@ -481,8 +491,10 @@ type ClusterObservation struct {
 	// boolean value specifying if the cluster is pinned (not pinned by default). You must be a Databricks administrator to use this.  The pinned clusters' maximum number is limited to 100, so apply may fail if you have more than that (this number may change over time, so check Databricks documentation for actual number).
 	IsPinned *bool `json:"isPinned,omitempty" tf:"is_pinned,omitempty"`
 
+	// When set to true, Databricks will automatically set single node related custom_tags, spark_conf, and num_workers.
 	IsSingleNode *bool `json:"isSingleNode,omitempty" tf:"is_single_node,omitempty"`
 
+	// The kind of compute described by this compute specification.  Possible values (see API docs for full list): CLASSIC_PREVIEW (if corresponding public preview is enabled).
 	Kind *string `json:"kind,omitempty" tf:"kind,omitempty"`
 
 	Library []LibraryObservation `json:"library,omitempty" tf:"library,omitempty"`
@@ -505,7 +517,7 @@ type ClusterObservation struct {
 	// SSH public key contents that will be added to each Spark node in this cluster. The corresponding private keys can be used to login with the user name ubuntu on port 2200. You can specify up to 10 keys.
 	SSHPublicKeys []*string `json:"sshPublicKeys,omitempty" tf:"ssh_public_keys,omitempty"`
 
-	// The optional user name of the user to assign to an interactive cluster. This field is required when using data_security_mode set to SINGLE_USER or AAD Passthrough for Azure Data Lake Storage (ADLS) with a single-user cluster (i.e., not high-concurrency clusters).
+	// The optional user name of the user (or group name if kind if specified) to assign to an interactive cluster. This field is required when using data_security_mode set to SINGLE_USER or AAD Passthrough for Azure Data Lake Storage (ADLS) with a single-user cluster (i.e., not high-concurrency clusters).
 	SingleUserName *string `json:"singleUserName,omitempty" tf:"single_user_name,omitempty"`
 
 	// Map with key-value pairs to fine-tune Spark clusters, where you can provide custom Spark configuration properties in a cluster configuration.
@@ -525,6 +537,7 @@ type ClusterObservation struct {
 	// URL for the Docker image
 	URL *string `json:"url,omitempty" tf:"url,omitempty"`
 
+	// Whenever ML runtime should be selected or not.  Actual runtime is determined by spark_version (DBR release), this field use_ml_runtime, and whether node_type_id is GPU node or not.
 	UseMLRuntime *bool `json:"useMlRuntime,omitempty" tf:"use_ml_runtime,omitempty"`
 
 	WorkloadType []WorkloadTypeObservation `json:"workloadType,omitempty" tf:"workload_type,omitempty"`
@@ -564,7 +577,7 @@ type ClusterParameters struct {
 	// +mapType=granular
 	CustomTags map[string]*string `json:"customTags,omitempty" tf:"custom_tags,omitempty"`
 
-	// Select the security features of the cluster. Unity Catalog requires SINGLE_USER or USER_ISOLATION mode. LEGACY_PASSTHROUGH for passthrough cluster and LEGACY_TABLE_ACL for Table ACL cluster. If omitted, default security features are enabled. To disable security features use NONE or legacy mode NO_ISOLATION. In the Databricks UI, this has been recently been renamed Access Mode and USER_ISOLATION has been renamed Shared, but use these terms here.
+	// Select the security features of the cluster (see API docs for full list of values). Unity Catalog requires SINGLE_USER or USER_ISOLATION mode. LEGACY_PASSTHROUGH for passthrough cluster and LEGACY_TABLE_ACL for Table ACL cluster. If omitted, default security features are enabled. To disable security features use NONE or legacy mode NO_ISOLATION.  If kind is specified, then the following options are available:
 	// +kubebuilder:validation:Optional
 	DataSecurityMode *string `json:"dataSecurityMode,omitempty" tf:"data_security_mode,omitempty"`
 
@@ -605,9 +618,11 @@ type ClusterParameters struct {
 	// +kubebuilder:validation:Optional
 	IsPinned *bool `json:"isPinned,omitempty" tf:"is_pinned,omitempty"`
 
+	// When set to true, Databricks will automatically set single node related custom_tags, spark_conf, and num_workers.
 	// +kubebuilder:validation:Optional
 	IsSingleNode *bool `json:"isSingleNode,omitempty" tf:"is_single_node,omitempty"`
 
+	// The kind of compute described by this compute specification.  Possible values (see API docs for full list): CLASSIC_PREVIEW (if corresponding public preview is enabled).
 	// +kubebuilder:validation:Optional
 	Kind *string `json:"kind,omitempty" tf:"kind,omitempty"`
 
@@ -638,7 +653,7 @@ type ClusterParameters struct {
 	// +kubebuilder:validation:Optional
 	SSHPublicKeys []*string `json:"sshPublicKeys,omitempty" tf:"ssh_public_keys,omitempty"`
 
-	// The optional user name of the user to assign to an interactive cluster. This field is required when using data_security_mode set to SINGLE_USER or AAD Passthrough for Azure Data Lake Storage (ADLS) with a single-user cluster (i.e., not high-concurrency clusters).
+	// The optional user name of the user (or group name if kind if specified) to assign to an interactive cluster. This field is required when using data_security_mode set to SINGLE_USER or AAD Passthrough for Azure Data Lake Storage (ADLS) with a single-user cluster (i.e., not high-concurrency clusters).
 	// +kubebuilder:validation:Optional
 	SingleUserName *string `json:"singleUserName,omitempty" tf:"single_user_name,omitempty"`
 
@@ -656,6 +671,7 @@ type ClusterParameters struct {
 	// +kubebuilder:validation:Optional
 	SparkVersion *string `json:"sparkVersion,omitempty" tf:"spark_version,omitempty"`
 
+	// Whenever ML runtime should be selected or not.  Actual runtime is determined by spark_version (DBR release), this field use_ml_runtime, and whether node_type_id is GPU node or not.
 	// +kubebuilder:validation:Optional
 	UseMLRuntime *bool `json:"useMlRuntime,omitempty" tf:"use_ml_runtime,omitempty"`
 
@@ -869,7 +885,7 @@ type InitScriptsInitParameters struct {
 
 	S3 []InitScriptsS3InitParameters `json:"s3,omitempty" tf:"s3,omitempty"`
 
-	Volumes []VolumesInitParameters `json:"volumes,omitempty" tf:"volumes,omitempty"`
+	Volumes []InitScriptsVolumesInitParameters `json:"volumes,omitempty" tf:"volumes,omitempty"`
 
 	Workspace []WorkspaceInitParameters `json:"workspace,omitempty" tf:"workspace,omitempty"`
 }
@@ -885,7 +901,7 @@ type InitScriptsObservation struct {
 
 	S3 []InitScriptsS3Observation `json:"s3,omitempty" tf:"s3,omitempty"`
 
-	Volumes []VolumesObservation `json:"volumes,omitempty" tf:"volumes,omitempty"`
+	Volumes []InitScriptsVolumesObservation `json:"volumes,omitempty" tf:"volumes,omitempty"`
 
 	Workspace []WorkspaceObservation `json:"workspace,omitempty" tf:"workspace,omitempty"`
 }
@@ -908,7 +924,7 @@ type InitScriptsParameters struct {
 	S3 []InitScriptsS3Parameters `json:"s3,omitempty" tf:"s3,omitempty"`
 
 	// +kubebuilder:validation:Optional
-	Volumes []VolumesParameters `json:"volumes,omitempty" tf:"volumes,omitempty"`
+	Volumes []InitScriptsVolumesParameters `json:"volumes,omitempty" tf:"volumes,omitempty"`
 
 	// +kubebuilder:validation:Optional
 	Workspace []WorkspaceParameters `json:"workspace,omitempty" tf:"workspace,omitempty"`
@@ -991,6 +1007,25 @@ type InitScriptsS3Parameters struct {
 	// S3 region, e.g. us-west-2. Either region or endpoint must be set. If both are set, the endpoint is used.
 	// +kubebuilder:validation:Optional
 	Region *string `json:"region,omitempty" tf:"region,omitempty"`
+}
+
+type InitScriptsVolumesInitParameters struct {
+
+	// S3 destination, e.g., s3://my-bucket/some-prefix You must configure the cluster with an instance profile, and the instance profile must have write access to the destination. You cannot use AWS keys.
+	Destination *string `json:"destination,omitempty" tf:"destination,omitempty"`
+}
+
+type InitScriptsVolumesObservation struct {
+
+	// S3 destination, e.g., s3://my-bucket/some-prefix You must configure the cluster with an instance profile, and the instance profile must have write access to the destination. You cannot use AWS keys.
+	Destination *string `json:"destination,omitempty" tf:"destination,omitempty"`
+}
+
+type InitScriptsVolumesParameters struct {
+
+	// S3 destination, e.g., s3://my-bucket/some-prefix You must configure the cluster with an instance profile, and the instance profile must have write access to the destination. You cannot use AWS keys.
+	// +kubebuilder:validation:Optional
+	Destination *string `json:"destination" tf:"destination,omitempty"`
 }
 
 type LibraryInitParameters struct {

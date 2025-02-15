@@ -15,13 +15,13 @@ import (
 
 type ColumnInitParameters struct {
 
-	// User-supplied free-form text. Changing comment is not currently supported on VIEW table_type.
+	// User-supplied free-form text. Changing the comment is not currently supported on the VIEW table type.
 	Comment *string `json:"comment,omitempty" tf:"comment,omitempty"`
 
-	// Whether field is an identity column. Can be default, always or unset. It is unset by default.
+	// Whether the field is an identity column. Can be default, always, or unset. It is unset by default.
 	Identity *string `json:"identity,omitempty" tf:"identity,omitempty"`
 
-	// Name of table relative to parent catalog and schema. Change forces creation of a new resource.
+	// Name of table relative to parent catalog and schema. Change forces the creation of a new resource.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// Whether field is nullable (Default: true)
@@ -35,13 +35,13 @@ type ColumnInitParameters struct {
 
 type ColumnObservation struct {
 
-	// User-supplied free-form text. Changing comment is not currently supported on VIEW table_type.
+	// User-supplied free-form text. Changing the comment is not currently supported on the VIEW table type.
 	Comment *string `json:"comment,omitempty" tf:"comment,omitempty"`
 
-	// Whether field is an identity column. Can be default, always or unset. It is unset by default.
+	// Whether the field is an identity column. Can be default, always, or unset. It is unset by default.
 	Identity *string `json:"identity,omitempty" tf:"identity,omitempty"`
 
-	// Name of table relative to parent catalog and schema. Change forces creation of a new resource.
+	// Name of table relative to parent catalog and schema. Change forces the creation of a new resource.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// Whether field is nullable (Default: true)
@@ -55,15 +55,15 @@ type ColumnObservation struct {
 
 type ColumnParameters struct {
 
-	// User-supplied free-form text. Changing comment is not currently supported on VIEW table_type.
+	// User-supplied free-form text. Changing the comment is not currently supported on the VIEW table type.
 	// +kubebuilder:validation:Optional
 	Comment *string `json:"comment,omitempty" tf:"comment,omitempty"`
 
-	// Whether field is an identity column. Can be default, always or unset. It is unset by default.
+	// Whether the field is an identity column. Can be default, always, or unset. It is unset by default.
 	// +kubebuilder:validation:Optional
 	Identity *string `json:"identity,omitempty" tf:"identity,omitempty"`
 
-	// Name of table relative to parent catalog and schema. Change forces creation of a new resource.
+	// Name of table relative to parent catalog and schema. Change forces the creation of a new resource.
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name" tf:"name,omitempty"`
 
@@ -81,7 +81,7 @@ type ColumnParameters struct {
 
 type SQLTableInitParameters struct {
 
-	// Name of parent catalog. Change forces creation of a new resource.
+	// Name of parent catalog. Change forces the creation of a new resource.
 	CatalogName *string `json:"catalogName,omitempty" tf:"catalog_name,omitempty"`
 
 	// All table CRUD operations must be executed on a running cluster or SQL warehouse. If a cluster_id is specified, it will be used to execute SQL commands to manage this table.
@@ -101,39 +101,39 @@ type SQLTableInitParameters struct {
 
 	Column []ColumnInitParameters `json:"column,omitempty" tf:"column,omitempty"`
 
-	// User-supplied free-form text. Changing comment is not currently supported on VIEW table_type.
+	// User-supplied free-form text. Changing the comment is not currently supported on the VIEW table type.
 	Comment *string `json:"comment,omitempty" tf:"comment,omitempty"`
 
-	// External tables are supported in multiple data source formats. The string constants identifying these formats are DELTA, CSV, JSON, AVRO, PARQUET, ORC, TEXT. Change forces creation of a new resource. Not supported for MANAGED tables or VIEW.
+	// External tables are supported in multiple data source formats. The string constants identifying these formats are DELTA, CSV, JSON, AVRO, PARQUET, ORC, and TEXT. Change forces the creation of a new resource. Not supported for MANAGED tables or VIEW.
 	DataSourceFormat *string `json:"dataSourceFormat,omitempty" tf:"data_source_format,omitempty"`
 
-	// Name of table relative to parent catalog and schema. Change forces creation of a new resource.
+	// Name of table relative to parent catalog and schema. Change forces the creation of a new resource.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// Map of user defined table options. Change forces creation of a new resource.
 	// +mapType=granular
 	Options map[string]*string `json:"options,omitempty" tf:"options,omitempty"`
 
-	// Username/groupname/sp application_id of the schema owner.
+	// User name/group name/sp application_id of the schema owner.
 	Owner *string `json:"owner,omitempty" tf:"owner,omitempty"`
 
-	// a subset of columns to partition the table by. Change forces creation of a new resource. Conflicts with cluster_keys. Change forces creation of a new resource.
+	// a subset of columns to partition the table by. Change forces the creation of a new resource. Conflicts with cluster_keys. Change forces creation of a new resource.
 	Partitions []*string `json:"partitions,omitempty" tf:"partitions,omitempty"`
 
-	// Map of table properties.
+	// A map of table properties.
 	// +mapType=granular
 	Properties map[string]*string `json:"properties,omitempty" tf:"properties,omitempty"`
 
-	// Name of parent Schema relative to parent Catalog. Change forces creation of a new resource.
+	// Name of parent Schema relative to parent Catalog. Change forces the creation of a new resource.
 	SchemaName *string `json:"schemaName,omitempty" tf:"schema_name,omitempty"`
 
-	// For EXTERNAL Tables only: the name of storage credential to use. Change forces creation of a new resource.
+	// For EXTERNAL Tables only: the name of storage credential to use. Change forces the creation of a new resource.
 	StorageCredentialName *string `json:"storageCredentialName,omitempty" tf:"storage_credential_name,omitempty"`
 
 	// URL of storage location for Table data . Not supported for VIEW or MANAGED table_type.
 	StorageLocation *string `json:"storageLocation,omitempty" tf:"storage_location,omitempty"`
 
-	// Distinguishes a view vs. managed/external Table. MANAGED, EXTERNAL or VIEW. Change forces creation of a new resource.
+	// Distinguishes a view vs. managed/external Table. MANAGED, EXTERNAL, or VIEW. Change forces the creation of a new resource.
 	TableType *string `json:"tableType,omitempty" tf:"table_type,omitempty"`
 
 	// SQL text defining the view (for table_type == "VIEW"). Not supported for MANAGED or EXTERNAL table_type.
@@ -154,7 +154,7 @@ type SQLTableInitParameters struct {
 
 type SQLTableObservation struct {
 
-	// Name of parent catalog. Change forces creation of a new resource.
+	// Name of parent catalog. Change forces the creation of a new resource.
 	CatalogName *string `json:"catalogName,omitempty" tf:"catalog_name,omitempty"`
 
 	// All table CRUD operations must be executed on a running cluster or SQL warehouse. If a cluster_id is specified, it will be used to execute SQL commands to manage this table.
@@ -165,46 +165,46 @@ type SQLTableObservation struct {
 
 	Column []ColumnObservation `json:"column,omitempty" tf:"column,omitempty"`
 
-	// User-supplied free-form text. Changing comment is not currently supported on VIEW table_type.
+	// User-supplied free-form text. Changing the comment is not currently supported on the VIEW table type.
 	Comment *string `json:"comment,omitempty" tf:"comment,omitempty"`
 
-	// External tables are supported in multiple data source formats. The string constants identifying these formats are DELTA, CSV, JSON, AVRO, PARQUET, ORC, TEXT. Change forces creation of a new resource. Not supported for MANAGED tables or VIEW.
+	// External tables are supported in multiple data source formats. The string constants identifying these formats are DELTA, CSV, JSON, AVRO, PARQUET, ORC, and TEXT. Change forces the creation of a new resource. Not supported for MANAGED tables or VIEW.
 	DataSourceFormat *string `json:"dataSourceFormat,omitempty" tf:"data_source_format,omitempty"`
 
-	// Map of table properties.
+	// A map of table properties.
 	// +mapType=granular
 	EffectiveProperties map[string]*string `json:"effectiveProperties,omitempty" tf:"effective_properties,omitempty"`
 
-	// ID of this table in form of <catalog_name>.<schema_name>.<name>.
+	// ID of this table in the form of <catalog_name>.<schema_name>.<name>.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
-	// Name of table relative to parent catalog and schema. Change forces creation of a new resource.
+	// Name of table relative to parent catalog and schema. Change forces the creation of a new resource.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// Map of user defined table options. Change forces creation of a new resource.
 	// +mapType=granular
 	Options map[string]*string `json:"options,omitempty" tf:"options,omitempty"`
 
-	// Username/groupname/sp application_id of the schema owner.
+	// User name/group name/sp application_id of the schema owner.
 	Owner *string `json:"owner,omitempty" tf:"owner,omitempty"`
 
-	// a subset of columns to partition the table by. Change forces creation of a new resource. Conflicts with cluster_keys. Change forces creation of a new resource.
+	// a subset of columns to partition the table by. Change forces the creation of a new resource. Conflicts with cluster_keys. Change forces creation of a new resource.
 	Partitions []*string `json:"partitions,omitempty" tf:"partitions,omitempty"`
 
-	// Map of table properties.
+	// A map of table properties.
 	// +mapType=granular
 	Properties map[string]*string `json:"properties,omitempty" tf:"properties,omitempty"`
 
-	// Name of parent Schema relative to parent Catalog. Change forces creation of a new resource.
+	// Name of parent Schema relative to parent Catalog. Change forces the creation of a new resource.
 	SchemaName *string `json:"schemaName,omitempty" tf:"schema_name,omitempty"`
 
-	// For EXTERNAL Tables only: the name of storage credential to use. Change forces creation of a new resource.
+	// For EXTERNAL Tables only: the name of storage credential to use. Change forces the creation of a new resource.
 	StorageCredentialName *string `json:"storageCredentialName,omitempty" tf:"storage_credential_name,omitempty"`
 
 	// URL of storage location for Table data . Not supported for VIEW or MANAGED table_type.
 	StorageLocation *string `json:"storageLocation,omitempty" tf:"storage_location,omitempty"`
 
-	// Distinguishes a view vs. managed/external Table. MANAGED, EXTERNAL or VIEW. Change forces creation of a new resource.
+	// Distinguishes a view vs. managed/external Table. MANAGED, EXTERNAL, or VIEW. Change forces the creation of a new resource.
 	TableType *string `json:"tableType,omitempty" tf:"table_type,omitempty"`
 
 	// SQL text defining the view (for table_type == "VIEW"). Not supported for MANAGED or EXTERNAL table_type.
@@ -216,7 +216,7 @@ type SQLTableObservation struct {
 
 type SQLTableParameters struct {
 
-	// Name of parent catalog. Change forces creation of a new resource.
+	// Name of parent catalog. Change forces the creation of a new resource.
 	// +kubebuilder:validation:Optional
 	CatalogName *string `json:"catalogName,omitempty" tf:"catalog_name,omitempty"`
 
@@ -240,15 +240,15 @@ type SQLTableParameters struct {
 	// +kubebuilder:validation:Optional
 	Column []ColumnParameters `json:"column,omitempty" tf:"column,omitempty"`
 
-	// User-supplied free-form text. Changing comment is not currently supported on VIEW table_type.
+	// User-supplied free-form text. Changing the comment is not currently supported on the VIEW table type.
 	// +kubebuilder:validation:Optional
 	Comment *string `json:"comment,omitempty" tf:"comment,omitempty"`
 
-	// External tables are supported in multiple data source formats. The string constants identifying these formats are DELTA, CSV, JSON, AVRO, PARQUET, ORC, TEXT. Change forces creation of a new resource. Not supported for MANAGED tables or VIEW.
+	// External tables are supported in multiple data source formats. The string constants identifying these formats are DELTA, CSV, JSON, AVRO, PARQUET, ORC, and TEXT. Change forces the creation of a new resource. Not supported for MANAGED tables or VIEW.
 	// +kubebuilder:validation:Optional
 	DataSourceFormat *string `json:"dataSourceFormat,omitempty" tf:"data_source_format,omitempty"`
 
-	// Name of table relative to parent catalog and schema. Change forces creation of a new resource.
+	// Name of table relative to parent catalog and schema. Change forces the creation of a new resource.
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
@@ -257,24 +257,24 @@ type SQLTableParameters struct {
 	// +mapType=granular
 	Options map[string]*string `json:"options,omitempty" tf:"options,omitempty"`
 
-	// Username/groupname/sp application_id of the schema owner.
+	// User name/group name/sp application_id of the schema owner.
 	// +kubebuilder:validation:Optional
 	Owner *string `json:"owner,omitempty" tf:"owner,omitempty"`
 
-	// a subset of columns to partition the table by. Change forces creation of a new resource. Conflicts with cluster_keys. Change forces creation of a new resource.
+	// a subset of columns to partition the table by. Change forces the creation of a new resource. Conflicts with cluster_keys. Change forces creation of a new resource.
 	// +kubebuilder:validation:Optional
 	Partitions []*string `json:"partitions,omitempty" tf:"partitions,omitempty"`
 
-	// Map of table properties.
+	// A map of table properties.
 	// +kubebuilder:validation:Optional
 	// +mapType=granular
 	Properties map[string]*string `json:"properties,omitempty" tf:"properties,omitempty"`
 
-	// Name of parent Schema relative to parent Catalog. Change forces creation of a new resource.
+	// Name of parent Schema relative to parent Catalog. Change forces the creation of a new resource.
 	// +kubebuilder:validation:Optional
 	SchemaName *string `json:"schemaName,omitempty" tf:"schema_name,omitempty"`
 
-	// For EXTERNAL Tables only: the name of storage credential to use. Change forces creation of a new resource.
+	// For EXTERNAL Tables only: the name of storage credential to use. Change forces the creation of a new resource.
 	// +kubebuilder:validation:Optional
 	StorageCredentialName *string `json:"storageCredentialName,omitempty" tf:"storage_credential_name,omitempty"`
 
@@ -282,7 +282,7 @@ type SQLTableParameters struct {
 	// +kubebuilder:validation:Optional
 	StorageLocation *string `json:"storageLocation,omitempty" tf:"storage_location,omitempty"`
 
-	// Distinguishes a view vs. managed/external Table. MANAGED, EXTERNAL or VIEW. Change forces creation of a new resource.
+	// Distinguishes a view vs. managed/external Table. MANAGED, EXTERNAL, or VIEW. Change forces the creation of a new resource.
 	// +kubebuilder:validation:Optional
 	TableType *string `json:"tableType,omitempty" tf:"table_type,omitempty"`
 

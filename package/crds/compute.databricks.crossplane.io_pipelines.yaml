@@ -195,6 +195,13 @@ spec:
                                       type: string
                                   type: object
                                 type: array
+                              volumes:
+                                items:
+                                  properties:
+                                    destination:
+                                      type: string
+                                  type: object
+                                type: array
                             type: object
                           type: array
                         customTags:
@@ -693,10 +700,19 @@ spec:
                           type: string
                       type: object
                     type: array
-                  runAsUserName:
-                    description: A user-friendly name for this pipeline. The name
-                      can be used to identify pipeline jobs in the UI.
-                    type: string
+                  runAs:
+                    items:
+                      properties:
+                        servicePrincipalName:
+                          description: A user-friendly name for this pipeline. The
+                            name can be used to identify pipeline jobs in the UI.
+                          type: string
+                        userName:
+                          description: A user-friendly name for this pipeline. The
+                            name can be used to identify pipeline jobs in the UI.
+                          type: string
+                      type: object
+                    type: array
                   schema:
                     description: The default schema (database) where tables are read
                       from or published to. The presence of this attribute implies
@@ -882,6 +898,13 @@ spec:
                                       type: string
                                   type: object
                                 type: array
+                              volumes:
+                                items:
+                                  properties:
+                                    destination:
+                                      type: string
+                                  type: object
+                                type: array
                             type: object
                           type: array
                         customTags:
@@ -1380,10 +1403,19 @@ spec:
                           type: string
                       type: object
                     type: array
-                  runAsUserName:
-                    description: A user-friendly name for this pipeline. The name
-                      can be used to identify pipeline jobs in the UI.
-                    type: string
+                  runAs:
+                    items:
+                      properties:
+                        servicePrincipalName:
+                          description: A user-friendly name for this pipeline. The
+                            name can be used to identify pipeline jobs in the UI.
+                          type: string
+                        userName:
+                          description: A user-friendly name for this pipeline. The
+                            name can be used to identify pipeline jobs in the UI.
+                          type: string
+                      type: object
+                    type: array
                   schema:
                     description: The default schema (database) where tables are read
                       from or published to. The presence of this attribute implies
@@ -1725,6 +1757,13 @@ spec:
                                     kmsKey:
                                       type: string
                                     region:
+                                      type: string
+                                  type: object
+                                type: array
+                              volumes:
+                                items:
+                                  properties:
+                                    destination:
                                       type: string
                                   type: object
                                 type: array
@@ -2226,6 +2265,19 @@ spec:
                           type: number
                         timeZoneId:
                           description: Canonical unique identifier of the DLT pipeline.
+                          type: string
+                      type: object
+                    type: array
+                  runAs:
+                    items:
+                      properties:
+                        servicePrincipalName:
+                          description: A user-friendly name for this pipeline. The
+                            name can be used to identify pipeline jobs in the UI.
+                          type: string
+                        userName:
+                          description: A user-friendly name for this pipeline. The
+                            name can be used to identify pipeline jobs in the UI.
                           type: string
                       type: object
                     type: array
