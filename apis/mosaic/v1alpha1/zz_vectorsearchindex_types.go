@@ -21,6 +21,7 @@ type DeltaSyncIndexSpecInitParameters struct {
 	// array of objects representing columns that contain the embedding vectors. Each entry consists of:
 	EmbeddingVectorColumns []EmbeddingVectorColumnsInitParameters `json:"embeddingVectorColumns,omitempty" tf:"embedding_vector_columns,omitempty"`
 
+	// Automatically sync the vector index contents and computed embeddings to the specified Delta table. The only supported table name is the index name with the suffix _writeback_table.
 	EmbeddingWritebackTable *string `json:"embeddingWritebackTable,omitempty" tf:"embedding_writeback_table,omitempty"`
 
 	// Pipeline execution mode. Possible values are:
@@ -38,6 +39,7 @@ type DeltaSyncIndexSpecObservation struct {
 	// array of objects representing columns that contain the embedding vectors. Each entry consists of:
 	EmbeddingVectorColumns []EmbeddingVectorColumnsObservation `json:"embeddingVectorColumns,omitempty" tf:"embedding_vector_columns,omitempty"`
 
+	// Automatically sync the vector index contents and computed embeddings to the specified Delta table. The only supported table name is the index name with the suffix _writeback_table.
 	EmbeddingWritebackTable *string `json:"embeddingWritebackTable,omitempty" tf:"embedding_writeback_table,omitempty"`
 
 	// ID of the associated Delta Live Table pipeline.
@@ -60,6 +62,7 @@ type DeltaSyncIndexSpecParameters struct {
 	// +kubebuilder:validation:Optional
 	EmbeddingVectorColumns []EmbeddingVectorColumnsParameters `json:"embeddingVectorColumns,omitempty" tf:"embedding_vector_columns,omitempty"`
 
+	// Automatically sync the vector index contents and computed embeddings to the specified Delta table. The only supported table name is the index name with the suffix _writeback_table.
 	// +kubebuilder:validation:Optional
 	EmbeddingWritebackTable *string `json:"embeddingWritebackTable,omitempty" tf:"embedding_writeback_table,omitempty"`
 
@@ -250,10 +253,10 @@ type StatusParameters struct {
 
 type VectorSearchIndexInitParameters struct {
 
-	// (object) Specification for Delta Sync Index. Required if index_type is DELTA_SYNC.
+	// (object) Specification for Delta Sync Index. Required if index_type is DELTA_SYNC. This field is a block and is documented below.
 	DeltaSyncIndexSpec []DeltaSyncIndexSpecInitParameters `json:"deltaSyncIndexSpec,omitempty" tf:"delta_sync_index_spec,omitempty"`
 
-	// (object) Specification for Direct Vector Access Index. Required if index_type is DIRECT_ACCESS.
+	// (object) Specification for Direct Vector Access Index. Required if index_type is DIRECT_ACCESS. This field is a block and is documented below.
 	DirectAccessIndexSpec []DirectAccessIndexSpecInitParameters `json:"directAccessIndexSpec,omitempty" tf:"direct_access_index_spec,omitempty"`
 
 	// The name of the Mosaic AI Vector Search Endpoint that will be used for indexing the data.
@@ -274,10 +277,10 @@ type VectorSearchIndexObservation struct {
 	// Creator of the endpoint.
 	Creator *string `json:"creator,omitempty" tf:"creator,omitempty"`
 
-	// (object) Specification for Delta Sync Index. Required if index_type is DELTA_SYNC.
+	// (object) Specification for Delta Sync Index. Required if index_type is DELTA_SYNC. This field is a block and is documented below.
 	DeltaSyncIndexSpec []DeltaSyncIndexSpecObservation `json:"deltaSyncIndexSpec,omitempty" tf:"delta_sync_index_spec,omitempty"`
 
-	// (object) Specification for Direct Vector Access Index. Required if index_type is DIRECT_ACCESS.
+	// (object) Specification for Direct Vector Access Index. Required if index_type is DIRECT_ACCESS. This field is a block and is documented below.
 	DirectAccessIndexSpec []DirectAccessIndexSpecObservation `json:"directAccessIndexSpec,omitempty" tf:"direct_access_index_spec,omitempty"`
 
 	// The name of the Mosaic AI Vector Search Endpoint that will be used for indexing the data.
@@ -301,11 +304,11 @@ type VectorSearchIndexObservation struct {
 
 type VectorSearchIndexParameters struct {
 
-	// (object) Specification for Delta Sync Index. Required if index_type is DELTA_SYNC.
+	// (object) Specification for Delta Sync Index. Required if index_type is DELTA_SYNC. This field is a block and is documented below.
 	// +kubebuilder:validation:Optional
 	DeltaSyncIndexSpec []DeltaSyncIndexSpecParameters `json:"deltaSyncIndexSpec,omitempty" tf:"delta_sync_index_spec,omitempty"`
 
-	// (object) Specification for Direct Vector Access Index. Required if index_type is DIRECT_ACCESS.
+	// (object) Specification for Direct Vector Access Index. Required if index_type is DIRECT_ACCESS. This field is a block and is documented below.
 	// +kubebuilder:validation:Optional
 	DirectAccessIndexSpec []DirectAccessIndexSpecParameters `json:"directAccessIndexSpec,omitempty" tf:"direct_access_index_spec,omitempty"`
 

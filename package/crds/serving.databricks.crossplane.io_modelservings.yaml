@@ -350,6 +350,11 @@ spec:
                                               (case insensitive) include: Anthropic,
                                               Cohere, AI21Labs, Amazon.'
                                             type: string
+                                          instanceProfileArn:
+                                            description: ARN of the instance profile
+                                              that the served model will use to access
+                                              AWS resources.
+                                            type: string
                                         type: object
                                       type: array
                                     anthropicConfig:
@@ -1024,6 +1029,11 @@ spec:
                                               in Amazon Bedrock. Supported values
                                               (case insensitive) include: Anthropic,
                                               Cohere, AI21Labs, Amazon.'
+                                            type: string
+                                          instanceProfileArn:
+                                            description: ARN of the instance profile
+                                              that the served model will use to access
+                                              AWS resources.
                                             type: string
                                         type: object
                                       type: array
@@ -1863,6 +1873,11 @@ spec:
                                               in Amazon Bedrock. Supported values
                                               (case insensitive) include: Anthropic,
                                               Cohere, AI21Labs, Amazon.'
+                                            type: string
+                                          instanceProfileArn:
+                                            description: ARN of the instance profile
+                                              that the served model will use to access
+                                              AWS resources.
                                             type: string
                                         type: object
                                       type: array

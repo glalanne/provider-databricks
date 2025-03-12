@@ -77,11 +77,9 @@ spec:
                     type: string
                   connectionType:
                     description: Connection type. BIGQUERY MYSQL POSTGRESQL SNOWFLAKE
-                      REDSHIFT SQLDW SQLSERVER, SALESFORCE or DATABRICKS are supported.
-                      Up-to-date list of connection type supported
-                    type: string
-                  metastoreId:
-                    description: ID of this connection in form of <metastore_id>|<name>.
+                      REDSHIFT SQLDW SQLSERVER, SALESFORCE, HIVE_METASTORE, GLUE,
+                      TERADATA, ORACLE or DATABRICKS are supported. Up-to-date list
+                      of connection type supported is in the documentation
                     type: string
                   name:
                     description: Name of the Connection.
@@ -131,11 +129,9 @@ spec:
                     type: string
                   connectionType:
                     description: Connection type. BIGQUERY MYSQL POSTGRESQL SNOWFLAKE
-                      REDSHIFT SQLDW SQLSERVER, SALESFORCE or DATABRICKS are supported.
-                      Up-to-date list of connection type supported
-                    type: string
-                  metastoreId:
-                    description: ID of this connection in form of <metastore_id>|<name>.
+                      REDSHIFT SQLDW SQLSERVER, SALESFORCE, HIVE_METASTORE, GLUE,
+                      TERADATA, ORACLE or DATABRICKS are supported. Up-to-date list
+                      of connection type supported is in the documentation
                     type: string
                   name:
                     description: Name of the Connection.
@@ -155,8 +151,6 @@ spec:
                     x-kubernetes-map-type: granular
                   readOnly:
                     type: boolean
-                required:
-                - optionsSecretRef
                 type: object
               managementPolicies:
                 default:
@@ -325,18 +319,6 @@ spec:
             required:
             - forProvider
             type: object
-            x-kubernetes-validations:
-            - message: spec.forProvider.connectionType is a required parameter
-              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
-                || ''Update'' in self.managementPolicies) || has(self.forProvider.connectionType)
-                || (has(self.initProvider) && has(self.initProvider.connectionType))'
-            - message: spec.forProvider.name is a required parameter
-              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
-                || ''Update'' in self.managementPolicies) || has(self.forProvider.name)
-                || (has(self.initProvider) && has(self.initProvider.name))'
-            - message: spec.forProvider.optionsSecretRef is a required parameter
-              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
-                || ''Update'' in self.managementPolicies) || has(self.forProvider.optionsSecretRef)'
           status:
             description: ConnectionStatus defines the observed state of Connection.
             properties:
@@ -345,16 +327,33 @@ spec:
                   comment:
                     description: Free-form text.
                     type: string
+                  connectionId:
+                    description: Unique ID of the connection.
+                    type: string
                   connectionType:
                     description: Connection type. BIGQUERY MYSQL POSTGRESQL SNOWFLAKE
-                      REDSHIFT SQLDW SQLSERVER, SALESFORCE or DATABRICKS are supported.
-                      Up-to-date list of connection type supported
+                      REDSHIFT SQLDW SQLSERVER, SALESFORCE, HIVE_METASTORE, GLUE,
+                      TERADATA, ORACLE or DATABRICKS are supported. Up-to-date list
+                      of connection type supported is in the documentation
+                    type: string
+                  createdAt:
+                    description: Time at which this connection was created, in epoch
+                      milliseconds.
+                    type: number
+                  createdBy:
+                    description: Username of connection creator.
+                    type: string
+                  credentialType:
+                    description: The type of credential for this connection.
+                    type: string
+                  fullName:
+                    description: Full name of connection.
                     type: string
                   id:
                     description: ID of this connection in form of <metastore_id>|<name>.
                     type: string
                   metastoreId:
-                    description: ID of this connection in form of <metastore_id>|<name>.
+                    description: Unique ID of the UC metastore for this connection.
                     type: string
                   name:
                     description: Name of the Connection.
@@ -368,8 +367,29 @@ spec:
                     description: Free-form connection properties.
                     type: object
                     x-kubernetes-map-type: granular
+                  provisioningInfo:
+                    description: Object with the status of an asynchronously provisioned
+                      resource.
+                    items:
+                      properties:
+                        state:
+                          type: string
+                      type: object
+                    type: array
                   readOnly:
                     type: boolean
+                  securableType:
+                    type: string
+                  updatedAt:
+                    description: Time at which connection this was last modified,
+                      in epoch milliseconds.
+                    type: number
+                  updatedBy:
+                    description: Username of user who last modified the connection.
+                    type: string
+                  url:
+                    description: URL of the remote data source, extracted from options.
+                    type: string
                 type: object
               conditions:
                 description: Conditions of the resource.

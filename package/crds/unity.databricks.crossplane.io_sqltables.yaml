@@ -79,7 +79,8 @@ spec:
                   clusterId:
                     description: All table CRUD operations must be executed on a running
                       cluster or SQL warehouse. If a cluster_id is specified, it will
-                      be used to execute SQL commands to manage this table.
+                      be used to execute SQL commands to manage this table. Conflicts
+                      with warehouse_id.
                     type: string
                   clusterIdRef:
                     description: Reference to a Cluster in compute to populate clusterId.
@@ -210,13 +211,12 @@ spec:
                     type: object
                     x-kubernetes-map-type: granular
                   owner:
-                    description: User name/group name/sp application_id of the schema
+                    description: User name/group name/sp application_id of the table
                       owner.
                     type: string
                   partitions:
                     description: a subset of columns to partition the table by. Change
                       forces the creation of a new resource. Conflicts with cluster_keys.
-                      Change forces creation of a new resource.
                     items:
                       type: string
                     type: array
@@ -348,7 +348,8 @@ spec:
                   clusterId:
                     description: All table CRUD operations must be executed on a running
                       cluster or SQL warehouse. If a cluster_id is specified, it will
-                      be used to execute SQL commands to manage this table.
+                      be used to execute SQL commands to manage this table. Conflicts
+                      with warehouse_id.
                     type: string
                   clusterIdRef:
                     description: Reference to a Cluster in compute to populate clusterId.
@@ -479,13 +480,12 @@ spec:
                     type: object
                     x-kubernetes-map-type: granular
                   owner:
-                    description: User name/group name/sp application_id of the schema
+                    description: User name/group name/sp application_id of the table
                       owner.
                     type: string
                   partitions:
                     description: a subset of columns to partition the table by. Change
                       forces the creation of a new resource. Conflicts with cluster_keys.
-                      Change forces creation of a new resource.
                     items:
                       type: string
                     type: array
@@ -793,7 +793,8 @@ spec:
                   clusterId:
                     description: All table CRUD operations must be executed on a running
                       cluster or SQL warehouse. If a cluster_id is specified, it will
-                      be used to execute SQL commands to manage this table.
+                      be used to execute SQL commands to manage this table. Conflicts
+                      with warehouse_id.
                     type: string
                   clusterKeys:
                     description: a subset of columns to liquid cluster the table by.
@@ -859,13 +860,12 @@ spec:
                     type: object
                     x-kubernetes-map-type: granular
                   owner:
-                    description: User name/group name/sp application_id of the schema
+                    description: User name/group name/sp application_id of the table
                       owner.
                     type: string
                   partitions:
                     description: a subset of columns to partition the table by. Change
                       forces the creation of a new resource. Conflicts with cluster_keys.
-                      Change forces creation of a new resource.
                     items:
                       type: string
                     type: array

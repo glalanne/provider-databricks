@@ -23,6 +23,7 @@ type SystemSchemaInitParameters struct {
 }
 
 type SystemSchemaObservation struct {
+	AutoEnabled *bool `json:"autoEnabled,omitempty" tf:"auto_enabled,omitempty"`
 
 	// the full name of the system schema, in form of system.<schema>.
 	FullName *string `json:"fullName,omitempty" tf:"full_name,omitempty"`

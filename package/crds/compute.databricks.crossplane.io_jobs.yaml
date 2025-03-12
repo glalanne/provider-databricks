@@ -1866,6 +1866,62 @@ spec:
                                         We strongly suggest to use new_cluster for
                                         greater reliability.
                                       type: string
+                                    genAiComputeTask:
+                                      description: A list of task specification that
+                                        the job will execute. See task Configuration
+                                        Block below.
+                                      items:
+                                        properties:
+                                          command:
+                                            type: string
+                                          compute:
+                                            items:
+                                              properties:
+                                                gpuNodePoolId:
+                                                  description: ID of the system notification
+                                                    that is notified when an event
+                                                    defined in webhook_notifications
+                                                    is triggered.
+                                                  type: string
+                                                gpuType:
+                                                  type: string
+                                                numGpus:
+                                                  type: number
+                                              type: object
+                                            type: array
+                                          dlRuntimeImage:
+                                            type: string
+                                          mlflowExperimentName:
+                                            description: An optional name for the
+                                              job. The default value is Untitled.
+                                            type: string
+                                          source:
+                                            description: The source of the project.
+                                              Possible values are WORKSPACE and GIT.  Defaults
+                                              to GIT if a git_source block is present
+                                              in the job definition.
+                                            type: string
+                                          trainingScriptPath:
+                                            description: 'If source is GIT: Relative
+                                              path to the file in the repository specified
+                                              in the git_source block with SQL commands
+                                              to execute. If source is WORKSPACE:
+                                              Absolute path to the file in the workspace
+                                              with SQL commands to execute.'
+                                            type: string
+                                          yamlParameters:
+                                            description: Parameters for the task
+                                            type: string
+                                          yamlParametersFilePath:
+                                            description: 'If source is GIT: Relative
+                                              path to the file in the repository specified
+                                              in the git_source block with SQL commands
+                                              to execute. If source is WORKSPACE:
+                                              Absolute path to the file in the workspace
+                                              with SQL commands to execute.'
+                                            type: string
+                                        type: object
+                                      type: array
                                     health:
                                       description: An optional block that specifies
                                         the health conditions for the job documented
@@ -2885,6 +2941,57 @@ spec:
                                       type: array
                                   type: object
                                 type: array
+                            type: object
+                          type: array
+                        genAiComputeTask:
+                          description: A list of task specification that the job will
+                            execute. See task Configuration Block below.
+                          items:
+                            properties:
+                              command:
+                                type: string
+                              compute:
+                                items:
+                                  properties:
+                                    gpuNodePoolId:
+                                      description: ID of the system notification that
+                                        is notified when an event defined in webhook_notifications
+                                        is triggered.
+                                      type: string
+                                    gpuType:
+                                      type: string
+                                    numGpus:
+                                      type: number
+                                  type: object
+                                type: array
+                              dlRuntimeImage:
+                                type: string
+                              mlflowExperimentName:
+                                description: An optional name for the job. The default
+                                  value is Untitled.
+                                type: string
+                              source:
+                                description: The source of the project. Possible values
+                                  are WORKSPACE and GIT.  Defaults to GIT if a git_source
+                                  block is present in the job definition.
+                                type: string
+                              trainingScriptPath:
+                                description: 'If source is GIT: Relative path to the
+                                  file in the repository specified in the git_source
+                                  block with SQL commands to execute. If source is
+                                  WORKSPACE: Absolute path to the file in the workspace
+                                  with SQL commands to execute.'
+                                type: string
+                              yamlParameters:
+                                description: Parameters for the task
+                                type: string
+                              yamlParametersFilePath:
+                                description: 'If source is GIT: Relative path to the
+                                  file in the repository specified in the git_source
+                                  block with SQL commands to execute. If source is
+                                  WORKSPACE: Absolute path to the file in the workspace
+                                  with SQL commands to execute.'
+                                type: string
                             type: object
                           type: array
                         health:
@@ -5816,6 +5923,62 @@ spec:
                                         We strongly suggest to use new_cluster for
                                         greater reliability.
                                       type: string
+                                    genAiComputeTask:
+                                      description: A list of task specification that
+                                        the job will execute. See task Configuration
+                                        Block below.
+                                      items:
+                                        properties:
+                                          command:
+                                            type: string
+                                          compute:
+                                            items:
+                                              properties:
+                                                gpuNodePoolId:
+                                                  description: ID of the system notification
+                                                    that is notified when an event
+                                                    defined in webhook_notifications
+                                                    is triggered.
+                                                  type: string
+                                                gpuType:
+                                                  type: string
+                                                numGpus:
+                                                  type: number
+                                              type: object
+                                            type: array
+                                          dlRuntimeImage:
+                                            type: string
+                                          mlflowExperimentName:
+                                            description: An optional name for the
+                                              job. The default value is Untitled.
+                                            type: string
+                                          source:
+                                            description: The source of the project.
+                                              Possible values are WORKSPACE and GIT.  Defaults
+                                              to GIT if a git_source block is present
+                                              in the job definition.
+                                            type: string
+                                          trainingScriptPath:
+                                            description: 'If source is GIT: Relative
+                                              path to the file in the repository specified
+                                              in the git_source block with SQL commands
+                                              to execute. If source is WORKSPACE:
+                                              Absolute path to the file in the workspace
+                                              with SQL commands to execute.'
+                                            type: string
+                                          yamlParameters:
+                                            description: Parameters for the task
+                                            type: string
+                                          yamlParametersFilePath:
+                                            description: 'If source is GIT: Relative
+                                              path to the file in the repository specified
+                                              in the git_source block with SQL commands
+                                              to execute. If source is WORKSPACE:
+                                              Absolute path to the file in the workspace
+                                              with SQL commands to execute.'
+                                            type: string
+                                        type: object
+                                      type: array
                                     health:
                                       description: An optional block that specifies
                                         the health conditions for the job documented
@@ -6837,6 +7000,57 @@ spec:
                                       type: array
                                   type: object
                                 type: array
+                            type: object
+                          type: array
+                        genAiComputeTask:
+                          description: A list of task specification that the job will
+                            execute. See task Configuration Block below.
+                          items:
+                            properties:
+                              command:
+                                type: string
+                              compute:
+                                items:
+                                  properties:
+                                    gpuNodePoolId:
+                                      description: ID of the system notification that
+                                        is notified when an event defined in webhook_notifications
+                                        is triggered.
+                                      type: string
+                                    gpuType:
+                                      type: string
+                                    numGpus:
+                                      type: number
+                                  type: object
+                                type: array
+                              dlRuntimeImage:
+                                type: string
+                              mlflowExperimentName:
+                                description: An optional name for the job. The default
+                                  value is Untitled.
+                                type: string
+                              source:
+                                description: The source of the project. Possible values
+                                  are WORKSPACE and GIT.  Defaults to GIT if a git_source
+                                  block is present in the job definition.
+                                type: string
+                              trainingScriptPath:
+                                description: 'If source is GIT: Relative path to the
+                                  file in the repository specified in the git_source
+                                  block with SQL commands to execute. If source is
+                                  WORKSPACE: Absolute path to the file in the workspace
+                                  with SQL commands to execute.'
+                                type: string
+                              yamlParameters:
+                                description: Parameters for the task
+                                type: string
+                              yamlParametersFilePath:
+                                description: 'If source is GIT: Relative path to the
+                                  file in the repository specified in the git_source
+                                  block with SQL commands to execute. If source is
+                                  WORKSPACE: Absolute path to the file in the workspace
+                                  with SQL commands to execute.'
+                                type: string
                             type: object
                           type: array
                         health:
@@ -9892,6 +10106,62 @@ spec:
                                         We strongly suggest to use new_cluster for
                                         greater reliability.
                                       type: string
+                                    genAiComputeTask:
+                                      description: A list of task specification that
+                                        the job will execute. See task Configuration
+                                        Block below.
+                                      items:
+                                        properties:
+                                          command:
+                                            type: string
+                                          compute:
+                                            items:
+                                              properties:
+                                                gpuNodePoolId:
+                                                  description: ID of the system notification
+                                                    that is notified when an event
+                                                    defined in webhook_notifications
+                                                    is triggered.
+                                                  type: string
+                                                gpuType:
+                                                  type: string
+                                                numGpus:
+                                                  type: number
+                                              type: object
+                                            type: array
+                                          dlRuntimeImage:
+                                            type: string
+                                          mlflowExperimentName:
+                                            description: An optional name for the
+                                              job. The default value is Untitled.
+                                            type: string
+                                          source:
+                                            description: The source of the project.
+                                              Possible values are WORKSPACE and GIT.  Defaults
+                                              to GIT if a git_source block is present
+                                              in the job definition.
+                                            type: string
+                                          trainingScriptPath:
+                                            description: 'If source is GIT: Relative
+                                              path to the file in the repository specified
+                                              in the git_source block with SQL commands
+                                              to execute. If source is WORKSPACE:
+                                              Absolute path to the file in the workspace
+                                              with SQL commands to execute.'
+                                            type: string
+                                          yamlParameters:
+                                            description: Parameters for the task
+                                            type: string
+                                          yamlParametersFilePath:
+                                            description: 'If source is GIT: Relative
+                                              path to the file in the repository specified
+                                              in the git_source block with SQL commands
+                                              to execute. If source is WORKSPACE:
+                                              Absolute path to the file in the workspace
+                                              with SQL commands to execute.'
+                                            type: string
+                                        type: object
+                                      type: array
                                     health:
                                       description: An optional block that specifies
                                         the health conditions for the job documented
@@ -10889,6 +11159,57 @@ spec:
                                       type: array
                                   type: object
                                 type: array
+                            type: object
+                          type: array
+                        genAiComputeTask:
+                          description: A list of task specification that the job will
+                            execute. See task Configuration Block below.
+                          items:
+                            properties:
+                              command:
+                                type: string
+                              compute:
+                                items:
+                                  properties:
+                                    gpuNodePoolId:
+                                      description: ID of the system notification that
+                                        is notified when an event defined in webhook_notifications
+                                        is triggered.
+                                      type: string
+                                    gpuType:
+                                      type: string
+                                    numGpus:
+                                      type: number
+                                  type: object
+                                type: array
+                              dlRuntimeImage:
+                                type: string
+                              mlflowExperimentName:
+                                description: An optional name for the job. The default
+                                  value is Untitled.
+                                type: string
+                              source:
+                                description: The source of the project. Possible values
+                                  are WORKSPACE and GIT.  Defaults to GIT if a git_source
+                                  block is present in the job definition.
+                                type: string
+                              trainingScriptPath:
+                                description: 'If source is GIT: Relative path to the
+                                  file in the repository specified in the git_source
+                                  block with SQL commands to execute. If source is
+                                  WORKSPACE: Absolute path to the file in the workspace
+                                  with SQL commands to execute.'
+                                type: string
+                              yamlParameters:
+                                description: Parameters for the task
+                                type: string
+                              yamlParametersFilePath:
+                                description: 'If source is GIT: Relative path to the
+                                  file in the repository specified in the git_source
+                                  block with SQL commands to execute. If source is
+                                  WORKSPACE: Absolute path to the file in the workspace
+                                  with SQL commands to execute.'
+                                type: string
                             type: object
                           type: array
                         health:

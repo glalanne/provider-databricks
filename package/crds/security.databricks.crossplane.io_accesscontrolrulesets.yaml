@@ -89,8 +89,8 @@ spec:
                         role:
                           description: Role to be granted. The supported roles are
                             listed below. For more information about these roles,
-                            refer to service principal roles, group roles or marketplace
-                            roles.
+                            refer to service principal roles, group roles, marketplace
+                            roles or budget policy permissions.
                           type: string
                       type: object
                     type: array
@@ -130,8 +130,8 @@ spec:
                         role:
                           description: Role to be granted. The supported roles are
                             listed below. For more information about these roles,
-                            refer to service principal roles, group roles or marketplace
-                            roles.
+                            refer to service principal roles, group roles, marketplace
+                            roles or budget policy permissions.
                           type: string
                       type: object
                     type: array
@@ -338,8 +338,8 @@ spec:
                         role:
                           description: Role to be granted. The supported roles are
                             listed below. For more information about these roles,
-                            refer to service principal roles, group roles or marketplace
-                            roles.
+                            refer to service principal roles, group roles, marketplace
+                            roles or budget policy permissions.
                           type: string
                       type: object
                     type: array

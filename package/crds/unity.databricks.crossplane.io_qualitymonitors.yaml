@@ -199,7 +199,7 @@ spec:
                     type: array
                   skipBuiltinDashboard:
                     description: Whether to skip creating a default dashboard summarizing
-                      data quality metrics.
+                      data quality metrics.  (Can't be updated after creation).
                     type: boolean
                   slicingExprs:
                     description: List of column expressions to slice data with for
@@ -237,7 +237,7 @@ spec:
                   warehouseId:
                     description: Optional argument to specify the warehouse for dashboard
                       creation. If not specified, the first running warehouse will
-                      be used.
+                      be used.  (Can't be updated after creation)
                     type: string
                 type: object
               initProvider:
@@ -380,7 +380,7 @@ spec:
                     type: array
                   skipBuiltinDashboard:
                     description: Whether to skip creating a default dashboard summarizing
-                      data quality metrics.
+                      data quality metrics.  (Can't be updated after creation).
                     type: boolean
                   slicingExprs:
                     description: List of column expressions to slice data with for
@@ -418,7 +418,7 @@ spec:
                   warehouseId:
                     description: Optional argument to specify the warehouse for dashboard
                       creation. If not specified, the first running warehouse will
-                      be used.
+                      be used.  (Can't be updated after creation)
                     type: string
                 type: object
               managementPolicies:
@@ -755,7 +755,7 @@ spec:
                     type: array
                   skipBuiltinDashboard:
                     description: Whether to skip creating a default dashboard summarizing
-                      data quality metrics.
+                      data quality metrics.  (Can't be updated after creation).
                     type: boolean
                   slicingExprs:
                     description: List of column expressions to slice data with for
@@ -796,7 +796,7 @@ spec:
                   warehouseId:
                     description: Optional argument to specify the warehouse for dashboard
                       creation. If not specified, the first running warehouse will
-                      be used.
+                      be used.  (Can't be updated after creation)
                     type: string
                 type: object
               conditions:

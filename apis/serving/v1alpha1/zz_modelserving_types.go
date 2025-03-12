@@ -110,6 +110,9 @@ type AmazonBedrockConfigInitParameters struct {
 
 	// The underlying provider in Amazon Bedrock. Supported values (case insensitive) include: Anthropic, Cohere, AI21Labs, Amazon.
 	BedrockProvider *string `json:"bedrockProvider,omitempty" tf:"bedrock_provider,omitempty"`
+
+	// ARN of the instance profile that the served model will use to access AWS resources.
+	InstanceProfileArn *string `json:"instanceProfileArn,omitempty" tf:"instance_profile_arn,omitempty"`
 }
 
 type AmazonBedrockConfigObservation struct {
@@ -131,6 +134,9 @@ type AmazonBedrockConfigObservation struct {
 
 	// The underlying provider in Amazon Bedrock. Supported values (case insensitive) include: Anthropic, Cohere, AI21Labs, Amazon.
 	BedrockProvider *string `json:"bedrockProvider,omitempty" tf:"bedrock_provider,omitempty"`
+
+	// ARN of the instance profile that the served model will use to access AWS resources.
+	InstanceProfileArn *string `json:"instanceProfileArn,omitempty" tf:"instance_profile_arn,omitempty"`
 }
 
 type AmazonBedrockConfigParameters struct {
@@ -158,6 +164,10 @@ type AmazonBedrockConfigParameters struct {
 	// The underlying provider in Amazon Bedrock. Supported values (case insensitive) include: Anthropic, Cohere, AI21Labs, Amazon.
 	// +kubebuilder:validation:Optional
 	BedrockProvider *string `json:"bedrockProvider" tf:"bedrock_provider,omitempty"`
+
+	// ARN of the instance profile that the served model will use to access AWS resources.
+	// +kubebuilder:validation:Optional
+	InstanceProfileArn *string `json:"instanceProfileArn,omitempty" tf:"instance_profile_arn,omitempty"`
 }
 
 type AnthropicConfigInitParameters struct {

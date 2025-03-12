@@ -52,7 +52,7 @@ type GrantRulesInitParameters struct {
 	// +listType=set
 	Principals []*string `json:"principals,omitempty" tf:"principals,omitempty"`
 
-	// Role to be granted. The supported roles are listed below. For more information about these roles, refer to service principal roles, group roles or marketplace roles.
+	// Role to be granted. The supported roles are listed below. For more information about these roles, refer to service principal roles, group roles, marketplace roles or budget policy permissions.
 	Role *string `json:"role,omitempty" tf:"role,omitempty"`
 }
 
@@ -62,7 +62,7 @@ type GrantRulesObservation struct {
 	// +listType=set
 	Principals []*string `json:"principals,omitempty" tf:"principals,omitempty"`
 
-	// Role to be granted. The supported roles are listed below. For more information about these roles, refer to service principal roles, group roles or marketplace roles.
+	// Role to be granted. The supported roles are listed below. For more information about these roles, refer to service principal roles, group roles, marketplace roles or budget policy permissions.
 	Role *string `json:"role,omitempty" tf:"role,omitempty"`
 }
 
@@ -73,7 +73,7 @@ type GrantRulesParameters struct {
 	// +listType=set
 	Principals []*string `json:"principals,omitempty" tf:"principals,omitempty"`
 
-	// Role to be granted. The supported roles are listed below. For more information about these roles, refer to service principal roles, group roles or marketplace roles.
+	// Role to be granted. The supported roles are listed below. For more information about these roles, refer to service principal roles, group roles, marketplace roles or budget policy permissions.
 	// +kubebuilder:validation:Optional
 	Role *string `json:"role" tf:"role,omitempty"`
 }

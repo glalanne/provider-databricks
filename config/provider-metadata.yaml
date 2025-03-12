@@ -128,13 +128,45 @@ resources:
                   ],
                   "name": "accounts/${local.account_id}/ruleSets/default"
                 }
+            - name: budget_policy_usage
+              manifest: |-
+                {
+                  "grant_rules": [
+                    {
+                      "principals": [
+                        "${data.databricks_user.john.acl_principal_id}"
+                      ],
+                      "role": "roles/budgetPolicy.manager"
+                    },
+                    {
+                      "principals": [
+                        "${data.databricks_group.ds.acl_principal_id}"
+                      ],
+                      "role": "roles/budgetPolicy.user"
+                    }
+                  ],
+                  "name": "accounts/${local.account_id}/budgetPolicies/${databricks_budget_policy.this.policy_id}/ruleSets/default"
+                }
+              dependencies:
+                databricks_budget_policy.this: |-
+                    {
+                      "custom_tags": [
+                        {
+                          "key": "mykey",
+                          "value": "myvalue"
+                        }
+                      ],
+                      "policy_name": "data-science-budget-policy"
+                    }
         argumentDocs:
             grant_rules: '- (Required) The access control rules to be granted by this rule set, consisting of a set of principals and roles to be granted to them.'
             grant_rules.principals: '- (Required) a list of principals who are granted a role. The following format is supported:'
-            grant_rules.role: '- (Required) Role to be granted. The supported roles are listed below. For more information about these roles, refer to service principal roles, group roles or marketplace roles.'
+            grant_rules.role: '- (Required) Role to be granted. The supported roles are listed below. For more information about these roles, refer to service principal roles, group roles, marketplace roles or budget policy permissions.'
             groups/{groupname}: (also exposed as acl_principal_id attribute of databricks_group resource).
             id: '- ID of the access control rule set - the same as name.'
             name: '- (Required) Unique identifier of a rule set. The name determines the resource to which the rule set applies. Currently, only default rule sets are supported. The following rule set formats are supported:'
+            roles/budgetPolicy.manager: '- Manager of a budget policy.'
+            roles/budgetPolicy.user: '- User of a budget policy.'
             roles/group.manager: '- Manager of a group.'
             roles/marketplace.admin: '- Admin of marketplace.'
             roles/servicePrincipal.manager: '- Manager of a service principal.'
@@ -350,11 +382,13 @@ resources:
                 }
         argumentDocs:
             app_status: attribute
+            budget_policy_id: '- The optional Budget Policy ID set for this resource.'
             compute_status: attribute
             create_time: '- The creation time of the app.'
             creator: '- The email of the user that created the app.'
             default_source_code_path: '- The default workspace file system path of the source code from which app deployment are created. This field tracks the workspace source code path of the last active deployment.'
             description: '- (Optional) The description of the app.'
+            effective_budget_policy_id: '- The effective budget policy ID.'
             id: '- Id of the SQL warehouse to grant permission on.'
             job: attribute
             key: '- Key of the secret to grant permission on.'
@@ -491,6 +525,29 @@ resources:
             value: '- (Required) Consists of the following fields:'
             values: '- (Required, List of numbers) The values to filter by.'
             workspace_id: '- (Optional) Filter by workspace ID (if empty, include usage all usage for this account). Consists of the following fields:'
+        importStatements: []
+    databricks_budget_policy:
+        subCategory: ""
+        name: databricks_budget_policy
+        title: databricks_budget_policy Resource
+        examples:
+            - name: this
+              manifest: |-
+                {
+                  "custom_tags": [
+                    {
+                      "key": "mykey",
+                      "value": "myvalue"
+                    }
+                  ],
+                  "policy_name": "my-budget-policy"
+                }
+        argumentDocs:
+            custom_tags: '- (Optional) A list of tags defined by the customer. At most 20 entries are allowed per policy.'
+            custom_tags.key: '- The key of the tag. - Must be unique among all custom tags of the same policy. Cannot be “budget-policy-name”, “budget-policy-id” or "budget-policy-resolution-result" as these tags are preserved.'
+            custom_tags.value: '- The value of the tag.'
+            policy_id: '- ID of the budget policy'
+            policy_name: '- (Required) The name of the policy. Must be unique among active policies. Can contain only characters from the ISO 8859-1 (latin1) set.'
         importStatements: []
     databricks_catalog:
         subCategory: ""
@@ -934,14 +991,34 @@ resources:
                     "purpose": "testing"
                   }
                 }
+            - name: this
+              manifest: |-
+                {
+                  "comment": "This is a connection to builtin HMS",
+                  "connection_type": "HIVE_METASTORE",
+                  "name": "hms-builtin",
+                  "options": {
+                    "builtin": "true"
+                  }
+                }
         argumentDocs:
             comment: '- (Optional) Free-form text.'
-            connection_type: '- Connection type. BIGQUERY MYSQL POSTGRESQL SNOWFLAKE REDSHIFT SQLDW SQLSERVER, SALESFORCE or DATABRICKS are supported. Up-to-date list of connection type supported'
+            connection_id: '- Unique ID of the connection.'
+            connection_type: '- Connection type. BIGQUERY MYSQL POSTGRESQL SNOWFLAKE REDSHIFT SQLDW SQLSERVER, SALESFORCE, HIVE_METASTORE, GLUE, TERADATA, ORACLE or DATABRICKS are supported. Up-to-date list of connection type supported is in the documentation'
+            created_at: '- Time at which this connection was created, in epoch milliseconds.'
+            created_by: '-  Username of connection creator.'
+            credential_type: '- The type of credential for this connection.'
+            full_name: '- Full name of connection.'
             id: '- ID of this connection in form of <metastore_id>|<name>.'
+            metastore_id: '- Unique ID of the UC metastore for this connection.'
             name: '- Name of the Connection.'
             options: '- The key value of options required by the connection, e.g. host, port, user, password or GoogleServiceAccountKeyJson. Please consult the documentation for the required option.'
             owner: '- (Optional) Name of the connection owner.'
             properties: '-  (Optional) Free-form connection properties.'
+            provisioning_info: '- Object with the status of an asynchronously provisioned resource.'
+            updated_at: '- Time at which connection this was last modified, in epoch milliseconds.'
+            updated_by: '- Username of user who last modified the connection.'
+            url: '- URL of the remote data source, extracted from options.'
         importStatements: []
     databricks_credential:
         subCategory: ""
@@ -3580,6 +3657,7 @@ resources:
             google_cloud_vertex_ai_config: '- Google Cloud Vertex AI Config.'
             id: '- Equal to the name argument and used to identify the serving endpoint.'
             input: '- A block with configuration for input guardrail filters:'
+            instance_profile_arn: '- Optional ARN of the instance profile that the external model will use to access AWS resources. You must authenticate using an instance profile or access keys.'
             invalid_keywords: '- List of invalid keywords. AI guardrail uses keyword or string matching to decide if the keyword exists in the request or response content.'
             microsoft_entra_client_id: '- This field is only required for Azure AD OpenAI and is the Microsoft Entra Client ID.'
             microsoft_entra_client_secret: '- The Databricks secret key reference for a client secret used for Microsoft Entra ID authentication.'
@@ -6397,7 +6475,7 @@ resources:
             profile_metrics_table_name: '- The full name of the profile metrics table. Format: catalog_name.schema_name.table_name.'
             quartz_cron_expression: '- string expression that determines when to run the monitor. See Quartz documentation for examples.'
             schedule: '- The schedule for automatically updating and refreshing metric tables.  This block consists of following fields:'
-            skip_builtin_dashboard: '- Whether to skip creating a default dashboard summarizing data quality metrics.'
+            skip_builtin_dashboard: '- Whether to skip creating a default dashboard summarizing data quality metrics.  (Can''t be updated after creation).'
             slicing_exprs: '- List of column expressions to slice data with for targeted analysis. The data is grouped by each expression independently, resulting in a separate slice for each predicate and its complements. For high-cardinality columns, only the top 100 unique values by frequency will generate slices.'
             snapshot: '- Configuration for monitoring snapshot tables.'
             status: '- Status of the Monitor'
@@ -6406,7 +6484,7 @@ resources:
             timestamp_col: '- Column of the timestamp of predictions'
             timezone_id: '- string with timezone id (e.g., PST) in which to evaluate the Quartz expression.'
             type: '- The type of the custom metric.'
-            warehouse_id: '- Optional argument to specify the warehouse for dashboard creation. If not specified, the first running warehouse will be used.'
+            warehouse_id: '- Optional argument to specify the warehouse for dashboard creation. If not specified, the first running warehouse will be used.  (Can''t be updated after creation)'
         importStatements: []
     databricks_query:
         subCategory: ""
@@ -7474,7 +7552,7 @@ resources:
                     }
         argumentDocs:
             catalog_name: '- Name of parent catalog. Change forces the creation of a new resource.'
-            cluster_id: '- (Optional) All table CRUD operations must be executed on a running cluster or SQL warehouse. If a cluster_id is specified, it will be used to execute SQL commands to manage this table. If empty, a cluster will be created automatically with the name terraform-sql-table.'
+            cluster_id: '- (Optional) All table CRUD operations must be executed on a running cluster or SQL warehouse. If a cluster_id is specified, it will be used to execute SQL commands to manage this table. If empty, a cluster will be created automatically with the name terraform-sql-table. Conflicts with warehouse_id.'
             cluster_keys: '- (Optional) a subset of columns to liquid cluster the table by. Conflicts with partitions.'
             comment: '- (Optional) User-supplied free-form text. Changing the comment is not currently supported on the VIEW table type.'
             data_source_format: '- (Optional) External tables are supported in multiple data source formats. The string constants identifying these formats are DELTA, CSV, JSON, AVRO, PARQUET, ORC, and TEXT. Change forces the creation of a new resource. Not supported for MANAGED tables or VIEW.'
@@ -7483,8 +7561,8 @@ resources:
             name: '- Name of table relative to parent catalog and schema. Change forces the creation of a new resource.'
             nullable: '- (Optional) Whether field is nullable (Default: true)'
             options: '- (Optional) Map of user defined table options. Change forces creation of a new resource.'
-            owner: '- (Optional) User name/group name/sp application_id of the schema owner.'
-            partitions: '- (Optional) a subset of columns to partition the table by. Change forces the creation of a new resource. Conflicts with cluster_keys. Change forces creation of a new resource.'
+            owner: '- (Optional) User name/group name/sp application_id of the table owner.'
+            partitions: '- (Optional) a subset of columns to partition the table by. Change forces the creation of a new resource. Conflicts with cluster_keys.'
             properties: '- (Optional) A map of table properties.'
             schema_name: '- Name of parent Schema relative to parent Catalog. Change forces the creation of a new resource.'
             storage_credential_name: '- (Optional) For EXTERNAL Tables only: the name of storage credential to use. Change forces the creation of a new resource.'
@@ -7913,14 +7991,20 @@ resources:
             DELTA_SYNC: ': An index that automatically syncs with a source Delta Table, automatically and incrementally updating the index as the underlying data in the Delta Table changes.'
             DIRECT_ACCESS: ': An index that supports the direct read and write of vectors and metadata through our REST and SDK APIs. With this model, the user manages index updates.'
             TRIGGERED: ': If the pipeline uses the triggered execution mode, the system stops processing after successfully refreshing the source table in the pipeline once, ensuring the table is updated based on the data available when the update started.'
-            columns_to_sync: '- (optional) list of columns to sync. If not specified, all columns are syncronized.'
             creator: '- Creator of the endpoint.'
-            delta_sync_index_spec: '- (object) Specification for Delta Sync Index. Required if index_type is DELTA_SYNC.'
-            direct_access_index_spec: '- (object) Specification for Direct Vector Access Index. Required if index_type is DIRECT_ACCESS.'
+            delta_sync_index_spec: '- (object) Specification for Delta Sync Index. Required if index_type is DELTA_SYNC. This field is a block and is documented below.'
+            delta_sync_index_spec.columns_to_sync: '- (optional) list of columns to sync. If not specified, all columns are syncronized.'
+            delta_sync_index_spec.embedding_source_columns: '- (required if embedding_vector_columns isn''t provided) array of objects representing columns that contain the embedding source.  Each entry consists of:'
+            delta_sync_index_spec.embedding_vector_columns: '- (required if embedding_source_columns isn''t provided)  array of objects representing columns that contain the embedding vectors. Each entry consists of:'
+            delta_sync_index_spec.embedding_writeback_table: '- (optional) Automatically sync the vector index contents and computed embeddings to the specified Delta table. The only supported table name is the index name with the suffix _writeback_table.'
+            delta_sync_index_spec.pipeline_type: '- Pipeline execution mode. Possible values are:'
+            delta_sync_index_spec.source_table: (required) The name of the source table.
+            direct_access_index_spec: '- (object) Specification for Direct Vector Access Index. Required if index_type is DIRECT_ACCESS. This field is a block and is documented below.'
+            direct_access_index_spec.embedding_source_columns: '- (required if embedding_vector_columns isn''t provided) array of objects representing columns that contain the embedding source.  Each entry consists of:'
+            direct_access_index_spec.embedding_vector_columns: '- (required if embedding_source_columns isn''t provided)  array of objects representing columns that contain the embedding vectors. Each entry consists of:'
+            direct_access_index_spec.schema_json: '- The schema of the index in JSON format.  Check the API documentation for a list of supported data types.'
             embedding_dimension: '- Dimension of the embedding vector.'
             embedding_model_endpoint_name: '- The name of the embedding model endpoint'
-            embedding_source_columns: '- (required if embedding_vector_columns isn''t provided) array of objects representing columns that contain the embedding source.  Each entry consists of:'
-            embedding_vector_columns: '- (required if embedding_source_columns isn''t provided)  array of objects representing columns that contain the embedding vectors. Each entry consists of:'
             endpoint_name: '- (required) The name of the Mosaic AI Vector Search Endpoint that will be used for indexing the data.'
             id: '- The same as the name of the index.'
             index_type: '- (required) Mosaic AI Vector Search index type. Currently supported values are:'
@@ -7929,11 +8013,8 @@ resources:
             message: '- Message associated with the index status'
             name: '- (required) Three-level name of the Mosaic AI Vector Search Index to create (catalog.schema.index_name).'
             pipeline_id: '- ID of the associated Delta Live Table pipeline.'
-            pipeline_type: '- Pipeline execution mode. Possible values are:'
             primary_key: '- (required) The column name that will be used as a primary key.'
             ready: '- Whether the index is ready for search'
-            schema_json: '- The schema of the index in JSON format.  Check the API documentation for a list of supported data types.'
-            source_table: (required) The name of the source table.
             status: '- Object describing the current status of the index consisting of the following fields:'
         importStatements: []
     databricks_volume:
