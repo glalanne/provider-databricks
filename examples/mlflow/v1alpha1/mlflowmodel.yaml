@@ -1,0 +1,17 @@
+apiVersion: mlflow.databricks.crossplane.io/v1alpha1
+kind: MlflowModel
+metadata:
+  annotations:
+    meta.upbound.io/example-id: mlflow/v1alpha1/mlflowmodel
+  labels:
+    testing.upbound.io/example-name: test
+  name: test
+spec:
+  forProvider:
+    description: My MLflow model description
+    name: My MLflow Model
+    tags:
+    - key: key1
+      value: value1
+    - key: key2
+      value: value2

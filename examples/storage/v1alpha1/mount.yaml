@@ -1,0 +1,19 @@
+apiVersion: storage.databricks.crossplane.io/v1alpha1
+kind: Mount
+metadata:
+  annotations:
+    meta.upbound.io/example-id: storage/v1alpha1/mount
+  labels:
+    testing.upbound.io/example-name: this
+  name: this
+spec:
+  forProvider:
+    extraConfigs:
+      fs.azure.account.auth.type: OAuth
+      fs.azure.account.oauth.provider.type: org.apache.hadoop.fs.azurebfs.oauth2.ClientCredsTokenProvider
+      fs.azure.account.oauth2.client.endpoint: https://login.microsoftonline.com/${local.tenant_id}/oauth2/token
+      fs.azure.account.oauth2.client.id: ${local.client_id}
+      fs.azure.account.oauth2.client.secret: '{{secrets/${local.secret_scope}/${local.secret_key}}}'
+      fs.azure.createRemoteFileSystemDuringInitialization: "false"
+    name: tf-abfss
+    uri: abfss://${local.container}@${local.storage_acc}.dfs.core.windows.net

@@ -1440,7 +1440,7 @@ type HealthParameters struct {
 
 type HealthRulesInitParameters struct {
 
-	// string specifying the metric to check.  The only supported metric is RUN_DURATION_SECONDS (check Jobs REST API documentation for the latest information).
+	// string specifying the metric to check, like RUN_DURATION_SECONDS, STREAMING_BACKLOG_FILES, etc. - check the Jobs REST API documentation for the full list of supported metrics.
 	Metric *string `json:"metric,omitempty" tf:"metric,omitempty"`
 
 	// The string specifying the operation used to compare operands.  Currently, following operators are supported: EQUAL_TO, GREATER_THAN, GREATER_THAN_OR_EQUAL, LESS_THAN, LESS_THAN_OR_EQUAL, NOT_EQUAL. (Check the API docs for the latest information).
@@ -1452,7 +1452,7 @@ type HealthRulesInitParameters struct {
 
 type HealthRulesObservation struct {
 
-	// string specifying the metric to check.  The only supported metric is RUN_DURATION_SECONDS (check Jobs REST API documentation for the latest information).
+	// string specifying the metric to check, like RUN_DURATION_SECONDS, STREAMING_BACKLOG_FILES, etc. - check the Jobs REST API documentation for the full list of supported metrics.
 	Metric *string `json:"metric,omitempty" tf:"metric,omitempty"`
 
 	// The string specifying the operation used to compare operands.  Currently, following operators are supported: EQUAL_TO, GREATER_THAN, GREATER_THAN_OR_EQUAL, LESS_THAN, LESS_THAN_OR_EQUAL, NOT_EQUAL. (Check the API docs for the latest information).
@@ -1464,7 +1464,7 @@ type HealthRulesObservation struct {
 
 type HealthRulesParameters struct {
 
-	// string specifying the metric to check.  The only supported metric is RUN_DURATION_SECONDS (check Jobs REST API documentation for the latest information).
+	// string specifying the metric to check, like RUN_DURATION_SECONDS, STREAMING_BACKLOG_FILES, etc. - check the Jobs REST API documentation for the full list of supported metrics.
 	// +kubebuilder:validation:Optional
 	Metric *string `json:"metric" tf:"metric,omitempty"`
 
@@ -6153,7 +6153,7 @@ type QueueParameters struct {
 
 type RulesInitParameters struct {
 
-	// string specifying the metric to check.  The only supported metric is RUN_DURATION_SECONDS (check Jobs REST API documentation for the latest information).
+	// string specifying the metric to check, like RUN_DURATION_SECONDS, STREAMING_BACKLOG_FILES, etc. - check the Jobs REST API documentation for the full list of supported metrics.
 	Metric *string `json:"metric,omitempty" tf:"metric,omitempty"`
 
 	// The string specifying the operation used to compare operands.  Currently, following operators are supported: EQUAL_TO, GREATER_THAN, GREATER_THAN_OR_EQUAL, LESS_THAN, LESS_THAN_OR_EQUAL, NOT_EQUAL. (Check the API docs for the latest information).
@@ -6165,7 +6165,7 @@ type RulesInitParameters struct {
 
 type RulesObservation struct {
 
-	// string specifying the metric to check.  The only supported metric is RUN_DURATION_SECONDS (check Jobs REST API documentation for the latest information).
+	// string specifying the metric to check, like RUN_DURATION_SECONDS, STREAMING_BACKLOG_FILES, etc. - check the Jobs REST API documentation for the full list of supported metrics.
 	Metric *string `json:"metric,omitempty" tf:"metric,omitempty"`
 
 	// The string specifying the operation used to compare operands.  Currently, following operators are supported: EQUAL_TO, GREATER_THAN, GREATER_THAN_OR_EQUAL, LESS_THAN, LESS_THAN_OR_EQUAL, NOT_EQUAL. (Check the API docs for the latest information).
@@ -6177,7 +6177,7 @@ type RulesObservation struct {
 
 type RulesParameters struct {
 
-	// string specifying the metric to check.  The only supported metric is RUN_DURATION_SECONDS (check Jobs REST API documentation for the latest information).
+	// string specifying the metric to check, like RUN_DURATION_SECONDS, STREAMING_BACKLOG_FILES, etc. - check the Jobs REST API documentation for the full list of supported metrics.
 	// +kubebuilder:validation:Optional
 	Metric *string `json:"metric" tf:"metric,omitempty"`
 
@@ -7142,7 +7142,7 @@ type TaskHealthParameters struct {
 
 type TaskHealthRulesInitParameters struct {
 
-	// string specifying the metric to check.  The only supported metric is RUN_DURATION_SECONDS (check Jobs REST API documentation for the latest information).
+	// string specifying the metric to check, like RUN_DURATION_SECONDS, STREAMING_BACKLOG_FILES, etc. - check the Jobs REST API documentation for the full list of supported metrics.
 	Metric *string `json:"metric,omitempty" tf:"metric,omitempty"`
 
 	// The string specifying the operation used to compare operands.  Currently, following operators are supported: EQUAL_TO, GREATER_THAN, GREATER_THAN_OR_EQUAL, LESS_THAN, LESS_THAN_OR_EQUAL, NOT_EQUAL. (Check the API docs for the latest information).
@@ -7154,7 +7154,7 @@ type TaskHealthRulesInitParameters struct {
 
 type TaskHealthRulesObservation struct {
 
-	// string specifying the metric to check.  The only supported metric is RUN_DURATION_SECONDS (check Jobs REST API documentation for the latest information).
+	// string specifying the metric to check, like RUN_DURATION_SECONDS, STREAMING_BACKLOG_FILES, etc. - check the Jobs REST API documentation for the full list of supported metrics.
 	Metric *string `json:"metric,omitempty" tf:"metric,omitempty"`
 
 	// The string specifying the operation used to compare operands.  Currently, following operators are supported: EQUAL_TO, GREATER_THAN, GREATER_THAN_OR_EQUAL, LESS_THAN, LESS_THAN_OR_EQUAL, NOT_EQUAL. (Check the API docs for the latest information).
@@ -7166,7 +7166,7 @@ type TaskHealthRulesObservation struct {
 
 type TaskHealthRulesParameters struct {
 
-	// string specifying the metric to check.  The only supported metric is RUN_DURATION_SECONDS (check Jobs REST API documentation for the latest information).
+	// string specifying the metric to check, like RUN_DURATION_SECONDS, STREAMING_BACKLOG_FILES, etc. - check the Jobs REST API documentation for the full list of supported metrics.
 	// +kubebuilder:validation:Optional
 	Metric *string `json:"metric" tf:"metric,omitempty"`
 

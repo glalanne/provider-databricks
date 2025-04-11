@@ -1,0 +1,19 @@
+apiVersion: security.databricks.crossplane.io/v1alpha1
+kind: SQLPermissions
+metadata:
+  annotations:
+    meta.upbound.io/example-id: security/v1alpha1/sqlpermissions
+  labels:
+    testing.upbound.io/example-name: foo_table
+  name: foo-table
+spec:
+  forProvider:
+    privilegeAssignments:
+    - principal: serge@example.com
+      privileges:
+      - SELECT
+      - MODIFY
+    - principal: special group
+      privileges:
+      - SELECT
+    table: foo

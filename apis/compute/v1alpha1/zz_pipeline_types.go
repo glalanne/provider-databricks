@@ -550,6 +550,45 @@ type CronParameters struct {
 	TimezoneID *string `json:"timezoneId,omitempty" tf:"timezone_id,omitempty"`
 }
 
+type EventLogInitParameters struct {
+
+	// The name of catalog in Unity Catalog. Change of this parameter forces recreation of the pipeline. (Conflicts with storage).
+	Catalog *string `json:"catalog,omitempty" tf:"catalog,omitempty"`
+
+	// A user-friendly name for this pipeline. The name can be used to identify pipeline jobs in the UI.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// The default schema (database) where tables are read from or published to. The presence of this attribute implies that the pipeline is in direct publishing mode.
+	Schema *string `json:"schema,omitempty" tf:"schema,omitempty"`
+}
+
+type EventLogObservation struct {
+
+	// The name of catalog in Unity Catalog. Change of this parameter forces recreation of the pipeline. (Conflicts with storage).
+	Catalog *string `json:"catalog,omitempty" tf:"catalog,omitempty"`
+
+	// A user-friendly name for this pipeline. The name can be used to identify pipeline jobs in the UI.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// The default schema (database) where tables are read from or published to. The presence of this attribute implies that the pipeline is in direct publishing mode.
+	Schema *string `json:"schema,omitempty" tf:"schema,omitempty"`
+}
+
+type EventLogParameters struct {
+
+	// The name of catalog in Unity Catalog. Change of this parameter forces recreation of the pipeline. (Conflicts with storage).
+	// +kubebuilder:validation:Optional
+	Catalog *string `json:"catalog,omitempty" tf:"catalog,omitempty"`
+
+	// A user-friendly name for this pipeline. The name can be used to identify pipeline jobs in the UI.
+	// +kubebuilder:validation:Optional
+	Name *string `json:"name" tf:"name,omitempty"`
+
+	// The default schema (database) where tables are read from or published to. The presence of this attribute implies that the pipeline is in direct publishing mode.
+	// +kubebuilder:validation:Optional
+	Schema *string `json:"schema,omitempty" tf:"schema,omitempty"`
+}
+
 type FiltersInitParameters struct {
 
 	// Paths to exclude.
@@ -1157,6 +1196,9 @@ type PipelineInitParameters struct {
 	// optional name of the product edition. Supported values are: CORE, PRO, ADVANCED (default).  Not required when serverless is set to true.
 	Edition *string `json:"edition,omitempty" tf:"edition,omitempty"`
 
+	// an optional block specifying a table where DLT Event Log will be stored.  Consists of the following fields:
+	EventLog []EventLogInitParameters `json:"eventLog,omitempty" tf:"event_log,omitempty"`
+
 	ExpectedLastModified *float64 `json:"expectedLastModified,omitempty" tf:"expected_last_modified,omitempty"`
 
 	// Filters on which Pipeline packages to include in the deployed graph.  This block consists of following attributes:
@@ -1187,6 +1229,9 @@ type PipelineInitParameters struct {
 	RestartWindow []RestartWindowInitParameters `json:"restartWindow,omitempty" tf:"restart_window,omitempty"`
 
 	RunAs []PipelineRunAsInitParameters `json:"runAs,omitempty" tf:"run_as,omitempty"`
+
+	// A user-friendly name for this pipeline. The name can be used to identify pipeline jobs in the UI.
+	RunAsUserName *string `json:"runAsUserName,omitempty" tf:"run_as_user_name,omitempty"`
 
 	// The default schema (database) where tables are read from or published to. The presence of this attribute implies that the pipeline is in direct publishing mode.
 	Schema *string `json:"schema,omitempty" tf:"schema,omitempty"`
@@ -1322,6 +1367,9 @@ type PipelineObservation struct {
 	// optional name of the product edition. Supported values are: CORE, PRO, ADVANCED (default).  Not required when serverless is set to true.
 	Edition *string `json:"edition,omitempty" tf:"edition,omitempty"`
 
+	// an optional block specifying a table where DLT Event Log will be stored.  Consists of the following fields:
+	EventLog []EventLogObservation `json:"eventLog,omitempty" tf:"event_log,omitempty"`
+
 	ExpectedLastModified *float64 `json:"expectedLastModified,omitempty" tf:"expected_last_modified,omitempty"`
 
 	// Filters on which Pipeline packages to include in the deployed graph.  This block consists of following attributes:
@@ -1433,6 +1481,10 @@ type PipelineParameters struct {
 	// +kubebuilder:validation:Optional
 	Edition *string `json:"edition,omitempty" tf:"edition,omitempty"`
 
+	// an optional block specifying a table where DLT Event Log will be stored.  Consists of the following fields:
+	// +kubebuilder:validation:Optional
+	EventLog []EventLogParameters `json:"eventLog,omitempty" tf:"event_log,omitempty"`
+
 	// +kubebuilder:validation:Optional
 	ExpectedLastModified *float64 `json:"expectedLastModified,omitempty" tf:"expected_last_modified,omitempty"`
 
@@ -1476,6 +1528,10 @@ type PipelineParameters struct {
 
 	// +kubebuilder:validation:Optional
 	RunAs []PipelineRunAsParameters `json:"runAs,omitempty" tf:"run_as,omitempty"`
+
+	// A user-friendly name for this pipeline. The name can be used to identify pipeline jobs in the UI.
+	// +kubebuilder:validation:Optional
+	RunAsUserName *string `json:"runAsUserName,omitempty" tf:"run_as_user_name,omitempty"`
 
 	// The default schema (database) where tables are read from or published to. The presence of this attribute implies that the pipeline is in direct publishing mode.
 	// +kubebuilder:validation:Optional

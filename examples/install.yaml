@@ -3,4 +3,18 @@ kind: Provider
 metadata:
   name: provider-databricks
 spec:
-  package: glalanne/provider-databricks:v0.1.0
+  package: xpkg.upbound.io/lalanne/provider-databricks:v0.1.5
+  # controllerConfigRef: # This is optional if you want to have more logs to troubleshoot
+  #   name: debug-config
+
+# This is optional if you want to have more logs to troubleshoot
+# ---
+# apiVersion: pkg.crossplane.io/v1alpha1
+# kind: ControllerConfig
+# metadata:
+#   annotations: {}
+#   name: debug-config
+# spec:
+#   args:
+#   - --debug
+#   replicas: 1

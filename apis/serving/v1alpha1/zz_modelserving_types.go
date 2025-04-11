@@ -15,6 +15,9 @@ import (
 
 type AIGatewayInitParameters struct {
 
+	// The model serving endpoint configuration. This is optional and can be added and modified after creation. If config was provided in a previous apply but is not provided in the current apply, no change to the model serving endpoint will occur. To recreate the model serving endpoint without the config block, the model serving endpoint must be destroyed and recreated.
+	FallbackConfig []FallbackConfigInitParameters `json:"fallbackConfig,omitempty" tf:"fallback_config,omitempty"`
+
 	// Block with configuration for AI Guardrails to prevent unwanted data and unsafe data in requests and responses. Consists of the following attributes:
 	Guardrails []GuardrailsInitParameters `json:"guardrails,omitempty" tf:"guardrails,omitempty"`
 
@@ -29,6 +32,9 @@ type AIGatewayInitParameters struct {
 }
 
 type AIGatewayObservation struct {
+
+	// The model serving endpoint configuration. This is optional and can be added and modified after creation. If config was provided in a previous apply but is not provided in the current apply, no change to the model serving endpoint will occur. To recreate the model serving endpoint without the config block, the model serving endpoint must be destroyed and recreated.
+	FallbackConfig []FallbackConfigObservation `json:"fallbackConfig,omitempty" tf:"fallback_config,omitempty"`
 
 	// Block with configuration for AI Guardrails to prevent unwanted data and unsafe data in requests and responses. Consists of the following attributes:
 	Guardrails []GuardrailsObservation `json:"guardrails,omitempty" tf:"guardrails,omitempty"`
@@ -45,6 +51,10 @@ type AIGatewayObservation struct {
 
 type AIGatewayParameters struct {
 
+	// The model serving endpoint configuration. This is optional and can be added and modified after creation. If config was provided in a previous apply but is not provided in the current apply, no change to the model serving endpoint will occur. To recreate the model serving endpoint without the config block, the model serving endpoint must be destroyed and recreated.
+	// +kubebuilder:validation:Optional
+	FallbackConfig []FallbackConfigParameters `json:"fallbackConfig,omitempty" tf:"fallback_config,omitempty"`
+
 	// Block with configuration for AI Guardrails to prevent unwanted data and unsafe data in requests and responses. Consists of the following attributes:
 	// +kubebuilder:validation:Optional
 	Guardrails []GuardrailsParameters `json:"guardrails,omitempty" tf:"guardrails,omitempty"`
@@ -60,6 +70,45 @@ type AIGatewayParameters struct {
 	// Block with configuration for payload logging using inference tables. For details see the description of auto_capture_config block above.
 	// +kubebuilder:validation:Optional
 	UsageTrackingConfig []UsageTrackingConfigParameters `json:"usageTrackingConfig,omitempty" tf:"usage_tracking_config,omitempty"`
+}
+
+type APIKeyAuthInitParameters struct {
+
+	// The key field for a tag.
+	Key *string `json:"key,omitempty" tf:"key,omitempty"`
+
+	// The value field for a tag.
+	Value *string `json:"value,omitempty" tf:"value,omitempty"`
+
+	// suffix) or in plain text (parameters with _plaintext suffix)!
+	ValuePlaintext *string `json:"valuePlaintext,omitempty" tf:"value_plaintext,omitempty"`
+}
+
+type APIKeyAuthObservation struct {
+
+	// The key field for a tag.
+	Key *string `json:"key,omitempty" tf:"key,omitempty"`
+
+	// The value field for a tag.
+	Value *string `json:"value,omitempty" tf:"value,omitempty"`
+
+	// suffix) or in plain text (parameters with _plaintext suffix)!
+	ValuePlaintext *string `json:"valuePlaintext,omitempty" tf:"value_plaintext,omitempty"`
+}
+
+type APIKeyAuthParameters struct {
+
+	// The key field for a tag.
+	// +kubebuilder:validation:Optional
+	Key *string `json:"key" tf:"key,omitempty"`
+
+	// The value field for a tag.
+	// +kubebuilder:validation:Optional
+	Value *string `json:"value,omitempty" tf:"value,omitempty"`
+
+	// suffix) or in plain text (parameters with _plaintext suffix)!
+	// +kubebuilder:validation:Optional
+	ValuePlaintext *string `json:"valuePlaintext,omitempty" tf:"value_plaintext,omitempty"`
 }
 
 type Ai21LabsConfigInitParameters struct {
@@ -248,6 +297,30 @@ type AutoCaptureConfigParameters struct {
 	TableNamePrefix *string `json:"tableNamePrefix,omitempty" tf:"table_name_prefix,omitempty"`
 }
 
+type BearerTokenAuthInitParameters struct {
+	Token *string `json:"token,omitempty" tf:"token,omitempty"`
+
+	// suffix) or in plain text (parameters with _plaintext suffix)!
+	TokenPlaintext *string `json:"tokenPlaintext,omitempty" tf:"token_plaintext,omitempty"`
+}
+
+type BearerTokenAuthObservation struct {
+	Token *string `json:"token,omitempty" tf:"token,omitempty"`
+
+	// suffix) or in plain text (parameters with _plaintext suffix)!
+	TokenPlaintext *string `json:"tokenPlaintext,omitempty" tf:"token_plaintext,omitempty"`
+}
+
+type BearerTokenAuthParameters struct {
+
+	// +kubebuilder:validation:Optional
+	Token *string `json:"token,omitempty" tf:"token,omitempty"`
+
+	// suffix) or in plain text (parameters with _plaintext suffix)!
+	// +kubebuilder:validation:Optional
+	TokenPlaintext *string `json:"tokenPlaintext,omitempty" tf:"token_plaintext,omitempty"`
+}
+
 type CohereConfigInitParameters struct {
 	CohereAPIBase *string `json:"cohereApiBase,omitempty" tf:"cohere_api_base,omitempty"`
 
@@ -331,6 +404,34 @@ type ConfigParameters struct {
 	TrafficConfig []TrafficConfigParameters `json:"trafficConfig,omitempty" tf:"traffic_config,omitempty"`
 }
 
+type CustomProviderConfigInitParameters struct {
+	APIKeyAuth []APIKeyAuthInitParameters `json:"apiKeyAuth,omitempty" tf:"api_key_auth,omitempty"`
+
+	BearerTokenAuth []BearerTokenAuthInitParameters `json:"bearerTokenAuth,omitempty" tf:"bearer_token_auth,omitempty"`
+
+	CustomProviderURL *string `json:"customProviderUrl,omitempty" tf:"custom_provider_url,omitempty"`
+}
+
+type CustomProviderConfigObservation struct {
+	APIKeyAuth []APIKeyAuthObservation `json:"apiKeyAuth,omitempty" tf:"api_key_auth,omitempty"`
+
+	BearerTokenAuth []BearerTokenAuthObservation `json:"bearerTokenAuth,omitempty" tf:"bearer_token_auth,omitempty"`
+
+	CustomProviderURL *string `json:"customProviderUrl,omitempty" tf:"custom_provider_url,omitempty"`
+}
+
+type CustomProviderConfigParameters struct {
+
+	// +kubebuilder:validation:Optional
+	APIKeyAuth []APIKeyAuthParameters `json:"apiKeyAuth,omitempty" tf:"api_key_auth,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	BearerTokenAuth []BearerTokenAuthParameters `json:"bearerTokenAuth,omitempty" tf:"bearer_token_auth,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	CustomProviderURL *string `json:"customProviderUrl" tf:"custom_provider_url,omitempty"`
+}
+
 type DatabricksModelServingConfigInitParameters struct {
 
 	// The Databricks secret key reference for a Databricks API token that corresponds to a user or service principal with Can Query access to the model serving endpoint pointed to by this external model.
@@ -384,6 +485,9 @@ type ExternalModelInitParameters struct {
 	// Cohere Config
 	CohereConfig []CohereConfigInitParameters `json:"cohereConfig,omitempty" tf:"cohere_config,omitempty"`
 
+	// The model serving endpoint configuration. This is optional and can be added and modified after creation. If config was provided in a previous apply but is not provided in the current apply, no change to the model serving endpoint will occur. To recreate the model serving endpoint without the config block, the model serving endpoint must be destroyed and recreated.
+	CustomProviderConfig []CustomProviderConfigInitParameters `json:"customProviderConfig,omitempty" tf:"custom_provider_config,omitempty"`
+
 	// Databricks Model Serving Config
 	DatabricksModelServingConfig []DatabricksModelServingConfigInitParameters `json:"databricksModelServingConfig,omitempty" tf:"databricks_model_serving_config,omitempty"`
 
@@ -419,6 +523,9 @@ type ExternalModelObservation struct {
 
 	// Cohere Config
 	CohereConfig []CohereConfigObservation `json:"cohereConfig,omitempty" tf:"cohere_config,omitempty"`
+
+	// The model serving endpoint configuration. This is optional and can be added and modified after creation. If config was provided in a previous apply but is not provided in the current apply, no change to the model serving endpoint will occur. To recreate the model serving endpoint without the config block, the model serving endpoint must be destroyed and recreated.
+	CustomProviderConfig []CustomProviderConfigObservation `json:"customProviderConfig,omitempty" tf:"custom_provider_config,omitempty"`
 
 	// Databricks Model Serving Config
 	DatabricksModelServingConfig []DatabricksModelServingConfigObservation `json:"databricksModelServingConfig,omitempty" tf:"databricks_model_serving_config,omitempty"`
@@ -460,6 +567,10 @@ type ExternalModelParameters struct {
 	// +kubebuilder:validation:Optional
 	CohereConfig []CohereConfigParameters `json:"cohereConfig,omitempty" tf:"cohere_config,omitempty"`
 
+	// The model serving endpoint configuration. This is optional and can be added and modified after creation. If config was provided in a previous apply but is not provided in the current apply, no change to the model serving endpoint will occur. To recreate the model serving endpoint without the config block, the model serving endpoint must be destroyed and recreated.
+	// +kubebuilder:validation:Optional
+	CustomProviderConfig []CustomProviderConfigParameters `json:"customProviderConfig,omitempty" tf:"custom_provider_config,omitempty"`
+
 	// Databricks Model Serving Config
 	// +kubebuilder:validation:Optional
 	DatabricksModelServingConfig []DatabricksModelServingConfigParameters `json:"databricksModelServingConfig,omitempty" tf:"databricks_model_serving_config,omitempty"`
@@ -487,6 +598,25 @@ type ExternalModelParameters struct {
 	// The task type of the external model.
 	// +kubebuilder:validation:Optional
 	Task *string `json:"task" tf:"task,omitempty"`
+}
+
+type FallbackConfigInitParameters struct {
+
+	// boolean flag specifying if usage tracking is enabled.
+	Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
+}
+
+type FallbackConfigObservation struct {
+
+	// boolean flag specifying if usage tracking is enabled.
+	Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
+}
+
+type FallbackConfigParameters struct {
+
+	// boolean flag specifying if usage tracking is enabled.
+	// +kubebuilder:validation:Optional
+	Enabled *bool `json:"enabled" tf:"enabled,omitempty"`
 }
 
 type GoogleCloudVertexAIConfigInitParameters struct {
@@ -670,6 +800,9 @@ type ModelServingInitParameters struct {
 	// A block with AI Gateway configuration for the serving endpoint. Note: only external model endpoints are supported as of now.
 	AIGateway []AIGatewayInitParameters `json:"aiGateway,omitempty" tf:"ai_gateway,omitempty"`
 
+	// Equal to the name argument and used to identify the serving endpoint.
+	BudgetPolicyID *string `json:"budgetPolicyId,omitempty" tf:"budget_policy_id,omitempty"`
+
 	// The model serving endpoint configuration. This is optional and can be added and modified after creation. If config was provided in a previous apply but is not provided in the current apply, no change to the model serving endpoint will occur. To recreate the model serving endpoint without the config block, the model serving endpoint must be destroyed and recreated.
 	Config []ConfigInitParameters `json:"config,omitempty" tf:"config,omitempty"`
 
@@ -690,6 +823,9 @@ type ModelServingObservation struct {
 
 	// A block with AI Gateway configuration for the serving endpoint. Note: only external model endpoints are supported as of now.
 	AIGateway []AIGatewayObservation `json:"aiGateway,omitempty" tf:"ai_gateway,omitempty"`
+
+	// Equal to the name argument and used to identify the serving endpoint.
+	BudgetPolicyID *string `json:"budgetPolicyId,omitempty" tf:"budget_policy_id,omitempty"`
 
 	// The model serving endpoint configuration. This is optional and can be added and modified after creation. If config was provided in a previous apply but is not provided in the current apply, no change to the model serving endpoint will occur. To recreate the model serving endpoint without the config block, the model serving endpoint must be destroyed and recreated.
 	Config []ConfigObservation `json:"config,omitempty" tf:"config,omitempty"`
@@ -718,6 +854,10 @@ type ModelServingParameters struct {
 	// A block with AI Gateway configuration for the serving endpoint. Note: only external model endpoints are supported as of now.
 	// +kubebuilder:validation:Optional
 	AIGateway []AIGatewayParameters `json:"aiGateway,omitempty" tf:"ai_gateway,omitempty"`
+
+	// Equal to the name argument and used to identify the serving endpoint.
+	// +kubebuilder:validation:Optional
+	BudgetPolicyID *string `json:"budgetPolicyId,omitempty" tf:"budget_policy_id,omitempty"`
 
 	// The model serving endpoint configuration. This is optional and can be added and modified after creation. If config was provided in a previous apply but is not provided in the current apply, no change to the model serving endpoint will occur. To recreate the model serving endpoint without the config block, the model serving endpoint must be destroyed and recreated.
 	// +kubebuilder:validation:Optional

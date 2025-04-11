@@ -1,0 +1,31 @@
+apiVersion: security.databricks.crossplane.io/v1alpha1
+kind: IPAccessList
+metadata:
+  annotations:
+    meta.upbound.io/example-id: security/v1alpha1/ipaccesslist
+  labels:
+    testing.upbound.io/example-name: allowed-list
+  name: allowed-list
+spec:
+  forProvider:
+    ipAddresses:
+    - 1.1.1.1
+    - 1.2.3.0/24
+    - 1.2.5.0/24
+    label: allow_in
+    listType: ALLOW
+
+---
+
+apiVersion: workspace.databricks.crossplane.io/v1alpha1
+kind: WorkspaceConf
+metadata:
+  annotations:
+    meta.upbound.io/example-id: security/v1alpha1/ipaccesslist
+  labels:
+    testing.upbound.io/example-name: this
+  name: this
+spec:
+  forProvider:
+    customConfig:
+      enableIpAccessLists: true

@@ -322,9 +322,10 @@ spec:
                           items:
                             properties:
                               metric:
-                                description: string specifying the metric to check.  The
-                                  only supported metric is RUN_DURATION_SECONDS (check
-                                  Jobs REST API documentation for the latest information).
+                                description: string specifying the metric to check,
+                                  like RUN_DURATION_SECONDS, STREAMING_BACKLOG_FILES,
+                                  etc. - check the Jobs REST API documentation for
+                                  the full list of supported metrics.
                                 type: string
                               op:
                                 description: 'The string specifying the operation
@@ -1936,10 +1937,11 @@ spec:
                                               properties:
                                                 metric:
                                                   description: string specifying the
-                                                    metric to check.  The only supported
-                                                    metric is RUN_DURATION_SECONDS
-                                                    (check Jobs REST API documentation
-                                                    for the latest information).
+                                                    metric to check, like RUN_DURATION_SECONDS,
+                                                    STREAMING_BACKLOG_FILES, etc.
+                                                    - check the Jobs REST API documentation
+                                                    for the full list of supported
+                                                    metrics.
                                                   type: string
                                                 op:
                                                   description: 'The string specifying
@@ -3006,9 +3008,9 @@ spec:
                                   properties:
                                     metric:
                                       description: string specifying the metric to
-                                        check.  The only supported metric is RUN_DURATION_SECONDS
-                                        (check Jobs REST API documentation for the
-                                        latest information).
+                                        check, like RUN_DURATION_SECONDS, STREAMING_BACKLOG_FILES,
+                                        etc. - check the Jobs REST API documentation
+                                        for the full list of supported metrics.
                                       type: string
                                     op:
                                       description: 'The string specifying the operation
@@ -4375,9 +4377,10 @@ spec:
                           items:
                             properties:
                               metric:
-                                description: string specifying the metric to check.  The
-                                  only supported metric is RUN_DURATION_SECONDS (check
-                                  Jobs REST API documentation for the latest information).
+                                description: string specifying the metric to check,
+                                  like RUN_DURATION_SECONDS, STREAMING_BACKLOG_FILES,
+                                  etc. - check the Jobs REST API documentation for
+                                  the full list of supported metrics.
                                 type: string
                               op:
                                 description: 'The string specifying the operation
@@ -5993,10 +5996,11 @@ spec:
                                               properties:
                                                 metric:
                                                   description: string specifying the
-                                                    metric to check.  The only supported
-                                                    metric is RUN_DURATION_SECONDS
-                                                    (check Jobs REST API documentation
-                                                    for the latest information).
+                                                    metric to check, like RUN_DURATION_SECONDS,
+                                                    STREAMING_BACKLOG_FILES, etc.
+                                                    - check the Jobs REST API documentation
+                                                    for the full list of supported
+                                                    metrics.
                                                   type: string
                                                 op:
                                                   description: 'The string specifying
@@ -7065,9 +7069,9 @@ spec:
                                   properties:
                                     metric:
                                       description: string specifying the metric to
-                                        check.  The only supported metric is RUN_DURATION_SECONDS
-                                        (check Jobs REST API documentation for the
-                                        latest information).
+                                        check, like RUN_DURATION_SECONDS, STREAMING_BACKLOG_FILES,
+                                        etc. - check the Jobs REST API documentation
+                                        for the full list of supported metrics.
                                       type: string
                                     op:
                                       description: 'The string specifying the operation
@@ -8595,9 +8599,10 @@ spec:
                           items:
                             properties:
                               metric:
-                                description: string specifying the metric to check.  The
-                                  only supported metric is RUN_DURATION_SECONDS (check
-                                  Jobs REST API documentation for the latest information).
+                                description: string specifying the metric to check,
+                                  like RUN_DURATION_SECONDS, STREAMING_BACKLOG_FILES,
+                                  etc. - check the Jobs REST API documentation for
+                                  the full list of supported metrics.
                                 type: string
                               op:
                                 description: 'The string specifying the operation
@@ -10176,10 +10181,11 @@ spec:
                                               properties:
                                                 metric:
                                                   description: string specifying the
-                                                    metric to check.  The only supported
-                                                    metric is RUN_DURATION_SECONDS
-                                                    (check Jobs REST API documentation
-                                                    for the latest information).
+                                                    metric to check, like RUN_DURATION_SECONDS,
+                                                    STREAMING_BACKLOG_FILES, etc.
+                                                    - check the Jobs REST API documentation
+                                                    for the full list of supported
+                                                    metrics.
                                                   type: string
                                                 op:
                                                   description: 'The string specifying
@@ -11224,9 +11230,9 @@ spec:
                                   properties:
                                     metric:
                                       description: string specifying the metric to
-                                        check.  The only supported metric is RUN_DURATION_SECONDS
-                                        (check Jobs REST API documentation for the
-                                        latest information).
+                                        check, like RUN_DURATION_SECONDS, STREAMING_BACKLOG_FILES,
+                                        etc. - check the Jobs REST API documentation
+                                        for the full list of supported metrics.
                                       type: string
                                     op:
                                       description: 'The string specifying the operation

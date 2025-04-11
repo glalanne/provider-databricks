@@ -22,7 +22,7 @@ type MlflowModelInitParameters struct {
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// Tags for the MLflow model.
-	Tags []TagsInitParameters `json:"tags,omitempty" tf:"tags,omitempty"`
+	Tags []MlflowModelTagsInitParameters `json:"tags,omitempty" tf:"tags,omitempty"`
 }
 
 type MlflowModelObservation struct {
@@ -40,7 +40,7 @@ type MlflowModelObservation struct {
 	RegisteredModelID *string `json:"registeredModelId,omitempty" tf:"registered_model_id,omitempty"`
 
 	// Tags for the MLflow model.
-	Tags []TagsObservation `json:"tags,omitempty" tf:"tags,omitempty"`
+	Tags []MlflowModelTagsObservation `json:"tags,omitempty" tf:"tags,omitempty"`
 }
 
 type MlflowModelParameters struct {
@@ -55,22 +55,22 @@ type MlflowModelParameters struct {
 
 	// Tags for the MLflow model.
 	// +kubebuilder:validation:Optional
-	Tags []TagsParameters `json:"tags,omitempty" tf:"tags,omitempty"`
+	Tags []MlflowModelTagsParameters `json:"tags,omitempty" tf:"tags,omitempty"`
 }
 
-type TagsInitParameters struct {
+type MlflowModelTagsInitParameters struct {
 	Key *string `json:"key,omitempty" tf:"key,omitempty"`
 
 	Value *string `json:"value,omitempty" tf:"value,omitempty"`
 }
 
-type TagsObservation struct {
+type MlflowModelTagsObservation struct {
 	Key *string `json:"key,omitempty" tf:"key,omitempty"`
 
 	Value *string `json:"value,omitempty" tf:"value,omitempty"`
 }
 
-type TagsParameters struct {
+type MlflowModelTagsParameters struct {
 
 	// +kubebuilder:validation:Optional
 	Key *string `json:"key,omitempty" tf:"key,omitempty"`

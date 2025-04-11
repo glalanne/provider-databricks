@@ -158,7 +158,8 @@ spec:
                     type: object
                   clusterKeys:
                     description: a subset of columns to liquid cluster the table by.
-                      Conflicts with partitions.
+                      For automatic clustering, set cluster_keys to ["AUTO"]. To turn
+                      off clustering, set it to ["NONE"]. Conflicts with partitions.
                     items:
                       type: string
                     type: array
@@ -427,7 +428,8 @@ spec:
                     type: object
                   clusterKeys:
                     description: a subset of columns to liquid cluster the table by.
-                      Conflicts with partitions.
+                      For automatic clustering, set cluster_keys to ["AUTO"]. To turn
+                      off clustering, set it to ["NONE"]. Conflicts with partitions.
                     items:
                       type: string
                     type: array
@@ -798,7 +800,8 @@ spec:
                     type: string
                   clusterKeys:
                     description: a subset of columns to liquid cluster the table by.
-                      Conflicts with partitions.
+                      For automatic clustering, set cluster_keys to ["AUTO"]. To turn
+                      off clustering, set it to ["NONE"]. Conflicts with partitions.
                     items:
                       type: string
                     type: array

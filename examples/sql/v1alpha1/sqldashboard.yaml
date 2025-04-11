@@ -1,0 +1,29 @@
+apiVersion: sql.databricks.crossplane.io/v1alpha1
+kind: SQLDashboard
+metadata:
+  annotations:
+    meta.upbound.io/example-id: sql/v1alpha1/sqldashboard
+  labels:
+    testing.upbound.io/example-name: d1
+  name: d1
+spec:
+  forProvider:
+    name: My Dashboard Name
+    parent: folders/${databricks_directory.shared_dir.object_id}
+    tags:
+    - some-tag
+    - another-tag
+
+---
+
+apiVersion: workspace.databricks.crossplane.io/v1alpha1
+kind: Directory
+metadata:
+  annotations:
+    meta.upbound.io/example-id: sql/v1alpha1/sqldashboard
+  labels:
+    testing.upbound.io/example-name: shared_dir
+  name: shared-dir
+spec:
+  forProvider:
+    path: /Shared/Dashboards

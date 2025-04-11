@@ -1,0 +1,14 @@
+apiVersion: security.databricks.crossplane.io/v1alpha1
+kind: PermissionAssignment
+metadata:
+  annotations:
+    meta.upbound.io/example-id: security/v1alpha1/permissionassignment
+  labels:
+    testing.upbound.io/example-name: add_user
+  name: add-user
+spec:
+  forProvider:
+    permissions:
+    - USER
+    principalId: ${data.databricks_user.me.id}
+    provider: ${databricks.workspace}

@@ -18,7 +18,7 @@ type AccessControlRuleSetInitParameters struct {
 	// The access control rules to be granted by this rule set, consisting of a set of principals and roles to be granted to them.
 	GrantRules []GrantRulesInitParameters `json:"grantRules,omitempty" tf:"grant_rules,omitempty"`
 
-	// Unique identifier of a rule set. The name determines the resource to which the rule set applies. Currently, only default rule sets are supported. The following rule set formats are supported:
+	// Unique identifier of a rule set. The name determines the resource to which the rule set applies. Changing the name recreates the resource!. Currently, only default rule sets are supported. The following rule set formats are supported:
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 }
 
@@ -31,7 +31,7 @@ type AccessControlRuleSetObservation struct {
 	// ID of the access control rule set - the same as name.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
-	// Unique identifier of a rule set. The name determines the resource to which the rule set applies. Currently, only default rule sets are supported. The following rule set formats are supported:
+	// Unique identifier of a rule set. The name determines the resource to which the rule set applies. Changing the name recreates the resource!. Currently, only default rule sets are supported. The following rule set formats are supported:
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 }
 
@@ -41,7 +41,7 @@ type AccessControlRuleSetParameters struct {
 	// +kubebuilder:validation:Optional
 	GrantRules []GrantRulesParameters `json:"grantRules,omitempty" tf:"grant_rules,omitempty"`
 
-	// Unique identifier of a rule set. The name determines the resource to which the rule set applies. Currently, only default rule sets are supported. The following rule set formats are supported:
+	// Unique identifier of a rule set. The name determines the resource to which the rule set applies. Changing the name recreates the resource!. Currently, only default rule sets are supported. The following rule set formats are supported:
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 }
@@ -52,7 +52,7 @@ type GrantRulesInitParameters struct {
 	// +listType=set
 	Principals []*string `json:"principals,omitempty" tf:"principals,omitempty"`
 
-	// Role to be granted. The supported roles are listed below. For more information about these roles, refer to service principal roles, group roles, marketplace roles or budget policy permissions.
+	// Role to be granted. The supported roles are listed below. For more information about these roles, refer to service principal roles, group roles, marketplace roles or budget policy permissions, depending on the name defined:
 	Role *string `json:"role,omitempty" tf:"role,omitempty"`
 }
 
@@ -62,7 +62,7 @@ type GrantRulesObservation struct {
 	// +listType=set
 	Principals []*string `json:"principals,omitempty" tf:"principals,omitempty"`
 
-	// Role to be granted. The supported roles are listed below. For more information about these roles, refer to service principal roles, group roles, marketplace roles or budget policy permissions.
+	// Role to be granted. The supported roles are listed below. For more information about these roles, refer to service principal roles, group roles, marketplace roles or budget policy permissions, depending on the name defined:
 	Role *string `json:"role,omitempty" tf:"role,omitempty"`
 }
 
@@ -73,7 +73,7 @@ type GrantRulesParameters struct {
 	// +listType=set
 	Principals []*string `json:"principals,omitempty" tf:"principals,omitempty"`
 
-	// Role to be granted. The supported roles are listed below. For more information about these roles, refer to service principal roles, group roles, marketplace roles or budget policy permissions.
+	// Role to be granted. The supported roles are listed below. For more information about these roles, refer to service principal roles, group roles, marketplace roles or budget policy permissions, depending on the name defined:
 	// +kubebuilder:validation:Optional
 	Role *string `json:"role" tf:"role,omitempty"`
 }

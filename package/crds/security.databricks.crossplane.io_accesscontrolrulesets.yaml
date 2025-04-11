@@ -87,18 +87,19 @@ spec:
                           type: array
                           x-kubernetes-list-type: set
                         role:
-                          description: Role to be granted. The supported roles are
+                          description: 'Role to be granted. The supported roles are
                             listed below. For more information about these roles,
                             refer to service principal roles, group roles, marketplace
-                            roles or budget policy permissions.
+                            roles or budget policy permissions, depending on the name
+                            defined:'
                           type: string
                       type: object
                     type: array
                   name:
                     description: 'Unique identifier of a rule set. The name determines
-                      the resource to which the rule set applies. Currently, only
-                      default rule sets are supported. The following rule set formats
-                      are supported:'
+                      the resource to which the rule set applies. Changing the name
+                      recreates the resource!. Currently, only default rule sets are
+                      supported. The following rule set formats are supported:'
                     type: string
                 type: object
               initProvider:
@@ -128,18 +129,19 @@ spec:
                           type: array
                           x-kubernetes-list-type: set
                         role:
-                          description: Role to be granted. The supported roles are
+                          description: 'Role to be granted. The supported roles are
                             listed below. For more information about these roles,
                             refer to service principal roles, group roles, marketplace
-                            roles or budget policy permissions.
+                            roles or budget policy permissions, depending on the name
+                            defined:'
                           type: string
                       type: object
                     type: array
                   name:
                     description: 'Unique identifier of a rule set. The name determines
-                      the resource to which the rule set applies. Currently, only
-                      default rule sets are supported. The following rule set formats
-                      are supported:'
+                      the resource to which the rule set applies. Changing the name
+                      recreates the resource!. Currently, only default rule sets are
+                      supported. The following rule set formats are supported:'
                     type: string
                 type: object
               managementPolicies:
@@ -336,10 +338,11 @@ spec:
                           type: array
                           x-kubernetes-list-type: set
                         role:
-                          description: Role to be granted. The supported roles are
+                          description: 'Role to be granted. The supported roles are
                             listed below. For more information about these roles,
                             refer to service principal roles, group roles, marketplace
-                            roles or budget policy permissions.
+                            roles or budget policy permissions, depending on the name
+                            defined:'
                           type: string
                       type: object
                     type: array
@@ -348,9 +351,9 @@ spec:
                     type: string
                   name:
                     description: 'Unique identifier of a rule set. The name determines
-                      the resource to which the rule set applies. Currently, only
-                      default rule sets are supported. The following rule set formats
-                      are supported:'
+                      the resource to which the rule set applies. Changing the name
+                      recreates the resource!. Currently, only default rule sets are
+                      supported. The following rule set formats are supported:'
                     type: string
                 type: object
               conditions:

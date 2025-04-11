@@ -78,6 +78,22 @@ spec:
                       as of now.'
                     items:
                       properties:
+                        fallbackConfig:
+                          description: The model serving endpoint configuration. This
+                            is optional and can be added and modified after creation.
+                            If config was provided in a previous apply but is not
+                            provided in the current apply, no change to the model
+                            serving endpoint will occur. To recreate the model serving
+                            endpoint without the config block, the model serving endpoint
+                            must be destroyed and recreated.
+                          items:
+                            properties:
+                              enabled:
+                                description: boolean flag specifying if usage tracking
+                                  is enabled.
+                                type: boolean
+                            type: object
+                          type: array
                         guardrails:
                           description: 'Block with configuration for AI Guardrails
                             to prevent unwanted data and unsafe data in requests and
@@ -221,6 +237,10 @@ spec:
                           type: array
                       type: object
                     type: array
+                  budgetPolicyId:
+                    description: Equal to the name argument and used to identify the
+                      serving endpoint.
+                    type: string
                   config:
                     description: The model serving endpoint configuration. This is
                       optional and can be added and modified after creation. If config
@@ -384,6 +404,52 @@ spec:
                                           cohereApiKeyPlaintext:
                                             description: The Cohere API key provided
                                               as a plaintext string.
+                                            type: string
+                                        type: object
+                                      type: array
+                                    customProviderConfig:
+                                      description: The model serving endpoint configuration.
+                                        This is optional and can be added and modified
+                                        after creation. If config was provided in
+                                        a previous apply but is not provided in the
+                                        current apply, no change to the model serving
+                                        endpoint will occur. To recreate the model
+                                        serving endpoint without the config block,
+                                        the model serving endpoint must be destroyed
+                                        and recreated.
+                                      items:
+                                        properties:
+                                          apiKeyAuth:
+                                            items:
+                                              properties:
+                                                key:
+                                                  description: The key field for a
+                                                    tag.
+                                                  type: string
+                                                value:
+                                                  description: The value field for
+                                                    a tag.
+                                                  type: string
+                                                valuePlaintext:
+                                                  description: suffix) or in plain
+                                                    text (parameters with _plaintext
+                                                    suffix)!
+                                                  type: string
+                                              type: object
+                                            type: array
+                                          bearerTokenAuth:
+                                            items:
+                                              properties:
+                                                token:
+                                                  type: string
+                                                tokenPlaintext:
+                                                  description: suffix) or in plain
+                                                    text (parameters with _plaintext
+                                                    suffix)!
+                                                  type: string
+                                              type: object
+                                            type: array
+                                          customProviderUrl:
                                             type: string
                                         type: object
                                       type: array
@@ -758,6 +824,22 @@ spec:
                       as of now.'
                     items:
                       properties:
+                        fallbackConfig:
+                          description: The model serving endpoint configuration. This
+                            is optional and can be added and modified after creation.
+                            If config was provided in a previous apply but is not
+                            provided in the current apply, no change to the model
+                            serving endpoint will occur. To recreate the model serving
+                            endpoint without the config block, the model serving endpoint
+                            must be destroyed and recreated.
+                          items:
+                            properties:
+                              enabled:
+                                description: boolean flag specifying if usage tracking
+                                  is enabled.
+                                type: boolean
+                            type: object
+                          type: array
                         guardrails:
                           description: 'Block with configuration for AI Guardrails
                             to prevent unwanted data and unsafe data in requests and
@@ -901,6 +983,10 @@ spec:
                           type: array
                       type: object
                     type: array
+                  budgetPolicyId:
+                    description: Equal to the name argument and used to identify the
+                      serving endpoint.
+                    type: string
                   config:
                     description: The model serving endpoint configuration. This is
                       optional and can be added and modified after creation. If config
@@ -1064,6 +1150,52 @@ spec:
                                           cohereApiKeyPlaintext:
                                             description: The Cohere API key provided
                                               as a plaintext string.
+                                            type: string
+                                        type: object
+                                      type: array
+                                    customProviderConfig:
+                                      description: The model serving endpoint configuration.
+                                        This is optional and can be added and modified
+                                        after creation. If config was provided in
+                                        a previous apply but is not provided in the
+                                        current apply, no change to the model serving
+                                        endpoint will occur. To recreate the model
+                                        serving endpoint without the config block,
+                                        the model serving endpoint must be destroyed
+                                        and recreated.
+                                      items:
+                                        properties:
+                                          apiKeyAuth:
+                                            items:
+                                              properties:
+                                                key:
+                                                  description: The key field for a
+                                                    tag.
+                                                  type: string
+                                                value:
+                                                  description: The value field for
+                                                    a tag.
+                                                  type: string
+                                                valuePlaintext:
+                                                  description: suffix) or in plain
+                                                    text (parameters with _plaintext
+                                                    suffix)!
+                                                  type: string
+                                              type: object
+                                            type: array
+                                          bearerTokenAuth:
+                                            items:
+                                              properties:
+                                                token:
+                                                  type: string
+                                                tokenPlaintext:
+                                                  description: suffix) or in plain
+                                                    text (parameters with _plaintext
+                                                    suffix)!
+                                                  type: string
+                                              type: object
+                                            type: array
+                                          customProviderUrl:
                                             type: string
                                         type: object
                                       type: array
@@ -1602,6 +1734,22 @@ spec:
                       as of now.'
                     items:
                       properties:
+                        fallbackConfig:
+                          description: The model serving endpoint configuration. This
+                            is optional and can be added and modified after creation.
+                            If config was provided in a previous apply but is not
+                            provided in the current apply, no change to the model
+                            serving endpoint will occur. To recreate the model serving
+                            endpoint without the config block, the model serving endpoint
+                            must be destroyed and recreated.
+                          items:
+                            properties:
+                              enabled:
+                                description: boolean flag specifying if usage tracking
+                                  is enabled.
+                                type: boolean
+                            type: object
+                          type: array
                         guardrails:
                           description: 'Block with configuration for AI Guardrails
                             to prevent unwanted data and unsafe data in requests and
@@ -1745,6 +1893,10 @@ spec:
                           type: array
                       type: object
                     type: array
+                  budgetPolicyId:
+                    description: Equal to the name argument and used to identify the
+                      serving endpoint.
+                    type: string
                   config:
                     description: The model serving endpoint configuration. This is
                       optional and can be added and modified after creation. If config
@@ -1908,6 +2060,52 @@ spec:
                                           cohereApiKeyPlaintext:
                                             description: The Cohere API key provided
                                               as a plaintext string.
+                                            type: string
+                                        type: object
+                                      type: array
+                                    customProviderConfig:
+                                      description: The model serving endpoint configuration.
+                                        This is optional and can be added and modified
+                                        after creation. If config was provided in
+                                        a previous apply but is not provided in the
+                                        current apply, no change to the model serving
+                                        endpoint will occur. To recreate the model
+                                        serving endpoint without the config block,
+                                        the model serving endpoint must be destroyed
+                                        and recreated.
+                                      items:
+                                        properties:
+                                          apiKeyAuth:
+                                            items:
+                                              properties:
+                                                key:
+                                                  description: The key field for a
+                                                    tag.
+                                                  type: string
+                                                value:
+                                                  description: The value field for
+                                                    a tag.
+                                                  type: string
+                                                valuePlaintext:
+                                                  description: suffix) or in plain
+                                                    text (parameters with _plaintext
+                                                    suffix)!
+                                                  type: string
+                                              type: object
+                                            type: array
+                                          bearerTokenAuth:
+                                            items:
+                                              properties:
+                                                token:
+                                                  type: string
+                                                tokenPlaintext:
+                                                  description: suffix) or in plain
+                                                    text (parameters with _plaintext
+                                                    suffix)!
+                                                  type: string
+                                              type: object
+                                            type: array
+                                          customProviderUrl:
                                             type: string
                                         type: object
                                       type: array

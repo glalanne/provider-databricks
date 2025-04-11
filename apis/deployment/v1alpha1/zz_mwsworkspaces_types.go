@@ -85,10 +85,10 @@ type GCPManagedNetworkConfigObservation struct {
 type GCPManagedNetworkConfigParameters struct {
 
 	// +kubebuilder:validation:Optional
-	GkeClusterPodIPRange *string `json:"gkeClusterPodIpRange" tf:"gke_cluster_pod_ip_range,omitempty"`
+	GkeClusterPodIPRange *string `json:"gkeClusterPodIpRange,omitempty" tf:"gke_cluster_pod_ip_range,omitempty"`
 
 	// +kubebuilder:validation:Optional
-	GkeClusterServiceIPRange *string `json:"gkeClusterServiceIpRange" tf:"gke_cluster_service_ip_range,omitempty"`
+	GkeClusterServiceIPRange *string `json:"gkeClusterServiceIpRange,omitempty" tf:"gke_cluster_service_ip_range,omitempty"`
 
 	// +kubebuilder:validation:Optional
 	SubnetCidr *string `json:"subnetCidr" tf:"subnet_cidr,omitempty"`
@@ -129,11 +129,11 @@ type GkeConfigParameters struct {
 
 	// : Specifies the network connectivity types for the GKE nodes and the GKE master network. Possible values are: PRIVATE_NODE_PUBLIC_MASTER, PUBLIC_NODE_PUBLIC_MASTER.
 	// +kubebuilder:validation:Optional
-	ConnectivityType *string `json:"connectivityType" tf:"connectivity_type,omitempty"`
+	ConnectivityType *string `json:"connectivityType,omitempty" tf:"connectivity_type,omitempty"`
 
 	// : The IP range from which to allocate GKE cluster master resources. This field will be ignored if GKE private cluster is not enabled. It must be exactly as big as /28.
 	// +kubebuilder:validation:Optional
-	MasterIPRange *string `json:"masterIpRange" tf:"master_ip_range,omitempty"`
+	MasterIPRange *string `json:"masterIpRange,omitempty" tf:"master_ip_range,omitempty"`
 }
 
 type MwsWorkspacesInitParameters struct {

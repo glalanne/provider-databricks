@@ -1,0 +1,20 @@
+apiVersion: unity.databricks.crossplane.io/v1alpha1
+kind: GrantMap
+metadata:
+  annotations:
+    meta.upbound.io/example-id: unity/v1alpha1/grantmap
+  labels:
+    testing.upbound.io/example-name: sandbox
+  name: sandbox
+spec:
+  forProvider:
+    grant:
+    - principal: Data Engineers
+      privileges:
+      - CREATE_CATALOG
+      - CREATE_EXTERNAL_LOCATION
+    - principal: Data Sharer
+      privileges:
+      - CREATE_RECIPIENT
+      - CREATE_SHARE
+    metastore: metastore_id

@@ -1,0 +1,52 @@
+apiVersion: sql.databricks.crossplane.io/v1alpha1
+kind: Alert
+metadata:
+  annotations:
+    meta.upbound.io/example-id: sql/v1alpha1/alert
+  labels:
+    testing.upbound.io/example-name: alert
+  name: alert
+spec:
+  forProvider:
+    condition:
+    - op: GREATER_THAN
+      operand:
+      - column:
+        - name: value
+      threshold:
+      - value:
+        - doubleValue: 42
+    displayName: TF new alert
+    parentPath: /my_custom_directory
+    queryId: ${databricks_query.this.id}
+
+---
+
+apiVersion: workspace.databricks.crossplane.io/v1alpha1
+kind: Directory
+metadata:
+  annotations:
+    meta.upbound.io/example-id: sql/v1alpha1/alert
+  labels:
+    testing.upbound.io/example-name: shared_dir
+  name: shared-dir
+spec:
+  forProvider:
+    path: /Shared/Queries
+
+---
+
+apiVersion: sql.databricks.crossplane.io/v1alpha1
+kind: Query
+metadata:
+  annotations:
+    meta.upbound.io/example-id: sql/v1alpha1/alert
+  labels:
+    testing.upbound.io/example-name: this
+  name: this
+spec:
+  forProvider:
+    displayName: My Query Name
+    parentPath: /Shared/Queries
+    queryText: SELECT 42 as value
+    warehouseId: ${databricks_sql_endpoint.example.id}
