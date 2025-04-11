@@ -1,0 +1,17 @@
+apiVersion: sharing.databricks.crossplane.io/v1alpha1
+kind: Provider
+metadata:
+  annotations:
+    meta.upbound.io/example-id: sharing/v1alpha1/provider
+  labels:
+    testing.upbound.io/example-name: dbprovider
+  name: dbprovider
+spec:
+  forProvider:
+    authenticationType: TOKEN
+    comment: made by terraform 2
+    name: terraform-test-provider
+    recipientProfileStrSecretRef:
+      key: example-key
+      name: example-secret
+      namespace: upbound-system

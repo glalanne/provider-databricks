@@ -1,0 +1,37 @@
+apiVersion: deployment.databricks.crossplane.io/v1alpha1
+kind: InstanceProfile
+metadata:
+  annotations:
+    meta.upbound.io/example-id: deployment/v1alpha1/instanceprofile
+  labels:
+    testing.upbound.io/example-name: shared
+  name: shared
+spec:
+  forProvider:
+    instanceProfileArn: ${aws_iam_instance_profile.shared.arn}
+
+---
+
+apiVersion: compute.databricks.crossplane.io/v1alpha1
+kind: Cluster
+metadata:
+  annotations:
+    meta.upbound.io/example-id: deployment/v1alpha1/instanceprofile
+  labels:
+    testing.upbound.io/example-name: this
+  name: this
+spec:
+  forProvider:
+    autoscale:
+    - maxWorkers: 50
+      minWorkers: 1
+    autoterminationMinutes: 20
+    awsAttributes:
+    - availability: SPOT
+      firstOnDemand: 1
+      instanceProfileArn: ${databricks_instance_profile.shared.id}
+      spotBidPricePercent: 100
+      zoneId: us-east-1
+    clusterName: Shared Autoscaling
+    nodeTypeId: ${data.databricks_node_type.smallest.id}
+    sparkVersion: ${data.databricks_spark_version.latest.id}

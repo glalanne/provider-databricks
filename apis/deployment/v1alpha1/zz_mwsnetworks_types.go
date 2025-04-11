@@ -84,11 +84,11 @@ type GCPNetworkInfoParameters struct {
 
 	// The name of the secondary IP range for pods. A Databricks-managed GKE cluster uses this IP range for its pods. This secondary IP range can only be used by one workspace.
 	// +kubebuilder:validation:Optional
-	PodIPRangeName *string `json:"podIpRangeName" tf:"pod_ip_range_name,omitempty"`
+	PodIPRangeName *string `json:"podIpRangeName,omitempty" tf:"pod_ip_range_name,omitempty"`
 
 	// The name of the secondary IP range for services. A Databricks-managed GKE cluster uses this IP range for its services. This secondary IP range can only be used by one workspace.
 	// +kubebuilder:validation:Optional
-	ServiceIPRangeName *string `json:"serviceIpRangeName" tf:"service_ip_range_name,omitempty"`
+	ServiceIPRangeName *string `json:"serviceIpRangeName,omitempty" tf:"service_ip_range_name,omitempty"`
 
 	// The ID of the subnet associated with this network.
 	// +kubebuilder:validation:Optional

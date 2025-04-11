@@ -1,0 +1,11 @@
+apiVersion: workspace.databricks.crossplane.io/v1alpha1
+kind: Directory
+metadata:
+  annotations:
+    meta.upbound.io/example-id: workspace/v1alpha1/directory
+  labels:
+    testing.upbound.io/example-name: my_custom_directory
+  name: my-custom-directory
+spec:
+  forProvider:
+    path: /my_custom_directory

@@ -1,0 +1,14 @@
+apiVersion: unity.databricks.crossplane.io/v1alpha1
+kind: ArtifactAllowlist
+metadata:
+  annotations:
+    meta.upbound.io/example-id: unity/v1alpha1/artifactallowlist
+  labels:
+    testing.upbound.io/example-name: init_scripts
+  name: init-scripts
+spec:
+  forProvider:
+    artifactMatcher:
+    - artifact: /Volumes/inits
+      matchType: PREFIX_MATCH
+    artifactType: INIT_SCRIPT

@@ -1,0 +1,12 @@
+apiVersion: mosaic.databricks.crossplane.io/v1alpha1
+kind: VectorSearchEndpoint
+metadata:
+  annotations:
+    meta.upbound.io/example-id: mosaic/v1alpha1/vectorsearchendpoint
+  labels:
+    testing.upbound.io/example-name: this
+  name: this
+spec:
+  forProvider:
+    endpointType: STANDARD
+    name: vector-search-test

@@ -5,13 +5,13 @@ metadata:
     meta.upbound.io/example-id: compute/v1alpha1/cluster
   labels:
     testing.upbound.io/example-name: shared_autoscaling
-  name: shared-autoscaling-test
+  name: shared-autoscaling
 spec:
   forProvider:
     autoscale:
-    - maxWorkers: 2
+    - maxWorkers: 50
       minWorkers: 1
     autoterminationMinutes: 20
+    clusterName: Shared Autoscaling
     nodeTypeId: Standard_D4plds_v6
     sparkVersion: 16.0.x-scala2.12
-    

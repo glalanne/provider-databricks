@@ -1,0 +1,13 @@
+apiVersion: security.databricks.crossplane.io/v1alpha1
+kind: Entitlements
+metadata:
+  annotations:
+    meta.upbound.io/example-id: security/v1alpha1/entitlements
+  labels:
+    testing.upbound.io/example-name: me
+  name: me
+spec:
+  forProvider:
+    allowClusterCreate: true
+    allowInstancePoolCreate: true
+    userId: ${data.databricks_user.me.id}

@@ -1,0 +1,13 @@
+apiVersion: security.databricks.crossplane.io/v1alpha1
+kind: Group
+metadata:
+  annotations:
+    meta.upbound.io/example-id: security/v1alpha1/group
+  labels:
+    testing.upbound.io/example-name: this
+  name: this
+spec:
+  forProvider:
+    allowClusterCreate: true
+    allowInstancePoolCreate: true
+    displayName: Some Group

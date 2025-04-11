@@ -6,6 +6,6 @@ spec:
   credentials:
     source: Secret
     secretRef:
-      name: dbx-wk-dev-creds
+      name: databricks-secret
       namespace: crossplane-system
       key: credentials

@@ -157,8 +157,7 @@ spec:
                             placed on on-demand instances, and the remainder will
                             be placed on availability instances. This value does not
                             affect cluster size and cannot be mutated over the lifetime
-                            of a cluster. Backend default value is 1 and could change
-                            in the future
+                            of a cluster. If unspecified, the default value is 0.
                           type: number
                         instanceProfileArn:
                           description: Nodes for this cluster will only be placed
@@ -854,8 +853,7 @@ spec:
                             placed on on-demand instances, and the remainder will
                             be placed on availability instances. This value does not
                             affect cluster size and cannot be mutated over the lifetime
-                            of a cluster. Backend default value is 1 and could change
-                            in the future
+                            of a cluster. If unspecified, the default value is 0.
                           type: number
                         instanceProfileArn:
                           description: Nodes for this cluster will only be placed
@@ -1717,8 +1715,7 @@ spec:
                             placed on on-demand instances, and the remainder will
                             be placed on availability instances. This value does not
                             affect cluster size and cannot be mutated over the lifetime
-                            of a cluster. Backend default value is 1 and could change
-                            in the future
+                            of a cluster. If unspecified, the default value is 0.
                           type: number
                         instanceProfileArn:
                           description: Nodes for this cluster will only be placed

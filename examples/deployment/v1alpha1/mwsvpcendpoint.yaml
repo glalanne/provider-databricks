@@ -1,0 +1,15 @@
+apiVersion: deployment.databricks.crossplane.io/v1alpha1
+kind: MwsVPCEndpoint
+metadata:
+  annotations:
+    meta.upbound.io/example-id: deployment/v1alpha1/mwsvpcendpoint
+  labels:
+    testing.upbound.io/example-name: workspace
+  name: workspace
+spec:
+  forProvider:
+    accountId: ${var.databricks_account_id}
+    awsVpcEndpointId: ${aws_vpc_endpoint.workspace.id}
+    provider: ${databricks.mws}
+    region: ${var.region}
+    vpcEndpointName: VPC Relay for ${module.vpc.vpc_id}

@@ -1,0 +1,16 @@
+apiVersion: deployment.databricks.crossplane.io/v1alpha1
+kind: MwsCustomerManagedKeys
+metadata:
+  annotations:
+    meta.upbound.io/example-id: deployment/v1alpha1/mwscustomermanagedkeys
+  labels:
+    testing.upbound.io/example-name: managed_services
+  name: managed-services
+spec:
+  forProvider:
+    accountId: ${var.databricks_account_id}
+    awsKeyInfo:
+    - keyAlias: ${aws_kms_alias.managed_services_customer_managed_key_alias.name}
+      keyArn: ${aws_kms_key.managed_services_customer_managed_key.arn}
+    useCases:
+    - MANAGED_SERVICES

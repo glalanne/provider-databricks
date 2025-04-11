@@ -222,7 +222,7 @@ type QualityMonitorInitParameters struct {
 	// The schedule for automatically updating and refreshing metric tables.  This block consists of following fields:
 	Schedule []QualityMonitorScheduleInitParameters `json:"schedule,omitempty" tf:"schedule,omitempty"`
 
-	// Whether to skip creating a default dashboard summarizing data quality metrics.
+	// Whether to skip creating a default dashboard summarizing data quality metrics.  (Can't be updated after creation).
 	SkipBuiltinDashboard *bool `json:"skipBuiltinDashboard,omitempty" tf:"skip_builtin_dashboard,omitempty"`
 
 	// List of column expressions to slice data with for targeted analysis. The data is grouped by each expression independently, resulting in a separate slice for each predicate and its complements. For high-cardinality columns, only the top 100 unique values by frequency will generate slices.
@@ -237,7 +237,7 @@ type QualityMonitorInitParameters struct {
 	// Configuration for monitoring timeseries tables.
 	TimeSeries []QualityMonitorTimeSeriesInitParameters `json:"timeSeries,omitempty" tf:"time_series,omitempty"`
 
-	// Optional argument to specify the warehouse for dashboard creation. If not specified, the first running warehouse will be used.
+	// Optional argument to specify the warehouse for dashboard creation. If not specified, the first running warehouse will be used.  (Can't be updated after creation)
 	WarehouseID *string `json:"warehouseId,omitempty" tf:"warehouse_id,omitempty"`
 }
 
@@ -314,7 +314,7 @@ type QualityMonitorObservation struct {
 	// The schedule for automatically updating and refreshing metric tables.  This block consists of following fields:
 	Schedule []QualityMonitorScheduleObservation `json:"schedule,omitempty" tf:"schedule,omitempty"`
 
-	// Whether to skip creating a default dashboard summarizing data quality metrics.
+	// Whether to skip creating a default dashboard summarizing data quality metrics.  (Can't be updated after creation).
 	SkipBuiltinDashboard *bool `json:"skipBuiltinDashboard,omitempty" tf:"skip_builtin_dashboard,omitempty"`
 
 	// List of column expressions to slice data with for targeted analysis. The data is grouped by each expression independently, resulting in a separate slice for each predicate and its complements. For high-cardinality columns, only the top 100 unique values by frequency will generate slices.
@@ -332,7 +332,7 @@ type QualityMonitorObservation struct {
 	// Configuration for monitoring timeseries tables.
 	TimeSeries []QualityMonitorTimeSeriesObservation `json:"timeSeries,omitempty" tf:"time_series,omitempty"`
 
-	// Optional argument to specify the warehouse for dashboard creation. If not specified, the first running warehouse will be used.
+	// Optional argument to specify the warehouse for dashboard creation. If not specified, the first running warehouse will be used.  (Can't be updated after creation)
 	WarehouseID *string `json:"warehouseId,omitempty" tf:"warehouse_id,omitempty"`
 }
 
@@ -374,7 +374,7 @@ type QualityMonitorParameters struct {
 	// +kubebuilder:validation:Optional
 	Schedule []QualityMonitorScheduleParameters `json:"schedule,omitempty" tf:"schedule,omitempty"`
 
-	// Whether to skip creating a default dashboard summarizing data quality metrics.
+	// Whether to skip creating a default dashboard summarizing data quality metrics.  (Can't be updated after creation).
 	// +kubebuilder:validation:Optional
 	SkipBuiltinDashboard *bool `json:"skipBuiltinDashboard,omitempty" tf:"skip_builtin_dashboard,omitempty"`
 
@@ -394,7 +394,7 @@ type QualityMonitorParameters struct {
 	// +kubebuilder:validation:Optional
 	TimeSeries []QualityMonitorTimeSeriesParameters `json:"timeSeries,omitempty" tf:"time_series,omitempty"`
 
-	// Optional argument to specify the warehouse for dashboard creation. If not specified, the first running warehouse will be used.
+	// Optional argument to specify the warehouse for dashboard creation. If not specified, the first running warehouse will be used.  (Can't be updated after creation)
 	// +kubebuilder:validation:Optional
 	WarehouseID *string `json:"warehouseId,omitempty" tf:"warehouse_id,omitempty"`
 }

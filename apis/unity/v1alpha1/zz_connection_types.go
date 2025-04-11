@@ -18,16 +18,13 @@ type ConnectionInitParameters struct {
 	// Free-form text.
 	Comment *string `json:"comment,omitempty" tf:"comment,omitempty"`
 
-	// Connection type. BIGQUERY MYSQL POSTGRESQL SNOWFLAKE REDSHIFT SQLDW SQLSERVER, SALESFORCE or DATABRICKS are supported. Up-to-date list of connection type supported
+	// Connection type. BIGQUERY MYSQL POSTGRESQL SNOWFLAKE REDSHIFT SQLDW SQLSERVER, SALESFORCE, HIVE_METASTORE, GLUE, TERADATA, ORACLE or DATABRICKS are supported. Up-to-date list of connection type supported is in the documentation
 	ConnectionType *string `json:"connectionType,omitempty" tf:"connection_type,omitempty"`
-
-	// ID of this connection in form of <metastore_id>|<name>.
-	MetastoreID *string `json:"metastoreId,omitempty" tf:"metastore_id,omitempty"`
 
 	// Name of the Connection.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
-	Options map[string]*string `json:"optionsSecretRef" tf:"-"`
+	Options map[string]*string `json:"optionsSecretRef,omitempty" tf:"-"`
 
 	// Name of the connection owner.
 	Owner *string `json:"owner,omitempty" tf:"owner,omitempty"`
@@ -44,13 +41,28 @@ type ConnectionObservation struct {
 	// Free-form text.
 	Comment *string `json:"comment,omitempty" tf:"comment,omitempty"`
 
-	// Connection type. BIGQUERY MYSQL POSTGRESQL SNOWFLAKE REDSHIFT SQLDW SQLSERVER, SALESFORCE or DATABRICKS are supported. Up-to-date list of connection type supported
+	// Unique ID of the connection.
+	ConnectionID *string `json:"connectionId,omitempty" tf:"connection_id,omitempty"`
+
+	// Connection type. BIGQUERY MYSQL POSTGRESQL SNOWFLAKE REDSHIFT SQLDW SQLSERVER, SALESFORCE, HIVE_METASTORE, GLUE, TERADATA, ORACLE or DATABRICKS are supported. Up-to-date list of connection type supported is in the documentation
 	ConnectionType *string `json:"connectionType,omitempty" tf:"connection_type,omitempty"`
+
+	// Time at which this connection was created, in epoch milliseconds.
+	CreatedAt *float64 `json:"createdAt,omitempty" tf:"created_at,omitempty"`
+
+	// Username of connection creator.
+	CreatedBy *string `json:"createdBy,omitempty" tf:"created_by,omitempty"`
+
+	// The type of credential for this connection.
+	CredentialType *string `json:"credentialType,omitempty" tf:"credential_type,omitempty"`
+
+	// Full name of connection.
+	FullName *string `json:"fullName,omitempty" tf:"full_name,omitempty"`
 
 	// ID of this connection in form of <metastore_id>|<name>.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
-	// ID of this connection in form of <metastore_id>|<name>.
+	// Unique ID of the UC metastore for this connection.
 	MetastoreID *string `json:"metastoreId,omitempty" tf:"metastore_id,omitempty"`
 
 	// Name of the Connection.
@@ -63,7 +75,21 @@ type ConnectionObservation struct {
 	// +mapType=granular
 	Properties map[string]*string `json:"properties,omitempty" tf:"properties,omitempty"`
 
+	// Object with the status of an asynchronously provisioned resource.
+	ProvisioningInfo []ProvisioningInfoObservation `json:"provisioningInfo,omitempty" tf:"provisioning_info,omitempty"`
+
 	ReadOnly *bool `json:"readOnly,omitempty" tf:"read_only,omitempty"`
+
+	SecurableType *string `json:"securableType,omitempty" tf:"securable_type,omitempty"`
+
+	// URL of the remote data source, extracted from options.
+	URL *string `json:"url,omitempty" tf:"url,omitempty"`
+
+	// Time at which connection this was last modified, in epoch milliseconds.
+	UpdatedAt *float64 `json:"updatedAt,omitempty" tf:"updated_at,omitempty"`
+
+	// Username of user who last modified the connection.
+	UpdatedBy *string `json:"updatedBy,omitempty" tf:"updated_by,omitempty"`
 }
 
 type ConnectionParameters struct {
@@ -72,13 +98,9 @@ type ConnectionParameters struct {
 	// +kubebuilder:validation:Optional
 	Comment *string `json:"comment,omitempty" tf:"comment,omitempty"`
 
-	// Connection type. BIGQUERY MYSQL POSTGRESQL SNOWFLAKE REDSHIFT SQLDW SQLSERVER, SALESFORCE or DATABRICKS are supported. Up-to-date list of connection type supported
+	// Connection type. BIGQUERY MYSQL POSTGRESQL SNOWFLAKE REDSHIFT SQLDW SQLSERVER, SALESFORCE, HIVE_METASTORE, GLUE, TERADATA, ORACLE or DATABRICKS are supported. Up-to-date list of connection type supported is in the documentation
 	// +kubebuilder:validation:Optional
 	ConnectionType *string `json:"connectionType,omitempty" tf:"connection_type,omitempty"`
-
-	// ID of this connection in form of <metastore_id>|<name>.
-	// +kubebuilder:validation:Optional
-	MetastoreID *string `json:"metastoreId,omitempty" tf:"metastore_id,omitempty"`
 
 	// Name of the Connection.
 	// +kubebuilder:validation:Optional
@@ -86,7 +108,7 @@ type ConnectionParameters struct {
 
 	// The key value of options required by the connection, e.g. host, port, user, password or GoogleServiceAccountKeyJson. Please consult the documentation for the required option.
 	// +kubebuilder:validation:Optional
-	OptionsSecretRef v1.SecretReference `json:"optionsSecretRef" tf:"-"`
+	OptionsSecretRef *v1.SecretReference `json:"optionsSecretRef,omitempty" tf:"-"`
 
 	// Name of the connection owner.
 	// +kubebuilder:validation:Optional
@@ -99,6 +121,16 @@ type ConnectionParameters struct {
 
 	// +kubebuilder:validation:Optional
 	ReadOnly *bool `json:"readOnly,omitempty" tf:"read_only,omitempty"`
+}
+
+type ProvisioningInfoInitParameters struct {
+}
+
+type ProvisioningInfoObservation struct {
+	State *string `json:"state,omitempty" tf:"state,omitempty"`
+}
+
+type ProvisioningInfoParameters struct {
 }
 
 // ConnectionSpec defines the desired state of Connection
@@ -137,11 +169,8 @@ type ConnectionStatus struct {
 type Connection struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.connectionType) || (has(self.initProvider) && has(self.initProvider.connectionType))",message="spec.forProvider.connectionType is a required parameter"
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.name) || (has(self.initProvider) && has(self.initProvider.name))",message="spec.forProvider.name is a required parameter"
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.optionsSecretRef)",message="spec.forProvider.optionsSecretRef is a required parameter"
-	Spec   ConnectionSpec   `json:"spec"`
-	Status ConnectionStatus `json:"status,omitempty"`
+	Spec              ConnectionSpec   `json:"spec"`
+	Status            ConnectionStatus `json:"status,omitempty"`
 }
 
 // +kubebuilder:object:root=true

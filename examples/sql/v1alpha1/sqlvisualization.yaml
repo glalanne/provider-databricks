@@ -1,0 +1,35 @@
+apiVersion: sql.databricks.crossplane.io/v1alpha1
+kind: SQLVisualization
+metadata:
+  annotations:
+    meta.upbound.io/example-id: sql/v1alpha1/sqlvisualization
+  labels:
+    testing.upbound.io/example-name: q1v1
+  name: q1v1
+spec:
+  forProvider:
+    description: Some Description
+    name: My Table
+    options: |-
+      ${jsonencode(
+          {
+            "itemsPerPage" : 25,
+            "columns" : [
+              {
+                "name" : "p1",
+                "type" : "string"
+                "title" : "Parameter 1",
+                "displayAs" : "string",
+              },
+              {
+                "name" : "p2",
+                "type" : "string"
+                "title" : "Parameter 2",
+                "displayAs" : "link",
+                "highlightLinks" : true,
+              }
+            ]
+          }
+        )}
+    queryId: ${databricks_sql_query.q1.id}
+    type: table

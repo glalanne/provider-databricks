@@ -1,0 +1,11 @@
+apiVersion: security.databricks.crossplane.io/v1alpha1
+kind: ServicePrincipal
+metadata:
+  annotations:
+    meta.upbound.io/example-id: security/v1alpha1/serviceprincipal
+  labels:
+    testing.upbound.io/example-name: sp
+  name: sp
+spec:
+  forProvider:
+    displayName: Admin SP

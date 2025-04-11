@@ -262,6 +262,39 @@ type ClusterMountInfoNetworkFilesystemInfoParameters struct {
 	ServerAddress *string `json:"serverAddress" tf:"server_address,omitempty"`
 }
 
+type ComputeInitParameters struct {
+
+	// ID of the system notification that is notified when an event defined in webhook_notifications is triggered.
+	GpuNodePoolID *string `json:"gpuNodePoolId,omitempty" tf:"gpu_node_pool_id,omitempty"`
+
+	GpuType *string `json:"gpuType,omitempty" tf:"gpu_type,omitempty"`
+
+	NumGpus *float64 `json:"numGpus,omitempty" tf:"num_gpus,omitempty"`
+}
+
+type ComputeObservation struct {
+
+	// ID of the system notification that is notified when an event defined in webhook_notifications is triggered.
+	GpuNodePoolID *string `json:"gpuNodePoolId,omitempty" tf:"gpu_node_pool_id,omitempty"`
+
+	GpuType *string `json:"gpuType,omitempty" tf:"gpu_type,omitempty"`
+
+	NumGpus *float64 `json:"numGpus,omitempty" tf:"num_gpus,omitempty"`
+}
+
+type ComputeParameters struct {
+
+	// ID of the system notification that is notified when an event defined in webhook_notifications is triggered.
+	// +kubebuilder:validation:Optional
+	GpuNodePoolID *string `json:"gpuNodePoolId" tf:"gpu_node_pool_id,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	GpuType *string `json:"gpuType,omitempty" tf:"gpu_type,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	NumGpus *float64 `json:"numGpus" tf:"num_gpus,omitempty"`
+}
+
 type ConditionTaskInitParameters struct {
 
 	// The left operand of the condition task. It could be a string value, job state, or a parameter reference.
@@ -900,6 +933,9 @@ type ForEachTaskTaskInitParameters struct {
 	// If existing_cluster_id, the ID of an existing cluster that will be used for all runs of this job. When running jobs on an existing cluster, you may need to manually restart the cluster if it stops responding. We strongly suggest to use new_cluster for greater reliability.
 	ExistingClusterID *string `json:"existingClusterId,omitempty" tf:"existing_cluster_id,omitempty"`
 
+	// A list of task specification that the job will execute. See task Configuration Block below.
+	GenAIComputeTask []GenAIComputeTaskInitParameters `json:"genAiComputeTask,omitempty" tf:"gen_ai_compute_task,omitempty"`
+
 	// An optional block that specifies the health conditions for the job documented below.
 	Health []TaskHealthInitParameters `json:"health,omitempty" tf:"health,omitempty"`
 
@@ -989,6 +1025,9 @@ type ForEachTaskTaskObservation struct {
 
 	// If existing_cluster_id, the ID of an existing cluster that will be used for all runs of this job. When running jobs on an existing cluster, you may need to manually restart the cluster if it stops responding. We strongly suggest to use new_cluster for greater reliability.
 	ExistingClusterID *string `json:"existingClusterId,omitempty" tf:"existing_cluster_id,omitempty"`
+
+	// A list of task specification that the job will execute. See task Configuration Block below.
+	GenAIComputeTask []GenAIComputeTaskObservation `json:"genAiComputeTask,omitempty" tf:"gen_ai_compute_task,omitempty"`
 
 	// An optional block that specifies the health conditions for the job documented below.
 	Health []TaskHealthObservation `json:"health,omitempty" tf:"health,omitempty"`
@@ -1089,6 +1128,10 @@ type ForEachTaskTaskParameters struct {
 	// +kubebuilder:validation:Optional
 	ExistingClusterID *string `json:"existingClusterId,omitempty" tf:"existing_cluster_id,omitempty"`
 
+	// A list of task specification that the job will execute. See task Configuration Block below.
+	// +kubebuilder:validation:Optional
+	GenAIComputeTask []GenAIComputeTaskParameters `json:"genAiComputeTask,omitempty" tf:"gen_ai_compute_task,omitempty"`
+
 	// An optional block that specifies the health conditions for the job documented below.
 	// +kubebuilder:validation:Optional
 	Health []TaskHealthParameters `json:"health,omitempty" tf:"health,omitempty"`
@@ -1168,6 +1211,117 @@ type ForEachTaskTaskParameters struct {
 	// (List) An optional set of system destinations (for example, webhook destinations or Slack) to be notified when runs of this job begins, completes or fails. The default behavior is to not send any notifications. This field is a block and is documented below.
 	// +kubebuilder:validation:Optional
 	WebhookNotifications []WebhookNotificationsParameters `json:"webhookNotifications,omitempty" tf:"webhook_notifications,omitempty"`
+}
+
+type GenAIComputeTaskComputeInitParameters struct {
+
+	// ID of the system notification that is notified when an event defined in webhook_notifications is triggered.
+	GpuNodePoolID *string `json:"gpuNodePoolId,omitempty" tf:"gpu_node_pool_id,omitempty"`
+
+	GpuType *string `json:"gpuType,omitempty" tf:"gpu_type,omitempty"`
+
+	NumGpus *float64 `json:"numGpus,omitempty" tf:"num_gpus,omitempty"`
+}
+
+type GenAIComputeTaskComputeObservation struct {
+
+	// ID of the system notification that is notified when an event defined in webhook_notifications is triggered.
+	GpuNodePoolID *string `json:"gpuNodePoolId,omitempty" tf:"gpu_node_pool_id,omitempty"`
+
+	GpuType *string `json:"gpuType,omitempty" tf:"gpu_type,omitempty"`
+
+	NumGpus *float64 `json:"numGpus,omitempty" tf:"num_gpus,omitempty"`
+}
+
+type GenAIComputeTaskComputeParameters struct {
+
+	// ID of the system notification that is notified when an event defined in webhook_notifications is triggered.
+	// +kubebuilder:validation:Optional
+	GpuNodePoolID *string `json:"gpuNodePoolId" tf:"gpu_node_pool_id,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	GpuType *string `json:"gpuType,omitempty" tf:"gpu_type,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	NumGpus *float64 `json:"numGpus" tf:"num_gpus,omitempty"`
+}
+
+type GenAIComputeTaskInitParameters struct {
+	Command *string `json:"command,omitempty" tf:"command,omitempty"`
+
+	Compute []ComputeInitParameters `json:"compute,omitempty" tf:"compute,omitempty"`
+
+	DlRuntimeImage *string `json:"dlRuntimeImage,omitempty" tf:"dl_runtime_image,omitempty"`
+
+	// An optional name for the job. The default value is Untitled.
+	MlflowExperimentName *string `json:"mlflowExperimentName,omitempty" tf:"mlflow_experiment_name,omitempty"`
+
+	// The source of the project. Possible values are WORKSPACE and GIT.  Defaults to GIT if a git_source block is present in the job definition.
+	Source *string `json:"source,omitempty" tf:"source,omitempty"`
+
+	// If source is GIT: Relative path to the file in the repository specified in the git_source block with SQL commands to execute. If source is WORKSPACE: Absolute path to the file in the workspace with SQL commands to execute.
+	TrainingScriptPath *string `json:"trainingScriptPath,omitempty" tf:"training_script_path,omitempty"`
+
+	// Parameters for the task
+	YamlParameters *string `json:"yamlParameters,omitempty" tf:"yaml_parameters,omitempty"`
+
+	// If source is GIT: Relative path to the file in the repository specified in the git_source block with SQL commands to execute. If source is WORKSPACE: Absolute path to the file in the workspace with SQL commands to execute.
+	YamlParametersFilePath *string `json:"yamlParametersFilePath,omitempty" tf:"yaml_parameters_file_path,omitempty"`
+}
+
+type GenAIComputeTaskObservation struct {
+	Command *string `json:"command,omitempty" tf:"command,omitempty"`
+
+	Compute []ComputeObservation `json:"compute,omitempty" tf:"compute,omitempty"`
+
+	DlRuntimeImage *string `json:"dlRuntimeImage,omitempty" tf:"dl_runtime_image,omitempty"`
+
+	// An optional name for the job. The default value is Untitled.
+	MlflowExperimentName *string `json:"mlflowExperimentName,omitempty" tf:"mlflow_experiment_name,omitempty"`
+
+	// The source of the project. Possible values are WORKSPACE and GIT.  Defaults to GIT if a git_source block is present in the job definition.
+	Source *string `json:"source,omitempty" tf:"source,omitempty"`
+
+	// If source is GIT: Relative path to the file in the repository specified in the git_source block with SQL commands to execute. If source is WORKSPACE: Absolute path to the file in the workspace with SQL commands to execute.
+	TrainingScriptPath *string `json:"trainingScriptPath,omitempty" tf:"training_script_path,omitempty"`
+
+	// Parameters for the task
+	YamlParameters *string `json:"yamlParameters,omitempty" tf:"yaml_parameters,omitempty"`
+
+	// If source is GIT: Relative path to the file in the repository specified in the git_source block with SQL commands to execute. If source is WORKSPACE: Absolute path to the file in the workspace with SQL commands to execute.
+	YamlParametersFilePath *string `json:"yamlParametersFilePath,omitempty" tf:"yaml_parameters_file_path,omitempty"`
+}
+
+type GenAIComputeTaskParameters struct {
+
+	// +kubebuilder:validation:Optional
+	Command *string `json:"command,omitempty" tf:"command,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	Compute []ComputeParameters `json:"compute,omitempty" tf:"compute,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	DlRuntimeImage *string `json:"dlRuntimeImage" tf:"dl_runtime_image,omitempty"`
+
+	// An optional name for the job. The default value is Untitled.
+	// +kubebuilder:validation:Optional
+	MlflowExperimentName *string `json:"mlflowExperimentName,omitempty" tf:"mlflow_experiment_name,omitempty"`
+
+	// The source of the project. Possible values are WORKSPACE and GIT.  Defaults to GIT if a git_source block is present in the job definition.
+	// +kubebuilder:validation:Optional
+	Source *string `json:"source,omitempty" tf:"source,omitempty"`
+
+	// If source is GIT: Relative path to the file in the repository specified in the git_source block with SQL commands to execute. If source is WORKSPACE: Absolute path to the file in the workspace with SQL commands to execute.
+	// +kubebuilder:validation:Optional
+	TrainingScriptPath *string `json:"trainingScriptPath,omitempty" tf:"training_script_path,omitempty"`
+
+	// Parameters for the task
+	// +kubebuilder:validation:Optional
+	YamlParameters *string `json:"yamlParameters,omitempty" tf:"yaml_parameters,omitempty"`
+
+	// If source is GIT: Relative path to the file in the repository specified in the git_source block with SQL commands to execute. If source is WORKSPACE: Absolute path to the file in the workspace with SQL commands to execute.
+	// +kubebuilder:validation:Optional
+	YamlParametersFilePath *string `json:"yamlParametersFilePath,omitempty" tf:"yaml_parameters_file_path,omitempty"`
 }
 
 type GitSnapshotInitParameters struct {
@@ -1286,7 +1440,7 @@ type HealthParameters struct {
 
 type HealthRulesInitParameters struct {
 
-	// string specifying the metric to check.  The only supported metric is RUN_DURATION_SECONDS (check Jobs REST API documentation for the latest information).
+	// string specifying the metric to check, like RUN_DURATION_SECONDS, STREAMING_BACKLOG_FILES, etc. - check the Jobs REST API documentation for the full list of supported metrics.
 	Metric *string `json:"metric,omitempty" tf:"metric,omitempty"`
 
 	// The string specifying the operation used to compare operands.  Currently, following operators are supported: EQUAL_TO, GREATER_THAN, GREATER_THAN_OR_EQUAL, LESS_THAN, LESS_THAN_OR_EQUAL, NOT_EQUAL. (Check the API docs for the latest information).
@@ -1298,7 +1452,7 @@ type HealthRulesInitParameters struct {
 
 type HealthRulesObservation struct {
 
-	// string specifying the metric to check.  The only supported metric is RUN_DURATION_SECONDS (check Jobs REST API documentation for the latest information).
+	// string specifying the metric to check, like RUN_DURATION_SECONDS, STREAMING_BACKLOG_FILES, etc. - check the Jobs REST API documentation for the full list of supported metrics.
 	Metric *string `json:"metric,omitempty" tf:"metric,omitempty"`
 
 	// The string specifying the operation used to compare operands.  Currently, following operators are supported: EQUAL_TO, GREATER_THAN, GREATER_THAN_OR_EQUAL, LESS_THAN, LESS_THAN_OR_EQUAL, NOT_EQUAL. (Check the API docs for the latest information).
@@ -1310,7 +1464,7 @@ type HealthRulesObservation struct {
 
 type HealthRulesParameters struct {
 
-	// string specifying the metric to check.  The only supported metric is RUN_DURATION_SECONDS (check Jobs REST API documentation for the latest information).
+	// string specifying the metric to check, like RUN_DURATION_SECONDS, STREAMING_BACKLOG_FILES, etc. - check the Jobs REST API documentation for the full list of supported metrics.
 	// +kubebuilder:validation:Optional
 	Metric *string `json:"metric" tf:"metric,omitempty"`
 
@@ -5999,7 +6153,7 @@ type QueueParameters struct {
 
 type RulesInitParameters struct {
 
-	// string specifying the metric to check.  The only supported metric is RUN_DURATION_SECONDS (check Jobs REST API documentation for the latest information).
+	// string specifying the metric to check, like RUN_DURATION_SECONDS, STREAMING_BACKLOG_FILES, etc. - check the Jobs REST API documentation for the full list of supported metrics.
 	Metric *string `json:"metric,omitempty" tf:"metric,omitempty"`
 
 	// The string specifying the operation used to compare operands.  Currently, following operators are supported: EQUAL_TO, GREATER_THAN, GREATER_THAN_OR_EQUAL, LESS_THAN, LESS_THAN_OR_EQUAL, NOT_EQUAL. (Check the API docs for the latest information).
@@ -6011,7 +6165,7 @@ type RulesInitParameters struct {
 
 type RulesObservation struct {
 
-	// string specifying the metric to check.  The only supported metric is RUN_DURATION_SECONDS (check Jobs REST API documentation for the latest information).
+	// string specifying the metric to check, like RUN_DURATION_SECONDS, STREAMING_BACKLOG_FILES, etc. - check the Jobs REST API documentation for the full list of supported metrics.
 	Metric *string `json:"metric,omitempty" tf:"metric,omitempty"`
 
 	// The string specifying the operation used to compare operands.  Currently, following operators are supported: EQUAL_TO, GREATER_THAN, GREATER_THAN_OR_EQUAL, LESS_THAN, LESS_THAN_OR_EQUAL, NOT_EQUAL. (Check the API docs for the latest information).
@@ -6023,7 +6177,7 @@ type RulesObservation struct {
 
 type RulesParameters struct {
 
-	// string specifying the metric to check.  The only supported metric is RUN_DURATION_SECONDS (check Jobs REST API documentation for the latest information).
+	// string specifying the metric to check, like RUN_DURATION_SECONDS, STREAMING_BACKLOG_FILES, etc. - check the Jobs REST API documentation for the full list of supported metrics.
 	// +kubebuilder:validation:Optional
 	Metric *string `json:"metric" tf:"metric,omitempty"`
 
@@ -6889,6 +7043,84 @@ type TaskEmailNotificationsParameters struct {
 	OnSuccess []*string `json:"onSuccess,omitempty" tf:"on_success,omitempty"`
 }
 
+type TaskGenAIComputeTaskInitParameters struct {
+	Command *string `json:"command,omitempty" tf:"command,omitempty"`
+
+	Compute []GenAIComputeTaskComputeInitParameters `json:"compute,omitempty" tf:"compute,omitempty"`
+
+	DlRuntimeImage *string `json:"dlRuntimeImage,omitempty" tf:"dl_runtime_image,omitempty"`
+
+	// An optional name for the job. The default value is Untitled.
+	MlflowExperimentName *string `json:"mlflowExperimentName,omitempty" tf:"mlflow_experiment_name,omitempty"`
+
+	// The source of the project. Possible values are WORKSPACE and GIT.  Defaults to GIT if a git_source block is present in the job definition.
+	Source *string `json:"source,omitempty" tf:"source,omitempty"`
+
+	// If source is GIT: Relative path to the file in the repository specified in the git_source block with SQL commands to execute. If source is WORKSPACE: Absolute path to the file in the workspace with SQL commands to execute.
+	TrainingScriptPath *string `json:"trainingScriptPath,omitempty" tf:"training_script_path,omitempty"`
+
+	// Parameters for the task
+	YamlParameters *string `json:"yamlParameters,omitempty" tf:"yaml_parameters,omitempty"`
+
+	// If source is GIT: Relative path to the file in the repository specified in the git_source block with SQL commands to execute. If source is WORKSPACE: Absolute path to the file in the workspace with SQL commands to execute.
+	YamlParametersFilePath *string `json:"yamlParametersFilePath,omitempty" tf:"yaml_parameters_file_path,omitempty"`
+}
+
+type TaskGenAIComputeTaskObservation struct {
+	Command *string `json:"command,omitempty" tf:"command,omitempty"`
+
+	Compute []GenAIComputeTaskComputeObservation `json:"compute,omitempty" tf:"compute,omitempty"`
+
+	DlRuntimeImage *string `json:"dlRuntimeImage,omitempty" tf:"dl_runtime_image,omitempty"`
+
+	// An optional name for the job. The default value is Untitled.
+	MlflowExperimentName *string `json:"mlflowExperimentName,omitempty" tf:"mlflow_experiment_name,omitempty"`
+
+	// The source of the project. Possible values are WORKSPACE and GIT.  Defaults to GIT if a git_source block is present in the job definition.
+	Source *string `json:"source,omitempty" tf:"source,omitempty"`
+
+	// If source is GIT: Relative path to the file in the repository specified in the git_source block with SQL commands to execute. If source is WORKSPACE: Absolute path to the file in the workspace with SQL commands to execute.
+	TrainingScriptPath *string `json:"trainingScriptPath,omitempty" tf:"training_script_path,omitempty"`
+
+	// Parameters for the task
+	YamlParameters *string `json:"yamlParameters,omitempty" tf:"yaml_parameters,omitempty"`
+
+	// If source is GIT: Relative path to the file in the repository specified in the git_source block with SQL commands to execute. If source is WORKSPACE: Absolute path to the file in the workspace with SQL commands to execute.
+	YamlParametersFilePath *string `json:"yamlParametersFilePath,omitempty" tf:"yaml_parameters_file_path,omitempty"`
+}
+
+type TaskGenAIComputeTaskParameters struct {
+
+	// +kubebuilder:validation:Optional
+	Command *string `json:"command,omitempty" tf:"command,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	Compute []GenAIComputeTaskComputeParameters `json:"compute,omitempty" tf:"compute,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	DlRuntimeImage *string `json:"dlRuntimeImage" tf:"dl_runtime_image,omitempty"`
+
+	// An optional name for the job. The default value is Untitled.
+	// +kubebuilder:validation:Optional
+	MlflowExperimentName *string `json:"mlflowExperimentName,omitempty" tf:"mlflow_experiment_name,omitempty"`
+
+	// The source of the project. Possible values are WORKSPACE and GIT.  Defaults to GIT if a git_source block is present in the job definition.
+	// +kubebuilder:validation:Optional
+	Source *string `json:"source,omitempty" tf:"source,omitempty"`
+
+	// If source is GIT: Relative path to the file in the repository specified in the git_source block with SQL commands to execute. If source is WORKSPACE: Absolute path to the file in the workspace with SQL commands to execute.
+	// +kubebuilder:validation:Optional
+	TrainingScriptPath *string `json:"trainingScriptPath,omitempty" tf:"training_script_path,omitempty"`
+
+	// Parameters for the task
+	// +kubebuilder:validation:Optional
+	YamlParameters *string `json:"yamlParameters,omitempty" tf:"yaml_parameters,omitempty"`
+
+	// If source is GIT: Relative path to the file in the repository specified in the git_source block with SQL commands to execute. If source is WORKSPACE: Absolute path to the file in the workspace with SQL commands to execute.
+	// +kubebuilder:validation:Optional
+	YamlParametersFilePath *string `json:"yamlParametersFilePath,omitempty" tf:"yaml_parameters_file_path,omitempty"`
+}
+
 type TaskHealthInitParameters struct {
 
 	// (List) list of rules that are represented as objects with the following attributes:
@@ -6910,7 +7142,7 @@ type TaskHealthParameters struct {
 
 type TaskHealthRulesInitParameters struct {
 
-	// string specifying the metric to check.  The only supported metric is RUN_DURATION_SECONDS (check Jobs REST API documentation for the latest information).
+	// string specifying the metric to check, like RUN_DURATION_SECONDS, STREAMING_BACKLOG_FILES, etc. - check the Jobs REST API documentation for the full list of supported metrics.
 	Metric *string `json:"metric,omitempty" tf:"metric,omitempty"`
 
 	// The string specifying the operation used to compare operands.  Currently, following operators are supported: EQUAL_TO, GREATER_THAN, GREATER_THAN_OR_EQUAL, LESS_THAN, LESS_THAN_OR_EQUAL, NOT_EQUAL. (Check the API docs for the latest information).
@@ -6922,7 +7154,7 @@ type TaskHealthRulesInitParameters struct {
 
 type TaskHealthRulesObservation struct {
 
-	// string specifying the metric to check.  The only supported metric is RUN_DURATION_SECONDS (check Jobs REST API documentation for the latest information).
+	// string specifying the metric to check, like RUN_DURATION_SECONDS, STREAMING_BACKLOG_FILES, etc. - check the Jobs REST API documentation for the full list of supported metrics.
 	Metric *string `json:"metric,omitempty" tf:"metric,omitempty"`
 
 	// The string specifying the operation used to compare operands.  Currently, following operators are supported: EQUAL_TO, GREATER_THAN, GREATER_THAN_OR_EQUAL, LESS_THAN, LESS_THAN_OR_EQUAL, NOT_EQUAL. (Check the API docs for the latest information).
@@ -6934,7 +7166,7 @@ type TaskHealthRulesObservation struct {
 
 type TaskHealthRulesParameters struct {
 
-	// string specifying the metric to check.  The only supported metric is RUN_DURATION_SECONDS (check Jobs REST API documentation for the latest information).
+	// string specifying the metric to check, like RUN_DURATION_SECONDS, STREAMING_BACKLOG_FILES, etc. - check the Jobs REST API documentation for the full list of supported metrics.
 	// +kubebuilder:validation:Optional
 	Metric *string `json:"metric" tf:"metric,omitempty"`
 
@@ -6978,6 +7210,9 @@ type TaskInitParameters struct {
 
 	// A list of task specification that the job will execute. See task Configuration Block below.
 	ForEachTask []ForEachTaskInitParameters `json:"forEachTask,omitempty" tf:"for_each_task,omitempty"`
+
+	// A list of task specification that the job will execute. See task Configuration Block below.
+	GenAIComputeTask []TaskGenAIComputeTaskInitParameters `json:"genAiComputeTask,omitempty" tf:"gen_ai_compute_task,omitempty"`
 
 	// An optional block that specifies the health conditions for the job documented below.
 	Health []JobTaskHealthInitParameters `json:"health,omitempty" tf:"health,omitempty"`
@@ -8360,6 +8595,9 @@ type TaskObservation struct {
 	// A list of task specification that the job will execute. See task Configuration Block below.
 	ForEachTask []ForEachTaskObservation `json:"forEachTask,omitempty" tf:"for_each_task,omitempty"`
 
+	// A list of task specification that the job will execute. See task Configuration Block below.
+	GenAIComputeTask []TaskGenAIComputeTaskObservation `json:"genAiComputeTask,omitempty" tf:"gen_ai_compute_task,omitempty"`
+
 	// An optional block that specifies the health conditions for the job documented below.
 	Health []JobTaskHealthObservation `json:"health,omitempty" tf:"health,omitempty"`
 
@@ -8462,6 +8700,10 @@ type TaskParameters struct {
 	// A list of task specification that the job will execute. See task Configuration Block below.
 	// +kubebuilder:validation:Optional
 	ForEachTask []ForEachTaskParameters `json:"forEachTask,omitempty" tf:"for_each_task,omitempty"`
+
+	// A list of task specification that the job will execute. See task Configuration Block below.
+	// +kubebuilder:validation:Optional
+	GenAIComputeTask []TaskGenAIComputeTaskParameters `json:"genAiComputeTask,omitempty" tf:"gen_ai_compute_task,omitempty"`
 
 	// An optional block that specifies the health conditions for the job documented below.
 	// +kubebuilder:validation:Optional

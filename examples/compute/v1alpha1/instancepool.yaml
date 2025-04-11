@@ -1,0 +1,24 @@
+apiVersion: compute.databricks.crossplane.io/v1alpha1
+kind: InstancePool
+metadata:
+  annotations:
+    meta.upbound.io/example-id: compute/v1alpha1/instancepool
+  labels:
+    testing.upbound.io/example-name: smallest_nodes
+  name: smallest-nodes
+spec:
+  forProvider:
+    awsAttributes:
+    - availability: ON_DEMAND
+      spotBidPricePercent: "100"
+      zoneId: us-east-1a
+    diskSpec:
+    - diskCount: 1
+      diskSize: 80
+      diskType:
+      - ebsVolumeType: GENERAL_PURPOSE_SSD
+    idleInstanceAutoterminationMinutes: 10
+    instancePoolName: Smallest Nodes
+    maxCapacity: 300
+    minIdleInstances: 0
+    nodeTypeId: ${data.databricks_node_type.smallest.id}

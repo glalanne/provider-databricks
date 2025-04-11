@@ -1,0 +1,15 @@
+apiVersion: workspace.databricks.crossplane.io/v1alpha1
+kind: NotificationDestination
+metadata:
+  annotations:
+    meta.upbound.io/example-id: workspace/v1alpha1/notificationdestination
+  labels:
+    testing.upbound.io/example-name: ndresource
+  name: ndresource
+spec:
+  forProvider:
+    config:
+    - email:
+      - addresses:
+        - abc@gmail.com
+    displayName: Notification Destination

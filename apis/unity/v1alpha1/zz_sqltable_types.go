@@ -84,7 +84,7 @@ type SQLTableInitParameters struct {
 	// Name of parent catalog. Change forces the creation of a new resource.
 	CatalogName *string `json:"catalogName,omitempty" tf:"catalog_name,omitempty"`
 
-	// All table CRUD operations must be executed on a running cluster or SQL warehouse. If a cluster_id is specified, it will be used to execute SQL commands to manage this table.
+	// All table CRUD operations must be executed on a running cluster or SQL warehouse. If a cluster_id is specified, it will be used to execute SQL commands to manage this table. Conflicts with warehouse_id.
 	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/compute/v1alpha1.Cluster
 	ClusterID *string `json:"clusterId,omitempty" tf:"cluster_id,omitempty"`
 
@@ -96,7 +96,7 @@ type SQLTableInitParameters struct {
 	// +kubebuilder:validation:Optional
 	ClusterIDSelector *v1.Selector `json:"clusterIdSelector,omitempty" tf:"-"`
 
-	// a subset of columns to liquid cluster the table by. Conflicts with partitions.
+	// a subset of columns to liquid cluster the table by. For automatic clustering, set cluster_keys to ["AUTO"]. To turn off clustering, set it to ["NONE"]. Conflicts with partitions.
 	ClusterKeys []*string `json:"clusterKeys,omitempty" tf:"cluster_keys,omitempty"`
 
 	Column []ColumnInitParameters `json:"column,omitempty" tf:"column,omitempty"`
@@ -114,10 +114,10 @@ type SQLTableInitParameters struct {
 	// +mapType=granular
 	Options map[string]*string `json:"options,omitempty" tf:"options,omitempty"`
 
-	// User name/group name/sp application_id of the schema owner.
+	// User name/group name/sp application_id of the table owner.
 	Owner *string `json:"owner,omitempty" tf:"owner,omitempty"`
 
-	// a subset of columns to partition the table by. Change forces the creation of a new resource. Conflicts with cluster_keys. Change forces creation of a new resource.
+	// a subset of columns to partition the table by. Change forces the creation of a new resource. Conflicts with cluster_keys.
 	Partitions []*string `json:"partitions,omitempty" tf:"partitions,omitempty"`
 
 	// A map of table properties.
@@ -157,10 +157,10 @@ type SQLTableObservation struct {
 	// Name of parent catalog. Change forces the creation of a new resource.
 	CatalogName *string `json:"catalogName,omitempty" tf:"catalog_name,omitempty"`
 
-	// All table CRUD operations must be executed on a running cluster or SQL warehouse. If a cluster_id is specified, it will be used to execute SQL commands to manage this table.
+	// All table CRUD operations must be executed on a running cluster or SQL warehouse. If a cluster_id is specified, it will be used to execute SQL commands to manage this table. Conflicts with warehouse_id.
 	ClusterID *string `json:"clusterId,omitempty" tf:"cluster_id,omitempty"`
 
-	// a subset of columns to liquid cluster the table by. Conflicts with partitions.
+	// a subset of columns to liquid cluster the table by. For automatic clustering, set cluster_keys to ["AUTO"]. To turn off clustering, set it to ["NONE"]. Conflicts with partitions.
 	ClusterKeys []*string `json:"clusterKeys,omitempty" tf:"cluster_keys,omitempty"`
 
 	Column []ColumnObservation `json:"column,omitempty" tf:"column,omitempty"`
@@ -185,10 +185,10 @@ type SQLTableObservation struct {
 	// +mapType=granular
 	Options map[string]*string `json:"options,omitempty" tf:"options,omitempty"`
 
-	// User name/group name/sp application_id of the schema owner.
+	// User name/group name/sp application_id of the table owner.
 	Owner *string `json:"owner,omitempty" tf:"owner,omitempty"`
 
-	// a subset of columns to partition the table by. Change forces the creation of a new resource. Conflicts with cluster_keys. Change forces creation of a new resource.
+	// a subset of columns to partition the table by. Change forces the creation of a new resource. Conflicts with cluster_keys.
 	Partitions []*string `json:"partitions,omitempty" tf:"partitions,omitempty"`
 
 	// A map of table properties.
@@ -220,7 +220,7 @@ type SQLTableParameters struct {
 	// +kubebuilder:validation:Optional
 	CatalogName *string `json:"catalogName,omitempty" tf:"catalog_name,omitempty"`
 
-	// All table CRUD operations must be executed on a running cluster or SQL warehouse. If a cluster_id is specified, it will be used to execute SQL commands to manage this table.
+	// All table CRUD operations must be executed on a running cluster or SQL warehouse. If a cluster_id is specified, it will be used to execute SQL commands to manage this table. Conflicts with warehouse_id.
 	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/compute/v1alpha1.Cluster
 	// +kubebuilder:validation:Optional
 	ClusterID *string `json:"clusterId,omitempty" tf:"cluster_id,omitempty"`
@@ -233,7 +233,7 @@ type SQLTableParameters struct {
 	// +kubebuilder:validation:Optional
 	ClusterIDSelector *v1.Selector `json:"clusterIdSelector,omitempty" tf:"-"`
 
-	// a subset of columns to liquid cluster the table by. Conflicts with partitions.
+	// a subset of columns to liquid cluster the table by. For automatic clustering, set cluster_keys to ["AUTO"]. To turn off clustering, set it to ["NONE"]. Conflicts with partitions.
 	// +kubebuilder:validation:Optional
 	ClusterKeys []*string `json:"clusterKeys,omitempty" tf:"cluster_keys,omitempty"`
 
@@ -257,11 +257,11 @@ type SQLTableParameters struct {
 	// +mapType=granular
 	Options map[string]*string `json:"options,omitempty" tf:"options,omitempty"`
 
-	// User name/group name/sp application_id of the schema owner.
+	// User name/group name/sp application_id of the table owner.
 	// +kubebuilder:validation:Optional
 	Owner *string `json:"owner,omitempty" tf:"owner,omitempty"`
 
-	// a subset of columns to partition the table by. Change forces the creation of a new resource. Conflicts with cluster_keys. Change forces creation of a new resource.
+	// a subset of columns to partition the table by. Change forces the creation of a new resource. Conflicts with cluster_keys.
 	// +kubebuilder:validation:Optional
 	Partitions []*string `json:"partitions,omitempty" tf:"partitions,omitempty"`
 

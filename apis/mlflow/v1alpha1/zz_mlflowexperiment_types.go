@@ -20,7 +20,6 @@ type MlflowExperimentInitParameters struct {
 
 	CreationTime *float64 `json:"creationTime,omitempty" tf:"creation_time,omitempty"`
 
-	// The description of the MLflow experiment.
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
 
 	// ID of the MLflow experiment.
@@ -32,6 +31,9 @@ type MlflowExperimentInitParameters struct {
 
 	// Name of MLflow experiment. It must be an absolute path within the Databricks workspace, e.g. /Users/<some-username>/my-experiment. For more information about changes to experiment naming conventions, see mlflow docs.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// Tags for the MLflow experiment.
+	Tags []TagsInitParameters `json:"tags,omitempty" tf:"tags,omitempty"`
 }
 
 type MlflowExperimentObservation struct {
@@ -41,7 +43,6 @@ type MlflowExperimentObservation struct {
 
 	CreationTime *float64 `json:"creationTime,omitempty" tf:"creation_time,omitempty"`
 
-	// The description of the MLflow experiment.
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
 
 	// ID of the MLflow experiment.
@@ -56,6 +57,9 @@ type MlflowExperimentObservation struct {
 
 	// Name of MLflow experiment. It must be an absolute path within the Databricks workspace, e.g. /Users/<some-username>/my-experiment. For more information about changes to experiment naming conventions, see mlflow docs.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// Tags for the MLflow experiment.
+	Tags []TagsObservation `json:"tags,omitempty" tf:"tags,omitempty"`
 }
 
 type MlflowExperimentParameters struct {
@@ -67,7 +71,6 @@ type MlflowExperimentParameters struct {
 	// +kubebuilder:validation:Optional
 	CreationTime *float64 `json:"creationTime,omitempty" tf:"creation_time,omitempty"`
 
-	// The description of the MLflow experiment.
 	// +kubebuilder:validation:Optional
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
 
@@ -84,6 +87,31 @@ type MlflowExperimentParameters struct {
 	// Name of MLflow experiment. It must be an absolute path within the Databricks workspace, e.g. /Users/<some-username>/my-experiment. For more information about changes to experiment naming conventions, see mlflow docs.
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// Tags for the MLflow experiment.
+	// +kubebuilder:validation:Optional
+	Tags []TagsParameters `json:"tags,omitempty" tf:"tags,omitempty"`
+}
+
+type TagsInitParameters struct {
+	Key *string `json:"key,omitempty" tf:"key,omitempty"`
+
+	Value *string `json:"value,omitempty" tf:"value,omitempty"`
+}
+
+type TagsObservation struct {
+	Key *string `json:"key,omitempty" tf:"key,omitempty"`
+
+	Value *string `json:"value,omitempty" tf:"value,omitempty"`
+}
+
+type TagsParameters struct {
+
+	// +kubebuilder:validation:Optional
+	Key *string `json:"key,omitempty" tf:"key,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	Value *string `json:"value,omitempty" tf:"value,omitempty"`
 }
 
 // MlflowExperimentSpec defines the desired state of MlflowExperiment

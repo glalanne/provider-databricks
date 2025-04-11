@@ -368,6 +368,27 @@ spec:
                       values are: CORE, PRO, ADVANCED (default).  Not required when
                       serverless is set to true.'
                     type: string
+                  eventLog:
+                    description: 'an optional block specifying a table where DLT Event
+                      Log will be stored.  Consists of the following fields:'
+                    items:
+                      properties:
+                        catalog:
+                          description: The name of catalog in Unity Catalog. Change
+                            of this parameter forces recreation of the pipeline. (Conflicts
+                            with storage).
+                          type: string
+                        name:
+                          description: A user-friendly name for this pipeline. The
+                            name can be used to identify pipeline jobs in the UI.
+                          type: string
+                        schema:
+                          description: The default schema (database) where tables
+                            are read from or published to. The presence of this attribute
+                            implies that the pipeline is in direct publishing mode.
+                          type: string
+                      type: object
+                    type: array
                   expectedLastModified:
                     type: number
                   filters:
@@ -713,6 +734,10 @@ spec:
                           type: string
                       type: object
                     type: array
+                  runAsUserName:
+                    description: A user-friendly name for this pipeline. The name
+                      can be used to identify pipeline jobs in the UI.
+                    type: string
                   schema:
                     description: The default schema (database) where tables are read
                       from or published to. The presence of this attribute implies
@@ -1071,6 +1096,27 @@ spec:
                       values are: CORE, PRO, ADVANCED (default).  Not required when
                       serverless is set to true.'
                     type: string
+                  eventLog:
+                    description: 'an optional block specifying a table where DLT Event
+                      Log will be stored.  Consists of the following fields:'
+                    items:
+                      properties:
+                        catalog:
+                          description: The name of catalog in Unity Catalog. Change
+                            of this parameter forces recreation of the pipeline. (Conflicts
+                            with storage).
+                          type: string
+                        name:
+                          description: A user-friendly name for this pipeline. The
+                            name can be used to identify pipeline jobs in the UI.
+                          type: string
+                        schema:
+                          description: The default schema (database) where tables
+                            are read from or published to. The presence of this attribute
+                            implies that the pipeline is in direct publishing mode.
+                          type: string
+                      type: object
+                    type: array
                   expectedLastModified:
                     type: number
                   filters:
@@ -1416,6 +1462,10 @@ spec:
                           type: string
                       type: object
                     type: array
+                  runAsUserName:
+                    description: A user-friendly name for this pipeline. The name
+                      can be used to identify pipeline jobs in the UI.
+                    type: string
                   schema:
                     description: The default schema (database) where tables are read
                       from or published to. The presence of this attribute implies
@@ -1933,6 +1983,27 @@ spec:
                       values are: CORE, PRO, ADVANCED (default).  Not required when
                       serverless is set to true.'
                     type: string
+                  eventLog:
+                    description: 'an optional block specifying a table where DLT Event
+                      Log will be stored.  Consists of the following fields:'
+                    items:
+                      properties:
+                        catalog:
+                          description: The name of catalog in Unity Catalog. Change
+                            of this parameter forces recreation of the pipeline. (Conflicts
+                            with storage).
+                          type: string
+                        name:
+                          description: A user-friendly name for this pipeline. The
+                            name can be used to identify pipeline jobs in the UI.
+                          type: string
+                        schema:
+                          description: The default schema (database) where tables
+                            are read from or published to. The presence of this attribute
+                            implies that the pipeline is in direct publishing mode.
+                          type: string
+                      type: object
+                    type: array
                   expectedLastModified:
                     type: number
                   filters:

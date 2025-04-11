@@ -79,7 +79,6 @@ spec:
                   creationTime:
                     type: number
                   description:
-                    description: The description of the MLflow experiment.
                     type: string
                   experimentId:
                     description: ID of the MLflow experiment.
@@ -94,6 +93,16 @@ spec:
                       For more information about changes to experiment naming conventions,
                       see mlflow docs.
                     type: string
+                  tags:
+                    description: Tags for the MLflow experiment.
+                    items:
+                      properties:
+                        key:
+                          type: string
+                        value:
+                          type: string
+                      type: object
+                    type: array
                 type: object
               initProvider:
                 description: |-
@@ -115,7 +124,6 @@ spec:
                   creationTime:
                     type: number
                   description:
-                    description: The description of the MLflow experiment.
                     type: string
                   experimentId:
                     description: ID of the MLflow experiment.
@@ -130,6 +138,16 @@ spec:
                       For more information about changes to experiment naming conventions,
                       see mlflow docs.
                     type: string
+                  tags:
+                    description: Tags for the MLflow experiment.
+                    items:
+                      properties:
+                        key:
+                          type: string
+                        value:
+                          type: string
+                      type: object
+                    type: array
                 type: object
               managementPolicies:
                 default:
@@ -315,7 +333,6 @@ spec:
                   creationTime:
                     type: number
                   description:
-                    description: The description of the MLflow experiment.
                     type: string
                   experimentId:
                     description: ID of the MLflow experiment.
@@ -333,6 +350,16 @@ spec:
                       For more information about changes to experiment naming conventions,
                       see mlflow docs.
                     type: string
+                  tags:
+                    description: Tags for the MLflow experiment.
+                    items:
+                      properties:
+                        key:
+                          type: string
+                        value:
+                          type: string
+                      type: object
+                    type: array
                 type: object
               conditions:
                 description: Conditions of the resource.

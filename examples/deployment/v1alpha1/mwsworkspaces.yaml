@@ -1,0 +1,82 @@
+apiVersion: deployment.databricks.crossplane.io/v1alpha1
+kind: MwsWorkspaces
+metadata:
+  annotations:
+    meta.upbound.io/example-id: deployment/v1alpha1/mwsworkspaces
+  labels:
+    testing.upbound.io/example-name: this
+  name: this
+spec:
+  forProvider:
+    accountIdSecretRef:
+      key: example-key
+      name: example-secret
+      namespace: upbound-system
+    awsRegion: ${var.region}
+    credentialsId: ${databricks_mws_credentials.this.credentials_id}
+    networkId: ${databricks_mws_networks.this.network_id}
+    provider: ${databricks.mws}
+    storageConfigurationId: ${databricks_mws_storage_configurations.this.storage_configuration_id}
+    token:
+    - {}
+    workspaceName: ${var.prefix}
+
+---
+
+apiVersion: deployment.databricks.crossplane.io/v1alpha1
+kind: MwsCredentials
+metadata:
+  annotations:
+    meta.upbound.io/example-id: deployment/v1alpha1/mwsworkspaces
+  labels:
+    testing.upbound.io/example-name: this
+  name: this
+spec:
+  forProvider:
+    accountId: ${var.databricks_account_id}
+    credentialsName: ${var.prefix}-creds
+    provider: ${databricks.mws}
+    roleArn: ${var.crossaccount_arn}
+
+---
+
+apiVersion: deployment.databricks.crossplane.io/v1alpha1
+kind: MwsNetworks
+metadata:
+  annotations:
+    meta.upbound.io/example-id: deployment/v1alpha1/mwsworkspaces
+  labels:
+    testing.upbound.io/example-name: this
+  name: this
+spec:
+  forProvider:
+    accountIdSecretRef:
+      key: example-key
+      name: example-secret
+      namespace: upbound-system
+    networkName: ${var.prefix}-network
+    provider: ${databricks.mws}
+    securityGroupIds:
+    - ${var.security_group}
+    subnetIds: ${var.subnets_private}
+    vpcId: ${var.vpc_id}
+
+---
+
+apiVersion: deployment.databricks.crossplane.io/v1alpha1
+kind: MwsStorageConfigurations
+metadata:
+  annotations:
+    meta.upbound.io/example-id: deployment/v1alpha1/mwsworkspaces
+  labels:
+    testing.upbound.io/example-name: this
+  name: this
+spec:
+  forProvider:
+    accountIdSecretRef:
+      key: example-key
+      name: example-secret
+      namespace: upbound-system
+    bucketName: ${var.root_bucket}
+    provider: ${databricks.mws}
+    storageConfigurationName: ${var.prefix}-storage
