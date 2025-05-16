@@ -332,7 +332,7 @@ spec:
                       type: object
                     type: array
                   clusterName:
-                    description: Cluster name, which doesn’t have to be unique. If
+                    description: Cluster name, which doesn't have to be unique. If
                       not specified at creation, the cluster name will be an empty
                       string.
                     type: string
@@ -406,14 +406,14 @@ spec:
                       same value as node_type_id defined above.
                     type: string
                   enableElasticDisk:
-                    description: If you don’t want to allocate a fixed number of EBS
+                    description: If you don't want to allocate a fixed number of EBS
                       volumes at cluster creation time, use autoscaling local storage.
                       With autoscaling local storage, Databricks monitors the amount
-                      of free disk space available on your cluster’s Spark workers.
+                      of free disk space available on your cluster's Spark workers.
                       If a worker begins to run too low on disk, Databricks automatically
                       attaches a new EBS volume to the worker before it runs out of
                       disk space. EBS volumes are attached up to a limit of 5 TB of
-                      total disk space per instance (including the instance’s local
+                      total disk space per instance (including the instance's local
                       storage). To scale down EBS usage, make sure you have autotermination_minutes
                       and autoscale attributes set. More documentation available at
                       cluster configuration page.
@@ -423,7 +423,7 @@ spec:
                       locally attached disks. Databricks may store shuffle data or
                       temporary data on these locally attached disks. To ensure that
                       all data at rest is encrypted for all storage types, including
-                      shuffle data stored temporarily on your cluster’s local disks,
+                      shuffle data stored temporarily on your cluster's local disks,
                       you can enable local disk encryption. When local disk encryption
                       is enabled, Databricks generates an encryption key locally unique
                       to each cluster node and uses it to encrypt all data stored
@@ -598,7 +598,7 @@ spec:
                       cluster start time, you can attach a cluster to a predefined
                       pool of idle instances. When attached to a pool, a cluster allocates
                       its driver and worker nodes from the pool. If the pool does
-                      not have sufficient idle resources to accommodate the cluster’s
+                      not have sufficient idle resources to accommodate the cluster's
                       request, it expands by allocating new instances from the instance
                       provider. When an attached cluster changes its state to TERMINATED,
                       the instances it used are returned to the pool and reused by
@@ -1028,7 +1028,7 @@ spec:
                       type: object
                     type: array
                   clusterName:
-                    description: Cluster name, which doesn’t have to be unique. If
+                    description: Cluster name, which doesn't have to be unique. If
                       not specified at creation, the cluster name will be an empty
                       string.
                     type: string
@@ -1104,14 +1104,14 @@ spec:
                       same value as node_type_id defined above.
                     type: string
                   enableElasticDisk:
-                    description: If you don’t want to allocate a fixed number of EBS
+                    description: If you don't want to allocate a fixed number of EBS
                       volumes at cluster creation time, use autoscaling local storage.
                       With autoscaling local storage, Databricks monitors the amount
-                      of free disk space available on your cluster’s Spark workers.
+                      of free disk space available on your cluster's Spark workers.
                       If a worker begins to run too low on disk, Databricks automatically
                       attaches a new EBS volume to the worker before it runs out of
                       disk space. EBS volumes are attached up to a limit of 5 TB of
-                      total disk space per instance (including the instance’s local
+                      total disk space per instance (including the instance's local
                       storage). To scale down EBS usage, make sure you have autotermination_minutes
                       and autoscale attributes set. More documentation available at
                       cluster configuration page.
@@ -1121,7 +1121,7 @@ spec:
                       locally attached disks. Databricks may store shuffle data or
                       temporary data on these locally attached disks. To ensure that
                       all data at rest is encrypted for all storage types, including
-                      shuffle data stored temporarily on your cluster’s local disks,
+                      shuffle data stored temporarily on your cluster's local disks,
                       you can enable local disk encryption. When local disk encryption
                       is enabled, Databricks generates an encryption key locally unique
                       to each cluster node and uses it to encrypt all data stored
@@ -1296,7 +1296,7 @@ spec:
                       cluster start time, you can attach a cluster to a predefined
                       pool of idle instances. When attached to a pool, a cluster allocates
                       its driver and worker nodes from the pool. If the pool does
-                      not have sufficient idle resources to accommodate the cluster’s
+                      not have sufficient idle resources to accommodate the cluster's
                       request, it expands by allocating new instances from the instance
                       provider. When an attached cluster changes its state to TERMINATED,
                       the instances it used are returned to the pool and reused by
@@ -1893,7 +1893,7 @@ spec:
                       type: object
                     type: array
                   clusterName:
-                    description: Cluster name, which doesn’t have to be unique. If
+                    description: Cluster name, which doesn't have to be unique. If
                       not specified at creation, the cluster name will be an empty
                       string.
                     type: string
@@ -1959,14 +1959,14 @@ spec:
                       same value as node_type_id defined above.
                     type: string
                   enableElasticDisk:
-                    description: If you don’t want to allocate a fixed number of EBS
+                    description: If you don't want to allocate a fixed number of EBS
                       volumes at cluster creation time, use autoscaling local storage.
                       With autoscaling local storage, Databricks monitors the amount
-                      of free disk space available on your cluster’s Spark workers.
+                      of free disk space available on your cluster's Spark workers.
                       If a worker begins to run too low on disk, Databricks automatically
                       attaches a new EBS volume to the worker before it runs out of
                       disk space. EBS volumes are attached up to a limit of 5 TB of
-                      total disk space per instance (including the instance’s local
+                      total disk space per instance (including the instance's local
                       storage). To scale down EBS usage, make sure you have autotermination_minutes
                       and autoscale attributes set. More documentation available at
                       cluster configuration page.
@@ -1976,7 +1976,7 @@ spec:
                       locally attached disks. Databricks may store shuffle data or
                       temporary data on these locally attached disks. To ensure that
                       all data at rest is encrypted for all storage types, including
-                      shuffle data stored temporarily on your cluster’s local disks,
+                      shuffle data stored temporarily on your cluster's local disks,
                       you can enable local disk encryption. When local disk encryption
                       is enabled, Databricks generates an encryption key locally unique
                       to each cluster node and uses it to encrypt all data stored
@@ -2154,7 +2154,7 @@ spec:
                       cluster start time, you can attach a cluster to a predefined
                       pool of idle instances. When attached to a pool, a cluster allocates
                       its driver and worker nodes from the pool. If the pool does
-                      not have sufficient idle resources to accommodate the cluster’s
+                      not have sufficient idle resources to accommodate the cluster's
                       request, it expands by allocating new instances from the instance
                       provider. When an attached cluster changes its state to TERMINATED,
                       the instances it used are returned to the pool and reused by

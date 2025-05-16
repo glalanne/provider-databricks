@@ -17,9 +17,6 @@ type SystemSchemaInitParameters struct {
 
 	// name of the system schema.
 	Schema *string `json:"schema,omitempty" tf:"schema,omitempty"`
-
-	// The current state of enablement for the system schema.
-	State *string `json:"state,omitempty" tf:"state,omitempty"`
 }
 
 type SystemSchemaObservation struct {
@@ -46,10 +43,6 @@ type SystemSchemaParameters struct {
 	// name of the system schema.
 	// +kubebuilder:validation:Optional
 	Schema *string `json:"schema,omitempty" tf:"schema,omitempty"`
-
-	// The current state of enablement for the system schema.
-	// +kubebuilder:validation:Optional
-	State *string `json:"state,omitempty" tf:"state,omitempty"`
 }
 
 // SystemSchemaSpec defines the desired state of SystemSchema
@@ -88,8 +81,9 @@ type SystemSchemaStatus struct {
 type SystemSchema struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	Spec              SystemSchemaSpec   `json:"spec"`
-	Status            SystemSchemaStatus `json:"status,omitempty"`
+	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.schema) || (has(self.initProvider) && has(self.initProvider.schema))",message="spec.forProvider.schema is a required parameter"
+	Spec   SystemSchemaSpec   `json:"spec"`
+	Status SystemSchemaStatus `json:"status,omitempty"`
 }
 
 // +kubebuilder:object:root=true

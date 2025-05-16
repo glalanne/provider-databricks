@@ -28,6 +28,8 @@ type MwsNccPrivateEndpointRuleInitParameters struct {
 	// Time in epoch milliseconds when this object was deactivated.
 	DeactivatedAt *float64 `json:"deactivatedAt,omitempty" tf:"deactivated_at,omitempty"`
 
+	DomainNames []*string `json:"domainNames,omitempty" tf:"domain_names,omitempty"`
+
 	// The name of the Azure private endpoint resource, e.g. "databricks-088781b3-77fa-4132-b429-1af0d91bc593-pe-3cb31234"
 	EndpointName *string `json:"endpointName,omitempty" tf:"endpoint_name,omitempty"`
 
@@ -61,6 +63,8 @@ type MwsNccPrivateEndpointRuleObservation struct {
 
 	// Time in epoch milliseconds when this object was deactivated.
 	DeactivatedAt *float64 `json:"deactivatedAt,omitempty" tf:"deactivated_at,omitempty"`
+
+	DomainNames []*string `json:"domainNames,omitempty" tf:"domain_names,omitempty"`
 
 	// The name of the Azure private endpoint resource, e.g. "databricks-088781b3-77fa-4132-b429-1af0d91bc593-pe-3cb31234"
 	EndpointName *string `json:"endpointName,omitempty" tf:"endpoint_name,omitempty"`
@@ -101,6 +105,9 @@ type MwsNccPrivateEndpointRuleParameters struct {
 	// Time in epoch milliseconds when this object was deactivated.
 	// +kubebuilder:validation:Optional
 	DeactivatedAt *float64 `json:"deactivatedAt,omitempty" tf:"deactivated_at,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	DomainNames []*string `json:"domainNames,omitempty" tf:"domain_names,omitempty"`
 
 	// The name of the Azure private endpoint resource, e.g. "databricks-088781b3-77fa-4132-b429-1af0d91bc593-pe-3cb31234"
 	// +kubebuilder:validation:Optional

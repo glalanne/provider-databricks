@@ -88,6 +88,10 @@ spec:
                   deactivatedAt:
                     description: Time in epoch milliseconds when this object was deactivated.
                     type: number
+                  domainNames:
+                    items:
+                      type: string
+                    type: array
                   endpointName:
                     description: The name of the Azure private endpoint resource,
                       e.g. "databricks-088781b3-77fa-4132-b429-1af0d91bc593-pe-3cb31234"
@@ -143,6 +147,10 @@ spec:
                   deactivatedAt:
                     description: Time in epoch milliseconds when this object was deactivated.
                     type: number
+                  domainNames:
+                    items:
+                      type: string
+                    type: array
                   endpointName:
                     description: The name of the Azure private endpoint resource,
                       e.g. "databricks-088781b3-77fa-4132-b429-1af0d91bc593-pe-3cb31234"
@@ -372,6 +380,10 @@ spec:
                   deactivatedAt:
                     description: Time in epoch milliseconds when this object was deactivated.
                     type: number
+                  domainNames:
+                    items:
+                      type: string
+                    type: array
                   endpointName:
                     description: The name of the Azure private endpoint resource,
                       e.g. "databricks-088781b3-77fa-4132-b429-1af0d91bc593-pe-3cb31234"

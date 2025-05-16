@@ -3067,6 +3067,11 @@ func (in *ServedEntitiesInitParameters) DeepCopyInto(out *ServedEntitiesInitPara
 		*out = new(string)
 		**out = **in
 	}
+	if in.ProvisionedModelUnits != nil {
+		in, out := &in.ProvisionedModelUnits, &out.ProvisionedModelUnits
+		*out = new(float64)
+		**out = **in
+	}
 	if in.ScaleToZeroEnabled != nil {
 		in, out := &in.ScaleToZeroEnabled, &out.ScaleToZeroEnabled
 		*out = new(bool)
@@ -3148,6 +3153,11 @@ func (in *ServedEntitiesObservation) DeepCopyInto(out *ServedEntitiesObservation
 	if in.Name != nil {
 		in, out := &in.Name, &out.Name
 		*out = new(string)
+		**out = **in
+	}
+	if in.ProvisionedModelUnits != nil {
+		in, out := &in.ProvisionedModelUnits, &out.ProvisionedModelUnits
+		*out = new(float64)
 		**out = **in
 	}
 	if in.ScaleToZeroEnabled != nil {
@@ -3233,6 +3243,11 @@ func (in *ServedEntitiesParameters) DeepCopyInto(out *ServedEntitiesParameters) 
 		*out = new(string)
 		**out = **in
 	}
+	if in.ProvisionedModelUnits != nil {
+		in, out := &in.ProvisionedModelUnits, &out.ProvisionedModelUnits
+		*out = new(float64)
+		**out = **in
+	}
 	if in.ScaleToZeroEnabled != nil {
 		in, out := &in.ScaleToZeroEnabled, &out.ScaleToZeroEnabled
 		*out = new(bool)
@@ -3307,6 +3322,11 @@ func (in *ServedModelsInitParameters) DeepCopyInto(out *ServedModelsInitParamete
 	if in.Name != nil {
 		in, out := &in.Name, &out.Name
 		*out = new(string)
+		**out = **in
+	}
+	if in.ProvisionedModelUnits != nil {
+		in, out := &in.ProvisionedModelUnits, &out.ProvisionedModelUnits
+		*out = new(float64)
 		**out = **in
 	}
 	if in.ScaleToZeroEnabled != nil {
@@ -3385,6 +3405,11 @@ func (in *ServedModelsObservation) DeepCopyInto(out *ServedModelsObservation) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.ProvisionedModelUnits != nil {
+		in, out := &in.ProvisionedModelUnits, &out.ProvisionedModelUnits
+		*out = new(float64)
+		**out = **in
+	}
 	if in.ScaleToZeroEnabled != nil {
 		in, out := &in.ScaleToZeroEnabled, &out.ScaleToZeroEnabled
 		*out = new(bool)
@@ -3459,6 +3484,11 @@ func (in *ServedModelsParameters) DeepCopyInto(out *ServedModelsParameters) {
 	if in.Name != nil {
 		in, out := &in.Name, &out.Name
 		*out = new(string)
+		**out = **in
+	}
+	if in.ProvisionedModelUnits != nil {
+		in, out := &in.ProvisionedModelUnits, &out.ProvisionedModelUnits
+		*out = new(float64)
 		**out = **in
 	}
 	if in.ScaleToZeroEnabled != nil {

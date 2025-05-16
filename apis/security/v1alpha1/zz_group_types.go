@@ -65,7 +65,7 @@ type GroupObservation struct {
 	// Ignore cannot create group: Group with name X already exists. This functionality is experimental and is designed to simplify corner cases, like Azure Active Directory synchronisation.
 	Force *bool `json:"force,omitempty" tf:"force,omitempty"`
 
-	// The id for the group object.
+	// Canonical unique identifier for the group (SCIM ID).
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
 	URL *string `json:"url,omitempty" tf:"url,omitempty"`

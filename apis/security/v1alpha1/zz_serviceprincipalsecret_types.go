@@ -15,38 +15,91 @@ import (
 
 type ServicePrincipalSecretInitParameters struct {
 
-	// Generated secret for the service principal
+	// UTC time when the secret was created.
+	CreateTime *string `json:"createTime,omitempty" tf:"create_time,omitempty"`
+
+	// UTC time when the secret will expire. If the field is not present, the secret does not expire.
+	ExpireTime *string `json:"expireTime,omitempty" tf:"expire_time,omitempty"`
+
+	// The lifetime of the secret in seconds formatted as NNNNs. If this parameter is not provided, the secret will have a default lifetime of 730 days (63072000s).  Expiration of secret will lead to generation of new secret.
+	Lifetime *string `json:"lifetime,omitempty" tf:"lifetime,omitempty"`
+
+	// Secret Hash.
+	SecretHash *string `json:"secretHash,omitempty" tf:"secret_hash,omitempty"`
+
+	// Generated secret for the service principal.
 	SecretSecretRef *v1.SecretKeySelector `json:"secretSecretRef,omitempty" tf:"-"`
 
-	// ID of the databricks_service_principal (not application ID).
+	// SCIM ID of the databricks_service_principal (not application ID).
 	ServicePrincipalID *string `json:"servicePrincipalId,omitempty" tf:"service_principal_id,omitempty"`
 
+	// Status of the secret (i.e., ACTIVE - see REST API docs for full list).
 	Status *string `json:"status,omitempty" tf:"status,omitempty"`
+
+	// UTC time when the secret was updated.
+	UpdateTime *string `json:"updateTime,omitempty" tf:"update_time,omitempty"`
 }
 
 type ServicePrincipalSecretObservation struct {
 
+	// UTC time when the secret was created.
+	CreateTime *string `json:"createTime,omitempty" tf:"create_time,omitempty"`
+
+	// UTC time when the secret will expire. If the field is not present, the secret does not expire.
+	ExpireTime *string `json:"expireTime,omitempty" tf:"expire_time,omitempty"`
+
 	// ID of the secret
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
-	// ID of the databricks_service_principal (not application ID).
+	// The lifetime of the secret in seconds formatted as NNNNs. If this parameter is not provided, the secret will have a default lifetime of 730 days (63072000s).  Expiration of secret will lead to generation of new secret.
+	Lifetime *string `json:"lifetime,omitempty" tf:"lifetime,omitempty"`
+
+	// Secret Hash.
+	SecretHash *string `json:"secretHash,omitempty" tf:"secret_hash,omitempty"`
+
+	// SCIM ID of the databricks_service_principal (not application ID).
 	ServicePrincipalID *string `json:"servicePrincipalId,omitempty" tf:"service_principal_id,omitempty"`
 
+	// Status of the secret (i.e., ACTIVE - see REST API docs for full list).
 	Status *string `json:"status,omitempty" tf:"status,omitempty"`
+
+	// UTC time when the secret was updated.
+	UpdateTime *string `json:"updateTime,omitempty" tf:"update_time,omitempty"`
 }
 
 type ServicePrincipalSecretParameters struct {
 
-	// Generated secret for the service principal
+	// UTC time when the secret was created.
+	// +kubebuilder:validation:Optional
+	CreateTime *string `json:"createTime,omitempty" tf:"create_time,omitempty"`
+
+	// UTC time when the secret will expire. If the field is not present, the secret does not expire.
+	// +kubebuilder:validation:Optional
+	ExpireTime *string `json:"expireTime,omitempty" tf:"expire_time,omitempty"`
+
+	// The lifetime of the secret in seconds formatted as NNNNs. If this parameter is not provided, the secret will have a default lifetime of 730 days (63072000s).  Expiration of secret will lead to generation of new secret.
+	// +kubebuilder:validation:Optional
+	Lifetime *string `json:"lifetime,omitempty" tf:"lifetime,omitempty"`
+
+	// Secret Hash.
+	// +kubebuilder:validation:Optional
+	SecretHash *string `json:"secretHash,omitempty" tf:"secret_hash,omitempty"`
+
+	// Generated secret for the service principal.
 	// +kubebuilder:validation:Optional
 	SecretSecretRef *v1.SecretKeySelector `json:"secretSecretRef,omitempty" tf:"-"`
 
-	// ID of the databricks_service_principal (not application ID).
+	// SCIM ID of the databricks_service_principal (not application ID).
 	// +kubebuilder:validation:Optional
 	ServicePrincipalID *string `json:"servicePrincipalId,omitempty" tf:"service_principal_id,omitempty"`
 
+	// Status of the secret (i.e., ACTIVE - see REST API docs for full list).
 	// +kubebuilder:validation:Optional
 	Status *string `json:"status,omitempty" tf:"status,omitempty"`
+
+	// UTC time when the secret was updated.
+	// +kubebuilder:validation:Optional
+	UpdateTime *string `json:"updateTime,omitempty" tf:"update_time,omitempty"`
 }
 
 // ServicePrincipalSecretSpec defines the desired state of ServicePrincipalSecret

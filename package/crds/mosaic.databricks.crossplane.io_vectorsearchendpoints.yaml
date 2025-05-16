@@ -73,6 +73,18 @@ spec:
                 type: string
               forProvider:
                 properties:
+                  customTags:
+                    items:
+                      properties:
+                        key:
+                          type: string
+                        value:
+                          type: string
+                      type: object
+                    type: array
+                  effectiveBudgetPolicyId:
+                    description: The same as the name of the endpoint.
+                    type: string
                   endpointType:
                     description: 'Type of Mosaic AI Vector Search Endpoint.  Currently
                       only accepting single value: STANDARD (See documentation for
@@ -95,6 +107,18 @@ spec:
                   for example because of an external controller is managing them, like an
                   autoscaler.
                 properties:
+                  customTags:
+                    items:
+                      properties:
+                        key:
+                          type: string
+                        value:
+                          type: string
+                      type: object
+                    type: array
+                  effectiveBudgetPolicyId:
+                    description: The same as the name of the endpoint.
+                    type: string
                   endpointType:
                     description: 'Type of Mosaic AI Vector Search Endpoint.  Currently
                       only accepting single value: STANDARD (See documentation for
@@ -291,6 +315,18 @@ spec:
                     type: number
                   creator:
                     description: Creator of the endpoint.
+                    type: string
+                  customTags:
+                    items:
+                      properties:
+                        key:
+                          type: string
+                        value:
+                          type: string
+                      type: object
+                    type: array
+                  effectiveBudgetPolicyId:
+                    description: The same as the name of the endpoint.
                     type: string
                   endpointId:
                     description: Unique internal identifier of the endpoint (UUID).

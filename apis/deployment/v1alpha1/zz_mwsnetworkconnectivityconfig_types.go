@@ -41,6 +41,8 @@ type AzurePrivateEndpointRulesInitParameters struct {
 
 	DeactivatedAt *float64 `json:"deactivatedAt,omitempty" tf:"deactivated_at,omitempty"`
 
+	DomainNames []*string `json:"domainNames,omitempty" tf:"domain_names,omitempty"`
+
 	// Name of Network Connectivity Config in Databricks Account. Change forces creation of a new resource.
 	EndpointName *string `json:"endpointName,omitempty" tf:"endpoint_name,omitempty"`
 
@@ -67,6 +69,8 @@ type AzurePrivateEndpointRulesObservation struct {
 	Deactivated *bool `json:"deactivated,omitempty" tf:"deactivated,omitempty"`
 
 	DeactivatedAt *float64 `json:"deactivatedAt,omitempty" tf:"deactivated_at,omitempty"`
+
+	DomainNames []*string `json:"domainNames,omitempty" tf:"domain_names,omitempty"`
 
 	// Name of Network Connectivity Config in Databricks Account. Change forces creation of a new resource.
 	EndpointName *string `json:"endpointName,omitempty" tf:"endpoint_name,omitempty"`
@@ -99,6 +103,9 @@ type AzurePrivateEndpointRulesParameters struct {
 
 	// +kubebuilder:validation:Optional
 	DeactivatedAt *float64 `json:"deactivatedAt,omitempty" tf:"deactivated_at,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	DomainNames []*string `json:"domainNames,omitempty" tf:"domain_names,omitempty"`
 
 	// Name of Network Connectivity Config in Databricks Account. Change forces creation of a new resource.
 	// +kubebuilder:validation:Optional

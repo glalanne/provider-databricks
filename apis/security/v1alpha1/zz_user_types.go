@@ -98,7 +98,7 @@ type UserObservation struct {
 	// Home folder of the user, e.g. /Users/mr.foo@example.com.
 	Home *string `json:"home,omitempty" tf:"home,omitempty"`
 
-	// Canonical unique identifier for the user.
+	// Canonical unique identifier for the user (SCIM ID).
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
 	// Personal Repos location of the user, e.g. /Repos/mr.foo@example.com.

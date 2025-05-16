@@ -75,9 +75,6 @@ spec:
                   schema:
                     description: name of the system schema.
                     type: string
-                  state:
-                    description: The current state of enablement for the system schema.
-                    type: string
                 type: object
               initProvider:
                 description: |-
@@ -94,9 +91,6 @@ spec:
                 properties:
                   schema:
                     description: name of the system schema.
-                    type: string
-                  state:
-                    description: The current state of enablement for the system schema.
                     type: string
                 type: object
               managementPolicies:
@@ -266,6 +260,11 @@ spec:
             required:
             - forProvider
             type: object
+            x-kubernetes-validations:
+            - message: spec.forProvider.schema is a required parameter
+              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
+                || ''Update'' in self.managementPolicies) || has(self.forProvider.schema)
+                || (has(self.initProvider) && has(self.initProvider.schema))'
           status:
             description: SystemSchemaStatus defines the observed state of SystemSchema.
             properties:

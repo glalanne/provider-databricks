@@ -15,7 +15,7 @@ import (
 
 type AIGatewayInitParameters struct {
 
-	// The model serving endpoint configuration. This is optional and can be added and modified after creation. If config was provided in a previous apply but is not provided in the current apply, no change to the model serving endpoint will occur. To recreate the model serving endpoint without the config block, the model serving endpoint must be destroyed and recreated.
+	// block with configuration for traffic fallback which auto fallbacks to other served entities if the request to a served entity fails with certain error codes, to increase availability.
 	FallbackConfig []FallbackConfigInitParameters `json:"fallbackConfig,omitempty" tf:"fallback_config,omitempty"`
 
 	// Block with configuration for AI Guardrails to prevent unwanted data and unsafe data in requests and responses. Consists of the following attributes:
@@ -33,7 +33,7 @@ type AIGatewayInitParameters struct {
 
 type AIGatewayObservation struct {
 
-	// The model serving endpoint configuration. This is optional and can be added and modified after creation. If config was provided in a previous apply but is not provided in the current apply, no change to the model serving endpoint will occur. To recreate the model serving endpoint without the config block, the model serving endpoint must be destroyed and recreated.
+	// block with configuration for traffic fallback which auto fallbacks to other served entities if the request to a served entity fails with certain error codes, to increase availability.
 	FallbackConfig []FallbackConfigObservation `json:"fallbackConfig,omitempty" tf:"fallback_config,omitempty"`
 
 	// Block with configuration for AI Guardrails to prevent unwanted data and unsafe data in requests and responses. Consists of the following attributes:
@@ -51,7 +51,7 @@ type AIGatewayObservation struct {
 
 type AIGatewayParameters struct {
 
-	// The model serving endpoint configuration. This is optional and can be added and modified after creation. If config was provided in a previous apply but is not provided in the current apply, no change to the model serving endpoint will occur. To recreate the model serving endpoint without the config block, the model serving endpoint must be destroyed and recreated.
+	// block with configuration for traffic fallback which auto fallbacks to other served entities if the request to a served entity fails with certain error codes, to increase availability.
 	// +kubebuilder:validation:Optional
 	FallbackConfig []FallbackConfigParameters `json:"fallbackConfig,omitempty" tf:"fallback_config,omitempty"`
 
@@ -77,10 +77,10 @@ type APIKeyAuthInitParameters struct {
 	// The key field for a tag.
 	Key *string `json:"key,omitempty" tf:"key,omitempty"`
 
-	// The value field for a tag.
+	// The Databricks secret key reference for an API Key.
 	Value *string `json:"value,omitempty" tf:"value,omitempty"`
 
-	// suffix) or in plain text (parameters with _plaintext suffix)!
+	// The API Key provided as a plaintext string.
 	ValuePlaintext *string `json:"valuePlaintext,omitempty" tf:"value_plaintext,omitempty"`
 }
 
@@ -89,10 +89,10 @@ type APIKeyAuthObservation struct {
 	// The key field for a tag.
 	Key *string `json:"key,omitempty" tf:"key,omitempty"`
 
-	// The value field for a tag.
+	// The Databricks secret key reference for an API Key.
 	Value *string `json:"value,omitempty" tf:"value,omitempty"`
 
-	// suffix) or in plain text (parameters with _plaintext suffix)!
+	// The API Key provided as a plaintext string.
 	ValuePlaintext *string `json:"valuePlaintext,omitempty" tf:"value_plaintext,omitempty"`
 }
 
@@ -102,11 +102,11 @@ type APIKeyAuthParameters struct {
 	// +kubebuilder:validation:Optional
 	Key *string `json:"key" tf:"key,omitempty"`
 
-	// The value field for a tag.
+	// The Databricks secret key reference for an API Key.
 	// +kubebuilder:validation:Optional
 	Value *string `json:"value,omitempty" tf:"value,omitempty"`
 
-	// suffix) or in plain text (parameters with _plaintext suffix)!
+	// The API Key provided as a plaintext string.
 	// +kubebuilder:validation:Optional
 	ValuePlaintext *string `json:"valuePlaintext,omitempty" tf:"value_plaintext,omitempty"`
 }
@@ -253,7 +253,7 @@ type AutoCaptureConfigInitParameters struct {
 	// The name of the catalog in Unity Catalog. NOTE: On update, you cannot change the catalog name if it was already set.
 	CatalogName *string `json:"catalogName,omitempty" tf:"catalog_name,omitempty"`
 
-	// boolean flag specifying if usage tracking is enabled.
+	// Whether to enable traffic fallback. When a served entity in the serving endpoint returns specific error codes (e.g. 500), the request will automatically be round-robin attempted with other served entities in the same endpoint, following the order of served entity list, until a successful response is returned.
 	Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
 
 	// The name of the schema in Unity Catalog. NOTE: On update, you cannot change the schema name if it was already set.
@@ -268,7 +268,7 @@ type AutoCaptureConfigObservation struct {
 	// The name of the catalog in Unity Catalog. NOTE: On update, you cannot change the catalog name if it was already set.
 	CatalogName *string `json:"catalogName,omitempty" tf:"catalog_name,omitempty"`
 
-	// boolean flag specifying if usage tracking is enabled.
+	// Whether to enable traffic fallback. When a served entity in the serving endpoint returns specific error codes (e.g. 500), the request will automatically be round-robin attempted with other served entities in the same endpoint, following the order of served entity list, until a successful response is returned.
 	Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
 
 	// The name of the schema in Unity Catalog. NOTE: On update, you cannot change the schema name if it was already set.
@@ -284,7 +284,7 @@ type AutoCaptureConfigParameters struct {
 	// +kubebuilder:validation:Optional
 	CatalogName *string `json:"catalogName,omitempty" tf:"catalog_name,omitempty"`
 
-	// boolean flag specifying if usage tracking is enabled.
+	// Whether to enable traffic fallback. When a served entity in the serving endpoint returns specific error codes (e.g. 500), the request will automatically be round-robin attempted with other served entities in the same endpoint, following the order of served entity list, until a successful response is returned.
 	// +kubebuilder:validation:Optional
 	Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
 
@@ -298,25 +298,30 @@ type AutoCaptureConfigParameters struct {
 }
 
 type BearerTokenAuthInitParameters struct {
+
+	// The Databricks secret key reference for a token.
 	Token *string `json:"token,omitempty" tf:"token,omitempty"`
 
-	// suffix) or in plain text (parameters with _plaintext suffix)!
+	// The token provided as a plaintext string.
 	TokenPlaintext *string `json:"tokenPlaintext,omitempty" tf:"token_plaintext,omitempty"`
 }
 
 type BearerTokenAuthObservation struct {
+
+	// The Databricks secret key reference for a token.
 	Token *string `json:"token,omitempty" tf:"token,omitempty"`
 
-	// suffix) or in plain text (parameters with _plaintext suffix)!
+	// The token provided as a plaintext string.
 	TokenPlaintext *string `json:"tokenPlaintext,omitempty" tf:"token_plaintext,omitempty"`
 }
 
 type BearerTokenAuthParameters struct {
 
+	// The Databricks secret key reference for a token.
 	// +kubebuilder:validation:Optional
 	Token *string `json:"token,omitempty" tf:"token,omitempty"`
 
-	// suffix) or in plain text (parameters with _plaintext suffix)!
+	// The token provided as a plaintext string.
 	// +kubebuilder:validation:Optional
 	TokenPlaintext *string `json:"tokenPlaintext,omitempty" tf:"token_plaintext,omitempty"`
 }
@@ -405,29 +410,40 @@ type ConfigParameters struct {
 }
 
 type CustomProviderConfigInitParameters struct {
+
+	// API key authentication for the custom provider API. Conflicts with bearer_token_auth.
 	APIKeyAuth []APIKeyAuthInitParameters `json:"apiKeyAuth,omitempty" tf:"api_key_auth,omitempty"`
 
+	// bearer token authentication for the custom provider API.  Conflicts with api_key_auth.
 	BearerTokenAuth []BearerTokenAuthInitParameters `json:"bearerTokenAuth,omitempty" tf:"bearer_token_auth,omitempty"`
 
+	// URL of the custom provider API.
 	CustomProviderURL *string `json:"customProviderUrl,omitempty" tf:"custom_provider_url,omitempty"`
 }
 
 type CustomProviderConfigObservation struct {
+
+	// API key authentication for the custom provider API. Conflicts with bearer_token_auth.
 	APIKeyAuth []APIKeyAuthObservation `json:"apiKeyAuth,omitempty" tf:"api_key_auth,omitempty"`
 
+	// bearer token authentication for the custom provider API.  Conflicts with api_key_auth.
 	BearerTokenAuth []BearerTokenAuthObservation `json:"bearerTokenAuth,omitempty" tf:"bearer_token_auth,omitempty"`
 
+	// URL of the custom provider API.
 	CustomProviderURL *string `json:"customProviderUrl,omitempty" tf:"custom_provider_url,omitempty"`
 }
 
 type CustomProviderConfigParameters struct {
 
+	// API key authentication for the custom provider API. Conflicts with bearer_token_auth.
 	// +kubebuilder:validation:Optional
 	APIKeyAuth []APIKeyAuthParameters `json:"apiKeyAuth,omitempty" tf:"api_key_auth,omitempty"`
 
+	// bearer token authentication for the custom provider API.  Conflicts with api_key_auth.
 	// +kubebuilder:validation:Optional
 	BearerTokenAuth []BearerTokenAuthParameters `json:"bearerTokenAuth,omitempty" tf:"bearer_token_auth,omitempty"`
 
+	// URL of the custom provider API.
 	// +kubebuilder:validation:Optional
 	CustomProviderURL *string `json:"customProviderUrl" tf:"custom_provider_url,omitempty"`
 }
@@ -485,7 +501,7 @@ type ExternalModelInitParameters struct {
 	// Cohere Config
 	CohereConfig []CohereConfigInitParameters `json:"cohereConfig,omitempty" tf:"cohere_config,omitempty"`
 
-	// The model serving endpoint configuration. This is optional and can be added and modified after creation. If config was provided in a previous apply but is not provided in the current apply, no change to the model serving endpoint will occur. To recreate the model serving endpoint without the config block, the model serving endpoint must be destroyed and recreated.
+	// Custom Provider Config. Only required if the provider is 'custom'.
 	CustomProviderConfig []CustomProviderConfigInitParameters `json:"customProviderConfig,omitempty" tf:"custom_provider_config,omitempty"`
 
 	// Databricks Model Serving Config
@@ -524,7 +540,7 @@ type ExternalModelObservation struct {
 	// Cohere Config
 	CohereConfig []CohereConfigObservation `json:"cohereConfig,omitempty" tf:"cohere_config,omitempty"`
 
-	// The model serving endpoint configuration. This is optional and can be added and modified after creation. If config was provided in a previous apply but is not provided in the current apply, no change to the model serving endpoint will occur. To recreate the model serving endpoint without the config block, the model serving endpoint must be destroyed and recreated.
+	// Custom Provider Config. Only required if the provider is 'custom'.
 	CustomProviderConfig []CustomProviderConfigObservation `json:"customProviderConfig,omitempty" tf:"custom_provider_config,omitempty"`
 
 	// Databricks Model Serving Config
@@ -567,7 +583,7 @@ type ExternalModelParameters struct {
 	// +kubebuilder:validation:Optional
 	CohereConfig []CohereConfigParameters `json:"cohereConfig,omitempty" tf:"cohere_config,omitempty"`
 
-	// The model serving endpoint configuration. This is optional and can be added and modified after creation. If config was provided in a previous apply but is not provided in the current apply, no change to the model serving endpoint will occur. To recreate the model serving endpoint without the config block, the model serving endpoint must be destroyed and recreated.
+	// Custom Provider Config. Only required if the provider is 'custom'.
 	// +kubebuilder:validation:Optional
 	CustomProviderConfig []CustomProviderConfigParameters `json:"customProviderConfig,omitempty" tf:"custom_provider_config,omitempty"`
 
@@ -602,19 +618,19 @@ type ExternalModelParameters struct {
 
 type FallbackConfigInitParameters struct {
 
-	// boolean flag specifying if usage tracking is enabled.
+	// Whether to enable traffic fallback. When a served entity in the serving endpoint returns specific error codes (e.g. 500), the request will automatically be round-robin attempted with other served entities in the same endpoint, following the order of served entity list, until a successful response is returned.
 	Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
 }
 
 type FallbackConfigObservation struct {
 
-	// boolean flag specifying if usage tracking is enabled.
+	// Whether to enable traffic fallback. When a served entity in the serving endpoint returns specific error codes (e.g. 500), the request will automatically be round-robin attempted with other served entities in the same endpoint, following the order of served entity list, until a successful response is returned.
 	Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
 }
 
 type FallbackConfigParameters struct {
 
-	// boolean flag specifying if usage tracking is enabled.
+	// Whether to enable traffic fallback. When a served entity in the serving endpoint returns specific error codes (e.g. 500), the request will automatically be round-robin attempted with other served entities in the same endpoint, following the order of served entity list, until a successful response is returned.
 	// +kubebuilder:validation:Optional
 	Enabled *bool `json:"enabled" tf:"enabled,omitempty"`
 }
@@ -702,7 +718,7 @@ type InferenceTableConfigInitParameters struct {
 	// The name of the catalog in Unity Catalog. NOTE: On update, you cannot change the catalog name if it was already set.
 	CatalogName *string `json:"catalogName,omitempty" tf:"catalog_name,omitempty"`
 
-	// boolean flag specifying if usage tracking is enabled.
+	// Whether to enable traffic fallback. When a served entity in the serving endpoint returns specific error codes (e.g. 500), the request will automatically be round-robin attempted with other served entities in the same endpoint, following the order of served entity list, until a successful response is returned.
 	Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
 
 	// The name of the schema in Unity Catalog. NOTE: On update, you cannot change the schema name if it was already set.
@@ -717,7 +733,7 @@ type InferenceTableConfigObservation struct {
 	// The name of the catalog in Unity Catalog. NOTE: On update, you cannot change the catalog name if it was already set.
 	CatalogName *string `json:"catalogName,omitempty" tf:"catalog_name,omitempty"`
 
-	// boolean flag specifying if usage tracking is enabled.
+	// Whether to enable traffic fallback. When a served entity in the serving endpoint returns specific error codes (e.g. 500), the request will automatically be round-robin attempted with other served entities in the same endpoint, following the order of served entity list, until a successful response is returned.
 	Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
 
 	// The name of the schema in Unity Catalog. NOTE: On update, you cannot change the schema name if it was already set.
@@ -733,7 +749,7 @@ type InferenceTableConfigParameters struct {
 	// +kubebuilder:validation:Optional
 	CatalogName *string `json:"catalogName,omitempty" tf:"catalog_name,omitempty"`
 
-	// boolean flag specifying if usage tracking is enabled.
+	// Whether to enable traffic fallback. When a served entity in the serving endpoint returns specific error codes (e.g. 500), the request will automatically be round-robin attempted with other served entities in the same endpoint, following the order of served entity list, until a successful response is returned.
 	// +kubebuilder:validation:Optional
 	Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
 
@@ -800,7 +816,7 @@ type ModelServingInitParameters struct {
 	// A block with AI Gateway configuration for the serving endpoint. Note: only external model endpoints are supported as of now.
 	AIGateway []AIGatewayInitParameters `json:"aiGateway,omitempty" tf:"ai_gateway,omitempty"`
 
-	// Equal to the name argument and used to identify the serving endpoint.
+	// (Optiona) The Budget Policy ID set for this serving endpoint.
 	BudgetPolicyID *string `json:"budgetPolicyId,omitempty" tf:"budget_policy_id,omitempty"`
 
 	// The model serving endpoint configuration. This is optional and can be added and modified after creation. If config was provided in a previous apply but is not provided in the current apply, no change to the model serving endpoint will occur. To recreate the model serving endpoint without the config block, the model serving endpoint must be destroyed and recreated.
@@ -824,7 +840,7 @@ type ModelServingObservation struct {
 	// A block with AI Gateway configuration for the serving endpoint. Note: only external model endpoints are supported as of now.
 	AIGateway []AIGatewayObservation `json:"aiGateway,omitempty" tf:"ai_gateway,omitempty"`
 
-	// Equal to the name argument and used to identify the serving endpoint.
+	// (Optiona) The Budget Policy ID set for this serving endpoint.
 	BudgetPolicyID *string `json:"budgetPolicyId,omitempty" tf:"budget_policy_id,omitempty"`
 
 	// The model serving endpoint configuration. This is optional and can be added and modified after creation. If config was provided in a previous apply but is not provided in the current apply, no change to the model serving endpoint will occur. To recreate the model serving endpoint without the config block, the model serving endpoint must be destroyed and recreated.
@@ -855,7 +871,7 @@ type ModelServingParameters struct {
 	// +kubebuilder:validation:Optional
 	AIGateway []AIGatewayParameters `json:"aiGateway,omitempty" tf:"ai_gateway,omitempty"`
 
-	// Equal to the name argument and used to identify the serving endpoint.
+	// (Optiona) The Budget Policy ID set for this serving endpoint.
 	// +kubebuilder:validation:Optional
 	BudgetPolicyID *string `json:"budgetPolicyId,omitempty" tf:"budget_policy_id,omitempty"`
 
@@ -1249,6 +1265,8 @@ type ServedEntitiesInitParameters struct {
 	// The name of a served model. It must be unique across an endpoint. If not specified, this field will default to modelname-modelversion. A served model name can consist of alphanumeric characters, dashes, and underscores.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
+	ProvisionedModelUnits *float64 `json:"provisionedModelUnits,omitempty" tf:"provisioned_model_units,omitempty"`
+
 	// Whether the compute resources for the served model should scale down to zero. If scale-to-zero is enabled, the lower bound of the provisioned concurrency for each workload size will be 0. The default value is true.
 	ScaleToZeroEnabled *bool `json:"scaleToZeroEnabled,omitempty" tf:"scale_to_zero_enabled,omitempty"`
 
@@ -1285,6 +1303,8 @@ type ServedEntitiesObservation struct {
 
 	// The name of a served model. It must be unique across an endpoint. If not specified, this field will default to modelname-modelversion. A served model name can consist of alphanumeric characters, dashes, and underscores.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	ProvisionedModelUnits *float64 `json:"provisionedModelUnits,omitempty" tf:"provisioned_model_units,omitempty"`
 
 	// Whether the compute resources for the served model should scale down to zero. If scale-to-zero is enabled, the lower bound of the provisioned concurrency for each workload size will be 0. The default value is true.
 	ScaleToZeroEnabled *bool `json:"scaleToZeroEnabled,omitempty" tf:"scale_to_zero_enabled,omitempty"`
@@ -1331,6 +1351,9 @@ type ServedEntitiesParameters struct {
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
+	// +kubebuilder:validation:Optional
+	ProvisionedModelUnits *float64 `json:"provisionedModelUnits,omitempty" tf:"provisioned_model_units,omitempty"`
+
 	// Whether the compute resources for the served model should scale down to zero. If scale-to-zero is enabled, the lower bound of the provisioned concurrency for each workload size will be 0. The default value is true.
 	// +kubebuilder:validation:Optional
 	ScaleToZeroEnabled *bool `json:"scaleToZeroEnabled,omitempty" tf:"scale_to_zero_enabled,omitempty"`
@@ -1368,6 +1391,8 @@ type ServedModelsInitParameters struct {
 	// The name of a served model. It must be unique across an endpoint. If not specified, this field will default to modelname-modelversion. A served model name can consist of alphanumeric characters, dashes, and underscores.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
+	ProvisionedModelUnits *float64 `json:"provisionedModelUnits,omitempty" tf:"provisioned_model_units,omitempty"`
+
 	// Whether the compute resources for the served model should scale down to zero. If scale-to-zero is enabled, the lower bound of the provisioned concurrency for each workload size will be 0. The default value is true.
 	ScaleToZeroEnabled *bool `json:"scaleToZeroEnabled,omitempty" tf:"scale_to_zero_enabled,omitempty"`
 
@@ -1401,6 +1426,8 @@ type ServedModelsObservation struct {
 
 	// The name of a served model. It must be unique across an endpoint. If not specified, this field will default to modelname-modelversion. A served model name can consist of alphanumeric characters, dashes, and underscores.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	ProvisionedModelUnits *float64 `json:"provisionedModelUnits,omitempty" tf:"provisioned_model_units,omitempty"`
 
 	// Whether the compute resources for the served model should scale down to zero. If scale-to-zero is enabled, the lower bound of the provisioned concurrency for each workload size will be 0. The default value is true.
 	ScaleToZeroEnabled *bool `json:"scaleToZeroEnabled,omitempty" tf:"scale_to_zero_enabled,omitempty"`
@@ -1442,6 +1469,9 @@ type ServedModelsParameters struct {
 	// The name of a served model. It must be unique across an endpoint. If not specified, this field will default to modelname-modelversion. A served model name can consist of alphanumeric characters, dashes, and underscores.
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	ProvisionedModelUnits *float64 `json:"provisionedModelUnits,omitempty" tf:"provisioned_model_units,omitempty"`
 
 	// Whether the compute resources for the served model should scale down to zero. If scale-to-zero is enabled, the lower bound of the provisioned concurrency for each workload size will be 0. The default value is true.
 	// +kubebuilder:validation:Optional
@@ -1506,19 +1536,19 @@ type TrafficConfigParameters struct {
 
 type UsageTrackingConfigInitParameters struct {
 
-	// boolean flag specifying if usage tracking is enabled.
+	// Whether to enable traffic fallback. When a served entity in the serving endpoint returns specific error codes (e.g. 500), the request will automatically be round-robin attempted with other served entities in the same endpoint, following the order of served entity list, until a successful response is returned.
 	Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
 }
 
 type UsageTrackingConfigObservation struct {
 
-	// boolean flag specifying if usage tracking is enabled.
+	// Whether to enable traffic fallback. When a served entity in the serving endpoint returns specific error codes (e.g. 500), the request will automatically be round-robin attempted with other served entities in the same endpoint, following the order of served entity list, until a successful response is returned.
 	Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
 }
 
 type UsageTrackingConfigParameters struct {
 
-	// boolean flag specifying if usage tracking is enabled.
+	// Whether to enable traffic fallback. When a served entity in the serving endpoint returns specific error codes (e.g. 500), the request will automatically be round-robin attempted with other served entities in the same endpoint, following the order of served entity list, until a successful response is returned.
 	// +kubebuilder:validation:Optional
 	Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
 }

@@ -102,7 +102,7 @@ type ServicePrincipalObservation struct {
 	// Home folder of the service principal, e.g. /Users/00000000-0000-0000-0000-000000000000.
 	Home *string `json:"home,omitempty" tf:"home,omitempty"`
 
-	// Canonical unique identifier for the service principal.
+	// Canonical unique identifier for the service principal (SCIM ID).
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
 	// Personal Repos location of the service principal, e.g. /Repos/00000000-0000-0000-0000-000000000000.

@@ -465,7 +465,8 @@ spec:
                     description: Home folder of the service principal, e.g. /Users/00000000-0000-0000-0000-000000000000.
                     type: string
                   id:
-                    description: Canonical unique identifier for the service principal.
+                    description: Canonical unique identifier for the service principal
+                      (SCIM ID).
                     type: string
                   repos:
                     description: Personal Repos location of the service principal,

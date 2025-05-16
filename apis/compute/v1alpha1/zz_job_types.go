@@ -54,29 +54,29 @@ type AlertParameters struct {
 
 type AlertSubscriptionsInitParameters struct {
 
-	// ID of the system notification that is notified when an event defined in webhook_notifications is triggered.
+	// A snapshot of the dashboard will be sent to the destination when the destination_id field is present.
 	DestinationID *string `json:"destinationId,omitempty" tf:"destination_id,omitempty"`
 
-	// The email of an active workspace user. Non-admin users can only set this field to their own email.
+	// A snapshot of the dashboard will be sent to the user's email when the user_name field is present.
 	UserName *string `json:"userName,omitempty" tf:"user_name,omitempty"`
 }
 
 type AlertSubscriptionsObservation struct {
 
-	// ID of the system notification that is notified when an event defined in webhook_notifications is triggered.
+	// A snapshot of the dashboard will be sent to the destination when the destination_id field is present.
 	DestinationID *string `json:"destinationId,omitempty" tf:"destination_id,omitempty"`
 
-	// The email of an active workspace user. Non-admin users can only set this field to their own email.
+	// A snapshot of the dashboard will be sent to the user's email when the user_name field is present.
 	UserName *string `json:"userName,omitempty" tf:"user_name,omitempty"`
 }
 
 type AlertSubscriptionsParameters struct {
 
-	// ID of the system notification that is notified when an event defined in webhook_notifications is triggered.
+	// A snapshot of the dashboard will be sent to the destination when the destination_id field is present.
 	// +kubebuilder:validation:Optional
 	DestinationID *string `json:"destinationId,omitempty" tf:"destination_id,omitempty"`
 
-	// The email of an active workspace user. Non-admin users can only set this field to their own email.
+	// A snapshot of the dashboard will be sent to the user's email when the user_name field is present.
 	// +kubebuilder:validation:Optional
 	UserName *string `json:"userName,omitempty" tf:"user_name,omitempty"`
 }
@@ -286,7 +286,7 @@ type ComputeParameters struct {
 
 	// ID of the system notification that is notified when an event defined in webhook_notifications is triggered.
 	// +kubebuilder:validation:Optional
-	GpuNodePoolID *string `json:"gpuNodePoolId" tf:"gpu_node_pool_id,omitempty"`
+	GpuNodePoolID *string `json:"gpuNodePoolId,omitempty" tf:"gpu_node_pool_id,omitempty"`
 
 	// +kubebuilder:validation:Optional
 	GpuType *string `json:"gpuType,omitempty" tf:"gpu_type,omitempty"`
@@ -355,10 +355,10 @@ type ContinuousParameters struct {
 
 type DashboardInitParameters struct {
 
-	// string specifying a custom subject of email sent.
+	// Allows users to specify a custom subject line on the email sent to subscribers.
 	CustomSubject *string `json:"customSubject,omitempty" tf:"custom_subject,omitempty"`
 
-	// (String) identifier of the Databricks SQL Dashboard databricks_sql_dashboard.
+	// The identifier of the dashboard to refresh
 	DashboardID *string `json:"dashboardId,omitempty" tf:"dashboard_id,omitempty"`
 
 	// flag that specifies if subscriptions are paused or not.
@@ -370,10 +370,10 @@ type DashboardInitParameters struct {
 
 type DashboardObservation struct {
 
-	// string specifying a custom subject of email sent.
+	// Allows users to specify a custom subject line on the email sent to subscribers.
 	CustomSubject *string `json:"customSubject,omitempty" tf:"custom_subject,omitempty"`
 
-	// (String) identifier of the Databricks SQL Dashboard databricks_sql_dashboard.
+	// The identifier of the dashboard to refresh
 	DashboardID *string `json:"dashboardId,omitempty" tf:"dashboard_id,omitempty"`
 
 	// flag that specifies if subscriptions are paused or not.
@@ -385,11 +385,11 @@ type DashboardObservation struct {
 
 type DashboardParameters struct {
 
-	// string specifying a custom subject of email sent.
+	// Allows users to specify a custom subject line on the email sent to subscribers.
 	// +kubebuilder:validation:Optional
 	CustomSubject *string `json:"customSubject,omitempty" tf:"custom_subject,omitempty"`
 
-	// (String) identifier of the Databricks SQL Dashboard databricks_sql_dashboard.
+	// The identifier of the dashboard to refresh
 	// +kubebuilder:validation:Optional
 	DashboardID *string `json:"dashboardId" tf:"dashboard_id,omitempty"`
 
@@ -404,31 +404,109 @@ type DashboardParameters struct {
 
 type DashboardSubscriptionsInitParameters struct {
 
-	// ID of the system notification that is notified when an event defined in webhook_notifications is triggered.
+	// A snapshot of the dashboard will be sent to the destination when the destination_id field is present.
 	DestinationID *string `json:"destinationId,omitempty" tf:"destination_id,omitempty"`
 
-	// The email of an active workspace user. Non-admin users can only set this field to their own email.
+	// A snapshot of the dashboard will be sent to the user's email when the user_name field is present.
 	UserName *string `json:"userName,omitempty" tf:"user_name,omitempty"`
 }
 
 type DashboardSubscriptionsObservation struct {
 
-	// ID of the system notification that is notified when an event defined in webhook_notifications is triggered.
+	// A snapshot of the dashboard will be sent to the destination when the destination_id field is present.
 	DestinationID *string `json:"destinationId,omitempty" tf:"destination_id,omitempty"`
 
-	// The email of an active workspace user. Non-admin users can only set this field to their own email.
+	// A snapshot of the dashboard will be sent to the user's email when the user_name field is present.
 	UserName *string `json:"userName,omitempty" tf:"user_name,omitempty"`
 }
 
 type DashboardSubscriptionsParameters struct {
 
-	// ID of the system notification that is notified when an event defined in webhook_notifications is triggered.
+	// A snapshot of the dashboard will be sent to the destination when the destination_id field is present.
 	// +kubebuilder:validation:Optional
 	DestinationID *string `json:"destinationId,omitempty" tf:"destination_id,omitempty"`
 
-	// The email of an active workspace user. Non-admin users can only set this field to their own email.
+	// A snapshot of the dashboard will be sent to the user's email when the user_name field is present.
 	// +kubebuilder:validation:Optional
 	UserName *string `json:"userName,omitempty" tf:"user_name,omitempty"`
+}
+
+type DashboardTaskInitParameters struct {
+
+	// The identifier of the dashboard to refresh
+	DashboardID *string `json:"dashboardId,omitempty" tf:"dashboard_id,omitempty"`
+
+	// Represents a subscription configuration for scheduled dashboard snapshots.
+	Subscription []SubscriptionInitParameters `json:"subscription,omitempty" tf:"subscription,omitempty"`
+
+	// The warehouse id to execute the dashboard with for the schedule. If not specified, will use the default warehouse of dashboard
+	WarehouseID *string `json:"warehouseId,omitempty" tf:"warehouse_id,omitempty"`
+}
+
+type DashboardTaskObservation struct {
+
+	// The identifier of the dashboard to refresh
+	DashboardID *string `json:"dashboardId,omitempty" tf:"dashboard_id,omitempty"`
+
+	// Represents a subscription configuration for scheduled dashboard snapshots.
+	Subscription []SubscriptionObservation `json:"subscription,omitempty" tf:"subscription,omitempty"`
+
+	// The warehouse id to execute the dashboard with for the schedule. If not specified, will use the default warehouse of dashboard
+	WarehouseID *string `json:"warehouseId,omitempty" tf:"warehouse_id,omitempty"`
+}
+
+type DashboardTaskParameters struct {
+
+	// The identifier of the dashboard to refresh
+	// +kubebuilder:validation:Optional
+	DashboardID *string `json:"dashboardId,omitempty" tf:"dashboard_id,omitempty"`
+
+	// Represents a subscription configuration for scheduled dashboard snapshots.
+	// +kubebuilder:validation:Optional
+	Subscription []SubscriptionParameters `json:"subscription,omitempty" tf:"subscription,omitempty"`
+
+	// The warehouse id to execute the dashboard with for the schedule. If not specified, will use the default warehouse of dashboard
+	// +kubebuilder:validation:Optional
+	WarehouseID *string `json:"warehouseId,omitempty" tf:"warehouse_id,omitempty"`
+}
+
+type DashboardTaskSubscriptionInitParameters struct {
+
+	// Allows users to specify a custom subject line on the email sent to subscribers.
+	CustomSubject *string `json:"customSubject,omitempty" tf:"custom_subject,omitempty"`
+
+	// When true, the subscription will not send emails.
+	Paused *bool `json:"paused,omitempty" tf:"paused,omitempty"`
+
+	// The list of subscribers to send the snapshot of the dashboard to.
+	Subscribers []SubscriptionSubscribersInitParameters `json:"subscribers,omitempty" tf:"subscribers,omitempty"`
+}
+
+type DashboardTaskSubscriptionObservation struct {
+
+	// Allows users to specify a custom subject line on the email sent to subscribers.
+	CustomSubject *string `json:"customSubject,omitempty" tf:"custom_subject,omitempty"`
+
+	// When true, the subscription will not send emails.
+	Paused *bool `json:"paused,omitempty" tf:"paused,omitempty"`
+
+	// The list of subscribers to send the snapshot of the dashboard to.
+	Subscribers []SubscriptionSubscribersObservation `json:"subscribers,omitempty" tf:"subscribers,omitempty"`
+}
+
+type DashboardTaskSubscriptionParameters struct {
+
+	// Allows users to specify a custom subject line on the email sent to subscribers.
+	// +kubebuilder:validation:Optional
+	CustomSubject *string `json:"customSubject,omitempty" tf:"custom_subject,omitempty"`
+
+	// When true, the subscription will not send emails.
+	// +kubebuilder:validation:Optional
+	Paused *bool `json:"paused,omitempty" tf:"paused,omitempty"`
+
+	// The list of subscribers to send the snapshot of the dashboard to.
+	// +kubebuilder:validation:Optional
+	Subscribers []SubscriptionSubscribersParameters `json:"subscribers,omitempty" tf:"subscribers,omitempty"`
 }
 
 type DbtTaskInitParameters struct {
@@ -451,7 +529,7 @@ type DbtTaskInitParameters struct {
 	// The source of the project. Possible values are WORKSPACE and GIT.  Defaults to GIT if a git_source block is present in the job definition.
 	Source *string `json:"source,omitempty" tf:"source,omitempty"`
 
-	// The ID of the SQL warehouse that dbt should execute against.
+	// The warehouse id to execute the dashboard with for the schedule. If not specified, will use the default warehouse of dashboard
 	WarehouseID *string `json:"warehouseId,omitempty" tf:"warehouse_id,omitempty"`
 }
 
@@ -475,7 +553,7 @@ type DbtTaskObservation struct {
 	// The source of the project. Possible values are WORKSPACE and GIT.  Defaults to GIT if a git_source block is present in the job definition.
 	Source *string `json:"source,omitempty" tf:"source,omitempty"`
 
-	// The ID of the SQL warehouse that dbt should execute against.
+	// The warehouse id to execute the dashboard with for the schedule. If not specified, will use the default warehouse of dashboard
 	WarehouseID *string `json:"warehouseId,omitempty" tf:"warehouse_id,omitempty"`
 }
 
@@ -505,7 +583,7 @@ type DbtTaskParameters struct {
 	// +kubebuilder:validation:Optional
 	Source *string `json:"source,omitempty" tf:"source,omitempty"`
 
-	// The ID of the SQL warehouse that dbt should execute against.
+	// The warehouse id to execute the dashboard with for the schedule. If not specified, will use the default warehouse of dashboard
 	// +kubebuilder:validation:Optional
 	WarehouseID *string `json:"warehouseId,omitempty" tf:"warehouse_id,omitempty"`
 }
@@ -600,6 +678,7 @@ type EmailNotificationsInitParameters struct {
 	// (List) list of notification IDs to call when the run starts. A maximum of 3 destinations can be specified.
 	OnStart []*string `json:"onStart,omitempty" tf:"on_start,omitempty"`
 
+	// (List) list of notification IDs to call when any streaming backlog thresholds are exceeded for any stream.
 	OnStreamingBacklogExceeded []*string `json:"onStreamingBacklogExceeded,omitempty" tf:"on_streaming_backlog_exceeded,omitempty"`
 
 	// (List) list of notification IDs to call when the run completes successfully. A maximum of 3 destinations can be specified.
@@ -620,6 +699,7 @@ type EmailNotificationsObservation struct {
 	// (List) list of notification IDs to call when the run starts. A maximum of 3 destinations can be specified.
 	OnStart []*string `json:"onStart,omitempty" tf:"on_start,omitempty"`
 
+	// (List) list of notification IDs to call when any streaming backlog thresholds are exceeded for any stream.
 	OnStreamingBacklogExceeded []*string `json:"onStreamingBacklogExceeded,omitempty" tf:"on_streaming_backlog_exceeded,omitempty"`
 
 	// (List) list of notification IDs to call when the run completes successfully. A maximum of 3 destinations can be specified.
@@ -644,6 +724,7 @@ type EmailNotificationsParameters struct {
 	// +kubebuilder:validation:Optional
 	OnStart []*string `json:"onStart,omitempty" tf:"on_start,omitempty"`
 
+	// (List) list of notification IDs to call when any streaming backlog thresholds are exceeded for any stream.
 	// +kubebuilder:validation:Optional
 	OnStreamingBacklogExceeded []*string `json:"onStreamingBacklogExceeded,omitempty" tf:"on_streaming_backlog_exceeded,omitempty"`
 
@@ -779,7 +860,7 @@ type ForEachTaskTaskDbtTaskInitParameters struct {
 	// The source of the project. Possible values are WORKSPACE and GIT.  Defaults to GIT if a git_source block is present in the job definition.
 	Source *string `json:"source,omitempty" tf:"source,omitempty"`
 
-	// The ID of the SQL warehouse that dbt should execute against.
+	// The warehouse id to execute the dashboard with for the schedule. If not specified, will use the default warehouse of dashboard
 	WarehouseID *string `json:"warehouseId,omitempty" tf:"warehouse_id,omitempty"`
 }
 
@@ -803,7 +884,7 @@ type ForEachTaskTaskDbtTaskObservation struct {
 	// The source of the project. Possible values are WORKSPACE and GIT.  Defaults to GIT if a git_source block is present in the job definition.
 	Source *string `json:"source,omitempty" tf:"source,omitempty"`
 
-	// The ID of the SQL warehouse that dbt should execute against.
+	// The warehouse id to execute the dashboard with for the schedule. If not specified, will use the default warehouse of dashboard
 	WarehouseID *string `json:"warehouseId,omitempty" tf:"warehouse_id,omitempty"`
 }
 
@@ -833,7 +914,7 @@ type ForEachTaskTaskDbtTaskParameters struct {
 	// +kubebuilder:validation:Optional
 	Source *string `json:"source,omitempty" tf:"source,omitempty"`
 
-	// The ID of the SQL warehouse that dbt should execute against.
+	// The warehouse id to execute the dashboard with for the schedule. If not specified, will use the default warehouse of dashboard
 	// +kubebuilder:validation:Optional
 	WarehouseID *string `json:"warehouseId,omitempty" tf:"warehouse_id,omitempty"`
 }
@@ -852,6 +933,7 @@ type ForEachTaskTaskEmailNotificationsInitParameters struct {
 	// (List) list of notification IDs to call when the run starts. A maximum of 3 destinations can be specified.
 	OnStart []*string `json:"onStart,omitempty" tf:"on_start,omitempty"`
 
+	// (List) list of notification IDs to call when any streaming backlog thresholds are exceeded for any stream.
 	OnStreamingBacklogExceeded []*string `json:"onStreamingBacklogExceeded,omitempty" tf:"on_streaming_backlog_exceeded,omitempty"`
 
 	// (List) list of notification IDs to call when the run completes successfully. A maximum of 3 destinations can be specified.
@@ -872,6 +954,7 @@ type ForEachTaskTaskEmailNotificationsObservation struct {
 	// (List) list of notification IDs to call when the run starts. A maximum of 3 destinations can be specified.
 	OnStart []*string `json:"onStart,omitempty" tf:"on_start,omitempty"`
 
+	// (List) list of notification IDs to call when any streaming backlog thresholds are exceeded for any stream.
 	OnStreamingBacklogExceeded []*string `json:"onStreamingBacklogExceeded,omitempty" tf:"on_streaming_backlog_exceeded,omitempty"`
 
 	// (List) list of notification IDs to call when the run completes successfully. A maximum of 3 destinations can be specified.
@@ -896,6 +979,7 @@ type ForEachTaskTaskEmailNotificationsParameters struct {
 	// +kubebuilder:validation:Optional
 	OnStart []*string `json:"onStart,omitempty" tf:"on_start,omitempty"`
 
+	// (List) list of notification IDs to call when any streaming backlog thresholds are exceeded for any stream.
 	// +kubebuilder:validation:Optional
 	OnStreamingBacklogExceeded []*string `json:"onStreamingBacklogExceeded,omitempty" tf:"on_streaming_backlog_exceeded,omitempty"`
 
@@ -911,6 +995,9 @@ type ForEachTaskTaskInitParameters struct {
 
 	// A list of task specification that the job will execute. See task Configuration Block below.
 	ConditionTask []TaskConditionTaskInitParameters `json:"conditionTask,omitempty" tf:"condition_task,omitempty"`
+
+	// A list of task specification that the job will execute. See task Configuration Block below.
+	DashboardTask []TaskDashboardTaskInitParameters `json:"dashboardTask,omitempty" tf:"dashboard_task,omitempty"`
 
 	// A list of task specification that the job will execute. See task Configuration Block below.
 	DbtTask []ForEachTaskTaskDbtTaskInitParameters `json:"dbtTask,omitempty" tf:"dbt_task,omitempty"`
@@ -964,6 +1051,9 @@ type ForEachTaskTaskInitParameters struct {
 	PipelineTask []TaskPipelineTaskInitParameters `json:"pipelineTask,omitempty" tf:"pipeline_task,omitempty"`
 
 	// A list of task specification that the job will execute. See task Configuration Block below.
+	PowerBiTask []PowerBiTaskInitParameters `json:"powerBiTask,omitempty" tf:"power_bi_task,omitempty"`
+
+	// A list of task specification that the job will execute. See task Configuration Block below.
 	PythonWheelTask []TaskPythonWheelTaskInitParameters `json:"pythonWheelTask,omitempty" tf:"python_wheel_task,omitempty"`
 
 	// (Bool) An optional policy to specify whether to retry a job when it times out. The default behavior is to not retry on timeout.
@@ -1004,6 +1094,9 @@ type ForEachTaskTaskObservation struct {
 
 	// A list of task specification that the job will execute. See task Configuration Block below.
 	ConditionTask []TaskConditionTaskObservation `json:"conditionTask,omitempty" tf:"condition_task,omitempty"`
+
+	// A list of task specification that the job will execute. See task Configuration Block below.
+	DashboardTask []TaskDashboardTaskObservation `json:"dashboardTask,omitempty" tf:"dashboard_task,omitempty"`
 
 	// A list of task specification that the job will execute. See task Configuration Block below.
 	DbtTask []ForEachTaskTaskDbtTaskObservation `json:"dbtTask,omitempty" tf:"dbt_task,omitempty"`
@@ -1057,6 +1150,9 @@ type ForEachTaskTaskObservation struct {
 	PipelineTask []TaskPipelineTaskObservation `json:"pipelineTask,omitempty" tf:"pipeline_task,omitempty"`
 
 	// A list of task specification that the job will execute. See task Configuration Block below.
+	PowerBiTask []PowerBiTaskObservation `json:"powerBiTask,omitempty" tf:"power_bi_task,omitempty"`
+
+	// A list of task specification that the job will execute. See task Configuration Block below.
 	PythonWheelTask []TaskPythonWheelTaskObservation `json:"pythonWheelTask,omitempty" tf:"python_wheel_task,omitempty"`
 
 	// (Bool) An optional policy to specify whether to retry a job when it times out. The default behavior is to not retry on timeout.
@@ -1099,6 +1195,10 @@ type ForEachTaskTaskParameters struct {
 	// A list of task specification that the job will execute. See task Configuration Block below.
 	// +kubebuilder:validation:Optional
 	ConditionTask []TaskConditionTaskParameters `json:"conditionTask,omitempty" tf:"condition_task,omitempty"`
+
+	// A list of task specification that the job will execute. See task Configuration Block below.
+	// +kubebuilder:validation:Optional
+	DashboardTask []TaskDashboardTaskParameters `json:"dashboardTask,omitempty" tf:"dashboard_task,omitempty"`
 
 	// A list of task specification that the job will execute. See task Configuration Block below.
 	// +kubebuilder:validation:Optional
@@ -1170,6 +1270,10 @@ type ForEachTaskTaskParameters struct {
 
 	// A list of task specification that the job will execute. See task Configuration Block below.
 	// +kubebuilder:validation:Optional
+	PowerBiTask []PowerBiTaskParameters `json:"powerBiTask,omitempty" tf:"power_bi_task,omitempty"`
+
+	// A list of task specification that the job will execute. See task Configuration Block below.
+	// +kubebuilder:validation:Optional
 	PythonWheelTask []TaskPythonWheelTaskParameters `json:"pythonWheelTask,omitempty" tf:"python_wheel_task,omitempty"`
 
 	// (Bool) An optional policy to specify whether to retry a job when it times out. The default behavior is to not retry on timeout.
@@ -1237,7 +1341,7 @@ type GenAIComputeTaskComputeParameters struct {
 
 	// ID of the system notification that is notified when an event defined in webhook_notifications is triggered.
 	// +kubebuilder:validation:Optional
-	GpuNodePoolID *string `json:"gpuNodePoolId" tf:"gpu_node_pool_id,omitempty"`
+	GpuNodePoolID *string `json:"gpuNodePoolId,omitempty" tf:"gpu_node_pool_id,omitempty"`
 
 	// +kubebuilder:validation:Optional
 	GpuType *string `json:"gpuType,omitempty" tf:"gpu_type,omitempty"`
@@ -1633,6 +1737,7 @@ type JobInitParameters struct {
 	// Specifices job parameter for the job. See parameter Configuration Block
 	Parameter []ParameterInitParameters `json:"parameter,omitempty" tf:"parameter,omitempty"`
 
+	// The performance mode on a serverless job. The performance target determines the level of compute performance or cost-efficiency for the run.  Supported values are:
 	PerformanceTarget *string `json:"performanceTarget,omitempty" tf:"performance_target,omitempty"`
 
 	// A list of task specification that the job will execute. See task Configuration Block below.
@@ -2149,7 +2254,7 @@ type JobNewClusterInitParameters struct {
 
 	SSHPublicKeys []*string `json:"sshPublicKeys,omitempty" tf:"ssh_public_keys,omitempty"`
 
-	// An optional name for the job. The default value is Untitled.
+	// A snapshot of the dashboard will be sent to the user's email when the user_name field is present.
 	SingleUserName *string `json:"singleUserName,omitempty" tf:"single_user_name,omitempty"`
 
 	// +mapType=granular
@@ -2431,7 +2536,7 @@ type JobNewClusterObservation struct {
 
 	SSHPublicKeys []*string `json:"sshPublicKeys,omitempty" tf:"ssh_public_keys,omitempty"`
 
-	// An optional name for the job. The default value is Untitled.
+	// A snapshot of the dashboard will be sent to the user's email when the user_name field is present.
 	SingleUserName *string `json:"singleUserName,omitempty" tf:"single_user_name,omitempty"`
 
 	// +mapType=granular
@@ -2542,7 +2647,7 @@ type JobNewClusterParameters struct {
 	// +kubebuilder:validation:Optional
 	SSHPublicKeys []*string `json:"sshPublicKeys,omitempty" tf:"ssh_public_keys,omitempty"`
 
-	// An optional name for the job. The default value is Untitled.
+	// A snapshot of the dashboard will be sent to the user's email when the user_name field is present.
 	// +kubebuilder:validation:Optional
 	SingleUserName *string `json:"singleUserName,omitempty" tf:"single_user_name,omitempty"`
 
@@ -2556,7 +2661,7 @@ type JobNewClusterParameters struct {
 
 	// parameter in databricks_cluster and other resources.
 	// +kubebuilder:validation:Optional
-	SparkVersion *string `json:"sparkVersion" tf:"spark_version,omitempty"`
+	SparkVersion *string `json:"sparkVersion,omitempty" tf:"spark_version,omitempty"`
 
 	// +kubebuilder:validation:Optional
 	UseMLRuntime *bool `json:"useMlRuntime,omitempty" tf:"use_ml_runtime,omitempty"`
@@ -2654,6 +2759,7 @@ type JobObservation struct {
 	// Specifices job parameter for the job. See parameter Configuration Block
 	Parameter []ParameterObservation `json:"parameter,omitempty" tf:"parameter,omitempty"`
 
+	// The performance mode on a serverless job. The performance target determines the level of compute performance or cost-efficiency for the run.  Supported values are:
 	PerformanceTarget *string `json:"performanceTarget,omitempty" tf:"performance_target,omitempty"`
 
 	// A list of task specification that the job will execute. See task Configuration Block below.
@@ -2801,6 +2907,7 @@ type JobParameters struct {
 	// +kubebuilder:validation:Optional
 	Parameter []ParameterParameters `json:"parameter,omitempty" tf:"parameter,omitempty"`
 
+	// The performance mode on a serverless job. The performance target determines the level of compute performance or cost-efficiency for the run.  Supported values are:
 	// +kubebuilder:validation:Optional
 	PerformanceTarget *string `json:"performanceTarget,omitempty" tf:"performance_target,omitempty"`
 
@@ -3538,7 +3645,7 @@ type JobTaskNewClusterInitParameters struct {
 
 	SSHPublicKeys []*string `json:"sshPublicKeys,omitempty" tf:"ssh_public_keys,omitempty"`
 
-	// An optional name for the job. The default value is Untitled.
+	// A snapshot of the dashboard will be sent to the user's email when the user_name field is present.
 	SingleUserName *string `json:"singleUserName,omitempty" tf:"single_user_name,omitempty"`
 
 	// +mapType=granular
@@ -3946,7 +4053,7 @@ type JobTaskNewClusterObservation struct {
 
 	SSHPublicKeys []*string `json:"sshPublicKeys,omitempty" tf:"ssh_public_keys,omitempty"`
 
-	// An optional name for the job. The default value is Untitled.
+	// A snapshot of the dashboard will be sent to the user's email when the user_name field is present.
 	SingleUserName *string `json:"singleUserName,omitempty" tf:"single_user_name,omitempty"`
 
 	// +mapType=granular
@@ -4057,7 +4164,7 @@ type JobTaskNewClusterParameters struct {
 	// +kubebuilder:validation:Optional
 	SSHPublicKeys []*string `json:"sshPublicKeys,omitempty" tf:"ssh_public_keys,omitempty"`
 
-	// An optional name for the job. The default value is Untitled.
+	// A snapshot of the dashboard will be sent to the user's email when the user_name field is present.
 	// +kubebuilder:validation:Optional
 	SingleUserName *string `json:"singleUserName,omitempty" tf:"single_user_name,omitempty"`
 
@@ -4071,7 +4178,7 @@ type JobTaskNewClusterParameters struct {
 
 	// parameter in databricks_cluster and other resources.
 	// +kubebuilder:validation:Optional
-	SparkVersion *string `json:"sparkVersion" tf:"spark_version,omitempty"`
+	SparkVersion *string `json:"sparkVersion,omitempty" tf:"spark_version,omitempty"`
 
 	// +kubebuilder:validation:Optional
 	UseMLRuntime *bool `json:"useMlRuntime,omitempty" tf:"use_ml_runtime,omitempty"`
@@ -4118,7 +4225,7 @@ type JobTaskNewClusterWorkloadTypeParameters struct {
 
 type JobTaskNotebookTaskInitParameters struct {
 
-	// (Map) Base parameters to be used for each run of this job. If the run is initiated by a call to run-now with parameters specified, the two parameters maps will be merged. If the same key is specified in base_parameters and in run-now, the value from run-now will be used. If the notebook takes a parameter that is not specified in the job’s base_parameters or the run-now override parameters, the default value from the notebook will be used. Retrieve these parameters in a notebook using dbutils.widgets.get.
+	// (Map) Base parameters to be used for each run of this job. If the run is initiated by a call to run-now with parameters specified, the two parameters maps will be merged. If the same key is specified in base_parameters and in run-now, the value from run-now will be used. If the notebook takes a parameter that is not specified in the job's base_parameters or the run-now override parameters, the default value from the notebook will be used. Retrieve these parameters in a notebook using dbutils.widgets.get.
 	// +mapType=granular
 	BaseParameters map[string]*string `json:"baseParameters,omitempty" tf:"base_parameters,omitempty"`
 
@@ -4128,13 +4235,13 @@ type JobTaskNotebookTaskInitParameters struct {
 	// The source of the project. Possible values are WORKSPACE and GIT.  Defaults to GIT if a git_source block is present in the job definition.
 	Source *string `json:"source,omitempty" tf:"source,omitempty"`
 
-	// The ID of the SQL warehouse that dbt should execute against.
+	// The warehouse id to execute the dashboard with for the schedule. If not specified, will use the default warehouse of dashboard
 	WarehouseID *string `json:"warehouseId,omitempty" tf:"warehouse_id,omitempty"`
 }
 
 type JobTaskNotebookTaskObservation struct {
 
-	// (Map) Base parameters to be used for each run of this job. If the run is initiated by a call to run-now with parameters specified, the two parameters maps will be merged. If the same key is specified in base_parameters and in run-now, the value from run-now will be used. If the notebook takes a parameter that is not specified in the job’s base_parameters or the run-now override parameters, the default value from the notebook will be used. Retrieve these parameters in a notebook using dbutils.widgets.get.
+	// (Map) Base parameters to be used for each run of this job. If the run is initiated by a call to run-now with parameters specified, the two parameters maps will be merged. If the same key is specified in base_parameters and in run-now, the value from run-now will be used. If the notebook takes a parameter that is not specified in the job's base_parameters or the run-now override parameters, the default value from the notebook will be used. Retrieve these parameters in a notebook using dbutils.widgets.get.
 	// +mapType=granular
 	BaseParameters map[string]*string `json:"baseParameters,omitempty" tf:"base_parameters,omitempty"`
 
@@ -4144,13 +4251,13 @@ type JobTaskNotebookTaskObservation struct {
 	// The source of the project. Possible values are WORKSPACE and GIT.  Defaults to GIT if a git_source block is present in the job definition.
 	Source *string `json:"source,omitempty" tf:"source,omitempty"`
 
-	// The ID of the SQL warehouse that dbt should execute against.
+	// The warehouse id to execute the dashboard with for the schedule. If not specified, will use the default warehouse of dashboard
 	WarehouseID *string `json:"warehouseId,omitempty" tf:"warehouse_id,omitempty"`
 }
 
 type JobTaskNotebookTaskParameters struct {
 
-	// (Map) Base parameters to be used for each run of this job. If the run is initiated by a call to run-now with parameters specified, the two parameters maps will be merged. If the same key is specified in base_parameters and in run-now, the value from run-now will be used. If the notebook takes a parameter that is not specified in the job’s base_parameters or the run-now override parameters, the default value from the notebook will be used. Retrieve these parameters in a notebook using dbutils.widgets.get.
+	// (Map) Base parameters to be used for each run of this job. If the run is initiated by a call to run-now with parameters specified, the two parameters maps will be merged. If the same key is specified in base_parameters and in run-now, the value from run-now will be used. If the notebook takes a parameter that is not specified in the job's base_parameters or the run-now override parameters, the default value from the notebook will be used. Retrieve these parameters in a notebook using dbutils.widgets.get.
 	// +kubebuilder:validation:Optional
 	// +mapType=granular
 	BaseParameters map[string]*string `json:"baseParameters,omitempty" tf:"base_parameters,omitempty"`
@@ -4163,7 +4270,7 @@ type JobTaskNotebookTaskParameters struct {
 	// +kubebuilder:validation:Optional
 	Source *string `json:"source,omitempty" tf:"source,omitempty"`
 
-	// The ID of the SQL warehouse that dbt should execute against.
+	// The warehouse id to execute the dashboard with for the schedule. If not specified, will use the default warehouse of dashboard
 	// +kubebuilder:validation:Optional
 	WarehouseID *string `json:"warehouseId,omitempty" tf:"warehouse_id,omitempty"`
 }
@@ -4434,7 +4541,7 @@ type JobTaskSparkPythonTaskInitParameters struct {
 	// Parameters for the task
 	Parameters []*string `json:"parameters,omitempty" tf:"parameters,omitempty"`
 
-	// The URI of the Python file to be executed. databricks_dbfs_file, cloud file URIs (e.g. s3:/, abfss:/, gs:/), workspace paths and remote repository are supported. For Python files stored in the Databricks workspace, the path must be absolute and begin with /Repos. For files stored in a remote repository, the path must be relative. This field is required.
+	// The URI of the Python file to be executed. databricks_dbfs_file, cloud file URIs (e.g. s3:/, abfss:/, gs:/), workspace paths and remote repository are supported. For Python files stored in the Databricks workspace, the path must be absolute and begin with /. For files stored in a remote repository, the path must be relative. This field is required.
 	PythonFile *string `json:"pythonFile,omitempty" tf:"python_file,omitempty"`
 
 	// The source of the project. Possible values are WORKSPACE and GIT.  Defaults to GIT if a git_source block is present in the job definition.
@@ -4446,7 +4553,7 @@ type JobTaskSparkPythonTaskObservation struct {
 	// Parameters for the task
 	Parameters []*string `json:"parameters,omitempty" tf:"parameters,omitempty"`
 
-	// The URI of the Python file to be executed. databricks_dbfs_file, cloud file URIs (e.g. s3:/, abfss:/, gs:/), workspace paths and remote repository are supported. For Python files stored in the Databricks workspace, the path must be absolute and begin with /Repos. For files stored in a remote repository, the path must be relative. This field is required.
+	// The URI of the Python file to be executed. databricks_dbfs_file, cloud file URIs (e.g. s3:/, abfss:/, gs:/), workspace paths and remote repository are supported. For Python files stored in the Databricks workspace, the path must be absolute and begin with /. For files stored in a remote repository, the path must be relative. This field is required.
 	PythonFile *string `json:"pythonFile,omitempty" tf:"python_file,omitempty"`
 
 	// The source of the project. Possible values are WORKSPACE and GIT.  Defaults to GIT if a git_source block is present in the job definition.
@@ -4459,7 +4566,7 @@ type JobTaskSparkPythonTaskParameters struct {
 	// +kubebuilder:validation:Optional
 	Parameters []*string `json:"parameters,omitempty" tf:"parameters,omitempty"`
 
-	// The URI of the Python file to be executed. databricks_dbfs_file, cloud file URIs (e.g. s3:/, abfss:/, gs:/), workspace paths and remote repository are supported. For Python files stored in the Databricks workspace, the path must be absolute and begin with /Repos. For files stored in a remote repository, the path must be relative. This field is required.
+	// The URI of the Python file to be executed. databricks_dbfs_file, cloud file URIs (e.g. s3:/, abfss:/, gs:/), workspace paths and remote repository are supported. For Python files stored in the Databricks workspace, the path must be absolute and begin with /. For files stored in a remote repository, the path must be relative. This field is required.
 	// +kubebuilder:validation:Optional
 	PythonFile *string `json:"pythonFile" tf:"python_file,omitempty"`
 
@@ -4498,6 +4605,7 @@ type JobWebhookNotificationsInitParameters struct {
 	// (List) list of notification IDs to call when the run starts. A maximum of 3 destinations can be specified.
 	OnStart []JobWebhookNotificationsOnStartInitParameters `json:"onStart,omitempty" tf:"on_start,omitempty"`
 
+	// (List) list of notification IDs to call when any streaming backlog thresholds are exceeded for any stream.
 	OnStreamingBacklogExceeded []JobWebhookNotificationsOnStreamingBacklogExceededInitParameters `json:"onStreamingBacklogExceeded,omitempty" tf:"on_streaming_backlog_exceeded,omitempty"`
 
 	// (List) list of notification IDs to call when the run completes successfully. A maximum of 3 destinations can be specified.
@@ -4515,6 +4623,7 @@ type JobWebhookNotificationsObservation struct {
 	// (List) list of notification IDs to call when the run starts. A maximum of 3 destinations can be specified.
 	OnStart []JobWebhookNotificationsOnStartObservation `json:"onStart,omitempty" tf:"on_start,omitempty"`
 
+	// (List) list of notification IDs to call when any streaming backlog thresholds are exceeded for any stream.
 	OnStreamingBacklogExceeded []JobWebhookNotificationsOnStreamingBacklogExceededObservation `json:"onStreamingBacklogExceeded,omitempty" tf:"on_streaming_backlog_exceeded,omitempty"`
 
 	// (List) list of notification IDs to call when the run completes successfully. A maximum of 3 destinations can be specified.
@@ -4630,6 +4739,7 @@ type JobWebhookNotificationsParameters struct {
 	// +kubebuilder:validation:Optional
 	OnStart []JobWebhookNotificationsOnStartParameters `json:"onStart,omitempty" tf:"on_start,omitempty"`
 
+	// (List) list of notification IDs to call when any streaming backlog thresholds are exceeded for any stream.
 	// +kubebuilder:validation:Optional
 	OnStreamingBacklogExceeded []JobWebhookNotificationsOnStreamingBacklogExceededParameters `json:"onStreamingBacklogExceeded,omitempty" tf:"on_streaming_backlog_exceeded,omitempty"`
 
@@ -5201,7 +5311,7 @@ type NewClusterInitParameters struct {
 
 	SSHPublicKeys []*string `json:"sshPublicKeys,omitempty" tf:"ssh_public_keys,omitempty"`
 
-	// An optional name for the job. The default value is Untitled.
+	// A snapshot of the dashboard will be sent to the user's email when the user_name field is present.
 	SingleUserName *string `json:"singleUserName,omitempty" tf:"single_user_name,omitempty"`
 
 	// +mapType=granular
@@ -5609,7 +5719,7 @@ type NewClusterObservation struct {
 
 	SSHPublicKeys []*string `json:"sshPublicKeys,omitempty" tf:"ssh_public_keys,omitempty"`
 
-	// An optional name for the job. The default value is Untitled.
+	// A snapshot of the dashboard will be sent to the user's email when the user_name field is present.
 	SingleUserName *string `json:"singleUserName,omitempty" tf:"single_user_name,omitempty"`
 
 	// +mapType=granular
@@ -5720,7 +5830,7 @@ type NewClusterParameters struct {
 	// +kubebuilder:validation:Optional
 	SSHPublicKeys []*string `json:"sshPublicKeys,omitempty" tf:"ssh_public_keys,omitempty"`
 
-	// An optional name for the job. The default value is Untitled.
+	// A snapshot of the dashboard will be sent to the user's email when the user_name field is present.
 	// +kubebuilder:validation:Optional
 	SingleUserName *string `json:"singleUserName,omitempty" tf:"single_user_name,omitempty"`
 
@@ -5734,7 +5844,7 @@ type NewClusterParameters struct {
 
 	// parameter in databricks_cluster and other resources.
 	// +kubebuilder:validation:Optional
-	SparkVersion *string `json:"sparkVersion" tf:"spark_version,omitempty"`
+	SparkVersion *string `json:"sparkVersion,omitempty" tf:"spark_version,omitempty"`
 
 	// +kubebuilder:validation:Optional
 	UseMLRuntime *bool `json:"useMlRuntime,omitempty" tf:"use_ml_runtime,omitempty"`
@@ -5781,7 +5891,7 @@ type NewClusterWorkloadTypeParameters struct {
 
 type NotebookTaskInitParameters struct {
 
-	// (Map) Base parameters to be used for each run of this job. If the run is initiated by a call to run-now with parameters specified, the two parameters maps will be merged. If the same key is specified in base_parameters and in run-now, the value from run-now will be used. If the notebook takes a parameter that is not specified in the job’s base_parameters or the run-now override parameters, the default value from the notebook will be used. Retrieve these parameters in a notebook using dbutils.widgets.get.
+	// (Map) Base parameters to be used for each run of this job. If the run is initiated by a call to run-now with parameters specified, the two parameters maps will be merged. If the same key is specified in base_parameters and in run-now, the value from run-now will be used. If the notebook takes a parameter that is not specified in the job's base_parameters or the run-now override parameters, the default value from the notebook will be used. Retrieve these parameters in a notebook using dbutils.widgets.get.
 	// +mapType=granular
 	BaseParameters map[string]*string `json:"baseParameters,omitempty" tf:"base_parameters,omitempty"`
 
@@ -5791,13 +5901,13 @@ type NotebookTaskInitParameters struct {
 	// The source of the project. Possible values are WORKSPACE and GIT.  Defaults to GIT if a git_source block is present in the job definition.
 	Source *string `json:"source,omitempty" tf:"source,omitempty"`
 
-	// The ID of the SQL warehouse that dbt should execute against.
+	// The warehouse id to execute the dashboard with for the schedule. If not specified, will use the default warehouse of dashboard
 	WarehouseID *string `json:"warehouseId,omitempty" tf:"warehouse_id,omitempty"`
 }
 
 type NotebookTaskObservation struct {
 
-	// (Map) Base parameters to be used for each run of this job. If the run is initiated by a call to run-now with parameters specified, the two parameters maps will be merged. If the same key is specified in base_parameters and in run-now, the value from run-now will be used. If the notebook takes a parameter that is not specified in the job’s base_parameters or the run-now override parameters, the default value from the notebook will be used. Retrieve these parameters in a notebook using dbutils.widgets.get.
+	// (Map) Base parameters to be used for each run of this job. If the run is initiated by a call to run-now with parameters specified, the two parameters maps will be merged. If the same key is specified in base_parameters and in run-now, the value from run-now will be used. If the notebook takes a parameter that is not specified in the job's base_parameters or the run-now override parameters, the default value from the notebook will be used. Retrieve these parameters in a notebook using dbutils.widgets.get.
 	// +mapType=granular
 	BaseParameters map[string]*string `json:"baseParameters,omitempty" tf:"base_parameters,omitempty"`
 
@@ -5807,13 +5917,13 @@ type NotebookTaskObservation struct {
 	// The source of the project. Possible values are WORKSPACE and GIT.  Defaults to GIT if a git_source block is present in the job definition.
 	Source *string `json:"source,omitempty" tf:"source,omitempty"`
 
-	// The ID of the SQL warehouse that dbt should execute against.
+	// The warehouse id to execute the dashboard with for the schedule. If not specified, will use the default warehouse of dashboard
 	WarehouseID *string `json:"warehouseId,omitempty" tf:"warehouse_id,omitempty"`
 }
 
 type NotebookTaskParameters struct {
 
-	// (Map) Base parameters to be used for each run of this job. If the run is initiated by a call to run-now with parameters specified, the two parameters maps will be merged. If the same key is specified in base_parameters and in run-now, the value from run-now will be used. If the notebook takes a parameter that is not specified in the job’s base_parameters or the run-now override parameters, the default value from the notebook will be used. Retrieve these parameters in a notebook using dbutils.widgets.get.
+	// (Map) Base parameters to be used for each run of this job. If the run is initiated by a call to run-now with parameters specified, the two parameters maps will be merged. If the same key is specified in base_parameters and in run-now, the value from run-now will be used. If the notebook takes a parameter that is not specified in the job's base_parameters or the run-now override parameters, the default value from the notebook will be used. Retrieve these parameters in a notebook using dbutils.widgets.get.
 	// +kubebuilder:validation:Optional
 	// +mapType=granular
 	BaseParameters map[string]*string `json:"baseParameters,omitempty" tf:"base_parameters,omitempty"`
@@ -5826,7 +5936,7 @@ type NotebookTaskParameters struct {
 	// +kubebuilder:validation:Optional
 	Source *string `json:"source,omitempty" tf:"source,omitempty"`
 
-	// The ID of the SQL warehouse that dbt should execute against.
+	// The warehouse id to execute the dashboard with for the schedule. If not specified, will use the default warehouse of dashboard
 	// +kubebuilder:validation:Optional
 	WarehouseID *string `json:"warehouseId,omitempty" tf:"warehouse_id,omitempty"`
 }
@@ -6059,6 +6169,232 @@ type PipelineTaskParameters struct {
 	// The pipeline's unique ID.
 	// +kubebuilder:validation:Optional
 	PipelineID *string `json:"pipelineId" tf:"pipeline_id,omitempty"`
+}
+
+type PowerBiModelInitParameters struct {
+
+	// How the published Power BI model authenticates to Databricks
+	AuthenticationMethod *string `json:"authenticationMethod,omitempty" tf:"authentication_method,omitempty"`
+
+	// The name of the Power BI model
+	ModelName *string `json:"modelName,omitempty" tf:"model_name,omitempty"`
+
+	// Whether to overwrite existing Power BI models. Default is false
+	OverwriteExisting *bool `json:"overwriteExisting,omitempty" tf:"overwrite_existing,omitempty"`
+
+	// The Power BI storage mode of the table
+	StorageMode *string `json:"storageMode,omitempty" tf:"storage_mode,omitempty"`
+
+	// The name of the Power BI workspace of the model
+	WorkspaceName *string `json:"workspaceName,omitempty" tf:"workspace_name,omitempty"`
+}
+
+type PowerBiModelObservation struct {
+
+	// How the published Power BI model authenticates to Databricks
+	AuthenticationMethod *string `json:"authenticationMethod,omitempty" tf:"authentication_method,omitempty"`
+
+	// The name of the Power BI model
+	ModelName *string `json:"modelName,omitempty" tf:"model_name,omitempty"`
+
+	// Whether to overwrite existing Power BI models. Default is false
+	OverwriteExisting *bool `json:"overwriteExisting,omitempty" tf:"overwrite_existing,omitempty"`
+
+	// The Power BI storage mode of the table
+	StorageMode *string `json:"storageMode,omitempty" tf:"storage_mode,omitempty"`
+
+	// The name of the Power BI workspace of the model
+	WorkspaceName *string `json:"workspaceName,omitempty" tf:"workspace_name,omitempty"`
+}
+
+type PowerBiModelParameters struct {
+
+	// How the published Power BI model authenticates to Databricks
+	// +kubebuilder:validation:Optional
+	AuthenticationMethod *string `json:"authenticationMethod,omitempty" tf:"authentication_method,omitempty"`
+
+	// The name of the Power BI model
+	// +kubebuilder:validation:Optional
+	ModelName *string `json:"modelName,omitempty" tf:"model_name,omitempty"`
+
+	// Whether to overwrite existing Power BI models. Default is false
+	// +kubebuilder:validation:Optional
+	OverwriteExisting *bool `json:"overwriteExisting,omitempty" tf:"overwrite_existing,omitempty"`
+
+	// The Power BI storage mode of the table
+	// +kubebuilder:validation:Optional
+	StorageMode *string `json:"storageMode,omitempty" tf:"storage_mode,omitempty"`
+
+	// The name of the Power BI workspace of the model
+	// +kubebuilder:validation:Optional
+	WorkspaceName *string `json:"workspaceName,omitempty" tf:"workspace_name,omitempty"`
+}
+
+type PowerBiTaskInitParameters struct {
+
+	// The resource name of the UC connection to authenticate from Databricks to Power BI
+	ConnectionResourceName *string `json:"connectionResourceName,omitempty" tf:"connection_resource_name,omitempty"`
+
+	// The semantic model to update. Block consists of following fields:
+	PowerBiModel []PowerBiModelInitParameters `json:"powerBiModel,omitempty" tf:"power_bi_model,omitempty"`
+
+	// Whether the model should be refreshed after the update. Default is false
+	RefreshAfterUpdate *bool `json:"refreshAfterUpdate,omitempty" tf:"refresh_after_update,omitempty"`
+
+	// (Array) The tables to be exported to Power BI. Block consists of following fields:
+	Tables []TablesInitParameters `json:"tables,omitempty" tf:"tables,omitempty"`
+
+	// The warehouse id to execute the dashboard with for the schedule. If not specified, will use the default warehouse of dashboard
+	WarehouseID *string `json:"warehouseId,omitempty" tf:"warehouse_id,omitempty"`
+}
+
+type PowerBiTaskObservation struct {
+
+	// The resource name of the UC connection to authenticate from Databricks to Power BI
+	ConnectionResourceName *string `json:"connectionResourceName,omitempty" tf:"connection_resource_name,omitempty"`
+
+	// The semantic model to update. Block consists of following fields:
+	PowerBiModel []PowerBiModelObservation `json:"powerBiModel,omitempty" tf:"power_bi_model,omitempty"`
+
+	// Whether the model should be refreshed after the update. Default is false
+	RefreshAfterUpdate *bool `json:"refreshAfterUpdate,omitempty" tf:"refresh_after_update,omitempty"`
+
+	// (Array) The tables to be exported to Power BI. Block consists of following fields:
+	Tables []TablesObservation `json:"tables,omitempty" tf:"tables,omitempty"`
+
+	// The warehouse id to execute the dashboard with for the schedule. If not specified, will use the default warehouse of dashboard
+	WarehouseID *string `json:"warehouseId,omitempty" tf:"warehouse_id,omitempty"`
+}
+
+type PowerBiTaskParameters struct {
+
+	// The resource name of the UC connection to authenticate from Databricks to Power BI
+	// +kubebuilder:validation:Optional
+	ConnectionResourceName *string `json:"connectionResourceName,omitempty" tf:"connection_resource_name,omitempty"`
+
+	// The semantic model to update. Block consists of following fields:
+	// +kubebuilder:validation:Optional
+	PowerBiModel []PowerBiModelParameters `json:"powerBiModel,omitempty" tf:"power_bi_model,omitempty"`
+
+	// Whether the model should be refreshed after the update. Default is false
+	// +kubebuilder:validation:Optional
+	RefreshAfterUpdate *bool `json:"refreshAfterUpdate,omitempty" tf:"refresh_after_update,omitempty"`
+
+	// (Array) The tables to be exported to Power BI. Block consists of following fields:
+	// +kubebuilder:validation:Optional
+	Tables []TablesParameters `json:"tables,omitempty" tf:"tables,omitempty"`
+
+	// The warehouse id to execute the dashboard with for the schedule. If not specified, will use the default warehouse of dashboard
+	// +kubebuilder:validation:Optional
+	WarehouseID *string `json:"warehouseId,omitempty" tf:"warehouse_id,omitempty"`
+}
+
+type PowerBiTaskPowerBiModelInitParameters struct {
+
+	// How the published Power BI model authenticates to Databricks
+	AuthenticationMethod *string `json:"authenticationMethod,omitempty" tf:"authentication_method,omitempty"`
+
+	// The name of the Power BI model
+	ModelName *string `json:"modelName,omitempty" tf:"model_name,omitempty"`
+
+	// Whether to overwrite existing Power BI models. Default is false
+	OverwriteExisting *bool `json:"overwriteExisting,omitempty" tf:"overwrite_existing,omitempty"`
+
+	// The Power BI storage mode of the table
+	StorageMode *string `json:"storageMode,omitempty" tf:"storage_mode,omitempty"`
+
+	// The name of the Power BI workspace of the model
+	WorkspaceName *string `json:"workspaceName,omitempty" tf:"workspace_name,omitempty"`
+}
+
+type PowerBiTaskPowerBiModelObservation struct {
+
+	// How the published Power BI model authenticates to Databricks
+	AuthenticationMethod *string `json:"authenticationMethod,omitempty" tf:"authentication_method,omitempty"`
+
+	// The name of the Power BI model
+	ModelName *string `json:"modelName,omitempty" tf:"model_name,omitempty"`
+
+	// Whether to overwrite existing Power BI models. Default is false
+	OverwriteExisting *bool `json:"overwriteExisting,omitempty" tf:"overwrite_existing,omitempty"`
+
+	// The Power BI storage mode of the table
+	StorageMode *string `json:"storageMode,omitempty" tf:"storage_mode,omitempty"`
+
+	// The name of the Power BI workspace of the model
+	WorkspaceName *string `json:"workspaceName,omitempty" tf:"workspace_name,omitempty"`
+}
+
+type PowerBiTaskPowerBiModelParameters struct {
+
+	// How the published Power BI model authenticates to Databricks
+	// +kubebuilder:validation:Optional
+	AuthenticationMethod *string `json:"authenticationMethod,omitempty" tf:"authentication_method,omitempty"`
+
+	// The name of the Power BI model
+	// +kubebuilder:validation:Optional
+	ModelName *string `json:"modelName,omitempty" tf:"model_name,omitempty"`
+
+	// Whether to overwrite existing Power BI models. Default is false
+	// +kubebuilder:validation:Optional
+	OverwriteExisting *bool `json:"overwriteExisting,omitempty" tf:"overwrite_existing,omitempty"`
+
+	// The Power BI storage mode of the table
+	// +kubebuilder:validation:Optional
+	StorageMode *string `json:"storageMode,omitempty" tf:"storage_mode,omitempty"`
+
+	// The name of the Power BI workspace of the model
+	// +kubebuilder:validation:Optional
+	WorkspaceName *string `json:"workspaceName,omitempty" tf:"workspace_name,omitempty"`
+}
+
+type PowerBiTaskTablesInitParameters struct {
+
+	// The name of the catalog to use inside Unity Catalog.
+	Catalog *string `json:"catalog,omitempty" tf:"catalog,omitempty"`
+
+	// An optional name for the job. The default value is Untitled.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// The name of the schema dbt should run in. Defaults to default.
+	Schema *string `json:"schema,omitempty" tf:"schema,omitempty"`
+
+	// The Power BI storage mode of the table
+	StorageMode *string `json:"storageMode,omitempty" tf:"storage_mode,omitempty"`
+}
+
+type PowerBiTaskTablesObservation struct {
+
+	// The name of the catalog to use inside Unity Catalog.
+	Catalog *string `json:"catalog,omitempty" tf:"catalog,omitempty"`
+
+	// An optional name for the job. The default value is Untitled.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// The name of the schema dbt should run in. Defaults to default.
+	Schema *string `json:"schema,omitempty" tf:"schema,omitempty"`
+
+	// The Power BI storage mode of the table
+	StorageMode *string `json:"storageMode,omitempty" tf:"storage_mode,omitempty"`
+}
+
+type PowerBiTaskTablesParameters struct {
+
+	// The name of the catalog to use inside Unity Catalog.
+	// +kubebuilder:validation:Optional
+	Catalog *string `json:"catalog,omitempty" tf:"catalog,omitempty"`
+
+	// An optional name for the job. The default value is Untitled.
+	// +kubebuilder:validation:Optional
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// The name of the schema dbt should run in. Defaults to default.
+	// +kubebuilder:validation:Optional
+	Schema *string `json:"schema,omitempty" tf:"schema,omitempty"`
+
+	// The Power BI storage mode of the table
+	// +kubebuilder:validation:Optional
+	StorageMode *string `json:"storageMode,omitempty" tf:"storage_mode,omitempty"`
 }
 
 type PythonWheelTaskInitParameters struct {
@@ -6311,10 +6647,10 @@ type SQLTaskAlertParameters struct {
 
 type SQLTaskDashboardInitParameters struct {
 
-	// string specifying a custom subject of email sent.
+	// Allows users to specify a custom subject line on the email sent to subscribers.
 	CustomSubject *string `json:"customSubject,omitempty" tf:"custom_subject,omitempty"`
 
-	// (String) identifier of the Databricks SQL Dashboard databricks_sql_dashboard.
+	// The identifier of the dashboard to refresh
 	DashboardID *string `json:"dashboardId,omitempty" tf:"dashboard_id,omitempty"`
 
 	// flag that specifies if subscriptions are paused or not.
@@ -6326,10 +6662,10 @@ type SQLTaskDashboardInitParameters struct {
 
 type SQLTaskDashboardObservation struct {
 
-	// string specifying a custom subject of email sent.
+	// Allows users to specify a custom subject line on the email sent to subscribers.
 	CustomSubject *string `json:"customSubject,omitempty" tf:"custom_subject,omitempty"`
 
-	// (String) identifier of the Databricks SQL Dashboard databricks_sql_dashboard.
+	// The identifier of the dashboard to refresh
 	DashboardID *string `json:"dashboardId,omitempty" tf:"dashboard_id,omitempty"`
 
 	// flag that specifies if subscriptions are paused or not.
@@ -6341,11 +6677,11 @@ type SQLTaskDashboardObservation struct {
 
 type SQLTaskDashboardParameters struct {
 
-	// string specifying a custom subject of email sent.
+	// Allows users to specify a custom subject line on the email sent to subscribers.
 	// +kubebuilder:validation:Optional
 	CustomSubject *string `json:"customSubject,omitempty" tf:"custom_subject,omitempty"`
 
-	// (String) identifier of the Databricks SQL Dashboard databricks_sql_dashboard.
+	// The identifier of the dashboard to refresh
 	// +kubebuilder:validation:Optional
 	DashboardID *string `json:"dashboardId" tf:"dashboard_id,omitempty"`
 
@@ -6360,29 +6696,29 @@ type SQLTaskDashboardParameters struct {
 
 type SQLTaskDashboardSubscriptionsInitParameters struct {
 
-	// ID of the system notification that is notified when an event defined in webhook_notifications is triggered.
+	// A snapshot of the dashboard will be sent to the destination when the destination_id field is present.
 	DestinationID *string `json:"destinationId,omitempty" tf:"destination_id,omitempty"`
 
-	// The email of an active workspace user. Non-admin users can only set this field to their own email.
+	// A snapshot of the dashboard will be sent to the user's email when the user_name field is present.
 	UserName *string `json:"userName,omitempty" tf:"user_name,omitempty"`
 }
 
 type SQLTaskDashboardSubscriptionsObservation struct {
 
-	// ID of the system notification that is notified when an event defined in webhook_notifications is triggered.
+	// A snapshot of the dashboard will be sent to the destination when the destination_id field is present.
 	DestinationID *string `json:"destinationId,omitempty" tf:"destination_id,omitempty"`
 
-	// The email of an active workspace user. Non-admin users can only set this field to their own email.
+	// A snapshot of the dashboard will be sent to the user's email when the user_name field is present.
 	UserName *string `json:"userName,omitempty" tf:"user_name,omitempty"`
 }
 
 type SQLTaskDashboardSubscriptionsParameters struct {
 
-	// ID of the system notification that is notified when an event defined in webhook_notifications is triggered.
+	// A snapshot of the dashboard will be sent to the destination when the destination_id field is present.
 	// +kubebuilder:validation:Optional
 	DestinationID *string `json:"destinationId,omitempty" tf:"destination_id,omitempty"`
 
-	// The email of an active workspace user. Non-admin users can only set this field to their own email.
+	// A snapshot of the dashboard will be sent to the user's email when the user_name field is present.
 	// +kubebuilder:validation:Optional
 	UserName *string `json:"userName,omitempty" tf:"user_name,omitempty"`
 }
@@ -6434,7 +6770,7 @@ type SQLTaskInitParameters struct {
 	// block consisting of single string field: query_id - identifier of the Databricks Query (databricks_query).
 	Query []QueryInitParameters `json:"query,omitempty" tf:"query,omitempty"`
 
-	// The ID of the SQL warehouse that dbt should execute against.
+	// The warehouse id to execute the dashboard with for the schedule. If not specified, will use the default warehouse of dashboard
 	WarehouseID *string `json:"warehouseId,omitempty" tf:"warehouse_id,omitempty"`
 }
 
@@ -6456,7 +6792,7 @@ type SQLTaskObservation struct {
 	// block consisting of single string field: query_id - identifier of the Databricks Query (databricks_query).
 	Query []QueryObservation `json:"query,omitempty" tf:"query,omitempty"`
 
-	// The ID of the SQL warehouse that dbt should execute against.
+	// The warehouse id to execute the dashboard with for the schedule. If not specified, will use the default warehouse of dashboard
 	WarehouseID *string `json:"warehouseId,omitempty" tf:"warehouse_id,omitempty"`
 }
 
@@ -6483,7 +6819,7 @@ type SQLTaskParameters struct {
 	// +kubebuilder:validation:Optional
 	Query []QueryParameters `json:"query,omitempty" tf:"query,omitempty"`
 
-	// The ID of the SQL warehouse that dbt should execute against.
+	// The warehouse id to execute the dashboard with for the schedule. If not specified, will use the default warehouse of dashboard
 	// +kubebuilder:validation:Optional
 	WarehouseID *string `json:"warehouseId" tf:"warehouse_id,omitempty"`
 }
@@ -6585,7 +6921,7 @@ type SparkPythonTaskInitParameters struct {
 	// Parameters for the task
 	Parameters []*string `json:"parameters,omitempty" tf:"parameters,omitempty"`
 
-	// The URI of the Python file to be executed. databricks_dbfs_file, cloud file URIs (e.g. s3:/, abfss:/, gs:/), workspace paths and remote repository are supported. For Python files stored in the Databricks workspace, the path must be absolute and begin with /Repos. For files stored in a remote repository, the path must be relative. This field is required.
+	// The URI of the Python file to be executed. databricks_dbfs_file, cloud file URIs (e.g. s3:/, abfss:/, gs:/), workspace paths and remote repository are supported. For Python files stored in the Databricks workspace, the path must be absolute and begin with /. For files stored in a remote repository, the path must be relative. This field is required.
 	PythonFile *string `json:"pythonFile,omitempty" tf:"python_file,omitempty"`
 
 	// The source of the project. Possible values are WORKSPACE and GIT.  Defaults to GIT if a git_source block is present in the job definition.
@@ -6597,7 +6933,7 @@ type SparkPythonTaskObservation struct {
 	// Parameters for the task
 	Parameters []*string `json:"parameters,omitempty" tf:"parameters,omitempty"`
 
-	// The URI of the Python file to be executed. databricks_dbfs_file, cloud file URIs (e.g. s3:/, abfss:/, gs:/), workspace paths and remote repository are supported. For Python files stored in the Databricks workspace, the path must be absolute and begin with /Repos. For files stored in a remote repository, the path must be relative. This field is required.
+	// The URI of the Python file to be executed. databricks_dbfs_file, cloud file URIs (e.g. s3:/, abfss:/, gs:/), workspace paths and remote repository are supported. For Python files stored in the Databricks workspace, the path must be absolute and begin with /. For files stored in a remote repository, the path must be relative. This field is required.
 	PythonFile *string `json:"pythonFile,omitempty" tf:"python_file,omitempty"`
 
 	// The source of the project. Possible values are WORKSPACE and GIT.  Defaults to GIT if a git_source block is present in the job definition.
@@ -6610,7 +6946,7 @@ type SparkPythonTaskParameters struct {
 	// +kubebuilder:validation:Optional
 	Parameters []*string `json:"parameters,omitempty" tf:"parameters,omitempty"`
 
-	// The URI of the Python file to be executed. databricks_dbfs_file, cloud file URIs (e.g. s3:/, abfss:/, gs:/), workspace paths and remote repository are supported. For Python files stored in the Databricks workspace, the path must be absolute and begin with /Repos. For files stored in a remote repository, the path must be relative. This field is required.
+	// The URI of the Python file to be executed. databricks_dbfs_file, cloud file URIs (e.g. s3:/, abfss:/, gs:/), workspace paths and remote repository are supported. For Python files stored in the Databricks workspace, the path must be absolute and begin with /. For files stored in a remote repository, the path must be relative. This field is required.
 	// +kubebuilder:validation:Optional
 	PythonFile *string `json:"pythonFile" tf:"python_file,omitempty"`
 
@@ -6645,6 +6981,11 @@ type SpecInitParameters struct {
 
 	// (list of strings) List of pip dependencies, as supported by the version of pip in this environment. Each dependency is a pip requirement file line.  See API docs for more information.
 	Dependencies []*string `json:"dependencies,omitempty" tf:"dependencies,omitempty"`
+
+	EnvironmentVersion *string `json:"environmentVersion,omitempty" tf:"environment_version,omitempty"`
+
+	// (list of strings) List of pip dependencies, as supported by the version of pip in this environment. Each dependency is a pip requirement file line.  See API docs for more information.
+	JarDependencies []*string `json:"jarDependencies,omitempty" tf:"jar_dependencies,omitempty"`
 }
 
 type SpecObservation struct {
@@ -6654,6 +6995,11 @@ type SpecObservation struct {
 
 	// (list of strings) List of pip dependencies, as supported by the version of pip in this environment. Each dependency is a pip requirement file line.  See API docs for more information.
 	Dependencies []*string `json:"dependencies,omitempty" tf:"dependencies,omitempty"`
+
+	EnvironmentVersion *string `json:"environmentVersion,omitempty" tf:"environment_version,omitempty"`
+
+	// (list of strings) List of pip dependencies, as supported by the version of pip in this environment. Each dependency is a pip requirement file line.  See API docs for more information.
+	JarDependencies []*string `json:"jarDependencies,omitempty" tf:"jar_dependencies,omitempty"`
 }
 
 type SpecParameters struct {
@@ -6665,33 +7011,137 @@ type SpecParameters struct {
 	// (list of strings) List of pip dependencies, as supported by the version of pip in this environment. Each dependency is a pip requirement file line.  See API docs for more information.
 	// +kubebuilder:validation:Optional
 	Dependencies []*string `json:"dependencies,omitempty" tf:"dependencies,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	EnvironmentVersion *string `json:"environmentVersion,omitempty" tf:"environment_version,omitempty"`
+
+	// (list of strings) List of pip dependencies, as supported by the version of pip in this environment. Each dependency is a pip requirement file line.  See API docs for more information.
+	// +kubebuilder:validation:Optional
+	JarDependencies []*string `json:"jarDependencies,omitempty" tf:"jar_dependencies,omitempty"`
+}
+
+type SubscribersInitParameters struct {
+
+	// A snapshot of the dashboard will be sent to the destination when the destination_id field is present.
+	DestinationID *string `json:"destinationId,omitempty" tf:"destination_id,omitempty"`
+
+	// A snapshot of the dashboard will be sent to the user's email when the user_name field is present.
+	UserName *string `json:"userName,omitempty" tf:"user_name,omitempty"`
+}
+
+type SubscribersObservation struct {
+
+	// A snapshot of the dashboard will be sent to the destination when the destination_id field is present.
+	DestinationID *string `json:"destinationId,omitempty" tf:"destination_id,omitempty"`
+
+	// A snapshot of the dashboard will be sent to the user's email when the user_name field is present.
+	UserName *string `json:"userName,omitempty" tf:"user_name,omitempty"`
+}
+
+type SubscribersParameters struct {
+
+	// A snapshot of the dashboard will be sent to the destination when the destination_id field is present.
+	// +kubebuilder:validation:Optional
+	DestinationID *string `json:"destinationId,omitempty" tf:"destination_id,omitempty"`
+
+	// A snapshot of the dashboard will be sent to the user's email when the user_name field is present.
+	// +kubebuilder:validation:Optional
+	UserName *string `json:"userName,omitempty" tf:"user_name,omitempty"`
+}
+
+type SubscriptionInitParameters struct {
+
+	// Allows users to specify a custom subject line on the email sent to subscribers.
+	CustomSubject *string `json:"customSubject,omitempty" tf:"custom_subject,omitempty"`
+
+	// When true, the subscription will not send emails.
+	Paused *bool `json:"paused,omitempty" tf:"paused,omitempty"`
+
+	// The list of subscribers to send the snapshot of the dashboard to.
+	Subscribers []SubscribersInitParameters `json:"subscribers,omitempty" tf:"subscribers,omitempty"`
+}
+
+type SubscriptionObservation struct {
+
+	// Allows users to specify a custom subject line on the email sent to subscribers.
+	CustomSubject *string `json:"customSubject,omitempty" tf:"custom_subject,omitempty"`
+
+	// When true, the subscription will not send emails.
+	Paused *bool `json:"paused,omitempty" tf:"paused,omitempty"`
+
+	// The list of subscribers to send the snapshot of the dashboard to.
+	Subscribers []SubscribersObservation `json:"subscribers,omitempty" tf:"subscribers,omitempty"`
+}
+
+type SubscriptionParameters struct {
+
+	// Allows users to specify a custom subject line on the email sent to subscribers.
+	// +kubebuilder:validation:Optional
+	CustomSubject *string `json:"customSubject,omitempty" tf:"custom_subject,omitempty"`
+
+	// When true, the subscription will not send emails.
+	// +kubebuilder:validation:Optional
+	Paused *bool `json:"paused,omitempty" tf:"paused,omitempty"`
+
+	// The list of subscribers to send the snapshot of the dashboard to.
+	// +kubebuilder:validation:Optional
+	Subscribers []SubscribersParameters `json:"subscribers,omitempty" tf:"subscribers,omitempty"`
+}
+
+type SubscriptionSubscribersInitParameters struct {
+
+	// A snapshot of the dashboard will be sent to the destination when the destination_id field is present.
+	DestinationID *string `json:"destinationId,omitempty" tf:"destination_id,omitempty"`
+
+	// A snapshot of the dashboard will be sent to the user's email when the user_name field is present.
+	UserName *string `json:"userName,omitempty" tf:"user_name,omitempty"`
+}
+
+type SubscriptionSubscribersObservation struct {
+
+	// A snapshot of the dashboard will be sent to the destination when the destination_id field is present.
+	DestinationID *string `json:"destinationId,omitempty" tf:"destination_id,omitempty"`
+
+	// A snapshot of the dashboard will be sent to the user's email when the user_name field is present.
+	UserName *string `json:"userName,omitempty" tf:"user_name,omitempty"`
+}
+
+type SubscriptionSubscribersParameters struct {
+
+	// A snapshot of the dashboard will be sent to the destination when the destination_id field is present.
+	// +kubebuilder:validation:Optional
+	DestinationID *string `json:"destinationId,omitempty" tf:"destination_id,omitempty"`
+
+	// A snapshot of the dashboard will be sent to the user's email when the user_name field is present.
+	// +kubebuilder:validation:Optional
+	UserName *string `json:"userName,omitempty" tf:"user_name,omitempty"`
 }
 
 type SubscriptionsInitParameters struct {
 
-	// ID of the system notification that is notified when an event defined in webhook_notifications is triggered.
+	// A snapshot of the dashboard will be sent to the destination when the destination_id field is present.
 	DestinationID *string `json:"destinationId,omitempty" tf:"destination_id,omitempty"`
 
-	// The email of an active workspace user. Non-admin users can only set this field to their own email.
+	// A snapshot of the dashboard will be sent to the user's email when the user_name field is present.
 	UserName *string `json:"userName,omitempty" tf:"user_name,omitempty"`
 }
 
 type SubscriptionsObservation struct {
 
-	// ID of the system notification that is notified when an event defined in webhook_notifications is triggered.
+	// A snapshot of the dashboard will be sent to the destination when the destination_id field is present.
 	DestinationID *string `json:"destinationId,omitempty" tf:"destination_id,omitempty"`
 
-	// The email of an active workspace user. Non-admin users can only set this field to their own email.
+	// A snapshot of the dashboard will be sent to the user's email when the user_name field is present.
 	UserName *string `json:"userName,omitempty" tf:"user_name,omitempty"`
 }
 
 type SubscriptionsParameters struct {
 
-	// ID of the system notification that is notified when an event defined in webhook_notifications is triggered.
+	// A snapshot of the dashboard will be sent to the destination when the destination_id field is present.
 	// +kubebuilder:validation:Optional
 	DestinationID *string `json:"destinationId,omitempty" tf:"destination_id,omitempty"`
 
-	// The email of an active workspace user. Non-admin users can only set this field to their own email.
+	// A snapshot of the dashboard will be sent to the user's email when the user_name field is present.
 	// +kubebuilder:validation:Optional
 	UserName *string `json:"userName,omitempty" tf:"user_name,omitempty"`
 }
@@ -6776,6 +7226,55 @@ type TableUpdateParameters struct {
 	// If set, the trigger starts a run only after no file activity has occurred for the specified amount of time. This makes it possible to wait for a batch of incoming files to arrive before triggering a run. The minimum allowed value is 60 seconds.
 	// +kubebuilder:validation:Optional
 	WaitAfterLastChangeSeconds *float64 `json:"waitAfterLastChangeSeconds,omitempty" tf:"wait_after_last_change_seconds,omitempty"`
+}
+
+type TablesInitParameters struct {
+
+	// The name of the catalog to use inside Unity Catalog.
+	Catalog *string `json:"catalog,omitempty" tf:"catalog,omitempty"`
+
+	// An optional name for the job. The default value is Untitled.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// The name of the schema dbt should run in. Defaults to default.
+	Schema *string `json:"schema,omitempty" tf:"schema,omitempty"`
+
+	// The Power BI storage mode of the table
+	StorageMode *string `json:"storageMode,omitempty" tf:"storage_mode,omitempty"`
+}
+
+type TablesObservation struct {
+
+	// The name of the catalog to use inside Unity Catalog.
+	Catalog *string `json:"catalog,omitempty" tf:"catalog,omitempty"`
+
+	// An optional name for the job. The default value is Untitled.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// The name of the schema dbt should run in. Defaults to default.
+	Schema *string `json:"schema,omitempty" tf:"schema,omitempty"`
+
+	// The Power BI storage mode of the table
+	StorageMode *string `json:"storageMode,omitempty" tf:"storage_mode,omitempty"`
+}
+
+type TablesParameters struct {
+
+	// The name of the catalog to use inside Unity Catalog.
+	// +kubebuilder:validation:Optional
+	Catalog *string `json:"catalog,omitempty" tf:"catalog,omitempty"`
+
+	// An optional name for the job. The default value is Untitled.
+	// +kubebuilder:validation:Optional
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// The name of the schema dbt should run in. Defaults to default.
+	// +kubebuilder:validation:Optional
+	Schema *string `json:"schema,omitempty" tf:"schema,omitempty"`
+
+	// The Power BI storage mode of the table
+	// +kubebuilder:validation:Optional
+	StorageMode *string `json:"storageMode,omitempty" tf:"storage_mode,omitempty"`
 }
 
 type TaskCleanRoomsNotebookTaskInitParameters struct {
@@ -6869,6 +7368,45 @@ type TaskConditionTaskParameters struct {
 	Right *string `json:"right" tf:"right,omitempty"`
 }
 
+type TaskDashboardTaskInitParameters struct {
+
+	// The identifier of the dashboard to refresh
+	DashboardID *string `json:"dashboardId,omitempty" tf:"dashboard_id,omitempty"`
+
+	// Represents a subscription configuration for scheduled dashboard snapshots.
+	Subscription []DashboardTaskSubscriptionInitParameters `json:"subscription,omitempty" tf:"subscription,omitempty"`
+
+	// The warehouse id to execute the dashboard with for the schedule. If not specified, will use the default warehouse of dashboard
+	WarehouseID *string `json:"warehouseId,omitempty" tf:"warehouse_id,omitempty"`
+}
+
+type TaskDashboardTaskObservation struct {
+
+	// The identifier of the dashboard to refresh
+	DashboardID *string `json:"dashboardId,omitempty" tf:"dashboard_id,omitempty"`
+
+	// Represents a subscription configuration for scheduled dashboard snapshots.
+	Subscription []DashboardTaskSubscriptionObservation `json:"subscription,omitempty" tf:"subscription,omitempty"`
+
+	// The warehouse id to execute the dashboard with for the schedule. If not specified, will use the default warehouse of dashboard
+	WarehouseID *string `json:"warehouseId,omitempty" tf:"warehouse_id,omitempty"`
+}
+
+type TaskDashboardTaskParameters struct {
+
+	// The identifier of the dashboard to refresh
+	// +kubebuilder:validation:Optional
+	DashboardID *string `json:"dashboardId,omitempty" tf:"dashboard_id,omitempty"`
+
+	// Represents a subscription configuration for scheduled dashboard snapshots.
+	// +kubebuilder:validation:Optional
+	Subscription []DashboardTaskSubscriptionParameters `json:"subscription,omitempty" tf:"subscription,omitempty"`
+
+	// The warehouse id to execute the dashboard with for the schedule. If not specified, will use the default warehouse of dashboard
+	// +kubebuilder:validation:Optional
+	WarehouseID *string `json:"warehouseId,omitempty" tf:"warehouse_id,omitempty"`
+}
+
 type TaskDbtTaskInitParameters struct {
 
 	// The name of the catalog to use inside Unity Catalog.
@@ -6889,7 +7427,7 @@ type TaskDbtTaskInitParameters struct {
 	// The source of the project. Possible values are WORKSPACE and GIT.  Defaults to GIT if a git_source block is present in the job definition.
 	Source *string `json:"source,omitempty" tf:"source,omitempty"`
 
-	// The ID of the SQL warehouse that dbt should execute against.
+	// The warehouse id to execute the dashboard with for the schedule. If not specified, will use the default warehouse of dashboard
 	WarehouseID *string `json:"warehouseId,omitempty" tf:"warehouse_id,omitempty"`
 }
 
@@ -6913,7 +7451,7 @@ type TaskDbtTaskObservation struct {
 	// The source of the project. Possible values are WORKSPACE and GIT.  Defaults to GIT if a git_source block is present in the job definition.
 	Source *string `json:"source,omitempty" tf:"source,omitempty"`
 
-	// The ID of the SQL warehouse that dbt should execute against.
+	// The warehouse id to execute the dashboard with for the schedule. If not specified, will use the default warehouse of dashboard
 	WarehouseID *string `json:"warehouseId,omitempty" tf:"warehouse_id,omitempty"`
 }
 
@@ -6943,7 +7481,7 @@ type TaskDbtTaskParameters struct {
 	// +kubebuilder:validation:Optional
 	Source *string `json:"source,omitempty" tf:"source,omitempty"`
 
-	// The ID of the SQL warehouse that dbt should execute against.
+	// The warehouse id to execute the dashboard with for the schedule. If not specified, will use the default warehouse of dashboard
 	// +kubebuilder:validation:Optional
 	WarehouseID *string `json:"warehouseId,omitempty" tf:"warehouse_id,omitempty"`
 }
@@ -6991,6 +7529,7 @@ type TaskEmailNotificationsInitParameters struct {
 	// (List) list of notification IDs to call when the run starts. A maximum of 3 destinations can be specified.
 	OnStart []*string `json:"onStart,omitempty" tf:"on_start,omitempty"`
 
+	// (List) list of notification IDs to call when any streaming backlog thresholds are exceeded for any stream.
 	OnStreamingBacklogExceeded []*string `json:"onStreamingBacklogExceeded,omitempty" tf:"on_streaming_backlog_exceeded,omitempty"`
 
 	// (List) list of notification IDs to call when the run completes successfully. A maximum of 3 destinations can be specified.
@@ -7011,6 +7550,7 @@ type TaskEmailNotificationsObservation struct {
 	// (List) list of notification IDs to call when the run starts. A maximum of 3 destinations can be specified.
 	OnStart []*string `json:"onStart,omitempty" tf:"on_start,omitempty"`
 
+	// (List) list of notification IDs to call when any streaming backlog thresholds are exceeded for any stream.
 	OnStreamingBacklogExceeded []*string `json:"onStreamingBacklogExceeded,omitempty" tf:"on_streaming_backlog_exceeded,omitempty"`
 
 	// (List) list of notification IDs to call when the run completes successfully. A maximum of 3 destinations can be specified.
@@ -7035,6 +7575,7 @@ type TaskEmailNotificationsParameters struct {
 	// +kubebuilder:validation:Optional
 	OnStart []*string `json:"onStart,omitempty" tf:"on_start,omitempty"`
 
+	// (List) list of notification IDs to call when any streaming backlog thresholds are exceeded for any stream.
 	// +kubebuilder:validation:Optional
 	OnStreamingBacklogExceeded []*string `json:"onStreamingBacklogExceeded,omitempty" tf:"on_streaming_backlog_exceeded,omitempty"`
 
@@ -7188,6 +7729,9 @@ type TaskInitParameters struct {
 	ConditionTask []ConditionTaskInitParameters `json:"conditionTask,omitempty" tf:"condition_task,omitempty"`
 
 	// A list of task specification that the job will execute. See task Configuration Block below.
+	DashboardTask []DashboardTaskInitParameters `json:"dashboardTask,omitempty" tf:"dashboard_task,omitempty"`
+
+	// A list of task specification that the job will execute. See task Configuration Block below.
 	DbtTask []TaskDbtTaskInitParameters `json:"dbtTask,omitempty" tf:"dbt_task,omitempty"`
 
 	// block specifying dependency(-ies) for a given task.
@@ -7240,6 +7784,9 @@ type TaskInitParameters struct {
 
 	// A list of task specification that the job will execute. See task Configuration Block below.
 	PipelineTask []JobTaskPipelineTaskInitParameters `json:"pipelineTask,omitempty" tf:"pipeline_task,omitempty"`
+
+	// A list of task specification that the job will execute. See task Configuration Block below.
+	PowerBiTask []TaskPowerBiTaskInitParameters `json:"powerBiTask,omitempty" tf:"power_bi_task,omitempty"`
 
 	// A list of task specification that the job will execute. See task Configuration Block below.
 	PythonWheelTask []JobTaskPythonWheelTaskInitParameters `json:"pythonWheelTask,omitempty" tf:"python_wheel_task,omitempty"`
@@ -7894,7 +8441,7 @@ type TaskNewClusterInitParameters struct {
 
 	SSHPublicKeys []*string `json:"sshPublicKeys,omitempty" tf:"ssh_public_keys,omitempty"`
 
-	// An optional name for the job. The default value is Untitled.
+	// A snapshot of the dashboard will be sent to the user's email when the user_name field is present.
 	SingleUserName *string `json:"singleUserName,omitempty" tf:"single_user_name,omitempty"`
 
 	// +mapType=granular
@@ -8302,7 +8849,7 @@ type TaskNewClusterObservation struct {
 
 	SSHPublicKeys []*string `json:"sshPublicKeys,omitempty" tf:"ssh_public_keys,omitempty"`
 
-	// An optional name for the job. The default value is Untitled.
+	// A snapshot of the dashboard will be sent to the user's email when the user_name field is present.
 	SingleUserName *string `json:"singleUserName,omitempty" tf:"single_user_name,omitempty"`
 
 	// +mapType=granular
@@ -8413,7 +8960,7 @@ type TaskNewClusterParameters struct {
 	// +kubebuilder:validation:Optional
 	SSHPublicKeys []*string `json:"sshPublicKeys,omitempty" tf:"ssh_public_keys,omitempty"`
 
-	// An optional name for the job. The default value is Untitled.
+	// A snapshot of the dashboard will be sent to the user's email when the user_name field is present.
 	// +kubebuilder:validation:Optional
 	SingleUserName *string `json:"singleUserName,omitempty" tf:"single_user_name,omitempty"`
 
@@ -8427,7 +8974,7 @@ type TaskNewClusterParameters struct {
 
 	// parameter in databricks_cluster and other resources.
 	// +kubebuilder:validation:Optional
-	SparkVersion *string `json:"sparkVersion" tf:"spark_version,omitempty"`
+	SparkVersion *string `json:"sparkVersion,omitempty" tf:"spark_version,omitempty"`
 
 	// +kubebuilder:validation:Optional
 	UseMLRuntime *bool `json:"useMlRuntime,omitempty" tf:"use_ml_runtime,omitempty"`
@@ -8474,7 +9021,7 @@ type TaskNewClusterWorkloadTypeParameters struct {
 
 type TaskNotebookTaskInitParameters struct {
 
-	// (Map) Base parameters to be used for each run of this job. If the run is initiated by a call to run-now with parameters specified, the two parameters maps will be merged. If the same key is specified in base_parameters and in run-now, the value from run-now will be used. If the notebook takes a parameter that is not specified in the job’s base_parameters or the run-now override parameters, the default value from the notebook will be used. Retrieve these parameters in a notebook using dbutils.widgets.get.
+	// (Map) Base parameters to be used for each run of this job. If the run is initiated by a call to run-now with parameters specified, the two parameters maps will be merged. If the same key is specified in base_parameters and in run-now, the value from run-now will be used. If the notebook takes a parameter that is not specified in the job's base_parameters or the run-now override parameters, the default value from the notebook will be used. Retrieve these parameters in a notebook using dbutils.widgets.get.
 	// +mapType=granular
 	BaseParameters map[string]*string `json:"baseParameters,omitempty" tf:"base_parameters,omitempty"`
 
@@ -8484,13 +9031,13 @@ type TaskNotebookTaskInitParameters struct {
 	// The source of the project. Possible values are WORKSPACE and GIT.  Defaults to GIT if a git_source block is present in the job definition.
 	Source *string `json:"source,omitempty" tf:"source,omitempty"`
 
-	// The ID of the SQL warehouse that dbt should execute against.
+	// The warehouse id to execute the dashboard with for the schedule. If not specified, will use the default warehouse of dashboard
 	WarehouseID *string `json:"warehouseId,omitempty" tf:"warehouse_id,omitempty"`
 }
 
 type TaskNotebookTaskObservation struct {
 
-	// (Map) Base parameters to be used for each run of this job. If the run is initiated by a call to run-now with parameters specified, the two parameters maps will be merged. If the same key is specified in base_parameters and in run-now, the value from run-now will be used. If the notebook takes a parameter that is not specified in the job’s base_parameters or the run-now override parameters, the default value from the notebook will be used. Retrieve these parameters in a notebook using dbutils.widgets.get.
+	// (Map) Base parameters to be used for each run of this job. If the run is initiated by a call to run-now with parameters specified, the two parameters maps will be merged. If the same key is specified in base_parameters and in run-now, the value from run-now will be used. If the notebook takes a parameter that is not specified in the job's base_parameters or the run-now override parameters, the default value from the notebook will be used. Retrieve these parameters in a notebook using dbutils.widgets.get.
 	// +mapType=granular
 	BaseParameters map[string]*string `json:"baseParameters,omitempty" tf:"base_parameters,omitempty"`
 
@@ -8500,13 +9047,13 @@ type TaskNotebookTaskObservation struct {
 	// The source of the project. Possible values are WORKSPACE and GIT.  Defaults to GIT if a git_source block is present in the job definition.
 	Source *string `json:"source,omitempty" tf:"source,omitempty"`
 
-	// The ID of the SQL warehouse that dbt should execute against.
+	// The warehouse id to execute the dashboard with for the schedule. If not specified, will use the default warehouse of dashboard
 	WarehouseID *string `json:"warehouseId,omitempty" tf:"warehouse_id,omitempty"`
 }
 
 type TaskNotebookTaskParameters struct {
 
-	// (Map) Base parameters to be used for each run of this job. If the run is initiated by a call to run-now with parameters specified, the two parameters maps will be merged. If the same key is specified in base_parameters and in run-now, the value from run-now will be used. If the notebook takes a parameter that is not specified in the job’s base_parameters or the run-now override parameters, the default value from the notebook will be used. Retrieve these parameters in a notebook using dbutils.widgets.get.
+	// (Map) Base parameters to be used for each run of this job. If the run is initiated by a call to run-now with parameters specified, the two parameters maps will be merged. If the same key is specified in base_parameters and in run-now, the value from run-now will be used. If the notebook takes a parameter that is not specified in the job's base_parameters or the run-now override parameters, the default value from the notebook will be used. Retrieve these parameters in a notebook using dbutils.widgets.get.
 	// +kubebuilder:validation:Optional
 	// +mapType=granular
 	BaseParameters map[string]*string `json:"baseParameters,omitempty" tf:"base_parameters,omitempty"`
@@ -8519,7 +9066,7 @@ type TaskNotebookTaskParameters struct {
 	// +kubebuilder:validation:Optional
 	Source *string `json:"source,omitempty" tf:"source,omitempty"`
 
-	// The ID of the SQL warehouse that dbt should execute against.
+	// The warehouse id to execute the dashboard with for the schedule. If not specified, will use the default warehouse of dashboard
 	// +kubebuilder:validation:Optional
 	WarehouseID *string `json:"warehouseId,omitempty" tf:"warehouse_id,omitempty"`
 }
@@ -8570,6 +9117,9 @@ type TaskObservation struct {
 
 	// A list of task specification that the job will execute. See task Configuration Block below.
 	ConditionTask []ConditionTaskObservation `json:"conditionTask,omitempty" tf:"condition_task,omitempty"`
+
+	// A list of task specification that the job will execute. See task Configuration Block below.
+	DashboardTask []DashboardTaskObservation `json:"dashboardTask,omitempty" tf:"dashboard_task,omitempty"`
 
 	// A list of task specification that the job will execute. See task Configuration Block below.
 	DbtTask []TaskDbtTaskObservation `json:"dbtTask,omitempty" tf:"dbt_task,omitempty"`
@@ -8626,6 +9176,9 @@ type TaskObservation struct {
 	PipelineTask []JobTaskPipelineTaskObservation `json:"pipelineTask,omitempty" tf:"pipeline_task,omitempty"`
 
 	// A list of task specification that the job will execute. See task Configuration Block below.
+	PowerBiTask []TaskPowerBiTaskObservation `json:"powerBiTask,omitempty" tf:"power_bi_task,omitempty"`
+
+	// A list of task specification that the job will execute. See task Configuration Block below.
 	PythonWheelTask []JobTaskPythonWheelTaskObservation `json:"pythonWheelTask,omitempty" tf:"python_wheel_task,omitempty"`
 
 	// (Bool) An optional policy to specify whether to retry a job when it times out. The default behavior is to not retry on timeout.
@@ -8668,6 +9221,10 @@ type TaskParameters struct {
 	// A list of task specification that the job will execute. See task Configuration Block below.
 	// +kubebuilder:validation:Optional
 	ConditionTask []ConditionTaskParameters `json:"conditionTask,omitempty" tf:"condition_task,omitempty"`
+
+	// A list of task specification that the job will execute. See task Configuration Block below.
+	// +kubebuilder:validation:Optional
+	DashboardTask []DashboardTaskParameters `json:"dashboardTask,omitempty" tf:"dashboard_task,omitempty"`
 
 	// A list of task specification that the job will execute. See task Configuration Block below.
 	// +kubebuilder:validation:Optional
@@ -8743,6 +9300,10 @@ type TaskParameters struct {
 
 	// A list of task specification that the job will execute. See task Configuration Block below.
 	// +kubebuilder:validation:Optional
+	PowerBiTask []TaskPowerBiTaskParameters `json:"powerBiTask,omitempty" tf:"power_bi_task,omitempty"`
+
+	// A list of task specification that the job will execute. See task Configuration Block below.
+	// +kubebuilder:validation:Optional
 	PythonWheelTask []JobTaskPythonWheelTaskParameters `json:"pythonWheelTask,omitempty" tf:"python_wheel_task,omitempty"`
 
 	// (Bool) An optional policy to specify whether to retry a job when it times out. The default behavior is to not retry on timeout.
@@ -8813,6 +9374,65 @@ type TaskPipelineTaskParameters struct {
 	// The pipeline's unique ID.
 	// +kubebuilder:validation:Optional
 	PipelineID *string `json:"pipelineId" tf:"pipeline_id,omitempty"`
+}
+
+type TaskPowerBiTaskInitParameters struct {
+
+	// The resource name of the UC connection to authenticate from Databricks to Power BI
+	ConnectionResourceName *string `json:"connectionResourceName,omitempty" tf:"connection_resource_name,omitempty"`
+
+	// The semantic model to update. Block consists of following fields:
+	PowerBiModel []PowerBiTaskPowerBiModelInitParameters `json:"powerBiModel,omitempty" tf:"power_bi_model,omitempty"`
+
+	// Whether the model should be refreshed after the update. Default is false
+	RefreshAfterUpdate *bool `json:"refreshAfterUpdate,omitempty" tf:"refresh_after_update,omitempty"`
+
+	// (Array) The tables to be exported to Power BI. Block consists of following fields:
+	Tables []PowerBiTaskTablesInitParameters `json:"tables,omitempty" tf:"tables,omitempty"`
+
+	// The warehouse id to execute the dashboard with for the schedule. If not specified, will use the default warehouse of dashboard
+	WarehouseID *string `json:"warehouseId,omitempty" tf:"warehouse_id,omitempty"`
+}
+
+type TaskPowerBiTaskObservation struct {
+
+	// The resource name of the UC connection to authenticate from Databricks to Power BI
+	ConnectionResourceName *string `json:"connectionResourceName,omitempty" tf:"connection_resource_name,omitempty"`
+
+	// The semantic model to update. Block consists of following fields:
+	PowerBiModel []PowerBiTaskPowerBiModelObservation `json:"powerBiModel,omitempty" tf:"power_bi_model,omitempty"`
+
+	// Whether the model should be refreshed after the update. Default is false
+	RefreshAfterUpdate *bool `json:"refreshAfterUpdate,omitempty" tf:"refresh_after_update,omitempty"`
+
+	// (Array) The tables to be exported to Power BI. Block consists of following fields:
+	Tables []PowerBiTaskTablesObservation `json:"tables,omitempty" tf:"tables,omitempty"`
+
+	// The warehouse id to execute the dashboard with for the schedule. If not specified, will use the default warehouse of dashboard
+	WarehouseID *string `json:"warehouseId,omitempty" tf:"warehouse_id,omitempty"`
+}
+
+type TaskPowerBiTaskParameters struct {
+
+	// The resource name of the UC connection to authenticate from Databricks to Power BI
+	// +kubebuilder:validation:Optional
+	ConnectionResourceName *string `json:"connectionResourceName,omitempty" tf:"connection_resource_name,omitempty"`
+
+	// The semantic model to update. Block consists of following fields:
+	// +kubebuilder:validation:Optional
+	PowerBiModel []PowerBiTaskPowerBiModelParameters `json:"powerBiModel,omitempty" tf:"power_bi_model,omitempty"`
+
+	// Whether the model should be refreshed after the update. Default is false
+	// +kubebuilder:validation:Optional
+	RefreshAfterUpdate *bool `json:"refreshAfterUpdate,omitempty" tf:"refresh_after_update,omitempty"`
+
+	// (Array) The tables to be exported to Power BI. Block consists of following fields:
+	// +kubebuilder:validation:Optional
+	Tables []PowerBiTaskTablesParameters `json:"tables,omitempty" tf:"tables,omitempty"`
+
+	// The warehouse id to execute the dashboard with for the schedule. If not specified, will use the default warehouse of dashboard
+	// +kubebuilder:validation:Optional
+	WarehouseID *string `json:"warehouseId,omitempty" tf:"warehouse_id,omitempty"`
 }
 
 type TaskPythonWheelTaskInitParameters struct {
@@ -9014,7 +9634,7 @@ type TaskSQLTaskInitParameters struct {
 	// block consisting of single string field: query_id - identifier of the Databricks Query (databricks_query).
 	Query []SQLTaskQueryInitParameters `json:"query,omitempty" tf:"query,omitempty"`
 
-	// The ID of the SQL warehouse that dbt should execute against.
+	// The warehouse id to execute the dashboard with for the schedule. If not specified, will use the default warehouse of dashboard
 	WarehouseID *string `json:"warehouseId,omitempty" tf:"warehouse_id,omitempty"`
 }
 
@@ -9036,7 +9656,7 @@ type TaskSQLTaskObservation struct {
 	// block consisting of single string field: query_id - identifier of the Databricks Query (databricks_query).
 	Query []SQLTaskQueryObservation `json:"query,omitempty" tf:"query,omitempty"`
 
-	// The ID of the SQL warehouse that dbt should execute against.
+	// The warehouse id to execute the dashboard with for the schedule. If not specified, will use the default warehouse of dashboard
 	WarehouseID *string `json:"warehouseId,omitempty" tf:"warehouse_id,omitempty"`
 }
 
@@ -9063,7 +9683,7 @@ type TaskSQLTaskParameters struct {
 	// +kubebuilder:validation:Optional
 	Query []SQLTaskQueryParameters `json:"query,omitempty" tf:"query,omitempty"`
 
-	// The ID of the SQL warehouse that dbt should execute against.
+	// The warehouse id to execute the dashboard with for the schedule. If not specified, will use the default warehouse of dashboard
 	// +kubebuilder:validation:Optional
 	WarehouseID *string `json:"warehouseId" tf:"warehouse_id,omitempty"`
 }
@@ -9114,7 +9734,7 @@ type TaskSparkPythonTaskInitParameters struct {
 	// Parameters for the task
 	Parameters []*string `json:"parameters,omitempty" tf:"parameters,omitempty"`
 
-	// The URI of the Python file to be executed. databricks_dbfs_file, cloud file URIs (e.g. s3:/, abfss:/, gs:/), workspace paths and remote repository are supported. For Python files stored in the Databricks workspace, the path must be absolute and begin with /Repos. For files stored in a remote repository, the path must be relative. This field is required.
+	// The URI of the Python file to be executed. databricks_dbfs_file, cloud file URIs (e.g. s3:/, abfss:/, gs:/), workspace paths and remote repository are supported. For Python files stored in the Databricks workspace, the path must be absolute and begin with /. For files stored in a remote repository, the path must be relative. This field is required.
 	PythonFile *string `json:"pythonFile,omitempty" tf:"python_file,omitempty"`
 
 	// The source of the project. Possible values are WORKSPACE and GIT.  Defaults to GIT if a git_source block is present in the job definition.
@@ -9126,7 +9746,7 @@ type TaskSparkPythonTaskObservation struct {
 	// Parameters for the task
 	Parameters []*string `json:"parameters,omitempty" tf:"parameters,omitempty"`
 
-	// The URI of the Python file to be executed. databricks_dbfs_file, cloud file URIs (e.g. s3:/, abfss:/, gs:/), workspace paths and remote repository are supported. For Python files stored in the Databricks workspace, the path must be absolute and begin with /Repos. For files stored in a remote repository, the path must be relative. This field is required.
+	// The URI of the Python file to be executed. databricks_dbfs_file, cloud file URIs (e.g. s3:/, abfss:/, gs:/), workspace paths and remote repository are supported. For Python files stored in the Databricks workspace, the path must be absolute and begin with /. For files stored in a remote repository, the path must be relative. This field is required.
 	PythonFile *string `json:"pythonFile,omitempty" tf:"python_file,omitempty"`
 
 	// The source of the project. Possible values are WORKSPACE and GIT.  Defaults to GIT if a git_source block is present in the job definition.
@@ -9139,7 +9759,7 @@ type TaskSparkPythonTaskParameters struct {
 	// +kubebuilder:validation:Optional
 	Parameters []*string `json:"parameters,omitempty" tf:"parameters,omitempty"`
 
-	// The URI of the Python file to be executed. databricks_dbfs_file, cloud file URIs (e.g. s3:/, abfss:/, gs:/), workspace paths and remote repository are supported. For Python files stored in the Databricks workspace, the path must be absolute and begin with /Repos. For files stored in a remote repository, the path must be relative. This field is required.
+	// The URI of the Python file to be executed. databricks_dbfs_file, cloud file URIs (e.g. s3:/, abfss:/, gs:/), workspace paths and remote repository are supported. For Python files stored in the Databricks workspace, the path must be absolute and begin with /. For files stored in a remote repository, the path must be relative. This field is required.
 	// +kubebuilder:validation:Optional
 	PythonFile *string `json:"pythonFile" tf:"python_file,omitempty"`
 
@@ -9178,6 +9798,7 @@ type TaskWebhookNotificationsInitParameters struct {
 	// (List) list of notification IDs to call when the run starts. A maximum of 3 destinations can be specified.
 	OnStart []WebhookNotificationsOnStartInitParameters `json:"onStart,omitempty" tf:"on_start,omitempty"`
 
+	// (List) list of notification IDs to call when any streaming backlog thresholds are exceeded for any stream.
 	OnStreamingBacklogExceeded []WebhookNotificationsOnStreamingBacklogExceededInitParameters `json:"onStreamingBacklogExceeded,omitempty" tf:"on_streaming_backlog_exceeded,omitempty"`
 
 	// (List) list of notification IDs to call when the run completes successfully. A maximum of 3 destinations can be specified.
@@ -9195,6 +9816,7 @@ type TaskWebhookNotificationsObservation struct {
 	// (List) list of notification IDs to call when the run starts. A maximum of 3 destinations can be specified.
 	OnStart []WebhookNotificationsOnStartObservation `json:"onStart,omitempty" tf:"on_start,omitempty"`
 
+	// (List) list of notification IDs to call when any streaming backlog thresholds are exceeded for any stream.
 	OnStreamingBacklogExceeded []WebhookNotificationsOnStreamingBacklogExceededObservation `json:"onStreamingBacklogExceeded,omitempty" tf:"on_streaming_backlog_exceeded,omitempty"`
 
 	// (List) list of notification IDs to call when the run completes successfully. A maximum of 3 destinations can be specified.
@@ -9215,6 +9837,7 @@ type TaskWebhookNotificationsParameters struct {
 	// +kubebuilder:validation:Optional
 	OnStart []WebhookNotificationsOnStartParameters `json:"onStart,omitempty" tf:"on_start,omitempty"`
 
+	// (List) list of notification IDs to call when any streaming backlog thresholds are exceeded for any stream.
 	// +kubebuilder:validation:Optional
 	OnStreamingBacklogExceeded []WebhookNotificationsOnStreamingBacklogExceededParameters `json:"onStreamingBacklogExceeded,omitempty" tf:"on_streaming_backlog_exceeded,omitempty"`
 
@@ -9287,6 +9910,7 @@ type WebhookNotificationsInitParameters struct {
 	// (List) list of notification IDs to call when the run starts. A maximum of 3 destinations can be specified.
 	OnStart []OnStartInitParameters `json:"onStart,omitempty" tf:"on_start,omitempty"`
 
+	// (List) list of notification IDs to call when any streaming backlog thresholds are exceeded for any stream.
 	OnStreamingBacklogExceeded []OnStreamingBacklogExceededInitParameters `json:"onStreamingBacklogExceeded,omitempty" tf:"on_streaming_backlog_exceeded,omitempty"`
 
 	// (List) list of notification IDs to call when the run completes successfully. A maximum of 3 destinations can be specified.
@@ -9304,6 +9928,7 @@ type WebhookNotificationsObservation struct {
 	// (List) list of notification IDs to call when the run starts. A maximum of 3 destinations can be specified.
 	OnStart []OnStartObservation `json:"onStart,omitempty" tf:"on_start,omitempty"`
 
+	// (List) list of notification IDs to call when any streaming backlog thresholds are exceeded for any stream.
 	OnStreamingBacklogExceeded []OnStreamingBacklogExceededObservation `json:"onStreamingBacklogExceeded,omitempty" tf:"on_streaming_backlog_exceeded,omitempty"`
 
 	// (List) list of notification IDs to call when the run completes successfully. A maximum of 3 destinations can be specified.
@@ -9419,6 +10044,7 @@ type WebhookNotificationsParameters struct {
 	// +kubebuilder:validation:Optional
 	OnStart []OnStartParameters `json:"onStart,omitempty" tf:"on_start,omitempty"`
 
+	// (List) list of notification IDs to call when any streaming backlog thresholds are exceeded for any stream.
 	// +kubebuilder:validation:Optional
 	OnStreamingBacklogExceeded []OnStreamingBacklogExceededParameters `json:"onStreamingBacklogExceeded,omitempty" tf:"on_streaming_backlog_exceeded,omitempty"`
 

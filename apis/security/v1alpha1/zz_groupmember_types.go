@@ -15,7 +15,7 @@ import (
 
 type GroupMemberInitParameters struct {
 
-	// This is the id of the group resource.
+	// This is the id attribute (SCIM ID) of the group resource.
 	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/security/v1alpha1.Group
 	GroupID *string `json:"groupId,omitempty" tf:"group_id,omitempty"`
 
@@ -27,25 +27,25 @@ type GroupMemberInitParameters struct {
 	// +kubebuilder:validation:Optional
 	GroupIDSelector *v1.Selector `json:"groupIdSelector,omitempty" tf:"-"`
 
-	// This is the id of the group, service principal, or user.
+	// This is the id attribute (SCIM ID) of the group, service principal, or user.
 	MemberID *string `json:"memberId,omitempty" tf:"member_id,omitempty"`
 }
 
 type GroupMemberObservation struct {
 
-	// This is the id of the group resource.
+	// This is the id attribute (SCIM ID) of the group resource.
 	GroupID *string `json:"groupId,omitempty" tf:"group_id,omitempty"`
 
 	// The id for the databricks_group_member object which is in the format <group_id>|<member_id>.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
-	// This is the id of the group, service principal, or user.
+	// This is the id attribute (SCIM ID) of the group, service principal, or user.
 	MemberID *string `json:"memberId,omitempty" tf:"member_id,omitempty"`
 }
 
 type GroupMemberParameters struct {
 
-	// This is the id of the group resource.
+	// This is the id attribute (SCIM ID) of the group resource.
 	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/security/v1alpha1.Group
 	// +kubebuilder:validation:Optional
 	GroupID *string `json:"groupId,omitempty" tf:"group_id,omitempty"`
@@ -58,7 +58,7 @@ type GroupMemberParameters struct {
 	// +kubebuilder:validation:Optional
 	GroupIDSelector *v1.Selector `json:"groupIdSelector,omitempty" tf:"-"`
 
-	// This is the id of the group, service principal, or user.
+	// This is the id attribute (SCIM ID) of the group, service principal, or user.
 	// +kubebuilder:validation:Optional
 	MemberID *string `json:"memberId,omitempty" tf:"member_id,omitempty"`
 }
