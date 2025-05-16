@@ -47,7 +47,7 @@ type PrivilegeAssignmentsParameters struct {
 
 type SQLPermissionsInitParameters struct {
 
-	// (Boolean) If this access control for using anonymous function. Defaults to false.
+	// (Boolean) If this access control for using an anonymous function. Defaults to false.
 	AnonymousFunction *bool `json:"anonymousFunction,omitempty" tf:"anonymous_function,omitempty"`
 
 	// (Boolean) If this access control for reading/writing any file. Defaults to false.
@@ -56,24 +56,24 @@ type SQLPermissionsInitParameters struct {
 	// (Boolean) If this access control for the entire catalog. Defaults to false.
 	Catalog *bool `json:"catalog,omitempty" tf:"catalog,omitempty"`
 
-	// Id of an existing databricks_cluster, where the appropriate GRANT/REVOKE commands are executed. This cluster must have the appropriate access mode (USER_ISOLATION or LEGACY_TABLE_ACL specified).
+	// Id of an existing databricks_cluster, where the appropriate GRANT/REVOKE commands are executed. This cluster must have the appropriate data security mode (USER_ISOLATION or LEGACY_TABLE_ACL specified).
 	ClusterID *string `json:"clusterId,omitempty" tf:"cluster_id,omitempty"`
 
-	// Name of the database. Has default value of default.
+	// Name of the database. Has a default value of default.
 	Database *string `json:"database,omitempty" tf:"database,omitempty"`
 
 	PrivilegeAssignments []PrivilegeAssignmentsInitParameters `json:"privilegeAssignments,omitempty" tf:"privilege_assignments,omitempty"`
 
-	// Name of the table. Can be combined with database.
+	// Name of the table. Can be combined with the database.
 	Table *string `json:"table,omitempty" tf:"table,omitempty"`
 
-	// Name of the view. Can be combined with database.
+	// Name of the view. Can be combined with the database.
 	View *string `json:"view,omitempty" tf:"view,omitempty"`
 }
 
 type SQLPermissionsObservation struct {
 
-	// (Boolean) If this access control for using anonymous function. Defaults to false.
+	// (Boolean) If this access control for using an anonymous function. Defaults to false.
 	AnonymousFunction *bool `json:"anonymousFunction,omitempty" tf:"anonymous_function,omitempty"`
 
 	// (Boolean) If this access control for reading/writing any file. Defaults to false.
@@ -82,26 +82,26 @@ type SQLPermissionsObservation struct {
 	// (Boolean) If this access control for the entire catalog. Defaults to false.
 	Catalog *bool `json:"catalog,omitempty" tf:"catalog,omitempty"`
 
-	// Id of an existing databricks_cluster, where the appropriate GRANT/REVOKE commands are executed. This cluster must have the appropriate access mode (USER_ISOLATION or LEGACY_TABLE_ACL specified).
+	// Id of an existing databricks_cluster, where the appropriate GRANT/REVOKE commands are executed. This cluster must have the appropriate data security mode (USER_ISOLATION or LEGACY_TABLE_ACL specified).
 	ClusterID *string `json:"clusterId,omitempty" tf:"cluster_id,omitempty"`
 
-	// Name of the database. Has default value of default.
+	// Name of the database. Has a default value of default.
 	Database *string `json:"database,omitempty" tf:"database,omitempty"`
 
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
 	PrivilegeAssignments []PrivilegeAssignmentsObservation `json:"privilegeAssignments,omitempty" tf:"privilege_assignments,omitempty"`
 
-	// Name of the table. Can be combined with database.
+	// Name of the table. Can be combined with the database.
 	Table *string `json:"table,omitempty" tf:"table,omitempty"`
 
-	// Name of the view. Can be combined with database.
+	// Name of the view. Can be combined with the database.
 	View *string `json:"view,omitempty" tf:"view,omitempty"`
 }
 
 type SQLPermissionsParameters struct {
 
-	// (Boolean) If this access control for using anonymous function. Defaults to false.
+	// (Boolean) If this access control for using an anonymous function. Defaults to false.
 	// +kubebuilder:validation:Optional
 	AnonymousFunction *bool `json:"anonymousFunction,omitempty" tf:"anonymous_function,omitempty"`
 
@@ -113,22 +113,22 @@ type SQLPermissionsParameters struct {
 	// +kubebuilder:validation:Optional
 	Catalog *bool `json:"catalog,omitempty" tf:"catalog,omitempty"`
 
-	// Id of an existing databricks_cluster, where the appropriate GRANT/REVOKE commands are executed. This cluster must have the appropriate access mode (USER_ISOLATION or LEGACY_TABLE_ACL specified).
+	// Id of an existing databricks_cluster, where the appropriate GRANT/REVOKE commands are executed. This cluster must have the appropriate data security mode (USER_ISOLATION or LEGACY_TABLE_ACL specified).
 	// +kubebuilder:validation:Optional
 	ClusterID *string `json:"clusterId,omitempty" tf:"cluster_id,omitempty"`
 
-	// Name of the database. Has default value of default.
+	// Name of the database. Has a default value of default.
 	// +kubebuilder:validation:Optional
 	Database *string `json:"database,omitempty" tf:"database,omitempty"`
 
 	// +kubebuilder:validation:Optional
 	PrivilegeAssignments []PrivilegeAssignmentsParameters `json:"privilegeAssignments,omitempty" tf:"privilege_assignments,omitempty"`
 
-	// Name of the table. Can be combined with database.
+	// Name of the table. Can be combined with the database.
 	// +kubebuilder:validation:Optional
 	Table *string `json:"table,omitempty" tf:"table,omitempty"`
 
-	// Name of the view. Can be combined with database.
+	// Name of the view. Can be combined with the database.
 	// +kubebuilder:validation:Optional
 	View *string `json:"view,omitempty" tf:"view,omitempty"`
 }

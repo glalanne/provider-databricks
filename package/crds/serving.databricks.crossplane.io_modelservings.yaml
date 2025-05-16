@@ -79,18 +79,20 @@ spec:
                     items:
                       properties:
                         fallbackConfig:
-                          description: The model serving endpoint configuration. This
-                            is optional and can be added and modified after creation.
-                            If config was provided in a previous apply but is not
-                            provided in the current apply, no change to the model
-                            serving endpoint will occur. To recreate the model serving
-                            endpoint without the config block, the model serving endpoint
-                            must be destroyed and recreated.
+                          description: block with configuration for traffic fallback
+                            which auto fallbacks to other served entities if the request
+                            to a served entity fails with certain error codes, to
+                            increase availability.
                           items:
                             properties:
                               enabled:
-                                description: boolean flag specifying if usage tracking
-                                  is enabled.
+                                description: Whether to enable traffic fallback. When
+                                  a served entity in the serving endpoint returns
+                                  specific error codes (e.g. 500), the request will
+                                  automatically be round-robin attempted with other
+                                  served entities in the same endpoint, following
+                                  the order of served entity list, until a successful
+                                  response is returned.
                                 type: boolean
                             type: object
                           type: array
@@ -190,8 +192,13 @@ spec:
                                   if it was already set.'
                                 type: string
                               enabled:
-                                description: boolean flag specifying if usage tracking
-                                  is enabled.
+                                description: Whether to enable traffic fallback. When
+                                  a served entity in the serving endpoint returns
+                                  specific error codes (e.g. 500), the request will
+                                  automatically be round-robin attempted with other
+                                  served entities in the same endpoint, following
+                                  the order of served entity list, until a successful
+                                  response is returned.
                                 type: boolean
                               schemaName:
                                 description: 'The name of the schema in Unity Catalog.
@@ -230,16 +237,21 @@ spec:
                           items:
                             properties:
                               enabled:
-                                description: boolean flag specifying if usage tracking
-                                  is enabled.
+                                description: Whether to enable traffic fallback. When
+                                  a served entity in the serving endpoint returns
+                                  specific error codes (e.g. 500), the request will
+                                  automatically be round-robin attempted with other
+                                  served entities in the same endpoint, following
+                                  the order of served entity list, until a successful
+                                  response is returned.
                                 type: boolean
                             type: object
                           type: array
                       type: object
                     type: array
                   budgetPolicyId:
-                    description: Equal to the name argument and used to identify the
-                      serving endpoint.
+                    description: (Optiona) The Budget Policy ID set for this serving
+                      endpoint.
                     type: string
                   config:
                     description: The model serving endpoint configuration. This is
@@ -261,8 +273,13 @@ spec:
                                   if it was already set.'
                                 type: string
                               enabled:
-                                description: boolean flag specifying if usage tracking
-                                  is enabled.
+                                description: Whether to enable traffic fallback. When
+                                  a served entity in the serving endpoint returns
+                                  specific error codes (e.g. 500), the request will
+                                  automatically be round-robin attempted with other
+                                  served entities in the same endpoint, following
+                                  the order of served entity list, until a successful
+                                  response is returned.
                                 type: boolean
                               schemaName:
                                 description: 'The name of the schema in Unity Catalog.
@@ -408,18 +425,14 @@ spec:
                                         type: object
                                       type: array
                                     customProviderConfig:
-                                      description: The model serving endpoint configuration.
-                                        This is optional and can be added and modified
-                                        after creation. If config was provided in
-                                        a previous apply but is not provided in the
-                                        current apply, no change to the model serving
-                                        endpoint will occur. To recreate the model
-                                        serving endpoint without the config block,
-                                        the model serving endpoint must be destroyed
-                                        and recreated.
+                                      description: Custom Provider Config. Only required
+                                        if the provider is 'custom'.
                                       items:
                                         properties:
                                           apiKeyAuth:
+                                            description: API key authentication for
+                                              the custom provider API. Conflicts with
+                                              bearer_token_auth.
                                             items:
                                               properties:
                                                 key:
@@ -427,29 +440,34 @@ spec:
                                                     tag.
                                                   type: string
                                                 value:
-                                                  description: The value field for
-                                                    a tag.
+                                                  description: The Databricks secret
+                                                    key reference for an API Key.
                                                   type: string
                                                 valuePlaintext:
-                                                  description: suffix) or in plain
-                                                    text (parameters with _plaintext
-                                                    suffix)!
+                                                  description: The API Key provided
+                                                    as a plaintext string.
                                                   type: string
                                               type: object
                                             type: array
                                           bearerTokenAuth:
+                                            description: bearer token authentication
+                                              for the custom provider API.  Conflicts
+                                              with api_key_auth.
                                             items:
                                               properties:
                                                 token:
+                                                  description: The Databricks secret
+                                                    key reference for a token.
                                                   type: string
                                                 tokenPlaintext:
-                                                  description: suffix) or in plain
-                                                    text (parameters with _plaintext
-                                                    suffix)!
+                                                  description: The token provided
+                                                    as a plaintext string.
                                                   type: string
                                               type: object
                                             type: array
                                           customProviderUrl:
+                                            description: URL of the custom provider
+                                              API.
                                             type: string
                                         type: object
                                       type: array
@@ -632,6 +650,8 @@ spec:
                                   served model name can consist of alphanumeric characters,
                                   dashes, and underscores.
                                 type: string
+                              provisionedModelUnits:
+                                type: number
                               scaleToZeroEnabled:
                                 description: Whether the compute resources for the
                                   served model should scale down to zero. If scale-to-zero
@@ -701,6 +721,8 @@ spec:
                                   served model name can consist of alphanumeric characters,
                                   dashes, and underscores.
                                 type: string
+                              provisionedModelUnits:
+                                type: number
                               scaleToZeroEnabled:
                                 description: Whether the compute resources for the
                                   served model should scale down to zero. If scale-to-zero
@@ -825,18 +847,20 @@ spec:
                     items:
                       properties:
                         fallbackConfig:
-                          description: The model serving endpoint configuration. This
-                            is optional and can be added and modified after creation.
-                            If config was provided in a previous apply but is not
-                            provided in the current apply, no change to the model
-                            serving endpoint will occur. To recreate the model serving
-                            endpoint without the config block, the model serving endpoint
-                            must be destroyed and recreated.
+                          description: block with configuration for traffic fallback
+                            which auto fallbacks to other served entities if the request
+                            to a served entity fails with certain error codes, to
+                            increase availability.
                           items:
                             properties:
                               enabled:
-                                description: boolean flag specifying if usage tracking
-                                  is enabled.
+                                description: Whether to enable traffic fallback. When
+                                  a served entity in the serving endpoint returns
+                                  specific error codes (e.g. 500), the request will
+                                  automatically be round-robin attempted with other
+                                  served entities in the same endpoint, following
+                                  the order of served entity list, until a successful
+                                  response is returned.
                                 type: boolean
                             type: object
                           type: array
@@ -936,8 +960,13 @@ spec:
                                   if it was already set.'
                                 type: string
                               enabled:
-                                description: boolean flag specifying if usage tracking
-                                  is enabled.
+                                description: Whether to enable traffic fallback. When
+                                  a served entity in the serving endpoint returns
+                                  specific error codes (e.g. 500), the request will
+                                  automatically be round-robin attempted with other
+                                  served entities in the same endpoint, following
+                                  the order of served entity list, until a successful
+                                  response is returned.
                                 type: boolean
                               schemaName:
                                 description: 'The name of the schema in Unity Catalog.
@@ -976,16 +1005,21 @@ spec:
                           items:
                             properties:
                               enabled:
-                                description: boolean flag specifying if usage tracking
-                                  is enabled.
+                                description: Whether to enable traffic fallback. When
+                                  a served entity in the serving endpoint returns
+                                  specific error codes (e.g. 500), the request will
+                                  automatically be round-robin attempted with other
+                                  served entities in the same endpoint, following
+                                  the order of served entity list, until a successful
+                                  response is returned.
                                 type: boolean
                             type: object
                           type: array
                       type: object
                     type: array
                   budgetPolicyId:
-                    description: Equal to the name argument and used to identify the
-                      serving endpoint.
+                    description: (Optiona) The Budget Policy ID set for this serving
+                      endpoint.
                     type: string
                   config:
                     description: The model serving endpoint configuration. This is
@@ -1007,8 +1041,13 @@ spec:
                                   if it was already set.'
                                 type: string
                               enabled:
-                                description: boolean flag specifying if usage tracking
-                                  is enabled.
+                                description: Whether to enable traffic fallback. When
+                                  a served entity in the serving endpoint returns
+                                  specific error codes (e.g. 500), the request will
+                                  automatically be round-robin attempted with other
+                                  served entities in the same endpoint, following
+                                  the order of served entity list, until a successful
+                                  response is returned.
                                 type: boolean
                               schemaName:
                                 description: 'The name of the schema in Unity Catalog.
@@ -1154,18 +1193,14 @@ spec:
                                         type: object
                                       type: array
                                     customProviderConfig:
-                                      description: The model serving endpoint configuration.
-                                        This is optional and can be added and modified
-                                        after creation. If config was provided in
-                                        a previous apply but is not provided in the
-                                        current apply, no change to the model serving
-                                        endpoint will occur. To recreate the model
-                                        serving endpoint without the config block,
-                                        the model serving endpoint must be destroyed
-                                        and recreated.
+                                      description: Custom Provider Config. Only required
+                                        if the provider is 'custom'.
                                       items:
                                         properties:
                                           apiKeyAuth:
+                                            description: API key authentication for
+                                              the custom provider API. Conflicts with
+                                              bearer_token_auth.
                                             items:
                                               properties:
                                                 key:
@@ -1173,29 +1208,34 @@ spec:
                                                     tag.
                                                   type: string
                                                 value:
-                                                  description: The value field for
-                                                    a tag.
+                                                  description: The Databricks secret
+                                                    key reference for an API Key.
                                                   type: string
                                                 valuePlaintext:
-                                                  description: suffix) or in plain
-                                                    text (parameters with _plaintext
-                                                    suffix)!
+                                                  description: The API Key provided
+                                                    as a plaintext string.
                                                   type: string
                                               type: object
                                             type: array
                                           bearerTokenAuth:
+                                            description: bearer token authentication
+                                              for the custom provider API.  Conflicts
+                                              with api_key_auth.
                                             items:
                                               properties:
                                                 token:
+                                                  description: The Databricks secret
+                                                    key reference for a token.
                                                   type: string
                                                 tokenPlaintext:
-                                                  description: suffix) or in plain
-                                                    text (parameters with _plaintext
-                                                    suffix)!
+                                                  description: The token provided
+                                                    as a plaintext string.
                                                   type: string
                                               type: object
                                             type: array
                                           customProviderUrl:
+                                            description: URL of the custom provider
+                                              API.
                                             type: string
                                         type: object
                                       type: array
@@ -1378,6 +1418,8 @@ spec:
                                   served model name can consist of alphanumeric characters,
                                   dashes, and underscores.
                                 type: string
+                              provisionedModelUnits:
+                                type: number
                               scaleToZeroEnabled:
                                 description: Whether the compute resources for the
                                   served model should scale down to zero. If scale-to-zero
@@ -1447,6 +1489,8 @@ spec:
                                   served model name can consist of alphanumeric characters,
                                   dashes, and underscores.
                                 type: string
+                              provisionedModelUnits:
+                                type: number
                               scaleToZeroEnabled:
                                 description: Whether the compute resources for the
                                   served model should scale down to zero. If scale-to-zero
@@ -1735,18 +1779,20 @@ spec:
                     items:
                       properties:
                         fallbackConfig:
-                          description: The model serving endpoint configuration. This
-                            is optional and can be added and modified after creation.
-                            If config was provided in a previous apply but is not
-                            provided in the current apply, no change to the model
-                            serving endpoint will occur. To recreate the model serving
-                            endpoint without the config block, the model serving endpoint
-                            must be destroyed and recreated.
+                          description: block with configuration for traffic fallback
+                            which auto fallbacks to other served entities if the request
+                            to a served entity fails with certain error codes, to
+                            increase availability.
                           items:
                             properties:
                               enabled:
-                                description: boolean flag specifying if usage tracking
-                                  is enabled.
+                                description: Whether to enable traffic fallback. When
+                                  a served entity in the serving endpoint returns
+                                  specific error codes (e.g. 500), the request will
+                                  automatically be round-robin attempted with other
+                                  served entities in the same endpoint, following
+                                  the order of served entity list, until a successful
+                                  response is returned.
                                 type: boolean
                             type: object
                           type: array
@@ -1846,8 +1892,13 @@ spec:
                                   if it was already set.'
                                 type: string
                               enabled:
-                                description: boolean flag specifying if usage tracking
-                                  is enabled.
+                                description: Whether to enable traffic fallback. When
+                                  a served entity in the serving endpoint returns
+                                  specific error codes (e.g. 500), the request will
+                                  automatically be round-robin attempted with other
+                                  served entities in the same endpoint, following
+                                  the order of served entity list, until a successful
+                                  response is returned.
                                 type: boolean
                               schemaName:
                                 description: 'The name of the schema in Unity Catalog.
@@ -1886,16 +1937,21 @@ spec:
                           items:
                             properties:
                               enabled:
-                                description: boolean flag specifying if usage tracking
-                                  is enabled.
+                                description: Whether to enable traffic fallback. When
+                                  a served entity in the serving endpoint returns
+                                  specific error codes (e.g. 500), the request will
+                                  automatically be round-robin attempted with other
+                                  served entities in the same endpoint, following
+                                  the order of served entity list, until a successful
+                                  response is returned.
                                 type: boolean
                             type: object
                           type: array
                       type: object
                     type: array
                   budgetPolicyId:
-                    description: Equal to the name argument and used to identify the
-                      serving endpoint.
+                    description: (Optiona) The Budget Policy ID set for this serving
+                      endpoint.
                     type: string
                   config:
                     description: The model serving endpoint configuration. This is
@@ -1917,8 +1973,13 @@ spec:
                                   if it was already set.'
                                 type: string
                               enabled:
-                                description: boolean flag specifying if usage tracking
-                                  is enabled.
+                                description: Whether to enable traffic fallback. When
+                                  a served entity in the serving endpoint returns
+                                  specific error codes (e.g. 500), the request will
+                                  automatically be round-robin attempted with other
+                                  served entities in the same endpoint, following
+                                  the order of served entity list, until a successful
+                                  response is returned.
                                 type: boolean
                               schemaName:
                                 description: 'The name of the schema in Unity Catalog.
@@ -2064,18 +2125,14 @@ spec:
                                         type: object
                                       type: array
                                     customProviderConfig:
-                                      description: The model serving endpoint configuration.
-                                        This is optional and can be added and modified
-                                        after creation. If config was provided in
-                                        a previous apply but is not provided in the
-                                        current apply, no change to the model serving
-                                        endpoint will occur. To recreate the model
-                                        serving endpoint without the config block,
-                                        the model serving endpoint must be destroyed
-                                        and recreated.
+                                      description: Custom Provider Config. Only required
+                                        if the provider is 'custom'.
                                       items:
                                         properties:
                                           apiKeyAuth:
+                                            description: API key authentication for
+                                              the custom provider API. Conflicts with
+                                              bearer_token_auth.
                                             items:
                                               properties:
                                                 key:
@@ -2083,29 +2140,34 @@ spec:
                                                     tag.
                                                   type: string
                                                 value:
-                                                  description: The value field for
-                                                    a tag.
+                                                  description: The Databricks secret
+                                                    key reference for an API Key.
                                                   type: string
                                                 valuePlaintext:
-                                                  description: suffix) or in plain
-                                                    text (parameters with _plaintext
-                                                    suffix)!
+                                                  description: The API Key provided
+                                                    as a plaintext string.
                                                   type: string
                                               type: object
                                             type: array
                                           bearerTokenAuth:
+                                            description: bearer token authentication
+                                              for the custom provider API.  Conflicts
+                                              with api_key_auth.
                                             items:
                                               properties:
                                                 token:
+                                                  description: The Databricks secret
+                                                    key reference for a token.
                                                   type: string
                                                 tokenPlaintext:
-                                                  description: suffix) or in plain
-                                                    text (parameters with _plaintext
-                                                    suffix)!
+                                                  description: The token provided
+                                                    as a plaintext string.
                                                   type: string
                                               type: object
                                             type: array
                                           customProviderUrl:
+                                            description: URL of the custom provider
+                                              API.
                                             type: string
                                         type: object
                                       type: array
@@ -2288,6 +2350,8 @@ spec:
                                   served model name can consist of alphanumeric characters,
                                   dashes, and underscores.
                                 type: string
+                              provisionedModelUnits:
+                                type: number
                               scaleToZeroEnabled:
                                 description: Whether the compute resources for the
                                   served model should scale down to zero. If scale-to-zero
@@ -2357,6 +2421,8 @@ spec:
                                   served model name can consist of alphanumeric characters,
                                   dashes, and underscores.
                                 type: string
+                              provisionedModelUnits:
+                                type: number
                               scaleToZeroEnabled:
                                 description: Whether the compute resources for the
                                   served model should scale down to zero. If scale-to-zero

@@ -142,8 +142,9 @@ spec:
                             block is present in the job definition.
                           type: string
                         warehouseId:
-                          description: The ID of the SQL warehouse that dbt should
-                            execute against.
+                          description: The warehouse id to execute the dashboard with
+                            for the schedule. If not specified, will use the default
+                            warehouse of dashboard
                           type: string
                       type: object
                     type: array
@@ -202,6 +203,9 @@ spec:
                             type: string
                           type: array
                         onStreamingBacklogExceeded:
+                          description: (List) list of notification IDs to call when
+                            any streaming backlog thresholds are exceeded for any
+                            stream.
                           items:
                             type: string
                           type: array
@@ -231,6 +235,16 @@ spec:
                                 description: client version used by the environment.
                                 type: string
                               dependencies:
+                                description: (list of strings) List of pip dependencies,
+                                  as supported by the version of pip in this environment.
+                                  Each dependency is a pip requirement file line.  See
+                                  API docs for more information.
+                                items:
+                                  type: string
+                                type: array
+                              environmentVersion:
+                                type: string
+                              jarDependencies:
                                 description: (list of strings) List of pip dependencies,
                                   as supported by the version of pip in this environment.
                                   Each dependency is a pip requirement file line.  See
@@ -723,8 +737,9 @@ spec:
                               runtimeEngine:
                                 type: string
                               singleUserName:
-                                description: An optional name for the job. The default
-                                  value is Untitled.
+                                description: A snapshot of the dashboard will be sent
+                                  to the user's email when the user_name field is
+                                  present.
                                 type: string
                               sparkConf:
                                 additionalProperties:
@@ -1192,8 +1207,8 @@ spec:
                         runtimeEngine:
                           type: string
                         singleUserName:
-                          description: An optional name for the job. The default value
-                            is Untitled.
+                          description: A snapshot of the dashboard will be sent to
+                            the user's email when the user_name field is present.
                           type: string
                         sparkConf:
                           additionalProperties:
@@ -1245,7 +1260,7 @@ spec:
                             be merged. If the same key is specified in base_parameters
                             and in run-now, the value from run-now will be used. If
                             the notebook takes a parameter that is not specified in
-                            the job’s base_parameters or the run-now override parameters,
+                            the job's base_parameters or the run-now override parameters,
                             the default value from the notebook will be used. Retrieve
                             these parameters in a notebook using dbutils.widgets.get.
                           type: object
@@ -1264,8 +1279,9 @@ spec:
                             block is present in the job definition.
                           type: string
                         warehouseId:
-                          description: The ID of the SQL warehouse that dbt should
-                            execute against.
+                          description: The warehouse id to execute the dashboard with
+                            for the schedule. If not specified, will use the default
+                            warehouse of dashboard
                           type: string
                       type: object
                     type: array
@@ -1299,6 +1315,9 @@ spec:
                       type: object
                     type: array
                   performanceTarget:
+                    description: 'The performance mode on a serverless job. The performance
+                      target determines the level of compute performance or cost-efficiency
+                      for the run.  Supported values are:'
                     type: string
                   pipelineTask:
                     description: A list of task specification that the job will execute.
@@ -1445,9 +1464,9 @@ spec:
                             databricks_dbfs_file, cloud file URIs (e.g. s3:/, abfss:/,
                             gs:/), workspace paths and remote repository are supported.
                             For Python files stored in the Databricks workspace, the
-                            path must be absolute and begin with /Repos. For files
-                            stored in a remote repository, the path must be relative.
-                            This field is required.
+                            path must be absolute and begin with /. For files stored
+                            in a remote repository, the path must be relative. This
+                            field is required.
                           type: string
                         source:
                           description: The source of the project. Possible values
@@ -1529,6 +1548,53 @@ spec:
                                 type: string
                             type: object
                           type: array
+                        dashboardTask:
+                          description: A list of task specification that the job will
+                            execute. See task Configuration Block below.
+                          items:
+                            properties:
+                              dashboardId:
+                                description: The identifier of the dashboard to refresh
+                                type: string
+                              subscription:
+                                description: Represents a subscription configuration
+                                  for scheduled dashboard snapshots.
+                                items:
+                                  properties:
+                                    customSubject:
+                                      description: Allows users to specify a custom
+                                        subject line on the email sent to subscribers.
+                                      type: string
+                                    paused:
+                                      description: When true, the subscription will
+                                        not send emails.
+                                      type: boolean
+                                    subscribers:
+                                      description: The list of subscribers to send
+                                        the snapshot of the dashboard to.
+                                      items:
+                                        properties:
+                                          destinationId:
+                                            description: A snapshot of the dashboard
+                                              will be sent to the destination when
+                                              the destination_id field is present.
+                                            type: string
+                                          userName:
+                                            description: A snapshot of the dashboard
+                                              will be sent to the user's email when
+                                              the user_name field is present.
+                                            type: string
+                                        type: object
+                                      type: array
+                                  type: object
+                                type: array
+                              warehouseId:
+                                description: The warehouse id to execute the dashboard
+                                  with for the schedule. If not specified, will use
+                                  the default warehouse of dashboard
+                                type: string
+                            type: object
+                          type: array
                         dbtTask:
                           description: A list of task specification that the job will
                             execute. See task Configuration Block below.
@@ -1565,8 +1631,9 @@ spec:
                                   block is present in the job definition.
                                 type: string
                               warehouseId:
-                                description: The ID of the SQL warehouse that dbt
-                                  should execute against.
+                                description: The warehouse id to execute the dashboard
+                                  with for the schedule. If not specified, will use
+                                  the default warehouse of dashboard
                                 type: string
                             type: object
                           type: array
@@ -1630,6 +1697,9 @@ spec:
                                   type: string
                                 type: array
                               onStreamingBacklogExceeded:
+                                description: (List) list of notification IDs to call
+                                  when any streaming backlog thresholds are exceeded
+                                  for any stream.
                                 items:
                                   type: string
                                 type: array
@@ -1727,6 +1797,62 @@ spec:
                                             type: string
                                         type: object
                                       type: array
+                                    dashboardTask:
+                                      description: A list of task specification that
+                                        the job will execute. See task Configuration
+                                        Block below.
+                                      items:
+                                        properties:
+                                          dashboardId:
+                                            description: The identifier of the dashboard
+                                              to refresh
+                                            type: string
+                                          subscription:
+                                            description: Represents a subscription
+                                              configuration for scheduled dashboard
+                                              snapshots.
+                                            items:
+                                              properties:
+                                                customSubject:
+                                                  description: Allows users to specify
+                                                    a custom subject line on the email
+                                                    sent to subscribers.
+                                                  type: string
+                                                paused:
+                                                  description: When true, the subscription
+                                                    will not send emails.
+                                                  type: boolean
+                                                subscribers:
+                                                  description: The list of subscribers
+                                                    to send the snapshot of the dashboard
+                                                    to.
+                                                  items:
+                                                    properties:
+                                                      destinationId:
+                                                        description: A snapshot of
+                                                          the dashboard will be sent
+                                                          to the destination when
+                                                          the destination_id field
+                                                          is present.
+                                                        type: string
+                                                      userName:
+                                                        description: A snapshot of
+                                                          the dashboard will be sent
+                                                          to the user's email when
+                                                          the user_name field is present.
+                                                        type: string
+                                                    type: object
+                                                  type: array
+                                              type: object
+                                            type: array
+                                          warehouseId:
+                                            description: The warehouse id to execute
+                                              the dashboard with for the schedule.
+                                              If not specified, will use the default
+                                              warehouse of dashboard
+                                            type: string
+                                        type: object
+                                      type: array
                                     dbtTask:
                                       description: A list of task specification that
                                         the job will execute. See task Configuration
@@ -1770,8 +1896,10 @@ spec:
                                               in the job definition.
                                             type: string
                                           warehouseId:
-                                            description: The ID of the SQL warehouse
-                                              that dbt should execute against.
+                                            description: The warehouse id to execute
+                                              the dashboard with for the schedule.
+                                              If not specified, will use the default
+                                              warehouse of dashboard
                                             type: string
                                         type: object
                                       type: array
@@ -1840,6 +1968,9 @@ spec:
                                               type: string
                                             type: array
                                           onStreamingBacklogExceeded:
+                                            description: (List) list of notification
+                                              IDs to call when any streaming backlog
+                                              thresholds are exceeded for any stream.
                                             items:
                                               type: string
                                             type: array
@@ -2413,8 +2544,9 @@ spec:
                                           runtimeEngine:
                                             type: string
                                           singleUserName:
-                                            description: An optional name for the
-                                              job. The default value is Untitled.
+                                            description: A snapshot of the dashboard
+                                              will be sent to the user's email when
+                                              the user_name field is present.
                                             type: string
                                           sparkConf:
                                             additionalProperties:
@@ -2470,7 +2602,7 @@ spec:
                                               is specified in base_parameters and
                                               in run-now, the value from run-now will
                                               be used. If the notebook takes a parameter
-                                              that is not specified in the job’s base_parameters
+                                              that is not specified in the job's base_parameters
                                               or the run-now override parameters,
                                               the default value from the notebook
                                               will be used. Retrieve these parameters
@@ -2494,8 +2626,10 @@ spec:
                                               in the job definition.
                                             type: string
                                           warehouseId:
-                                            description: The ID of the SQL warehouse
-                                              that dbt should execute against.
+                                            description: The warehouse id to execute
+                                              the dashboard with for the schedule.
+                                              If not specified, will use the default
+                                              warehouse of dashboard
                                             type: string
                                         type: object
                                       type: array
@@ -2537,6 +2671,84 @@ spec:
                                             type: boolean
                                           pipelineId:
                                             description: The pipeline's unique ID.
+                                            type: string
+                                        type: object
+                                      type: array
+                                    powerBiTask:
+                                      description: A list of task specification that
+                                        the job will execute. See task Configuration
+                                        Block below.
+                                      items:
+                                        properties:
+                                          connectionResourceName:
+                                            description: The resource name of the
+                                              UC connection to authenticate from Databricks
+                                              to Power BI
+                                            type: string
+                                          powerBiModel:
+                                            description: 'The semantic model to update.
+                                              Block consists of following fields:'
+                                            items:
+                                              properties:
+                                                authenticationMethod:
+                                                  description: How the published Power
+                                                    BI model authenticates to Databricks
+                                                  type: string
+                                                modelName:
+                                                  description: The name of the Power
+                                                    BI model
+                                                  type: string
+                                                overwriteExisting:
+                                                  description: Whether to overwrite
+                                                    existing Power BI models. Default
+                                                    is false
+                                                  type: boolean
+                                                storageMode:
+                                                  description: The Power BI storage
+                                                    mode of the table
+                                                  type: string
+                                                workspaceName:
+                                                  description: The name of the Power
+                                                    BI workspace of the model
+                                                  type: string
+                                              type: object
+                                            type: array
+                                          refreshAfterUpdate:
+                                            description: Whether the model should
+                                              be refreshed after the update. Default
+                                              is false
+                                            type: boolean
+                                          tables:
+                                            description: '(Array) The tables to be
+                                              exported to Power BI. Block consists
+                                              of following fields:'
+                                            items:
+                                              properties:
+                                                catalog:
+                                                  description: The name of the catalog
+                                                    to use inside Unity Catalog.
+                                                  type: string
+                                                name:
+                                                  description: An optional name for
+                                                    the job. The default value is
+                                                    Untitled.
+                                                  type: string
+                                                schema:
+                                                  description: The name of the schema
+                                                    dbt should run in. Defaults to
+                                                    default.
+                                                  type: string
+                                                storageMode:
+                                                  description: The Power BI storage
+                                                    mode of the table
+                                                  type: string
+                                              type: object
+                                            type: array
+                                          warehouseId:
+                                            description: The warehouse id to execute
+                                              the dashboard with for the schedule.
+                                              If not specified, will use the default
+                                              warehouse of dashboard
                                             type: string
                                         type: object
                                       type: array
@@ -2686,8 +2898,8 @@ spec:
                                               gs:/), workspace paths and remote repository
                                               are supported. For Python files stored
                                               in the Databricks workspace, the path
-                                              must be absolute and begin with /Repos.
-                                              For files stored in a remote repository,
+                                              must be absolute and begin with /. For
+                                              files stored in a remote repository,
                                               the path must be relative. This field
                                               is required.
                                             type: string
@@ -2741,18 +2953,17 @@ spec:
                                                   items:
                                                     properties:
                                                       destinationId:
-                                                        description: ID of the system
-                                                          notification that is notified
-                                                          when an event defined in
-                                                          webhook_notifications is
-                                                          triggered.
+                                                        description: A snapshot of
+                                                          the dashboard will be sent
+                                                          to the destination when
+                                                          the destination_id field
+                                                          is present.
                                                         type: string
                                                       userName:
-                                                        description: The email of
-                                                          an active workspace user.
-                                                          Non-admin users can only
-                                                          set this field to their
-                                                          own email.
+                                                        description: A snapshot of
+                                                          the dashboard will be sent
+                                                          to the user's email when
+                                                          the user_name field is present.
                                                         type: string
                                                     type: object
                                                   type: array
@@ -2764,13 +2975,13 @@ spec:
                                             items:
                                               properties:
                                                 customSubject:
-                                                  description: string specifying a
-                                                    custom subject of email sent.
+                                                  description: Allows users to specify
+                                                    a custom subject line on the email
+                                                    sent to subscribers.
                                                   type: string
                                                 dashboardId:
-                                                  description: (String) identifier
-                                                    of the Databricks SQL Dashboard
-                                                    databricks_sql_dashboard.
+                                                  description: The identifier of the
+                                                    dashboard to refresh
                                                   type: string
                                                 pauseSubscriptions:
                                                   description: flag that specifies
@@ -2786,18 +2997,17 @@ spec:
                                                   items:
                                                     properties:
                                                       destinationId:
-                                                        description: ID of the system
-                                                          notification that is notified
-                                                          when an event defined in
-                                                          webhook_notifications is
-                                                          triggered.
+                                                        description: A snapshot of
+                                                          the dashboard will be sent
+                                                          to the destination when
+                                                          the destination_id field
+                                                          is present.
                                                         type: string
                                                       userName:
-                                                        description: The email of
-                                                          an active workspace user.
-                                                          Non-admin users can only
-                                                          set this field to their
-                                                          own email.
+                                                        description: A snapshot of
+                                                          the dashboard will be sent
+                                                          to the user's email when
+                                                          the user_name field is present.
                                                         type: string
                                                     type: object
                                                   type: array
@@ -2847,8 +3057,10 @@ spec:
                                               type: object
                                             type: array
                                           warehouseId:
-                                            description: The ID of the SQL warehouse
-                                              that dbt should execute against.
+                                            description: The warehouse id to execute
+                                              the dashboard with for the schedule.
+                                              If not specified, will use the default
+                                              warehouse of dashboard
                                             type: string
                                         type: object
                                       type: array
@@ -2915,6 +3127,9 @@ spec:
                                               type: object
                                             type: array
                                           onStreamingBacklogExceeded:
+                                            description: (List) list of notification
+                                              IDs to call when any streaming backlog
+                                              thresholds are exceeded for any stream.
                                             items:
                                               properties:
                                                 id:
@@ -3464,8 +3679,9 @@ spec:
                               runtimeEngine:
                                 type: string
                               singleUserName:
-                                description: An optional name for the job. The default
-                                  value is Untitled.
+                                description: A snapshot of the dashboard will be sent
+                                  to the user's email when the user_name field is
+                                  present.
                                 type: string
                               sparkConf:
                                 additionalProperties:
@@ -3518,7 +3734,7 @@ spec:
                                   two parameters maps will be merged. If the same
                                   key is specified in base_parameters and in run-now,
                                   the value from run-now will be used. If the notebook
-                                  takes a parameter that is not specified in the job’s
+                                  takes a parameter that is not specified in the job's
                                   base_parameters or the run-now override parameters,
                                   the default value from the notebook will be used.
                                   Retrieve these parameters in a notebook using dbutils.widgets.get.
@@ -3538,8 +3754,9 @@ spec:
                                   block is present in the job definition.
                                 type: string
                               warehouseId:
-                                description: The ID of the SQL warehouse that dbt
-                                  should execute against.
+                                description: The warehouse id to execute the dashboard
+                                  with for the schedule. If not specified, will use
+                                  the default warehouse of dashboard
                                 type: string
                             type: object
                           type: array
@@ -3576,6 +3793,75 @@ spec:
                                 type: boolean
                               pipelineId:
                                 description: The pipeline's unique ID.
+                                type: string
+                            type: object
+                          type: array
+                        powerBiTask:
+                          description: A list of task specification that the job will
+                            execute. See task Configuration Block below.
+                          items:
+                            properties:
+                              connectionResourceName:
+                                description: The resource name of the UC connection
+                                  to authenticate from Databricks to Power BI
+                                type: string
+                              powerBiModel:
+                                description: 'The semantic model to update. Block
+                                  consists of following fields:'
+                                items:
+                                  properties:
+                                    authenticationMethod:
+                                      description: How the published Power BI model
+                                        authenticates to Databricks
+                                      type: string
+                                    modelName:
+                                      description: The name of the Power BI model
+                                      type: string
+                                    overwriteExisting:
+                                      description: Whether to overwrite existing Power
+                                        BI models. Default is false
+                                      type: boolean
+                                    storageMode:
+                                      description: The Power BI storage mode of the
+                                        table
+                                      type: string
+                                    workspaceName:
+                                      description: The name of the Power BI workspace
+                                        of the model
+                                      type: string
+                                  type: object
+                                type: array
+                              refreshAfterUpdate:
+                                description: Whether the model should be refreshed
+                                  after the update. Default is false
+                                type: boolean
+                              tables:
+                                description: '(Array) The tables to be exported to
+                                  Power BI. Block consists of following fields:'
+                                items:
+                                  properties:
+                                    catalog:
+                                      description: The name of the catalog to use
+                                        inside Unity Catalog.
+                                      type: string
+                                    name:
+                                      description: An optional name for the job. The
+                                        default value is Untitled.
+                                      type: string
+                                    schema:
+                                      description: The name of the schema dbt should
+                                        run in. Defaults to default.
+                                      type: string
+                                    storageMode:
+                                      description: The Power BI storage mode of the
+                                        table
+                                      type: string
+                                  type: object
+                                type: array
+                              warehouseId:
+                                description: The warehouse id to execute the dashboard
+                                  with for the schedule. If not specified, will use
+                                  the default warehouse of dashboard
                                 type: string
                             type: object
                           type: array
@@ -3714,8 +4000,8 @@ spec:
                                   abfss:/, gs:/), workspace paths and remote repository
                                   are supported. For Python files stored in the Databricks
                                   workspace, the path must be absolute and begin with
-                                  /Repos. For files stored in a remote repository,
-                                  the path must be relative. This field is required.
+                                  /. For files stored in a remote repository, the
+                                  path must be relative. This field is required.
                                 type: string
                               source:
                                 description: The source of the project. Possible values
@@ -3761,14 +4047,14 @@ spec:
                                       items:
                                         properties:
                                           destinationId:
-                                            description: ID of the system notification
-                                              that is notified when an event defined
-                                              in webhook_notifications is triggered.
+                                            description: A snapshot of the dashboard
+                                              will be sent to the destination when
+                                              the destination_id field is present.
                                             type: string
                                           userName:
-                                            description: The email of an active workspace
-                                              user. Non-admin users can only set this
-                                              field to their own email.
+                                            description: A snapshot of the dashboard
+                                              will be sent to the user's email when
+                                              the user_name field is present.
                                             type: string
                                         type: object
                                       type: array
@@ -3779,12 +4065,12 @@ spec:
                                 items:
                                   properties:
                                     customSubject:
-                                      description: string specifying a custom subject
-                                        of email sent.
+                                      description: Allows users to specify a custom
+                                        subject line on the email sent to subscribers.
                                       type: string
                                     dashboardId:
-                                      description: (String) identifier of the Databricks
-                                        SQL Dashboard databricks_sql_dashboard.
+                                      description: The identifier of the dashboard
+                                        to refresh
                                       type: string
                                     pauseSubscriptions:
                                       description: flag that specifies if subscriptions
@@ -3798,14 +4084,14 @@ spec:
                                       items:
                                         properties:
                                           destinationId:
-                                            description: ID of the system notification
-                                              that is notified when an event defined
-                                              in webhook_notifications is triggered.
+                                            description: A snapshot of the dashboard
+                                              will be sent to the destination when
+                                              the destination_id field is present.
                                             type: string
                                           userName:
-                                            description: The email of an active workspace
-                                              user. Non-admin users can only set this
-                                              field to their own email.
+                                            description: A snapshot of the dashboard
+                                              will be sent to the user's email when
+                                              the user_name field is present.
                                             type: string
                                         type: object
                                       type: array
@@ -3850,8 +4136,9 @@ spec:
                                   type: object
                                 type: array
                               warehouseId:
-                                description: The ID of the SQL warehouse that dbt
-                                  should execute against.
+                                description: The warehouse id to execute the dashboard
+                                  with for the schedule. If not specified, will use
+                                  the default warehouse of dashboard
                                 type: string
                             type: object
                           type: array
@@ -3912,6 +4199,9 @@ spec:
                                   type: object
                                 type: array
                               onStreamingBacklogExceeded:
+                                description: (List) list of notification IDs to call
+                                  when any streaming backlog thresholds are exceeded
+                                  for any stream.
                                 items:
                                   properties:
                                     id:
@@ -4089,6 +4379,9 @@ spec:
                             type: object
                           type: array
                         onStreamingBacklogExceeded:
+                          description: (List) list of notification IDs to call when
+                            any streaming backlog thresholds are exceeded for any
+                            stream.
                           items:
                             properties:
                               id:
@@ -4197,8 +4490,9 @@ spec:
                             block is present in the job definition.
                           type: string
                         warehouseId:
-                          description: The ID of the SQL warehouse that dbt should
-                            execute against.
+                          description: The warehouse id to execute the dashboard with
+                            for the schedule. If not specified, will use the default
+                            warehouse of dashboard
                           type: string
                       type: object
                     type: array
@@ -4257,6 +4551,9 @@ spec:
                             type: string
                           type: array
                         onStreamingBacklogExceeded:
+                          description: (List) list of notification IDs to call when
+                            any streaming backlog thresholds are exceeded for any
+                            stream.
                           items:
                             type: string
                           type: array
@@ -4286,6 +4583,16 @@ spec:
                                 description: client version used by the environment.
                                 type: string
                               dependencies:
+                                description: (list of strings) List of pip dependencies,
+                                  as supported by the version of pip in this environment.
+                                  Each dependency is a pip requirement file line.  See
+                                  API docs for more information.
+                                items:
+                                  type: string
+                                type: array
+                              environmentVersion:
+                                type: string
+                              jarDependencies:
                                 description: (list of strings) List of pip dependencies,
                                   as supported by the version of pip in this environment.
                                   Each dependency is a pip requirement file line.  See
@@ -4780,8 +5087,9 @@ spec:
                               runtimeEngine:
                                 type: string
                               singleUserName:
-                                description: An optional name for the job. The default
-                                  value is Untitled.
+                                description: A snapshot of the dashboard will be sent
+                                  to the user's email when the user_name field is
+                                  present.
                                 type: string
                               sparkConf:
                                 additionalProperties:
@@ -5251,8 +5559,8 @@ spec:
                         runtimeEngine:
                           type: string
                         singleUserName:
-                          description: An optional name for the job. The default value
-                            is Untitled.
+                          description: A snapshot of the dashboard will be sent to
+                            the user's email when the user_name field is present.
                           type: string
                         sparkConf:
                           additionalProperties:
@@ -5304,7 +5612,7 @@ spec:
                             be merged. If the same key is specified in base_parameters
                             and in run-now, the value from run-now will be used. If
                             the notebook takes a parameter that is not specified in
-                            the job’s base_parameters or the run-now override parameters,
+                            the job's base_parameters or the run-now override parameters,
                             the default value from the notebook will be used. Retrieve
                             these parameters in a notebook using dbutils.widgets.get.
                           type: object
@@ -5323,8 +5631,9 @@ spec:
                             block is present in the job definition.
                           type: string
                         warehouseId:
-                          description: The ID of the SQL warehouse that dbt should
-                            execute against.
+                          description: The warehouse id to execute the dashboard with
+                            for the schedule. If not specified, will use the default
+                            warehouse of dashboard
                           type: string
                       type: object
                     type: array
@@ -5358,6 +5667,9 @@ spec:
                       type: object
                     type: array
                   performanceTarget:
+                    description: 'The performance mode on a serverless job. The performance
+                      target determines the level of compute performance or cost-efficiency
+                      for the run.  Supported values are:'
                     type: string
                   pipelineTask:
                     description: A list of task specification that the job will execute.
@@ -5504,9 +5816,9 @@ spec:
                             databricks_dbfs_file, cloud file URIs (e.g. s3:/, abfss:/,
                             gs:/), workspace paths and remote repository are supported.
                             For Python files stored in the Databricks workspace, the
-                            path must be absolute and begin with /Repos. For files
-                            stored in a remote repository, the path must be relative.
-                            This field is required.
+                            path must be absolute and begin with /. For files stored
+                            in a remote repository, the path must be relative. This
+                            field is required.
                           type: string
                         source:
                           description: The source of the project. Possible values
@@ -5588,6 +5900,53 @@ spec:
                                 type: string
                             type: object
                           type: array
+                        dashboardTask:
+                          description: A list of task specification that the job will
+                            execute. See task Configuration Block below.
+                          items:
+                            properties:
+                              dashboardId:
+                                description: The identifier of the dashboard to refresh
+                                type: string
+                              subscription:
+                                description: Represents a subscription configuration
+                                  for scheduled dashboard snapshots.
+                                items:
+                                  properties:
+                                    customSubject:
+                                      description: Allows users to specify a custom
+                                        subject line on the email sent to subscribers.
+                                      type: string
+                                    paused:
+                                      description: When true, the subscription will
+                                        not send emails.
+                                      type: boolean
+                                    subscribers:
+                                      description: The list of subscribers to send
+                                        the snapshot of the dashboard to.
+                                      items:
+                                        properties:
+                                          destinationId:
+                                            description: A snapshot of the dashboard
+                                              will be sent to the destination when
+                                              the destination_id field is present.
+                                            type: string
+                                          userName:
+                                            description: A snapshot of the dashboard
+                                              will be sent to the user's email when
+                                              the user_name field is present.
+                                            type: string
+                                        type: object
+                                      type: array
+                                  type: object
+                                type: array
+                              warehouseId:
+                                description: The warehouse id to execute the dashboard
+                                  with for the schedule. If not specified, will use
+                                  the default warehouse of dashboard
+                                type: string
+                            type: object
+                          type: array
                         dbtTask:
                           description: A list of task specification that the job will
                             execute. See task Configuration Block below.
@@ -5624,8 +5983,9 @@ spec:
                                   block is present in the job definition.
                                 type: string
                               warehouseId:
-                                description: The ID of the SQL warehouse that dbt
-                                  should execute against.
+                                description: The warehouse id to execute the dashboard
+                                  with for the schedule. If not specified, will use
+                                  the default warehouse of dashboard
                                 type: string
                             type: object
                           type: array
@@ -5689,6 +6049,9 @@ spec:
                                   type: string
                                 type: array
                               onStreamingBacklogExceeded:
+                                description: (List) list of notification IDs to call
+                                  when any streaming backlog thresholds are exceeded
+                                  for any stream.
                                 items:
                                   type: string
                                 type: array
@@ -5786,6 +6149,62 @@ spec:
                                             type: string
                                         type: object
                                       type: array
+                                    dashboardTask:
+                                      description: A list of task specification that
+                                        the job will execute. See task Configuration
+                                        Block below.
+                                      items:
+                                        properties:
+                                          dashboardId:
+                                            description: The identifier of the dashboard
+                                              to refresh
+                                            type: string
+                                          subscription:
+                                            description: Represents a subscription
+                                              configuration for scheduled dashboard
+                                              snapshots.
+                                            items:
+                                              properties:
+                                                customSubject:
+                                                  description: Allows users to specify
+                                                    a custom subject line on the email
+                                                    sent to subscribers.
+                                                  type: string
+                                                paused:
+                                                  description: When true, the subscription
+                                                    will not send emails.
+                                                  type: boolean
+                                                subscribers:
+                                                  description: The list of subscribers
+                                                    to send the snapshot of the dashboard
+                                                    to.
+                                                  items:
+                                                    properties:
+                                                      destinationId:
+                                                        description: A snapshot of
+                                                          the dashboard will be sent
+                                                          to the destination when
+                                                          the destination_id field
+                                                          is present.
+                                                        type: string
+                                                      userName:
+                                                        description: A snapshot of
+                                                          the dashboard will be sent
+                                                          to the user's email when
+                                                          the user_name field is present.
+                                                        type: string
+                                                    type: object
+                                                  type: array
+                                              type: object
+                                            type: array
+                                          warehouseId:
+                                            description: The warehouse id to execute
+                                              the dashboard with for the schedule.
+                                              If not specified, will use the default
+                                              warehouse of dashboard
+                                            type: string
+                                        type: object
+                                      type: array
                                     dbtTask:
                                       description: A list of task specification that
                                         the job will execute. See task Configuration
@@ -5829,8 +6248,10 @@ spec:
                                               in the job definition.
                                             type: string
                                           warehouseId:
-                                            description: The ID of the SQL warehouse
-                                              that dbt should execute against.
+                                            description: The warehouse id to execute
+                                              the dashboard with for the schedule.
+                                              If not specified, will use the default
+                                              warehouse of dashboard
                                             type: string
                                         type: object
                                       type: array
@@ -5899,6 +6320,9 @@ spec:
                                               type: string
                                             type: array
                                           onStreamingBacklogExceeded:
+                                            description: (List) list of notification
+                                              IDs to call when any streaming backlog
+                                              thresholds are exceeded for any stream.
                                             items:
                                               type: string
                                             type: array
@@ -6474,8 +6898,9 @@ spec:
                                           runtimeEngine:
                                             type: string
                                           singleUserName:
-                                            description: An optional name for the
-                                              job. The default value is Untitled.
+                                            description: A snapshot of the dashboard
+                                              will be sent to the user's email when
+                                              the user_name field is present.
                                             type: string
                                           sparkConf:
                                             additionalProperties:
@@ -6531,7 +6956,7 @@ spec:
                                               is specified in base_parameters and
                                               in run-now, the value from run-now will
                                               be used. If the notebook takes a parameter
-                                              that is not specified in the job’s base_parameters
+                                              that is not specified in the job's base_parameters
                                               or the run-now override parameters,
                                               the default value from the notebook
                                               will be used. Retrieve these parameters
@@ -6555,8 +6980,10 @@ spec:
                                               in the job definition.
                                             type: string
                                           warehouseId:
-                                            description: The ID of the SQL warehouse
-                                              that dbt should execute against.
+                                            description: The warehouse id to execute
+                                              the dashboard with for the schedule.
+                                              If not specified, will use the default
+                                              warehouse of dashboard
                                             type: string
                                         type: object
                                       type: array
@@ -6598,6 +7025,84 @@ spec:
                                             type: boolean
                                           pipelineId:
                                             description: The pipeline's unique ID.
+                                            type: string
+                                        type: object
+                                      type: array
+                                    powerBiTask:
+                                      description: A list of task specification that
+                                        the job will execute. See task Configuration
+                                        Block below.
+                                      items:
+                                        properties:
+                                          connectionResourceName:
+                                            description: The resource name of the
+                                              UC connection to authenticate from Databricks
+                                              to Power BI
+                                            type: string
+                                          powerBiModel:
+                                            description: 'The semantic model to update.
+                                              Block consists of following fields:'
+                                            items:
+                                              properties:
+                                                authenticationMethod:
+                                                  description: How the published Power
+                                                    BI model authenticates to Databricks
+                                                  type: string
+                                                modelName:
+                                                  description: The name of the Power
+                                                    BI model
+                                                  type: string
+                                                overwriteExisting:
+                                                  description: Whether to overwrite
+                                                    existing Power BI models. Default
+                                                    is false
+                                                  type: boolean
+                                                storageMode:
+                                                  description: The Power BI storage
+                                                    mode of the table
+                                                  type: string
+                                                workspaceName:
+                                                  description: The name of the Power
+                                                    BI workspace of the model
+                                                  type: string
+                                              type: object
+                                            type: array
+                                          refreshAfterUpdate:
+                                            description: Whether the model should
+                                              be refreshed after the update. Default
+                                              is false
+                                            type: boolean
+                                          tables:
+                                            description: '(Array) The tables to be
+                                              exported to Power BI. Block consists
+                                              of following fields:'
+                                            items:
+                                              properties:
+                                                catalog:
+                                                  description: The name of the catalog
+                                                    to use inside Unity Catalog.
+                                                  type: string
+                                                name:
+                                                  description: An optional name for
+                                                    the job. The default value is
+                                                    Untitled.
+                                                  type: string
+                                                schema:
+                                                  description: The name of the schema
+                                                    dbt should run in. Defaults to
+                                                    default.
+                                                  type: string
+                                                storageMode:
+                                                  description: The Power BI storage
+                                                    mode of the table
+                                                  type: string
+                                              type: object
+                                            type: array
+                                          warehouseId:
+                                            description: The warehouse id to execute
+                                              the dashboard with for the schedule.
+                                              If not specified, will use the default
+                                              warehouse of dashboard
                                             type: string
                                         type: object
                                       type: array
@@ -6747,8 +7252,8 @@ spec:
                                               gs:/), workspace paths and remote repository
                                               are supported. For Python files stored
                                               in the Databricks workspace, the path
-                                              must be absolute and begin with /Repos.
-                                              For files stored in a remote repository,
+                                              must be absolute and begin with /. For
+                                              files stored in a remote repository,
                                               the path must be relative. This field
                                               is required.
                                             type: string
@@ -6802,18 +7307,17 @@ spec:
                                                   items:
                                                     properties:
                                                       destinationId:
-                                                        description: ID of the system
-                                                          notification that is notified
-                                                          when an event defined in
-                                                          webhook_notifications is
-                                                          triggered.
+                                                        description: A snapshot of
+                                                          the dashboard will be sent
+                                                          to the destination when
+                                                          the destination_id field
+                                                          is present.
                                                         type: string
                                                       userName:
-                                                        description: The email of
-                                                          an active workspace user.
-                                                          Non-admin users can only
-                                                          set this field to their
-                                                          own email.
+                                                        description: A snapshot of
+                                                          the dashboard will be sent
+                                                          to the user's email when
+                                                          the user_name field is present.
                                                         type: string
                                                     type: object
                                                   type: array
@@ -6825,13 +7329,13 @@ spec:
                                             items:
                                               properties:
                                                 customSubject:
-                                                  description: string specifying a
-                                                    custom subject of email sent.
+                                                  description: Allows users to specify
+                                                    a custom subject line on the email
+                                                    sent to subscribers.
                                                   type: string
                                                 dashboardId:
-                                                  description: (String) identifier
-                                                    of the Databricks SQL Dashboard
-                                                    databricks_sql_dashboard.
+                                                  description: The identifier of the
+                                                    dashboard to refresh
                                                   type: string
                                                 pauseSubscriptions:
                                                   description: flag that specifies
@@ -6847,18 +7351,17 @@ spec:
                                                   items:
                                                     properties:
                                                       destinationId:
-                                                        description: ID of the system
-                                                          notification that is notified
-                                                          when an event defined in
-                                                          webhook_notifications is
-                                                          triggered.
+                                                        description: A snapshot of
+                                                          the dashboard will be sent
+                                                          to the destination when
+                                                          the destination_id field
+                                                          is present.
                                                         type: string
                                                       userName:
-                                                        description: The email of
-                                                          an active workspace user.
-                                                          Non-admin users can only
-                                                          set this field to their
-                                                          own email.
+                                                        description: A snapshot of
+                                                          the dashboard will be sent
+                                                          to the user's email when
+                                                          the user_name field is present.
                                                         type: string
                                                     type: object
                                                   type: array
@@ -6908,8 +7411,10 @@ spec:
                                               type: object
                                             type: array
                                           warehouseId:
-                                            description: The ID of the SQL warehouse
-                                              that dbt should execute against.
+                                            description: The warehouse id to execute
+                                              the dashboard with for the schedule.
+                                              If not specified, will use the default
+                                              warehouse of dashboard
                                             type: string
                                         type: object
                                       type: array
@@ -6976,6 +7481,9 @@ spec:
                                               type: object
                                             type: array
                                           onStreamingBacklogExceeded:
+                                            description: (List) list of notification
+                                              IDs to call when any streaming backlog
+                                              thresholds are exceeded for any stream.
                                             items:
                                               properties:
                                                 id:
@@ -7527,8 +8035,9 @@ spec:
                               runtimeEngine:
                                 type: string
                               singleUserName:
-                                description: An optional name for the job. The default
-                                  value is Untitled.
+                                description: A snapshot of the dashboard will be sent
+                                  to the user's email when the user_name field is
+                                  present.
                                 type: string
                               sparkConf:
                                 additionalProperties:
@@ -7581,7 +8090,7 @@ spec:
                                   two parameters maps will be merged. If the same
                                   key is specified in base_parameters and in run-now,
                                   the value from run-now will be used. If the notebook
-                                  takes a parameter that is not specified in the job’s
+                                  takes a parameter that is not specified in the job's
                                   base_parameters or the run-now override parameters,
                                   the default value from the notebook will be used.
                                   Retrieve these parameters in a notebook using dbutils.widgets.get.
@@ -7601,8 +8110,9 @@ spec:
                                   block is present in the job definition.
                                 type: string
                               warehouseId:
-                                description: The ID of the SQL warehouse that dbt
-                                  should execute against.
+                                description: The warehouse id to execute the dashboard
+                                  with for the schedule. If not specified, will use
+                                  the default warehouse of dashboard
                                 type: string
                             type: object
                           type: array
@@ -7639,6 +8149,75 @@ spec:
                                 type: boolean
                               pipelineId:
                                 description: The pipeline's unique ID.
+                                type: string
+                            type: object
+                          type: array
+                        powerBiTask:
+                          description: A list of task specification that the job will
+                            execute. See task Configuration Block below.
+                          items:
+                            properties:
+                              connectionResourceName:
+                                description: The resource name of the UC connection
+                                  to authenticate from Databricks to Power BI
+                                type: string
+                              powerBiModel:
+                                description: 'The semantic model to update. Block
+                                  consists of following fields:'
+                                items:
+                                  properties:
+                                    authenticationMethod:
+                                      description: How the published Power BI model
+                                        authenticates to Databricks
+                                      type: string
+                                    modelName:
+                                      description: The name of the Power BI model
+                                      type: string
+                                    overwriteExisting:
+                                      description: Whether to overwrite existing Power
+                                        BI models. Default is false
+                                      type: boolean
+                                    storageMode:
+                                      description: The Power BI storage mode of the
+                                        table
+                                      type: string
+                                    workspaceName:
+                                      description: The name of the Power BI workspace
+                                        of the model
+                                      type: string
+                                  type: object
+                                type: array
+                              refreshAfterUpdate:
+                                description: Whether the model should be refreshed
+                                  after the update. Default is false
+                                type: boolean
+                              tables:
+                                description: '(Array) The tables to be exported to
+                                  Power BI. Block consists of following fields:'
+                                items:
+                                  properties:
+                                    catalog:
+                                      description: The name of the catalog to use
+                                        inside Unity Catalog.
+                                      type: string
+                                    name:
+                                      description: An optional name for the job. The
+                                        default value is Untitled.
+                                      type: string
+                                    schema:
+                                      description: The name of the schema dbt should
+                                        run in. Defaults to default.
+                                      type: string
+                                    storageMode:
+                                      description: The Power BI storage mode of the
+                                        table
+                                      type: string
+                                  type: object
+                                type: array
+                              warehouseId:
+                                description: The warehouse id to execute the dashboard
+                                  with for the schedule. If not specified, will use
+                                  the default warehouse of dashboard
                                 type: string
                             type: object
                           type: array
@@ -7777,8 +8356,8 @@ spec:
                                   abfss:/, gs:/), workspace paths and remote repository
                                   are supported. For Python files stored in the Databricks
                                   workspace, the path must be absolute and begin with
-                                  /Repos. For files stored in a remote repository,
-                                  the path must be relative. This field is required.
+                                  /. For files stored in a remote repository, the
+                                  path must be relative. This field is required.
                                 type: string
                               source:
                                 description: The source of the project. Possible values
@@ -7824,14 +8403,14 @@ spec:
                                       items:
                                         properties:
                                           destinationId:
-                                            description: ID of the system notification
-                                              that is notified when an event defined
-                                              in webhook_notifications is triggered.
+                                            description: A snapshot of the dashboard
+                                              will be sent to the destination when
+                                              the destination_id field is present.
                                             type: string
                                           userName:
-                                            description: The email of an active workspace
-                                              user. Non-admin users can only set this
-                                              field to their own email.
+                                            description: A snapshot of the dashboard
+                                              will be sent to the user's email when
+                                              the user_name field is present.
                                             type: string
                                         type: object
                                       type: array
@@ -7842,12 +8421,12 @@ spec:
                                 items:
                                   properties:
                                     customSubject:
-                                      description: string specifying a custom subject
-                                        of email sent.
+                                      description: Allows users to specify a custom
+                                        subject line on the email sent to subscribers.
                                       type: string
                                     dashboardId:
-                                      description: (String) identifier of the Databricks
-                                        SQL Dashboard databricks_sql_dashboard.
+                                      description: The identifier of the dashboard
+                                        to refresh
                                       type: string
                                     pauseSubscriptions:
                                       description: flag that specifies if subscriptions
@@ -7861,14 +8440,14 @@ spec:
                                       items:
                                         properties:
                                           destinationId:
-                                            description: ID of the system notification
-                                              that is notified when an event defined
-                                              in webhook_notifications is triggered.
+                                            description: A snapshot of the dashboard
+                                              will be sent to the destination when
+                                              the destination_id field is present.
                                             type: string
                                           userName:
-                                            description: The email of an active workspace
-                                              user. Non-admin users can only set this
-                                              field to their own email.
+                                            description: A snapshot of the dashboard
+                                              will be sent to the user's email when
+                                              the user_name field is present.
                                             type: string
                                         type: object
                                       type: array
@@ -7913,8 +8492,9 @@ spec:
                                   type: object
                                 type: array
                               warehouseId:
-                                description: The ID of the SQL warehouse that dbt
-                                  should execute against.
+                                description: The warehouse id to execute the dashboard
+                                  with for the schedule. If not specified, will use
+                                  the default warehouse of dashboard
                                 type: string
                             type: object
                           type: array
@@ -7975,6 +8555,9 @@ spec:
                                   type: object
                                 type: array
                               onStreamingBacklogExceeded:
+                                description: (List) list of notification IDs to call
+                                  when any streaming backlog thresholds are exceeded
+                                  for any stream.
                                 items:
                                   properties:
                                     id:
@@ -8152,6 +8735,9 @@ spec:
                             type: object
                           type: array
                         onStreamingBacklogExceeded:
+                          description: (List) list of notification IDs to call when
+                            any streaming backlog thresholds are exceeded for any
+                            stream.
                           items:
                             properties:
                               id:
@@ -8419,8 +9005,9 @@ spec:
                             block is present in the job definition.
                           type: string
                         warehouseId:
-                          description: The ID of the SQL warehouse that dbt should
-                            execute against.
+                          description: The warehouse id to execute the dashboard with
+                            for the schedule. If not specified, will use the default
+                            warehouse of dashboard
                           type: string
                       type: object
                     type: array
@@ -8479,6 +9066,9 @@ spec:
                             type: string
                           type: array
                         onStreamingBacklogExceeded:
+                          description: (List) list of notification IDs to call when
+                            any streaming backlog thresholds are exceeded for any
+                            stream.
                           items:
                             type: string
                           type: array
@@ -8508,6 +9098,16 @@ spec:
                                 description: client version used by the environment.
                                 type: string
                               dependencies:
+                                description: (list of strings) List of pip dependencies,
+                                  as supported by the version of pip in this environment.
+                                  Each dependency is a pip requirement file line.  See
+                                  API docs for more information.
+                                items:
+                                  type: string
+                                type: array
+                              environmentVersion:
+                                type: string
+                              jarDependencies:
                                 description: (list of strings) List of pip dependencies,
                                   as supported by the version of pip in this environment.
                                   Each dependency is a pip requirement file line.  See
@@ -8985,8 +9585,9 @@ spec:
                               runtimeEngine:
                                 type: string
                               singleUserName:
-                                description: An optional name for the job. The default
-                                  value is Untitled.
+                                description: A snapshot of the dashboard will be sent
+                                  to the user's email when the user_name field is
+                                  present.
                                 type: string
                               sparkConf:
                                 additionalProperties:
@@ -9436,8 +10037,8 @@ spec:
                         runtimeEngine:
                           type: string
                         singleUserName:
-                          description: An optional name for the job. The default value
-                            is Untitled.
+                          description: A snapshot of the dashboard will be sent to
+                            the user's email when the user_name field is present.
                           type: string
                         sparkConf:
                           additionalProperties:
@@ -9489,7 +10090,7 @@ spec:
                             be merged. If the same key is specified in base_parameters
                             and in run-now, the value from run-now will be used. If
                             the notebook takes a parameter that is not specified in
-                            the job’s base_parameters or the run-now override parameters,
+                            the job's base_parameters or the run-now override parameters,
                             the default value from the notebook will be used. Retrieve
                             these parameters in a notebook using dbutils.widgets.get.
                           type: object
@@ -9508,8 +10109,9 @@ spec:
                             block is present in the job definition.
                           type: string
                         warehouseId:
-                          description: The ID of the SQL warehouse that dbt should
-                            execute against.
+                          description: The warehouse id to execute the dashboard with
+                            for the schedule. If not specified, will use the default
+                            warehouse of dashboard
                           type: string
                       type: object
                     type: array
@@ -9543,6 +10145,9 @@ spec:
                       type: object
                     type: array
                   performanceTarget:
+                    description: 'The performance mode on a serverless job. The performance
+                      target determines the level of compute performance or cost-efficiency
+                      for the run.  Supported values are:'
                     type: string
                   pipelineTask:
                     description: A list of task specification that the job will execute.
@@ -9689,9 +10294,9 @@ spec:
                             databricks_dbfs_file, cloud file URIs (e.g. s3:/, abfss:/,
                             gs:/), workspace paths and remote repository are supported.
                             For Python files stored in the Databricks workspace, the
-                            path must be absolute and begin with /Repos. For files
-                            stored in a remote repository, the path must be relative.
-                            This field is required.
+                            path must be absolute and begin with /. For files stored
+                            in a remote repository, the path must be relative. This
+                            field is required.
                           type: string
                         source:
                           description: The source of the project. Possible values
@@ -9773,6 +10378,53 @@ spec:
                                 type: string
                             type: object
                           type: array
+                        dashboardTask:
+                          description: A list of task specification that the job will
+                            execute. See task Configuration Block below.
+                          items:
+                            properties:
+                              dashboardId:
+                                description: The identifier of the dashboard to refresh
+                                type: string
+                              subscription:
+                                description: Represents a subscription configuration
+                                  for scheduled dashboard snapshots.
+                                items:
+                                  properties:
+                                    customSubject:
+                                      description: Allows users to specify a custom
+                                        subject line on the email sent to subscribers.
+                                      type: string
+                                    paused:
+                                      description: When true, the subscription will
+                                        not send emails.
+                                      type: boolean
+                                    subscribers:
+                                      description: The list of subscribers to send
+                                        the snapshot of the dashboard to.
+                                      items:
+                                        properties:
+                                          destinationId:
+                                            description: A snapshot of the dashboard
+                                              will be sent to the destination when
+                                              the destination_id field is present.
+                                            type: string
+                                          userName:
+                                            description: A snapshot of the dashboard
+                                              will be sent to the user's email when
+                                              the user_name field is present.
+                                            type: string
+                                        type: object
+                                      type: array
+                                  type: object
+                                type: array
+                              warehouseId:
+                                description: The warehouse id to execute the dashboard
+                                  with for the schedule. If not specified, will use
+                                  the default warehouse of dashboard
+                                type: string
+                            type: object
+                          type: array
                         dbtTask:
                           description: A list of task specification that the job will
                             execute. See task Configuration Block below.
@@ -9809,8 +10461,9 @@ spec:
                                   block is present in the job definition.
                                 type: string
                               warehouseId:
-                                description: The ID of the SQL warehouse that dbt
-                                  should execute against.
+                                description: The warehouse id to execute the dashboard
+                                  with for the schedule. If not specified, will use
+                                  the default warehouse of dashboard
                                 type: string
                             type: object
                           type: array
@@ -9874,6 +10527,9 @@ spec:
                                   type: string
                                 type: array
                               onStreamingBacklogExceeded:
+                                description: (List) list of notification IDs to call
+                                  when any streaming backlog thresholds are exceeded
+                                  for any stream.
                                 items:
                                   type: string
                                 type: array
@@ -9971,6 +10627,62 @@ spec:
                                             type: string
                                         type: object
                                       type: array
+                                    dashboardTask:
+                                      description: A list of task specification that
+                                        the job will execute. See task Configuration
+                                        Block below.
+                                      items:
+                                        properties:
+                                          dashboardId:
+                                            description: The identifier of the dashboard
+                                              to refresh
+                                            type: string
+                                          subscription:
+                                            description: Represents a subscription
+                                              configuration for scheduled dashboard
+                                              snapshots.
+                                            items:
+                                              properties:
+                                                customSubject:
+                                                  description: Allows users to specify
+                                                    a custom subject line on the email
+                                                    sent to subscribers.
+                                                  type: string
+                                                paused:
+                                                  description: When true, the subscription
+                                                    will not send emails.
+                                                  type: boolean
+                                                subscribers:
+                                                  description: The list of subscribers
+                                                    to send the snapshot of the dashboard
+                                                    to.
+                                                  items:
+                                                    properties:
+                                                      destinationId:
+                                                        description: A snapshot of
+                                                          the dashboard will be sent
+                                                          to the destination when
+                                                          the destination_id field
+                                                          is present.
+                                                        type: string
+                                                      userName:
+                                                        description: A snapshot of
+                                                          the dashboard will be sent
+                                                          to the user's email when
+                                                          the user_name field is present.
+                                                        type: string
+                                                    type: object
+                                                  type: array
+                                              type: object
+                                            type: array
+                                          warehouseId:
+                                            description: The warehouse id to execute
+                                              the dashboard with for the schedule.
+                                              If not specified, will use the default
+                                              warehouse of dashboard
+                                            type: string
+                                        type: object
+                                      type: array
                                     dbtTask:
                                       description: A list of task specification that
                                         the job will execute. See task Configuration
@@ -10014,8 +10726,10 @@ spec:
                                               in the job definition.
                                             type: string
                                           warehouseId:
-                                            description: The ID of the SQL warehouse
-                                              that dbt should execute against.
+                                            description: The warehouse id to execute
+                                              the dashboard with for the schedule.
+                                              If not specified, will use the default
+                                              warehouse of dashboard
                                             type: string
                                         type: object
                                       type: array
@@ -10084,6 +10798,9 @@ spec:
                                               type: string
                                             type: array
                                           onStreamingBacklogExceeded:
+                                            description: (List) list of notification
+                                              IDs to call when any streaming backlog
+                                              thresholds are exceeded for any stream.
                                             items:
                                               type: string
                                             type: array
@@ -10635,8 +11352,9 @@ spec:
                                           runtimeEngine:
                                             type: string
                                           singleUserName:
-                                            description: An optional name for the
-                                              job. The default value is Untitled.
+                                            description: A snapshot of the dashboard
+                                              will be sent to the user's email when
+                                              the user_name field is present.
                                             type: string
                                           sparkConf:
                                             additionalProperties:
@@ -10692,7 +11410,7 @@ spec:
                                               is specified in base_parameters and
                                               in run-now, the value from run-now will
                                               be used. If the notebook takes a parameter
-                                              that is not specified in the job’s base_parameters
+                                              that is not specified in the job's base_parameters
                                               or the run-now override parameters,
                                               the default value from the notebook
                                               will be used. Retrieve these parameters
@@ -10716,8 +11434,10 @@ spec:
                                               in the job definition.
                                             type: string
                                           warehouseId:
-                                            description: The ID of the SQL warehouse
-                                              that dbt should execute against.
+                                            description: The warehouse id to execute
+                                              the dashboard with for the schedule.
+                                              If not specified, will use the default
+                                              warehouse of dashboard
                                             type: string
                                         type: object
                                       type: array
@@ -10759,6 +11479,84 @@ spec:
                                             type: boolean
                                           pipelineId:
                                             description: The pipeline's unique ID.
+                                            type: string
+                                        type: object
+                                      type: array
+                                    powerBiTask:
+                                      description: A list of task specification that
+                                        the job will execute. See task Configuration
+                                        Block below.
+                                      items:
+                                        properties:
+                                          connectionResourceName:
+                                            description: The resource name of the
+                                              UC connection to authenticate from Databricks
+                                              to Power BI
+                                            type: string
+                                          powerBiModel:
+                                            description: 'The semantic model to update.
+                                              Block consists of following fields:'
+                                            items:
+                                              properties:
+                                                authenticationMethod:
+                                                  description: How the published Power
+                                                    BI model authenticates to Databricks
+                                                  type: string
+                                                modelName:
+                                                  description: The name of the Power
+                                                    BI model
+                                                  type: string
+                                                overwriteExisting:
+                                                  description: Whether to overwrite
+                                                    existing Power BI models. Default
+                                                    is false
+                                                  type: boolean
+                                                storageMode:
+                                                  description: The Power BI storage
+                                                    mode of the table
+                                                  type: string
+                                                workspaceName:
+                                                  description: The name of the Power
+                                                    BI workspace of the model
+                                                  type: string
+                                              type: object
+                                            type: array
+                                          refreshAfterUpdate:
+                                            description: Whether the model should
+                                              be refreshed after the update. Default
+                                              is false
+                                            type: boolean
+                                          tables:
+                                            description: '(Array) The tables to be
+                                              exported to Power BI. Block consists
+                                              of following fields:'
+                                            items:
+                                              properties:
+                                                catalog:
+                                                  description: The name of the catalog
+                                                    to use inside Unity Catalog.
+                                                  type: string
+                                                name:
+                                                  description: An optional name for
+                                                    the job. The default value is
+                                                    Untitled.
+                                                  type: string
+                                                schema:
+                                                  description: The name of the schema
+                                                    dbt should run in. Defaults to
+                                                    default.
+                                                  type: string
+                                                storageMode:
+                                                  description: The Power BI storage
+                                                    mode of the table
+                                                  type: string
+                                              type: object
+                                            type: array
+                                          warehouseId:
+                                            description: The warehouse id to execute
+                                              the dashboard with for the schedule.
+                                              If not specified, will use the default
+                                              warehouse of dashboard
                                             type: string
                                         type: object
                                       type: array
@@ -10908,8 +11706,8 @@ spec:
                                               gs:/), workspace paths and remote repository
                                               are supported. For Python files stored
                                               in the Databricks workspace, the path
-                                              must be absolute and begin with /Repos.
-                                              For files stored in a remote repository,
+                                              must be absolute and begin with /. For
+                                              files stored in a remote repository,
                                               the path must be relative. This field
                                               is required.
                                             type: string
@@ -10963,18 +11761,17 @@ spec:
                                                   items:
                                                     properties:
                                                       destinationId:
-                                                        description: ID of the system
-                                                          notification that is notified
-                                                          when an event defined in
-                                                          webhook_notifications is
-                                                          triggered.
+                                                        description: A snapshot of
+                                                          the dashboard will be sent
+                                                          to the destination when
+                                                          the destination_id field
+                                                          is present.
                                                         type: string
                                                       userName:
-                                                        description: The email of
-                                                          an active workspace user.
-                                                          Non-admin users can only
-                                                          set this field to their
-                                                          own email.
+                                                        description: A snapshot of
+                                                          the dashboard will be sent
+                                                          to the user's email when
+                                                          the user_name field is present.
                                                         type: string
                                                     type: object
                                                   type: array
@@ -10986,13 +11783,13 @@ spec:
                                             items:
                                               properties:
                                                 customSubject:
-                                                  description: string specifying a
-                                                    custom subject of email sent.
+                                                  description: Allows users to specify
+                                                    a custom subject line on the email
+                                                    sent to subscribers.
                                                   type: string
                                                 dashboardId:
-                                                  description: (String) identifier
-                                                    of the Databricks SQL Dashboard
-                                                    databricks_sql_dashboard.
+                                                  description: The identifier of the
+                                                    dashboard to refresh
                                                   type: string
                                                 pauseSubscriptions:
                                                   description: flag that specifies
@@ -11008,18 +11805,17 @@ spec:
                                                   items:
                                                     properties:
                                                       destinationId:
-                                                        description: ID of the system
-                                                          notification that is notified
-                                                          when an event defined in
-                                                          webhook_notifications is
-                                                          triggered.
+                                                        description: A snapshot of
+                                                          the dashboard will be sent
+                                                          to the destination when
+                                                          the destination_id field
+                                                          is present.
                                                         type: string
                                                       userName:
-                                                        description: The email of
-                                                          an active workspace user.
-                                                          Non-admin users can only
-                                                          set this field to their
-                                                          own email.
+                                                        description: A snapshot of
+                                                          the dashboard will be sent
+                                                          to the user's email when
+                                                          the user_name field is present.
                                                         type: string
                                                     type: object
                                                   type: array
@@ -11069,8 +11865,10 @@ spec:
                                               type: object
                                             type: array
                                           warehouseId:
-                                            description: The ID of the SQL warehouse
-                                              that dbt should execute against.
+                                            description: The warehouse id to execute
+                                              the dashboard with for the schedule.
+                                              If not specified, will use the default
+                                              warehouse of dashboard
                                             type: string
                                         type: object
                                       type: array
@@ -11137,6 +11935,9 @@ spec:
                                               type: object
                                             type: array
                                           onStreamingBacklogExceeded:
+                                            description: (List) list of notification
+                                              IDs to call when any streaming backlog
+                                              thresholds are exceeded for any stream.
                                             items:
                                               properties:
                                                 id:
@@ -11667,8 +12468,9 @@ spec:
                               runtimeEngine:
                                 type: string
                               singleUserName:
-                                description: An optional name for the job. The default
-                                  value is Untitled.
+                                description: A snapshot of the dashboard will be sent
+                                  to the user's email when the user_name field is
+                                  present.
                                 type: string
                               sparkConf:
                                 additionalProperties:
@@ -11721,7 +12523,7 @@ spec:
                                   two parameters maps will be merged. If the same
                                   key is specified in base_parameters and in run-now,
                                   the value from run-now will be used. If the notebook
-                                  takes a parameter that is not specified in the job’s
+                                  takes a parameter that is not specified in the job's
                                   base_parameters or the run-now override parameters,
                                   the default value from the notebook will be used.
                                   Retrieve these parameters in a notebook using dbutils.widgets.get.
@@ -11741,8 +12543,9 @@ spec:
                                   block is present in the job definition.
                                 type: string
                               warehouseId:
-                                description: The ID of the SQL warehouse that dbt
-                                  should execute against.
+                                description: The warehouse id to execute the dashboard
+                                  with for the schedule. If not specified, will use
+                                  the default warehouse of dashboard
                                 type: string
                             type: object
                           type: array
@@ -11779,6 +12582,75 @@ spec:
                                 type: boolean
                               pipelineId:
                                 description: The pipeline's unique ID.
+                                type: string
+                            type: object
+                          type: array
+                        powerBiTask:
+                          description: A list of task specification that the job will
+                            execute. See task Configuration Block below.
+                          items:
+                            properties:
+                              connectionResourceName:
+                                description: The resource name of the UC connection
+                                  to authenticate from Databricks to Power BI
+                                type: string
+                              powerBiModel:
+                                description: 'The semantic model to update. Block
+                                  consists of following fields:'
+                                items:
+                                  properties:
+                                    authenticationMethod:
+                                      description: How the published Power BI model
+                                        authenticates to Databricks
+                                      type: string
+                                    modelName:
+                                      description: The name of the Power BI model
+                                      type: string
+                                    overwriteExisting:
+                                      description: Whether to overwrite existing Power
+                                        BI models. Default is false
+                                      type: boolean
+                                    storageMode:
+                                      description: The Power BI storage mode of the
+                                        table
+                                      type: string
+                                    workspaceName:
+                                      description: The name of the Power BI workspace
+                                        of the model
+                                      type: string
+                                  type: object
+                                type: array
+                              refreshAfterUpdate:
+                                description: Whether the model should be refreshed
+                                  after the update. Default is false
+                                type: boolean
+                              tables:
+                                description: '(Array) The tables to be exported to
+                                  Power BI. Block consists of following fields:'
+                                items:
+                                  properties:
+                                    catalog:
+                                      description: The name of the catalog to use
+                                        inside Unity Catalog.
+                                      type: string
+                                    name:
+                                      description: An optional name for the job. The
+                                        default value is Untitled.
+                                      type: string
+                                    schema:
+                                      description: The name of the schema dbt should
+                                        run in. Defaults to default.
+                                      type: string
+                                    storageMode:
+                                      description: The Power BI storage mode of the
+                                        table
+                                      type: string
+                                  type: object
+                                type: array
+                              warehouseId:
+                                description: The warehouse id to execute the dashboard
+                                  with for the schedule. If not specified, will use
+                                  the default warehouse of dashboard
                                 type: string
                             type: object
                           type: array
@@ -11917,8 +12789,8 @@ spec:
                                   abfss:/, gs:/), workspace paths and remote repository
                                   are supported. For Python files stored in the Databricks
                                   workspace, the path must be absolute and begin with
-                                  /Repos. For files stored in a remote repository,
-                                  the path must be relative. This field is required.
+                                  /. For files stored in a remote repository, the
+                                  path must be relative. This field is required.
                                 type: string
                               source:
                                 description: The source of the project. Possible values
@@ -11964,14 +12836,14 @@ spec:
                                       items:
                                         properties:
                                           destinationId:
-                                            description: ID of the system notification
-                                              that is notified when an event defined
-                                              in webhook_notifications is triggered.
+                                            description: A snapshot of the dashboard
+                                              will be sent to the destination when
+                                              the destination_id field is present.
                                             type: string
                                           userName:
-                                            description: The email of an active workspace
-                                              user. Non-admin users can only set this
-                                              field to their own email.
+                                            description: A snapshot of the dashboard
+                                              will be sent to the user's email when
+                                              the user_name field is present.
                                             type: string
                                         type: object
                                       type: array
@@ -11982,12 +12854,12 @@ spec:
                                 items:
                                   properties:
                                     customSubject:
-                                      description: string specifying a custom subject
-                                        of email sent.
+                                      description: Allows users to specify a custom
+                                        subject line on the email sent to subscribers.
                                       type: string
                                     dashboardId:
-                                      description: (String) identifier of the Databricks
-                                        SQL Dashboard databricks_sql_dashboard.
+                                      description: The identifier of the dashboard
+                                        to refresh
                                       type: string
                                     pauseSubscriptions:
                                       description: flag that specifies if subscriptions
@@ -12001,14 +12873,14 @@ spec:
                                       items:
                                         properties:
                                           destinationId:
-                                            description: ID of the system notification
-                                              that is notified when an event defined
-                                              in webhook_notifications is triggered.
+                                            description: A snapshot of the dashboard
+                                              will be sent to the destination when
+                                              the destination_id field is present.
                                             type: string
                                           userName:
-                                            description: The email of an active workspace
-                                              user. Non-admin users can only set this
-                                              field to their own email.
+                                            description: A snapshot of the dashboard
+                                              will be sent to the user's email when
+                                              the user_name field is present.
                                             type: string
                                         type: object
                                       type: array
@@ -12053,8 +12925,9 @@ spec:
                                   type: object
                                 type: array
                               warehouseId:
-                                description: The ID of the SQL warehouse that dbt
-                                  should execute against.
+                                description: The warehouse id to execute the dashboard
+                                  with for the schedule. If not specified, will use
+                                  the default warehouse of dashboard
                                 type: string
                             type: object
                           type: array
@@ -12115,6 +12988,9 @@ spec:
                                   type: object
                                 type: array
                               onStreamingBacklogExceeded:
+                                description: (List) list of notification IDs to call
+                                  when any streaming backlog thresholds are exceeded
+                                  for any stream.
                                 items:
                                   properties:
                                     id:
@@ -12297,6 +13173,9 @@ spec:
                             type: object
                           type: array
                         onStreamingBacklogExceeded:
+                          description: (List) list of notification IDs to call when
+                            any streaming backlog thresholds are exceeded for any
+                            stream.
                           items:
                             properties:
                               id:

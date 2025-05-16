@@ -18,7 +18,7 @@ type GitCredentialInitParameters struct {
 	// specify if settings need to be enforced - right now, Databricks allows only single Git credential, so if it's already configured, the apply operation will fail.
 	Force *bool `json:"force,omitempty" tf:"force,omitempty"`
 
-	// case insensitive name of the Git provider.  Following values are supported right now (could be a subject for a change, consult Git Credentials API documentation): gitHub, gitHubEnterprise, bitbucketCloud, bitbucketServer, azureDevOpsServices, gitLab, gitLabEnterpriseEdition, awsCodeCommit.
+	// case insensitive name of the Git provider.  Following values are supported right now (could be a subject for a change, consult Git Credentials API documentation): gitHub, gitHubEnterprise, bitbucketCloud, bitbucketServer, azureDevOpsServices, gitLab, gitLabEnterpriseEdition, awsCodeCommit, azureDevOpsServicesAad.
 	GitProvider *string `json:"gitProvider,omitempty" tf:"git_provider,omitempty"`
 
 	// user name at Git provider.
@@ -33,7 +33,7 @@ type GitCredentialObservation struct {
 	// specify if settings need to be enforced - right now, Databricks allows only single Git credential, so if it's already configured, the apply operation will fail.
 	Force *bool `json:"force,omitempty" tf:"force,omitempty"`
 
-	// case insensitive name of the Git provider.  Following values are supported right now (could be a subject for a change, consult Git Credentials API documentation): gitHub, gitHubEnterprise, bitbucketCloud, bitbucketServer, azureDevOpsServices, gitLab, gitLabEnterpriseEdition, awsCodeCommit.
+	// case insensitive name of the Git provider.  Following values are supported right now (could be a subject for a change, consult Git Credentials API documentation): gitHub, gitHubEnterprise, bitbucketCloud, bitbucketServer, azureDevOpsServices, gitLab, gitLabEnterpriseEdition, awsCodeCommit, azureDevOpsServicesAad.
 	GitProvider *string `json:"gitProvider,omitempty" tf:"git_provider,omitempty"`
 
 	// user name at Git provider.
@@ -52,7 +52,7 @@ type GitCredentialParameters struct {
 	// +kubebuilder:validation:Optional
 	Force *bool `json:"force,omitempty" tf:"force,omitempty"`
 
-	// case insensitive name of the Git provider.  Following values are supported right now (could be a subject for a change, consult Git Credentials API documentation): gitHub, gitHubEnterprise, bitbucketCloud, bitbucketServer, azureDevOpsServices, gitLab, gitLabEnterpriseEdition, awsCodeCommit.
+	// case insensitive name of the Git provider.  Following values are supported right now (could be a subject for a change, consult Git Credentials API documentation): gitHub, gitHubEnterprise, bitbucketCloud, bitbucketServer, azureDevOpsServices, gitLab, gitLabEnterpriseEdition, awsCodeCommit, azureDevOpsServicesAad.
 	// +kubebuilder:validation:Optional
 	GitProvider *string `json:"gitProvider,omitempty" tf:"git_provider,omitempty"`
 

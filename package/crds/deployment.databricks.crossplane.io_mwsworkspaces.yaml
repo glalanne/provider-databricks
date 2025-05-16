@@ -113,12 +113,21 @@ spec:
                           type: array
                       type: object
                     type: array
+                  computeMode:
+                    description: '- The compute mode for the workspace. When unset,
+                      a classic workspace is created, and both credentials_id and
+                      storage_configuration_id must be specified. When set to SERVERLESS,
+                      the resulting workspace is a serverless workspace, and credentials_id
+                      and storage_configuration_id must not be set. The only allowed
+                      value for this is SERVERLESS. Changing this field requires recreation
+                      of the workspace.'
+                    type: string
                   creationTime:
                     description: (Integer) time when workspace was created
                     type: number
                   credentialsId:
-                    description: (String) Canonical unique identifier for the workspace,
-                      of the format <account-id>/<workspace-id>
+                    description: (AWS only, Optional) credentials_id from credentials.
+                      This must not be specified when compute_mode is set to SERVERLESS.
                     type: string
                   customTags:
                     additionalProperties:
@@ -204,7 +213,9 @@ spec:
                       in Databricks Account.
                     type: string
                   storageConfigurationId:
-                    description: (AWS only)storage_configuration_id from storage configuration.
+                    description: (AWS only, Optional) storage_configuration_id from
+                      storage configuration. This must not be specified when compute_mode
+                      is set to SERVERLESS.
                     type: string
                   storageCustomerManagedKeyId:
                     description: customer_managed_key_id from customer managed keys
@@ -316,12 +327,21 @@ spec:
                           type: array
                       type: object
                     type: array
+                  computeMode:
+                    description: '- The compute mode for the workspace. When unset,
+                      a classic workspace is created, and both credentials_id and
+                      storage_configuration_id must be specified. When set to SERVERLESS,
+                      the resulting workspace is a serverless workspace, and credentials_id
+                      and storage_configuration_id must not be set. The only allowed
+                      value for this is SERVERLESS. Changing this field requires recreation
+                      of the workspace.'
+                    type: string
                   creationTime:
                     description: (Integer) time when workspace was created
                     type: number
                   credentialsId:
-                    description: (String) Canonical unique identifier for the workspace,
-                      of the format <account-id>/<workspace-id>
+                    description: (AWS only, Optional) credentials_id from credentials.
+                      This must not be specified when compute_mode is set to SERVERLESS.
                     type: string
                   customTags:
                     additionalProperties:
@@ -407,7 +427,9 @@ spec:
                       in Databricks Account.
                     type: string
                   storageConfigurationId:
-                    description: (AWS only)storage_configuration_id from storage configuration.
+                    description: (AWS only, Optional) storage_configuration_id from
+                      storage configuration. This must not be specified when compute_mode
+                      is set to SERVERLESS.
                     type: string
                   storageCustomerManagedKeyId:
                     description: customer_managed_key_id from customer managed keys
@@ -670,12 +692,21 @@ spec:
                           type: array
                       type: object
                     type: array
+                  computeMode:
+                    description: '- The compute mode for the workspace. When unset,
+                      a classic workspace is created, and both credentials_id and
+                      storage_configuration_id must be specified. When set to SERVERLESS,
+                      the resulting workspace is a serverless workspace, and credentials_id
+                      and storage_configuration_id must not be set. The only allowed
+                      value for this is SERVERLESS. Changing this field requires recreation
+                      of the workspace.'
+                    type: string
                   creationTime:
                     description: (Integer) time when workspace was created
                     type: number
                   credentialsId:
-                    description: (String) Canonical unique identifier for the workspace,
-                      of the format <account-id>/<workspace-id>
+                    description: (AWS only, Optional) credentials_id from credentials.
+                      This must not be specified when compute_mode is set to SERVERLESS.
                     type: string
                   customTags:
                     additionalProperties:
@@ -699,6 +730,11 @@ spec:
                       is defined. Please contact your Databricks representative. Once
                       a new deployment prefix is added/updated, it only will affect
                       the new workspaces created.
+                    type: string
+                  effectiveComputeMode:
+                    description: (String) The effective compute mode for the workspace.
+                      This is either SERVERLESS for serverless workspaces or HYBRID
+                      for classic workspaces.
                     type: string
                   externalCustomerInfo:
                     items:
@@ -769,7 +805,9 @@ spec:
                       in Databricks Account.
                     type: string
                   storageConfigurationId:
-                    description: (AWS only)storage_configuration_id from storage configuration.
+                    description: (AWS only, Optional) storage_configuration_id from
+                      storage configuration. This must not be specified when compute_mode
+                      is set to SERVERLESS.
                     type: string
                   storageCustomerManagedKeyId:
                     description: customer_managed_key_id from customer managed keys

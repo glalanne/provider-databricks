@@ -485,6 +485,14 @@ spec:
                                         applied to all tables in the pipeline.
                                       items:
                                         properties:
+                                          excludeColumns:
+                                            items:
+                                              type: string
+                                            type: array
+                                          includeColumns:
+                                            items:
+                                              type: string
+                                            type: array
                                           primaryKeys:
                                             items:
                                               type: string
@@ -536,6 +544,14 @@ spec:
                                         applied to all tables in the pipeline.
                                       items:
                                         properties:
+                                          excludeColumns:
+                                            items:
+                                              type: string
+                                            type: array
+                                          includeColumns:
+                                            items:
+                                              type: string
+                                            type: array
                                           primaryKeys:
                                             items:
                                               type: string
@@ -587,6 +603,14 @@ spec:
                                         applied to all tables in the pipeline.
                                       items:
                                         properties:
+                                          excludeColumns:
+                                            items:
+                                              type: string
+                                            type: array
+                                          includeColumns:
+                                            items:
+                                              type: string
+                                            type: array
                                           primaryKeys:
                                             items:
                                               type: string
@@ -605,12 +629,22 @@ spec:
                                 type: array
                             type: object
                           type: array
+                        sourceType:
+                          type: string
                         tableConfiguration:
                           description: Configuration settings to control the ingestion
                             of tables. These settings are applied to all tables in
                             the pipeline.
                           items:
                             properties:
+                              excludeColumns:
+                                items:
+                                  type: string
+                                type: array
+                              includeColumns:
+                                items:
+                                  type: string
+                                type: array
                               primaryKeys:
                                 items:
                                   type: string
@@ -652,6 +686,14 @@ spec:
                           items:
                             properties:
                               path:
+                                type: string
+                            type: object
+                          type: array
+                        glob:
+                          items:
+                            properties:
+                              include:
+                                description: Paths to include.
                                 type: string
                             type: object
                           type: array
@@ -1213,6 +1255,14 @@ spec:
                                         applied to all tables in the pipeline.
                                       items:
                                         properties:
+                                          excludeColumns:
+                                            items:
+                                              type: string
+                                            type: array
+                                          includeColumns:
+                                            items:
+                                              type: string
+                                            type: array
                                           primaryKeys:
                                             items:
                                               type: string
@@ -1264,6 +1314,14 @@ spec:
                                         applied to all tables in the pipeline.
                                       items:
                                         properties:
+                                          excludeColumns:
+                                            items:
+                                              type: string
+                                            type: array
+                                          includeColumns:
+                                            items:
+                                              type: string
+                                            type: array
                                           primaryKeys:
                                             items:
                                               type: string
@@ -1315,6 +1373,14 @@ spec:
                                         applied to all tables in the pipeline.
                                       items:
                                         properties:
+                                          excludeColumns:
+                                            items:
+                                              type: string
+                                            type: array
+                                          includeColumns:
+                                            items:
+                                              type: string
+                                            type: array
                                           primaryKeys:
                                             items:
                                               type: string
@@ -1333,12 +1399,22 @@ spec:
                                 type: array
                             type: object
                           type: array
+                        sourceType:
+                          type: string
                         tableConfiguration:
                           description: Configuration settings to control the ingestion
                             of tables. These settings are applied to all tables in
                             the pipeline.
                           items:
                             properties:
+                              excludeColumns:
+                                items:
+                                  type: string
+                                type: array
+                              includeColumns:
+                                items:
+                                  type: string
+                                type: array
                               primaryKeys:
                                 items:
                                   type: string
@@ -1380,6 +1456,14 @@ spec:
                           items:
                             properties:
                               path:
+                                type: string
+                            type: object
+                          type: array
+                        glob:
+                          items:
+                            properties:
+                              include:
+                                description: Paths to include.
                                 type: string
                             type: object
                           type: array
@@ -2103,6 +2187,14 @@ spec:
                                         applied to all tables in the pipeline.
                                       items:
                                         properties:
+                                          excludeColumns:
+                                            items:
+                                              type: string
+                                            type: array
+                                          includeColumns:
+                                            items:
+                                              type: string
+                                            type: array
                                           primaryKeys:
                                             items:
                                               type: string
@@ -2154,6 +2246,14 @@ spec:
                                         applied to all tables in the pipeline.
                                       items:
                                         properties:
+                                          excludeColumns:
+                                            items:
+                                              type: string
+                                            type: array
+                                          includeColumns:
+                                            items:
+                                              type: string
+                                            type: array
                                           primaryKeys:
                                             items:
                                               type: string
@@ -2205,6 +2305,14 @@ spec:
                                         applied to all tables in the pipeline.
                                       items:
                                         properties:
+                                          excludeColumns:
+                                            items:
+                                              type: string
+                                            type: array
+                                          includeColumns:
+                                            items:
+                                              type: string
+                                            type: array
                                           primaryKeys:
                                             items:
                                               type: string
@@ -2223,12 +2331,22 @@ spec:
                                 type: array
                             type: object
                           type: array
+                        sourceType:
+                          type: string
                         tableConfiguration:
                           description: Configuration settings to control the ingestion
                             of tables. These settings are applied to all tables in
                             the pipeline.
                           items:
                             properties:
+                              excludeColumns:
+                                items:
+                                  type: string
+                                type: array
+                              includeColumns:
+                                items:
+                                  type: string
+                                type: array
                               primaryKeys:
                                 items:
                                   type: string
@@ -2270,6 +2388,14 @@ spec:
                           items:
                             properties:
                               path:
+                                type: string
+                            type: object
+                          type: array
+                        glob:
+                          items:
+                            properties:
+                              include:
+                                description: Paths to include.
                                 type: string
                             type: object
                           type: array

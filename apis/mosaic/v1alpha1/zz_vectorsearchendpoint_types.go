@@ -13,6 +13,27 @@ import (
 	v1 "github.com/crossplane/crossplane-runtime/apis/common/v1"
 )
 
+type CustomTagsInitParameters struct {
+	Key *string `json:"key,omitempty" tf:"key,omitempty"`
+
+	Value *string `json:"value,omitempty" tf:"value,omitempty"`
+}
+
+type CustomTagsObservation struct {
+	Key *string `json:"key,omitempty" tf:"key,omitempty"`
+
+	Value *string `json:"value,omitempty" tf:"value,omitempty"`
+}
+
+type CustomTagsParameters struct {
+
+	// +kubebuilder:validation:Optional
+	Key *string `json:"key" tf:"key,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	Value *string `json:"value,omitempty" tf:"value,omitempty"`
+}
+
 type EndpointStatusInitParameters struct {
 }
 
@@ -29,6 +50,10 @@ type EndpointStatusParameters struct {
 }
 
 type VectorSearchEndpointInitParameters struct {
+	CustomTags []CustomTagsInitParameters `json:"customTags,omitempty" tf:"custom_tags,omitempty"`
+
+	// The same as the name of the endpoint.
+	EffectiveBudgetPolicyID *string `json:"effectiveBudgetPolicyId,omitempty" tf:"effective_budget_policy_id,omitempty"`
 
 	// Type of Mosaic AI Vector Search Endpoint.  Currently only accepting single value: STANDARD (See documentation for the list of currently supported values).
 	EndpointType *string `json:"endpointType,omitempty" tf:"endpoint_type,omitempty"`
@@ -44,6 +69,11 @@ type VectorSearchEndpointObservation struct {
 
 	// Creator of the endpoint.
 	Creator *string `json:"creator,omitempty" tf:"creator,omitempty"`
+
+	CustomTags []CustomTagsObservation `json:"customTags,omitempty" tf:"custom_tags,omitempty"`
+
+	// The same as the name of the endpoint.
+	EffectiveBudgetPolicyID *string `json:"effectiveBudgetPolicyId,omitempty" tf:"effective_budget_policy_id,omitempty"`
 
 	// Unique internal identifier of the endpoint (UUID).
 	EndpointID *string `json:"endpointId,omitempty" tf:"endpoint_id,omitempty"`
@@ -71,6 +101,13 @@ type VectorSearchEndpointObservation struct {
 }
 
 type VectorSearchEndpointParameters struct {
+
+	// +kubebuilder:validation:Optional
+	CustomTags []CustomTagsParameters `json:"customTags,omitempty" tf:"custom_tags,omitempty"`
+
+	// The same as the name of the endpoint.
+	// +kubebuilder:validation:Optional
+	EffectiveBudgetPolicyID *string `json:"effectiveBudgetPolicyId,omitempty" tf:"effective_budget_policy_id,omitempty"`
 
 	// Type of Mosaic AI Vector Search Endpoint.  Currently only accepting single value: STANDARD (See documentation for the list of currently supported values).
 	// +kubebuilder:validation:Optional

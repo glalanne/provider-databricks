@@ -662,11 +662,11 @@ type GatewayDefinitionParameters struct {
 
 	// Immutable. The Unity Catalog connection this ingestion pipeline uses to communicate with the source. Specify either ingestion_gateway_id or connection_name.
 	// +kubebuilder:validation:Optional
-	ConnectionName *string `json:"connectionName,omitempty" tf:"connection_name,omitempty"`
+	ConnectionName *string `json:"connectionName" tf:"connection_name,omitempty"`
 
 	// Required, Immutable. The name of the catalog for the gateway pipeline's storage location.
 	// +kubebuilder:validation:Optional
-	GatewayStorageCatalog *string `json:"gatewayStorageCatalog,omitempty" tf:"gateway_storage_catalog,omitempty"`
+	GatewayStorageCatalog *string `json:"gatewayStorageCatalog" tf:"gateway_storage_catalog,omitempty"`
 
 	// Required. The Unity Catalog-compatible naming for the gateway storage location. This is the destination to use for the data that is extracted by the gateway. Delta Live Tables system will automatically create the storage location under the catalog and schema.
 	// +kubebuilder:validation:Optional
@@ -674,7 +674,26 @@ type GatewayDefinitionParameters struct {
 
 	// Required, Immutable. The name of the schema for the gateway pipelines's storage location.
 	// +kubebuilder:validation:Optional
-	GatewayStorageSchema *string `json:"gatewayStorageSchema,omitempty" tf:"gateway_storage_schema,omitempty"`
+	GatewayStorageSchema *string `json:"gatewayStorageSchema" tf:"gateway_storage_schema,omitempty"`
+}
+
+type GlobInitParameters struct {
+
+	// Paths to include.
+	Include *string `json:"include,omitempty" tf:"include,omitempty"`
+}
+
+type GlobObservation struct {
+
+	// Paths to include.
+	Include *string `json:"include,omitempty" tf:"include,omitempty"`
+}
+
+type GlobParameters struct {
+
+	// Paths to include.
+	// +kubebuilder:validation:Optional
+	Include *string `json:"include,omitempty" tf:"include,omitempty"`
 }
 
 type IngestionDefinitionInitParameters struct {
@@ -687,6 +706,8 @@ type IngestionDefinitionInitParameters struct {
 
 	// Required. Settings specifying tables to replicate and the destination for the replicated tables.
 	Objects []ObjectsInitParameters `json:"objects,omitempty" tf:"objects,omitempty"`
+
+	SourceType *string `json:"sourceType,omitempty" tf:"source_type,omitempty"`
 
 	// Configuration settings to control the ingestion of tables. These settings are applied to all tables in the pipeline.
 	TableConfiguration []IngestionDefinitionTableConfigurationInitParameters `json:"tableConfiguration,omitempty" tf:"table_configuration,omitempty"`
@@ -702,6 +723,8 @@ type IngestionDefinitionObservation struct {
 
 	// Required. Settings specifying tables to replicate and the destination for the replicated tables.
 	Objects []ObjectsObservation `json:"objects,omitempty" tf:"objects,omitempty"`
+
+	SourceType *string `json:"sourceType,omitempty" tf:"source_type,omitempty"`
 
 	// Configuration settings to control the ingestion of tables. These settings are applied to all tables in the pipeline.
 	TableConfiguration []IngestionDefinitionTableConfigurationObservation `json:"tableConfiguration,omitempty" tf:"table_configuration,omitempty"`
@@ -721,12 +744,19 @@ type IngestionDefinitionParameters struct {
 	// +kubebuilder:validation:Optional
 	Objects []ObjectsParameters `json:"objects,omitempty" tf:"objects,omitempty"`
 
+	// +kubebuilder:validation:Optional
+	SourceType *string `json:"sourceType,omitempty" tf:"source_type,omitempty"`
+
 	// Configuration settings to control the ingestion of tables. These settings are applied to all tables in the pipeline.
 	// +kubebuilder:validation:Optional
 	TableConfiguration []IngestionDefinitionTableConfigurationParameters `json:"tableConfiguration,omitempty" tf:"table_configuration,omitempty"`
 }
 
 type IngestionDefinitionTableConfigurationInitParameters struct {
+	ExcludeColumns []*string `json:"excludeColumns,omitempty" tf:"exclude_columns,omitempty"`
+
+	IncludeColumns []*string `json:"includeColumns,omitempty" tf:"include_columns,omitempty"`
+
 	PrimaryKeys []*string `json:"primaryKeys,omitempty" tf:"primary_keys,omitempty"`
 
 	SalesforceIncludeFormulaFields *bool `json:"salesforceIncludeFormulaFields,omitempty" tf:"salesforce_include_formula_fields,omitempty"`
@@ -737,6 +767,10 @@ type IngestionDefinitionTableConfigurationInitParameters struct {
 }
 
 type IngestionDefinitionTableConfigurationObservation struct {
+	ExcludeColumns []*string `json:"excludeColumns,omitempty" tf:"exclude_columns,omitempty"`
+
+	IncludeColumns []*string `json:"includeColumns,omitempty" tf:"include_columns,omitempty"`
+
 	PrimaryKeys []*string `json:"primaryKeys,omitempty" tf:"primary_keys,omitempty"`
 
 	SalesforceIncludeFormulaFields *bool `json:"salesforceIncludeFormulaFields,omitempty" tf:"salesforce_include_formula_fields,omitempty"`
@@ -747,6 +781,12 @@ type IngestionDefinitionTableConfigurationObservation struct {
 }
 
 type IngestionDefinitionTableConfigurationParameters struct {
+
+	// +kubebuilder:validation:Optional
+	ExcludeColumns []*string `json:"excludeColumns,omitempty" tf:"exclude_columns,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	IncludeColumns []*string `json:"includeColumns,omitempty" tf:"include_columns,omitempty"`
 
 	// +kubebuilder:validation:Optional
 	PrimaryKeys []*string `json:"primaryKeys,omitempty" tf:"primary_keys,omitempty"`
@@ -937,11 +977,11 @@ type ObjectsTableParameters struct {
 
 	// The name of catalog in Unity Catalog. Change of this parameter forces recreation of the pipeline. (Conflicts with storage).
 	// +kubebuilder:validation:Optional
-	DestinationCatalog *string `json:"destinationCatalog,omitempty" tf:"destination_catalog,omitempty"`
+	DestinationCatalog *string `json:"destinationCatalog" tf:"destination_catalog,omitempty"`
 
 	// The default schema (database) where tables are read from or published to. The presence of this attribute implies that the pipeline is in direct publishing mode.
 	// +kubebuilder:validation:Optional
-	DestinationSchema *string `json:"destinationSchema,omitempty" tf:"destination_schema,omitempty"`
+	DestinationSchema *string `json:"destinationSchema" tf:"destination_schema,omitempty"`
 
 	// +kubebuilder:validation:Optional
 	DestinationTable *string `json:"destinationTable,omitempty" tf:"destination_table,omitempty"`
@@ -955,7 +995,7 @@ type ObjectsTableParameters struct {
 	SourceSchema *string `json:"sourceSchema,omitempty" tf:"source_schema,omitempty"`
 
 	// +kubebuilder:validation:Optional
-	SourceTable *string `json:"sourceTable,omitempty" tf:"source_table,omitempty"`
+	SourceTable *string `json:"sourceTable" tf:"source_table,omitempty"`
 
 	// Configuration settings to control the ingestion of tables. These settings are applied to all tables in the pipeline.
 	// +kubebuilder:validation:Optional
@@ -1148,7 +1188,7 @@ type PipelineDeploymentParameters struct {
 
 	// The deployment method that manages the pipeline.
 	// +kubebuilder:validation:Optional
-	Kind *string `json:"kind,omitempty" tf:"kind,omitempty"`
+	Kind *string `json:"kind" tf:"kind,omitempty"`
 
 	// The path to the file containing metadata about the deployment.
 	// +kubebuilder:validation:Optional
@@ -1256,6 +1296,8 @@ type PipelineInitParameters struct {
 type PipelineLibraryInitParameters struct {
 	File []LibraryFileInitParameters `json:"file,omitempty" tf:"file,omitempty"`
 
+	Glob []GlobInitParameters `json:"glob,omitempty" tf:"glob,omitempty"`
+
 	Jar *string `json:"jar,omitempty" tf:"jar,omitempty"`
 
 	Maven []PipelineLibraryMavenInitParameters `json:"maven,omitempty" tf:"maven,omitempty"`
@@ -1297,6 +1339,8 @@ type PipelineLibraryMavenParameters struct {
 type PipelineLibraryObservation struct {
 	File []LibraryFileObservation `json:"file,omitempty" tf:"file,omitempty"`
 
+	Glob []GlobObservation `json:"glob,omitempty" tf:"glob,omitempty"`
+
 	Jar *string `json:"jar,omitempty" tf:"jar,omitempty"`
 
 	Maven []PipelineLibraryMavenObservation `json:"maven,omitempty" tf:"maven,omitempty"`
@@ -1311,6 +1355,9 @@ type PipelineLibraryParameters struct {
 
 	// +kubebuilder:validation:Optional
 	File []LibraryFileParameters `json:"file,omitempty" tf:"file,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	Glob []GlobParameters `json:"glob,omitempty" tf:"glob,omitempty"`
 
 	// +kubebuilder:validation:Optional
 	Jar *string `json:"jar,omitempty" tf:"jar,omitempty"`
@@ -1648,18 +1695,18 @@ type ReportParameters struct {
 
 	// The name of catalog in Unity Catalog. Change of this parameter forces recreation of the pipeline. (Conflicts with storage).
 	// +kubebuilder:validation:Optional
-	DestinationCatalog *string `json:"destinationCatalog,omitempty" tf:"destination_catalog,omitempty"`
+	DestinationCatalog *string `json:"destinationCatalog" tf:"destination_catalog,omitempty"`
 
 	// The default schema (database) where tables are read from or published to. The presence of this attribute implies that the pipeline is in direct publishing mode.
 	// +kubebuilder:validation:Optional
-	DestinationSchema *string `json:"destinationSchema,omitempty" tf:"destination_schema,omitempty"`
+	DestinationSchema *string `json:"destinationSchema" tf:"destination_schema,omitempty"`
 
 	// +kubebuilder:validation:Optional
 	DestinationTable *string `json:"destinationTable,omitempty" tf:"destination_table,omitempty"`
 
 	// URL of the DLT pipeline on the given workspace.
 	// +kubebuilder:validation:Optional
-	SourceURL *string `json:"sourceUrl,omitempty" tf:"source_url,omitempty"`
+	SourceURL *string `json:"sourceUrl" tf:"source_url,omitempty"`
 
 	// Configuration settings to control the ingestion of tables. These settings are applied to all tables in the pipeline.
 	// +kubebuilder:validation:Optional
@@ -1737,11 +1784,11 @@ type SchemaParameters struct {
 
 	// The name of catalog in Unity Catalog. Change of this parameter forces recreation of the pipeline. (Conflicts with storage).
 	// +kubebuilder:validation:Optional
-	DestinationCatalog *string `json:"destinationCatalog,omitempty" tf:"destination_catalog,omitempty"`
+	DestinationCatalog *string `json:"destinationCatalog" tf:"destination_catalog,omitempty"`
 
 	// The default schema (database) where tables are read from or published to. The presence of this attribute implies that the pipeline is in direct publishing mode.
 	// +kubebuilder:validation:Optional
-	DestinationSchema *string `json:"destinationSchema,omitempty" tf:"destination_schema,omitempty"`
+	DestinationSchema *string `json:"destinationSchema" tf:"destination_schema,omitempty"`
 
 	// The name of catalog in Unity Catalog. Change of this parameter forces recreation of the pipeline. (Conflicts with storage).
 	// +kubebuilder:validation:Optional
@@ -1749,7 +1796,7 @@ type SchemaParameters struct {
 
 	// The default schema (database) where tables are read from or published to. The presence of this attribute implies that the pipeline is in direct publishing mode.
 	// +kubebuilder:validation:Optional
-	SourceSchema *string `json:"sourceSchema,omitempty" tf:"source_schema,omitempty"`
+	SourceSchema *string `json:"sourceSchema" tf:"source_schema,omitempty"`
 
 	// Configuration settings to control the ingestion of tables. These settings are applied to all tables in the pipeline.
 	// +kubebuilder:validation:Optional
@@ -1757,6 +1804,10 @@ type SchemaParameters struct {
 }
 
 type SchemaTableConfigurationInitParameters struct {
+	ExcludeColumns []*string `json:"excludeColumns,omitempty" tf:"exclude_columns,omitempty"`
+
+	IncludeColumns []*string `json:"includeColumns,omitempty" tf:"include_columns,omitempty"`
+
 	PrimaryKeys []*string `json:"primaryKeys,omitempty" tf:"primary_keys,omitempty"`
 
 	SalesforceIncludeFormulaFields *bool `json:"salesforceIncludeFormulaFields,omitempty" tf:"salesforce_include_formula_fields,omitempty"`
@@ -1767,6 +1818,10 @@ type SchemaTableConfigurationInitParameters struct {
 }
 
 type SchemaTableConfigurationObservation struct {
+	ExcludeColumns []*string `json:"excludeColumns,omitempty" tf:"exclude_columns,omitempty"`
+
+	IncludeColumns []*string `json:"includeColumns,omitempty" tf:"include_columns,omitempty"`
+
 	PrimaryKeys []*string `json:"primaryKeys,omitempty" tf:"primary_keys,omitempty"`
 
 	SalesforceIncludeFormulaFields *bool `json:"salesforceIncludeFormulaFields,omitempty" tf:"salesforce_include_formula_fields,omitempty"`
@@ -1777,6 +1832,12 @@ type SchemaTableConfigurationObservation struct {
 }
 
 type SchemaTableConfigurationParameters struct {
+
+	// +kubebuilder:validation:Optional
+	ExcludeColumns []*string `json:"excludeColumns,omitempty" tf:"exclude_columns,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	IncludeColumns []*string `json:"includeColumns,omitempty" tf:"include_columns,omitempty"`
 
 	// +kubebuilder:validation:Optional
 	PrimaryKeys []*string `json:"primaryKeys,omitempty" tf:"primary_keys,omitempty"`
@@ -1792,6 +1853,10 @@ type SchemaTableConfigurationParameters struct {
 }
 
 type TableConfigurationInitParameters struct {
+	ExcludeColumns []*string `json:"excludeColumns,omitempty" tf:"exclude_columns,omitempty"`
+
+	IncludeColumns []*string `json:"includeColumns,omitempty" tf:"include_columns,omitempty"`
+
 	PrimaryKeys []*string `json:"primaryKeys,omitempty" tf:"primary_keys,omitempty"`
 
 	SalesforceIncludeFormulaFields *bool `json:"salesforceIncludeFormulaFields,omitempty" tf:"salesforce_include_formula_fields,omitempty"`
@@ -1802,6 +1867,10 @@ type TableConfigurationInitParameters struct {
 }
 
 type TableConfigurationObservation struct {
+	ExcludeColumns []*string `json:"excludeColumns,omitempty" tf:"exclude_columns,omitempty"`
+
+	IncludeColumns []*string `json:"includeColumns,omitempty" tf:"include_columns,omitempty"`
+
 	PrimaryKeys []*string `json:"primaryKeys,omitempty" tf:"primary_keys,omitempty"`
 
 	SalesforceIncludeFormulaFields *bool `json:"salesforceIncludeFormulaFields,omitempty" tf:"salesforce_include_formula_fields,omitempty"`
@@ -1812,6 +1881,12 @@ type TableConfigurationObservation struct {
 }
 
 type TableConfigurationParameters struct {
+
+	// +kubebuilder:validation:Optional
+	ExcludeColumns []*string `json:"excludeColumns,omitempty" tf:"exclude_columns,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	IncludeColumns []*string `json:"includeColumns,omitempty" tf:"include_columns,omitempty"`
 
 	// +kubebuilder:validation:Optional
 	PrimaryKeys []*string `json:"primaryKeys,omitempty" tf:"primary_keys,omitempty"`
@@ -1827,6 +1902,10 @@ type TableConfigurationParameters struct {
 }
 
 type TableTableConfigurationInitParameters struct {
+	ExcludeColumns []*string `json:"excludeColumns,omitempty" tf:"exclude_columns,omitempty"`
+
+	IncludeColumns []*string `json:"includeColumns,omitempty" tf:"include_columns,omitempty"`
+
 	PrimaryKeys []*string `json:"primaryKeys,omitempty" tf:"primary_keys,omitempty"`
 
 	SalesforceIncludeFormulaFields *bool `json:"salesforceIncludeFormulaFields,omitempty" tf:"salesforce_include_formula_fields,omitempty"`
@@ -1837,6 +1916,10 @@ type TableTableConfigurationInitParameters struct {
 }
 
 type TableTableConfigurationObservation struct {
+	ExcludeColumns []*string `json:"excludeColumns,omitempty" tf:"exclude_columns,omitempty"`
+
+	IncludeColumns []*string `json:"includeColumns,omitempty" tf:"include_columns,omitempty"`
+
 	PrimaryKeys []*string `json:"primaryKeys,omitempty" tf:"primary_keys,omitempty"`
 
 	SalesforceIncludeFormulaFields *bool `json:"salesforceIncludeFormulaFields,omitempty" tf:"salesforce_include_formula_fields,omitempty"`
@@ -1847,6 +1930,12 @@ type TableTableConfigurationObservation struct {
 }
 
 type TableTableConfigurationParameters struct {
+
+	// +kubebuilder:validation:Optional
+	ExcludeColumns []*string `json:"excludeColumns,omitempty" tf:"exclude_columns,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	IncludeColumns []*string `json:"includeColumns,omitempty" tf:"include_columns,omitempty"`
 
 	// +kubebuilder:validation:Optional
 	PrimaryKeys []*string `json:"primaryKeys,omitempty" tf:"primary_keys,omitempty"`

@@ -107,8 +107,9 @@ type CatalogWorkspaceBindingStatus struct {
 type CatalogWorkspaceBinding struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	Spec              CatalogWorkspaceBindingSpec   `json:"spec"`
-	Status            CatalogWorkspaceBindingStatus `json:"status,omitempty"`
+	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.workspaceId) || (has(self.initProvider) && has(self.initProvider.workspaceId))",message="spec.forProvider.workspaceId is a required parameter"
+	Spec   CatalogWorkspaceBindingSpec   `json:"spec"`
+	Status CatalogWorkspaceBindingStatus `json:"status,omitempty"`
 }
 
 // +kubebuilder:object:root=true

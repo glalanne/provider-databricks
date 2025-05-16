@@ -107,8 +107,9 @@ type WorkspaceBindingStatus struct {
 type WorkspaceBinding struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	Spec              WorkspaceBindingSpec   `json:"spec"`
-	Status            WorkspaceBindingStatus `json:"status,omitempty"`
+	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.workspaceId) || (has(self.initProvider) && has(self.initProvider.workspaceId))",message="spec.forProvider.workspaceId is a required parameter"
+	Spec   WorkspaceBindingSpec   `json:"spec"`
+	Status WorkspaceBindingStatus `json:"status,omitempty"`
 }
 
 // +kubebuilder:object:root=true

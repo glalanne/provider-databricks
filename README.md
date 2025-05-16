@@ -16,8 +16,6 @@ is built using [Upjet](https://github.com/crossplane/upjet) code
 generation tools and exposes XRM-conformant managed resources for the
 [Databricks](https://registry.terraform.io/providers/databricks/databricks/latest/docs).
 
-Warning:
-`This provider is not ready to be used for production and might be missing resources`
 
 Most of the testing have been done on [Azure Databricks](https://azure.microsoft.com/en-ca/products/databricks)
 
@@ -26,7 +24,7 @@ Most of the testing have been done on [Azure Databricks](https://azure.microsoft
 Install the provider by using the following command after changing the image tag
 to the [latest release](https://marketplace.upbound.io/providers/glalanne/provider-databricks):
 ```
-up ctp provider install glalanne/provider-databricks:v0.1.0
+up ctp provider install glalanne/provider-databricks:v0.3.0
 ```
 
 Alternatively, you can use declarative installation:
@@ -37,7 +35,7 @@ kind: Provider
 metadata:
   name: provider-databricks
 spec:
-  package: glalanne/provider-databricks:v0.1.0
+  package: glalanne/provider-databricks:v0.2.0
 EOF
 ```
 

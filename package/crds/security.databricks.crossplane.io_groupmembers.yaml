@@ -73,7 +73,7 @@ spec:
               forProvider:
                 properties:
                   groupId:
-                    description: This is the id of the group resource.
+                    description: This is the id attribute (SCIM ID) of the group resource.
                     type: string
                   groupIdRef:
                     description: Reference to a Group in security to populate groupId.
@@ -150,8 +150,8 @@ spec:
                         type: object
                     type: object
                   memberId:
-                    description: This is the id of the group, service principal, or
-                      user.
+                    description: This is the id attribute (SCIM ID) of the group,
+                      service principal, or user.
                     type: string
                 type: object
               initProvider:
@@ -168,7 +168,7 @@ spec:
                   autoscaler.
                 properties:
                   groupId:
-                    description: This is the id of the group resource.
+                    description: This is the id attribute (SCIM ID) of the group resource.
                     type: string
                   groupIdRef:
                     description: Reference to a Group in security to populate groupId.
@@ -245,8 +245,8 @@ spec:
                         type: object
                     type: object
                   memberId:
-                    description: This is the id of the group, service principal, or
-                      user.
+                    description: This is the id attribute (SCIM ID) of the group,
+                      service principal, or user.
                     type: string
                 type: object
               managementPolicies:
@@ -427,15 +427,15 @@ spec:
               atProvider:
                 properties:
                   groupId:
-                    description: This is the id of the group resource.
+                    description: This is the id attribute (SCIM ID) of the group resource.
                     type: string
                   id:
                     description: The id for the databricks_group_member object which
                       is in the format <group_id>|<member_id>.
                     type: string
                   memberId:
-                    description: This is the id of the group, service principal, or
-                      user.
+                    description: This is the id attribute (SCIM ID) of the group,
+                      service principal, or user.
                     type: string
                 type: object
               conditions:

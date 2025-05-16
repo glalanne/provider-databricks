@@ -204,6 +204,17 @@ func (in *AzurePrivateEndpointRulesInitParameters) DeepCopyInto(out *AzurePrivat
 		*out = new(float64)
 		**out = **in
 	}
+	if in.DomainNames != nil {
+		in, out := &in.DomainNames, &out.DomainNames
+		*out = make([]*string, len(*in))
+		for i := range *in {
+			if (*in)[i] != nil {
+				in, out := &(*in)[i], &(*out)[i]
+				*out = new(string)
+				**out = **in
+			}
+		}
+	}
 	if in.EndpointName != nil {
 		in, out := &in.EndpointName, &out.EndpointName
 		*out = new(string)
@@ -269,6 +280,17 @@ func (in *AzurePrivateEndpointRulesObservation) DeepCopyInto(out *AzurePrivateEn
 		*out = new(float64)
 		**out = **in
 	}
+	if in.DomainNames != nil {
+		in, out := &in.DomainNames, &out.DomainNames
+		*out = make([]*string, len(*in))
+		for i := range *in {
+			if (*in)[i] != nil {
+				in, out := &(*in)[i], &(*out)[i]
+				*out = new(string)
+				**out = **in
+			}
+		}
+	}
 	if in.EndpointName != nil {
 		in, out := &in.EndpointName, &out.EndpointName
 		*out = new(string)
@@ -333,6 +355,17 @@ func (in *AzurePrivateEndpointRulesParameters) DeepCopyInto(out *AzurePrivateEnd
 		in, out := &in.DeactivatedAt, &out.DeactivatedAt
 		*out = new(float64)
 		**out = **in
+	}
+	if in.DomainNames != nil {
+		in, out := &in.DomainNames, &out.DomainNames
+		*out = make([]*string, len(*in))
+		for i := range *in {
+			if (*in)[i] != nil {
+				in, out := &(*in)[i], &(*out)[i]
+				*out = new(string)
+				**out = **in
+			}
+		}
 	}
 	if in.EndpointName != nil {
 		in, out := &in.EndpointName, &out.EndpointName
@@ -2373,6 +2406,17 @@ func (in *MwsNccPrivateEndpointRuleInitParameters) DeepCopyInto(out *MwsNccPriva
 		*out = new(float64)
 		**out = **in
 	}
+	if in.DomainNames != nil {
+		in, out := &in.DomainNames, &out.DomainNames
+		*out = make([]*string, len(*in))
+		for i := range *in {
+			if (*in)[i] != nil {
+				in, out := &(*in)[i], &(*out)[i]
+				*out = new(string)
+				**out = **in
+			}
+		}
+	}
 	if in.EndpointName != nil {
 		in, out := &in.EndpointName, &out.EndpointName
 		*out = new(string)
@@ -2470,6 +2514,17 @@ func (in *MwsNccPrivateEndpointRuleObservation) DeepCopyInto(out *MwsNccPrivateE
 		*out = new(float64)
 		**out = **in
 	}
+	if in.DomainNames != nil {
+		in, out := &in.DomainNames, &out.DomainNames
+		*out = make([]*string, len(*in))
+		for i := range *in {
+			if (*in)[i] != nil {
+				in, out := &(*in)[i], &(*out)[i]
+				*out = new(string)
+				**out = **in
+			}
+		}
+	}
 	if in.EndpointName != nil {
 		in, out := &in.EndpointName, &out.EndpointName
 		*out = new(string)
@@ -2539,6 +2594,17 @@ func (in *MwsNccPrivateEndpointRuleParameters) DeepCopyInto(out *MwsNccPrivateEn
 		in, out := &in.DeactivatedAt, &out.DeactivatedAt
 		*out = new(float64)
 		**out = **in
+	}
+	if in.DomainNames != nil {
+		in, out := &in.DomainNames, &out.DomainNames
+		*out = make([]*string, len(*in))
+		for i := range *in {
+			if (*in)[i] != nil {
+				in, out := &(*in)[i], &(*out)[i]
+				*out = new(string)
+				**out = **in
+			}
+		}
 	}
 	if in.EndpointName != nil {
 		in, out := &in.EndpointName, &out.EndpointName
@@ -4038,6 +4104,11 @@ func (in *MwsWorkspacesInitParameters) DeepCopyInto(out *MwsWorkspacesInitParame
 			(*in)[i].DeepCopyInto(&(*out)[i])
 		}
 	}
+	if in.ComputeMode != nil {
+		in, out := &in.ComputeMode, &out.ComputeMode
+		*out = new(string)
+		**out = **in
+	}
 	if in.CreationTime != nil {
 		in, out := &in.CreationTime, &out.CreationTime
 		*out = new(float64)
@@ -4231,6 +4302,11 @@ func (in *MwsWorkspacesObservation) DeepCopyInto(out *MwsWorkspacesObservation) 
 			(*in)[i].DeepCopyInto(&(*out)[i])
 		}
 	}
+	if in.ComputeMode != nil {
+		in, out := &in.ComputeMode, &out.ComputeMode
+		*out = new(string)
+		**out = **in
+	}
 	if in.CreationTime != nil {
 		in, out := &in.CreationTime, &out.CreationTime
 		*out = new(float64)
@@ -4264,6 +4340,11 @@ func (in *MwsWorkspacesObservation) DeepCopyInto(out *MwsWorkspacesObservation) 
 	}
 	if in.DeploymentName != nil {
 		in, out := &in.DeploymentName, &out.DeploymentName
+		*out = new(string)
+		**out = **in
+	}
+	if in.EffectiveComputeMode != nil {
+		in, out := &in.EffectiveComputeMode, &out.EffectiveComputeMode
 		*out = new(string)
 		**out = **in
 	}
@@ -4402,6 +4483,11 @@ func (in *MwsWorkspacesParameters) DeepCopyInto(out *MwsWorkspacesParameters) {
 		for i := range *in {
 			(*in)[i].DeepCopyInto(&(*out)[i])
 		}
+	}
+	if in.ComputeMode != nil {
+		in, out := &in.ComputeMode, &out.ComputeMode
+		*out = new(string)
+		**out = **in
 	}
 	if in.CreationTime != nil {
 		in, out := &in.CreationTime, &out.CreationTime

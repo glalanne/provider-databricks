@@ -81,7 +81,7 @@ spec:
                           type: string
                         spotBidPricePercent:
                           description: (Integer) The max price for AWS spot instances,
-                            as a percentage of the corresponding instance type’s on-demand
+                            as a percentage of the corresponding instance type's on-demand
                             price. For example, if this field is set to 50, and the
                             instance pool needs a new i3.xlarge spot instance, then
                             the max price is half of the price of on-demand i3.xlarge
@@ -252,7 +252,7 @@ spec:
                   nodeTypeId:
                     description: (String) The node type for the instances in the pool.
                       All clusters attached to the pool inherit this node type and
-                      the pool’s idle instances are allocated based on this type.
+                      the pool's idle instances are allocated based on this type.
                       You can retrieve a list of available node types by using the
                       List Node Types API call.
                     type: string
@@ -328,7 +328,7 @@ spec:
                           type: string
                         spotBidPricePercent:
                           description: (Integer) The max price for AWS spot instances,
-                            as a percentage of the corresponding instance type’s on-demand
+                            as a percentage of the corresponding instance type's on-demand
                             price. For example, if this field is set to 50, and the
                             instance pool needs a new i3.xlarge spot instance, then
                             the max price is half of the price of on-demand i3.xlarge
@@ -499,7 +499,7 @@ spec:
                   nodeTypeId:
                     description: (String) The node type for the instances in the pool.
                       All clusters attached to the pool inherit this node type and
-                      the pool’s idle instances are allocated based on this type.
+                      the pool's idle instances are allocated based on this type.
                       You can retrieve a list of available node types by using the
                       List Node Types API call.
                     type: string
@@ -746,7 +746,7 @@ spec:
                           type: string
                         spotBidPricePercent:
                           description: (Integer) The max price for AWS spot instances,
-                            as a percentage of the corresponding instance type’s on-demand
+                            as a percentage of the corresponding instance type's on-demand
                             price. For example, if this field is set to 50, and the
                             instance pool needs a new i3.xlarge spot instance, then
                             the max price is half of the price of on-demand i3.xlarge
@@ -920,7 +920,7 @@ spec:
                   nodeTypeId:
                     description: (String) The node type for the instances in the pool.
                       All clusters attached to the pool inherit this node type and
-                      the pool’s idle instances are allocated based on this type.
+                      the pool's idle instances are allocated based on this type.
                       You can retrieve a list of available node types by using the
                       List Node Types API call.
                     type: string

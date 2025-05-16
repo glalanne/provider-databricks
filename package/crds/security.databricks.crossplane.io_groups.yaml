@@ -376,7 +376,7 @@ spec:
                       simplify corner cases, like Azure Active Directory synchronisation.'
                     type: boolean
                   id:
-                    description: The id for the group object.
+                    description: Canonical unique identifier for the group (SCIM ID).
                     type: string
                   url:
                     type: string

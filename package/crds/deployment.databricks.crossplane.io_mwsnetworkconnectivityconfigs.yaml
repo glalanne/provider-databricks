@@ -152,6 +152,10 @@ spec:
                                       type: boolean
                                     deactivatedAt:
                                       type: number
+                                    domainNames:
+                                      items:
+                                        type: string
+                                      type: array
                                     endpointName:
                                       description: Name of Network Connectivity Config
                                         in Databricks Account. Change forces creation
@@ -289,6 +293,10 @@ spec:
                                       type: boolean
                                     deactivatedAt:
                                       type: number
+                                    domainNames:
+                                      items:
+                                        type: string
+                                      type: array
                                     endpointName:
                                       description: Name of Network Connectivity Config
                                         in Databricks Account. Change forces creation
@@ -595,6 +603,10 @@ spec:
                                       type: boolean
                                     deactivatedAt:
                                       type: number
+                                    domainNames:
+                                      items:
+                                        type: string
+                                      type: array
                                     endpointName:
                                       description: Name of Network Connectivity Config
                                         in Databricks Account. Change forces creation

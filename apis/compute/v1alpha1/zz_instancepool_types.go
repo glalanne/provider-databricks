@@ -117,7 +117,7 @@ type InstancePoolAwsAttributesInitParameters struct {
 	// Availability type used for all nodes. Valid values are SPOT_AZURE and ON_DEMAND_AZURE.
 	Availability *string `json:"availability,omitempty" tf:"availability,omitempty"`
 
-	// (Integer) The max price for AWS spot instances, as a percentage of the corresponding instance type’s on-demand price. For example, if this field is set to 50, and the instance pool needs a new i3.xlarge spot instance, then the max price is half of the price of on-demand i3.xlarge instances. Similarly, if this field is set to 200, the max price is twice the price of on-demand i3.xlarge instances. If not specified, the default value is 100. When spot instances are requested for this instance pool, only spot instances whose max price percentage matches this field are considered. For safety, this field cannot be greater than 10000.
+	// (Integer) The max price for AWS spot instances, as a percentage of the corresponding instance type's on-demand price. For example, if this field is set to 50, and the instance pool needs a new i3.xlarge spot instance, then the max price is half of the price of on-demand i3.xlarge instances. Similarly, if this field is set to 200, the max price is twice the price of on-demand i3.xlarge instances. If not specified, the default value is 100. When spot instances are requested for this instance pool, only spot instances whose max price percentage matches this field are considered. For safety, this field cannot be greater than 10000.
 	SpotBidPricePercent *float64 `json:"spotBidPricePercent,omitempty" tf:"spot_bid_price_percent,omitempty"`
 
 	// (String) Identifier for the availability zone/datacenter in which the instance pool resides. This string is of the form like "us-west-2a". The provided availability zone must be in the same region as the Databricks deployment. For example, "us-west-2a" is not a valid zone ID if the Databricks deployment resides in the "us-east-1" region. If not specified, a default zone is used. You can find the list of available zones as well as the default value by using the List Zones API.
@@ -129,7 +129,7 @@ type InstancePoolAwsAttributesObservation struct {
 	// Availability type used for all nodes. Valid values are SPOT_AZURE and ON_DEMAND_AZURE.
 	Availability *string `json:"availability,omitempty" tf:"availability,omitempty"`
 
-	// (Integer) The max price for AWS spot instances, as a percentage of the corresponding instance type’s on-demand price. For example, if this field is set to 50, and the instance pool needs a new i3.xlarge spot instance, then the max price is half of the price of on-demand i3.xlarge instances. Similarly, if this field is set to 200, the max price is twice the price of on-demand i3.xlarge instances. If not specified, the default value is 100. When spot instances are requested for this instance pool, only spot instances whose max price percentage matches this field are considered. For safety, this field cannot be greater than 10000.
+	// (Integer) The max price for AWS spot instances, as a percentage of the corresponding instance type's on-demand price. For example, if this field is set to 50, and the instance pool needs a new i3.xlarge spot instance, then the max price is half of the price of on-demand i3.xlarge instances. Similarly, if this field is set to 200, the max price is twice the price of on-demand i3.xlarge instances. If not specified, the default value is 100. When spot instances are requested for this instance pool, only spot instances whose max price percentage matches this field are considered. For safety, this field cannot be greater than 10000.
 	SpotBidPricePercent *float64 `json:"spotBidPricePercent,omitempty" tf:"spot_bid_price_percent,omitempty"`
 
 	// (String) Identifier for the availability zone/datacenter in which the instance pool resides. This string is of the form like "us-west-2a". The provided availability zone must be in the same region as the Databricks deployment. For example, "us-west-2a" is not a valid zone ID if the Databricks deployment resides in the "us-east-1" region. If not specified, a default zone is used. You can find the list of available zones as well as the default value by using the List Zones API.
@@ -142,7 +142,7 @@ type InstancePoolAwsAttributesParameters struct {
 	// +kubebuilder:validation:Optional
 	Availability *string `json:"availability,omitempty" tf:"availability,omitempty"`
 
-	// (Integer) The max price for AWS spot instances, as a percentage of the corresponding instance type’s on-demand price. For example, if this field is set to 50, and the instance pool needs a new i3.xlarge spot instance, then the max price is half of the price of on-demand i3.xlarge instances. Similarly, if this field is set to 200, the max price is twice the price of on-demand i3.xlarge instances. If not specified, the default value is 100. When spot instances are requested for this instance pool, only spot instances whose max price percentage matches this field are considered. For safety, this field cannot be greater than 10000.
+	// (Integer) The max price for AWS spot instances, as a percentage of the corresponding instance type's on-demand price. For example, if this field is set to 50, and the instance pool needs a new i3.xlarge spot instance, then the max price is half of the price of on-demand i3.xlarge instances. Similarly, if this field is set to 200, the max price is twice the price of on-demand i3.xlarge instances. If not specified, the default value is 100. When spot instances are requested for this instance pool, only spot instances whose max price percentage matches this field are considered. For safety, this field cannot be greater than 10000.
 	// +kubebuilder:validation:Optional
 	SpotBidPricePercent *float64 `json:"spotBidPricePercent,omitempty" tf:"spot_bid_price_percent,omitempty"`
 
@@ -280,7 +280,7 @@ type InstancePoolInitParameters struct {
 	// (Integer) The minimum number of idle instances maintained by the pool. This is in addition to any instances in use by active clusters.
 	MinIdleInstances *float64 `json:"minIdleInstances,omitempty" tf:"min_idle_instances,omitempty"`
 
-	// (String) The node type for the instances in the pool. All clusters attached to the pool inherit this node type and the pool’s idle instances are allocated based on this type. You can retrieve a list of available node types by using the List Node Types API call.
+	// (String) The node type for the instances in the pool. All clusters attached to the pool inherit this node type and the pool's idle instances are allocated based on this type. You can retrieve a list of available node types by using the List Node Types API call.
 	NodeTypeID *string `json:"nodeTypeId,omitempty" tf:"node_type_id,omitempty"`
 
 	PreloadedDockerImage []PreloadedDockerImageInitParameters `json:"preloadedDockerImage,omitempty" tf:"preloaded_docker_image,omitempty"`
@@ -325,7 +325,7 @@ type InstancePoolObservation struct {
 	// (Integer) The minimum number of idle instances maintained by the pool. This is in addition to any instances in use by active clusters.
 	MinIdleInstances *float64 `json:"minIdleInstances,omitempty" tf:"min_idle_instances,omitempty"`
 
-	// (String) The node type for the instances in the pool. All clusters attached to the pool inherit this node type and the pool’s idle instances are allocated based on this type. You can retrieve a list of available node types by using the List Node Types API call.
+	// (String) The node type for the instances in the pool. All clusters attached to the pool inherit this node type and the pool's idle instances are allocated based on this type. You can retrieve a list of available node types by using the List Node Types API call.
 	NodeTypeID *string `json:"nodeTypeId,omitempty" tf:"node_type_id,omitempty"`
 
 	PreloadedDockerImage []PreloadedDockerImageObservation `json:"preloadedDockerImage,omitempty" tf:"preloaded_docker_image,omitempty"`
@@ -380,7 +380,7 @@ type InstancePoolParameters struct {
 	// +kubebuilder:validation:Optional
 	MinIdleInstances *float64 `json:"minIdleInstances,omitempty" tf:"min_idle_instances,omitempty"`
 
-	// (String) The node type for the instances in the pool. All clusters attached to the pool inherit this node type and the pool’s idle instances are allocated based on this type. You can retrieve a list of available node types by using the List Node Types API call.
+	// (String) The node type for the instances in the pool. All clusters attached to the pool inherit this node type and the pool's idle instances are allocated based on this type. You can retrieve a list of available node types by using the List Node Types API call.
 	// +kubebuilder:validation:Optional
 	NodeTypeID *string `json:"nodeTypeId,omitempty" tf:"node_type_id,omitempty"`
 

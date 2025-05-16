@@ -73,7 +73,7 @@ spec:
               forProvider:
                 properties:
                   anonymousFunction:
-                    description: (Boolean) If this access control for using anonymous
+                    description: (Boolean) If this access control for using an anonymous
                       function. Defaults to false.
                     type: boolean
                   anyFile:
@@ -87,11 +87,11 @@ spec:
                   clusterId:
                     description: Id of an existing databricks_cluster, where the appropriate
                       GRANT/REVOKE commands are executed. This cluster must have the
-                      appropriate access mode (USER_ISOLATION or LEGACY_TABLE_ACL
+                      appropriate data security mode (USER_ISOLATION or LEGACY_TABLE_ACL
                       specified).
                     type: string
                   database:
-                    description: Name of the database. Has default value of default.
+                    description: Name of the database. Has a default value of default.
                     type: string
                   privilegeAssignments:
                     items:
@@ -109,10 +109,10 @@ spec:
                       type: object
                     type: array
                   table:
-                    description: Name of the table. Can be combined with database.
+                    description: Name of the table. Can be combined with the database.
                     type: string
                   view:
-                    description: Name of the view. Can be combined with database.
+                    description: Name of the view. Can be combined with the database.
                     type: string
                 type: object
               initProvider:
@@ -129,7 +129,7 @@ spec:
                   autoscaler.
                 properties:
                   anonymousFunction:
-                    description: (Boolean) If this access control for using anonymous
+                    description: (Boolean) If this access control for using an anonymous
                       function. Defaults to false.
                     type: boolean
                   anyFile:
@@ -143,11 +143,11 @@ spec:
                   clusterId:
                     description: Id of an existing databricks_cluster, where the appropriate
                       GRANT/REVOKE commands are executed. This cluster must have the
-                      appropriate access mode (USER_ISOLATION or LEGACY_TABLE_ACL
+                      appropriate data security mode (USER_ISOLATION or LEGACY_TABLE_ACL
                       specified).
                     type: string
                   database:
-                    description: Name of the database. Has default value of default.
+                    description: Name of the database. Has a default value of default.
                     type: string
                   privilegeAssignments:
                     items:
@@ -165,10 +165,10 @@ spec:
                       type: object
                     type: array
                   table:
-                    description: Name of the table. Can be combined with database.
+                    description: Name of the table. Can be combined with the database.
                     type: string
                   view:
-                    description: Name of the view. Can be combined with database.
+                    description: Name of the view. Can be combined with the database.
                     type: string
                 type: object
               managementPolicies:
@@ -344,7 +344,7 @@ spec:
               atProvider:
                 properties:
                   anonymousFunction:
-                    description: (Boolean) If this access control for using anonymous
+                    description: (Boolean) If this access control for using an anonymous
                       function. Defaults to false.
                     type: boolean
                   anyFile:
@@ -358,11 +358,11 @@ spec:
                   clusterId:
                     description: Id of an existing databricks_cluster, where the appropriate
                       GRANT/REVOKE commands are executed. This cluster must have the
-                      appropriate access mode (USER_ISOLATION or LEGACY_TABLE_ACL
+                      appropriate data security mode (USER_ISOLATION or LEGACY_TABLE_ACL
                       specified).
                     type: string
                   database:
-                    description: Name of the database. Has default value of default.
+                    description: Name of the database. Has a default value of default.
                     type: string
                   id:
                     type: string
@@ -382,10 +382,10 @@ spec:
                       type: object
                     type: array
                   table:
-                    description: Name of the table. Can be combined with database.
+                    description: Name of the table. Can be combined with the database.
                     type: string
                   view:
-                    description: Name of the view. Can be combined with database.
+                    description: Name of the view. Can be combined with the database.
                     type: string
                 type: object
               conditions:

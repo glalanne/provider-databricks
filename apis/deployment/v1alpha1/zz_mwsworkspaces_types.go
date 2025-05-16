@@ -149,10 +149,13 @@ type MwsWorkspacesInitParameters struct {
 	// (GCP only) A block that specifies GCP workspace configurations, consisting of following blocks:
 	CloudResourceContainer []CloudResourceContainerInitParameters `json:"cloudResourceContainer,omitempty" tf:"cloud_resource_container,omitempty"`
 
+	// - The compute mode for the workspace. When unset, a classic workspace is created, and both credentials_id and storage_configuration_id must be specified. When set to SERVERLESS, the resulting workspace is a serverless workspace, and credentials_id and storage_configuration_id must not be set. The only allowed value for this is SERVERLESS. Changing this field requires recreation of the workspace.
+	ComputeMode *string `json:"computeMode,omitempty" tf:"compute_mode,omitempty"`
+
 	// (Integer) time when workspace was created
 	CreationTime *float64 `json:"creationTime,omitempty" tf:"creation_time,omitempty"`
 
-	// (String) Canonical unique identifier for the workspace, of the format <account-id>/<workspace-id>
+	// (AWS only, Optional) credentials_id from credentials. This must not be specified when compute_mode is set to SERVERLESS.
 	CredentialsID *string `json:"credentialsId,omitempty" tf:"credentials_id,omitempty"`
 
 	// - The custom tags key-value pairing that is attached to this workspace. These tags will be applied to clusters automatically in addition to any default_tags or custom_tags on a cluster level. Please note it can take up to an hour for custom_tags to be set due to scheduling on Control Plane. After custom tags are applied, they can be modified however they can never be completely removed.
@@ -189,7 +192,7 @@ type MwsWorkspacesInitParameters struct {
 	// Canonical unique identifier of databricks_mws_private_access_settings in Databricks Account.
 	PrivateAccessSettingsID *string `json:"privateAccessSettingsId,omitempty" tf:"private_access_settings_id,omitempty"`
 
-	// (AWS only)storage_configuration_id from storage configuration.
+	// (AWS only, Optional) storage_configuration_id from storage configuration. This must not be specified when compute_mode is set to SERVERLESS.
 	StorageConfigurationID *string `json:"storageConfigurationId,omitempty" tf:"storage_configuration_id,omitempty"`
 
 	// customer_managed_key_id from customer managed keys with use_cases set to STORAGE. This is used to encrypt the DBFS Storage & Cluster Volumes.
@@ -223,10 +226,13 @@ type MwsWorkspacesObservation struct {
 	// (GCP only) A block that specifies GCP workspace configurations, consisting of following blocks:
 	CloudResourceContainer []CloudResourceContainerObservation `json:"cloudResourceContainer,omitempty" tf:"cloud_resource_container,omitempty"`
 
+	// - The compute mode for the workspace. When unset, a classic workspace is created, and both credentials_id and storage_configuration_id must be specified. When set to SERVERLESS, the resulting workspace is a serverless workspace, and credentials_id and storage_configuration_id must not be set. The only allowed value for this is SERVERLESS. Changing this field requires recreation of the workspace.
+	ComputeMode *string `json:"computeMode,omitempty" tf:"compute_mode,omitempty"`
+
 	// (Integer) time when workspace was created
 	CreationTime *float64 `json:"creationTime,omitempty" tf:"creation_time,omitempty"`
 
-	// (String) Canonical unique identifier for the workspace, of the format <account-id>/<workspace-id>
+	// (AWS only, Optional) credentials_id from credentials. This must not be specified when compute_mode is set to SERVERLESS.
 	CredentialsID *string `json:"credentialsId,omitempty" tf:"credentials_id,omitempty"`
 
 	// - The custom tags key-value pairing that is attached to this workspace. These tags will be applied to clusters automatically in addition to any default_tags or custom_tags on a cluster level. Please note it can take up to an hour for custom_tags to be set due to scheduling on Control Plane. After custom tags are applied, they can be modified however they can never be completely removed.
@@ -238,6 +244,9 @@ type MwsWorkspacesObservation struct {
 
 	// part of URL as in https://<prefix>-<deployment-name>.cloud.databricks.com. Deployment name cannot be used until a deployment name prefix is defined. Please contact your Databricks representative. Once a new deployment prefix is added/updated, it only will affect the new workspaces created.
 	DeploymentName *string `json:"deploymentName,omitempty" tf:"deployment_name,omitempty"`
+
+	// (String) The effective compute mode for the workspace. This is either SERVERLESS for serverless workspaces or HYBRID for classic workspaces.
+	EffectiveComputeMode *string `json:"effectiveComputeMode,omitempty" tf:"effective_compute_mode,omitempty"`
 
 	ExternalCustomerInfo []ExternalCustomerInfoObservation `json:"externalCustomerInfo,omitempty" tf:"external_customer_info,omitempty"`
 
@@ -269,7 +278,7 @@ type MwsWorkspacesObservation struct {
 	// Canonical unique identifier of databricks_mws_private_access_settings in Databricks Account.
 	PrivateAccessSettingsID *string `json:"privateAccessSettingsId,omitempty" tf:"private_access_settings_id,omitempty"`
 
-	// (AWS only)storage_configuration_id from storage configuration.
+	// (AWS only, Optional) storage_configuration_id from storage configuration. This must not be specified when compute_mode is set to SERVERLESS.
 	StorageConfigurationID *string `json:"storageConfigurationId,omitempty" tf:"storage_configuration_id,omitempty"`
 
 	// customer_managed_key_id from customer managed keys with use_cases set to STORAGE. This is used to encrypt the DBFS Storage & Cluster Volumes.
@@ -310,11 +319,15 @@ type MwsWorkspacesParameters struct {
 	// +kubebuilder:validation:Optional
 	CloudResourceContainer []CloudResourceContainerParameters `json:"cloudResourceContainer,omitempty" tf:"cloud_resource_container,omitempty"`
 
+	// - The compute mode for the workspace. When unset, a classic workspace is created, and both credentials_id and storage_configuration_id must be specified. When set to SERVERLESS, the resulting workspace is a serverless workspace, and credentials_id and storage_configuration_id must not be set. The only allowed value for this is SERVERLESS. Changing this field requires recreation of the workspace.
+	// +kubebuilder:validation:Optional
+	ComputeMode *string `json:"computeMode,omitempty" tf:"compute_mode,omitempty"`
+
 	// (Integer) time when workspace was created
 	// +kubebuilder:validation:Optional
 	CreationTime *float64 `json:"creationTime,omitempty" tf:"creation_time,omitempty"`
 
-	// (String) Canonical unique identifier for the workspace, of the format <account-id>/<workspace-id>
+	// (AWS only, Optional) credentials_id from credentials. This must not be specified when compute_mode is set to SERVERLESS.
 	// +kubebuilder:validation:Optional
 	CredentialsID *string `json:"credentialsId,omitempty" tf:"credentials_id,omitempty"`
 
@@ -364,7 +377,7 @@ type MwsWorkspacesParameters struct {
 	// +kubebuilder:validation:Optional
 	PrivateAccessSettingsID *string `json:"privateAccessSettingsId,omitempty" tf:"private_access_settings_id,omitempty"`
 
-	// (AWS only)storage_configuration_id from storage configuration.
+	// (AWS only, Optional) storage_configuration_id from storage configuration. This must not be specified when compute_mode is set to SERVERLESS.
 	// +kubebuilder:validation:Optional
 	StorageConfigurationID *string `json:"storageConfigurationId,omitempty" tf:"storage_configuration_id,omitempty"`
 
