@@ -175,20 +175,11 @@ spec:
                       type: object
                     type: array
                   gkeConfig:
-                    description: '(GCP only) A block that specifies GKE configuration
-                      for the Databricks workspace:'
                     items:
                       properties:
                         connectivityType:
-                          description: ': Specifies the network connectivity types
-                            for the GKE nodes and the GKE master network. Possible
-                            values are: PRIVATE_NODE_PUBLIC_MASTER, PUBLIC_NODE_PUBLIC_MASTER.'
                           type: string
                         masterIpRange:
-                          description: ': The IP range from which to allocate GKE
-                            cluster master resources. This field will be ignored if
-                            GKE private cluster is not enabled. It must be exactly
-                            as big as /28.'
                           type: string
                       type: object
                     type: array
@@ -389,20 +380,11 @@ spec:
                       type: object
                     type: array
                   gkeConfig:
-                    description: '(GCP only) A block that specifies GKE configuration
-                      for the Databricks workspace:'
                     items:
                       properties:
                         connectivityType:
-                          description: ': Specifies the network connectivity types
-                            for the GKE nodes and the GKE master network. Possible
-                            values are: PRIVATE_NODE_PUBLIC_MASTER, PUBLIC_NODE_PUBLIC_MASTER.'
                           type: string
                         masterIpRange:
-                          description: ': The IP range from which to allocate GKE
-                            cluster master resources. This field will be ignored if
-                            GKE private cluster is not enabled. It must be exactly
-                            as big as /28.'
                           type: string
                       type: object
                     type: array
@@ -763,20 +745,11 @@ spec:
                       created for the workspace in form of db-<workspace-id>@prod-gcp-<region>.iam.gserviceaccount.com
                     type: string
                   gkeConfig:
-                    description: '(GCP only) A block that specifies GKE configuration
-                      for the Databricks workspace:'
                     items:
                       properties:
                         connectivityType:
-                          description: ': Specifies the network connectivity types
-                            for the GKE nodes and the GKE master network. Possible
-                            values are: PRIVATE_NODE_PUBLIC_MASTER, PUBLIC_NODE_PUBLIC_MASTER.'
                           type: string
                         masterIpRange:
-                          description: ': The IP range from which to allocate GKE
-                            cluster master resources. This field will be ignored if
-                            GKE private cluster is not enabled. It must be exactly
-                            as big as /28.'
                           type: string
                       type: object
                     type: array

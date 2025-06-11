@@ -26760,6 +26760,11 @@ func (in *PipelineInitParameters) DeepCopyInto(out *PipelineInitParameters) {
 			(*in)[i].DeepCopyInto(&(*out)[i])
 		}
 	}
+	if in.RootPath != nil {
+		in, out := &in.RootPath, &out.RootPath
+		*out = new(string)
+		**out = **in
+	}
 	if in.RunAs != nil {
 		in, out := &in.RunAs, &out.RunAs
 		*out = make([]PipelineRunAsInitParameters, len(*in))
@@ -27289,6 +27294,11 @@ func (in *PipelineObservation) DeepCopyInto(out *PipelineObservation) {
 			(*in)[i].DeepCopyInto(&(*out)[i])
 		}
 	}
+	if in.RootPath != nil {
+		in, out := &in.RootPath, &out.RootPath
+		*out = new(string)
+		**out = **in
+	}
 	if in.RunAs != nil {
 		in, out := &in.RunAs, &out.RunAs
 		*out = make([]PipelineRunAsObservation, len(*in))
@@ -27513,6 +27523,11 @@ func (in *PipelineParameters) DeepCopyInto(out *PipelineParameters) {
 		for i := range *in {
 			(*in)[i].DeepCopyInto(&(*out)[i])
 		}
+	}
+	if in.RootPath != nil {
+		in, out := &in.RootPath, &out.RootPath
+		*out = new(string)
+		**out = **in
 	}
 	if in.RunAs != nil {
 		in, out := &in.RunAs, &out.RunAs

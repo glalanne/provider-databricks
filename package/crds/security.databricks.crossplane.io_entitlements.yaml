@@ -101,7 +101,12 @@ spec:
                     type: string
                   workspaceAccess:
                     description: This is a field to allow the principal to have access
-                      to Databricks Workspace.
+                      to a Databricks Workspace.
+                    type: boolean
+                  workspaceConsume:
+                    description: This is a field to allow the principal to have access
+                      to a Databricks Workspace as consumer, with limited access to
+                      workspace UI.
                     type: boolean
                 type: object
               initProvider:
@@ -146,7 +151,12 @@ spec:
                     type: string
                   workspaceAccess:
                     description: This is a field to allow the principal to have access
-                      to Databricks Workspace.
+                      to a Databricks Workspace.
+                    type: boolean
+                  workspaceConsume:
+                    description: This is a field to allow the principal to have access
+                      to a Databricks Workspace as consumer, with limited access to
+                      workspace UI.
                     type: boolean
                 type: object
               managementPolicies:
@@ -352,7 +362,12 @@ spec:
                     type: string
                   workspaceAccess:
                     description: This is a field to allow the principal to have access
-                      to Databricks Workspace.
+                      to a Databricks Workspace.
+                    type: boolean
+                  workspaceConsume:
+                    description: This is a field to allow the principal to have access
+                      to a Databricks Workspace as consumer, with limited access to
+                      workspace UI.
                     type: boolean
                 type: object
               conditions:

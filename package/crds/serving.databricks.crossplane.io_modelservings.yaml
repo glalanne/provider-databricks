@@ -789,9 +789,10 @@ spec:
                       create a new endpoint with the updated name.'
                     type: string
                   rateLimits:
-                    description: 'A list of rate limit blocks to be applied to the
-                      serving endpoint. Note: only external and foundation model endpoints
-                      are supported as of now.'
+                    description: '(Deprecated, use ai_gateway to manage rate limits)
+                      A list of rate limit blocks to be applied to the serving endpoint.
+                      Note: only external and foundation model endpoints are supported
+                      as of now.'
                     items:
                       properties:
                         calls:
@@ -1557,9 +1558,10 @@ spec:
                       create a new endpoint with the updated name.'
                     type: string
                   rateLimits:
-                    description: 'A list of rate limit blocks to be applied to the
-                      serving endpoint. Note: only external and foundation model endpoints
-                      are supported as of now.'
+                    description: '(Deprecated, use ai_gateway to manage rate limits)
+                      A list of rate limit blocks to be applied to the serving endpoint.
+                      Note: only external and foundation model endpoints are supported
+                      as of now.'
                     items:
                       properties:
                         calls:
@@ -2493,9 +2495,10 @@ spec:
                       create a new endpoint with the updated name.'
                     type: string
                   rateLimits:
-                    description: 'A list of rate limit blocks to be applied to the
-                      serving endpoint. Note: only external and foundation model endpoints
-                      are supported as of now.'
+                    description: '(Deprecated, use ai_gateway to manage rate limits)
+                      A list of rate limit blocks to be applied to the serving endpoint.
+                      Note: only external and foundation model endpoints are supported
+                      as of now.'
                     items:
                       properties:
                         calls:

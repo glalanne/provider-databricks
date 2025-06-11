@@ -13,27 +13,6 @@ import (
 	v1 "github.com/crossplane/crossplane-runtime/apis/common/v1"
 )
 
-type CustomTagsInitParameters struct {
-	Key *string `json:"key,omitempty" tf:"key,omitempty"`
-
-	Value *string `json:"value,omitempty" tf:"value,omitempty"`
-}
-
-type CustomTagsObservation struct {
-	Key *string `json:"key,omitempty" tf:"key,omitempty"`
-
-	Value *string `json:"value,omitempty" tf:"value,omitempty"`
-}
-
-type CustomTagsParameters struct {
-
-	// +kubebuilder:validation:Optional
-	Key *string `json:"key" tf:"key,omitempty"`
-
-	// +kubebuilder:validation:Optional
-	Value *string `json:"value,omitempty" tf:"value,omitempty"`
-}
-
 type EndpointStatusInitParameters struct {
 }
 
@@ -50,19 +29,21 @@ type EndpointStatusParameters struct {
 }
 
 type VectorSearchEndpointInitParameters struct {
-	CustomTags []CustomTagsInitParameters `json:"customTags,omitempty" tf:"custom_tags,omitempty"`
 
-	// The same as the name of the endpoint.
-	EffectiveBudgetPolicyID *string `json:"effectiveBudgetPolicyId,omitempty" tf:"effective_budget_policy_id,omitempty"`
+	// The Budget Policy ID set for this resource.
+	BudgetPolicyID *string `json:"budgetPolicyId,omitempty" tf:"budget_policy_id,omitempty"`
 
-	// Type of Mosaic AI Vector Search Endpoint.  Currently only accepting single value: STANDARD (See documentation for the list of currently supported values).
+	// Type of Mosaic AI Vector Search Endpoint.  Currently only accepting single value: STANDARD (See documentation for the list of currently supported values). (Change leads to recreation of the resource).
 	EndpointType *string `json:"endpointType,omitempty" tf:"endpoint_type,omitempty"`
 
-	// Name of the Mosaic AI Vector Search Endpoint to create.
+	// Name of the Mosaic AI Vector Search Endpoint to create. (Change leads to recreation of the resource).
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 }
 
 type VectorSearchEndpointObservation struct {
+
+	// The Budget Policy ID set for this resource.
+	BudgetPolicyID *string `json:"budgetPolicyId,omitempty" tf:"budget_policy_id,omitempty"`
 
 	// Timestamp of endpoint creation (milliseconds).
 	CreationTimestamp *float64 `json:"creationTimestamp,omitempty" tf:"creation_timestamp,omitempty"`
@@ -70,9 +51,7 @@ type VectorSearchEndpointObservation struct {
 	// Creator of the endpoint.
 	Creator *string `json:"creator,omitempty" tf:"creator,omitempty"`
 
-	CustomTags []CustomTagsObservation `json:"customTags,omitempty" tf:"custom_tags,omitempty"`
-
-	// The same as the name of the endpoint.
+	// The effective budget policy ID.
 	EffectiveBudgetPolicyID *string `json:"effectiveBudgetPolicyId,omitempty" tf:"effective_budget_policy_id,omitempty"`
 
 	// Unique internal identifier of the endpoint (UUID).
@@ -81,7 +60,7 @@ type VectorSearchEndpointObservation struct {
 	// Object describing the current status of the endpoint consisting of the following fields:
 	EndpointStatus []EndpointStatusObservation `json:"endpointStatus,omitempty" tf:"endpoint_status,omitempty"`
 
-	// Type of Mosaic AI Vector Search Endpoint.  Currently only accepting single value: STANDARD (See documentation for the list of currently supported values).
+	// Type of Mosaic AI Vector Search Endpoint.  Currently only accepting single value: STANDARD (See documentation for the list of currently supported values). (Change leads to recreation of the resource).
 	EndpointType *string `json:"endpointType,omitempty" tf:"endpoint_type,omitempty"`
 
 	// The same as the name of the endpoint.
@@ -93,7 +72,7 @@ type VectorSearchEndpointObservation struct {
 	// User who last updated the endpoint.
 	LastUpdatedUser *string `json:"lastUpdatedUser,omitempty" tf:"last_updated_user,omitempty"`
 
-	// Name of the Mosaic AI Vector Search Endpoint to create.
+	// Name of the Mosaic AI Vector Search Endpoint to create. (Change leads to recreation of the resource).
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// Number of indexes on the endpoint.
@@ -102,18 +81,15 @@ type VectorSearchEndpointObservation struct {
 
 type VectorSearchEndpointParameters struct {
 
+	// The Budget Policy ID set for this resource.
 	// +kubebuilder:validation:Optional
-	CustomTags []CustomTagsParameters `json:"customTags,omitempty" tf:"custom_tags,omitempty"`
+	BudgetPolicyID *string `json:"budgetPolicyId,omitempty" tf:"budget_policy_id,omitempty"`
 
-	// The same as the name of the endpoint.
-	// +kubebuilder:validation:Optional
-	EffectiveBudgetPolicyID *string `json:"effectiveBudgetPolicyId,omitempty" tf:"effective_budget_policy_id,omitempty"`
-
-	// Type of Mosaic AI Vector Search Endpoint.  Currently only accepting single value: STANDARD (See documentation for the list of currently supported values).
+	// Type of Mosaic AI Vector Search Endpoint.  Currently only accepting single value: STANDARD (See documentation for the list of currently supported values). (Change leads to recreation of the resource).
 	// +kubebuilder:validation:Optional
 	EndpointType *string `json:"endpointType,omitempty" tf:"endpoint_type,omitempty"`
 
-	// Name of the Mosaic AI Vector Search Endpoint to create.
+	// Name of the Mosaic AI Vector Search Endpoint to create. (Change leads to recreation of the resource).
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 }

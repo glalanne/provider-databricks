@@ -26,6 +26,8 @@ spec:
       - path: ${databricks_notebook.dlt_demo.id}
     - file:
       - path: ${databricks_repo.dlt_demo.path}/pipeline.sql
+    - glob:
+      - include: ${databricks_repo.dlt_demo.path}/subfolder/**
     name: Pipeline Name
     notification:
     - alerts:

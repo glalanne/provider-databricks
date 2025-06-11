@@ -73,25 +73,18 @@ spec:
                 type: string
               forProvider:
                 properties:
-                  customTags:
-                    items:
-                      properties:
-                        key:
-                          type: string
-                        value:
-                          type: string
-                      type: object
-                    type: array
-                  effectiveBudgetPolicyId:
-                    description: The same as the name of the endpoint.
+                  budgetPolicyId:
+                    description: The Budget Policy ID set for this resource.
                     type: string
                   endpointType:
                     description: 'Type of Mosaic AI Vector Search Endpoint.  Currently
                       only accepting single value: STANDARD (See documentation for
-                      the list of currently supported values).'
+                      the list of currently supported values). (Change leads to recreation
+                      of the resource).'
                     type: string
                   name:
                     description: Name of the Mosaic AI Vector Search Endpoint to create.
+                      (Change leads to recreation of the resource).
                     type: string
                 type: object
               initProvider:
@@ -107,25 +100,18 @@ spec:
                   for example because of an external controller is managing them, like an
                   autoscaler.
                 properties:
-                  customTags:
-                    items:
-                      properties:
-                        key:
-                          type: string
-                        value:
-                          type: string
-                      type: object
-                    type: array
-                  effectiveBudgetPolicyId:
-                    description: The same as the name of the endpoint.
+                  budgetPolicyId:
+                    description: The Budget Policy ID set for this resource.
                     type: string
                   endpointType:
                     description: 'Type of Mosaic AI Vector Search Endpoint.  Currently
                       only accepting single value: STANDARD (See documentation for
-                      the list of currently supported values).'
+                      the list of currently supported values). (Change leads to recreation
+                      of the resource).'
                     type: string
                   name:
                     description: Name of the Mosaic AI Vector Search Endpoint to create.
+                      (Change leads to recreation of the resource).
                     type: string
                 type: object
               managementPolicies:
@@ -310,23 +296,17 @@ spec:
             properties:
               atProvider:
                 properties:
+                  budgetPolicyId:
+                    description: The Budget Policy ID set for this resource.
+                    type: string
                   creationTimestamp:
                     description: Timestamp of endpoint creation (milliseconds).
                     type: number
                   creator:
                     description: Creator of the endpoint.
                     type: string
-                  customTags:
-                    items:
-                      properties:
-                        key:
-                          type: string
-                        value:
-                          type: string
-                      type: object
-                    type: array
                   effectiveBudgetPolicyId:
-                    description: The same as the name of the endpoint.
+                    description: The effective budget policy ID.
                     type: string
                   endpointId:
                     description: Unique internal identifier of the endpoint (UUID).
@@ -348,7 +328,8 @@ spec:
                   endpointType:
                     description: 'Type of Mosaic AI Vector Search Endpoint.  Currently
                       only accepting single value: STANDARD (See documentation for
-                      the list of currently supported values).'
+                      the list of currently supported values). (Change leads to recreation
+                      of the resource).'
                     type: string
                   id:
                     description: The same as the name of the endpoint.
@@ -361,6 +342,7 @@ spec:
                     type: string
                   name:
                     description: Name of the Mosaic AI Vector Search Endpoint to create.
+                      (Change leads to recreation of the resource).
                     type: string
                   numIndexes:
                     description: Number of indexes on the endpoint.

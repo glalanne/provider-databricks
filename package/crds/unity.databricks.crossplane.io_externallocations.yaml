@@ -72,10 +72,6 @@ spec:
                 type: string
               forProvider:
                 properties:
-                  accessPoint:
-                    description: The ARN of the s3 access point to use with the external
-                      location (AWS).
-                    type: string
                   comment:
                     description: User-supplied free-form text.
                     type: string
@@ -83,6 +79,10 @@ spec:
                     description: Name of the databricks_storage_credential to use
                       with this external location.
                     type: string
+                  enableFileEvents:
+                    description: indicates if managed file events are enabled for
+                      this external location.  Requires file_event_queue block.
+                    type: boolean
                   encryptionDetails:
                     description: The options for Server-Side Encryption to be used
                       by each Databricks s3 client when connecting to S3 cloud storage
@@ -109,6 +109,80 @@ spec:
                       default), the access to the location falls back to cluster credentials
                       if UC credentials are not sufficient.
                     type: boolean
+                  fileEventQueue:
+                    items:
+                      properties:
+                        managedAqs:
+                          description: Configuration for managed Azure Queue Storage
+                            queue.
+                          items:
+                            properties:
+                              queueUrl:
+                                description: The URL of the queue.
+                                type: string
+                              resourceGroup:
+                                description: The Azure resource group.
+                                type: string
+                              subscriptionId:
+                                description: The Azure subscription ID.
+                                type: string
+                            type: object
+                          type: array
+                        managedPubsub:
+                          description: Configuration for managed Google Cloud Pub/Sub
+                            queue.
+                          items:
+                            properties:
+                              subscriptionName:
+                                description: The name of the subscription.
+                                type: string
+                            type: object
+                          type: array
+                        managedSqs:
+                          description: Configuration for managed Amazon SQS queue.
+                          items:
+                            properties:
+                              queueUrl:
+                                description: The URL of the queue.
+                                type: string
+                            type: object
+                          type: array
+                        providedAqs:
+                          description: Configuration for provided Azure Storage Queue.
+                          items:
+                            properties:
+                              queueUrl:
+                                description: The URL of the queue.
+                                type: string
+                              resourceGroup:
+                                description: The Azure resource group.
+                                type: string
+                              subscriptionId:
+                                description: The Azure subscription ID.
+                                type: string
+                            type: object
+                          type: array
+                        providedPubsub:
+                          description: Configuration for provided Google Cloud Pub/Sub
+                            queue.
+                          items:
+                            properties:
+                              subscriptionName:
+                                description: The name of the subscription.
+                                type: string
+                            type: object
+                          type: array
+                        providedSqs:
+                          description: Configuration for provided Amazon SQS queue.
+                          items:
+                            properties:
+                              queueUrl:
+                                description: The URL of the queue.
+                                type: string
+                            type: object
+                          type: array
+                      type: object
+                    type: array
                   forceDestroy:
                     description: Destroy external location regardless of its dependents.
                     type: boolean
@@ -158,10 +232,6 @@ spec:
                   for example because of an external controller is managing them, like an
                   autoscaler.
                 properties:
-                  accessPoint:
-                    description: The ARN of the s3 access point to use with the external
-                      location (AWS).
-                    type: string
                   comment:
                     description: User-supplied free-form text.
                     type: string
@@ -169,6 +239,10 @@ spec:
                     description: Name of the databricks_storage_credential to use
                       with this external location.
                     type: string
+                  enableFileEvents:
+                    description: indicates if managed file events are enabled for
+                      this external location.  Requires file_event_queue block.
+                    type: boolean
                   encryptionDetails:
                     description: The options for Server-Side Encryption to be used
                       by each Databricks s3 client when connecting to S3 cloud storage
@@ -195,6 +269,80 @@ spec:
                       default), the access to the location falls back to cluster credentials
                       if UC credentials are not sufficient.
                     type: boolean
+                  fileEventQueue:
+                    items:
+                      properties:
+                        managedAqs:
+                          description: Configuration for managed Azure Queue Storage
+                            queue.
+                          items:
+                            properties:
+                              queueUrl:
+                                description: The URL of the queue.
+                                type: string
+                              resourceGroup:
+                                description: The Azure resource group.
+                                type: string
+                              subscriptionId:
+                                description: The Azure subscription ID.
+                                type: string
+                            type: object
+                          type: array
+                        managedPubsub:
+                          description: Configuration for managed Google Cloud Pub/Sub
+                            queue.
+                          items:
+                            properties:
+                              subscriptionName:
+                                description: The name of the subscription.
+                                type: string
+                            type: object
+                          type: array
+                        managedSqs:
+                          description: Configuration for managed Amazon SQS queue.
+                          items:
+                            properties:
+                              queueUrl:
+                                description: The URL of the queue.
+                                type: string
+                            type: object
+                          type: array
+                        providedAqs:
+                          description: Configuration for provided Azure Storage Queue.
+                          items:
+                            properties:
+                              queueUrl:
+                                description: The URL of the queue.
+                                type: string
+                              resourceGroup:
+                                description: The Azure resource group.
+                                type: string
+                              subscriptionId:
+                                description: The Azure subscription ID.
+                                type: string
+                            type: object
+                          type: array
+                        providedPubsub:
+                          description: Configuration for provided Google Cloud Pub/Sub
+                            queue.
+                          items:
+                            properties:
+                              subscriptionName:
+                                description: The name of the subscription.
+                                type: string
+                            type: object
+                          type: array
+                        providedSqs:
+                          description: Configuration for provided Amazon SQS queue.
+                          items:
+                            properties:
+                              queueUrl:
+                                description: The URL of the queue.
+                                type: string
+                            type: object
+                          type: array
+                      type: object
+                    type: array
                   forceDestroy:
                     description: Destroy external location regardless of its dependents.
                     type: boolean
@@ -416,10 +564,6 @@ spec:
             properties:
               atProvider:
                 properties:
-                  accessPoint:
-                    description: The ARN of the s3 access point to use with the external
-                      location (AWS).
-                    type: string
                   browseOnly:
                     type: boolean
                   comment:
@@ -439,6 +583,10 @@ spec:
                     description: Name of the databricks_storage_credential to use
                       with this external location.
                     type: string
+                  enableFileEvents:
+                    description: indicates if managed file events are enabled for
+                      this external location.  Requires file_event_queue block.
+                    type: boolean
                   encryptionDetails:
                     description: The options for Server-Side Encryption to be used
                       by each Databricks s3 client when connecting to S3 cloud storage
@@ -465,6 +613,98 @@ spec:
                       default), the access to the location falls back to cluster credentials
                       if UC credentials are not sufficient.
                     type: boolean
+                  fileEventQueue:
+                    items:
+                      properties:
+                        managedAqs:
+                          description: Configuration for managed Azure Queue Storage
+                            queue.
+                          items:
+                            properties:
+                              managedResourceId:
+                                description: (Computed) The ID of the managed resource.
+                                type: string
+                              queueUrl:
+                                description: The URL of the queue.
+                                type: string
+                              resourceGroup:
+                                description: The Azure resource group.
+                                type: string
+                              subscriptionId:
+                                description: The Azure subscription ID.
+                                type: string
+                            type: object
+                          type: array
+                        managedPubsub:
+                          description: Configuration for managed Google Cloud Pub/Sub
+                            queue.
+                          items:
+                            properties:
+                              managedResourceId:
+                                description: (Computed) The ID of the managed resource.
+                                type: string
+                              subscriptionName:
+                                description: The name of the subscription.
+                                type: string
+                            type: object
+                          type: array
+                        managedSqs:
+                          description: Configuration for managed Amazon SQS queue.
+                          items:
+                            properties:
+                              managedResourceId:
+                                description: (Computed) The ID of the managed resource.
+                                type: string
+                              queueUrl:
+                                description: The URL of the queue.
+                                type: string
+                            type: object
+                          type: array
+                        providedAqs:
+                          description: Configuration for provided Azure Storage Queue.
+                          items:
+                            properties:
+                              managedResourceId:
+                                description: (Computed) The ID of the managed resource.
+                                type: string
+                              queueUrl:
+                                description: The URL of the queue.
+                                type: string
+                              resourceGroup:
+                                description: The Azure resource group.
+                                type: string
+                              subscriptionId:
+                                description: The Azure subscription ID.
+                                type: string
+                            type: object
+                          type: array
+                        providedPubsub:
+                          description: Configuration for provided Google Cloud Pub/Sub
+                            queue.
+                          items:
+                            properties:
+                              managedResourceId:
+                                description: (Computed) The ID of the managed resource.
+                                type: string
+                              subscriptionName:
+                                description: The name of the subscription.
+                                type: string
+                            type: object
+                          type: array
+                        providedSqs:
+                          description: Configuration for provided Amazon SQS queue.
+                          items:
+                            properties:
+                              managedResourceId:
+                                description: (Computed) The ID of the managed resource.
+                                type: string
+                              queueUrl:
+                                description: The URL of the queue.
+                                type: string
+                            type: object
+                          type: array
+                      type: object
+                    type: array
                   forceDestroy:
                     description: Destroy external location regardless of its dependents.
                     type: boolean

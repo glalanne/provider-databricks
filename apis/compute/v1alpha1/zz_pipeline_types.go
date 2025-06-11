@@ -391,6 +391,7 @@ type ClusterInitScriptsInitParameters struct {
 
 	Dbfs []ClusterInitScriptsDbfsInitParameters `json:"dbfs,omitempty" tf:"dbfs,omitempty"`
 
+	// specifies path to a file in Databricks Workspace to include as source. Actual path is specified as path attribute inside the block.
 	File []ClusterInitScriptsFileInitParameters `json:"file,omitempty" tf:"file,omitempty"`
 
 	Gcs []ClusterInitScriptsGcsInitParameters `json:"gcs,omitempty" tf:"gcs,omitempty"`
@@ -407,6 +408,7 @@ type ClusterInitScriptsObservation struct {
 
 	Dbfs []ClusterInitScriptsDbfsObservation `json:"dbfs,omitempty" tf:"dbfs,omitempty"`
 
+	// specifies path to a file in Databricks Workspace to include as source. Actual path is specified as path attribute inside the block.
 	File []ClusterInitScriptsFileObservation `json:"file,omitempty" tf:"file,omitempty"`
 
 	Gcs []ClusterInitScriptsGcsObservation `json:"gcs,omitempty" tf:"gcs,omitempty"`
@@ -426,6 +428,7 @@ type ClusterInitScriptsParameters struct {
 	// +kubebuilder:validation:Optional
 	Dbfs []ClusterInitScriptsDbfsParameters `json:"dbfs,omitempty" tf:"dbfs,omitempty"`
 
+	// specifies path to a file in Databricks Workspace to include as source. Actual path is specified as path attribute inside the block.
 	// +kubebuilder:validation:Optional
 	File []ClusterInitScriptsFileParameters `json:"file,omitempty" tf:"file,omitempty"`
 
@@ -693,7 +696,7 @@ type GlobParameters struct {
 
 	// Paths to include.
 	// +kubebuilder:validation:Optional
-	Include *string `json:"include,omitempty" tf:"include,omitempty"`
+	Include *string `json:"include" tf:"include,omitempty"`
 }
 
 type IngestionDefinitionInitParameters struct {
@@ -843,7 +846,7 @@ type LibraryFileObservation struct {
 type LibraryFileParameters struct {
 
 	// +kubebuilder:validation:Optional
-	Path *string `json:"path,omitempty" tf:"path,omitempty"`
+	Path *string `json:"path" tf:"path,omitempty"`
 }
 
 type ManualInitParameters struct {
@@ -866,7 +869,7 @@ type NotebookObservation struct {
 type NotebookParameters struct {
 
 	// +kubebuilder:validation:Optional
-	Path *string `json:"path,omitempty" tf:"path,omitempty"`
+	Path *string `json:"path" tf:"path,omitempty"`
 }
 
 type NotificationInitParameters struct {
@@ -1255,7 +1258,7 @@ type PipelineInitParameters struct {
 
 	LatestUpdates []LatestUpdatesInitParameters `json:"latestUpdates,omitempty" tf:"latest_updates,omitempty"`
 
-	// Specifies pipeline code and required artifacts. Syntax resembles library configuration block with the addition of a special notebook & file library types that should have the path attribute. Right now only the
+	// Specifies pipeline code.
 	Library []PipelineLibraryInitParameters `json:"library,omitempty" tf:"library,omitempty"`
 
 	// A user-friendly name for this pipeline. The name can be used to identify pipeline jobs in the UI.
@@ -1267,6 +1270,9 @@ type PipelineInitParameters struct {
 	Photon *bool `json:"photon,omitempty" tf:"photon,omitempty"`
 
 	RestartWindow []RestartWindowInitParameters `json:"restartWindow,omitempty" tf:"restart_window,omitempty"`
+
+	// An optional string specifying the root path for this pipeline. This is used as the root directory when editing the pipeline in the Databricks user interface and it is added to sys.path when executing Python sources during pipeline execution.
+	RootPath *string `json:"rootPath,omitempty" tf:"root_path,omitempty"`
 
 	RunAs []PipelineRunAsInitParameters `json:"runAs,omitempty" tf:"run_as,omitempty"`
 
@@ -1294,15 +1300,18 @@ type PipelineInitParameters struct {
 }
 
 type PipelineLibraryInitParameters struct {
+
+	// specifies path to a file in Databricks Workspace to include as source. Actual path is specified as path attribute inside the block.
 	File []LibraryFileInitParameters `json:"file,omitempty" tf:"file,omitempty"`
 
+	// The unified field to include source code. Each entry should have the include attribute that can specify a notebook path, a file path, or a folder path that ends /** (to include everything from that folder). This field cannot be used together with notebook or file.
 	Glob []GlobInitParameters `json:"glob,omitempty" tf:"glob,omitempty"`
 
 	Jar *string `json:"jar,omitempty" tf:"jar,omitempty"`
 
 	Maven []PipelineLibraryMavenInitParameters `json:"maven,omitempty" tf:"maven,omitempty"`
 
-	// & file types are supported.
+	// specifies path to a Databricks Notebook to include as source. Actual path is specified as path attribute inside the block.
 	Notebook []NotebookInitParameters `json:"notebook,omitempty" tf:"notebook,omitempty"`
 
 	Whl *string `json:"whl,omitempty" tf:"whl,omitempty"`
@@ -1337,15 +1346,18 @@ type PipelineLibraryMavenParameters struct {
 }
 
 type PipelineLibraryObservation struct {
+
+	// specifies path to a file in Databricks Workspace to include as source. Actual path is specified as path attribute inside the block.
 	File []LibraryFileObservation `json:"file,omitempty" tf:"file,omitempty"`
 
+	// The unified field to include source code. Each entry should have the include attribute that can specify a notebook path, a file path, or a folder path that ends /** (to include everything from that folder). This field cannot be used together with notebook or file.
 	Glob []GlobObservation `json:"glob,omitempty" tf:"glob,omitempty"`
 
 	Jar *string `json:"jar,omitempty" tf:"jar,omitempty"`
 
 	Maven []PipelineLibraryMavenObservation `json:"maven,omitempty" tf:"maven,omitempty"`
 
-	// & file types are supported.
+	// specifies path to a Databricks Notebook to include as source. Actual path is specified as path attribute inside the block.
 	Notebook []NotebookObservation `json:"notebook,omitempty" tf:"notebook,omitempty"`
 
 	Whl *string `json:"whl,omitempty" tf:"whl,omitempty"`
@@ -1353,9 +1365,11 @@ type PipelineLibraryObservation struct {
 
 type PipelineLibraryParameters struct {
 
+	// specifies path to a file in Databricks Workspace to include as source. Actual path is specified as path attribute inside the block.
 	// +kubebuilder:validation:Optional
 	File []LibraryFileParameters `json:"file,omitempty" tf:"file,omitempty"`
 
+	// The unified field to include source code. Each entry should have the include attribute that can specify a notebook path, a file path, or a folder path that ends /** (to include everything from that folder). This field cannot be used together with notebook or file.
 	// +kubebuilder:validation:Optional
 	Glob []GlobParameters `json:"glob,omitempty" tf:"glob,omitempty"`
 
@@ -1365,7 +1379,7 @@ type PipelineLibraryParameters struct {
 	// +kubebuilder:validation:Optional
 	Maven []PipelineLibraryMavenParameters `json:"maven,omitempty" tf:"maven,omitempty"`
 
-	// & file types are supported.
+	// specifies path to a Databricks Notebook to include as source. Actual path is specified as path attribute inside the block.
 	// +kubebuilder:validation:Optional
 	Notebook []NotebookParameters `json:"notebook,omitempty" tf:"notebook,omitempty"`
 
@@ -1436,7 +1450,7 @@ type PipelineObservation struct {
 
 	LatestUpdates []LatestUpdatesObservation `json:"latestUpdates,omitempty" tf:"latest_updates,omitempty"`
 
-	// Specifies pipeline code and required artifacts. Syntax resembles library configuration block with the addition of a special notebook & file library types that should have the path attribute. Right now only the
+	// Specifies pipeline code.
 	Library []PipelineLibraryObservation `json:"library,omitempty" tf:"library,omitempty"`
 
 	// A user-friendly name for this pipeline. The name can be used to identify pipeline jobs in the UI.
@@ -1448,6 +1462,9 @@ type PipelineObservation struct {
 	Photon *bool `json:"photon,omitempty" tf:"photon,omitempty"`
 
 	RestartWindow []RestartWindowObservation `json:"restartWindow,omitempty" tf:"restart_window,omitempty"`
+
+	// An optional string specifying the root path for this pipeline. This is used as the root directory when editing the pipeline in the Databricks user interface and it is added to sys.path when executing Python sources during pipeline execution.
+	RootPath *string `json:"rootPath,omitempty" tf:"root_path,omitempty"`
 
 	RunAs []PipelineRunAsObservation `json:"runAs,omitempty" tf:"run_as,omitempty"`
 
@@ -1555,7 +1572,7 @@ type PipelineParameters struct {
 	// +kubebuilder:validation:Optional
 	LatestUpdates []LatestUpdatesParameters `json:"latestUpdates,omitempty" tf:"latest_updates,omitempty"`
 
-	// Specifies pipeline code and required artifacts. Syntax resembles library configuration block with the addition of a special notebook & file library types that should have the path attribute. Right now only the
+	// Specifies pipeline code.
 	// +kubebuilder:validation:Optional
 	Library []PipelineLibraryParameters `json:"library,omitempty" tf:"library,omitempty"`
 
@@ -1572,6 +1589,10 @@ type PipelineParameters struct {
 
 	// +kubebuilder:validation:Optional
 	RestartWindow []RestartWindowParameters `json:"restartWindow,omitempty" tf:"restart_window,omitempty"`
+
+	// An optional string specifying the root path for this pipeline. This is used as the root directory when editing the pipeline in the Databricks user interface and it is added to sys.path when executing Python sources during pipeline execution.
+	// +kubebuilder:validation:Optional
+	RootPath *string `json:"rootPath,omitempty" tf:"root_path,omitempty"`
 
 	// +kubebuilder:validation:Optional
 	RunAs []PipelineRunAsParameters `json:"runAs,omitempty" tf:"run_as,omitempty"`
