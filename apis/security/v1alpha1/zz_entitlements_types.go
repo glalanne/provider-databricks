@@ -33,8 +33,11 @@ type EntitlementsInitParameters struct {
 	// Canonical unique identifier for the user.
 	UserID *string `json:"userId,omitempty" tf:"user_id,omitempty"`
 
-	// This is a field to allow the principal to have access to Databricks Workspace.
+	// This is a field to allow the principal to have access to a Databricks Workspace.
 	WorkspaceAccess *bool `json:"workspaceAccess,omitempty" tf:"workspace_access,omitempty"`
+
+	// This is a field to allow the principal to have access to a Databricks Workspace as consumer, with limited access to workspace UI.
+	WorkspaceConsume *bool `json:"workspaceConsume,omitempty" tf:"workspace_consume,omitempty"`
 }
 
 type EntitlementsObservation struct {
@@ -59,8 +62,11 @@ type EntitlementsObservation struct {
 	// Canonical unique identifier for the user.
 	UserID *string `json:"userId,omitempty" tf:"user_id,omitempty"`
 
-	// This is a field to allow the principal to have access to Databricks Workspace.
+	// This is a field to allow the principal to have access to a Databricks Workspace.
 	WorkspaceAccess *bool `json:"workspaceAccess,omitempty" tf:"workspace_access,omitempty"`
+
+	// This is a field to allow the principal to have access to a Databricks Workspace as consumer, with limited access to workspace UI.
+	WorkspaceConsume *bool `json:"workspaceConsume,omitempty" tf:"workspace_consume,omitempty"`
 }
 
 type EntitlementsParameters struct {
@@ -89,9 +95,13 @@ type EntitlementsParameters struct {
 	// +kubebuilder:validation:Optional
 	UserID *string `json:"userId,omitempty" tf:"user_id,omitempty"`
 
-	// This is a field to allow the principal to have access to Databricks Workspace.
+	// This is a field to allow the principal to have access to a Databricks Workspace.
 	// +kubebuilder:validation:Optional
 	WorkspaceAccess *bool `json:"workspaceAccess,omitempty" tf:"workspace_access,omitempty"`
+
+	// This is a field to allow the principal to have access to a Databricks Workspace as consumer, with limited access to workspace UI.
+	// +kubebuilder:validation:Optional
+	WorkspaceConsume *bool `json:"workspaceConsume,omitempty" tf:"workspace_consume,omitempty"`
 }
 
 // EntitlementsSpec defines the desired state of Entitlements

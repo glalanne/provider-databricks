@@ -95,7 +95,7 @@ spec:
                       with databricks_permissions and instance_pool_id argument.
                     type: boolean
                   databricksSqlAccess:
-                    description: This is a field to allow the group to have access
+                    description: This is a field to allow the user to have access
                       to Databricks SQL feature in User Interface and through databricks_sql_endpoint.
                     type: boolean
                   disableAsUserDeletion:
@@ -138,6 +138,13 @@ spec:
                       converted to lower case if it contains upper case characters.
                     type: string
                   workspaceAccess:
+                    description: This is a field to allow the user to have access
+                      to a Databricks Workspace.
+                    type: boolean
+                  workspaceConsume:
+                    description: This is a field to allow the user to have access
+                      to a Databricks Workspace as consumer, with limited access to
+                      workspace UI.
                     type: boolean
                 type: object
               initProvider:
@@ -176,7 +183,7 @@ spec:
                       with databricks_permissions and instance_pool_id argument.
                     type: boolean
                   databricksSqlAccess:
-                    description: This is a field to allow the group to have access
+                    description: This is a field to allow the user to have access
                       to Databricks SQL feature in User Interface and through databricks_sql_endpoint.
                     type: boolean
                   disableAsUserDeletion:
@@ -219,6 +226,13 @@ spec:
                       converted to lower case if it contains upper case characters.
                     type: string
                   workspaceAccess:
+                    description: This is a field to allow the user to have access
+                      to a Databricks Workspace.
+                    type: boolean
+                  workspaceConsume:
+                    description: This is a field to allow the user to have access
+                      to a Databricks Workspace as consumer, with limited access to
+                      workspace UI.
                     type: boolean
                 type: object
               managementPolicies:
@@ -421,7 +435,7 @@ spec:
                       with databricks_permissions and instance_pool_id argument.
                     type: boolean
                   databricksSqlAccess:
-                    description: This is a field to allow the group to have access
+                    description: This is a field to allow the user to have access
                       to Databricks SQL feature in User Interface and through databricks_sql_endpoint.
                     type: boolean
                   disableAsUserDeletion:
@@ -467,6 +481,13 @@ spec:
                       converted to lower case if it contains upper case characters.
                     type: string
                   workspaceAccess:
+                    description: This is a field to allow the user to have access
+                      to a Databricks Workspace.
+                    type: boolean
+                  workspaceConsume:
+                    description: This is a field to allow the user to have access
+                      to a Databricks Workspace as consumer, with limited access to
+                      workspace UI.
                     type: boolean
                 type: object
               conditions:

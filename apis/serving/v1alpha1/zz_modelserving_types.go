@@ -825,7 +825,7 @@ type ModelServingInitParameters struct {
 	// The name of the model serving endpoint. This field is required and must be unique across a workspace. An endpoint name can consist of alphanumeric characters, dashes, and underscores. NOTE: Changing this name will delete the existing endpoint and create a new endpoint with the updated name.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
-	// A list of rate limit blocks to be applied to the serving endpoint. Note: only external and foundation model endpoints are supported as of now.
+	// (Deprecated, use ai_gateway to manage rate limits) A list of rate limit blocks to be applied to the serving endpoint. Note: only external and foundation model endpoints are supported as of now.
 	RateLimits []ModelServingRateLimitsInitParameters `json:"rateLimits,omitempty" tf:"rate_limits,omitempty"`
 
 	// A boolean enabling route optimization for the endpoint. Note: only available for custom models.
@@ -852,7 +852,7 @@ type ModelServingObservation struct {
 	// The name of the model serving endpoint. This field is required and must be unique across a workspace. An endpoint name can consist of alphanumeric characters, dashes, and underscores. NOTE: Changing this name will delete the existing endpoint and create a new endpoint with the updated name.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
-	// A list of rate limit blocks to be applied to the serving endpoint. Note: only external and foundation model endpoints are supported as of now.
+	// (Deprecated, use ai_gateway to manage rate limits) A list of rate limit blocks to be applied to the serving endpoint. Note: only external and foundation model endpoints are supported as of now.
 	RateLimits []ModelServingRateLimitsObservation `json:"rateLimits,omitempty" tf:"rate_limits,omitempty"`
 
 	// A boolean enabling route optimization for the endpoint. Note: only available for custom models.
@@ -883,7 +883,7 @@ type ModelServingParameters struct {
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
-	// A list of rate limit blocks to be applied to the serving endpoint. Note: only external and foundation model endpoints are supported as of now.
+	// (Deprecated, use ai_gateway to manage rate limits) A list of rate limit blocks to be applied to the serving endpoint. Note: only external and foundation model endpoints are supported as of now.
 	// +kubebuilder:validation:Optional
 	RateLimits []ModelServingRateLimitsParameters `json:"rateLimits,omitempty" tf:"rate_limits,omitempty"`
 

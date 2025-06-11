@@ -250,6 +250,9 @@ spec:
                                   type: object
                                 type: array
                               file:
+                                description: specifies path to a file in Databricks
+                                  Workspace to include as source. Actual path is specified
+                                  as path attribute inside the block.
                                 items:
                                   properties:
                                     destination:
@@ -676,13 +679,13 @@ spec:
                       type: object
                     type: array
                   library:
-                    description: Specifies pipeline code and required artifacts. Syntax
-                      resembles library configuration block with the addition of a
-                      special notebook & file library types that should have the path
-                      attribute. Right now only the
+                    description: Specifies pipeline code.
                     items:
                       properties:
                         file:
+                          description: specifies path to a file in Databricks Workspace
+                            to include as source. Actual path is specified as path
+                            attribute inside the block.
                           items:
                             properties:
                               path:
@@ -690,6 +693,11 @@ spec:
                             type: object
                           type: array
                         glob:
+                          description: The unified field to include source code. Each
+                            entry should have the include attribute that can specify
+                            a notebook path, a file path, or a folder path that ends
+                            /** (to include everything from that folder). This field
+                            cannot be used together with notebook or file.
                           items:
                             properties:
                               include:
@@ -713,7 +721,9 @@ spec:
                             type: object
                           type: array
                         notebook:
-                          description: '& file types are supported.'
+                          description: specifies path to a Databricks Notebook to
+                            include as source. Actual path is specified as path attribute
+                            inside the block.
                           items:
                             properties:
                               path:
@@ -763,6 +773,12 @@ spec:
                           type: string
                       type: object
                     type: array
+                  rootPath:
+                    description: An optional string specifying the root path for this
+                      pipeline. This is used as the root directory when editing the
+                      pipeline in the Databricks user interface and it is added to
+                      sys.path when executing Python sources during pipeline execution.
+                    type: string
                   runAs:
                     items:
                       properties:
@@ -1020,6 +1036,9 @@ spec:
                                   type: object
                                 type: array
                               file:
+                                description: specifies path to a file in Databricks
+                                  Workspace to include as source. Actual path is specified
+                                  as path attribute inside the block.
                                 items:
                                   properties:
                                     destination:
@@ -1446,13 +1465,13 @@ spec:
                       type: object
                     type: array
                   library:
-                    description: Specifies pipeline code and required artifacts. Syntax
-                      resembles library configuration block with the addition of a
-                      special notebook & file library types that should have the path
-                      attribute. Right now only the
+                    description: Specifies pipeline code.
                     items:
                       properties:
                         file:
+                          description: specifies path to a file in Databricks Workspace
+                            to include as source. Actual path is specified as path
+                            attribute inside the block.
                           items:
                             properties:
                               path:
@@ -1460,6 +1479,11 @@ spec:
                             type: object
                           type: array
                         glob:
+                          description: The unified field to include source code. Each
+                            entry should have the include attribute that can specify
+                            a notebook path, a file path, or a folder path that ends
+                            /** (to include everything from that folder). This field
+                            cannot be used together with notebook or file.
                           items:
                             properties:
                               include:
@@ -1483,7 +1507,9 @@ spec:
                             type: object
                           type: array
                         notebook:
-                          description: '& file types are supported.'
+                          description: specifies path to a Databricks Notebook to
+                            include as source. Actual path is specified as path attribute
+                            inside the block.
                           items:
                             properties:
                               path:
@@ -1533,6 +1559,12 @@ spec:
                           type: string
                       type: object
                     type: array
+                  rootPath:
+                    description: An optional string specifying the root path for this
+                      pipeline. This is used as the root directory when editing the
+                      pipeline in the Databricks user interface and it is added to
+                      sys.path when executing Python sources during pipeline execution.
+                    type: string
                   runAs:
                     items:
                       properties:
@@ -1949,6 +1981,9 @@ spec:
                                   type: object
                                 type: array
                               file:
+                                description: specifies path to a file in Databricks
+                                  Workspace to include as source. Actual path is specified
+                                  as path attribute inside the block.
                                 items:
                                   properties:
                                     destination:
@@ -2378,13 +2413,13 @@ spec:
                       type: object
                     type: array
                   library:
-                    description: Specifies pipeline code and required artifacts. Syntax
-                      resembles library configuration block with the addition of a
-                      special notebook & file library types that should have the path
-                      attribute. Right now only the
+                    description: Specifies pipeline code.
                     items:
                       properties:
                         file:
+                          description: specifies path to a file in Databricks Workspace
+                            to include as source. Actual path is specified as path
+                            attribute inside the block.
                           items:
                             properties:
                               path:
@@ -2392,6 +2427,11 @@ spec:
                             type: object
                           type: array
                         glob:
+                          description: The unified field to include source code. Each
+                            entry should have the include attribute that can specify
+                            a notebook path, a file path, or a folder path that ends
+                            /** (to include everything from that folder). This field
+                            cannot be used together with notebook or file.
                           items:
                             properties:
                               include:
@@ -2415,7 +2455,9 @@ spec:
                             type: object
                           type: array
                         notebook:
-                          description: '& file types are supported.'
+                          description: specifies path to a Databricks Notebook to
+                            include as source. Actual path is specified as path attribute
+                            inside the block.
                           items:
                             properties:
                               path:
@@ -2465,6 +2507,12 @@ spec:
                           type: string
                       type: object
                     type: array
+                  rootPath:
+                    description: An optional string specifying the root path for this
+                      pipeline. This is used as the root directory when editing the
+                      pipeline in the Databricks user interface and it is added to
+                      sys.path when executing Python sources during pipeline execution.
+                    type: string
                   runAs:
                     items:
                       properties:

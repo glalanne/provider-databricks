@@ -99,8 +99,8 @@ spec:
                     description: managed service principals this value is auto-generated.
                     type: string
                   databricksSqlAccess:
-                    description: This is a field to allow the group to have access
-                      to Databricks SQL feature through databricks_sql_endpoint.
+                    description: This is a field to allow the service principal to
+                      have access to Databricks SQL feature through databricks_sql_endpoint.
                     type: boolean
                   disableAsUserDeletion:
                     description: Deactivate the service principal when deleting the
@@ -140,8 +140,13 @@ spec:
                       e.g. /Repos/00000000-0000-0000-0000-000000000000.
                     type: string
                   workspaceAccess:
-                    description: This is a field to allow the group to have access
-                      to Databricks Workspace.
+                    description: This is a field to allow the service principal to
+                      have access to a Databricks Workspace.
+                    type: boolean
+                  workspaceConsume:
+                    description: This is a field to allow the service principal to
+                      have access to a Databricks Workspace as consumer, with limited
+                      access to workspace UI.
                     type: boolean
                 type: object
               initProvider:
@@ -184,8 +189,8 @@ spec:
                     description: managed service principals this value is auto-generated.
                     type: string
                   databricksSqlAccess:
-                    description: This is a field to allow the group to have access
-                      to Databricks SQL feature through databricks_sql_endpoint.
+                    description: This is a field to allow the service principal to
+                      have access to Databricks SQL feature through databricks_sql_endpoint.
                     type: boolean
                   disableAsUserDeletion:
                     description: Deactivate the service principal when deleting the
@@ -225,8 +230,13 @@ spec:
                       e.g. /Repos/00000000-0000-0000-0000-000000000000.
                     type: string
                   workspaceAccess:
-                    description: This is a field to allow the group to have access
-                      to Databricks Workspace.
+                    description: This is a field to allow the service principal to
+                      have access to a Databricks Workspace.
+                    type: boolean
+                  workspaceConsume:
+                    description: This is a field to allow the service principal to
+                      have access to a Databricks Workspace as consumer, with limited
+                      access to workspace UI.
                     type: boolean
                 type: object
               managementPolicies:
@@ -428,8 +438,8 @@ spec:
                     description: managed service principals this value is auto-generated.
                     type: string
                   databricksSqlAccess:
-                    description: This is a field to allow the group to have access
-                      to Databricks SQL feature through databricks_sql_endpoint.
+                    description: This is a field to allow the service principal to
+                      have access to Databricks SQL feature through databricks_sql_endpoint.
                     type: boolean
                   disableAsUserDeletion:
                     description: Deactivate the service principal when deleting the
@@ -473,8 +483,13 @@ spec:
                       e.g. /Repos/00000000-0000-0000-0000-000000000000.
                     type: string
                   workspaceAccess:
-                    description: This is a field to allow the group to have access
-                      to Databricks Workspace.
+                    description: This is a field to allow the service principal to
+                      have access to a Databricks Workspace.
+                    type: boolean
+                  workspaceConsume:
+                    description: This is a field to allow the service principal to
+                      have access to a Databricks Workspace as consumer, with limited
+                      access to workspace UI.
                     type: boolean
                 type: object
               conditions:

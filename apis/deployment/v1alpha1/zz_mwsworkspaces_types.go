@@ -108,30 +108,22 @@ type GCPParameters struct {
 }
 
 type GkeConfigInitParameters struct {
-
-	// : Specifies the network connectivity types for the GKE nodes and the GKE master network. Possible values are: PRIVATE_NODE_PUBLIC_MASTER, PUBLIC_NODE_PUBLIC_MASTER.
 	ConnectivityType *string `json:"connectivityType,omitempty" tf:"connectivity_type,omitempty"`
 
-	// : The IP range from which to allocate GKE cluster master resources. This field will be ignored if GKE private cluster is not enabled. It must be exactly as big as /28.
 	MasterIPRange *string `json:"masterIpRange,omitempty" tf:"master_ip_range,omitempty"`
 }
 
 type GkeConfigObservation struct {
-
-	// : Specifies the network connectivity types for the GKE nodes and the GKE master network. Possible values are: PRIVATE_NODE_PUBLIC_MASTER, PUBLIC_NODE_PUBLIC_MASTER.
 	ConnectivityType *string `json:"connectivityType,omitempty" tf:"connectivity_type,omitempty"`
 
-	// : The IP range from which to allocate GKE cluster master resources. This field will be ignored if GKE private cluster is not enabled. It must be exactly as big as /28.
 	MasterIPRange *string `json:"masterIpRange,omitempty" tf:"master_ip_range,omitempty"`
 }
 
 type GkeConfigParameters struct {
 
-	// : Specifies the network connectivity types for the GKE nodes and the GKE master network. Possible values are: PRIVATE_NODE_PUBLIC_MASTER, PUBLIC_NODE_PUBLIC_MASTER.
 	// +kubebuilder:validation:Optional
 	ConnectivityType *string `json:"connectivityType,omitempty" tf:"connectivity_type,omitempty"`
 
-	// : The IP range from which to allocate GKE cluster master resources. This field will be ignored if GKE private cluster is not enabled. It must be exactly as big as /28.
 	// +kubebuilder:validation:Optional
 	MasterIPRange *string `json:"masterIpRange,omitempty" tf:"master_ip_range,omitempty"`
 }
@@ -172,7 +164,6 @@ type MwsWorkspacesInitParameters struct {
 
 	GCPManagedNetworkConfig []GCPManagedNetworkConfigInitParameters `json:"gcpManagedNetworkConfig,omitempty" tf:"gcp_managed_network_config,omitempty"`
 
-	// (GCP only) A block that specifies GKE configuration for the Databricks workspace:
 	GkeConfig []GkeConfigInitParameters `json:"gkeConfig,omitempty" tf:"gke_config,omitempty"`
 
 	IsNoPublicIPEnabled *bool `json:"isNoPublicIpEnabled,omitempty" tf:"is_no_public_ip_enabled,omitempty"`
@@ -255,7 +246,6 @@ type MwsWorkspacesObservation struct {
 	// (String, GCP only) identifier of a service account created for the workspace in form of db-<workspace-id>@prod-gcp-<region>.iam.gserviceaccount.com
 	GCPWorkspaceSa *string `json:"gcpWorkspaceSa,omitempty" tf:"gcp_workspace_sa,omitempty"`
 
-	// (GCP only) A block that specifies GKE configuration for the Databricks workspace:
 	GkeConfig []GkeConfigObservation `json:"gkeConfig,omitempty" tf:"gke_config,omitempty"`
 
 	// (String) Canonical unique identifier for the workspace, of the format <account-id>/<workspace-id>
@@ -350,7 +340,6 @@ type MwsWorkspacesParameters struct {
 	// +kubebuilder:validation:Optional
 	GCPManagedNetworkConfig []GCPManagedNetworkConfigParameters `json:"gcpManagedNetworkConfig,omitempty" tf:"gcp_managed_network_config,omitempty"`
 
-	// (GCP only) A block that specifies GKE configuration for the Databricks workspace:
 	// +kubebuilder:validation:Optional
 	GkeConfig []GkeConfigParameters `json:"gkeConfig,omitempty" tf:"gke_config,omitempty"`
 

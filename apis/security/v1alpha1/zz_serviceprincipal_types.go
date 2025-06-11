@@ -30,7 +30,7 @@ type ServicePrincipalInitParameters struct {
 	// managed service principals this value is auto-generated.
 	ApplicationID *string `json:"applicationId,omitempty" tf:"application_id,omitempty"`
 
-	// This is a field to allow the group to have access to Databricks SQL feature through databricks_sql_endpoint.
+	// This is a field to allow the service principal to have access to Databricks SQL feature through databricks_sql_endpoint.
 	DatabricksSQLAccess *bool `json:"databricksSqlAccess,omitempty" tf:"databricks_sql_access,omitempty"`
 
 	// Deactivate the service principal when deleting the resource, rather than deleting the service principal entirely. Defaults to true when the provider is configured at the account-level and false when configured at the workspace-level. This flag is exclusive to force_delete_repos and force_delete_home_dir flags.
@@ -57,8 +57,11 @@ type ServicePrincipalInitParameters struct {
 	// Personal Repos location of the service principal, e.g. /Repos/00000000-0000-0000-0000-000000000000.
 	Repos *string `json:"repos,omitempty" tf:"repos,omitempty"`
 
-	// This is a field to allow the group to have access to Databricks Workspace.
+	// This is a field to allow the service principal to have access to a Databricks Workspace.
 	WorkspaceAccess *bool `json:"workspaceAccess,omitempty" tf:"workspace_access,omitempty"`
+
+	// This is a field to allow the service principal to have access to a Databricks Workspace as consumer, with limited access to workspace UI.
+	WorkspaceConsume *bool `json:"workspaceConsume,omitempty" tf:"workspace_consume,omitempty"`
 }
 
 type ServicePrincipalObservation struct {
@@ -78,7 +81,7 @@ type ServicePrincipalObservation struct {
 	// managed service principals this value is auto-generated.
 	ApplicationID *string `json:"applicationId,omitempty" tf:"application_id,omitempty"`
 
-	// This is a field to allow the group to have access to Databricks SQL feature through databricks_sql_endpoint.
+	// This is a field to allow the service principal to have access to Databricks SQL feature through databricks_sql_endpoint.
 	DatabricksSQLAccess *bool `json:"databricksSqlAccess,omitempty" tf:"databricks_sql_access,omitempty"`
 
 	// Deactivate the service principal when deleting the resource, rather than deleting the service principal entirely. Defaults to true when the provider is configured at the account-level and false when configured at the workspace-level. This flag is exclusive to force_delete_repos and force_delete_home_dir flags.
@@ -108,8 +111,11 @@ type ServicePrincipalObservation struct {
 	// Personal Repos location of the service principal, e.g. /Repos/00000000-0000-0000-0000-000000000000.
 	Repos *string `json:"repos,omitempty" tf:"repos,omitempty"`
 
-	// This is a field to allow the group to have access to Databricks Workspace.
+	// This is a field to allow the service principal to have access to a Databricks Workspace.
 	WorkspaceAccess *bool `json:"workspaceAccess,omitempty" tf:"workspace_access,omitempty"`
+
+	// This is a field to allow the service principal to have access to a Databricks Workspace as consumer, with limited access to workspace UI.
+	WorkspaceConsume *bool `json:"workspaceConsume,omitempty" tf:"workspace_consume,omitempty"`
 }
 
 type ServicePrincipalParameters struct {
@@ -134,7 +140,7 @@ type ServicePrincipalParameters struct {
 	// +kubebuilder:validation:Optional
 	ApplicationID *string `json:"applicationId,omitempty" tf:"application_id,omitempty"`
 
-	// This is a field to allow the group to have access to Databricks SQL feature through databricks_sql_endpoint.
+	// This is a field to allow the service principal to have access to Databricks SQL feature through databricks_sql_endpoint.
 	// +kubebuilder:validation:Optional
 	DatabricksSQLAccess *bool `json:"databricksSqlAccess,omitempty" tf:"databricks_sql_access,omitempty"`
 
@@ -170,9 +176,13 @@ type ServicePrincipalParameters struct {
 	// +kubebuilder:validation:Optional
 	Repos *string `json:"repos,omitempty" tf:"repos,omitempty"`
 
-	// This is a field to allow the group to have access to Databricks Workspace.
+	// This is a field to allow the service principal to have access to a Databricks Workspace.
 	// +kubebuilder:validation:Optional
 	WorkspaceAccess *bool `json:"workspaceAccess,omitempty" tf:"workspace_access,omitempty"`
+
+	// This is a field to allow the service principal to have access to a Databricks Workspace as consumer, with limited access to workspace UI.
+	// +kubebuilder:validation:Optional
+	WorkspaceConsume *bool `json:"workspaceConsume,omitempty" tf:"workspace_consume,omitempty"`
 }
 
 // ServicePrincipalSpec defines the desired state of ServicePrincipal
