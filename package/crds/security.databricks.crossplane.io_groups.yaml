@@ -114,7 +114,7 @@ spec:
                   workspaceConsume:
                     description: This is a field to allow the group to have access
                       to a Databricks Workspace as consumer, with limited access to
-                      workspace UI.
+                      workspace UI.  Couldn't be used with workspace_access or databricks_sql_access.
                     type: boolean
                 type: object
               initProvider:
@@ -172,7 +172,7 @@ spec:
                   workspaceConsume:
                     description: This is a field to allow the group to have access
                       to a Databricks Workspace as consumer, with limited access to
-                      workspace UI.
+                      workspace UI.  Couldn't be used with workspace_access or databricks_sql_access.
                     type: boolean
                 type: object
               managementPolicies:
@@ -397,7 +397,7 @@ spec:
                   workspaceConsume:
                     description: This is a field to allow the group to have access
                       to a Databricks Workspace as consumer, with limited access to
-                      workspace UI.
+                      workspace UI.  Couldn't be used with workspace_access or databricks_sql_access.
                     type: boolean
                 type: object
               conditions:

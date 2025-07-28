@@ -27,7 +27,7 @@ type ServicePrincipalSecretInitParameters struct {
 	// Secret Hash.
 	SecretHash *string `json:"secretHash,omitempty" tf:"secret_hash,omitempty"`
 
-	// Generated secret for the service principal.
+	// Sensitive Generated secret for the service principal.
 	SecretSecretRef *v1.SecretKeySelector `json:"secretSecretRef,omitempty" tf:"-"`
 
 	// SCIM ID of the databricks_service_principal (not application ID).
@@ -35,6 +35,9 @@ type ServicePrincipalSecretInitParameters struct {
 
 	// Status of the secret (i.e., ACTIVE - see REST API docs for full list).
 	Status *string `json:"status,omitempty" tf:"status,omitempty"`
+
+	// - Changing this argument forces recreation of the secret.
+	TimeRotating *string `json:"timeRotating,omitempty" tf:"time_rotating,omitempty"`
 
 	// UTC time when the secret was updated.
 	UpdateTime *string `json:"updateTime,omitempty" tf:"update_time,omitempty"`
@@ -63,6 +66,9 @@ type ServicePrincipalSecretObservation struct {
 	// Status of the secret (i.e., ACTIVE - see REST API docs for full list).
 	Status *string `json:"status,omitempty" tf:"status,omitempty"`
 
+	// - Changing this argument forces recreation of the secret.
+	TimeRotating *string `json:"timeRotating,omitempty" tf:"time_rotating,omitempty"`
+
 	// UTC time when the secret was updated.
 	UpdateTime *string `json:"updateTime,omitempty" tf:"update_time,omitempty"`
 }
@@ -85,7 +91,7 @@ type ServicePrincipalSecretParameters struct {
 	// +kubebuilder:validation:Optional
 	SecretHash *string `json:"secretHash,omitempty" tf:"secret_hash,omitempty"`
 
-	// Generated secret for the service principal.
+	// Sensitive Generated secret for the service principal.
 	// +kubebuilder:validation:Optional
 	SecretSecretRef *v1.SecretKeySelector `json:"secretSecretRef,omitempty" tf:"-"`
 
@@ -96,6 +102,10 @@ type ServicePrincipalSecretParameters struct {
 	// Status of the secret (i.e., ACTIVE - see REST API docs for full list).
 	// +kubebuilder:validation:Optional
 	Status *string `json:"status,omitempty" tf:"status,omitempty"`
+
+	// - Changing this argument forces recreation of the secret.
+	// +kubebuilder:validation:Optional
+	TimeRotating *string `json:"timeRotating,omitempty" tf:"time_rotating,omitempty"`
 
 	// UTC time when the secret was updated.
 	// +kubebuilder:validation:Optional

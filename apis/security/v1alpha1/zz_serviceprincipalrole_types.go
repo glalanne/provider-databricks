@@ -15,7 +15,7 @@ import (
 
 type ServicePrincipalRoleInitParameters struct {
 
-	// This is the id of the role or instance profile resource.
+	// This is the role name, role id, or instance profile resource.
 	Role *string `json:"role,omitempty" tf:"role,omitempty"`
 
 	// This is the id of the service principal resource.
@@ -27,7 +27,7 @@ type ServicePrincipalRoleObservation struct {
 	// The id in the format <service_principal_id>|<role>.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
-	// This is the id of the role or instance profile resource.
+	// This is the role name, role id, or instance profile resource.
 	Role *string `json:"role,omitempty" tf:"role,omitempty"`
 
 	// This is the id of the service principal resource.
@@ -36,7 +36,7 @@ type ServicePrincipalRoleObservation struct {
 
 type ServicePrincipalRoleParameters struct {
 
-	// This is the id of the role or instance profile resource.
+	// This is the role name, role id, or instance profile resource.
 	// +kubebuilder:validation:Optional
 	Role *string `json:"role,omitempty" tf:"role,omitempty"`
 

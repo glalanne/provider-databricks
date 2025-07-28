@@ -689,6 +689,8 @@ spec:
                       when you specify policy_id of external metastore policy, you
                       still have to fill in relevant keys for spark_conf.
                     type: string
+                  remoteDiskThroughput:
+                    type: number
                   runtimeEngine:
                     description: 'The type of runtime engine to use. If not specified,
                       the runtime engine type is inferred based on the spark_version
@@ -730,6 +732,8 @@ spec:
                     items:
                       type: string
                     type: array
+                  totalInitialRemoteDiskSize:
+                    type: number
                   useMlRuntime:
                     description: Whenever ML runtime should be selected or not.  Actual
                       runtime is determined by spark_version (DBR release), this field
@@ -1387,6 +1391,8 @@ spec:
                       when you specify policy_id of external metastore policy, you
                       still have to fill in relevant keys for spark_conf.
                     type: string
+                  remoteDiskThroughput:
+                    type: number
                   runtimeEngine:
                     description: 'The type of runtime engine to use. If not specified,
                       the runtime engine type is inferred based on the spark_version
@@ -1428,6 +1434,8 @@ spec:
                     items:
                       type: string
                     type: array
+                  totalInitialRemoteDiskSize:
+                    type: number
                   useMlRuntime:
                     description: Whenever ML runtime should be selected or not.  Actual
                       runtime is determined by spark_version (DBR release), this field
@@ -2245,6 +2253,8 @@ spec:
                       when you specify policy_id of external metastore policy, you
                       still have to fill in relevant keys for spark_conf.
                     type: string
+                  remoteDiskThroughput:
+                    type: number
                   runtimeEngine:
                     description: 'The type of runtime engine to use. If not specified,
                       the runtime engine type is inferred based on the spark_version
@@ -2289,6 +2299,8 @@ spec:
                   state:
                     description: (string) State of the cluster.
                     type: string
+                  totalInitialRemoteDiskSize:
+                    type: number
                   url:
                     description: URL for the Docker image
                     type: string

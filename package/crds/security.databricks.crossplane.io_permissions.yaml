@@ -167,6 +167,10 @@ spec:
                           type: string
                       type: object
                     type: array
+                  alertV2Id:
+                    description: Canonical unique identifier for the permissions in
+                      form of /<object type>/<object id>.
+                    type: string
                   appName:
                     description: app name
                     type: string
@@ -332,6 +336,8 @@ spec:
                   dashboardId:
                     description: Canonical unique identifier for the permissions in
                       form of /<object type>/<object id>.
+                    type: string
+                  databaseInstanceName:
                     type: string
                   directoryId:
                     description: directory id
@@ -1024,6 +1030,10 @@ spec:
                           type: string
                       type: object
                     type: array
+                  alertV2Id:
+                    description: Canonical unique identifier for the permissions in
+                      form of /<object type>/<object id>.
+                    type: string
                   appName:
                     description: app name
                     type: string
@@ -1189,6 +1199,8 @@ spec:
                   dashboardId:
                     description: Canonical unique identifier for the permissions in
                       form of /<object type>/<object id>.
+                    type: string
+                  databaseInstanceName:
                     type: string
                   directoryId:
                     description: directory id
@@ -1969,6 +1981,10 @@ spec:
                           type: string
                       type: object
                     type: array
+                  alertV2Id:
+                    description: Canonical unique identifier for the permissions in
+                      form of /<object type>/<object id>.
+                    type: string
                   appName:
                     description: app name
                     type: string
@@ -1984,6 +2000,8 @@ spec:
                   dashboardId:
                     description: Canonical unique identifier for the permissions in
                       form of /<object type>/<object id>.
+                    type: string
+                  databaseInstanceName:
                     type: string
                   directoryId:
                     description: directory id

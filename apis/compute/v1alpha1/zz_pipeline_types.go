@@ -60,7 +60,7 @@ type ClusterAwsAttributesInitParameters struct {
 
 	SpotBidPricePercent *float64 `json:"spotBidPricePercent,omitempty" tf:"spot_bid_price_percent,omitempty"`
 
-	// Canonical unique identifier of the DLT pipeline.
+	// Canonical unique identifier of the Lakeflow Declarative Pipeline.
 	ZoneID *string `json:"zoneId,omitempty" tf:"zone_id,omitempty"`
 }
 
@@ -83,7 +83,7 @@ type ClusterAwsAttributesObservation struct {
 
 	SpotBidPricePercent *float64 `json:"spotBidPricePercent,omitempty" tf:"spot_bid_price_percent,omitempty"`
 
-	// Canonical unique identifier of the DLT pipeline.
+	// Canonical unique identifier of the Lakeflow Declarative Pipeline.
 	ZoneID *string `json:"zoneId,omitempty" tf:"zone_id,omitempty"`
 }
 
@@ -116,7 +116,7 @@ type ClusterAwsAttributesParameters struct {
 	// +kubebuilder:validation:Optional
 	SpotBidPricePercent *float64 `json:"spotBidPricePercent,omitempty" tf:"spot_bid_price_percent,omitempty"`
 
-	// Canonical unique identifier of the DLT pipeline.
+	// Canonical unique identifier of the Lakeflow Declarative Pipeline.
 	// +kubebuilder:validation:Optional
 	ZoneID *string `json:"zoneId,omitempty" tf:"zone_id,omitempty"`
 }
@@ -134,14 +134,14 @@ type ClusterAzureAttributesInitParameters struct {
 type ClusterAzureAttributesLogAnalyticsInfoInitParameters struct {
 	LogAnalyticsPrimaryKey *string `json:"logAnalyticsPrimaryKey,omitempty" tf:"log_analytics_primary_key,omitempty"`
 
-	// Canonical unique identifier of the DLT pipeline.
+	// Canonical unique identifier of the Lakeflow Declarative Pipeline.
 	LogAnalyticsWorkspaceID *string `json:"logAnalyticsWorkspaceId,omitempty" tf:"log_analytics_workspace_id,omitempty"`
 }
 
 type ClusterAzureAttributesLogAnalyticsInfoObservation struct {
 	LogAnalyticsPrimaryKey *string `json:"logAnalyticsPrimaryKey,omitempty" tf:"log_analytics_primary_key,omitempty"`
 
-	// Canonical unique identifier of the DLT pipeline.
+	// Canonical unique identifier of the Lakeflow Declarative Pipeline.
 	LogAnalyticsWorkspaceID *string `json:"logAnalyticsWorkspaceId,omitempty" tf:"log_analytics_workspace_id,omitempty"`
 }
 
@@ -150,7 +150,7 @@ type ClusterAzureAttributesLogAnalyticsInfoParameters struct {
 	// +kubebuilder:validation:Optional
 	LogAnalyticsPrimaryKey *string `json:"logAnalyticsPrimaryKey,omitempty" tf:"log_analytics_primary_key,omitempty"`
 
-	// Canonical unique identifier of the DLT pipeline.
+	// Canonical unique identifier of the Lakeflow Declarative Pipeline.
 	// +kubebuilder:validation:Optional
 	LogAnalyticsWorkspaceID *string `json:"logAnalyticsWorkspaceId,omitempty" tf:"log_analytics_workspace_id,omitempty"`
 }
@@ -299,7 +299,7 @@ type ClusterGCPAttributesInitParameters struct {
 
 	LocalSsdCount *float64 `json:"localSsdCount,omitempty" tf:"local_ssd_count,omitempty"`
 
-	// Canonical unique identifier of the DLT pipeline.
+	// Canonical unique identifier of the Lakeflow Declarative Pipeline.
 	ZoneID *string `json:"zoneId,omitempty" tf:"zone_id,omitempty"`
 }
 
@@ -310,7 +310,7 @@ type ClusterGCPAttributesObservation struct {
 
 	LocalSsdCount *float64 `json:"localSsdCount,omitempty" tf:"local_ssd_count,omitempty"`
 
-	// Canonical unique identifier of the DLT pipeline.
+	// Canonical unique identifier of the Lakeflow Declarative Pipeline.
 	ZoneID *string `json:"zoneId,omitempty" tf:"zone_id,omitempty"`
 }
 
@@ -325,7 +325,7 @@ type ClusterGCPAttributesParameters struct {
 	// +kubebuilder:validation:Optional
 	LocalSsdCount *float64 `json:"localSsdCount,omitempty" tf:"local_ssd_count,omitempty"`
 
-	// Canonical unique identifier of the DLT pipeline.
+	// Canonical unique identifier of the Lakeflow Declarative Pipeline.
 	// +kubebuilder:validation:Optional
 	ZoneID *string `json:"zoneId,omitempty" tf:"zone_id,omitempty"`
 }
@@ -532,14 +532,14 @@ type ClusterInitScriptsWorkspaceParameters struct {
 type CronInitParameters struct {
 	QuartzCronSchedule *string `json:"quartzCronSchedule,omitempty" tf:"quartz_cron_schedule,omitempty"`
 
-	// Canonical unique identifier of the DLT pipeline.
+	// Canonical unique identifier of the Lakeflow Declarative Pipeline.
 	TimezoneID *string `json:"timezoneId,omitempty" tf:"timezone_id,omitempty"`
 }
 
 type CronObservation struct {
 	QuartzCronSchedule *string `json:"quartzCronSchedule,omitempty" tf:"quartz_cron_schedule,omitempty"`
 
-	// Canonical unique identifier of the DLT pipeline.
+	// Canonical unique identifier of the Lakeflow Declarative Pipeline.
 	TimezoneID *string `json:"timezoneId,omitempty" tf:"timezone_id,omitempty"`
 }
 
@@ -548,7 +548,7 @@ type CronParameters struct {
 	// +kubebuilder:validation:Optional
 	QuartzCronSchedule *string `json:"quartzCronSchedule,omitempty" tf:"quartz_cron_schedule,omitempty"`
 
-	// Canonical unique identifier of the DLT pipeline.
+	// Canonical unique identifier of the Lakeflow Declarative Pipeline.
 	// +kubebuilder:validation:Optional
 	TimezoneID *string `json:"timezoneId,omitempty" tf:"timezone_id,omitempty"`
 }
@@ -632,7 +632,7 @@ type GatewayDefinitionInitParameters struct {
 	// Required, Immutable. The name of the catalog for the gateway pipeline's storage location.
 	GatewayStorageCatalog *string `json:"gatewayStorageCatalog,omitempty" tf:"gateway_storage_catalog,omitempty"`
 
-	// Required. The Unity Catalog-compatible naming for the gateway storage location. This is the destination to use for the data that is extracted by the gateway. Delta Live Tables system will automatically create the storage location under the catalog and schema.
+	// Required. The Unity Catalog-compatible naming for the gateway storage location. This is the destination to use for the data that is extracted by the gateway. Lakeflow Declarative Pipelines system will automatically create the storage location under the catalog and schema.
 	GatewayStorageName *string `json:"gatewayStorageName,omitempty" tf:"gateway_storage_name,omitempty"`
 
 	// Required, Immutable. The name of the schema for the gateway pipelines's storage location.
@@ -650,7 +650,7 @@ type GatewayDefinitionObservation struct {
 	// Required, Immutable. The name of the catalog for the gateway pipeline's storage location.
 	GatewayStorageCatalog *string `json:"gatewayStorageCatalog,omitempty" tf:"gateway_storage_catalog,omitempty"`
 
-	// Required. The Unity Catalog-compatible naming for the gateway storage location. This is the destination to use for the data that is extracted by the gateway. Delta Live Tables system will automatically create the storage location under the catalog and schema.
+	// Required. The Unity Catalog-compatible naming for the gateway storage location. This is the destination to use for the data that is extracted by the gateway. Lakeflow Declarative Pipelines system will automatically create the storage location under the catalog and schema.
 	GatewayStorageName *string `json:"gatewayStorageName,omitempty" tf:"gateway_storage_name,omitempty"`
 
 	// Required, Immutable. The name of the schema for the gateway pipelines's storage location.
@@ -671,7 +671,7 @@ type GatewayDefinitionParameters struct {
 	// +kubebuilder:validation:Optional
 	GatewayStorageCatalog *string `json:"gatewayStorageCatalog" tf:"gateway_storage_catalog,omitempty"`
 
-	// Required. The Unity Catalog-compatible naming for the gateway storage location. This is the destination to use for the data that is extracted by the gateway. Delta Live Tables system will automatically create the storage location under the catalog and schema.
+	// Required. The Unity Catalog-compatible naming for the gateway storage location. This is the destination to use for the data that is extracted by the gateway. Lakeflow Declarative Pipelines system will automatically create the storage location under the catalog and schema.
 	// +kubebuilder:validation:Optional
 	GatewayStorageName *string `json:"gatewayStorageName,omitempty" tf:"gateway_storage_name,omitempty"`
 
@@ -809,7 +809,7 @@ type LatestUpdatesInitParameters struct {
 
 	State *string `json:"state,omitempty" tf:"state,omitempty"`
 
-	// Canonical unique identifier of the DLT pipeline.
+	// Canonical unique identifier of the Lakeflow Declarative Pipeline.
 	UpdateID *string `json:"updateId,omitempty" tf:"update_id,omitempty"`
 }
 
@@ -818,7 +818,7 @@ type LatestUpdatesObservation struct {
 
 	State *string `json:"state,omitempty" tf:"state,omitempty"`
 
-	// Canonical unique identifier of the DLT pipeline.
+	// Canonical unique identifier of the Lakeflow Declarative Pipeline.
 	UpdateID *string `json:"updateId,omitempty" tf:"update_id,omitempty"`
 }
 
@@ -830,7 +830,7 @@ type LatestUpdatesParameters struct {
 	// +kubebuilder:validation:Optional
 	State *string `json:"state,omitempty" tf:"state,omitempty"`
 
-	// Canonical unique identifier of the DLT pipeline.
+	// Canonical unique identifier of the Lakeflow Declarative Pipeline.
 	// +kubebuilder:validation:Optional
 	UpdateID *string `json:"updateId,omitempty" tf:"update_id,omitempty"`
 }
@@ -1016,13 +1016,14 @@ type PipelineClusterInitParameters struct {
 
 	ClusterLogConf []ClusterClusterLogConfInitParameters `json:"clusterLogConf,omitempty" tf:"cluster_log_conf,omitempty"`
 
+	// A map of tags associated with the pipeline. These are forwarded to the cluster as cluster tags, and are therefore subject to the same limitations. A maximum of 25 tags can be added to the pipeline.
 	// +mapType=granular
 	CustomTags map[string]*string `json:"customTags,omitempty" tf:"custom_tags,omitempty"`
 
-	// Canonical unique identifier of the DLT pipeline.
+	// Canonical unique identifier of the Lakeflow Declarative Pipeline.
 	DriverInstancePoolID *string `json:"driverInstancePoolId,omitempty" tf:"driver_instance_pool_id,omitempty"`
 
-	// Canonical unique identifier of the DLT pipeline.
+	// Canonical unique identifier of the Lakeflow Declarative Pipeline.
 	DriverNodeTypeID *string `json:"driverNodeTypeId,omitempty" tf:"driver_node_type_id,omitempty"`
 
 	EnableLocalDiskEncryption *bool `json:"enableLocalDiskEncryption,omitempty" tf:"enable_local_disk_encryption,omitempty"`
@@ -1031,17 +1032,17 @@ type PipelineClusterInitParameters struct {
 
 	InitScripts []ClusterInitScriptsInitParameters `json:"initScripts,omitempty" tf:"init_scripts,omitempty"`
 
-	// Canonical unique identifier of the DLT pipeline.
+	// Canonical unique identifier of the Lakeflow Declarative Pipeline.
 	InstancePoolID *string `json:"instancePoolId,omitempty" tf:"instance_pool_id,omitempty"`
 
 	Label *string `json:"label,omitempty" tf:"label,omitempty"`
 
-	// Canonical unique identifier of the DLT pipeline.
+	// Canonical unique identifier of the Lakeflow Declarative Pipeline.
 	NodeTypeID *string `json:"nodeTypeId,omitempty" tf:"node_type_id,omitempty"`
 
 	NumWorkers *float64 `json:"numWorkers,omitempty" tf:"num_workers,omitempty"`
 
-	// Canonical unique identifier of the DLT pipeline.
+	// Canonical unique identifier of the Lakeflow Declarative Pipeline.
 	PolicyID *string `json:"policyId,omitempty" tf:"policy_id,omitempty"`
 
 	SSHPublicKeys []*string `json:"sshPublicKeys,omitempty" tf:"ssh_public_keys,omitempty"`
@@ -1064,13 +1065,14 @@ type PipelineClusterObservation struct {
 
 	ClusterLogConf []ClusterClusterLogConfObservation `json:"clusterLogConf,omitempty" tf:"cluster_log_conf,omitempty"`
 
+	// A map of tags associated with the pipeline. These are forwarded to the cluster as cluster tags, and are therefore subject to the same limitations. A maximum of 25 tags can be added to the pipeline.
 	// +mapType=granular
 	CustomTags map[string]*string `json:"customTags,omitempty" tf:"custom_tags,omitempty"`
 
-	// Canonical unique identifier of the DLT pipeline.
+	// Canonical unique identifier of the Lakeflow Declarative Pipeline.
 	DriverInstancePoolID *string `json:"driverInstancePoolId,omitempty" tf:"driver_instance_pool_id,omitempty"`
 
-	// Canonical unique identifier of the DLT pipeline.
+	// Canonical unique identifier of the Lakeflow Declarative Pipeline.
 	DriverNodeTypeID *string `json:"driverNodeTypeId,omitempty" tf:"driver_node_type_id,omitempty"`
 
 	EnableLocalDiskEncryption *bool `json:"enableLocalDiskEncryption,omitempty" tf:"enable_local_disk_encryption,omitempty"`
@@ -1079,17 +1081,17 @@ type PipelineClusterObservation struct {
 
 	InitScripts []ClusterInitScriptsObservation `json:"initScripts,omitempty" tf:"init_scripts,omitempty"`
 
-	// Canonical unique identifier of the DLT pipeline.
+	// Canonical unique identifier of the Lakeflow Declarative Pipeline.
 	InstancePoolID *string `json:"instancePoolId,omitempty" tf:"instance_pool_id,omitempty"`
 
 	Label *string `json:"label,omitempty" tf:"label,omitempty"`
 
-	// Canonical unique identifier of the DLT pipeline.
+	// Canonical unique identifier of the Lakeflow Declarative Pipeline.
 	NodeTypeID *string `json:"nodeTypeId,omitempty" tf:"node_type_id,omitempty"`
 
 	NumWorkers *float64 `json:"numWorkers,omitempty" tf:"num_workers,omitempty"`
 
-	// Canonical unique identifier of the DLT pipeline.
+	// Canonical unique identifier of the Lakeflow Declarative Pipeline.
 	PolicyID *string `json:"policyId,omitempty" tf:"policy_id,omitempty"`
 
 	SSHPublicKeys []*string `json:"sshPublicKeys,omitempty" tf:"ssh_public_keys,omitempty"`
@@ -1118,15 +1120,16 @@ type PipelineClusterParameters struct {
 	// +kubebuilder:validation:Optional
 	ClusterLogConf []ClusterClusterLogConfParameters `json:"clusterLogConf,omitempty" tf:"cluster_log_conf,omitempty"`
 
+	// A map of tags associated with the pipeline. These are forwarded to the cluster as cluster tags, and are therefore subject to the same limitations. A maximum of 25 tags can be added to the pipeline.
 	// +kubebuilder:validation:Optional
 	// +mapType=granular
 	CustomTags map[string]*string `json:"customTags,omitempty" tf:"custom_tags,omitempty"`
 
-	// Canonical unique identifier of the DLT pipeline.
+	// Canonical unique identifier of the Lakeflow Declarative Pipeline.
 	// +kubebuilder:validation:Optional
 	DriverInstancePoolID *string `json:"driverInstancePoolId,omitempty" tf:"driver_instance_pool_id,omitempty"`
 
-	// Canonical unique identifier of the DLT pipeline.
+	// Canonical unique identifier of the Lakeflow Declarative Pipeline.
 	// +kubebuilder:validation:Optional
 	DriverNodeTypeID *string `json:"driverNodeTypeId,omitempty" tf:"driver_node_type_id,omitempty"`
 
@@ -1139,21 +1142,21 @@ type PipelineClusterParameters struct {
 	// +kubebuilder:validation:Optional
 	InitScripts []ClusterInitScriptsParameters `json:"initScripts,omitempty" tf:"init_scripts,omitempty"`
 
-	// Canonical unique identifier of the DLT pipeline.
+	// Canonical unique identifier of the Lakeflow Declarative Pipeline.
 	// +kubebuilder:validation:Optional
 	InstancePoolID *string `json:"instancePoolId,omitempty" tf:"instance_pool_id,omitempty"`
 
 	// +kubebuilder:validation:Optional
 	Label *string `json:"label,omitempty" tf:"label,omitempty"`
 
-	// Canonical unique identifier of the DLT pipeline.
+	// Canonical unique identifier of the Lakeflow Declarative Pipeline.
 	// +kubebuilder:validation:Optional
 	NodeTypeID *string `json:"nodeTypeId,omitempty" tf:"node_type_id,omitempty"`
 
 	// +kubebuilder:validation:Optional
 	NumWorkers *float64 `json:"numWorkers,omitempty" tf:"num_workers,omitempty"`
 
-	// Canonical unique identifier of the DLT pipeline.
+	// Canonical unique identifier of the Lakeflow Declarative Pipeline.
 	// +kubebuilder:validation:Optional
 	PolicyID *string `json:"policyId,omitempty" tf:"policy_id,omitempty"`
 
@@ -1198,12 +1201,26 @@ type PipelineDeploymentParameters struct {
 	MetadataFilePath *string `json:"metadataFilePath,omitempty" tf:"metadata_file_path,omitempty"`
 }
 
+type PipelineEnvironmentInitParameters struct {
+	Dependencies []*string `json:"dependencies,omitempty" tf:"dependencies,omitempty"`
+}
+
+type PipelineEnvironmentObservation struct {
+	Dependencies []*string `json:"dependencies,omitempty" tf:"dependencies,omitempty"`
+}
+
+type PipelineEnvironmentParameters struct {
+
+	// +kubebuilder:validation:Optional
+	Dependencies []*string `json:"dependencies,omitempty" tf:"dependencies,omitempty"`
+}
+
 type PipelineInitParameters struct {
 
 	// Optional boolean flag. If false, deployment will fail if name conflicts with that of another pipeline. default is false.
 	AllowDuplicateNames *bool `json:"allowDuplicateNames,omitempty" tf:"allow_duplicate_names,omitempty"`
 
-	// optional string specifying ID of the budget policy for this DLT pipeline.
+	// optional string specifying ID of the budget policy for this Lakeflow Declarative Pipeline.
 	BudgetPolicyID *string `json:"budgetPolicyId,omitempty" tf:"budget_policy_id,omitempty"`
 
 	// The name of catalog in Unity Catalog. Change of this parameter forces recreation of the pipeline. (Conflicts with storage).
@@ -1211,13 +1228,13 @@ type PipelineInitParameters struct {
 
 	Cause *string `json:"cause,omitempty" tf:"cause,omitempty"`
 
-	// optional name of the release channel for Spark version used by DLT pipeline.  Supported values are: CURRENT (default) and PREVIEW.
+	// optional name of the release channel for Spark version used by Lakeflow Declarative Pipeline.  Supported values are: CURRENT (default) and PREVIEW.
 	Channel *string `json:"channel,omitempty" tf:"channel,omitempty"`
 
-	// Clusters to run the pipeline. If none is specified, pipelines will automatically select a default cluster configuration for the pipeline. Please note that DLT pipeline clusters are supporting only subset of attributes as described in   Also, note that autoscale block is extended with the mode parameter that controls the autoscaling algorithm (possible values are ENHANCED for new, enhanced autoscaling algorithm, or LEGACY for old algorithm).
+	// Clusters to run the pipeline. If none is specified, pipelines will automatically select a default cluster configuration for the pipeline. Please note that Lakeflow Declarative Pipeline clusters are supporting only subset of attributes as described in   Also, note that autoscale block is extended with the mode parameter that controls the autoscaling algorithm (possible values are ENHANCED for new, enhanced autoscaling algorithm, or LEGACY for old algorithm).
 	Cluster []PipelineClusterInitParameters `json:"cluster,omitempty" tf:"cluster,omitempty"`
 
-	// Canonical unique identifier of the DLT pipeline.
+	// Canonical unique identifier of the Lakeflow Declarative Pipeline.
 	ClusterID *string `json:"clusterId,omitempty" tf:"cluster_id,omitempty"`
 
 	// An optional list of values to apply to the entire pipeline. Elements must be formatted as key:value pairs.
@@ -1239,7 +1256,9 @@ type PipelineInitParameters struct {
 	// optional name of the product edition. Supported values are: CORE, PRO, ADVANCED (default).  Not required when serverless is set to true.
 	Edition *string `json:"edition,omitempty" tf:"edition,omitempty"`
 
-	// an optional block specifying a table where DLT Event Log will be stored.  Consists of the following fields:
+	Environment []PipelineEnvironmentInitParameters `json:"environment,omitempty" tf:"environment,omitempty"`
+
+	// an optional block specifying a table where LDP Event Log will be stored.  Consists of the following fields:
 	EventLog []EventLogInitParameters `json:"eventLog,omitempty" tf:"event_log,omitempty"`
 
 	ExpectedLastModified *float64 `json:"expectedLastModified,omitempty" tf:"expected_last_modified,omitempty"`
@@ -1282,7 +1301,7 @@ type PipelineInitParameters struct {
 	// The default schema (database) where tables are read from or published to. The presence of this attribute implies that the pipeline is in direct publishing mode.
 	Schema *string `json:"schema,omitempty" tf:"schema,omitempty"`
 
-	// An optional flag indicating if serverless compute should be used for this DLT pipeline.  Requires catalog to be set, as it could be used only with Unity Catalog.
+	// An optional flag indicating if serverless compute should be used for this Lakeflow Declarative Pipeline.  Requires catalog to be set, as it could be used only with Unity Catalog.
 	Serverless *bool `json:"serverless,omitempty" tf:"serverless,omitempty"`
 
 	State *string `json:"state,omitempty" tf:"state,omitempty"`
@@ -1290,12 +1309,16 @@ type PipelineInitParameters struct {
 	// A location on DBFS or cloud storage where output data and metadata required for pipeline execution are stored. By default, tables are stored in a subdirectory of this location. Change of this parameter forces recreation of the pipeline. (Conflicts with catalog).
 	Storage *string `json:"storage,omitempty" tf:"storage,omitempty"`
 
+	// A map of tags associated with the pipeline. These are forwarded to the cluster as cluster tags, and are therefore subject to the same limitations. A maximum of 25 tags can be added to the pipeline.
+	// +mapType=granular
+	Tags map[string]*string `json:"tags,omitempty" tf:"tags,omitempty"`
+
 	// The name of a database (in either the Hive metastore or in a UC catalog) for persisting pipeline output data. Configuring the target setting allows you to view and query the pipeline output data from the Databricks UI.
 	Target *string `json:"target,omitempty" tf:"target,omitempty"`
 
 	Trigger []PipelineTriggerInitParameters `json:"trigger,omitempty" tf:"trigger,omitempty"`
 
-	// URL of the DLT pipeline on the given workspace.
+	// URL of the Lakeflow Declarative Pipeline on the given workspace.
 	URL *string `json:"url,omitempty" tf:"url,omitempty"`
 }
 
@@ -1392,7 +1415,7 @@ type PipelineObservation struct {
 	// Optional boolean flag. If false, deployment will fail if name conflicts with that of another pipeline. default is false.
 	AllowDuplicateNames *bool `json:"allowDuplicateNames,omitempty" tf:"allow_duplicate_names,omitempty"`
 
-	// optional string specifying ID of the budget policy for this DLT pipeline.
+	// optional string specifying ID of the budget policy for this Lakeflow Declarative Pipeline.
 	BudgetPolicyID *string `json:"budgetPolicyId,omitempty" tf:"budget_policy_id,omitempty"`
 
 	// The name of catalog in Unity Catalog. Change of this parameter forces recreation of the pipeline. (Conflicts with storage).
@@ -1400,13 +1423,13 @@ type PipelineObservation struct {
 
 	Cause *string `json:"cause,omitempty" tf:"cause,omitempty"`
 
-	// optional name of the release channel for Spark version used by DLT pipeline.  Supported values are: CURRENT (default) and PREVIEW.
+	// optional name of the release channel for Spark version used by Lakeflow Declarative Pipeline.  Supported values are: CURRENT (default) and PREVIEW.
 	Channel *string `json:"channel,omitempty" tf:"channel,omitempty"`
 
-	// Clusters to run the pipeline. If none is specified, pipelines will automatically select a default cluster configuration for the pipeline. Please note that DLT pipeline clusters are supporting only subset of attributes as described in   Also, note that autoscale block is extended with the mode parameter that controls the autoscaling algorithm (possible values are ENHANCED for new, enhanced autoscaling algorithm, or LEGACY for old algorithm).
+	// Clusters to run the pipeline. If none is specified, pipelines will automatically select a default cluster configuration for the pipeline. Please note that Lakeflow Declarative Pipeline clusters are supporting only subset of attributes as described in   Also, note that autoscale block is extended with the mode parameter that controls the autoscaling algorithm (possible values are ENHANCED for new, enhanced autoscaling algorithm, or LEGACY for old algorithm).
 	Cluster []PipelineClusterObservation `json:"cluster,omitempty" tf:"cluster,omitempty"`
 
-	// Canonical unique identifier of the DLT pipeline.
+	// Canonical unique identifier of the Lakeflow Declarative Pipeline.
 	ClusterID *string `json:"clusterId,omitempty" tf:"cluster_id,omitempty"`
 
 	// An optional list of values to apply to the entire pipeline. Elements must be formatted as key:value pairs.
@@ -1428,7 +1451,9 @@ type PipelineObservation struct {
 	// optional name of the product edition. Supported values are: CORE, PRO, ADVANCED (default).  Not required when serverless is set to true.
 	Edition *string `json:"edition,omitempty" tf:"edition,omitempty"`
 
-	// an optional block specifying a table where DLT Event Log will be stored.  Consists of the following fields:
+	Environment []PipelineEnvironmentObservation `json:"environment,omitempty" tf:"environment,omitempty"`
+
+	// an optional block specifying a table where LDP Event Log will be stored.  Consists of the following fields:
 	EventLog []EventLogObservation `json:"eventLog,omitempty" tf:"event_log,omitempty"`
 
 	ExpectedLastModified *float64 `json:"expectedLastModified,omitempty" tf:"expected_last_modified,omitempty"`
@@ -1441,7 +1466,7 @@ type PipelineObservation struct {
 
 	Health *string `json:"health,omitempty" tf:"health,omitempty"`
 
-	// Canonical unique identifier of the DLT pipeline.
+	// Canonical unique identifier of the Lakeflow Declarative Pipeline.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
 	IngestionDefinition []IngestionDefinitionObservation `json:"ingestionDefinition,omitempty" tf:"ingestion_definition,omitempty"`
@@ -1474,7 +1499,7 @@ type PipelineObservation struct {
 	// The default schema (database) where tables are read from or published to. The presence of this attribute implies that the pipeline is in direct publishing mode.
 	Schema *string `json:"schema,omitempty" tf:"schema,omitempty"`
 
-	// An optional flag indicating if serverless compute should be used for this DLT pipeline.  Requires catalog to be set, as it could be used only with Unity Catalog.
+	// An optional flag indicating if serverless compute should be used for this Lakeflow Declarative Pipeline.  Requires catalog to be set, as it could be used only with Unity Catalog.
 	Serverless *bool `json:"serverless,omitempty" tf:"serverless,omitempty"`
 
 	State *string `json:"state,omitempty" tf:"state,omitempty"`
@@ -1482,12 +1507,16 @@ type PipelineObservation struct {
 	// A location on DBFS or cloud storage where output data and metadata required for pipeline execution are stored. By default, tables are stored in a subdirectory of this location. Change of this parameter forces recreation of the pipeline. (Conflicts with catalog).
 	Storage *string `json:"storage,omitempty" tf:"storage,omitempty"`
 
+	// A map of tags associated with the pipeline. These are forwarded to the cluster as cluster tags, and are therefore subject to the same limitations. A maximum of 25 tags can be added to the pipeline.
+	// +mapType=granular
+	Tags map[string]*string `json:"tags,omitempty" tf:"tags,omitempty"`
+
 	// The name of a database (in either the Hive metastore or in a UC catalog) for persisting pipeline output data. Configuring the target setting allows you to view and query the pipeline output data from the Databricks UI.
 	Target *string `json:"target,omitempty" tf:"target,omitempty"`
 
 	Trigger []PipelineTriggerObservation `json:"trigger,omitempty" tf:"trigger,omitempty"`
 
-	// URL of the DLT pipeline on the given workspace.
+	// URL of the Lakeflow Declarative Pipeline on the given workspace.
 	URL *string `json:"url,omitempty" tf:"url,omitempty"`
 }
 
@@ -1497,7 +1526,7 @@ type PipelineParameters struct {
 	// +kubebuilder:validation:Optional
 	AllowDuplicateNames *bool `json:"allowDuplicateNames,omitempty" tf:"allow_duplicate_names,omitempty"`
 
-	// optional string specifying ID of the budget policy for this DLT pipeline.
+	// optional string specifying ID of the budget policy for this Lakeflow Declarative Pipeline.
 	// +kubebuilder:validation:Optional
 	BudgetPolicyID *string `json:"budgetPolicyId,omitempty" tf:"budget_policy_id,omitempty"`
 
@@ -1508,15 +1537,15 @@ type PipelineParameters struct {
 	// +kubebuilder:validation:Optional
 	Cause *string `json:"cause,omitempty" tf:"cause,omitempty"`
 
-	// optional name of the release channel for Spark version used by DLT pipeline.  Supported values are: CURRENT (default) and PREVIEW.
+	// optional name of the release channel for Spark version used by Lakeflow Declarative Pipeline.  Supported values are: CURRENT (default) and PREVIEW.
 	// +kubebuilder:validation:Optional
 	Channel *string `json:"channel,omitempty" tf:"channel,omitempty"`
 
-	// Clusters to run the pipeline. If none is specified, pipelines will automatically select a default cluster configuration for the pipeline. Please note that DLT pipeline clusters are supporting only subset of attributes as described in   Also, note that autoscale block is extended with the mode parameter that controls the autoscaling algorithm (possible values are ENHANCED for new, enhanced autoscaling algorithm, or LEGACY for old algorithm).
+	// Clusters to run the pipeline. If none is specified, pipelines will automatically select a default cluster configuration for the pipeline. Please note that Lakeflow Declarative Pipeline clusters are supporting only subset of attributes as described in   Also, note that autoscale block is extended with the mode parameter that controls the autoscaling algorithm (possible values are ENHANCED for new, enhanced autoscaling algorithm, or LEGACY for old algorithm).
 	// +kubebuilder:validation:Optional
 	Cluster []PipelineClusterParameters `json:"cluster,omitempty" tf:"cluster,omitempty"`
 
-	// Canonical unique identifier of the DLT pipeline.
+	// Canonical unique identifier of the Lakeflow Declarative Pipeline.
 	// +kubebuilder:validation:Optional
 	ClusterID *string `json:"clusterId,omitempty" tf:"cluster_id,omitempty"`
 
@@ -1545,7 +1574,10 @@ type PipelineParameters struct {
 	// +kubebuilder:validation:Optional
 	Edition *string `json:"edition,omitempty" tf:"edition,omitempty"`
 
-	// an optional block specifying a table where DLT Event Log will be stored.  Consists of the following fields:
+	// +kubebuilder:validation:Optional
+	Environment []PipelineEnvironmentParameters `json:"environment,omitempty" tf:"environment,omitempty"`
+
+	// an optional block specifying a table where LDP Event Log will be stored.  Consists of the following fields:
 	// +kubebuilder:validation:Optional
 	EventLog []EventLogParameters `json:"eventLog,omitempty" tf:"event_log,omitempty"`
 
@@ -1605,7 +1637,7 @@ type PipelineParameters struct {
 	// +kubebuilder:validation:Optional
 	Schema *string `json:"schema,omitempty" tf:"schema,omitempty"`
 
-	// An optional flag indicating if serverless compute should be used for this DLT pipeline.  Requires catalog to be set, as it could be used only with Unity Catalog.
+	// An optional flag indicating if serverless compute should be used for this Lakeflow Declarative Pipeline.  Requires catalog to be set, as it could be used only with Unity Catalog.
 	// +kubebuilder:validation:Optional
 	Serverless *bool `json:"serverless,omitempty" tf:"serverless,omitempty"`
 
@@ -1616,6 +1648,11 @@ type PipelineParameters struct {
 	// +kubebuilder:validation:Optional
 	Storage *string `json:"storage,omitempty" tf:"storage,omitempty"`
 
+	// A map of tags associated with the pipeline. These are forwarded to the cluster as cluster tags, and are therefore subject to the same limitations. A maximum of 25 tags can be added to the pipeline.
+	// +kubebuilder:validation:Optional
+	// +mapType=granular
+	Tags map[string]*string `json:"tags,omitempty" tf:"tags,omitempty"`
+
 	// The name of a database (in either the Hive metastore or in a UC catalog) for persisting pipeline output data. Configuring the target setting allows you to view and query the pipeline output data from the Databricks UI.
 	// +kubebuilder:validation:Optional
 	Target *string `json:"target,omitempty" tf:"target,omitempty"`
@@ -1623,7 +1660,7 @@ type PipelineParameters struct {
 	// +kubebuilder:validation:Optional
 	Trigger []PipelineTriggerParameters `json:"trigger,omitempty" tf:"trigger,omitempty"`
 
-	// URL of the DLT pipeline on the given workspace.
+	// URL of the Lakeflow Declarative Pipeline on the given workspace.
 	// +kubebuilder:validation:Optional
 	URL *string `json:"url,omitempty" tf:"url,omitempty"`
 }
@@ -1688,7 +1725,7 @@ type ReportInitParameters struct {
 
 	DestinationTable *string `json:"destinationTable,omitempty" tf:"destination_table,omitempty"`
 
-	// URL of the DLT pipeline on the given workspace.
+	// URL of the Lakeflow Declarative Pipeline on the given workspace.
 	SourceURL *string `json:"sourceUrl,omitempty" tf:"source_url,omitempty"`
 
 	// Configuration settings to control the ingestion of tables. These settings are applied to all tables in the pipeline.
@@ -1705,7 +1742,7 @@ type ReportObservation struct {
 
 	DestinationTable *string `json:"destinationTable,omitempty" tf:"destination_table,omitempty"`
 
-	// URL of the DLT pipeline on the given workspace.
+	// URL of the Lakeflow Declarative Pipeline on the given workspace.
 	SourceURL *string `json:"sourceUrl,omitempty" tf:"source_url,omitempty"`
 
 	// Configuration settings to control the ingestion of tables. These settings are applied to all tables in the pipeline.
@@ -1725,7 +1762,7 @@ type ReportParameters struct {
 	// +kubebuilder:validation:Optional
 	DestinationTable *string `json:"destinationTable,omitempty" tf:"destination_table,omitempty"`
 
-	// URL of the DLT pipeline on the given workspace.
+	// URL of the Lakeflow Declarative Pipeline on the given workspace.
 	// +kubebuilder:validation:Optional
 	SourceURL *string `json:"sourceUrl" tf:"source_url,omitempty"`
 
@@ -1739,7 +1776,7 @@ type RestartWindowInitParameters struct {
 
 	StartHour *float64 `json:"startHour,omitempty" tf:"start_hour,omitempty"`
 
-	// Canonical unique identifier of the DLT pipeline.
+	// Canonical unique identifier of the Lakeflow Declarative Pipeline.
 	TimeZoneID *string `json:"timeZoneId,omitempty" tf:"time_zone_id,omitempty"`
 }
 
@@ -1748,7 +1785,7 @@ type RestartWindowObservation struct {
 
 	StartHour *float64 `json:"startHour,omitempty" tf:"start_hour,omitempty"`
 
-	// Canonical unique identifier of the DLT pipeline.
+	// Canonical unique identifier of the Lakeflow Declarative Pipeline.
 	TimeZoneID *string `json:"timeZoneId,omitempty" tf:"time_zone_id,omitempty"`
 }
 
@@ -1760,7 +1797,7 @@ type RestartWindowParameters struct {
 	// +kubebuilder:validation:Optional
 	StartHour *float64 `json:"startHour" tf:"start_hour,omitempty"`
 
-	// Canonical unique identifier of the DLT pipeline.
+	// Canonical unique identifier of the Lakeflow Declarative Pipeline.
 	// +kubebuilder:validation:Optional
 	TimeZoneID *string `json:"timeZoneId,omitempty" tf:"time_zone_id,omitempty"`
 }

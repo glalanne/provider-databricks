@@ -41,7 +41,7 @@ type GroupInitParameters struct {
 	// This is a field to allow the group to have access to a Databricks Workspace.
 	WorkspaceAccess *bool `json:"workspaceAccess,omitempty" tf:"workspace_access,omitempty"`
 
-	// This is a field to allow the group to have access to a Databricks Workspace as consumer, with limited access to workspace UI.
+	// This is a field to allow the group to have access to a Databricks Workspace as consumer, with limited access to workspace UI.  Couldn't be used with workspace_access or databricks_sql_access.
 	WorkspaceConsume *bool `json:"workspaceConsume,omitempty" tf:"workspace_consume,omitempty"`
 }
 
@@ -76,7 +76,7 @@ type GroupObservation struct {
 	// This is a field to allow the group to have access to a Databricks Workspace.
 	WorkspaceAccess *bool `json:"workspaceAccess,omitempty" tf:"workspace_access,omitempty"`
 
-	// This is a field to allow the group to have access to a Databricks Workspace as consumer, with limited access to workspace UI.
+	// This is a field to allow the group to have access to a Databricks Workspace as consumer, with limited access to workspace UI.  Couldn't be used with workspace_access or databricks_sql_access.
 	WorkspaceConsume *bool `json:"workspaceConsume,omitempty" tf:"workspace_consume,omitempty"`
 }
 
@@ -117,7 +117,7 @@ type GroupParameters struct {
 	// +kubebuilder:validation:Optional
 	WorkspaceAccess *bool `json:"workspaceAccess,omitempty" tf:"workspace_access,omitempty"`
 
-	// This is a field to allow the group to have access to a Databricks Workspace as consumer, with limited access to workspace UI.
+	// This is a field to allow the group to have access to a Databricks Workspace as consumer, with limited access to workspace UI.  Couldn't be used with workspace_access or databricks_sql_access.
 	// +kubebuilder:validation:Optional
 	WorkspaceConsume *bool `json:"workspaceConsume,omitempty" tf:"workspace_consume,omitempty"`
 }

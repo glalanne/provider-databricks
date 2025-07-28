@@ -74,7 +74,8 @@ spec:
               forProvider:
                 properties:
                   role:
-                    description: This is the id of the role or instance profile resource.
+                    description: This is the role name, role id, or instance profile
+                      resource.
                     type: string
                   servicePrincipalId:
                     description: This is the id of the service principal resource.
@@ -94,7 +95,8 @@ spec:
                   autoscaler.
                 properties:
                   role:
-                    description: This is the id of the role or instance profile resource.
+                    description: This is the role name, role id, or instance profile
+                      resource.
                     type: string
                   servicePrincipalId:
                     description: This is the id of the service principal resource.
@@ -286,7 +288,8 @@ spec:
                     description: The id in the format <service_principal_id>|<role>.
                     type: string
                   role:
-                    description: This is the id of the role or instance profile resource.
+                    description: This is the role name, role id, or instance profile
+                      resource.
                     type: string
                   servicePrincipalId:
                     description: This is the id of the service principal resource.

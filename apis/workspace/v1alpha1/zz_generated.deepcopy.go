@@ -600,6 +600,16 @@ func (in *GitCredentialInitParameters) DeepCopyInto(out *GitCredentialInitParame
 		*out = new(string)
 		**out = **in
 	}
+	if in.IsDefaultForProvider != nil {
+		in, out := &in.IsDefaultForProvider, &out.IsDefaultForProvider
+		*out = new(bool)
+		**out = **in
+	}
+	if in.Name != nil {
+		in, out := &in.Name, &out.Name
+		*out = new(string)
+		**out = **in
+	}
 	if in.PersonalAccessToken != nil {
 		in, out := &in.PersonalAccessToken, &out.PersonalAccessToken
 		*out = new(string)
@@ -672,6 +682,16 @@ func (in *GitCredentialObservation) DeepCopyInto(out *GitCredentialObservation) 
 		*out = new(string)
 		**out = **in
 	}
+	if in.IsDefaultForProvider != nil {
+		in, out := &in.IsDefaultForProvider, &out.IsDefaultForProvider
+		*out = new(bool)
+		**out = **in
+	}
+	if in.Name != nil {
+		in, out := &in.Name, &out.Name
+		*out = new(string)
+		**out = **in
+	}
 	if in.PersonalAccessToken != nil {
 		in, out := &in.PersonalAccessToken, &out.PersonalAccessToken
 		*out = new(string)
@@ -704,6 +724,16 @@ func (in *GitCredentialParameters) DeepCopyInto(out *GitCredentialParameters) {
 	}
 	if in.GitUsername != nil {
 		in, out := &in.GitUsername, &out.GitUsername
+		*out = new(string)
+		**out = **in
+	}
+	if in.IsDefaultForProvider != nil {
+		in, out := &in.IsDefaultForProvider, &out.IsDefaultForProvider
+		*out = new(bool)
+		**out = **in
+	}
+	if in.Name != nil {
+		in, out := &in.Name, &out.Name
 		*out = new(string)
 		**out = **in
 	}

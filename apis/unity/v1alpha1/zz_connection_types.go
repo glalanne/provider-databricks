@@ -15,10 +15,10 @@ import (
 
 type ConnectionInitParameters struct {
 
-	// Free-form text.
+	// Free-form text. Change forces creation of a new resource.
 	Comment *string `json:"comment,omitempty" tf:"comment,omitempty"`
 
-	// Connection type. BIGQUERY MYSQL POSTGRESQL SNOWFLAKE REDSHIFT SQLDW SQLSERVER, SALESFORCE, HIVE_METASTORE, GLUE, TERADATA, ORACLE or DATABRICKS are supported. Up-to-date list of connection type supported is in the documentation
+	// Connection type. MYSQL, POSTGRESQL, SNOWFLAKE, REDSHIFT SQLDW, SQLSERVER, DATABRICKS, SALESFORCE, BIGQUERY, WORKDAY_RAAS, HIVE_METASTORE, GA4_RAW_DATA, SERVICENOW, SALESFORCE_DATA_CLOUD, GLUE, ORACLE, TERADATA, HTTP or POWER_BI are supported. Up-to-date list of connection type supported is in the documentation. Change forces creation of a new resource.
 	ConnectionType *string `json:"connectionType,omitempty" tf:"connection_type,omitempty"`
 
 	// Name of the Connection.
@@ -29,22 +29,23 @@ type ConnectionInitParameters struct {
 	// Name of the connection owner.
 	Owner *string `json:"owner,omitempty" tf:"owner,omitempty"`
 
-	// Free-form connection properties.
+	// Free-form connection properties. Change forces creation of a new resource.
 	// +mapType=granular
 	Properties map[string]*string `json:"properties,omitempty" tf:"properties,omitempty"`
 
+	// Indicates whether the connection is read-only. Change forces creation of a new resource.
 	ReadOnly *bool `json:"readOnly,omitempty" tf:"read_only,omitempty"`
 }
 
 type ConnectionObservation struct {
 
-	// Free-form text.
+	// Free-form text. Change forces creation of a new resource.
 	Comment *string `json:"comment,omitempty" tf:"comment,omitempty"`
 
 	// Unique ID of the connection.
 	ConnectionID *string `json:"connectionId,omitempty" tf:"connection_id,omitempty"`
 
-	// Connection type. BIGQUERY MYSQL POSTGRESQL SNOWFLAKE REDSHIFT SQLDW SQLSERVER, SALESFORCE, HIVE_METASTORE, GLUE, TERADATA, ORACLE or DATABRICKS are supported. Up-to-date list of connection type supported is in the documentation
+	// Connection type. MYSQL, POSTGRESQL, SNOWFLAKE, REDSHIFT SQLDW, SQLSERVER, DATABRICKS, SALESFORCE, BIGQUERY, WORKDAY_RAAS, HIVE_METASTORE, GA4_RAW_DATA, SERVICENOW, SALESFORCE_DATA_CLOUD, GLUE, ORACLE, TERADATA, HTTP or POWER_BI are supported. Up-to-date list of connection type supported is in the documentation. Change forces creation of a new resource.
 	ConnectionType *string `json:"connectionType,omitempty" tf:"connection_type,omitempty"`
 
 	// Time at which this connection was created, in epoch milliseconds.
@@ -71,13 +72,14 @@ type ConnectionObservation struct {
 	// Name of the connection owner.
 	Owner *string `json:"owner,omitempty" tf:"owner,omitempty"`
 
-	// Free-form connection properties.
+	// Free-form connection properties. Change forces creation of a new resource.
 	// +mapType=granular
 	Properties map[string]*string `json:"properties,omitempty" tf:"properties,omitempty"`
 
 	// Object with the status of an asynchronously provisioned resource.
 	ProvisioningInfo []ProvisioningInfoObservation `json:"provisioningInfo,omitempty" tf:"provisioning_info,omitempty"`
 
+	// Indicates whether the connection is read-only. Change forces creation of a new resource.
 	ReadOnly *bool `json:"readOnly,omitempty" tf:"read_only,omitempty"`
 
 	SecurableType *string `json:"securableType,omitempty" tf:"securable_type,omitempty"`
@@ -94,11 +96,11 @@ type ConnectionObservation struct {
 
 type ConnectionParameters struct {
 
-	// Free-form text.
+	// Free-form text. Change forces creation of a new resource.
 	// +kubebuilder:validation:Optional
 	Comment *string `json:"comment,omitempty" tf:"comment,omitempty"`
 
-	// Connection type. BIGQUERY MYSQL POSTGRESQL SNOWFLAKE REDSHIFT SQLDW SQLSERVER, SALESFORCE, HIVE_METASTORE, GLUE, TERADATA, ORACLE or DATABRICKS are supported. Up-to-date list of connection type supported is in the documentation
+	// Connection type. MYSQL, POSTGRESQL, SNOWFLAKE, REDSHIFT SQLDW, SQLSERVER, DATABRICKS, SALESFORCE, BIGQUERY, WORKDAY_RAAS, HIVE_METASTORE, GA4_RAW_DATA, SERVICENOW, SALESFORCE_DATA_CLOUD, GLUE, ORACLE, TERADATA, HTTP or POWER_BI are supported. Up-to-date list of connection type supported is in the documentation. Change forces creation of a new resource.
 	// +kubebuilder:validation:Optional
 	ConnectionType *string `json:"connectionType,omitempty" tf:"connection_type,omitempty"`
 
@@ -106,7 +108,7 @@ type ConnectionParameters struct {
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
-	// The key value of options required by the connection, e.g. host, port, user, password or GoogleServiceAccountKeyJson. Please consult the documentation for the required option.
+	// The key value of options required by the connection, e.g. host, port, user, password, authorization_endpoint, client_id, client_secret or GoogleServiceAccountKeyJson. Please consult the documentation for the required option.
 	// +kubebuilder:validation:Optional
 	OptionsSecretRef *v1.SecretReference `json:"optionsSecretRef,omitempty" tf:"-"`
 
@@ -114,11 +116,12 @@ type ConnectionParameters struct {
 	// +kubebuilder:validation:Optional
 	Owner *string `json:"owner,omitempty" tf:"owner,omitempty"`
 
-	// Free-form connection properties.
+	// Free-form connection properties. Change forces creation of a new resource.
 	// +kubebuilder:validation:Optional
 	// +mapType=granular
 	Properties map[string]*string `json:"properties,omitempty" tf:"properties,omitempty"`
 
+	// Indicates whether the connection is read-only. Change forces creation of a new resource.
 	// +kubebuilder:validation:Optional
 	ReadOnly *bool `json:"readOnly,omitempty" tf:"read_only,omitempty"`
 }

@@ -379,6 +379,9 @@ spec:
                     description: Extensible Schema properties.
                     type: object
                     x-kubernetes-map-type: granular
+                  schemaId:
+                    description: The unique identifier of the schema.
+                    type: string
                   storageRoot:
                     description: Managed location of the schema. Location in cloud
                       storage where data for managed tables will be stored. If not

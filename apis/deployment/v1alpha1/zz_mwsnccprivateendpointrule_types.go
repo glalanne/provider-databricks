@@ -14,6 +14,7 @@ import (
 )
 
 type MwsNccPrivateEndpointRuleInitParameters struct {
+	AccountID *string `json:"accountId,omitempty" tf:"account_id,omitempty"`
 
 	// The current status of this private endpoint. The private endpoint rules are effective only if the connection state is ESTABLISHED. Remember that you must approve new endpoints on your resources in the Azure portal before they take effect.
 	// The possible values are:
@@ -30,26 +31,39 @@ type MwsNccPrivateEndpointRuleInitParameters struct {
 
 	DomainNames []*string `json:"domainNames,omitempty" tf:"domain_names,omitempty"`
 
+	// (AWS only) Activation status. Only used by private endpoints towards an AWS S3 service. Update this field to activate/deactivate this private endpoint to allow egress access from serverless compute resources. Can only be updated after a private endpoint rule towards an AWS S3 service is successfully created.
+	Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
+
 	// The name of the Azure private endpoint resource, e.g. "databricks-088781b3-77fa-4132-b429-1af0d91bc593-pe-3cb31234"
 	EndpointName *string `json:"endpointName,omitempty" tf:"endpoint_name,omitempty"`
 
-	// The sub-resource type (group ID) of the target resource. Must be one of supported resource types (i.e., blob, dfs, sqlServer , etc. Consult the Azure documentation for full list of supported resources). Note that to connect to workspace root storage (root DBFS), you need two endpoints, one for blob and one for dfs. Change forces creation of a new resource.
+	// (AWS only) Example com.amazonaws.vpce.us-east-1.vpce-svc-123abcc1298abc123. The full target AWS endpoint service name that connects to the destination resources of the private endpoint.
+	EndpointService *string `json:"endpointService,omitempty" tf:"endpoint_service,omitempty"`
+
+	// (Azure only) Not used by customer-managed private endpoint services. The sub-resource type (group ID) of the target resource. Must be one of supported resource types (i.e., blob, dfs, sqlServer , etc. Consult the Azure documentation for full list of supported resources). Note that to connect to workspace root storage (root DBFS), you need two endpoints, one for blob and one for dfs. Change forces creation of a new resource. Conflicts with domain_names.
 	GroupID *string `json:"groupId,omitempty" tf:"group_id,omitempty"`
 
 	// Canonical unique identifier of Network Connectivity Config in Databricks Account. Change forces creation of a new resource.
 	NetworkConnectivityConfigID *string `json:"networkConnectivityConfigId,omitempty" tf:"network_connectivity_config_id,omitempty"`
 
-	// The Azure resource ID of the target resource. Change forces creation of a new resource.
+	// (Azure only) The Azure resource ID of the target resource. Change forces creation of a new resource.
 	ResourceID *string `json:"resourceId,omitempty" tf:"resource_id,omitempty"`
+
+	// .
+	ResourceNames []*string `json:"resourceNames,omitempty" tf:"resource_names,omitempty"`
 
 	// the ID of a private endpoint rule.
 	RuleID *string `json:"ruleId,omitempty" tf:"rule_id,omitempty"`
 
 	// Time in epoch milliseconds when this object was updated.
 	UpdatedTime *float64 `json:"updatedTime,omitempty" tf:"updated_time,omitempty"`
+
+	// The AWS VPC endpoint ID. You can use this ID to identify the VPC endpoint created by Databricks.
+	VPCEndpointID *string `json:"vpcEndpointId,omitempty" tf:"vpc_endpoint_id,omitempty"`
 }
 
 type MwsNccPrivateEndpointRuleObservation struct {
+	AccountID *string `json:"accountId,omitempty" tf:"account_id,omitempty"`
 
 	// The current status of this private endpoint. The private endpoint rules are effective only if the connection state is ESTABLISHED. Remember that you must approve new endpoints on your resources in the Azure portal before they take effect.
 	// The possible values are:
@@ -66,10 +80,16 @@ type MwsNccPrivateEndpointRuleObservation struct {
 
 	DomainNames []*string `json:"domainNames,omitempty" tf:"domain_names,omitempty"`
 
+	// (AWS only) Activation status. Only used by private endpoints towards an AWS S3 service. Update this field to activate/deactivate this private endpoint to allow egress access from serverless compute resources. Can only be updated after a private endpoint rule towards an AWS S3 service is successfully created.
+	Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
+
 	// The name of the Azure private endpoint resource, e.g. "databricks-088781b3-77fa-4132-b429-1af0d91bc593-pe-3cb31234"
 	EndpointName *string `json:"endpointName,omitempty" tf:"endpoint_name,omitempty"`
 
-	// The sub-resource type (group ID) of the target resource. Must be one of supported resource types (i.e., blob, dfs, sqlServer , etc. Consult the Azure documentation for full list of supported resources). Note that to connect to workspace root storage (root DBFS), you need two endpoints, one for blob and one for dfs. Change forces creation of a new resource.
+	// (AWS only) Example com.amazonaws.vpce.us-east-1.vpce-svc-123abcc1298abc123. The full target AWS endpoint service name that connects to the destination resources of the private endpoint.
+	EndpointService *string `json:"endpointService,omitempty" tf:"endpoint_service,omitempty"`
+
+	// (Azure only) Not used by customer-managed private endpoint services. The sub-resource type (group ID) of the target resource. Must be one of supported resource types (i.e., blob, dfs, sqlServer , etc. Consult the Azure documentation for full list of supported resources). Note that to connect to workspace root storage (root DBFS), you need two endpoints, one for blob and one for dfs. Change forces creation of a new resource. Conflicts with domain_names.
 	GroupID *string `json:"groupId,omitempty" tf:"group_id,omitempty"`
 
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
@@ -77,17 +97,26 @@ type MwsNccPrivateEndpointRuleObservation struct {
 	// Canonical unique identifier of Network Connectivity Config in Databricks Account. Change forces creation of a new resource.
 	NetworkConnectivityConfigID *string `json:"networkConnectivityConfigId,omitempty" tf:"network_connectivity_config_id,omitempty"`
 
-	// The Azure resource ID of the target resource. Change forces creation of a new resource.
+	// (Azure only) The Azure resource ID of the target resource. Change forces creation of a new resource.
 	ResourceID *string `json:"resourceId,omitempty" tf:"resource_id,omitempty"`
+
+	// .
+	ResourceNames []*string `json:"resourceNames,omitempty" tf:"resource_names,omitempty"`
 
 	// the ID of a private endpoint rule.
 	RuleID *string `json:"ruleId,omitempty" tf:"rule_id,omitempty"`
 
 	// Time in epoch milliseconds when this object was updated.
 	UpdatedTime *float64 `json:"updatedTime,omitempty" tf:"updated_time,omitempty"`
+
+	// The AWS VPC endpoint ID. You can use this ID to identify the VPC endpoint created by Databricks.
+	VPCEndpointID *string `json:"vpcEndpointId,omitempty" tf:"vpc_endpoint_id,omitempty"`
 }
 
 type MwsNccPrivateEndpointRuleParameters struct {
+
+	// +kubebuilder:validation:Optional
+	AccountID *string `json:"accountId,omitempty" tf:"account_id,omitempty"`
 
 	// The current status of this private endpoint. The private endpoint rules are effective only if the connection state is ESTABLISHED. Remember that you must approve new endpoints on your resources in the Azure portal before they take effect.
 	// The possible values are:
@@ -109,11 +138,19 @@ type MwsNccPrivateEndpointRuleParameters struct {
 	// +kubebuilder:validation:Optional
 	DomainNames []*string `json:"domainNames,omitempty" tf:"domain_names,omitempty"`
 
+	// (AWS only) Activation status. Only used by private endpoints towards an AWS S3 service. Update this field to activate/deactivate this private endpoint to allow egress access from serverless compute resources. Can only be updated after a private endpoint rule towards an AWS S3 service is successfully created.
+	// +kubebuilder:validation:Optional
+	Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
+
 	// The name of the Azure private endpoint resource, e.g. "databricks-088781b3-77fa-4132-b429-1af0d91bc593-pe-3cb31234"
 	// +kubebuilder:validation:Optional
 	EndpointName *string `json:"endpointName,omitempty" tf:"endpoint_name,omitempty"`
 
-	// The sub-resource type (group ID) of the target resource. Must be one of supported resource types (i.e., blob, dfs, sqlServer , etc. Consult the Azure documentation for full list of supported resources). Note that to connect to workspace root storage (root DBFS), you need two endpoints, one for blob and one for dfs. Change forces creation of a new resource.
+	// (AWS only) Example com.amazonaws.vpce.us-east-1.vpce-svc-123abcc1298abc123. The full target AWS endpoint service name that connects to the destination resources of the private endpoint.
+	// +kubebuilder:validation:Optional
+	EndpointService *string `json:"endpointService,omitempty" tf:"endpoint_service,omitempty"`
+
+	// (Azure only) Not used by customer-managed private endpoint services. The sub-resource type (group ID) of the target resource. Must be one of supported resource types (i.e., blob, dfs, sqlServer , etc. Consult the Azure documentation for full list of supported resources). Note that to connect to workspace root storage (root DBFS), you need two endpoints, one for blob and one for dfs. Change forces creation of a new resource. Conflicts with domain_names.
 	// +kubebuilder:validation:Optional
 	GroupID *string `json:"groupId,omitempty" tf:"group_id,omitempty"`
 
@@ -121,9 +158,13 @@ type MwsNccPrivateEndpointRuleParameters struct {
 	// +kubebuilder:validation:Optional
 	NetworkConnectivityConfigID *string `json:"networkConnectivityConfigId,omitempty" tf:"network_connectivity_config_id,omitempty"`
 
-	// The Azure resource ID of the target resource. Change forces creation of a new resource.
+	// (Azure only) The Azure resource ID of the target resource. Change forces creation of a new resource.
 	// +kubebuilder:validation:Optional
 	ResourceID *string `json:"resourceId,omitempty" tf:"resource_id,omitempty"`
+
+	// .
+	// +kubebuilder:validation:Optional
+	ResourceNames []*string `json:"resourceNames,omitempty" tf:"resource_names,omitempty"`
 
 	// the ID of a private endpoint rule.
 	// +kubebuilder:validation:Optional
@@ -132,6 +173,10 @@ type MwsNccPrivateEndpointRuleParameters struct {
 	// Time in epoch milliseconds when this object was updated.
 	// +kubebuilder:validation:Optional
 	UpdatedTime *float64 `json:"updatedTime,omitempty" tf:"updated_time,omitempty"`
+
+	// The AWS VPC endpoint ID. You can use this ID to identify the VPC endpoint created by Databricks.
+	// +kubebuilder:validation:Optional
+	VPCEndpointID *string `json:"vpcEndpointId,omitempty" tf:"vpc_endpoint_id,omitempty"`
 }
 
 // MwsNccPrivateEndpointRuleSpec defines the desired state of MwsNccPrivateEndpointRule
@@ -170,9 +215,7 @@ type MwsNccPrivateEndpointRuleStatus struct {
 type MwsNccPrivateEndpointRule struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.groupId) || (has(self.initProvider) && has(self.initProvider.groupId))",message="spec.forProvider.groupId is a required parameter"
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.networkConnectivityConfigId) || (has(self.initProvider) && has(self.initProvider.networkConnectivityConfigId))",message="spec.forProvider.networkConnectivityConfigId is a required parameter"
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.resourceId) || (has(self.initProvider) && has(self.initProvider.resourceId))",message="spec.forProvider.resourceId is a required parameter"
 	Spec   MwsNccPrivateEndpointRuleSpec   `json:"spec"`
 	Status MwsNccPrivateEndpointRuleStatus `json:"status,omitempty"`
 }

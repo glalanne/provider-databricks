@@ -764,7 +764,7 @@ type InferenceTableConfigParameters struct {
 
 type InputInitParameters struct {
 
-	// List of invalid keywords. AI guardrail uses keyword or string matching to decide if the keyword exists in the request or response content.
+	// (Deprecated) List of invalid keywords. AI guardrail uses keyword or string matching to decide if the keyword exists in the request or response content.
 	InvalidKeywords []*string `json:"invalidKeywords,omitempty" tf:"invalid_keywords,omitempty"`
 
 	// Block with configuration for guardrail PII filter:
@@ -773,13 +773,13 @@ type InputInitParameters struct {
 	// the boolean flag that indicates whether the safety filter is enabled.
 	Safety *bool `json:"safety,omitempty" tf:"safety,omitempty"`
 
-	// The list of allowed topics. Given a chat request, this guardrail flags the request if its topic is not in the allowed topics.
+	// (Deprecated) The list of allowed topics. Given a chat request, this guardrail flags the request if its topic is not in the allowed topics.
 	ValidTopics []*string `json:"validTopics,omitempty" tf:"valid_topics,omitempty"`
 }
 
 type InputObservation struct {
 
-	// List of invalid keywords. AI guardrail uses keyword or string matching to decide if the keyword exists in the request or response content.
+	// (Deprecated) List of invalid keywords. AI guardrail uses keyword or string matching to decide if the keyword exists in the request or response content.
 	InvalidKeywords []*string `json:"invalidKeywords,omitempty" tf:"invalid_keywords,omitempty"`
 
 	// Block with configuration for guardrail PII filter:
@@ -788,13 +788,13 @@ type InputObservation struct {
 	// the boolean flag that indicates whether the safety filter is enabled.
 	Safety *bool `json:"safety,omitempty" tf:"safety,omitempty"`
 
-	// The list of allowed topics. Given a chat request, this guardrail flags the request if its topic is not in the allowed topics.
+	// (Deprecated) The list of allowed topics. Given a chat request, this guardrail flags the request if its topic is not in the allowed topics.
 	ValidTopics []*string `json:"validTopics,omitempty" tf:"valid_topics,omitempty"`
 }
 
 type InputParameters struct {
 
-	// List of invalid keywords. AI guardrail uses keyword or string matching to decide if the keyword exists in the request or response content.
+	// (Deprecated) List of invalid keywords. AI guardrail uses keyword or string matching to decide if the keyword exists in the request or response content.
 	// +kubebuilder:validation:Optional
 	InvalidKeywords []*string `json:"invalidKeywords,omitempty" tf:"invalid_keywords,omitempty"`
 
@@ -806,7 +806,7 @@ type InputParameters struct {
 	// +kubebuilder:validation:Optional
 	Safety *bool `json:"safety,omitempty" tf:"safety,omitempty"`
 
-	// The list of allowed topics. Given a chat request, this guardrail flags the request if its topic is not in the allowed topics.
+	// (Deprecated) The list of allowed topics. Given a chat request, this guardrail flags the request if its topic is not in the allowed topics.
 	// +kubebuilder:validation:Optional
 	ValidTopics []*string `json:"validTopics,omitempty" tf:"valid_topics,omitempty"`
 }
@@ -821,6 +821,9 @@ type ModelServingInitParameters struct {
 
 	// The model serving endpoint configuration. This is optional and can be added and modified after creation. If config was provided in a previous apply but is not provided in the current apply, no change to the model serving endpoint will occur. To recreate the model serving endpoint without the config block, the model serving endpoint must be destroyed and recreated.
 	Config []ConfigInitParameters `json:"config,omitempty" tf:"config,omitempty"`
+
+	// The description of the model serving endpoint.
+	Description *string `json:"description,omitempty" tf:"description,omitempty"`
 
 	// The name of the model serving endpoint. This field is required and must be unique across a workspace. An endpoint name can consist of alphanumeric characters, dashes, and underscores. NOTE: Changing this name will delete the existing endpoint and create a new endpoint with the updated name.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
@@ -845,6 +848,9 @@ type ModelServingObservation struct {
 
 	// The model serving endpoint configuration. This is optional and can be added and modified after creation. If config was provided in a previous apply but is not provided in the current apply, no change to the model serving endpoint will occur. To recreate the model serving endpoint without the config block, the model serving endpoint must be destroyed and recreated.
 	Config []ConfigObservation `json:"config,omitempty" tf:"config,omitempty"`
+
+	// The description of the model serving endpoint.
+	Description *string `json:"description,omitempty" tf:"description,omitempty"`
 
 	// Equal to the name argument and used to identify the serving endpoint.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
@@ -879,6 +885,10 @@ type ModelServingParameters struct {
 	// +kubebuilder:validation:Optional
 	Config []ConfigParameters `json:"config,omitempty" tf:"config,omitempty"`
 
+	// The description of the model serving endpoint.
+	// +kubebuilder:validation:Optional
+	Description *string `json:"description,omitempty" tf:"description,omitempty"`
+
 	// The name of the model serving endpoint. This field is required and must be unique across a workspace. An endpoint name can consist of alphanumeric characters, dashes, and underscores. NOTE: Changing this name will delete the existing endpoint and create a new endpoint with the updated name.
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
@@ -901,7 +911,7 @@ type ModelServingRateLimitsInitParameters struct {
 	// Used to specify how many calls are allowed for a key within the renewal_period.
 	Calls *float64 `json:"calls,omitempty" tf:"calls,omitempty"`
 
-	// Key field for a serving endpoint rate limit. Currently, only user and endpoint are supported, with endpoint being the default if not specified.
+	// Key field for a serving endpoint rate limit. Currently, user, user_group, service_principal, and endpoint are supported, with endpoint being the default if not specified.
 	Key *string `json:"key,omitempty" tf:"key,omitempty"`
 
 	// Renewal period field for a serving endpoint rate limit. Currently, only minute is supported.
@@ -913,7 +923,7 @@ type ModelServingRateLimitsObservation struct {
 	// Used to specify how many calls are allowed for a key within the renewal_period.
 	Calls *float64 `json:"calls,omitempty" tf:"calls,omitempty"`
 
-	// Key field for a serving endpoint rate limit. Currently, only user and endpoint are supported, with endpoint being the default if not specified.
+	// Key field for a serving endpoint rate limit. Currently, user, user_group, service_principal, and endpoint are supported, with endpoint being the default if not specified.
 	Key *string `json:"key,omitempty" tf:"key,omitempty"`
 
 	// Renewal period field for a serving endpoint rate limit. Currently, only minute is supported.
@@ -926,7 +936,7 @@ type ModelServingRateLimitsParameters struct {
 	// +kubebuilder:validation:Optional
 	Calls *float64 `json:"calls" tf:"calls,omitempty"`
 
-	// Key field for a serving endpoint rate limit. Currently, only user and endpoint are supported, with endpoint being the default if not specified.
+	// Key field for a serving endpoint rate limit. Currently, user, user_group, service_principal, and endpoint are supported, with endpoint being the default if not specified.
 	// +kubebuilder:validation:Optional
 	Key *string `json:"key,omitempty" tf:"key,omitempty"`
 
@@ -1056,7 +1066,7 @@ type OpenaiConfigParameters struct {
 
 type OutputInitParameters struct {
 
-	// List of invalid keywords. AI guardrail uses keyword or string matching to decide if the keyword exists in the request or response content.
+	// (Deprecated) List of invalid keywords. AI guardrail uses keyword or string matching to decide if the keyword exists in the request or response content.
 	InvalidKeywords []*string `json:"invalidKeywords,omitempty" tf:"invalid_keywords,omitempty"`
 
 	// Block with configuration for guardrail PII filter:
@@ -1065,13 +1075,13 @@ type OutputInitParameters struct {
 	// the boolean flag that indicates whether the safety filter is enabled.
 	Safety *bool `json:"safety,omitempty" tf:"safety,omitempty"`
 
-	// The list of allowed topics. Given a chat request, this guardrail flags the request if its topic is not in the allowed topics.
+	// (Deprecated) The list of allowed topics. Given a chat request, this guardrail flags the request if its topic is not in the allowed topics.
 	ValidTopics []*string `json:"validTopics,omitempty" tf:"valid_topics,omitempty"`
 }
 
 type OutputObservation struct {
 
-	// List of invalid keywords. AI guardrail uses keyword or string matching to decide if the keyword exists in the request or response content.
+	// (Deprecated) List of invalid keywords. AI guardrail uses keyword or string matching to decide if the keyword exists in the request or response content.
 	InvalidKeywords []*string `json:"invalidKeywords,omitempty" tf:"invalid_keywords,omitempty"`
 
 	// Block with configuration for guardrail PII filter:
@@ -1080,13 +1090,13 @@ type OutputObservation struct {
 	// the boolean flag that indicates whether the safety filter is enabled.
 	Safety *bool `json:"safety,omitempty" tf:"safety,omitempty"`
 
-	// The list of allowed topics. Given a chat request, this guardrail flags the request if its topic is not in the allowed topics.
+	// (Deprecated) The list of allowed topics. Given a chat request, this guardrail flags the request if its topic is not in the allowed topics.
 	ValidTopics []*string `json:"validTopics,omitempty" tf:"valid_topics,omitempty"`
 }
 
 type OutputParameters struct {
 
-	// List of invalid keywords. AI guardrail uses keyword or string matching to decide if the keyword exists in the request or response content.
+	// (Deprecated) List of invalid keywords. AI guardrail uses keyword or string matching to decide if the keyword exists in the request or response content.
 	// +kubebuilder:validation:Optional
 	InvalidKeywords []*string `json:"invalidKeywords,omitempty" tf:"invalid_keywords,omitempty"`
 
@@ -1098,7 +1108,7 @@ type OutputParameters struct {
 	// +kubebuilder:validation:Optional
 	Safety *bool `json:"safety,omitempty" tf:"safety,omitempty"`
 
-	// The list of allowed topics. Given a chat request, this guardrail flags the request if its topic is not in the allowed topics.
+	// (Deprecated) The list of allowed topics. Given a chat request, this guardrail flags the request if its topic is not in the allowed topics.
 	// +kubebuilder:validation:Optional
 	ValidTopics []*string `json:"validTopics,omitempty" tf:"valid_topics,omitempty"`
 }
@@ -1178,6 +1188,9 @@ type RateLimitsInitParameters struct {
 	// The key field for a tag.
 	Key *string `json:"key,omitempty" tf:"key,omitempty"`
 
+	// Principal field for a user, user group, or service principal to apply rate limiting to. Accepts a user email, group name, or service principal application ID.
+	Principal *string `json:"principal,omitempty" tf:"principal,omitempty"`
+
 	// Renewal period field for a serving endpoint rate limit. Currently, only minute is supported.
 	RenewalPeriod *string `json:"renewalPeriod,omitempty" tf:"renewal_period,omitempty"`
 }
@@ -1190,6 +1203,9 @@ type RateLimitsObservation struct {
 	// The key field for a tag.
 	Key *string `json:"key,omitempty" tf:"key,omitempty"`
 
+	// Principal field for a user, user group, or service principal to apply rate limiting to. Accepts a user email, group name, or service principal application ID.
+	Principal *string `json:"principal,omitempty" tf:"principal,omitempty"`
+
 	// Renewal period field for a serving endpoint rate limit. Currently, only minute is supported.
 	RenewalPeriod *string `json:"renewalPeriod,omitempty" tf:"renewal_period,omitempty"`
 }
@@ -1198,11 +1214,15 @@ type RateLimitsParameters struct {
 
 	// Used to specify how many calls are allowed for a key within the renewal_period.
 	// +kubebuilder:validation:Optional
-	Calls *float64 `json:"calls" tf:"calls,omitempty"`
+	Calls *float64 `json:"calls,omitempty" tf:"calls,omitempty"`
 
 	// The key field for a tag.
 	// +kubebuilder:validation:Optional
 	Key *string `json:"key,omitempty" tf:"key,omitempty"`
+
+	// Principal field for a user, user group, or service principal to apply rate limiting to. Accepts a user email, group name, or service principal application ID.
+	// +kubebuilder:validation:Optional
+	Principal *string `json:"principal,omitempty" tf:"principal,omitempty"`
 
 	// Renewal period field for a serving endpoint rate limit. Currently, only minute is supported.
 	// +kubebuilder:validation:Optional
@@ -1210,6 +1230,9 @@ type RateLimitsParameters struct {
 }
 
 type RoutesInitParameters struct {
+
+	// The name of the served entity this route configures traffic for. This needs to match the name of a served_entity block.
+	ServedEntityName *string `json:"servedEntityName,omitempty" tf:"served_entity_name,omitempty"`
 
 	// The name of the model serving endpoint. This field is required and must be unique across a workspace. An endpoint name can consist of alphanumeric characters, dashes, and underscores. NOTE: Changing this name will delete the existing endpoint and create a new endpoint with the updated name.
 	ServedModelName *string `json:"servedModelName,omitempty" tf:"served_model_name,omitempty"`
@@ -1220,6 +1243,9 @@ type RoutesInitParameters struct {
 
 type RoutesObservation struct {
 
+	// The name of the served entity this route configures traffic for. This needs to match the name of a served_entity block.
+	ServedEntityName *string `json:"servedEntityName,omitempty" tf:"served_entity_name,omitempty"`
+
 	// The name of the model serving endpoint. This field is required and must be unique across a workspace. An endpoint name can consist of alphanumeric characters, dashes, and underscores. NOTE: Changing this name will delete the existing endpoint and create a new endpoint with the updated name.
 	ServedModelName *string `json:"servedModelName,omitempty" tf:"served_model_name,omitempty"`
 
@@ -1229,9 +1255,13 @@ type RoutesObservation struct {
 
 type RoutesParameters struct {
 
+	// The name of the served entity this route configures traffic for. This needs to match the name of a served_entity block.
+	// +kubebuilder:validation:Optional
+	ServedEntityName *string `json:"servedEntityName,omitempty" tf:"served_entity_name,omitempty"`
+
 	// The name of the model serving endpoint. This field is required and must be unique across a workspace. An endpoint name can consist of alphanumeric characters, dashes, and underscores. NOTE: Changing this name will delete the existing endpoint and create a new endpoint with the updated name.
 	// +kubebuilder:validation:Optional
-	ServedModelName *string `json:"servedModelName" tf:"served_model_name,omitempty"`
+	ServedModelName *string `json:"servedModelName,omitempty" tf:"served_model_name,omitempty"`
 
 	// The percentage of endpoint traffic to send to this route. It must be an integer between 0 and 100 inclusive.
 	// +kubebuilder:validation:Optional
@@ -1256,8 +1286,14 @@ type ServedEntitiesInitParameters struct {
 	// ARN of the instance profile that the served model will use to access AWS resources.
 	InstanceProfileArn *string `json:"instanceProfileArn,omitempty" tf:"instance_profile_arn,omitempty"`
 
+	// The maximum provisioned concurrency that the endpoint can scale up to. Conflicts with workload_size.
+	MaxProvisionedConcurrency *float64 `json:"maxProvisionedConcurrency,omitempty" tf:"max_provisioned_concurrency,omitempty"`
+
 	// The maximum tokens per second that the endpoint can scale up to.
 	MaxProvisionedThroughput *float64 `json:"maxProvisionedThroughput,omitempty" tf:"max_provisioned_throughput,omitempty"`
+
+	// The minimum provisioned concurrency that the endpoint can scale down to. Conflicts with workload_size.
+	MinProvisionedConcurrency *float64 `json:"minProvisionedConcurrency,omitempty" tf:"min_provisioned_concurrency,omitempty"`
 
 	// The minimum tokens per second that the endpoint can scale down to.
 	MinProvisionedThroughput *float64 `json:"minProvisionedThroughput,omitempty" tf:"min_provisioned_throughput,omitempty"`
@@ -1295,8 +1331,14 @@ type ServedEntitiesObservation struct {
 	// ARN of the instance profile that the served model will use to access AWS resources.
 	InstanceProfileArn *string `json:"instanceProfileArn,omitempty" tf:"instance_profile_arn,omitempty"`
 
+	// The maximum provisioned concurrency that the endpoint can scale up to. Conflicts with workload_size.
+	MaxProvisionedConcurrency *float64 `json:"maxProvisionedConcurrency,omitempty" tf:"max_provisioned_concurrency,omitempty"`
+
 	// The maximum tokens per second that the endpoint can scale up to.
 	MaxProvisionedThroughput *float64 `json:"maxProvisionedThroughput,omitempty" tf:"max_provisioned_throughput,omitempty"`
+
+	// The minimum provisioned concurrency that the endpoint can scale down to. Conflicts with workload_size.
+	MinProvisionedConcurrency *float64 `json:"minProvisionedConcurrency,omitempty" tf:"min_provisioned_concurrency,omitempty"`
 
 	// The minimum tokens per second that the endpoint can scale down to.
 	MinProvisionedThroughput *float64 `json:"minProvisionedThroughput,omitempty" tf:"min_provisioned_throughput,omitempty"`
@@ -1339,9 +1381,17 @@ type ServedEntitiesParameters struct {
 	// +kubebuilder:validation:Optional
 	InstanceProfileArn *string `json:"instanceProfileArn,omitempty" tf:"instance_profile_arn,omitempty"`
 
+	// The maximum provisioned concurrency that the endpoint can scale up to. Conflicts with workload_size.
+	// +kubebuilder:validation:Optional
+	MaxProvisionedConcurrency *float64 `json:"maxProvisionedConcurrency,omitempty" tf:"max_provisioned_concurrency,omitempty"`
+
 	// The maximum tokens per second that the endpoint can scale up to.
 	// +kubebuilder:validation:Optional
 	MaxProvisionedThroughput *float64 `json:"maxProvisionedThroughput,omitempty" tf:"max_provisioned_throughput,omitempty"`
+
+	// The minimum provisioned concurrency that the endpoint can scale down to. Conflicts with workload_size.
+	// +kubebuilder:validation:Optional
+	MinProvisionedConcurrency *float64 `json:"minProvisionedConcurrency,omitempty" tf:"min_provisioned_concurrency,omitempty"`
 
 	// The minimum tokens per second that the endpoint can scale down to.
 	// +kubebuilder:validation:Optional
@@ -1376,8 +1426,14 @@ type ServedModelsInitParameters struct {
 	// ARN of the instance profile that the served model will use to access AWS resources.
 	InstanceProfileArn *string `json:"instanceProfileArn,omitempty" tf:"instance_profile_arn,omitempty"`
 
+	// The maximum provisioned concurrency that the endpoint can scale up to. Conflicts with workload_size.
+	MaxProvisionedConcurrency *float64 `json:"maxProvisionedConcurrency,omitempty" tf:"max_provisioned_concurrency,omitempty"`
+
 	// The maximum tokens per second that the endpoint can scale up to.
 	MaxProvisionedThroughput *float64 `json:"maxProvisionedThroughput,omitempty" tf:"max_provisioned_throughput,omitempty"`
+
+	// The minimum provisioned concurrency that the endpoint can scale down to. Conflicts with workload_size.
+	MinProvisionedConcurrency *float64 `json:"minProvisionedConcurrency,omitempty" tf:"min_provisioned_concurrency,omitempty"`
 
 	// The minimum tokens per second that the endpoint can scale down to.
 	MinProvisionedThroughput *float64 `json:"minProvisionedThroughput,omitempty" tf:"min_provisioned_throughput,omitempty"`
@@ -1412,8 +1468,14 @@ type ServedModelsObservation struct {
 	// ARN of the instance profile that the served model will use to access AWS resources.
 	InstanceProfileArn *string `json:"instanceProfileArn,omitempty" tf:"instance_profile_arn,omitempty"`
 
+	// The maximum provisioned concurrency that the endpoint can scale up to. Conflicts with workload_size.
+	MaxProvisionedConcurrency *float64 `json:"maxProvisionedConcurrency,omitempty" tf:"max_provisioned_concurrency,omitempty"`
+
 	// The maximum tokens per second that the endpoint can scale up to.
 	MaxProvisionedThroughput *float64 `json:"maxProvisionedThroughput,omitempty" tf:"max_provisioned_throughput,omitempty"`
+
+	// The minimum provisioned concurrency that the endpoint can scale down to. Conflicts with workload_size.
+	MinProvisionedConcurrency *float64 `json:"minProvisionedConcurrency,omitempty" tf:"min_provisioned_concurrency,omitempty"`
 
 	// The minimum tokens per second that the endpoint can scale down to.
 	MinProvisionedThroughput *float64 `json:"minProvisionedThroughput,omitempty" tf:"min_provisioned_throughput,omitempty"`
@@ -1450,9 +1512,17 @@ type ServedModelsParameters struct {
 	// +kubebuilder:validation:Optional
 	InstanceProfileArn *string `json:"instanceProfileArn,omitempty" tf:"instance_profile_arn,omitempty"`
 
+	// The maximum provisioned concurrency that the endpoint can scale up to. Conflicts with workload_size.
+	// +kubebuilder:validation:Optional
+	MaxProvisionedConcurrency *float64 `json:"maxProvisionedConcurrency,omitempty" tf:"max_provisioned_concurrency,omitempty"`
+
 	// The maximum tokens per second that the endpoint can scale up to.
 	// +kubebuilder:validation:Optional
 	MaxProvisionedThroughput *float64 `json:"maxProvisionedThroughput,omitempty" tf:"max_provisioned_throughput,omitempty"`
+
+	// The minimum provisioned concurrency that the endpoint can scale down to. Conflicts with workload_size.
+	// +kubebuilder:validation:Optional
+	MinProvisionedConcurrency *float64 `json:"minProvisionedConcurrency,omitempty" tf:"min_provisioned_concurrency,omitempty"`
 
 	// The minimum tokens per second that the endpoint can scale down to.
 	// +kubebuilder:validation:Optional

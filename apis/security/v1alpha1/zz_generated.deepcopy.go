@@ -2438,6 +2438,11 @@ func (in *PermissionsInitParameters) DeepCopyInto(out *PermissionsInitParameters
 			(*in)[i].DeepCopyInto(&(*out)[i])
 		}
 	}
+	if in.AlertV2ID != nil {
+		in, out := &in.AlertV2ID, &out.AlertV2ID
+		*out = new(string)
+		**out = **in
+	}
 	if in.AppName != nil {
 		in, out := &in.AppName, &out.AppName
 		*out = new(string)
@@ -2480,6 +2485,11 @@ func (in *PermissionsInitParameters) DeepCopyInto(out *PermissionsInitParameters
 	}
 	if in.DashboardID != nil {
 		in, out := &in.DashboardID, &out.DashboardID
+		*out = new(string)
+		**out = **in
+	}
+	if in.DatabaseInstanceName != nil {
+		in, out := &in.DatabaseInstanceName, &out.DatabaseInstanceName
 		*out = new(string)
 		**out = **in
 	}
@@ -2707,6 +2717,11 @@ func (in *PermissionsObservation) DeepCopyInto(out *PermissionsObservation) {
 			(*in)[i].DeepCopyInto(&(*out)[i])
 		}
 	}
+	if in.AlertV2ID != nil {
+		in, out := &in.AlertV2ID, &out.AlertV2ID
+		*out = new(string)
+		**out = **in
+	}
 	if in.AppName != nil {
 		in, out := &in.AppName, &out.AppName
 		*out = new(string)
@@ -2729,6 +2744,11 @@ func (in *PermissionsObservation) DeepCopyInto(out *PermissionsObservation) {
 	}
 	if in.DashboardID != nil {
 		in, out := &in.DashboardID, &out.DashboardID
+		*out = new(string)
+		**out = **in
+	}
+	if in.DatabaseInstanceName != nil {
+		in, out := &in.DatabaseInstanceName, &out.DatabaseInstanceName
 		*out = new(string)
 		**out = **in
 	}
@@ -2859,6 +2879,11 @@ func (in *PermissionsParameters) DeepCopyInto(out *PermissionsParameters) {
 			(*in)[i].DeepCopyInto(&(*out)[i])
 		}
 	}
+	if in.AlertV2ID != nil {
+		in, out := &in.AlertV2ID, &out.AlertV2ID
+		*out = new(string)
+		**out = **in
+	}
 	if in.AppName != nil {
 		in, out := &in.AppName, &out.AppName
 		*out = new(string)
@@ -2901,6 +2926,11 @@ func (in *PermissionsParameters) DeepCopyInto(out *PermissionsParameters) {
 	}
 	if in.DashboardID != nil {
 		in, out := &in.DashboardID, &out.DashboardID
+		*out = new(string)
+		**out = **in
+	}
+	if in.DatabaseInstanceName != nil {
+		in, out := &in.DatabaseInstanceName, &out.DatabaseInstanceName
 		*out = new(string)
 		**out = **in
 	}
@@ -4657,6 +4687,11 @@ func (in *ServicePrincipalSecretInitParameters) DeepCopyInto(out *ServicePrincip
 		*out = new(string)
 		**out = **in
 	}
+	if in.TimeRotating != nil {
+		in, out := &in.TimeRotating, &out.TimeRotating
+		*out = new(string)
+		**out = **in
+	}
 	if in.UpdateTime != nil {
 		in, out := &in.UpdateTime, &out.UpdateTime
 		*out = new(string)
@@ -4744,6 +4779,11 @@ func (in *ServicePrincipalSecretObservation) DeepCopyInto(out *ServicePrincipalS
 		*out = new(string)
 		**out = **in
 	}
+	if in.TimeRotating != nil {
+		in, out := &in.TimeRotating, &out.TimeRotating
+		*out = new(string)
+		**out = **in
+	}
 	if in.UpdateTime != nil {
 		in, out := &in.UpdateTime, &out.UpdateTime
 		*out = new(string)
@@ -4796,6 +4836,11 @@ func (in *ServicePrincipalSecretParameters) DeepCopyInto(out *ServicePrincipalSe
 	}
 	if in.Status != nil {
 		in, out := &in.Status, &out.Status
+		*out = new(string)
+		**out = **in
+	}
+	if in.TimeRotating != nil {
+		in, out := &in.TimeRotating, &out.TimeRotating
 		*out = new(string)
 		**out = **in
 	}
