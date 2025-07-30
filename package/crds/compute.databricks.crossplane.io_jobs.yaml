@@ -374,6 +374,10 @@ spec:
                             parameters):'
                           items:
                             properties:
+                              ApplyPolicyDefaultValuesAllowList:
+                                items:
+                                  type: string
+                                type: array
                               applyPolicyDefaultValues:
                                 type: boolean
                               autoscale:
@@ -734,6 +738,8 @@ spec:
                                   notified when an event defined in webhook_notifications
                                   is triggered.
                                 type: string
+                              remoteDiskThroughput:
+                                type: number
                               runtimeEngine:
                                 type: string
                               singleUserName:
@@ -759,6 +765,8 @@ spec:
                                 items:
                                   type: string
                                 type: array
+                              totalInitialRemoteDiskSize:
+                                type: number
                               useMlRuntime:
                                 type: boolean
                               workloadType:
@@ -1204,6 +1212,8 @@ spec:
                           description: ID of the system notification that is notified
                             when an event defined in webhook_notifications is triggered.
                           type: string
+                        remoteDiskThroughput:
+                          type: number
                         runtimeEngine:
                           type: string
                         singleUserName:
@@ -1227,6 +1237,8 @@ spec:
                           items:
                             type: string
                           type: array
+                        totalInitialRemoteDiskSize:
+                          type: number
                         useMlRuntime:
                           type: boolean
                         workloadType:
@@ -1595,6 +1607,34 @@ spec:
                                 type: string
                             type: object
                           type: array
+                        dbtCloudTask:
+                          description: A list of task specification that the job will
+                            execute. See task Configuration Block below.
+                          items:
+                            properties:
+                              connectionResourceName:
+                                description: The resource name of the UC connection
+                                  to authenticate from Databricks to Power BI
+                                type: string
+                              dbtCloudJobId:
+                                description: (String) ID of the job
+                                type: number
+                            type: object
+                          type: array
+                        dbtPlatformTask:
+                          description: A list of task specification that the job will
+                            execute. See task Configuration Block below.
+                          items:
+                            properties:
+                              connectionResourceName:
+                                description: The resource name of the UC connection
+                                  to authenticate from Databricks to Power BI
+                                type: string
+                              dbtPlatformJobId:
+                                description: (String) ID of the job
+                                type: string
+                            type: object
+                          type: array
                         dbtTask:
                           description: A list of task specification that the job will
                             execute. See task Configuration Block below.
@@ -1850,6 +1890,38 @@ spec:
                                               the dashboard with for the schedule.
                                               If not specified, will use the default
                                               warehouse of dashboard
+                                            type: string
+                                        type: object
+                                      type: array
+                                    dbtCloudTask:
+                                      description: A list of task specification that
+                                        the job will execute. See task Configuration
+                                        Block below.
+                                      items:
+                                        properties:
+                                          connectionResourceName:
+                                            description: The resource name of the
+                                              UC connection to authenticate from Databricks
+                                              to Power BI
+                                            type: string
+                                          dbtCloudJobId:
+                                            description: (String) ID of the job
+                                            type: number
+                                        type: object
+                                      type: array
+                                    dbtPlatformTask:
+                                      description: A list of task specification that
+                                        the job will execute. See task Configuration
+                                        Block below.
+                                      items:
+                                        properties:
+                                          connectionResourceName:
+                                            description: The resource name of the
+                                              UC connection to authenticate from Databricks
+                                              to Power BI
+                                            type: string
+                                          dbtPlatformJobId:
+                                            description: (String) ID of the job
                                             type: string
                                         type: object
                                       type: array
@@ -2541,6 +2613,8 @@ spec:
                                               that is notified when an event defined
                                               in webhook_notifications is triggered.
                                             type: string
+                                          remoteDiskThroughput:
+                                            type: number
                                           runtimeEngine:
                                             type: string
                                           singleUserName:
@@ -2566,6 +2640,8 @@ spec:
                                             items:
                                               type: string
                                             type: array
+                                          totalInitialRemoteDiskSize:
+                                            type: number
                                           useMlRuntime:
                                             type: boolean
                                           workloadType:
@@ -3316,6 +3392,10 @@ spec:
                             parameters, such as
                           items:
                             properties:
+                              ApplyPolicyDefaultValuesAllowList:
+                                items:
+                                  type: string
+                                type: array
                               applyPolicyDefaultValues:
                                 type: boolean
                               autoscale:
@@ -3676,6 +3756,8 @@ spec:
                                   notified when an event defined in webhook_notifications
                                   is triggered.
                                 type: string
+                              remoteDiskThroughput:
+                                type: number
                               runtimeEngine:
                                 type: string
                               singleUserName:
@@ -3701,6 +3783,8 @@ spec:
                                 items:
                                   type: string
                                 type: array
+                              totalInitialRemoteDiskSize:
+                                type: number
                               useMlRuntime:
                                 type: boolean
                               workloadType:
@@ -4722,6 +4806,10 @@ spec:
                             parameters):'
                           items:
                             properties:
+                              ApplyPolicyDefaultValuesAllowList:
+                                items:
+                                  type: string
+                                type: array
                               applyPolicyDefaultValues:
                                 type: boolean
                               autoscale:
@@ -5084,6 +5172,8 @@ spec:
                                   notified when an event defined in webhook_notifications
                                   is triggered.
                                 type: string
+                              remoteDiskThroughput:
+                                type: number
                               runtimeEngine:
                                 type: string
                               singleUserName:
@@ -5109,6 +5199,8 @@ spec:
                                 items:
                                   type: string
                                 type: array
+                              totalInitialRemoteDiskSize:
+                                type: number
                               useMlRuntime:
                                 type: boolean
                               workloadType:
@@ -5556,6 +5648,8 @@ spec:
                           description: ID of the system notification that is notified
                             when an event defined in webhook_notifications is triggered.
                           type: string
+                        remoteDiskThroughput:
+                          type: number
                         runtimeEngine:
                           type: string
                         singleUserName:
@@ -5579,6 +5673,8 @@ spec:
                           items:
                             type: string
                           type: array
+                        totalInitialRemoteDiskSize:
+                          type: number
                         useMlRuntime:
                           type: boolean
                         workloadType:
@@ -5947,6 +6043,34 @@ spec:
                                 type: string
                             type: object
                           type: array
+                        dbtCloudTask:
+                          description: A list of task specification that the job will
+                            execute. See task Configuration Block below.
+                          items:
+                            properties:
+                              connectionResourceName:
+                                description: The resource name of the UC connection
+                                  to authenticate from Databricks to Power BI
+                                type: string
+                              dbtCloudJobId:
+                                description: (String) ID of the job
+                                type: number
+                            type: object
+                          type: array
+                        dbtPlatformTask:
+                          description: A list of task specification that the job will
+                            execute. See task Configuration Block below.
+                          items:
+                            properties:
+                              connectionResourceName:
+                                description: The resource name of the UC connection
+                                  to authenticate from Databricks to Power BI
+                                type: string
+                              dbtPlatformJobId:
+                                description: (String) ID of the job
+                                type: string
+                            type: object
+                          type: array
                         dbtTask:
                           description: A list of task specification that the job will
                             execute. See task Configuration Block below.
@@ -6202,6 +6326,38 @@ spec:
                                               the dashboard with for the schedule.
                                               If not specified, will use the default
                                               warehouse of dashboard
+                                            type: string
+                                        type: object
+                                      type: array
+                                    dbtCloudTask:
+                                      description: A list of task specification that
+                                        the job will execute. See task Configuration
+                                        Block below.
+                                      items:
+                                        properties:
+                                          connectionResourceName:
+                                            description: The resource name of the
+                                              UC connection to authenticate from Databricks
+                                              to Power BI
+                                            type: string
+                                          dbtCloudJobId:
+                                            description: (String) ID of the job
+                                            type: number
+                                        type: object
+                                      type: array
+                                    dbtPlatformTask:
+                                      description: A list of task specification that
+                                        the job will execute. See task Configuration
+                                        Block below.
+                                      items:
+                                        properties:
+                                          connectionResourceName:
+                                            description: The resource name of the
+                                              UC connection to authenticate from Databricks
+                                              to Power BI
+                                            type: string
+                                          dbtPlatformJobId:
+                                            description: (String) ID of the job
                                             type: string
                                         type: object
                                       type: array
@@ -6895,6 +7051,8 @@ spec:
                                               that is notified when an event defined
                                               in webhook_notifications is triggered.
                                             type: string
+                                          remoteDiskThroughput:
+                                            type: number
                                           runtimeEngine:
                                             type: string
                                           singleUserName:
@@ -6920,6 +7078,8 @@ spec:
                                             items:
                                               type: string
                                             type: array
+                                          totalInitialRemoteDiskSize:
+                                            type: number
                                           useMlRuntime:
                                             type: boolean
                                           workloadType:
@@ -7670,6 +7830,10 @@ spec:
                             parameters, such as
                           items:
                             properties:
+                              ApplyPolicyDefaultValuesAllowList:
+                                items:
+                                  type: string
+                                type: array
                               applyPolicyDefaultValues:
                                 type: boolean
                               autoscale:
@@ -8032,6 +8196,8 @@ spec:
                                   notified when an event defined in webhook_notifications
                                   is triggered.
                                 type: string
+                              remoteDiskThroughput:
+                                type: number
                               runtimeEngine:
                                 type: string
                               singleUserName:
@@ -8057,6 +8223,8 @@ spec:
                                 items:
                                   type: string
                                 type: array
+                              totalInitialRemoteDiskSize:
+                                type: number
                               useMlRuntime:
                                 type: boolean
                               workloadType:
@@ -9241,6 +9409,10 @@ spec:
                             parameters):'
                           items:
                             properties:
+                              ApplyPolicyDefaultValuesAllowList:
+                                items:
+                                  type: string
+                                type: array
                               applyPolicyDefaultValues:
                                 type: boolean
                               autoscale:
@@ -9582,6 +9754,8 @@ spec:
                                   notified when an event defined in webhook_notifications
                                   is triggered.
                                 type: string
+                              remoteDiskThroughput:
+                                type: number
                               runtimeEngine:
                                 type: string
                               singleUserName:
@@ -9607,6 +9781,8 @@ spec:
                                 items:
                                   type: string
                                 type: array
+                              totalInitialRemoteDiskSize:
+                                type: number
                               useMlRuntime:
                                 type: boolean
                               workloadType:
@@ -10034,6 +10210,8 @@ spec:
                           description: ID of the system notification that is notified
                             when an event defined in webhook_notifications is triggered.
                           type: string
+                        remoteDiskThroughput:
+                          type: number
                         runtimeEngine:
                           type: string
                         singleUserName:
@@ -10057,6 +10235,8 @@ spec:
                           items:
                             type: string
                           type: array
+                        totalInitialRemoteDiskSize:
+                          type: number
                         useMlRuntime:
                           type: boolean
                         workloadType:
@@ -10425,6 +10605,34 @@ spec:
                                 type: string
                             type: object
                           type: array
+                        dbtCloudTask:
+                          description: A list of task specification that the job will
+                            execute. See task Configuration Block below.
+                          items:
+                            properties:
+                              connectionResourceName:
+                                description: The resource name of the UC connection
+                                  to authenticate from Databricks to Power BI
+                                type: string
+                              dbtCloudJobId:
+                                description: (String) ID of the job
+                                type: number
+                            type: object
+                          type: array
+                        dbtPlatformTask:
+                          description: A list of task specification that the job will
+                            execute. See task Configuration Block below.
+                          items:
+                            properties:
+                              connectionResourceName:
+                                description: The resource name of the UC connection
+                                  to authenticate from Databricks to Power BI
+                                type: string
+                              dbtPlatformJobId:
+                                description: (String) ID of the job
+                                type: string
+                            type: object
+                          type: array
                         dbtTask:
                           description: A list of task specification that the job will
                             execute. See task Configuration Block below.
@@ -10680,6 +10888,38 @@ spec:
                                               the dashboard with for the schedule.
                                               If not specified, will use the default
                                               warehouse of dashboard
+                                            type: string
+                                        type: object
+                                      type: array
+                                    dbtCloudTask:
+                                      description: A list of task specification that
+                                        the job will execute. See task Configuration
+                                        Block below.
+                                      items:
+                                        properties:
+                                          connectionResourceName:
+                                            description: The resource name of the
+                                              UC connection to authenticate from Databricks
+                                              to Power BI
+                                            type: string
+                                          dbtCloudJobId:
+                                            description: (String) ID of the job
+                                            type: number
+                                        type: object
+                                      type: array
+                                    dbtPlatformTask:
+                                      description: A list of task specification that
+                                        the job will execute. See task Configuration
+                                        Block below.
+                                      items:
+                                        properties:
+                                          connectionResourceName:
+                                            description: The resource name of the
+                                              UC connection to authenticate from Databricks
+                                              to Power BI
+                                            type: string
+                                          dbtPlatformJobId:
+                                            description: (String) ID of the job
                                             type: string
                                         type: object
                                       type: array
@@ -11349,6 +11589,8 @@ spec:
                                               that is notified when an event defined
                                               in webhook_notifications is triggered.
                                             type: string
+                                          remoteDiskThroughput:
+                                            type: number
                                           runtimeEngine:
                                             type: string
                                           singleUserName:
@@ -11374,6 +11616,8 @@ spec:
                                             items:
                                               type: string
                                             type: array
+                                          totalInitialRemoteDiskSize:
+                                            type: number
                                           useMlRuntime:
                                             type: boolean
                                           workloadType:
@@ -12124,6 +12368,10 @@ spec:
                             parameters, such as
                           items:
                             properties:
+                              ApplyPolicyDefaultValuesAllowList:
+                                items:
+                                  type: string
+                                type: array
                               applyPolicyDefaultValues:
                                 type: boolean
                               autoscale:
@@ -12465,6 +12713,8 @@ spec:
                                   notified when an event defined in webhook_notifications
                                   is triggered.
                                 type: string
+                              remoteDiskThroughput:
+                                type: number
                               runtimeEngine:
                                 type: string
                               singleUserName:
@@ -12490,6 +12740,8 @@ spec:
                                 items:
                                   type: string
                                 type: array
+                              totalInitialRemoteDiskSize:
+                                type: number
                               useMlRuntime:
                                 type: boolean
                               workloadType:

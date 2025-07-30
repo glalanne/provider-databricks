@@ -85,6 +85,9 @@ type AccessControlParameters struct {
 type PermissionsInitParameters struct {
 	AccessControl []AccessControlInitParameters `json:"accessControl,omitempty" tf:"access_control,omitempty"`
 
+	// Canonical unique identifier for the permissions in form of /<object type>/<object id>.
+	AlertV2ID *string `json:"alertV2Id,omitempty" tf:"alert_v2_id,omitempty"`
+
 	// app name
 	AppName *string `json:"appName,omitempty" tf:"app_name,omitempty"`
 
@@ -117,6 +120,8 @@ type PermissionsInitParameters struct {
 
 	// Canonical unique identifier for the permissions in form of /<object type>/<object id>.
 	DashboardID *string `json:"dashboardId,omitempty" tf:"dashboard_id,omitempty"`
+
+	DatabaseInstanceName *string `json:"databaseInstanceName,omitempty" tf:"database_instance_name,omitempty"`
 
 	// directory id
 	DirectoryID *string `json:"directoryId,omitempty" tf:"directory_id,omitempty"`
@@ -244,6 +249,9 @@ type PermissionsInitParameters struct {
 type PermissionsObservation struct {
 	AccessControl []AccessControlObservation `json:"accessControl,omitempty" tf:"access_control,omitempty"`
 
+	// Canonical unique identifier for the permissions in form of /<object type>/<object id>.
+	AlertV2ID *string `json:"alertV2Id,omitempty" tf:"alert_v2_id,omitempty"`
+
 	// app name
 	AppName *string `json:"appName,omitempty" tf:"app_name,omitempty"`
 
@@ -258,6 +266,8 @@ type PermissionsObservation struct {
 
 	// Canonical unique identifier for the permissions in form of /<object type>/<object id>.
 	DashboardID *string `json:"dashboardId,omitempty" tf:"dashboard_id,omitempty"`
+
+	DatabaseInstanceName *string `json:"databaseInstanceName,omitempty" tf:"database_instance_name,omitempty"`
 
 	// directory id
 	DirectoryID *string `json:"directoryId,omitempty" tf:"directory_id,omitempty"`
@@ -327,6 +337,10 @@ type PermissionsParameters struct {
 	// +kubebuilder:validation:Optional
 	AccessControl []AccessControlParameters `json:"accessControl,omitempty" tf:"access_control,omitempty"`
 
+	// Canonical unique identifier for the permissions in form of /<object type>/<object id>.
+	// +kubebuilder:validation:Optional
+	AlertV2ID *string `json:"alertV2Id,omitempty" tf:"alert_v2_id,omitempty"`
+
 	// app name
 	// +kubebuilder:validation:Optional
 	AppName *string `json:"appName,omitempty" tf:"app_name,omitempty"`
@@ -364,6 +378,9 @@ type PermissionsParameters struct {
 	// Canonical unique identifier for the permissions in form of /<object type>/<object id>.
 	// +kubebuilder:validation:Optional
 	DashboardID *string `json:"dashboardId,omitempty" tf:"dashboard_id,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	DatabaseInstanceName *string `json:"databaseInstanceName,omitempty" tf:"database_instance_name,omitempty"`
 
 	// directory id
 	// +kubebuilder:validation:Optional

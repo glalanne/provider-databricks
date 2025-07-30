@@ -509,6 +509,64 @@ type DashboardTaskSubscriptionParameters struct {
 	Subscribers []SubscriptionSubscribersParameters `json:"subscribers,omitempty" tf:"subscribers,omitempty"`
 }
 
+type DbtCloudTaskInitParameters struct {
+
+	// The resource name of the UC connection to authenticate from Databricks to Power BI
+	ConnectionResourceName *string `json:"connectionResourceName,omitempty" tf:"connection_resource_name,omitempty"`
+
+	// (String) ID of the job
+	DbtCloudJobID *float64 `json:"dbtCloudJobId,omitempty" tf:"dbt_cloud_job_id,omitempty"`
+}
+
+type DbtCloudTaskObservation struct {
+
+	// The resource name of the UC connection to authenticate from Databricks to Power BI
+	ConnectionResourceName *string `json:"connectionResourceName,omitempty" tf:"connection_resource_name,omitempty"`
+
+	// (String) ID of the job
+	DbtCloudJobID *float64 `json:"dbtCloudJobId,omitempty" tf:"dbt_cloud_job_id,omitempty"`
+}
+
+type DbtCloudTaskParameters struct {
+
+	// The resource name of the UC connection to authenticate from Databricks to Power BI
+	// +kubebuilder:validation:Optional
+	ConnectionResourceName *string `json:"connectionResourceName,omitempty" tf:"connection_resource_name,omitempty"`
+
+	// (String) ID of the job
+	// +kubebuilder:validation:Optional
+	DbtCloudJobID *float64 `json:"dbtCloudJobId,omitempty" tf:"dbt_cloud_job_id,omitempty"`
+}
+
+type DbtPlatformTaskInitParameters struct {
+
+	// The resource name of the UC connection to authenticate from Databricks to Power BI
+	ConnectionResourceName *string `json:"connectionResourceName,omitempty" tf:"connection_resource_name,omitempty"`
+
+	// (String) ID of the job
+	DbtPlatformJobID *string `json:"dbtPlatformJobId,omitempty" tf:"dbt_platform_job_id,omitempty"`
+}
+
+type DbtPlatformTaskObservation struct {
+
+	// The resource name of the UC connection to authenticate from Databricks to Power BI
+	ConnectionResourceName *string `json:"connectionResourceName,omitempty" tf:"connection_resource_name,omitempty"`
+
+	// (String) ID of the job
+	DbtPlatformJobID *string `json:"dbtPlatformJobId,omitempty" tf:"dbt_platform_job_id,omitempty"`
+}
+
+type DbtPlatformTaskParameters struct {
+
+	// The resource name of the UC connection to authenticate from Databricks to Power BI
+	// +kubebuilder:validation:Optional
+	ConnectionResourceName *string `json:"connectionResourceName,omitempty" tf:"connection_resource_name,omitempty"`
+
+	// (String) ID of the job
+	// +kubebuilder:validation:Optional
+	DbtPlatformJobID *string `json:"dbtPlatformJobId,omitempty" tf:"dbt_platform_job_id,omitempty"`
+}
+
 type DbtTaskInitParameters struct {
 
 	// The name of the catalog to use inside Unity Catalog.
@@ -1000,6 +1058,12 @@ type ForEachTaskTaskInitParameters struct {
 	DashboardTask []TaskDashboardTaskInitParameters `json:"dashboardTask,omitempty" tf:"dashboard_task,omitempty"`
 
 	// A list of task specification that the job will execute. See task Configuration Block below.
+	DbtCloudTask []TaskDbtCloudTaskInitParameters `json:"dbtCloudTask,omitempty" tf:"dbt_cloud_task,omitempty"`
+
+	// A list of task specification that the job will execute. See task Configuration Block below.
+	DbtPlatformTask []TaskDbtPlatformTaskInitParameters `json:"dbtPlatformTask,omitempty" tf:"dbt_platform_task,omitempty"`
+
+	// A list of task specification that the job will execute. See task Configuration Block below.
 	DbtTask []ForEachTaskTaskDbtTaskInitParameters `json:"dbtTask,omitempty" tf:"dbt_task,omitempty"`
 
 	// block specifying dependency(-ies) for a given task.
@@ -1097,6 +1161,12 @@ type ForEachTaskTaskObservation struct {
 
 	// A list of task specification that the job will execute. See task Configuration Block below.
 	DashboardTask []TaskDashboardTaskObservation `json:"dashboardTask,omitempty" tf:"dashboard_task,omitempty"`
+
+	// A list of task specification that the job will execute. See task Configuration Block below.
+	DbtCloudTask []TaskDbtCloudTaskObservation `json:"dbtCloudTask,omitempty" tf:"dbt_cloud_task,omitempty"`
+
+	// A list of task specification that the job will execute. See task Configuration Block below.
+	DbtPlatformTask []TaskDbtPlatformTaskObservation `json:"dbtPlatformTask,omitempty" tf:"dbt_platform_task,omitempty"`
 
 	// A list of task specification that the job will execute. See task Configuration Block below.
 	DbtTask []ForEachTaskTaskDbtTaskObservation `json:"dbtTask,omitempty" tf:"dbt_task,omitempty"`
@@ -1199,6 +1269,14 @@ type ForEachTaskTaskParameters struct {
 	// A list of task specification that the job will execute. See task Configuration Block below.
 	// +kubebuilder:validation:Optional
 	DashboardTask []TaskDashboardTaskParameters `json:"dashboardTask,omitempty" tf:"dashboard_task,omitempty"`
+
+	// A list of task specification that the job will execute. See task Configuration Block below.
+	// +kubebuilder:validation:Optional
+	DbtCloudTask []TaskDbtCloudTaskParameters `json:"dbtCloudTask,omitempty" tf:"dbt_cloud_task,omitempty"`
+
+	// A list of task specification that the job will execute. See task Configuration Block below.
+	// +kubebuilder:validation:Optional
+	DbtPlatformTask []TaskDbtPlatformTaskParameters `json:"dbtPlatformTask,omitempty" tf:"dbt_platform_task,omitempty"`
 
 	// A list of task specification that the job will execute. See task Configuration Block below.
 	// +kubebuilder:validation:Optional
@@ -2250,6 +2328,8 @@ type JobNewClusterInitParameters struct {
 	// ID of the system notification that is notified when an event defined in webhook_notifications is triggered.
 	PolicyID *string `json:"policyId,omitempty" tf:"policy_id,omitempty"`
 
+	RemoteDiskThroughput *float64 `json:"remoteDiskThroughput,omitempty" tf:"remote_disk_throughput,omitempty"`
+
 	RuntimeEngine *string `json:"runtimeEngine,omitempty" tf:"runtime_engine,omitempty"`
 
 	SSHPublicKeys []*string `json:"sshPublicKeys,omitempty" tf:"ssh_public_keys,omitempty"`
@@ -2265,6 +2345,8 @@ type JobNewClusterInitParameters struct {
 
 	// parameter in databricks_cluster and other resources.
 	SparkVersion *string `json:"sparkVersion,omitempty" tf:"spark_version,omitempty"`
+
+	TotalInitialRemoteDiskSize *float64 `json:"totalInitialRemoteDiskSize,omitempty" tf:"total_initial_remote_disk_size,omitempty"`
 
 	UseMLRuntime *bool `json:"useMlRuntime,omitempty" tf:"use_ml_runtime,omitempty"`
 
@@ -2532,6 +2614,8 @@ type JobNewClusterObservation struct {
 	// ID of the system notification that is notified when an event defined in webhook_notifications is triggered.
 	PolicyID *string `json:"policyId,omitempty" tf:"policy_id,omitempty"`
 
+	RemoteDiskThroughput *float64 `json:"remoteDiskThroughput,omitempty" tf:"remote_disk_throughput,omitempty"`
+
 	RuntimeEngine *string `json:"runtimeEngine,omitempty" tf:"runtime_engine,omitempty"`
 
 	SSHPublicKeys []*string `json:"sshPublicKeys,omitempty" tf:"ssh_public_keys,omitempty"`
@@ -2547,6 +2631,8 @@ type JobNewClusterObservation struct {
 
 	// parameter in databricks_cluster and other resources.
 	SparkVersion *string `json:"sparkVersion,omitempty" tf:"spark_version,omitempty"`
+
+	TotalInitialRemoteDiskSize *float64 `json:"totalInitialRemoteDiskSize,omitempty" tf:"total_initial_remote_disk_size,omitempty"`
 
 	UseMLRuntime *bool `json:"useMlRuntime,omitempty" tf:"use_ml_runtime,omitempty"`
 
@@ -2642,6 +2728,9 @@ type JobNewClusterParameters struct {
 	PolicyID *string `json:"policyId,omitempty" tf:"policy_id,omitempty"`
 
 	// +kubebuilder:validation:Optional
+	RemoteDiskThroughput *float64 `json:"remoteDiskThroughput,omitempty" tf:"remote_disk_throughput,omitempty"`
+
+	// +kubebuilder:validation:Optional
 	RuntimeEngine *string `json:"runtimeEngine,omitempty" tf:"runtime_engine,omitempty"`
 
 	// +kubebuilder:validation:Optional
@@ -2662,6 +2751,9 @@ type JobNewClusterParameters struct {
 	// parameter in databricks_cluster and other resources.
 	// +kubebuilder:validation:Optional
 	SparkVersion *string `json:"sparkVersion,omitempty" tf:"spark_version,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	TotalInitialRemoteDiskSize *float64 `json:"totalInitialRemoteDiskSize,omitempty" tf:"total_initial_remote_disk_size,omitempty"`
 
 	// +kubebuilder:validation:Optional
 	UseMLRuntime *bool `json:"useMlRuntime,omitempty" tf:"use_ml_runtime,omitempty"`
@@ -3583,6 +3675,8 @@ type JobTaskNewClusterGCPAttributesParameters struct {
 type JobTaskNewClusterInitParameters struct {
 	ApplyPolicyDefaultValues *bool `json:"applyPolicyDefaultValues,omitempty" tf:"apply_policy_default_values,omitempty"`
 
+	ApplyPolicyDefaultValuesAllowList []*string `json:"ApplyPolicyDefaultValuesAllowList,omitempty" tf:"__apply_policy_default_values_allow_list,omitempty"`
+
 	Autoscale []JobTaskNewClusterAutoscaleInitParameters `json:"autoscale,omitempty" tf:"autoscale,omitempty"`
 
 	AwsAttributes []JobTaskNewClusterAwsAttributesInitParameters `json:"awsAttributes,omitempty" tf:"aws_attributes,omitempty"`
@@ -3641,6 +3735,8 @@ type JobTaskNewClusterInitParameters struct {
 	// ID of the system notification that is notified when an event defined in webhook_notifications is triggered.
 	PolicyID *string `json:"policyId,omitempty" tf:"policy_id,omitempty"`
 
+	RemoteDiskThroughput *float64 `json:"remoteDiskThroughput,omitempty" tf:"remote_disk_throughput,omitempty"`
+
 	RuntimeEngine *string `json:"runtimeEngine,omitempty" tf:"runtime_engine,omitempty"`
 
 	SSHPublicKeys []*string `json:"sshPublicKeys,omitempty" tf:"ssh_public_keys,omitempty"`
@@ -3656,6 +3752,8 @@ type JobTaskNewClusterInitParameters struct {
 
 	// parameter in databricks_cluster and other resources.
 	SparkVersion *string `json:"sparkVersion,omitempty" tf:"spark_version,omitempty"`
+
+	TotalInitialRemoteDiskSize *float64 `json:"totalInitialRemoteDiskSize,omitempty" tf:"total_initial_remote_disk_size,omitempty"`
 
 	UseMLRuntime *bool `json:"useMlRuntime,omitempty" tf:"use_ml_runtime,omitempty"`
 
@@ -3991,6 +4089,8 @@ type JobTaskNewClusterLibraryPypiParameters struct {
 type JobTaskNewClusterObservation struct {
 	ApplyPolicyDefaultValues *bool `json:"applyPolicyDefaultValues,omitempty" tf:"apply_policy_default_values,omitempty"`
 
+	ApplyPolicyDefaultValuesAllowList []*string `json:"ApplyPolicyDefaultValuesAllowList,omitempty" tf:"__apply_policy_default_values_allow_list,omitempty"`
+
 	Autoscale []JobTaskNewClusterAutoscaleObservation `json:"autoscale,omitempty" tf:"autoscale,omitempty"`
 
 	AwsAttributes []JobTaskNewClusterAwsAttributesObservation `json:"awsAttributes,omitempty" tf:"aws_attributes,omitempty"`
@@ -4049,6 +4149,8 @@ type JobTaskNewClusterObservation struct {
 	// ID of the system notification that is notified when an event defined in webhook_notifications is triggered.
 	PolicyID *string `json:"policyId,omitempty" tf:"policy_id,omitempty"`
 
+	RemoteDiskThroughput *float64 `json:"remoteDiskThroughput,omitempty" tf:"remote_disk_throughput,omitempty"`
+
 	RuntimeEngine *string `json:"runtimeEngine,omitempty" tf:"runtime_engine,omitempty"`
 
 	SSHPublicKeys []*string `json:"sshPublicKeys,omitempty" tf:"ssh_public_keys,omitempty"`
@@ -4065,6 +4167,8 @@ type JobTaskNewClusterObservation struct {
 	// parameter in databricks_cluster and other resources.
 	SparkVersion *string `json:"sparkVersion,omitempty" tf:"spark_version,omitempty"`
 
+	TotalInitialRemoteDiskSize *float64 `json:"totalInitialRemoteDiskSize,omitempty" tf:"total_initial_remote_disk_size,omitempty"`
+
 	UseMLRuntime *bool `json:"useMlRuntime,omitempty" tf:"use_ml_runtime,omitempty"`
 
 	// isn't supported
@@ -4075,6 +4179,9 @@ type JobTaskNewClusterParameters struct {
 
 	// +kubebuilder:validation:Optional
 	ApplyPolicyDefaultValues *bool `json:"applyPolicyDefaultValues,omitempty" tf:"apply_policy_default_values,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	ApplyPolicyDefaultValuesAllowList []*string `json:"ApplyPolicyDefaultValuesAllowList,omitempty" tf:"__apply_policy_default_values_allow_list,omitempty"`
 
 	// +kubebuilder:validation:Optional
 	Autoscale []JobTaskNewClusterAutoscaleParameters `json:"autoscale,omitempty" tf:"autoscale,omitempty"`
@@ -4159,6 +4266,9 @@ type JobTaskNewClusterParameters struct {
 	PolicyID *string `json:"policyId,omitempty" tf:"policy_id,omitempty"`
 
 	// +kubebuilder:validation:Optional
+	RemoteDiskThroughput *float64 `json:"remoteDiskThroughput,omitempty" tf:"remote_disk_throughput,omitempty"`
+
+	// +kubebuilder:validation:Optional
 	RuntimeEngine *string `json:"runtimeEngine,omitempty" tf:"runtime_engine,omitempty"`
 
 	// +kubebuilder:validation:Optional
@@ -4179,6 +4289,9 @@ type JobTaskNewClusterParameters struct {
 	// parameter in databricks_cluster and other resources.
 	// +kubebuilder:validation:Optional
 	SparkVersion *string `json:"sparkVersion,omitempty" tf:"spark_version,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	TotalInitialRemoteDiskSize *float64 `json:"totalInitialRemoteDiskSize,omitempty" tf:"total_initial_remote_disk_size,omitempty"`
 
 	// +kubebuilder:validation:Optional
 	UseMLRuntime *bool `json:"useMlRuntime,omitempty" tf:"use_ml_runtime,omitempty"`
@@ -5249,6 +5362,8 @@ type NewClusterGCPAttributesParameters struct {
 type NewClusterInitParameters struct {
 	ApplyPolicyDefaultValues *bool `json:"applyPolicyDefaultValues,omitempty" tf:"apply_policy_default_values,omitempty"`
 
+	ApplyPolicyDefaultValuesAllowList []*string `json:"ApplyPolicyDefaultValuesAllowList,omitempty" tf:"__apply_policy_default_values_allow_list,omitempty"`
+
 	Autoscale []NewClusterAutoscaleInitParameters `json:"autoscale,omitempty" tf:"autoscale,omitempty"`
 
 	AwsAttributes []NewClusterAwsAttributesInitParameters `json:"awsAttributes,omitempty" tf:"aws_attributes,omitempty"`
@@ -5307,6 +5422,8 @@ type NewClusterInitParameters struct {
 	// ID of the system notification that is notified when an event defined in webhook_notifications is triggered.
 	PolicyID *string `json:"policyId,omitempty" tf:"policy_id,omitempty"`
 
+	RemoteDiskThroughput *float64 `json:"remoteDiskThroughput,omitempty" tf:"remote_disk_throughput,omitempty"`
+
 	RuntimeEngine *string `json:"runtimeEngine,omitempty" tf:"runtime_engine,omitempty"`
 
 	SSHPublicKeys []*string `json:"sshPublicKeys,omitempty" tf:"ssh_public_keys,omitempty"`
@@ -5322,6 +5439,8 @@ type NewClusterInitParameters struct {
 
 	// parameter in databricks_cluster and other resources.
 	SparkVersion *string `json:"sparkVersion,omitempty" tf:"spark_version,omitempty"`
+
+	TotalInitialRemoteDiskSize *float64 `json:"totalInitialRemoteDiskSize,omitempty" tf:"total_initial_remote_disk_size,omitempty"`
 
 	UseMLRuntime *bool `json:"useMlRuntime,omitempty" tf:"use_ml_runtime,omitempty"`
 
@@ -5657,6 +5776,8 @@ type NewClusterLibraryPypiParameters struct {
 type NewClusterObservation struct {
 	ApplyPolicyDefaultValues *bool `json:"applyPolicyDefaultValues,omitempty" tf:"apply_policy_default_values,omitempty"`
 
+	ApplyPolicyDefaultValuesAllowList []*string `json:"ApplyPolicyDefaultValuesAllowList,omitempty" tf:"__apply_policy_default_values_allow_list,omitempty"`
+
 	Autoscale []NewClusterAutoscaleObservation `json:"autoscale,omitempty" tf:"autoscale,omitempty"`
 
 	AwsAttributes []NewClusterAwsAttributesObservation `json:"awsAttributes,omitempty" tf:"aws_attributes,omitempty"`
@@ -5715,6 +5836,8 @@ type NewClusterObservation struct {
 	// ID of the system notification that is notified when an event defined in webhook_notifications is triggered.
 	PolicyID *string `json:"policyId,omitempty" tf:"policy_id,omitempty"`
 
+	RemoteDiskThroughput *float64 `json:"remoteDiskThroughput,omitempty" tf:"remote_disk_throughput,omitempty"`
+
 	RuntimeEngine *string `json:"runtimeEngine,omitempty" tf:"runtime_engine,omitempty"`
 
 	SSHPublicKeys []*string `json:"sshPublicKeys,omitempty" tf:"ssh_public_keys,omitempty"`
@@ -5731,6 +5854,8 @@ type NewClusterObservation struct {
 	// parameter in databricks_cluster and other resources.
 	SparkVersion *string `json:"sparkVersion,omitempty" tf:"spark_version,omitempty"`
 
+	TotalInitialRemoteDiskSize *float64 `json:"totalInitialRemoteDiskSize,omitempty" tf:"total_initial_remote_disk_size,omitempty"`
+
 	UseMLRuntime *bool `json:"useMlRuntime,omitempty" tf:"use_ml_runtime,omitempty"`
 
 	// isn't supported
@@ -5741,6 +5866,9 @@ type NewClusterParameters struct {
 
 	// +kubebuilder:validation:Optional
 	ApplyPolicyDefaultValues *bool `json:"applyPolicyDefaultValues,omitempty" tf:"apply_policy_default_values,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	ApplyPolicyDefaultValuesAllowList []*string `json:"ApplyPolicyDefaultValuesAllowList,omitempty" tf:"__apply_policy_default_values_allow_list,omitempty"`
 
 	// +kubebuilder:validation:Optional
 	Autoscale []NewClusterAutoscaleParameters `json:"autoscale,omitempty" tf:"autoscale,omitempty"`
@@ -5825,6 +5953,9 @@ type NewClusterParameters struct {
 	PolicyID *string `json:"policyId,omitempty" tf:"policy_id,omitempty"`
 
 	// +kubebuilder:validation:Optional
+	RemoteDiskThroughput *float64 `json:"remoteDiskThroughput,omitempty" tf:"remote_disk_throughput,omitempty"`
+
+	// +kubebuilder:validation:Optional
 	RuntimeEngine *string `json:"runtimeEngine,omitempty" tf:"runtime_engine,omitempty"`
 
 	// +kubebuilder:validation:Optional
@@ -5845,6 +5976,9 @@ type NewClusterParameters struct {
 	// parameter in databricks_cluster and other resources.
 	// +kubebuilder:validation:Optional
 	SparkVersion *string `json:"sparkVersion,omitempty" tf:"spark_version,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	TotalInitialRemoteDiskSize *float64 `json:"totalInitialRemoteDiskSize,omitempty" tf:"total_initial_remote_disk_size,omitempty"`
 
 	// +kubebuilder:validation:Optional
 	UseMLRuntime *bool `json:"useMlRuntime,omitempty" tf:"use_ml_runtime,omitempty"`
@@ -7006,7 +7140,7 @@ type SpecParameters struct {
 
 	// client version used by the environment.
 	// +kubebuilder:validation:Optional
-	Client *string `json:"client" tf:"client,omitempty"`
+	Client *string `json:"client,omitempty" tf:"client,omitempty"`
 
 	// (list of strings) List of pip dependencies, as supported by the version of pip in this environment. Each dependency is a pip requirement file line.  See API docs for more information.
 	// +kubebuilder:validation:Optional
@@ -7407,6 +7541,64 @@ type TaskDashboardTaskParameters struct {
 	WarehouseID *string `json:"warehouseId,omitempty" tf:"warehouse_id,omitempty"`
 }
 
+type TaskDbtCloudTaskInitParameters struct {
+
+	// The resource name of the UC connection to authenticate from Databricks to Power BI
+	ConnectionResourceName *string `json:"connectionResourceName,omitempty" tf:"connection_resource_name,omitempty"`
+
+	// (String) ID of the job
+	DbtCloudJobID *float64 `json:"dbtCloudJobId,omitempty" tf:"dbt_cloud_job_id,omitempty"`
+}
+
+type TaskDbtCloudTaskObservation struct {
+
+	// The resource name of the UC connection to authenticate from Databricks to Power BI
+	ConnectionResourceName *string `json:"connectionResourceName,omitempty" tf:"connection_resource_name,omitempty"`
+
+	// (String) ID of the job
+	DbtCloudJobID *float64 `json:"dbtCloudJobId,omitempty" tf:"dbt_cloud_job_id,omitempty"`
+}
+
+type TaskDbtCloudTaskParameters struct {
+
+	// The resource name of the UC connection to authenticate from Databricks to Power BI
+	// +kubebuilder:validation:Optional
+	ConnectionResourceName *string `json:"connectionResourceName,omitempty" tf:"connection_resource_name,omitempty"`
+
+	// (String) ID of the job
+	// +kubebuilder:validation:Optional
+	DbtCloudJobID *float64 `json:"dbtCloudJobId,omitempty" tf:"dbt_cloud_job_id,omitempty"`
+}
+
+type TaskDbtPlatformTaskInitParameters struct {
+
+	// The resource name of the UC connection to authenticate from Databricks to Power BI
+	ConnectionResourceName *string `json:"connectionResourceName,omitempty" tf:"connection_resource_name,omitempty"`
+
+	// (String) ID of the job
+	DbtPlatformJobID *string `json:"dbtPlatformJobId,omitempty" tf:"dbt_platform_job_id,omitempty"`
+}
+
+type TaskDbtPlatformTaskObservation struct {
+
+	// The resource name of the UC connection to authenticate from Databricks to Power BI
+	ConnectionResourceName *string `json:"connectionResourceName,omitempty" tf:"connection_resource_name,omitempty"`
+
+	// (String) ID of the job
+	DbtPlatformJobID *string `json:"dbtPlatformJobId,omitempty" tf:"dbt_platform_job_id,omitempty"`
+}
+
+type TaskDbtPlatformTaskParameters struct {
+
+	// The resource name of the UC connection to authenticate from Databricks to Power BI
+	// +kubebuilder:validation:Optional
+	ConnectionResourceName *string `json:"connectionResourceName,omitempty" tf:"connection_resource_name,omitempty"`
+
+	// (String) ID of the job
+	// +kubebuilder:validation:Optional
+	DbtPlatformJobID *string `json:"dbtPlatformJobId,omitempty" tf:"dbt_platform_job_id,omitempty"`
+}
+
 type TaskDbtTaskInitParameters struct {
 
 	// The name of the catalog to use inside Unity Catalog.
@@ -7730,6 +7922,12 @@ type TaskInitParameters struct {
 
 	// A list of task specification that the job will execute. See task Configuration Block below.
 	DashboardTask []DashboardTaskInitParameters `json:"dashboardTask,omitempty" tf:"dashboard_task,omitempty"`
+
+	// A list of task specification that the job will execute. See task Configuration Block below.
+	DbtCloudTask []DbtCloudTaskInitParameters `json:"dbtCloudTask,omitempty" tf:"dbt_cloud_task,omitempty"`
+
+	// A list of task specification that the job will execute. See task Configuration Block below.
+	DbtPlatformTask []DbtPlatformTaskInitParameters `json:"dbtPlatformTask,omitempty" tf:"dbt_platform_task,omitempty"`
 
 	// A list of task specification that the job will execute. See task Configuration Block below.
 	DbtTask []TaskDbtTaskInitParameters `json:"dbtTask,omitempty" tf:"dbt_task,omitempty"`
@@ -8437,6 +8635,8 @@ type TaskNewClusterInitParameters struct {
 	// ID of the system notification that is notified when an event defined in webhook_notifications is triggered.
 	PolicyID *string `json:"policyId,omitempty" tf:"policy_id,omitempty"`
 
+	RemoteDiskThroughput *float64 `json:"remoteDiskThroughput,omitempty" tf:"remote_disk_throughput,omitempty"`
+
 	RuntimeEngine *string `json:"runtimeEngine,omitempty" tf:"runtime_engine,omitempty"`
 
 	SSHPublicKeys []*string `json:"sshPublicKeys,omitempty" tf:"ssh_public_keys,omitempty"`
@@ -8452,6 +8652,8 @@ type TaskNewClusterInitParameters struct {
 
 	// parameter in databricks_cluster and other resources.
 	SparkVersion *string `json:"sparkVersion,omitempty" tf:"spark_version,omitempty"`
+
+	TotalInitialRemoteDiskSize *float64 `json:"totalInitialRemoteDiskSize,omitempty" tf:"total_initial_remote_disk_size,omitempty"`
 
 	UseMLRuntime *bool `json:"useMlRuntime,omitempty" tf:"use_ml_runtime,omitempty"`
 
@@ -8845,6 +9047,8 @@ type TaskNewClusterObservation struct {
 	// ID of the system notification that is notified when an event defined in webhook_notifications is triggered.
 	PolicyID *string `json:"policyId,omitempty" tf:"policy_id,omitempty"`
 
+	RemoteDiskThroughput *float64 `json:"remoteDiskThroughput,omitempty" tf:"remote_disk_throughput,omitempty"`
+
 	RuntimeEngine *string `json:"runtimeEngine,omitempty" tf:"runtime_engine,omitempty"`
 
 	SSHPublicKeys []*string `json:"sshPublicKeys,omitempty" tf:"ssh_public_keys,omitempty"`
@@ -8860,6 +9064,8 @@ type TaskNewClusterObservation struct {
 
 	// parameter in databricks_cluster and other resources.
 	SparkVersion *string `json:"sparkVersion,omitempty" tf:"spark_version,omitempty"`
+
+	TotalInitialRemoteDiskSize *float64 `json:"totalInitialRemoteDiskSize,omitempty" tf:"total_initial_remote_disk_size,omitempty"`
 
 	UseMLRuntime *bool `json:"useMlRuntime,omitempty" tf:"use_ml_runtime,omitempty"`
 
@@ -8955,6 +9161,9 @@ type TaskNewClusterParameters struct {
 	PolicyID *string `json:"policyId,omitempty" tf:"policy_id,omitempty"`
 
 	// +kubebuilder:validation:Optional
+	RemoteDiskThroughput *float64 `json:"remoteDiskThroughput,omitempty" tf:"remote_disk_throughput,omitempty"`
+
+	// +kubebuilder:validation:Optional
 	RuntimeEngine *string `json:"runtimeEngine,omitempty" tf:"runtime_engine,omitempty"`
 
 	// +kubebuilder:validation:Optional
@@ -8975,6 +9184,9 @@ type TaskNewClusterParameters struct {
 	// parameter in databricks_cluster and other resources.
 	// +kubebuilder:validation:Optional
 	SparkVersion *string `json:"sparkVersion,omitempty" tf:"spark_version,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	TotalInitialRemoteDiskSize *float64 `json:"totalInitialRemoteDiskSize,omitempty" tf:"total_initial_remote_disk_size,omitempty"`
 
 	// +kubebuilder:validation:Optional
 	UseMLRuntime *bool `json:"useMlRuntime,omitempty" tf:"use_ml_runtime,omitempty"`
@@ -9122,6 +9334,12 @@ type TaskObservation struct {
 	DashboardTask []DashboardTaskObservation `json:"dashboardTask,omitempty" tf:"dashboard_task,omitempty"`
 
 	// A list of task specification that the job will execute. See task Configuration Block below.
+	DbtCloudTask []DbtCloudTaskObservation `json:"dbtCloudTask,omitempty" tf:"dbt_cloud_task,omitempty"`
+
+	// A list of task specification that the job will execute. See task Configuration Block below.
+	DbtPlatformTask []DbtPlatformTaskObservation `json:"dbtPlatformTask,omitempty" tf:"dbt_platform_task,omitempty"`
+
+	// A list of task specification that the job will execute. See task Configuration Block below.
 	DbtTask []TaskDbtTaskObservation `json:"dbtTask,omitempty" tf:"dbt_task,omitempty"`
 
 	// block specifying dependency(-ies) for a given task.
@@ -9225,6 +9443,14 @@ type TaskParameters struct {
 	// A list of task specification that the job will execute. See task Configuration Block below.
 	// +kubebuilder:validation:Optional
 	DashboardTask []DashboardTaskParameters `json:"dashboardTask,omitempty" tf:"dashboard_task,omitempty"`
+
+	// A list of task specification that the job will execute. See task Configuration Block below.
+	// +kubebuilder:validation:Optional
+	DbtCloudTask []DbtCloudTaskParameters `json:"dbtCloudTask,omitempty" tf:"dbt_cloud_task,omitempty"`
+
+	// A list of task specification that the job will execute. See task Configuration Block below.
+	// +kubebuilder:validation:Optional
+	DbtPlatformTask []DbtPlatformTaskParameters `json:"dbtPlatformTask,omitempty" tf:"dbt_platform_task,omitempty"`
 
 	// A list of task specification that the job will execute. See task Configuration Block below.
 	// +kubebuilder:validation:Optional

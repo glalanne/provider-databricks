@@ -23,11 +23,11 @@ spec:
     continuous: false
     library:
     - notebook:
-      - path: ${databricks_notebook.dlt_demo.id}
+      - path: ${databricks_notebook.ldp_demo.id}
     - file:
-      - path: ${databricks_repo.dlt_demo.path}/pipeline.sql
+      - path: ${databricks_repo.ldp_demo.path}/pipeline.sql
     - glob:
-      - include: ${databricks_repo.dlt_demo.path}/subfolder/**
+      - include: ${databricks_repo.ldp_demo.path}/subfolder/**
     name: Pipeline Name
     notification:
     - alerts:
@@ -48,8 +48,8 @@ metadata:
   annotations:
     meta.upbound.io/example-id: compute/v1alpha1/pipeline
   labels:
-    testing.upbound.io/example-name: dlt_demo
-  name: dlt-demo
+    testing.upbound.io/example-name: ldp_demo
+  name: ldp-demo
 spec:
   forProvider: {}
 
@@ -61,7 +61,7 @@ metadata:
   annotations:
     meta.upbound.io/example-id: compute/v1alpha1/pipeline
   labels:
-    testing.upbound.io/example-name: dlt_demo
-  name: dlt-demo
+    testing.upbound.io/example-name: ldp_demo
+  name: ldp-demo
 spec:
   forProvider: {}

@@ -108,10 +108,10 @@ spec:
                                 items:
                                   properties:
                                     invalidKeywords:
-                                      description: List of invalid keywords. AI guardrail
-                                        uses keyword or string matching to decide
-                                        if the keyword exists in the request or response
-                                        content.
+                                      description: (Deprecated) List of invalid keywords.
+                                        AI guardrail uses keyword or string matching
+                                        to decide if the keyword exists in the request
+                                        or response content.
                                       items:
                                         type: string
                                       type: array
@@ -132,9 +132,10 @@ spec:
                                         whether the safety filter is enabled.
                                       type: boolean
                                     validTopics:
-                                      description: The list of allowed topics. Given
-                                        a chat request, this guardrail flags the request
-                                        if its topic is not in the allowed topics.
+                                      description: (Deprecated) The list of allowed
+                                        topics. Given a chat request, this guardrail
+                                        flags the request if its topic is not in the
+                                        allowed topics.
                                       items:
                                         type: string
                                       type: array
@@ -147,10 +148,10 @@ spec:
                                 items:
                                   properties:
                                     invalidKeywords:
-                                      description: List of invalid keywords. AI guardrail
-                                        uses keyword or string matching to decide
-                                        if the keyword exists in the request or response
-                                        content.
+                                      description: (Deprecated) List of invalid keywords.
+                                        AI guardrail uses keyword or string matching
+                                        to decide if the keyword exists in the request
+                                        or response content.
                                       items:
                                         type: string
                                       type: array
@@ -171,9 +172,10 @@ spec:
                                         whether the safety filter is enabled.
                                       type: boolean
                                     validTopics:
-                                      description: The list of allowed topics. Given
-                                        a chat request, this guardrail flags the request
-                                        if its topic is not in the allowed topics.
+                                      description: (Deprecated) The list of allowed
+                                        topics. Given a chat request, this guardrail
+                                        flags the request if its topic is not in the
+                                        allowed topics.
                                       items:
                                         type: string
                                       type: array
@@ -223,6 +225,12 @@ spec:
                                 type: number
                               key:
                                 description: The key field for a tag.
+                                type: string
+                              principal:
+                                description: Principal field for a user, user group,
+                                  or service principal to apply rate limiting to.
+                                  Accepts a user email, group name, or service principal
+                                  application ID.
                                 type: string
                               renewalPeriod:
                                 description: Renewal period field for a serving endpoint
@@ -635,9 +643,17 @@ spec:
                                 description: ARN of the instance profile that the
                                   served model will use to access AWS resources.
                                 type: string
+                              maxProvisionedConcurrency:
+                                description: The maximum provisioned concurrency that
+                                  the endpoint can scale up to. Conflicts with workload_size.
+                                type: number
                               maxProvisionedThroughput:
                                 description: The maximum tokens per second that the
                                   endpoint can scale up to.
+                                type: number
+                              minProvisionedConcurrency:
+                                description: The minimum provisioned concurrency that
+                                  the endpoint can scale down to. Conflicts with workload_size.
                                 type: number
                               minProvisionedThroughput:
                                 description: The minimum tokens per second that the
@@ -698,9 +714,17 @@ spec:
                                 description: ARN of the instance profile that the
                                   served model will use to access AWS resources.
                                 type: string
+                              maxProvisionedConcurrency:
+                                description: The maximum provisioned concurrency that
+                                  the endpoint can scale up to. Conflicts with workload_size.
+                                type: number
                               maxProvisionedThroughput:
                                 description: The maximum tokens per second that the
                                   endpoint can scale up to.
+                                type: number
+                              minProvisionedConcurrency:
+                                description: The minimum provisioned concurrency that
+                                  the endpoint can scale down to. Conflicts with workload_size.
                                 type: number
                               minProvisionedThroughput:
                                 description: The minimum tokens per second that the
@@ -761,6 +785,11 @@ spec:
                                   block needs to have a corresponding routes block.
                                 items:
                                   properties:
+                                    servedEntityName:
+                                      description: The name of the served entity this
+                                        route configures traffic for. This needs to
+                                        match the name of a served_entity block.
+                                      type: string
                                     servedModelName:
                                       description: 'The name of the model serving
                                         endpoint. This field is required and must
@@ -781,6 +810,9 @@ spec:
                           type: array
                       type: object
                     type: array
+                  description:
+                    description: The description of the model serving endpoint.
+                    type: string
                   name:
                     description: 'The name of the model serving endpoint. This field
                       is required and must be unique across a workspace. An endpoint
@@ -801,8 +833,9 @@ spec:
                           type: number
                         key:
                           description: Key field for a serving endpoint rate limit.
-                            Currently, only user and endpoint are supported, with
-                            endpoint being the default if not specified.
+                            Currently, user, user_group, service_principal, and endpoint
+                            are supported, with endpoint being the default if not
+                            specified.
                           type: string
                         renewalPeriod:
                           description: Renewal period field for a serving endpoint
@@ -877,10 +910,10 @@ spec:
                                 items:
                                   properties:
                                     invalidKeywords:
-                                      description: List of invalid keywords. AI guardrail
-                                        uses keyword or string matching to decide
-                                        if the keyword exists in the request or response
-                                        content.
+                                      description: (Deprecated) List of invalid keywords.
+                                        AI guardrail uses keyword or string matching
+                                        to decide if the keyword exists in the request
+                                        or response content.
                                       items:
                                         type: string
                                       type: array
@@ -901,9 +934,10 @@ spec:
                                         whether the safety filter is enabled.
                                       type: boolean
                                     validTopics:
-                                      description: The list of allowed topics. Given
-                                        a chat request, this guardrail flags the request
-                                        if its topic is not in the allowed topics.
+                                      description: (Deprecated) The list of allowed
+                                        topics. Given a chat request, this guardrail
+                                        flags the request if its topic is not in the
+                                        allowed topics.
                                       items:
                                         type: string
                                       type: array
@@ -916,10 +950,10 @@ spec:
                                 items:
                                   properties:
                                     invalidKeywords:
-                                      description: List of invalid keywords. AI guardrail
-                                        uses keyword or string matching to decide
-                                        if the keyword exists in the request or response
-                                        content.
+                                      description: (Deprecated) List of invalid keywords.
+                                        AI guardrail uses keyword or string matching
+                                        to decide if the keyword exists in the request
+                                        or response content.
                                       items:
                                         type: string
                                       type: array
@@ -940,9 +974,10 @@ spec:
                                         whether the safety filter is enabled.
                                       type: boolean
                                     validTopics:
-                                      description: The list of allowed topics. Given
-                                        a chat request, this guardrail flags the request
-                                        if its topic is not in the allowed topics.
+                                      description: (Deprecated) The list of allowed
+                                        topics. Given a chat request, this guardrail
+                                        flags the request if its topic is not in the
+                                        allowed topics.
                                       items:
                                         type: string
                                       type: array
@@ -992,6 +1027,12 @@ spec:
                                 type: number
                               key:
                                 description: The key field for a tag.
+                                type: string
+                              principal:
+                                description: Principal field for a user, user group,
+                                  or service principal to apply rate limiting to.
+                                  Accepts a user email, group name, or service principal
+                                  application ID.
                                 type: string
                               renewalPeriod:
                                 description: Renewal period field for a serving endpoint
@@ -1404,9 +1445,17 @@ spec:
                                 description: ARN of the instance profile that the
                                   served model will use to access AWS resources.
                                 type: string
+                              maxProvisionedConcurrency:
+                                description: The maximum provisioned concurrency that
+                                  the endpoint can scale up to. Conflicts with workload_size.
+                                type: number
                               maxProvisionedThroughput:
                                 description: The maximum tokens per second that the
                                   endpoint can scale up to.
+                                type: number
+                              minProvisionedConcurrency:
+                                description: The minimum provisioned concurrency that
+                                  the endpoint can scale down to. Conflicts with workload_size.
                                 type: number
                               minProvisionedThroughput:
                                 description: The minimum tokens per second that the
@@ -1467,9 +1516,17 @@ spec:
                                 description: ARN of the instance profile that the
                                   served model will use to access AWS resources.
                                 type: string
+                              maxProvisionedConcurrency:
+                                description: The maximum provisioned concurrency that
+                                  the endpoint can scale up to. Conflicts with workload_size.
+                                type: number
                               maxProvisionedThroughput:
                                 description: The maximum tokens per second that the
                                   endpoint can scale up to.
+                                type: number
+                              minProvisionedConcurrency:
+                                description: The minimum provisioned concurrency that
+                                  the endpoint can scale down to. Conflicts with workload_size.
                                 type: number
                               minProvisionedThroughput:
                                 description: The minimum tokens per second that the
@@ -1530,6 +1587,11 @@ spec:
                                   block needs to have a corresponding routes block.
                                 items:
                                   properties:
+                                    servedEntityName:
+                                      description: The name of the served entity this
+                                        route configures traffic for. This needs to
+                                        match the name of a served_entity block.
+                                      type: string
                                     servedModelName:
                                       description: 'The name of the model serving
                                         endpoint. This field is required and must
@@ -1550,6 +1612,9 @@ spec:
                           type: array
                       type: object
                     type: array
+                  description:
+                    description: The description of the model serving endpoint.
+                    type: string
                   name:
                     description: 'The name of the model serving endpoint. This field
                       is required and must be unique across a workspace. An endpoint
@@ -1570,8 +1635,9 @@ spec:
                           type: number
                         key:
                           description: Key field for a serving endpoint rate limit.
-                            Currently, only user and endpoint are supported, with
-                            endpoint being the default if not specified.
+                            Currently, user, user_group, service_principal, and endpoint
+                            are supported, with endpoint being the default if not
+                            specified.
                           type: string
                         renewalPeriod:
                           description: Renewal period field for a serving endpoint
@@ -1810,10 +1876,10 @@ spec:
                                 items:
                                   properties:
                                     invalidKeywords:
-                                      description: List of invalid keywords. AI guardrail
-                                        uses keyword or string matching to decide
-                                        if the keyword exists in the request or response
-                                        content.
+                                      description: (Deprecated) List of invalid keywords.
+                                        AI guardrail uses keyword or string matching
+                                        to decide if the keyword exists in the request
+                                        or response content.
                                       items:
                                         type: string
                                       type: array
@@ -1834,9 +1900,10 @@ spec:
                                         whether the safety filter is enabled.
                                       type: boolean
                                     validTopics:
-                                      description: The list of allowed topics. Given
-                                        a chat request, this guardrail flags the request
-                                        if its topic is not in the allowed topics.
+                                      description: (Deprecated) The list of allowed
+                                        topics. Given a chat request, this guardrail
+                                        flags the request if its topic is not in the
+                                        allowed topics.
                                       items:
                                         type: string
                                       type: array
@@ -1849,10 +1916,10 @@ spec:
                                 items:
                                   properties:
                                     invalidKeywords:
-                                      description: List of invalid keywords. AI guardrail
-                                        uses keyword or string matching to decide
-                                        if the keyword exists in the request or response
-                                        content.
+                                      description: (Deprecated) List of invalid keywords.
+                                        AI guardrail uses keyword or string matching
+                                        to decide if the keyword exists in the request
+                                        or response content.
                                       items:
                                         type: string
                                       type: array
@@ -1873,9 +1940,10 @@ spec:
                                         whether the safety filter is enabled.
                                       type: boolean
                                     validTopics:
-                                      description: The list of allowed topics. Given
-                                        a chat request, this guardrail flags the request
-                                        if its topic is not in the allowed topics.
+                                      description: (Deprecated) The list of allowed
+                                        topics. Given a chat request, this guardrail
+                                        flags the request if its topic is not in the
+                                        allowed topics.
                                       items:
                                         type: string
                                       type: array
@@ -1925,6 +1993,12 @@ spec:
                                 type: number
                               key:
                                 description: The key field for a tag.
+                                type: string
+                              principal:
+                                description: Principal field for a user, user group,
+                                  or service principal to apply rate limiting to.
+                                  Accepts a user email, group name, or service principal
+                                  application ID.
                                 type: string
                               renewalPeriod:
                                 description: Renewal period field for a serving endpoint
@@ -2337,9 +2411,17 @@ spec:
                                 description: ARN of the instance profile that the
                                   served model will use to access AWS resources.
                                 type: string
+                              maxProvisionedConcurrency:
+                                description: The maximum provisioned concurrency that
+                                  the endpoint can scale up to. Conflicts with workload_size.
+                                type: number
                               maxProvisionedThroughput:
                                 description: The maximum tokens per second that the
                                   endpoint can scale up to.
+                                type: number
+                              minProvisionedConcurrency:
+                                description: The minimum provisioned concurrency that
+                                  the endpoint can scale down to. Conflicts with workload_size.
                                 type: number
                               minProvisionedThroughput:
                                 description: The minimum tokens per second that the
@@ -2400,9 +2482,17 @@ spec:
                                 description: ARN of the instance profile that the
                                   served model will use to access AWS resources.
                                 type: string
+                              maxProvisionedConcurrency:
+                                description: The maximum provisioned concurrency that
+                                  the endpoint can scale up to. Conflicts with workload_size.
+                                type: number
                               maxProvisionedThroughput:
                                 description: The maximum tokens per second that the
                                   endpoint can scale up to.
+                                type: number
+                              minProvisionedConcurrency:
+                                description: The minimum provisioned concurrency that
+                                  the endpoint can scale down to. Conflicts with workload_size.
                                 type: number
                               minProvisionedThroughput:
                                 description: The minimum tokens per second that the
@@ -2463,6 +2553,11 @@ spec:
                                   block needs to have a corresponding routes block.
                                 items:
                                   properties:
+                                    servedEntityName:
+                                      description: The name of the served entity this
+                                        route configures traffic for. This needs to
+                                        match the name of a served_entity block.
+                                      type: string
                                     servedModelName:
                                       description: 'The name of the model serving
                                         endpoint. This field is required and must
@@ -2483,6 +2578,9 @@ spec:
                           type: array
                       type: object
                     type: array
+                  description:
+                    description: The description of the model serving endpoint.
+                    type: string
                   id:
                     description: Equal to the name argument and used to identify the
                       serving endpoint.
@@ -2507,8 +2605,9 @@ spec:
                           type: number
                         key:
                           description: Key field for a serving endpoint rate limit.
-                            Currently, only user and endpoint are supported, with
-                            endpoint being the default if not specified.
+                            Currently, user, user_group, service_principal, and endpoint
+                            are supported, with endpoint being the default if not
+                            specified.
                           type: string
                         renewalPeriod:
                           description: Renewal period field for a serving endpoint

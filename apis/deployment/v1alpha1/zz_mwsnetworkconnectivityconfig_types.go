@@ -13,6 +13,124 @@ import (
 	v1 "github.com/crossplane/crossplane-runtime/apis/common/v1"
 )
 
+type AwsPrivateEndpointRulesInitParameters struct {
+
+	// combination of account_id and network_connectivity_config_id separated by / character
+	AccountID *string `json:"accountId,omitempty" tf:"account_id,omitempty"`
+
+	ConnectionState *string `json:"connectionState,omitempty" tf:"connection_state,omitempty"`
+
+	// time in epoch milliseconds when this object was created.
+	CreationTime *float64 `json:"creationTime,omitempty" tf:"creation_time,omitempty"`
+
+	Deactivated *bool `json:"deactivated,omitempty" tf:"deactivated,omitempty"`
+
+	DeactivatedAt *float64 `json:"deactivatedAt,omitempty" tf:"deactivated_at,omitempty"`
+
+	DomainNames []*string `json:"domainNames,omitempty" tf:"domain_names,omitempty"`
+
+	Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
+
+	EndpointService *string `json:"endpointService,omitempty" tf:"endpoint_service,omitempty"`
+
+	// Canonical unique identifier of Network Connectivity Config in Databricks Account
+	NetworkConnectivityConfigID *string `json:"networkConnectivityConfigId,omitempty" tf:"network_connectivity_config_id,omitempty"`
+
+	ResourceNames []*string `json:"resourceNames,omitempty" tf:"resource_names,omitempty"`
+
+	// combination of account_id and network_connectivity_config_id separated by / character
+	RuleID *string `json:"ruleId,omitempty" tf:"rule_id,omitempty"`
+
+	// time in epoch milliseconds when this object was updated.
+	UpdatedTime *float64 `json:"updatedTime,omitempty" tf:"updated_time,omitempty"`
+
+	// combination of account_id and network_connectivity_config_id separated by / character
+	VPCEndpointID *string `json:"vpcEndpointId,omitempty" tf:"vpc_endpoint_id,omitempty"`
+}
+
+type AwsPrivateEndpointRulesObservation struct {
+
+	// combination of account_id and network_connectivity_config_id separated by / character
+	AccountID *string `json:"accountId,omitempty" tf:"account_id,omitempty"`
+
+	ConnectionState *string `json:"connectionState,omitempty" tf:"connection_state,omitempty"`
+
+	// time in epoch milliseconds when this object was created.
+	CreationTime *float64 `json:"creationTime,omitempty" tf:"creation_time,omitempty"`
+
+	Deactivated *bool `json:"deactivated,omitempty" tf:"deactivated,omitempty"`
+
+	DeactivatedAt *float64 `json:"deactivatedAt,omitempty" tf:"deactivated_at,omitempty"`
+
+	DomainNames []*string `json:"domainNames,omitempty" tf:"domain_names,omitempty"`
+
+	Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
+
+	EndpointService *string `json:"endpointService,omitempty" tf:"endpoint_service,omitempty"`
+
+	// Canonical unique identifier of Network Connectivity Config in Databricks Account
+	NetworkConnectivityConfigID *string `json:"networkConnectivityConfigId,omitempty" tf:"network_connectivity_config_id,omitempty"`
+
+	ResourceNames []*string `json:"resourceNames,omitempty" tf:"resource_names,omitempty"`
+
+	// combination of account_id and network_connectivity_config_id separated by / character
+	RuleID *string `json:"ruleId,omitempty" tf:"rule_id,omitempty"`
+
+	// time in epoch milliseconds when this object was updated.
+	UpdatedTime *float64 `json:"updatedTime,omitempty" tf:"updated_time,omitempty"`
+
+	// combination of account_id and network_connectivity_config_id separated by / character
+	VPCEndpointID *string `json:"vpcEndpointId,omitempty" tf:"vpc_endpoint_id,omitempty"`
+}
+
+type AwsPrivateEndpointRulesParameters struct {
+
+	// combination of account_id and network_connectivity_config_id separated by / character
+	// +kubebuilder:validation:Optional
+	AccountID *string `json:"accountId,omitempty" tf:"account_id,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	ConnectionState *string `json:"connectionState,omitempty" tf:"connection_state,omitempty"`
+
+	// time in epoch milliseconds when this object was created.
+	// +kubebuilder:validation:Optional
+	CreationTime *float64 `json:"creationTime,omitempty" tf:"creation_time,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	Deactivated *bool `json:"deactivated,omitempty" tf:"deactivated,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	DeactivatedAt *float64 `json:"deactivatedAt,omitempty" tf:"deactivated_at,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	DomainNames []*string `json:"domainNames,omitempty" tf:"domain_names,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	EndpointService *string `json:"endpointService,omitempty" tf:"endpoint_service,omitempty"`
+
+	// Canonical unique identifier of Network Connectivity Config in Databricks Account
+	// +kubebuilder:validation:Optional
+	NetworkConnectivityConfigID *string `json:"networkConnectivityConfigId,omitempty" tf:"network_connectivity_config_id,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	ResourceNames []*string `json:"resourceNames,omitempty" tf:"resource_names,omitempty"`
+
+	// combination of account_id and network_connectivity_config_id separated by / character
+	// +kubebuilder:validation:Optional
+	RuleID *string `json:"ruleId,omitempty" tf:"rule_id,omitempty"`
+
+	// time in epoch milliseconds when this object was updated.
+	// +kubebuilder:validation:Optional
+	UpdatedTime *float64 `json:"updatedTime,omitempty" tf:"updated_time,omitempty"`
+
+	// combination of account_id and network_connectivity_config_id separated by / character
+	// +kubebuilder:validation:Optional
+	VPCEndpointID *string `json:"vpcEndpointId,omitempty" tf:"vpc_endpoint_id,omitempty"`
+}
+
 type AwsStableIPRuleInitParameters struct {
 
 	// list of IP CIDR blocks.
@@ -35,6 +153,7 @@ type AwsStableIPRuleParameters struct {
 type AzurePrivateEndpointRulesInitParameters struct {
 	ConnectionState *string `json:"connectionState,omitempty" tf:"connection_state,omitempty"`
 
+	// time in epoch milliseconds when this object was created.
 	CreationTime *float64 `json:"creationTime,omitempty" tf:"creation_time,omitempty"`
 
 	Deactivated *bool `json:"deactivated,omitempty" tf:"deactivated,omitempty"`
@@ -43,7 +162,7 @@ type AzurePrivateEndpointRulesInitParameters struct {
 
 	DomainNames []*string `json:"domainNames,omitempty" tf:"domain_names,omitempty"`
 
-	// Name of Network Connectivity Config in Databricks Account. Change forces creation of a new resource.
+	// Name of the network connectivity configuration. The name can contain alphanumeric characters, hyphens, and underscores. The length must be between 3 and 30 characters. The name must match the regular expression ^[0-9a-zA-Z-_]{3,30}$. Change forces creation of a new resource.
 	EndpointName *string `json:"endpointName,omitempty" tf:"endpoint_name,omitempty"`
 
 	// combination of account_id and network_connectivity_config_id separated by / character
@@ -58,12 +177,14 @@ type AzurePrivateEndpointRulesInitParameters struct {
 	// combination of account_id and network_connectivity_config_id separated by / character
 	RuleID *string `json:"ruleId,omitempty" tf:"rule_id,omitempty"`
 
+	// time in epoch milliseconds when this object was updated.
 	UpdatedTime *float64 `json:"updatedTime,omitempty" tf:"updated_time,omitempty"`
 }
 
 type AzurePrivateEndpointRulesObservation struct {
 	ConnectionState *string `json:"connectionState,omitempty" tf:"connection_state,omitempty"`
 
+	// time in epoch milliseconds when this object was created.
 	CreationTime *float64 `json:"creationTime,omitempty" tf:"creation_time,omitempty"`
 
 	Deactivated *bool `json:"deactivated,omitempty" tf:"deactivated,omitempty"`
@@ -72,7 +193,7 @@ type AzurePrivateEndpointRulesObservation struct {
 
 	DomainNames []*string `json:"domainNames,omitempty" tf:"domain_names,omitempty"`
 
-	// Name of Network Connectivity Config in Databricks Account. Change forces creation of a new resource.
+	// Name of the network connectivity configuration. The name can contain alphanumeric characters, hyphens, and underscores. The length must be between 3 and 30 characters. The name must match the regular expression ^[0-9a-zA-Z-_]{3,30}$. Change forces creation of a new resource.
 	EndpointName *string `json:"endpointName,omitempty" tf:"endpoint_name,omitempty"`
 
 	// combination of account_id and network_connectivity_config_id separated by / character
@@ -87,6 +208,7 @@ type AzurePrivateEndpointRulesObservation struct {
 	// combination of account_id and network_connectivity_config_id separated by / character
 	RuleID *string `json:"ruleId,omitempty" tf:"rule_id,omitempty"`
 
+	// time in epoch milliseconds when this object was updated.
 	UpdatedTime *float64 `json:"updatedTime,omitempty" tf:"updated_time,omitempty"`
 }
 
@@ -95,6 +217,7 @@ type AzurePrivateEndpointRulesParameters struct {
 	// +kubebuilder:validation:Optional
 	ConnectionState *string `json:"connectionState,omitempty" tf:"connection_state,omitempty"`
 
+	// time in epoch milliseconds when this object was created.
 	// +kubebuilder:validation:Optional
 	CreationTime *float64 `json:"creationTime,omitempty" tf:"creation_time,omitempty"`
 
@@ -107,7 +230,7 @@ type AzurePrivateEndpointRulesParameters struct {
 	// +kubebuilder:validation:Optional
 	DomainNames []*string `json:"domainNames,omitempty" tf:"domain_names,omitempty"`
 
-	// Name of Network Connectivity Config in Databricks Account. Change forces creation of a new resource.
+	// Name of the network connectivity configuration. The name can contain alphanumeric characters, hyphens, and underscores. The length must be between 3 and 30 characters. The name must match the regular expression ^[0-9a-zA-Z-_]{3,30}$. Change forces creation of a new resource.
 	// +kubebuilder:validation:Optional
 	EndpointName *string `json:"endpointName,omitempty" tf:"endpoint_name,omitempty"`
 
@@ -127,6 +250,7 @@ type AzurePrivateEndpointRulesParameters struct {
 	// +kubebuilder:validation:Optional
 	RuleID *string `json:"ruleId,omitempty" tf:"rule_id,omitempty"`
 
+	// time in epoch milliseconds when this object was updated.
 	// +kubebuilder:validation:Optional
 	UpdatedTime *float64 `json:"updatedTime,omitempty" tf:"updated_time,omitempty"`
 }
@@ -233,11 +357,13 @@ type MwsNetworkConnectivityConfigInitParameters struct {
 	// combination of account_id and network_connectivity_config_id separated by / character
 	AccountID *string `json:"accountId,omitempty" tf:"account_id,omitempty"`
 
+	// time in epoch milliseconds when this object was created.
 	CreationTime *float64 `json:"creationTime,omitempty" tf:"creation_time,omitempty"`
 
+	// block containing information about network connectivity rules that apply to network traffic from your serverless compute resources. Consists of the following fields:
 	EgressConfig []EgressConfigInitParameters `json:"egressConfig,omitempty" tf:"egress_config,omitempty"`
 
-	// Name of Network Connectivity Config in Databricks Account. Change forces creation of a new resource.
+	// Name of the network connectivity configuration. The name can contain alphanumeric characters, hyphens, and underscores. The length must be between 3 and 30 characters. The name must match the regular expression ^[0-9a-zA-Z-_]{3,30}$. Change forces creation of a new resource.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// Canonical unique identifier of Network Connectivity Config in Databricks Account
@@ -246,6 +372,7 @@ type MwsNetworkConnectivityConfigInitParameters struct {
 	// Region of the Network Connectivity Config. NCCs can only be referenced by your workspaces in the same region. Change forces creation of a new resource.
 	Region *string `json:"region,omitempty" tf:"region,omitempty"`
 
+	// time in epoch milliseconds when this object was updated.
 	UpdatedTime *float64 `json:"updatedTime,omitempty" tf:"updated_time,omitempty"`
 }
 
@@ -254,14 +381,16 @@ type MwsNetworkConnectivityConfigObservation struct {
 	// combination of account_id and network_connectivity_config_id separated by / character
 	AccountID *string `json:"accountId,omitempty" tf:"account_id,omitempty"`
 
+	// time in epoch milliseconds when this object was created.
 	CreationTime *float64 `json:"creationTime,omitempty" tf:"creation_time,omitempty"`
 
+	// block containing information about network connectivity rules that apply to network traffic from your serverless compute resources. Consists of the following fields:
 	EgressConfig []EgressConfigObservation `json:"egressConfig,omitempty" tf:"egress_config,omitempty"`
 
 	// combination of account_id and network_connectivity_config_id separated by / character
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
-	// Name of Network Connectivity Config in Databricks Account. Change forces creation of a new resource.
+	// Name of the network connectivity configuration. The name can contain alphanumeric characters, hyphens, and underscores. The length must be between 3 and 30 characters. The name must match the regular expression ^[0-9a-zA-Z-_]{3,30}$. Change forces creation of a new resource.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// Canonical unique identifier of Network Connectivity Config in Databricks Account
@@ -270,6 +399,7 @@ type MwsNetworkConnectivityConfigObservation struct {
 	// Region of the Network Connectivity Config. NCCs can only be referenced by your workspaces in the same region. Change forces creation of a new resource.
 	Region *string `json:"region,omitempty" tf:"region,omitempty"`
 
+	// time in epoch milliseconds when this object was updated.
 	UpdatedTime *float64 `json:"updatedTime,omitempty" tf:"updated_time,omitempty"`
 }
 
@@ -279,13 +409,15 @@ type MwsNetworkConnectivityConfigParameters struct {
 	// +kubebuilder:validation:Optional
 	AccountID *string `json:"accountId,omitempty" tf:"account_id,omitempty"`
 
+	// time in epoch milliseconds when this object was created.
 	// +kubebuilder:validation:Optional
 	CreationTime *float64 `json:"creationTime,omitempty" tf:"creation_time,omitempty"`
 
+	// block containing information about network connectivity rules that apply to network traffic from your serverless compute resources. Consists of the following fields:
 	// +kubebuilder:validation:Optional
 	EgressConfig []EgressConfigParameters `json:"egressConfig,omitempty" tf:"egress_config,omitempty"`
 
-	// Name of Network Connectivity Config in Databricks Account. Change forces creation of a new resource.
+	// Name of the network connectivity configuration. The name can contain alphanumeric characters, hyphens, and underscores. The length must be between 3 and 30 characters. The name must match the regular expression ^[0-9a-zA-Z-_]{3,30}$. Change forces creation of a new resource.
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
@@ -297,11 +429,15 @@ type MwsNetworkConnectivityConfigParameters struct {
 	// +kubebuilder:validation:Optional
 	Region *string `json:"region,omitempty" tf:"region,omitempty"`
 
+	// time in epoch milliseconds when this object was updated.
 	// +kubebuilder:validation:Optional
 	UpdatedTime *float64 `json:"updatedTime,omitempty" tf:"updated_time,omitempty"`
 }
 
 type TargetRulesInitParameters struct {
+
+	// list containing information about configure AWS Private Endpoints.
+	AwsPrivateEndpointRules []AwsPrivateEndpointRulesInitParameters `json:"awsPrivateEndpointRules,omitempty" tf:"aws_private_endpoint_rules,omitempty"`
 
 	// list containing information about configure Azure Private Endpoints.
 	AzurePrivateEndpointRules []AzurePrivateEndpointRulesInitParameters `json:"azurePrivateEndpointRules,omitempty" tf:"azure_private_endpoint_rules,omitempty"`
@@ -309,11 +445,18 @@ type TargetRulesInitParameters struct {
 
 type TargetRulesObservation struct {
 
+	// list containing information about configure AWS Private Endpoints.
+	AwsPrivateEndpointRules []AwsPrivateEndpointRulesObservation `json:"awsPrivateEndpointRules,omitempty" tf:"aws_private_endpoint_rules,omitempty"`
+
 	// list containing information about configure Azure Private Endpoints.
 	AzurePrivateEndpointRules []AzurePrivateEndpointRulesObservation `json:"azurePrivateEndpointRules,omitempty" tf:"azure_private_endpoint_rules,omitempty"`
 }
 
 type TargetRulesParameters struct {
+
+	// list containing information about configure AWS Private Endpoints.
+	// +kubebuilder:validation:Optional
+	AwsPrivateEndpointRules []AwsPrivateEndpointRulesParameters `json:"awsPrivateEndpointRules,omitempty" tf:"aws_private_endpoint_rules,omitempty"`
 
 	// list containing information about configure Azure Private Endpoints.
 	// +kubebuilder:validation:Optional

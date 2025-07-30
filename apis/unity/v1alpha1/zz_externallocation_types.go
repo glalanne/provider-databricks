@@ -15,19 +15,19 @@ import (
 
 type EncryptionDetailsInitParameters struct {
 
-	// The options for Server-Side Encryption to be used by each Databricks s3 client when connecting to S3 cloud storage (AWS).
+	// a block describing server-Side Encryption properties for clients communicating with AWS S3. Consists of the following attributes:
 	SseEncryptionDetails []SseEncryptionDetailsInitParameters `json:"sseEncryptionDetails,omitempty" tf:"sse_encryption_details,omitempty"`
 }
 
 type EncryptionDetailsObservation struct {
 
-	// The options for Server-Side Encryption to be used by each Databricks s3 client when connecting to S3 cloud storage (AWS).
+	// a block describing server-Side Encryption properties for clients communicating with AWS S3. Consists of the following attributes:
 	SseEncryptionDetails []SseEncryptionDetailsObservation `json:"sseEncryptionDetails,omitempty" tf:"sse_encryption_details,omitempty"`
 }
 
 type EncryptionDetailsParameters struct {
 
-	// The options for Server-Side Encryption to be used by each Databricks s3 client when connecting to S3 cloud storage (AWS).
+	// a block describing server-Side Encryption properties for clients communicating with AWS S3. Consists of the following attributes:
 	// +kubebuilder:validation:Optional
 	SseEncryptionDetails []SseEncryptionDetailsParameters `json:"sseEncryptionDetails,omitempty" tf:"sse_encryption_details,omitempty"`
 }
@@ -43,7 +43,6 @@ type ExternalLocationInitParameters struct {
 	// indicates if managed file events are enabled for this external location.  Requires file_event_queue block.
 	EnableFileEvents *bool `json:"enableFileEvents,omitempty" tf:"enable_file_events,omitempty"`
 
-	// The options for Server-Side Encryption to be used by each Databricks s3 client when connecting to S3 cloud storage (AWS).
 	EncryptionDetails []EncryptionDetailsInitParameters `json:"encryptionDetails,omitempty" tf:"encryption_details,omitempty"`
 
 	// Indicates whether fallback mode is enabled for this external location. When fallback mode is enabled (disabled by default), the access to the location falls back to cluster credentials if UC credentials are not sufficient.
@@ -100,7 +99,6 @@ type ExternalLocationObservation struct {
 	// indicates if managed file events are enabled for this external location.  Requires file_event_queue block.
 	EnableFileEvents *bool `json:"enableFileEvents,omitempty" tf:"enable_file_events,omitempty"`
 
-	// The options for Server-Side Encryption to be used by each Databricks s3 client when connecting to S3 cloud storage (AWS).
 	EncryptionDetails []EncryptionDetailsObservation `json:"encryptionDetails,omitempty" tf:"encryption_details,omitempty"`
 
 	// Indicates whether fallback mode is enabled for this external location. When fallback mode is enabled (disabled by default), the access to the location falls back to cluster credentials if UC credentials are not sufficient.
@@ -159,7 +157,6 @@ type ExternalLocationParameters struct {
 	// +kubebuilder:validation:Optional
 	EnableFileEvents *bool `json:"enableFileEvents,omitempty" tf:"enable_file_events,omitempty"`
 
-	// The options for Server-Side Encryption to be used by each Databricks s3 client when connecting to S3 cloud storage (AWS).
 	// +kubebuilder:validation:Optional
 	EncryptionDetails []EncryptionDetailsParameters `json:"encryptionDetails,omitempty" tf:"encryption_details,omitempty"`
 
@@ -449,22 +446,30 @@ type ProvidedSqsParameters struct {
 }
 
 type SseEncryptionDetailsInitParameters struct {
+
+	// Encryption algorithm value. Sets the value of the x-amz-server-side-encryption header in S3 request.
 	Algorithm *string `json:"algorithm,omitempty" tf:"algorithm,omitempty"`
 
+	// Optional ARN of the SSE-KMS key used with the S3 location, when algorithm = "SSE-KMS". Sets the value of the x-amz-server-side-encryption-aws-kms-key-id header.
 	AwsKMSKeyArn *string `json:"awsKmsKeyArn,omitempty" tf:"aws_kms_key_arn,omitempty"`
 }
 
 type SseEncryptionDetailsObservation struct {
+
+	// Encryption algorithm value. Sets the value of the x-amz-server-side-encryption header in S3 request.
 	Algorithm *string `json:"algorithm,omitempty" tf:"algorithm,omitempty"`
 
+	// Optional ARN of the SSE-KMS key used with the S3 location, when algorithm = "SSE-KMS". Sets the value of the x-amz-server-side-encryption-aws-kms-key-id header.
 	AwsKMSKeyArn *string `json:"awsKmsKeyArn,omitempty" tf:"aws_kms_key_arn,omitempty"`
 }
 
 type SseEncryptionDetailsParameters struct {
 
+	// Encryption algorithm value. Sets the value of the x-amz-server-side-encryption header in S3 request.
 	// +kubebuilder:validation:Optional
 	Algorithm *string `json:"algorithm,omitempty" tf:"algorithm,omitempty"`
 
+	// Optional ARN of the SSE-KMS key used with the S3 location, when algorithm = "SSE-KMS". Sets the value of the x-amz-server-side-encryption-aws-kms-key-id header.
 	// +kubebuilder:validation:Optional
 	AwsKMSKeyArn *string `json:"awsKmsKeyArn,omitempty" tf:"aws_kms_key_arn,omitempty"`
 }

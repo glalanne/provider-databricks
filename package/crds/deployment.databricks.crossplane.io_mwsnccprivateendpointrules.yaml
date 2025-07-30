@@ -74,6 +74,8 @@ spec:
                 type: string
               forProvider:
                 properties:
+                  accountId:
+                    type: string
                   connectionState:
                     description: |-
                       The current status of this private endpoint. The private endpoint rules are effective only if the connection state is ESTABLISHED. Remember that you must approve new endpoints on your resources in the Azure portal before they take effect.
@@ -92,17 +94,31 @@ spec:
                     items:
                       type: string
                     type: array
+                  enabled:
+                    description: (AWS only) Activation status. Only used by private
+                      endpoints towards an AWS S3 service. Update this field to activate/deactivate
+                      this private endpoint to allow egress access from serverless
+                      compute resources. Can only be updated after a private endpoint
+                      rule towards an AWS S3 service is successfully created.
+                    type: boolean
                   endpointName:
                     description: The name of the Azure private endpoint resource,
                       e.g. "databricks-088781b3-77fa-4132-b429-1af0d91bc593-pe-3cb31234"
                     type: string
+                  endpointService:
+                    description: (AWS only) Example com.amazonaws.vpce.us-east-1.vpce-svc-123abcc1298abc123.
+                      The full target AWS endpoint service name that connects to the
+                      destination resources of the private endpoint.
+                    type: string
                   groupId:
-                    description: The sub-resource type (group ID) of the target resource.
-                      Must be one of supported resource types (i.e., blob, dfs, sqlServer
-                      , etc. Consult the Azure documentation for full list of supported
-                      resources). Note that to connect to workspace root storage (root
-                      DBFS), you need two endpoints, one for blob and one for dfs.
-                      Change forces creation of a new resource.
+                    description: (Azure only) Not used by customer-managed private
+                      endpoint services. The sub-resource type (group ID) of the target
+                      resource. Must be one of supported resource types (i.e., blob,
+                      dfs, sqlServer , etc. Consult the Azure documentation for full
+                      list of supported resources). Note that to connect to workspace
+                      root storage (root DBFS), you need two endpoints, one for blob
+                      and one for dfs. Change forces creation of a new resource. Conflicts
+                      with domain_names.
                     type: string
                   networkConnectivityConfigId:
                     description: Canonical unique identifier of Network Connectivity
@@ -110,15 +126,24 @@ spec:
                       resource.
                     type: string
                   resourceId:
-                    description: The Azure resource ID of the target resource. Change
-                      forces creation of a new resource.
+                    description: (Azure only) The Azure resource ID of the target
+                      resource. Change forces creation of a new resource.
                     type: string
+                  resourceNames:
+                    description: .
+                    items:
+                      type: string
+                    type: array
                   ruleId:
                     description: the ID of a private endpoint rule.
                     type: string
                   updatedTime:
                     description: Time in epoch milliseconds when this object was updated.
                     type: number
+                  vpcEndpointId:
+                    description: The AWS VPC endpoint ID. You can use this ID to identify
+                      the VPC endpoint created by Databricks.
+                    type: string
                 type: object
               initProvider:
                 description: |-
@@ -133,6 +158,8 @@ spec:
                   for example because of an external controller is managing them, like an
                   autoscaler.
                 properties:
+                  accountId:
+                    type: string
                   connectionState:
                     description: |-
                       The current status of this private endpoint. The private endpoint rules are effective only if the connection state is ESTABLISHED. Remember that you must approve new endpoints on your resources in the Azure portal before they take effect.
@@ -151,17 +178,31 @@ spec:
                     items:
                       type: string
                     type: array
+                  enabled:
+                    description: (AWS only) Activation status. Only used by private
+                      endpoints towards an AWS S3 service. Update this field to activate/deactivate
+                      this private endpoint to allow egress access from serverless
+                      compute resources. Can only be updated after a private endpoint
+                      rule towards an AWS S3 service is successfully created.
+                    type: boolean
                   endpointName:
                     description: The name of the Azure private endpoint resource,
                       e.g. "databricks-088781b3-77fa-4132-b429-1af0d91bc593-pe-3cb31234"
                     type: string
+                  endpointService:
+                    description: (AWS only) Example com.amazonaws.vpce.us-east-1.vpce-svc-123abcc1298abc123.
+                      The full target AWS endpoint service name that connects to the
+                      destination resources of the private endpoint.
+                    type: string
                   groupId:
-                    description: The sub-resource type (group ID) of the target resource.
-                      Must be one of supported resource types (i.e., blob, dfs, sqlServer
-                      , etc. Consult the Azure documentation for full list of supported
-                      resources). Note that to connect to workspace root storage (root
-                      DBFS), you need two endpoints, one for blob and one for dfs.
-                      Change forces creation of a new resource.
+                    description: (Azure only) Not used by customer-managed private
+                      endpoint services. The sub-resource type (group ID) of the target
+                      resource. Must be one of supported resource types (i.e., blob,
+                      dfs, sqlServer , etc. Consult the Azure documentation for full
+                      list of supported resources). Note that to connect to workspace
+                      root storage (root DBFS), you need two endpoints, one for blob
+                      and one for dfs. Change forces creation of a new resource. Conflicts
+                      with domain_names.
                     type: string
                   networkConnectivityConfigId:
                     description: Canonical unique identifier of Network Connectivity
@@ -169,15 +210,24 @@ spec:
                       resource.
                     type: string
                   resourceId:
-                    description: The Azure resource ID of the target resource. Change
-                      forces creation of a new resource.
+                    description: (Azure only) The Azure resource ID of the target
+                      resource. Change forces creation of a new resource.
                     type: string
+                  resourceNames:
+                    description: .
+                    items:
+                      type: string
+                    type: array
                   ruleId:
                     description: the ID of a private endpoint rule.
                     type: string
                   updatedTime:
                     description: Time in epoch milliseconds when this object was updated.
                     type: number
+                  vpcEndpointId:
+                    description: The AWS VPC endpoint ID. You can use this ID to identify
+                      the VPC endpoint created by Databricks.
+                    type: string
                 type: object
               managementPolicies:
                 default:
@@ -347,25 +397,19 @@ spec:
             - forProvider
             type: object
             x-kubernetes-validations:
-            - message: spec.forProvider.groupId is a required parameter
-              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
-                || ''Update'' in self.managementPolicies) || has(self.forProvider.groupId)
-                || (has(self.initProvider) && has(self.initProvider.groupId))'
             - message: spec.forProvider.networkConnectivityConfigId is a required
                 parameter
               rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
                 || ''Update'' in self.managementPolicies) || has(self.forProvider.networkConnectivityConfigId)
                 || (has(self.initProvider) && has(self.initProvider.networkConnectivityConfigId))'
-            - message: spec.forProvider.resourceId is a required parameter
-              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
-                || ''Update'' in self.managementPolicies) || has(self.forProvider.resourceId)
-                || (has(self.initProvider) && has(self.initProvider.resourceId))'
           status:
             description: MwsNccPrivateEndpointRuleStatus defines the observed state
               of MwsNccPrivateEndpointRule.
             properties:
               atProvider:
                 properties:
+                  accountId:
+                    type: string
                   connectionState:
                     description: |-
                       The current status of this private endpoint. The private endpoint rules are effective only if the connection state is ESTABLISHED. Remember that you must approve new endpoints on your resources in the Azure portal before they take effect.
@@ -384,17 +428,31 @@ spec:
                     items:
                       type: string
                     type: array
+                  enabled:
+                    description: (AWS only) Activation status. Only used by private
+                      endpoints towards an AWS S3 service. Update this field to activate/deactivate
+                      this private endpoint to allow egress access from serverless
+                      compute resources. Can only be updated after a private endpoint
+                      rule towards an AWS S3 service is successfully created.
+                    type: boolean
                   endpointName:
                     description: The name of the Azure private endpoint resource,
                       e.g. "databricks-088781b3-77fa-4132-b429-1af0d91bc593-pe-3cb31234"
                     type: string
+                  endpointService:
+                    description: (AWS only) Example com.amazonaws.vpce.us-east-1.vpce-svc-123abcc1298abc123.
+                      The full target AWS endpoint service name that connects to the
+                      destination resources of the private endpoint.
+                    type: string
                   groupId:
-                    description: The sub-resource type (group ID) of the target resource.
-                      Must be one of supported resource types (i.e., blob, dfs, sqlServer
-                      , etc. Consult the Azure documentation for full list of supported
-                      resources). Note that to connect to workspace root storage (root
-                      DBFS), you need two endpoints, one for blob and one for dfs.
-                      Change forces creation of a new resource.
+                    description: (Azure only) Not used by customer-managed private
+                      endpoint services. The sub-resource type (group ID) of the target
+                      resource. Must be one of supported resource types (i.e., blob,
+                      dfs, sqlServer , etc. Consult the Azure documentation for full
+                      list of supported resources). Note that to connect to workspace
+                      root storage (root DBFS), you need two endpoints, one for blob
+                      and one for dfs. Change forces creation of a new resource. Conflicts
+                      with domain_names.
                     type: string
                   id:
                     type: string
@@ -404,15 +462,24 @@ spec:
                       resource.
                     type: string
                   resourceId:
-                    description: The Azure resource ID of the target resource. Change
-                      forces creation of a new resource.
+                    description: (Azure only) The Azure resource ID of the target
+                      resource. Change forces creation of a new resource.
                     type: string
+                  resourceNames:
+                    description: .
+                    items:
+                      type: string
+                    type: array
                   ruleId:
                     description: the ID of a private endpoint rule.
                     type: string
                   updatedTime:
                     description: Time in epoch milliseconds when this object was updated.
                     type: number
+                  vpcEndpointId:
+                    description: The AWS VPC endpoint ID. You can use this ID to identify
+                      the VPC endpoint created by Databricks.
+                    type: string
                 type: object
               conditions:
                 description: Conditions of the resource.

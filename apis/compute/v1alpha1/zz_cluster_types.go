@@ -333,6 +333,8 @@ type ClusterInitParameters struct {
 	// Identifier of Cluster Policy to validate cluster and preset certain defaults. The primary use for cluster policies is to allow users to create policy-scoped clusters via UI rather than sharing configuration for API-created clusters. For example, when you specify policy_id of external metastore policy, you still have to fill in relevant keys for spark_conf.
 	PolicyID *string `json:"policyId,omitempty" tf:"policy_id,omitempty"`
 
+	RemoteDiskThroughput *float64 `json:"remoteDiskThroughput,omitempty" tf:"remote_disk_throughput,omitempty"`
+
 	// The type of runtime engine to use. If not specified, the runtime engine type is inferred based on the spark_version value. Allowed values include: PHOTON, STANDARD.
 	RuntimeEngine *string `json:"runtimeEngine,omitempty" tf:"runtime_engine,omitempty"`
 
@@ -352,6 +354,8 @@ type ClusterInitParameters struct {
 
 	// Runtime version of the cluster. Any supported databricks_spark_version id.  We advise using Cluster Policies to restrict the list of versions for simplicity while maintaining enough control.
 	SparkVersion *string `json:"sparkVersion,omitempty" tf:"spark_version,omitempty"`
+
+	TotalInitialRemoteDiskSize *float64 `json:"totalInitialRemoteDiskSize,omitempty" tf:"total_initial_remote_disk_size,omitempty"`
 
 	// Whenever ML runtime should be selected or not.  Actual runtime is determined by spark_version (DBR release), this field use_ml_runtime, and whether node_type_id is GPU node or not.
 	UseMLRuntime *bool `json:"useMlRuntime,omitempty" tf:"use_ml_runtime,omitempty"`
@@ -511,6 +515,8 @@ type ClusterObservation struct {
 	// Identifier of Cluster Policy to validate cluster and preset certain defaults. The primary use for cluster policies is to allow users to create policy-scoped clusters via UI rather than sharing configuration for API-created clusters. For example, when you specify policy_id of external metastore policy, you still have to fill in relevant keys for spark_conf.
 	PolicyID *string `json:"policyId,omitempty" tf:"policy_id,omitempty"`
 
+	RemoteDiskThroughput *float64 `json:"remoteDiskThroughput,omitempty" tf:"remote_disk_throughput,omitempty"`
+
 	// The type of runtime engine to use. If not specified, the runtime engine type is inferred based on the spark_version value. Allowed values include: PHOTON, STANDARD.
 	RuntimeEngine *string `json:"runtimeEngine,omitempty" tf:"runtime_engine,omitempty"`
 
@@ -533,6 +539,8 @@ type ClusterObservation struct {
 
 	// (string) State of the cluster.
 	State *string `json:"state,omitempty" tf:"state,omitempty"`
+
+	TotalInitialRemoteDiskSize *float64 `json:"totalInitialRemoteDiskSize,omitempty" tf:"total_initial_remote_disk_size,omitempty"`
 
 	// URL for the Docker image
 	URL *string `json:"url,omitempty" tf:"url,omitempty"`
@@ -645,6 +653,9 @@ type ClusterParameters struct {
 	// +kubebuilder:validation:Optional
 	PolicyID *string `json:"policyId,omitempty" tf:"policy_id,omitempty"`
 
+	// +kubebuilder:validation:Optional
+	RemoteDiskThroughput *float64 `json:"remoteDiskThroughput,omitempty" tf:"remote_disk_throughput,omitempty"`
+
 	// The type of runtime engine to use. If not specified, the runtime engine type is inferred based on the spark_version value. Allowed values include: PHOTON, STANDARD.
 	// +kubebuilder:validation:Optional
 	RuntimeEngine *string `json:"runtimeEngine,omitempty" tf:"runtime_engine,omitempty"`
@@ -670,6 +681,9 @@ type ClusterParameters struct {
 	// Runtime version of the cluster. Any supported databricks_spark_version id.  We advise using Cluster Policies to restrict the list of versions for simplicity while maintaining enough control.
 	// +kubebuilder:validation:Optional
 	SparkVersion *string `json:"sparkVersion,omitempty" tf:"spark_version,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	TotalInitialRemoteDiskSize *float64 `json:"totalInitialRemoteDiskSize,omitempty" tf:"total_initial_remote_disk_size,omitempty"`
 
 	// Whenever ML runtime should be selected or not.  Actual runtime is determined by spark_version (DBR release), this field use_ml_runtime, and whether node_type_id is GPU node or not.
 	// +kubebuilder:validation:Optional

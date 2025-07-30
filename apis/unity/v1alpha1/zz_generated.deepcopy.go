@@ -9743,6 +9743,11 @@ func (in *SchemaObservation) DeepCopyInto(out *SchemaObservation) {
 			(*out)[key] = outVal
 		}
 	}
+	if in.SchemaID != nil {
+		in, out := &in.SchemaID, &out.SchemaID
+		*out = new(string)
+		**out = **in
+	}
 	if in.StorageRoot != nil {
 		in, out := &in.StorageRoot, &out.StorageRoot
 		*out = new(string)

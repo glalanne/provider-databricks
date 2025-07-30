@@ -15,7 +15,7 @@ import (
 
 type GitCredentialInitParameters struct {
 
-	// specify if settings need to be enforced - right now, Databricks allows only single Git credential, so if it's already configured, the apply operation will fail.
+	// specify if settings need to be enforced.
 	Force *bool `json:"force,omitempty" tf:"force,omitempty"`
 
 	// case insensitive name of the Git provider.  Following values are supported right now (could be a subject for a change, consult Git Credentials API documentation): gitHub, gitHubEnterprise, bitbucketCloud, bitbucketServer, azureDevOpsServices, gitLab, gitLabEnterpriseEdition, awsCodeCommit, azureDevOpsServicesAad.
@@ -24,13 +24,19 @@ type GitCredentialInitParameters struct {
 	// user name at Git provider.
 	GitUsername *string `json:"gitUsername,omitempty" tf:"git_username,omitempty"`
 
+	// boolean flag specifying if the credential is the default for the given provider type.
+	IsDefaultForProvider *bool `json:"isDefaultForProvider,omitempty" tf:"is_default_for_provider,omitempty"`
+
+	// the name of the git credential, used for identification and ease of lookup.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
 	// The personal access token used to authenticate to the corresponding Git provider. If value is not provided, it's sourced from the first environment variable of GITHUB_TOKEN, GITLAB_TOKEN, or AZDO_PERSONAL_ACCESS_TOKEN, that has a non-empty value.
 	PersonalAccessToken *string `json:"personalAccessToken,omitempty" tf:"personal_access_token,omitempty"`
 }
 
 type GitCredentialObservation struct {
 
-	// specify if settings need to be enforced - right now, Databricks allows only single Git credential, so if it's already configured, the apply operation will fail.
+	// specify if settings need to be enforced.
 	Force *bool `json:"force,omitempty" tf:"force,omitempty"`
 
 	// case insensitive name of the Git provider.  Following values are supported right now (could be a subject for a change, consult Git Credentials API documentation): gitHub, gitHubEnterprise, bitbucketCloud, bitbucketServer, azureDevOpsServices, gitLab, gitLabEnterpriseEdition, awsCodeCommit, azureDevOpsServicesAad.
@@ -42,13 +48,19 @@ type GitCredentialObservation struct {
 	// identifier of specific Git credential
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
+	// boolean flag specifying if the credential is the default for the given provider type.
+	IsDefaultForProvider *bool `json:"isDefaultForProvider,omitempty" tf:"is_default_for_provider,omitempty"`
+
+	// the name of the git credential, used for identification and ease of lookup.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
 	// The personal access token used to authenticate to the corresponding Git provider. If value is not provided, it's sourced from the first environment variable of GITHUB_TOKEN, GITLAB_TOKEN, or AZDO_PERSONAL_ACCESS_TOKEN, that has a non-empty value.
 	PersonalAccessToken *string `json:"personalAccessToken,omitempty" tf:"personal_access_token,omitempty"`
 }
 
 type GitCredentialParameters struct {
 
-	// specify if settings need to be enforced - right now, Databricks allows only single Git credential, so if it's already configured, the apply operation will fail.
+	// specify if settings need to be enforced.
 	// +kubebuilder:validation:Optional
 	Force *bool `json:"force,omitempty" tf:"force,omitempty"`
 
@@ -59,6 +71,14 @@ type GitCredentialParameters struct {
 	// user name at Git provider.
 	// +kubebuilder:validation:Optional
 	GitUsername *string `json:"gitUsername,omitempty" tf:"git_username,omitempty"`
+
+	// boolean flag specifying if the credential is the default for the given provider type.
+	// +kubebuilder:validation:Optional
+	IsDefaultForProvider *bool `json:"isDefaultForProvider,omitempty" tf:"is_default_for_provider,omitempty"`
+
+	// the name of the git credential, used for identification and ease of lookup.
+	// +kubebuilder:validation:Optional
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// The personal access token used to authenticate to the corresponding Git provider. If value is not provided, it's sourced from the first environment variable of GITHUB_TOKEN, GITLAB_TOKEN, or AZDO_PERSONAL_ACCESS_TOKEN, that has a non-empty value.
 	// +kubebuilder:validation:Optional

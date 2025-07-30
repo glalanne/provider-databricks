@@ -179,10 +179,37 @@ resources:
             servicePrincipals/{applicationId}: (also exposed as acl_principal_id attribute of databricks_service_principal resource).
             users/{username}: (also exposed as acl_principal_id attribute of databricks_user resource).
         importStatements: []
-    databricks_account_network_policy Resource:
+    databricks_account_network_policy:
         subCategory: ""
-        name: databricks_account_network_policy Resource
+        name: databricks_account_network_policy
         title: databricks_account_network_policy Resource
+        examples:
+            - name: example_network_policy
+              manifest: |-
+                {
+                  "egress": {
+                    "network_access": {
+                      "allowed_internet_destinations": [
+                        {
+                          "destination": "example.com",
+                          "internet_destination_type": "DNS_NAME"
+                        }
+                      ],
+                      "allowed_storage_destinations": [
+                        {
+                          "bucket_name": "example-aws-cloud-storage",
+                          "region": "us-west-1",
+                          "storage_destination_type": "AWS_S3"
+                        }
+                      ],
+                      "policy_enforcement": {
+                        "enforcement_mode": "ENFORCED"
+                      },
+                      "restriction_mode": "RESTRICTED_ACCESS"
+                    }
+                  },
+                  "network_policy_id": "example-network-policy"
+                }
         argumentDocs:
             account_id: (string, optional) - The associated account ID for this Network Policy object
             allowed_internet_destinations: (list of EgressNetworkPolicyNetworkAccessPolicyInternetDestination, optional) - List of internet destinations that serverless workloads are allowed to access when in RESTRICTED_ACCESS mode
@@ -203,7 +230,7 @@ resources:
             network_access: (EgressNetworkPolicyNetworkAccessPolicy, optional) - The access policy enforced for egress traffic to the internet
             network_policy_id: (string, optional) - The unique identifier for the network policy
             policy_enforcement: (EgressNetworkPolicyNetworkAccessPolicyPolicyEnforcement, optional) - Optional. When policy_enforcement is not provided, we default to ENFORCE_MODE_ALL_SERVICES
-            region: (string, optional) - The region of the S3 bucket
+            region: (string, optional) -
             restriction_mode: '(string, required) - The restriction mode that controls how serverless workloads can access the internet. Possible values are: FULL_ACCESS, RESTRICTED_ACCESS'
             storage_destination_type: '(string, optional) - The type of storage destination. Possible values are: AWS_S3, AZURE_STORAGE, GOOGLE_CLOUD_STORAGE'
         importStatements: []
@@ -411,7 +438,9 @@ resources:
                 Should use the quartz format described here: http://www.quartz-scheduler.org/documentation/quartz-2.1.7/tutorials/tutorial-lesson-06.html
             query_text: (string, optional) - Text of the query to be run
             retrigger_seconds: (integer, optional) - Number of seconds an alert must wait after being triggered to rearm itself. After rearming, it can be triggered again. If 0 or not specified, the alert will not be triggered again
-            run_as_user_name: (string) - The run as username. This field is set to "Unavailable" if the user has been deleted
+            run_as_user_name: |-
+                (string, optional) - The run as username or application ID of service principal.
+                On Create and Update, this field can be set to application ID of an active service principal. Setting this field requires the servicePrincipal/user role
             schedule: (CronSchedule, optional) -
             source: (AlertV2OperandColumn, optional) - Source column from result to use to evaluate alert
             state: '(string) - Latest state of alert evaluation. Possible values are: ERROR, OK, TRIGGERED, UNKNOWN'
@@ -467,11 +496,14 @@ resources:
             compute_status: attribute
             create_time: '- The creation time of the app.'
             creator: '- The email of the user that created the app.'
+            database: attribute
+            database_name: '- The name of database.'
             default_source_code_path: '- The default workspace file system path of the source code from which app deployment are created. This field tracks the workspace source code path of the last active deployment.'
             description: '- (Optional) The description of the app.'
             effective_budget_policy_id: '- The effective budget policy ID.'
             effective_user_api_scopes: '- A list of effective api scopes granted to the user access token.'
             id: '- Id of the SQL warehouse to grant permission on.'
+            instance_name: '- The name of database instance.'
             job: attribute
             key: '- Key of the secret to grant permission on.'
             message: '- Compute status message'
@@ -480,11 +512,14 @@ resources:
             resources: '- (Optional) A list of resources that the app have access to.'
             scope: '- Scope of the secret to grant permission on.'
             secret: attribute
+            securable_full_name: '- the full name of UC securable, i.e. my-catalog.my-schema.my-volume.'
+            securable_type: '- the type of UC securable, i.e. VOLUME.'
             service_principal_id: '- id of the app service principal'
             service_principal_name: '- name of the app service principal'
             serving_endpoint: attribute
             sql_warehouse: attribute
             state: '- State of the app compute.'
+            uc_securable: attribute (see the API docs for full list of supported UC objects)
             update_time: '- The update time of the app.'
             updater: '- The email of the user that last updated the app.'
             url: '- The URL of the app once it is deployed.'
@@ -633,7 +668,7 @@ resources:
             key: (string, required) - The key of the tag.
             policy_id: (string) - The Id of the policy. This field is generated by Databricks and globally unique
             policy_name: (string, optional) - The name of the policy.
-            value: (string, optional) - The value of the tag.
+            value: (string, optional) - The value of the tag
         importStatements: []
     databricks_catalog:
         subCategory: ""
@@ -691,6 +726,108 @@ resources:
             securable_type: '- Type of securable. Default to catalog. Change forces creation of a new resource.'
             workspace_id: '- ID of the workspace. Change forces creation of a new resource.'
         importStatements: []
+    databricks_clean_rooms_clean_room:
+        subCategory: ""
+        name: databricks_clean_rooms_clean_room
+        title: databricks_clean_rooms_clean_room Resource
+        examples:
+            - name: this
+              manifest: |-
+                {
+                  "name": "example-clean-room",
+                  "owner": "example@databricks.com",
+                  "remote_detailed_info": {
+                    "cloud_vendor": "aws",
+                    "collaborators": [
+                      {
+                        "collaborator_alias": "collaborator",
+                        "global_metastore_id": "aws:us-east-1:12345678-1234-1234-1234-123456789012",
+                        "invite_recipient_email": "example@databricks.com",
+                        "invite_recipient_workspace_id": "123456789012345"
+                      },
+                      {
+                        "collaborator_alias": "creator",
+                        "global_metastore_id": "aws:us-east-1:12345678-1234-1234-1234-123456789012"
+                      }
+                    ],
+                    "egress_network_policy": {
+                      "internet_access": {
+                        "restriction_mode": "RESTRICTED_ACCESS"
+                      }
+                    },
+                    "region": "us-west-2"
+                  }
+                }
+        argumentDocs:
+            access_restricted: '(string) - Whether clean room access is restricted due to CSP. Possible values are: CSP_MISMATCH, NO_RESTRICTION'
+            allowed_internet_destinations: (list of EgressNetworkPolicyInternetAccessPolicyInternetDestination, optional) -
+            allowed_paths: (list of string, optional) -
+            allowed_storage_destinations: (list of EgressNetworkPolicyInternetAccessPolicyStorageDestination, optional) -
+            azure_container: (string, optional) -
+            azure_dns_zone: (string, optional) -
+            azure_storage_account: (string, optional) -
+            azure_storage_service: (string, optional) -
+            bucket_name: (string, optional) -
+            catalog_name: |-
+                (string, optional) - The name of the output catalog in UC.
+                It should follow UC securable naming requirements.
+                The field will always exist if status is CREATED
+            central_clean_room_id: (string) - Central clean room ID
+            cloud_vendor: (string, optional) - Cloud vendor (aws,azure,gcp) of the central clean room
+            collaborator_alias: |-
+                (string, required) - Collaborator alias specified by the clean room creator. It is unique across all collaborators of this clean room, and used to derive
+                multiple values internally such as catalog alias and clean room name for single metastore clean rooms.
+                It should follow UC securable naming requirements
+            collaborators: |-
+                (list of CleanRoomCollaborator, optional) - Collaborators in the central clean room. There should one and only one collaborator
+                in the list that satisfies the owner condition:
+            comment: (string, optional) -
+            compliance_security_profile: (ComplianceSecurityProfile) -
+            compliance_standards: (list of ComplianceStandard, optional) - The list of compliance standards that the compliance security profile is configured to enforce
+            created_at: (integer) - When the clean room was created, in epoch milliseconds
+            creator: (CleanRoomCollaborator) - Collaborator who creates the clean room
+            destination: (string, optional) -
+            display_name: |-
+                (string) - Generated display name for the collaborator. In the case of a single metastore clean room, it is the clean
+                room name. For x-metastore clean rooms, it is the organization name of the metastore. It is not restricted to
+                these values and could change in the future
+            egress_network_policy: (EgressNetworkPolicy, optional) - Egress network policy to apply to the central clean room workspace
+            global_metastore_id: (string, optional) - The global Unity Catalog metastore id of the collaborator. The identifier is of format cloud:region:metastore-uuid
+            internet_access: (EgressNetworkPolicyInternetAccessPolicy, optional) - The access policy enforced for egress traffic to the internet
+            invite_recipient_email: |-
+                (string, optional) - Email of the user who is receiving the clean room "invitation". It should be empty
+                for the creator of the clean room, and non-empty for the invitees of the clean room.
+                It is only returned in the output when clean room creator calls GET
+            invite_recipient_workspace_id: |-
+                (integer, optional) - Workspace ID of the user who is receiving the clean room "invitation". Must be specified if
+                invite_recipient_email is specified.
+                It should be empty when the collaborator is the creator of the clean room
+            is_enabled: (boolean, optional) - Whether the compliance security profile is enabled
+            local_collaborator_alias: (string) - The alias of the collaborator tied to the local clean room
+            log_only_mode: (EgressNetworkPolicyInternetAccessPolicyLogOnlyMode, optional) - Optional. If not specified, assume the policy is enforced for all workloads
+            log_only_mode_type: '(string, optional) - . Possible values are: ALL_SERVICES, SELECTED_SERVICES'
+            name: |-
+                (string, optional) - The name of the clean room.
+                It should follow UC securable naming requirements
+            organization_name: |-
+                (string) - Organization name
+                configured in the metastore
+            output_catalog: |-
+                (CleanRoomOutputCatalog) - Output catalog of the clean room. It is an output only field. Output catalog is manipulated
+                using the separate CreateCleanRoomOutputCatalog API
+            owner: (string, optional) - This is Databricks username of the owner of the local clean room securable for permission management
+            protocol: '(string, optional) - . Possible values are: TCP'
+            region: (string, optional) - Region of the central clean room
+            remote_detailed_info: |-
+                (CleanRoomRemoteDetail, optional) - Central clean room details. During creation, users need to specify
+                cloud_vendor, region, and collaborators.global_metastore_id.
+                This field will not be filled in the ListCleanRooms call
+            restriction_mode: '(string, optional) - . Possible values are: FULL_ACCESS, PRIVATE_ACCESS_ONLY, RESTRICTED_ACCESS'
+            status: '(string) - Clean room status. Possible values are: ACTIVE, DELETED, FAILED, PROVISIONING'
+            type: '(string, optional) - . Possible values are: FQDN'
+            updated_at: (integer) - When the clean room was last updated, in epoch milliseconds
+            workloads: (list of , optional) -
+        importStatements: []
     databricks_cluster:
         subCategory: ""
         name: databricks_cluster
@@ -740,14 +877,9 @@ resources:
                 {
                   "autotermination_minutes": 20,
                   "cluster_name": "Single Node",
-                  "custom_tags": {
-                    "ResourceClass": "SingleNode"
-                  },
+                  "is_single_node": true,
+                  "kind": "CLASSIC_PREVIEW",
                   "node_type_id": "${data.databricks_node_type.smallest.id}",
-                  "spark_conf": {
-                    "spark.databricks.cluster.profile": "singleNode",
-                    "spark.master": "local[*]"
-                  },
                   "spark_version": "${data.databricks_spark_version.latest_lts.id}"
                 }
               references:
@@ -910,8 +1042,6 @@ resources:
             apply_policy_default_values: '- (Optional) Whether to use policy default values for missing cluster attributes.'
             autoscale.max_workers: '- (Optional) The maximum number of workers to which the cluster can scale up when overloaded. max_workers must be strictly greater than min_workers.'
             autoscale.min_workers: '- (Optional) The minimum number of workers to which the cluster can scale down when underutilized. It is also the initial number of workers the cluster will have after creation.'
-            autoscale.spark.databricks.cluster.profile: must have value singleNode
-            autoscale.spark.master: must have prefix local, like local[*]
             autotermination_minutes: '- (Optional) Automatically terminate the cluster after being inactive for this time in minutes. If specified, the threshold must be between 10 and 10000 minutes. You can also set this value to 0 to explicitly disable automatic termination. Defaults to 60.  We highly recommend having this setting present for Interactive/BI clusters.'
             aws_attributes.availability: '- (Optional) Availability type used for all subsequent nodes past the first_on_demand ones. Valid values are SPOT, SPOT_WITH_FALLBACK and ON_DEMAND. Note: If first_on_demand is zero, this availability type will be used for the entire cluster. Backend default value is SPOT_WITH_FALLBACK and could change in the future'
             aws_attributes.ebs_volume_count: '- (Optional) The number of volumes launched for each instance. You can choose up to 10 volumes. This feature is only enabled for supported node types. Legacy node types cannot specify custom EBS volumes. For node types with no instance store, at least one EBS volume needs to be specified; otherwise, cluster creation will fail. These EBS volumes will be mounted at /ebs0, /ebs1, and etc. Instance store volumes will be mounted at /local_disk0, /local_disk1, and etc. If EBS volumes are attached, Databricks will configure Spark to use only the EBS volumes for scratch storage because heterogeneously sized scratch devices can lead to inefficient disk utilization. If no EBS volumes are attached, Databricks will configure Spark to use instance store volumes. If EBS volumes are specified, then the Spark configuration spark.local.dir will be overridden.'
@@ -1077,7 +1207,7 @@ resources:
                     "purpose": "testing"
                   }
                 }
-            - name: this
+            - name: hms
               manifest: |-
                 {
                   "comment": "This is a connection to builtin HMS",
@@ -1087,10 +1217,37 @@ resources:
                     "builtin": "true"
                   }
                 }
+            - name: http_oauth
+              manifest: |-
+                {
+                  "comment": "This is a connection to a HTTP service",
+                  "connection_type": "HTTP",
+                  "name": "http_oauth",
+                  "options": {
+                    "base_path": "/api/",
+                    "client_id": "client_id",
+                    "client_secret": "client_secret",
+                    "host": "https://example.com",
+                    "oauth_scope": "channels:read channels:history chat:write",
+                    "port": "8433",
+                    "token_endpoint": "https://authorization-server.com/oauth/token"
+                  }
+                }
+            - name: pbi
+              manifest: |-
+                {
+                  "connection_type": "POWER_BI",
+                  "name": "test-pbi",
+                  "options": {
+                    "authorization_endpoint": "https://login.microsoftonline.com/{tenant}/oauth2/v2.0/authorize",
+                    "client_id": "client_id",
+                    "client_secret": "client_secret"
+                  }
+                }
         argumentDocs:
-            comment: '- (Optional) Free-form text.'
+            comment: '- (Optional) Free-form text. Change forces creation of a new resource.'
             connection_id: '- Unique ID of the connection.'
-            connection_type: '- Connection type. BIGQUERY MYSQL POSTGRESQL SNOWFLAKE REDSHIFT SQLDW SQLSERVER, SALESFORCE, HIVE_METASTORE, GLUE, TERADATA, ORACLE or DATABRICKS are supported. Up-to-date list of connection type supported is in the documentation'
+            connection_type: '- Connection type. MYSQL, POSTGRESQL, SNOWFLAKE, REDSHIFT SQLDW, SQLSERVER, DATABRICKS, SALESFORCE, BIGQUERY, WORKDAY_RAAS, HIVE_METASTORE, GA4_RAW_DATA, SERVICENOW, SALESFORCE_DATA_CLOUD, GLUE, ORACLE, TERADATA, HTTP or POWER_BI are supported. Up-to-date list of connection type supported is in the documentation. Change forces creation of a new resource.'
             created_at: '- Time at which this connection was created, in epoch milliseconds.'
             created_by: '-  Username of connection creator.'
             credential_type: '- The type of credential for this connection.'
@@ -1098,10 +1255,11 @@ resources:
             id: '- ID of this connection in form of <metastore_id>|<name>.'
             metastore_id: '- Unique ID of the UC metastore for this connection.'
             name: '- Name of the Connection.'
-            options: '- The key value of options required by the connection, e.g. host, port, user, password or GoogleServiceAccountKeyJson. Please consult the documentation for the required option.'
+            options: '- The key value of options required by the connection, e.g. host, port, user, password, authorization_endpoint, client_id, client_secret or GoogleServiceAccountKeyJson. Please consult the documentation for the required option.'
             owner: '- (Optional) Name of the connection owner.'
-            properties: '-  (Optional) Free-form connection properties.'
+            properties: '-  (Optional) Free-form connection properties. Change forces creation of a new resource.'
             provisioning_info: '- Object with the status of an asynchronously provisioned resource.'
+            read_only: '- (Optional) Indicates whether the connection is read-only. Change forces creation of a new resource.'
             updated_at: '- Time at which connection this was last modified, in epoch milliseconds.'
             updated_by: '- Username of user who last modified the connection.'
             url: '- URL of the remote data source, extracted from options.'
@@ -1277,19 +1435,93 @@ resources:
             serialized_dashboard: '- (Optional) The contents of the dashboard in serialized string form. Conflicts with file_path.'
             warehouse_id: '- (Required) The warehouse ID used to run the dashboard.'
         importStatements: []
-    databricks_database_instance Resource:
+    databricks_database_instance:
         subCategory: ""
-        name: databricks_database_instance Resource
+        name: databricks_database_instance
         title: databricks_database_instance Resource
+        examples:
+            - name: this
+              manifest: |-
+                {
+                  "capacity": "CU_2",
+                  "name": "my-database-instance"
+                }
+            - name: this
+              manifest: |-
+                {
+                  "capacity": "CU_2",
+                  "enable_readable_secondaries": true,
+                  "name": "my-database-instance",
+                  "node_count": 2
+                }
+            - name: child
+              manifest: |-
+                {
+                  "capacity": "CU_2",
+                  "name": "my-database-instance",
+                  "parent_instance_ref": {
+                    "name": "my-parent-instance"
+                  }
+                }
         argumentDocs:
-            admin_password: (string, optional) - Password for admin user to create. If not provided, no user will be created
-            admin_rolename: (string, optional) - Name of the admin role for the instance. If not provided, defaults to 'databricks_admin'
-            capacity: (string, optional) - The sku of the instance. Valid values are "CU_1", "CU_2", "CU_4"
+            branch_time: |-
+                (string, optional) - Branch time of the ref database instance.
+                For a parent ref instance, this is the point in time on the parent instance from which the
+                instance was created.
+                For a child ref instance, this is the point in time on the instance from which the child
+                instance was created.
+                Input: For specifying the point in time to create a child instance. Optional.
+                Output: Only populated if provided as input to create a child instance
+            capacity: (string, optional) - The sku of the instance. Valid values are "CU_1", "CU_2", "CU_4", "CU_8"
+            child_instance_refs: |-
+                (list of DatabaseInstanceRef) - The refs of the child instances. This is only available if the instance is
+                parent instance
             creation_time: (string) - The timestamp when the instance was created
             creator: (string) - The email of the creator of the instance
+            effective_enable_readable_secondaries: |-
+                (boolean) - xref AIP-129. enable_readable_secondaries is owned by the client, while effective_enable_readable_secondaries is owned by the server.
+                enable_readable_secondaries will only be set in Create/Update response messages if and only if the user provides the field via the request.
+                effective_enable_readable_secondaries on the other hand will always bet set in all response messages (Create/Update/Get/List)
+            effective_lsn: |-
+                (string) - xref AIP-129. lsn is owned by the client, while effective_lsn is owned by the server.
+                lsn will only be set in Create/Update response messages if and only if the user provides the field via the request.
+                effective_lsn on the other hand will always bet set in all response messages (Create/Update/Get/List).
+                For a parent ref instance, this is the LSN on the parent instance from which the
+                instance was created.
+                For a child ref instance, this is the LSN on the instance from which the child instance
+                was created
+            effective_node_count: |-
+                (integer) - xref AIP-129. node_count is owned by the client, while effective_node_count is owned by the server.
+                node_count will only be set in Create/Update response messages if and only if the user provides the field via the request.
+                effective_node_count on the other hand will always bet set in all response messages (Create/Update/Get/List)
+            effective_retention_window_in_days: |-
+                (integer) - xref AIP-129. retention_window_in_days is owned by the client, while effective_retention_window_in_days is owned by the server.
+                retention_window_in_days will only be set in Create/Update response messages if and only if the user provides the field via the request.
+                effective_retention_window_in_days on the other hand will always bet set in all response messages (Create/Update/Get/List)
+            effective_stopped: |-
+                (boolean) - xref AIP-129. stopped is owned by the client, while effective_stopped is owned by the server.
+                stopped will only be set in Create/Update response messages if and only if the user provides the field via the request.
+                effective_stopped on the other hand will always bet set in all response messages (Create/Update/Get/List)
+            enable_readable_secondaries: (boolean, optional) - Whether to enable secondaries to serve read-only traffic. Defaults to false
+            lsn: (string, optional) - User-specified WAL LSN of the ref database instance.
             name: (string, required) - The name of the instance. This is the unique identifier for the instance
+            node_count: |-
+                (integer, optional) - The number of nodes in the instance, composed of 1 primary and 0 or more secondaries. Defaults to
+                1 primary and 0 secondaries
+            parent_instance_ref: |-
+                (DatabaseInstanceRef, optional) - The ref of the parent instance. This is only available if the instance is
+                child instance.
+                Input: For specifying the parent instance to create a child instance. Optional.
+                Output: Only populated if provided as input to create a child instance
             pg_version: (string) - The version of Postgres running on the instance
+            read_only_dns: |-
+                (string) - The DNS endpoint to connect to the instance for read only access. This is only available if
+                enable_readable_secondaries is true
             read_write_dns: (string) - The DNS endpoint to connect to the instance for read+write access
+            retention_window_in_days: |-
+                (integer, optional) - The retention window for the instance. This is the time window in days
+                for which the historical data is retained. The default value is 7 days.
+                Valid values are 2 to 35 days
             state: '(string) - The current state of the instance. Possible values are: AVAILABLE, DELETING, FAILING_OVER, STARTING, STOPPED, UPDATING'
             stopped: (boolean, optional) - Whether the instance is stopped
             uid: (string) - An immutable UUID identifier for the instance
@@ -1464,7 +1696,7 @@ resources:
             user/user_id: '- user user_id.'
             user_id: '-  Canonical unique identifier for the user.'
             workspace_access: '- (Optional) This is a field to allow the principal to have access to a Databricks Workspace.'
-            workspace_consume: '- (Optional) This is a field to allow the principal to have access to a Databricks Workspace as consumer, with limited access to workspace UI.'
+            workspace_consume: '- (Optional) This is a field to allow the principal to have access to a Databricks Workspace as consumer, with limited access to workspace UI.  Couldn''t be used with workspace_access or databricks_sql_access.'
         importStatements: []
     databricks_external_location:
         subCategory: ""
@@ -1558,6 +1790,19 @@ resources:
               references:
                 credential_name: databricks_storage_credential.ext.id
               dependencies:
+                databricks_grants.some: |-
+                    {
+                      "external_location": "${databricks_external_location.some.id}",
+                      "grant": [
+                        {
+                          "principal": "Data Engineers",
+                          "privileges": [
+                            "CREATE_EXTERNAL_TABLE",
+                            "READ_FILES"
+                          ]
+                        }
+                      ]
+                    }
                 databricks_storage_credential.ext: |-
                     {
                       "databricks_gcp_service_account": [
@@ -1567,6 +1812,8 @@ resources:
                     }
         argumentDocs:
             access_point: '- (Optional) The ARN of the s3 access point to use with the external location (AWS).'
+            algorithm: '- Encryption algorithm value. Sets the value of the x-amz-server-side-encryption header in S3 request.'
+            aws_kms_key_arn: '- Optional ARN of the SSE-KMS key used with the S3 location, when algorithm = "SSE-KMS". Sets the value of the x-amz-server-side-encryption-aws-kms-key-id header.'
             comment: '- (Optional) User-supplied free-form text.'
             created_at: '- Time at which this external location was created, in epoch milliseconds.'
             created_by: '-  Username of external location creator.'
@@ -1574,7 +1821,6 @@ resources:
             credential_name: '- Name of the databricks_storage_credential to use with this external location.'
             databricks_external_location: are objects that combine a cloud storage path with a Storage Credential that can be used to access the location.
             enable_file_events: '- (Optional) indicates if managed file events are enabled for this external location.  Requires file_event_queue block.'
-            encryption_details: '- (Optional) The options for Server-Side Encryption to be used by each Databricks s3 client when connecting to S3 cloud storage (AWS).'
             fallback: '- (Optional) Indicates whether fallback mode is enabled for this external location. When fallback mode is enabled (disabled by default), the access to the location falls back to cluster credentials if UC credentials are not sufficient.'
             file_event_queue.managed_aqs: '- (Optional) Configuration for managed Azure Queue Storage queue.'
             file_event_queue.managed_pubsub: '- (Optional) Configuration for managed Google Cloud Pub/Sub queue.'
@@ -1593,11 +1839,54 @@ resources:
             read_only: '- (Optional) Indicates whether the external location is read-only.'
             resource_group: '- (Required) The Azure resource group.'
             skip_validation: '- (Optional) Suppress validation errors if any & force save the external location'
+            sse_encryption_details: '- a block describing server-Side Encryption properties for clients communicating with AWS S3. Consists of the following attributes:'
             subscription_id: '- (Required) The Azure subscription ID.'
             subscription_name: '- (Required) The name of the subscription.'
             updated_at: '- Time at which external location this was last modified, in epoch milliseconds.'
             updated_by: '- Username of user who last modified the external location.'
             url: '- Path URL in cloud storage, of the form: s3://[bucket-host]/[bucket-dir] (AWS), abfss://[user]@[host]/[path] (Azure), gs://[bucket-host]/[bucket-dir] (GCP).'
+        importStatements: []
+    databricks_external_metadata:
+        subCategory: ""
+        name: databricks_external_metadata
+        title: databricks_external_metadata Resource
+        examples:
+            - name: this
+              manifest: |-
+                {
+                  "columns": [
+                    "type",
+                    "message",
+                    "details",
+                    "date",
+                    "time"
+                  ],
+                  "description": "A stream of security related events in the critical services.",
+                  "entity_type": "Topic",
+                  "name": "security_events_stream",
+                  "properties": {
+                    "compression.enabled": "true",
+                    "compression.format": "zstd",
+                    "topic": "prod.security.events.raw"
+                  },
+                  "system_type": "KAFKA",
+                  "url": "https://kafka.com/12345"
+                }
+        argumentDocs:
+            columns: (list of string, optional) - List of columns associated with the external metadata object
+            create_time: (string) - Time at which this external metadata object was created
+            created_by: (string) - Username of external metadata object creator
+            description: (string, optional) - User-provided free-form text description
+            entity_type: (string, required) - Type of entity within the external system
+            id: (string) - Unique identifier of the external metadata object
+            metastore_id: (string) - Unique identifier of parent metastore
+            name: (string, required) - Name of the external metadata object
+            owner: (string, optional) - Owner of the external metadata object
+            properties: (object, optional) - A map of key-value properties attached to the external metadata object
+            system_type: '(string, required) - Type of external system. Possible values are: AMAZON_REDSHIFT, AZURE_SYNAPSE, CONFLUENT, DATABRICKS, GOOGLE_BIGQUERY, KAFKA, LOOKER, MICROSOFT_FABRIC, MICROSOFT_SQL_SERVER, MONGODB, MYSQL, ORACLE, OTHER, POSTGRESQL, POWER_BI, SALESFORCE, SAP, SERVICENOW, SNOWFLAKE, TABLEAU, TERADATA, WORKDAY'
+            update_time: (string) - Time at which this external metadata object was last modified
+            updated_by: (string) - Username of user who last modified external metadata object
+            url: (string, optional) - URL associated with the external metadata object
         importStatements: []
     databricks_file:
         subCategory: ""
@@ -1663,11 +1952,18 @@ resources:
                   "git_username": "myuser",
                   "personal_access_token": "sometoken"
                 }
+            - name: ado
+              manifest: |-
+                {
+                  "git_provider": "azureDevOpsServicesAad"
+                }
         argumentDocs:
-            force: '- (Optional) specify if settings need to be enforced - right now, Databricks allows only single Git credential, so if it''s already configured, the apply operation will fail.'
+            force: '- (Optional) specify if settings need to be enforced.'
             git_provider: '-  (Required) case insensitive name of the Git provider.  Following values are supported right now (could be a subject for a change, consult Git Credentials API documentation): gitHub, gitHubEnterprise, bitbucketCloud, bitbucketServer, azureDevOpsServices, gitLab, gitLabEnterpriseEdition, awsCodeCommit, azureDevOpsServicesAad.'
             git_username: '- (Optional, required for some Git providers) user name at Git provider.'
             id: '- identifier of specific Git credential'
+            is_default_for_provider: '- (Optional) boolean flag specifying if the credential is the default for the given provider type.'
+            name: '- (Optional) the name of the git credential, used for identification and ease of lookup.'
             personal_access_token: '- (Optional, required for some Git providers) The personal access token used to authenticate to the corresponding Git provider. If value is not provided, it''s sourced from the first environment variable of GITHUB_TOKEN, GITLAB_TOKEN, or AZDO_PERSONAL_ACCESS_TOKEN, that has a non-empty value.'
         importStatements: []
     databricks_global_init_script:
@@ -2552,7 +2848,7 @@ resources:
             force: '- (Optional) Ignore cannot create group: Group with name X already exists. errors and implicitly import the specific group into Terraform state, enforcing entitlements defined in the instance of resource. This functionality is experimental and is designed to simplify corner cases, like Azure Active Directory synchronisation.'
             id: '- Canonical unique identifier for the group (SCIM ID).'
             workspace_access: '- (Optional) This is a field to allow the group to have access to a Databricks Workspace.'
-            workspace_consume: '- (Optional) This is a field to allow the group to have access to a Databricks Workspace as consumer, with limited access to workspace UI.'
+            workspace_consume: '- (Optional) This is a field to allow the group to have access to a Databricks Workspace as consumer, with limited access to workspace UI.  Couldn''t be used with workspace_access or databricks_sql_access.'
         importStatements: []
     databricks_group_instance_profile:
         subCategory: ""
@@ -3477,6 +3773,14 @@ resources:
         argumentDocs:
             dbfs:/mnt/name: .
         importStatements: []
+    databricks_materialized_features_feature_tag Resource:
+        subCategory: ""
+        name: databricks_materialized_features_feature_tag Resource
+        title: databricks_materialized_features_feature_tag Resource
+        argumentDocs:
+            key: (string, required) -
+            value: (string, optional) -
+        importStatements: []
     databricks_metastore:
         subCategory: ""
         name: databricks_metastore
@@ -3952,12 +4256,13 @@ resources:
             databricks_api_token_plaintext: '- The Databricks API token that corresponds to a user or service principal with Can Query access to the model serving endpoint pointed to by this external model provided as a plaintext string.'
             databricks_model_serving_config: '- Databricks Model Serving Config'
             databricks_workspace_url: '- The URL of the Databricks workspace containing the model serving endpoint pointed to by this external model.'
+            description: '- (Optional) The description of the model serving endpoint.'
             enabled: '-  Whether to enable traffic fallback. When a served entity in the serving endpoint returns specific error codes (e.g. 500), the request will automatically be round-robin attempted with other served entities in the same endpoint, following the order of served entity list, until a successful response is returned.'
             google_cloud_vertex_ai_config: '- Google Cloud Vertex AI Config.'
             id: '- Equal to the name argument and used to identify the serving endpoint.'
             input: '- A block with configuration for input guardrail filters:'
             instance_profile_arn: '- Optional ARN of the instance profile that the external model will use to access AWS resources. You must authenticate using an instance profile or access keys.'
-            invalid_keywords: '- List of invalid keywords. AI guardrail uses keyword or string matching to decide if the keyword exists in the request or response content.'
+            invalid_keywords: '- (Deprecated) List of invalid keywords. AI guardrail uses keyword or string matching to decide if the keyword exists in the request or response content.'
             key: (Required) - The name of the API key parameter used for authentication.
             microsoft_entra_client_id: '- This field is only required for Azure AD OpenAI and is the Microsoft Entra Client ID.'
             microsoft_entra_client_secret: '- The Databricks secret key reference for a client secret used for Microsoft Entra ID authentication.'
@@ -3983,7 +4288,8 @@ resources:
             provider: '- (Required) The name of the provider for the external model. Currently, the supported providers are ai21labs, anthropic, amazon-bedrock, cohere, databricks-model-serving, google-cloud-vertex-ai, openai, and palm.'
             rate_limits: '- (Deprecated, use ai_gateway to manage rate limits) A list of rate limit blocks to be applied to the serving endpoint. Note: only external and foundation model endpoints are supported as of now.'
             rate_limits.calls: '- (Required) Used to specify how many calls are allowed for a key within the renewal_period.'
-            rate_limits.key: '- (Optional) Key field for a serving endpoint rate limit. Currently, only user and endpoint are supported, with endpoint being the default if not specified.'
+            rate_limits.key: '- (Optional) Key field for a serving endpoint rate limit. Currently, user, user_group, service_principal, and endpoint are supported, with endpoint being the default if not specified.'
+            rate_limits.principal: '- (Optional) Principal field for a user, user group, or service principal to apply rate limiting to. Accepts a user email, group name, or service principal application ID.'
             rate_limits.renewal_period: '- (Required) Renewal period field for a serving endpoint rate limit. Currently, only minute is supported.'
             region: '- This is the region for the Google Cloud Vertex AI Service.'
             route_optimized: '- (Optional) A boolean enabling route optimization for the endpoint. Note: only available for custom models.'
@@ -3994,11 +4300,13 @@ resources:
             served_entities.environment_vars: '- An object containing a set of optional, user-specified environment variable key-value pairs used for serving this entity. Note: this is an experimental feature and is subject to change. Example entity environment variables that refer to Databricks secrets: {"OPENAI_API_KEY": "{{secrets/my_scope/my_key}}", "DATABRICKS_TOKEN": "{{secrets/my_scope2/my_key2}}"}'
             served_entities.external_model: '- The external model to be served. NOTE: Only one of external_model and (entity_name, entity_version, workload_size, workload_type, and scale_to_zero_enabled) can be specified with the latter set being used for custom model serving for a Databricks registered model. When an external_model is present, the served entities list can only have one served_entity object. An existing endpoint with external_model can not be updated to an endpoint without external_model. If the endpoint is created without external_model, users cannot update it to add external_model later.'
             served_entities.instance_profile_arn: '- ARN of the instance profile that the served entity uses to access AWS resources.'
-            served_entities.max_provisioned_throughput: '-  The maximum tokens per second that the endpoint can scale up to.'
+            served_entities.max_provisioned_concurrency: '- The maximum provisioned concurrency that the endpoint can scale up to. Conflicts with workload_size.'
+            served_entities.max_provisioned_throughput: '- The maximum tokens per second that the endpoint can scale up to.'
+            served_entities.min_provisioned_concurrency: '- The minimum provisioned concurrency that the endpoint can scale down to. Conflicts with workload_size.'
             served_entities.min_provisioned_throughput: '- The minimum tokens per second that the endpoint can scale down to.'
             served_entities.name: '- The name of a served entity. It must be unique across an endpoint. A served entity name can consist of alphanumeric characters, dashes, and underscores. If not specified for an external model, this field defaults to external_model.name, with ''.'' and '':'' replaced with ''-'', and if not specified for other entities, it defaults to -.'
             served_entities.scale_to_zero_enabled: '- Whether the compute resources for the served entity should scale down to zero.'
-            served_entities.workload_size: '- The workload size of the served entity. The workload size corresponds to a range of provisioned concurrency that the compute autoscales between. A single unit of provisioned concurrency can process one request at a time. Valid workload sizes are Small (4 - 4 provisioned concurrency), Medium (8 - 16 provisioned concurrency), and Large (16 - 64 provisioned concurrency). If scale-to-zero is enabled, the lower bound of the provisioned concurrency for each workload size is 0.'
+            served_entities.workload_size: '- The workload size of the served entity. The workload size corresponds to a range of provisioned concurrency that the compute autoscales between. A single unit of provisioned concurrency can process one request at a time. Valid workload sizes are Small (4 - 4 provisioned concurrency), Medium (8 - 16 provisioned concurrency), and Large (16 - 64 provisioned concurrency). If scale-to-zero is enabled, the lower bound of the provisioned concurrency for each workload size is 0. Conflicts with min_provisioned_concurrency and max_provisioned_concurrency.'
             served_entities.workload_type: '- The workload type of the served entity. The workload type selects which type of compute to use in the endpoint. The default value for this parameter is CPU. For deep learning workloads, GPU acceleration is available by selecting workload types like GPU_SMALL and others. See the available GPU types.'
             served_entity_name: '- (Required) The name of the served entity this route configures traffic for. This needs to match the name of a served_entity block.'
             served_models: '- (Deprecated, use served_entities instead) Each block represents a served model for the endpoint to serve. A model serving endpoint can have up to 10 served models.'
@@ -4020,7 +4328,7 @@ resources:
             traffic_config: '- A single block represents the traffic split configuration amongst the served models.'
             traffic_config.routes: '- (Required) Each block represents a route that defines traffic to each served entity. Each served_entity block needs to have a corresponding routes block.'
             traffic_percentage: '- (Required) The percentage of endpoint traffic to send to this route. It must be an integer between 0 and 100 inclusive.'
-            valid_topics: '- The list of allowed topics. Given a chat request, this guardrail flags the request if its topic is not in the allowed topics.'
+            valid_topics: '- (Deprecated) The list of allowed topics. Given a chat request, this guardrail flags the request if its topic is not in the allowed topics.'
             value: (Optional) - The Databricks secret key reference for an API Key.
             value_plaintext: (Optional) - The API Key provided as a plaintext string.
         importStatements: []
@@ -4710,9 +5018,70 @@ resources:
                       "provider": "${databricks.account}",
                       "region": "${var.region}"
                     }
+            - name: slb
+              manifest: |-
+                {
+                  "domain_names": [
+                    "my-example.exampledomain.com"
+                  ],
+                  "network_connectivity_config_id": "${databricks_mws_network_connectivity_config.ncc.network_connectivity_config_id}",
+                  "provider": "${databricks.account}",
+                  "resource_id": "/subscriptions/653bb673-1234-abcd-a90b-d064d5d53ca4/resourcegroups/example-resource-group/providers/Microsoft.Network/privatelinkServices/example-private-link-service"
+                }
+              references:
+                network_connectivity_config_id: databricks_mws_network_connectivity_config.ncc.network_connectivity_config_id
+                provider: databricks.account
+              dependencies:
+                databricks_mws_network_connectivity_config.ncc: |-
+                    {
+                      "name": "ncc-for-${var.prefix}",
+                      "provider": "${databricks.account}",
+                      "region": "${var.region}"
+                    }
+            - name: storage
+              manifest: |-
+                {
+                  "endpoint_service": "com.amazonaws.us-east-1.s3",
+                  "network_connectivity_config_id": "${databricks_mws_network_connectivity_config.ncc.network_connectivity_config_id}",
+                  "provider": "${databricks.account}",
+                  "resource_names": [
+                    "bucket"
+                  ]
+                }
+              references:
+                network_connectivity_config_id: databricks_mws_network_connectivity_config.ncc.network_connectivity_config_id
+                provider: databricks.account
+              dependencies:
+                databricks_mws_network_connectivity_config.ncc: |-
+                    {
+                      "name": "ncc-for-${var.prefix}",
+                      "provider": "${databricks.account}",
+                      "region": "${var.region}"
+                    }
+            - name: vpce
+              manifest: |-
+                {
+                  "domain_names": [
+                    "subdomain.internal.net"
+                  ],
+                  "endpoint_service": "com.amazonaws.vpce.us-west-2.vpce-svc-xyz",
+                  "network_connectivity_config_id": "${databricks_mws_network_connectivity_config.ncc.network_connectivity_config_id}",
+                  "provider": "${databricks.account}"
+                }
+              references:
+                network_connectivity_config_id: databricks_mws_network_connectivity_config.ncc.network_connectivity_config_id
+                provider: databricks.account
+              dependencies:
+                databricks_mws_network_connectivity_config.ncc: |-
+                    {
+                      "name": "ncc-for-${var.prefix}",
+                      "provider": "${databricks.account}",
+                      "region": "${var.region}"
+                    }
         argumentDocs:
             DISCONNECTED: ': Connection was removed by the private link resource owner, the private endpoint becomes informative and should be deleted for clean-up.'
             ESTABLISHED: ': The endpoint has been approved and is ready to be used in your serverless compute resources.'
+            EXPIRED: ': If the endpoint was created but not approved in 14 days, it will be EXPIRED.'
             PENDING: ': The endpoint has been created and pending approval.'
             REJECTED: ': Connection was rejected by the private link resource owner.'
             connection_state: |-
@@ -4721,12 +5090,17 @@ resources:
             creation_time: '- Time in epoch milliseconds when this object was created.'
             deactivated: '- Whether this private endpoint is deactivated.'
             deactivated_at: '- Time in epoch milliseconds when this object was deactivated.'
+            domain_names: ""
+            enabled: '- (AWS only) Activation status. Only used by private endpoints towards an AWS S3 service. Update this field to activate/deactivate this private endpoint to allow egress access from serverless compute resources. Can only be updated after a private endpoint rule towards an AWS S3 service is successfully created.'
             endpoint_name: '- The name of the Azure private endpoint resource, e.g. "databricks-088781b3-77fa-4132-b429-1af0d91bc593-pe-3cb31234"'
-            group_id: '- The sub-resource type (group ID) of the target resource. Must be one of supported resource types (i.e., blob, dfs, sqlServer , etc. Consult the Azure documentation for full list of supported resources). Note that to connect to workspace root storage (root DBFS), you need two endpoints, one for blob and one for dfs. Change forces creation of a new resource.'
+            endpoint_service: '- (AWS only) Example com.amazonaws.vpce.us-east-1.vpce-svc-123abcc1298abc123. The full target AWS endpoint service name that connects to the destination resources of the private endpoint.'
+            group_id: '- (Azure only) Not used by customer-managed private endpoint services. The sub-resource type (group ID) of the target resource. Must be one of supported resource types (i.e., blob, dfs, sqlServer , etc. Consult the Azure documentation for full list of supported resources). Note that to connect to workspace root storage (root DBFS), you need two endpoints, one for blob and one for dfs. Change forces creation of a new resource. Conflicts with domain_names.'
             network_connectivity_config_id: '- Canonical unique identifier of Network Connectivity Config in Databricks Account. Change forces creation of a new resource.'
-            resource_id: '- The Azure resource ID of the target resource. Change forces creation of a new resource.'
+            resource_id: '- (Azure only) The Azure resource ID of the target resource. Change forces creation of a new resource.'
+            resource_names: .
             rule_id: '- the ID of a private endpoint rule.'
             updated_time: '- Time in epoch milliseconds when this object was updated.'
+            vpc_endpoint_id: '- The AWS VPC endpoint ID. You can use this ID to identify the VPC endpoint created by Databricks.'
         importStatements: []
     databricks_mws_network_connectivity_config:
         subCategory: ""
@@ -4751,20 +5125,23 @@ resources:
                       "workspace_id": "${var.databricks_workspace_id}"
                     }
         argumentDocs:
+            aws_private_endpoint_rules: (AWS only) - list containing information about configure AWS Private Endpoints.
             aws_stable_ip_rule: '(AWS only) - block with information about stable AWS IP CIDR blocks. You can use these to configure the firewall of your resources to allow traffic from your Databricks workspace.  Consists of the following fields:'
             azure_private_endpoint_rules: (Azure only) - list containing information about configure Azure Private Endpoints.
             azure_service_endpoint_rule: '(Azure only) - block with information about stable Azure service endpoints. You can configure the firewall of your Azure resources to allow traffic from your Databricks serverless compute resources.  Consists of the following fields:'
             cidr_blocks: '- list of IP CIDR blocks.'
+            creation_time: '- time in epoch milliseconds when this object was created.'
             default_rules: '- block describing network connectivity rules that are applied by default without resource specific configurations.  Consists of the following fields:'
-            egress_conf: '- block containing information about network connectivity rules that apply to network traffic from your serverless compute resources. Consists of the following fields:'
+            egress_config: '- block containing information about network connectivity rules that apply to network traffic from your serverless compute resources. Consists of the following fields:'
             id: '- combination of account_id and network_connectivity_config_id separated by / character'
-            name: '- Name of Network Connectivity Config in Databricks Account. Change forces creation of a new resource.'
+            name: '- Name of the network connectivity configuration. The name can contain alphanumeric characters, hyphens, and underscores. The length must be between 3 and 30 characters. The name must match the regular expression ^[0-9a-zA-Z-_]{3,30}$. Change forces creation of a new resource.'
             network_connectivity_config_id: '- Canonical unique identifier of Network Connectivity Config in Databricks Account'
             region: '- Region of the Network Connectivity Config. NCCs can only be referenced by your workspaces in the same region. Change forces creation of a new resource.'
             subnets: '- list of subnets from which Databricks network traffic originates when accessing your Azure resources.'
             target_region: '- the Azure region in which this service endpoint rule applies.'
             target_rules: '- block describing network connectivity rules that configured for each destinations. These rules override default rules.  Consists of the following fields:'
             target_services: '- the Azure services to which this service endpoint rule applies to.'
+            updated_time: '- time in epoch milliseconds when this object was updated.'
         importStatements: []
     databricks_mws_networks:
         subCategory: ""
@@ -5160,9 +5537,6 @@ resources:
                   "network_id": "${databricks_mws_networks.this.network_id}",
                   "provider": "${databricks.mws}",
                   "storage_configuration_id": "${databricks_mws_storage_configurations.this.storage_configuration_id}",
-                  "token": [
-                    {}
-                  ],
                   "workspace_name": "${var.prefix}"
                 }
               references:
@@ -5210,9 +5584,6 @@ resources:
                   },
                   "provider": "${databricks.mws}",
                   "storage_configuration_id": "${databricks_mws_storage_configurations.this.storage_configuration_id}",
-                  "token": [
-                    {}
-                  ],
                   "workspace_name": "${local.prefix}"
                 }
               references:
@@ -5317,9 +5688,6 @@ resources:
                   ],
                   "location": "${var.subnet_region}",
                   "network_id": "${databricks_mws_networks.this.network_id}",
-                  "token": [
-                    {}
-                  ],
                   "workspace_name": "${var.prefix}"
                 }
               references:
@@ -5359,9 +5727,6 @@ resources:
                   ],
                   "location": "${data.google_client_config.current.region}",
                   "provider": "${databricks.accounts}",
-                  "token": [
-                    {}
-                  ],
                   "workspace_name": "${var.prefix}"
                 }
               references:
@@ -5588,6 +5953,18 @@ resources:
             id: '- Canonical unique identifier for the token.'
             lifetime_seconds: '- (Integer, Optional) The number of seconds before the token expires. Token resource is re-created when it expires. If no lifetime is specified, the token remains valid indefinitely.'
             token_value: '- Sensitive value of the newly-created token.'
+        importStatements: []
+    databricks_online_store Resource:
+        subCategory: ""
+        name: databricks_online_store Resource
+        title: databricks_online_store Resource
+        argumentDocs:
+            capacity: (string, required) - The capacity of the online store. Valid values are "CU_1", "CU_2", "CU_4", "CU_8"
+            creation_time: (string) - The timestamp when the online store was created
+            creator: (string) - The email of the creator of the online store
+            name: (string, required) - The name of the online store. This is the unique identifier for the online store
+            read_replica_count: (integer, optional) - The number of read replicas for the online store. Defaults to 0
+            state: '(string) - The current state of the online store. Possible values are: AVAILABLE, DELETING, FAILING_OVER, STARTING, STOPPED, UPDATING'
         importStatements: []
     databricks_online_table:
         subCategory: ""
@@ -5857,7 +6234,7 @@ resources:
                     {
                       "display_name": "main"
                     }
-            - name: dlt_usage
+            - name: ldp_usage
               manifest: |-
                 {
                   "access_control": [
@@ -5880,11 +6257,11 @@ resources:
                     {
                       "display_name": "Engineering"
                     }
-                databricks_notebook.dlt_demo: |-
+                databricks_notebook.ldp_demo: |-
                     {
                       "content_base64": "${base64encode(\u003c\u003c-EOT\n    import dlt\n    json_path = \"/databricks-datasets/wikipedia-datasets/data-001/clickstream/raw-uncompressed-json/2015_2_clickstream.json\"\n    @dlt.table(\n       comment=\"The raw wikipedia clickstream dataset, ingested from /databricks-datasets.\"\n    )\n    def clickstream_raw():\n        return (spark.read.format(\"json\").load(json_path))\n    EOT\n  )}",
                       "language": "PYTHON",
-                      "path": "${data.databricks_current_user.me.home}/DLT_Demo"
+                      "path": "${data.databricks_current_user.me.home}/ldp_demo"
                     }
                 databricks_pipeline.this: |-
                     {
@@ -5907,12 +6284,12 @@ resources:
                         {
                           "notebook": [
                             {
-                              "path": "${databricks_notebook.dlt_demo.id}"
+                              "path": "${databricks_notebook.ldp_demo.id}"
                             }
                           ]
                         }
                       ],
-                      "name": "DLT Demo Pipeline (${data.databricks_current_user.me.alphanumeric})",
+                      "name": "LDP Demo Pipeline (${data.databricks_current_user.me.alphanumeric})",
                       "storage": "/test/tf-pipeline"
                     }
             - name: notebook_usage_by_path
@@ -6484,6 +6861,32 @@ resources:
                     {
                       "display_name": "Engineering"
                     }
+            - name: app_usage
+              manifest: |-
+                {
+                  "access_control": [
+                    {
+                      "group_name": "${databricks_group.auto.display_name}",
+                      "permission_level": "CAN_RUN"
+                    },
+                    {
+                      "group_name": "${databricks_group.eng.display_name}",
+                      "permission_level": "CAN_EDIT"
+                    }
+                  ],
+                  "alert_v2_id": "12345"
+                }
+              references:
+                access_control.group_name: databricks_group.eng.display_name
+              dependencies:
+                databricks_group.auto: |-
+                    {
+                      "display_name": "Automation"
+                    }
+                databricks_group.eng: |-
+                    {
+                      "display_name": "Engineering"
+                    }
             - name: alert_usage
               manifest: |-
                 {
@@ -6524,6 +6927,28 @@ resources:
                     }
                   ],
                   "app_name": "myapp"
+                }
+              references:
+                access_control.group_name: databricks_group.eng.display_name
+              dependencies:
+                databricks_group.eng: |-
+                    {
+                      "display_name": "Engineering"
+                    }
+            - name: app_usage
+              manifest: |-
+                {
+                  "access_control": [
+                    {
+                      "group_name": "users",
+                      "permission_level": "CAN_USE"
+                    },
+                    {
+                      "group_name": "${databricks_group.eng.display_name}",
+                      "permission_level": "CAN_MANAGE"
+                    }
+                  ],
+                  "database_instance_name": "my_database"
                 }
               references:
                 access_control.group_name: databricks_group.eng.display_name
@@ -6615,21 +7040,21 @@ resources:
                     {
                       "notebook": [
                         {
-                          "path": "${databricks_notebook.dlt_demo.id}"
+                          "path": "${databricks_notebook.ldp_demo.id}"
                         }
                       ]
                     },
                     {
                       "file": [
                         {
-                          "path": "${databricks_repo.dlt_demo.path}/pipeline.sql"
+                          "path": "${databricks_repo.ldp_demo.path}/pipeline.sql"
                         }
                       ]
                     },
                     {
                       "glob": [
                         {
-                          "include": "${databricks_repo.dlt_demo.path}/subfolder/**"
+                          "include": "${databricks_repo.ldp_demo.path}/subfolder/**"
                         }
                       ]
                     }
@@ -6652,17 +7077,17 @@ resources:
                   "storage": "/test/first-pipeline"
                 }
               references:
-                library.notebook.path: databricks_notebook.dlt_demo.id
+                library.notebook.path: databricks_notebook.ldp_demo.id
               dependencies:
-                databricks_notebook.dlt_demo: '{}'
-                databricks_repo.dlt_demo: '{}'
+                databricks_notebook.ldp_demo: '{}'
+                databricks_repo.ldp_demo: '{}'
         argumentDocs:
             alerts: (Required) non-empty list of alert types. Right now following alert types are supported, consult documentation for actual list
             allow_duplicate_names: '- Optional boolean flag. If false, deployment will fail if name conflicts with that of another pipeline. default is false.'
-            budget_policy_id: '- optional string specifying ID of the budget policy for this DLT pipeline.'
+            budget_policy_id: '- optional string specifying ID of the budget policy for this Lakeflow Declarative Pipeline.'
             catalog: '- The name of catalog in Unity Catalog. Change of this parameter forces recreation of the pipeline. (Conflicts with storage).'
-            channel: '- optional name of the release channel for Spark version used by DLT pipeline.  Supported values are: CURRENT (default) and PREVIEW.'
-            cluster: blocks - Clusters to run the pipeline. If none is specified, pipelines will automatically select a default cluster configuration for the pipeline. Please note that DLT pipeline clusters are supporting only subset of attributes as described in   Also, note that autoscale block is extended with the mode parameter that controls the autoscaling algorithm (possible values are ENHANCED for new, enhanced autoscaling algorithm, or LEGACY for old algorithm).
+            channel: '- optional name of the release channel for Spark version used by Lakeflow Declarative Pipeline.  Supported values are: CURRENT (default) and PREVIEW.'
+            cluster: blocks - Clusters to run the pipeline. If none is specified, pipelines will automatically select a default cluster configuration for the pipeline. Please note that Lakeflow Declarative Pipeline clusters are supporting only subset of attributes as described in   Also, note that autoscale block is extended with the mode parameter that controls the autoscaling algorithm (possible values are ENHANCED for new, enhanced autoscaling algorithm, or LEGACY for old algorithm).
             configuration: '- An optional list of values to apply to the entire pipeline. Elements must be formatted as key:value pairs.'
             connection_id: '- Immutable. The Unity Catalog connection this gateway pipeline uses to communicate with the source.'
             continuous: '- A flag indicating whether to run the pipeline continuously. The default value is false.'
@@ -6670,16 +7095,16 @@ resources:
             development: '- A flag indicating whether to run the pipeline in development mode. The default value is false.'
             edition: '- optional name of the product edition. Supported values are: CORE, PRO, ADVANCED (default).  Not required when serverless is set to true.'
             email_recipients: (Required) non-empty list of emails to notify.
-            event_log: '- an optional block specifying a table where DLT Event Log will be stored.  Consists of the following fields:'
+            event_log: '- an optional block specifying a table where LDP Event Log will be stored.  Consists of the following fields:'
             exclude: '- Paths to exclude.'
             file: '- specifies path to a file in Databricks Workspace to include as source. Actual path is specified as path attribute inside the block.'
             filters: '- Filters on which Pipeline packages to include in the deployed graph.  This block consists of following attributes:'
             gateway_definition: '- The definition of a gateway pipeline to support CDC. Consists of following attributes:'
             gateway_storage_catalog: '- Required, Immutable. The name of the catalog for the gateway pipeline''s storage location.'
-            gateway_storage_name: '- Required. The Unity Catalog-compatible naming for the gateway storage location. This is the destination to use for the data that is extracted by the gateway. Delta Live Tables system will automatically create the storage location under the catalog and schema.'
+            gateway_storage_name: '- Required. The Unity Catalog-compatible naming for the gateway storage location. This is the destination to use for the data that is extracted by the gateway. Lakeflow Declarative Pipelines system will automatically create the storage location under the catalog and schema.'
             gateway_storage_schema: '- Required, Immutable. The name of the schema for the gateway pipelines''s storage location.'
             glob: '- The unified field to include source code. Each entry should have the include attribute that can specify a notebook path, a file path, or a folder path that ends /** (to include everything from that folder). This field cannot be used together with notebook or file.'
-            id: '- Canonical unique identifier of the DLT pipeline.'
+            id: '- Canonical unique identifier of the Lakeflow Declarative Pipeline.'
             include: '- Paths to include.'
             kind: '- The deployment method that manages the pipeline.'
             library: blocks - Specifies pipeline code.
@@ -6697,10 +7122,11 @@ resources:
             photon: '- A flag indicating whether to use Photon engine. The default value is false.'
             root_path: '- An optional string specifying the root path for this pipeline. This is used as the root directory when editing the pipeline in the Databricks user interface and it is added to sys.path when executing Python sources during pipeline execution.'
             schema: '- (Optional, String, Conflicts with target) The default schema (database) where tables are read from or published to. The presence of this attribute implies that the pipeline is in direct publishing mode.'
-            serverless: '- An optional flag indicating if serverless compute should be used for this DLT pipeline.  Requires catalog to be set, as it could be used only with Unity Catalog.'
+            serverless: '- An optional flag indicating if serverless compute should be used for this Lakeflow Declarative Pipeline.  Requires catalog to be set, as it could be used only with Unity Catalog.'
             storage: '- A location on DBFS or cloud storage where output data and metadata required for pipeline execution are stored. By default, tables are stored in a subdirectory of this location. Change of this parameter forces recreation of the pipeline. (Conflicts with catalog).'
+            tags: '- (Optional, map of strings) A map of tags associated with the pipeline. These are forwarded to the cluster as cluster tags, and are therefore subject to the same limitations. A maximum of 25 tags can be added to the pipeline.'
             target: '- (Optional, String, Conflicts with schema) The name of a database (in either the Hive metastore or in a UC catalog) for persisting pipeline output data. Configuring the target setting allows you to view and query the pipeline output data from the Databricks UI.'
-            url: '- URL of the DLT pipeline on the given workspace.'
+            url: '- URL of the Lakeflow Declarative Pipeline on the given workspace.'
         importStatements: []
     databricks_provider:
         subCategory: ""
@@ -6841,6 +7267,32 @@ resources:
             timezone_id: '- string with timezone id (e.g., PST) in which to evaluate the Quartz expression.'
             type: '- The type of the custom metric.'
             warehouse_id: '- Optional argument to specify the warehouse for dashboard creation. If not specified, the first running warehouse will be used.  (Can''t be updated after creation)'
+        importStatements: []
+    databricks_quality_monitor_v2:
+        subCategory: ""
+        name: databricks_quality_monitor_v2
+        title: databricks_quality_monitor_v2 Resource
+        examples:
+            - name: this
+              manifest: |-
+                {
+                  "object_id": "${databricks_schema.this.schema_id}",
+                  "object_type": "schema"
+                }
+              references:
+                object_id: databricks_schema.this.schema_id
+              dependencies:
+                databricks_schema.this: |-
+                    {
+                      "catalog_name": "my_catalog",
+                      "name": "my_schema"
+                    }
+        argumentDocs:
+            anomaly_detection_config: (AnomalyDetectionConfig) -
+            last_run_id: (string) - Run id of the last run of the workflow
+            latest_run_status: '(string) - The status of the last run of the workflow. Possible values are: ANOMALY_DETECTION_RUN_STATUS_CANCELED, ANOMALY_DETECTION_RUN_STATUS_FAILED, ANOMALY_DETECTION_RUN_STATUS_JOB_DELETED, ANOMALY_DETECTION_RUN_STATUS_PENDING, ANOMALY_DETECTION_RUN_STATUS_RUNNING, ANOMALY_DETECTION_RUN_STATUS_SUCCESS, ANOMALY_DETECTION_RUN_STATUS_UNKNOWN, ANOMALY_DETECTION_RUN_STATUS_WORKSPACE_MISMATCH_ERROR'
+            object_id: (string, required) - The uuid of the request object. For example, schema id
+            object_type: '(string, required) - The type of the monitored object. Can be one of the following: schema'
         importStatements: []
     databricks_query:
         subCategory: ""
@@ -7130,6 +7582,7 @@ resources:
             name: '- Name of Schema relative to parent catalog. Change forces creation of a new resource.'
             owner: '- (Optional) Username/groupname/sp application_id of the schema owner.'
             properties: '- (Optional) Extensible Schema properties.'
+            schema_id: '- The unique identifier of the schema.'
             storage_root: '- (Optional) Managed location of the schema. Location in cloud storage where data for managed tables will be stored. If not specified, the location will default to the catalog root location. Change forces creation of a new resource.'
         importStatements: []
     databricks_secret:
@@ -7319,7 +7772,7 @@ resources:
             id: '- Canonical unique identifier for the service principal (SCIM ID).'
             repos: '- Personal Repos location of the service principal, e.g. /Repos/00000000-0000-0000-0000-000000000000.'
             workspace_access: '- (Optional) This is a field to allow the service principal to have access to a Databricks Workspace.'
-            workspace_consume: '- (Optional) This is a field to allow the service principal to have access to a Databricks Workspace as consumer, with limited access to workspace UI.'
+            workspace_consume: '- (Optional) This is a field to allow the service principal to have access to a Databricks Workspace as consumer, with limited access to workspace UI.  Couldn''t be used with workspace_access or databricks_sql_access.'
         importStatements: []
     databricks_service_principal_role:
         subCategory: ""
@@ -7344,9 +7797,22 @@ resources:
                     {
                       "display_name": "My Service Principal"
                     }
+            - name: tf_admin_account
+              manifest: |-
+                {
+                  "role": "account_admin",
+                  "service_principal_id": "${databricks_service_principal.tf_admin.id}"
+                }
+              references:
+                service_principal_id: databricks_service_principal.tf_admin.id
+              dependencies:
+                databricks_service_principal.tf_admin: |-
+                    {
+                      "display_name": "Terraform Admin"
+                    }
         argumentDocs:
             id: '- The id in the format <service_principal_id>|<role>.'
-            role: '-  (Required) This is the id of the role or instance profile resource.'
+            role: '-  (Required) This is the role name, role id, or instance profile resource.'
             service_principal_id: '- (Required) This is the id of the service principal resource.'
         importStatements: []
     databricks_service_principal_secret:
@@ -7361,15 +7827,29 @@ resources:
                 }
               references:
                 service_principal_id: databricks_service_principal.this.id
+            - name: terraform_sp
+              manifest: |-
+                {
+                  "service_principal_id": "${databricks_service_principal.this.id}",
+                  "time_rotating": "Terraform (created: ${time_rotating.this.rfc3339})"
+                }
+              references:
+                service_principal_id: databricks_service_principal.this.id
+              dependencies:
+                time_rotating.this: |-
+                    {
+                      "rotation_days": 30
+                    }
         argumentDocs:
             create_time: '- UTC time when the secret was created.'
             expire_time: '- UTC time when the secret will expire. If the field is not present, the secret does not expire.'
             id: '- ID of the secret'
             lifetime: (Optional, string) - The lifetime of the secret in seconds formatted as NNNNs. If this parameter is not provided, the secret will have a default lifetime of 730 days (63072000s).  Expiration of secret will lead to generation of new secret.
-            secret: '- Generated secret for the service principal.'
+            secret: '- Sensitive Generated secret for the service principal.'
             secret_hash: '- Secret Hash.'
             service_principal_id: (Required, string) - SCIM ID of the databricks_service_principal (not application ID).
             status: '- Status of the secret (i.e., ACTIVE - see REST API docs for full list).'
+            time_rotating: '- (Optional, string) - Changing this argument forces recreation of the secret.'
             update_time: '- UTC time when the secret was updated.'
         importStatements: []
     databricks_share:
@@ -7569,7 +8049,7 @@ resources:
             databricks_sql_access: on databricks_group or databricks_user.
             enable_photon: '- Whether to enable Photon. This field is optional and is enabled by default.'
             enable_serverless_compute: '- Whether this SQL warehouse is a serverless endpoint. See below for details about the default values. To avoid ambiguity, especially for organizations with many workspaces, Databricks recommends that you always set this field explicitly.'
-            "false": for most workspaces. However, if this workspace used the SQL Warehouses API to create a warehouse between September 1, 2022 and April 30, 2023, the default remains the previous behavior which is default to true if the workspace is enabled for serverless and fits the requirements for serverless SQL warehouses. If your account needs updated terms of use, workspace admins are prompted in the Databricks SQL UI. A workspace must meet the requirements and might require an update to its instance profile role to add a trust relationship.
+            "false": for most workspaces. However, if this workspace used the SQL Warehouses API to create a warehouse between September 1, 2022 and April 30, 2023 (between November 1, 2022 and May 19, 2023 for Azure), the default remains the previous behavior which is default to true if the workspace is enabled for serverless and fits the requirements for serverless SQL warehouses. If your account needs updated terms of use, workspace admins are prompted in the Databricks SQL UI. A workspace must meet the requirements.
             health: '- Health status of the endpoint.'
             id: '- the unique ID of the SQL warehouse.'
             jdbc_url: '- JDBC connection string.'
@@ -8275,7 +8755,7 @@ resources:
             repos: '- Personal Repos location of the user, e.g. /Repos/mr.foo@example.com.'
             user_name: '- (Required) This is the username of the given user and will be their form of access and identity.  Provided username will be converted to lower case if it contains upper case characters.'
             workspace_access: '- (Optional) This is a field to allow the user to have access to a Databricks Workspace.'
-            workspace_consume: '- (Optional) This is a field to allow the user to have access to a Databricks Workspace as consumer, with limited access to workspace UI.'
+            workspace_consume: '- (Optional) This is a field to allow the user to have access to a Databricks Workspace as consumer, with limited access to workspace UI.  Couldn''t be used with workspace_access or databricks_sql_access.'
         importStatements: []
     databricks_user_instance_profile:
         subCategory: ""
@@ -8570,10 +9050,17 @@ resources:
             url: '- Routable URL of the workspace file'
             workspace_path: '- path on Workspace File System (WSFS) in form of /Workspace + path'
         importStatements: []
-    databricks_workspace_network_option Resource:
+    databricks_workspace_network_option:
         subCategory: ""
-        name: databricks_workspace_network_option Resource
+        name: databricks_workspace_network_option
         title: databricks_workspace_network_option Resource
+        examples:
+            - name: example_workspace_network_option
+              manifest: |-
+                {
+                  "network_policy_id": "default-policy",
+                  "workspace_id": "9999999999999999"
+                }
         argumentDocs:
             network_policy_id: |-
                 (string, optional) - The network policy ID to apply to the workspace. This controls the network access rules

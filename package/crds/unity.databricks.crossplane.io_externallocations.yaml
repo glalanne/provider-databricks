@@ -84,20 +84,24 @@ spec:
                       this external location.  Requires file_event_queue block.
                     type: boolean
                   encryptionDetails:
-                    description: The options for Server-Side Encryption to be used
-                      by each Databricks s3 client when connecting to S3 cloud storage
-                      (AWS).
                     items:
                       properties:
                         sseEncryptionDetails:
-                          description: The options for Server-Side Encryption to be
-                            used by each Databricks s3 client when connecting to S3
-                            cloud storage (AWS).
+                          description: 'a block describing server-Side Encryption
+                            properties for clients communicating with AWS S3. Consists
+                            of the following attributes:'
                           items:
                             properties:
                               algorithm:
+                                description: Encryption algorithm value. Sets the
+                                  value of the x-amz-server-side-encryption header
+                                  in S3 request.
                                 type: string
                               awsKmsKeyArn:
+                                description: Optional ARN of the SSE-KMS key used
+                                  with the S3 location, when algorithm = "SSE-KMS".
+                                  Sets the value of the x-amz-server-side-encryption-aws-kms-key-id
+                                  header.
                                 type: string
                             type: object
                           type: array
@@ -244,20 +248,24 @@ spec:
                       this external location.  Requires file_event_queue block.
                     type: boolean
                   encryptionDetails:
-                    description: The options for Server-Side Encryption to be used
-                      by each Databricks s3 client when connecting to S3 cloud storage
-                      (AWS).
                     items:
                       properties:
                         sseEncryptionDetails:
-                          description: The options for Server-Side Encryption to be
-                            used by each Databricks s3 client when connecting to S3
-                            cloud storage (AWS).
+                          description: 'a block describing server-Side Encryption
+                            properties for clients communicating with AWS S3. Consists
+                            of the following attributes:'
                           items:
                             properties:
                               algorithm:
+                                description: Encryption algorithm value. Sets the
+                                  value of the x-amz-server-side-encryption header
+                                  in S3 request.
                                 type: string
                               awsKmsKeyArn:
+                                description: Optional ARN of the SSE-KMS key used
+                                  with the S3 location, when algorithm = "SSE-KMS".
+                                  Sets the value of the x-amz-server-side-encryption-aws-kms-key-id
+                                  header.
                                 type: string
                             type: object
                           type: array
@@ -588,20 +596,24 @@ spec:
                       this external location.  Requires file_event_queue block.
                     type: boolean
                   encryptionDetails:
-                    description: The options for Server-Side Encryption to be used
-                      by each Databricks s3 client when connecting to S3 cloud storage
-                      (AWS).
                     items:
                       properties:
                         sseEncryptionDetails:
-                          description: The options for Server-Side Encryption to be
-                            used by each Databricks s3 client when connecting to S3
-                            cloud storage (AWS).
+                          description: 'a block describing server-Side Encryption
+                            properties for clients communicating with AWS S3. Consists
+                            of the following attributes:'
                           items:
                             properties:
                               algorithm:
+                                description: Encryption algorithm value. Sets the
+                                  value of the x-amz-server-side-encryption header
+                                  in S3 request.
                                 type: string
                               awsKmsKeyArn:
+                                description: Optional ARN of the SSE-KMS key used
+                                  with the S3 location, when algorithm = "SSE-KMS".
+                                  Sets the value of the x-amz-server-side-encryption-aws-kms-key-id
+                                  header.
                                 type: string
                             type: object
                           type: array
