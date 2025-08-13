@@ -4,6 +4,28 @@ metadata:
   annotations:
     meta.upbound.io/example-id: security/v1alpha1/permissions
   labels:
+    testing.upbound.io/example-name: job_grant
+  name: job-grant
+spec:
+  forProvider:
+    accessControl:
+    - groupName: ${databricks_group.auto.display_name}
+      permissionLevel: CAN_MANAGE
+    - groupName: ${databricks_group.eng.display_name}
+      permissionLevel: CAN_VIEW
+    - groupName: ${databricks_group.ds.display_name}
+      permissionLevel: CAN_MANAGE_RUN
+    jobIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: my_job
+
+---
+apiVersion: security.databricks.crossplane.io/v1alpha1
+kind: Permissions
+metadata:
+  annotations:
+    meta.upbound.io/example-id: security/v1alpha1/permissions
+  labels:
     testing.upbound.io/example-name: cluster_usage
   name: cluster-usage
 spec:

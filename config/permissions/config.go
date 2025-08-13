@@ -18,7 +18,7 @@ func Configure(p *config.Provider) {
 		r.References["instance_pool_id"] = config.Reference{
 			TerraformName: "databricks_instance_pool",
 		}
-		r.References["cluster_job_id"] = config.Reference{
+		r.References["job_id"] = config.Reference{
 			TerraformName: "databricks_job",
 		}
 		r.References["notebook_id"] = config.Reference{

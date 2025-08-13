@@ -145,7 +145,16 @@ type PermissionsInitParameters struct {
 	InstancePoolIDSelector *v1.Selector `json:"instancePoolIdSelector,omitempty" tf:"-"`
 
 	// job id
+	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/compute/v1alpha1.Job
 	JobID *string `json:"jobId,omitempty" tf:"job_id,omitempty"`
+
+	// Reference to a Job in compute to populate jobId.
+	// +kubebuilder:validation:Optional
+	JobIDRef *v1.Reference `json:"jobIdRef,omitempty" tf:"-"`
+
+	// Selector for a Job in compute to populate jobId.
+	// +kubebuilder:validation:Optional
+	JobIDSelector *v1.Selector `json:"jobIdSelector,omitempty" tf:"-"`
 
 	// ID of notebook within workspace
 	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/workspace/v1alpha1.Notebook
@@ -408,8 +417,17 @@ type PermissionsParameters struct {
 	InstancePoolIDSelector *v1.Selector `json:"instancePoolIdSelector,omitempty" tf:"-"`
 
 	// job id
+	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/compute/v1alpha1.Job
 	// +kubebuilder:validation:Optional
 	JobID *string `json:"jobId,omitempty" tf:"job_id,omitempty"`
+
+	// Reference to a Job in compute to populate jobId.
+	// +kubebuilder:validation:Optional
+	JobIDRef *v1.Reference `json:"jobIdRef,omitempty" tf:"-"`
+
+	// Selector for a Job in compute to populate jobId.
+	// +kubebuilder:validation:Optional
+	JobIDSelector *v1.Selector `json:"jobIdSelector,omitempty" tf:"-"`
 
 	// ID of notebook within workspace
 	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/workspace/v1alpha1.Notebook

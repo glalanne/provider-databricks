@@ -2528,6 +2528,16 @@ func (in *PermissionsInitParameters) DeepCopyInto(out *PermissionsInitParameters
 		*out = new(string)
 		**out = **in
 	}
+	if in.JobIDRef != nil {
+		in, out := &in.JobIDRef, &out.JobIDRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.JobIDSelector != nil {
+		in, out := &in.JobIDSelector, &out.JobIDSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.NotebookID != nil {
 		in, out := &in.NotebookID, &out.NotebookID
 		*out = new(string)
@@ -2968,6 +2978,16 @@ func (in *PermissionsParameters) DeepCopyInto(out *PermissionsParameters) {
 		in, out := &in.JobID, &out.JobID
 		*out = new(string)
 		**out = **in
+	}
+	if in.JobIDRef != nil {
+		in, out := &in.JobIDRef, &out.JobIDRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.JobIDSelector != nil {
+		in, out := &in.JobIDSelector, &out.JobIDSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.NotebookID != nil {
 		in, out := &in.NotebookID, &out.NotebookID
