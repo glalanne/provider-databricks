@@ -133,6 +133,22 @@ func (mg *Permissions) ResolveReferences(ctx context.Context, c client.Reader) e
 	mg.Spec.ForProvider.InstancePoolIDRef = rsp.ResolvedReference
 
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
+		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.JobID),
+		Extract:      reference.ExternalName(),
+		Reference:    mg.Spec.ForProvider.JobIDRef,
+		Selector:     mg.Spec.ForProvider.JobIDSelector,
+		To: reference.To{
+			List:    &v1alpha1.JobList{},
+			Managed: &v1alpha1.Job{},
+		},
+	})
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.ForProvider.JobID")
+	}
+	mg.Spec.ForProvider.JobID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.ForProvider.JobIDRef = rsp.ResolvedReference
+
+	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.NotebookID),
 		Extract:      reference.ExternalName(),
 		Reference:    mg.Spec.ForProvider.NotebookIDRef,
@@ -293,6 +309,22 @@ func (mg *Permissions) ResolveReferences(ctx context.Context, c client.Reader) e
 	}
 	mg.Spec.InitProvider.InstancePoolID = reference.ToPtrValue(rsp.ResolvedValue)
 	mg.Spec.InitProvider.InstancePoolIDRef = rsp.ResolvedReference
+
+	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
+		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.JobID),
+		Extract:      reference.ExternalName(),
+		Reference:    mg.Spec.InitProvider.JobIDRef,
+		Selector:     mg.Spec.InitProvider.JobIDSelector,
+		To: reference.To{
+			List:    &v1alpha1.JobList{},
+			Managed: &v1alpha1.Job{},
+		},
+	})
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.InitProvider.JobID")
+	}
+	mg.Spec.InitProvider.JobID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.InitProvider.JobIDRef = rsp.ResolvedReference
 
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.NotebookID),
