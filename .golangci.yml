@@ -11,7 +11,6 @@ output:
   formats:
     - format: colored-line-number
   print-linter-name: true
-  show-stats: true
 
 linters-settings:
   errcheck:
@@ -28,9 +27,6 @@ linters-settings:
       - io/ioutil.ReadDir
       - io/ioutil.ReadAll
 
-  govet:
-    # report about shadowed variables
-    check-shadowing: false
 
   revive:
     # confidence for issues, default is 0.8
@@ -43,7 +39,7 @@ linters-settings:
   goimports:
     # put imports beginning with prefix after 3rd-party packages;
     # it's a comma-separated list of prefixes
-    local-prefixes: github.com/glalanne/provider-databricks
+    local-prefixes: github.com/upbound/provider-azure
 
   gocyclo:
     # minimal code complexity to report, 30 by default (but we recommend 10-20)
@@ -112,6 +108,7 @@ linters:
     - unused
     - misspell
     - nakedret
+    - shadow
 
   presets:
     - bugs
@@ -119,8 +116,15 @@ linters:
   fast: false
 
 issues:
+  exclude-files:
+    - "zz_.*go$"
   # Excluding configuration per-path and per-linter
   exclude-rules:
+    # some group names we have (like "hdinsight") make this linter
+    # unhappy, so just disable the "misspell" linter on generated files.
+    - path: zz_.+\.go$
+      linters:
+        - misspell
     # Exclude some linters from running on tests files.
     - path: _test(ing)?\.go
       linters:

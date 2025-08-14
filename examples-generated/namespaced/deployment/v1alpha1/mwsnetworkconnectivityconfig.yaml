@@ -1,0 +1,31 @@
+apiVersion: deployment.databricks.m.crossplane.io/v1alpha1
+kind: MwsNetworkConnectivityConfig
+metadata:
+  annotations:
+    meta.upbound.io/example-id: deployment/v1alpha1/mwsnetworkconnectivityconfig
+  labels:
+    testing.upbound.io/example-name: ncc
+  name: ncc
+  namespace: upbound-system
+spec:
+  forProvider:
+    name: ncc-for-${var.prefix}
+    provider: ${databricks.account}
+    region: ${var.region}
+
+---
+
+apiVersion: deployment.databricks.m.crossplane.io/v1alpha1
+kind: MwsNccBinding
+metadata:
+  annotations:
+    meta.upbound.io/example-id: deployment/v1alpha1/mwsnetworkconnectivityconfig
+  labels:
+    testing.upbound.io/example-name: ncc_binding
+  name: ncc-binding
+  namespace: upbound-system
+spec:
+  forProvider:
+    networkConnectivityConfigId: ${databricks_mws_network_connectivity_config.ncc.network_connectivity_config_id}
+    provider: ${databricks.account}
+    workspaceId: ${var.databricks_workspace_id}

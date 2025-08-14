@@ -9,8 +9,8 @@ import (
 	_ "embed"
 	"strings"
 
-	ujconfig "github.com/crossplane/upjet/pkg/config"
-	"github.com/crossplane/upjet/pkg/types/name"
+	ujconfig "github.com/crossplane/upjet/v2/pkg/config"
+	"github.com/crossplane/upjet/v2/pkg/types/name"
 
 	"github.com/glalanne/provider-databricks/config/access_control_rule_set"
 	"github.com/glalanne/provider-databricks/config/alert"
@@ -127,6 +127,135 @@ func GetProvider() *ujconfig.Provider {
 	pc := ujconfig.NewProvider([]byte(providerSchema), resourcePrefix, modulePath, []byte(providerMetadata),
 		// ujconfig.WithShortName("databricks"),
 		ujconfig.WithRootGroup("databricks.crossplane.io"),
+		ujconfig.WithIncludeList(ExternalNameConfigured()),
+		ujconfig.WithFeaturesPackage("internal/features"),
+		ujconfig.WithDefaultResourceOptions(
+			ExternalNameConfigurations(),
+		))
+
+	for _, configure := range []func(provider *ujconfig.Provider){
+		// app.Configure,
+		cluster.Configure,
+		cluster_policy.Configure,
+		credential.Configure,
+		token.Configure,
+		secret.Configure,
+		secret_scope.Configure,
+		notebook.Configure,
+		job.Configure,
+		instance_pool.Configure,
+		permissions.Configure,
+		sql_endpoint.Configure,
+		entitlements.Configure,
+		group.Configure,
+		group_member.Configure,
+		group_role.Configure,
+		ip_access_list.Configure,
+		permission_assignment.Configure,
+		service_principal.Configure,
+		service_principal_role.Configure,
+		sql_permissions.Configure,
+		grants.Configure,
+		pipeline.Configure,
+		alert.Configure,
+		query.Configure,
+		sql_alert.Configure,
+		sql_dashboard.Configure,
+		sql_global_config.Configure,
+		sql_query.Configure,
+		sql_table.Configure,
+		budget.Configure,
+		git_credential.Configure,
+		catalog.Configure,
+		connection.Configure,
+		external_location.Configure,
+		schema.Configure,
+		library.Configure,
+		sql_visualization.Configure,
+		sql_widget.Configure,
+		provider.Configure,
+		mlflow_experiment.Configure,
+		mlflow_model.Configure,
+		mlflow_webhook.Configure,
+		model_serving.Configure,
+		access_control_rule_set.Configure,
+		artifact_allowlist.Configure,
+		catalog_workspace_binding.Configure,
+		compliance_security_profile_workspace_setting.Configure,
+		custom_app_integration.Configure,
+		dashboard.Configure,
+		dbfs_file.Configure,
+		default_namespace_setting.Configure,
+		directory.Configure,
+		enhanced_security_monitoring_workspace_setting.Configure,
+		file.Configure,
+		global_init_script.Configure,
+		grant.Configure,
+		group_instance_profile.Configure,
+		instance_profile.Configure,
+		lakehouse_monitor.Configure,
+		metastore.Configure,
+		metastore_assignment.Configure,
+		metastore_data_access.Configure,
+		mount.Configure,
+		mws_credentials.Configure,
+		mws_customer_managed_keys.Configure,
+		mws_log_delivery.Configure,
+		mws_ncc_binding.Configure,
+		mws_ncc_private_endpoint_rule.Configure,
+		mws_network_connectivity_config.Configure,
+		mws_networks.Configure,
+		mws_permission_assignment.Configure,
+		mws_private_access_settings.Configure,
+		mws_storage_configurations.Configure,
+		mws_vpc_endpoint.Configure,
+		mws_workspaces.Configure,
+		notification_destination.Configure,
+		obo_token.Configure,
+		online_table.Configure,
+		quality_monitor.Configure,
+		recipient.Configure,
+		registered_model.Configure,
+		repo.Configure,
+		restrict_workspace_admins_setting.Configure,
+		secret_acl.Configure,
+		service_principal_secret.Configure,
+		share.Configure,
+		storage_credential.Configure,
+		system_schema.Configure,
+		user.Configure,
+		user_instance_profile.Configure,
+		user_role.Configure,
+		vector_search_endpoint.Configure,
+		vector_search_index.Configure,
+		volume.Configure,
+		workspace_binding.Configure,
+		workspace_conf.Configure,
+		workspace_file.Configure,
+	} {
+		configure(pc)
+	}
+
+	// Rename resources to make it more pleasing to the eye
+	for _, r := range pc.Resources {
+
+		parts := strings.Split(r.Name, "_")
+		if len(parts) > 1 {
+			r.ShortGroup = resourcePrefix
+			r.Kind = name.NewFromSnake(strings.Join(parts[1:], "_")).Camel
+		}
+
+	}
+
+	pc.ConfigureResources()
+	return pc
+}
+
+// GetProviderNamespaced returns provider configuration for namespace-scoped resources
+func GetProviderNamespaced() *ujconfig.Provider {
+	pc := ujconfig.NewProvider([]byte(providerSchema), resourcePrefix, modulePath, []byte(providerMetadata),
+		// ujconfig.WithShortName("databricks"),
+		ujconfig.WithRootGroup("databricks.m.crossplane.io"),
 		ujconfig.WithIncludeList(ExternalNameConfigured()),
 		ujconfig.WithFeaturesPackage("internal/features"),
 		ujconfig.WithDefaultResourceOptions(
