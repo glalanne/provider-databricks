@@ -149,6 +149,8 @@ func main() {
 		LeaseDuration:              func() *time.Duration { d := 60 * time.Second; return &d }(),
 		RenewDeadline:              func() *time.Duration { d := 50 * time.Second; return &d }(),
 	})
+
+	kingpin.FatalIfError(err, "Cannot create controller manager")
 	kingpin.FatalIfError(clusterapis.AddToScheme(mgr.GetScheme()), "Cannot add cluster-scoped Azure APIs to scheme")
 	kingpin.FatalIfError(resolverapis.BuildScheme(clusterapis.AddToSchemes), "Cannot register the cluster-scoped Azure APIs with the API resolver's runtime scheme")
 	kingpin.FatalIfError(namespacedapis.AddToScheme(mgr.GetScheme()), "Cannot add namespace-scoped Azure APIs to scheme")
@@ -236,12 +238,12 @@ func main() {
 		clusterOpts.Gate = crdGate
 		namespacedOpts.Gate = crdGate
 		kingpin.FatalIfError(customresourcesgate.Setup(mgr, namespacedOpts.Options), "Cannot setup CRD gate")
-		kingpin.FatalIfError(clustercontroller.SetupGated_search(mgr, clusterOpts), "Cannot setup cluster-scoped Azure controllers")
-		kingpin.FatalIfError(namespacedcontroller.SetupGated_search(mgr, namespacedOpts), "Cannot setup namespaced Azure controllers")
+		kingpin.FatalIfError(clustercontroller.SetupGated(mgr, clusterOpts), "Cannot setup cluster-scoped Azure controllers")
+		kingpin.FatalIfError(namespacedcontroller.SetupGated(mgr, namespacedOpts), "Cannot setup namespaced Azure controllers")
 	} else {
 		logr.Info("Provider has missing RBAC permissions for watching CRDs, controller SafeStart capability will be disabled")
-		kingpin.FatalIfError(clustercontroller.Setup_search(mgr, clusterOpts), "Cannot setup cluster-scoped AzureAD controllers")
-		kingpin.FatalIfError(namespacedcontroller.Setup_search(mgr, namespacedOpts), "Cannot setup namespaced AzureAD controllers")
+		kingpin.FatalIfError(clustercontroller.Setup(mgr, clusterOpts), "Cannot setup cluster-scoped AzureAD controllers")
+		kingpin.FatalIfError(namespacedcontroller.Setup(mgr, namespacedOpts), "Cannot setup namespaced AzureAD controllers")
 	}
 	kingpin.FatalIfError(conversion.RegisterConversions(clusterOpts.Provider, namespacedOpts.Provider, mgr.GetScheme()), "Cannot initialize the webhook conversion registry")
 	kingpin.FatalIfError(mgr.Start(ctrl.SetupSignalHandler()), "Cannot start controller manager")

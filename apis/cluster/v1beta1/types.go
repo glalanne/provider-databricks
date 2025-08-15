@@ -71,9 +71,26 @@ type ProviderConfigStatus struct {
 // +kubebuilder:printcolumn:name="AGE",type="date",JSONPath=".metadata.creationTimestamp"
 // +kubebuilder:printcolumn:name="SECRET-NAME",type="string",JSONPath=".spec.credentials.secretRef.name",priority=1
 // +kubebuilder:resource:scope=Cluster
-// +kubebuilder:resource:scope=Cluster,categories={crossplane,providerconfig,azure}
+// +kubebuilder:resource:scope=Cluster,categories={crossplane,providerconfig,databricks}
 // +kubebuilder:storageversion
 type ProviderConfig struct {
+	metav1.TypeMeta   `json:",inline"`
+	metav1.ObjectMeta `json:"metadata,omitempty"`
+
+	Spec   ProviderConfigSpec   `json:"spec"`
+	Status ProviderConfigStatus `json:"status,omitempty"`
+}
+
+// +kubebuilder:object:root=true
+
+// A ClusterProviderConfig configures the Azure provider.
+// +kubebuilder:subresource:status
+// +kubebuilder:printcolumn:name="AGE",type="date",JSONPath=".metadata.creationTimestamp"
+// +kubebuilder:printcolumn:name="SECRET-NAME",type="string",JSONPath=".spec.credentials.secretRef.name",priority=1
+// +kubebuilder:resource:scope=Cluster
+// +kubebuilder:resource:scope=Cluster,categories={crossplane,providerconfig,databricks}
+// +kubebuilder:storageversion
+type ClusterProviderConfig struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
 
@@ -98,7 +115,7 @@ type ProviderConfigList struct {
 // +kubebuilder:printcolumn:name="RESOURCE-KIND",type="string",JSONPath=".resourceRef.kind"
 // +kubebuilder:printcolumn:name="RESOURCE-NAME",type="string",JSONPath=".resourceRef.name"
 // Please replace `PROVIDER-NAME` with your actual provider name, like `aws`, `azure`, `gcp`, `alibaba`
-// +kubebuilder:resource:scope=Cluster,categories={crossplane,providerconfig,azure}
+// +kubebuilder:resource:scope=Cluster,categories={crossplane,providerconfig,databricks}
 // +kubebuilder:storageversion
 type ProviderConfigUsage struct {
 	metav1.TypeMeta   `json:",inline"`
