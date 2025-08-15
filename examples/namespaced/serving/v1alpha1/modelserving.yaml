@@ -1,0 +1,30 @@
+apiVersion: serving.databricks.m.crossplane.io/v1alpha1
+kind: ModelServing
+metadata:
+  annotations:
+    meta.upbound.io/example-id: serving/v1alpha1/modelserving
+  labels:
+    testing.upbound.io/example-name: this
+  name: this
+  namespace: upbound-system
+spec:
+  forProvider:
+    config:
+    - servedEntities:
+      - entityName: ads-model
+        entityVersion: "2"
+        name: prod_model
+        scaleToZeroEnabled: true
+        workloadSize: Small
+      - entityName: ads-model
+        entityVersion: "4"
+        name: candidate_model
+        scaleToZeroEnabled: false
+        workloadSize: Small
+      trafficConfig:
+      - routes:
+        - servedModelName: prod_model
+          trafficPercentage: 90
+        - servedModelName: candidate_model
+          trafficPercentage: 10
+    name: ads-serving-endpoint

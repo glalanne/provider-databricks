@@ -1,0 +1,17 @@
+apiVersion: compute.databricks.crossplane.io/v1alpha1
+kind: Cluster
+metadata:
+  annotations:
+    meta.upbound.io/example-id: compute/v1alpha1/cluster
+  labels:
+    testing.upbound.io/example-name: shared_autoscaling
+  name: shared-autoscaling
+spec:
+  forProvider:
+    autoscale:
+    - maxWorkers: 50
+      minWorkers: 1
+    autoterminationMinutes: 20
+    clusterName: Shared Autoscaling
+    nodeTypeId: ${data.databricks_node_type.smallest.id}
+    sparkVersion: ${data.databricks_spark_version.latest_lts.id}

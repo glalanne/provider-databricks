@@ -55,11 +55,30 @@ GO_SUBDIRS += cmd internal apis
 # ====================================================================================
 # Setup Kubernetes tools
 
-KIND_VERSION = v0.15.0
-UP_VERSION = v0.28.0
-UP_CHANNEL = stable
-UPTEST_VERSION = v0.5.0
+KIND_VERSION = v0.29.0
+UP_VERSION = v0.40.0-0.rc.3
+UP_CHANNEL = alpha
+UPTEST_VERSION = v0.11.1
+UPTEST_LOCAL_VERSION = v0.13.0
+UPTEST_LOCAL_CHANNEL = stable
+KUSTOMIZE_VERSION = v5.3.0
+YQ_VERSION = v4.40.5
+CRDDIFF_VERSION = v0.12.1
+
+export UP_VERSION := $(UP_VERSION)
+export UP_CHANNEL := $(UP_CHANNEL)
+
 -include build/makelib/k8s_tools.mk
+
+# uptest download and install
+UPTEST_LOCAL := $(TOOLS_HOST_DIR)/uptest-$(UPTEST_LOCAL_VERSION)
+
+$(UPTEST_LOCAL):
+	@$(INFO) installing uptest $(UPTEST_LOCAL)
+	@mkdir -p $(TOOLS_HOST_DIR)
+	@curl -fsSLo $(UPTEST_LOCAL) https://s3.us-west-2.amazonaws.com/crossplane.uptest.releases/$(UPTEST_LOCAL_CHANNEL)/$(UPTEST_LOCAL_VERSION)/bin/$(SAFEHOST_PLATFORM)/uptest || $(FAIL)
+	@chmod +x $(UPTEST_LOCAL)
+	@$(OK) installing uptest $(UPTEST_LOCAL)
 
 # ====================================================================================
 # Setup Images

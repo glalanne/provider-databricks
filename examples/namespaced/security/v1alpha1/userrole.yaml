@@ -1,0 +1,43 @@
+apiVersion: security.databricks.m.crossplane.io/v1alpha1
+kind: UserRole
+metadata:
+  annotations:
+    meta.upbound.io/example-id: security/v1alpha1/userrole
+  labels:
+    testing.upbound.io/example-name: my_user_role
+  name: my-user-role
+  namespace: upbound-system
+spec:
+  forProvider:
+    role: ${databricks_instance_profile.instance_profile.id}
+    userId: ${databricks_user.my_user.id}
+
+---
+
+apiVersion: deployment.databricks.m.crossplane.io/v1alpha1
+kind: InstanceProfile
+metadata:
+  annotations:
+    meta.upbound.io/example-id: security/v1alpha1/userrole
+  labels:
+    testing.upbound.io/example-name: instance_profile
+  name: instance-profile
+  namespace: upbound-system
+spec:
+  forProvider:
+    instanceProfileArn: my_instance_profile_arn
+
+---
+
+apiVersion: security.databricks.m.crossplane.io/v1alpha1
+kind: User
+metadata:
+  annotations:
+    meta.upbound.io/example-id: security/v1alpha1/userrole
+  labels:
+    testing.upbound.io/example-name: my_user
+  name: my-user
+  namespace: upbound-system
+spec:
+  forProvider:
+    userName: me@example.com

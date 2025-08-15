@@ -24,3 +24,18 @@ spec:
       name: provider-secret
       namespace: upbound-system
       key: credentials
+EOF
+
+echo "Creating a default cluster provider config..."
+cat <<EOF | ${KUBECTL} apply -f -
+apiVersion: databricks.m.crossplane.io/v1beta1
+kind: ClusterProviderConfig
+metadata:
+  name: default
+spec:
+  credentials:
+    source: Secret
+    secretRef:
+      name: provider-secret
+      namespace: upbound-system
+      key: credentials
