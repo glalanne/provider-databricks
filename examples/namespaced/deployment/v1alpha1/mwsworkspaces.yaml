@@ -1,0 +1,17 @@
+apiVersion: deployment.databricks.m.crossplane.io/v1alpha1
+kind: MwsWorkspaces
+metadata:
+  annotations:
+    meta.upbound.io/example-id: deployment/v1alpha1/mwsworkspaces
+  labels:
+    testing.upbound.io/example-name: serverless_workspace
+  name: serverless-workspace
+  namespace: upbound-system
+spec:
+  forProvider:
+    accountIdSecretRef:
+      key: example-key
+      name: example-secret
+    awsRegion: us-east-1
+    computeMode: SERVERLESS
+    workspaceName: serverless-workspace

@@ -1,0 +1,14 @@
+apiVersion: unity.databricks.m.crossplane.io/v1alpha1
+kind: RegisteredModel
+metadata:
+  annotations:
+    meta.upbound.io/example-id: unity/v1alpha1/registeredmodel
+  labels:
+    testing.upbound.io/example-name: this
+  name: this
+  namespace: upbound-system
+spec:
+  forProvider:
+    catalogName: main
+    name: my_model
+    schemaName: default

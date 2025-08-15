@@ -1,0 +1,16 @@
+apiVersion: sql.databricks.m.crossplane.io/v1alpha1
+kind: Dashboard
+metadata:
+  annotations:
+    meta.upbound.io/example-id: sql/v1alpha1/dashboard
+  labels:
+    testing.upbound.io/example-name: dashboard
+  name: dashboard
+  namespace: upbound-system
+spec:
+  forProvider:
+    displayName: New Dashboard
+    embedCredentials: false
+    parentPath: /Shared/provider-test
+    serializedDashboard: '{"pages":[{"name":"new_name","displayName":"New Page"}]}'
+    warehouseId: ${data.databricks_sql_warehouse.starter.id}

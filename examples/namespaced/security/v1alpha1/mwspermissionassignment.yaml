@@ -1,0 +1,30 @@
+apiVersion: security.databricks.m.crossplane.io/v1alpha1
+kind: MwsPermissionAssignment
+metadata:
+  annotations:
+    meta.upbound.io/example-id: security/v1alpha1/mwspermissionassignment
+  labels:
+    testing.upbound.io/example-name: add_admin_group
+  name: add-admin-group
+  namespace: upbound-system
+spec:
+  forProvider:
+    permissions:
+    - ADMIN
+    principalId: ${databricks_group.data_eng.id}
+    workspaceId: ${databricks_mws_workspaces.this.workspace_id}
+
+---
+
+apiVersion: security.databricks.m.crossplane.io/v1alpha1
+kind: Group
+metadata:
+  annotations:
+    meta.upbound.io/example-id: security/v1alpha1/mwspermissionassignment
+  labels:
+    testing.upbound.io/example-name: data_eng
+  name: data-eng
+  namespace: upbound-system
+spec:
+  forProvider:
+    displayName: Data Engineering

@@ -1,0 +1,14 @@
+apiVersion: security.databricks.m.crossplane.io/v1alpha1
+kind: Token
+metadata:
+  annotations:
+    meta.upbound.io/example-id: security/v1alpha1/token
+  labels:
+    testing.upbound.io/example-name: pat
+  name: pat
+  namespace: upbound-system
+spec:
+  forProvider:
+    comment: Terraform Provisioning
+    lifetimeSeconds: 8640000
+    provider: ${databricks.created_workspace}

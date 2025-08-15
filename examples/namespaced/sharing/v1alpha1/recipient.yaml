@@ -1,0 +1,19 @@
+apiVersion: sharing.databricks.m.crossplane.io/v1alpha1
+kind: Recipient
+metadata:
+  annotations:
+    meta.upbound.io/example-id: sharing/v1alpha1/recipient
+  labels:
+    testing.upbound.io/example-name: db2open
+  name: db2open
+  namespace: upbound-system
+spec:
+  forProvider:
+    authenticationType: TOKEN
+    comment: made by terraform
+    ipAccessList:
+    - allowedIpAddresses: []
+    name: ${data.databricks_current_user.current.alphanumeric}-recipient
+    sharingCodeSecretRef:
+      key: attribute.result
+      name: example-password

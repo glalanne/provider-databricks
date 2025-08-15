@@ -18,6 +18,8 @@ resources:
                   ],
                   "name": "accounts/${local.account_id}/servicePrincipals/${databricks_service_principal.automation_sp.application_id}/ruleSets/default"
                 }
+              references:
+                grant_rules.principals: data.databricks_group.ds.acl_principal_id
               dependencies:
                 databricks_service_principal.automation_sp: |-
                     {
@@ -36,6 +38,8 @@ resources:
                   ],
                   "name": "accounts/${local.account_id}/servicePrincipals/${databricks_service_principal.automation_sp.application_id}/ruleSets/default"
                 }
+              references:
+                grant_rules.principals: databricks_group.ds.acl_principal_id
               dependencies:
                 databricks_group.ds: |-
                     {
@@ -58,6 +62,8 @@ resources:
                   ],
                   "name": "accounts/${local.account_id}/servicePrincipals/${databricks_service_principal.automation_sp.application_id}/ruleSets/default"
                 }
+              references:
+                grant_rules.principals: databricks_group.ds.acl_principal_id
               dependencies:
                 databricks_group.ds: |-
                     {
@@ -81,6 +87,8 @@ resources:
                   ],
                   "name": "accounts/${local.account_id}/servicePrincipals/${databricks_service_principal.automation_sp.application_id}/ruleSets/default"
                 }
+              references:
+                grant_rules.principals: databricks_group.ds.acl_principal_id
               dependencies:
                 databricks_group.ds: |-
                     {
@@ -103,6 +111,8 @@ resources:
                   ],
                   "name": "accounts/${local.account_id}/groups/${databricks_group.ds.id}/ruleSets/default"
                 }
+              references:
+                grant_rules.principals: data.databricks_user.john.acl_principal_id
             - name: account_rule_set
               manifest: |-
                 {
@@ -128,6 +138,8 @@ resources:
                   ],
                   "name": "accounts/${local.account_id}/ruleSets/default"
                 }
+              references:
+                grant_rules.principals: data.databricks_group.marketplace_admins.acl_principal_id
             - name: budget_policy_usage
               manifest: |-
                 {
@@ -147,6 +159,8 @@ resources:
                   ],
                   "name": "accounts/${local.account_id}/budgetPolicies/${databricks_budget_policy.this.policy_id}/ruleSets/default"
                 }
+              references:
+                grant_rules.principals: data.databricks_group.ds.acl_principal_id
               dependencies:
                 databricks_budget_policy.this: |-
                     {
@@ -216,10 +230,10 @@ resources:
             allowed_storage_destinations: (list of EgressNetworkPolicyNetworkAccessPolicyStorageDestination, optional) - List of storage destinations that serverless workloads are allowed to access when in RESTRICTED_ACCESS mode
             azure_storage_account: (string, optional) - The Azure storage account name
             azure_storage_service: (string, optional) - The Azure storage service type (blob, dfs, etc.)
-            bucket_name: (string, optional) -
+            bucket_name: (string, optional)
             destination: (string, optional) - The internet destination to which access will be allowed. Format dependent on the destination type
             dry_run_mode_product_filter: |-
-                (list of , optional) - When empty, it means dry run for all products.
+                (list of string, optional) - When empty, it means dry run for all products.
                 When non-empty, it means dry run for specific products and for the other products, they will run in enforced mode
             egress: (NetworkPolicyEgress, optional) - The network policies applying for egress traffic
             enforcement_mode: |-
@@ -230,7 +244,7 @@ resources:
             network_access: (EgressNetworkPolicyNetworkAccessPolicy, optional) - The access policy enforced for egress traffic to the internet
             network_policy_id: (string, optional) - The unique identifier for the network policy
             policy_enforcement: (EgressNetworkPolicyNetworkAccessPolicyPolicyEnforcement, optional) - Optional. When policy_enforcement is not provided, we default to ENFORCE_MODE_ALL_SERVICES
-            region: (string, optional) -
+            region: (string, optional)
             restriction_mode: '(string, required) - The restriction mode that controls how serverless workloads can access the internet. Possible values are: FULL_ACCESS, RESTRICTED_ACCESS'
             storage_destination_type: '(string, optional) - The type of storage destination. Possible values are: AWS_S3, AZURE_STORAGE, GOOGLE_CLOUD_STORAGE'
         importStatements: []
@@ -406,28 +420,64 @@ resources:
             update_time: '- The timestamp string indicating when the alert was updated.'
             value: '- (Required, Block) actual value used in comparison (one of the attributes is required):'
         importStatements: []
-    databricks_alert_v2 Resource:
+    databricks_alert_v2:
         subCategory: ""
-        name: databricks_alert_v2 Resource
+        name: databricks_alert_v2
         title: databricks_alert_v2 Resource
+        examples:
+            - name: basic_alert
+              manifest: |-
+                {
+                  "display_name": "High Error Rate Alert",
+                  "evaluation": {
+                    "comparison_operator": "GREATER_THAN",
+                    "empty_result_state": "OK",
+                    "notification": {
+                      "notify_on_ok": true,
+                      "subscriptions": [
+                        {
+                          "user_email": "user@example.com"
+                        }
+                      ]
+                    },
+                    "source": {
+                      "aggregation": "COUNT",
+                      "display": "Error Count",
+                      "name": "error_count"
+                    },
+                    "threshold": {
+                      "value": {
+                        "double_value": 100
+                      }
+                    }
+                  },
+                  "parent_path": "/Users/user@example.com",
+                  "query_text": "SELECT count(*) as error_count FROM logs WHERE level = 'ERROR' AND timestamp \u003e now() - interval 1 hour",
+                  "schedule": {
+                    "pause_status": "UNPAUSED",
+                    "quartz_cron_schedule": "0 0/15 * * * ?",
+                    "timezone_id": "America/Los_Angeles"
+                  },
+                  "warehouse_id": "a7066a8ef796be84"
+                }
         argumentDocs:
             aggregation: '(string, optional) - . Possible values are: AVG, COUNT, COUNT_DISTINCT, MAX, MEDIAN, MIN, STDDEV, SUM'
-            bool_value: (boolean, optional) -
-            column: (AlertV2OperandColumn, optional) -
+            bool_value: (boolean, optional)
+            column: (AlertV2OperandColumn, optional)
             comparison_operator: '(string, optional) - Operator used for comparison in alert evaluation. Possible values are: EQUAL, GREATER_THAN, GREATER_THAN_OR_EQUAL, IS_NOT_NULL, IS_NULL, LESS_THAN, LESS_THAN_OR_EQUAL, NOT_EQUAL'
             create_time: (string) - The timestamp indicating when the alert was created
             custom_description: (string, optional) - Custom description for the alert. support mustache template
             custom_summary: (string, optional) - Custom summary for the alert. support mustache template
-            destination_id: (string, optional) -
-            display: (string, optional) -
+            destination_id: (string, optional)
+            display: (string, optional)
             display_name: (string, optional) - The display name of the alert
-            double_value: (number, optional) -
+            double_value: (number, optional)
             empty_result_state: '(string, optional) - Alert state if result is empty. Possible values are: ERROR, OK, TRIGGERED, UNKNOWN'
-            evaluation: (AlertV2Evaluation, optional) -
+            evaluation: (AlertV2Evaluation, optional)
             id: (string) - UUID identifying the alert
             last_evaluated_at: (string) - Timestamp of the last evaluation
             lifecycle_state: '(string) - Indicates whether the query is trashed. Possible values are: ACTIVE, TRASHED'
-            name: (string, optional) -
+            name: (string, optional)
             notification: (AlertV2Notification, optional) - User or Notification Destination to notify when alert is triggered
             notify_on_ok: (boolean, optional) - Whether to notify alert subscribers when alert returns back to normal
             owner_user_name: (string) - The owner's username. This field is set to "Unavailable" if the user has been deleted
@@ -441,19 +491,19 @@ resources:
             run_as_user_name: |-
                 (string, optional) - The run as username or application ID of service principal.
                 On Create and Update, this field can be set to application ID of an active service principal. Setting this field requires the servicePrincipal/user role
-            schedule: (CronSchedule, optional) -
+            schedule: (CronSchedule, optional)
             source: (AlertV2OperandColumn, optional) - Source column from result to use to evaluate alert
             state: '(string) - Latest state of alert evaluation. Possible values are: ERROR, OK, TRIGGERED, UNKNOWN'
-            string_value: (string, optional) -
-            subscriptions: (list of AlertV2Subscription, optional) -
+            string_value: (string, optional)
+            subscriptions: (list of AlertV2Subscription, optional)
             threshold: (AlertV2Operand, optional) - Threshold to user for alert evaluation, can be a column or a value
             timezone_id: |-
                 (string, optional) - A Java timezone id. The schedule will be resolved using this timezone.
                 This will be combined with the quartz_cron_schedule to determine the schedule.
                 See https://docs.databricks.com/sql/language-manual/sql-ref-syntax-aux-conf-mgmt-set-timezone.html for details
             update_time: (string) - The timestamp indicating when the alert was updated
-            user_email: (string, optional) -
-            value: (AlertV2OperandValue, optional) -
+            user_email: (string, optional)
+            value: (AlertV2OperandValue, optional)
             warehouse_id: (string, optional) - ID of the SQL warehouse attached to the alert
         importStatements: []
     databricks_app:
@@ -726,6 +776,102 @@ resources:
             securable_type: '- Type of securable. Default to catalog. Change forces creation of a new resource.'
             workspace_id: '- ID of the workspace. Change forces creation of a new resource.'
         importStatements: []
+    databricks_clean_room_asset Resource:
+        subCategory: ""
+        name: databricks_clean_room_asset Resource
+        title: databricks_clean_room_asset Resource
+        argumentDocs:
+            added_at: (integer) - When the asset is added to the clean room, in epoch milliseconds
+            asset_type: '(string, required) - The type of the asset. Possible values are: FOREIGN_TABLE, NOTEBOOK_FILE, TABLE, VIEW, VOLUME'
+            clean_room_name: |-
+                (string, optional) - The name of the clean room this asset belongs to.
+                This field is required for create operations and populated by the server for responses
+            columns: (list of ColumnInfo) - The metadata information of the columns in the foreign table
+            comment: (string, optional) - Review comment
+            created_at_millis: (integer, optional) - When the review was submitted, in epoch milliseconds
+            etag: (string) - Server generated etag that represents the notebook version
+            foreign_table: |-
+                (CleanRoomAssetForeignTable, optional) - Foreign table details available to all collaborators of the clean room.
+                Present if and only if asset_type is FOREIGN_TABLE
+            foreign_table_local_details: |-
+                (CleanRoomAssetForeignTableLocalDetails, optional) - Local details for a foreign that are only available to its owner.
+                Present if and only if asset_type is FOREIGN_TABLE
+            function_name: (string, optional) - The full name of the column mask SQL UDF
+            local_name: |-
+                (string, required) - The fully qualified name of the foreign table in its owner's local metastore,
+                in the format of catalog.schema.foreign_table_name
+            mask: (ColumnMask, optional)
+            name: |-
+                (string, required) - A fully qualified name that uniquely identifies the asset within the clean room.
+                This is also the name displayed in the clean room UI.
+            notebook: |-
+                (CleanRoomAssetNotebook, optional) - Notebook details available to all collaborators of the clean room.
+                Present if and only if asset_type is NOTEBOOK_FILE
+            notebook_content: |-
+                (string, required) - Base 64 representation of the notebook contents.
+                This is the same format as returned by :method:workspace/export with the format of HTML
+            nullable: '(boolean, optional) - Whether field may be Null (default: true)'
+            op: '(string, optional) - The operator to apply for the value. Possible values are: EQUAL, LIKE'
+            owner_collaborator_alias: (string) - The alias of the collaborator who owns this asset
+            partition_index: (integer, optional) - Partition index for column
+            partitions: (list of Partition, optional) - Partition filtering specification for a shared table
+            position: (integer, optional) - Ordinal position of column (starting at position 0)
+            recipient_property_key: |-
+                (string, optional) - The key of a Delta Sharing recipient's property. For example "databricks-account-id".
+                When this field is set, field value can not be set
+            review_state: '(string, optional) - Review outcome. Possible values are: APPROVED, PENDING, REJECTED'
+            review_sub_reason: '(string, optional) - Specified when the review was not explicitly made by a user. Possible values are: AUTO_APPROVED, BACKFILLED'
+            reviewer_collaborator_alias: (string, optional) - Collaborator alias of the reviewer
+            reviews: (list of CleanRoomNotebookReview) - All existing approvals or rejections
+            runner_collaborator_aliases: (list of string, optional) - collaborators that can run the notebook
+            status: '(string) - Status of the asset. Possible values are: ACTIVE, PENDING, PERMISSION_DENIED'
+            table: |-
+                (CleanRoomAssetTable, optional) - Table details available to all collaborators of the clean room.
+                Present if and only if asset_type is TABLE
+            table_local_details: |-
+                (CleanRoomAssetTableLocalDetails, optional) - Local details for a table that are only available to its owner.
+                Present if and only if asset_type is TABLE
+            type_interval_type: (string, optional) - Format of IntervalType
+            type_json: (string, optional) - Full data type specification, JSON-serialized
+            type_name: '(string, optional) - . Possible values are: ARRAY, BINARY, BOOLEAN, BYTE, CHAR, DATE, DECIMAL, DOUBLE, FLOAT, GEOGRAPHY, GEOMETRY, INT, INTERVAL, LONG, MAP, NULL, SHORT, STRING, STRUCT, TABLE_TYPE, TIMESTAMP, TIMESTAMP_NTZ, USER_DEFINED_TYPE, VARIANT'
+            type_precision: (integer, optional) - Digits of precision; required for DecimalTypes
+            type_scale: (integer, optional) - Digits to right of decimal; Required for DecimalTypes
+            type_text: (string, optional) - Full data type specification as SQL/catalogString text
+            using_column_names: |-
+                (list of string, optional) - The list of additional table columns to be passed as input to the column mask function. The
+                first arg of the mask function should be of the type of the column being masked and the
+                types of the rest of the args should match the types of columns in 'using_column_names'
+            value: |-
+                (string, optional) - The value of the partition column. When this value is not set, it means null value.
+                When this field is set, field recipient_property_key can not be set
+            values: (list of PartitionValue, optional) - An array of partition values
+            view: |-
+                (CleanRoomAssetView, optional) - View details available to all collaborators of the clean room.
+                Present if and only if asset_type is VIEW
+            view_local_details: |-
+                (CleanRoomAssetViewLocalDetails, optional) - Local details for a view that are only available to its owner.
+                Present if and only if asset_type is VIEW
+            volume_local_details: |-
+                (CleanRoomAssetVolumeLocalDetails, optional) - Local details for a volume that are only available to its owner.
+                Present if and only if asset_type is VOLUME
+        importStatements: []
+    databricks_clean_room_auto_approval_rule Resource:
+        subCategory: ""
+        name: databricks_clean_room_auto_approval_rule Resource
+        title: databricks_clean_room_auto_approval_rule Resource
+        argumentDocs:
+            author_collaborator_alias: |-
+                (string, optional) - Collaborator alias of the author covered by the rule.
+                Only one of author_collaborator_alias and author_scope can be set
+            author_scope: |-
+                (string, optional) - Scope of authors covered by the rule.
+                Only one of author_collaborator_alias and author_scope can be set. Possible values are: ANY_AUTHOR
+            clean_room_name: (string, optional) - The name of the clean room this auto-approval rule belongs to
+            created_at: (integer) - Timestamp of when the rule was created, in epoch milliseconds
+            rule_id: (string) - A generated UUID identifying the rule
+            rule_owner_collaborator_alias: (string) - The owner of the rule to whom the rule applies
+            runner_collaborator_alias: (string, optional) - Collaborator alias of the runner covered by the rule
+        importStatements: []
     databricks_clean_rooms_clean_room:
         subCategory: ""
         name: databricks_clean_rooms_clean_room
@@ -760,14 +906,14 @@ resources:
                 }
         argumentDocs:
             access_restricted: '(string) - Whether clean room access is restricted due to CSP. Possible values are: CSP_MISMATCH, NO_RESTRICTION'
-            allowed_internet_destinations: (list of EgressNetworkPolicyInternetAccessPolicyInternetDestination, optional) -
-            allowed_paths: (list of string, optional) -
-            allowed_storage_destinations: (list of EgressNetworkPolicyInternetAccessPolicyStorageDestination, optional) -
-            azure_container: (string, optional) -
-            azure_dns_zone: (string, optional) -
-            azure_storage_account: (string, optional) -
-            azure_storage_service: (string, optional) -
-            bucket_name: (string, optional) -
+            allowed_internet_destinations: (list of EgressNetworkPolicyInternetAccessPolicyInternetDestination, optional)
+            allowed_paths: (list of string, optional)
+            allowed_storage_destinations: (list of EgressNetworkPolicyInternetAccessPolicyStorageDestination, optional)
+            azure_container: (string, optional)
+            azure_dns_zone: (string, optional)
+            azure_storage_account: (string, optional)
+            azure_storage_service: (string, optional)
+            bucket_name: (string, optional)
             catalog_name: |-
                 (string, optional) - The name of the output catalog in UC.
                 It should follow UC securable naming requirements.
@@ -781,12 +927,12 @@ resources:
             collaborators: |-
                 (list of CleanRoomCollaborator, optional) - Collaborators in the central clean room. There should one and only one collaborator
                 in the list that satisfies the owner condition:
-            comment: (string, optional) -
-            compliance_security_profile: (ComplianceSecurityProfile) -
+            comment: (string, optional)
+            compliance_security_profile: (ComplianceSecurityProfile)
             compliance_standards: (list of ComplianceStandard, optional) - The list of compliance standards that the compliance security profile is configured to enforce
             created_at: (integer) - When the clean room was created, in epoch milliseconds
             creator: (CleanRoomCollaborator) - Collaborator who creates the clean room
-            destination: (string, optional) -
+            destination: (string, optional)
             display_name: |-
                 (string) - Generated display name for the collaborator. In the case of a single metastore clean room, it is the clean
                 room name. For x-metastore clean rooms, it is the organization name of the metastore. It is not restricted to
@@ -826,7 +972,7 @@ resources:
             status: '(string) - Clean room status. Possible values are: ACTIVE, DELETED, FAILED, PROVISIONING'
             type: '(string, optional) - . Possible values are: FQDN'
             updated_at: (integer) - When the clean room was last updated, in epoch milliseconds
-            workloads: (list of , optional) -
+            workloads: (list of string, optional)
         importStatements: []
     databricks_cluster:
         subCategory: ""
@@ -1061,7 +1207,6 @@ resources:
             cluster_name: '- (Optional) Cluster name, which doesn''t have to be unique. If not specified at creation, the cluster name will be an empty string.'
             custom_tags: '- (Optional) Additional tags for cluster resources. Databricks will tag all cluster resources (e.g., AWS EC2 instances and EBS volumes) with these tags in addition to default_tags. If a custom cluster tag has the same name as a default cluster tag, the custom tag is prefixed with an x_ when it is propagated.'
             data_security_mode: '- (Optional) Select the security features of the cluster (see API docs for full list of values). Unity Catalog requires SINGLE_USER or USER_ISOLATION mode. LEGACY_PASSTHROUGH for passthrough cluster and LEGACY_TABLE_ACL for Table ACL cluster. If omitted, default security features are enabled. To disable security features use NONE or legacy mode NO_ISOLATION.  If kind is specified, then the following options are available:'
-            dbfs:/mnt/name: .
             default_tags: '- (map) Tags that are added by Databricks by default, regardless of any custom_tags that may have been added. These include: Vendor: Databricks, Creator: <username_of_creator>, ClusterName: <name_of_cluster>, ClusterId: <id_of_cluster>, Name: , and any workspace and pool tags.'
             destination: '- S3 destination, e.g., s3://my-bucket/some-prefix You must configure the cluster with an instance profile, and the instance profile must have write access to the destination. You cannot use AWS keys.'
             docker_image.basic_auth: '- (Optional) basic_auth.username and basic_auth.password for Docker repository. Docker registry credentials are encrypted when they are stored in Databricks internal storage and when they are passed to a registry upon fetching Docker images at cluster launch. However, other authenticated and authorized API users of this workspace can access the username and password.'
@@ -1170,7 +1315,7 @@ resources:
         title: databricks_compliance_security_profile_setting Resource
         argumentDocs:
             compliance_security_profile_workspace: 'block with following attributes:'
-            compliance_standards: '- (Required) Enable one or more compliance standards on the workspace, e.g. HIPAA, PCI_DSS, FEDRAMP_MODERATE'
+            compliance_standards: '- (Required, list of strings) Enable one or more compliance standards on the workspace, e.g. HIPAA, PCI_DSS, FEDRAMP_MODERATE, etc. (See Go SDK documentation for the full list of supported values).'
             is_enabled: '- (Required) Enable the Compliance Security Profile on the workspace'
         importStatements: []
     databricks_connection:
@@ -1215,6 +1360,19 @@ resources:
                   "name": "hms-builtin",
                   "options": {
                     "builtin": "true"
+                  }
+                }
+            - name: http_bearer
+              manifest: |-
+                {
+                  "comment": "This is a connection to a HTTP service",
+                  "connection_type": "HTTP",
+                  "name": "http_bearer",
+                  "options": {
+                    "base_path": "/api/",
+                    "bearer_token": "bearer_token",
+                    "host": "https://example.com",
+                    "port": "8433"
                   }
                 }
             - name: http_oauth
@@ -1435,6 +1593,49 @@ resources:
             serialized_dashboard: '- (Optional) The contents of the dashboard in serialized string form. Conflicts with file_path.'
             warehouse_id: '- (Required) The warehouse ID used to run the dashboard.'
         importStatements: []
+    databricks_database_database_catalog:
+        subCategory: ""
+        name: databricks_database_database_catalog
+        title: databricks_database_database_catalog Resource
+        examples:
+            - name: this
+              manifest: |-
+                {
+                  "database_instance_name": "my-database-instance",
+                  "database_name": "databricks_postgres",
+                  "name": "my_registered_catalog"
+                }
+            - name: this
+              manifest: |-
+                {
+                  "create_database_if_not_exists": true,
+                  "database_instance_name": "my-database-instance",
+                  "database_name": "new_registered_catalog_database",
+                  "name": "my_registered_catalog"
+                }
+            - name: catalog
+              manifest: |-
+                {
+                  "create_database_if_not_exists": true,
+                  "database_instance_name": "${databricks_database_instance.instance.name}",
+                  "database_name": "new_registered_catalog_database",
+                  "name": "my_registered_catalog"
+                }
+              references:
+                database_instance_name: databricks_database_instance.instance.name
+              dependencies:
+                databricks_database_instance.instance: |-
+                    {
+                      "capacity": "CU_1",
+                      "name": "my-database-instance"
+                    }
+        argumentDocs:
+            create_database_if_not_exists: (boolean, optional)
+            database_instance_name: (string, required) - The name of the DatabaseInstance housing the database
+            database_name: (string, required) - The name of the database (in a instance) associated with the catalog
+            name: (string, required) - The name of the catalog in UC
+            uid: (string)
+        importStatements: []
     databricks_database_instance:
         subCategory: ""
         name: databricks_database_instance
@@ -1514,6 +1715,7 @@ resources:
                 Input: For specifying the parent instance to create a child instance. Optional.
                 Output: Only populated if provided as input to create a child instance
             pg_version: (string) - The version of Postgres running on the instance
+            purge_on_delete: (boolean, optional) - Purge the resource on delete
             read_only_dns: |-
                 (string) - The DNS endpoint to connect to the instance for read only access. This is only available if
                 enable_readable_secondaries is true
@@ -1525,6 +1727,167 @@ resources:
             state: '(string) - The current state of the instance. Possible values are: AVAILABLE, DELETING, FAILING_OVER, STARTING, STOPPED, UPDATING'
             stopped: (boolean, optional) - Whether the instance is stopped
             uid: (string) - An immutable UUID identifier for the instance
+        importStatements: []
+    databricks_database_synced_database_table:
+        subCategory: ""
+        name: databricks_database_synced_database_table
+        title: databricks_database_synced_database_table Resource
+        examples:
+            - name: this
+              manifest: |-
+                {
+                  "logical_database_name": "databricks_postgres",
+                  "name": "my_database_catalog.public.synced_table",
+                  "spec": {
+                    "create_database_objects_if_missing": true,
+                    "new_pipeline_spec": {
+                      "storage_catalog": "source_delta",
+                      "storage_schema": "tpch"
+                    },
+                    "primary_key_columns": [
+                      "c_custkey"
+                    ],
+                    "scheduling_policy": "SNAPSHOT",
+                    "source_table_full_name": "source_delta.tpch.customer"
+                  }
+                }
+            - name: this
+              manifest: |-
+                {
+                  "database_instance_name": "my-database-instance",
+                  "logical_database_name": "databricks_postgres",
+                  "name": "my_standard_catalog.public.synced_table",
+                  "spec": {
+                    "create_database_objects_if_missing": true,
+                    "new_pipeline_spec": {
+                      "storage_catalog": "source_delta",
+                      "storage_schema": "tpch"
+                    },
+                    "primary_key_columns": [
+                      "c_custkey"
+                    ],
+                    "scheduling_policy": "SNAPSHOT",
+                    "source_table_full_name": "source_delta.tpch.customer"
+                  }
+                }
+            - name: synced_table_1
+              manifest: |-
+                {
+                  "database_instance_name": "${databricks_database_instance.instance.name}",
+                  "logical_database_name": "databricks_postgres",
+                  "name": "my_standard_catalog.public.synced_table1",
+                  "spec": {
+                    "create_database_objects_if_missing": true,
+                    "new_pipeline_spec": {
+                      "storage_catalog": "source_delta",
+                      "storage_schema": "tpch"
+                    },
+                    "primary_key_columns": [
+                      "c_custkey"
+                    ],
+                    "scheduling_policy": "SNAPSHOT",
+                    "source_table_full_name": "source_delta.tpch.customer"
+                  }
+                }
+              references:
+                database_instance_name: databricks_database_instance.instance.name
+              dependencies:
+                databricks_database_instance.instance: |-
+                    {
+                      "capacity": "CU_1",
+                      "name": "my-database-instance"
+                    }
+            - name: synced_table_2
+              manifest: |-
+                {
+                  "database_instance_name": "${databricks_database_instance.instance.name}",
+                  "logical_database_name": "databricks_postgres",
+                  "name": "my_standard_catalog.public.synced_table2",
+                  "spec": {
+                    "create_database_objects_if_missing": true,
+                    "existing_pipeline_id": "${databricks_database_synced_database_table.synced_table_1.data_synchronization_status.pipeline_id}",
+                    "primary_key_columns": [
+                      "c_custkey"
+                    ],
+                    "scheduling_policy": "SNAPSHOT",
+                    "source_table_full_name": "source_delta.tpch.customer"
+                  }
+                }
+              references:
+                database_instance_name: databricks_database_instance.instance.name
+              dependencies:
+                databricks_database_instance.instance: |-
+                    {
+                      "capacity": "CU_1",
+                      "name": "my-database-instance"
+                    }
+        argumentDocs:
+            continuous_update_status: (SyncedTableContinuousUpdateStatus, optional)
+            create_database_objects_if_missing: |-
+                (boolean, optional) - If true, the synced table's logical database and schema resources in PG
+                will be created if they do not already exist
+            create_database_objects_is_missing: field in spec
+            data_synchronization_status: (SyncedTableStatus) - Synced Table data synchronization status
+            database_instance_name: |-
+                (string, optional) - Name of the target database instance. This is required when creating synced database tables in standard catalogs.
+                This is optional when creating synced database tables in registered catalogs. If this field is specified
+                when creating synced database tables in registered catalogs, the database instance name MUST
+                match that of the registered catalog (or the request will be rejected)
+            delta_commit_timestamp: |-
+                (string) - The timestamp when the above Delta version was committed in the source Delta table.
+                Note: This is the Delta commit time, not the time the data was written to the synced table
+            delta_commit_version: (integer) - The Delta Lake commit version that was last successfully synced
+            delta_table_sync_info: (DeltaTableSyncInfo)
+            detailed_state: '(string) - The state of the synced table. Possible values are: SYNCED_TABLED_OFFLINE, SYNCED_TABLE_OFFLINE_FAILED, SYNCED_TABLE_ONLINE, SYNCED_TABLE_ONLINE_CONTINUOUS_UPDATE, SYNCED_TABLE_ONLINE_NO_PENDING_UPDATE, SYNCED_TABLE_ONLINE_PIPELINE_FAILED, SYNCED_TABLE_ONLINE_TRIGGERED_UPDATE, SYNCED_TABLE_ONLINE_UPDATING_PIPELINE_RESOURCES, SYNCED_TABLE_PROVISIONING, SYNCED_TABLE_PROVISIONING_INITIAL_SNAPSHOT, SYNCED_TABLE_PROVISIONING_PIPELINE_RESOURCES'
+            effective_database_instance_name: |-
+                (string) - The name of the database instance that this table is registered to. This field is always returned, and for
+                tables inside database catalogs is inferred database instance associated with the catalog
+            effective_logical_database_name: (string) - The name of the logical database that this table is registered to
+            estimated_completion_time_seconds: (number) - The estimated time remaining to complete this update in seconds
+            existing_pipeline_id: (string, optional) - At most one of existing_pipeline_id and new_pipeline_spec should be defined.
+            failed_status: (SyncedTableFailedStatus, optional)
+            initial_pipeline_sync_progress: (SyncedTablePipelineProgress) - Progress of the initial data synchronization
+            last_processed_commit_version: (integer) - The last source table Delta version that was successfully synced to the synced table
+            last_sync: (SyncedTablePosition) - Summary of the last successful synchronization from source to destination.
+            latest_version_currently_processing: |-
+                (integer) - The source table Delta version that was last processed by the pipeline. The pipeline may not
+                have completely processed this version yet
+            logical_database_name: (string, optional) - Target Postgres database object (logical database) name for this table.
+            message: (string) - A text description of the current state of the synced table
+            name: (string, required) - Full three-part (catalog, schema, table) name of the table
+            new_pipeline_spec: (NewPipelineSpec, optional) - At most one of existing_pipeline_id and new_pipeline_spec should be defined.
+            pipeline_id: |-
+                (string) - ID of the associated pipeline. The pipeline ID may have been provided by the client
+                (in the case of bin packing), or generated by the server (when creating a new pipeline)
+            primary_key_columns: (list of string, optional) - Primary Key columns to be used for data insert/update in the destination
+            provisioning_phase: '(string) - The current phase of the data synchronization pipeline. Possible values are: PROVISIONING_PHASE_INDEX_SCAN, PROVISIONING_PHASE_INDEX_SORT, PROVISIONING_PHASE_MAIN'
+            provisioning_status: (SyncedTableProvisioningStatus, optional)
+            scheduling_policy: '(string, optional) - Scheduling policy of the underlying pipeline. Possible values are: CONTINUOUS, SNAPSHOT, TRIGGERED'
+            source_table_full_name: (string, optional) - Three-part (catalog, schema, table) name of the source Delta table
+            spec: (SyncedTableSpec, optional)
+            storage_catalog: (string, optional) - This field needs to be specified if the destination catalog is a managed postgres catalog.
+            storage_schema: (string, optional) - This field needs to be specified if the destination catalog is a managed postgres catalog.
+            sync_end_timestamp: |-
+                (string) - The end timestamp of the most recent successful synchronization.
+                This is the time when the data is available in the synced table
+            sync_progress_completion: (number) - The completion ratio of this update. This is a number between 0 and 1
+            sync_start_timestamp: |-
+                (string) - The starting timestamp of the most recent successful synchronization from the source table
+                to the destination (synced) table.
+                Note this is the starting timestamp of the sync operation, not the end time.
+                E.g., for a batch, this is the time when the sync operation started
+            synced_row_count: (integer) - The number of rows that have been synced in this update
+            timeseries_key: (string, optional) - Time series key to deduplicate (tie-break) rows with the same primary key
+            timestamp: |-
+                (string) - The end timestamp of the last time any data was synchronized from the source table to the synced
+                table. This is when the data is available in the synced table
+            total_row_count: (integer) - The total number of rows that need to be synced in this update. This number may be an estimate
+            triggered_update_progress: (SyncedTablePipelineProgress) - Progress of the active data synchronization pipeline
+            triggered_update_status: (SyncedTableTriggeredUpdateStatus, optional)
+            unity_catalog_provisioning_state: |-
+                (string) - The provisioning state of the synced table entity in Unity Catalog. This is distinct from the
+                state of the data synchronization pipeline (i.e. the table may be in "ACTIVE" but the pipeline
+                may be in "PROVISIONING" as it runs asynchronously). Possible values are: ACTIVE, DEGRADED, DELETING, FAILED, PROVISIONING, UPDATING
         importStatements: []
     databricks_dbfs_file:
         subCategory: ""
@@ -1601,10 +1964,20 @@ resources:
             spark_version: parameter in databricks_cluster and other resources.
             workspace_path: '- path on Workspace File System (WSFS) in form of /Workspace + path'
         importStatements: []
-    databricks_disable_default_legacy_access Resource:
+    databricks_disable_legacy_access_setting:
         subCategory: ""
-        name: databricks_disable_default_legacy_access Resource
-        title: databricks_disable_default_legacy_access Resource
+        name: databricks_disable_legacy_access_setting
+        title: databricks_disable_legacy_access_setting Resource
+        examples:
+            - name: this
+              manifest: |-
+                {
+                  "disable_legacy_access": [
+                    {
+                      "value": true
+                    }
+                  ]
+                }
         argumentDocs:
             disable_legacy_access: '- (Required) The configuration details.'
             value: '- (Required) The boolean value for the setting.'
@@ -1641,6 +2014,15 @@ resources:
                     }
                   ]
                 }
+              dependencies:
+                databricks_default_namespace_setting.this: |-
+                    {
+                      "namespace": [
+                        {
+                          "value": "default_catalog"
+                        }
+                      ]
+                    }
         argumentDocs:
             disable_legacy_features: 'block with following attributes:'
             value: '- (Required) The boolean value for the setting.'
@@ -1958,7 +2340,7 @@ resources:
                   "git_provider": "azureDevOpsServicesAad"
                 }
         argumentDocs:
-            force: '- (Optional) specify if settings need to be enforced.'
+            force: '- (Optional) specify if settings need to be enforced (i.e., to overwrite previously set credential for service principals).'
             git_provider: '-  (Required) case insensitive name of the Git provider.  Following values are supported right now (could be a subject for a change, consult Git Credentials API documentation): gitHub, gitHubEnterprise, bitbucketCloud, bitbucketServer, azureDevOpsServices, gitLab, gitLabEnterpriseEdition, awsCodeCommit, azureDevOpsServicesAad.'
             git_username: '- (Optional, required for some Git providers) user name at Git provider.'
             id: '- identifier of specific Git credential'
@@ -1985,7 +2367,6 @@ resources:
                 }
         argumentDocs:
             content_base64: '- The base64-encoded source code global init script. Conflicts with source. Use of content_base64 is discouraged, as it''s increasing memory footprint of Terraform state and should only be used in exceptional circumstances'
-            dbfs:/mnt/name: .
             enabled: '(bool, optional default: false) specifies if the script is enabled for execution, or not'
             id: '- ID assigned to a global init script by API'
             name: (string, required) - the name of the script.  It should be unique
@@ -3412,7 +3793,6 @@ resources:
             budget_policy_id: '- (Optional) The ID of the user-specified budget policy to use for this job. If not specified, a default budget policy may be applied when creating or modifying the job.'
             catalog: '- (Optional) The name of the catalog to use inside Unity Catalog.'
             clean_room_name: (Required) The clean room that the notebook belongs to.
-            client: '- (Required, string) client version used by the environment.'
             commands: '- (Required) (Array) Series of dbt commands to execute in sequence. Every command must start with "dbt".'
             commit: '- hash of Git commit to use. Conflicts with branch and tag.'
             concurrency: '- (Optional) Controls the number of active iteration task runs. Default is 20, maximum allowed is 100.'
@@ -3434,11 +3814,12 @@ resources:
             enabled: '- (Required) If true, enable queueing for the job.'
             entry_point: '- (Optional) Python function as entry point for the task'
             environment_key: '- (Optional) identifier of an environment block that is used to specify libraries.  Required for some tasks (spark_python_task, python_wheel_task, ...) running on serverless compute.'
+            environment_version: '- (Required, string) client version used by the environment. Each version comes with a specific Python version and a set of Python packages.'
             etag: (Optional) Checksum to validate the freshness of the notebook resource.
             existing_cluster_id: '- (Optional) Identifier of the interactive cluster to run job on.  Note: running tasks on interactive clusters may lead to increased costs!'
             file: '- (Optional) block consisting of single string fields:'
             full_refresh: '- (Optional) (Bool) Specifies if there should be full refresh of the pipeline.'
-            git_source: '- (Optional) Specifices the a Git repository for task source code. See git_source Configuration Block below.'
+            git_source: '- (Optional) Specifies the a Git repository for task source code. See git_source Configuration Block below.'
             health: '- (Optional) An optional block that specifies the health conditions for the job documented below.'
             id: '- ID of the system notification that is notified when an event defined in webhook_notifications is triggered.'
             inputs: '- (Required) (String) Array for task to iterate on. This can be a JSON string or a reference to an array parameter.'
@@ -3479,7 +3860,7 @@ resources:
             outcome: '- (Optional, string) Can only be specified on condition task dependencies. The outcome of the dependent task that must be met for this task to run. Possible values are "true" or "false".'
             overwrite_existing: (Optional) Whether to overwrite existing Power BI models. Default is false
             package_name: '- (Optional) Name of Python package'
-            parameter: '- (Optional) Specifices job parameter for the job. See parameter Configuration Block'
+            parameter: '- (Optional) Specifies job parameter for the job. See parameter Configuration Block'
             parameters: '- (Optional) Parameters for the task'
             path: '- If source is GIT: Relative path to the file in the repository specified in the git_source block with SQL commands to execute. If source is WORKSPACE: Absolute path to the file in the workspace with SQL commands to execute.'
             pause_subscriptions: '- (Optional) flag that specifies if subscriptions are paused or not.'
@@ -3490,14 +3871,14 @@ resources:
             profiles_directory: '- (Optional) The relative path to the directory in the repository specified by git_source where dbt should look in for the profiles.yml file. If not specified, defaults to the repository''s root directory. Equivalent to passing --profile-dir to a dbt command.'
             project_directory: '- (Required when source is WORKSPACE) The path where dbt should look for dbt_project.yml. Equivalent to passing --project-dir to the dbt CLI.'
             provider: '- (Optional, if it''s possible to detect Git provider by host name) case insensitive name of the Git provider.  Following values are supported right now (could be a subject for change, consult Repos API documentation): gitHub, gitHubEnterprise, bitbucketCloud, bitbucketServer, azureDevOpsServices, gitLab, gitLabEnterpriseEdition.'
-            python_file: '- (Required) The URI of the Python file to be executed. databricks_dbfs_file, cloud file URIs (e.g. s3:/, abfss:/, gs:/), workspace paths and remote repository are supported. For Python files stored in the Databricks workspace, the path must be absolute and begin with /. For files stored in a remote repository, the path must be relative. This field is required.'
+            python_file: '- (Required) The URI of the Python file to be executed. Cloud file URIs (e.g. s3:/, abfss:/, gs:/), workspace paths and remote repository are supported. For Python files stored in the Databricks workspace, the path must be absolute and begin with /. For files stored in a remote repository, the path must be relative. This field is required.'
             query: '- (Optional) block consisting of single string field: query_id - identifier of the Databricks Query (databricks_query).'
             queue: '- (Optional) The queue status for the job. See queue Configuration Block below.'
             refresh_after_update: (Optional) Whether the model should be refreshed after the update. Default is false
             retry_on_timeout: '- (Optional) (Bool) An optional policy to specify whether to retry a job when it times out. The default behavior is to not retry on timeout.'
             right: '- The right operand of the condition task. It could be a string value, job state, or parameter reference.'
             rules: '- (List) list of rules that are represented as objects with the following attributes:'
-            run_as: '- (Optional) The user or the service prinicipal the job runs as. See run_as Configuration Block below.'
+            run_as: '- (Optional) The user or the service principal the job runs as. See run_as Configuration Block below.'
             run_as.service_principal_name: '- (Optional) The application ID of an active service principal. Setting this field requires the servicePrincipal/user role.'
             run_as.user_name: '- (Optional) The email of an active workspace user. Non-admin users can only set this field to their own email.'
             run_if: '- (Optional) An optional value indicating the condition that determines whether the task should be run once its dependencies have been completed. One of ALL_SUCCESS, AT_LEAST_ONE_SUCCESS, NONE_FAILED, ALL_DONE, AT_LEAST_ONE_FAILED or ALL_FAILED. When omitted, defaults to ALL_SUCCESS.'
@@ -3682,15 +4063,15 @@ resources:
               manifest: |-
                 {
                   "cluster_id": "${databricks_cluster.this.id}",
-                  "jar": "${databricks_dbfs_file.app.dbfs_path}"
+                  "jar": "${databricks_file.app.path}"
                 }
               references:
                 cluster_id: databricks_cluster.this.id
-                jar: databricks_dbfs_file.app.dbfs_path
+                jar: databricks_file.app.path
               dependencies:
-                databricks_dbfs_file.app: |-
+                databricks_file.app: |-
                     {
-                      "path": "/FileStore/app-0.0.1.jar",
+                      "path": "/Volumes/catalog/schema/volume/app-0.0.1.jar",
                       "source": "${path.module}/app-0.0.1.jar"
                     }
             - name: deequ
@@ -3712,15 +4093,15 @@ resources:
               manifest: |-
                 {
                   "cluster_id": "${databricks_cluster.this.id}",
-                  "whl": "${databricks_dbfs_file.app.dbfs_path}"
+                  "whl": "${databricks_file.app.path}"
                 }
               references:
                 cluster_id: databricks_cluster.this.id
-                whl: databricks_dbfs_file.app.dbfs_path
+                whl: databricks_file.app.path
               dependencies:
-                databricks_dbfs_file.app: |-
+                databricks_file.app: |-
                     {
-                      "path": "/FileStore/baz.whl",
+                      "path": "/Volumes/catalog/schema/volume/baz.whl",
                       "source": "${path.module}/baz.whl"
                     }
             - name: fbprophet
@@ -3770,16 +4151,15 @@ resources:
                 }
               references:
                 cluster_id: databricks_cluster.this.id
-        argumentDocs:
-            dbfs:/mnt/name: .
+        argumentDocs: {}
         importStatements: []
     databricks_materialized_features_feature_tag Resource:
         subCategory: ""
         name: databricks_materialized_features_feature_tag Resource
         title: databricks_materialized_features_feature_tag Resource
         argumentDocs:
-            key: (string, required) -
-            value: (string, optional) -
+            key: (string, required)
+            value: (string, optional)
         importStatements: []
     databricks_metastore:
         subCategory: ""
@@ -3939,7 +4319,7 @@ resources:
             - name: this
               manifest: |-
                 {
-                  "artifact_location": "dbfs:/tmp/my-experiment",
+                  "artifact_location": "s3://bucket/my-experiment",
                   "name": "${data.databricks_current_user.me.home}/Sample",
                   "tags": [
                     {
@@ -3953,7 +4333,7 @@ resources:
                   ]
                 }
         argumentDocs:
-            artifact_location: '- Path to dbfs:/ or s3:// artifact location of the MLflow experiment.'
+            artifact_location: '- Path to artifact location of the MLflow experiment.'
             id: '- ID of the MLflow experiment.'
             name: '- (Required) Name of MLflow experiment. It must be an absolute path within the Databricks workspace, e.g. /Users/<some-username>/my-experiment. For more information about changes to experiment naming conventions, see mlflow docs.'
             tags: '- Tags for the MLflow experiment.'
@@ -4257,7 +4637,11 @@ resources:
             databricks_model_serving_config: '- Databricks Model Serving Config'
             databricks_workspace_url: '- The URL of the Databricks workspace containing the model serving endpoint pointed to by this external model.'
             description: '- (Optional) The description of the model serving endpoint.'
+            email_notifications: '- (Optional) A block with Email notification setting.'
+            email_notifications.on_update_failure: '- (Optional) a list of email addresses to be notified when an endpoint fails to update its configuration or state.'
+            email_notifications.on_update_success: '- (Optional) a list of email addresses to be notified when an endpoint successfully updates its configuration or state.'
             enabled: '-  Whether to enable traffic fallback. When a served entity in the serving endpoint returns specific error codes (e.g. 500), the request will automatically be round-robin attempted with other served entities in the same endpoint, following the order of served entity list, until a successful response is returned.'
+            endpoint_url: '- Invocation url of the endpoint.'
             google_cloud_vertex_ai_config: '- Google Cloud Vertex AI Config.'
             id: '- Equal to the name argument and used to identify the serving endpoint.'
             input: '- A block with configuration for input guardrail filters:'
@@ -4370,6 +4754,9 @@ resources:
             behavior: '- a string that describes the behavior for PII filter. Currently only BLOCK value is supported.'
             budget_policy_id: '- (Optiona) The Budget Policy ID set for this serving endpoint.'
             config: '- The model serving endpoint configuration.'
+            email_notifications: '- (Optional) A block with Email notification setting.'
+            email_notifications.on_update_failure: '- (Optional) a list of email addresses to be notified when an endpoint fails to update its configuration or state.'
+            email_notifications.on_update_success: '- (Optional) a list of email addresses to be notified when an endpoint successfully updates its configuration or state.'
             enabled: '- boolean flag specifying if usage tracking is enabled.'
             id: '- Equal to the name argument and used to identify the serving endpoint.'
             input: '- A block with configuration for input guardrail filters:'
@@ -5163,6 +5550,7 @@ resources:
               references:
                 account_id: var.databricks_account_id
                 provider: databricks.mws
+                security_group_ids: module.vpc.default_security_group_id
                 subnet_ids: module.vpc.private_subnets
                 vpc_id: module.vpc.vpc_id
             - name: this
@@ -5194,7 +5582,10 @@ resources:
               references:
                 account_id: var.databricks_account_id
                 provider: databricks.mws
+                security_group_ids: module.vpc.default_security_group_id
                 subnet_ids: module.vpc.private_subnets
+                vpc_endpoints.dataplane_relay: databricks_mws_vpc_endpoint.relay.vpc_endpoint_id
+                vpc_endpoints.rest_api: databricks_mws_vpc_endpoint.workspace.vpc_endpoint_id
                 vpc_id: module.vpc.vpc_id
             - name: this
               manifest: |-
@@ -5275,6 +5666,8 @@ resources:
                 gcp_network_info.subnet_id: google_compute_subnetwork.network_with_private_secondary_ip_ranges.name
                 gcp_network_info.subnet_region: google_compute_subnetwork.network_with_private_secondary_ip_ranges.region
                 gcp_network_info.vpc_id: google_compute_network.dbx_private_vpc.name
+                vpc_endpoints.dataplane_relay: databricks_mws_vpc_endpoint.relay.vpc_endpoint_id
+                vpc_endpoints.rest_api: databricks_mws_vpc_endpoint.workspace.vpc_endpoint_id
         argumentDocs:
             account_id: '- Account Id that could be found in the top right corner of Accounts Console'
             gcp_network_info: '- (GCP only) a block consists of Google Cloud specific information for this network, for example the VPC ID, subnet ID, and secondary IP ranges. It has the following fields:'
@@ -6576,7 +6969,7 @@ resources:
                     }
                 databricks_mlflow_experiment.this: |-
                     {
-                      "artifact_location": "dbfs:/tmp/my-experiment",
+                      "artifact_location": "s3://bucket/my-experiment",
                       "description": "My MLflow experiment description",
                       "name": "${data.databricks_current_user.me.home}/Sample"
                     }
@@ -6981,7 +7374,7 @@ resources:
             IS_OWNER: permission. Destroying databricks_permissions resource for a job would revert ownership to the creator.
             admins.group_name: '- (Optional) name of the group. We recommend setting permissions on groups.'
             admins.permission_level: '- (Required) permission level according to specific resource. See examples above for the reference.'
-            admins.service_principal_name: '- (Optional) Application ID of the service_principal.'
+            admins.service_principal_name: '- (Optional) Application ID (not service principal name!) of the service_principal.'
             admins.user_name: '- (Optional) name of the user.'
             app_name: '- app name'
             authorization: '- either tokens or passwords.'
@@ -7015,6 +7408,7 @@ resources:
             - name: this
               manifest: |-
                 {
+                  "catalog": "main",
                   "cluster": [
                     {
                       "custom_tags": {
@@ -7074,13 +7468,30 @@ resources:
                       ]
                     }
                   ],
-                  "storage": "/test/first-pipeline"
+                  "schema": "ldp_demo"
                 }
               references:
                 library.notebook.path: databricks_notebook.ldp_demo.id
               dependencies:
                 databricks_notebook.ldp_demo: '{}'
                 databricks_repo.ldp_demo: '{}'
+            - name: this
+              manifest: |-
+                {
+                  "catalog": "main",
+                  "environment": [
+                    {
+                      "dependencies": [
+                        "foo==0.0.1",
+                        "-r /Workspace/Users/user.name/my-pipeline/requirements.txt",
+                        "/Volumes/main/default/libs/my_lib.whl"
+                      ]
+                    }
+                  ],
+                  "name": "Serverless demo",
+                  "schema": "ldp_demo",
+                  "serverless": true
+                }
         argumentDocs:
             alerts: (Required) non-empty list of alert types. Right now following alert types are supported, consult documentation for actual list
             allow_duplicate_names: '- Optional boolean flag. If false, deployment will fail if name conflicts with that of another pipeline. default is false.'
@@ -7091,6 +7502,7 @@ resources:
             configuration: '- An optional list of values to apply to the entire pipeline. Elements must be formatted as key:value pairs.'
             connection_id: '- Immutable. The Unity Catalog connection this gateway pipeline uses to communicate with the source.'
             continuous: '- A flag indicating whether to run the pipeline continuously. The default value is false.'
+            dependencies: '- (Required) a list of pip dependencies, as supported by the version of pip in this environment. Each dependency is a pip requirement file line.  See API docs for more information.'
             deployment: '- Deployment type of this pipeline. Supports following attributes:'
             development: '- A flag indicating whether to run the pipeline in development mode. The default value is false.'
             edition: '- optional name of the product edition. Supported values are: CORE, PRO, ADVANCED (default).  Not required when serverless is set to true.'
@@ -7123,10 +7535,69 @@ resources:
             root_path: '- An optional string specifying the root path for this pipeline. This is used as the root directory when editing the pipeline in the Databricks user interface and it is added to sys.path when executing Python sources during pipeline execution.'
             schema: '- (Optional, String, Conflicts with target) The default schema (database) where tables are read from or published to. The presence of this attribute implies that the pipeline is in direct publishing mode.'
             serverless: '- An optional flag indicating if serverless compute should be used for this Lakeflow Declarative Pipeline.  Requires catalog to be set, as it could be used only with Unity Catalog.'
-            storage: '- A location on DBFS or cloud storage where output data and metadata required for pipeline execution are stored. By default, tables are stored in a subdirectory of this location. Change of this parameter forces recreation of the pipeline. (Conflicts with catalog).'
+            storage: '- A location on cloud storage where output data and metadata required for pipeline execution are stored. By default, tables are stored in a subdirectory of this location. Change of this parameter forces recreation of the pipeline. (Conflicts with catalog).'
             tags: '- (Optional, map of strings) A map of tags associated with the pipeline. These are forwarded to the cluster as cluster tags, and are therefore subject to the same limitations. A maximum of 25 tags can be added to the pipeline.'
             target: '- (Optional, String, Conflicts with schema) The name of a database (in either the Hive metastore or in a UC catalog) for persisting pipeline output data. Configuring the target setting allows you to view and query the pipeline output data from the Databricks UI.'
             url: '- URL of the Lakeflow Declarative Pipeline on the given workspace.'
+        importStatements: []
+    databricks_policy_info Resource:
+        subCategory: ""
+        name: databricks_policy_info Resource
+        title: databricks_policy_info Resource
+        argumentDocs:
+            alias: (string, optional) - The alias of a matched column
+            column_mask: |-
+                (ColumnMaskOptions, optional) - Options for column mask policies. Valid only if policy_type is POLICY_TYPE_COLUMN_MASK.
+                Required on create and optional on update. When specified on update,
+                the new options will replace the existing options as a whole
+            comment: (string, optional) - Optional description of the policy
+            condition: (string, optional) - The condition expression used to match a table column
+            constant: (string, optional) - A constant literal
+            created_at: (integer) - Time at which the policy was created, in epoch milliseconds. Output only
+            created_by: (string) - Username of the user who created the policy. Output only
+            except_principals: (list of string, optional) - Optional list of user or group names that should be excluded from the policy
+            for_securable_type: |-
+                (string, required) - Type of securables that the policy should take effect on.
+                Only table is supported at this moment.
+                Required on create and optional on update. Possible values are: CATALOG, CLEAN_ROOM, CONNECTION, CREDENTIAL, EXTERNAL_LOCATION, EXTERNAL_METADATA, FUNCTION, METASTORE, PIPELINE, PROVIDER, RECIPIENT, SCHEMA, SHARE, STAGING_TABLE, STORAGE_CREDENTIAL, TABLE, VOLUME
+            function_name: |-
+                (string, required) - The fully qualified name of the column mask function.
+                The function is called on each row of the target table.
+                The function's first argument and its return type should match the type of the masked column.
+                Required on create and update
+            id: (string) - Unique identifier of the policy. This field is output only and is generated by the system
+            match_columns: |-
+                (list of MatchColumn, optional) - Optional list of condition expressions used to match table columns.
+                Only valid when for_securable_type is table.
+                When specified, the policy only applies to tables whose columns satisfy all match conditions
+            name: |-
+                (string, optional) - Name of the policy. Required on create and ignored on update.
+                To update the name, use the new_name field
+            on_column: |-
+                (string, required) - The alias of the column to be masked. The alias must refer to one of matched columns.
+                The values of the column is passed to the column mask function as the first argument.
+                Required on create and update
+            on_securable_fullname: |-
+                (string, optional) - Full name of the securable on which the policy is defined.
+                Required on create and ignored on update
+            on_securable_type: |-
+                (string, optional) - Type of the securable on which the policy is defined.
+                Only catalog, schema and table are supported at this moment.
+                Required on create and ignored on update. Possible values are: CATALOG, CLEAN_ROOM, CONNECTION, CREDENTIAL, EXTERNAL_LOCATION, EXTERNAL_METADATA, FUNCTION, METASTORE, PIPELINE, PROVIDER, RECIPIENT, SCHEMA, SHARE, STAGING_TABLE, STORAGE_CREDENTIAL, TABLE, VOLUME
+            policy_type: '(string, required) - Type of the policy. Required on create and ignored on update. Possible values are: POLICY_TYPE_COLUMN_MASK, POLICY_TYPE_ROW_FILTER'
+            row_filter: |-
+                (RowFilterOptions, optional) - Options for row filter policies. Valid only if policy_type is POLICY_TYPE_ROW_FILTER.
+                Required on create and optional on update. When specified on update,
+                the new options will replace the existing options as a whole
+            to_principals: |-
+                (list of string, required) - List of user or group names that the policy applies to.
+                Required on create and optional on update
+            updated_at: (integer) - Time at which the policy was last modified, in epoch milliseconds. Output only
+            updated_by: (string) - Username of the user who last modified the policy. Output only
+            using: |-
+                (list of FunctionArgument, optional) - Optional list of column aliases or constant literals to be passed as additional arguments to the column mask function.
+                The type of each column should match the positional argument of the column mask function
+            when_condition: (string, optional) - Optional condition when the policy should take effect
         importStatements: []
     databricks_provider:
         subCategory: ""
@@ -7288,7 +7759,7 @@ resources:
                       "name": "my_schema"
                     }
         argumentDocs:
-            anomaly_detection_config: (AnomalyDetectionConfig) -
+            anomaly_detection_config: (AnomalyDetectionConfig)
             last_run_id: (string) - Run id of the last run of the workflow
             latest_run_status: '(string) - The status of the last run of the workflow. Possible values are: ANOMALY_DETECTION_RUN_STATUS_CANCELED, ANOMALY_DETECTION_RUN_STATUS_FAILED, ANOMALY_DETECTION_RUN_STATUS_JOB_DELETED, ANOMALY_DETECTION_RUN_STATUS_PENDING, ANOMALY_DETECTION_RUN_STATUS_RUNNING, ANOMALY_DETECTION_RUN_STATUS_SUCCESS, ANOMALY_DETECTION_RUN_STATUS_UNKNOWN, ANOMALY_DETECTION_RUN_STATUS_WORKSPACE_MISMATCH_ERROR'
             object_id: (string, required) - The uuid of the request object. For example, schema id
@@ -7928,21 +8399,21 @@ resources:
                   ]
                 }
         argumentDocs:
-            cdf_enabled: (Optional) - Whether to enable Change Data Feed (cdf) on the shared object. When this field is set, field history_data_sharing_status can not be set.
-            comment: (Optional) -  Description about the object.
+            cdf_enabled: '- (Optional) Whether to enable Change Data Feed (cdf) on the shared object. When this field is set, field history_data_sharing_status can not be set.'
+            comment: '- (Optional) User-supplied free-form text.'
             created_at: '- Time when the share was created.'
             created_by: '- The principal that created the share.'
-            data_object_type: (Required) - Type of the data object, currently TABLE, VIEW, SCHEMA, VOLUME, and MODEL are supported.
-            history_data_sharing_status: '(Optional) - Whether to enable history sharing, one of: ENABLED, DISABLED. When a table has history sharing enabled, recipients can query table data by version, starting from the current table version. If not specified, clients can only query starting from the version of the object at the time it was added to the share. NOTE: The start_version should be less than or equal the current version of the object. When this field is set, field cdf_enabled can not be set.'
+            data_object_type: '- (Required) Type of the data object, currently TABLE, VIEW, SCHEMA, VOLUME, and MODEL are supported.'
+            history_data_sharing_status: '- (Optional) Whether to enable history sharing, one of: ENABLED, DISABLED. When a table has history sharing enabled, recipients can query table data by version, starting from the current table version. If not specified, clients can only query starting from the version of the object at the time it was added to the share. NOTE: The start_version should be less than or equal the current version of the object. When this field is set, field cdf_enabled can not be set.'
             id: '- the ID of the share, the same as name.'
-            name: (Required) - Name of share. Change forces creation of a new resource.
+            name: '- (Required) Name of share. Change forces creation of a new resource.'
             op: '- The operator to apply for the value, one of: EQUAL, LIKE'
-            owner: (Optional) -  User name/group name/sp application_id of the share owner.
-            recipient_property_key: (Optional) - The key of a Delta Sharing recipient's property. For example databricks-account-id. When this field is set, field value can not be set.
-            shared_as: (Optional) - A user-provided new name for the data object within the share. If this new name is not provided, the object's original name will be used as the shared_as name. The shared_as name must be unique within a Share. Change forces creation of a new resource.
-            start_version: (Optional) -  The start version associated with the object for cdf. This allows data providers to control the lowest object version that is accessible by clients.
+            owner: '- (Optional) User name/group name/sp application_id of the share owner.'
+            recipient_property_key: '- (Optional) The key of a Delta Sharing recipient''s property. For example databricks-account-id. When this field is set, field value can not be set.'
+            shared_as: '- (Optional) A user-provided new name for the data object within the share. If this new name is not provided, the object''s original name will be used as the shared_as name. The shared_as name must be unique within a Share. Change forces creation of a new resource.'
+            start_version: '- (Optional) The start version associated with the object for cdf. This allows data providers to control the lowest object version that is accessible by clients.'
             status: '- Status of the object, one of: ACTIVE, PERMISSION_DENIED.'
-            value: (Optional) - The value of the partition column. When this value is not set, it means null value. When this field is set, field recipient_property_key can not be set.
+            value: '- (Optional) The value of the partition column. When this value is not set, it means null value. When this field is set, field recipient_property_key can not be set.'
         importStatements: []
     databricks_sql_alert:
         subCategory: ""
@@ -8045,7 +8516,7 @@ resources:
             channel.name: '- Name of the Databricks SQL release channel. Possible values are: CHANNEL_NAME_PREVIEW and CHANNEL_NAME_CURRENT. Default is CHANNEL_NAME_CURRENT.'
             cluster_size: '- (Required) The size of the clusters allocated to the endpoint: "2X-Small", "X-Small", "Small", "Medium", "Large", "X-Large", "2X-Large", "3X-Large", "4X-Large".'
             creator_name: '- The username of the user who created the endpoint.'
-            data_source_id: '- ID of the data source for this endpoint. This is used to bind an Databricks SQL query to an endpoint.'
+            data_source_id: '- (Deprecated) ID of the data source for this endpoint. This is used to bind an Databricks SQL query to an endpoint.'
             databricks_sql_access: on databricks_group or databricks_user.
             enable_photon: '- Whether to enable Photon. This field is optional and is enabled by default.'
             enable_serverless_compute: '- Whether this SQL warehouse is a serverless endpoint. See below for details about the default values. To avoid ambiguity, especially for organizations with many workspaces, Databricks recommends that you always set this field explicitly.'
@@ -8441,6 +8912,30 @@ resources:
                 catalog_name: databricks_catalog.sandbox.name
                 provider: databricks.workspace
                 schema_name: databricks_schema.things.name
+            - name: this
+              manifest: |-
+                {
+                  "catalog_name": "catalog",
+                  "column": [
+                    {
+                      "comment": "comment",
+                      "name": "col1",
+                      "nullable": true,
+                      "type": "STRING",
+                      "type_json": "{\"type\":\"STRING\"}"
+                    }
+                  ],
+                  "comment": "comment",
+                  "data_source_format": "DELTA",
+                  "name": "table",
+                  "properties": {
+                    "key": "value"
+                  },
+                  "schema_name": "schema",
+                  "table_type": "MANAGED"
+                }
+              dependencies:
+                databricks_table.this: '{}'
         argumentDocs:
             catalog_name: '- Name of parent catalog. Change forces the creation of a new resource.'
             cluster_id: '- (Optional) All table CRUD operations must be executed on a running cluster or SQL warehouse. If a cluster_id is specified, it will be used to execute SQL commands to manage this table. If empty, a cluster will be created automatically with the name terraform-sql-table. Conflicts with warehouse_id.'
@@ -8458,7 +8953,7 @@ resources:
             schema_name: '- Name of parent Schema relative to parent Catalog. Change forces the creation of a new resource.'
             storage_credential_name: '- (Optional) For EXTERNAL Tables only: the name of storage credential to use. Change forces the creation of a new resource.'
             storage_location: '- (Optional) URL of storage location for Table data (required for EXTERNAL Tables). Not supported for VIEW or MANAGED table_type.'
-            table_type: '- Distinguishes a view vs. managed/external Table. MANAGED, EXTERNAL, or VIEW. Change forces the creation of a new resource.'
+            table_type: '- Distinguishes a view vs. managed/external Table. MANAGED, EXTERNAL, METRIC_VIEW or VIEW. Change forces the creation of a new resource.'
             type: '- Column type spec (with metadata) as SQL text. Not supported for VIEW table_type.'
             view_definition: '- (Optional) SQL text defining the view (for table_type == "VIEW"). Not supported for MANAGED or EXTERNAL table_type.'
             warehouse_id: '- (Optional) All table CRUD operations must be executed on a running cluster or SQL warehouse. If a warehouse_id is specified, that SQL warehouse will be used to execute SQL commands to manage this table. Conflicts with cluster_id.'

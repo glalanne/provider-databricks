@@ -1,0 +1,13 @@
+apiVersion: storage.databricks.m.crossplane.io/v1alpha1
+kind: DbfsFile
+metadata:
+  annotations:
+    meta.upbound.io/example-id: storage/v1alpha1/dbfsfile
+  labels:
+    testing.upbound.io/example-name: this
+  name: this
+  namespace: upbound-system
+spec:
+  forProvider:
+    path: /tmp/main.tf
+    source: ${path.module}/main.tf

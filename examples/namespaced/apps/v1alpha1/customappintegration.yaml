@@ -1,0 +1,19 @@
+apiVersion: apps.databricks.m.crossplane.io/v1alpha1
+kind: CustomAppIntegration
+metadata:
+  annotations:
+    meta.upbound.io/example-id: apps/v1alpha1/customappintegration
+  labels:
+    testing.upbound.io/example-name: this
+  name: this
+  namespace: upbound-system
+spec:
+  forProvider:
+    name: custom_integration_name
+    redirectUrls:
+    - https://example.com
+    scopes:
+    - all-apis
+    tokenAccessPolicy:
+    - accessTokenTtlInMinutes: 15
+      refreshTokenTtlInMinutes: 30

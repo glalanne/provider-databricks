@@ -1,0 +1,13 @@
+apiVersion: workspace.databricks.m.crossplane.io/v1alpha1
+kind: GlobalInitScript
+metadata:
+  annotations:
+    meta.upbound.io/example-id: workspace/v1alpha1/globalinitscript
+  labels:
+    testing.upbound.io/example-name: init1
+  name: init1
+  namespace: upbound-system
+spec:
+  forProvider:
+    name: my init script
+    source: ${path.module}/init.sh

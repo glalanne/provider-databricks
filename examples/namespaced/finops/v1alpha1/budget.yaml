@@ -1,0 +1,36 @@
+apiVersion: finops.databricks.m.crossplane.io/v1alpha1
+kind: Budget
+metadata:
+  annotations:
+    meta.upbound.io/example-id: finops/v1alpha1/budget
+  labels:
+    testing.upbound.io/example-name: this
+  name: this
+  namespace: upbound-system
+spec:
+  forProvider:
+    alertConfigurations:
+    - actionConfigurations:
+      - actionType: EMAIL_NOTIFICATION
+        target: abc@gmail.com
+      quantityThreshold: "840"
+      quantityType: LIST_PRICE_DOLLARS_USD
+      timePeriod: MONTH
+      triggerType: CUMULATIVE_SPENDING_EXCEEDED
+    displayName: databricks-workspace-budget
+    filter:
+    - tags:
+      - key: Team
+        value:
+        - operator: IN
+          values:
+          - Data Science
+      - key: Environment
+        value:
+        - operator: IN
+          values:
+          - Development
+      workspaceId:
+      - operator: IN
+        values:
+        - 1234567890098765

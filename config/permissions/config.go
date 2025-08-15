@@ -1,6 +1,6 @@
 package permissions
 
-import "github.com/crossplane/upjet/pkg/config"
+import "github.com/crossplane/upjet/v2/pkg/config"
 
 // Configure configures individual resources by adding custom ResourceConfigurators.
 func Configure(p *config.Provider) {
@@ -38,7 +38,7 @@ func Configure(p *config.Provider) {
 		}
 		r.References["access_control.service_principal_name"] = config.Reference{
 			TerraformName: "databricks_service_principal",
-			Extractor:     "github.com/crossplane/upjet/pkg/resource.ExtractParamPath(\"application_id\", false)",
+			Extractor:     "github.com/crossplane/upjet/v2/pkg/resource.ExtractParamPath(\"application_id\", false)",
 		}
 	})
 }

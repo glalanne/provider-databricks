@@ -1,0 +1,13 @@
+apiVersion: workspace.databricks.m.crossplane.io/v1alpha1
+kind: Notebook
+metadata:
+  annotations:
+    meta.upbound.io/example-id: workspace/v1alpha1/notebook
+  labels:
+    testing.upbound.io/example-name: ddl
+  name: ddl
+  namespace: upbound-system
+spec:
+  forProvider:
+    path: ${data.databricks_current_user.me.home}/AA/BB/CC
+    source: ${path.module}/DDLgen.py

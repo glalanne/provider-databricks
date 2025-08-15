@@ -1,0 +1,12 @@
+apiVersion: workspace.databricks.m.crossplane.io/v1alpha1
+kind: Repo
+metadata:
+  annotations:
+    meta.upbound.io/example-id: workspace/v1alpha1/repo
+  labels:
+    testing.upbound.io/example-name: nutter_in_home
+  name: nutter-in-home
+  namespace: upbound-system
+spec:
+  forProvider:
+    url: https://github.com/user/demo.git
