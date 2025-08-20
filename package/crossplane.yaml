@@ -15,3 +15,6 @@ metadata:
       the
       [glalanne/provider-databricks](https://github.com/glalanne/provider-databricks/issues)
       repo.
+spec:
+  capabilities:
+  - safe-start
