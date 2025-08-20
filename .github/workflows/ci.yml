@@ -205,11 +205,11 @@ jobs:
     if: needs.detect-noop.outputs.noop != 'true'
 
     steps:
-      - name: Cleanup Disk
-        uses: jlumbroso/free-disk-space@54081f138730dfa15788a46383842cd2f914a1be # v1.3.1
-        with:
-          large-packages: false
-          swap-storage: false
+      # - name: Cleanup Disk
+      #   uses: jlumbroso/free-disk-space@54081f138730dfa15788a46383842cd2f914a1be # v1.3.1
+      #   with:
+      #     large-packages: false
+      #     swap-storage: false
 
       - name: Checkout
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
@@ -356,15 +356,15 @@ jobs:
       - local-deploy
     if: needs.detect-noop.outputs.noop != 'true' && github.ref != 'refs/heads/main'
     steps:
-      - name: Cleanup Disk
-        uses: jlumbroso/free-disk-space@54081f138730dfa15788a46383842cd2f914a1be # v1.3.1
-        with:
-          android: true
-          dotnet: true
-          haskell: true
-          tool-cache: true
-          large-packages: false
-          swap-storage: false
+      # - name: Cleanup Disk
+      #   uses: jlumbroso/free-disk-space@54081f138730dfa15788a46383842cd2f914a1be # v1.3.1
+      #   with:
+      #     android: true
+      #     dotnet: true
+      #     haskell: true
+      #     tool-cache: true
+      #     large-packages: false
+      #     swap-storage: false
 
       - name: Setup QEMU
         uses: docker/setup-qemu-action@49b3bc8e6bdd4a60e6116a5414239cba5943d3cf # v3
