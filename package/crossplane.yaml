@@ -9,7 +9,7 @@ metadata:
     meta.crossplane.io/maintainer: Geoffrey Lalanne <apps@lalanne.ca>
     meta.crossplane.io/source: github.com/glalanne/provider-databricks
     meta.crossplane.io/readme: |
-      `provider-databricks` is the Crossplane infrastructure provider for [Databricks](https://www.databricks.com/).
+      `provider-databricks` is the Crossplane V2 infrastructure provider for [Databricks](https://www.databricks.com/).
 
       If you encounter an issue please create an issue in
       the
@@ -17,4 +17,4 @@ metadata:
       repo.
 spec:
   capabilities:
-    - safe-start
+  - SafeStart
