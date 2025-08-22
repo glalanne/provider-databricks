@@ -126,17 +126,15 @@ spec:
                       type: string
                     type: array
                   tokenAccessPolicy:
-                    items:
-                      properties:
-                        accessTokenTtlInMinutes:
-                          description: access token time to live (TTL) in minutes.
-                          type: number
-                        refreshTokenTtlInMinutes:
-                          description: refresh token TTL in minutes. The TTL of refresh
-                            token cannot be lower than TTL of access token.
-                          type: number
-                      type: object
-                    type: array
+                    properties:
+                      accessTokenTtlInMinutes:
+                        description: access token time to live (TTL) in minutes.
+                        type: number
+                      refreshTokenTtlInMinutes:
+                        description: refresh token TTL in minutes. The TTL of refresh
+                          token cannot be lower than TTL of access token.
+                        type: number
+                    type: object
                   userAuthorizedScopes:
                     description: 'OAuth scopes granted to the application. Supported
                       scopes: all-apis, sql, offline_access, openid, profile, email.'
@@ -210,17 +208,15 @@ spec:
                       type: string
                     type: array
                   tokenAccessPolicy:
-                    items:
-                      properties:
-                        accessTokenTtlInMinutes:
-                          description: access token time to live (TTL) in minutes.
-                          type: number
-                        refreshTokenTtlInMinutes:
-                          description: refresh token TTL in minutes. The TTL of refresh
-                            token cannot be lower than TTL of access token.
-                          type: number
-                      type: object
-                    type: array
+                    properties:
+                      accessTokenTtlInMinutes:
+                        description: access token time to live (TTL) in minutes.
+                        type: number
+                      refreshTokenTtlInMinutes:
+                        description: refresh token TTL in minutes. The TTL of refresh
+                          token cannot be lower than TTL of access token.
+                        type: number
+                    type: object
                   userAuthorizedScopes:
                     description: 'OAuth scopes granted to the application. Supported
                       scopes: all-apis, sql, offline_access, openid, profile, email.'
@@ -357,17 +353,15 @@ spec:
                       type: string
                     type: array
                   tokenAccessPolicy:
-                    items:
-                      properties:
-                        accessTokenTtlInMinutes:
-                          description: access token time to live (TTL) in minutes.
-                          type: number
-                        refreshTokenTtlInMinutes:
-                          description: refresh token TTL in minutes. The TTL of refresh
-                            token cannot be lower than TTL of access token.
-                          type: number
-                      type: object
-                    type: array
+                    properties:
+                      accessTokenTtlInMinutes:
+                        description: access token time to live (TTL) in minutes.
+                        type: number
+                      refreshTokenTtlInMinutes:
+                        description: refresh token TTL in minutes. The TTL of refresh
+                          token cannot be lower than TTL of access token.
+                        type: number
+                    type: object
                   userAuthorizedScopes:
                     description: 'OAuth scopes granted to the application. Supported
                       scopes: all-apis, sql, offline_access, openid, profile, email.'

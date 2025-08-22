@@ -298,59 +298,59 @@ type AzureServiceEndpointRuleParameters struct {
 type DefaultRulesInitParameters struct {
 
 	// block with information about stable AWS IP CIDR blocks. You can use these to configure the firewall of your resources to allow traffic from your Databricks workspace.  Consists of the following fields:
-	AwsStableIPRule []AwsStableIPRuleInitParameters `json:"awsStableIpRule,omitempty" tf:"aws_stable_ip_rule,omitempty"`
+	AwsStableIPRule *AwsStableIPRuleInitParameters `json:"awsStableIpRule,omitempty" tf:"aws_stable_ip_rule,omitempty"`
 
 	// block with information about stable Azure service endpoints. You can configure the firewall of your Azure resources to allow traffic from your Databricks serverless compute resources.  Consists of the following fields:
-	AzureServiceEndpointRule []AzureServiceEndpointRuleInitParameters `json:"azureServiceEndpointRule,omitempty" tf:"azure_service_endpoint_rule,omitempty"`
+	AzureServiceEndpointRule *AzureServiceEndpointRuleInitParameters `json:"azureServiceEndpointRule,omitempty" tf:"azure_service_endpoint_rule,omitempty"`
 }
 
 type DefaultRulesObservation struct {
 
 	// block with information about stable AWS IP CIDR blocks. You can use these to configure the firewall of your resources to allow traffic from your Databricks workspace.  Consists of the following fields:
-	AwsStableIPRule []AwsStableIPRuleObservation `json:"awsStableIpRule,omitempty" tf:"aws_stable_ip_rule,omitempty"`
+	AwsStableIPRule *AwsStableIPRuleObservation `json:"awsStableIpRule,omitempty" tf:"aws_stable_ip_rule,omitempty"`
 
 	// block with information about stable Azure service endpoints. You can configure the firewall of your Azure resources to allow traffic from your Databricks serverless compute resources.  Consists of the following fields:
-	AzureServiceEndpointRule []AzureServiceEndpointRuleObservation `json:"azureServiceEndpointRule,omitempty" tf:"azure_service_endpoint_rule,omitempty"`
+	AzureServiceEndpointRule *AzureServiceEndpointRuleObservation `json:"azureServiceEndpointRule,omitempty" tf:"azure_service_endpoint_rule,omitempty"`
 }
 
 type DefaultRulesParameters struct {
 
 	// block with information about stable AWS IP CIDR blocks. You can use these to configure the firewall of your resources to allow traffic from your Databricks workspace.  Consists of the following fields:
 	// +kubebuilder:validation:Optional
-	AwsStableIPRule []AwsStableIPRuleParameters `json:"awsStableIpRule,omitempty" tf:"aws_stable_ip_rule,omitempty"`
+	AwsStableIPRule *AwsStableIPRuleParameters `json:"awsStableIpRule,omitempty" tf:"aws_stable_ip_rule,omitempty"`
 
 	// block with information about stable Azure service endpoints. You can configure the firewall of your Azure resources to allow traffic from your Databricks serverless compute resources.  Consists of the following fields:
 	// +kubebuilder:validation:Optional
-	AzureServiceEndpointRule []AzureServiceEndpointRuleParameters `json:"azureServiceEndpointRule,omitempty" tf:"azure_service_endpoint_rule,omitempty"`
+	AzureServiceEndpointRule *AzureServiceEndpointRuleParameters `json:"azureServiceEndpointRule,omitempty" tf:"azure_service_endpoint_rule,omitempty"`
 }
 
 type EgressConfigInitParameters struct {
 
 	// block describing network connectivity rules that are applied by default without resource specific configurations.  Consists of the following fields:
-	DefaultRules []DefaultRulesInitParameters `json:"defaultRules,omitempty" tf:"default_rules,omitempty"`
+	DefaultRules *DefaultRulesInitParameters `json:"defaultRules,omitempty" tf:"default_rules,omitempty"`
 
 	// block describing network connectivity rules that configured for each destinations. These rules override default rules.  Consists of the following fields:
-	TargetRules []TargetRulesInitParameters `json:"targetRules,omitempty" tf:"target_rules,omitempty"`
+	TargetRules *TargetRulesInitParameters `json:"targetRules,omitempty" tf:"target_rules,omitempty"`
 }
 
 type EgressConfigObservation struct {
 
 	// block describing network connectivity rules that are applied by default without resource specific configurations.  Consists of the following fields:
-	DefaultRules []DefaultRulesObservation `json:"defaultRules,omitempty" tf:"default_rules,omitempty"`
+	DefaultRules *DefaultRulesObservation `json:"defaultRules,omitempty" tf:"default_rules,omitempty"`
 
 	// block describing network connectivity rules that configured for each destinations. These rules override default rules.  Consists of the following fields:
-	TargetRules []TargetRulesObservation `json:"targetRules,omitempty" tf:"target_rules,omitempty"`
+	TargetRules *TargetRulesObservation `json:"targetRules,omitempty" tf:"target_rules,omitempty"`
 }
 
 type EgressConfigParameters struct {
 
 	// block describing network connectivity rules that are applied by default without resource specific configurations.  Consists of the following fields:
 	// +kubebuilder:validation:Optional
-	DefaultRules []DefaultRulesParameters `json:"defaultRules,omitempty" tf:"default_rules,omitempty"`
+	DefaultRules *DefaultRulesParameters `json:"defaultRules,omitempty" tf:"default_rules,omitempty"`
 
 	// block describing network connectivity rules that configured for each destinations. These rules override default rules.  Consists of the following fields:
 	// +kubebuilder:validation:Optional
-	TargetRules []TargetRulesParameters `json:"targetRules,omitempty" tf:"target_rules,omitempty"`
+	TargetRules *TargetRulesParameters `json:"targetRules,omitempty" tf:"target_rules,omitempty"`
 }
 
 type MwsNetworkConnectivityConfigInitParameters struct {
@@ -362,7 +362,7 @@ type MwsNetworkConnectivityConfigInitParameters struct {
 	CreationTime *float64 `json:"creationTime,omitempty" tf:"creation_time,omitempty"`
 
 	// block containing information about network connectivity rules that apply to network traffic from your serverless compute resources. Consists of the following fields:
-	EgressConfig []EgressConfigInitParameters `json:"egressConfig,omitempty" tf:"egress_config,omitempty"`
+	EgressConfig *EgressConfigInitParameters `json:"egressConfig,omitempty" tf:"egress_config,omitempty"`
 
 	// Name of the network connectivity configuration. The name can contain alphanumeric characters, hyphens, and underscores. The length must be between 3 and 30 characters. The name must match the regular expression ^[0-9a-zA-Z-_]{3,30}$. Change forces creation of a new resource.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
@@ -386,7 +386,7 @@ type MwsNetworkConnectivityConfigObservation struct {
 	CreationTime *float64 `json:"creationTime,omitempty" tf:"creation_time,omitempty"`
 
 	// block containing information about network connectivity rules that apply to network traffic from your serverless compute resources. Consists of the following fields:
-	EgressConfig []EgressConfigObservation `json:"egressConfig,omitempty" tf:"egress_config,omitempty"`
+	EgressConfig *EgressConfigObservation `json:"egressConfig,omitempty" tf:"egress_config,omitempty"`
 
 	// combination of account_id and network_connectivity_config_id separated by / character
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
@@ -416,7 +416,7 @@ type MwsNetworkConnectivityConfigParameters struct {
 
 	// block containing information about network connectivity rules that apply to network traffic from your serverless compute resources. Consists of the following fields:
 	// +kubebuilder:validation:Optional
-	EgressConfig []EgressConfigParameters `json:"egressConfig,omitempty" tf:"egress_config,omitempty"`
+	EgressConfig *EgressConfigParameters `json:"egressConfig,omitempty" tf:"egress_config,omitempty"`
 
 	// Name of the network connectivity configuration. The name can contain alphanumeric characters, hyphens, and underscores. The length must be between 3 and 30 characters. The name must match the regular expression ^[0-9a-zA-Z-_]{3,30}$. Change forces creation of a new resource.
 	// +kubebuilder:validation:Optional

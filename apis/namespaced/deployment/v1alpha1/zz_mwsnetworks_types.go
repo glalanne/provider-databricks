@@ -108,7 +108,7 @@ type MwsNetworksInitParameters struct {
 	ErrorMessages []ErrorMessagesInitParameters `json:"errorMessages,omitempty" tf:"error_messages,omitempty"`
 
 	// (GCP only) a block consists of Google Cloud specific information for this network, for example the VPC ID, subnet ID, and secondary IP ranges. It has the following fields:
-	GCPNetworkInfo []GCPNetworkInfoInitParameters `json:"gcpNetworkInfo,omitempty" tf:"gcp_network_info,omitempty"`
+	GCPNetworkInfo *GCPNetworkInfoInitParameters `json:"gcpNetworkInfo,omitempty" tf:"gcp_network_info,omitempty"`
 
 	// (String) id of network to be used for databricks_mws_workspaces resource.
 	NetworkID *string `json:"networkId,omitempty" tf:"network_id,omitempty"`
@@ -125,7 +125,7 @@ type MwsNetworksInitParameters struct {
 	SubnetIds []*string `json:"subnetIds,omitempty" tf:"subnet_ids,omitempty"`
 
 	// mapping of databricks_mws_vpc_endpoint for PrivateLink or Private Service Connect connections
-	VPCEndpoints []VPCEndpointsInitParameters `json:"vpcEndpoints,omitempty" tf:"vpc_endpoints,omitempty"`
+	VPCEndpoints *VPCEndpointsInitParameters `json:"vpcEndpoints,omitempty" tf:"vpc_endpoints,omitempty"`
 
 	// (AWS only) aws_vpc id
 	VPCID *string `json:"vpcId,omitempty" tf:"vpc_id,omitempty"`
@@ -143,7 +143,7 @@ type MwsNetworksObservation struct {
 	ErrorMessages []ErrorMessagesObservation `json:"errorMessages,omitempty" tf:"error_messages,omitempty"`
 
 	// (GCP only) a block consists of Google Cloud specific information for this network, for example the VPC ID, subnet ID, and secondary IP ranges. It has the following fields:
-	GCPNetworkInfo []GCPNetworkInfoObservation `json:"gcpNetworkInfo,omitempty" tf:"gcp_network_info,omitempty"`
+	GCPNetworkInfo *GCPNetworkInfoObservation `json:"gcpNetworkInfo,omitempty" tf:"gcp_network_info,omitempty"`
 
 	// Canonical unique identifier for the mws networks.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
@@ -163,7 +163,7 @@ type MwsNetworksObservation struct {
 	SubnetIds []*string `json:"subnetIds,omitempty" tf:"subnet_ids,omitempty"`
 
 	// mapping of databricks_mws_vpc_endpoint for PrivateLink or Private Service Connect connections
-	VPCEndpoints []VPCEndpointsObservation `json:"vpcEndpoints,omitempty" tf:"vpc_endpoints,omitempty"`
+	VPCEndpoints *VPCEndpointsObservation `json:"vpcEndpoints,omitempty" tf:"vpc_endpoints,omitempty"`
 
 	// (AWS only) aws_vpc id
 	VPCID *string `json:"vpcId,omitempty" tf:"vpc_id,omitempty"`
@@ -189,7 +189,7 @@ type MwsNetworksParameters struct {
 
 	// (GCP only) a block consists of Google Cloud specific information for this network, for example the VPC ID, subnet ID, and secondary IP ranges. It has the following fields:
 	// +kubebuilder:validation:Optional
-	GCPNetworkInfo []GCPNetworkInfoParameters `json:"gcpNetworkInfo,omitempty" tf:"gcp_network_info,omitempty"`
+	GCPNetworkInfo *GCPNetworkInfoParameters `json:"gcpNetworkInfo,omitempty" tf:"gcp_network_info,omitempty"`
 
 	// (String) id of network to be used for databricks_mws_workspaces resource.
 	// +kubebuilder:validation:Optional
@@ -211,7 +211,7 @@ type MwsNetworksParameters struct {
 
 	// mapping of databricks_mws_vpc_endpoint for PrivateLink or Private Service Connect connections
 	// +kubebuilder:validation:Optional
-	VPCEndpoints []VPCEndpointsParameters `json:"vpcEndpoints,omitempty" tf:"vpc_endpoints,omitempty"`
+	VPCEndpoints *VPCEndpointsParameters `json:"vpcEndpoints,omitempty" tf:"vpc_endpoints,omitempty"`
 
 	// (AWS only) aws_vpc id
 	// +kubebuilder:validation:Optional

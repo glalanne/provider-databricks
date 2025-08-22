@@ -45,7 +45,7 @@ type DateRangeValueDateRangeValueParameters struct {
 type DateRangeValueInitParameters struct {
 
 	// (Block) Date-range query parameter value. Consists of following attributes (Can only specify one of dynamic_date_range_value or date_range_value):
-	DateRangeValue []DateRangeValueDateRangeValueInitParameters `json:"dateRangeValue,omitempty" tf:"date_range_value,omitempty"`
+	DateRangeValue *DateRangeValueDateRangeValueInitParameters `json:"dateRangeValue,omitempty" tf:"date_range_value,omitempty"`
 
 	// (String) Dynamic date-time range value based on current date-time.  Possible values are TODAY, YESTERDAY, THIS_WEEK, THIS_MONTH, THIS_YEAR, LAST_WEEK, LAST_MONTH, LAST_YEAR, LAST_HOUR, LAST_8_HOURS, LAST_24_HOURS, LAST_7_DAYS, LAST_14_DAYS, LAST_30_DAYS, LAST_60_DAYS, LAST_90_DAYS, LAST_12_MONTHS.
 	DynamicDateRangeValue *string `json:"dynamicDateRangeValue,omitempty" tf:"dynamic_date_range_value,omitempty"`
@@ -60,7 +60,7 @@ type DateRangeValueInitParameters struct {
 type DateRangeValueObservation struct {
 
 	// (Block) Date-range query parameter value. Consists of following attributes (Can only specify one of dynamic_date_range_value or date_range_value):
-	DateRangeValue []DateRangeValueDateRangeValueObservation `json:"dateRangeValue,omitempty" tf:"date_range_value,omitempty"`
+	DateRangeValue *DateRangeValueDateRangeValueObservation `json:"dateRangeValue,omitempty" tf:"date_range_value,omitempty"`
 
 	// (String) Dynamic date-time range value based on current date-time.  Possible values are TODAY, YESTERDAY, THIS_WEEK, THIS_MONTH, THIS_YEAR, LAST_WEEK, LAST_MONTH, LAST_YEAR, LAST_HOUR, LAST_8_HOURS, LAST_24_HOURS, LAST_7_DAYS, LAST_14_DAYS, LAST_30_DAYS, LAST_60_DAYS, LAST_90_DAYS, LAST_12_MONTHS.
 	DynamicDateRangeValue *string `json:"dynamicDateRangeValue,omitempty" tf:"dynamic_date_range_value,omitempty"`
@@ -76,7 +76,7 @@ type DateRangeValueParameters struct {
 
 	// (Block) Date-range query parameter value. Consists of following attributes (Can only specify one of dynamic_date_range_value or date_range_value):
 	// +kubebuilder:validation:Optional
-	DateRangeValue []DateRangeValueDateRangeValueParameters `json:"dateRangeValue,omitempty" tf:"date_range_value,omitempty"`
+	DateRangeValue *DateRangeValueDateRangeValueParameters `json:"dateRangeValue,omitempty" tf:"date_range_value,omitempty"`
 
 	// (String) Dynamic date-time range value based on current date-time.  Possible values are TODAY, YESTERDAY, THIS_WEEK, THIS_MONTH, THIS_YEAR, LAST_WEEK, LAST_MONTH, LAST_YEAR, LAST_HOUR, LAST_8_HOURS, LAST_24_HOURS, LAST_7_DAYS, LAST_14_DAYS, LAST_30_DAYS, LAST_60_DAYS, LAST_90_DAYS, LAST_12_MONTHS.
 	// +kubebuilder:validation:Optional
@@ -136,7 +136,7 @@ type EnumValueInitParameters struct {
 	EnumOptions *string `json:"enumOptions,omitempty" tf:"enum_options,omitempty"`
 
 	// If specified, allows multiple values to be selected for this parameter. Consists of following attributes:
-	MultiValuesOptions []MultiValuesOptionsInitParameters `json:"multiValuesOptions,omitempty" tf:"multi_values_options,omitempty"`
+	MultiValuesOptions *MultiValuesOptionsInitParameters `json:"multiValuesOptions,omitempty" tf:"multi_values_options,omitempty"`
 
 	// (Array of strings) List of selected query parameter values.
 	Values []*string `json:"values,omitempty" tf:"values,omitempty"`
@@ -148,7 +148,7 @@ type EnumValueObservation struct {
 	EnumOptions *string `json:"enumOptions,omitempty" tf:"enum_options,omitempty"`
 
 	// If specified, allows multiple values to be selected for this parameter. Consists of following attributes:
-	MultiValuesOptions []MultiValuesOptionsObservation `json:"multiValuesOptions,omitempty" tf:"multi_values_options,omitempty"`
+	MultiValuesOptions *MultiValuesOptionsObservation `json:"multiValuesOptions,omitempty" tf:"multi_values_options,omitempty"`
 
 	// (Array of strings) List of selected query parameter values.
 	Values []*string `json:"values,omitempty" tf:"values,omitempty"`
@@ -162,7 +162,7 @@ type EnumValueParameters struct {
 
 	// If specified, allows multiple values to be selected for this parameter. Consists of following attributes:
 	// +kubebuilder:validation:Optional
-	MultiValuesOptions []MultiValuesOptionsParameters `json:"multiValuesOptions,omitempty" tf:"multi_values_options,omitempty"`
+	MultiValuesOptions *MultiValuesOptionsParameters `json:"multiValuesOptions,omitempty" tf:"multi_values_options,omitempty"`
 
 	// (Array of strings) List of selected query parameter values.
 	// +kubebuilder:validation:Optional
@@ -230,25 +230,25 @@ type NumericValueParameters struct {
 type ParameterInitParameters struct {
 
 	// (Block) Date-range query parameter value. Consists of following attributes (Can only specify one of dynamic_date_range_value or date_range_value):
-	DateRangeValue []DateRangeValueInitParameters `json:"dateRangeValue,omitempty" tf:"date_range_value,omitempty"`
+	DateRangeValue *DateRangeValueInitParameters `json:"dateRangeValue,omitempty" tf:"date_range_value,omitempty"`
 
 	// (Block) Date query parameter value. Consists of following attributes (Can only specify one of dynamic_date_value or date_value):
-	DateValue []DateValueInitParameters `json:"dateValue,omitempty" tf:"date_value,omitempty"`
+	DateValue *DateValueInitParameters `json:"dateValue,omitempty" tf:"date_value,omitempty"`
 
 	// (Block) Dropdown parameter value. Consists of following attributes:
-	EnumValue []EnumValueInitParameters `json:"enumValue,omitempty" tf:"enum_value,omitempty"`
+	EnumValue *EnumValueInitParameters `json:"enumValue,omitempty" tf:"enum_value,omitempty"`
 
 	// Literal parameter marker that appears between double curly braces in the query text.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// (Block) Numeric parameter value. Consists of following attributes:
-	NumericValue []NumericValueInitParameters `json:"numericValue,omitempty" tf:"numeric_value,omitempty"`
+	NumericValue *NumericValueInitParameters `json:"numericValue,omitempty" tf:"numeric_value,omitempty"`
 
 	// (Block) Query-based dropdown parameter value. Consists of following attributes:
-	QueryBackedValue []QueryBackedValueInitParameters `json:"queryBackedValue,omitempty" tf:"query_backed_value,omitempty"`
+	QueryBackedValue *QueryBackedValueInitParameters `json:"queryBackedValue,omitempty" tf:"query_backed_value,omitempty"`
 
 	// (Block) Text parameter value. Consists of following attributes:
-	TextValue []TextValueInitParameters `json:"textValue,omitempty" tf:"text_value,omitempty"`
+	TextValue *TextValueInitParameters `json:"textValue,omitempty" tf:"text_value,omitempty"`
 
 	// Text displayed in the user-facing parameter widget in the UI.
 	Title *string `json:"title,omitempty" tf:"title,omitempty"`
@@ -257,25 +257,25 @@ type ParameterInitParameters struct {
 type ParameterObservation struct {
 
 	// (Block) Date-range query parameter value. Consists of following attributes (Can only specify one of dynamic_date_range_value or date_range_value):
-	DateRangeValue []DateRangeValueObservation `json:"dateRangeValue,omitempty" tf:"date_range_value,omitempty"`
+	DateRangeValue *DateRangeValueObservation `json:"dateRangeValue,omitempty" tf:"date_range_value,omitempty"`
 
 	// (Block) Date query parameter value. Consists of following attributes (Can only specify one of dynamic_date_value or date_value):
-	DateValue []DateValueObservation `json:"dateValue,omitempty" tf:"date_value,omitempty"`
+	DateValue *DateValueObservation `json:"dateValue,omitempty" tf:"date_value,omitempty"`
 
 	// (Block) Dropdown parameter value. Consists of following attributes:
-	EnumValue []EnumValueObservation `json:"enumValue,omitempty" tf:"enum_value,omitempty"`
+	EnumValue *EnumValueObservation `json:"enumValue,omitempty" tf:"enum_value,omitempty"`
 
 	// Literal parameter marker that appears between double curly braces in the query text.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// (Block) Numeric parameter value. Consists of following attributes:
-	NumericValue []NumericValueObservation `json:"numericValue,omitempty" tf:"numeric_value,omitempty"`
+	NumericValue *NumericValueObservation `json:"numericValue,omitempty" tf:"numeric_value,omitempty"`
 
 	// (Block) Query-based dropdown parameter value. Consists of following attributes:
-	QueryBackedValue []QueryBackedValueObservation `json:"queryBackedValue,omitempty" tf:"query_backed_value,omitempty"`
+	QueryBackedValue *QueryBackedValueObservation `json:"queryBackedValue,omitempty" tf:"query_backed_value,omitempty"`
 
 	// (Block) Text parameter value. Consists of following attributes:
-	TextValue []TextValueObservation `json:"textValue,omitempty" tf:"text_value,omitempty"`
+	TextValue *TextValueObservation `json:"textValue,omitempty" tf:"text_value,omitempty"`
 
 	// Text displayed in the user-facing parameter widget in the UI.
 	Title *string `json:"title,omitempty" tf:"title,omitempty"`
@@ -285,15 +285,15 @@ type ParameterParameters struct {
 
 	// (Block) Date-range query parameter value. Consists of following attributes (Can only specify one of dynamic_date_range_value or date_range_value):
 	// +kubebuilder:validation:Optional
-	DateRangeValue []DateRangeValueParameters `json:"dateRangeValue,omitempty" tf:"date_range_value,omitempty"`
+	DateRangeValue *DateRangeValueParameters `json:"dateRangeValue,omitempty" tf:"date_range_value,omitempty"`
 
 	// (Block) Date query parameter value. Consists of following attributes (Can only specify one of dynamic_date_value or date_value):
 	// +kubebuilder:validation:Optional
-	DateValue []DateValueParameters `json:"dateValue,omitempty" tf:"date_value,omitempty"`
+	DateValue *DateValueParameters `json:"dateValue,omitempty" tf:"date_value,omitempty"`
 
 	// (Block) Dropdown parameter value. Consists of following attributes:
 	// +kubebuilder:validation:Optional
-	EnumValue []EnumValueParameters `json:"enumValue,omitempty" tf:"enum_value,omitempty"`
+	EnumValue *EnumValueParameters `json:"enumValue,omitempty" tf:"enum_value,omitempty"`
 
 	// Literal parameter marker that appears between double curly braces in the query text.
 	// +kubebuilder:validation:Optional
@@ -301,15 +301,15 @@ type ParameterParameters struct {
 
 	// (Block) Numeric parameter value. Consists of following attributes:
 	// +kubebuilder:validation:Optional
-	NumericValue []NumericValueParameters `json:"numericValue,omitempty" tf:"numeric_value,omitempty"`
+	NumericValue *NumericValueParameters `json:"numericValue,omitempty" tf:"numeric_value,omitempty"`
 
 	// (Block) Query-based dropdown parameter value. Consists of following attributes:
 	// +kubebuilder:validation:Optional
-	QueryBackedValue []QueryBackedValueParameters `json:"queryBackedValue,omitempty" tf:"query_backed_value,omitempty"`
+	QueryBackedValue *QueryBackedValueParameters `json:"queryBackedValue,omitempty" tf:"query_backed_value,omitempty"`
 
 	// (Block) Text parameter value. Consists of following attributes:
 	// +kubebuilder:validation:Optional
-	TextValue []TextValueParameters `json:"textValue,omitempty" tf:"text_value,omitempty"`
+	TextValue *TextValueParameters `json:"textValue,omitempty" tf:"text_value,omitempty"`
 
 	// Text displayed in the user-facing parameter widget in the UI.
 	// +kubebuilder:validation:Optional
@@ -319,7 +319,7 @@ type ParameterParameters struct {
 type QueryBackedValueInitParameters struct {
 
 	// If specified, allows multiple values to be selected for this parameter. Consists of following attributes:
-	MultiValuesOptions []QueryBackedValueMultiValuesOptionsInitParameters `json:"multiValuesOptions,omitempty" tf:"multi_values_options,omitempty"`
+	MultiValuesOptions *QueryBackedValueMultiValuesOptionsInitParameters `json:"multiValuesOptions,omitempty" tf:"multi_values_options,omitempty"`
 
 	// ID of the query that provides the parameter values.
 	QueryID *string `json:"queryId,omitempty" tf:"query_id,omitempty"`
@@ -370,7 +370,7 @@ type QueryBackedValueMultiValuesOptionsParameters struct {
 type QueryBackedValueObservation struct {
 
 	// If specified, allows multiple values to be selected for this parameter. Consists of following attributes:
-	MultiValuesOptions []QueryBackedValueMultiValuesOptionsObservation `json:"multiValuesOptions,omitempty" tf:"multi_values_options,omitempty"`
+	MultiValuesOptions *QueryBackedValueMultiValuesOptionsObservation `json:"multiValuesOptions,omitempty" tf:"multi_values_options,omitempty"`
 
 	// ID of the query that provides the parameter values.
 	QueryID *string `json:"queryId,omitempty" tf:"query_id,omitempty"`
@@ -383,7 +383,7 @@ type QueryBackedValueParameters struct {
 
 	// If specified, allows multiple values to be selected for this parameter. Consists of following attributes:
 	// +kubebuilder:validation:Optional
-	MultiValuesOptions []QueryBackedValueMultiValuesOptionsParameters `json:"multiValuesOptions,omitempty" tf:"multi_values_options,omitempty"`
+	MultiValuesOptions *QueryBackedValueMultiValuesOptionsParameters `json:"multiValuesOptions,omitempty" tf:"multi_values_options,omitempty"`
 
 	// ID of the query that provides the parameter values.
 	// +kubebuilder:validation:Optional

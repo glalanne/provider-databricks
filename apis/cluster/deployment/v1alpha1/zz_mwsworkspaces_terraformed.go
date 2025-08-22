@@ -21,7 +21,7 @@ func (mg *MwsWorkspaces) GetTerraformResourceType() string {
 
 // GetConnectionDetailsMapping for this MwsWorkspaces
 func (tr *MwsWorkspaces) GetConnectionDetailsMapping() map[string]string {
-	return map[string]string{"account_id": "accountIdSecretRef", "token[*].token_value": "token[*].tokenValueSecretRef"}
+	return map[string]string{"account_id": "accountIdSecretRef", "token[*].token_value": "token.tokenValueSecretRef"}
 }
 
 // GetObservation of this MwsWorkspaces

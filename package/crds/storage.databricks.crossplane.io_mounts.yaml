@@ -75,91 +75,81 @@ spec:
                   abfs:
                     description: to mount ADLS Gen2 using Azure Blob Filesystem (ABFS)
                       driver
-                    items:
-                      properties:
-                        clientId:
-                          description: (String) This is the client_id (Application
-                            Object ID) for the enterprise application for the service
-                            principal.
-                          type: string
-                        clientSecretKey:
-                          description: (String) This is the secret key in which your
-                            service principal/enterprise app client secret will be
-                            stored.
-                          type: string
-                        clientSecretScope:
-                          description: (String) This is the secret scope in which
-                            your service principal/enterprise app client secret will
-                            be stored.
-                          type: string
-                        containerName:
-                          description: (String) ADLS gen2 container name. (Could be
-                            omitted if resource_id is provided)
-                          type: string
-                        directory:
-                          description: (Computed) (String) This is optional if you
-                            don't want to add an additional directory that you wish
-                            to mount. This must start with a "/".
-                          type: string
-                        initializeFileSystem:
-                          description: (Bool) either or not initialize FS for the
-                            first use
-                          type: boolean
-                        storageAccountName:
-                          description: (String) The name of the storage resource in
-                            which the data is. (Could be omitted if resource_id is
-                            provided)
-                          type: string
-                        tenantId:
-                          description: (String) This is your azure directory tenant
-                            id. It is required for creating the mount. (Could be omitted
-                            if Azure authentication is used, and we can extract tenant_id
-                            from it).
-                          type: string
-                      type: object
-                    type: array
+                    properties:
+                      clientId:
+                        description: (String) This is the client_id (Application Object
+                          ID) for the enterprise application for the service principal.
+                        type: string
+                      clientSecretKey:
+                        description: (String) This is the secret key in which your
+                          service principal/enterprise app client secret will be stored.
+                        type: string
+                      clientSecretScope:
+                        description: (String) This is the secret scope in which your
+                          service principal/enterprise app client secret will be stored.
+                        type: string
+                      containerName:
+                        description: (String) ADLS gen2 container name. (Could be
+                          omitted if resource_id is provided)
+                        type: string
+                      directory:
+                        description: (Computed) (String) This is optional if you don't
+                          want to add an additional directory that you wish to mount.
+                          This must start with a "/".
+                        type: string
+                      initializeFileSystem:
+                        description: (Bool) either or not initialize FS for the first
+                          use
+                        type: boolean
+                      storageAccountName:
+                        description: (String) The name of the storage resource in
+                          which the data is. (Could be omitted if resource_id is provided)
+                        type: string
+                      tenantId:
+                        description: (String) This is your azure directory tenant
+                          id. It is required for creating the mount. (Could be omitted
+                          if Azure authentication is used, and we can extract tenant_id
+                          from it).
+                        type: string
+                    type: object
                   adl:
                     description: to mount ADLS Gen1 using Azure Data Lake (ADL) driver
-                    items:
-                      properties:
-                        clientId:
-                          description: (String) This is the client_id for the enterprise
-                            application for the service principal.
-                          type: string
-                        clientSecretKey:
-                          description: (String) This is the secret key in which your
-                            service principal/enterprise app client secret will be
-                            stored.
-                          type: string
-                        clientSecretScope:
-                          description: (String) This is the secret scope in which
-                            your service principal/enterprise app client secret will
-                            be stored.
-                          type: string
-                        directory:
-                          description: (Computed) (String) This is optional if you
-                            don't want to add an additional directory that you wish
-                            to mount. This must start with a "/".
-                          type: string
-                        sparkConfPrefix:
-                          description: '(String) This is the spark configuration prefix
-                            for adls gen 1 mount. The options are fs.adl, dfs.adls.
-                            Use fs.adl for runtime 6.0 and above for the clusters.
-                            Otherwise use dfs.adls. The default value is: fs.adl.'
-                          type: string
-                        storageResourceName:
-                          description: (String) The name of the storage resource in
-                            which the data is for ADLS gen 1. This is what you are
-                            trying to mount. (Could be omitted if resource_id is provided)
-                          type: string
-                        tenantId:
-                          description: (String) This is your azure directory tenant
-                            id. It is required for creating the mount. (Could be omitted
-                            if Azure authentication is used, and we can extract tenant_id
-                            from it)
-                          type: string
-                      type: object
-                    type: array
+                    properties:
+                      clientId:
+                        description: (String) This is the client_id for the enterprise
+                          application for the service principal.
+                        type: string
+                      clientSecretKey:
+                        description: (String) This is the secret key in which your
+                          service principal/enterprise app client secret will be stored.
+                        type: string
+                      clientSecretScope:
+                        description: (String) This is the secret scope in which your
+                          service principal/enterprise app client secret will be stored.
+                        type: string
+                      directory:
+                        description: (Computed) (String) This is optional if you don't
+                          want to add an additional directory that you wish to mount.
+                          This must start with a "/".
+                        type: string
+                      sparkConfPrefix:
+                        description: '(String) This is the spark configuration prefix
+                          for adls gen 1 mount. The options are fs.adl, dfs.adls.
+                          Use fs.adl for runtime 6.0 and above for the clusters. Otherwise
+                          use dfs.adls. The default value is: fs.adl.'
+                        type: string
+                      storageResourceName:
+                        description: (String) The name of the storage resource in
+                          which the data is for ADLS gen 1. This is what you are trying
+                          to mount. (Could be omitted if resource_id is provided)
+                        type: string
+                      tenantId:
+                        description: (String) This is your azure directory tenant
+                          id. It is required for creating the mount. (Could be omitted
+                          if Azure authentication is used, and we can extract tenant_id
+                          from it)
+                        type: string
+                    type: object
                   clusterId:
                     description: Cluster to use for mounting. If no cluster is specified,
                       a new cluster will be created and will mount the bucket for
@@ -179,19 +169,17 @@ spec:
                     x-kubernetes-map-type: granular
                   gs:
                     description: to mount Google Cloud Storage
-                    items:
-                      properties:
-                        bucketName:
-                          description: (String) GCS bucket name to be mounted.
-                          type: string
-                        serviceAccount:
-                          description: (String) email of registered Google Service
-                            Account for data access.  If it's not specified, then
-                            the cluster_id should be provided, and the cluster should
-                            have a Google service account attached to it.
-                          type: string
-                      type: object
-                    type: array
+                    properties:
+                      bucketName:
+                        description: (String) GCS bucket name to be mounted.
+                        type: string
+                      serviceAccount:
+                        description: (String) email of registered Google Service Account
+                          for data access.  If it's not specified, then the cluster_id
+                          should be provided, and the cluster should have a Google
+                          service account attached to it.
+                        type: string
+                    type: object
                   name:
                     description: 'Name, under which mount will be accessible in dbfs:/mnt/<MOUNT_NAME>.
                       If not specified, provider will try to infer it from depending
@@ -204,20 +192,18 @@ spec:
                     type: string
                   s3:
                     description: to mount AWS S3
-                    items:
-                      properties:
-                        bucketName:
-                          description: (String) S3 bucket name to be mounted.
-                          type: string
-                        instanceProfile:
-                          description: (String) ARN of registered instance profile
-                            for data access.  If it's not specified, then the cluster_id
-                            should be provided, and the cluster should have an instance
-                            profile attached to it. If both cluster_id & instance_profile
-                            are specified, then cluster_id takes precedence.
-                          type: string
-                      type: object
-                    type: array
+                    properties:
+                      bucketName:
+                        description: (String) S3 bucket name to be mounted.
+                        type: string
+                      instanceProfile:
+                        description: (String) ARN of registered instance profile for
+                          data access.  If it's not specified, then the cluster_id
+                          should be provided, and the cluster should have an instance
+                          profile attached to it. If both cluster_id & instance_profile
+                          are specified, then cluster_id takes precedence.
+                        type: string
+                    type: object
                   uri:
                     description: the URI for accessing specific storage (s3a://....,
                       abfss://...., gs://...., etc.)
@@ -225,38 +211,35 @@ spec:
                   wasb:
                     description: to mount Azure Blob Storage using Windows Azure Storage
                       Blob (WASB) driver
-                    items:
-                      properties:
-                        authType:
-                          description: (String) This is the auth type for blob storage.
-                            This can either be SAS tokens (SAS) or account access
-                            keys (ACCESS_KEY).
-                          type: string
-                        containerName:
-                          description: (String) The container in which the data is.
-                            This is what you are trying to mount. (Could be omitted
-                            if resource_id is provided)
-                          type: string
-                        directory:
-                          description: (Computed) (String) This is optional if you
-                            don't want to add an additional directory that you wish
-                            to mount. This must start with a "/".
-                          type: string
-                        storageAccountName:
-                          description: (String) The name of the storage resource in
-                            which the data is. (Could be omitted if resource_id is
-                            provided)
-                          type: string
-                        tokenSecretKey:
-                          description: (String) This is the secret key in which your
-                            auth type token is stored.
-                          type: string
-                        tokenSecretScope:
-                          description: (String) This is the secret scope in which
-                            your auth type token is stored.
-                          type: string
-                      type: object
-                    type: array
+                    properties:
+                      authType:
+                        description: (String) This is the auth type for blob storage.
+                          This can either be SAS tokens (SAS) or account access keys
+                          (ACCESS_KEY).
+                        type: string
+                      containerName:
+                        description: (String) The container in which the data is.
+                          This is what you are trying to mount. (Could be omitted
+                          if resource_id is provided)
+                        type: string
+                      directory:
+                        description: (Computed) (String) This is optional if you don't
+                          want to add an additional directory that you wish to mount.
+                          This must start with a "/".
+                        type: string
+                      storageAccountName:
+                        description: (String) The name of the storage resource in
+                          which the data is. (Could be omitted if resource_id is provided)
+                        type: string
+                      tokenSecretKey:
+                        description: (String) This is the secret key in which your
+                          auth type token is stored.
+                        type: string
+                      tokenSecretScope:
+                        description: (String) This is the secret scope in which your
+                          auth type token is stored.
+                        type: string
+                    type: object
                 type: object
               initProvider:
                 description: |-
@@ -274,91 +257,81 @@ spec:
                   abfs:
                     description: to mount ADLS Gen2 using Azure Blob Filesystem (ABFS)
                       driver
-                    items:
-                      properties:
-                        clientId:
-                          description: (String) This is the client_id (Application
-                            Object ID) for the enterprise application for the service
-                            principal.
-                          type: string
-                        clientSecretKey:
-                          description: (String) This is the secret key in which your
-                            service principal/enterprise app client secret will be
-                            stored.
-                          type: string
-                        clientSecretScope:
-                          description: (String) This is the secret scope in which
-                            your service principal/enterprise app client secret will
-                            be stored.
-                          type: string
-                        containerName:
-                          description: (String) ADLS gen2 container name. (Could be
-                            omitted if resource_id is provided)
-                          type: string
-                        directory:
-                          description: (Computed) (String) This is optional if you
-                            don't want to add an additional directory that you wish
-                            to mount. This must start with a "/".
-                          type: string
-                        initializeFileSystem:
-                          description: (Bool) either or not initialize FS for the
-                            first use
-                          type: boolean
-                        storageAccountName:
-                          description: (String) The name of the storage resource in
-                            which the data is. (Could be omitted if resource_id is
-                            provided)
-                          type: string
-                        tenantId:
-                          description: (String) This is your azure directory tenant
-                            id. It is required for creating the mount. (Could be omitted
-                            if Azure authentication is used, and we can extract tenant_id
-                            from it).
-                          type: string
-                      type: object
-                    type: array
+                    properties:
+                      clientId:
+                        description: (String) This is the client_id (Application Object
+                          ID) for the enterprise application for the service principal.
+                        type: string
+                      clientSecretKey:
+                        description: (String) This is the secret key in which your
+                          service principal/enterprise app client secret will be stored.
+                        type: string
+                      clientSecretScope:
+                        description: (String) This is the secret scope in which your
+                          service principal/enterprise app client secret will be stored.
+                        type: string
+                      containerName:
+                        description: (String) ADLS gen2 container name. (Could be
+                          omitted if resource_id is provided)
+                        type: string
+                      directory:
+                        description: (Computed) (String) This is optional if you don't
+                          want to add an additional directory that you wish to mount.
+                          This must start with a "/".
+                        type: string
+                      initializeFileSystem:
+                        description: (Bool) either or not initialize FS for the first
+                          use
+                        type: boolean
+                      storageAccountName:
+                        description: (String) The name of the storage resource in
+                          which the data is. (Could be omitted if resource_id is provided)
+                        type: string
+                      tenantId:
+                        description: (String) This is your azure directory tenant
+                          id. It is required for creating the mount. (Could be omitted
+                          if Azure authentication is used, and we can extract tenant_id
+                          from it).
+                        type: string
+                    type: object
                   adl:
                     description: to mount ADLS Gen1 using Azure Data Lake (ADL) driver
-                    items:
-                      properties:
-                        clientId:
-                          description: (String) This is the client_id for the enterprise
-                            application for the service principal.
-                          type: string
-                        clientSecretKey:
-                          description: (String) This is the secret key in which your
-                            service principal/enterprise app client secret will be
-                            stored.
-                          type: string
-                        clientSecretScope:
-                          description: (String) This is the secret scope in which
-                            your service principal/enterprise app client secret will
-                            be stored.
-                          type: string
-                        directory:
-                          description: (Computed) (String) This is optional if you
-                            don't want to add an additional directory that you wish
-                            to mount. This must start with a "/".
-                          type: string
-                        sparkConfPrefix:
-                          description: '(String) This is the spark configuration prefix
-                            for adls gen 1 mount. The options are fs.adl, dfs.adls.
-                            Use fs.adl for runtime 6.0 and above for the clusters.
-                            Otherwise use dfs.adls. The default value is: fs.adl.'
-                          type: string
-                        storageResourceName:
-                          description: (String) The name of the storage resource in
-                            which the data is for ADLS gen 1. This is what you are
-                            trying to mount. (Could be omitted if resource_id is provided)
-                          type: string
-                        tenantId:
-                          description: (String) This is your azure directory tenant
-                            id. It is required for creating the mount. (Could be omitted
-                            if Azure authentication is used, and we can extract tenant_id
-                            from it)
-                          type: string
-                      type: object
-                    type: array
+                    properties:
+                      clientId:
+                        description: (String) This is the client_id for the enterprise
+                          application for the service principal.
+                        type: string
+                      clientSecretKey:
+                        description: (String) This is the secret key in which your
+                          service principal/enterprise app client secret will be stored.
+                        type: string
+                      clientSecretScope:
+                        description: (String) This is the secret scope in which your
+                          service principal/enterprise app client secret will be stored.
+                        type: string
+                      directory:
+                        description: (Computed) (String) This is optional if you don't
+                          want to add an additional directory that you wish to mount.
+                          This must start with a "/".
+                        type: string
+                      sparkConfPrefix:
+                        description: '(String) This is the spark configuration prefix
+                          for adls gen 1 mount. The options are fs.adl, dfs.adls.
+                          Use fs.adl for runtime 6.0 and above for the clusters. Otherwise
+                          use dfs.adls. The default value is: fs.adl.'
+                        type: string
+                      storageResourceName:
+                        description: (String) The name of the storage resource in
+                          which the data is for ADLS gen 1. This is what you are trying
+                          to mount. (Could be omitted if resource_id is provided)
+                        type: string
+                      tenantId:
+                        description: (String) This is your azure directory tenant
+                          id. It is required for creating the mount. (Could be omitted
+                          if Azure authentication is used, and we can extract tenant_id
+                          from it)
+                        type: string
+                    type: object
                   clusterId:
                     description: Cluster to use for mounting. If no cluster is specified,
                       a new cluster will be created and will mount the bucket for
@@ -378,19 +351,17 @@ spec:
                     x-kubernetes-map-type: granular
                   gs:
                     description: to mount Google Cloud Storage
-                    items:
-                      properties:
-                        bucketName:
-                          description: (String) GCS bucket name to be mounted.
-                          type: string
-                        serviceAccount:
-                          description: (String) email of registered Google Service
-                            Account for data access.  If it's not specified, then
-                            the cluster_id should be provided, and the cluster should
-                            have a Google service account attached to it.
-                          type: string
-                      type: object
-                    type: array
+                    properties:
+                      bucketName:
+                        description: (String) GCS bucket name to be mounted.
+                        type: string
+                      serviceAccount:
+                        description: (String) email of registered Google Service Account
+                          for data access.  If it's not specified, then the cluster_id
+                          should be provided, and the cluster should have a Google
+                          service account attached to it.
+                        type: string
+                    type: object
                   name:
                     description: 'Name, under which mount will be accessible in dbfs:/mnt/<MOUNT_NAME>.
                       If not specified, provider will try to infer it from depending
@@ -403,20 +374,18 @@ spec:
                     type: string
                   s3:
                     description: to mount AWS S3
-                    items:
-                      properties:
-                        bucketName:
-                          description: (String) S3 bucket name to be mounted.
-                          type: string
-                        instanceProfile:
-                          description: (String) ARN of registered instance profile
-                            for data access.  If it's not specified, then the cluster_id
-                            should be provided, and the cluster should have an instance
-                            profile attached to it. If both cluster_id & instance_profile
-                            are specified, then cluster_id takes precedence.
-                          type: string
-                      type: object
-                    type: array
+                    properties:
+                      bucketName:
+                        description: (String) S3 bucket name to be mounted.
+                        type: string
+                      instanceProfile:
+                        description: (String) ARN of registered instance profile for
+                          data access.  If it's not specified, then the cluster_id
+                          should be provided, and the cluster should have an instance
+                          profile attached to it. If both cluster_id & instance_profile
+                          are specified, then cluster_id takes precedence.
+                        type: string
+                    type: object
                   uri:
                     description: the URI for accessing specific storage (s3a://....,
                       abfss://...., gs://...., etc.)
@@ -424,38 +393,35 @@ spec:
                   wasb:
                     description: to mount Azure Blob Storage using Windows Azure Storage
                       Blob (WASB) driver
-                    items:
-                      properties:
-                        authType:
-                          description: (String) This is the auth type for blob storage.
-                            This can either be SAS tokens (SAS) or account access
-                            keys (ACCESS_KEY).
-                          type: string
-                        containerName:
-                          description: (String) The container in which the data is.
-                            This is what you are trying to mount. (Could be omitted
-                            if resource_id is provided)
-                          type: string
-                        directory:
-                          description: (Computed) (String) This is optional if you
-                            don't want to add an additional directory that you wish
-                            to mount. This must start with a "/".
-                          type: string
-                        storageAccountName:
-                          description: (String) The name of the storage resource in
-                            which the data is. (Could be omitted if resource_id is
-                            provided)
-                          type: string
-                        tokenSecretKey:
-                          description: (String) This is the secret key in which your
-                            auth type token is stored.
-                          type: string
-                        tokenSecretScope:
-                          description: (String) This is the secret scope in which
-                            your auth type token is stored.
-                          type: string
-                      type: object
-                    type: array
+                    properties:
+                      authType:
+                        description: (String) This is the auth type for blob storage.
+                          This can either be SAS tokens (SAS) or account access keys
+                          (ACCESS_KEY).
+                        type: string
+                      containerName:
+                        description: (String) The container in which the data is.
+                          This is what you are trying to mount. (Could be omitted
+                          if resource_id is provided)
+                        type: string
+                      directory:
+                        description: (Computed) (String) This is optional if you don't
+                          want to add an additional directory that you wish to mount.
+                          This must start with a "/".
+                        type: string
+                      storageAccountName:
+                        description: (String) The name of the storage resource in
+                          which the data is. (Could be omitted if resource_id is provided)
+                        type: string
+                      tokenSecretKey:
+                        description: (String) This is the secret key in which your
+                          auth type token is stored.
+                        type: string
+                      tokenSecretScope:
+                        description: (String) This is the secret scope in which your
+                          auth type token is stored.
+                        type: string
+                    type: object
                 type: object
               managementPolicies:
                 default:
@@ -551,91 +517,81 @@ spec:
                   abfs:
                     description: to mount ADLS Gen2 using Azure Blob Filesystem (ABFS)
                       driver
-                    items:
-                      properties:
-                        clientId:
-                          description: (String) This is the client_id (Application
-                            Object ID) for the enterprise application for the service
-                            principal.
-                          type: string
-                        clientSecretKey:
-                          description: (String) This is the secret key in which your
-                            service principal/enterprise app client secret will be
-                            stored.
-                          type: string
-                        clientSecretScope:
-                          description: (String) This is the secret scope in which
-                            your service principal/enterprise app client secret will
-                            be stored.
-                          type: string
-                        containerName:
-                          description: (String) ADLS gen2 container name. (Could be
-                            omitted if resource_id is provided)
-                          type: string
-                        directory:
-                          description: (Computed) (String) This is optional if you
-                            don't want to add an additional directory that you wish
-                            to mount. This must start with a "/".
-                          type: string
-                        initializeFileSystem:
-                          description: (Bool) either or not initialize FS for the
-                            first use
-                          type: boolean
-                        storageAccountName:
-                          description: (String) The name of the storage resource in
-                            which the data is. (Could be omitted if resource_id is
-                            provided)
-                          type: string
-                        tenantId:
-                          description: (String) This is your azure directory tenant
-                            id. It is required for creating the mount. (Could be omitted
-                            if Azure authentication is used, and we can extract tenant_id
-                            from it).
-                          type: string
-                      type: object
-                    type: array
+                    properties:
+                      clientId:
+                        description: (String) This is the client_id (Application Object
+                          ID) for the enterprise application for the service principal.
+                        type: string
+                      clientSecretKey:
+                        description: (String) This is the secret key in which your
+                          service principal/enterprise app client secret will be stored.
+                        type: string
+                      clientSecretScope:
+                        description: (String) This is the secret scope in which your
+                          service principal/enterprise app client secret will be stored.
+                        type: string
+                      containerName:
+                        description: (String) ADLS gen2 container name. (Could be
+                          omitted if resource_id is provided)
+                        type: string
+                      directory:
+                        description: (Computed) (String) This is optional if you don't
+                          want to add an additional directory that you wish to mount.
+                          This must start with a "/".
+                        type: string
+                      initializeFileSystem:
+                        description: (Bool) either or not initialize FS for the first
+                          use
+                        type: boolean
+                      storageAccountName:
+                        description: (String) The name of the storage resource in
+                          which the data is. (Could be omitted if resource_id is provided)
+                        type: string
+                      tenantId:
+                        description: (String) This is your azure directory tenant
+                          id. It is required for creating the mount. (Could be omitted
+                          if Azure authentication is used, and we can extract tenant_id
+                          from it).
+                        type: string
+                    type: object
                   adl:
                     description: to mount ADLS Gen1 using Azure Data Lake (ADL) driver
-                    items:
-                      properties:
-                        clientId:
-                          description: (String) This is the client_id for the enterprise
-                            application for the service principal.
-                          type: string
-                        clientSecretKey:
-                          description: (String) This is the secret key in which your
-                            service principal/enterprise app client secret will be
-                            stored.
-                          type: string
-                        clientSecretScope:
-                          description: (String) This is the secret scope in which
-                            your service principal/enterprise app client secret will
-                            be stored.
-                          type: string
-                        directory:
-                          description: (Computed) (String) This is optional if you
-                            don't want to add an additional directory that you wish
-                            to mount. This must start with a "/".
-                          type: string
-                        sparkConfPrefix:
-                          description: '(String) This is the spark configuration prefix
-                            for adls gen 1 mount. The options are fs.adl, dfs.adls.
-                            Use fs.adl for runtime 6.0 and above for the clusters.
-                            Otherwise use dfs.adls. The default value is: fs.adl.'
-                          type: string
-                        storageResourceName:
-                          description: (String) The name of the storage resource in
-                            which the data is for ADLS gen 1. This is what you are
-                            trying to mount. (Could be omitted if resource_id is provided)
-                          type: string
-                        tenantId:
-                          description: (String) This is your azure directory tenant
-                            id. It is required for creating the mount. (Could be omitted
-                            if Azure authentication is used, and we can extract tenant_id
-                            from it)
-                          type: string
-                      type: object
-                    type: array
+                    properties:
+                      clientId:
+                        description: (String) This is the client_id for the enterprise
+                          application for the service principal.
+                        type: string
+                      clientSecretKey:
+                        description: (String) This is the secret key in which your
+                          service principal/enterprise app client secret will be stored.
+                        type: string
+                      clientSecretScope:
+                        description: (String) This is the secret scope in which your
+                          service principal/enterprise app client secret will be stored.
+                        type: string
+                      directory:
+                        description: (Computed) (String) This is optional if you don't
+                          want to add an additional directory that you wish to mount.
+                          This must start with a "/".
+                        type: string
+                      sparkConfPrefix:
+                        description: '(String) This is the spark configuration prefix
+                          for adls gen 1 mount. The options are fs.adl, dfs.adls.
+                          Use fs.adl for runtime 6.0 and above for the clusters. Otherwise
+                          use dfs.adls. The default value is: fs.adl.'
+                        type: string
+                      storageResourceName:
+                        description: (String) The name of the storage resource in
+                          which the data is for ADLS gen 1. This is what you are trying
+                          to mount. (Could be omitted if resource_id is provided)
+                        type: string
+                      tenantId:
+                        description: (String) This is your azure directory tenant
+                          id. It is required for creating the mount. (Could be omitted
+                          if Azure authentication is used, and we can extract tenant_id
+                          from it)
+                        type: string
+                    type: object
                   clusterId:
                     description: Cluster to use for mounting. If no cluster is specified,
                       a new cluster will be created and will mount the bucket for
@@ -655,19 +611,17 @@ spec:
                     x-kubernetes-map-type: granular
                   gs:
                     description: to mount Google Cloud Storage
-                    items:
-                      properties:
-                        bucketName:
-                          description: (String) GCS bucket name to be mounted.
-                          type: string
-                        serviceAccount:
-                          description: (String) email of registered Google Service
-                            Account for data access.  If it's not specified, then
-                            the cluster_id should be provided, and the cluster should
-                            have a Google service account attached to it.
-                          type: string
-                      type: object
-                    type: array
+                    properties:
+                      bucketName:
+                        description: (String) GCS bucket name to be mounted.
+                        type: string
+                      serviceAccount:
+                        description: (String) email of registered Google Service Account
+                          for data access.  If it's not specified, then the cluster_id
+                          should be provided, and the cluster should have a Google
+                          service account attached to it.
+                        type: string
+                    type: object
                   id:
                     description: mount name
                     type: string
@@ -683,20 +637,18 @@ spec:
                     type: string
                   s3:
                     description: to mount AWS S3
-                    items:
-                      properties:
-                        bucketName:
-                          description: (String) S3 bucket name to be mounted.
-                          type: string
-                        instanceProfile:
-                          description: (String) ARN of registered instance profile
-                            for data access.  If it's not specified, then the cluster_id
-                            should be provided, and the cluster should have an instance
-                            profile attached to it. If both cluster_id & instance_profile
-                            are specified, then cluster_id takes precedence.
-                          type: string
-                      type: object
-                    type: array
+                    properties:
+                      bucketName:
+                        description: (String) S3 bucket name to be mounted.
+                        type: string
+                      instanceProfile:
+                        description: (String) ARN of registered instance profile for
+                          data access.  If it's not specified, then the cluster_id
+                          should be provided, and the cluster should have an instance
+                          profile attached to it. If both cluster_id & instance_profile
+                          are specified, then cluster_id takes precedence.
+                        type: string
+                    type: object
                   source:
                     description: (String) HDFS-compatible url
                     type: string
@@ -707,38 +659,35 @@ spec:
                   wasb:
                     description: to mount Azure Blob Storage using Windows Azure Storage
                       Blob (WASB) driver
-                    items:
-                      properties:
-                        authType:
-                          description: (String) This is the auth type for blob storage.
-                            This can either be SAS tokens (SAS) or account access
-                            keys (ACCESS_KEY).
-                          type: string
-                        containerName:
-                          description: (String) The container in which the data is.
-                            This is what you are trying to mount. (Could be omitted
-                            if resource_id is provided)
-                          type: string
-                        directory:
-                          description: (Computed) (String) This is optional if you
-                            don't want to add an additional directory that you wish
-                            to mount. This must start with a "/".
-                          type: string
-                        storageAccountName:
-                          description: (String) The name of the storage resource in
-                            which the data is. (Could be omitted if resource_id is
-                            provided)
-                          type: string
-                        tokenSecretKey:
-                          description: (String) This is the secret key in which your
-                            auth type token is stored.
-                          type: string
-                        tokenSecretScope:
-                          description: (String) This is the secret scope in which
-                            your auth type token is stored.
-                          type: string
-                      type: object
-                    type: array
+                    properties:
+                      authType:
+                        description: (String) This is the auth type for blob storage.
+                          This can either be SAS tokens (SAS) or account access keys
+                          (ACCESS_KEY).
+                        type: string
+                      containerName:
+                        description: (String) The container in which the data is.
+                          This is what you are trying to mount. (Could be omitted
+                          if resource_id is provided)
+                        type: string
+                      directory:
+                        description: (Computed) (String) This is optional if you don't
+                          want to add an additional directory that you wish to mount.
+                          This must start with a "/".
+                        type: string
+                      storageAccountName:
+                        description: (String) The name of the storage resource in
+                          which the data is. (Could be omitted if resource_id is provided)
+                        type: string
+                      tokenSecretKey:
+                        description: (String) This is the secret key in which your
+                          auth type token is stored.
+                        type: string
+                      tokenSecretScope:
+                        description: (String) This is the secret scope in which your
+                          auth type token is stored.
+                        type: string
+                    type: object
                 type: object
               conditions:
                 description: Conditions of the resource.

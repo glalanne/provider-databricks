@@ -36,7 +36,7 @@ type ComplianceSecurityProfileWorkspaceParameters struct {
 }
 
 type ComplianceSecurityProfileWorkspaceSettingInitParameters struct {
-	ComplianceSecurityProfileWorkspace []ComplianceSecurityProfileWorkspaceInitParameters `json:"complianceSecurityProfileWorkspace,omitempty" tf:"compliance_security_profile_workspace,omitempty"`
+	ComplianceSecurityProfileWorkspace *ComplianceSecurityProfileWorkspaceInitParameters `json:"complianceSecurityProfileWorkspace,omitempty" tf:"compliance_security_profile_workspace,omitempty"`
 
 	Etag *string `json:"etag,omitempty" tf:"etag,omitempty"`
 
@@ -44,7 +44,7 @@ type ComplianceSecurityProfileWorkspaceSettingInitParameters struct {
 }
 
 type ComplianceSecurityProfileWorkspaceSettingObservation struct {
-	ComplianceSecurityProfileWorkspace []ComplianceSecurityProfileWorkspaceObservation `json:"complianceSecurityProfileWorkspace,omitempty" tf:"compliance_security_profile_workspace,omitempty"`
+	ComplianceSecurityProfileWorkspace *ComplianceSecurityProfileWorkspaceObservation `json:"complianceSecurityProfileWorkspace,omitempty" tf:"compliance_security_profile_workspace,omitempty"`
 
 	Etag *string `json:"etag,omitempty" tf:"etag,omitempty"`
 
@@ -56,7 +56,7 @@ type ComplianceSecurityProfileWorkspaceSettingObservation struct {
 type ComplianceSecurityProfileWorkspaceSettingParameters struct {
 
 	// +kubebuilder:validation:Optional
-	ComplianceSecurityProfileWorkspace []ComplianceSecurityProfileWorkspaceParameters `json:"complianceSecurityProfileWorkspace,omitempty" tf:"compliance_security_profile_workspace,omitempty"`
+	ComplianceSecurityProfileWorkspace *ComplianceSecurityProfileWorkspaceParameters `json:"complianceSecurityProfileWorkspace,omitempty" tf:"compliance_security_profile_workspace,omitempty"`
 
 	// +kubebuilder:validation:Optional
 	Etag *string `json:"etag,omitempty" tf:"etag,omitempty"`

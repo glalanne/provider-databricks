@@ -16,60 +16,60 @@ import (
 type ConfigInitParameters struct {
 
 	// The email configuration of the Notification Destination. It must contain the following:
-	Email []EmailInitParameters `json:"email,omitempty" tf:"email,omitempty"`
+	Email *EmailInitParameters `json:"email,omitempty" tf:"email,omitempty"`
 
 	// The Generic Webhook configuration of the Notification Destination. It must contain the following:
-	GenericWebhook []GenericWebhookInitParameters `json:"genericWebhook,omitempty" tf:"generic_webhook,omitempty"`
+	GenericWebhook *GenericWebhookInitParameters `json:"genericWebhook,omitempty" tf:"generic_webhook,omitempty"`
 
 	// The Microsoft Teams configuration of the Notification Destination. It must contain the following:
-	MicrosoftTeams []MicrosoftTeamsInitParameters `json:"microsoftTeams,omitempty" tf:"microsoft_teams,omitempty"`
+	MicrosoftTeams *MicrosoftTeamsInitParameters `json:"microsoftTeams,omitempty" tf:"microsoft_teams,omitempty"`
 
 	// The PagerDuty configuration of the Notification Destination. It must contain the following:
-	Pagerduty []PagerdutyInitParameters `json:"pagerduty,omitempty" tf:"pagerduty,omitempty"`
+	Pagerduty *PagerdutyInitParameters `json:"pagerduty,omitempty" tf:"pagerduty,omitempty"`
 
 	// The Slack configuration of the Notification Destination. It must contain the following:
-	Slack []SlackInitParameters `json:"slack,omitempty" tf:"slack,omitempty"`
+	Slack *SlackInitParameters `json:"slack,omitempty" tf:"slack,omitempty"`
 }
 
 type ConfigObservation struct {
 
 	// The email configuration of the Notification Destination. It must contain the following:
-	Email []EmailObservation `json:"email,omitempty" tf:"email,omitempty"`
+	Email *EmailObservation `json:"email,omitempty" tf:"email,omitempty"`
 
 	// The Generic Webhook configuration of the Notification Destination. It must contain the following:
-	GenericWebhook []GenericWebhookObservation `json:"genericWebhook,omitempty" tf:"generic_webhook,omitempty"`
+	GenericWebhook *GenericWebhookObservation `json:"genericWebhook,omitempty" tf:"generic_webhook,omitempty"`
 
 	// The Microsoft Teams configuration of the Notification Destination. It must contain the following:
-	MicrosoftTeams []MicrosoftTeamsObservation `json:"microsoftTeams,omitempty" tf:"microsoft_teams,omitempty"`
+	MicrosoftTeams *MicrosoftTeamsObservation `json:"microsoftTeams,omitempty" tf:"microsoft_teams,omitempty"`
 
 	// The PagerDuty configuration of the Notification Destination. It must contain the following:
-	Pagerduty []PagerdutyObservation `json:"pagerduty,omitempty" tf:"pagerduty,omitempty"`
+	Pagerduty *PagerdutyObservation `json:"pagerduty,omitempty" tf:"pagerduty,omitempty"`
 
 	// The Slack configuration of the Notification Destination. It must contain the following:
-	Slack []SlackObservation `json:"slack,omitempty" tf:"slack,omitempty"`
+	Slack *SlackObservation `json:"slack,omitempty" tf:"slack,omitempty"`
 }
 
 type ConfigParameters struct {
 
 	// The email configuration of the Notification Destination. It must contain the following:
 	// +kubebuilder:validation:Optional
-	Email []EmailParameters `json:"email,omitempty" tf:"email,omitempty"`
+	Email *EmailParameters `json:"email,omitempty" tf:"email,omitempty"`
 
 	// The Generic Webhook configuration of the Notification Destination. It must contain the following:
 	// +kubebuilder:validation:Optional
-	GenericWebhook []GenericWebhookParameters `json:"genericWebhook,omitempty" tf:"generic_webhook,omitempty"`
+	GenericWebhook *GenericWebhookParameters `json:"genericWebhook,omitempty" tf:"generic_webhook,omitempty"`
 
 	// The Microsoft Teams configuration of the Notification Destination. It must contain the following:
 	// +kubebuilder:validation:Optional
-	MicrosoftTeams []MicrosoftTeamsParameters `json:"microsoftTeams,omitempty" tf:"microsoft_teams,omitempty"`
+	MicrosoftTeams *MicrosoftTeamsParameters `json:"microsoftTeams,omitempty" tf:"microsoft_teams,omitempty"`
 
 	// The PagerDuty configuration of the Notification Destination. It must contain the following:
 	// +kubebuilder:validation:Optional
-	Pagerduty []PagerdutyParameters `json:"pagerduty,omitempty" tf:"pagerduty,omitempty"`
+	Pagerduty *PagerdutyParameters `json:"pagerduty,omitempty" tf:"pagerduty,omitempty"`
 
 	// The Slack configuration of the Notification Destination. It must contain the following:
 	// +kubebuilder:validation:Optional
-	Slack []SlackParameters `json:"slack,omitempty" tf:"slack,omitempty"`
+	Slack *SlackParameters `json:"slack,omitempty" tf:"slack,omitempty"`
 }
 
 type EmailInitParameters struct {
@@ -166,7 +166,7 @@ type MicrosoftTeamsParameters struct {
 type NotificationDestinationInitParameters struct {
 
 	// The configuration of the Notification Destination. It must contain exactly one of the following blocks:
-	Config []ConfigInitParameters `json:"config,omitempty" tf:"config,omitempty"`
+	Config *ConfigInitParameters `json:"config,omitempty" tf:"config,omitempty"`
 
 	// the type of Notification Destination.
 	DestinationType *string `json:"destinationType,omitempty" tf:"destination_type,omitempty"`
@@ -178,7 +178,7 @@ type NotificationDestinationInitParameters struct {
 type NotificationDestinationObservation struct {
 
 	// The configuration of the Notification Destination. It must contain exactly one of the following blocks:
-	Config []ConfigObservation `json:"config,omitempty" tf:"config,omitempty"`
+	Config *ConfigObservation `json:"config,omitempty" tf:"config,omitempty"`
 
 	// the type of Notification Destination.
 	DestinationType *string `json:"destinationType,omitempty" tf:"destination_type,omitempty"`
@@ -194,7 +194,7 @@ type NotificationDestinationParameters struct {
 
 	// The configuration of the Notification Destination. It must contain exactly one of the following blocks:
 	// +kubebuilder:validation:Optional
-	Config []ConfigParameters `json:"config,omitempty" tf:"config,omitempty"`
+	Config *ConfigParameters `json:"config,omitempty" tf:"config,omitempty"`
 
 	// the type of Notification Destination.
 	// +kubebuilder:validation:Optional

@@ -80,20 +80,18 @@ spec:
                   awsKeyInfo:
                     description: This field is a block and is documented below. This
                       conflicts with gcp_key_info
-                    items:
-                      properties:
-                        keyAlias:
-                          description: The AWS KMS key alias.
-                          type: string
-                        keyArn:
-                          description: The AWS KMS key's Amazon Resource Name (ARN).
-                          type: string
-                        keyRegion:
-                          description: (Computed) The AWS region in which KMS key
-                            is deployed to. This is not required.
-                          type: string
-                      type: object
-                    type: array
+                    properties:
+                      keyAlias:
+                        description: The AWS KMS key alias.
+                        type: string
+                      keyArn:
+                        description: The AWS KMS key's Amazon Resource Name (ARN).
+                        type: string
+                      keyRegion:
+                        description: (Computed) The AWS region in which KMS key is
+                          deployed to. This is not required.
+                        type: string
+                    type: object
                   creationTime:
                     description: (Integer) Time in epoch milliseconds when the customer
                       key was created.
@@ -104,13 +102,11 @@ spec:
                   gcpKeyInfo:
                     description: This field is a block and is documented below. This
                       conflicts with aws_key_info
-                    items:
-                      properties:
-                        kmsKeyId:
-                          description: The GCP KMS key's resource name.
-                          type: string
-                      type: object
-                    type: array
+                    properties:
+                      kmsKeyId:
+                        description: The GCP KMS key's resource name.
+                        type: string
+                    type: object
                   useCases:
                     description: '(since v0.3.4) List of use cases for which this
                       key will be used. If you''ve used the resource before, please
@@ -139,20 +135,18 @@ spec:
                   awsKeyInfo:
                     description: This field is a block and is documented below. This
                       conflicts with gcp_key_info
-                    items:
-                      properties:
-                        keyAlias:
-                          description: The AWS KMS key alias.
-                          type: string
-                        keyArn:
-                          description: The AWS KMS key's Amazon Resource Name (ARN).
-                          type: string
-                        keyRegion:
-                          description: (Computed) The AWS region in which KMS key
-                            is deployed to. This is not required.
-                          type: string
-                      type: object
-                    type: array
+                    properties:
+                      keyAlias:
+                        description: The AWS KMS key alias.
+                        type: string
+                      keyArn:
+                        description: The AWS KMS key's Amazon Resource Name (ARN).
+                        type: string
+                      keyRegion:
+                        description: (Computed) The AWS region in which KMS key is
+                          deployed to. This is not required.
+                        type: string
+                    type: object
                   creationTime:
                     description: (Integer) Time in epoch milliseconds when the customer
                       key was created.
@@ -163,13 +157,11 @@ spec:
                   gcpKeyInfo:
                     description: This field is a block and is documented below. This
                       conflicts with aws_key_info
-                    items:
-                      properties:
-                        kmsKeyId:
-                          description: The GCP KMS key's resource name.
-                          type: string
-                      type: object
-                    type: array
+                    properties:
+                      kmsKeyId:
+                        description: The GCP KMS key's resource name.
+                        type: string
+                    type: object
                   useCases:
                     description: '(since v0.3.4) List of use cases for which this
                       key will be used. If you''ve used the resource before, please
@@ -286,20 +278,18 @@ spec:
                   awsKeyInfo:
                     description: This field is a block and is documented below. This
                       conflicts with gcp_key_info
-                    items:
-                      properties:
-                        keyAlias:
-                          description: The AWS KMS key alias.
-                          type: string
-                        keyArn:
-                          description: The AWS KMS key's Amazon Resource Name (ARN).
-                          type: string
-                        keyRegion:
-                          description: (Computed) The AWS region in which KMS key
-                            is deployed to. This is not required.
-                          type: string
-                      type: object
-                    type: array
+                    properties:
+                      keyAlias:
+                        description: The AWS KMS key alias.
+                        type: string
+                      keyArn:
+                        description: The AWS KMS key's Amazon Resource Name (ARN).
+                        type: string
+                      keyRegion:
+                        description: (Computed) The AWS region in which KMS key is
+                          deployed to. This is not required.
+                        type: string
+                    type: object
                   creationTime:
                     description: (Integer) Time in epoch milliseconds when the customer
                       key was created.
@@ -310,13 +300,11 @@ spec:
                   gcpKeyInfo:
                     description: This field is a block and is documented below. This
                       conflicts with aws_key_info
-                    items:
-                      properties:
-                        kmsKeyId:
-                          description: The GCP KMS key's resource name.
-                          type: string
-                      type: object
-                    type: array
+                    properties:
+                      kmsKeyId:
+                        description: The GCP KMS key's resource name.
+                        type: string
+                    type: object
                   id:
                     description: Canonical unique identifier for the mws customer
                       managed keys.

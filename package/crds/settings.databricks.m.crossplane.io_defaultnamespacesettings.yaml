@@ -64,13 +64,11 @@ spec:
                     type: string
                   namespace:
                     description: The configuration details.
-                    items:
-                      properties:
-                        value:
-                          description: The value for the setting.
-                          type: string
-                      type: object
-                    type: array
+                    properties:
+                      value:
+                        description: The value for the setting.
+                        type: string
+                    type: object
                   settingName:
                     type: string
                 type: object
@@ -91,13 +89,11 @@ spec:
                     type: string
                   namespace:
                     description: The configuration details.
-                    items:
-                      properties:
-                        value:
-                          description: The value for the setting.
-                          type: string
-                      type: object
-                    type: array
+                    properties:
+                      value:
+                        description: The value for the setting.
+                        type: string
+                    type: object
                   settingName:
                     type: string
                 type: object
@@ -176,13 +172,11 @@ spec:
                     type: string
                   namespace:
                     description: The configuration details.
-                    items:
-                      properties:
-                        value:
-                          description: The value for the setting.
-                          type: string
-                      type: object
-                    type: array
+                    properties:
+                      value:
+                        description: The value for the setting.
+                        type: string
+                    type: object
                   settingName:
                     type: string
                 type: object

@@ -6,12 +6,14 @@ package config
 
 import (
 	// Note(turkenh): we are importing this to embed provider schema document
+	"context"
 	_ "embed"
 	"strings"
 
 	ujconfig "github.com/crossplane/upjet/v2/pkg/config"
+	"github.com/crossplane/upjet/v2/pkg/schema/traverser"
+	conversiontfjson "github.com/crossplane/upjet/v2/pkg/types/conversion/tfjson"
 	"github.com/crossplane/upjet/v2/pkg/types/name"
-
 	"github.com/glalanne/provider-databricks/config/access_control_rule_set"
 	"github.com/glalanne/provider-databricks/config/alert"
 	"github.com/glalanne/provider-databricks/config/artifact_allowlist"
@@ -109,6 +111,10 @@ import (
 	"github.com/glalanne/provider-databricks/config/workspace_binding"
 	"github.com/glalanne/provider-databricks/config/workspace_conf"
 	"github.com/glalanne/provider-databricks/config/workspace_file"
+	tfjson "github.com/hashicorp/terraform-json"
+	tfschema "github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
+
+	"github.com/pkg/errors"
 )
 
 const (
@@ -122,8 +128,42 @@ var providerSchema string
 //go:embed provider-metadata.yaml
 var providerMetadata string
 
+func getProviderSchema(s string) (*tfschema.Provider, error) {
+	ps := tfjson.ProviderSchemas{}
+	if err := ps.UnmarshalJSON([]byte(s)); err != nil {
+		panic(err)
+	}
+	if len(ps.Schemas) != 1 {
+		return nil, errors.Errorf("there should exactly be 1 provider schema but there are %d", len(ps.Schemas))
+	}
+	var rs map[string]*tfjson.Schema
+	for _, v := range ps.Schemas {
+		rs = v.ResourceSchemas
+		break
+	}
+	return &tfschema.Provider{
+		ResourcesMap: conversiontfjson.GetV2ResourceMap(rs),
+	}, nil
+}
+
 // GetProvider returns provider configuration
-func GetProvider() *ujconfig.Provider {
+func GetProvider(_ context.Context, sdkProvider *tfschema.Provider, generationProvider bool) (*ujconfig.Provider, error) {
+
+	if generationProvider {
+		p, err := getProviderSchema(providerSchema)
+		if err != nil {
+			return nil, errors.Wrap(err, "cannot read the Terraform SDK provider from the JSON schema for code generation")
+		}
+		if err := traverser.TFResourceSchema(sdkProvider.ResourcesMap).Traverse(traverser.NewMaxItemsSync(p.ResourcesMap)); err != nil {
+			return nil, errors.Wrap(err, "cannot sync the MaxItems constraints between the Go schema and the JSON schema")
+		}
+		// use the JSON schema to temporarily prevent float64->int64
+		// conversions in the CRD APIs.
+		// We would like to convert to int64s with the next major release of
+		// the provider.
+		sdkProvider = p
+	}
+
 	pc := ujconfig.NewProvider([]byte(providerSchema), resourcePrefix, modulePath, []byte(providerMetadata),
 		// ujconfig.WithShortName("databricks"),
 		ujconfig.WithRootGroup("databricks.crossplane.io"),
@@ -131,7 +171,10 @@ func GetProvider() *ujconfig.Provider {
 		ujconfig.WithFeaturesPackage("internal/features"),
 		ujconfig.WithDefaultResourceOptions(
 			ExternalNameConfigurations(),
-		))
+		),
+		ujconfig.WithTerraformProvider(sdkProvider),
+		ujconfig.WithSchemaTraversers(&ujconfig.SingletonListEmbedder{}),
+	)
 
 	for _, configure := range []func(provider *ujconfig.Provider){
 		// app.Configure,
@@ -248,11 +291,26 @@ func GetProvider() *ujconfig.Provider {
 	}
 
 	pc.ConfigureResources()
-	return pc
+	return pc, nil
 }
 
 // GetProviderNamespaced returns provider configuration for namespace-scoped resources
-func GetProviderNamespaced() *ujconfig.Provider {
+func GetProviderNamespaced(_ context.Context, sdkProvider *tfschema.Provider, generationProvider bool) (*ujconfig.Provider, error) {
+	if generationProvider {
+		p, err := getProviderSchema(providerSchema)
+		if err != nil {
+			return nil, errors.Wrap(err, "cannot read the Terraform SDK provider from the JSON schema for code generation")
+		}
+		if err := traverser.TFResourceSchema(sdkProvider.ResourcesMap).Traverse(traverser.NewMaxItemsSync(p.ResourcesMap)); err != nil {
+			return nil, errors.Wrap(err, "cannot sync the MaxItems constraints between the Go schema and the JSON schema")
+		}
+		// use the JSON schema to temporarily prevent float64->int64
+		// conversions in the CRD APIs.
+		// We would like to convert to int64s with the next major release of
+		// the provider.
+		sdkProvider = p
+	}
+
 	pc := ujconfig.NewProvider([]byte(providerSchema), resourcePrefix, modulePath, []byte(providerMetadata),
 		// ujconfig.WithShortName("databricks"),
 		ujconfig.WithRootGroup("databricks.m.crossplane.io"),
@@ -260,7 +318,10 @@ func GetProviderNamespaced() *ujconfig.Provider {
 		ujconfig.WithFeaturesPackage("internal/features"),
 		ujconfig.WithDefaultResourceOptions(
 			ExternalNameConfigurations(),
-		))
+		),
+		ujconfig.WithTerraformProvider(sdkProvider),
+		ujconfig.WithSchemaTraversers(&ujconfig.SingletonListEmbedder{}),
+	)
 
 	for _, configure := range []func(provider *ujconfig.Provider){
 		// app.Configure,
@@ -377,5 +438,5 @@ func GetProviderNamespaced() *ujconfig.Provider {
 	}
 
 	pc.ConfigureResources()
-	return pc
+	return pc, nil
 }

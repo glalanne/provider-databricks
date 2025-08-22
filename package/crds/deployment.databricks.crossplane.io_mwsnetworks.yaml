@@ -105,27 +105,25 @@ spec:
                     description: '(GCP only) a block consists of Google Cloud specific
                       information for this network, for example the VPC ID, subnet
                       ID, and secondary IP ranges. It has the following fields:'
-                    items:
-                      properties:
-                        networkProjectId:
-                          description: The Google Cloud project ID of the VPC network.
-                          type: string
-                        podIpRangeName:
-                          type: string
-                        serviceIpRangeName:
-                          type: string
-                        subnetId:
-                          description: The ID of the subnet associated with this network.
-                          type: string
-                        subnetRegion:
-                          description: The Google Cloud region of the workspace data
-                            plane. For example, us-east4.
-                          type: string
-                        vpcId:
-                          description: (AWS only) aws_vpc id
-                          type: string
-                      type: object
-                    type: array
+                    properties:
+                      networkProjectId:
+                        description: The Google Cloud project ID of the VPC network.
+                        type: string
+                      podIpRangeName:
+                        type: string
+                      serviceIpRangeName:
+                        type: string
+                      subnetId:
+                        description: The ID of the subnet associated with this network.
+                        type: string
+                      subnetRegion:
+                        description: The Google Cloud region of the workspace data
+                          plane. For example, us-east4.
+                        type: string
+                      vpcId:
+                        description: (AWS only) aws_vpc id
+                        type: string
+                    type: object
                   networkId:
                     description: (String) id of network to be used for databricks_mws_workspaces
                       resource.
@@ -148,20 +146,18 @@ spec:
                   vpcEndpoints:
                     description: mapping of databricks_mws_vpc_endpoint for PrivateLink
                       or Private Service Connect connections
-                    items:
-                      properties:
-                        dataplaneRelay:
-                          items:
-                            type: string
-                          type: array
-                          x-kubernetes-list-type: set
-                        restApi:
-                          items:
-                            type: string
-                          type: array
-                          x-kubernetes-list-type: set
-                      type: object
-                    type: array
+                    properties:
+                      dataplaneRelay:
+                        items:
+                          type: string
+                        type: array
+                        x-kubernetes-list-type: set
+                      restApi:
+                        items:
+                          type: string
+                        type: array
+                        x-kubernetes-list-type: set
+                    type: object
                   vpcId:
                     description: (AWS only) aws_vpc id
                     type: string
@@ -218,27 +214,25 @@ spec:
                     description: '(GCP only) a block consists of Google Cloud specific
                       information for this network, for example the VPC ID, subnet
                       ID, and secondary IP ranges. It has the following fields:'
-                    items:
-                      properties:
-                        networkProjectId:
-                          description: The Google Cloud project ID of the VPC network.
-                          type: string
-                        podIpRangeName:
-                          type: string
-                        serviceIpRangeName:
-                          type: string
-                        subnetId:
-                          description: The ID of the subnet associated with this network.
-                          type: string
-                        subnetRegion:
-                          description: The Google Cloud region of the workspace data
-                            plane. For example, us-east4.
-                          type: string
-                        vpcId:
-                          description: (AWS only) aws_vpc id
-                          type: string
-                      type: object
-                    type: array
+                    properties:
+                      networkProjectId:
+                        description: The Google Cloud project ID of the VPC network.
+                        type: string
+                      podIpRangeName:
+                        type: string
+                      serviceIpRangeName:
+                        type: string
+                      subnetId:
+                        description: The ID of the subnet associated with this network.
+                        type: string
+                      subnetRegion:
+                        description: The Google Cloud region of the workspace data
+                          plane. For example, us-east4.
+                        type: string
+                      vpcId:
+                        description: (AWS only) aws_vpc id
+                        type: string
+                    type: object
                   networkId:
                     description: (String) id of network to be used for databricks_mws_workspaces
                       resource.
@@ -261,20 +255,18 @@ spec:
                   vpcEndpoints:
                     description: mapping of databricks_mws_vpc_endpoint for PrivateLink
                       or Private Service Connect connections
-                    items:
-                      properties:
-                        dataplaneRelay:
-                          items:
-                            type: string
-                          type: array
-                          x-kubernetes-list-type: set
-                        restApi:
-                          items:
-                            type: string
-                          type: array
-                          x-kubernetes-list-type: set
-                      type: object
-                    type: array
+                    properties:
+                      dataplaneRelay:
+                        items:
+                          type: string
+                        type: array
+                        x-kubernetes-list-type: set
+                      restApi:
+                        items:
+                          type: string
+                        type: array
+                        x-kubernetes-list-type: set
+                    type: object
                   vpcId:
                     description: (AWS only) aws_vpc id
                     type: string
@@ -401,27 +393,25 @@ spec:
                     description: '(GCP only) a block consists of Google Cloud specific
                       information for this network, for example the VPC ID, subnet
                       ID, and secondary IP ranges. It has the following fields:'
-                    items:
-                      properties:
-                        networkProjectId:
-                          description: The Google Cloud project ID of the VPC network.
-                          type: string
-                        podIpRangeName:
-                          type: string
-                        serviceIpRangeName:
-                          type: string
-                        subnetId:
-                          description: The ID of the subnet associated with this network.
-                          type: string
-                        subnetRegion:
-                          description: The Google Cloud region of the workspace data
-                            plane. For example, us-east4.
-                          type: string
-                        vpcId:
-                          description: (AWS only) aws_vpc id
-                          type: string
-                      type: object
-                    type: array
+                    properties:
+                      networkProjectId:
+                        description: The Google Cloud project ID of the VPC network.
+                        type: string
+                      podIpRangeName:
+                        type: string
+                      serviceIpRangeName:
+                        type: string
+                      subnetId:
+                        description: The ID of the subnet associated with this network.
+                        type: string
+                      subnetRegion:
+                        description: The Google Cloud region of the workspace data
+                          plane. For example, us-east4.
+                        type: string
+                      vpcId:
+                        description: (AWS only) aws_vpc id
+                        type: string
+                    type: object
                   id:
                     description: Canonical unique identifier for the mws networks.
                     type: string
@@ -447,20 +437,18 @@ spec:
                   vpcEndpoints:
                     description: mapping of databricks_mws_vpc_endpoint for PrivateLink
                       or Private Service Connect connections
-                    items:
-                      properties:
-                        dataplaneRelay:
-                          items:
-                            type: string
-                          type: array
-                          x-kubernetes-list-type: set
-                        restApi:
-                          items:
-                            type: string
-                          type: array
-                          x-kubernetes-list-type: set
-                      type: object
-                    type: array
+                    properties:
+                      dataplaneRelay:
+                        items:
+                          type: string
+                        type: array
+                        x-kubernetes-list-type: set
+                      restApi:
+                        items:
+                          type: string
+                        type: array
+                        x-kubernetes-list-type: set
+                    type: object
                   vpcId:
                     description: (AWS only) aws_vpc id
                     type: string

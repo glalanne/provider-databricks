@@ -209,23 +209,23 @@ type MetastoreDataAccessDatabricksGCPServiceAccountParameters struct {
 }
 
 type MetastoreDataAccessInitParameters struct {
-	AwsIAMRole []MetastoreDataAccessAwsIAMRoleInitParameters `json:"awsIamRole,omitempty" tf:"aws_iam_role,omitempty"`
+	AwsIAMRole *MetastoreDataAccessAwsIAMRoleInitParameters `json:"awsIamRole,omitempty" tf:"aws_iam_role,omitempty"`
 
-	AzureManagedIdentity []MetastoreDataAccessAzureManagedIdentityInitParameters `json:"azureManagedIdentity,omitempty" tf:"azure_managed_identity,omitempty"`
+	AzureManagedIdentity *MetastoreDataAccessAzureManagedIdentityInitParameters `json:"azureManagedIdentity,omitempty" tf:"azure_managed_identity,omitempty"`
 
-	AzureServicePrincipal []MetastoreDataAccessAzureServicePrincipalInitParameters `json:"azureServicePrincipal,omitempty" tf:"azure_service_principal,omitempty"`
+	AzureServicePrincipal *MetastoreDataAccessAzureServicePrincipalInitParameters `json:"azureServicePrincipal,omitempty" tf:"azure_service_principal,omitempty"`
 
-	CloudflareAPIToken []CloudflareAPITokenInitParameters `json:"cloudflareApiToken,omitempty" tf:"cloudflare_api_token,omitempty"`
+	CloudflareAPIToken *CloudflareAPITokenInitParameters `json:"cloudflareApiToken,omitempty" tf:"cloudflare_api_token,omitempty"`
 
 	Comment *string `json:"comment,omitempty" tf:"comment,omitempty"`
 
-	DatabricksGCPServiceAccount []MetastoreDataAccessDatabricksGCPServiceAccountInitParameters `json:"databricksGcpServiceAccount,omitempty" tf:"databricks_gcp_service_account,omitempty"`
+	DatabricksGCPServiceAccount *MetastoreDataAccessDatabricksGCPServiceAccountInitParameters `json:"databricksGcpServiceAccount,omitempty" tf:"databricks_gcp_service_account,omitempty"`
 
 	ForceDestroy *bool `json:"forceDestroy,omitempty" tf:"force_destroy,omitempty"`
 
 	ForceUpdate *bool `json:"forceUpdate,omitempty" tf:"force_update,omitempty"`
 
-	GCPServiceAccountKey []GCPServiceAccountKeyInitParameters `json:"gcpServiceAccountKey,omitempty" tf:"gcp_service_account_key,omitempty"`
+	GCPServiceAccountKey *GCPServiceAccountKeyInitParameters `json:"gcpServiceAccountKey,omitempty" tf:"gcp_service_account_key,omitempty"`
 
 	// whether to set this credential as the default for the metastore. In practice, this should always be true.
 	IsDefault *bool `json:"isDefault,omitempty" tf:"is_default,omitempty"`
@@ -245,23 +245,23 @@ type MetastoreDataAccessInitParameters struct {
 }
 
 type MetastoreDataAccessObservation struct {
-	AwsIAMRole []MetastoreDataAccessAwsIAMRoleObservation `json:"awsIamRole,omitempty" tf:"aws_iam_role,omitempty"`
+	AwsIAMRole *MetastoreDataAccessAwsIAMRoleObservation `json:"awsIamRole,omitempty" tf:"aws_iam_role,omitempty"`
 
-	AzureManagedIdentity []MetastoreDataAccessAzureManagedIdentityObservation `json:"azureManagedIdentity,omitempty" tf:"azure_managed_identity,omitempty"`
+	AzureManagedIdentity *MetastoreDataAccessAzureManagedIdentityObservation `json:"azureManagedIdentity,omitempty" tf:"azure_managed_identity,omitempty"`
 
-	AzureServicePrincipal []MetastoreDataAccessAzureServicePrincipalObservation `json:"azureServicePrincipal,omitempty" tf:"azure_service_principal,omitempty"`
+	AzureServicePrincipal *MetastoreDataAccessAzureServicePrincipalObservation `json:"azureServicePrincipal,omitempty" tf:"azure_service_principal,omitempty"`
 
-	CloudflareAPIToken []CloudflareAPITokenObservation `json:"cloudflareApiToken,omitempty" tf:"cloudflare_api_token,omitempty"`
+	CloudflareAPIToken *CloudflareAPITokenObservation `json:"cloudflareApiToken,omitempty" tf:"cloudflare_api_token,omitempty"`
 
 	Comment *string `json:"comment,omitempty" tf:"comment,omitempty"`
 
-	DatabricksGCPServiceAccount []MetastoreDataAccessDatabricksGCPServiceAccountObservation `json:"databricksGcpServiceAccount,omitempty" tf:"databricks_gcp_service_account,omitempty"`
+	DatabricksGCPServiceAccount *MetastoreDataAccessDatabricksGCPServiceAccountObservation `json:"databricksGcpServiceAccount,omitempty" tf:"databricks_gcp_service_account,omitempty"`
 
 	ForceDestroy *bool `json:"forceDestroy,omitempty" tf:"force_destroy,omitempty"`
 
 	ForceUpdate *bool `json:"forceUpdate,omitempty" tf:"force_update,omitempty"`
 
-	GCPServiceAccountKey []GCPServiceAccountKeyObservation `json:"gcpServiceAccountKey,omitempty" tf:"gcp_service_account_key,omitempty"`
+	GCPServiceAccountKey *GCPServiceAccountKeyObservation `json:"gcpServiceAccountKey,omitempty" tf:"gcp_service_account_key,omitempty"`
 
 	// ID of this data access configuration in form of <metastore_id>|<name>.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
@@ -286,22 +286,22 @@ type MetastoreDataAccessObservation struct {
 type MetastoreDataAccessParameters struct {
 
 	// +kubebuilder:validation:Optional
-	AwsIAMRole []MetastoreDataAccessAwsIAMRoleParameters `json:"awsIamRole,omitempty" tf:"aws_iam_role,omitempty"`
+	AwsIAMRole *MetastoreDataAccessAwsIAMRoleParameters `json:"awsIamRole,omitempty" tf:"aws_iam_role,omitempty"`
 
 	// +kubebuilder:validation:Optional
-	AzureManagedIdentity []MetastoreDataAccessAzureManagedIdentityParameters `json:"azureManagedIdentity,omitempty" tf:"azure_managed_identity,omitempty"`
+	AzureManagedIdentity *MetastoreDataAccessAzureManagedIdentityParameters `json:"azureManagedIdentity,omitempty" tf:"azure_managed_identity,omitempty"`
 
 	// +kubebuilder:validation:Optional
-	AzureServicePrincipal []MetastoreDataAccessAzureServicePrincipalParameters `json:"azureServicePrincipal,omitempty" tf:"azure_service_principal,omitempty"`
+	AzureServicePrincipal *MetastoreDataAccessAzureServicePrincipalParameters `json:"azureServicePrincipal,omitempty" tf:"azure_service_principal,omitempty"`
 
 	// +kubebuilder:validation:Optional
-	CloudflareAPIToken []CloudflareAPITokenParameters `json:"cloudflareApiToken,omitempty" tf:"cloudflare_api_token,omitempty"`
+	CloudflareAPIToken *CloudflareAPITokenParameters `json:"cloudflareApiToken,omitempty" tf:"cloudflare_api_token,omitempty"`
 
 	// +kubebuilder:validation:Optional
 	Comment *string `json:"comment,omitempty" tf:"comment,omitempty"`
 
 	// +kubebuilder:validation:Optional
-	DatabricksGCPServiceAccount []MetastoreDataAccessDatabricksGCPServiceAccountParameters `json:"databricksGcpServiceAccount,omitempty" tf:"databricks_gcp_service_account,omitempty"`
+	DatabricksGCPServiceAccount *MetastoreDataAccessDatabricksGCPServiceAccountParameters `json:"databricksGcpServiceAccount,omitempty" tf:"databricks_gcp_service_account,omitempty"`
 
 	// +kubebuilder:validation:Optional
 	ForceDestroy *bool `json:"forceDestroy,omitempty" tf:"force_destroy,omitempty"`
@@ -310,7 +310,7 @@ type MetastoreDataAccessParameters struct {
 	ForceUpdate *bool `json:"forceUpdate,omitempty" tf:"force_update,omitempty"`
 
 	// +kubebuilder:validation:Optional
-	GCPServiceAccountKey []GCPServiceAccountKeyParameters `json:"gcpServiceAccountKey,omitempty" tf:"gcp_service_account_key,omitempty"`
+	GCPServiceAccountKey *GCPServiceAccountKeyParameters `json:"gcpServiceAccountKey,omitempty" tf:"gcp_service_account_key,omitempty"`
 
 	// whether to set this credential as the default for the metastore. In practice, this should always be true.
 	// +kubebuilder:validation:Optional

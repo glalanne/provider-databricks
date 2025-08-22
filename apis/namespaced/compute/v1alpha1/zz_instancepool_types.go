@@ -22,7 +22,7 @@ type DiskSpecInitParameters struct {
 	// (Integer) The size of each disk (in GiB) to attach.
 	DiskSize *float64 `json:"diskSize,omitempty" tf:"disk_size,omitempty"`
 
-	DiskType []DiskTypeInitParameters `json:"diskType,omitempty" tf:"disk_type,omitempty"`
+	DiskType *DiskTypeInitParameters `json:"diskType,omitempty" tf:"disk_type,omitempty"`
 }
 
 type DiskSpecObservation struct {
@@ -33,7 +33,7 @@ type DiskSpecObservation struct {
 	// (Integer) The size of each disk (in GiB) to attach.
 	DiskSize *float64 `json:"diskSize,omitempty" tf:"disk_size,omitempty"`
 
-	DiskType []DiskTypeObservation `json:"diskType,omitempty" tf:"disk_type,omitempty"`
+	DiskType *DiskTypeObservation `json:"diskType,omitempty" tf:"disk_type,omitempty"`
 }
 
 type DiskSpecParameters struct {
@@ -47,7 +47,7 @@ type DiskSpecParameters struct {
 	DiskSize *float64 `json:"diskSize,omitempty" tf:"disk_size,omitempty"`
 
 	// +kubebuilder:validation:Optional
-	DiskType []DiskTypeParameters `json:"diskType,omitempty" tf:"disk_type,omitempty"`
+	DiskType *DiskTypeParameters `json:"diskType,omitempty" tf:"disk_type,omitempty"`
 }
 
 type DiskTypeInitParameters struct {
@@ -182,17 +182,17 @@ type InstancePoolAzureAttributesParameters struct {
 }
 
 type InstancePoolFleetAttributesInitParameters struct {
-	FleetOnDemandOption []FleetOnDemandOptionInitParameters `json:"fleetOnDemandOption,omitempty" tf:"fleet_on_demand_option,omitempty"`
+	FleetOnDemandOption *FleetOnDemandOptionInitParameters `json:"fleetOnDemandOption,omitempty" tf:"fleet_on_demand_option,omitempty"`
 
-	FleetSpotOption []FleetSpotOptionInitParameters `json:"fleetSpotOption,omitempty" tf:"fleet_spot_option,omitempty"`
+	FleetSpotOption *FleetSpotOptionInitParameters `json:"fleetSpotOption,omitempty" tf:"fleet_spot_option,omitempty"`
 
 	LaunchTemplateOverride []LaunchTemplateOverrideInitParameters `json:"launchTemplateOverride,omitempty" tf:"launch_template_override,omitempty"`
 }
 
 type InstancePoolFleetAttributesObservation struct {
-	FleetOnDemandOption []FleetOnDemandOptionObservation `json:"fleetOnDemandOption,omitempty" tf:"fleet_on_demand_option,omitempty"`
+	FleetOnDemandOption *FleetOnDemandOptionObservation `json:"fleetOnDemandOption,omitempty" tf:"fleet_on_demand_option,omitempty"`
 
-	FleetSpotOption []FleetSpotOptionObservation `json:"fleetSpotOption,omitempty" tf:"fleet_spot_option,omitempty"`
+	FleetSpotOption *FleetSpotOptionObservation `json:"fleetSpotOption,omitempty" tf:"fleet_spot_option,omitempty"`
 
 	LaunchTemplateOverride []LaunchTemplateOverrideObservation `json:"launchTemplateOverride,omitempty" tf:"launch_template_override,omitempty"`
 }
@@ -200,10 +200,10 @@ type InstancePoolFleetAttributesObservation struct {
 type InstancePoolFleetAttributesParameters struct {
 
 	// +kubebuilder:validation:Optional
-	FleetOnDemandOption []FleetOnDemandOptionParameters `json:"fleetOnDemandOption,omitempty" tf:"fleet_on_demand_option,omitempty"`
+	FleetOnDemandOption *FleetOnDemandOptionParameters `json:"fleetOnDemandOption,omitempty" tf:"fleet_on_demand_option,omitempty"`
 
 	// +kubebuilder:validation:Optional
-	FleetSpotOption []FleetSpotOptionParameters `json:"fleetSpotOption,omitempty" tf:"fleet_spot_option,omitempty"`
+	FleetSpotOption *FleetSpotOptionParameters `json:"fleetSpotOption,omitempty" tf:"fleet_spot_option,omitempty"`
 
 	// +kubebuilder:validation:Optional
 	LaunchTemplateOverride []LaunchTemplateOverrideParameters `json:"launchTemplateOverride" tf:"launch_template_override,omitempty"`
@@ -249,25 +249,25 @@ type InstancePoolGCPAttributesParameters struct {
 }
 
 type InstancePoolInitParameters struct {
-	AwsAttributes []InstancePoolAwsAttributesInitParameters `json:"awsAttributes,omitempty" tf:"aws_attributes,omitempty"`
+	AwsAttributes *InstancePoolAwsAttributesInitParameters `json:"awsAttributes,omitempty" tf:"aws_attributes,omitempty"`
 
-	AzureAttributes []InstancePoolAzureAttributesInitParameters `json:"azureAttributes,omitempty" tf:"azure_attributes,omitempty"`
+	AzureAttributes *InstancePoolAzureAttributesInitParameters `json:"azureAttributes,omitempty" tf:"azure_attributes,omitempty"`
 
 	// (Map) Additional tags for instance pool resources. Databricks tags all pool resources (e.g. AWS & Azure instances and Disk volumes). The tags of the instance pool will propagate to the clusters using the pool (see the official documentation). Attempting to set the same tags in both cluster and instance pool will raise an error. Databricks allows at most 43 custom tags.
 	// +mapType=granular
 	CustomTags map[string]*string `json:"customTags,omitempty" tf:"custom_tags,omitempty"`
 
-	DiskSpec []DiskSpecInitParameters `json:"diskSpec,omitempty" tf:"disk_spec,omitempty"`
+	DiskSpec *DiskSpecInitParameters `json:"diskSpec,omitempty" tf:"disk_spec,omitempty"`
 
 	// (Bool) Autoscaling Local Storage: when enabled, the instances in the pool dynamically acquire additional disk space when they are running low on disk space.
 	EnableElasticDisk *bool `json:"enableElasticDisk,omitempty" tf:"enable_elastic_disk,omitempty"`
 
-	GCPAttributes []InstancePoolGCPAttributesInitParameters `json:"gcpAttributes,omitempty" tf:"gcp_attributes,omitempty"`
+	GCPAttributes *InstancePoolGCPAttributesInitParameters `json:"gcpAttributes,omitempty" tf:"gcp_attributes,omitempty"`
 
 	// (Integer) The number of minutes that idle instances in excess of the min_idle_instances are maintained by the pool before being terminated. If not specified, excess idle instances are terminated automatically after a default timeout period. If specified, the time must be between 0 and 10000 minutes. If you specify 0, excess idle instances are removed as soon as possible.
 	IdleInstanceAutoterminationMinutes *float64 `json:"idleInstanceAutoterminationMinutes,omitempty" tf:"idle_instance_autotermination_minutes,omitempty"`
 
-	InstancePoolFleetAttributes []InstancePoolFleetAttributesInitParameters `json:"instancePoolFleetAttributes,omitempty" tf:"instance_pool_fleet_attributes,omitempty"`
+	InstancePoolFleetAttributes *InstancePoolFleetAttributesInitParameters `json:"instancePoolFleetAttributes,omitempty" tf:"instance_pool_fleet_attributes,omitempty"`
 
 	// Canonical unique identifier for the instance pool.
 	InstancePoolID *string `json:"instancePoolId,omitempty" tf:"instance_pool_id,omitempty"`
@@ -291,20 +291,20 @@ type InstancePoolInitParameters struct {
 }
 
 type InstancePoolObservation struct {
-	AwsAttributes []InstancePoolAwsAttributesObservation `json:"awsAttributes,omitempty" tf:"aws_attributes,omitempty"`
+	AwsAttributes *InstancePoolAwsAttributesObservation `json:"awsAttributes,omitempty" tf:"aws_attributes,omitempty"`
 
-	AzureAttributes []InstancePoolAzureAttributesObservation `json:"azureAttributes,omitempty" tf:"azure_attributes,omitempty"`
+	AzureAttributes *InstancePoolAzureAttributesObservation `json:"azureAttributes,omitempty" tf:"azure_attributes,omitempty"`
 
 	// (Map) Additional tags for instance pool resources. Databricks tags all pool resources (e.g. AWS & Azure instances and Disk volumes). The tags of the instance pool will propagate to the clusters using the pool (see the official documentation). Attempting to set the same tags in both cluster and instance pool will raise an error. Databricks allows at most 43 custom tags.
 	// +mapType=granular
 	CustomTags map[string]*string `json:"customTags,omitempty" tf:"custom_tags,omitempty"`
 
-	DiskSpec []DiskSpecObservation `json:"diskSpec,omitempty" tf:"disk_spec,omitempty"`
+	DiskSpec *DiskSpecObservation `json:"diskSpec,omitempty" tf:"disk_spec,omitempty"`
 
 	// (Bool) Autoscaling Local Storage: when enabled, the instances in the pool dynamically acquire additional disk space when they are running low on disk space.
 	EnableElasticDisk *bool `json:"enableElasticDisk,omitempty" tf:"enable_elastic_disk,omitempty"`
 
-	GCPAttributes []InstancePoolGCPAttributesObservation `json:"gcpAttributes,omitempty" tf:"gcp_attributes,omitempty"`
+	GCPAttributes *InstancePoolGCPAttributesObservation `json:"gcpAttributes,omitempty" tf:"gcp_attributes,omitempty"`
 
 	// Canonical unique identifier for the instance pool.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
@@ -312,7 +312,7 @@ type InstancePoolObservation struct {
 	// (Integer) The number of minutes that idle instances in excess of the min_idle_instances are maintained by the pool before being terminated. If not specified, excess idle instances are terminated automatically after a default timeout period. If specified, the time must be between 0 and 10000 minutes. If you specify 0, excess idle instances are removed as soon as possible.
 	IdleInstanceAutoterminationMinutes *float64 `json:"idleInstanceAutoterminationMinutes,omitempty" tf:"idle_instance_autotermination_minutes,omitempty"`
 
-	InstancePoolFleetAttributes []InstancePoolFleetAttributesObservation `json:"instancePoolFleetAttributes,omitempty" tf:"instance_pool_fleet_attributes,omitempty"`
+	InstancePoolFleetAttributes *InstancePoolFleetAttributesObservation `json:"instancePoolFleetAttributes,omitempty" tf:"instance_pool_fleet_attributes,omitempty"`
 
 	// Canonical unique identifier for the instance pool.
 	InstancePoolID *string `json:"instancePoolId,omitempty" tf:"instance_pool_id,omitempty"`
@@ -338,10 +338,10 @@ type InstancePoolObservation struct {
 type InstancePoolParameters struct {
 
 	// +kubebuilder:validation:Optional
-	AwsAttributes []InstancePoolAwsAttributesParameters `json:"awsAttributes,omitempty" tf:"aws_attributes,omitempty"`
+	AwsAttributes *InstancePoolAwsAttributesParameters `json:"awsAttributes,omitempty" tf:"aws_attributes,omitempty"`
 
 	// +kubebuilder:validation:Optional
-	AzureAttributes []InstancePoolAzureAttributesParameters `json:"azureAttributes,omitempty" tf:"azure_attributes,omitempty"`
+	AzureAttributes *InstancePoolAzureAttributesParameters `json:"azureAttributes,omitempty" tf:"azure_attributes,omitempty"`
 
 	// (Map) Additional tags for instance pool resources. Databricks tags all pool resources (e.g. AWS & Azure instances and Disk volumes). The tags of the instance pool will propagate to the clusters using the pool (see the official documentation). Attempting to set the same tags in both cluster and instance pool will raise an error. Databricks allows at most 43 custom tags.
 	// +kubebuilder:validation:Optional
@@ -349,21 +349,21 @@ type InstancePoolParameters struct {
 	CustomTags map[string]*string `json:"customTags,omitempty" tf:"custom_tags,omitempty"`
 
 	// +kubebuilder:validation:Optional
-	DiskSpec []DiskSpecParameters `json:"diskSpec,omitempty" tf:"disk_spec,omitempty"`
+	DiskSpec *DiskSpecParameters `json:"diskSpec,omitempty" tf:"disk_spec,omitempty"`
 
 	// (Bool) Autoscaling Local Storage: when enabled, the instances in the pool dynamically acquire additional disk space when they are running low on disk space.
 	// +kubebuilder:validation:Optional
 	EnableElasticDisk *bool `json:"enableElasticDisk,omitempty" tf:"enable_elastic_disk,omitempty"`
 
 	// +kubebuilder:validation:Optional
-	GCPAttributes []InstancePoolGCPAttributesParameters `json:"gcpAttributes,omitempty" tf:"gcp_attributes,omitempty"`
+	GCPAttributes *InstancePoolGCPAttributesParameters `json:"gcpAttributes,omitempty" tf:"gcp_attributes,omitempty"`
 
 	// (Integer) The number of minutes that idle instances in excess of the min_idle_instances are maintained by the pool before being terminated. If not specified, excess idle instances are terminated automatically after a default timeout period. If specified, the time must be between 0 and 10000 minutes. If you specify 0, excess idle instances are removed as soon as possible.
 	// +kubebuilder:validation:Optional
 	IdleInstanceAutoterminationMinutes *float64 `json:"idleInstanceAutoterminationMinutes,omitempty" tf:"idle_instance_autotermination_minutes,omitempty"`
 
 	// +kubebuilder:validation:Optional
-	InstancePoolFleetAttributes []InstancePoolFleetAttributesParameters `json:"instancePoolFleetAttributes,omitempty" tf:"instance_pool_fleet_attributes,omitempty"`
+	InstancePoolFleetAttributes *InstancePoolFleetAttributesParameters `json:"instancePoolFleetAttributes,omitempty" tf:"instance_pool_fleet_attributes,omitempty"`
 
 	// Canonical unique identifier for the instance pool.
 	// +kubebuilder:validation:Optional
@@ -436,7 +436,7 @@ type PreloadedDockerImageBasicAuthParameters struct {
 type PreloadedDockerImageInitParameters struct {
 
 	// basic_auth.username and basic_auth.password for Docker repository. Docker registry credentials are encrypted when they are stored in Databricks internal storage and when they are passed to a registry upon fetching Docker images at cluster launch. However, other authenticated and authorized API users of this workspace can access the username and password.
-	BasicAuth []PreloadedDockerImageBasicAuthInitParameters `json:"basicAuth,omitempty" tf:"basic_auth,omitempty"`
+	BasicAuth *PreloadedDockerImageBasicAuthInitParameters `json:"basicAuth,omitempty" tf:"basic_auth,omitempty"`
 
 	// URL for the Docker image
 	URL *string `json:"url,omitempty" tf:"url,omitempty"`
@@ -445,7 +445,7 @@ type PreloadedDockerImageInitParameters struct {
 type PreloadedDockerImageObservation struct {
 
 	// basic_auth.username and basic_auth.password for Docker repository. Docker registry credentials are encrypted when they are stored in Databricks internal storage and when they are passed to a registry upon fetching Docker images at cluster launch. However, other authenticated and authorized API users of this workspace can access the username and password.
-	BasicAuth []PreloadedDockerImageBasicAuthObservation `json:"basicAuth,omitempty" tf:"basic_auth,omitempty"`
+	BasicAuth *PreloadedDockerImageBasicAuthObservation `json:"basicAuth,omitempty" tf:"basic_auth,omitempty"`
 
 	// URL for the Docker image
 	URL *string `json:"url,omitempty" tf:"url,omitempty"`
@@ -455,7 +455,7 @@ type PreloadedDockerImageParameters struct {
 
 	// basic_auth.username and basic_auth.password for Docker repository. Docker registry credentials are encrypted when they are stored in Databricks internal storage and when they are passed to a registry upon fetching Docker images at cluster launch. However, other authenticated and authorized API users of this workspace can access the username and password.
 	// +kubebuilder:validation:Optional
-	BasicAuth []PreloadedDockerImageBasicAuthParameters `json:"basicAuth,omitempty" tf:"basic_auth,omitempty"`
+	BasicAuth *PreloadedDockerImageBasicAuthParameters `json:"basicAuth,omitempty" tf:"basic_auth,omitempty"`
 
 	// URL for the Docker image
 	// +kubebuilder:validation:Optional

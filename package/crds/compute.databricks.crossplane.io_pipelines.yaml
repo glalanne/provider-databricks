@@ -107,103 +107,87 @@ spec:
                         applyPolicyDefaultValues:
                           type: boolean
                         autoscale:
-                          items:
-                            properties:
-                              maxWorkers:
-                                type: number
-                              minWorkers:
-                                type: number
-                              mode:
-                                type: string
-                            type: object
-                          type: array
+                          properties:
+                            maxWorkers:
+                              type: number
+                            minWorkers:
+                              type: number
+                            mode:
+                              type: string
+                          type: object
                         awsAttributes:
-                          items:
-                            properties:
-                              availability:
-                                type: string
-                              ebsVolumeCount:
-                                type: number
-                              ebsVolumeIops:
-                                type: number
-                              ebsVolumeSize:
-                                type: number
-                              ebsVolumeThroughput:
-                                type: number
-                              ebsVolumeType:
-                                type: string
-                              firstOnDemand:
-                                type: number
-                              instanceProfileArn:
-                                type: string
-                              spotBidPricePercent:
-                                type: number
-                              zoneId:
-                                description: Canonical unique identifier of the Lakeflow
-                                  Declarative Pipeline.
-                                type: string
-                            type: object
-                          type: array
+                          properties:
+                            availability:
+                              type: string
+                            ebsVolumeCount:
+                              type: number
+                            ebsVolumeIops:
+                              type: number
+                            ebsVolumeSize:
+                              type: number
+                            ebsVolumeThroughput:
+                              type: number
+                            ebsVolumeType:
+                              type: string
+                            firstOnDemand:
+                              type: number
+                            instanceProfileArn:
+                              type: string
+                            spotBidPricePercent:
+                              type: number
+                            zoneId:
+                              description: Canonical unique identifier of the Lakeflow
+                                Declarative Pipeline.
+                              type: string
+                          type: object
                         azureAttributes:
-                          items:
-                            properties:
-                              availability:
-                                type: string
-                              firstOnDemand:
-                                type: number
-                              logAnalyticsInfo:
-                                items:
-                                  properties:
-                                    logAnalyticsPrimaryKey:
-                                      type: string
-                                    logAnalyticsWorkspaceId:
-                                      description: Canonical unique identifier of
-                                        the Lakeflow Declarative Pipeline.
-                                      type: string
-                                  type: object
-                                type: array
-                              spotBidMaxPrice:
-                                type: number
-                            type: object
-                          type: array
+                          properties:
+                            availability:
+                              type: string
+                            firstOnDemand:
+                              type: number
+                            logAnalyticsInfo:
+                              properties:
+                                logAnalyticsPrimaryKey:
+                                  type: string
+                                logAnalyticsWorkspaceId:
+                                  description: Canonical unique identifier of the
+                                    Lakeflow Declarative Pipeline.
+                                  type: string
+                              type: object
+                            spotBidMaxPrice:
+                              type: number
+                          type: object
                         clusterLogConf:
-                          items:
-                            properties:
-                              dbfs:
-                                items:
-                                  properties:
-                                    destination:
-                                      type: string
-                                  type: object
-                                type: array
-                              s3:
-                                items:
-                                  properties:
-                                    cannedAcl:
-                                      type: string
-                                    destination:
-                                      type: string
-                                    enableEncryption:
-                                      type: boolean
-                                    encryptionType:
-                                      type: string
-                                    endpoint:
-                                      type: string
-                                    kmsKey:
-                                      type: string
-                                    region:
-                                      type: string
-                                  type: object
-                                type: array
-                              volumes:
-                                items:
-                                  properties:
-                                    destination:
-                                      type: string
-                                  type: object
-                                type: array
-                            type: object
-                          type: array
+                          properties:
+                            dbfs:
+                              properties:
+                                destination:
+                                  type: string
+                              type: object
+                            s3:
+                              properties:
+                                cannedAcl:
+                                  type: string
+                                destination:
+                                  type: string
+                                enableEncryption:
+                                  type: boolean
+                                encryptionType:
+                                  type: string
+                                endpoint:
+                                  type: string
+                                kmsKey:
+                                  type: string
+                                region:
+                                  type: string
+                              type: object
+                            volumes:
+                              properties:
+                                destination:
+                                  type: string
+                              type: object
+                          type: object
                         customTags:
                           additionalProperties:
                             type: string
@@ -224,89 +208,73 @@ spec:
                         enableLocalDiskEncryption:
                           type: boolean
                         gcpAttributes:
-                          items:
-                            properties:
-                              availability:
-                                type: string
-                              firstOnDemand:
-                                type: number
-                              googleServiceAccount:
-                                type: string
-                              localSsdCount:
-                                type: number
-                              zoneId:
-                                description: Canonical unique identifier of the Lakeflow
-                                  Declarative Pipeline.
-                                type: string
-                            type: object
-                          type: array
+                          properties:
+                            availability:
+                              type: string
+                            firstOnDemand:
+                              type: number
+                            googleServiceAccount:
+                              type: string
+                            localSsdCount:
+                              type: number
+                            zoneId:
+                              description: Canonical unique identifier of the Lakeflow
+                                Declarative Pipeline.
+                              type: string
+                          type: object
                         initScripts:
                           items:
                             properties:
                               abfss:
-                                items:
-                                  properties:
-                                    destination:
-                                      type: string
-                                  type: object
-                                type: array
+                                properties:
+                                  destination:
+                                    type: string
+                                type: object
                               dbfs:
-                                items:
-                                  properties:
-                                    destination:
-                                      type: string
-                                  type: object
-                                type: array
+                                properties:
+                                  destination:
+                                    type: string
+                                type: object
                               file:
                                 description: specifies path to a file in Databricks
                                   Workspace to include as source. Actual path is specified
                                   as path attribute inside the block.
-                                items:
-                                  properties:
-                                    destination:
-                                      type: string
-                                  type: object
-                                type: array
+                                properties:
+                                  destination:
+                                    type: string
+                                type: object
                               gcs:
-                                items:
-                                  properties:
-                                    destination:
-                                      type: string
-                                  type: object
-                                type: array
+                                properties:
+                                  destination:
+                                    type: string
+                                type: object
                               s3:
-                                items:
-                                  properties:
-                                    cannedAcl:
-                                      type: string
-                                    destination:
-                                      type: string
-                                    enableEncryption:
-                                      type: boolean
-                                    encryptionType:
-                                      type: string
-                                    endpoint:
-                                      type: string
-                                    kmsKey:
-                                      type: string
-                                    region:
-                                      type: string
-                                  type: object
-                                type: array
+                                properties:
+                                  cannedAcl:
+                                    type: string
+                                  destination:
+                                    type: string
+                                  enableEncryption:
+                                    type: boolean
+                                  encryptionType:
+                                    type: string
+                                  endpoint:
+                                    type: string
+                                  kmsKey:
+                                    type: string
+                                  region:
+                                    type: string
+                                type: object
                               volumes:
-                                items:
-                                  properties:
-                                    destination:
-                                      type: string
-                                  type: object
-                                type: array
+                                properties:
+                                  destination:
+                                    type: string
+                                type: object
                               workspace:
-                                items:
-                                  properties:
-                                    destination:
-                                      type: string
-                                  type: object
-                                type: array
+                                properties:
+                                  destination:
+                                    type: string
+                                type: object
                             type: object
                           type: array
                         instancePoolId:
@@ -363,17 +331,15 @@ spec:
                   deployment:
                     description: 'Deployment type of this pipeline. Supports following
                       attributes:'
-                    items:
-                      properties:
-                        kind:
-                          description: The deployment method that manages the pipeline.
-                          type: string
-                        metadataFilePath:
-                          description: The path to the file containing metadata about
-                            the deployment.
-                          type: string
-                      type: object
-                    type: array
+                    properties:
+                      kind:
+                        description: The deployment method that manages the pipeline.
+                        type: string
+                      metadataFilePath:
+                        description: The path to the file containing metadata about
+                          the deployment.
+                        type: string
+                    type: object
                   development:
                     description: A flag indicating whether to run the pipeline in
                       development mode. The default value is false.
@@ -384,363 +350,330 @@ spec:
                       serverless is set to true.'
                     type: string
                   environment:
-                    items:
-                      properties:
-                        dependencies:
-                          description: a list of pip dependencies, as supported by
-                            the version of pip in this environment. Each dependency
-                            is a pip requirement file line.  See API docs for more
-                            information.
-                          items:
-                            type: string
-                          type: array
-                      type: object
-                    type: array
+                    properties:
+                      dependencies:
+                        description: a list of pip dependencies, as supported by the
+                          version of pip in this environment. Each dependency is a
+                          pip requirement file line.  See API docs for more information.
+                        items:
+                          type: string
+                        type: array
+                    type: object
                   eventLog:
                     description: 'an optional block specifying a table where LDP Event
                       Log will be stored.  Consists of the following fields:'
-                    items:
-                      properties:
-                        catalog:
-                          description: The name of catalog in Unity Catalog. Change
-                            of this parameter forces recreation of the pipeline. (Conflicts
-                            with storage).
-                          type: string
-                        name:
-                          description: A user-friendly name for this pipeline. The
-                            name can be used to identify pipeline jobs in the UI.
-                          type: string
-                        schema:
-                          description: The default schema (database) where tables
-                            are read from or published to. The presence of this attribute
-                            implies that the pipeline is in direct publishing mode.
-                          type: string
-                      type: object
-                    type: array
+                    properties:
+                      catalog:
+                        description: The name of catalog in Unity Catalog. Change
+                          of this parameter forces recreation of the pipeline. (Conflicts
+                          with storage).
+                        type: string
+                      name:
+                        description: A user-friendly name for this pipeline. The name
+                          can be used to identify pipeline jobs in the UI.
+                        type: string
+                      schema:
+                        description: The default schema (database) where tables are
+                          read from or published to. The presence of this attribute
+                          implies that the pipeline is in direct publishing mode.
+                        type: string
+                    type: object
                   expectedLastModified:
                     type: number
                   filters:
                     description: 'Filters on which Pipeline packages to include in
                       the deployed graph.  This block consists of following attributes:'
-                    items:
-                      properties:
-                        exclude:
-                          description: Paths to exclude.
-                          items:
-                            type: string
-                          type: array
-                        include:
-                          description: Paths to include.
-                          items:
-                            type: string
-                          type: array
-                      type: object
-                    type: array
+                    properties:
+                      exclude:
+                        description: Paths to exclude.
+                        items:
+                          type: string
+                        type: array
+                      include:
+                        description: Paths to include.
+                        items:
+                          type: string
+                        type: array
+                    type: object
                   gatewayDefinition:
                     description: 'The definition of a gateway pipeline to support
                       CDC. Consists of following attributes:'
-                    items:
-                      properties:
-                        connectionId:
-                          description: Immutable. The Unity Catalog connection this
-                            gateway pipeline uses to communicate with the source.
-                          type: string
-                        connectionName:
-                          description: Immutable. The Unity Catalog connection this
-                            ingestion pipeline uses to communicate with the source.
-                            Specify either ingestion_gateway_id or connection_name.
-                          type: string
-                        gatewayStorageCatalog:
-                          description: Required, Immutable. The name of the catalog
-                            for the gateway pipeline's storage location.
-                          type: string
-                        gatewayStorageName:
-                          description: Required. The Unity Catalog-compatible naming
-                            for the gateway storage location. This is the destination
-                            to use for the data that is extracted by the gateway.
-                            Lakeflow Declarative Pipelines system will automatically
-                            create the storage location under the catalog and schema.
-                          type: string
-                        gatewayStorageSchema:
-                          description: Required, Immutable. The name of the schema
-                            for the gateway pipelines's storage location.
-                          type: string
-                      type: object
-                    type: array
+                    properties:
+                      connectionId:
+                        description: Immutable. The Unity Catalog connection this
+                          gateway pipeline uses to communicate with the source.
+                        type: string
+                      connectionName:
+                        description: Immutable. The Unity Catalog connection this
+                          ingestion pipeline uses to communicate with the source.
+                          Specify either ingestion_gateway_id or connection_name.
+                        type: string
+                      gatewayStorageCatalog:
+                        description: Required, Immutable. The name of the catalog
+                          for the gateway pipeline's storage location.
+                        type: string
+                      gatewayStorageName:
+                        description: Required. The Unity Catalog-compatible naming
+                          for the gateway storage location. This is the destination
+                          to use for the data that is extracted by the gateway. Lakeflow
+                          Declarative Pipelines system will automatically create the
+                          storage location under the catalog and schema.
+                        type: string
+                      gatewayStorageSchema:
+                        description: Required, Immutable. The name of the schema for
+                          the gateway pipelines's storage location.
+                        type: string
+                    type: object
                   health:
                     type: string
                   ingestionDefinition:
-                    items:
-                      properties:
-                        connectionName:
-                          description: Immutable. The Unity Catalog connection this
-                            ingestion pipeline uses to communicate with the source.
-                            Specify either ingestion_gateway_id or connection_name.
-                          type: string
-                        ingestionGatewayId:
-                          description: Immutable. Identifier for the ingestion gateway
-                            used by this ingestion pipeline to communicate with the
-                            source. Specify either ingestion_gateway_id or connection_name.
-                          type: string
-                        objects:
-                          description: Required. Settings specifying tables to replicate
-                            and the destination for the replicated tables.
-                          items:
-                            properties:
-                              report:
-                                items:
-                                  properties:
-                                    destinationCatalog:
-                                      description: The name of catalog in Unity Catalog.
-                                        Change of this parameter forces recreation
-                                        of the pipeline. (Conflicts with storage).
-                                      type: string
-                                    destinationSchema:
-                                      description: The default schema (database) where
-                                        tables are read from or published to. The
-                                        presence of this attribute implies that the
-                                        pipeline is in direct publishing mode.
-                                      type: string
-                                    destinationTable:
-                                      type: string
-                                    sourceUrl:
-                                      description: URL of the Lakeflow Declarative
-                                        Pipeline on the given workspace.
-                                      type: string
-                                    tableConfiguration:
-                                      description: Configuration settings to control
-                                        the ingestion of tables. These settings are
-                                        applied to all tables in the pipeline.
-                                      items:
-                                        properties:
-                                          excludeColumns:
-                                            items:
-                                              type: string
-                                            type: array
-                                          includeColumns:
-                                            items:
-                                              type: string
-                                            type: array
-                                          primaryKeys:
-                                            items:
-                                              type: string
-                                            type: array
-                                          queryBasedConnectorConfig:
-                                            items:
-                                              properties:
-                                                cursorColumns:
-                                                  items:
-                                                    type: string
-                                                  type: array
-                                                deletionCondition:
-                                                  type: string
-                                                hardDeletionSyncMinIntervalInSeconds:
-                                                  type: number
-                                              type: object
-                                            type: array
-                                          salesforceIncludeFormulaFields:
-                                            type: boolean
-                                          scdType:
-                                            type: string
-                                          sequenceBy:
-                                            items:
-                                              type: string
-                                            type: array
-                                        type: object
-                                      type: array
-                                  type: object
-                                type: array
-                              schema:
-                                description: The default schema (database) where tables
-                                  are read from or published to. The presence of this
-                                  attribute implies that the pipeline is in direct
-                                  publishing mode.
-                                items:
-                                  properties:
-                                    destinationCatalog:
-                                      description: The name of catalog in Unity Catalog.
-                                        Change of this parameter forces recreation
-                                        of the pipeline. (Conflicts with storage).
-                                      type: string
-                                    destinationSchema:
-                                      description: The default schema (database) where
-                                        tables are read from or published to. The
-                                        presence of this attribute implies that the
-                                        pipeline is in direct publishing mode.
-                                      type: string
-                                    sourceCatalog:
-                                      description: The name of catalog in Unity Catalog.
-                                        Change of this parameter forces recreation
-                                        of the pipeline. (Conflicts with storage).
-                                      type: string
-                                    sourceSchema:
-                                      description: The default schema (database) where
-                                        tables are read from or published to. The
-                                        presence of this attribute implies that the
-                                        pipeline is in direct publishing mode.
-                                      type: string
-                                    tableConfiguration:
-                                      description: Configuration settings to control
-                                        the ingestion of tables. These settings are
-                                        applied to all tables in the pipeline.
-                                      items:
-                                        properties:
-                                          excludeColumns:
-                                            items:
-                                              type: string
-                                            type: array
-                                          includeColumns:
-                                            items:
-                                              type: string
-                                            type: array
-                                          primaryKeys:
-                                            items:
-                                              type: string
-                                            type: array
-                                          queryBasedConnectorConfig:
-                                            items:
-                                              properties:
-                                                cursorColumns:
-                                                  items:
-                                                    type: string
-                                                  type: array
-                                                deletionCondition:
-                                                  type: string
-                                                hardDeletionSyncMinIntervalInSeconds:
-                                                  type: number
-                                              type: object
-                                            type: array
-                                          salesforceIncludeFormulaFields:
-                                            type: boolean
-                                          scdType:
-                                            type: string
-                                          sequenceBy:
-                                            items:
-                                              type: string
-                                            type: array
-                                        type: object
-                                      type: array
-                                  type: object
-                                type: array
-                              table:
-                                items:
-                                  properties:
-                                    destinationCatalog:
-                                      description: The name of catalog in Unity Catalog.
-                                        Change of this parameter forces recreation
-                                        of the pipeline. (Conflicts with storage).
-                                      type: string
-                                    destinationSchema:
-                                      description: The default schema (database) where
-                                        tables are read from or published to. The
-                                        presence of this attribute implies that the
-                                        pipeline is in direct publishing mode.
-                                      type: string
-                                    destinationTable:
-                                      type: string
-                                    sourceCatalog:
-                                      description: The name of catalog in Unity Catalog.
-                                        Change of this parameter forces recreation
-                                        of the pipeline. (Conflicts with storage).
-                                      type: string
-                                    sourceSchema:
-                                      description: The default schema (database) where
-                                        tables are read from or published to. The
-                                        presence of this attribute implies that the
-                                        pipeline is in direct publishing mode.
-                                      type: string
-                                    sourceTable:
-                                      type: string
-                                    tableConfiguration:
-                                      description: Configuration settings to control
-                                        the ingestion of tables. These settings are
-                                        applied to all tables in the pipeline.
-                                      items:
-                                        properties:
-                                          excludeColumns:
-                                            items:
-                                              type: string
-                                            type: array
-                                          includeColumns:
-                                            items:
-                                              type: string
-                                            type: array
-                                          primaryKeys:
-                                            items:
-                                              type: string
-                                            type: array
-                                          queryBasedConnectorConfig:
-                                            items:
-                                              properties:
-                                                cursorColumns:
-                                                  items:
-                                                    type: string
-                                                  type: array
-                                                deletionCondition:
-                                                  type: string
-                                                hardDeletionSyncMinIntervalInSeconds:
-                                                  type: number
-                                              type: object
-                                            type: array
-                                          salesforceIncludeFormulaFields:
-                                            type: boolean
-                                          scdType:
-                                            type: string
-                                          sequenceBy:
-                                            items:
-                                              type: string
-                                            type: array
-                                        type: object
-                                      type: array
-                                  type: object
-                                type: array
-                            type: object
-                          type: array
-                        sourceType:
-                          type: string
-                        tableConfiguration:
-                          description: Configuration settings to control the ingestion
-                            of tables. These settings are applied to all tables in
-                            the pipeline.
-                          items:
-                            properties:
-                              excludeColumns:
-                                items:
+                    properties:
+                      connectionName:
+                        description: Immutable. The Unity Catalog connection this
+                          ingestion pipeline uses to communicate with the source.
+                          Specify either ingestion_gateway_id or connection_name.
+                        type: string
+                      ingestionGatewayId:
+                        description: Immutable. Identifier for the ingestion gateway
+                          used by this ingestion pipeline to communicate with the
+                          source. Specify either ingestion_gateway_id or connection_name.
+                        type: string
+                      objects:
+                        description: Required. Settings specifying tables to replicate
+                          and the destination for the replicated tables.
+                        items:
+                          properties:
+                            report:
+                              properties:
+                                destinationCatalog:
+                                  description: The name of catalog in Unity Catalog.
+                                    Change of this parameter forces recreation of
+                                    the pipeline. (Conflicts with storage).
                                   type: string
-                                type: array
-                              includeColumns:
-                                items:
+                                destinationSchema:
+                                  description: The default schema (database) where
+                                    tables are read from or published to. The presence
+                                    of this attribute implies that the pipeline is
+                                    in direct publishing mode.
                                   type: string
-                                type: array
-                              primaryKeys:
-                                items:
+                                destinationTable:
                                   type: string
-                                type: array
-                              queryBasedConnectorConfig:
-                                items:
+                                sourceUrl:
+                                  description: URL of the Lakeflow Declarative Pipeline
+                                    on the given workspace.
+                                  type: string
+                                tableConfiguration:
+                                  description: Configuration settings to control the
+                                    ingestion of tables. These settings are applied
+                                    to all tables in the pipeline.
                                   properties:
-                                    cursorColumns:
+                                    excludeColumns:
                                       items:
                                         type: string
                                       type: array
-                                    deletionCondition:
+                                    includeColumns:
+                                      items:
+                                        type: string
+                                      type: array
+                                    primaryKeys:
+                                      items:
+                                        type: string
+                                      type: array
+                                    queryBasedConnectorConfig:
+                                      properties:
+                                        cursorColumns:
+                                          items:
+                                            type: string
+                                          type: array
+                                        deletionCondition:
+                                          type: string
+                                        hardDeletionSyncMinIntervalInSeconds:
+                                          type: number
+                                      type: object
+                                    salesforceIncludeFormulaFields:
+                                      type: boolean
+                                    scdType:
                                       type: string
-                                    hardDeletionSyncMinIntervalInSeconds:
-                                      type: number
+                                    sequenceBy:
+                                      items:
+                                        type: string
+                                      type: array
                                   type: object
-                                type: array
-                              salesforceIncludeFormulaFields:
-                                type: boolean
-                              scdType:
-                                type: string
-                              sequenceBy:
+                              type: object
+                            schema:
+                              description: The default schema (database) where tables
+                                are read from or published to. The presence of this
+                                attribute implies that the pipeline is in direct publishing
+                                mode.
+                              properties:
+                                destinationCatalog:
+                                  description: The name of catalog in Unity Catalog.
+                                    Change of this parameter forces recreation of
+                                    the pipeline. (Conflicts with storage).
+                                  type: string
+                                destinationSchema:
+                                  description: The default schema (database) where
+                                    tables are read from or published to. The presence
+                                    of this attribute implies that the pipeline is
+                                    in direct publishing mode.
+                                  type: string
+                                sourceCatalog:
+                                  description: The name of catalog in Unity Catalog.
+                                    Change of this parameter forces recreation of
+                                    the pipeline. (Conflicts with storage).
+                                  type: string
+                                sourceSchema:
+                                  description: The default schema (database) where
+                                    tables are read from or published to. The presence
+                                    of this attribute implies that the pipeline is
+                                    in direct publishing mode.
+                                  type: string
+                                tableConfiguration:
+                                  description: Configuration settings to control the
+                                    ingestion of tables. These settings are applied
+                                    to all tables in the pipeline.
+                                  properties:
+                                    excludeColumns:
+                                      items:
+                                        type: string
+                                      type: array
+                                    includeColumns:
+                                      items:
+                                        type: string
+                                      type: array
+                                    primaryKeys:
+                                      items:
+                                        type: string
+                                      type: array
+                                    queryBasedConnectorConfig:
+                                      properties:
+                                        cursorColumns:
+                                          items:
+                                            type: string
+                                          type: array
+                                        deletionCondition:
+                                          type: string
+                                        hardDeletionSyncMinIntervalInSeconds:
+                                          type: number
+                                      type: object
+                                    salesforceIncludeFormulaFields:
+                                      type: boolean
+                                    scdType:
+                                      type: string
+                                    sequenceBy:
+                                      items:
+                                        type: string
+                                      type: array
+                                  type: object
+                              type: object
+                            table:
+                              properties:
+                                destinationCatalog:
+                                  description: The name of catalog in Unity Catalog.
+                                    Change of this parameter forces recreation of
+                                    the pipeline. (Conflicts with storage).
+                                  type: string
+                                destinationSchema:
+                                  description: The default schema (database) where
+                                    tables are read from or published to. The presence
+                                    of this attribute implies that the pipeline is
+                                    in direct publishing mode.
+                                  type: string
+                                destinationTable:
+                                  type: string
+                                sourceCatalog:
+                                  description: The name of catalog in Unity Catalog.
+                                    Change of this parameter forces recreation of
+                                    the pipeline. (Conflicts with storage).
+                                  type: string
+                                sourceSchema:
+                                  description: The default schema (database) where
+                                    tables are read from or published to. The presence
+                                    of this attribute implies that the pipeline is
+                                    in direct publishing mode.
+                                  type: string
+                                sourceTable:
+                                  type: string
+                                tableConfiguration:
+                                  description: Configuration settings to control the
+                                    ingestion of tables. These settings are applied
+                                    to all tables in the pipeline.
+                                  properties:
+                                    excludeColumns:
+                                      items:
+                                        type: string
+                                      type: array
+                                    includeColumns:
+                                      items:
+                                        type: string
+                                      type: array
+                                    primaryKeys:
+                                      items:
+                                        type: string
+                                      type: array
+                                    queryBasedConnectorConfig:
+                                      properties:
+                                        cursorColumns:
+                                          items:
+                                            type: string
+                                          type: array
+                                        deletionCondition:
+                                          type: string
+                                        hardDeletionSyncMinIntervalInSeconds:
+                                          type: number
+                                      type: object
+                                    salesforceIncludeFormulaFields:
+                                      type: boolean
+                                    scdType:
+                                      type: string
+                                    sequenceBy:
+                                      items:
+                                        type: string
+                                      type: array
+                                  type: object
+                              type: object
+                          type: object
+                        type: array
+                      sourceType:
+                        type: string
+                      tableConfiguration:
+                        description: Configuration settings to control the ingestion
+                          of tables. These settings are applied to all tables in the
+                          pipeline.
+                        properties:
+                          excludeColumns:
+                            items:
+                              type: string
+                            type: array
+                          includeColumns:
+                            items:
+                              type: string
+                            type: array
+                          primaryKeys:
+                            items:
+                              type: string
+                            type: array
+                          queryBasedConnectorConfig:
+                            properties:
+                              cursorColumns:
                                 items:
                                   type: string
                                 type: array
+                              deletionCondition:
+                                type: string
+                              hardDeletionSyncMinIntervalInSeconds:
+                                type: number
                             type: object
-                          type: array
-                      type: object
-                    type: array
+                          salesforceIncludeFormulaFields:
+                            type: boolean
+                          scdType:
+                            type: string
+                          sequenceBy:
+                            items:
+                              type: string
+                            type: array
+                        type: object
+                    type: object
                   lastModified:
                     type: number
                   latestUpdates:
@@ -764,50 +697,42 @@ spec:
                           description: specifies path to a file in Databricks Workspace
                             to include as source. Actual path is specified as path
                             attribute inside the block.
-                          items:
-                            properties:
-                              path:
-                                type: string
-                            type: object
-                          type: array
+                          properties:
+                            path:
+                              type: string
+                          type: object
                         glob:
                           description: The unified field to include source code. Each
                             entry should have the include attribute that can specify
                             a notebook path, a file path, or a folder path that ends
                             /** (to include everything from that folder). This field
                             cannot be used together with notebook or file.
-                          items:
-                            properties:
-                              include:
-                                description: Paths to include.
-                                type: string
-                            type: object
-                          type: array
+                          properties:
+                            include:
+                              description: Paths to include.
+                              type: string
+                          type: object
                         jar:
                           type: string
                         maven:
-                          items:
-                            properties:
-                              coordinates:
+                          properties:
+                            coordinates:
+                              type: string
+                            exclusions:
+                              items:
                                 type: string
-                              exclusions:
-                                items:
-                                  type: string
-                                type: array
-                              repo:
-                                type: string
-                            type: object
-                          type: array
+                              type: array
+                            repo:
+                              type: string
+                          type: object
                         notebook:
                           description: specifies path to a Databricks Notebook to
                             include as source. Actual path is specified as path attribute
                             inside the block.
-                          items:
-                            properties:
-                              path:
-                                type: string
-                            type: object
-                          type: array
+                          properties:
+                            path:
+                              type: string
+                          type: object
                         whl:
                           type: string
                       type: object
@@ -838,20 +763,18 @@ spec:
                       default value is false.
                     type: boolean
                   restartWindow:
-                    items:
-                      properties:
-                        daysOfWeek:
-                          items:
-                            type: string
-                          type: array
-                        startHour:
-                          type: number
-                        timeZoneId:
-                          description: Canonical unique identifier of the Lakeflow
-                            Declarative Pipeline.
+                    properties:
+                      daysOfWeek:
+                        items:
                           type: string
-                      type: object
-                    type: array
+                        type: array
+                      startHour:
+                        type: number
+                      timeZoneId:
+                        description: Canonical unique identifier of the Lakeflow Declarative
+                          Pipeline.
+                        type: string
+                    type: object
                   rootPath:
                     description: An optional string specifying the root path for this
                       pipeline. This is used as the root directory when editing the
@@ -859,18 +782,16 @@ spec:
                       sys.path when executing Python sources during pipeline execution.
                     type: string
                   runAs:
-                    items:
-                      properties:
-                        servicePrincipalName:
-                          description: A user-friendly name for this pipeline. The
-                            name can be used to identify pipeline jobs in the UI.
-                          type: string
-                        userName:
-                          description: A user-friendly name for this pipeline. The
-                            name can be used to identify pipeline jobs in the UI.
-                          type: string
-                      type: object
-                    type: array
+                    properties:
+                      servicePrincipalName:
+                        description: A user-friendly name for this pipeline. The name
+                          can be used to identify pipeline jobs in the UI.
+                        type: string
+                      userName:
+                        description: A user-friendly name for this pipeline. The name
+                          can be used to identify pipeline jobs in the UI.
+                        type: string
+                    type: object
                   runAsUserName:
                     description: A user-friendly name for this pipeline. The name
                       can be used to identify pipeline jobs in the UI.
@@ -910,25 +831,19 @@ spec:
                       output data from the Databricks UI.
                     type: string
                   trigger:
-                    items:
-                      properties:
-                        cron:
-                          items:
-                            properties:
-                              quartzCronSchedule:
-                                type: string
-                              timezoneId:
-                                description: Canonical unique identifier of the Lakeflow
-                                  Declarative Pipeline.
-                                type: string
-                            type: object
-                          type: array
-                        manual:
-                          items:
-                            type: object
-                          type: array
-                      type: object
-                    type: array
+                    properties:
+                      cron:
+                        properties:
+                          quartzCronSchedule:
+                            type: string
+                          timezoneId:
+                            description: Canonical unique identifier of the Lakeflow
+                              Declarative Pipeline.
+                            type: string
+                        type: object
+                      manual:
+                        type: object
+                    type: object
                   url:
                     description: URL of the Lakeflow Declarative Pipeline on the given
                       workspace.
@@ -982,103 +897,87 @@ spec:
                         applyPolicyDefaultValues:
                           type: boolean
                         autoscale:
-                          items:
-                            properties:
-                              maxWorkers:
-                                type: number
-                              minWorkers:
-                                type: number
-                              mode:
-                                type: string
-                            type: object
-                          type: array
+                          properties:
+                            maxWorkers:
+                              type: number
+                            minWorkers:
+                              type: number
+                            mode:
+                              type: string
+                          type: object
                         awsAttributes:
-                          items:
-                            properties:
-                              availability:
-                                type: string
-                              ebsVolumeCount:
-                                type: number
-                              ebsVolumeIops:
-                                type: number
-                              ebsVolumeSize:
-                                type: number
-                              ebsVolumeThroughput:
-                                type: number
-                              ebsVolumeType:
-                                type: string
-                              firstOnDemand:
-                                type: number
-                              instanceProfileArn:
-                                type: string
-                              spotBidPricePercent:
-                                type: number
-                              zoneId:
-                                description: Canonical unique identifier of the Lakeflow
-                                  Declarative Pipeline.
-                                type: string
-                            type: object
-                          type: array
+                          properties:
+                            availability:
+                              type: string
+                            ebsVolumeCount:
+                              type: number
+                            ebsVolumeIops:
+                              type: number
+                            ebsVolumeSize:
+                              type: number
+                            ebsVolumeThroughput:
+                              type: number
+                            ebsVolumeType:
+                              type: string
+                            firstOnDemand:
+                              type: number
+                            instanceProfileArn:
+                              type: string
+                            spotBidPricePercent:
+                              type: number
+                            zoneId:
+                              description: Canonical unique identifier of the Lakeflow
+                                Declarative Pipeline.
+                              type: string
+                          type: object
                         azureAttributes:
-                          items:
-                            properties:
-                              availability:
-                                type: string
-                              firstOnDemand:
-                                type: number
-                              logAnalyticsInfo:
-                                items:
-                                  properties:
-                                    logAnalyticsPrimaryKey:
-                                      type: string
-                                    logAnalyticsWorkspaceId:
-                                      description: Canonical unique identifier of
-                                        the Lakeflow Declarative Pipeline.
-                                      type: string
-                                  type: object
-                                type: array
-                              spotBidMaxPrice:
-                                type: number
-                            type: object
-                          type: array
+                          properties:
+                            availability:
+                              type: string
+                            firstOnDemand:
+                              type: number
+                            logAnalyticsInfo:
+                              properties:
+                                logAnalyticsPrimaryKey:
+                                  type: string
+                                logAnalyticsWorkspaceId:
+                                  description: Canonical unique identifier of the
+                                    Lakeflow Declarative Pipeline.
+                                  type: string
+                              type: object
+                            spotBidMaxPrice:
+                              type: number
+                          type: object
                         clusterLogConf:
-                          items:
-                            properties:
-                              dbfs:
-                                items:
-                                  properties:
-                                    destination:
-                                      type: string
-                                  type: object
-                                type: array
-                              s3:
-                                items:
-                                  properties:
-                                    cannedAcl:
-                                      type: string
-                                    destination:
-                                      type: string
-                                    enableEncryption:
-                                      type: boolean
-                                    encryptionType:
-                                      type: string
-                                    endpoint:
-                                      type: string
-                                    kmsKey:
-                                      type: string
-                                    region:
-                                      type: string
-                                  type: object
-                                type: array
-                              volumes:
-                                items:
-                                  properties:
-                                    destination:
-                                      type: string
-                                  type: object
-                                type: array
-                            type: object
-                          type: array
+                          properties:
+                            dbfs:
+                              properties:
+                                destination:
+                                  type: string
+                              type: object
+                            s3:
+                              properties:
+                                cannedAcl:
+                                  type: string
+                                destination:
+                                  type: string
+                                enableEncryption:
+                                  type: boolean
+                                encryptionType:
+                                  type: string
+                                endpoint:
+                                  type: string
+                                kmsKey:
+                                  type: string
+                                region:
+                                  type: string
+                              type: object
+                            volumes:
+                              properties:
+                                destination:
+                                  type: string
+                              type: object
+                          type: object
                         customTags:
                           additionalProperties:
                             type: string
@@ -1099,89 +998,73 @@ spec:
                         enableLocalDiskEncryption:
                           type: boolean
                         gcpAttributes:
-                          items:
-                            properties:
-                              availability:
-                                type: string
-                              firstOnDemand:
-                                type: number
-                              googleServiceAccount:
-                                type: string
-                              localSsdCount:
-                                type: number
-                              zoneId:
-                                description: Canonical unique identifier of the Lakeflow
-                                  Declarative Pipeline.
-                                type: string
-                            type: object
-                          type: array
+                          properties:
+                            availability:
+                              type: string
+                            firstOnDemand:
+                              type: number
+                            googleServiceAccount:
+                              type: string
+                            localSsdCount:
+                              type: number
+                            zoneId:
+                              description: Canonical unique identifier of the Lakeflow
+                                Declarative Pipeline.
+                              type: string
+                          type: object
                         initScripts:
                           items:
                             properties:
                               abfss:
-                                items:
-                                  properties:
-                                    destination:
-                                      type: string
-                                  type: object
-                                type: array
+                                properties:
+                                  destination:
+                                    type: string
+                                type: object
                               dbfs:
-                                items:
-                                  properties:
-                                    destination:
-                                      type: string
-                                  type: object
-                                type: array
+                                properties:
+                                  destination:
+                                    type: string
+                                type: object
                               file:
                                 description: specifies path to a file in Databricks
                                   Workspace to include as source. Actual path is specified
                                   as path attribute inside the block.
-                                items:
-                                  properties:
-                                    destination:
-                                      type: string
-                                  type: object
-                                type: array
+                                properties:
+                                  destination:
+                                    type: string
+                                type: object
                               gcs:
-                                items:
-                                  properties:
-                                    destination:
-                                      type: string
-                                  type: object
-                                type: array
+                                properties:
+                                  destination:
+                                    type: string
+                                type: object
                               s3:
-                                items:
-                                  properties:
-                                    cannedAcl:
-                                      type: string
-                                    destination:
-                                      type: string
-                                    enableEncryption:
-                                      type: boolean
-                                    encryptionType:
-                                      type: string
-                                    endpoint:
-                                      type: string
-                                    kmsKey:
-                                      type: string
-                                    region:
-                                      type: string
-                                  type: object
-                                type: array
+                                properties:
+                                  cannedAcl:
+                                    type: string
+                                  destination:
+                                    type: string
+                                  enableEncryption:
+                                    type: boolean
+                                  encryptionType:
+                                    type: string
+                                  endpoint:
+                                    type: string
+                                  kmsKey:
+                                    type: string
+                                  region:
+                                    type: string
+                                type: object
                               volumes:
-                                items:
-                                  properties:
-                                    destination:
-                                      type: string
-                                  type: object
-                                type: array
+                                properties:
+                                  destination:
+                                    type: string
+                                type: object
                               workspace:
-                                items:
-                                  properties:
-                                    destination:
-                                      type: string
-                                  type: object
-                                type: array
+                                properties:
+                                  destination:
+                                    type: string
+                                type: object
                             type: object
                           type: array
                         instancePoolId:
@@ -1238,17 +1121,15 @@ spec:
                   deployment:
                     description: 'Deployment type of this pipeline. Supports following
                       attributes:'
-                    items:
-                      properties:
-                        kind:
-                          description: The deployment method that manages the pipeline.
-                          type: string
-                        metadataFilePath:
-                          description: The path to the file containing metadata about
-                            the deployment.
-                          type: string
-                      type: object
-                    type: array
+                    properties:
+                      kind:
+                        description: The deployment method that manages the pipeline.
+                        type: string
+                      metadataFilePath:
+                        description: The path to the file containing metadata about
+                          the deployment.
+                        type: string
+                    type: object
                   development:
                     description: A flag indicating whether to run the pipeline in
                       development mode. The default value is false.
@@ -1259,363 +1140,330 @@ spec:
                       serverless is set to true.'
                     type: string
                   environment:
-                    items:
-                      properties:
-                        dependencies:
-                          description: a list of pip dependencies, as supported by
-                            the version of pip in this environment. Each dependency
-                            is a pip requirement file line.  See API docs for more
-                            information.
-                          items:
-                            type: string
-                          type: array
-                      type: object
-                    type: array
+                    properties:
+                      dependencies:
+                        description: a list of pip dependencies, as supported by the
+                          version of pip in this environment. Each dependency is a
+                          pip requirement file line.  See API docs for more information.
+                        items:
+                          type: string
+                        type: array
+                    type: object
                   eventLog:
                     description: 'an optional block specifying a table where LDP Event
                       Log will be stored.  Consists of the following fields:'
-                    items:
-                      properties:
-                        catalog:
-                          description: The name of catalog in Unity Catalog. Change
-                            of this parameter forces recreation of the pipeline. (Conflicts
-                            with storage).
-                          type: string
-                        name:
-                          description: A user-friendly name for this pipeline. The
-                            name can be used to identify pipeline jobs in the UI.
-                          type: string
-                        schema:
-                          description: The default schema (database) where tables
-                            are read from or published to. The presence of this attribute
-                            implies that the pipeline is in direct publishing mode.
-                          type: string
-                      type: object
-                    type: array
+                    properties:
+                      catalog:
+                        description: The name of catalog in Unity Catalog. Change
+                          of this parameter forces recreation of the pipeline. (Conflicts
+                          with storage).
+                        type: string
+                      name:
+                        description: A user-friendly name for this pipeline. The name
+                          can be used to identify pipeline jobs in the UI.
+                        type: string
+                      schema:
+                        description: The default schema (database) where tables are
+                          read from or published to. The presence of this attribute
+                          implies that the pipeline is in direct publishing mode.
+                        type: string
+                    type: object
                   expectedLastModified:
                     type: number
                   filters:
                     description: 'Filters on which Pipeline packages to include in
                       the deployed graph.  This block consists of following attributes:'
-                    items:
-                      properties:
-                        exclude:
-                          description: Paths to exclude.
-                          items:
-                            type: string
-                          type: array
-                        include:
-                          description: Paths to include.
-                          items:
-                            type: string
-                          type: array
-                      type: object
-                    type: array
+                    properties:
+                      exclude:
+                        description: Paths to exclude.
+                        items:
+                          type: string
+                        type: array
+                      include:
+                        description: Paths to include.
+                        items:
+                          type: string
+                        type: array
+                    type: object
                   gatewayDefinition:
                     description: 'The definition of a gateway pipeline to support
                       CDC. Consists of following attributes:'
-                    items:
-                      properties:
-                        connectionId:
-                          description: Immutable. The Unity Catalog connection this
-                            gateway pipeline uses to communicate with the source.
-                          type: string
-                        connectionName:
-                          description: Immutable. The Unity Catalog connection this
-                            ingestion pipeline uses to communicate with the source.
-                            Specify either ingestion_gateway_id or connection_name.
-                          type: string
-                        gatewayStorageCatalog:
-                          description: Required, Immutable. The name of the catalog
-                            for the gateway pipeline's storage location.
-                          type: string
-                        gatewayStorageName:
-                          description: Required. The Unity Catalog-compatible naming
-                            for the gateway storage location. This is the destination
-                            to use for the data that is extracted by the gateway.
-                            Lakeflow Declarative Pipelines system will automatically
-                            create the storage location under the catalog and schema.
-                          type: string
-                        gatewayStorageSchema:
-                          description: Required, Immutable. The name of the schema
-                            for the gateway pipelines's storage location.
-                          type: string
-                      type: object
-                    type: array
+                    properties:
+                      connectionId:
+                        description: Immutable. The Unity Catalog connection this
+                          gateway pipeline uses to communicate with the source.
+                        type: string
+                      connectionName:
+                        description: Immutable. The Unity Catalog connection this
+                          ingestion pipeline uses to communicate with the source.
+                          Specify either ingestion_gateway_id or connection_name.
+                        type: string
+                      gatewayStorageCatalog:
+                        description: Required, Immutable. The name of the catalog
+                          for the gateway pipeline's storage location.
+                        type: string
+                      gatewayStorageName:
+                        description: Required. The Unity Catalog-compatible naming
+                          for the gateway storage location. This is the destination
+                          to use for the data that is extracted by the gateway. Lakeflow
+                          Declarative Pipelines system will automatically create the
+                          storage location under the catalog and schema.
+                        type: string
+                      gatewayStorageSchema:
+                        description: Required, Immutable. The name of the schema for
+                          the gateway pipelines's storage location.
+                        type: string
+                    type: object
                   health:
                     type: string
                   ingestionDefinition:
-                    items:
-                      properties:
-                        connectionName:
-                          description: Immutable. The Unity Catalog connection this
-                            ingestion pipeline uses to communicate with the source.
-                            Specify either ingestion_gateway_id or connection_name.
-                          type: string
-                        ingestionGatewayId:
-                          description: Immutable. Identifier for the ingestion gateway
-                            used by this ingestion pipeline to communicate with the
-                            source. Specify either ingestion_gateway_id or connection_name.
-                          type: string
-                        objects:
-                          description: Required. Settings specifying tables to replicate
-                            and the destination for the replicated tables.
-                          items:
-                            properties:
-                              report:
-                                items:
-                                  properties:
-                                    destinationCatalog:
-                                      description: The name of catalog in Unity Catalog.
-                                        Change of this parameter forces recreation
-                                        of the pipeline. (Conflicts with storage).
-                                      type: string
-                                    destinationSchema:
-                                      description: The default schema (database) where
-                                        tables are read from or published to. The
-                                        presence of this attribute implies that the
-                                        pipeline is in direct publishing mode.
-                                      type: string
-                                    destinationTable:
-                                      type: string
-                                    sourceUrl:
-                                      description: URL of the Lakeflow Declarative
-                                        Pipeline on the given workspace.
-                                      type: string
-                                    tableConfiguration:
-                                      description: Configuration settings to control
-                                        the ingestion of tables. These settings are
-                                        applied to all tables in the pipeline.
-                                      items:
-                                        properties:
-                                          excludeColumns:
-                                            items:
-                                              type: string
-                                            type: array
-                                          includeColumns:
-                                            items:
-                                              type: string
-                                            type: array
-                                          primaryKeys:
-                                            items:
-                                              type: string
-                                            type: array
-                                          queryBasedConnectorConfig:
-                                            items:
-                                              properties:
-                                                cursorColumns:
-                                                  items:
-                                                    type: string
-                                                  type: array
-                                                deletionCondition:
-                                                  type: string
-                                                hardDeletionSyncMinIntervalInSeconds:
-                                                  type: number
-                                              type: object
-                                            type: array
-                                          salesforceIncludeFormulaFields:
-                                            type: boolean
-                                          scdType:
-                                            type: string
-                                          sequenceBy:
-                                            items:
-                                              type: string
-                                            type: array
-                                        type: object
-                                      type: array
-                                  type: object
-                                type: array
-                              schema:
-                                description: The default schema (database) where tables
-                                  are read from or published to. The presence of this
-                                  attribute implies that the pipeline is in direct
-                                  publishing mode.
-                                items:
-                                  properties:
-                                    destinationCatalog:
-                                      description: The name of catalog in Unity Catalog.
-                                        Change of this parameter forces recreation
-                                        of the pipeline. (Conflicts with storage).
-                                      type: string
-                                    destinationSchema:
-                                      description: The default schema (database) where
-                                        tables are read from or published to. The
-                                        presence of this attribute implies that the
-                                        pipeline is in direct publishing mode.
-                                      type: string
-                                    sourceCatalog:
-                                      description: The name of catalog in Unity Catalog.
-                                        Change of this parameter forces recreation
-                                        of the pipeline. (Conflicts with storage).
-                                      type: string
-                                    sourceSchema:
-                                      description: The default schema (database) where
-                                        tables are read from or published to. The
-                                        presence of this attribute implies that the
-                                        pipeline is in direct publishing mode.
-                                      type: string
-                                    tableConfiguration:
-                                      description: Configuration settings to control
-                                        the ingestion of tables. These settings are
-                                        applied to all tables in the pipeline.
-                                      items:
-                                        properties:
-                                          excludeColumns:
-                                            items:
-                                              type: string
-                                            type: array
-                                          includeColumns:
-                                            items:
-                                              type: string
-                                            type: array
-                                          primaryKeys:
-                                            items:
-                                              type: string
-                                            type: array
-                                          queryBasedConnectorConfig:
-                                            items:
-                                              properties:
-                                                cursorColumns:
-                                                  items:
-                                                    type: string
-                                                  type: array
-                                                deletionCondition:
-                                                  type: string
-                                                hardDeletionSyncMinIntervalInSeconds:
-                                                  type: number
-                                              type: object
-                                            type: array
-                                          salesforceIncludeFormulaFields:
-                                            type: boolean
-                                          scdType:
-                                            type: string
-                                          sequenceBy:
-                                            items:
-                                              type: string
-                                            type: array
-                                        type: object
-                                      type: array
-                                  type: object
-                                type: array
-                              table:
-                                items:
-                                  properties:
-                                    destinationCatalog:
-                                      description: The name of catalog in Unity Catalog.
-                                        Change of this parameter forces recreation
-                                        of the pipeline. (Conflicts with storage).
-                                      type: string
-                                    destinationSchema:
-                                      description: The default schema (database) where
-                                        tables are read from or published to. The
-                                        presence of this attribute implies that the
-                                        pipeline is in direct publishing mode.
-                                      type: string
-                                    destinationTable:
-                                      type: string
-                                    sourceCatalog:
-                                      description: The name of catalog in Unity Catalog.
-                                        Change of this parameter forces recreation
-                                        of the pipeline. (Conflicts with storage).
-                                      type: string
-                                    sourceSchema:
-                                      description: The default schema (database) where
-                                        tables are read from or published to. The
-                                        presence of this attribute implies that the
-                                        pipeline is in direct publishing mode.
-                                      type: string
-                                    sourceTable:
-                                      type: string
-                                    tableConfiguration:
-                                      description: Configuration settings to control
-                                        the ingestion of tables. These settings are
-                                        applied to all tables in the pipeline.
-                                      items:
-                                        properties:
-                                          excludeColumns:
-                                            items:
-                                              type: string
-                                            type: array
-                                          includeColumns:
-                                            items:
-                                              type: string
-                                            type: array
-                                          primaryKeys:
-                                            items:
-                                              type: string
-                                            type: array
-                                          queryBasedConnectorConfig:
-                                            items:
-                                              properties:
-                                                cursorColumns:
-                                                  items:
-                                                    type: string
-                                                  type: array
-                                                deletionCondition:
-                                                  type: string
-                                                hardDeletionSyncMinIntervalInSeconds:
-                                                  type: number
-                                              type: object
-                                            type: array
-                                          salesforceIncludeFormulaFields:
-                                            type: boolean
-                                          scdType:
-                                            type: string
-                                          sequenceBy:
-                                            items:
-                                              type: string
-                                            type: array
-                                        type: object
-                                      type: array
-                                  type: object
-                                type: array
-                            type: object
-                          type: array
-                        sourceType:
-                          type: string
-                        tableConfiguration:
-                          description: Configuration settings to control the ingestion
-                            of tables. These settings are applied to all tables in
-                            the pipeline.
-                          items:
-                            properties:
-                              excludeColumns:
-                                items:
+                    properties:
+                      connectionName:
+                        description: Immutable. The Unity Catalog connection this
+                          ingestion pipeline uses to communicate with the source.
+                          Specify either ingestion_gateway_id or connection_name.
+                        type: string
+                      ingestionGatewayId:
+                        description: Immutable. Identifier for the ingestion gateway
+                          used by this ingestion pipeline to communicate with the
+                          source. Specify either ingestion_gateway_id or connection_name.
+                        type: string
+                      objects:
+                        description: Required. Settings specifying tables to replicate
+                          and the destination for the replicated tables.
+                        items:
+                          properties:
+                            report:
+                              properties:
+                                destinationCatalog:
+                                  description: The name of catalog in Unity Catalog.
+                                    Change of this parameter forces recreation of
+                                    the pipeline. (Conflicts with storage).
                                   type: string
-                                type: array
-                              includeColumns:
-                                items:
+                                destinationSchema:
+                                  description: The default schema (database) where
+                                    tables are read from or published to. The presence
+                                    of this attribute implies that the pipeline is
+                                    in direct publishing mode.
                                   type: string
-                                type: array
-                              primaryKeys:
-                                items:
+                                destinationTable:
                                   type: string
-                                type: array
-                              queryBasedConnectorConfig:
-                                items:
+                                sourceUrl:
+                                  description: URL of the Lakeflow Declarative Pipeline
+                                    on the given workspace.
+                                  type: string
+                                tableConfiguration:
+                                  description: Configuration settings to control the
+                                    ingestion of tables. These settings are applied
+                                    to all tables in the pipeline.
                                   properties:
-                                    cursorColumns:
+                                    excludeColumns:
                                       items:
                                         type: string
                                       type: array
-                                    deletionCondition:
+                                    includeColumns:
+                                      items:
+                                        type: string
+                                      type: array
+                                    primaryKeys:
+                                      items:
+                                        type: string
+                                      type: array
+                                    queryBasedConnectorConfig:
+                                      properties:
+                                        cursorColumns:
+                                          items:
+                                            type: string
+                                          type: array
+                                        deletionCondition:
+                                          type: string
+                                        hardDeletionSyncMinIntervalInSeconds:
+                                          type: number
+                                      type: object
+                                    salesforceIncludeFormulaFields:
+                                      type: boolean
+                                    scdType:
                                       type: string
-                                    hardDeletionSyncMinIntervalInSeconds:
-                                      type: number
+                                    sequenceBy:
+                                      items:
+                                        type: string
+                                      type: array
                                   type: object
-                                type: array
-                              salesforceIncludeFormulaFields:
-                                type: boolean
-                              scdType:
-                                type: string
-                              sequenceBy:
+                              type: object
+                            schema:
+                              description: The default schema (database) where tables
+                                are read from or published to. The presence of this
+                                attribute implies that the pipeline is in direct publishing
+                                mode.
+                              properties:
+                                destinationCatalog:
+                                  description: The name of catalog in Unity Catalog.
+                                    Change of this parameter forces recreation of
+                                    the pipeline. (Conflicts with storage).
+                                  type: string
+                                destinationSchema:
+                                  description: The default schema (database) where
+                                    tables are read from or published to. The presence
+                                    of this attribute implies that the pipeline is
+                                    in direct publishing mode.
+                                  type: string
+                                sourceCatalog:
+                                  description: The name of catalog in Unity Catalog.
+                                    Change of this parameter forces recreation of
+                                    the pipeline. (Conflicts with storage).
+                                  type: string
+                                sourceSchema:
+                                  description: The default schema (database) where
+                                    tables are read from or published to. The presence
+                                    of this attribute implies that the pipeline is
+                                    in direct publishing mode.
+                                  type: string
+                                tableConfiguration:
+                                  description: Configuration settings to control the
+                                    ingestion of tables. These settings are applied
+                                    to all tables in the pipeline.
+                                  properties:
+                                    excludeColumns:
+                                      items:
+                                        type: string
+                                      type: array
+                                    includeColumns:
+                                      items:
+                                        type: string
+                                      type: array
+                                    primaryKeys:
+                                      items:
+                                        type: string
+                                      type: array
+                                    queryBasedConnectorConfig:
+                                      properties:
+                                        cursorColumns:
+                                          items:
+                                            type: string
+                                          type: array
+                                        deletionCondition:
+                                          type: string
+                                        hardDeletionSyncMinIntervalInSeconds:
+                                          type: number
+                                      type: object
+                                    salesforceIncludeFormulaFields:
+                                      type: boolean
+                                    scdType:
+                                      type: string
+                                    sequenceBy:
+                                      items:
+                                        type: string
+                                      type: array
+                                  type: object
+                              type: object
+                            table:
+                              properties:
+                                destinationCatalog:
+                                  description: The name of catalog in Unity Catalog.
+                                    Change of this parameter forces recreation of
+                                    the pipeline. (Conflicts with storage).
+                                  type: string
+                                destinationSchema:
+                                  description: The default schema (database) where
+                                    tables are read from or published to. The presence
+                                    of this attribute implies that the pipeline is
+                                    in direct publishing mode.
+                                  type: string
+                                destinationTable:
+                                  type: string
+                                sourceCatalog:
+                                  description: The name of catalog in Unity Catalog.
+                                    Change of this parameter forces recreation of
+                                    the pipeline. (Conflicts with storage).
+                                  type: string
+                                sourceSchema:
+                                  description: The default schema (database) where
+                                    tables are read from or published to. The presence
+                                    of this attribute implies that the pipeline is
+                                    in direct publishing mode.
+                                  type: string
+                                sourceTable:
+                                  type: string
+                                tableConfiguration:
+                                  description: Configuration settings to control the
+                                    ingestion of tables. These settings are applied
+                                    to all tables in the pipeline.
+                                  properties:
+                                    excludeColumns:
+                                      items:
+                                        type: string
+                                      type: array
+                                    includeColumns:
+                                      items:
+                                        type: string
+                                      type: array
+                                    primaryKeys:
+                                      items:
+                                        type: string
+                                      type: array
+                                    queryBasedConnectorConfig:
+                                      properties:
+                                        cursorColumns:
+                                          items:
+                                            type: string
+                                          type: array
+                                        deletionCondition:
+                                          type: string
+                                        hardDeletionSyncMinIntervalInSeconds:
+                                          type: number
+                                      type: object
+                                    salesforceIncludeFormulaFields:
+                                      type: boolean
+                                    scdType:
+                                      type: string
+                                    sequenceBy:
+                                      items:
+                                        type: string
+                                      type: array
+                                  type: object
+                              type: object
+                          type: object
+                        type: array
+                      sourceType:
+                        type: string
+                      tableConfiguration:
+                        description: Configuration settings to control the ingestion
+                          of tables. These settings are applied to all tables in the
+                          pipeline.
+                        properties:
+                          excludeColumns:
+                            items:
+                              type: string
+                            type: array
+                          includeColumns:
+                            items:
+                              type: string
+                            type: array
+                          primaryKeys:
+                            items:
+                              type: string
+                            type: array
+                          queryBasedConnectorConfig:
+                            properties:
+                              cursorColumns:
                                 items:
                                   type: string
                                 type: array
+                              deletionCondition:
+                                type: string
+                              hardDeletionSyncMinIntervalInSeconds:
+                                type: number
                             type: object
-                          type: array
-                      type: object
-                    type: array
+                          salesforceIncludeFormulaFields:
+                            type: boolean
+                          scdType:
+                            type: string
+                          sequenceBy:
+                            items:
+                              type: string
+                            type: array
+                        type: object
+                    type: object
                   lastModified:
                     type: number
                   latestUpdates:
@@ -1639,50 +1487,42 @@ spec:
                           description: specifies path to a file in Databricks Workspace
                             to include as source. Actual path is specified as path
                             attribute inside the block.
-                          items:
-                            properties:
-                              path:
-                                type: string
-                            type: object
-                          type: array
+                          properties:
+                            path:
+                              type: string
+                          type: object
                         glob:
                           description: The unified field to include source code. Each
                             entry should have the include attribute that can specify
                             a notebook path, a file path, or a folder path that ends
                             /** (to include everything from that folder). This field
                             cannot be used together with notebook or file.
-                          items:
-                            properties:
-                              include:
-                                description: Paths to include.
-                                type: string
-                            type: object
-                          type: array
+                          properties:
+                            include:
+                              description: Paths to include.
+                              type: string
+                          type: object
                         jar:
                           type: string
                         maven:
-                          items:
-                            properties:
-                              coordinates:
+                          properties:
+                            coordinates:
+                              type: string
+                            exclusions:
+                              items:
                                 type: string
-                              exclusions:
-                                items:
-                                  type: string
-                                type: array
-                              repo:
-                                type: string
-                            type: object
-                          type: array
+                              type: array
+                            repo:
+                              type: string
+                          type: object
                         notebook:
                           description: specifies path to a Databricks Notebook to
                             include as source. Actual path is specified as path attribute
                             inside the block.
-                          items:
-                            properties:
-                              path:
-                                type: string
-                            type: object
-                          type: array
+                          properties:
+                            path:
+                              type: string
+                          type: object
                         whl:
                           type: string
                       type: object
@@ -1713,20 +1553,18 @@ spec:
                       default value is false.
                     type: boolean
                   restartWindow:
-                    items:
-                      properties:
-                        daysOfWeek:
-                          items:
-                            type: string
-                          type: array
-                        startHour:
-                          type: number
-                        timeZoneId:
-                          description: Canonical unique identifier of the Lakeflow
-                            Declarative Pipeline.
+                    properties:
+                      daysOfWeek:
+                        items:
                           type: string
-                      type: object
-                    type: array
+                        type: array
+                      startHour:
+                        type: number
+                      timeZoneId:
+                        description: Canonical unique identifier of the Lakeflow Declarative
+                          Pipeline.
+                        type: string
+                    type: object
                   rootPath:
                     description: An optional string specifying the root path for this
                       pipeline. This is used as the root directory when editing the
@@ -1734,18 +1572,16 @@ spec:
                       sys.path when executing Python sources during pipeline execution.
                     type: string
                   runAs:
-                    items:
-                      properties:
-                        servicePrincipalName:
-                          description: A user-friendly name for this pipeline. The
-                            name can be used to identify pipeline jobs in the UI.
-                          type: string
-                        userName:
-                          description: A user-friendly name for this pipeline. The
-                            name can be used to identify pipeline jobs in the UI.
-                          type: string
-                      type: object
-                    type: array
+                    properties:
+                      servicePrincipalName:
+                        description: A user-friendly name for this pipeline. The name
+                          can be used to identify pipeline jobs in the UI.
+                        type: string
+                      userName:
+                        description: A user-friendly name for this pipeline. The name
+                          can be used to identify pipeline jobs in the UI.
+                        type: string
+                    type: object
                   runAsUserName:
                     description: A user-friendly name for this pipeline. The name
                       can be used to identify pipeline jobs in the UI.
@@ -1785,25 +1621,19 @@ spec:
                       output data from the Databricks UI.
                     type: string
                   trigger:
-                    items:
-                      properties:
-                        cron:
-                          items:
-                            properties:
-                              quartzCronSchedule:
-                                type: string
-                              timezoneId:
-                                description: Canonical unique identifier of the Lakeflow
-                                  Declarative Pipeline.
-                                type: string
-                            type: object
-                          type: array
-                        manual:
-                          items:
-                            type: object
-                          type: array
-                      type: object
-                    type: array
+                    properties:
+                      cron:
+                        properties:
+                          quartzCronSchedule:
+                            type: string
+                          timezoneId:
+                            description: Canonical unique identifier of the Lakeflow
+                              Declarative Pipeline.
+                            type: string
+                        type: object
+                      manual:
+                        type: object
+                    type: object
                   url:
                     description: URL of the Lakeflow Declarative Pipeline on the given
                       workspace.
@@ -1935,103 +1765,87 @@ spec:
                         applyPolicyDefaultValues:
                           type: boolean
                         autoscale:
-                          items:
-                            properties:
-                              maxWorkers:
-                                type: number
-                              minWorkers:
-                                type: number
-                              mode:
-                                type: string
-                            type: object
-                          type: array
+                          properties:
+                            maxWorkers:
+                              type: number
+                            minWorkers:
+                              type: number
+                            mode:
+                              type: string
+                          type: object
                         awsAttributes:
-                          items:
-                            properties:
-                              availability:
-                                type: string
-                              ebsVolumeCount:
-                                type: number
-                              ebsVolumeIops:
-                                type: number
-                              ebsVolumeSize:
-                                type: number
-                              ebsVolumeThroughput:
-                                type: number
-                              ebsVolumeType:
-                                type: string
-                              firstOnDemand:
-                                type: number
-                              instanceProfileArn:
-                                type: string
-                              spotBidPricePercent:
-                                type: number
-                              zoneId:
-                                description: Canonical unique identifier of the Lakeflow
-                                  Declarative Pipeline.
-                                type: string
-                            type: object
-                          type: array
+                          properties:
+                            availability:
+                              type: string
+                            ebsVolumeCount:
+                              type: number
+                            ebsVolumeIops:
+                              type: number
+                            ebsVolumeSize:
+                              type: number
+                            ebsVolumeThroughput:
+                              type: number
+                            ebsVolumeType:
+                              type: string
+                            firstOnDemand:
+                              type: number
+                            instanceProfileArn:
+                              type: string
+                            spotBidPricePercent:
+                              type: number
+                            zoneId:
+                              description: Canonical unique identifier of the Lakeflow
+                                Declarative Pipeline.
+                              type: string
+                          type: object
                         azureAttributes:
-                          items:
-                            properties:
-                              availability:
-                                type: string
-                              firstOnDemand:
-                                type: number
-                              logAnalyticsInfo:
-                                items:
-                                  properties:
-                                    logAnalyticsPrimaryKey:
-                                      type: string
-                                    logAnalyticsWorkspaceId:
-                                      description: Canonical unique identifier of
-                                        the Lakeflow Declarative Pipeline.
-                                      type: string
-                                  type: object
-                                type: array
-                              spotBidMaxPrice:
-                                type: number
-                            type: object
-                          type: array
+                          properties:
+                            availability:
+                              type: string
+                            firstOnDemand:
+                              type: number
+                            logAnalyticsInfo:
+                              properties:
+                                logAnalyticsPrimaryKey:
+                                  type: string
+                                logAnalyticsWorkspaceId:
+                                  description: Canonical unique identifier of the
+                                    Lakeflow Declarative Pipeline.
+                                  type: string
+                              type: object
+                            spotBidMaxPrice:
+                              type: number
+                          type: object
                         clusterLogConf:
-                          items:
-                            properties:
-                              dbfs:
-                                items:
-                                  properties:
-                                    destination:
-                                      type: string
-                                  type: object
-                                type: array
-                              s3:
-                                items:
-                                  properties:
-                                    cannedAcl:
-                                      type: string
-                                    destination:
-                                      type: string
-                                    enableEncryption:
-                                      type: boolean
-                                    encryptionType:
-                                      type: string
-                                    endpoint:
-                                      type: string
-                                    kmsKey:
-                                      type: string
-                                    region:
-                                      type: string
-                                  type: object
-                                type: array
-                              volumes:
-                                items:
-                                  properties:
-                                    destination:
-                                      type: string
-                                  type: object
-                                type: array
-                            type: object
-                          type: array
+                          properties:
+                            dbfs:
+                              properties:
+                                destination:
+                                  type: string
+                              type: object
+                            s3:
+                              properties:
+                                cannedAcl:
+                                  type: string
+                                destination:
+                                  type: string
+                                enableEncryption:
+                                  type: boolean
+                                encryptionType:
+                                  type: string
+                                endpoint:
+                                  type: string
+                                kmsKey:
+                                  type: string
+                                region:
+                                  type: string
+                              type: object
+                            volumes:
+                              properties:
+                                destination:
+                                  type: string
+                              type: object
+                          type: object
                         customTags:
                           additionalProperties:
                             type: string
@@ -2052,89 +1866,73 @@ spec:
                         enableLocalDiskEncryption:
                           type: boolean
                         gcpAttributes:
-                          items:
-                            properties:
-                              availability:
-                                type: string
-                              firstOnDemand:
-                                type: number
-                              googleServiceAccount:
-                                type: string
-                              localSsdCount:
-                                type: number
-                              zoneId:
-                                description: Canonical unique identifier of the Lakeflow
-                                  Declarative Pipeline.
-                                type: string
-                            type: object
-                          type: array
+                          properties:
+                            availability:
+                              type: string
+                            firstOnDemand:
+                              type: number
+                            googleServiceAccount:
+                              type: string
+                            localSsdCount:
+                              type: number
+                            zoneId:
+                              description: Canonical unique identifier of the Lakeflow
+                                Declarative Pipeline.
+                              type: string
+                          type: object
                         initScripts:
                           items:
                             properties:
                               abfss:
-                                items:
-                                  properties:
-                                    destination:
-                                      type: string
-                                  type: object
-                                type: array
+                                properties:
+                                  destination:
+                                    type: string
+                                type: object
                               dbfs:
-                                items:
-                                  properties:
-                                    destination:
-                                      type: string
-                                  type: object
-                                type: array
+                                properties:
+                                  destination:
+                                    type: string
+                                type: object
                               file:
                                 description: specifies path to a file in Databricks
                                   Workspace to include as source. Actual path is specified
                                   as path attribute inside the block.
-                                items:
-                                  properties:
-                                    destination:
-                                      type: string
-                                  type: object
-                                type: array
+                                properties:
+                                  destination:
+                                    type: string
+                                type: object
                               gcs:
-                                items:
-                                  properties:
-                                    destination:
-                                      type: string
-                                  type: object
-                                type: array
+                                properties:
+                                  destination:
+                                    type: string
+                                type: object
                               s3:
-                                items:
-                                  properties:
-                                    cannedAcl:
-                                      type: string
-                                    destination:
-                                      type: string
-                                    enableEncryption:
-                                      type: boolean
-                                    encryptionType:
-                                      type: string
-                                    endpoint:
-                                      type: string
-                                    kmsKey:
-                                      type: string
-                                    region:
-                                      type: string
-                                  type: object
-                                type: array
+                                properties:
+                                  cannedAcl:
+                                    type: string
+                                  destination:
+                                    type: string
+                                  enableEncryption:
+                                    type: boolean
+                                  encryptionType:
+                                    type: string
+                                  endpoint:
+                                    type: string
+                                  kmsKey:
+                                    type: string
+                                  region:
+                                    type: string
+                                type: object
                               volumes:
-                                items:
-                                  properties:
-                                    destination:
-                                      type: string
-                                  type: object
-                                type: array
+                                properties:
+                                  destination:
+                                    type: string
+                                type: object
                               workspace:
-                                items:
-                                  properties:
-                                    destination:
-                                      type: string
-                                  type: object
-                                type: array
+                                properties:
+                                  destination:
+                                    type: string
+                                type: object
                             type: object
                           type: array
                         instancePoolId:
@@ -2191,17 +1989,15 @@ spec:
                   deployment:
                     description: 'Deployment type of this pipeline. Supports following
                       attributes:'
-                    items:
-                      properties:
-                        kind:
-                          description: The deployment method that manages the pipeline.
-                          type: string
-                        metadataFilePath:
-                          description: The path to the file containing metadata about
-                            the deployment.
-                          type: string
-                      type: object
-                    type: array
+                    properties:
+                      kind:
+                        description: The deployment method that manages the pipeline.
+                        type: string
+                      metadataFilePath:
+                        description: The path to the file containing metadata about
+                          the deployment.
+                        type: string
+                    type: object
                   development:
                     description: A flag indicating whether to run the pipeline in
                       development mode. The default value is false.
@@ -2212,89 +2008,80 @@ spec:
                       serverless is set to true.'
                     type: string
                   environment:
-                    items:
-                      properties:
-                        dependencies:
-                          description: a list of pip dependencies, as supported by
-                            the version of pip in this environment. Each dependency
-                            is a pip requirement file line.  See API docs for more
-                            information.
-                          items:
-                            type: string
-                          type: array
-                      type: object
-                    type: array
+                    properties:
+                      dependencies:
+                        description: a list of pip dependencies, as supported by the
+                          version of pip in this environment. Each dependency is a
+                          pip requirement file line.  See API docs for more information.
+                        items:
+                          type: string
+                        type: array
+                    type: object
                   eventLog:
                     description: 'an optional block specifying a table where LDP Event
                       Log will be stored.  Consists of the following fields:'
-                    items:
-                      properties:
-                        catalog:
-                          description: The name of catalog in Unity Catalog. Change
-                            of this parameter forces recreation of the pipeline. (Conflicts
-                            with storage).
-                          type: string
-                        name:
-                          description: A user-friendly name for this pipeline. The
-                            name can be used to identify pipeline jobs in the UI.
-                          type: string
-                        schema:
-                          description: The default schema (database) where tables
-                            are read from or published to. The presence of this attribute
-                            implies that the pipeline is in direct publishing mode.
-                          type: string
-                      type: object
-                    type: array
+                    properties:
+                      catalog:
+                        description: The name of catalog in Unity Catalog. Change
+                          of this parameter forces recreation of the pipeline. (Conflicts
+                          with storage).
+                        type: string
+                      name:
+                        description: A user-friendly name for this pipeline. The name
+                          can be used to identify pipeline jobs in the UI.
+                        type: string
+                      schema:
+                        description: The default schema (database) where tables are
+                          read from or published to. The presence of this attribute
+                          implies that the pipeline is in direct publishing mode.
+                        type: string
+                    type: object
                   expectedLastModified:
                     type: number
                   filters:
                     description: 'Filters on which Pipeline packages to include in
                       the deployed graph.  This block consists of following attributes:'
-                    items:
-                      properties:
-                        exclude:
-                          description: Paths to exclude.
-                          items:
-                            type: string
-                          type: array
-                        include:
-                          description: Paths to include.
-                          items:
-                            type: string
-                          type: array
-                      type: object
-                    type: array
+                    properties:
+                      exclude:
+                        description: Paths to exclude.
+                        items:
+                          type: string
+                        type: array
+                      include:
+                        description: Paths to include.
+                        items:
+                          type: string
+                        type: array
+                    type: object
                   gatewayDefinition:
                     description: 'The definition of a gateway pipeline to support
                       CDC. Consists of following attributes:'
-                    items:
-                      properties:
-                        connectionId:
-                          description: Immutable. The Unity Catalog connection this
-                            gateway pipeline uses to communicate with the source.
-                          type: string
-                        connectionName:
-                          description: Immutable. The Unity Catalog connection this
-                            ingestion pipeline uses to communicate with the source.
-                            Specify either ingestion_gateway_id or connection_name.
-                          type: string
-                        gatewayStorageCatalog:
-                          description: Required, Immutable. The name of the catalog
-                            for the gateway pipeline's storage location.
-                          type: string
-                        gatewayStorageName:
-                          description: Required. The Unity Catalog-compatible naming
-                            for the gateway storage location. This is the destination
-                            to use for the data that is extracted by the gateway.
-                            Lakeflow Declarative Pipelines system will automatically
-                            create the storage location under the catalog and schema.
-                          type: string
-                        gatewayStorageSchema:
-                          description: Required, Immutable. The name of the schema
-                            for the gateway pipelines's storage location.
-                          type: string
-                      type: object
-                    type: array
+                    properties:
+                      connectionId:
+                        description: Immutable. The Unity Catalog connection this
+                          gateway pipeline uses to communicate with the source.
+                        type: string
+                      connectionName:
+                        description: Immutable. The Unity Catalog connection this
+                          ingestion pipeline uses to communicate with the source.
+                          Specify either ingestion_gateway_id or connection_name.
+                        type: string
+                      gatewayStorageCatalog:
+                        description: Required, Immutable. The name of the catalog
+                          for the gateway pipeline's storage location.
+                        type: string
+                      gatewayStorageName:
+                        description: Required. The Unity Catalog-compatible naming
+                          for the gateway storage location. This is the destination
+                          to use for the data that is extracted by the gateway. Lakeflow
+                          Declarative Pipelines system will automatically create the
+                          storage location under the catalog and schema.
+                        type: string
+                      gatewayStorageSchema:
+                        description: Required, Immutable. The name of the schema for
+                          the gateway pipelines's storage location.
+                        type: string
+                    type: object
                   health:
                     type: string
                   id:
@@ -2302,277 +2089,253 @@ spec:
                       Pipeline.
                     type: string
                   ingestionDefinition:
-                    items:
-                      properties:
-                        connectionName:
-                          description: Immutable. The Unity Catalog connection this
-                            ingestion pipeline uses to communicate with the source.
-                            Specify either ingestion_gateway_id or connection_name.
-                          type: string
-                        ingestionGatewayId:
-                          description: Immutable. Identifier for the ingestion gateway
-                            used by this ingestion pipeline to communicate with the
-                            source. Specify either ingestion_gateway_id or connection_name.
-                          type: string
-                        objects:
-                          description: Required. Settings specifying tables to replicate
-                            and the destination for the replicated tables.
-                          items:
-                            properties:
-                              report:
-                                items:
-                                  properties:
-                                    destinationCatalog:
-                                      description: The name of catalog in Unity Catalog.
-                                        Change of this parameter forces recreation
-                                        of the pipeline. (Conflicts with storage).
-                                      type: string
-                                    destinationSchema:
-                                      description: The default schema (database) where
-                                        tables are read from or published to. The
-                                        presence of this attribute implies that the
-                                        pipeline is in direct publishing mode.
-                                      type: string
-                                    destinationTable:
-                                      type: string
-                                    sourceUrl:
-                                      description: URL of the Lakeflow Declarative
-                                        Pipeline on the given workspace.
-                                      type: string
-                                    tableConfiguration:
-                                      description: Configuration settings to control
-                                        the ingestion of tables. These settings are
-                                        applied to all tables in the pipeline.
-                                      items:
-                                        properties:
-                                          excludeColumns:
-                                            items:
-                                              type: string
-                                            type: array
-                                          includeColumns:
-                                            items:
-                                              type: string
-                                            type: array
-                                          primaryKeys:
-                                            items:
-                                              type: string
-                                            type: array
-                                          queryBasedConnectorConfig:
-                                            items:
-                                              properties:
-                                                cursorColumns:
-                                                  items:
-                                                    type: string
-                                                  type: array
-                                                deletionCondition:
-                                                  type: string
-                                                hardDeletionSyncMinIntervalInSeconds:
-                                                  type: number
-                                              type: object
-                                            type: array
-                                          salesforceIncludeFormulaFields:
-                                            type: boolean
-                                          scdType:
-                                            type: string
-                                          sequenceBy:
-                                            items:
-                                              type: string
-                                            type: array
-                                        type: object
-                                      type: array
-                                  type: object
-                                type: array
-                              schema:
-                                description: The default schema (database) where tables
-                                  are read from or published to. The presence of this
-                                  attribute implies that the pipeline is in direct
-                                  publishing mode.
-                                items:
-                                  properties:
-                                    destinationCatalog:
-                                      description: The name of catalog in Unity Catalog.
-                                        Change of this parameter forces recreation
-                                        of the pipeline. (Conflicts with storage).
-                                      type: string
-                                    destinationSchema:
-                                      description: The default schema (database) where
-                                        tables are read from or published to. The
-                                        presence of this attribute implies that the
-                                        pipeline is in direct publishing mode.
-                                      type: string
-                                    sourceCatalog:
-                                      description: The name of catalog in Unity Catalog.
-                                        Change of this parameter forces recreation
-                                        of the pipeline. (Conflicts with storage).
-                                      type: string
-                                    sourceSchema:
-                                      description: The default schema (database) where
-                                        tables are read from or published to. The
-                                        presence of this attribute implies that the
-                                        pipeline is in direct publishing mode.
-                                      type: string
-                                    tableConfiguration:
-                                      description: Configuration settings to control
-                                        the ingestion of tables. These settings are
-                                        applied to all tables in the pipeline.
-                                      items:
-                                        properties:
-                                          excludeColumns:
-                                            items:
-                                              type: string
-                                            type: array
-                                          includeColumns:
-                                            items:
-                                              type: string
-                                            type: array
-                                          primaryKeys:
-                                            items:
-                                              type: string
-                                            type: array
-                                          queryBasedConnectorConfig:
-                                            items:
-                                              properties:
-                                                cursorColumns:
-                                                  items:
-                                                    type: string
-                                                  type: array
-                                                deletionCondition:
-                                                  type: string
-                                                hardDeletionSyncMinIntervalInSeconds:
-                                                  type: number
-                                              type: object
-                                            type: array
-                                          salesforceIncludeFormulaFields:
-                                            type: boolean
-                                          scdType:
-                                            type: string
-                                          sequenceBy:
-                                            items:
-                                              type: string
-                                            type: array
-                                        type: object
-                                      type: array
-                                  type: object
-                                type: array
-                              table:
-                                items:
-                                  properties:
-                                    destinationCatalog:
-                                      description: The name of catalog in Unity Catalog.
-                                        Change of this parameter forces recreation
-                                        of the pipeline. (Conflicts with storage).
-                                      type: string
-                                    destinationSchema:
-                                      description: The default schema (database) where
-                                        tables are read from or published to. The
-                                        presence of this attribute implies that the
-                                        pipeline is in direct publishing mode.
-                                      type: string
-                                    destinationTable:
-                                      type: string
-                                    sourceCatalog:
-                                      description: The name of catalog in Unity Catalog.
-                                        Change of this parameter forces recreation
-                                        of the pipeline. (Conflicts with storage).
-                                      type: string
-                                    sourceSchema:
-                                      description: The default schema (database) where
-                                        tables are read from or published to. The
-                                        presence of this attribute implies that the
-                                        pipeline is in direct publishing mode.
-                                      type: string
-                                    sourceTable:
-                                      type: string
-                                    tableConfiguration:
-                                      description: Configuration settings to control
-                                        the ingestion of tables. These settings are
-                                        applied to all tables in the pipeline.
-                                      items:
-                                        properties:
-                                          excludeColumns:
-                                            items:
-                                              type: string
-                                            type: array
-                                          includeColumns:
-                                            items:
-                                              type: string
-                                            type: array
-                                          primaryKeys:
-                                            items:
-                                              type: string
-                                            type: array
-                                          queryBasedConnectorConfig:
-                                            items:
-                                              properties:
-                                                cursorColumns:
-                                                  items:
-                                                    type: string
-                                                  type: array
-                                                deletionCondition:
-                                                  type: string
-                                                hardDeletionSyncMinIntervalInSeconds:
-                                                  type: number
-                                              type: object
-                                            type: array
-                                          salesforceIncludeFormulaFields:
-                                            type: boolean
-                                          scdType:
-                                            type: string
-                                          sequenceBy:
-                                            items:
-                                              type: string
-                                            type: array
-                                        type: object
-                                      type: array
-                                  type: object
-                                type: array
-                            type: object
-                          type: array
-                        sourceType:
-                          type: string
-                        tableConfiguration:
-                          description: Configuration settings to control the ingestion
-                            of tables. These settings are applied to all tables in
-                            the pipeline.
-                          items:
-                            properties:
-                              excludeColumns:
-                                items:
+                    properties:
+                      connectionName:
+                        description: Immutable. The Unity Catalog connection this
+                          ingestion pipeline uses to communicate with the source.
+                          Specify either ingestion_gateway_id or connection_name.
+                        type: string
+                      ingestionGatewayId:
+                        description: Immutable. Identifier for the ingestion gateway
+                          used by this ingestion pipeline to communicate with the
+                          source. Specify either ingestion_gateway_id or connection_name.
+                        type: string
+                      objects:
+                        description: Required. Settings specifying tables to replicate
+                          and the destination for the replicated tables.
+                        items:
+                          properties:
+                            report:
+                              properties:
+                                destinationCatalog:
+                                  description: The name of catalog in Unity Catalog.
+                                    Change of this parameter forces recreation of
+                                    the pipeline. (Conflicts with storage).
                                   type: string
-                                type: array
-                              includeColumns:
-                                items:
+                                destinationSchema:
+                                  description: The default schema (database) where
+                                    tables are read from or published to. The presence
+                                    of this attribute implies that the pipeline is
+                                    in direct publishing mode.
                                   type: string
-                                type: array
-                              primaryKeys:
-                                items:
+                                destinationTable:
                                   type: string
-                                type: array
-                              queryBasedConnectorConfig:
-                                items:
+                                sourceUrl:
+                                  description: URL of the Lakeflow Declarative Pipeline
+                                    on the given workspace.
+                                  type: string
+                                tableConfiguration:
+                                  description: Configuration settings to control the
+                                    ingestion of tables. These settings are applied
+                                    to all tables in the pipeline.
                                   properties:
-                                    cursorColumns:
+                                    excludeColumns:
                                       items:
                                         type: string
                                       type: array
-                                    deletionCondition:
+                                    includeColumns:
+                                      items:
+                                        type: string
+                                      type: array
+                                    primaryKeys:
+                                      items:
+                                        type: string
+                                      type: array
+                                    queryBasedConnectorConfig:
+                                      properties:
+                                        cursorColumns:
+                                          items:
+                                            type: string
+                                          type: array
+                                        deletionCondition:
+                                          type: string
+                                        hardDeletionSyncMinIntervalInSeconds:
+                                          type: number
+                                      type: object
+                                    salesforceIncludeFormulaFields:
+                                      type: boolean
+                                    scdType:
                                       type: string
-                                    hardDeletionSyncMinIntervalInSeconds:
-                                      type: number
+                                    sequenceBy:
+                                      items:
+                                        type: string
+                                      type: array
                                   type: object
-                                type: array
-                              salesforceIncludeFormulaFields:
-                                type: boolean
-                              scdType:
-                                type: string
-                              sequenceBy:
+                              type: object
+                            schema:
+                              description: The default schema (database) where tables
+                                are read from or published to. The presence of this
+                                attribute implies that the pipeline is in direct publishing
+                                mode.
+                              properties:
+                                destinationCatalog:
+                                  description: The name of catalog in Unity Catalog.
+                                    Change of this parameter forces recreation of
+                                    the pipeline. (Conflicts with storage).
+                                  type: string
+                                destinationSchema:
+                                  description: The default schema (database) where
+                                    tables are read from or published to. The presence
+                                    of this attribute implies that the pipeline is
+                                    in direct publishing mode.
+                                  type: string
+                                sourceCatalog:
+                                  description: The name of catalog in Unity Catalog.
+                                    Change of this parameter forces recreation of
+                                    the pipeline. (Conflicts with storage).
+                                  type: string
+                                sourceSchema:
+                                  description: The default schema (database) where
+                                    tables are read from or published to. The presence
+                                    of this attribute implies that the pipeline is
+                                    in direct publishing mode.
+                                  type: string
+                                tableConfiguration:
+                                  description: Configuration settings to control the
+                                    ingestion of tables. These settings are applied
+                                    to all tables in the pipeline.
+                                  properties:
+                                    excludeColumns:
+                                      items:
+                                        type: string
+                                      type: array
+                                    includeColumns:
+                                      items:
+                                        type: string
+                                      type: array
+                                    primaryKeys:
+                                      items:
+                                        type: string
+                                      type: array
+                                    queryBasedConnectorConfig:
+                                      properties:
+                                        cursorColumns:
+                                          items:
+                                            type: string
+                                          type: array
+                                        deletionCondition:
+                                          type: string
+                                        hardDeletionSyncMinIntervalInSeconds:
+                                          type: number
+                                      type: object
+                                    salesforceIncludeFormulaFields:
+                                      type: boolean
+                                    scdType:
+                                      type: string
+                                    sequenceBy:
+                                      items:
+                                        type: string
+                                      type: array
+                                  type: object
+                              type: object
+                            table:
+                              properties:
+                                destinationCatalog:
+                                  description: The name of catalog in Unity Catalog.
+                                    Change of this parameter forces recreation of
+                                    the pipeline. (Conflicts with storage).
+                                  type: string
+                                destinationSchema:
+                                  description: The default schema (database) where
+                                    tables are read from or published to. The presence
+                                    of this attribute implies that the pipeline is
+                                    in direct publishing mode.
+                                  type: string
+                                destinationTable:
+                                  type: string
+                                sourceCatalog:
+                                  description: The name of catalog in Unity Catalog.
+                                    Change of this parameter forces recreation of
+                                    the pipeline. (Conflicts with storage).
+                                  type: string
+                                sourceSchema:
+                                  description: The default schema (database) where
+                                    tables are read from or published to. The presence
+                                    of this attribute implies that the pipeline is
+                                    in direct publishing mode.
+                                  type: string
+                                sourceTable:
+                                  type: string
+                                tableConfiguration:
+                                  description: Configuration settings to control the
+                                    ingestion of tables. These settings are applied
+                                    to all tables in the pipeline.
+                                  properties:
+                                    excludeColumns:
+                                      items:
+                                        type: string
+                                      type: array
+                                    includeColumns:
+                                      items:
+                                        type: string
+                                      type: array
+                                    primaryKeys:
+                                      items:
+                                        type: string
+                                      type: array
+                                    queryBasedConnectorConfig:
+                                      properties:
+                                        cursorColumns:
+                                          items:
+                                            type: string
+                                          type: array
+                                        deletionCondition:
+                                          type: string
+                                        hardDeletionSyncMinIntervalInSeconds:
+                                          type: number
+                                      type: object
+                                    salesforceIncludeFormulaFields:
+                                      type: boolean
+                                    scdType:
+                                      type: string
+                                    sequenceBy:
+                                      items:
+                                        type: string
+                                      type: array
+                                  type: object
+                              type: object
+                          type: object
+                        type: array
+                      sourceType:
+                        type: string
+                      tableConfiguration:
+                        description: Configuration settings to control the ingestion
+                          of tables. These settings are applied to all tables in the
+                          pipeline.
+                        properties:
+                          excludeColumns:
+                            items:
+                              type: string
+                            type: array
+                          includeColumns:
+                            items:
+                              type: string
+                            type: array
+                          primaryKeys:
+                            items:
+                              type: string
+                            type: array
+                          queryBasedConnectorConfig:
+                            properties:
+                              cursorColumns:
                                 items:
                                   type: string
                                 type: array
+                              deletionCondition:
+                                type: string
+                              hardDeletionSyncMinIntervalInSeconds:
+                                type: number
                             type: object
-                          type: array
-                      type: object
-                    type: array
+                          salesforceIncludeFormulaFields:
+                            type: boolean
+                          scdType:
+                            type: string
+                          sequenceBy:
+                            items:
+                              type: string
+                            type: array
+                        type: object
+                    type: object
                   lastModified:
                     type: number
                   latestUpdates:
@@ -2596,50 +2359,42 @@ spec:
                           description: specifies path to a file in Databricks Workspace
                             to include as source. Actual path is specified as path
                             attribute inside the block.
-                          items:
-                            properties:
-                              path:
-                                type: string
-                            type: object
-                          type: array
+                          properties:
+                            path:
+                              type: string
+                          type: object
                         glob:
                           description: The unified field to include source code. Each
                             entry should have the include attribute that can specify
                             a notebook path, a file path, or a folder path that ends
                             /** (to include everything from that folder). This field
                             cannot be used together with notebook or file.
-                          items:
-                            properties:
-                              include:
-                                description: Paths to include.
-                                type: string
-                            type: object
-                          type: array
+                          properties:
+                            include:
+                              description: Paths to include.
+                              type: string
+                          type: object
                         jar:
                           type: string
                         maven:
-                          items:
-                            properties:
-                              coordinates:
+                          properties:
+                            coordinates:
+                              type: string
+                            exclusions:
+                              items:
                                 type: string
-                              exclusions:
-                                items:
-                                  type: string
-                                type: array
-                              repo:
-                                type: string
-                            type: object
-                          type: array
+                              type: array
+                            repo:
+                              type: string
+                          type: object
                         notebook:
                           description: specifies path to a Databricks Notebook to
                             include as source. Actual path is specified as path attribute
                             inside the block.
-                          items:
-                            properties:
-                              path:
-                                type: string
-                            type: object
-                          type: array
+                          properties:
+                            path:
+                              type: string
+                          type: object
                         whl:
                           type: string
                       type: object
@@ -2670,20 +2425,18 @@ spec:
                       default value is false.
                     type: boolean
                   restartWindow:
-                    items:
-                      properties:
-                        daysOfWeek:
-                          items:
-                            type: string
-                          type: array
-                        startHour:
-                          type: number
-                        timeZoneId:
-                          description: Canonical unique identifier of the Lakeflow
-                            Declarative Pipeline.
+                    properties:
+                      daysOfWeek:
+                        items:
                           type: string
-                      type: object
-                    type: array
+                        type: array
+                      startHour:
+                        type: number
+                      timeZoneId:
+                        description: Canonical unique identifier of the Lakeflow Declarative
+                          Pipeline.
+                        type: string
+                    type: object
                   rootPath:
                     description: An optional string specifying the root path for this
                       pipeline. This is used as the root directory when editing the
@@ -2691,18 +2444,16 @@ spec:
                       sys.path when executing Python sources during pipeline execution.
                     type: string
                   runAs:
-                    items:
-                      properties:
-                        servicePrincipalName:
-                          description: A user-friendly name for this pipeline. The
-                            name can be used to identify pipeline jobs in the UI.
-                          type: string
-                        userName:
-                          description: A user-friendly name for this pipeline. The
-                            name can be used to identify pipeline jobs in the UI.
-                          type: string
-                      type: object
-                    type: array
+                    properties:
+                      servicePrincipalName:
+                        description: A user-friendly name for this pipeline. The name
+                          can be used to identify pipeline jobs in the UI.
+                        type: string
+                      userName:
+                        description: A user-friendly name for this pipeline. The name
+                          can be used to identify pipeline jobs in the UI.
+                        type: string
+                    type: object
                   runAsUserName:
                     description: A user-friendly name for this pipeline. The name
                       can be used to identify pipeline jobs in the UI.
@@ -2742,25 +2493,19 @@ spec:
                       output data from the Databricks UI.
                     type: string
                   trigger:
-                    items:
-                      properties:
-                        cron:
-                          items:
-                            properties:
-                              quartzCronSchedule:
-                                type: string
-                              timezoneId:
-                                description: Canonical unique identifier of the Lakeflow
-                                  Declarative Pipeline.
-                                type: string
-                            type: object
-                          type: array
-                        manual:
-                          items:
-                            type: object
-                          type: array
-                      type: object
-                    type: array
+                    properties:
+                      cron:
+                        properties:
+                          quartzCronSchedule:
+                            type: string
+                          timezoneId:
+                            description: Canonical unique identifier of the Lakeflow
+                              Declarative Pipeline.
+                            type: string
+                        type: object
+                      manual:
+                        type: object
+                    type: object
                   url:
                     description: URL of the Lakeflow Declarative Pipeline on the given
                       workspace.

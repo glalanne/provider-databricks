@@ -85,169 +85,155 @@ spec:
                     description: 'block containing information about network connectivity
                       rules that apply to network traffic from your serverless compute
                       resources. Consists of the following fields:'
-                    items:
-                      properties:
-                        defaultRules:
-                          description: 'block describing network connectivity rules
-                            that are applied by default without resource specific
-                            configurations.  Consists of the following fields:'
-                          items:
+                    properties:
+                      defaultRules:
+                        description: 'block describing network connectivity rules
+                          that are applied by default without resource specific configurations.  Consists
+                          of the following fields:'
+                        properties:
+                          awsStableIpRule:
+                            description: 'block with information about stable AWS
+                              IP CIDR blocks. You can use these to configure the firewall
+                              of your resources to allow traffic from your Databricks
+                              workspace.  Consists of the following fields:'
                             properties:
-                              awsStableIpRule:
-                                description: 'block with information about stable
-                                  AWS IP CIDR blocks. You can use these to configure
-                                  the firewall of your resources to allow traffic
-                                  from your Databricks workspace.  Consists of the
-                                  following fields:'
+                              cidrBlocks:
+                                description: list of IP CIDR blocks.
                                 items:
-                                  properties:
-                                    cidrBlocks:
-                                      description: list of IP CIDR blocks.
-                                      items:
-                                        type: string
-                                      type: array
-                                  type: object
-                                type: array
-                              azureServiceEndpointRule:
-                                description: 'block with information about stable
-                                  Azure service endpoints. You can configure the firewall
-                                  of your Azure resources to allow traffic from your
-                                  Databricks serverless compute resources.  Consists
-                                  of the following fields:'
-                                items:
-                                  properties:
-                                    subnets:
-                                      description: list of subnets from which Databricks
-                                        network traffic originates when accessing
-                                        your Azure resources.
-                                      items:
-                                        type: string
-                                      type: array
-                                    targetRegion:
-                                      description: the Azure region in which this
-                                        service endpoint rule applies.
-                                      type: string
-                                    targetServices:
-                                      description: the Azure services to which this
-                                        service endpoint rule applies to.
-                                      items:
-                                        type: string
-                                      type: array
-                                  type: object
+                                  type: string
                                 type: array
                             type: object
-                          type: array
-                        targetRules:
-                          description: 'block describing network connectivity rules
-                            that configured for each destinations. These rules override
-                            default rules.  Consists of the following fields:'
-                          items:
+                          azureServiceEndpointRule:
+                            description: 'block with information about stable Azure
+                              service endpoints. You can configure the firewall of
+                              your Azure resources to allow traffic from your Databricks
+                              serverless compute resources.  Consists of the following
+                              fields:'
                             properties:
-                              awsPrivateEndpointRules:
-                                description: list containing information about configure
-                                  AWS Private Endpoints.
+                              subnets:
+                                description: list of subnets from which Databricks
+                                  network traffic originates when accessing your Azure
+                                  resources.
                                 items:
-                                  properties:
-                                    accountId:
-                                      description: combination of account_id and network_connectivity_config_id
-                                        separated by / character
-                                      type: string
-                                    connectionState:
-                                      type: string
-                                    creationTime:
-                                      description: time in epoch milliseconds when
-                                        this object was created.
-                                      type: number
-                                    deactivated:
-                                      type: boolean
-                                    deactivatedAt:
-                                      type: number
-                                    domainNames:
-                                      items:
-                                        type: string
-                                      type: array
-                                    enabled:
-                                      type: boolean
-                                    endpointService:
-                                      type: string
-                                    networkConnectivityConfigId:
-                                      description: Canonical unique identifier of
-                                        Network Connectivity Config in Databricks
-                                        Account
-                                      type: string
-                                    resourceNames:
-                                      items:
-                                        type: string
-                                      type: array
-                                    ruleId:
-                                      description: combination of account_id and network_connectivity_config_id
-                                        separated by / character
-                                      type: string
-                                    updatedTime:
-                                      description: time in epoch milliseconds when
-                                        this object was updated.
-                                      type: number
-                                    vpcEndpointId:
-                                      description: combination of account_id and network_connectivity_config_id
-                                        separated by / character
-                                      type: string
-                                  type: object
+                                  type: string
                                 type: array
-                              azurePrivateEndpointRules:
-                                description: list containing information about configure
-                                  Azure Private Endpoints.
+                              targetRegion:
+                                description: the Azure region in which this service
+                                  endpoint rule applies.
+                                type: string
+                              targetServices:
+                                description: the Azure services to which this service
+                                  endpoint rule applies to.
                                 items:
-                                  properties:
-                                    connectionState:
-                                      type: string
-                                    creationTime:
-                                      description: time in epoch milliseconds when
-                                        this object was created.
-                                      type: number
-                                    deactivated:
-                                      type: boolean
-                                    deactivatedAt:
-                                      type: number
-                                    domainNames:
-                                      items:
-                                        type: string
-                                      type: array
-                                    endpointName:
-                                      description: Name of the network connectivity
-                                        configuration. The name can contain alphanumeric
-                                        characters, hyphens, and underscores. The
-                                        length must be between 3 and 30 characters.
-                                        The name must match the regular expression
-                                        ^[0-9a-zA-Z-_]{3,30}$. Change forces creation
-                                        of a new resource.
-                                      type: string
-                                    groupId:
-                                      description: combination of account_id and network_connectivity_config_id
-                                        separated by / character
-                                      type: string
-                                    networkConnectivityConfigId:
-                                      description: Canonical unique identifier of
-                                        Network Connectivity Config in Databricks
-                                        Account
-                                      type: string
-                                    resourceId:
-                                      description: combination of account_id and network_connectivity_config_id
-                                        separated by / character
-                                      type: string
-                                    ruleId:
-                                      description: combination of account_id and network_connectivity_config_id
-                                        separated by / character
-                                      type: string
-                                    updatedTime:
-                                      description: time in epoch milliseconds when
-                                        this object was updated.
-                                      type: number
-                                  type: object
+                                  type: string
                                 type: array
                             type: object
-                          type: array
-                      type: object
-                    type: array
+                        type: object
+                      targetRules:
+                        description: 'block describing network connectivity rules
+                          that configured for each destinations. These rules override
+                          default rules.  Consists of the following fields:'
+                        properties:
+                          awsPrivateEndpointRules:
+                            description: list containing information about configure
+                              AWS Private Endpoints.
+                            items:
+                              properties:
+                                accountId:
+                                  description: combination of account_id and network_connectivity_config_id
+                                    separated by / character
+                                  type: string
+                                connectionState:
+                                  type: string
+                                creationTime:
+                                  description: time in epoch milliseconds when this
+                                    object was created.
+                                  type: number
+                                deactivated:
+                                  type: boolean
+                                deactivatedAt:
+                                  type: number
+                                domainNames:
+                                  items:
+                                    type: string
+                                  type: array
+                                enabled:
+                                  type: boolean
+                                endpointService:
+                                  type: string
+                                networkConnectivityConfigId:
+                                  description: Canonical unique identifier of Network
+                                    Connectivity Config in Databricks Account
+                                  type: string
+                                resourceNames:
+                                  items:
+                                    type: string
+                                  type: array
+                                ruleId:
+                                  description: combination of account_id and network_connectivity_config_id
+                                    separated by / character
+                                  type: string
+                                updatedTime:
+                                  description: time in epoch milliseconds when this
+                                    object was updated.
+                                  type: number
+                                vpcEndpointId:
+                                  description: combination of account_id and network_connectivity_config_id
+                                    separated by / character
+                                  type: string
+                              type: object
+                            type: array
+                          azurePrivateEndpointRules:
+                            description: list containing information about configure
+                              Azure Private Endpoints.
+                            items:
+                              properties:
+                                connectionState:
+                                  type: string
+                                creationTime:
+                                  description: time in epoch milliseconds when this
+                                    object was created.
+                                  type: number
+                                deactivated:
+                                  type: boolean
+                                deactivatedAt:
+                                  type: number
+                                domainNames:
+                                  items:
+                                    type: string
+                                  type: array
+                                endpointName:
+                                  description: Name of the network connectivity configuration.
+                                    The name can contain alphanumeric characters,
+                                    hyphens, and underscores. The length must be between
+                                    3 and 30 characters. The name must match the regular
+                                    expression ^[0-9a-zA-Z-_]{3,30}$. Change forces
+                                    creation of a new resource.
+                                  type: string
+                                groupId:
+                                  description: combination of account_id and network_connectivity_config_id
+                                    separated by / character
+                                  type: string
+                                networkConnectivityConfigId:
+                                  description: Canonical unique identifier of Network
+                                    Connectivity Config in Databricks Account
+                                  type: string
+                                resourceId:
+                                  description: combination of account_id and network_connectivity_config_id
+                                    separated by / character
+                                  type: string
+                                ruleId:
+                                  description: combination of account_id and network_connectivity_config_id
+                                    separated by / character
+                                  type: string
+                                updatedTime:
+                                  description: time in epoch milliseconds when this
+                                    object was updated.
+                                  type: number
+                              type: object
+                            type: array
+                        type: object
+                    type: object
                   name:
                     description: Name of the network connectivity configuration. The
                       name can contain alphanumeric characters, hyphens, and underscores.
@@ -292,169 +278,155 @@ spec:
                     description: 'block containing information about network connectivity
                       rules that apply to network traffic from your serverless compute
                       resources. Consists of the following fields:'
-                    items:
-                      properties:
-                        defaultRules:
-                          description: 'block describing network connectivity rules
-                            that are applied by default without resource specific
-                            configurations.  Consists of the following fields:'
-                          items:
+                    properties:
+                      defaultRules:
+                        description: 'block describing network connectivity rules
+                          that are applied by default without resource specific configurations.  Consists
+                          of the following fields:'
+                        properties:
+                          awsStableIpRule:
+                            description: 'block with information about stable AWS
+                              IP CIDR blocks. You can use these to configure the firewall
+                              of your resources to allow traffic from your Databricks
+                              workspace.  Consists of the following fields:'
                             properties:
-                              awsStableIpRule:
-                                description: 'block with information about stable
-                                  AWS IP CIDR blocks. You can use these to configure
-                                  the firewall of your resources to allow traffic
-                                  from your Databricks workspace.  Consists of the
-                                  following fields:'
+                              cidrBlocks:
+                                description: list of IP CIDR blocks.
                                 items:
-                                  properties:
-                                    cidrBlocks:
-                                      description: list of IP CIDR blocks.
-                                      items:
-                                        type: string
-                                      type: array
-                                  type: object
-                                type: array
-                              azureServiceEndpointRule:
-                                description: 'block with information about stable
-                                  Azure service endpoints. You can configure the firewall
-                                  of your Azure resources to allow traffic from your
-                                  Databricks serverless compute resources.  Consists
-                                  of the following fields:'
-                                items:
-                                  properties:
-                                    subnets:
-                                      description: list of subnets from which Databricks
-                                        network traffic originates when accessing
-                                        your Azure resources.
-                                      items:
-                                        type: string
-                                      type: array
-                                    targetRegion:
-                                      description: the Azure region in which this
-                                        service endpoint rule applies.
-                                      type: string
-                                    targetServices:
-                                      description: the Azure services to which this
-                                        service endpoint rule applies to.
-                                      items:
-                                        type: string
-                                      type: array
-                                  type: object
+                                  type: string
                                 type: array
                             type: object
-                          type: array
-                        targetRules:
-                          description: 'block describing network connectivity rules
-                            that configured for each destinations. These rules override
-                            default rules.  Consists of the following fields:'
-                          items:
+                          azureServiceEndpointRule:
+                            description: 'block with information about stable Azure
+                              service endpoints. You can configure the firewall of
+                              your Azure resources to allow traffic from your Databricks
+                              serverless compute resources.  Consists of the following
+                              fields:'
                             properties:
-                              awsPrivateEndpointRules:
-                                description: list containing information about configure
-                                  AWS Private Endpoints.
+                              subnets:
+                                description: list of subnets from which Databricks
+                                  network traffic originates when accessing your Azure
+                                  resources.
                                 items:
-                                  properties:
-                                    accountId:
-                                      description: combination of account_id and network_connectivity_config_id
-                                        separated by / character
-                                      type: string
-                                    connectionState:
-                                      type: string
-                                    creationTime:
-                                      description: time in epoch milliseconds when
-                                        this object was created.
-                                      type: number
-                                    deactivated:
-                                      type: boolean
-                                    deactivatedAt:
-                                      type: number
-                                    domainNames:
-                                      items:
-                                        type: string
-                                      type: array
-                                    enabled:
-                                      type: boolean
-                                    endpointService:
-                                      type: string
-                                    networkConnectivityConfigId:
-                                      description: Canonical unique identifier of
-                                        Network Connectivity Config in Databricks
-                                        Account
-                                      type: string
-                                    resourceNames:
-                                      items:
-                                        type: string
-                                      type: array
-                                    ruleId:
-                                      description: combination of account_id and network_connectivity_config_id
-                                        separated by / character
-                                      type: string
-                                    updatedTime:
-                                      description: time in epoch milliseconds when
-                                        this object was updated.
-                                      type: number
-                                    vpcEndpointId:
-                                      description: combination of account_id and network_connectivity_config_id
-                                        separated by / character
-                                      type: string
-                                  type: object
+                                  type: string
                                 type: array
-                              azurePrivateEndpointRules:
-                                description: list containing information about configure
-                                  Azure Private Endpoints.
+                              targetRegion:
+                                description: the Azure region in which this service
+                                  endpoint rule applies.
+                                type: string
+                              targetServices:
+                                description: the Azure services to which this service
+                                  endpoint rule applies to.
                                 items:
-                                  properties:
-                                    connectionState:
-                                      type: string
-                                    creationTime:
-                                      description: time in epoch milliseconds when
-                                        this object was created.
-                                      type: number
-                                    deactivated:
-                                      type: boolean
-                                    deactivatedAt:
-                                      type: number
-                                    domainNames:
-                                      items:
-                                        type: string
-                                      type: array
-                                    endpointName:
-                                      description: Name of the network connectivity
-                                        configuration. The name can contain alphanumeric
-                                        characters, hyphens, and underscores. The
-                                        length must be between 3 and 30 characters.
-                                        The name must match the regular expression
-                                        ^[0-9a-zA-Z-_]{3,30}$. Change forces creation
-                                        of a new resource.
-                                      type: string
-                                    groupId:
-                                      description: combination of account_id and network_connectivity_config_id
-                                        separated by / character
-                                      type: string
-                                    networkConnectivityConfigId:
-                                      description: Canonical unique identifier of
-                                        Network Connectivity Config in Databricks
-                                        Account
-                                      type: string
-                                    resourceId:
-                                      description: combination of account_id and network_connectivity_config_id
-                                        separated by / character
-                                      type: string
-                                    ruleId:
-                                      description: combination of account_id and network_connectivity_config_id
-                                        separated by / character
-                                      type: string
-                                    updatedTime:
-                                      description: time in epoch milliseconds when
-                                        this object was updated.
-                                      type: number
-                                  type: object
+                                  type: string
                                 type: array
                             type: object
-                          type: array
-                      type: object
-                    type: array
+                        type: object
+                      targetRules:
+                        description: 'block describing network connectivity rules
+                          that configured for each destinations. These rules override
+                          default rules.  Consists of the following fields:'
+                        properties:
+                          awsPrivateEndpointRules:
+                            description: list containing information about configure
+                              AWS Private Endpoints.
+                            items:
+                              properties:
+                                accountId:
+                                  description: combination of account_id and network_connectivity_config_id
+                                    separated by / character
+                                  type: string
+                                connectionState:
+                                  type: string
+                                creationTime:
+                                  description: time in epoch milliseconds when this
+                                    object was created.
+                                  type: number
+                                deactivated:
+                                  type: boolean
+                                deactivatedAt:
+                                  type: number
+                                domainNames:
+                                  items:
+                                    type: string
+                                  type: array
+                                enabled:
+                                  type: boolean
+                                endpointService:
+                                  type: string
+                                networkConnectivityConfigId:
+                                  description: Canonical unique identifier of Network
+                                    Connectivity Config in Databricks Account
+                                  type: string
+                                resourceNames:
+                                  items:
+                                    type: string
+                                  type: array
+                                ruleId:
+                                  description: combination of account_id and network_connectivity_config_id
+                                    separated by / character
+                                  type: string
+                                updatedTime:
+                                  description: time in epoch milliseconds when this
+                                    object was updated.
+                                  type: number
+                                vpcEndpointId:
+                                  description: combination of account_id and network_connectivity_config_id
+                                    separated by / character
+                                  type: string
+                              type: object
+                            type: array
+                          azurePrivateEndpointRules:
+                            description: list containing information about configure
+                              Azure Private Endpoints.
+                            items:
+                              properties:
+                                connectionState:
+                                  type: string
+                                creationTime:
+                                  description: time in epoch milliseconds when this
+                                    object was created.
+                                  type: number
+                                deactivated:
+                                  type: boolean
+                                deactivatedAt:
+                                  type: number
+                                domainNames:
+                                  items:
+                                    type: string
+                                  type: array
+                                endpointName:
+                                  description: Name of the network connectivity configuration.
+                                    The name can contain alphanumeric characters,
+                                    hyphens, and underscores. The length must be between
+                                    3 and 30 characters. The name must match the regular
+                                    expression ^[0-9a-zA-Z-_]{3,30}$. Change forces
+                                    creation of a new resource.
+                                  type: string
+                                groupId:
+                                  description: combination of account_id and network_connectivity_config_id
+                                    separated by / character
+                                  type: string
+                                networkConnectivityConfigId:
+                                  description: Canonical unique identifier of Network
+                                    Connectivity Config in Databricks Account
+                                  type: string
+                                resourceId:
+                                  description: combination of account_id and network_connectivity_config_id
+                                    separated by / character
+                                  type: string
+                                ruleId:
+                                  description: combination of account_id and network_connectivity_config_id
+                                    separated by / character
+                                  type: string
+                                updatedTime:
+                                  description: time in epoch milliseconds when this
+                                    object was updated.
+                                  type: number
+                              type: object
+                            type: array
+                        type: object
+                    type: object
                   name:
                     description: Name of the network connectivity configuration. The
                       name can contain alphanumeric characters, hyphens, and underscores.
@@ -587,169 +559,155 @@ spec:
                     description: 'block containing information about network connectivity
                       rules that apply to network traffic from your serverless compute
                       resources. Consists of the following fields:'
-                    items:
-                      properties:
-                        defaultRules:
-                          description: 'block describing network connectivity rules
-                            that are applied by default without resource specific
-                            configurations.  Consists of the following fields:'
-                          items:
+                    properties:
+                      defaultRules:
+                        description: 'block describing network connectivity rules
+                          that are applied by default without resource specific configurations.  Consists
+                          of the following fields:'
+                        properties:
+                          awsStableIpRule:
+                            description: 'block with information about stable AWS
+                              IP CIDR blocks. You can use these to configure the firewall
+                              of your resources to allow traffic from your Databricks
+                              workspace.  Consists of the following fields:'
                             properties:
-                              awsStableIpRule:
-                                description: 'block with information about stable
-                                  AWS IP CIDR blocks. You can use these to configure
-                                  the firewall of your resources to allow traffic
-                                  from your Databricks workspace.  Consists of the
-                                  following fields:'
+                              cidrBlocks:
+                                description: list of IP CIDR blocks.
                                 items:
-                                  properties:
-                                    cidrBlocks:
-                                      description: list of IP CIDR blocks.
-                                      items:
-                                        type: string
-                                      type: array
-                                  type: object
-                                type: array
-                              azureServiceEndpointRule:
-                                description: 'block with information about stable
-                                  Azure service endpoints. You can configure the firewall
-                                  of your Azure resources to allow traffic from your
-                                  Databricks serverless compute resources.  Consists
-                                  of the following fields:'
-                                items:
-                                  properties:
-                                    subnets:
-                                      description: list of subnets from which Databricks
-                                        network traffic originates when accessing
-                                        your Azure resources.
-                                      items:
-                                        type: string
-                                      type: array
-                                    targetRegion:
-                                      description: the Azure region in which this
-                                        service endpoint rule applies.
-                                      type: string
-                                    targetServices:
-                                      description: the Azure services to which this
-                                        service endpoint rule applies to.
-                                      items:
-                                        type: string
-                                      type: array
-                                  type: object
+                                  type: string
                                 type: array
                             type: object
-                          type: array
-                        targetRules:
-                          description: 'block describing network connectivity rules
-                            that configured for each destinations. These rules override
-                            default rules.  Consists of the following fields:'
-                          items:
+                          azureServiceEndpointRule:
+                            description: 'block with information about stable Azure
+                              service endpoints. You can configure the firewall of
+                              your Azure resources to allow traffic from your Databricks
+                              serverless compute resources.  Consists of the following
+                              fields:'
                             properties:
-                              awsPrivateEndpointRules:
-                                description: list containing information about configure
-                                  AWS Private Endpoints.
+                              subnets:
+                                description: list of subnets from which Databricks
+                                  network traffic originates when accessing your Azure
+                                  resources.
                                 items:
-                                  properties:
-                                    accountId:
-                                      description: combination of account_id and network_connectivity_config_id
-                                        separated by / character
-                                      type: string
-                                    connectionState:
-                                      type: string
-                                    creationTime:
-                                      description: time in epoch milliseconds when
-                                        this object was created.
-                                      type: number
-                                    deactivated:
-                                      type: boolean
-                                    deactivatedAt:
-                                      type: number
-                                    domainNames:
-                                      items:
-                                        type: string
-                                      type: array
-                                    enabled:
-                                      type: boolean
-                                    endpointService:
-                                      type: string
-                                    networkConnectivityConfigId:
-                                      description: Canonical unique identifier of
-                                        Network Connectivity Config in Databricks
-                                        Account
-                                      type: string
-                                    resourceNames:
-                                      items:
-                                        type: string
-                                      type: array
-                                    ruleId:
-                                      description: combination of account_id and network_connectivity_config_id
-                                        separated by / character
-                                      type: string
-                                    updatedTime:
-                                      description: time in epoch milliseconds when
-                                        this object was updated.
-                                      type: number
-                                    vpcEndpointId:
-                                      description: combination of account_id and network_connectivity_config_id
-                                        separated by / character
-                                      type: string
-                                  type: object
+                                  type: string
                                 type: array
-                              azurePrivateEndpointRules:
-                                description: list containing information about configure
-                                  Azure Private Endpoints.
+                              targetRegion:
+                                description: the Azure region in which this service
+                                  endpoint rule applies.
+                                type: string
+                              targetServices:
+                                description: the Azure services to which this service
+                                  endpoint rule applies to.
                                 items:
-                                  properties:
-                                    connectionState:
-                                      type: string
-                                    creationTime:
-                                      description: time in epoch milliseconds when
-                                        this object was created.
-                                      type: number
-                                    deactivated:
-                                      type: boolean
-                                    deactivatedAt:
-                                      type: number
-                                    domainNames:
-                                      items:
-                                        type: string
-                                      type: array
-                                    endpointName:
-                                      description: Name of the network connectivity
-                                        configuration. The name can contain alphanumeric
-                                        characters, hyphens, and underscores. The
-                                        length must be between 3 and 30 characters.
-                                        The name must match the regular expression
-                                        ^[0-9a-zA-Z-_]{3,30}$. Change forces creation
-                                        of a new resource.
-                                      type: string
-                                    groupId:
-                                      description: combination of account_id and network_connectivity_config_id
-                                        separated by / character
-                                      type: string
-                                    networkConnectivityConfigId:
-                                      description: Canonical unique identifier of
-                                        Network Connectivity Config in Databricks
-                                        Account
-                                      type: string
-                                    resourceId:
-                                      description: combination of account_id and network_connectivity_config_id
-                                        separated by / character
-                                      type: string
-                                    ruleId:
-                                      description: combination of account_id and network_connectivity_config_id
-                                        separated by / character
-                                      type: string
-                                    updatedTime:
-                                      description: time in epoch milliseconds when
-                                        this object was updated.
-                                      type: number
-                                  type: object
+                                  type: string
                                 type: array
                             type: object
-                          type: array
-                      type: object
-                    type: array
+                        type: object
+                      targetRules:
+                        description: 'block describing network connectivity rules
+                          that configured for each destinations. These rules override
+                          default rules.  Consists of the following fields:'
+                        properties:
+                          awsPrivateEndpointRules:
+                            description: list containing information about configure
+                              AWS Private Endpoints.
+                            items:
+                              properties:
+                                accountId:
+                                  description: combination of account_id and network_connectivity_config_id
+                                    separated by / character
+                                  type: string
+                                connectionState:
+                                  type: string
+                                creationTime:
+                                  description: time in epoch milliseconds when this
+                                    object was created.
+                                  type: number
+                                deactivated:
+                                  type: boolean
+                                deactivatedAt:
+                                  type: number
+                                domainNames:
+                                  items:
+                                    type: string
+                                  type: array
+                                enabled:
+                                  type: boolean
+                                endpointService:
+                                  type: string
+                                networkConnectivityConfigId:
+                                  description: Canonical unique identifier of Network
+                                    Connectivity Config in Databricks Account
+                                  type: string
+                                resourceNames:
+                                  items:
+                                    type: string
+                                  type: array
+                                ruleId:
+                                  description: combination of account_id and network_connectivity_config_id
+                                    separated by / character
+                                  type: string
+                                updatedTime:
+                                  description: time in epoch milliseconds when this
+                                    object was updated.
+                                  type: number
+                                vpcEndpointId:
+                                  description: combination of account_id and network_connectivity_config_id
+                                    separated by / character
+                                  type: string
+                              type: object
+                            type: array
+                          azurePrivateEndpointRules:
+                            description: list containing information about configure
+                              Azure Private Endpoints.
+                            items:
+                              properties:
+                                connectionState:
+                                  type: string
+                                creationTime:
+                                  description: time in epoch milliseconds when this
+                                    object was created.
+                                  type: number
+                                deactivated:
+                                  type: boolean
+                                deactivatedAt:
+                                  type: number
+                                domainNames:
+                                  items:
+                                    type: string
+                                  type: array
+                                endpointName:
+                                  description: Name of the network connectivity configuration.
+                                    The name can contain alphanumeric characters,
+                                    hyphens, and underscores. The length must be between
+                                    3 and 30 characters. The name must match the regular
+                                    expression ^[0-9a-zA-Z-_]{3,30}$. Change forces
+                                    creation of a new resource.
+                                  type: string
+                                groupId:
+                                  description: combination of account_id and network_connectivity_config_id
+                                    separated by / character
+                                  type: string
+                                networkConnectivityConfigId:
+                                  description: Canonical unique identifier of Network
+                                    Connectivity Config in Databricks Account
+                                  type: string
+                                resourceId:
+                                  description: combination of account_id and network_connectivity_config_id
+                                    separated by / character
+                                  type: string
+                                ruleId:
+                                  description: combination of account_id and network_connectivity_config_id
+                                    separated by / character
+                                  type: string
+                                updatedTime:
+                                  description: time in epoch milliseconds when this
+                                    object was updated.
+                                  type: number
+                              type: object
+                            type: array
+                        type: object
+                    type: object
                   id:
                     description: combination of account_id and network_connectivity_config_id
                       separated by / character

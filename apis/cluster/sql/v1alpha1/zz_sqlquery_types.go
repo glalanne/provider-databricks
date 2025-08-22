@@ -82,14 +82,14 @@ type DateParameters struct {
 }
 
 type DateRangeInitParameters struct {
-	Range []RangeInitParameters `json:"range,omitempty" tf:"range,omitempty"`
+	Range *RangeInitParameters `json:"range,omitempty" tf:"range,omitempty"`
 
 	// The default value for this parameter.
 	Value *string `json:"value,omitempty" tf:"value,omitempty"`
 }
 
 type DateRangeObservation struct {
-	Range []RangeObservation `json:"range,omitempty" tf:"range,omitempty"`
+	Range *RangeObservation `json:"range,omitempty" tf:"range,omitempty"`
 
 	// The default value for this parameter.
 	Value *string `json:"value,omitempty" tf:"value,omitempty"`
@@ -98,7 +98,7 @@ type DateRangeObservation struct {
 type DateRangeParameters struct {
 
 	// +kubebuilder:validation:Optional
-	Range []RangeParameters `json:"range,omitempty" tf:"range,omitempty"`
+	Range *RangeParameters `json:"range,omitempty" tf:"range,omitempty"`
 
 	// The default value for this parameter.
 	// +kubebuilder:validation:Optional
@@ -125,14 +125,14 @@ type DatetimeParameters struct {
 }
 
 type DatetimeRangeInitParameters struct {
-	Range []DatetimeRangeRangeInitParameters `json:"range,omitempty" tf:"range,omitempty"`
+	Range *DatetimeRangeRangeInitParameters `json:"range,omitempty" tf:"range,omitempty"`
 
 	// The default value for this parameter.
 	Value *string `json:"value,omitempty" tf:"value,omitempty"`
 }
 
 type DatetimeRangeObservation struct {
-	Range []DatetimeRangeRangeObservation `json:"range,omitempty" tf:"range,omitempty"`
+	Range *DatetimeRangeRangeObservation `json:"range,omitempty" tf:"range,omitempty"`
 
 	// The default value for this parameter.
 	Value *string `json:"value,omitempty" tf:"value,omitempty"`
@@ -141,7 +141,7 @@ type DatetimeRangeObservation struct {
 type DatetimeRangeParameters struct {
 
 	// +kubebuilder:validation:Optional
-	Range []DatetimeRangeRangeParameters `json:"range,omitempty" tf:"range,omitempty"`
+	Range *DatetimeRangeRangeParameters `json:"range,omitempty" tf:"range,omitempty"`
 
 	// The default value for this parameter.
 	// +kubebuilder:validation:Optional
@@ -189,14 +189,14 @@ type DatetimesecParameters struct {
 }
 
 type DatetimesecRangeInitParameters struct {
-	Range []DatetimesecRangeRangeInitParameters `json:"range,omitempty" tf:"range,omitempty"`
+	Range *DatetimesecRangeRangeInitParameters `json:"range,omitempty" tf:"range,omitempty"`
 
 	// The default value for this parameter.
 	Value *string `json:"value,omitempty" tf:"value,omitempty"`
 }
 
 type DatetimesecRangeObservation struct {
-	Range []DatetimesecRangeRangeObservation `json:"range,omitempty" tf:"range,omitempty"`
+	Range *DatetimesecRangeRangeObservation `json:"range,omitempty" tf:"range,omitempty"`
 
 	// The default value for this parameter.
 	Value *string `json:"value,omitempty" tf:"value,omitempty"`
@@ -205,7 +205,7 @@ type DatetimesecRangeObservation struct {
 type DatetimesecRangeParameters struct {
 
 	// +kubebuilder:validation:Optional
-	Range []DatetimesecRangeRangeParameters `json:"range,omitempty" tf:"range,omitempty"`
+	Range *DatetimesecRangeRangeParameters `json:"range,omitempty" tf:"range,omitempty"`
 
 	// The default value for this parameter.
 	// +kubebuilder:validation:Optional
@@ -234,7 +234,7 @@ type DatetimesecRangeRangeParameters struct {
 }
 
 type EnumInitParameters struct {
-	Multiple []MultipleInitParameters `json:"multiple,omitempty" tf:"multiple,omitempty"`
+	Multiple *MultipleInitParameters `json:"multiple,omitempty" tf:"multiple,omitempty"`
 
 	Options []*string `json:"options,omitempty" tf:"options,omitempty"`
 
@@ -245,7 +245,7 @@ type EnumInitParameters struct {
 }
 
 type EnumObservation struct {
-	Multiple []MultipleObservation `json:"multiple,omitempty" tf:"multiple,omitempty"`
+	Multiple *MultipleObservation `json:"multiple,omitempty" tf:"multiple,omitempty"`
 
 	Options []*string `json:"options,omitempty" tf:"options,omitempty"`
 
@@ -258,7 +258,7 @@ type EnumObservation struct {
 type EnumParameters struct {
 
 	// +kubebuilder:validation:Optional
-	Multiple []MultipleParameters `json:"multiple,omitempty" tf:"multiple,omitempty"`
+	Multiple *MultipleParameters `json:"multiple,omitempty" tf:"multiple,omitempty"`
 
 	// +kubebuilder:validation:Optional
 	Options []*string `json:"options" tf:"options,omitempty"`
@@ -319,7 +319,7 @@ type NumberParameters struct {
 }
 
 type ParameterQueryInitParameters struct {
-	Multiple []QueryMultipleInitParameters `json:"multiple,omitempty" tf:"multiple,omitempty"`
+	Multiple *QueryMultipleInitParameters `json:"multiple,omitempty" tf:"multiple,omitempty"`
 
 	// the unique ID of the SQL Query.
 	QueryID *string `json:"queryId,omitempty" tf:"query_id,omitempty"`
@@ -331,7 +331,7 @@ type ParameterQueryInitParameters struct {
 }
 
 type ParameterQueryObservation struct {
-	Multiple []QueryMultipleObservation `json:"multiple,omitempty" tf:"multiple,omitempty"`
+	Multiple *QueryMultipleObservation `json:"multiple,omitempty" tf:"multiple,omitempty"`
 
 	// the unique ID of the SQL Query.
 	QueryID *string `json:"queryId,omitempty" tf:"query_id,omitempty"`
@@ -345,7 +345,7 @@ type ParameterQueryObservation struct {
 type ParameterQueryParameters struct {
 
 	// +kubebuilder:validation:Optional
-	Multiple []QueryMultipleParameters `json:"multiple,omitempty" tf:"multiple,omitempty"`
+	Multiple *QueryMultipleParameters `json:"multiple,omitempty" tf:"multiple,omitempty"`
 
 	// the unique ID of the SQL Query.
 	// +kubebuilder:validation:Optional
@@ -431,7 +431,7 @@ type SQLQueryInitParameters struct {
 	// Run as role. Possible values are viewer, owner.
 	RunAsRole *string `json:"runAsRole,omitempty" tf:"run_as_role,omitempty"`
 
-	Schedule []ScheduleInitParameters `json:"schedule,omitempty" tf:"schedule,omitempty"`
+	Schedule *ScheduleInitParameters `json:"schedule,omitempty" tf:"schedule,omitempty"`
 
 	Tags []*string `json:"tags,omitempty" tf:"tags,omitempty"`
 
@@ -464,7 +464,7 @@ type SQLQueryObservation struct {
 	// Run as role. Possible values are viewer, owner.
 	RunAsRole *string `json:"runAsRole,omitempty" tf:"run_as_role,omitempty"`
 
-	Schedule []ScheduleObservation `json:"schedule,omitempty" tf:"schedule,omitempty"`
+	Schedule *ScheduleObservation `json:"schedule,omitempty" tf:"schedule,omitempty"`
 
 	Tags []*string `json:"tags,omitempty" tf:"tags,omitempty"`
 
@@ -472,58 +472,58 @@ type SQLQueryObservation struct {
 }
 
 type SQLQueryParameterInitParameters struct {
-	Date []DateInitParameters `json:"date,omitempty" tf:"date,omitempty"`
+	Date *DateInitParameters `json:"date,omitempty" tf:"date,omitempty"`
 
-	DateRange []DateRangeInitParameters `json:"dateRange,omitempty" tf:"date_range,omitempty"`
+	DateRange *DateRangeInitParameters `json:"dateRange,omitempty" tf:"date_range,omitempty"`
 
-	Datetime []DatetimeInitParameters `json:"datetime,omitempty" tf:"datetime,omitempty"`
+	Datetime *DatetimeInitParameters `json:"datetime,omitempty" tf:"datetime,omitempty"`
 
-	DatetimeRange []DatetimeRangeInitParameters `json:"datetimeRange,omitempty" tf:"datetime_range,omitempty"`
+	DatetimeRange *DatetimeRangeInitParameters `json:"datetimeRange,omitempty" tf:"datetime_range,omitempty"`
 
-	Datetimesec []DatetimesecInitParameters `json:"datetimesec,omitempty" tf:"datetimesec,omitempty"`
+	Datetimesec *DatetimesecInitParameters `json:"datetimesec,omitempty" tf:"datetimesec,omitempty"`
 
-	DatetimesecRange []DatetimesecRangeInitParameters `json:"datetimesecRange,omitempty" tf:"datetimesec_range,omitempty"`
+	DatetimesecRange *DatetimesecRangeInitParameters `json:"datetimesecRange,omitempty" tf:"datetimesec_range,omitempty"`
 
-	Enum []EnumInitParameters `json:"enum,omitempty" tf:"enum,omitempty"`
+	Enum *EnumInitParameters `json:"enum,omitempty" tf:"enum,omitempty"`
 
 	// The title of this query that appears in list views, widget headings, and on the query page.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
-	Number []NumberInitParameters `json:"number,omitempty" tf:"number,omitempty"`
+	Number *NumberInitParameters `json:"number,omitempty" tf:"number,omitempty"`
 
 	// The text of the query to be run.
-	Query []ParameterQueryInitParameters `json:"query,omitempty" tf:"query,omitempty"`
+	Query *ParameterQueryInitParameters `json:"query,omitempty" tf:"query,omitempty"`
 
-	Text []TextInitParameters `json:"text,omitempty" tf:"text,omitempty"`
+	Text *TextInitParameters `json:"text,omitempty" tf:"text,omitempty"`
 
 	// The text displayed in a parameter picking widget.
 	Title *string `json:"title,omitempty" tf:"title,omitempty"`
 }
 
 type SQLQueryParameterObservation struct {
-	Date []DateObservation `json:"date,omitempty" tf:"date,omitempty"`
+	Date *DateObservation `json:"date,omitempty" tf:"date,omitempty"`
 
-	DateRange []DateRangeObservation `json:"dateRange,omitempty" tf:"date_range,omitempty"`
+	DateRange *DateRangeObservation `json:"dateRange,omitempty" tf:"date_range,omitempty"`
 
-	Datetime []DatetimeObservation `json:"datetime,omitempty" tf:"datetime,omitempty"`
+	Datetime *DatetimeObservation `json:"datetime,omitempty" tf:"datetime,omitempty"`
 
-	DatetimeRange []DatetimeRangeObservation `json:"datetimeRange,omitempty" tf:"datetime_range,omitempty"`
+	DatetimeRange *DatetimeRangeObservation `json:"datetimeRange,omitempty" tf:"datetime_range,omitempty"`
 
-	Datetimesec []DatetimesecObservation `json:"datetimesec,omitempty" tf:"datetimesec,omitempty"`
+	Datetimesec *DatetimesecObservation `json:"datetimesec,omitempty" tf:"datetimesec,omitempty"`
 
-	DatetimesecRange []DatetimesecRangeObservation `json:"datetimesecRange,omitempty" tf:"datetimesec_range,omitempty"`
+	DatetimesecRange *DatetimesecRangeObservation `json:"datetimesecRange,omitempty" tf:"datetimesec_range,omitempty"`
 
-	Enum []EnumObservation `json:"enum,omitempty" tf:"enum,omitempty"`
+	Enum *EnumObservation `json:"enum,omitempty" tf:"enum,omitempty"`
 
 	// The title of this query that appears in list views, widget headings, and on the query page.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
-	Number []NumberObservation `json:"number,omitempty" tf:"number,omitempty"`
+	Number *NumberObservation `json:"number,omitempty" tf:"number,omitempty"`
 
 	// The text of the query to be run.
-	Query []ParameterQueryObservation `json:"query,omitempty" tf:"query,omitempty"`
+	Query *ParameterQueryObservation `json:"query,omitempty" tf:"query,omitempty"`
 
-	Text []TextObservation `json:"text,omitempty" tf:"text,omitempty"`
+	Text *TextObservation `json:"text,omitempty" tf:"text,omitempty"`
 
 	// The text displayed in a parameter picking widget.
 	Title *string `json:"title,omitempty" tf:"title,omitempty"`
@@ -532,39 +532,39 @@ type SQLQueryParameterObservation struct {
 type SQLQueryParameterParameters struct {
 
 	// +kubebuilder:validation:Optional
-	Date []DateParameters `json:"date,omitempty" tf:"date,omitempty"`
+	Date *DateParameters `json:"date,omitempty" tf:"date,omitempty"`
 
 	// +kubebuilder:validation:Optional
-	DateRange []DateRangeParameters `json:"dateRange,omitempty" tf:"date_range,omitempty"`
+	DateRange *DateRangeParameters `json:"dateRange,omitempty" tf:"date_range,omitempty"`
 
 	// +kubebuilder:validation:Optional
-	Datetime []DatetimeParameters `json:"datetime,omitempty" tf:"datetime,omitempty"`
+	Datetime *DatetimeParameters `json:"datetime,omitempty" tf:"datetime,omitempty"`
 
 	// +kubebuilder:validation:Optional
-	DatetimeRange []DatetimeRangeParameters `json:"datetimeRange,omitempty" tf:"datetime_range,omitempty"`
+	DatetimeRange *DatetimeRangeParameters `json:"datetimeRange,omitempty" tf:"datetime_range,omitempty"`
 
 	// +kubebuilder:validation:Optional
-	Datetimesec []DatetimesecParameters `json:"datetimesec,omitempty" tf:"datetimesec,omitempty"`
+	Datetimesec *DatetimesecParameters `json:"datetimesec,omitempty" tf:"datetimesec,omitempty"`
 
 	// +kubebuilder:validation:Optional
-	DatetimesecRange []DatetimesecRangeParameters `json:"datetimesecRange,omitempty" tf:"datetimesec_range,omitempty"`
+	DatetimesecRange *DatetimesecRangeParameters `json:"datetimesecRange,omitempty" tf:"datetimesec_range,omitempty"`
 
 	// +kubebuilder:validation:Optional
-	Enum []EnumParameters `json:"enum,omitempty" tf:"enum,omitempty"`
+	Enum *EnumParameters `json:"enum,omitempty" tf:"enum,omitempty"`
 
 	// The title of this query that appears in list views, widget headings, and on the query page.
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name" tf:"name,omitempty"`
 
 	// +kubebuilder:validation:Optional
-	Number []NumberParameters `json:"number,omitempty" tf:"number,omitempty"`
+	Number *NumberParameters `json:"number,omitempty" tf:"number,omitempty"`
 
 	// The text of the query to be run.
 	// +kubebuilder:validation:Optional
-	Query []ParameterQueryParameters `json:"query,omitempty" tf:"query,omitempty"`
+	Query *ParameterQueryParameters `json:"query,omitempty" tf:"query,omitempty"`
 
 	// +kubebuilder:validation:Optional
-	Text []TextParameters `json:"text,omitempty" tf:"text,omitempty"`
+	Text *TextParameters `json:"text,omitempty" tf:"text,omitempty"`
 
 	// The text displayed in a parameter picking widget.
 	// +kubebuilder:validation:Optional
@@ -604,7 +604,7 @@ type SQLQueryParameters struct {
 	RunAsRole *string `json:"runAsRole,omitempty" tf:"run_as_role,omitempty"`
 
 	// +kubebuilder:validation:Optional
-	Schedule []ScheduleParameters `json:"schedule,omitempty" tf:"schedule,omitempty"`
+	Schedule *ScheduleParameters `json:"schedule,omitempty" tf:"schedule,omitempty"`
 
 	// +kubebuilder:validation:Optional
 	Tags []*string `json:"tags,omitempty" tf:"tags,omitempty"`
@@ -614,31 +614,31 @@ type SQLQueryParameters struct {
 }
 
 type ScheduleInitParameters struct {
-	Continuous []ContinuousInitParameters `json:"continuous,omitempty" tf:"continuous,omitempty"`
+	Continuous *ContinuousInitParameters `json:"continuous,omitempty" tf:"continuous,omitempty"`
 
-	Daily []DailyInitParameters `json:"daily,omitempty" tf:"daily,omitempty"`
+	Daily *DailyInitParameters `json:"daily,omitempty" tf:"daily,omitempty"`
 
-	Weekly []WeeklyInitParameters `json:"weekly,omitempty" tf:"weekly,omitempty"`
+	Weekly *WeeklyInitParameters `json:"weekly,omitempty" tf:"weekly,omitempty"`
 }
 
 type ScheduleObservation struct {
-	Continuous []ContinuousObservation `json:"continuous,omitempty" tf:"continuous,omitempty"`
+	Continuous *ContinuousObservation `json:"continuous,omitempty" tf:"continuous,omitempty"`
 
-	Daily []DailyObservation `json:"daily,omitempty" tf:"daily,omitempty"`
+	Daily *DailyObservation `json:"daily,omitempty" tf:"daily,omitempty"`
 
-	Weekly []WeeklyObservation `json:"weekly,omitempty" tf:"weekly,omitempty"`
+	Weekly *WeeklyObservation `json:"weekly,omitempty" tf:"weekly,omitempty"`
 }
 
 type ScheduleParameters struct {
 
 	// +kubebuilder:validation:Optional
-	Continuous []ContinuousParameters `json:"continuous,omitempty" tf:"continuous,omitempty"`
+	Continuous *ContinuousParameters `json:"continuous,omitempty" tf:"continuous,omitempty"`
 
 	// +kubebuilder:validation:Optional
-	Daily []DailyParameters `json:"daily,omitempty" tf:"daily,omitempty"`
+	Daily *DailyParameters `json:"daily,omitempty" tf:"daily,omitempty"`
 
 	// +kubebuilder:validation:Optional
-	Weekly []WeeklyParameters `json:"weekly,omitempty" tf:"weekly,omitempty"`
+	Weekly *WeeklyParameters `json:"weekly,omitempty" tf:"weekly,omitempty"`
 }
 
 type TextInitParameters struct {

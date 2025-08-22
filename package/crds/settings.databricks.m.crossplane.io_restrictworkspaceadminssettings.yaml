@@ -64,14 +64,12 @@ spec:
                     type: string
                   restrictWorkspaceAdmins:
                     description: The configuration details.
-                    items:
-                      properties:
-                        status:
-                          description: The restrict workspace admins status for the
-                            workspace.
-                          type: string
-                      type: object
-                    type: array
+                    properties:
+                      status:
+                        description: The restrict workspace admins status for the
+                          workspace.
+                        type: string
+                    type: object
                   settingName:
                     type: string
                 type: object
@@ -92,14 +90,12 @@ spec:
                     type: string
                   restrictWorkspaceAdmins:
                     description: The configuration details.
-                    items:
-                      properties:
-                        status:
-                          description: The restrict workspace admins status for the
-                            workspace.
-                          type: string
-                      type: object
-                    type: array
+                    properties:
+                      status:
+                        description: The restrict workspace admins status for the
+                          workspace.
+                        type: string
+                    type: object
                   settingName:
                     type: string
                 type: object
@@ -178,14 +174,12 @@ spec:
                     type: string
                   restrictWorkspaceAdmins:
                     description: The configuration details.
-                    items:
-                      properties:
-                        status:
-                          description: The restrict workspace admins status for the
-                            workspace.
-                          type: string
-                      type: object
-                    type: array
+                    properties:
+                      status:
+                        description: The restrict workspace admins status for the
+                          workspace.
+                        type: string
+                    type: object
                   settingName:
                     type: string
                 type: object

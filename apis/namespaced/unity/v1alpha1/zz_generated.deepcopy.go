@@ -1448,10 +1448,8 @@ func (in *ConnectionInitParameters) DeepCopyInto(out *ConnectionInitParameters) 
 	}
 	if in.EnvironmentSettings != nil {
 		in, out := &in.EnvironmentSettings, &out.EnvironmentSettings
-		*out = make([]EnvironmentSettingsInitParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(EnvironmentSettingsInitParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Name != nil {
 		in, out := &in.Name, &out.Name
@@ -1579,10 +1577,8 @@ func (in *ConnectionObservation) DeepCopyInto(out *ConnectionObservation) {
 	}
 	if in.EnvironmentSettings != nil {
 		in, out := &in.EnvironmentSettings, &out.EnvironmentSettings
-		*out = make([]EnvironmentSettingsObservation, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(EnvironmentSettingsObservation)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.FullName != nil {
 		in, out := &in.FullName, &out.FullName
@@ -1684,10 +1680,8 @@ func (in *ConnectionParameters) DeepCopyInto(out *ConnectionParameters) {
 	}
 	if in.EnvironmentSettings != nil {
 		in, out := &in.EnvironmentSettings, &out.EnvironmentSettings
-		*out = make([]EnvironmentSettingsParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(EnvironmentSettingsParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Name != nil {
 		in, out := &in.Name, &out.Name
@@ -1866,24 +1860,18 @@ func (in *CredentialInitParameters) DeepCopyInto(out *CredentialInitParameters) 
 	*out = *in
 	if in.AwsIAMRole != nil {
 		in, out := &in.AwsIAMRole, &out.AwsIAMRole
-		*out = make([]AwsIAMRoleInitParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(AwsIAMRoleInitParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.AzureManagedIdentity != nil {
 		in, out := &in.AzureManagedIdentity, &out.AzureManagedIdentity
-		*out = make([]AzureManagedIdentityInitParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(AzureManagedIdentityInitParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.AzureServicePrincipal != nil {
 		in, out := &in.AzureServicePrincipal, &out.AzureServicePrincipal
-		*out = make([]AzureServicePrincipalInitParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(AzureServicePrincipalInitParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Comment != nil {
 		in, out := &in.Comment, &out.Comment
@@ -1902,10 +1890,8 @@ func (in *CredentialInitParameters) DeepCopyInto(out *CredentialInitParameters) 
 	}
 	if in.DatabricksGCPServiceAccount != nil {
 		in, out := &in.DatabricksGCPServiceAccount, &out.DatabricksGCPServiceAccount
-		*out = make([]DatabricksGCPServiceAccountInitParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(DatabricksGCPServiceAccountInitParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.ForceDestroy != nil {
 		in, out := &in.ForceDestroy, &out.ForceDestroy
@@ -2021,24 +2007,18 @@ func (in *CredentialObservation) DeepCopyInto(out *CredentialObservation) {
 	*out = *in
 	if in.AwsIAMRole != nil {
 		in, out := &in.AwsIAMRole, &out.AwsIAMRole
-		*out = make([]AwsIAMRoleObservation, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(AwsIAMRoleObservation)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.AzureManagedIdentity != nil {
 		in, out := &in.AzureManagedIdentity, &out.AzureManagedIdentity
-		*out = make([]AzureManagedIdentityObservation, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(AzureManagedIdentityObservation)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.AzureServicePrincipal != nil {
 		in, out := &in.AzureServicePrincipal, &out.AzureServicePrincipal
-		*out = make([]AzureServicePrincipalObservation, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(AzureServicePrincipalObservation)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Comment != nil {
 		in, out := &in.Comment, &out.Comment
@@ -2062,10 +2042,8 @@ func (in *CredentialObservation) DeepCopyInto(out *CredentialObservation) {
 	}
 	if in.DatabricksGCPServiceAccount != nil {
 		in, out := &in.DatabricksGCPServiceAccount, &out.DatabricksGCPServiceAccount
-		*out = make([]DatabricksGCPServiceAccountObservation, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(DatabricksGCPServiceAccountObservation)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.ForceDestroy != nil {
 		in, out := &in.ForceDestroy, &out.ForceDestroy
@@ -2154,24 +2132,18 @@ func (in *CredentialParameters) DeepCopyInto(out *CredentialParameters) {
 	*out = *in
 	if in.AwsIAMRole != nil {
 		in, out := &in.AwsIAMRole, &out.AwsIAMRole
-		*out = make([]AwsIAMRoleParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(AwsIAMRoleParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.AzureManagedIdentity != nil {
 		in, out := &in.AzureManagedIdentity, &out.AzureManagedIdentity
-		*out = make([]AzureManagedIdentityParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(AzureManagedIdentityParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.AzureServicePrincipal != nil {
 		in, out := &in.AzureServicePrincipal, &out.AzureServicePrincipal
-		*out = make([]AzureServicePrincipalParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(AzureServicePrincipalParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Comment != nil {
 		in, out := &in.Comment, &out.Comment
@@ -2190,10 +2162,8 @@ func (in *CredentialParameters) DeepCopyInto(out *CredentialParameters) {
 	}
 	if in.DatabricksGCPServiceAccount != nil {
 		in, out := &in.DatabricksGCPServiceAccount, &out.DatabricksGCPServiceAccount
-		*out = make([]DatabricksGCPServiceAccountParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(DatabricksGCPServiceAccountParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.ForceDestroy != nil {
 		in, out := &in.ForceDestroy, &out.ForceDestroy
@@ -2600,10 +2570,8 @@ func (in *EncryptionDetailsInitParameters) DeepCopyInto(out *EncryptionDetailsIn
 	*out = *in
 	if in.SseEncryptionDetails != nil {
 		in, out := &in.SseEncryptionDetails, &out.SseEncryptionDetails
-		*out = make([]SseEncryptionDetailsInitParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(SseEncryptionDetailsInitParameters)
+		(*in).DeepCopyInto(*out)
 	}
 }
 
@@ -2622,10 +2590,8 @@ func (in *EncryptionDetailsObservation) DeepCopyInto(out *EncryptionDetailsObser
 	*out = *in
 	if in.SseEncryptionDetails != nil {
 		in, out := &in.SseEncryptionDetails, &out.SseEncryptionDetails
-		*out = make([]SseEncryptionDetailsObservation, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(SseEncryptionDetailsObservation)
+		(*in).DeepCopyInto(*out)
 	}
 }
 
@@ -2644,10 +2610,8 @@ func (in *EncryptionDetailsParameters) DeepCopyInto(out *EncryptionDetailsParame
 	*out = *in
 	if in.SseEncryptionDetails != nil {
 		in, out := &in.SseEncryptionDetails, &out.SseEncryptionDetails
-		*out = make([]SseEncryptionDetailsParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(SseEncryptionDetailsParameters)
+		(*in).DeepCopyInto(*out)
 	}
 }
 
@@ -2801,10 +2765,8 @@ func (in *ExternalLocationInitParameters) DeepCopyInto(out *ExternalLocationInit
 	}
 	if in.EncryptionDetails != nil {
 		in, out := &in.EncryptionDetails, &out.EncryptionDetails
-		*out = make([]EncryptionDetailsInitParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(EncryptionDetailsInitParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Fallback != nil {
 		in, out := &in.Fallback, &out.Fallback
@@ -2813,10 +2775,8 @@ func (in *ExternalLocationInitParameters) DeepCopyInto(out *ExternalLocationInit
 	}
 	if in.FileEventQueue != nil {
 		in, out := &in.FileEventQueue, &out.FileEventQueue
-		*out = make([]FileEventQueueInitParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(FileEventQueueInitParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.ForceDestroy != nil {
 		in, out := &in.ForceDestroy, &out.ForceDestroy
@@ -2947,10 +2907,8 @@ func (in *ExternalLocationObservation) DeepCopyInto(out *ExternalLocationObserva
 	}
 	if in.EncryptionDetails != nil {
 		in, out := &in.EncryptionDetails, &out.EncryptionDetails
-		*out = make([]EncryptionDetailsObservation, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(EncryptionDetailsObservation)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Fallback != nil {
 		in, out := &in.Fallback, &out.Fallback
@@ -2959,10 +2917,8 @@ func (in *ExternalLocationObservation) DeepCopyInto(out *ExternalLocationObserva
 	}
 	if in.FileEventQueue != nil {
 		in, out := &in.FileEventQueue, &out.FileEventQueue
-		*out = make([]FileEventQueueObservation, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(FileEventQueueObservation)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.ForceDestroy != nil {
 		in, out := &in.ForceDestroy, &out.ForceDestroy
@@ -3056,10 +3012,8 @@ func (in *ExternalLocationParameters) DeepCopyInto(out *ExternalLocationParamete
 	}
 	if in.EncryptionDetails != nil {
 		in, out := &in.EncryptionDetails, &out.EncryptionDetails
-		*out = make([]EncryptionDetailsParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(EncryptionDetailsParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Fallback != nil {
 		in, out := &in.Fallback, &out.Fallback
@@ -3068,10 +3022,8 @@ func (in *ExternalLocationParameters) DeepCopyInto(out *ExternalLocationParamete
 	}
 	if in.FileEventQueue != nil {
 		in, out := &in.FileEventQueue, &out.FileEventQueue
-		*out = make([]FileEventQueueParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(FileEventQueueParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.ForceDestroy != nil {
 		in, out := &in.ForceDestroy, &out.ForceDestroy
@@ -3225,45 +3177,33 @@ func (in *FileEventQueueInitParameters) DeepCopyInto(out *FileEventQueueInitPara
 	*out = *in
 	if in.ManagedAqs != nil {
 		in, out := &in.ManagedAqs, &out.ManagedAqs
-		*out = make([]ManagedAqsInitParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(ManagedAqsInitParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.ManagedPubsub != nil {
 		in, out := &in.ManagedPubsub, &out.ManagedPubsub
-		*out = make([]ManagedPubsubInitParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(ManagedPubsubInitParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.ManagedSqs != nil {
 		in, out := &in.ManagedSqs, &out.ManagedSqs
-		*out = make([]ManagedSqsInitParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(ManagedSqsInitParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.ProvidedAqs != nil {
 		in, out := &in.ProvidedAqs, &out.ProvidedAqs
-		*out = make([]ProvidedAqsInitParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(ProvidedAqsInitParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.ProvidedPubsub != nil {
 		in, out := &in.ProvidedPubsub, &out.ProvidedPubsub
-		*out = make([]ProvidedPubsubInitParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(ProvidedPubsubInitParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.ProvidedSqs != nil {
 		in, out := &in.ProvidedSqs, &out.ProvidedSqs
-		*out = make([]ProvidedSqsInitParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(ProvidedSqsInitParameters)
+		(*in).DeepCopyInto(*out)
 	}
 }
 
@@ -3282,45 +3222,33 @@ func (in *FileEventQueueObservation) DeepCopyInto(out *FileEventQueueObservation
 	*out = *in
 	if in.ManagedAqs != nil {
 		in, out := &in.ManagedAqs, &out.ManagedAqs
-		*out = make([]ManagedAqsObservation, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(ManagedAqsObservation)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.ManagedPubsub != nil {
 		in, out := &in.ManagedPubsub, &out.ManagedPubsub
-		*out = make([]ManagedPubsubObservation, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(ManagedPubsubObservation)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.ManagedSqs != nil {
 		in, out := &in.ManagedSqs, &out.ManagedSqs
-		*out = make([]ManagedSqsObservation, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(ManagedSqsObservation)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.ProvidedAqs != nil {
 		in, out := &in.ProvidedAqs, &out.ProvidedAqs
-		*out = make([]ProvidedAqsObservation, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(ProvidedAqsObservation)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.ProvidedPubsub != nil {
 		in, out := &in.ProvidedPubsub, &out.ProvidedPubsub
-		*out = make([]ProvidedPubsubObservation, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(ProvidedPubsubObservation)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.ProvidedSqs != nil {
 		in, out := &in.ProvidedSqs, &out.ProvidedSqs
-		*out = make([]ProvidedSqsObservation, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(ProvidedSqsObservation)
+		(*in).DeepCopyInto(*out)
 	}
 }
 
@@ -3339,45 +3267,33 @@ func (in *FileEventQueueParameters) DeepCopyInto(out *FileEventQueueParameters) 
 	*out = *in
 	if in.ManagedAqs != nil {
 		in, out := &in.ManagedAqs, &out.ManagedAqs
-		*out = make([]ManagedAqsParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(ManagedAqsParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.ManagedPubsub != nil {
 		in, out := &in.ManagedPubsub, &out.ManagedPubsub
-		*out = make([]ManagedPubsubParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(ManagedPubsubParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.ManagedSqs != nil {
 		in, out := &in.ManagedSqs, &out.ManagedSqs
-		*out = make([]ManagedSqsParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(ManagedSqsParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.ProvidedAqs != nil {
 		in, out := &in.ProvidedAqs, &out.ProvidedAqs
-		*out = make([]ProvidedAqsParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(ProvidedAqsParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.ProvidedPubsub != nil {
 		in, out := &in.ProvidedPubsub, &out.ProvidedPubsub
-		*out = make([]ProvidedPubsubParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(ProvidedPubsubParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.ProvidedSqs != nil {
 		in, out := &in.ProvidedSqs, &out.ProvidedSqs
-		*out = make([]ProvidedSqsParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(ProvidedSqsParameters)
+		(*in).DeepCopyInto(*out)
 	}
 }
 
@@ -4625,17 +4541,13 @@ func (in *LakehouseMonitorInitParameters) DeepCopyInto(out *LakehouseMonitorInit
 	}
 	if in.DataClassificationConfig != nil {
 		in, out := &in.DataClassificationConfig, &out.DataClassificationConfig
-		*out = make([]DataClassificationConfigInitParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(DataClassificationConfigInitParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.InferenceLog != nil {
 		in, out := &in.InferenceLog, &out.InferenceLog
-		*out = make([]InferenceLogInitParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(InferenceLogInitParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.LatestMonitorFailureMsg != nil {
 		in, out := &in.LatestMonitorFailureMsg, &out.LatestMonitorFailureMsg
@@ -4644,10 +4556,8 @@ func (in *LakehouseMonitorInitParameters) DeepCopyInto(out *LakehouseMonitorInit
 	}
 	if in.Notifications != nil {
 		in, out := &in.Notifications, &out.Notifications
-		*out = make([]NotificationsInitParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(NotificationsInitParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.OutputSchemaName != nil {
 		in, out := &in.OutputSchemaName, &out.OutputSchemaName
@@ -4656,10 +4566,8 @@ func (in *LakehouseMonitorInitParameters) DeepCopyInto(out *LakehouseMonitorInit
 	}
 	if in.Schedule != nil {
 		in, out := &in.Schedule, &out.Schedule
-		*out = make([]ScheduleInitParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(ScheduleInitParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.SkipBuiltinDashboard != nil {
 		in, out := &in.SkipBuiltinDashboard, &out.SkipBuiltinDashboard
@@ -4679,8 +4587,8 @@ func (in *LakehouseMonitorInitParameters) DeepCopyInto(out *LakehouseMonitorInit
 	}
 	if in.Snapshot != nil {
 		in, out := &in.Snapshot, &out.Snapshot
-		*out = make([]SnapshotInitParameters, len(*in))
-		copy(*out, *in)
+		*out = new(SnapshotInitParameters)
+		**out = **in
 	}
 	if in.TableName != nil {
 		in, out := &in.TableName, &out.TableName
@@ -4689,10 +4597,8 @@ func (in *LakehouseMonitorInitParameters) DeepCopyInto(out *LakehouseMonitorInit
 	}
 	if in.TimeSeries != nil {
 		in, out := &in.TimeSeries, &out.TimeSeries
-		*out = make([]TimeSeriesInitParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(TimeSeriesInitParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.WarehouseID != nil {
 		in, out := &in.WarehouseID, &out.WarehouseID
@@ -4770,10 +4676,8 @@ func (in *LakehouseMonitorObservation) DeepCopyInto(out *LakehouseMonitorObserva
 	}
 	if in.DataClassificationConfig != nil {
 		in, out := &in.DataClassificationConfig, &out.DataClassificationConfig
-		*out = make([]DataClassificationConfigObservation, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(DataClassificationConfigObservation)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.DriftMetricsTableName != nil {
 		in, out := &in.DriftMetricsTableName, &out.DriftMetricsTableName
@@ -4787,10 +4691,8 @@ func (in *LakehouseMonitorObservation) DeepCopyInto(out *LakehouseMonitorObserva
 	}
 	if in.InferenceLog != nil {
 		in, out := &in.InferenceLog, &out.InferenceLog
-		*out = make([]InferenceLogObservation, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(InferenceLogObservation)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.LatestMonitorFailureMsg != nil {
 		in, out := &in.LatestMonitorFailureMsg, &out.LatestMonitorFailureMsg
@@ -4804,10 +4706,8 @@ func (in *LakehouseMonitorObservation) DeepCopyInto(out *LakehouseMonitorObserva
 	}
 	if in.Notifications != nil {
 		in, out := &in.Notifications, &out.Notifications
-		*out = make([]NotificationsObservation, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(NotificationsObservation)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.OutputSchemaName != nil {
 		in, out := &in.OutputSchemaName, &out.OutputSchemaName
@@ -4821,10 +4721,8 @@ func (in *LakehouseMonitorObservation) DeepCopyInto(out *LakehouseMonitorObserva
 	}
 	if in.Schedule != nil {
 		in, out := &in.Schedule, &out.Schedule
-		*out = make([]ScheduleObservation, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(ScheduleObservation)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.SkipBuiltinDashboard != nil {
 		in, out := &in.SkipBuiltinDashboard, &out.SkipBuiltinDashboard
@@ -4844,8 +4742,8 @@ func (in *LakehouseMonitorObservation) DeepCopyInto(out *LakehouseMonitorObserva
 	}
 	if in.Snapshot != nil {
 		in, out := &in.Snapshot, &out.Snapshot
-		*out = make([]SnapshotParameters, len(*in))
-		copy(*out, *in)
+		*out = new(SnapshotParameters)
+		**out = **in
 	}
 	if in.Status != nil {
 		in, out := &in.Status, &out.Status
@@ -4859,10 +4757,8 @@ func (in *LakehouseMonitorObservation) DeepCopyInto(out *LakehouseMonitorObserva
 	}
 	if in.TimeSeries != nil {
 		in, out := &in.TimeSeries, &out.TimeSeries
-		*out = make([]TimeSeriesObservation, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(TimeSeriesObservation)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.WarehouseID != nil {
 		in, out := &in.WarehouseID, &out.WarehouseID
@@ -4903,17 +4799,13 @@ func (in *LakehouseMonitorParameters) DeepCopyInto(out *LakehouseMonitorParamete
 	}
 	if in.DataClassificationConfig != nil {
 		in, out := &in.DataClassificationConfig, &out.DataClassificationConfig
-		*out = make([]DataClassificationConfigParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(DataClassificationConfigParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.InferenceLog != nil {
 		in, out := &in.InferenceLog, &out.InferenceLog
-		*out = make([]InferenceLogParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(InferenceLogParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.LatestMonitorFailureMsg != nil {
 		in, out := &in.LatestMonitorFailureMsg, &out.LatestMonitorFailureMsg
@@ -4922,10 +4814,8 @@ func (in *LakehouseMonitorParameters) DeepCopyInto(out *LakehouseMonitorParamete
 	}
 	if in.Notifications != nil {
 		in, out := &in.Notifications, &out.Notifications
-		*out = make([]NotificationsParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(NotificationsParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.OutputSchemaName != nil {
 		in, out := &in.OutputSchemaName, &out.OutputSchemaName
@@ -4934,10 +4824,8 @@ func (in *LakehouseMonitorParameters) DeepCopyInto(out *LakehouseMonitorParamete
 	}
 	if in.Schedule != nil {
 		in, out := &in.Schedule, &out.Schedule
-		*out = make([]ScheduleParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(ScheduleParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.SkipBuiltinDashboard != nil {
 		in, out := &in.SkipBuiltinDashboard, &out.SkipBuiltinDashboard
@@ -4957,8 +4845,8 @@ func (in *LakehouseMonitorParameters) DeepCopyInto(out *LakehouseMonitorParamete
 	}
 	if in.Snapshot != nil {
 		in, out := &in.Snapshot, &out.Snapshot
-		*out = make([]SnapshotParameters, len(*in))
-		copy(*out, *in)
+		*out = new(SnapshotParameters)
+		**out = **in
 	}
 	if in.TableName != nil {
 		in, out := &in.TableName, &out.TableName
@@ -4967,10 +4855,8 @@ func (in *LakehouseMonitorParameters) DeepCopyInto(out *LakehouseMonitorParamete
 	}
 	if in.TimeSeries != nil {
 		in, out := &in.TimeSeries, &out.TimeSeries
-		*out = make([]TimeSeriesParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(TimeSeriesParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.WarehouseID != nil {
 		in, out := &in.WarehouseID, &out.WarehouseID
@@ -5829,31 +5715,23 @@ func (in *MetastoreDataAccessInitParameters) DeepCopyInto(out *MetastoreDataAcce
 	*out = *in
 	if in.AwsIAMRole != nil {
 		in, out := &in.AwsIAMRole, &out.AwsIAMRole
-		*out = make([]MetastoreDataAccessAwsIAMRoleInitParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(MetastoreDataAccessAwsIAMRoleInitParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.AzureManagedIdentity != nil {
 		in, out := &in.AzureManagedIdentity, &out.AzureManagedIdentity
-		*out = make([]MetastoreDataAccessAzureManagedIdentityInitParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(MetastoreDataAccessAzureManagedIdentityInitParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.AzureServicePrincipal != nil {
 		in, out := &in.AzureServicePrincipal, &out.AzureServicePrincipal
-		*out = make([]MetastoreDataAccessAzureServicePrincipalInitParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(MetastoreDataAccessAzureServicePrincipalInitParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.CloudflareAPIToken != nil {
 		in, out := &in.CloudflareAPIToken, &out.CloudflareAPIToken
-		*out = make([]CloudflareAPITokenInitParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(CloudflareAPITokenInitParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Comment != nil {
 		in, out := &in.Comment, &out.Comment
@@ -5862,10 +5740,8 @@ func (in *MetastoreDataAccessInitParameters) DeepCopyInto(out *MetastoreDataAcce
 	}
 	if in.DatabricksGCPServiceAccount != nil {
 		in, out := &in.DatabricksGCPServiceAccount, &out.DatabricksGCPServiceAccount
-		*out = make([]MetastoreDataAccessDatabricksGCPServiceAccountInitParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(MetastoreDataAccessDatabricksGCPServiceAccountInitParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.ForceDestroy != nil {
 		in, out := &in.ForceDestroy, &out.ForceDestroy
@@ -5879,10 +5755,8 @@ func (in *MetastoreDataAccessInitParameters) DeepCopyInto(out *MetastoreDataAcce
 	}
 	if in.GCPServiceAccountKey != nil {
 		in, out := &in.GCPServiceAccountKey, &out.GCPServiceAccountKey
-		*out = make([]GCPServiceAccountKeyInitParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(GCPServiceAccountKeyInitParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.IsDefault != nil {
 		in, out := &in.IsDefault, &out.IsDefault
@@ -5968,31 +5842,23 @@ func (in *MetastoreDataAccessObservation) DeepCopyInto(out *MetastoreDataAccessO
 	*out = *in
 	if in.AwsIAMRole != nil {
 		in, out := &in.AwsIAMRole, &out.AwsIAMRole
-		*out = make([]MetastoreDataAccessAwsIAMRoleObservation, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(MetastoreDataAccessAwsIAMRoleObservation)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.AzureManagedIdentity != nil {
 		in, out := &in.AzureManagedIdentity, &out.AzureManagedIdentity
-		*out = make([]MetastoreDataAccessAzureManagedIdentityObservation, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(MetastoreDataAccessAzureManagedIdentityObservation)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.AzureServicePrincipal != nil {
 		in, out := &in.AzureServicePrincipal, &out.AzureServicePrincipal
-		*out = make([]MetastoreDataAccessAzureServicePrincipalObservation, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(MetastoreDataAccessAzureServicePrincipalObservation)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.CloudflareAPIToken != nil {
 		in, out := &in.CloudflareAPIToken, &out.CloudflareAPIToken
-		*out = make([]CloudflareAPITokenObservation, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(CloudflareAPITokenObservation)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Comment != nil {
 		in, out := &in.Comment, &out.Comment
@@ -6001,10 +5867,8 @@ func (in *MetastoreDataAccessObservation) DeepCopyInto(out *MetastoreDataAccessO
 	}
 	if in.DatabricksGCPServiceAccount != nil {
 		in, out := &in.DatabricksGCPServiceAccount, &out.DatabricksGCPServiceAccount
-		*out = make([]MetastoreDataAccessDatabricksGCPServiceAccountObservation, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(MetastoreDataAccessDatabricksGCPServiceAccountObservation)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.ForceDestroy != nil {
 		in, out := &in.ForceDestroy, &out.ForceDestroy
@@ -6018,10 +5882,8 @@ func (in *MetastoreDataAccessObservation) DeepCopyInto(out *MetastoreDataAccessO
 	}
 	if in.GCPServiceAccountKey != nil {
 		in, out := &in.GCPServiceAccountKey, &out.GCPServiceAccountKey
-		*out = make([]GCPServiceAccountKeyObservation, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(GCPServiceAccountKeyObservation)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.ID != nil {
 		in, out := &in.ID, &out.ID
@@ -6080,31 +5942,23 @@ func (in *MetastoreDataAccessParameters) DeepCopyInto(out *MetastoreDataAccessPa
 	*out = *in
 	if in.AwsIAMRole != nil {
 		in, out := &in.AwsIAMRole, &out.AwsIAMRole
-		*out = make([]MetastoreDataAccessAwsIAMRoleParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(MetastoreDataAccessAwsIAMRoleParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.AzureManagedIdentity != nil {
 		in, out := &in.AzureManagedIdentity, &out.AzureManagedIdentity
-		*out = make([]MetastoreDataAccessAzureManagedIdentityParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(MetastoreDataAccessAzureManagedIdentityParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.AzureServicePrincipal != nil {
 		in, out := &in.AzureServicePrincipal, &out.AzureServicePrincipal
-		*out = make([]MetastoreDataAccessAzureServicePrincipalParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(MetastoreDataAccessAzureServicePrincipalParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.CloudflareAPIToken != nil {
 		in, out := &in.CloudflareAPIToken, &out.CloudflareAPIToken
-		*out = make([]CloudflareAPITokenParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(CloudflareAPITokenParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Comment != nil {
 		in, out := &in.Comment, &out.Comment
@@ -6113,10 +5967,8 @@ func (in *MetastoreDataAccessParameters) DeepCopyInto(out *MetastoreDataAccessPa
 	}
 	if in.DatabricksGCPServiceAccount != nil {
 		in, out := &in.DatabricksGCPServiceAccount, &out.DatabricksGCPServiceAccount
-		*out = make([]MetastoreDataAccessDatabricksGCPServiceAccountParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(MetastoreDataAccessDatabricksGCPServiceAccountParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.ForceDestroy != nil {
 		in, out := &in.ForceDestroy, &out.ForceDestroy
@@ -6130,10 +5982,8 @@ func (in *MetastoreDataAccessParameters) DeepCopyInto(out *MetastoreDataAccessPa
 	}
 	if in.GCPServiceAccountKey != nil {
 		in, out := &in.GCPServiceAccountKey, &out.GCPServiceAccountKey
-		*out = make([]GCPServiceAccountKeyParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(GCPServiceAccountKeyParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.IsDefault != nil {
 		in, out := &in.IsDefault, &out.IsDefault
@@ -6594,17 +6444,13 @@ func (in *NotificationsInitParameters) DeepCopyInto(out *NotificationsInitParame
 	*out = *in
 	if in.OnFailure != nil {
 		in, out := &in.OnFailure, &out.OnFailure
-		*out = make([]OnFailureInitParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(OnFailureInitParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.OnNewClassificationTagDetected != nil {
 		in, out := &in.OnNewClassificationTagDetected, &out.OnNewClassificationTagDetected
-		*out = make([]OnNewClassificationTagDetectedInitParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(OnNewClassificationTagDetectedInitParameters)
+		(*in).DeepCopyInto(*out)
 	}
 }
 
@@ -6623,17 +6469,13 @@ func (in *NotificationsObservation) DeepCopyInto(out *NotificationsObservation) 
 	*out = *in
 	if in.OnFailure != nil {
 		in, out := &in.OnFailure, &out.OnFailure
-		*out = make([]OnFailureObservation, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(OnFailureObservation)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.OnNewClassificationTagDetected != nil {
 		in, out := &in.OnNewClassificationTagDetected, &out.OnNewClassificationTagDetected
-		*out = make([]OnNewClassificationTagDetectedObservation, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(OnNewClassificationTagDetectedObservation)
+		(*in).DeepCopyInto(*out)
 	}
 }
 
@@ -6808,17 +6650,13 @@ func (in *NotificationsParameters) DeepCopyInto(out *NotificationsParameters) {
 	*out = *in
 	if in.OnFailure != nil {
 		in, out := &in.OnFailure, &out.OnFailure
-		*out = make([]OnFailureParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(OnFailureParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.OnNewClassificationTagDetected != nil {
 		in, out := &in.OnNewClassificationTagDetected, &out.OnNewClassificationTagDetected
-		*out = make([]OnNewClassificationTagDetectedParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(OnNewClassificationTagDetectedParameters)
+		(*in).DeepCopyInto(*out)
 	}
 }
 
@@ -7025,10 +6863,8 @@ func (in *OnlineTableInitParameters) DeepCopyInto(out *OnlineTableInitParameters
 	}
 	if in.Spec != nil {
 		in, out := &in.Spec, &out.Spec
-		*out = make([]SpecInitParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(SpecInitParameters)
+		(*in).DeepCopyInto(*out)
 	}
 }
 
@@ -7089,10 +6925,8 @@ func (in *OnlineTableObservation) DeepCopyInto(out *OnlineTableObservation) {
 	}
 	if in.Spec != nil {
 		in, out := &in.Spec, &out.Spec
-		*out = make([]SpecObservation, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(SpecObservation)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Status != nil {
 		in, out := &in.Status, &out.Status
@@ -7133,10 +6967,8 @@ func (in *OnlineTableParameters) DeepCopyInto(out *OnlineTableParameters) {
 	}
 	if in.Spec != nil {
 		in, out := &in.Spec, &out.Spec
-		*out = make([]SpecParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(SpecParameters)
+		(*in).DeepCopyInto(*out)
 	}
 }
 
@@ -10051,13 +9883,13 @@ func (in *SpecInitParameters) DeepCopyInto(out *SpecInitParameters) {
 	}
 	if in.RunContinuously != nil {
 		in, out := &in.RunContinuously, &out.RunContinuously
-		*out = make([]RunContinuouslyInitParameters, len(*in))
-		copy(*out, *in)
+		*out = new(RunContinuouslyInitParameters)
+		**out = **in
 	}
 	if in.RunTriggered != nil {
 		in, out := &in.RunTriggered, &out.RunTriggered
-		*out = make([]RunTriggeredInitParameters, len(*in))
-		copy(*out, *in)
+		*out = new(RunTriggeredInitParameters)
+		**out = **in
 	}
 	if in.SourceTableFullName != nil {
 		in, out := &in.SourceTableFullName, &out.SourceTableFullName
@@ -10107,13 +9939,13 @@ func (in *SpecObservation) DeepCopyInto(out *SpecObservation) {
 	}
 	if in.RunContinuously != nil {
 		in, out := &in.RunContinuously, &out.RunContinuously
-		*out = make([]RunContinuouslyParameters, len(*in))
-		copy(*out, *in)
+		*out = new(RunContinuouslyParameters)
+		**out = **in
 	}
 	if in.RunTriggered != nil {
 		in, out := &in.RunTriggered, &out.RunTriggered
-		*out = make([]RunTriggeredParameters, len(*in))
-		copy(*out, *in)
+		*out = new(RunTriggeredParameters)
+		**out = **in
 	}
 	if in.SourceTableFullName != nil {
 		in, out := &in.SourceTableFullName, &out.SourceTableFullName
@@ -10158,13 +9990,13 @@ func (in *SpecParameters) DeepCopyInto(out *SpecParameters) {
 	}
 	if in.RunContinuously != nil {
 		in, out := &in.RunContinuously, &out.RunContinuously
-		*out = make([]RunContinuouslyParameters, len(*in))
-		copy(*out, *in)
+		*out = new(RunContinuouslyParameters)
+		**out = **in
 	}
 	if in.RunTriggered != nil {
 		in, out := &in.RunTriggered, &out.RunTriggered
-		*out = make([]RunTriggeredParameters, len(*in))
-		copy(*out, *in)
+		*out = new(RunTriggeredParameters)
+		**out = **in
 	}
 	if in.SourceTableFullName != nil {
 		in, out := &in.SourceTableFullName, &out.SourceTableFullName
@@ -10864,31 +10696,23 @@ func (in *StorageCredentialInitParameters) DeepCopyInto(out *StorageCredentialIn
 	*out = *in
 	if in.AwsIAMRole != nil {
 		in, out := &in.AwsIAMRole, &out.AwsIAMRole
-		*out = make([]StorageCredentialAwsIAMRoleInitParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(StorageCredentialAwsIAMRoleInitParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.AzureManagedIdentity != nil {
 		in, out := &in.AzureManagedIdentity, &out.AzureManagedIdentity
-		*out = make([]StorageCredentialAzureManagedIdentityInitParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(StorageCredentialAzureManagedIdentityInitParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.AzureServicePrincipal != nil {
 		in, out := &in.AzureServicePrincipal, &out.AzureServicePrincipal
-		*out = make([]StorageCredentialAzureServicePrincipalInitParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(StorageCredentialAzureServicePrincipalInitParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.CloudflareAPIToken != nil {
 		in, out := &in.CloudflareAPIToken, &out.CloudflareAPIToken
-		*out = make([]StorageCredentialCloudflareAPITokenInitParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(StorageCredentialCloudflareAPITokenInitParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Comment != nil {
 		in, out := &in.Comment, &out.Comment
@@ -10897,10 +10721,8 @@ func (in *StorageCredentialInitParameters) DeepCopyInto(out *StorageCredentialIn
 	}
 	if in.DatabricksGCPServiceAccount != nil {
 		in, out := &in.DatabricksGCPServiceAccount, &out.DatabricksGCPServiceAccount
-		*out = make([]StorageCredentialDatabricksGCPServiceAccountInitParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(StorageCredentialDatabricksGCPServiceAccountInitParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.ForceDestroy != nil {
 		in, out := &in.ForceDestroy, &out.ForceDestroy
@@ -10914,10 +10736,8 @@ func (in *StorageCredentialInitParameters) DeepCopyInto(out *StorageCredentialIn
 	}
 	if in.GCPServiceAccountKey != nil {
 		in, out := &in.GCPServiceAccountKey, &out.GCPServiceAccountKey
-		*out = make([]StorageCredentialGCPServiceAccountKeyInitParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(StorageCredentialGCPServiceAccountKeyInitParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.IsolationMode != nil {
 		in, out := &in.IsolationMode, &out.IsolationMode
@@ -10998,31 +10818,23 @@ func (in *StorageCredentialObservation) DeepCopyInto(out *StorageCredentialObser
 	*out = *in
 	if in.AwsIAMRole != nil {
 		in, out := &in.AwsIAMRole, &out.AwsIAMRole
-		*out = make([]StorageCredentialAwsIAMRoleObservation, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(StorageCredentialAwsIAMRoleObservation)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.AzureManagedIdentity != nil {
 		in, out := &in.AzureManagedIdentity, &out.AzureManagedIdentity
-		*out = make([]StorageCredentialAzureManagedIdentityObservation, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(StorageCredentialAzureManagedIdentityObservation)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.AzureServicePrincipal != nil {
 		in, out := &in.AzureServicePrincipal, &out.AzureServicePrincipal
-		*out = make([]StorageCredentialAzureServicePrincipalObservation, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(StorageCredentialAzureServicePrincipalObservation)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.CloudflareAPIToken != nil {
 		in, out := &in.CloudflareAPIToken, &out.CloudflareAPIToken
-		*out = make([]StorageCredentialCloudflareAPITokenObservation, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(StorageCredentialCloudflareAPITokenObservation)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Comment != nil {
 		in, out := &in.Comment, &out.Comment
@@ -11031,10 +10843,8 @@ func (in *StorageCredentialObservation) DeepCopyInto(out *StorageCredentialObser
 	}
 	if in.DatabricksGCPServiceAccount != nil {
 		in, out := &in.DatabricksGCPServiceAccount, &out.DatabricksGCPServiceAccount
-		*out = make([]StorageCredentialDatabricksGCPServiceAccountObservation, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(StorageCredentialDatabricksGCPServiceAccountObservation)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.ForceDestroy != nil {
 		in, out := &in.ForceDestroy, &out.ForceDestroy
@@ -11048,10 +10858,8 @@ func (in *StorageCredentialObservation) DeepCopyInto(out *StorageCredentialObser
 	}
 	if in.GCPServiceAccountKey != nil {
 		in, out := &in.GCPServiceAccountKey, &out.GCPServiceAccountKey
-		*out = make([]StorageCredentialGCPServiceAccountKeyObservation, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(StorageCredentialGCPServiceAccountKeyObservation)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.ID != nil {
 		in, out := &in.ID, &out.ID
@@ -11110,31 +10918,23 @@ func (in *StorageCredentialParameters) DeepCopyInto(out *StorageCredentialParame
 	*out = *in
 	if in.AwsIAMRole != nil {
 		in, out := &in.AwsIAMRole, &out.AwsIAMRole
-		*out = make([]StorageCredentialAwsIAMRoleParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(StorageCredentialAwsIAMRoleParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.AzureManagedIdentity != nil {
 		in, out := &in.AzureManagedIdentity, &out.AzureManagedIdentity
-		*out = make([]StorageCredentialAzureManagedIdentityParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(StorageCredentialAzureManagedIdentityParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.AzureServicePrincipal != nil {
 		in, out := &in.AzureServicePrincipal, &out.AzureServicePrincipal
-		*out = make([]StorageCredentialAzureServicePrincipalParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(StorageCredentialAzureServicePrincipalParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.CloudflareAPIToken != nil {
 		in, out := &in.CloudflareAPIToken, &out.CloudflareAPIToken
-		*out = make([]StorageCredentialCloudflareAPITokenParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(StorageCredentialCloudflareAPITokenParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Comment != nil {
 		in, out := &in.Comment, &out.Comment
@@ -11143,10 +10943,8 @@ func (in *StorageCredentialParameters) DeepCopyInto(out *StorageCredentialParame
 	}
 	if in.DatabricksGCPServiceAccount != nil {
 		in, out := &in.DatabricksGCPServiceAccount, &out.DatabricksGCPServiceAccount
-		*out = make([]StorageCredentialDatabricksGCPServiceAccountParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(StorageCredentialDatabricksGCPServiceAccountParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.ForceDestroy != nil {
 		in, out := &in.ForceDestroy, &out.ForceDestroy
@@ -11160,10 +10958,8 @@ func (in *StorageCredentialParameters) DeepCopyInto(out *StorageCredentialParame
 	}
 	if in.GCPServiceAccountKey != nil {
 		in, out := &in.GCPServiceAccountKey, &out.GCPServiceAccountKey
-		*out = make([]StorageCredentialGCPServiceAccountKeyParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(StorageCredentialGCPServiceAccountKeyParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.IsolationMode != nil {
 		in, out := &in.IsolationMode, &out.IsolationMode

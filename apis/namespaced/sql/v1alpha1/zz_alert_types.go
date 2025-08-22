@@ -17,7 +17,7 @@ import (
 type AlertInitParameters struct {
 
 	// Trigger conditions of the alert. Block consists of the following attributes:
-	Condition []ConditionInitParameters `json:"condition,omitempty" tf:"condition,omitempty"`
+	Condition *ConditionInitParameters `json:"condition,omitempty" tf:"condition,omitempty"`
 
 	// Custom body of alert notification, if it exists. See Alerts API reference for custom templating instructions.
 	CustomBody *string `json:"customBody,omitempty" tf:"custom_body,omitempty"`
@@ -47,7 +47,7 @@ type AlertInitParameters struct {
 type AlertObservation struct {
 
 	// Trigger conditions of the alert. Block consists of the following attributes:
-	Condition []ConditionObservation `json:"condition,omitempty" tf:"condition,omitempty"`
+	Condition *ConditionObservation `json:"condition,omitempty" tf:"condition,omitempty"`
 
 	// The timestamp string indicating when the alert was created.
 	CreateTime *string `json:"createTime,omitempty" tf:"create_time,omitempty"`
@@ -96,7 +96,7 @@ type AlertParameters struct {
 
 	// Trigger conditions of the alert. Block consists of the following attributes:
 	// +kubebuilder:validation:Optional
-	Condition []ConditionParameters `json:"condition,omitempty" tf:"condition,omitempty"`
+	Condition *ConditionParameters `json:"condition,omitempty" tf:"condition,omitempty"`
 
 	// Custom body of alert notification, if it exists. See Alerts API reference for custom templating instructions.
 	// +kubebuilder:validation:Optional
@@ -159,10 +159,10 @@ type ConditionInitParameters struct {
 	Op *string `json:"op,omitempty" tf:"op,omitempty"`
 
 	// Name of the column from the query result to use for comparison in alert evaluation:
-	Operand []OperandInitParameters `json:"operand,omitempty" tf:"operand,omitempty"`
+	Operand *OperandInitParameters `json:"operand,omitempty" tf:"operand,omitempty"`
 
 	// Threshold value used for comparison in alert evaluation:
-	Threshold []ThresholdInitParameters `json:"threshold,omitempty" tf:"threshold,omitempty"`
+	Threshold *ThresholdInitParameters `json:"threshold,omitempty" tf:"threshold,omitempty"`
 }
 
 type ConditionObservation struct {
@@ -174,10 +174,10 @@ type ConditionObservation struct {
 	Op *string `json:"op,omitempty" tf:"op,omitempty"`
 
 	// Name of the column from the query result to use for comparison in alert evaluation:
-	Operand []OperandObservation `json:"operand,omitempty" tf:"operand,omitempty"`
+	Operand *OperandObservation `json:"operand,omitempty" tf:"operand,omitempty"`
 
 	// Threshold value used for comparison in alert evaluation:
-	Threshold []ThresholdObservation `json:"threshold,omitempty" tf:"threshold,omitempty"`
+	Threshold *ThresholdObservation `json:"threshold,omitempty" tf:"threshold,omitempty"`
 }
 
 type ConditionParameters struct {
@@ -192,49 +192,49 @@ type ConditionParameters struct {
 
 	// Name of the column from the query result to use for comparison in alert evaluation:
 	// +kubebuilder:validation:Optional
-	Operand []OperandParameters `json:"operand" tf:"operand,omitempty"`
+	Operand *OperandParameters `json:"operand" tf:"operand,omitempty"`
 
 	// Threshold value used for comparison in alert evaluation:
 	// +kubebuilder:validation:Optional
-	Threshold []ThresholdParameters `json:"threshold,omitempty" tf:"threshold,omitempty"`
+	Threshold *ThresholdParameters `json:"threshold,omitempty" tf:"threshold,omitempty"`
 }
 
 type OperandInitParameters struct {
 
 	// Block describing the column from the query result to use for comparison in alert evaluation:
-	Column []ColumnInitParameters `json:"column,omitempty" tf:"column,omitempty"`
+	Column *ColumnInitParameters `json:"column,omitempty" tf:"column,omitempty"`
 }
 
 type OperandObservation struct {
 
 	// Block describing the column from the query result to use for comparison in alert evaluation:
-	Column []ColumnObservation `json:"column,omitempty" tf:"column,omitempty"`
+	Column *ColumnObservation `json:"column,omitempty" tf:"column,omitempty"`
 }
 
 type OperandParameters struct {
 
 	// Block describing the column from the query result to use for comparison in alert evaluation:
 	// +kubebuilder:validation:Optional
-	Column []ColumnParameters `json:"column" tf:"column,omitempty"`
+	Column *ColumnParameters `json:"column" tf:"column,omitempty"`
 }
 
 type ThresholdInitParameters struct {
 
 	// actual value used in comparison (one of the attributes is required):
-	Value []ValueInitParameters `json:"value,omitempty" tf:"value,omitempty"`
+	Value *ValueInitParameters `json:"value,omitempty" tf:"value,omitempty"`
 }
 
 type ThresholdObservation struct {
 
 	// actual value used in comparison (one of the attributes is required):
-	Value []ValueObservation `json:"value,omitempty" tf:"value,omitempty"`
+	Value *ValueObservation `json:"value,omitempty" tf:"value,omitempty"`
 }
 
 type ThresholdParameters struct {
 
 	// actual value used in comparison (one of the attributes is required):
 	// +kubebuilder:validation:Optional
-	Value []ValueParameters `json:"value" tf:"value,omitempty"`
+	Value *ValueParameters `json:"value" tf:"value,omitempty"`
 }
 
 type ValueInitParameters struct {

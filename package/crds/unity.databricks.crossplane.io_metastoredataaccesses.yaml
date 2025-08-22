@@ -74,143 +74,131 @@ spec:
               forProvider:
                 properties:
                   awsIamRole:
-                    items:
-                      properties:
-                        externalId:
-                          description: ID of this data access configuration in form
-                            of <metastore_id>|<name>.
-                          type: string
-                        roleArn:
-                          type: string
-                        unityCatalogIamArn:
-                          type: string
-                      type: object
-                    type: array
+                    properties:
+                      externalId:
+                        description: ID of this data access configuration in form
+                          of <metastore_id>|<name>.
+                        type: string
+                      roleArn:
+                        type: string
+                      unityCatalogIamArn:
+                        type: string
+                    type: object
                   azureManagedIdentity:
-                    items:
-                      properties:
-                        accessConnectorId:
-                          description: ID of this data access configuration in form
-                            of <metastore_id>|<name>.
-                          type: string
-                        credentialId:
-                          description: ID of this data access configuration in form
-                            of <metastore_id>|<name>.
-                          type: string
-                        managedIdentityId:
-                          description: ID of this data access configuration in form
-                            of <metastore_id>|<name>.
-                          type: string
-                      type: object
-                    type: array
+                    properties:
+                      accessConnectorId:
+                        description: ID of this data access configuration in form
+                          of <metastore_id>|<name>.
+                        type: string
+                      credentialId:
+                        description: ID of this data access configuration in form
+                          of <metastore_id>|<name>.
+                        type: string
+                      managedIdentityId:
+                        description: ID of this data access configuration in form
+                          of <metastore_id>|<name>.
+                        type: string
+                    type: object
                   azureServicePrincipal:
-                    items:
-                      properties:
-                        applicationId:
-                          description: ID of this data access configuration in form
-                            of <metastore_id>|<name>.
-                          type: string
-                        clientSecretSecretRef:
-                          description: A SecretKeySelector is a reference to a secret
-                            key in an arbitrary namespace.
-                          properties:
-                            key:
-                              description: The key to select.
-                              type: string
-                            name:
-                              description: Name of the secret.
-                              type: string
-                            namespace:
-                              description: Namespace of the secret.
-                              type: string
-                          required:
-                          - key
-                          - name
-                          - namespace
-                          type: object
-                        directoryId:
-                          description: ID of this data access configuration in form
-                            of <metastore_id>|<name>.
-                          type: string
-                      type: object
-                    type: array
+                    properties:
+                      applicationId:
+                        description: ID of this data access configuration in form
+                          of <metastore_id>|<name>.
+                        type: string
+                      clientSecretSecretRef:
+                        description: A SecretKeySelector is a reference to a secret
+                          key in an arbitrary namespace.
+                        properties:
+                          key:
+                            description: The key to select.
+                            type: string
+                          name:
+                            description: Name of the secret.
+                            type: string
+                          namespace:
+                            description: Namespace of the secret.
+                            type: string
+                        required:
+                        - key
+                        - name
+                        - namespace
+                        type: object
+                      directoryId:
+                        description: ID of this data access configuration in form
+                          of <metastore_id>|<name>.
+                        type: string
+                    type: object
                   cloudflareApiToken:
-                    items:
-                      properties:
-                        accessKeyId:
-                          description: ID of this data access configuration in form
-                            of <metastore_id>|<name>.
-                          type: string
-                        accountId:
-                          description: ID of this data access configuration in form
-                            of <metastore_id>|<name>.
-                          type: string
-                        secretAccessKeySecretRef:
-                          description: A SecretKeySelector is a reference to a secret
-                            key in an arbitrary namespace.
-                          properties:
-                            key:
-                              description: The key to select.
-                              type: string
-                            name:
-                              description: Name of the secret.
-                              type: string
-                            namespace:
-                              description: Namespace of the secret.
-                              type: string
-                          required:
-                          - key
-                          - name
-                          - namespace
-                          type: object
-                      type: object
-                    type: array
+                    properties:
+                      accessKeyId:
+                        description: ID of this data access configuration in form
+                          of <metastore_id>|<name>.
+                        type: string
+                      accountId:
+                        description: ID of this data access configuration in form
+                          of <metastore_id>|<name>.
+                        type: string
+                      secretAccessKeySecretRef:
+                        description: A SecretKeySelector is a reference to a secret
+                          key in an arbitrary namespace.
+                        properties:
+                          key:
+                            description: The key to select.
+                            type: string
+                          name:
+                            description: Name of the secret.
+                            type: string
+                          namespace:
+                            description: Namespace of the secret.
+                            type: string
+                        required:
+                        - key
+                        - name
+                        - namespace
+                        type: object
+                    type: object
                   comment:
                     type: string
                   databricksGcpServiceAccount:
-                    items:
-                      properties:
-                        credentialId:
-                          description: ID of this data access configuration in form
-                            of <metastore_id>|<name>.
-                          type: string
-                        email:
-                          type: string
-                      type: object
-                    type: array
+                    properties:
+                      credentialId:
+                        description: ID of this data access configuration in form
+                          of <metastore_id>|<name>.
+                        type: string
+                      email:
+                        type: string
+                    type: object
                   forceDestroy:
                     type: boolean
                   forceUpdate:
                     type: boolean
                   gcpServiceAccountKey:
-                    items:
-                      properties:
-                        email:
-                          type: string
-                        privateKeyId:
-                          description: ID of this data access configuration in form
-                            of <metastore_id>|<name>.
-                          type: string
-                        privateKeySecretRef:
-                          description: A SecretKeySelector is a reference to a secret
-                            key in an arbitrary namespace.
-                          properties:
-                            key:
-                              description: The key to select.
-                              type: string
-                            name:
-                              description: Name of the secret.
-                              type: string
-                            namespace:
-                              description: Namespace of the secret.
-                              type: string
-                          required:
-                          - key
-                          - name
-                          - namespace
-                          type: object
-                      type: object
-                    type: array
+                    properties:
+                      email:
+                        type: string
+                      privateKeyId:
+                        description: ID of this data access configuration in form
+                          of <metastore_id>|<name>.
+                        type: string
+                      privateKeySecretRef:
+                        description: A SecretKeySelector is a reference to a secret
+                          key in an arbitrary namespace.
+                        properties:
+                          key:
+                            description: The key to select.
+                            type: string
+                          name:
+                            description: Name of the secret.
+                            type: string
+                          namespace:
+                            description: Namespace of the secret.
+                            type: string
+                        required:
+                        - key
+                        - name
+                        - namespace
+                        type: object
+                    type: object
                   isDefault:
                     description: whether to set this credential as the default for
                       the metastore. In practice, this should always be true.
@@ -243,149 +231,137 @@ spec:
                   autoscaler.
                 properties:
                   awsIamRole:
-                    items:
-                      properties:
-                        externalId:
-                          description: ID of this data access configuration in form
-                            of <metastore_id>|<name>.
-                          type: string
-                        roleArn:
-                          type: string
-                        unityCatalogIamArn:
-                          type: string
-                      type: object
-                    type: array
+                    properties:
+                      externalId:
+                        description: ID of this data access configuration in form
+                          of <metastore_id>|<name>.
+                        type: string
+                      roleArn:
+                        type: string
+                      unityCatalogIamArn:
+                        type: string
+                    type: object
                   azureManagedIdentity:
-                    items:
-                      properties:
-                        accessConnectorId:
-                          description: ID of this data access configuration in form
-                            of <metastore_id>|<name>.
-                          type: string
-                        credentialId:
-                          description: ID of this data access configuration in form
-                            of <metastore_id>|<name>.
-                          type: string
-                        managedIdentityId:
-                          description: ID of this data access configuration in form
-                            of <metastore_id>|<name>.
-                          type: string
-                      type: object
-                    type: array
+                    properties:
+                      accessConnectorId:
+                        description: ID of this data access configuration in form
+                          of <metastore_id>|<name>.
+                        type: string
+                      credentialId:
+                        description: ID of this data access configuration in form
+                          of <metastore_id>|<name>.
+                        type: string
+                      managedIdentityId:
+                        description: ID of this data access configuration in form
+                          of <metastore_id>|<name>.
+                        type: string
+                    type: object
                   azureServicePrincipal:
-                    items:
-                      properties:
-                        applicationId:
-                          description: ID of this data access configuration in form
-                            of <metastore_id>|<name>.
-                          type: string
-                        clientSecretSecretRef:
-                          description: A SecretKeySelector is a reference to a secret
-                            key in an arbitrary namespace.
-                          properties:
-                            key:
-                              description: The key to select.
-                              type: string
-                            name:
-                              description: Name of the secret.
-                              type: string
-                            namespace:
-                              description: Namespace of the secret.
-                              type: string
-                          required:
-                          - key
-                          - name
-                          - namespace
-                          type: object
-                        directoryId:
-                          description: ID of this data access configuration in form
-                            of <metastore_id>|<name>.
-                          type: string
-                      required:
-                      - clientSecretSecretRef
-                      type: object
-                    type: array
+                    properties:
+                      applicationId:
+                        description: ID of this data access configuration in form
+                          of <metastore_id>|<name>.
+                        type: string
+                      clientSecretSecretRef:
+                        description: A SecretKeySelector is a reference to a secret
+                          key in an arbitrary namespace.
+                        properties:
+                          key:
+                            description: The key to select.
+                            type: string
+                          name:
+                            description: Name of the secret.
+                            type: string
+                          namespace:
+                            description: Namespace of the secret.
+                            type: string
+                        required:
+                        - key
+                        - name
+                        - namespace
+                        type: object
+                      directoryId:
+                        description: ID of this data access configuration in form
+                          of <metastore_id>|<name>.
+                        type: string
+                    required:
+                    - clientSecretSecretRef
+                    type: object
                   cloudflareApiToken:
-                    items:
-                      properties:
-                        accessKeyId:
-                          description: ID of this data access configuration in form
-                            of <metastore_id>|<name>.
-                          type: string
-                        accountId:
-                          description: ID of this data access configuration in form
-                            of <metastore_id>|<name>.
-                          type: string
-                        secretAccessKeySecretRef:
-                          description: A SecretKeySelector is a reference to a secret
-                            key in an arbitrary namespace.
-                          properties:
-                            key:
-                              description: The key to select.
-                              type: string
-                            name:
-                              description: Name of the secret.
-                              type: string
-                            namespace:
-                              description: Namespace of the secret.
-                              type: string
-                          required:
-                          - key
-                          - name
-                          - namespace
-                          type: object
-                      required:
-                      - secretAccessKeySecretRef
-                      type: object
-                    type: array
+                    properties:
+                      accessKeyId:
+                        description: ID of this data access configuration in form
+                          of <metastore_id>|<name>.
+                        type: string
+                      accountId:
+                        description: ID of this data access configuration in form
+                          of <metastore_id>|<name>.
+                        type: string
+                      secretAccessKeySecretRef:
+                        description: A SecretKeySelector is a reference to a secret
+                          key in an arbitrary namespace.
+                        properties:
+                          key:
+                            description: The key to select.
+                            type: string
+                          name:
+                            description: Name of the secret.
+                            type: string
+                          namespace:
+                            description: Namespace of the secret.
+                            type: string
+                        required:
+                        - key
+                        - name
+                        - namespace
+                        type: object
+                    required:
+                    - secretAccessKeySecretRef
+                    type: object
                   comment:
                     type: string
                   databricksGcpServiceAccount:
-                    items:
-                      properties:
-                        credentialId:
-                          description: ID of this data access configuration in form
-                            of <metastore_id>|<name>.
-                          type: string
-                        email:
-                          type: string
-                      type: object
-                    type: array
+                    properties:
+                      credentialId:
+                        description: ID of this data access configuration in form
+                          of <metastore_id>|<name>.
+                        type: string
+                      email:
+                        type: string
+                    type: object
                   forceDestroy:
                     type: boolean
                   forceUpdate:
                     type: boolean
                   gcpServiceAccountKey:
-                    items:
-                      properties:
-                        email:
-                          type: string
-                        privateKeyId:
-                          description: ID of this data access configuration in form
-                            of <metastore_id>|<name>.
-                          type: string
-                        privateKeySecretRef:
-                          description: A SecretKeySelector is a reference to a secret
-                            key in an arbitrary namespace.
-                          properties:
-                            key:
-                              description: The key to select.
-                              type: string
-                            name:
-                              description: Name of the secret.
-                              type: string
-                            namespace:
-                              description: Namespace of the secret.
-                              type: string
-                          required:
-                          - key
-                          - name
-                          - namespace
-                          type: object
-                      required:
-                      - privateKeySecretRef
-                      type: object
-                    type: array
+                    properties:
+                      email:
+                        type: string
+                      privateKeyId:
+                        description: ID of this data access configuration in form
+                          of <metastore_id>|<name>.
+                        type: string
+                      privateKeySecretRef:
+                        description: A SecretKeySelector is a reference to a secret
+                          key in an arbitrary namespace.
+                        properties:
+                          key:
+                            description: The key to select.
+                            type: string
+                          name:
+                            description: Name of the secret.
+                            type: string
+                          namespace:
+                            description: Namespace of the secret.
+                            type: string
+                        required:
+                        - key
+                        - name
+                        - namespace
+                        type: object
+                    required:
+                    - privateKeySecretRef
+                    type: object
                   isDefault:
                     description: whether to set this credential as the default for
                       the metastore. In practice, this should always be true.
@@ -501,89 +477,77 @@ spec:
               atProvider:
                 properties:
                   awsIamRole:
-                    items:
-                      properties:
-                        externalId:
-                          description: ID of this data access configuration in form
-                            of <metastore_id>|<name>.
-                          type: string
-                        roleArn:
-                          type: string
-                        unityCatalogIamArn:
-                          type: string
-                      type: object
-                    type: array
+                    properties:
+                      externalId:
+                        description: ID of this data access configuration in form
+                          of <metastore_id>|<name>.
+                        type: string
+                      roleArn:
+                        type: string
+                      unityCatalogIamArn:
+                        type: string
+                    type: object
                   azureManagedIdentity:
-                    items:
-                      properties:
-                        accessConnectorId:
-                          description: ID of this data access configuration in form
-                            of <metastore_id>|<name>.
-                          type: string
-                        credentialId:
-                          description: ID of this data access configuration in form
-                            of <metastore_id>|<name>.
-                          type: string
-                        managedIdentityId:
-                          description: ID of this data access configuration in form
-                            of <metastore_id>|<name>.
-                          type: string
-                      type: object
-                    type: array
+                    properties:
+                      accessConnectorId:
+                        description: ID of this data access configuration in form
+                          of <metastore_id>|<name>.
+                        type: string
+                      credentialId:
+                        description: ID of this data access configuration in form
+                          of <metastore_id>|<name>.
+                        type: string
+                      managedIdentityId:
+                        description: ID of this data access configuration in form
+                          of <metastore_id>|<name>.
+                        type: string
+                    type: object
                   azureServicePrincipal:
-                    items:
-                      properties:
-                        applicationId:
-                          description: ID of this data access configuration in form
-                            of <metastore_id>|<name>.
-                          type: string
-                        directoryId:
-                          description: ID of this data access configuration in form
-                            of <metastore_id>|<name>.
-                          type: string
-                      type: object
-                    type: array
+                    properties:
+                      applicationId:
+                        description: ID of this data access configuration in form
+                          of <metastore_id>|<name>.
+                        type: string
+                      directoryId:
+                        description: ID of this data access configuration in form
+                          of <metastore_id>|<name>.
+                        type: string
+                    type: object
                   cloudflareApiToken:
-                    items:
-                      properties:
-                        accessKeyId:
-                          description: ID of this data access configuration in form
-                            of <metastore_id>|<name>.
-                          type: string
-                        accountId:
-                          description: ID of this data access configuration in form
-                            of <metastore_id>|<name>.
-                          type: string
-                      type: object
-                    type: array
+                    properties:
+                      accessKeyId:
+                        description: ID of this data access configuration in form
+                          of <metastore_id>|<name>.
+                        type: string
+                      accountId:
+                        description: ID of this data access configuration in form
+                          of <metastore_id>|<name>.
+                        type: string
+                    type: object
                   comment:
                     type: string
                   databricksGcpServiceAccount:
-                    items:
-                      properties:
-                        credentialId:
-                          description: ID of this data access configuration in form
-                            of <metastore_id>|<name>.
-                          type: string
-                        email:
-                          type: string
-                      type: object
-                    type: array
+                    properties:
+                      credentialId:
+                        description: ID of this data access configuration in form
+                          of <metastore_id>|<name>.
+                        type: string
+                      email:
+                        type: string
+                    type: object
                   forceDestroy:
                     type: boolean
                   forceUpdate:
                     type: boolean
                   gcpServiceAccountKey:
-                    items:
-                      properties:
-                        email:
-                          type: string
-                        privateKeyId:
-                          description: ID of this data access configuration in form
-                            of <metastore_id>|<name>.
-                          type: string
-                      type: object
-                    type: array
+                    properties:
+                      email:
+                        type: string
+                      privateKeyId:
+                        description: ID of this data access configuration in form
+                          of <metastore_id>|<name>.
+                        type: string
+                    type: object
                   id:
                     description: ID of this data access configuration in form of <metastore_id>|<name>.
                     type: string

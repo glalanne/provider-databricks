@@ -302,10 +302,8 @@ func (in *BudgetInitParameters) DeepCopyInto(out *BudgetInitParameters) {
 	}
 	if in.Filter != nil {
 		in, out := &in.Filter, &out.Filter
-		*out = make([]FilterInitParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(FilterInitParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.UpdateTime != nil {
 		in, out := &in.UpdateTime, &out.UpdateTime
@@ -388,10 +386,8 @@ func (in *BudgetObservation) DeepCopyInto(out *BudgetObservation) {
 	}
 	if in.Filter != nil {
 		in, out := &in.Filter, &out.Filter
-		*out = make([]FilterObservation, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(FilterObservation)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.ID != nil {
 		in, out := &in.ID, &out.ID
@@ -447,10 +443,8 @@ func (in *BudgetParameters) DeepCopyInto(out *BudgetParameters) {
 	}
 	if in.Filter != nil {
 		in, out := &in.Filter, &out.Filter
-		*out = make([]FilterParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(FilterParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.UpdateTime != nil {
 		in, out := &in.UpdateTime, &out.UpdateTime
@@ -516,10 +510,8 @@ func (in *FilterInitParameters) DeepCopyInto(out *FilterInitParameters) {
 	}
 	if in.WorkspaceID != nil {
 		in, out := &in.WorkspaceID, &out.WorkspaceID
-		*out = make([]WorkspaceIDInitParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(WorkspaceIDInitParameters)
+		(*in).DeepCopyInto(*out)
 	}
 }
 
@@ -545,10 +537,8 @@ func (in *FilterObservation) DeepCopyInto(out *FilterObservation) {
 	}
 	if in.WorkspaceID != nil {
 		in, out := &in.WorkspaceID, &out.WorkspaceID
-		*out = make([]WorkspaceIDObservation, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(WorkspaceIDObservation)
+		(*in).DeepCopyInto(*out)
 	}
 }
 
@@ -574,10 +564,8 @@ func (in *FilterParameters) DeepCopyInto(out *FilterParameters) {
 	}
 	if in.WorkspaceID != nil {
 		in, out := &in.WorkspaceID, &out.WorkspaceID
-		*out = make([]WorkspaceIDParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(WorkspaceIDParameters)
+		(*in).DeepCopyInto(*out)
 	}
 }
 
@@ -601,10 +589,8 @@ func (in *TagsInitParameters) DeepCopyInto(out *TagsInitParameters) {
 	}
 	if in.Value != nil {
 		in, out := &in.Value, &out.Value
-		*out = make([]ValueInitParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(ValueInitParameters)
+		(*in).DeepCopyInto(*out)
 	}
 }
 
@@ -628,10 +614,8 @@ func (in *TagsObservation) DeepCopyInto(out *TagsObservation) {
 	}
 	if in.Value != nil {
 		in, out := &in.Value, &out.Value
-		*out = make([]ValueObservation, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(ValueObservation)
+		(*in).DeepCopyInto(*out)
 	}
 }
 
@@ -655,10 +639,8 @@ func (in *TagsParameters) DeepCopyInto(out *TagsParameters) {
 	}
 	if in.Value != nil {
 		in, out := &in.Value, &out.Value
-		*out = make([]ValueParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(ValueParameters)
+		(*in).DeepCopyInto(*out)
 	}
 }
 

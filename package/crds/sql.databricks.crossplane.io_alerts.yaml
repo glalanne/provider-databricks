@@ -75,62 +75,52 @@ spec:
                   condition:
                     description: 'Trigger conditions of the alert. Block consists
                       of the following attributes:'
-                    items:
-                      properties:
-                        emptyResultState:
-                          description: Alert state if the result is empty (UNKNOWN,
-                            OK, TRIGGERED)
-                          type: string
-                        op:
-                          description: 'Operator used for comparison in alert evaluation.
-                            (Enum: GREATER_THAN, GREATER_THAN_OR_EQUAL, LESS_THAN,
-                            LESS_THAN_OR_EQUAL, EQUAL, NOT_EQUAL, IS_NULL)'
-                          type: string
-                        operand:
-                          description: 'Name of the column from the query result to
-                            use for comparison in alert evaluation:'
-                          items:
+                    properties:
+                      emptyResultState:
+                        description: Alert state if the result is empty (UNKNOWN,
+                          OK, TRIGGERED)
+                        type: string
+                      op:
+                        description: 'Operator used for comparison in alert evaluation.
+                          (Enum: GREATER_THAN, GREATER_THAN_OR_EQUAL, LESS_THAN, LESS_THAN_OR_EQUAL,
+                          EQUAL, NOT_EQUAL, IS_NULL)'
+                        type: string
+                      operand:
+                        description: 'Name of the column from the query result to
+                          use for comparison in alert evaluation:'
+                        properties:
+                          column:
+                            description: 'Block describing the column from the query
+                              result to use for comparison in alert evaluation:'
                             properties:
-                              column:
-                                description: 'Block describing the column from the
-                                  query result to use for comparison in alert evaluation:'
-                                items:
-                                  properties:
-                                    name:
-                                      description: Name of the column.
-                                      type: string
-                                  type: object
-                                type: array
+                              name:
+                                description: Name of the column.
+                                type: string
                             type: object
-                          type: array
-                        threshold:
-                          description: 'Threshold value used for comparison in alert
-                            evaluation:'
-                          items:
+                        type: object
+                      threshold:
+                        description: 'Threshold value used for comparison in alert
+                          evaluation:'
+                        properties:
+                          value:
+                            description: 'actual value used in comparison (one of
+                              the attributes is required):'
                             properties:
-                              value:
-                                description: 'actual value used in comparison (one
-                                  of the attributes is required):'
-                                items:
-                                  properties:
-                                    boolValue:
-                                      description: boolean value (true or false) to
-                                        compare against boolean results.
-                                      type: boolean
-                                    doubleValue:
-                                      description: double value to compare against
-                                        integer and double results.
-                                      type: number
-                                    stringValue:
-                                      description: string value to compare against
-                                        string results.
-                                      type: string
-                                  type: object
-                                type: array
+                              boolValue:
+                                description: boolean value (true or false) to compare
+                                  against boolean results.
+                                type: boolean
+                              doubleValue:
+                                description: double value to compare against integer
+                                  and double results.
+                                type: number
+                              stringValue:
+                                description: string value to compare against string
+                                  results.
+                                type: string
                             type: object
-                          type: array
-                      type: object
-                    type: array
+                        type: object
+                    type: object
                   customBody:
                     description: Custom body of alert notification, if it exists.
                       See Alerts API reference for custom templating instructions.
@@ -181,62 +171,52 @@ spec:
                   condition:
                     description: 'Trigger conditions of the alert. Block consists
                       of the following attributes:'
-                    items:
-                      properties:
-                        emptyResultState:
-                          description: Alert state if the result is empty (UNKNOWN,
-                            OK, TRIGGERED)
-                          type: string
-                        op:
-                          description: 'Operator used for comparison in alert evaluation.
-                            (Enum: GREATER_THAN, GREATER_THAN_OR_EQUAL, LESS_THAN,
-                            LESS_THAN_OR_EQUAL, EQUAL, NOT_EQUAL, IS_NULL)'
-                          type: string
-                        operand:
-                          description: 'Name of the column from the query result to
-                            use for comparison in alert evaluation:'
-                          items:
+                    properties:
+                      emptyResultState:
+                        description: Alert state if the result is empty (UNKNOWN,
+                          OK, TRIGGERED)
+                        type: string
+                      op:
+                        description: 'Operator used for comparison in alert evaluation.
+                          (Enum: GREATER_THAN, GREATER_THAN_OR_EQUAL, LESS_THAN, LESS_THAN_OR_EQUAL,
+                          EQUAL, NOT_EQUAL, IS_NULL)'
+                        type: string
+                      operand:
+                        description: 'Name of the column from the query result to
+                          use for comparison in alert evaluation:'
+                        properties:
+                          column:
+                            description: 'Block describing the column from the query
+                              result to use for comparison in alert evaluation:'
                             properties:
-                              column:
-                                description: 'Block describing the column from the
-                                  query result to use for comparison in alert evaluation:'
-                                items:
-                                  properties:
-                                    name:
-                                      description: Name of the column.
-                                      type: string
-                                  type: object
-                                type: array
+                              name:
+                                description: Name of the column.
+                                type: string
                             type: object
-                          type: array
-                        threshold:
-                          description: 'Threshold value used for comparison in alert
-                            evaluation:'
-                          items:
+                        type: object
+                      threshold:
+                        description: 'Threshold value used for comparison in alert
+                          evaluation:'
+                        properties:
+                          value:
+                            description: 'actual value used in comparison (one of
+                              the attributes is required):'
                             properties:
-                              value:
-                                description: 'actual value used in comparison (one
-                                  of the attributes is required):'
-                                items:
-                                  properties:
-                                    boolValue:
-                                      description: boolean value (true or false) to
-                                        compare against boolean results.
-                                      type: boolean
-                                    doubleValue:
-                                      description: double value to compare against
-                                        integer and double results.
-                                      type: number
-                                    stringValue:
-                                      description: string value to compare against
-                                        string results.
-                                      type: string
-                                  type: object
-                                type: array
+                              boolValue:
+                                description: boolean value (true or false) to compare
+                                  against boolean results.
+                                type: boolean
+                              doubleValue:
+                                description: double value to compare against integer
+                                  and double results.
+                                type: number
+                              stringValue:
+                                description: string value to compare against string
+                                  results.
+                                type: string
                             type: object
-                          type: array
-                      type: object
-                    type: array
+                        type: object
+                    type: object
                   customBody:
                     description: Custom body of alert notification, if it exists.
                       See Alerts API reference for custom templating instructions.
@@ -378,62 +358,52 @@ spec:
                   condition:
                     description: 'Trigger conditions of the alert. Block consists
                       of the following attributes:'
-                    items:
-                      properties:
-                        emptyResultState:
-                          description: Alert state if the result is empty (UNKNOWN,
-                            OK, TRIGGERED)
-                          type: string
-                        op:
-                          description: 'Operator used for comparison in alert evaluation.
-                            (Enum: GREATER_THAN, GREATER_THAN_OR_EQUAL, LESS_THAN,
-                            LESS_THAN_OR_EQUAL, EQUAL, NOT_EQUAL, IS_NULL)'
-                          type: string
-                        operand:
-                          description: 'Name of the column from the query result to
-                            use for comparison in alert evaluation:'
-                          items:
+                    properties:
+                      emptyResultState:
+                        description: Alert state if the result is empty (UNKNOWN,
+                          OK, TRIGGERED)
+                        type: string
+                      op:
+                        description: 'Operator used for comparison in alert evaluation.
+                          (Enum: GREATER_THAN, GREATER_THAN_OR_EQUAL, LESS_THAN, LESS_THAN_OR_EQUAL,
+                          EQUAL, NOT_EQUAL, IS_NULL)'
+                        type: string
+                      operand:
+                        description: 'Name of the column from the query result to
+                          use for comparison in alert evaluation:'
+                        properties:
+                          column:
+                            description: 'Block describing the column from the query
+                              result to use for comparison in alert evaluation:'
                             properties:
-                              column:
-                                description: 'Block describing the column from the
-                                  query result to use for comparison in alert evaluation:'
-                                items:
-                                  properties:
-                                    name:
-                                      description: Name of the column.
-                                      type: string
-                                  type: object
-                                type: array
+                              name:
+                                description: Name of the column.
+                                type: string
                             type: object
-                          type: array
-                        threshold:
-                          description: 'Threshold value used for comparison in alert
-                            evaluation:'
-                          items:
+                        type: object
+                      threshold:
+                        description: 'Threshold value used for comparison in alert
+                          evaluation:'
+                        properties:
+                          value:
+                            description: 'actual value used in comparison (one of
+                              the attributes is required):'
                             properties:
-                              value:
-                                description: 'actual value used in comparison (one
-                                  of the attributes is required):'
-                                items:
-                                  properties:
-                                    boolValue:
-                                      description: boolean value (true or false) to
-                                        compare against boolean results.
-                                      type: boolean
-                                    doubleValue:
-                                      description: double value to compare against
-                                        integer and double results.
-                                      type: number
-                                    stringValue:
-                                      description: string value to compare against
-                                        string results.
-                                      type: string
-                                  type: object
-                                type: array
+                              boolValue:
+                                description: boolean value (true or false) to compare
+                                  against boolean results.
+                                type: boolean
+                              doubleValue:
+                                description: double value to compare against integer
+                                  and double results.
+                                type: number
+                              stringValue:
+                                description: string value to compare against string
+                                  results.
+                                type: string
                             type: object
-                          type: array
-                      type: object
-                    type: array
+                        type: object
+                    type: object
                   createTime:
                     description: The timestamp string indicating when the alert was
                       created.

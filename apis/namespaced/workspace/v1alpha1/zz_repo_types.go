@@ -28,7 +28,7 @@ type RepoInitParameters struct {
 	// path to put the checked out Git folder. If not specified, , then the Git folder will be created in the default location.  If the value changes, Git folder is re-created.
 	Path *string `json:"path,omitempty" tf:"path,omitempty"`
 
-	SparseCheckout []SparseCheckoutInitParameters `json:"sparseCheckout,omitempty" tf:"sparse_checkout,omitempty"`
+	SparseCheckout *SparseCheckoutInitParameters `json:"sparseCheckout,omitempty" tf:"sparse_checkout,omitempty"`
 
 	// name of the tag for initial checkout.  Conflicts with branch.
 	Tag *string `json:"tag,omitempty" tf:"tag,omitempty"`
@@ -54,7 +54,7 @@ type RepoObservation struct {
 	// path to put the checked out Git folder. If not specified, , then the Git folder will be created in the default location.  If the value changes, Git folder is re-created.
 	Path *string `json:"path,omitempty" tf:"path,omitempty"`
 
-	SparseCheckout []SparseCheckoutObservation `json:"sparseCheckout,omitempty" tf:"sparse_checkout,omitempty"`
+	SparseCheckout *SparseCheckoutObservation `json:"sparseCheckout,omitempty" tf:"sparse_checkout,omitempty"`
 
 	// name of the tag for initial checkout.  Conflicts with branch.
 	Tag *string `json:"tag,omitempty" tf:"tag,omitempty"`
@@ -85,7 +85,7 @@ type RepoParameters struct {
 	Path *string `json:"path,omitempty" tf:"path,omitempty"`
 
 	// +kubebuilder:validation:Optional
-	SparseCheckout []SparseCheckoutParameters `json:"sparseCheckout,omitempty" tf:"sparse_checkout,omitempty"`
+	SparseCheckout *SparseCheckoutParameters `json:"sparseCheckout,omitempty" tf:"sparse_checkout,omitempty"`
 
 	// name of the tag for initial checkout.  Conflicts with branch.
 	// +kubebuilder:validation:Optional

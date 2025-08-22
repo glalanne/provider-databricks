@@ -18,38 +18,28 @@ func (in *ConfigInitParameters) DeepCopyInto(out *ConfigInitParameters) {
 	*out = *in
 	if in.Email != nil {
 		in, out := &in.Email, &out.Email
-		*out = make([]EmailInitParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(EmailInitParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.GenericWebhook != nil {
 		in, out := &in.GenericWebhook, &out.GenericWebhook
-		*out = make([]GenericWebhookInitParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(GenericWebhookInitParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.MicrosoftTeams != nil {
 		in, out := &in.MicrosoftTeams, &out.MicrosoftTeams
-		*out = make([]MicrosoftTeamsInitParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(MicrosoftTeamsInitParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Pagerduty != nil {
 		in, out := &in.Pagerduty, &out.Pagerduty
-		*out = make([]PagerdutyInitParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(PagerdutyInitParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Slack != nil {
 		in, out := &in.Slack, &out.Slack
-		*out = make([]SlackInitParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(SlackInitParameters)
+		(*in).DeepCopyInto(*out)
 	}
 }
 
@@ -68,38 +58,28 @@ func (in *ConfigObservation) DeepCopyInto(out *ConfigObservation) {
 	*out = *in
 	if in.Email != nil {
 		in, out := &in.Email, &out.Email
-		*out = make([]EmailObservation, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(EmailObservation)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.GenericWebhook != nil {
 		in, out := &in.GenericWebhook, &out.GenericWebhook
-		*out = make([]GenericWebhookObservation, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(GenericWebhookObservation)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.MicrosoftTeams != nil {
 		in, out := &in.MicrosoftTeams, &out.MicrosoftTeams
-		*out = make([]MicrosoftTeamsObservation, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(MicrosoftTeamsObservation)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Pagerduty != nil {
 		in, out := &in.Pagerduty, &out.Pagerduty
-		*out = make([]PagerdutyObservation, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(PagerdutyObservation)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Slack != nil {
 		in, out := &in.Slack, &out.Slack
-		*out = make([]SlackObservation, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(SlackObservation)
+		(*in).DeepCopyInto(*out)
 	}
 }
 
@@ -118,38 +98,28 @@ func (in *ConfigParameters) DeepCopyInto(out *ConfigParameters) {
 	*out = *in
 	if in.Email != nil {
 		in, out := &in.Email, &out.Email
-		*out = make([]EmailParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(EmailParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.GenericWebhook != nil {
 		in, out := &in.GenericWebhook, &out.GenericWebhook
-		*out = make([]GenericWebhookParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(GenericWebhookParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.MicrosoftTeams != nil {
 		in, out := &in.MicrosoftTeams, &out.MicrosoftTeams
-		*out = make([]MicrosoftTeamsParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(MicrosoftTeamsParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Pagerduty != nil {
 		in, out := &in.Pagerduty, &out.Pagerduty
-		*out = make([]PagerdutyParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(PagerdutyParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Slack != nil {
 		in, out := &in.Slack, &out.Slack
-		*out = make([]SlackParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(SlackParameters)
+		(*in).DeepCopyInto(*out)
 	}
 }
 
@@ -1399,10 +1369,8 @@ func (in *NotificationDestinationInitParameters) DeepCopyInto(out *NotificationD
 	*out = *in
 	if in.Config != nil {
 		in, out := &in.Config, &out.Config
-		*out = make([]ConfigInitParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(ConfigInitParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.DestinationType != nil {
 		in, out := &in.DestinationType, &out.DestinationType
@@ -1463,10 +1431,8 @@ func (in *NotificationDestinationObservation) DeepCopyInto(out *NotificationDest
 	*out = *in
 	if in.Config != nil {
 		in, out := &in.Config, &out.Config
-		*out = make([]ConfigObservation, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(ConfigObservation)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.DestinationType != nil {
 		in, out := &in.DestinationType, &out.DestinationType
@@ -1500,10 +1466,8 @@ func (in *NotificationDestinationParameters) DeepCopyInto(out *NotificationDesti
 	*out = *in
 	if in.Config != nil {
 		in, out := &in.Config, &out.Config
-		*out = make([]ConfigParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(ConfigParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.DestinationType != nil {
 		in, out := &in.DestinationType, &out.DestinationType
@@ -1684,10 +1648,8 @@ func (in *RepoInitParameters) DeepCopyInto(out *RepoInitParameters) {
 	}
 	if in.SparseCheckout != nil {
 		in, out := &in.SparseCheckout, &out.SparseCheckout
-		*out = make([]SparseCheckoutInitParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(SparseCheckoutInitParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Tag != nil {
 		in, out := &in.Tag, &out.Tag
@@ -1773,10 +1735,8 @@ func (in *RepoObservation) DeepCopyInto(out *RepoObservation) {
 	}
 	if in.SparseCheckout != nil {
 		in, out := &in.SparseCheckout, &out.SparseCheckout
-		*out = make([]SparseCheckoutObservation, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(SparseCheckoutObservation)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Tag != nil {
 		in, out := &in.Tag, &out.Tag
@@ -1830,10 +1790,8 @@ func (in *RepoParameters) DeepCopyInto(out *RepoParameters) {
 	}
 	if in.SparseCheckout != nil {
 		in, out := &in.SparseCheckout, &out.SparseCheckout
-		*out = make([]SparseCheckoutParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(SparseCheckoutParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Tag != nil {
 		in, out := &in.Tag, &out.Tag

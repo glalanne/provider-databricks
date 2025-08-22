@@ -21,7 +21,7 @@ func (mg *MetastoreDataAccess) GetTerraformResourceType() string {
 
 // GetConnectionDetailsMapping for this MetastoreDataAccess
 func (tr *MetastoreDataAccess) GetConnectionDetailsMapping() map[string]string {
-	return map[string]string{"azure_service_principal[*].client_secret": "azureServicePrincipal[*].clientSecretSecretRef", "cloudflare_api_token[*].secret_access_key": "cloudflareApiToken[*].secretAccessKeySecretRef", "gcp_service_account_key[*].private_key": "gcpServiceAccountKey[*].privateKeySecretRef"}
+	return map[string]string{"azure_service_principal[*].client_secret": "azureServicePrincipal.clientSecretSecretRef", "cloudflare_api_token[*].secret_access_key": "cloudflareApiToken.secretAccessKeySecretRef", "gcp_service_account_key[*].private_key": "gcpServiceAccountKey.privateKeySecretRef"}
 }
 
 // GetObservation of this MetastoreDataAccess

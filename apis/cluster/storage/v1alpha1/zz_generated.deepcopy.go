@@ -877,17 +877,13 @@ func (in *MountInitParameters) DeepCopyInto(out *MountInitParameters) {
 	*out = *in
 	if in.Abfs != nil {
 		in, out := &in.Abfs, &out.Abfs
-		*out = make([]AbfsInitParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(AbfsInitParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Adl != nil {
 		in, out := &in.Adl, &out.Adl
-		*out = make([]AdlInitParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(AdlInitParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.ClusterID != nil {
 		in, out := &in.ClusterID, &out.ClusterID
@@ -917,10 +913,8 @@ func (in *MountInitParameters) DeepCopyInto(out *MountInitParameters) {
 	}
 	if in.Gs != nil {
 		in, out := &in.Gs, &out.Gs
-		*out = make([]GsInitParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(GsInitParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Name != nil {
 		in, out := &in.Name, &out.Name
@@ -934,10 +928,8 @@ func (in *MountInitParameters) DeepCopyInto(out *MountInitParameters) {
 	}
 	if in.S3 != nil {
 		in, out := &in.S3, &out.S3
-		*out = make([]S3InitParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(S3InitParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.URI != nil {
 		in, out := &in.URI, &out.URI
@@ -946,10 +938,8 @@ func (in *MountInitParameters) DeepCopyInto(out *MountInitParameters) {
 	}
 	if in.Wasb != nil {
 		in, out := &in.Wasb, &out.Wasb
-		*out = make([]WasbInitParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(WasbInitParameters)
+		(*in).DeepCopyInto(*out)
 	}
 }
 
@@ -1000,17 +990,13 @@ func (in *MountObservation) DeepCopyInto(out *MountObservation) {
 	*out = *in
 	if in.Abfs != nil {
 		in, out := &in.Abfs, &out.Abfs
-		*out = make([]AbfsObservation, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(AbfsObservation)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Adl != nil {
 		in, out := &in.Adl, &out.Adl
-		*out = make([]AdlObservation, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(AdlObservation)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.ClusterID != nil {
 		in, out := &in.ClusterID, &out.ClusterID
@@ -1040,10 +1026,8 @@ func (in *MountObservation) DeepCopyInto(out *MountObservation) {
 	}
 	if in.Gs != nil {
 		in, out := &in.Gs, &out.Gs
-		*out = make([]GsObservation, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(GsObservation)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.ID != nil {
 		in, out := &in.ID, &out.ID
@@ -1062,10 +1046,8 @@ func (in *MountObservation) DeepCopyInto(out *MountObservation) {
 	}
 	if in.S3 != nil {
 		in, out := &in.S3, &out.S3
-		*out = make([]S3Observation, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(S3Observation)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Source != nil {
 		in, out := &in.Source, &out.Source
@@ -1079,10 +1061,8 @@ func (in *MountObservation) DeepCopyInto(out *MountObservation) {
 	}
 	if in.Wasb != nil {
 		in, out := &in.Wasb, &out.Wasb
-		*out = make([]WasbObservation, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(WasbObservation)
+		(*in).DeepCopyInto(*out)
 	}
 }
 
@@ -1101,17 +1081,13 @@ func (in *MountParameters) DeepCopyInto(out *MountParameters) {
 	*out = *in
 	if in.Abfs != nil {
 		in, out := &in.Abfs, &out.Abfs
-		*out = make([]AbfsParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(AbfsParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Adl != nil {
 		in, out := &in.Adl, &out.Adl
-		*out = make([]AdlParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(AdlParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.ClusterID != nil {
 		in, out := &in.ClusterID, &out.ClusterID
@@ -1141,10 +1117,8 @@ func (in *MountParameters) DeepCopyInto(out *MountParameters) {
 	}
 	if in.Gs != nil {
 		in, out := &in.Gs, &out.Gs
-		*out = make([]GsParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(GsParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Name != nil {
 		in, out := &in.Name, &out.Name
@@ -1158,10 +1132,8 @@ func (in *MountParameters) DeepCopyInto(out *MountParameters) {
 	}
 	if in.S3 != nil {
 		in, out := &in.S3, &out.S3
-		*out = make([]S3Parameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(S3Parameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.URI != nil {
 		in, out := &in.URI, &out.URI
@@ -1170,10 +1142,8 @@ func (in *MountParameters) DeepCopyInto(out *MountParameters) {
 	}
 	if in.Wasb != nil {
 		in, out := &in.Wasb, &out.Wasb
-		*out = make([]WasbParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(WasbParameters)
+		(*in).DeepCopyInto(*out)
 	}
 }
 

@@ -65,42 +65,39 @@ spec:
                     type: string
                   options:
                     description: Alert configuration options.
-                    items:
-                      properties:
-                        column:
-                          description: Name of column in the query result to compare
-                            in alert evaluation.
-                          type: string
-                        customBody:
-                          description: Custom body of alert notification, if it exists.
-                            See Alerts API reference for custom templating instructions.
-                          type: string
-                        customSubject:
-                          description: Custom subject of alert notification, if it
-                            exists. This includes email subject, Slack notification
-                            header, etc. See Alerts API reference for custom templating
-                            instructions.
-                          type: string
-                        emptyResultState:
-                          description: State that alert evaluates to when query result
-                            is empty.  Currently supported values are unknown, triggered,
-                            ok - check API documentation for full list of supported
-                            values.
-                          type: string
-                        muted:
-                          description: Whether or not the alert is muted. If an alert
-                            is muted, it will not notify users and alert destinations
-                            when triggered.
-                          type: boolean
-                        op:
-                          description: 'Operator used to compare in alert evaluation.
-                            (Enum: >, >=, <, <=, ==, !=)'
-                          type: string
-                        value:
-                          description: Value used to compare in alert evaluation.
-                          type: string
-                      type: object
-                    type: array
+                    properties:
+                      column:
+                        description: Name of column in the query result to compare
+                          in alert evaluation.
+                        type: string
+                      customBody:
+                        description: Custom body of alert notification, if it exists.
+                          See Alerts API reference for custom templating instructions.
+                        type: string
+                      customSubject:
+                        description: Custom subject of alert notification, if it exists.
+                          This includes email subject, Slack notification header,
+                          etc. See Alerts API reference for custom templating instructions.
+                        type: string
+                      emptyResultState:
+                        description: State that alert evaluates to when query result
+                          is empty.  Currently supported values are unknown, triggered,
+                          ok - check API documentation for full list of supported
+                          values.
+                        type: string
+                      muted:
+                        description: Whether or not the alert is muted. If an alert
+                          is muted, it will not notify users and alert destinations
+                          when triggered.
+                        type: boolean
+                      op:
+                        description: 'Operator used to compare in alert evaluation.
+                          (Enum: >, >=, <, <=, ==, !=)'
+                        type: string
+                      value:
+                        description: Value used to compare in alert evaluation.
+                        type: string
+                    type: object
                   parent:
                     description: The identifier of the workspace folder containing
                       the alert. The default is ther user's home folder. The folder
@@ -137,42 +134,39 @@ spec:
                     type: string
                   options:
                     description: Alert configuration options.
-                    items:
-                      properties:
-                        column:
-                          description: Name of column in the query result to compare
-                            in alert evaluation.
-                          type: string
-                        customBody:
-                          description: Custom body of alert notification, if it exists.
-                            See Alerts API reference for custom templating instructions.
-                          type: string
-                        customSubject:
-                          description: Custom subject of alert notification, if it
-                            exists. This includes email subject, Slack notification
-                            header, etc. See Alerts API reference for custom templating
-                            instructions.
-                          type: string
-                        emptyResultState:
-                          description: State that alert evaluates to when query result
-                            is empty.  Currently supported values are unknown, triggered,
-                            ok - check API documentation for full list of supported
-                            values.
-                          type: string
-                        muted:
-                          description: Whether or not the alert is muted. If an alert
-                            is muted, it will not notify users and alert destinations
-                            when triggered.
-                          type: boolean
-                        op:
-                          description: 'Operator used to compare in alert evaluation.
-                            (Enum: >, >=, <, <=, ==, !=)'
-                          type: string
-                        value:
-                          description: Value used to compare in alert evaluation.
-                          type: string
-                      type: object
-                    type: array
+                    properties:
+                      column:
+                        description: Name of column in the query result to compare
+                          in alert evaluation.
+                        type: string
+                      customBody:
+                        description: Custom body of alert notification, if it exists.
+                          See Alerts API reference for custom templating instructions.
+                        type: string
+                      customSubject:
+                        description: Custom subject of alert notification, if it exists.
+                          This includes email subject, Slack notification header,
+                          etc. See Alerts API reference for custom templating instructions.
+                        type: string
+                      emptyResultState:
+                        description: State that alert evaluates to when query result
+                          is empty.  Currently supported values are unknown, triggered,
+                          ok - check API documentation for full list of supported
+                          values.
+                        type: string
+                      muted:
+                        description: Whether or not the alert is muted. If an alert
+                          is muted, it will not notify users and alert destinations
+                          when triggered.
+                        type: boolean
+                      op:
+                        description: 'Operator used to compare in alert evaluation.
+                          (Enum: >, >=, <, <=, ==, !=)'
+                        type: string
+                      value:
+                        description: Value used to compare in alert evaluation.
+                        type: string
+                    type: object
                   parent:
                     description: The identifier of the workspace folder containing
                       the alert. The default is ther user's home folder. The folder
@@ -275,42 +269,39 @@ spec:
                     type: string
                   options:
                     description: Alert configuration options.
-                    items:
-                      properties:
-                        column:
-                          description: Name of column in the query result to compare
-                            in alert evaluation.
-                          type: string
-                        customBody:
-                          description: Custom body of alert notification, if it exists.
-                            See Alerts API reference for custom templating instructions.
-                          type: string
-                        customSubject:
-                          description: Custom subject of alert notification, if it
-                            exists. This includes email subject, Slack notification
-                            header, etc. See Alerts API reference for custom templating
-                            instructions.
-                          type: string
-                        emptyResultState:
-                          description: State that alert evaluates to when query result
-                            is empty.  Currently supported values are unknown, triggered,
-                            ok - check API documentation for full list of supported
-                            values.
-                          type: string
-                        muted:
-                          description: Whether or not the alert is muted. If an alert
-                            is muted, it will not notify users and alert destinations
-                            when triggered.
-                          type: boolean
-                        op:
-                          description: 'Operator used to compare in alert evaluation.
-                            (Enum: >, >=, <, <=, ==, !=)'
-                          type: string
-                        value:
-                          description: Value used to compare in alert evaluation.
-                          type: string
-                      type: object
-                    type: array
+                    properties:
+                      column:
+                        description: Name of column in the query result to compare
+                          in alert evaluation.
+                        type: string
+                      customBody:
+                        description: Custom body of alert notification, if it exists.
+                          See Alerts API reference for custom templating instructions.
+                        type: string
+                      customSubject:
+                        description: Custom subject of alert notification, if it exists.
+                          This includes email subject, Slack notification header,
+                          etc. See Alerts API reference for custom templating instructions.
+                        type: string
+                      emptyResultState:
+                        description: State that alert evaluates to when query result
+                          is empty.  Currently supported values are unknown, triggered,
+                          ok - check API documentation for full list of supported
+                          values.
+                        type: string
+                      muted:
+                        description: Whether or not the alert is muted. If an alert
+                          is muted, it will not notify users and alert destinations
+                          when triggered.
+                        type: boolean
+                      op:
+                        description: 'Operator used to compare in alert evaluation.
+                          (Enum: >, >=, <, <=, ==, !=)'
+                        type: string
+                      value:
+                        description: Value used to compare in alert evaluation.
+                        type: string
+                    type: object
                   parent:
                     description: The identifier of the workspace folder containing
                       the alert. The default is ther user's home folder. The folder

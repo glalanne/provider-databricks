@@ -64,7 +64,7 @@ type OnlineTableInitParameters struct {
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// object containing specification of the online table:
-	Spec []SpecInitParameters `json:"spec,omitempty" tf:"spec,omitempty"`
+	Spec *SpecInitParameters `json:"spec,omitempty" tf:"spec,omitempty"`
 }
 
 type OnlineTableObservation struct {
@@ -76,7 +76,7 @@ type OnlineTableObservation struct {
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// object containing specification of the online table:
-	Spec []SpecObservation `json:"spec,omitempty" tf:"spec,omitempty"`
+	Spec *SpecObservation `json:"spec,omitempty" tf:"spec,omitempty"`
 
 	// object describing status of the online table:
 	Status []StatusObservation `json:"status,omitempty" tf:"status,omitempty"`
@@ -96,7 +96,7 @@ type OnlineTableParameters struct {
 
 	// object containing specification of the online table:
 	// +kubebuilder:validation:Optional
-	Spec []SpecParameters `json:"spec,omitempty" tf:"spec,omitempty"`
+	Spec *SpecParameters `json:"spec,omitempty" tf:"spec,omitempty"`
 }
 
 type ProvisioningStatusInitParameters struct {
@@ -154,10 +154,10 @@ type SpecInitParameters struct {
 	PrimaryKeyColumns []*string `json:"primaryKeyColumns,omitempty" tf:"primary_key_columns,omitempty"`
 
 	// empty block that specifies that pipeline runs continuously after generating the initial data.  Conflicts with run_triggered.
-	RunContinuously []RunContinuouslyInitParameters `json:"runContinuously,omitempty" tf:"run_continuously,omitempty"`
+	RunContinuously *RunContinuouslyInitParameters `json:"runContinuously,omitempty" tf:"run_continuously,omitempty"`
 
 	// empty block that specifies that pipeline stops after generating the initial data and can be triggered later (manually, through a cron job or through data triggers).
-	RunTriggered []RunTriggeredInitParameters `json:"runTriggered,omitempty" tf:"run_triggered,omitempty"`
+	RunTriggered *RunTriggeredInitParameters `json:"runTriggered,omitempty" tf:"run_triggered,omitempty"`
 
 	// full name of the source table.
 	SourceTableFullName *string `json:"sourceTableFullName,omitempty" tf:"source_table_full_name,omitempty"`
@@ -178,10 +178,10 @@ type SpecObservation struct {
 	PrimaryKeyColumns []*string `json:"primaryKeyColumns,omitempty" tf:"primary_key_columns,omitempty"`
 
 	// empty block that specifies that pipeline runs continuously after generating the initial data.  Conflicts with run_triggered.
-	RunContinuously []RunContinuouslyParameters `json:"runContinuously,omitempty" tf:"run_continuously,omitempty"`
+	RunContinuously *RunContinuouslyParameters `json:"runContinuously,omitempty" tf:"run_continuously,omitempty"`
 
 	// empty block that specifies that pipeline stops after generating the initial data and can be triggered later (manually, through a cron job or through data triggers).
-	RunTriggered []RunTriggeredParameters `json:"runTriggered,omitempty" tf:"run_triggered,omitempty"`
+	RunTriggered *RunTriggeredParameters `json:"runTriggered,omitempty" tf:"run_triggered,omitempty"`
 
 	// full name of the source table.
 	SourceTableFullName *string `json:"sourceTableFullName,omitempty" tf:"source_table_full_name,omitempty"`
@@ -202,11 +202,11 @@ type SpecParameters struct {
 
 	// empty block that specifies that pipeline runs continuously after generating the initial data.  Conflicts with run_triggered.
 	// +kubebuilder:validation:Optional
-	RunContinuously []RunContinuouslyParameters `json:"runContinuously,omitempty" tf:"run_continuously,omitempty"`
+	RunContinuously *RunContinuouslyParameters `json:"runContinuously,omitempty" tf:"run_continuously,omitempty"`
 
 	// empty block that specifies that pipeline stops after generating the initial data and can be triggered later (manually, through a cron job or through data triggers).
 	// +kubebuilder:validation:Optional
-	RunTriggered []RunTriggeredParameters `json:"runTriggered,omitempty" tf:"run_triggered,omitempty"`
+	RunTriggered *RunTriggeredParameters `json:"runTriggered,omitempty" tf:"run_triggered,omitempty"`
 
 	// full name of the source table.
 	// +kubebuilder:validation:Optional

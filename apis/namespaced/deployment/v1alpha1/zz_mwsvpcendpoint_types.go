@@ -88,7 +88,7 @@ type MwsVPCEndpointInitParameters struct {
 	AwsVPCEndpointID *string `json:"awsVpcEndpointId,omitempty" tf:"aws_vpc_endpoint_id,omitempty"`
 
 	// (GCP only) a block consists of Google Cloud specific information for this PSC endpoint. It has the following fields:
-	GCPVPCEndpointInfo []GCPVPCEndpointInfoInitParameters `json:"gcpVpcEndpointInfo,omitempty" tf:"gcp_vpc_endpoint_info,omitempty"`
+	GCPVPCEndpointInfo *GCPVPCEndpointInfoInitParameters `json:"gcpVpcEndpointInfo,omitempty" tf:"gcp_vpc_endpoint_info,omitempty"`
 
 	// (AWS only) Region of AWS VPC
 	Region *string `json:"region,omitempty" tf:"region,omitempty"`
@@ -120,7 +120,7 @@ type MwsVPCEndpointObservation struct {
 	AwsVPCEndpointID *string `json:"awsVpcEndpointId,omitempty" tf:"aws_vpc_endpoint_id,omitempty"`
 
 	// (GCP only) a block consists of Google Cloud specific information for this PSC endpoint. It has the following fields:
-	GCPVPCEndpointInfo []GCPVPCEndpointInfoObservation `json:"gcpVpcEndpointInfo,omitempty" tf:"gcp_vpc_endpoint_info,omitempty"`
+	GCPVPCEndpointInfo *GCPVPCEndpointInfoObservation `json:"gcpVpcEndpointInfo,omitempty" tf:"gcp_vpc_endpoint_info,omitempty"`
 
 	// the ID of VPC Endpoint in form of account_id/vpc_endpoint_id
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
@@ -160,7 +160,7 @@ type MwsVPCEndpointParameters struct {
 
 	// (GCP only) a block consists of Google Cloud specific information for this PSC endpoint. It has the following fields:
 	// +kubebuilder:validation:Optional
-	GCPVPCEndpointInfo []GCPVPCEndpointInfoParameters `json:"gcpVpcEndpointInfo,omitempty" tf:"gcp_vpc_endpoint_info,omitempty"`
+	GCPVPCEndpointInfo *GCPVPCEndpointInfoParameters `json:"gcpVpcEndpointInfo,omitempty" tf:"gcp_vpc_endpoint_info,omitempty"`
 
 	// (AWS only) Region of AWS VPC
 	// +kubebuilder:validation:Optional

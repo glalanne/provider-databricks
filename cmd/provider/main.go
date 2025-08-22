@@ -40,12 +40,15 @@ import (
 	authv1 "k8s.io/api/authorization/v1"
 
 	changelogsv1alpha1 "github.com/crossplane/crossplane-runtime/v2/apis/changelogs/proto/v1alpha1"
+	"github.com/databricks/terraform-provider-databricks/xpprovider"
 	"github.com/glalanne/provider-databricks/config"
 	"github.com/glalanne/provider-databricks/internal/clients"
 	"github.com/glalanne/provider-databricks/internal/features"
 
 	clusterapis "github.com/glalanne/provider-databricks/apis/cluster"
 	namespacedapis "github.com/glalanne/provider-databricks/apis/namespaced"
+
+	apiextensionsv1 "k8s.io/apiextensions-apiserver/pkg/apis/apiextensions/v1"
 
 	clustercontroller "github.com/glalanne/provider-databricks/internal/controller/cluster"
 	namespacedcontroller "github.com/glalanne/provider-databricks/internal/controller/namespaced"
@@ -155,7 +158,7 @@ func main() {
 	kingpin.FatalIfError(resolverapis.BuildScheme(clusterapis.AddToSchemes), "Cannot register the cluster-scoped Azure APIs with the API resolver's runtime scheme")
 	kingpin.FatalIfError(namespacedapis.AddToScheme(mgr.GetScheme()), "Cannot add namespace-scoped Azure APIs to scheme")
 	kingpin.FatalIfError(resolverapis.BuildScheme(namespacedapis.AddToSchemes), "Cannot register the namespace-scoped Azure APIs with the API resolver's runtime scheme")
-	// kingpin.FatalIfError(apiextensionsv1.AddToScheme(mgr.GetScheme()), "Cannot add api-extensions APIs to scheme")
+	kingpin.FatalIfError(apiextensionsv1.AddToScheme(mgr.GetScheme()), "Cannot add api-extensions APIs to scheme")
 
 	metricRecorder := managed.NewMRMetricRecorder()
 	stateMetrics := statemetrics.NewMRStateMetrics()
@@ -164,8 +167,15 @@ func main() {
 	metrics.Registry.MustRegister(stateMetrics)
 
 	ctx := context.Background()
-	clusterProvider := config.GetProvider()
-	namespacedProvider := config.GetProviderNamespaced()
+	sdkProvider, err := xpprovider.GetProvider(ctx)
+
+	clusterProvider, err := config.GetProvider(ctx, sdkProvider, false)
+	kingpin.FatalIfError(err, "Cannot initialize the cluster provider configuration")
+	namespacedProvider, err := config.GetProviderNamespaced(ctx, sdkProvider, false)
+	kingpin.FatalIfError(err, "Cannot initialize the namespaced provider configuration")
+
+	// clusterProvider := config.GetProvider()
+	// namespacedProvider := config.GetProviderNamespaced()
 
 	clusterOpts := tjcontroller.Options{
 		Options: xpcontroller.Options{
