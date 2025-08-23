@@ -168,9 +168,11 @@ func main() {
 
 	ctx := context.Background()
 	sdkProvider, err := xpprovider.GetProvider(ctx)
+	kingpin.FatalIfError(err, "Cannot get the Terraform provider")
 
 	clusterProvider, err := config.GetProvider(ctx, sdkProvider, false)
 	kingpin.FatalIfError(err, "Cannot initialize the cluster provider configuration")
+
 	namespacedProvider, err := config.GetProviderNamespaced(ctx, sdkProvider, false)
 	kingpin.FatalIfError(err, "Cannot initialize the namespaced provider configuration")
 
