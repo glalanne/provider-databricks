@@ -228,11 +228,31 @@ type MwsNetworksParameters struct {
 
 type VPCEndpointsInitParameters struct {
 
+	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/namespaced/deployment/v1alpha1.MwsVPCEndpoint
+	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/v2/pkg/resource.ExtractParamPath("vpc_endpoint_id",false)
 	// +listType=set
 	DataplaneRelay []*string `json:"dataplaneRelay,omitempty" tf:"dataplane_relay,omitempty"`
 
+	// References to MwsVPCEndpoint in deployment to populate dataplaneRelay.
+	// +kubebuilder:validation:Optional
+	DataplaneRelayRefs []v1.NamespacedReference `json:"dataplaneRelayRefs,omitempty" tf:"-"`
+
+	// Selector for a list of MwsVPCEndpoint in deployment to populate dataplaneRelay.
+	// +kubebuilder:validation:Optional
+	DataplaneRelaySelector *v1.NamespacedSelector `json:"dataplaneRelaySelector,omitempty" tf:"-"`
+
+	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/namespaced/deployment/v1alpha1.MwsVPCEndpoint
+	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/v2/pkg/resource.ExtractParamPath("vpc_endpoint_id",false)
 	// +listType=set
 	RestAPI []*string `json:"restApi,omitempty" tf:"rest_api,omitempty"`
+
+	// References to MwsVPCEndpoint in deployment to populate restApi.
+	// +kubebuilder:validation:Optional
+	RestAPIRefs []v1.NamespacedReference `json:"restApiRefs,omitempty" tf:"-"`
+
+	// Selector for a list of MwsVPCEndpoint in deployment to populate restApi.
+	// +kubebuilder:validation:Optional
+	RestAPISelector *v1.NamespacedSelector `json:"restApiSelector,omitempty" tf:"-"`
 }
 
 type VPCEndpointsObservation struct {
@@ -246,13 +266,33 @@ type VPCEndpointsObservation struct {
 
 type VPCEndpointsParameters struct {
 
+	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/namespaced/deployment/v1alpha1.MwsVPCEndpoint
+	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/v2/pkg/resource.ExtractParamPath("vpc_endpoint_id",false)
 	// +kubebuilder:validation:Optional
 	// +listType=set
-	DataplaneRelay []*string `json:"dataplaneRelay" tf:"dataplane_relay,omitempty"`
+	DataplaneRelay []*string `json:"dataplaneRelay,omitempty" tf:"dataplane_relay,omitempty"`
 
+	// References to MwsVPCEndpoint in deployment to populate dataplaneRelay.
+	// +kubebuilder:validation:Optional
+	DataplaneRelayRefs []v1.NamespacedReference `json:"dataplaneRelayRefs,omitempty" tf:"-"`
+
+	// Selector for a list of MwsVPCEndpoint in deployment to populate dataplaneRelay.
+	// +kubebuilder:validation:Optional
+	DataplaneRelaySelector *v1.NamespacedSelector `json:"dataplaneRelaySelector,omitempty" tf:"-"`
+
+	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/namespaced/deployment/v1alpha1.MwsVPCEndpoint
+	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/v2/pkg/resource.ExtractParamPath("vpc_endpoint_id",false)
 	// +kubebuilder:validation:Optional
 	// +listType=set
-	RestAPI []*string `json:"restApi" tf:"rest_api,omitempty"`
+	RestAPI []*string `json:"restApi,omitempty" tf:"rest_api,omitempty"`
+
+	// References to MwsVPCEndpoint in deployment to populate restApi.
+	// +kubebuilder:validation:Optional
+	RestAPIRefs []v1.NamespacedReference `json:"restApiRefs,omitempty" tf:"-"`
+
+	// Selector for a list of MwsVPCEndpoint in deployment to populate restApi.
+	// +kubebuilder:validation:Optional
+	RestAPISelector *v1.NamespacedSelector `json:"restApiSelector,omitempty" tf:"-"`
 }
 
 // MwsNetworksSpec defines the desired state of MwsNetworks

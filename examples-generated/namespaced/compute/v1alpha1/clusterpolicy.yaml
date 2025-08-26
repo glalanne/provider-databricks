@@ -31,7 +31,9 @@ metadata:
 spec:
   forProvider:
     accessControl:
-    - groupName: ${var.team}
+    - groupNameSelector:
+        matchLabels:
+          testing.upbound.io/example-name: example
       permissionLevel: CAN_USE
     clusterPolicyIdSelector:
       matchLabels:

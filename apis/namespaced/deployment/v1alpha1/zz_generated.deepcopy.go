@@ -2451,6 +2451,16 @@ func (in *MwsNccBindingInitParameters) DeepCopyInto(out *MwsNccBindingInitParame
 		*out = new(string)
 		**out = **in
 	}
+	if in.NetworkConnectivityConfigIDRef != nil {
+		in, out := &in.NetworkConnectivityConfigIDRef, &out.NetworkConnectivityConfigIDRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.NetworkConnectivityConfigIDSelector != nil {
+		in, out := &in.NetworkConnectivityConfigIDSelector, &out.NetworkConnectivityConfigIDSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.WorkspaceID != nil {
 		in, out := &in.WorkspaceID, &out.WorkspaceID
 		*out = new(float64)
@@ -2537,6 +2547,16 @@ func (in *MwsNccBindingParameters) DeepCopyInto(out *MwsNccBindingParameters) {
 		in, out := &in.NetworkConnectivityConfigID, &out.NetworkConnectivityConfigID
 		*out = new(string)
 		**out = **in
+	}
+	if in.NetworkConnectivityConfigIDRef != nil {
+		in, out := &in.NetworkConnectivityConfigIDRef, &out.NetworkConnectivityConfigIDRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.NetworkConnectivityConfigIDSelector != nil {
+		in, out := &in.NetworkConnectivityConfigIDSelector, &out.NetworkConnectivityConfigIDSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.WorkspaceID != nil {
 		in, out := &in.WorkspaceID, &out.WorkspaceID
@@ -2680,6 +2700,16 @@ func (in *MwsNccPrivateEndpointRuleInitParameters) DeepCopyInto(out *MwsNccPriva
 		in, out := &in.NetworkConnectivityConfigID, &out.NetworkConnectivityConfigID
 		*out = new(string)
 		**out = **in
+	}
+	if in.NetworkConnectivityConfigIDRef != nil {
+		in, out := &in.NetworkConnectivityConfigIDRef, &out.NetworkConnectivityConfigIDRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.NetworkConnectivityConfigIDSelector != nil {
+		in, out := &in.NetworkConnectivityConfigIDSelector, &out.NetworkConnectivityConfigIDSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.ResourceID != nil {
 		in, out := &in.ResourceID, &out.ResourceID
@@ -2931,6 +2961,16 @@ func (in *MwsNccPrivateEndpointRuleParameters) DeepCopyInto(out *MwsNccPrivateEn
 		in, out := &in.NetworkConnectivityConfigID, &out.NetworkConnectivityConfigID
 		*out = new(string)
 		**out = **in
+	}
+	if in.NetworkConnectivityConfigIDRef != nil {
+		in, out := &in.NetworkConnectivityConfigIDRef, &out.NetworkConnectivityConfigIDRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.NetworkConnectivityConfigIDSelector != nil {
+		in, out := &in.NetworkConnectivityConfigIDSelector, &out.NetworkConnectivityConfigIDSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.ResourceID != nil {
 		in, out := &in.ResourceID, &out.ResourceID
@@ -4420,6 +4460,16 @@ func (in *MwsWorkspacesInitParameters) DeepCopyInto(out *MwsWorkspacesInitParame
 		*out = new(string)
 		**out = **in
 	}
+	if in.CredentialsIDRef != nil {
+		in, out := &in.CredentialsIDRef, &out.CredentialsIDRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.CredentialsIDSelector != nil {
+		in, out := &in.CredentialsIDSelector, &out.CredentialsIDSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.CustomTags != nil {
 		in, out := &in.CustomTags, &out.CustomTags
 		*out = make(map[string]*string, len(*in))
@@ -4481,6 +4531,16 @@ func (in *MwsWorkspacesInitParameters) DeepCopyInto(out *MwsWorkspacesInitParame
 		*out = new(string)
 		**out = **in
 	}
+	if in.NetworkIDRef != nil {
+		in, out := &in.NetworkIDRef, &out.NetworkIDRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.NetworkIDSelector != nil {
+		in, out := &in.NetworkIDSelector, &out.NetworkIDSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.PricingTier != nil {
 		in, out := &in.PricingTier, &out.PricingTier
 		*out = new(string)
@@ -4495,6 +4555,16 @@ func (in *MwsWorkspacesInitParameters) DeepCopyInto(out *MwsWorkspacesInitParame
 		in, out := &in.StorageConfigurationID, &out.StorageConfigurationID
 		*out = new(string)
 		**out = **in
+	}
+	if in.StorageConfigurationIDRef != nil {
+		in, out := &in.StorageConfigurationIDRef, &out.StorageConfigurationIDRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.StorageConfigurationIDSelector != nil {
+		in, out := &in.StorageConfigurationIDSelector, &out.StorageConfigurationIDSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.StorageCustomerManagedKeyID != nil {
 		in, out := &in.StorageCustomerManagedKeyID, &out.StorageCustomerManagedKeyID
@@ -4780,6 +4850,16 @@ func (in *MwsWorkspacesParameters) DeepCopyInto(out *MwsWorkspacesParameters) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.CredentialsIDRef != nil {
+		in, out := &in.CredentialsIDRef, &out.CredentialsIDRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.CredentialsIDSelector != nil {
+		in, out := &in.CredentialsIDSelector, &out.CredentialsIDSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.CustomTags != nil {
 		in, out := &in.CustomTags, &out.CustomTags
 		*out = make(map[string]*string, len(*in))
@@ -4841,6 +4921,16 @@ func (in *MwsWorkspacesParameters) DeepCopyInto(out *MwsWorkspacesParameters) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.NetworkIDRef != nil {
+		in, out := &in.NetworkIDRef, &out.NetworkIDRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.NetworkIDSelector != nil {
+		in, out := &in.NetworkIDSelector, &out.NetworkIDSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.PricingTier != nil {
 		in, out := &in.PricingTier, &out.PricingTier
 		*out = new(string)
@@ -4855,6 +4945,16 @@ func (in *MwsWorkspacesParameters) DeepCopyInto(out *MwsWorkspacesParameters) {
 		in, out := &in.StorageConfigurationID, &out.StorageConfigurationID
 		*out = new(string)
 		**out = **in
+	}
+	if in.StorageConfigurationIDRef != nil {
+		in, out := &in.StorageConfigurationIDRef, &out.StorageConfigurationIDRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.StorageConfigurationIDSelector != nil {
+		in, out := &in.StorageConfigurationIDSelector, &out.StorageConfigurationIDSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.StorageCustomerManagedKeyID != nil {
 		in, out := &in.StorageCustomerManagedKeyID, &out.StorageCustomerManagedKeyID
@@ -5139,6 +5239,18 @@ func (in *VPCEndpointsInitParameters) DeepCopyInto(out *VPCEndpointsInitParamete
 			}
 		}
 	}
+	if in.DataplaneRelayRefs != nil {
+		in, out := &in.DataplaneRelayRefs, &out.DataplaneRelayRefs
+		*out = make([]v1.NamespacedReference, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
+	}
+	if in.DataplaneRelaySelector != nil {
+		in, out := &in.DataplaneRelaySelector, &out.DataplaneRelaySelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.RestAPI != nil {
 		in, out := &in.RestAPI, &out.RestAPI
 		*out = make([]*string, len(*in))
@@ -5149,6 +5261,18 @@ func (in *VPCEndpointsInitParameters) DeepCopyInto(out *VPCEndpointsInitParamete
 				**out = **in
 			}
 		}
+	}
+	if in.RestAPIRefs != nil {
+		in, out := &in.RestAPIRefs, &out.RestAPIRefs
+		*out = make([]v1.NamespacedReference, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
+	}
+	if in.RestAPISelector != nil {
+		in, out := &in.RestAPISelector, &out.RestAPISelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
 	}
 }
 
@@ -5213,6 +5337,18 @@ func (in *VPCEndpointsParameters) DeepCopyInto(out *VPCEndpointsParameters) {
 			}
 		}
 	}
+	if in.DataplaneRelayRefs != nil {
+		in, out := &in.DataplaneRelayRefs, &out.DataplaneRelayRefs
+		*out = make([]v1.NamespacedReference, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
+	}
+	if in.DataplaneRelaySelector != nil {
+		in, out := &in.DataplaneRelaySelector, &out.DataplaneRelaySelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.RestAPI != nil {
 		in, out := &in.RestAPI, &out.RestAPI
 		*out = make([]*string, len(*in))
@@ -5223,6 +5359,18 @@ func (in *VPCEndpointsParameters) DeepCopyInto(out *VPCEndpointsParameters) {
 				**out = **in
 			}
 		}
+	}
+	if in.RestAPIRefs != nil {
+		in, out := &in.RestAPIRefs, &out.RestAPIRefs
+		*out = make([]v1.NamespacedReference, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
+	}
+	if in.RestAPISelector != nil {
+		in, out := &in.RestAPISelector, &out.RestAPISelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
 	}
 }
 

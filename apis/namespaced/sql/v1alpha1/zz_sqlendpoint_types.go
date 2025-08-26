@@ -80,7 +80,7 @@ type HealthInitParameters struct {
 type HealthObservation struct {
 	Details *string `json:"details,omitempty" tf:"details,omitempty"`
 
-	FailureReason []FailureReasonObservation `json:"failureReason,omitempty" tf:"failure_reason,omitempty"`
+	FailureReason *FailureReasonObservation `json:"failureReason,omitempty" tf:"failure_reason,omitempty"`
 
 	Message *string `json:"message,omitempty" tf:"message,omitempty"`
 

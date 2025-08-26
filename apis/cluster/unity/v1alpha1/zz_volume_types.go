@@ -16,7 +16,17 @@ import (
 type VolumeInitParameters struct {
 
 	// Name of parent Catalog. Change forces creation of a new resource.
+	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/cluster/unity/v1alpha1.Catalog
+	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/v2/pkg/resource.ExtractParamPath("name",false)
 	CatalogName *string `json:"catalogName,omitempty" tf:"catalog_name,omitempty"`
+
+	// Reference to a Catalog in unity to populate catalogName.
+	// +kubebuilder:validation:Optional
+	CatalogNameRef *v1.Reference `json:"catalogNameRef,omitempty" tf:"-"`
+
+	// Selector for a Catalog in unity to populate catalogName.
+	// +kubebuilder:validation:Optional
+	CatalogNameSelector *v1.Selector `json:"catalogNameSelector,omitempty" tf:"-"`
 
 	// Free-form text.
 	Comment *string `json:"comment,omitempty" tf:"comment,omitempty"`
@@ -28,10 +38,30 @@ type VolumeInitParameters struct {
 	Owner *string `json:"owner,omitempty" tf:"owner,omitempty"`
 
 	// Name of parent Schema relative to parent Catalog. Change forces creation of a new resource.
+	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/cluster/unity/v1alpha1.Schema
+	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/v2/pkg/resource.ExtractParamPath("name",false)
 	SchemaName *string `json:"schemaName,omitempty" tf:"schema_name,omitempty"`
 
+	// Reference to a Schema in unity to populate schemaName.
+	// +kubebuilder:validation:Optional
+	SchemaNameRef *v1.Reference `json:"schemaNameRef,omitempty" tf:"-"`
+
+	// Selector for a Schema in unity to populate schemaName.
+	// +kubebuilder:validation:Optional
+	SchemaNameSelector *v1.Selector `json:"schemaNameSelector,omitempty" tf:"-"`
+
 	// Path inside an External Location. Only used for EXTERNAL Volumes. Change forces creation of a new resource.
+	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/cluster/unity/v1alpha1.ExternalLocation
+	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/v2/pkg/resource.ExtractParamPath("url",false)
 	StorageLocation *string `json:"storageLocation,omitempty" tf:"storage_location,omitempty"`
+
+	// Reference to a ExternalLocation in unity to populate storageLocation.
+	// +kubebuilder:validation:Optional
+	StorageLocationRef *v1.Reference `json:"storageLocationRef,omitempty" tf:"-"`
+
+	// Selector for a ExternalLocation in unity to populate storageLocation.
+	// +kubebuilder:validation:Optional
+	StorageLocationSelector *v1.Selector `json:"storageLocationSelector,omitempty" tf:"-"`
 
 	// Volume type. EXTERNAL or MANAGED. Change forces creation of a new resource.
 	VolumeType *string `json:"volumeType,omitempty" tf:"volume_type,omitempty"`
@@ -70,8 +100,18 @@ type VolumeObservation struct {
 type VolumeParameters struct {
 
 	// Name of parent Catalog. Change forces creation of a new resource.
+	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/cluster/unity/v1alpha1.Catalog
+	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/v2/pkg/resource.ExtractParamPath("name",false)
 	// +kubebuilder:validation:Optional
 	CatalogName *string `json:"catalogName,omitempty" tf:"catalog_name,omitempty"`
+
+	// Reference to a Catalog in unity to populate catalogName.
+	// +kubebuilder:validation:Optional
+	CatalogNameRef *v1.Reference `json:"catalogNameRef,omitempty" tf:"-"`
+
+	// Selector for a Catalog in unity to populate catalogName.
+	// +kubebuilder:validation:Optional
+	CatalogNameSelector *v1.Selector `json:"catalogNameSelector,omitempty" tf:"-"`
 
 	// Free-form text.
 	// +kubebuilder:validation:Optional
@@ -86,12 +126,32 @@ type VolumeParameters struct {
 	Owner *string `json:"owner,omitempty" tf:"owner,omitempty"`
 
 	// Name of parent Schema relative to parent Catalog. Change forces creation of a new resource.
+	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/cluster/unity/v1alpha1.Schema
+	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/v2/pkg/resource.ExtractParamPath("name",false)
 	// +kubebuilder:validation:Optional
 	SchemaName *string `json:"schemaName,omitempty" tf:"schema_name,omitempty"`
 
+	// Reference to a Schema in unity to populate schemaName.
+	// +kubebuilder:validation:Optional
+	SchemaNameRef *v1.Reference `json:"schemaNameRef,omitempty" tf:"-"`
+
+	// Selector for a Schema in unity to populate schemaName.
+	// +kubebuilder:validation:Optional
+	SchemaNameSelector *v1.Selector `json:"schemaNameSelector,omitempty" tf:"-"`
+
 	// Path inside an External Location. Only used for EXTERNAL Volumes. Change forces creation of a new resource.
+	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/cluster/unity/v1alpha1.ExternalLocation
+	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/v2/pkg/resource.ExtractParamPath("url",false)
 	// +kubebuilder:validation:Optional
 	StorageLocation *string `json:"storageLocation,omitempty" tf:"storage_location,omitempty"`
+
+	// Reference to a ExternalLocation in unity to populate storageLocation.
+	// +kubebuilder:validation:Optional
+	StorageLocationRef *v1.Reference `json:"storageLocationRef,omitempty" tf:"-"`
+
+	// Selector for a ExternalLocation in unity to populate storageLocation.
+	// +kubebuilder:validation:Optional
+	StorageLocationSelector *v1.Selector `json:"storageLocationSelector,omitempty" tf:"-"`
 
 	// Volume type. EXTERNAL or MANAGED. Change forces creation of a new resource.
 	// +kubebuilder:validation:Optional
@@ -134,9 +194,7 @@ type VolumeStatus struct {
 type Volume struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.catalogName) || (has(self.initProvider) && has(self.initProvider.catalogName))",message="spec.forProvider.catalogName is a required parameter"
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.name) || (has(self.initProvider) && has(self.initProvider.name))",message="spec.forProvider.name is a required parameter"
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.schemaName) || (has(self.initProvider) && has(self.initProvider.schemaName))",message="spec.forProvider.schemaName is a required parameter"
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.volumeType) || (has(self.initProvider) && has(self.initProvider.volumeType))",message="spec.forProvider.volumeType is a required parameter"
 	Spec   VolumeSpec   `json:"spec"`
 	Status VolumeStatus `json:"status,omitempty"`

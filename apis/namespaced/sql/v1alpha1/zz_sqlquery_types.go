@@ -413,7 +413,17 @@ type SQLQueryInitParameters struct {
 	CreatedAt *string `json:"createdAt,omitempty" tf:"created_at,omitempty"`
 
 	// Data source ID of a SQL warehouse
+	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/namespaced/sql/v1alpha1.SQLEndpoint
+	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/v2/pkg/resource.ExtractParamPath("data_source_id",false)
 	DataSourceID *string `json:"dataSourceId,omitempty" tf:"data_source_id,omitempty"`
+
+	// Reference to a SQLEndpoint in sql to populate dataSourceId.
+	// +kubebuilder:validation:Optional
+	DataSourceIDRef *v1.NamespacedReference `json:"dataSourceIdRef,omitempty" tf:"-"`
+
+	// Selector for a SQLEndpoint in sql to populate dataSourceId.
+	// +kubebuilder:validation:Optional
+	DataSourceIDSelector *v1.NamespacedSelector `json:"dataSourceIdSelector,omitempty" tf:"-"`
 
 	// General description that conveys additional information about this query such as usage notes.
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
@@ -578,8 +588,18 @@ type SQLQueryParameters struct {
 	CreatedAt *string `json:"createdAt,omitempty" tf:"created_at,omitempty"`
 
 	// Data source ID of a SQL warehouse
+	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/namespaced/sql/v1alpha1.SQLEndpoint
+	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/v2/pkg/resource.ExtractParamPath("data_source_id",false)
 	// +kubebuilder:validation:Optional
 	DataSourceID *string `json:"dataSourceId,omitempty" tf:"data_source_id,omitempty"`
+
+	// Reference to a SQLEndpoint in sql to populate dataSourceId.
+	// +kubebuilder:validation:Optional
+	DataSourceIDRef *v1.NamespacedReference `json:"dataSourceIdRef,omitempty" tf:"-"`
+
+	// Selector for a SQLEndpoint in sql to populate dataSourceId.
+	// +kubebuilder:validation:Optional
+	DataSourceIDSelector *v1.NamespacedSelector `json:"dataSourceIdSelector,omitempty" tf:"-"`
 
 	// General description that conveys additional information about this query such as usage notes.
 	// +kubebuilder:validation:Optional
@@ -732,7 +752,6 @@ type SQLQueryStatus struct {
 type SQLQuery struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.dataSourceId) || (has(self.initProvider) && has(self.initProvider.dataSourceId))",message="spec.forProvider.dataSourceId is a required parameter"
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.name) || (has(self.initProvider) && has(self.initProvider.name))",message="spec.forProvider.name is a required parameter"
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.query) || (has(self.initProvider) && has(self.initProvider.query))",message="spec.forProvider.query is a required parameter"
 	Spec   SQLQuerySpec   `json:"spec"`

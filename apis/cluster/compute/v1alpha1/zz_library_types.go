@@ -35,21 +35,62 @@ type LibraryCranParameters_2 struct {
 }
 
 type LibraryInitParameters_2 struct {
+
+	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/cluster/compute/v1alpha1.Cluster
+	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/v2/pkg/resource.ExtractResourceID()
 	ClusterID *string `json:"clusterId,omitempty" tf:"cluster_id,omitempty"`
 
-	Cran []LibraryCranInitParameters_2 `json:"cran,omitempty" tf:"cran,omitempty"`
+	// Reference to a Cluster in compute to populate clusterId.
+	// +kubebuilder:validation:Optional
+	ClusterIDRef *v1.Reference `json:"clusterIdRef,omitempty" tf:"-"`
 
+	// Selector for a Cluster in compute to populate clusterId.
+	// +kubebuilder:validation:Optional
+	ClusterIDSelector *v1.Selector `json:"clusterIdSelector,omitempty" tf:"-"`
+
+	Cran *LibraryCranInitParameters_2 `json:"cran,omitempty" tf:"cran,omitempty"`
+
+	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/cluster/storage/v1alpha1.DbfsFile
+	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/v2/pkg/resource.ExtractParamPath("dbfs_path",true)
 	Egg *string `json:"egg,omitempty" tf:"egg,omitempty"`
 
+	// Reference to a DbfsFile in storage to populate egg.
+	// +kubebuilder:validation:Optional
+	EggRef *v1.Reference `json:"eggRef,omitempty" tf:"-"`
+
+	// Selector for a DbfsFile in storage to populate egg.
+	// +kubebuilder:validation:Optional
+	EggSelector *v1.Selector `json:"eggSelector,omitempty" tf:"-"`
+
+	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/cluster/storage/v1alpha1.File
+	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/v2/pkg/resource.ExtractParamPath("path",false)
 	Jar *string `json:"jar,omitempty" tf:"jar,omitempty"`
 
-	Maven []LibraryMavenInitParameters_2 `json:"maven,omitempty" tf:"maven,omitempty"`
+	// Reference to a File in storage to populate jar.
+	// +kubebuilder:validation:Optional
+	JarRef *v1.Reference `json:"jarRef,omitempty" tf:"-"`
 
-	Pypi []LibraryPypiInitParameters_2 `json:"pypi,omitempty" tf:"pypi,omitempty"`
+	// Selector for a File in storage to populate jar.
+	// +kubebuilder:validation:Optional
+	JarSelector *v1.Selector `json:"jarSelector,omitempty" tf:"-"`
+
+	Maven *LibraryMavenInitParameters_2 `json:"maven,omitempty" tf:"maven,omitempty"`
+
+	Pypi *LibraryPypiInitParameters_2 `json:"pypi,omitempty" tf:"pypi,omitempty"`
 
 	Requirements *string `json:"requirements,omitempty" tf:"requirements,omitempty"`
 
+	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/cluster/storage/v1alpha1.File
+	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/v2/pkg/resource.ExtractParamPath("path",false)
 	Whl *string `json:"whl,omitempty" tf:"whl,omitempty"`
+
+	// Reference to a File in storage to populate whl.
+	// +kubebuilder:validation:Optional
+	WhlRef *v1.Reference `json:"whlRef,omitempty" tf:"-"`
+
+	// Selector for a File in storage to populate whl.
+	// +kubebuilder:validation:Optional
+	WhlSelector *v1.Selector `json:"whlSelector,omitempty" tf:"-"`
 }
 
 type LibraryMavenInitParameters_2 struct {
@@ -83,7 +124,7 @@ type LibraryMavenParameters_2 struct {
 type LibraryObservation_2 struct {
 	ClusterID *string `json:"clusterId,omitempty" tf:"cluster_id,omitempty"`
 
-	Cran []LibraryCranObservation_2 `json:"cran,omitempty" tf:"cran,omitempty"`
+	Cran *LibraryCranObservation_2 `json:"cran,omitempty" tf:"cran,omitempty"`
 
 	Egg *string `json:"egg,omitempty" tf:"egg,omitempty"`
 
@@ -91,9 +132,9 @@ type LibraryObservation_2 struct {
 
 	Jar *string `json:"jar,omitempty" tf:"jar,omitempty"`
 
-	Maven []LibraryMavenObservation_2 `json:"maven,omitempty" tf:"maven,omitempty"`
+	Maven *LibraryMavenObservation_2 `json:"maven,omitempty" tf:"maven,omitempty"`
 
-	Pypi []LibraryPypiObservation_2 `json:"pypi,omitempty" tf:"pypi,omitempty"`
+	Pypi *LibraryPypiObservation_2 `json:"pypi,omitempty" tf:"pypi,omitempty"`
 
 	Requirements *string `json:"requirements,omitempty" tf:"requirements,omitempty"`
 
@@ -102,29 +143,69 @@ type LibraryObservation_2 struct {
 
 type LibraryParameters_2 struct {
 
+	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/cluster/compute/v1alpha1.Cluster
+	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/v2/pkg/resource.ExtractResourceID()
 	// +kubebuilder:validation:Optional
 	ClusterID *string `json:"clusterId,omitempty" tf:"cluster_id,omitempty"`
 
+	// Reference to a Cluster in compute to populate clusterId.
 	// +kubebuilder:validation:Optional
-	Cran []LibraryCranParameters_2 `json:"cran,omitempty" tf:"cran,omitempty"`
+	ClusterIDRef *v1.Reference `json:"clusterIdRef,omitempty" tf:"-"`
 
+	// Selector for a Cluster in compute to populate clusterId.
+	// +kubebuilder:validation:Optional
+	ClusterIDSelector *v1.Selector `json:"clusterIdSelector,omitempty" tf:"-"`
+
+	// +kubebuilder:validation:Optional
+	Cran *LibraryCranParameters_2 `json:"cran,omitempty" tf:"cran,omitempty"`
+
+	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/cluster/storage/v1alpha1.DbfsFile
+	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/v2/pkg/resource.ExtractParamPath("dbfs_path",true)
 	// +kubebuilder:validation:Optional
 	Egg *string `json:"egg,omitempty" tf:"egg,omitempty"`
 
+	// Reference to a DbfsFile in storage to populate egg.
+	// +kubebuilder:validation:Optional
+	EggRef *v1.Reference `json:"eggRef,omitempty" tf:"-"`
+
+	// Selector for a DbfsFile in storage to populate egg.
+	// +kubebuilder:validation:Optional
+	EggSelector *v1.Selector `json:"eggSelector,omitempty" tf:"-"`
+
+	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/cluster/storage/v1alpha1.File
+	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/v2/pkg/resource.ExtractParamPath("path",false)
 	// +kubebuilder:validation:Optional
 	Jar *string `json:"jar,omitempty" tf:"jar,omitempty"`
 
+	// Reference to a File in storage to populate jar.
 	// +kubebuilder:validation:Optional
-	Maven []LibraryMavenParameters_2 `json:"maven,omitempty" tf:"maven,omitempty"`
+	JarRef *v1.Reference `json:"jarRef,omitempty" tf:"-"`
+
+	// Selector for a File in storage to populate jar.
+	// +kubebuilder:validation:Optional
+	JarSelector *v1.Selector `json:"jarSelector,omitempty" tf:"-"`
 
 	// +kubebuilder:validation:Optional
-	Pypi []LibraryPypiParameters_2 `json:"pypi,omitempty" tf:"pypi,omitempty"`
+	Maven *LibraryMavenParameters_2 `json:"maven,omitempty" tf:"maven,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	Pypi *LibraryPypiParameters_2 `json:"pypi,omitempty" tf:"pypi,omitempty"`
 
 	// +kubebuilder:validation:Optional
 	Requirements *string `json:"requirements,omitempty" tf:"requirements,omitempty"`
 
+	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/cluster/storage/v1alpha1.File
+	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/v2/pkg/resource.ExtractParamPath("path",false)
 	// +kubebuilder:validation:Optional
 	Whl *string `json:"whl,omitempty" tf:"whl,omitempty"`
+
+	// Reference to a File in storage to populate whl.
+	// +kubebuilder:validation:Optional
+	WhlRef *v1.Reference `json:"whlRef,omitempty" tf:"-"`
+
+	// Selector for a File in storage to populate whl.
+	// +kubebuilder:validation:Optional
+	WhlSelector *v1.Selector `json:"whlSelector,omitempty" tf:"-"`
 }
 
 type LibraryPypiInitParameters_2 struct {
@@ -184,9 +265,8 @@ type LibraryStatus struct {
 type Library struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.clusterId) || (has(self.initProvider) && has(self.initProvider.clusterId))",message="spec.forProvider.clusterId is a required parameter"
-	Spec   LibrarySpec   `json:"spec"`
-	Status LibraryStatus `json:"status,omitempty"`
+	Spec              LibrarySpec   `json:"spec"`
+	Status            LibraryStatus `json:"status,omitempty"`
 }
 
 // +kubebuilder:object:root=true

@@ -38,7 +38,17 @@ type ExternalLocationInitParameters struct {
 	Comment *string `json:"comment,omitempty" tf:"comment,omitempty"`
 
 	// Name of the databricks_storage_credential to use with this external location.
+	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/cluster/unity/v1alpha1.StorageCredential
+	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/v2/pkg/resource.ExtractResourceID()
 	CredentialName *string `json:"credentialName,omitempty" tf:"credential_name,omitempty"`
+
+	// Reference to a StorageCredential in unity to populate credentialName.
+	// +kubebuilder:validation:Optional
+	CredentialNameRef *v1.Reference `json:"credentialNameRef,omitempty" tf:"-"`
+
+	// Selector for a StorageCredential in unity to populate credentialName.
+	// +kubebuilder:validation:Optional
+	CredentialNameSelector *v1.Selector `json:"credentialNameSelector,omitempty" tf:"-"`
 
 	// indicates if managed file events are enabled for this external location.  Requires file_event_queue block.
 	EnableFileEvents *bool `json:"enableFileEvents,omitempty" tf:"enable_file_events,omitempty"`
@@ -150,8 +160,18 @@ type ExternalLocationParameters struct {
 	Comment *string `json:"comment,omitempty" tf:"comment,omitempty"`
 
 	// Name of the databricks_storage_credential to use with this external location.
+	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/cluster/unity/v1alpha1.StorageCredential
+	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/v2/pkg/resource.ExtractResourceID()
 	// +kubebuilder:validation:Optional
 	CredentialName *string `json:"credentialName,omitempty" tf:"credential_name,omitempty"`
+
+	// Reference to a StorageCredential in unity to populate credentialName.
+	// +kubebuilder:validation:Optional
+	CredentialNameRef *v1.Reference `json:"credentialNameRef,omitempty" tf:"-"`
+
+	// Selector for a StorageCredential in unity to populate credentialName.
+	// +kubebuilder:validation:Optional
+	CredentialNameSelector *v1.Selector `json:"credentialNameSelector,omitempty" tf:"-"`
 
 	// indicates if managed file events are enabled for this external location.  Requires file_event_queue block.
 	// +kubebuilder:validation:Optional
@@ -510,7 +530,6 @@ type ExternalLocationStatus struct {
 type ExternalLocation struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.credentialName) || (has(self.initProvider) && has(self.initProvider.credentialName))",message="spec.forProvider.credentialName is a required parameter"
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.name) || (has(self.initProvider) && has(self.initProvider.name))",message="spec.forProvider.name is a required parameter"
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.url) || (has(self.initProvider) && has(self.initProvider.url))",message="spec.forProvider.url is a required parameter"
 	Spec   ExternalLocationSpec   `json:"spec"`

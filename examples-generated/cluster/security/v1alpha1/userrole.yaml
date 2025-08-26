@@ -8,8 +8,12 @@ metadata:
   name: my-user-role
 spec:
   forProvider:
-    role: ${databricks_instance_profile.instance_profile.id}
-    userId: ${databricks_user.my_user.id}
+    roleSelector:
+      matchLabels:
+        testing.upbound.io/example-name: instance_profile
+    userIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: my_user
 
 ---
 

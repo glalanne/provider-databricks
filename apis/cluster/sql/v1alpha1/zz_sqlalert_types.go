@@ -105,7 +105,17 @@ type SQLAlertInitParameters struct {
 	Parent *string `json:"parent,omitempty" tf:"parent,omitempty"`
 
 	// ID of the query evaluated by the alert.
+	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/cluster/sql/v1alpha1.SQLQuery
+	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/v2/pkg/resource.ExtractResourceID()
 	QueryID *string `json:"queryId,omitempty" tf:"query_id,omitempty"`
+
+	// Reference to a SQLQuery in sql to populate queryId.
+	// +kubebuilder:validation:Optional
+	QueryIDRef *v1.Reference `json:"queryIdRef,omitempty" tf:"-"`
+
+	// Selector for a SQLQuery in sql to populate queryId.
+	// +kubebuilder:validation:Optional
+	QueryIDSelector *v1.Selector `json:"queryIdSelector,omitempty" tf:"-"`
 
 	// Number of seconds after being triggered before the alert rearms itself and can be triggered again. If not defined, alert will never be triggered again.
 	Rearm *float64 `json:"rearm,omitempty" tf:"rearm,omitempty"`
@@ -155,8 +165,18 @@ type SQLAlertParameters struct {
 	Parent *string `json:"parent,omitempty" tf:"parent,omitempty"`
 
 	// ID of the query evaluated by the alert.
+	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/cluster/sql/v1alpha1.SQLQuery
+	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/v2/pkg/resource.ExtractResourceID()
 	// +kubebuilder:validation:Optional
 	QueryID *string `json:"queryId,omitempty" tf:"query_id,omitempty"`
+
+	// Reference to a SQLQuery in sql to populate queryId.
+	// +kubebuilder:validation:Optional
+	QueryIDRef *v1.Reference `json:"queryIdRef,omitempty" tf:"-"`
+
+	// Selector for a SQLQuery in sql to populate queryId.
+	// +kubebuilder:validation:Optional
+	QueryIDSelector *v1.Selector `json:"queryIdSelector,omitempty" tf:"-"`
 
 	// Number of seconds after being triggered before the alert rearms itself and can be triggered again. If not defined, alert will never be triggered again.
 	// +kubebuilder:validation:Optional
@@ -204,7 +224,6 @@ type SQLAlert struct {
 	metav1.ObjectMeta `json:"metadata,omitempty"`
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.name) || (has(self.initProvider) && has(self.initProvider.name))",message="spec.forProvider.name is a required parameter"
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.options) || (has(self.initProvider) && has(self.initProvider.options))",message="spec.forProvider.options is a required parameter"
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.queryId) || (has(self.initProvider) && has(self.initProvider.queryId))",message="spec.forProvider.queryId is a required parameter"
 	Spec   SQLAlertSpec   `json:"spec"`
 	Status SQLAlertStatus `json:"status,omitempty"`
 }

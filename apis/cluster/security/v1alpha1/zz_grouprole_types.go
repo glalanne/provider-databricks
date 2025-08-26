@@ -16,10 +16,30 @@ import (
 type GroupRoleInitParameters struct {
 
 	// This is the id of the group resource.
+	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/cluster/security/v1alpha1.Group
+	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/v2/pkg/resource.ExtractResourceID()
 	GroupID *string `json:"groupId,omitempty" tf:"group_id,omitempty"`
 
+	// Reference to a Group in security to populate groupId.
+	// +kubebuilder:validation:Optional
+	GroupIDRef *v1.Reference `json:"groupIdRef,omitempty" tf:"-"`
+
+	// Selector for a Group in security to populate groupId.
+	// +kubebuilder:validation:Optional
+	GroupIDSelector *v1.Selector `json:"groupIdSelector,omitempty" tf:"-"`
+
 	// Either a role name or the ARN/ID of the instance profile resource.
+	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/cluster/deployment/v1alpha1.InstanceProfile
+	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/v2/pkg/resource.ExtractResourceID()
 	Role *string `json:"role,omitempty" tf:"role,omitempty"`
+
+	// Reference to a InstanceProfile in deployment to populate role.
+	// +kubebuilder:validation:Optional
+	RoleRef *v1.Reference `json:"roleRef,omitempty" tf:"-"`
+
+	// Selector for a InstanceProfile in deployment to populate role.
+	// +kubebuilder:validation:Optional
+	RoleSelector *v1.Selector `json:"roleSelector,omitempty" tf:"-"`
 }
 
 type GroupRoleObservation struct {
@@ -37,12 +57,32 @@ type GroupRoleObservation struct {
 type GroupRoleParameters struct {
 
 	// This is the id of the group resource.
+	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/cluster/security/v1alpha1.Group
+	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/v2/pkg/resource.ExtractResourceID()
 	// +kubebuilder:validation:Optional
 	GroupID *string `json:"groupId,omitempty" tf:"group_id,omitempty"`
 
+	// Reference to a Group in security to populate groupId.
+	// +kubebuilder:validation:Optional
+	GroupIDRef *v1.Reference `json:"groupIdRef,omitempty" tf:"-"`
+
+	// Selector for a Group in security to populate groupId.
+	// +kubebuilder:validation:Optional
+	GroupIDSelector *v1.Selector `json:"groupIdSelector,omitempty" tf:"-"`
+
 	// Either a role name or the ARN/ID of the instance profile resource.
+	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/cluster/deployment/v1alpha1.InstanceProfile
+	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/v2/pkg/resource.ExtractResourceID()
 	// +kubebuilder:validation:Optional
 	Role *string `json:"role,omitempty" tf:"role,omitempty"`
+
+	// Reference to a InstanceProfile in deployment to populate role.
+	// +kubebuilder:validation:Optional
+	RoleRef *v1.Reference `json:"roleRef,omitempty" tf:"-"`
+
+	// Selector for a InstanceProfile in deployment to populate role.
+	// +kubebuilder:validation:Optional
+	RoleSelector *v1.Selector `json:"roleSelector,omitempty" tf:"-"`
 }
 
 // GroupRoleSpec defines the desired state of GroupRole
@@ -81,10 +121,8 @@ type GroupRoleStatus struct {
 type GroupRole struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.groupId) || (has(self.initProvider) && has(self.initProvider.groupId))",message="spec.forProvider.groupId is a required parameter"
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.role) || (has(self.initProvider) && has(self.initProvider.role))",message="spec.forProvider.role is a required parameter"
-	Spec   GroupRoleSpec   `json:"spec"`
-	Status GroupRoleStatus `json:"status,omitempty"`
+	Spec              GroupRoleSpec   `json:"spec"`
+	Status            GroupRoleStatus `json:"status,omitempty"`
 }
 
 // +kubebuilder:object:root=true

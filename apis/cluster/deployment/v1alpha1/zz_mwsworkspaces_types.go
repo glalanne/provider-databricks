@@ -148,7 +148,17 @@ type MwsWorkspacesInitParameters struct {
 	CreationTime *float64 `json:"creationTime,omitempty" tf:"creation_time,omitempty"`
 
 	// (AWS only, Optional) credentials_id from credentials. This must not be specified when compute_mode is set to SERVERLESS.
+	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/cluster/deployment/v1alpha1.MwsCredentials
+	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/v2/pkg/resource.ExtractParamPath("credentials_id",false)
 	CredentialsID *string `json:"credentialsId,omitempty" tf:"credentials_id,omitempty"`
+
+	// Reference to a MwsCredentials in deployment to populate credentialsId.
+	// +kubebuilder:validation:Optional
+	CredentialsIDRef *v1.Reference `json:"credentialsIdRef,omitempty" tf:"-"`
+
+	// Selector for a MwsCredentials in deployment to populate credentialsId.
+	// +kubebuilder:validation:Optional
+	CredentialsIDSelector *v1.Selector `json:"credentialsIdSelector,omitempty" tf:"-"`
 
 	// - The custom tags key-value pairing that is attached to this workspace. These tags will be applied to clusters automatically in addition to any default_tags or custom_tags on a cluster level. Please note it can take up to an hour for custom_tags to be set due to scheduling on Control Plane. After custom tags are applied, they can be modified however they can never be completely removed.
 	// +mapType=granular
@@ -175,7 +185,17 @@ type MwsWorkspacesInitParameters struct {
 	ManagedServicesCustomerManagedKeyID *string `json:"managedServicesCustomerManagedKeyId,omitempty" tf:"managed_services_customer_managed_key_id,omitempty"`
 
 	// network_id from networks.
+	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/cluster/deployment/v1alpha1.MwsNetworks
+	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/v2/pkg/resource.ExtractParamPath("network_id",false)
 	NetworkID *string `json:"networkId,omitempty" tf:"network_id,omitempty"`
+
+	// Reference to a MwsNetworks in deployment to populate networkId.
+	// +kubebuilder:validation:Optional
+	NetworkIDRef *v1.Reference `json:"networkIdRef,omitempty" tf:"-"`
+
+	// Selector for a MwsNetworks in deployment to populate networkId.
+	// +kubebuilder:validation:Optional
+	NetworkIDSelector *v1.Selector `json:"networkIdSelector,omitempty" tf:"-"`
 
 	// - The pricing tier of the workspace.
 	PricingTier *string `json:"pricingTier,omitempty" tf:"pricing_tier,omitempty"`
@@ -184,7 +204,17 @@ type MwsWorkspacesInitParameters struct {
 	PrivateAccessSettingsID *string `json:"privateAccessSettingsId,omitempty" tf:"private_access_settings_id,omitempty"`
 
 	// (AWS only, Optional) storage_configuration_id from storage configuration. This must not be specified when compute_mode is set to SERVERLESS.
+	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/cluster/deployment/v1alpha1.MwsStorageConfigurations
+	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/v2/pkg/resource.ExtractParamPath("storage_configuration_id",true)
 	StorageConfigurationID *string `json:"storageConfigurationId,omitempty" tf:"storage_configuration_id,omitempty"`
+
+	// Reference to a MwsStorageConfigurations in deployment to populate storageConfigurationId.
+	// +kubebuilder:validation:Optional
+	StorageConfigurationIDRef *v1.Reference `json:"storageConfigurationIdRef,omitempty" tf:"-"`
+
+	// Selector for a MwsStorageConfigurations in deployment to populate storageConfigurationId.
+	// +kubebuilder:validation:Optional
+	StorageConfigurationIDSelector *v1.Selector `json:"storageConfigurationIdSelector,omitempty" tf:"-"`
 
 	// customer_managed_key_id from customer managed keys with use_cases set to STORAGE. This is used to encrypt the DBFS Storage & Cluster Volumes.
 	StorageCustomerManagedKeyID *string `json:"storageCustomerManagedKeyId,omitempty" tf:"storage_customer_managed_key_id,omitempty"`
@@ -318,8 +348,18 @@ type MwsWorkspacesParameters struct {
 	CreationTime *float64 `json:"creationTime,omitempty" tf:"creation_time,omitempty"`
 
 	// (AWS only, Optional) credentials_id from credentials. This must not be specified when compute_mode is set to SERVERLESS.
+	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/cluster/deployment/v1alpha1.MwsCredentials
+	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/v2/pkg/resource.ExtractParamPath("credentials_id",false)
 	// +kubebuilder:validation:Optional
 	CredentialsID *string `json:"credentialsId,omitempty" tf:"credentials_id,omitempty"`
+
+	// Reference to a MwsCredentials in deployment to populate credentialsId.
+	// +kubebuilder:validation:Optional
+	CredentialsIDRef *v1.Reference `json:"credentialsIdRef,omitempty" tf:"-"`
+
+	// Selector for a MwsCredentials in deployment to populate credentialsId.
+	// +kubebuilder:validation:Optional
+	CredentialsIDSelector *v1.Selector `json:"credentialsIdSelector,omitempty" tf:"-"`
 
 	// - The custom tags key-value pairing that is attached to this workspace. These tags will be applied to clusters automatically in addition to any default_tags or custom_tags on a cluster level. Please note it can take up to an hour for custom_tags to be set due to scheduling on Control Plane. After custom tags are applied, they can be modified however they can never be completely removed.
 	// +kubebuilder:validation:Optional
@@ -355,8 +395,18 @@ type MwsWorkspacesParameters struct {
 	ManagedServicesCustomerManagedKeyID *string `json:"managedServicesCustomerManagedKeyId,omitempty" tf:"managed_services_customer_managed_key_id,omitempty"`
 
 	// network_id from networks.
+	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/cluster/deployment/v1alpha1.MwsNetworks
+	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/v2/pkg/resource.ExtractParamPath("network_id",false)
 	// +kubebuilder:validation:Optional
 	NetworkID *string `json:"networkId,omitempty" tf:"network_id,omitempty"`
+
+	// Reference to a MwsNetworks in deployment to populate networkId.
+	// +kubebuilder:validation:Optional
+	NetworkIDRef *v1.Reference `json:"networkIdRef,omitempty" tf:"-"`
+
+	// Selector for a MwsNetworks in deployment to populate networkId.
+	// +kubebuilder:validation:Optional
+	NetworkIDSelector *v1.Selector `json:"networkIdSelector,omitempty" tf:"-"`
 
 	// - The pricing tier of the workspace.
 	// +kubebuilder:validation:Optional
@@ -367,8 +417,18 @@ type MwsWorkspacesParameters struct {
 	PrivateAccessSettingsID *string `json:"privateAccessSettingsId,omitempty" tf:"private_access_settings_id,omitempty"`
 
 	// (AWS only, Optional) storage_configuration_id from storage configuration. This must not be specified when compute_mode is set to SERVERLESS.
+	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/cluster/deployment/v1alpha1.MwsStorageConfigurations
+	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/v2/pkg/resource.ExtractParamPath("storage_configuration_id",true)
 	// +kubebuilder:validation:Optional
 	StorageConfigurationID *string `json:"storageConfigurationId,omitempty" tf:"storage_configuration_id,omitempty"`
+
+	// Reference to a MwsStorageConfigurations in deployment to populate storageConfigurationId.
+	// +kubebuilder:validation:Optional
+	StorageConfigurationIDRef *v1.Reference `json:"storageConfigurationIdRef,omitempty" tf:"-"`
+
+	// Selector for a MwsStorageConfigurations in deployment to populate storageConfigurationId.
+	// +kubebuilder:validation:Optional
+	StorageConfigurationIDSelector *v1.Selector `json:"storageConfigurationIdSelector,omitempty" tf:"-"`
 
 	// customer_managed_key_id from customer managed keys with use_cases set to STORAGE. This is used to encrypt the DBFS Storage & Cluster Volumes.
 	// +kubebuilder:validation:Optional

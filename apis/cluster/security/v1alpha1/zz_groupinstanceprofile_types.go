@@ -16,10 +16,30 @@ import (
 type GroupInstanceProfileInitParameters struct {
 
 	// This is the id of the group resource.
+	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/cluster/security/v1alpha1.Group
+	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/v2/pkg/resource.ExtractResourceID()
 	GroupID *string `json:"groupId,omitempty" tf:"group_id,omitempty"`
 
+	// Reference to a Group in security to populate groupId.
+	// +kubebuilder:validation:Optional
+	GroupIDRef *v1.Reference `json:"groupIdRef,omitempty" tf:"-"`
+
+	// Selector for a Group in security to populate groupId.
+	// +kubebuilder:validation:Optional
+	GroupIDSelector *v1.Selector `json:"groupIdSelector,omitempty" tf:"-"`
+
 	// This is the id of the instance profile resource.
+	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/cluster/deployment/v1alpha1.InstanceProfile
+	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/v2/pkg/resource.ExtractResourceID()
 	InstanceProfileID *string `json:"instanceProfileId,omitempty" tf:"instance_profile_id,omitempty"`
+
+	// Reference to a InstanceProfile in deployment to populate instanceProfileId.
+	// +kubebuilder:validation:Optional
+	InstanceProfileIDRef *v1.Reference `json:"instanceProfileIdRef,omitempty" tf:"-"`
+
+	// Selector for a InstanceProfile in deployment to populate instanceProfileId.
+	// +kubebuilder:validation:Optional
+	InstanceProfileIDSelector *v1.Selector `json:"instanceProfileIdSelector,omitempty" tf:"-"`
 }
 
 type GroupInstanceProfileObservation struct {
@@ -37,12 +57,32 @@ type GroupInstanceProfileObservation struct {
 type GroupInstanceProfileParameters struct {
 
 	// This is the id of the group resource.
+	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/cluster/security/v1alpha1.Group
+	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/v2/pkg/resource.ExtractResourceID()
 	// +kubebuilder:validation:Optional
 	GroupID *string `json:"groupId,omitempty" tf:"group_id,omitempty"`
 
+	// Reference to a Group in security to populate groupId.
+	// +kubebuilder:validation:Optional
+	GroupIDRef *v1.Reference `json:"groupIdRef,omitempty" tf:"-"`
+
+	// Selector for a Group in security to populate groupId.
+	// +kubebuilder:validation:Optional
+	GroupIDSelector *v1.Selector `json:"groupIdSelector,omitempty" tf:"-"`
+
 	// This is the id of the instance profile resource.
+	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/cluster/deployment/v1alpha1.InstanceProfile
+	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/v2/pkg/resource.ExtractResourceID()
 	// +kubebuilder:validation:Optional
 	InstanceProfileID *string `json:"instanceProfileId,omitempty" tf:"instance_profile_id,omitempty"`
+
+	// Reference to a InstanceProfile in deployment to populate instanceProfileId.
+	// +kubebuilder:validation:Optional
+	InstanceProfileIDRef *v1.Reference `json:"instanceProfileIdRef,omitempty" tf:"-"`
+
+	// Selector for a InstanceProfile in deployment to populate instanceProfileId.
+	// +kubebuilder:validation:Optional
+	InstanceProfileIDSelector *v1.Selector `json:"instanceProfileIdSelector,omitempty" tf:"-"`
 }
 
 // GroupInstanceProfileSpec defines the desired state of GroupInstanceProfile
@@ -81,10 +121,8 @@ type GroupInstanceProfileStatus struct {
 type GroupInstanceProfile struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.groupId) || (has(self.initProvider) && has(self.initProvider.groupId))",message="spec.forProvider.groupId is a required parameter"
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.instanceProfileId) || (has(self.initProvider) && has(self.initProvider.instanceProfileId))",message="spec.forProvider.instanceProfileId is a required parameter"
-	Spec   GroupInstanceProfileSpec   `json:"spec"`
-	Status GroupInstanceProfileStatus `json:"status,omitempty"`
+	Spec              GroupInstanceProfileSpec   `json:"spec"`
+	Status            GroupInstanceProfileStatus `json:"status,omitempty"`
 }
 
 // +kubebuilder:object:root=true

@@ -21,7 +21,17 @@ type SQLVisualizationInitParameters struct {
 
 	Options *string `json:"options,omitempty" tf:"options,omitempty"`
 
+	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/namespaced/sql/v1alpha1.SQLQuery
+	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/v2/pkg/resource.ExtractResourceID()
 	QueryID *string `json:"queryId,omitempty" tf:"query_id,omitempty"`
+
+	// Reference to a SQLQuery in sql to populate queryId.
+	// +kubebuilder:validation:Optional
+	QueryIDRef *v1.NamespacedReference `json:"queryIdRef,omitempty" tf:"-"`
+
+	// Selector for a SQLQuery in sql to populate queryId.
+	// +kubebuilder:validation:Optional
+	QueryIDSelector *v1.NamespacedSelector `json:"queryIdSelector,omitempty" tf:"-"`
 
 	QueryPlan *string `json:"queryPlan,omitempty" tf:"query_plan,omitempty"`
 
@@ -59,8 +69,18 @@ type SQLVisualizationParameters struct {
 	// +kubebuilder:validation:Optional
 	Options *string `json:"options,omitempty" tf:"options,omitempty"`
 
+	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/namespaced/sql/v1alpha1.SQLQuery
+	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/v2/pkg/resource.ExtractResourceID()
 	// +kubebuilder:validation:Optional
 	QueryID *string `json:"queryId,omitempty" tf:"query_id,omitempty"`
+
+	// Reference to a SQLQuery in sql to populate queryId.
+	// +kubebuilder:validation:Optional
+	QueryIDRef *v1.NamespacedReference `json:"queryIdRef,omitempty" tf:"-"`
+
+	// Selector for a SQLQuery in sql to populate queryId.
+	// +kubebuilder:validation:Optional
+	QueryIDSelector *v1.NamespacedSelector `json:"queryIdSelector,omitempty" tf:"-"`
 
 	// +kubebuilder:validation:Optional
 	QueryPlan *string `json:"queryPlan,omitempty" tf:"query_plan,omitempty"`
@@ -110,7 +130,6 @@ type SQLVisualization struct {
 	metav1.ObjectMeta `json:"metadata,omitempty"`
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.name) || (has(self.initProvider) && has(self.initProvider.name))",message="spec.forProvider.name is a required parameter"
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.options) || (has(self.initProvider) && has(self.initProvider.options))",message="spec.forProvider.options is a required parameter"
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.queryId) || (has(self.initProvider) && has(self.initProvider.queryId))",message="spec.forProvider.queryId is a required parameter"
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.type) || (has(self.initProvider) && has(self.initProvider.type))",message="spec.forProvider.type is a required parameter"
 	Spec   SQLVisualizationSpec   `json:"spec"`
 	Status SQLVisualizationStatus `json:"status,omitempty"`

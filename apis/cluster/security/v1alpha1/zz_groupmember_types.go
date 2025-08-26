@@ -28,7 +28,17 @@ type GroupMemberInitParameters struct {
 	GroupIDSelector *v1.Selector `json:"groupIdSelector,omitempty" tf:"-"`
 
 	// This is the id attribute (SCIM ID) of the group, service principal, or user.
+	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/cluster/security/v1alpha1.Group
+	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/v2/pkg/resource.ExtractResourceID()
 	MemberID *string `json:"memberId,omitempty" tf:"member_id,omitempty"`
+
+	// Reference to a Group in security to populate memberId.
+	// +kubebuilder:validation:Optional
+	MemberIDRef *v1.Reference `json:"memberIdRef,omitempty" tf:"-"`
+
+	// Selector for a Group in security to populate memberId.
+	// +kubebuilder:validation:Optional
+	MemberIDSelector *v1.Selector `json:"memberIdSelector,omitempty" tf:"-"`
 }
 
 type GroupMemberObservation struct {
@@ -59,8 +69,18 @@ type GroupMemberParameters struct {
 	GroupIDSelector *v1.Selector `json:"groupIdSelector,omitempty" tf:"-"`
 
 	// This is the id attribute (SCIM ID) of the group, service principal, or user.
+	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/cluster/security/v1alpha1.Group
+	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/v2/pkg/resource.ExtractResourceID()
 	// +kubebuilder:validation:Optional
 	MemberID *string `json:"memberId,omitempty" tf:"member_id,omitempty"`
+
+	// Reference to a Group in security to populate memberId.
+	// +kubebuilder:validation:Optional
+	MemberIDRef *v1.Reference `json:"memberIdRef,omitempty" tf:"-"`
+
+	// Selector for a Group in security to populate memberId.
+	// +kubebuilder:validation:Optional
+	MemberIDSelector *v1.Selector `json:"memberIdSelector,omitempty" tf:"-"`
 }
 
 // GroupMemberSpec defines the desired state of GroupMember
@@ -99,9 +119,8 @@ type GroupMemberStatus struct {
 type GroupMember struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.memberId) || (has(self.initProvider) && has(self.initProvider.memberId))",message="spec.forProvider.memberId is a required parameter"
-	Spec   GroupMemberSpec   `json:"spec"`
-	Status GroupMemberStatus `json:"status,omitempty"`
+	Spec              GroupMemberSpec   `json:"spec"`
+	Status            GroupMemberStatus `json:"status,omitempty"`
 }
 
 // +kubebuilder:object:root=true

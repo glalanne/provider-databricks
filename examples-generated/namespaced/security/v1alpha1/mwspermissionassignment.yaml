@@ -11,8 +11,12 @@ spec:
   forProvider:
     permissions:
     - ADMIN
-    principalId: ${databricks_group.data_eng.id}
-    workspaceId: ${databricks_mws_workspaces.this.workspace_id}
+    principalIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: data_eng
+    workspaceIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: this
 
 ---
 

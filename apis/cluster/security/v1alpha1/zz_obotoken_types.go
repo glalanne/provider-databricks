@@ -16,7 +16,17 @@ import (
 type OboTokenInitParameters struct {
 
 	// Application ID of databricks_service_principal to create a PAT token for.
+	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/cluster/security/v1alpha1.ServicePrincipal
+	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/v2/pkg/resource.ExtractParamPath("application_id",false)
 	ApplicationID *string `json:"applicationId,omitempty" tf:"application_id,omitempty"`
+
+	// Reference to a ServicePrincipal in security to populate applicationId.
+	// +kubebuilder:validation:Optional
+	ApplicationIDRef *v1.Reference `json:"applicationIdRef,omitempty" tf:"-"`
+
+	// Selector for a ServicePrincipal in security to populate applicationId.
+	// +kubebuilder:validation:Optional
+	ApplicationIDSelector *v1.Selector `json:"applicationIdSelector,omitempty" tf:"-"`
 
 	// (String, Optional) Comment that describes the purpose of the token.
 	Comment *string `json:"comment,omitempty" tf:"comment,omitempty"`
@@ -43,8 +53,18 @@ type OboTokenObservation struct {
 type OboTokenParameters struct {
 
 	// Application ID of databricks_service_principal to create a PAT token for.
+	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/cluster/security/v1alpha1.ServicePrincipal
+	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/v2/pkg/resource.ExtractParamPath("application_id",false)
 	// +kubebuilder:validation:Optional
 	ApplicationID *string `json:"applicationId,omitempty" tf:"application_id,omitempty"`
+
+	// Reference to a ServicePrincipal in security to populate applicationId.
+	// +kubebuilder:validation:Optional
+	ApplicationIDRef *v1.Reference `json:"applicationIdRef,omitempty" tf:"-"`
+
+	// Selector for a ServicePrincipal in security to populate applicationId.
+	// +kubebuilder:validation:Optional
+	ApplicationIDSelector *v1.Selector `json:"applicationIdSelector,omitempty" tf:"-"`
 
 	// (String, Optional) Comment that describes the purpose of the token.
 	// +kubebuilder:validation:Optional
@@ -91,9 +111,8 @@ type OboTokenStatus struct {
 type OboToken struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.applicationId) || (has(self.initProvider) && has(self.initProvider.applicationId))",message="spec.forProvider.applicationId is a required parameter"
-	Spec   OboTokenSpec   `json:"spec"`
-	Status OboTokenStatus `json:"status,omitempty"`
+	Spec              OboTokenSpec   `json:"spec"`
+	Status            OboTokenStatus `json:"status,omitempty"`
 }
 
 // +kubebuilder:object:root=true

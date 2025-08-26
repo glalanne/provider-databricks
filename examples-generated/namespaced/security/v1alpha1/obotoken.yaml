@@ -9,7 +9,9 @@ metadata:
   namespace: upbound-system
 spec:
   forProvider:
-    applicationId: ${databricks_service_principal.this.application_id}
+    applicationIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: this
     comment: PAT on behalf of ${databricks_service_principal.this.display_name}
     lifetimeSeconds: 3600
 

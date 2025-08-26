@@ -57,7 +57,18 @@ type PositionParameters struct {
 }
 
 type SQLWidgetInitParameters struct {
+
+	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/namespaced/sql/v1alpha1.SQLDashboard
+	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/v2/pkg/resource.ExtractResourceID()
 	DashboardID *string `json:"dashboardId,omitempty" tf:"dashboard_id,omitempty"`
+
+	// Reference to a SQLDashboard in sql to populate dashboardId.
+	// +kubebuilder:validation:Optional
+	DashboardIDRef *v1.NamespacedReference `json:"dashboardIdRef,omitempty" tf:"-"`
+
+	// Selector for a SQLDashboard in sql to populate dashboardId.
+	// +kubebuilder:validation:Optional
+	DashboardIDSelector *v1.NamespacedSelector `json:"dashboardIdSelector,omitempty" tf:"-"`
 
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
 
@@ -69,7 +80,17 @@ type SQLWidgetInitParameters struct {
 
 	Title *string `json:"title,omitempty" tf:"title,omitempty"`
 
+	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/namespaced/sql/v1alpha1.SQLVisualization
+	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/v2/pkg/resource.ExtractResourceID()
 	VisualizationID *string `json:"visualizationId,omitempty" tf:"visualization_id,omitempty"`
+
+	// Reference to a SQLVisualization in sql to populate visualizationId.
+	// +kubebuilder:validation:Optional
+	VisualizationIDRef *v1.NamespacedReference `json:"visualizationIdRef,omitempty" tf:"-"`
+
+	// Selector for a SQLVisualization in sql to populate visualizationId.
+	// +kubebuilder:validation:Optional
+	VisualizationIDSelector *v1.NamespacedSelector `json:"visualizationIdSelector,omitempty" tf:"-"`
 
 	WidgetID *string `json:"widgetId,omitempty" tf:"widget_id,omitempty"`
 }
@@ -145,8 +166,18 @@ type SQLWidgetParameterParameters struct {
 
 type SQLWidgetParameters struct {
 
+	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/namespaced/sql/v1alpha1.SQLDashboard
+	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/v2/pkg/resource.ExtractResourceID()
 	// +kubebuilder:validation:Optional
 	DashboardID *string `json:"dashboardId,omitempty" tf:"dashboard_id,omitempty"`
+
+	// Reference to a SQLDashboard in sql to populate dashboardId.
+	// +kubebuilder:validation:Optional
+	DashboardIDRef *v1.NamespacedReference `json:"dashboardIdRef,omitempty" tf:"-"`
+
+	// Selector for a SQLDashboard in sql to populate dashboardId.
+	// +kubebuilder:validation:Optional
+	DashboardIDSelector *v1.NamespacedSelector `json:"dashboardIdSelector,omitempty" tf:"-"`
 
 	// +kubebuilder:validation:Optional
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
@@ -163,8 +194,18 @@ type SQLWidgetParameters struct {
 	// +kubebuilder:validation:Optional
 	Title *string `json:"title,omitempty" tf:"title,omitempty"`
 
+	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/namespaced/sql/v1alpha1.SQLVisualization
+	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/v2/pkg/resource.ExtractResourceID()
 	// +kubebuilder:validation:Optional
 	VisualizationID *string `json:"visualizationId,omitempty" tf:"visualization_id,omitempty"`
+
+	// Reference to a SQLVisualization in sql to populate visualizationId.
+	// +kubebuilder:validation:Optional
+	VisualizationIDRef *v1.NamespacedReference `json:"visualizationIdRef,omitempty" tf:"-"`
+
+	// Selector for a SQLVisualization in sql to populate visualizationId.
+	// +kubebuilder:validation:Optional
+	VisualizationIDSelector *v1.NamespacedSelector `json:"visualizationIdSelector,omitempty" tf:"-"`
 
 	// +kubebuilder:validation:Optional
 	WidgetID *string `json:"widgetId,omitempty" tf:"widget_id,omitempty"`
@@ -206,9 +247,8 @@ type SQLWidgetStatus struct {
 type SQLWidget struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.dashboardId) || (has(self.initProvider) && has(self.initProvider.dashboardId))",message="spec.forProvider.dashboardId is a required parameter"
-	Spec   SQLWidgetSpec   `json:"spec"`
-	Status SQLWidgetStatus `json:"status,omitempty"`
+	Spec              SQLWidgetSpec   `json:"spec"`
+	Status            SQLWidgetStatus `json:"status,omitempty"`
 }
 
 // +kubebuilder:object:root=true

@@ -902,7 +902,18 @@ type ManualParameters struct {
 }
 
 type NotebookInitParameters struct {
+
+	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/namespaced/workspace/v1alpha1.Notebook
+	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/v2/pkg/resource.ExtractResourceID()
 	Path *string `json:"path,omitempty" tf:"path,omitempty"`
+
+	// Reference to a Notebook in workspace to populate path.
+	// +kubebuilder:validation:Optional
+	PathRef *v1.NamespacedReference `json:"pathRef,omitempty" tf:"-"`
+
+	// Selector for a Notebook in workspace to populate path.
+	// +kubebuilder:validation:Optional
+	PathSelector *v1.NamespacedSelector `json:"pathSelector,omitempty" tf:"-"`
 }
 
 type NotebookObservation struct {
@@ -911,8 +922,18 @@ type NotebookObservation struct {
 
 type NotebookParameters struct {
 
+	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/namespaced/workspace/v1alpha1.Notebook
+	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/v2/pkg/resource.ExtractResourceID()
 	// +kubebuilder:validation:Optional
-	Path *string `json:"path" tf:"path,omitempty"`
+	Path *string `json:"path,omitempty" tf:"path,omitempty"`
+
+	// Reference to a Notebook in workspace to populate path.
+	// +kubebuilder:validation:Optional
+	PathRef *v1.NamespacedReference `json:"pathRef,omitempty" tf:"-"`
+
+	// Selector for a Notebook in workspace to populate path.
+	// +kubebuilder:validation:Optional
+	PathSelector *v1.NamespacedSelector `json:"pathSelector,omitempty" tf:"-"`
 }
 
 type NotificationInitParameters struct {

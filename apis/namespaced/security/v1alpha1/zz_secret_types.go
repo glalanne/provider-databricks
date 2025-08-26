@@ -20,7 +20,17 @@ type SecretInitParameters struct {
 	Key *string `json:"key,omitempty" tf:"key,omitempty"`
 
 	// (String) name of databricks secret scope. Must consist of alphanumeric characters, dashes, underscores, and periods, and may not exceed 128 characters.
+	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/namespaced/security/v1alpha1.SecretScope
+	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/v2/pkg/resource.ExtractResourceID()
 	Scope *string `json:"scope,omitempty" tf:"scope,omitempty"`
+
+	// Reference to a SecretScope in security to populate scope.
+	// +kubebuilder:validation:Optional
+	ScopeRef *v1.NamespacedReference `json:"scopeRef,omitempty" tf:"-"`
+
+	// Selector for a SecretScope in security to populate scope.
+	// +kubebuilder:validation:Optional
+	ScopeSelector *v1.NamespacedSelector `json:"scopeSelector,omitempty" tf:"-"`
 
 	// (String) super secret sensitive value.
 	StringValueSecretRef v1.LocalSecretKeySelector `json:"stringValueSecretRef" tf:"-"`
@@ -51,8 +61,18 @@ type SecretParameters struct {
 	Key *string `json:"key,omitempty" tf:"key,omitempty"`
 
 	// (String) name of databricks secret scope. Must consist of alphanumeric characters, dashes, underscores, and periods, and may not exceed 128 characters.
+	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/namespaced/security/v1alpha1.SecretScope
+	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/v2/pkg/resource.ExtractResourceID()
 	// +kubebuilder:validation:Optional
 	Scope *string `json:"scope,omitempty" tf:"scope,omitempty"`
+
+	// Reference to a SecretScope in security to populate scope.
+	// +kubebuilder:validation:Optional
+	ScopeRef *v1.NamespacedReference `json:"scopeRef,omitempty" tf:"-"`
+
+	// Selector for a SecretScope in security to populate scope.
+	// +kubebuilder:validation:Optional
+	ScopeSelector *v1.NamespacedSelector `json:"scopeSelector,omitempty" tf:"-"`
 
 	// (String) super secret sensitive value.
 	// +kubebuilder:validation:Optional
@@ -96,7 +116,6 @@ type Secret struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.key) || (has(self.initProvider) && has(self.initProvider.key))",message="spec.forProvider.key is a required parameter"
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.scope) || (has(self.initProvider) && has(self.initProvider.scope))",message="spec.forProvider.scope is a required parameter"
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.stringValueSecretRef)",message="spec.forProvider.stringValueSecretRef is a required parameter"
 	Spec   SecretSpec   `json:"spec"`
 	Status SecretStatus `json:"status,omitempty"`

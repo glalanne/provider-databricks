@@ -20,10 +20,30 @@ type MwsPermissionAssignmentInitParameters struct {
 	Permissions []*string `json:"permissions,omitempty" tf:"permissions,omitempty"`
 
 	// Databricks ID of the user, service principal, or group. The principal ID can be retrieved using the SCIM API, or using databricks_user, databricks_service_principal or databricks_group data sources.
+	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/cluster/security/v1alpha1.Group
+	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/v2/pkg/resource.ExtractResourceID()
 	PrincipalID *float64 `json:"principalId,omitempty" tf:"principal_id,omitempty"`
 
+	// Reference to a Group in security to populate principalId.
+	// +kubebuilder:validation:Optional
+	PrincipalIDRef *v1.Reference `json:"principalIdRef,omitempty" tf:"-"`
+
+	// Selector for a Group in security to populate principalId.
+	// +kubebuilder:validation:Optional
+	PrincipalIDSelector *v1.Selector `json:"principalIdSelector,omitempty" tf:"-"`
+
 	// Databricks workspace ID.
+	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/cluster/deployment/v1alpha1.MwsWorkspaces
+	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/v2/pkg/resource.ExtractParamPath("workspace_id",false)
 	WorkspaceID *float64 `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
+
+	// Reference to a MwsWorkspaces in deployment to populate workspaceId.
+	// +kubebuilder:validation:Optional
+	WorkspaceIDRef *v1.Reference `json:"workspaceIdRef,omitempty" tf:"-"`
+
+	// Selector for a MwsWorkspaces in deployment to populate workspaceId.
+	// +kubebuilder:validation:Optional
+	WorkspaceIDSelector *v1.Selector `json:"workspaceIdSelector,omitempty" tf:"-"`
 }
 
 type MwsPermissionAssignmentObservation struct {
@@ -50,12 +70,32 @@ type MwsPermissionAssignmentParameters struct {
 	Permissions []*string `json:"permissions,omitempty" tf:"permissions,omitempty"`
 
 	// Databricks ID of the user, service principal, or group. The principal ID can be retrieved using the SCIM API, or using databricks_user, databricks_service_principal or databricks_group data sources.
+	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/cluster/security/v1alpha1.Group
+	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/v2/pkg/resource.ExtractResourceID()
 	// +kubebuilder:validation:Optional
 	PrincipalID *float64 `json:"principalId,omitempty" tf:"principal_id,omitempty"`
 
+	// Reference to a Group in security to populate principalId.
+	// +kubebuilder:validation:Optional
+	PrincipalIDRef *v1.Reference `json:"principalIdRef,omitempty" tf:"-"`
+
+	// Selector for a Group in security to populate principalId.
+	// +kubebuilder:validation:Optional
+	PrincipalIDSelector *v1.Selector `json:"principalIdSelector,omitempty" tf:"-"`
+
 	// Databricks workspace ID.
+	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/cluster/deployment/v1alpha1.MwsWorkspaces
+	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/v2/pkg/resource.ExtractParamPath("workspace_id",false)
 	// +kubebuilder:validation:Optional
 	WorkspaceID *float64 `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
+
+	// Reference to a MwsWorkspaces in deployment to populate workspaceId.
+	// +kubebuilder:validation:Optional
+	WorkspaceIDRef *v1.Reference `json:"workspaceIdRef,omitempty" tf:"-"`
+
+	// Selector for a MwsWorkspaces in deployment to populate workspaceId.
+	// +kubebuilder:validation:Optional
+	WorkspaceIDSelector *v1.Selector `json:"workspaceIdSelector,omitempty" tf:"-"`
 }
 
 // MwsPermissionAssignmentSpec defines the desired state of MwsPermissionAssignment
@@ -95,8 +135,6 @@ type MwsPermissionAssignment struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.permissions) || (has(self.initProvider) && has(self.initProvider.permissions))",message="spec.forProvider.permissions is a required parameter"
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.principalId) || (has(self.initProvider) && has(self.initProvider.principalId))",message="spec.forProvider.principalId is a required parameter"
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.workspaceId) || (has(self.initProvider) && has(self.initProvider.workspaceId))",message="spec.forProvider.workspaceId is a required parameter"
 	Spec   MwsPermissionAssignmentSpec   `json:"spec"`
 	Status MwsPermissionAssignmentStatus `json:"status,omitempty"`
 }

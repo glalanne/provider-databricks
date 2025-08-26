@@ -20,10 +20,30 @@ type SecretACLInitParameters struct {
 	Permission *string `json:"permission,omitempty" tf:"permission,omitempty"`
 
 	// principal's identifier. It can be:
+	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/namespaced/security/v1alpha1.Group
+	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/v2/pkg/resource.ExtractParamPath("display_name",false)
 	Principal *string `json:"principal,omitempty" tf:"principal,omitempty"`
 
+	// Reference to a Group in security to populate principal.
+	// +kubebuilder:validation:Optional
+	PrincipalRef *v1.NamespacedReference `json:"principalRef,omitempty" tf:"-"`
+
+	// Selector for a Group in security to populate principal.
+	// +kubebuilder:validation:Optional
+	PrincipalSelector *v1.NamespacedSelector `json:"principalSelector,omitempty" tf:"-"`
+
 	// name of the scope
+	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/namespaced/security/v1alpha1.SecretScope
+	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/v2/pkg/resource.ExtractParamPath("name",false)
 	Scope *string `json:"scope,omitempty" tf:"scope,omitempty"`
+
+	// Reference to a SecretScope in security to populate scope.
+	// +kubebuilder:validation:Optional
+	ScopeRef *v1.NamespacedReference `json:"scopeRef,omitempty" tf:"-"`
+
+	// Selector for a SecretScope in security to populate scope.
+	// +kubebuilder:validation:Optional
+	ScopeSelector *v1.NamespacedSelector `json:"scopeSelector,omitempty" tf:"-"`
 }
 
 type SecretACLObservation struct {
@@ -46,12 +66,32 @@ type SecretACLParameters struct {
 	Permission *string `json:"permission,omitempty" tf:"permission,omitempty"`
 
 	// principal's identifier. It can be:
+	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/namespaced/security/v1alpha1.Group
+	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/v2/pkg/resource.ExtractParamPath("display_name",false)
 	// +kubebuilder:validation:Optional
 	Principal *string `json:"principal,omitempty" tf:"principal,omitempty"`
 
+	// Reference to a Group in security to populate principal.
+	// +kubebuilder:validation:Optional
+	PrincipalRef *v1.NamespacedReference `json:"principalRef,omitempty" tf:"-"`
+
+	// Selector for a Group in security to populate principal.
+	// +kubebuilder:validation:Optional
+	PrincipalSelector *v1.NamespacedSelector `json:"principalSelector,omitempty" tf:"-"`
+
 	// name of the scope
+	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/namespaced/security/v1alpha1.SecretScope
+	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/v2/pkg/resource.ExtractParamPath("name",false)
 	// +kubebuilder:validation:Optional
 	Scope *string `json:"scope,omitempty" tf:"scope,omitempty"`
+
+	// Reference to a SecretScope in security to populate scope.
+	// +kubebuilder:validation:Optional
+	ScopeRef *v1.NamespacedReference `json:"scopeRef,omitempty" tf:"-"`
+
+	// Selector for a SecretScope in security to populate scope.
+	// +kubebuilder:validation:Optional
+	ScopeSelector *v1.NamespacedSelector `json:"scopeSelector,omitempty" tf:"-"`
 }
 
 // SecretACLSpec defines the desired state of SecretACL
@@ -91,8 +131,6 @@ type SecretACL struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.permission) || (has(self.initProvider) && has(self.initProvider.permission))",message="spec.forProvider.permission is a required parameter"
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.principal) || (has(self.initProvider) && has(self.initProvider.principal))",message="spec.forProvider.principal is a required parameter"
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.scope) || (has(self.initProvider) && has(self.initProvider.scope))",message="spec.forProvider.scope is a required parameter"
 	Spec   SecretACLSpec   `json:"spec"`
 	Status SecretACLStatus `json:"status,omitempty"`
 }

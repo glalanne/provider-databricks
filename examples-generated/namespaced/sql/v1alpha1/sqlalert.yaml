@@ -16,7 +16,9 @@ spec:
       op: ==
       value: "2"
     parent: folders/${databricks_directory.shared_dir.object_id}
-    queryId: ${databricks_sql_query.this.id}
+    queryIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: this
     rearm: 1
 
 ---
@@ -47,7 +49,9 @@ metadata:
   namespace: upbound-system
 spec:
   forProvider:
-    dataSourceId: ${databricks_sql_endpoint.example.data_source_id}
+    dataSourceIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
     name: My Query Name
     parent: folders/${databricks_directory.shared_dir.object_id}
     query: SELECT 1 AS p1, 2 as p2

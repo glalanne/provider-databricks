@@ -234,7 +234,17 @@ type MetastoreDataAccessInitParameters struct {
 	IsolationMode *string `json:"isolationMode,omitempty" tf:"isolation_mode,omitempty"`
 
 	// ID of this data access configuration in form of <metastore_id>|<name>.
+	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/namespaced/unity/v1alpha1.Metastore
+	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/v2/pkg/resource.ExtractResourceID()
 	MetastoreID *string `json:"metastoreId,omitempty" tf:"metastore_id,omitempty"`
+
+	// Reference to a Metastore in unity to populate metastoreId.
+	// +kubebuilder:validation:Optional
+	MetastoreIDRef *v1.NamespacedReference `json:"metastoreIdRef,omitempty" tf:"-"`
+
+	// Selector for a Metastore in unity to populate metastoreId.
+	// +kubebuilder:validation:Optional
+	MetastoreIDSelector *v1.NamespacedSelector `json:"metastoreIdSelector,omitempty" tf:"-"`
 
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
@@ -321,8 +331,18 @@ type MetastoreDataAccessParameters struct {
 	IsolationMode *string `json:"isolationMode,omitempty" tf:"isolation_mode,omitempty"`
 
 	// ID of this data access configuration in form of <metastore_id>|<name>.
+	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/namespaced/unity/v1alpha1.Metastore
+	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/v2/pkg/resource.ExtractResourceID()
 	// +kubebuilder:validation:Optional
 	MetastoreID *string `json:"metastoreId,omitempty" tf:"metastore_id,omitempty"`
+
+	// Reference to a Metastore in unity to populate metastoreId.
+	// +kubebuilder:validation:Optional
+	MetastoreIDRef *v1.NamespacedReference `json:"metastoreIdRef,omitempty" tf:"-"`
+
+	// Selector for a Metastore in unity to populate metastoreId.
+	// +kubebuilder:validation:Optional
+	MetastoreIDSelector *v1.NamespacedSelector `json:"metastoreIdSelector,omitempty" tf:"-"`
 
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`

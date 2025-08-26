@@ -10,11 +10,15 @@ spec:
   forProvider:
     accountId: ${var.databricks_account_id}
     configName: Usage Logs
-    credentialsId: ${databricks_mws_credentials.log_writer.credentials_id}
+    credentialsIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: log_writer
     deliveryPathPrefix: billable-usage
     logType: BILLABLE_USAGE
     outputFormat: CSV
-    storageConfigurationId: ${databricks_mws_storage_configurations.log_bucket.storage_configuration_id}
+    storageConfigurationIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: log_bucket
 
 ---
 

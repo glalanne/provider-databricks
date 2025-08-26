@@ -77,8 +77,8 @@ github.com/fsnotify/fsnotify v1.8.0 h1:dAwr6QBTBZIkG8roQaJjGof0pp0EeF+tNV7YBP3F/
 github.com/fsnotify/fsnotify v1.8.0/go.mod h1:8jBTzvmWwFyi3Pb8djgCCO5IBqzKJ/Jwo8TRcHyHii0=
 github.com/fxamacker/cbor/v2 v2.7.0 h1:iM5WgngdRBanHcxugY4JySA0nk1wZorNOpTgCMedv5E=
 github.com/fxamacker/cbor/v2 v2.7.0/go.mod h1:pxXPTn3joSm21Gbwsv0w9OSA2y1HFR9qXEeXQVeNoDQ=
-github.com/glalanne/terraform-provider-databricks v0.0.0-20250822224732-40aed8dfc589 h1:s8ofgvx8LYJeqSM3zSuQNjnFy7H/Uyx3dvis425lx/Q=
-github.com/glalanne/terraform-provider-databricks v0.0.0-20250822224732-40aed8dfc589/go.mod h1:gl2sIL9wdBFuMzcbZYcbQGQISzs2ET3s6Ey5lwwyYNk=
+github.com/glalanne/terraform-provider-databricks v0.0.0-20250825211438-56177bc34906 h1:ATNF1wWa9fMRv8yCaqEs5mpOWs4dAXQOb6lM3sOw4Ok=
+github.com/glalanne/terraform-provider-databricks v0.0.0-20250825211438-56177bc34906/go.mod h1:gl2sIL9wdBFuMzcbZYcbQGQISzs2ET3s6Ey5lwwyYNk=
 github.com/go-git/gcfg v1.5.1-0.20230307220236-3a3c6141e376 h1:+zs/tPmkDkHx3U66DAb0lQFJrpS6731Oaa12ikc+DiI=
 github.com/go-git/gcfg v1.5.1-0.20230307220236-3a3c6141e376/go.mod h1:an3vInlBmSxCcxctByoQdvwPiA7DTK7jaaFDBTtu0ic=
 github.com/go-git/go-billy/v5 v5.6.2 h1:6Q86EsPXMa7c3YZ3aLAQsMA0VlWmy43r6FHqa/UNbRM=

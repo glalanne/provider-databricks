@@ -10,8 +10,8 @@ metadata:
 spec:
   forProvider:
     grantRules:
-    - principals:
-      - ${data.databricks_group.ds.acl_principal_id}
+    - principalsRefs:
+      - name: databricks_group
       role: roles/servicePrincipal.user
     name: accounts/${local.account_id}/servicePrincipals/${databricks_service_principal.automation_sp.application_id}/ruleSets/default
 

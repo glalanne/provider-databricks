@@ -11,7 +11,9 @@ spec:
     awsIamRole:
     - roleArn: ${aws_iam_role.metastore_data_access.arn}
     isDefault: true
-    metastoreId: ${databricks_metastore.this.id}
+    metastoreIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: this
     name: ${aws_iam_role.metastore_data_access.name}
 
 ---

@@ -17,10 +17,30 @@ import (
 type UserInstanceProfileInitParameters struct {
 
 	// This is the id of the instance profile resource.
+	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/namespaced/deployment/v1alpha1.InstanceProfile
+	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/v2/pkg/resource.ExtractResourceID()
 	InstanceProfileID *string `json:"instanceProfileId,omitempty" tf:"instance_profile_id,omitempty"`
 
+	// Reference to a InstanceProfile in deployment to populate instanceProfileId.
+	// +kubebuilder:validation:Optional
+	InstanceProfileIDRef *v1.NamespacedReference `json:"instanceProfileIdRef,omitempty" tf:"-"`
+
+	// Selector for a InstanceProfile in deployment to populate instanceProfileId.
+	// +kubebuilder:validation:Optional
+	InstanceProfileIDSelector *v1.NamespacedSelector `json:"instanceProfileIdSelector,omitempty" tf:"-"`
+
 	// This is the id of the user resource.
+	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/namespaced/security/v1alpha1.User
+	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/v2/pkg/resource.ExtractResourceID()
 	UserID *string `json:"userId,omitempty" tf:"user_id,omitempty"`
+
+	// Reference to a User in security to populate userId.
+	// +kubebuilder:validation:Optional
+	UserIDRef *v1.NamespacedReference `json:"userIdRef,omitempty" tf:"-"`
+
+	// Selector for a User in security to populate userId.
+	// +kubebuilder:validation:Optional
+	UserIDSelector *v1.NamespacedSelector `json:"userIdSelector,omitempty" tf:"-"`
 }
 
 type UserInstanceProfileObservation struct {
@@ -38,12 +58,32 @@ type UserInstanceProfileObservation struct {
 type UserInstanceProfileParameters struct {
 
 	// This is the id of the instance profile resource.
+	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/namespaced/deployment/v1alpha1.InstanceProfile
+	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/v2/pkg/resource.ExtractResourceID()
 	// +kubebuilder:validation:Optional
 	InstanceProfileID *string `json:"instanceProfileId,omitempty" tf:"instance_profile_id,omitempty"`
 
+	// Reference to a InstanceProfile in deployment to populate instanceProfileId.
+	// +kubebuilder:validation:Optional
+	InstanceProfileIDRef *v1.NamespacedReference `json:"instanceProfileIdRef,omitempty" tf:"-"`
+
+	// Selector for a InstanceProfile in deployment to populate instanceProfileId.
+	// +kubebuilder:validation:Optional
+	InstanceProfileIDSelector *v1.NamespacedSelector `json:"instanceProfileIdSelector,omitempty" tf:"-"`
+
 	// This is the id of the user resource.
+	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/namespaced/security/v1alpha1.User
+	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/v2/pkg/resource.ExtractResourceID()
 	// +kubebuilder:validation:Optional
 	UserID *string `json:"userId,omitempty" tf:"user_id,omitempty"`
+
+	// Reference to a User in security to populate userId.
+	// +kubebuilder:validation:Optional
+	UserIDRef *v1.NamespacedReference `json:"userIdRef,omitempty" tf:"-"`
+
+	// Selector for a User in security to populate userId.
+	// +kubebuilder:validation:Optional
+	UserIDSelector *v1.NamespacedSelector `json:"userIdSelector,omitempty" tf:"-"`
 }
 
 // UserInstanceProfileSpec defines the desired state of UserInstanceProfile
@@ -82,10 +122,8 @@ type UserInstanceProfileStatus struct {
 type UserInstanceProfile struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.instanceProfileId) || (has(self.initProvider) && has(self.initProvider.instanceProfileId))",message="spec.forProvider.instanceProfileId is a required parameter"
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.userId) || (has(self.initProvider) && has(self.initProvider.userId))",message="spec.forProvider.userId is a required parameter"
-	Spec   UserInstanceProfileSpec   `json:"spec"`
-	Status UserInstanceProfileStatus `json:"status,omitempty"`
+	Spec              UserInstanceProfileSpec   `json:"spec"`
+	Status            UserInstanceProfileStatus `json:"status,omitempty"`
 }
 
 // +kubebuilder:object:root=true

@@ -17,10 +17,30 @@ import (
 type ServicePrincipalRoleInitParameters struct {
 
 	// This is the role name, role id, or instance profile resource.
+	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/namespaced/deployment/v1alpha1.InstanceProfile
+	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/v2/pkg/resource.ExtractResourceID()
 	Role *string `json:"role,omitempty" tf:"role,omitempty"`
 
+	// Reference to a InstanceProfile in deployment to populate role.
+	// +kubebuilder:validation:Optional
+	RoleRef *v1.NamespacedReference `json:"roleRef,omitempty" tf:"-"`
+
+	// Selector for a InstanceProfile in deployment to populate role.
+	// +kubebuilder:validation:Optional
+	RoleSelector *v1.NamespacedSelector `json:"roleSelector,omitempty" tf:"-"`
+
 	// This is the id of the service principal resource.
+	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/namespaced/security/v1alpha1.ServicePrincipal
+	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/v2/pkg/resource.ExtractResourceID()
 	ServicePrincipalID *string `json:"servicePrincipalId,omitempty" tf:"service_principal_id,omitempty"`
+
+	// Reference to a ServicePrincipal in security to populate servicePrincipalId.
+	// +kubebuilder:validation:Optional
+	ServicePrincipalIDRef *v1.NamespacedReference `json:"servicePrincipalIdRef,omitempty" tf:"-"`
+
+	// Selector for a ServicePrincipal in security to populate servicePrincipalId.
+	// +kubebuilder:validation:Optional
+	ServicePrincipalIDSelector *v1.NamespacedSelector `json:"servicePrincipalIdSelector,omitempty" tf:"-"`
 }
 
 type ServicePrincipalRoleObservation struct {
@@ -38,12 +58,32 @@ type ServicePrincipalRoleObservation struct {
 type ServicePrincipalRoleParameters struct {
 
 	// This is the role name, role id, or instance profile resource.
+	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/namespaced/deployment/v1alpha1.InstanceProfile
+	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/v2/pkg/resource.ExtractResourceID()
 	// +kubebuilder:validation:Optional
 	Role *string `json:"role,omitempty" tf:"role,omitempty"`
 
+	// Reference to a InstanceProfile in deployment to populate role.
+	// +kubebuilder:validation:Optional
+	RoleRef *v1.NamespacedReference `json:"roleRef,omitempty" tf:"-"`
+
+	// Selector for a InstanceProfile in deployment to populate role.
+	// +kubebuilder:validation:Optional
+	RoleSelector *v1.NamespacedSelector `json:"roleSelector,omitempty" tf:"-"`
+
 	// This is the id of the service principal resource.
+	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/namespaced/security/v1alpha1.ServicePrincipal
+	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/v2/pkg/resource.ExtractResourceID()
 	// +kubebuilder:validation:Optional
 	ServicePrincipalID *string `json:"servicePrincipalId,omitempty" tf:"service_principal_id,omitempty"`
+
+	// Reference to a ServicePrincipal in security to populate servicePrincipalId.
+	// +kubebuilder:validation:Optional
+	ServicePrincipalIDRef *v1.NamespacedReference `json:"servicePrincipalIdRef,omitempty" tf:"-"`
+
+	// Selector for a ServicePrincipal in security to populate servicePrincipalId.
+	// +kubebuilder:validation:Optional
+	ServicePrincipalIDSelector *v1.NamespacedSelector `json:"servicePrincipalIdSelector,omitempty" tf:"-"`
 }
 
 // ServicePrincipalRoleSpec defines the desired state of ServicePrincipalRole
@@ -82,10 +122,8 @@ type ServicePrincipalRoleStatus struct {
 type ServicePrincipalRole struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.role) || (has(self.initProvider) && has(self.initProvider.role))",message="spec.forProvider.role is a required parameter"
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.servicePrincipalId) || (has(self.initProvider) && has(self.initProvider.servicePrincipalId))",message="spec.forProvider.servicePrincipalId is a required parameter"
-	Spec   ServicePrincipalRoleSpec   `json:"spec"`
-	Status ServicePrincipalRoleStatus `json:"status,omitempty"`
+	Spec              ServicePrincipalRoleSpec   `json:"spec"`
+	Status            ServicePrincipalRoleStatus `json:"status,omitempty"`
 }
 
 // +kubebuilder:object:root=true

@@ -273,92 +273,78 @@ spec:
                       properties:
                         continuousUpdateStatus:
                           description: 'object describing status of the online table:'
-                          items:
-                            properties:
-                              initialPipelineSyncProgress:
-                                items:
-                                  properties:
-                                    estimatedCompletionTimeSeconds:
-                                      type: number
-                                    latestVersionCurrentlyProcessing:
-                                      type: number
-                                    syncProgressCompletion:
-                                      type: number
-                                    syncedRowCount:
-                                      type: number
-                                    totalRowCount:
-                                      type: number
-                                  type: object
-                                type: array
-                              lastProcessedCommitVersion:
-                                type: number
-                              timestamp:
-                                type: string
-                            type: object
-                          type: array
+                          properties:
+                            initialPipelineSyncProgress:
+                              properties:
+                                estimatedCompletionTimeSeconds:
+                                  type: number
+                                latestVersionCurrentlyProcessing:
+                                  type: number
+                                syncProgressCompletion:
+                                  type: number
+                                syncedRowCount:
+                                  type: number
+                                totalRowCount:
+                                  type: number
+                              type: object
+                            lastProcessedCommitVersion:
+                              type: number
+                            timestamp:
+                              type: string
+                          type: object
                         detailedState:
                           description: The state of the online table.
                           type: string
                         failedStatus:
                           description: 'object describing status of the online table:'
-                          items:
-                            properties:
-                              lastProcessedCommitVersion:
-                                type: number
-                              timestamp:
-                                type: string
-                            type: object
-                          type: array
+                          properties:
+                            lastProcessedCommitVersion:
+                              type: number
+                            timestamp:
+                              type: string
+                          type: object
                         message:
                           description: A text description of the current state of
                             the online table.
                           type: string
                         provisioningStatus:
                           description: 'object describing status of the online table:'
-                          items:
-                            properties:
-                              initialPipelineSyncProgress:
-                                items:
-                                  properties:
-                                    estimatedCompletionTimeSeconds:
-                                      type: number
-                                    latestVersionCurrentlyProcessing:
-                                      type: number
-                                    syncProgressCompletion:
-                                      type: number
-                                    syncedRowCount:
-                                      type: number
-                                    totalRowCount:
-                                      type: number
-                                  type: object
-                                type: array
-                            type: object
-                          type: array
+                          properties:
+                            initialPipelineSyncProgress:
+                              properties:
+                                estimatedCompletionTimeSeconds:
+                                  type: number
+                                latestVersionCurrentlyProcessing:
+                                  type: number
+                                syncProgressCompletion:
+                                  type: number
+                                syncedRowCount:
+                                  type: number
+                                totalRowCount:
+                                  type: number
+                              type: object
+                          type: object
                         triggeredUpdateStatus:
                           description: 'object describing status of the online table:'
-                          items:
-                            properties:
-                              lastProcessedCommitVersion:
-                                type: number
-                              timestamp:
-                                type: string
-                              triggeredUpdateProgress:
-                                items:
-                                  properties:
-                                    estimatedCompletionTimeSeconds:
-                                      type: number
-                                    latestVersionCurrentlyProcessing:
-                                      type: number
-                                    syncProgressCompletion:
-                                      type: number
-                                    syncedRowCount:
-                                      type: number
-                                    totalRowCount:
-                                      type: number
-                                  type: object
-                                type: array
-                            type: object
-                          type: array
+                          properties:
+                            lastProcessedCommitVersion:
+                              type: number
+                            timestamp:
+                              type: string
+                            triggeredUpdateProgress:
+                              properties:
+                                estimatedCompletionTimeSeconds:
+                                  type: number
+                                latestVersionCurrentlyProcessing:
+                                  type: number
+                                syncProgressCompletion:
+                                  type: number
+                                syncedRowCount:
+                                  type: number
+                                totalRowCount:
+                                  type: number
+                              type: object
+                          type: object
                       type: object
                     type: array
                   tableServingUrl:

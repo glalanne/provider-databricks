@@ -17,8 +17,157 @@ import (
 	client "sigs.k8s.io/controller-runtime/pkg/client"
 )
 
-func (mg *GroupMember) ResolveReferences( // ResolveReferences of this GroupMember.
+func (mg *AccessControlRuleSet) ResolveReferences( // ResolveReferences of this AccessControlRuleSet.
 	ctx context.Context, c client.Reader) error {
+	var m xpresource.Managed
+	var l xpresource.ManagedList
+	r := reference.NewAPINamespacedResolver(c, mg)
+
+	var mrsp reference.MultiNamespacedResolutionResponse
+	var err error
+
+	for i3 := 0; i3 < len(mg.Spec.ForProvider.GrantRules); i3++ {
+		{
+			m, l, err = apisresolver.GetManagedResource("security.databricks.m.crossplane.io", "v1alpha1", "Group", "GroupList")
+			if err != nil {
+				return errors.Wrap(err, "failed to get the reference target managed resource and its list for reference resolution")
+			}
+			mrsp, err = r.ResolveMultiple(ctx, reference.MultiNamespacedResolutionRequest{
+				CurrentValues: reference.FromPtrValues(mg.Spec.ForProvider.GrantRules[i3].Principals),
+				Extract:       resource.ExtractParamPath("acl_principal_id", false),
+				Namespace:     mg.GetNamespace(),
+				References:    mg.Spec.ForProvider.GrantRules[i3].PrincipalsRefs,
+				Selector:      mg.Spec.ForProvider.GrantRules[i3].PrincipalsSelector,
+				To:            reference.To{List: l, Managed: m},
+			})
+		}
+		if err != nil {
+			return errors.Wrap(err, "mg.Spec.ForProvider.GrantRules[i3].Principals")
+		}
+		mg.Spec.ForProvider.GrantRules[i3].Principals = reference.ToPtrValues(mrsp.ResolvedValues)
+		mg.Spec.ForProvider.GrantRules[i3].PrincipalsRefs = mrsp.ResolvedReferences
+
+	}
+	for i3 := 0; i3 < len(mg.Spec.InitProvider.GrantRules); i3++ {
+		{
+			m, l, err = apisresolver.GetManagedResource("security.databricks.m.crossplane.io", "v1alpha1", "Group", "GroupList")
+			if err != nil {
+				return errors.Wrap(err, "failed to get the reference target managed resource and its list for reference resolution")
+			}
+			mrsp, err = r.ResolveMultiple(ctx, reference.MultiNamespacedResolutionRequest{
+				CurrentValues: reference.FromPtrValues(mg.Spec.InitProvider.GrantRules[i3].Principals),
+				Extract:       resource.ExtractParamPath("acl_principal_id", false),
+				Namespace:     mg.GetNamespace(),
+				References:    mg.Spec.InitProvider.GrantRules[i3].PrincipalsRefs,
+				Selector:      mg.Spec.InitProvider.GrantRules[i3].PrincipalsSelector,
+				To:            reference.To{List: l, Managed: m},
+			})
+		}
+		if err != nil {
+			return errors.Wrap(err, "mg.Spec.InitProvider.GrantRules[i3].Principals")
+		}
+		mg.Spec.InitProvider.GrantRules[i3].Principals = reference.ToPtrValues(mrsp.ResolvedValues)
+		mg.Spec.InitProvider.GrantRules[i3].PrincipalsRefs = mrsp.ResolvedReferences
+
+	}
+
+	return nil
+}
+
+// ResolveReferences of this GroupInstanceProfile.
+func (mg *GroupInstanceProfile) ResolveReferences(ctx context.Context, c client.Reader) error {
+	var m xpresource.Managed
+	var l xpresource.ManagedList
+	r := reference.NewAPINamespacedResolver(c, mg)
+
+	var rsp reference.NamespacedResolutionResponse
+	var err error
+	{
+		m, l, err = apisresolver.GetManagedResource("security.databricks.m.crossplane.io", "v1alpha1", "Group", "GroupList")
+		if err != nil {
+			return errors.Wrap(err, "failed to get the reference target managed resource and its list for reference resolution")
+		}
+
+		rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+			CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.GroupID),
+			Extract:      resource.ExtractResourceID(),
+			Namespace:    mg.GetNamespace(),
+			Reference:    mg.Spec.ForProvider.GroupIDRef,
+			Selector:     mg.Spec.ForProvider.GroupIDSelector,
+			To:           reference.To{List: l, Managed: m},
+		})
+	}
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.ForProvider.GroupID")
+	}
+	mg.Spec.ForProvider.GroupID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.ForProvider.GroupIDRef = rsp.ResolvedReference
+	{
+		m, l, err = apisresolver.GetManagedResource("deployment.databricks.m.crossplane.io", "v1alpha1", "InstanceProfile", "InstanceProfileList")
+		if err != nil {
+			return errors.Wrap(err, "failed to get the reference target managed resource and its list for reference resolution")
+		}
+
+		rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+			CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.InstanceProfileID),
+			Extract:      resource.ExtractResourceID(),
+			Namespace:    mg.GetNamespace(),
+			Reference:    mg.Spec.ForProvider.InstanceProfileIDRef,
+			Selector:     mg.Spec.ForProvider.InstanceProfileIDSelector,
+			To:           reference.To{List: l, Managed: m},
+		})
+	}
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.ForProvider.InstanceProfileID")
+	}
+	mg.Spec.ForProvider.InstanceProfileID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.ForProvider.InstanceProfileIDRef = rsp.ResolvedReference
+	{
+		m, l, err = apisresolver.GetManagedResource("security.databricks.m.crossplane.io", "v1alpha1", "Group", "GroupList")
+		if err != nil {
+			return errors.Wrap(err, "failed to get the reference target managed resource and its list for reference resolution")
+		}
+
+		rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+			CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.GroupID),
+			Extract:      resource.ExtractResourceID(),
+			Namespace:    mg.GetNamespace(),
+			Reference:    mg.Spec.InitProvider.GroupIDRef,
+			Selector:     mg.Spec.InitProvider.GroupIDSelector,
+			To:           reference.To{List: l, Managed: m},
+		})
+	}
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.InitProvider.GroupID")
+	}
+	mg.Spec.InitProvider.GroupID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.InitProvider.GroupIDRef = rsp.ResolvedReference
+	{
+		m, l, err = apisresolver.GetManagedResource("deployment.databricks.m.crossplane.io", "v1alpha1", "InstanceProfile", "InstanceProfileList")
+		if err != nil {
+			return errors.Wrap(err, "failed to get the reference target managed resource and its list for reference resolution")
+		}
+
+		rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+			CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.InstanceProfileID),
+			Extract:      resource.ExtractResourceID(),
+			Namespace:    mg.GetNamespace(),
+			Reference:    mg.Spec.InitProvider.InstanceProfileIDRef,
+			Selector:     mg.Spec.InitProvider.InstanceProfileIDSelector,
+			To:           reference.To{List: l, Managed: m},
+		})
+	}
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.InitProvider.InstanceProfileID")
+	}
+	mg.Spec.InitProvider.InstanceProfileID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.InitProvider.InstanceProfileIDRef = rsp.ResolvedReference
+
+	return nil
+}
+
+// ResolveReferences of this GroupMember.
+func (mg *GroupMember) ResolveReferences(ctx context.Context, c client.Reader) error {
 	var m xpresource.Managed
 	var l xpresource.ManagedList
 	r := reference.NewAPINamespacedResolver(c, mg)
@@ -52,6 +201,26 @@ func (mg *GroupMember) ResolveReferences( // ResolveReferences of this GroupMemb
 		}
 
 		rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+			CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.MemberID),
+			Extract:      resource.ExtractResourceID(),
+			Namespace:    mg.GetNamespace(),
+			Reference:    mg.Spec.ForProvider.MemberIDRef,
+			Selector:     mg.Spec.ForProvider.MemberIDSelector,
+			To:           reference.To{List: l, Managed: m},
+		})
+	}
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.ForProvider.MemberID")
+	}
+	mg.Spec.ForProvider.MemberID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.ForProvider.MemberIDRef = rsp.ResolvedReference
+	{
+		m, l, err = apisresolver.GetManagedResource("security.databricks.m.crossplane.io", "v1alpha1", "Group", "GroupList")
+		if err != nil {
+			return errors.Wrap(err, "failed to get the reference target managed resource and its list for reference resolution")
+		}
+
+		rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
 			CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.GroupID),
 			Extract:      reference.ExternalName(),
 			Namespace:    mg.GetNamespace(),
@@ -65,6 +234,262 @@ func (mg *GroupMember) ResolveReferences( // ResolveReferences of this GroupMemb
 	}
 	mg.Spec.InitProvider.GroupID = reference.ToPtrValue(rsp.ResolvedValue)
 	mg.Spec.InitProvider.GroupIDRef = rsp.ResolvedReference
+	{
+		m, l, err = apisresolver.GetManagedResource("security.databricks.m.crossplane.io", "v1alpha1", "Group", "GroupList")
+		if err != nil {
+			return errors.Wrap(err, "failed to get the reference target managed resource and its list for reference resolution")
+		}
+
+		rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+			CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.MemberID),
+			Extract:      resource.ExtractResourceID(),
+			Namespace:    mg.GetNamespace(),
+			Reference:    mg.Spec.InitProvider.MemberIDRef,
+			Selector:     mg.Spec.InitProvider.MemberIDSelector,
+			To:           reference.To{List: l, Managed: m},
+		})
+	}
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.InitProvider.MemberID")
+	}
+	mg.Spec.InitProvider.MemberID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.InitProvider.MemberIDRef = rsp.ResolvedReference
+
+	return nil
+}
+
+// ResolveReferences of this GroupRole.
+func (mg *GroupRole) ResolveReferences(ctx context.Context, c client.Reader) error {
+	var m xpresource.Managed
+	var l xpresource.ManagedList
+	r := reference.NewAPINamespacedResolver(c, mg)
+
+	var rsp reference.NamespacedResolutionResponse
+	var err error
+	{
+		m, l, err = apisresolver.GetManagedResource("security.databricks.m.crossplane.io", "v1alpha1", "Group", "GroupList")
+		if err != nil {
+			return errors.Wrap(err, "failed to get the reference target managed resource and its list for reference resolution")
+		}
+
+		rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+			CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.GroupID),
+			Extract:      resource.ExtractResourceID(),
+			Namespace:    mg.GetNamespace(),
+			Reference:    mg.Spec.ForProvider.GroupIDRef,
+			Selector:     mg.Spec.ForProvider.GroupIDSelector,
+			To:           reference.To{List: l, Managed: m},
+		})
+	}
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.ForProvider.GroupID")
+	}
+	mg.Spec.ForProvider.GroupID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.ForProvider.GroupIDRef = rsp.ResolvedReference
+	{
+		m, l, err = apisresolver.GetManagedResource("deployment.databricks.m.crossplane.io", "v1alpha1", "InstanceProfile", "InstanceProfileList")
+		if err != nil {
+			return errors.Wrap(err, "failed to get the reference target managed resource and its list for reference resolution")
+		}
+
+		rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+			CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.Role),
+			Extract:      resource.ExtractResourceID(),
+			Namespace:    mg.GetNamespace(),
+			Reference:    mg.Spec.ForProvider.RoleRef,
+			Selector:     mg.Spec.ForProvider.RoleSelector,
+			To:           reference.To{List: l, Managed: m},
+		})
+	}
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.ForProvider.Role")
+	}
+	mg.Spec.ForProvider.Role = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.ForProvider.RoleRef = rsp.ResolvedReference
+	{
+		m, l, err = apisresolver.GetManagedResource("security.databricks.m.crossplane.io", "v1alpha1", "Group", "GroupList")
+		if err != nil {
+			return errors.Wrap(err, "failed to get the reference target managed resource and its list for reference resolution")
+		}
+
+		rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+			CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.GroupID),
+			Extract:      resource.ExtractResourceID(),
+			Namespace:    mg.GetNamespace(),
+			Reference:    mg.Spec.InitProvider.GroupIDRef,
+			Selector:     mg.Spec.InitProvider.GroupIDSelector,
+			To:           reference.To{List: l, Managed: m},
+		})
+	}
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.InitProvider.GroupID")
+	}
+	mg.Spec.InitProvider.GroupID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.InitProvider.GroupIDRef = rsp.ResolvedReference
+	{
+		m, l, err = apisresolver.GetManagedResource("deployment.databricks.m.crossplane.io", "v1alpha1", "InstanceProfile", "InstanceProfileList")
+		if err != nil {
+			return errors.Wrap(err, "failed to get the reference target managed resource and its list for reference resolution")
+		}
+
+		rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+			CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.Role),
+			Extract:      resource.ExtractResourceID(),
+			Namespace:    mg.GetNamespace(),
+			Reference:    mg.Spec.InitProvider.RoleRef,
+			Selector:     mg.Spec.InitProvider.RoleSelector,
+			To:           reference.To{List: l, Managed: m},
+		})
+	}
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.InitProvider.Role")
+	}
+	mg.Spec.InitProvider.Role = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.InitProvider.RoleRef = rsp.ResolvedReference
+
+	return nil
+}
+
+// ResolveReferences of this MwsPermissionAssignment.
+func (mg *MwsPermissionAssignment) ResolveReferences(ctx context.Context, c client.Reader) error {
+	var m xpresource.Managed
+	var l xpresource.ManagedList
+	r := reference.NewAPINamespacedResolver(c, mg)
+
+	var rsp reference.NamespacedResolutionResponse
+	var err error
+	{
+		m, l, err = apisresolver.GetManagedResource("security.databricks.m.crossplane.io", "v1alpha1", "Group", "GroupList")
+		if err != nil {
+			return errors.Wrap(err, "failed to get the reference target managed resource and its list for reference resolution")
+		}
+
+		rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+			CurrentValue: reference.FromFloatPtrValue(mg.Spec.ForProvider.PrincipalID),
+			Extract:      resource.ExtractResourceID(),
+			Namespace:    mg.GetNamespace(),
+			Reference:    mg.Spec.ForProvider.PrincipalIDRef,
+			Selector:     mg.Spec.ForProvider.PrincipalIDSelector,
+			To:           reference.To{List: l, Managed: m},
+		})
+	}
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.ForProvider.PrincipalID")
+	}
+	mg.Spec.ForProvider.PrincipalID = reference.ToFloatPtrValue(rsp.ResolvedValue)
+	mg.Spec.ForProvider.PrincipalIDRef = rsp.ResolvedReference
+	{
+		m, l, err = apisresolver.GetManagedResource("deployment.databricks.m.crossplane.io", "v1alpha1", "MwsWorkspaces", "MwsWorkspacesList")
+		if err != nil {
+			return errors.Wrap(err, "failed to get the reference target managed resource and its list for reference resolution")
+		}
+
+		rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+			CurrentValue: reference.FromFloatPtrValue(mg.Spec.ForProvider.WorkspaceID),
+			Extract:      resource.ExtractParamPath("workspace_id", false),
+			Namespace:    mg.GetNamespace(),
+			Reference:    mg.Spec.ForProvider.WorkspaceIDRef,
+			Selector:     mg.Spec.ForProvider.WorkspaceIDSelector,
+			To:           reference.To{List: l, Managed: m},
+		})
+	}
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.ForProvider.WorkspaceID")
+	}
+	mg.Spec.ForProvider.WorkspaceID = reference.ToFloatPtrValue(rsp.ResolvedValue)
+	mg.Spec.ForProvider.WorkspaceIDRef = rsp.ResolvedReference
+	{
+		m, l, err = apisresolver.GetManagedResource("security.databricks.m.crossplane.io", "v1alpha1", "Group", "GroupList")
+		if err != nil {
+			return errors.Wrap(err, "failed to get the reference target managed resource and its list for reference resolution")
+		}
+
+		rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+			CurrentValue: reference.FromFloatPtrValue(mg.Spec.InitProvider.PrincipalID),
+			Extract:      resource.ExtractResourceID(),
+			Namespace:    mg.GetNamespace(),
+			Reference:    mg.Spec.InitProvider.PrincipalIDRef,
+			Selector:     mg.Spec.InitProvider.PrincipalIDSelector,
+			To:           reference.To{List: l, Managed: m},
+		})
+	}
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.InitProvider.PrincipalID")
+	}
+	mg.Spec.InitProvider.PrincipalID = reference.ToFloatPtrValue(rsp.ResolvedValue)
+	mg.Spec.InitProvider.PrincipalIDRef = rsp.ResolvedReference
+	{
+		m, l, err = apisresolver.GetManagedResource("deployment.databricks.m.crossplane.io", "v1alpha1", "MwsWorkspaces", "MwsWorkspacesList")
+		if err != nil {
+			return errors.Wrap(err, "failed to get the reference target managed resource and its list for reference resolution")
+		}
+
+		rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+			CurrentValue: reference.FromFloatPtrValue(mg.Spec.InitProvider.WorkspaceID),
+			Extract:      resource.ExtractParamPath("workspace_id", false),
+			Namespace:    mg.GetNamespace(),
+			Reference:    mg.Spec.InitProvider.WorkspaceIDRef,
+			Selector:     mg.Spec.InitProvider.WorkspaceIDSelector,
+			To:           reference.To{List: l, Managed: m},
+		})
+	}
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.InitProvider.WorkspaceID")
+	}
+	mg.Spec.InitProvider.WorkspaceID = reference.ToFloatPtrValue(rsp.ResolvedValue)
+	mg.Spec.InitProvider.WorkspaceIDRef = rsp.ResolvedReference
+
+	return nil
+}
+
+// ResolveReferences of this OboToken.
+func (mg *OboToken) ResolveReferences(ctx context.Context, c client.Reader) error {
+	var m xpresource.Managed
+	var l xpresource.ManagedList
+	r := reference.NewAPINamespacedResolver(c, mg)
+
+	var rsp reference.NamespacedResolutionResponse
+	var err error
+	{
+		m, l, err = apisresolver.GetManagedResource("security.databricks.m.crossplane.io", "v1alpha1", "ServicePrincipal", "ServicePrincipalList")
+		if err != nil {
+			return errors.Wrap(err, "failed to get the reference target managed resource and its list for reference resolution")
+		}
+
+		rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+			CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.ApplicationID),
+			Extract:      resource.ExtractParamPath("application_id", false),
+			Namespace:    mg.GetNamespace(),
+			Reference:    mg.Spec.ForProvider.ApplicationIDRef,
+			Selector:     mg.Spec.ForProvider.ApplicationIDSelector,
+			To:           reference.To{List: l, Managed: m},
+		})
+	}
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.ForProvider.ApplicationID")
+	}
+	mg.Spec.ForProvider.ApplicationID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.ForProvider.ApplicationIDRef = rsp.ResolvedReference
+	{
+		m, l, err = apisresolver.GetManagedResource("security.databricks.m.crossplane.io", "v1alpha1", "ServicePrincipal", "ServicePrincipalList")
+		if err != nil {
+			return errors.Wrap(err, "failed to get the reference target managed resource and its list for reference resolution")
+		}
+
+		rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+			CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.ApplicationID),
+			Extract:      resource.ExtractParamPath("application_id", false),
+			Namespace:    mg.GetNamespace(),
+			Reference:    mg.Spec.InitProvider.ApplicationIDRef,
+			Selector:     mg.Spec.InitProvider.ApplicationIDSelector,
+			To:           reference.To{List: l, Managed: m},
+		})
+	}
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.InitProvider.ApplicationID")
+	}
+	mg.Spec.InitProvider.ApplicationID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.InitProvider.ApplicationIDRef = rsp.ResolvedReference
 
 	return nil
 }
@@ -78,6 +503,28 @@ func (mg *Permissions) ResolveReferences(ctx context.Context, c client.Reader) e
 	var rsp reference.NamespacedResolutionResponse
 	var err error
 
+	for i3 := 0; i3 < len(mg.Spec.ForProvider.AccessControl); i3++ {
+		{
+			m, l, err = apisresolver.GetManagedResource("security.databricks.m.crossplane.io", "v1alpha1", "Group", "GroupList")
+			if err != nil {
+				return errors.Wrap(err, "failed to get the reference target managed resource and its list for reference resolution")
+			}
+			rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+				CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.AccessControl[i3].GroupName),
+				Extract:      resource.ExtractParamPath("display_name", false),
+				Namespace:    mg.GetNamespace(),
+				Reference:    mg.Spec.ForProvider.AccessControl[i3].GroupNameRef,
+				Selector:     mg.Spec.ForProvider.AccessControl[i3].GroupNameSelector,
+				To:           reference.To{List: l, Managed: m},
+			})
+		}
+		if err != nil {
+			return errors.Wrap(err, "mg.Spec.ForProvider.AccessControl[i3].GroupName")
+		}
+		mg.Spec.ForProvider.AccessControl[i3].GroupName = reference.ToPtrValue(rsp.ResolvedValue)
+		mg.Spec.ForProvider.AccessControl[i3].GroupNameRef = rsp.ResolvedReference
+
+	}
 	for i3 := 0; i3 < len(mg.Spec.ForProvider.AccessControl); i3++ {
 		{
 			m, l, err = apisresolver.GetManagedResource("security.databricks.m.crossplane.io", "v1alpha1", "ServicePrincipal", "ServicePrincipalList")
@@ -140,6 +587,86 @@ func (mg *Permissions) ResolveReferences(ctx context.Context, c client.Reader) e
 	mg.Spec.ForProvider.ClusterPolicyID = reference.ToPtrValue(rsp.ResolvedValue)
 	mg.Spec.ForProvider.ClusterPolicyIDRef = rsp.ResolvedReference
 	{
+		m, l, err = apisresolver.GetManagedResource("sql.databricks.m.crossplane.io", "v1alpha1", "Dashboard", "DashboardList")
+		if err != nil {
+			return errors.Wrap(err, "failed to get the reference target managed resource and its list for reference resolution")
+		}
+
+		rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+			CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.DashboardID),
+			Extract:      resource.ExtractResourceID(),
+			Namespace:    mg.GetNamespace(),
+			Reference:    mg.Spec.ForProvider.DashboardIDRef,
+			Selector:     mg.Spec.ForProvider.DashboardIDSelector,
+			To:           reference.To{List: l, Managed: m},
+		})
+	}
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.ForProvider.DashboardID")
+	}
+	mg.Spec.ForProvider.DashboardID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.ForProvider.DashboardIDRef = rsp.ResolvedReference
+	{
+		m, l, err = apisresolver.GetManagedResource("workspace.databricks.m.crossplane.io", "v1alpha1", "Directory", "DirectoryList")
+		if err != nil {
+			return errors.Wrap(err, "failed to get the reference target managed resource and its list for reference resolution")
+		}
+
+		rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+			CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.DirectoryID),
+			Extract:      resource.ExtractParamPath("object_id", false),
+			Namespace:    mg.GetNamespace(),
+			Reference:    mg.Spec.ForProvider.DirectoryIDRef,
+			Selector:     mg.Spec.ForProvider.DirectoryIDSelector,
+			To:           reference.To{List: l, Managed: m},
+		})
+	}
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.ForProvider.DirectoryID")
+	}
+	mg.Spec.ForProvider.DirectoryID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.ForProvider.DirectoryIDRef = rsp.ResolvedReference
+	{
+		m, l, err = apisresolver.GetManagedResource("workspace.databricks.m.crossplane.io", "v1alpha1", "Directory", "DirectoryList")
+		if err != nil {
+			return errors.Wrap(err, "failed to get the reference target managed resource and its list for reference resolution")
+		}
+
+		rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+			CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.DirectoryPath),
+			Extract:      resource.ExtractParamPath("path", false),
+			Namespace:    mg.GetNamespace(),
+			Reference:    mg.Spec.ForProvider.DirectoryPathRef,
+			Selector:     mg.Spec.ForProvider.DirectoryPathSelector,
+			To:           reference.To{List: l, Managed: m},
+		})
+	}
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.ForProvider.DirectoryPath")
+	}
+	mg.Spec.ForProvider.DirectoryPath = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.ForProvider.DirectoryPathRef = rsp.ResolvedReference
+	{
+		m, l, err = apisresolver.GetManagedResource("mlflow.databricks.m.crossplane.io", "v1alpha1", "MlflowExperiment", "MlflowExperimentList")
+		if err != nil {
+			return errors.Wrap(err, "failed to get the reference target managed resource and its list for reference resolution")
+		}
+
+		rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+			CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.ExperimentID),
+			Extract:      resource.ExtractResourceID(),
+			Namespace:    mg.GetNamespace(),
+			Reference:    mg.Spec.ForProvider.ExperimentIDRef,
+			Selector:     mg.Spec.ForProvider.ExperimentIDSelector,
+			To:           reference.To{List: l, Managed: m},
+		})
+	}
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.ForProvider.ExperimentID")
+	}
+	mg.Spec.ForProvider.ExperimentID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.ForProvider.ExperimentIDRef = rsp.ResolvedReference
+	{
 		m, l, err = apisresolver.GetManagedResource("compute.databricks.m.crossplane.io", "v1alpha1", "InstancePool", "InstancePoolList")
 		if err != nil {
 			return errors.Wrap(err, "failed to get the reference target managed resource and its list for reference resolution")
@@ -200,6 +727,26 @@ func (mg *Permissions) ResolveReferences(ctx context.Context, c client.Reader) e
 	mg.Spec.ForProvider.NotebookID = reference.ToPtrValue(rsp.ResolvedValue)
 	mg.Spec.ForProvider.NotebookIDRef = rsp.ResolvedReference
 	{
+		m, l, err = apisresolver.GetManagedResource("workspace.databricks.m.crossplane.io", "v1alpha1", "Notebook", "NotebookList")
+		if err != nil {
+			return errors.Wrap(err, "failed to get the reference target managed resource and its list for reference resolution")
+		}
+
+		rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+			CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.NotebookPath),
+			Extract:      resource.ExtractParamPath("path", false),
+			Namespace:    mg.GetNamespace(),
+			Reference:    mg.Spec.ForProvider.NotebookPathRef,
+			Selector:     mg.Spec.ForProvider.NotebookPathSelector,
+			To:           reference.To{List: l, Managed: m},
+		})
+	}
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.ForProvider.NotebookPath")
+	}
+	mg.Spec.ForProvider.NotebookPath = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.ForProvider.NotebookPathRef = rsp.ResolvedReference
+	{
 		m, l, err = apisresolver.GetManagedResource("compute.databricks.m.crossplane.io", "v1alpha1", "Pipeline", "PipelineList")
 		if err != nil {
 			return errors.Wrap(err, "failed to get the reference target managed resource and its list for reference resolution")
@@ -219,6 +766,46 @@ func (mg *Permissions) ResolveReferences(ctx context.Context, c client.Reader) e
 	}
 	mg.Spec.ForProvider.PipelineID = reference.ToPtrValue(rsp.ResolvedValue)
 	mg.Spec.ForProvider.PipelineIDRef = rsp.ResolvedReference
+	{
+		m, l, err = apisresolver.GetManagedResource("mlflow.databricks.m.crossplane.io", "v1alpha1", "MlflowModel", "MlflowModelList")
+		if err != nil {
+			return errors.Wrap(err, "failed to get the reference target managed resource and its list for reference resolution")
+		}
+
+		rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+			CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.RegisteredModelID),
+			Extract:      resource.ExtractParamPath("registered_model_id", true),
+			Namespace:    mg.GetNamespace(),
+			Reference:    mg.Spec.ForProvider.RegisteredModelIDRef,
+			Selector:     mg.Spec.ForProvider.RegisteredModelIDSelector,
+			To:           reference.To{List: l, Managed: m},
+		})
+	}
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.ForProvider.RegisteredModelID")
+	}
+	mg.Spec.ForProvider.RegisteredModelID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.ForProvider.RegisteredModelIDRef = rsp.ResolvedReference
+	{
+		m, l, err = apisresolver.GetManagedResource("workspace.databricks.m.crossplane.io", "v1alpha1", "Repo", "RepoList")
+		if err != nil {
+			return errors.Wrap(err, "failed to get the reference target managed resource and its list for reference resolution")
+		}
+
+		rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+			CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.RepoID),
+			Extract:      resource.ExtractResourceID(),
+			Namespace:    mg.GetNamespace(),
+			Reference:    mg.Spec.ForProvider.RepoIDRef,
+			Selector:     mg.Spec.ForProvider.RepoIDSelector,
+			To:           reference.To{List: l, Managed: m},
+		})
+	}
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.ForProvider.RepoID")
+	}
+	mg.Spec.ForProvider.RepoID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.ForProvider.RepoIDRef = rsp.ResolvedReference
 	{
 		m, l, err = apisresolver.GetManagedResource("sql.databricks.m.crossplane.io", "v1alpha1", "SQLAlert", "SQLAlertList")
 		if err != nil {
@@ -299,7 +886,109 @@ func (mg *Permissions) ResolveReferences(ctx context.Context, c client.Reader) e
 	}
 	mg.Spec.ForProvider.SQLQueryID = reference.ToPtrValue(rsp.ResolvedValue)
 	mg.Spec.ForProvider.SQLQueryIDRef = rsp.ResolvedReference
+	{
+		m, l, err = apisresolver.GetManagedResource("serving.databricks.m.crossplane.io", "v1alpha1", "ModelServing", "ModelServingList")
+		if err != nil {
+			return errors.Wrap(err, "failed to get the reference target managed resource and its list for reference resolution")
+		}
 
+		rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+			CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.ServingEndpointID),
+			Extract:      resource.ExtractParamPath("serving_endpoint_id", true),
+			Namespace:    mg.GetNamespace(),
+			Reference:    mg.Spec.ForProvider.ServingEndpointIDRef,
+			Selector:     mg.Spec.ForProvider.ServingEndpointIDSelector,
+			To:           reference.To{List: l, Managed: m},
+		})
+	}
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.ForProvider.ServingEndpointID")
+	}
+	mg.Spec.ForProvider.ServingEndpointID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.ForProvider.ServingEndpointIDRef = rsp.ResolvedReference
+	{
+		m, l, err = apisresolver.GetManagedResource("mosaic.databricks.m.crossplane.io", "v1alpha1", "VectorSearchEndpoint", "VectorSearchEndpointList")
+		if err != nil {
+			return errors.Wrap(err, "failed to get the reference target managed resource and its list for reference resolution")
+		}
+
+		rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+			CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.VectorSearchEndpointID),
+			Extract:      resource.ExtractParamPath("endpoint_id", true),
+			Namespace:    mg.GetNamespace(),
+			Reference:    mg.Spec.ForProvider.VectorSearchEndpointIDRef,
+			Selector:     mg.Spec.ForProvider.VectorSearchEndpointIDSelector,
+			To:           reference.To{List: l, Managed: m},
+		})
+	}
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.ForProvider.VectorSearchEndpointID")
+	}
+	mg.Spec.ForProvider.VectorSearchEndpointID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.ForProvider.VectorSearchEndpointIDRef = rsp.ResolvedReference
+	{
+		m, l, err = apisresolver.GetManagedResource("workspace.databricks.m.crossplane.io", "v1alpha1", "WorkspaceFile", "WorkspaceFileList")
+		if err != nil {
+			return errors.Wrap(err, "failed to get the reference target managed resource and its list for reference resolution")
+		}
+
+		rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+			CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.WorkspaceFileID),
+			Extract:      resource.ExtractParamPath("object_id", false),
+			Namespace:    mg.GetNamespace(),
+			Reference:    mg.Spec.ForProvider.WorkspaceFileIDRef,
+			Selector:     mg.Spec.ForProvider.WorkspaceFileIDSelector,
+			To:           reference.To{List: l, Managed: m},
+		})
+	}
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.ForProvider.WorkspaceFileID")
+	}
+	mg.Spec.ForProvider.WorkspaceFileID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.ForProvider.WorkspaceFileIDRef = rsp.ResolvedReference
+	{
+		m, l, err = apisresolver.GetManagedResource("workspace.databricks.m.crossplane.io", "v1alpha1", "WorkspaceFile", "WorkspaceFileList")
+		if err != nil {
+			return errors.Wrap(err, "failed to get the reference target managed resource and its list for reference resolution")
+		}
+
+		rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+			CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.WorkspaceFilePath),
+			Extract:      resource.ExtractParamPath("path", false),
+			Namespace:    mg.GetNamespace(),
+			Reference:    mg.Spec.ForProvider.WorkspaceFilePathRef,
+			Selector:     mg.Spec.ForProvider.WorkspaceFilePathSelector,
+			To:           reference.To{List: l, Managed: m},
+		})
+	}
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.ForProvider.WorkspaceFilePath")
+	}
+	mg.Spec.ForProvider.WorkspaceFilePath = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.ForProvider.WorkspaceFilePathRef = rsp.ResolvedReference
+
+	for i3 := 0; i3 < len(mg.Spec.InitProvider.AccessControl); i3++ {
+		{
+			m, l, err = apisresolver.GetManagedResource("security.databricks.m.crossplane.io", "v1alpha1", "Group", "GroupList")
+			if err != nil {
+				return errors.Wrap(err, "failed to get the reference target managed resource and its list for reference resolution")
+			}
+			rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+				CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.AccessControl[i3].GroupName),
+				Extract:      resource.ExtractParamPath("display_name", false),
+				Namespace:    mg.GetNamespace(),
+				Reference:    mg.Spec.InitProvider.AccessControl[i3].GroupNameRef,
+				Selector:     mg.Spec.InitProvider.AccessControl[i3].GroupNameSelector,
+				To:           reference.To{List: l, Managed: m},
+			})
+		}
+		if err != nil {
+			return errors.Wrap(err, "mg.Spec.InitProvider.AccessControl[i3].GroupName")
+		}
+		mg.Spec.InitProvider.AccessControl[i3].GroupName = reference.ToPtrValue(rsp.ResolvedValue)
+		mg.Spec.InitProvider.AccessControl[i3].GroupNameRef = rsp.ResolvedReference
+
+	}
 	for i3 := 0; i3 < len(mg.Spec.InitProvider.AccessControl); i3++ {
 		{
 			m, l, err = apisresolver.GetManagedResource("security.databricks.m.crossplane.io", "v1alpha1", "ServicePrincipal", "ServicePrincipalList")
@@ -362,6 +1051,86 @@ func (mg *Permissions) ResolveReferences(ctx context.Context, c client.Reader) e
 	mg.Spec.InitProvider.ClusterPolicyID = reference.ToPtrValue(rsp.ResolvedValue)
 	mg.Spec.InitProvider.ClusterPolicyIDRef = rsp.ResolvedReference
 	{
+		m, l, err = apisresolver.GetManagedResource("sql.databricks.m.crossplane.io", "v1alpha1", "Dashboard", "DashboardList")
+		if err != nil {
+			return errors.Wrap(err, "failed to get the reference target managed resource and its list for reference resolution")
+		}
+
+		rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+			CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.DashboardID),
+			Extract:      resource.ExtractResourceID(),
+			Namespace:    mg.GetNamespace(),
+			Reference:    mg.Spec.InitProvider.DashboardIDRef,
+			Selector:     mg.Spec.InitProvider.DashboardIDSelector,
+			To:           reference.To{List: l, Managed: m},
+		})
+	}
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.InitProvider.DashboardID")
+	}
+	mg.Spec.InitProvider.DashboardID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.InitProvider.DashboardIDRef = rsp.ResolvedReference
+	{
+		m, l, err = apisresolver.GetManagedResource("workspace.databricks.m.crossplane.io", "v1alpha1", "Directory", "DirectoryList")
+		if err != nil {
+			return errors.Wrap(err, "failed to get the reference target managed resource and its list for reference resolution")
+		}
+
+		rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+			CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.DirectoryID),
+			Extract:      resource.ExtractParamPath("object_id", false),
+			Namespace:    mg.GetNamespace(),
+			Reference:    mg.Spec.InitProvider.DirectoryIDRef,
+			Selector:     mg.Spec.InitProvider.DirectoryIDSelector,
+			To:           reference.To{List: l, Managed: m},
+		})
+	}
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.InitProvider.DirectoryID")
+	}
+	mg.Spec.InitProvider.DirectoryID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.InitProvider.DirectoryIDRef = rsp.ResolvedReference
+	{
+		m, l, err = apisresolver.GetManagedResource("workspace.databricks.m.crossplane.io", "v1alpha1", "Directory", "DirectoryList")
+		if err != nil {
+			return errors.Wrap(err, "failed to get the reference target managed resource and its list for reference resolution")
+		}
+
+		rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+			CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.DirectoryPath),
+			Extract:      resource.ExtractParamPath("path", false),
+			Namespace:    mg.GetNamespace(),
+			Reference:    mg.Spec.InitProvider.DirectoryPathRef,
+			Selector:     mg.Spec.InitProvider.DirectoryPathSelector,
+			To:           reference.To{List: l, Managed: m},
+		})
+	}
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.InitProvider.DirectoryPath")
+	}
+	mg.Spec.InitProvider.DirectoryPath = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.InitProvider.DirectoryPathRef = rsp.ResolvedReference
+	{
+		m, l, err = apisresolver.GetManagedResource("mlflow.databricks.m.crossplane.io", "v1alpha1", "MlflowExperiment", "MlflowExperimentList")
+		if err != nil {
+			return errors.Wrap(err, "failed to get the reference target managed resource and its list for reference resolution")
+		}
+
+		rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+			CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.ExperimentID),
+			Extract:      resource.ExtractResourceID(),
+			Namespace:    mg.GetNamespace(),
+			Reference:    mg.Spec.InitProvider.ExperimentIDRef,
+			Selector:     mg.Spec.InitProvider.ExperimentIDSelector,
+			To:           reference.To{List: l, Managed: m},
+		})
+	}
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.InitProvider.ExperimentID")
+	}
+	mg.Spec.InitProvider.ExperimentID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.InitProvider.ExperimentIDRef = rsp.ResolvedReference
+	{
 		m, l, err = apisresolver.GetManagedResource("compute.databricks.m.crossplane.io", "v1alpha1", "InstancePool", "InstancePoolList")
 		if err != nil {
 			return errors.Wrap(err, "failed to get the reference target managed resource and its list for reference resolution")
@@ -422,6 +1191,26 @@ func (mg *Permissions) ResolveReferences(ctx context.Context, c client.Reader) e
 	mg.Spec.InitProvider.NotebookID = reference.ToPtrValue(rsp.ResolvedValue)
 	mg.Spec.InitProvider.NotebookIDRef = rsp.ResolvedReference
 	{
+		m, l, err = apisresolver.GetManagedResource("workspace.databricks.m.crossplane.io", "v1alpha1", "Notebook", "NotebookList")
+		if err != nil {
+			return errors.Wrap(err, "failed to get the reference target managed resource and its list for reference resolution")
+		}
+
+		rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+			CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.NotebookPath),
+			Extract:      resource.ExtractParamPath("path", false),
+			Namespace:    mg.GetNamespace(),
+			Reference:    mg.Spec.InitProvider.NotebookPathRef,
+			Selector:     mg.Spec.InitProvider.NotebookPathSelector,
+			To:           reference.To{List: l, Managed: m},
+		})
+	}
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.InitProvider.NotebookPath")
+	}
+	mg.Spec.InitProvider.NotebookPath = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.InitProvider.NotebookPathRef = rsp.ResolvedReference
+	{
 		m, l, err = apisresolver.GetManagedResource("compute.databricks.m.crossplane.io", "v1alpha1", "Pipeline", "PipelineList")
 		if err != nil {
 			return errors.Wrap(err, "failed to get the reference target managed resource and its list for reference resolution")
@@ -441,6 +1230,46 @@ func (mg *Permissions) ResolveReferences(ctx context.Context, c client.Reader) e
 	}
 	mg.Spec.InitProvider.PipelineID = reference.ToPtrValue(rsp.ResolvedValue)
 	mg.Spec.InitProvider.PipelineIDRef = rsp.ResolvedReference
+	{
+		m, l, err = apisresolver.GetManagedResource("mlflow.databricks.m.crossplane.io", "v1alpha1", "MlflowModel", "MlflowModelList")
+		if err != nil {
+			return errors.Wrap(err, "failed to get the reference target managed resource and its list for reference resolution")
+		}
+
+		rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+			CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.RegisteredModelID),
+			Extract:      resource.ExtractParamPath("registered_model_id", true),
+			Namespace:    mg.GetNamespace(),
+			Reference:    mg.Spec.InitProvider.RegisteredModelIDRef,
+			Selector:     mg.Spec.InitProvider.RegisteredModelIDSelector,
+			To:           reference.To{List: l, Managed: m},
+		})
+	}
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.InitProvider.RegisteredModelID")
+	}
+	mg.Spec.InitProvider.RegisteredModelID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.InitProvider.RegisteredModelIDRef = rsp.ResolvedReference
+	{
+		m, l, err = apisresolver.GetManagedResource("workspace.databricks.m.crossplane.io", "v1alpha1", "Repo", "RepoList")
+		if err != nil {
+			return errors.Wrap(err, "failed to get the reference target managed resource and its list for reference resolution")
+		}
+
+		rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+			CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.RepoID),
+			Extract:      resource.ExtractResourceID(),
+			Namespace:    mg.GetNamespace(),
+			Reference:    mg.Spec.InitProvider.RepoIDRef,
+			Selector:     mg.Spec.InitProvider.RepoIDSelector,
+			To:           reference.To{List: l, Managed: m},
+		})
+	}
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.InitProvider.RepoID")
+	}
+	mg.Spec.InitProvider.RepoID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.InitProvider.RepoIDRef = rsp.ResolvedReference
 	{
 		m, l, err = apisresolver.GetManagedResource("sql.databricks.m.crossplane.io", "v1alpha1", "SQLAlert", "SQLAlertList")
 		if err != nil {
@@ -521,6 +1350,610 @@ func (mg *Permissions) ResolveReferences(ctx context.Context, c client.Reader) e
 	}
 	mg.Spec.InitProvider.SQLQueryID = reference.ToPtrValue(rsp.ResolvedValue)
 	mg.Spec.InitProvider.SQLQueryIDRef = rsp.ResolvedReference
+	{
+		m, l, err = apisresolver.GetManagedResource("serving.databricks.m.crossplane.io", "v1alpha1", "ModelServing", "ModelServingList")
+		if err != nil {
+			return errors.Wrap(err, "failed to get the reference target managed resource and its list for reference resolution")
+		}
+
+		rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+			CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.ServingEndpointID),
+			Extract:      resource.ExtractParamPath("serving_endpoint_id", true),
+			Namespace:    mg.GetNamespace(),
+			Reference:    mg.Spec.InitProvider.ServingEndpointIDRef,
+			Selector:     mg.Spec.InitProvider.ServingEndpointIDSelector,
+			To:           reference.To{List: l, Managed: m},
+		})
+	}
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.InitProvider.ServingEndpointID")
+	}
+	mg.Spec.InitProvider.ServingEndpointID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.InitProvider.ServingEndpointIDRef = rsp.ResolvedReference
+	{
+		m, l, err = apisresolver.GetManagedResource("mosaic.databricks.m.crossplane.io", "v1alpha1", "VectorSearchEndpoint", "VectorSearchEndpointList")
+		if err != nil {
+			return errors.Wrap(err, "failed to get the reference target managed resource and its list for reference resolution")
+		}
+
+		rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+			CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.VectorSearchEndpointID),
+			Extract:      resource.ExtractParamPath("endpoint_id", true),
+			Namespace:    mg.GetNamespace(),
+			Reference:    mg.Spec.InitProvider.VectorSearchEndpointIDRef,
+			Selector:     mg.Spec.InitProvider.VectorSearchEndpointIDSelector,
+			To:           reference.To{List: l, Managed: m},
+		})
+	}
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.InitProvider.VectorSearchEndpointID")
+	}
+	mg.Spec.InitProvider.VectorSearchEndpointID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.InitProvider.VectorSearchEndpointIDRef = rsp.ResolvedReference
+	{
+		m, l, err = apisresolver.GetManagedResource("workspace.databricks.m.crossplane.io", "v1alpha1", "WorkspaceFile", "WorkspaceFileList")
+		if err != nil {
+			return errors.Wrap(err, "failed to get the reference target managed resource and its list for reference resolution")
+		}
+
+		rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+			CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.WorkspaceFileID),
+			Extract:      resource.ExtractParamPath("object_id", false),
+			Namespace:    mg.GetNamespace(),
+			Reference:    mg.Spec.InitProvider.WorkspaceFileIDRef,
+			Selector:     mg.Spec.InitProvider.WorkspaceFileIDSelector,
+			To:           reference.To{List: l, Managed: m},
+		})
+	}
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.InitProvider.WorkspaceFileID")
+	}
+	mg.Spec.InitProvider.WorkspaceFileID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.InitProvider.WorkspaceFileIDRef = rsp.ResolvedReference
+	{
+		m, l, err = apisresolver.GetManagedResource("workspace.databricks.m.crossplane.io", "v1alpha1", "WorkspaceFile", "WorkspaceFileList")
+		if err != nil {
+			return errors.Wrap(err, "failed to get the reference target managed resource and its list for reference resolution")
+		}
+
+		rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+			CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.WorkspaceFilePath),
+			Extract:      resource.ExtractParamPath("path", false),
+			Namespace:    mg.GetNamespace(),
+			Reference:    mg.Spec.InitProvider.WorkspaceFilePathRef,
+			Selector:     mg.Spec.InitProvider.WorkspaceFilePathSelector,
+			To:           reference.To{List: l, Managed: m},
+		})
+	}
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.InitProvider.WorkspaceFilePath")
+	}
+	mg.Spec.InitProvider.WorkspaceFilePath = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.InitProvider.WorkspaceFilePathRef = rsp.ResolvedReference
+
+	return nil
+}
+
+// ResolveReferences of this SQLPermissions.
+func (mg *SQLPermissions) ResolveReferences(ctx context.Context, c client.Reader) error {
+	var m xpresource.Managed
+	var l xpresource.ManagedList
+	r := reference.NewAPINamespacedResolver(c, mg)
+
+	var rsp reference.NamespacedResolutionResponse
+	var err error
+	{
+		m, l, err = apisresolver.GetManagedResource("compute.databricks.m.crossplane.io", "v1alpha1", "Cluster", "ClusterList")
+		if err != nil {
+			return errors.Wrap(err, "failed to get the reference target managed resource and its list for reference resolution")
+		}
+
+		rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+			CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.ClusterID),
+			Extract:      resource.ExtractResourceID(),
+			Namespace:    mg.GetNamespace(),
+			Reference:    mg.Spec.ForProvider.ClusterIDRef,
+			Selector:     mg.Spec.ForProvider.ClusterIDSelector,
+			To:           reference.To{List: l, Managed: m},
+		})
+	}
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.ForProvider.ClusterID")
+	}
+	mg.Spec.ForProvider.ClusterID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.ForProvider.ClusterIDRef = rsp.ResolvedReference
+	{
+		m, l, err = apisresolver.GetManagedResource("compute.databricks.m.crossplane.io", "v1alpha1", "Cluster", "ClusterList")
+		if err != nil {
+			return errors.Wrap(err, "failed to get the reference target managed resource and its list for reference resolution")
+		}
+
+		rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+			CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.ClusterID),
+			Extract:      resource.ExtractResourceID(),
+			Namespace:    mg.GetNamespace(),
+			Reference:    mg.Spec.InitProvider.ClusterIDRef,
+			Selector:     mg.Spec.InitProvider.ClusterIDSelector,
+			To:           reference.To{List: l, Managed: m},
+		})
+	}
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.InitProvider.ClusterID")
+	}
+	mg.Spec.InitProvider.ClusterID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.InitProvider.ClusterIDRef = rsp.ResolvedReference
+
+	return nil
+}
+
+// ResolveReferences of this Secret.
+func (mg *Secret) ResolveReferences(ctx context.Context, c client.Reader) error {
+	var m xpresource.Managed
+	var l xpresource.ManagedList
+	r := reference.NewAPINamespacedResolver(c, mg)
+
+	var rsp reference.NamespacedResolutionResponse
+	var err error
+	{
+		m, l, err = apisresolver.GetManagedResource("security.databricks.m.crossplane.io", "v1alpha1", "SecretScope", "SecretScopeList")
+		if err != nil {
+			return errors.Wrap(err, "failed to get the reference target managed resource and its list for reference resolution")
+		}
+
+		rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+			CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.Scope),
+			Extract:      resource.ExtractResourceID(),
+			Namespace:    mg.GetNamespace(),
+			Reference:    mg.Spec.ForProvider.ScopeRef,
+			Selector:     mg.Spec.ForProvider.ScopeSelector,
+			To:           reference.To{List: l, Managed: m},
+		})
+	}
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.ForProvider.Scope")
+	}
+	mg.Spec.ForProvider.Scope = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.ForProvider.ScopeRef = rsp.ResolvedReference
+	{
+		m, l, err = apisresolver.GetManagedResource("security.databricks.m.crossplane.io", "v1alpha1", "SecretScope", "SecretScopeList")
+		if err != nil {
+			return errors.Wrap(err, "failed to get the reference target managed resource and its list for reference resolution")
+		}
+
+		rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+			CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.Scope),
+			Extract:      resource.ExtractResourceID(),
+			Namespace:    mg.GetNamespace(),
+			Reference:    mg.Spec.InitProvider.ScopeRef,
+			Selector:     mg.Spec.InitProvider.ScopeSelector,
+			To:           reference.To{List: l, Managed: m},
+		})
+	}
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.InitProvider.Scope")
+	}
+	mg.Spec.InitProvider.Scope = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.InitProvider.ScopeRef = rsp.ResolvedReference
+
+	return nil
+}
+
+// ResolveReferences of this SecretACL.
+func (mg *SecretACL) ResolveReferences(ctx context.Context, c client.Reader) error {
+	var m xpresource.Managed
+	var l xpresource.ManagedList
+	r := reference.NewAPINamespacedResolver(c, mg)
+
+	var rsp reference.NamespacedResolutionResponse
+	var err error
+	{
+		m, l, err = apisresolver.GetManagedResource("security.databricks.m.crossplane.io", "v1alpha1", "Group", "GroupList")
+		if err != nil {
+			return errors.Wrap(err, "failed to get the reference target managed resource and its list for reference resolution")
+		}
+
+		rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+			CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.Principal),
+			Extract:      resource.ExtractParamPath("display_name", false),
+			Namespace:    mg.GetNamespace(),
+			Reference:    mg.Spec.ForProvider.PrincipalRef,
+			Selector:     mg.Spec.ForProvider.PrincipalSelector,
+			To:           reference.To{List: l, Managed: m},
+		})
+	}
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.ForProvider.Principal")
+	}
+	mg.Spec.ForProvider.Principal = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.ForProvider.PrincipalRef = rsp.ResolvedReference
+	{
+		m, l, err = apisresolver.GetManagedResource("security.databricks.m.crossplane.io", "v1alpha1", "SecretScope", "SecretScopeList")
+		if err != nil {
+			return errors.Wrap(err, "failed to get the reference target managed resource and its list for reference resolution")
+		}
+
+		rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+			CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.Scope),
+			Extract:      resource.ExtractParamPath("name", false),
+			Namespace:    mg.GetNamespace(),
+			Reference:    mg.Spec.ForProvider.ScopeRef,
+			Selector:     mg.Spec.ForProvider.ScopeSelector,
+			To:           reference.To{List: l, Managed: m},
+		})
+	}
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.ForProvider.Scope")
+	}
+	mg.Spec.ForProvider.Scope = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.ForProvider.ScopeRef = rsp.ResolvedReference
+	{
+		m, l, err = apisresolver.GetManagedResource("security.databricks.m.crossplane.io", "v1alpha1", "Group", "GroupList")
+		if err != nil {
+			return errors.Wrap(err, "failed to get the reference target managed resource and its list for reference resolution")
+		}
+
+		rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+			CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.Principal),
+			Extract:      resource.ExtractParamPath("display_name", false),
+			Namespace:    mg.GetNamespace(),
+			Reference:    mg.Spec.InitProvider.PrincipalRef,
+			Selector:     mg.Spec.InitProvider.PrincipalSelector,
+			To:           reference.To{List: l, Managed: m},
+		})
+	}
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.InitProvider.Principal")
+	}
+	mg.Spec.InitProvider.Principal = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.InitProvider.PrincipalRef = rsp.ResolvedReference
+	{
+		m, l, err = apisresolver.GetManagedResource("security.databricks.m.crossplane.io", "v1alpha1", "SecretScope", "SecretScopeList")
+		if err != nil {
+			return errors.Wrap(err, "failed to get the reference target managed resource and its list for reference resolution")
+		}
+
+		rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+			CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.Scope),
+			Extract:      resource.ExtractParamPath("name", false),
+			Namespace:    mg.GetNamespace(),
+			Reference:    mg.Spec.InitProvider.ScopeRef,
+			Selector:     mg.Spec.InitProvider.ScopeSelector,
+			To:           reference.To{List: l, Managed: m},
+		})
+	}
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.InitProvider.Scope")
+	}
+	mg.Spec.InitProvider.Scope = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.InitProvider.ScopeRef = rsp.ResolvedReference
+
+	return nil
+}
+
+// ResolveReferences of this ServicePrincipalRole.
+func (mg *ServicePrincipalRole) ResolveReferences(ctx context.Context, c client.Reader) error {
+	var m xpresource.Managed
+	var l xpresource.ManagedList
+	r := reference.NewAPINamespacedResolver(c, mg)
+
+	var rsp reference.NamespacedResolutionResponse
+	var err error
+	{
+		m, l, err = apisresolver.GetManagedResource("deployment.databricks.m.crossplane.io", "v1alpha1", "InstanceProfile", "InstanceProfileList")
+		if err != nil {
+			return errors.Wrap(err, "failed to get the reference target managed resource and its list for reference resolution")
+		}
+
+		rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+			CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.Role),
+			Extract:      resource.ExtractResourceID(),
+			Namespace:    mg.GetNamespace(),
+			Reference:    mg.Spec.ForProvider.RoleRef,
+			Selector:     mg.Spec.ForProvider.RoleSelector,
+			To:           reference.To{List: l, Managed: m},
+		})
+	}
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.ForProvider.Role")
+	}
+	mg.Spec.ForProvider.Role = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.ForProvider.RoleRef = rsp.ResolvedReference
+	{
+		m, l, err = apisresolver.GetManagedResource("security.databricks.m.crossplane.io", "v1alpha1", "ServicePrincipal", "ServicePrincipalList")
+		if err != nil {
+			return errors.Wrap(err, "failed to get the reference target managed resource and its list for reference resolution")
+		}
+
+		rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+			CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.ServicePrincipalID),
+			Extract:      resource.ExtractResourceID(),
+			Namespace:    mg.GetNamespace(),
+			Reference:    mg.Spec.ForProvider.ServicePrincipalIDRef,
+			Selector:     mg.Spec.ForProvider.ServicePrincipalIDSelector,
+			To:           reference.To{List: l, Managed: m},
+		})
+	}
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.ForProvider.ServicePrincipalID")
+	}
+	mg.Spec.ForProvider.ServicePrincipalID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.ForProvider.ServicePrincipalIDRef = rsp.ResolvedReference
+	{
+		m, l, err = apisresolver.GetManagedResource("deployment.databricks.m.crossplane.io", "v1alpha1", "InstanceProfile", "InstanceProfileList")
+		if err != nil {
+			return errors.Wrap(err, "failed to get the reference target managed resource and its list for reference resolution")
+		}
+
+		rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+			CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.Role),
+			Extract:      resource.ExtractResourceID(),
+			Namespace:    mg.GetNamespace(),
+			Reference:    mg.Spec.InitProvider.RoleRef,
+			Selector:     mg.Spec.InitProvider.RoleSelector,
+			To:           reference.To{List: l, Managed: m},
+		})
+	}
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.InitProvider.Role")
+	}
+	mg.Spec.InitProvider.Role = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.InitProvider.RoleRef = rsp.ResolvedReference
+	{
+		m, l, err = apisresolver.GetManagedResource("security.databricks.m.crossplane.io", "v1alpha1", "ServicePrincipal", "ServicePrincipalList")
+		if err != nil {
+			return errors.Wrap(err, "failed to get the reference target managed resource and its list for reference resolution")
+		}
+
+		rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+			CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.ServicePrincipalID),
+			Extract:      resource.ExtractResourceID(),
+			Namespace:    mg.GetNamespace(),
+			Reference:    mg.Spec.InitProvider.ServicePrincipalIDRef,
+			Selector:     mg.Spec.InitProvider.ServicePrincipalIDSelector,
+			To:           reference.To{List: l, Managed: m},
+		})
+	}
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.InitProvider.ServicePrincipalID")
+	}
+	mg.Spec.InitProvider.ServicePrincipalID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.InitProvider.ServicePrincipalIDRef = rsp.ResolvedReference
+
+	return nil
+}
+
+// ResolveReferences of this ServicePrincipalSecret.
+func (mg *ServicePrincipalSecret) ResolveReferences(ctx context.Context, c client.Reader) error {
+	var m xpresource.Managed
+	var l xpresource.ManagedList
+	r := reference.NewAPINamespacedResolver(c, mg)
+
+	var rsp reference.NamespacedResolutionResponse
+	var err error
+	{
+		m, l, err = apisresolver.GetManagedResource("security.databricks.m.crossplane.io", "v1alpha1", "ServicePrincipal", "ServicePrincipalList")
+		if err != nil {
+			return errors.Wrap(err, "failed to get the reference target managed resource and its list for reference resolution")
+		}
+
+		rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+			CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.ServicePrincipalID),
+			Extract:      resource.ExtractResourceID(),
+			Namespace:    mg.GetNamespace(),
+			Reference:    mg.Spec.ForProvider.ServicePrincipalIDRef,
+			Selector:     mg.Spec.ForProvider.ServicePrincipalIDSelector,
+			To:           reference.To{List: l, Managed: m},
+		})
+	}
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.ForProvider.ServicePrincipalID")
+	}
+	mg.Spec.ForProvider.ServicePrincipalID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.ForProvider.ServicePrincipalIDRef = rsp.ResolvedReference
+	{
+		m, l, err = apisresolver.GetManagedResource("security.databricks.m.crossplane.io", "v1alpha1", "ServicePrincipal", "ServicePrincipalList")
+		if err != nil {
+			return errors.Wrap(err, "failed to get the reference target managed resource and its list for reference resolution")
+		}
+
+		rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+			CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.ServicePrincipalID),
+			Extract:      resource.ExtractResourceID(),
+			Namespace:    mg.GetNamespace(),
+			Reference:    mg.Spec.InitProvider.ServicePrincipalIDRef,
+			Selector:     mg.Spec.InitProvider.ServicePrincipalIDSelector,
+			To:           reference.To{List: l, Managed: m},
+		})
+	}
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.InitProvider.ServicePrincipalID")
+	}
+	mg.Spec.InitProvider.ServicePrincipalID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.InitProvider.ServicePrincipalIDRef = rsp.ResolvedReference
+
+	return nil
+}
+
+// ResolveReferences of this UserInstanceProfile.
+func (mg *UserInstanceProfile) ResolveReferences(ctx context.Context, c client.Reader) error {
+	var m xpresource.Managed
+	var l xpresource.ManagedList
+	r := reference.NewAPINamespacedResolver(c, mg)
+
+	var rsp reference.NamespacedResolutionResponse
+	var err error
+	{
+		m, l, err = apisresolver.GetManagedResource("deployment.databricks.m.crossplane.io", "v1alpha1", "InstanceProfile", "InstanceProfileList")
+		if err != nil {
+			return errors.Wrap(err, "failed to get the reference target managed resource and its list for reference resolution")
+		}
+
+		rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+			CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.InstanceProfileID),
+			Extract:      resource.ExtractResourceID(),
+			Namespace:    mg.GetNamespace(),
+			Reference:    mg.Spec.ForProvider.InstanceProfileIDRef,
+			Selector:     mg.Spec.ForProvider.InstanceProfileIDSelector,
+			To:           reference.To{List: l, Managed: m},
+		})
+	}
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.ForProvider.InstanceProfileID")
+	}
+	mg.Spec.ForProvider.InstanceProfileID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.ForProvider.InstanceProfileIDRef = rsp.ResolvedReference
+	{
+		m, l, err = apisresolver.GetManagedResource("security.databricks.m.crossplane.io", "v1alpha1", "User", "UserList")
+		if err != nil {
+			return errors.Wrap(err, "failed to get the reference target managed resource and its list for reference resolution")
+		}
+
+		rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+			CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.UserID),
+			Extract:      resource.ExtractResourceID(),
+			Namespace:    mg.GetNamespace(),
+			Reference:    mg.Spec.ForProvider.UserIDRef,
+			Selector:     mg.Spec.ForProvider.UserIDSelector,
+			To:           reference.To{List: l, Managed: m},
+		})
+	}
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.ForProvider.UserID")
+	}
+	mg.Spec.ForProvider.UserID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.ForProvider.UserIDRef = rsp.ResolvedReference
+	{
+		m, l, err = apisresolver.GetManagedResource("deployment.databricks.m.crossplane.io", "v1alpha1", "InstanceProfile", "InstanceProfileList")
+		if err != nil {
+			return errors.Wrap(err, "failed to get the reference target managed resource and its list for reference resolution")
+		}
+
+		rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+			CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.InstanceProfileID),
+			Extract:      resource.ExtractResourceID(),
+			Namespace:    mg.GetNamespace(),
+			Reference:    mg.Spec.InitProvider.InstanceProfileIDRef,
+			Selector:     mg.Spec.InitProvider.InstanceProfileIDSelector,
+			To:           reference.To{List: l, Managed: m},
+		})
+	}
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.InitProvider.InstanceProfileID")
+	}
+	mg.Spec.InitProvider.InstanceProfileID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.InitProvider.InstanceProfileIDRef = rsp.ResolvedReference
+	{
+		m, l, err = apisresolver.GetManagedResource("security.databricks.m.crossplane.io", "v1alpha1", "User", "UserList")
+		if err != nil {
+			return errors.Wrap(err, "failed to get the reference target managed resource and its list for reference resolution")
+		}
+
+		rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+			CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.UserID),
+			Extract:      resource.ExtractResourceID(),
+			Namespace:    mg.GetNamespace(),
+			Reference:    mg.Spec.InitProvider.UserIDRef,
+			Selector:     mg.Spec.InitProvider.UserIDSelector,
+			To:           reference.To{List: l, Managed: m},
+		})
+	}
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.InitProvider.UserID")
+	}
+	mg.Spec.InitProvider.UserID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.InitProvider.UserIDRef = rsp.ResolvedReference
+
+	return nil
+}
+
+// ResolveReferences of this UserRole.
+func (mg *UserRole) ResolveReferences(ctx context.Context, c client.Reader) error {
+	var m xpresource.Managed
+	var l xpresource.ManagedList
+	r := reference.NewAPINamespacedResolver(c, mg)
+
+	var rsp reference.NamespacedResolutionResponse
+	var err error
+	{
+		m, l, err = apisresolver.GetManagedResource("deployment.databricks.m.crossplane.io", "v1alpha1", "InstanceProfile", "InstanceProfileList")
+		if err != nil {
+			return errors.Wrap(err, "failed to get the reference target managed resource and its list for reference resolution")
+		}
+
+		rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+			CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.Role),
+			Extract:      resource.ExtractResourceID(),
+			Namespace:    mg.GetNamespace(),
+			Reference:    mg.Spec.ForProvider.RoleRef,
+			Selector:     mg.Spec.ForProvider.RoleSelector,
+			To:           reference.To{List: l, Managed: m},
+		})
+	}
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.ForProvider.Role")
+	}
+	mg.Spec.ForProvider.Role = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.ForProvider.RoleRef = rsp.ResolvedReference
+	{
+		m, l, err = apisresolver.GetManagedResource("security.databricks.m.crossplane.io", "v1alpha1", "User", "UserList")
+		if err != nil {
+			return errors.Wrap(err, "failed to get the reference target managed resource and its list for reference resolution")
+		}
+
+		rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+			CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.UserID),
+			Extract:      resource.ExtractResourceID(),
+			Namespace:    mg.GetNamespace(),
+			Reference:    mg.Spec.ForProvider.UserIDRef,
+			Selector:     mg.Spec.ForProvider.UserIDSelector,
+			To:           reference.To{List: l, Managed: m},
+		})
+	}
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.ForProvider.UserID")
+	}
+	mg.Spec.ForProvider.UserID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.ForProvider.UserIDRef = rsp.ResolvedReference
+	{
+		m, l, err = apisresolver.GetManagedResource("deployment.databricks.m.crossplane.io", "v1alpha1", "InstanceProfile", "InstanceProfileList")
+		if err != nil {
+			return errors.Wrap(err, "failed to get the reference target managed resource and its list for reference resolution")
+		}
+
+		rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+			CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.Role),
+			Extract:      resource.ExtractResourceID(),
+			Namespace:    mg.GetNamespace(),
+			Reference:    mg.Spec.InitProvider.RoleRef,
+			Selector:     mg.Spec.InitProvider.RoleSelector,
+			To:           reference.To{List: l, Managed: m},
+		})
+	}
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.InitProvider.Role")
+	}
+	mg.Spec.InitProvider.Role = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.InitProvider.RoleRef = rsp.ResolvedReference
+	{
+		m, l, err = apisresolver.GetManagedResource("security.databricks.m.crossplane.io", "v1alpha1", "User", "UserList")
+		if err != nil {
+			return errors.Wrap(err, "failed to get the reference target managed resource and its list for reference resolution")
+		}
+
+		rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+			CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.UserID),
+			Extract:      resource.ExtractResourceID(),
+			Namespace:    mg.GetNamespace(),
+			Reference:    mg.Spec.InitProvider.UserIDRef,
+			Selector:     mg.Spec.InitProvider.UserIDSelector,
+			To:           reference.To{List: l, Managed: m},
+		})
+	}
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.InitProvider.UserID")
+	}
+	mg.Spec.InitProvider.UserID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.InitProvider.UserIDRef = rsp.ResolvedReference
 
 	return nil
 }

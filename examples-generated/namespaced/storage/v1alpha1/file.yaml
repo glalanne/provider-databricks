@@ -44,7 +44,9 @@ metadata:
   namespace: upbound-system
 spec:
   forProvider:
-    catalogName: sandbox
+    catalogNameSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
     comment: this schema is managed by terraform
     name: things
     properties:
@@ -63,8 +65,12 @@ metadata:
   namespace: upbound-system
 spec:
   forProvider:
-    catalogName: sandbox
+    catalogNameSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
     comment: this volume is managed by terraform
     name: quickstart_volume
-    schemaName: things
+    schemaNameSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
     volumeType: MANAGED

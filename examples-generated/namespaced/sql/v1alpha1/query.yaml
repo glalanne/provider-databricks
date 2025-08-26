@@ -10,9 +10,13 @@ metadata:
 spec:
   forProvider:
     displayName: My Query Name
-    parentPath: /my_custom_directory
+    parentPathSelector:
+      matchLabels:
+        testing.upbound.io/example-name: shared_dir
     queryText: SELECT 42 as value
-    warehouseId: ${databricks_sql_endpoint.example.id}
+    warehouseIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
 
 ---
 

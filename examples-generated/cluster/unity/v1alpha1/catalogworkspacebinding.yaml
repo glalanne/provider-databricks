@@ -8,8 +8,12 @@ metadata:
   name: sandbox
 spec:
   forProvider:
-    securableName: sandbox
-    workspaceId: ${databricks_mws_workspaces.other.workspace_id}
+    securableNameSelector:
+      matchLabels:
+        testing.upbound.io/example-name: sandbox
+    workspaceIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: other
 
 ---
 

@@ -9,7 +9,9 @@ metadata:
   namespace: upbound-system
 spec:
   forProvider:
-    dataSourceId: ${databricks_sql_endpoint.example.data_source_id}
+    dataSourceIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
     name: My Query Name
     parameter:
     - name: p1

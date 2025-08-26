@@ -35,10 +35,30 @@ type AlertInitParameters struct {
 	OwnerUserName *string `json:"ownerUserName,omitempty" tf:"owner_user_name,omitempty"`
 
 	// The path to a workspace folder containing the alert. The default is the user's home folder.  If changed, the alert will be recreated.
+	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/namespaced/workspace/v1alpha1.Directory
+	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/v2/pkg/resource.ExtractParamPath("path",false)
 	ParentPath *string `json:"parentPath,omitempty" tf:"parent_path,omitempty"`
 
+	// Reference to a Directory in workspace to populate parentPath.
+	// +kubebuilder:validation:Optional
+	ParentPathRef *v1.NamespacedReference `json:"parentPathRef,omitempty" tf:"-"`
+
+	// Selector for a Directory in workspace to populate parentPath.
+	// +kubebuilder:validation:Optional
+	ParentPathSelector *v1.NamespacedSelector `json:"parentPathSelector,omitempty" tf:"-"`
+
 	// ID of the query evaluated by the alert.
+	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/namespaced/sql/v1alpha1.Query
+	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/v2/pkg/resource.ExtractResourceID()
 	QueryID *string `json:"queryId,omitempty" tf:"query_id,omitempty"`
+
+	// Reference to a Query in sql to populate queryId.
+	// +kubebuilder:validation:Optional
+	QueryIDRef *v1.NamespacedReference `json:"queryIdRef,omitempty" tf:"-"`
+
+	// Selector for a Query in sql to populate queryId.
+	// +kubebuilder:validation:Optional
+	QueryIDSelector *v1.NamespacedSelector `json:"queryIdSelector,omitempty" tf:"-"`
 
 	// Number of seconds an alert must wait after being triggered to rearm itself. After rearming, it can be triggered again. If 0 or not specified, the alert will not be triggered again.
 	SecondsToRetrigger *float64 `json:"secondsToRetrigger,omitempty" tf:"seconds_to_retrigger,omitempty"`
@@ -119,12 +139,32 @@ type AlertParameters struct {
 	OwnerUserName *string `json:"ownerUserName,omitempty" tf:"owner_user_name,omitempty"`
 
 	// The path to a workspace folder containing the alert. The default is the user's home folder.  If changed, the alert will be recreated.
+	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/namespaced/workspace/v1alpha1.Directory
+	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/v2/pkg/resource.ExtractParamPath("path",false)
 	// +kubebuilder:validation:Optional
 	ParentPath *string `json:"parentPath,omitempty" tf:"parent_path,omitempty"`
 
+	// Reference to a Directory in workspace to populate parentPath.
+	// +kubebuilder:validation:Optional
+	ParentPathRef *v1.NamespacedReference `json:"parentPathRef,omitempty" tf:"-"`
+
+	// Selector for a Directory in workspace to populate parentPath.
+	// +kubebuilder:validation:Optional
+	ParentPathSelector *v1.NamespacedSelector `json:"parentPathSelector,omitempty" tf:"-"`
+
 	// ID of the query evaluated by the alert.
+	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/namespaced/sql/v1alpha1.Query
+	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/v2/pkg/resource.ExtractResourceID()
 	// +kubebuilder:validation:Optional
 	QueryID *string `json:"queryId,omitempty" tf:"query_id,omitempty"`
+
+	// Reference to a Query in sql to populate queryId.
+	// +kubebuilder:validation:Optional
+	QueryIDRef *v1.NamespacedReference `json:"queryIdRef,omitempty" tf:"-"`
+
+	// Selector for a Query in sql to populate queryId.
+	// +kubebuilder:validation:Optional
+	QueryIDSelector *v1.NamespacedSelector `json:"queryIdSelector,omitempty" tf:"-"`
 
 	// Number of seconds an alert must wait after being triggered to rearm itself. After rearming, it can be triggered again. If 0 or not specified, the alert will not be triggered again.
 	// +kubebuilder:validation:Optional
@@ -314,7 +354,6 @@ type Alert struct {
 	metav1.ObjectMeta `json:"metadata,omitempty"`
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.condition) || (has(self.initProvider) && has(self.initProvider.condition))",message="spec.forProvider.condition is a required parameter"
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.displayName) || (has(self.initProvider) && has(self.initProvider.displayName))",message="spec.forProvider.displayName is a required parameter"
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.queryId) || (has(self.initProvider) && has(self.initProvider.queryId))",message="spec.forProvider.queryId is a required parameter"
 	Spec   AlertSpec   `json:"spec"`
 	Status AlertStatus `json:"status,omitempty"`
 }

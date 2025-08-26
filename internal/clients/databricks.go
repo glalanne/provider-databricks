@@ -84,6 +84,9 @@ func defaultAuth(ctx context.Context, pcSpec *namespacedv1beta1.ProviderConfigSp
 	}
 
 	// set credentials configuration
+	if v, ok := creds[keyHost]; ok {
+		ps.Configuration[keyHost] = v
+	}
 	if v, ok := creds[keyAzureWorkspaceResourceID]; ok {
 		ps.Configuration[keyAzureWorkspaceResourceID] = v
 	}

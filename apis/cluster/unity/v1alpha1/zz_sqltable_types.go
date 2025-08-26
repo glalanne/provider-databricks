@@ -82,7 +82,17 @@ type ColumnParameters struct {
 type SQLTableInitParameters struct {
 
 	// Name of parent catalog. Change forces the creation of a new resource.
+	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/cluster/unity/v1alpha1.Catalog
+	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/v2/pkg/resource.ExtractParamPath("name",false)
 	CatalogName *string `json:"catalogName,omitempty" tf:"catalog_name,omitempty"`
+
+	// Reference to a Catalog in unity to populate catalogName.
+	// +kubebuilder:validation:Optional
+	CatalogNameRef *v1.Reference `json:"catalogNameRef,omitempty" tf:"-"`
+
+	// Selector for a Catalog in unity to populate catalogName.
+	// +kubebuilder:validation:Optional
+	CatalogNameSelector *v1.Selector `json:"catalogNameSelector,omitempty" tf:"-"`
 
 	// All table CRUD operations must be executed on a running cluster or SQL warehouse. If a cluster_id is specified, it will be used to execute SQL commands to manage this table. Conflicts with warehouse_id.
 	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/cluster/compute/v1alpha1.Cluster
@@ -125,7 +135,17 @@ type SQLTableInitParameters struct {
 	Properties map[string]*string `json:"properties,omitempty" tf:"properties,omitempty"`
 
 	// Name of parent Schema relative to parent Catalog. Change forces the creation of a new resource.
+	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/cluster/unity/v1alpha1.Schema
+	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/v2/pkg/resource.ExtractParamPath("name",false)
 	SchemaName *string `json:"schemaName,omitempty" tf:"schema_name,omitempty"`
+
+	// Reference to a Schema in unity to populate schemaName.
+	// +kubebuilder:validation:Optional
+	SchemaNameRef *v1.Reference `json:"schemaNameRef,omitempty" tf:"-"`
+
+	// Selector for a Schema in unity to populate schemaName.
+	// +kubebuilder:validation:Optional
+	SchemaNameSelector *v1.Selector `json:"schemaNameSelector,omitempty" tf:"-"`
 
 	// For EXTERNAL Tables only: the name of storage credential to use. Change forces the creation of a new resource.
 	StorageCredentialName *string `json:"storageCredentialName,omitempty" tf:"storage_credential_name,omitempty"`
@@ -217,8 +237,18 @@ type SQLTableObservation struct {
 type SQLTableParameters struct {
 
 	// Name of parent catalog. Change forces the creation of a new resource.
+	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/cluster/unity/v1alpha1.Catalog
+	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/v2/pkg/resource.ExtractParamPath("name",false)
 	// +kubebuilder:validation:Optional
 	CatalogName *string `json:"catalogName,omitempty" tf:"catalog_name,omitempty"`
+
+	// Reference to a Catalog in unity to populate catalogName.
+	// +kubebuilder:validation:Optional
+	CatalogNameRef *v1.Reference `json:"catalogNameRef,omitempty" tf:"-"`
+
+	// Selector for a Catalog in unity to populate catalogName.
+	// +kubebuilder:validation:Optional
+	CatalogNameSelector *v1.Selector `json:"catalogNameSelector,omitempty" tf:"-"`
 
 	// All table CRUD operations must be executed on a running cluster or SQL warehouse. If a cluster_id is specified, it will be used to execute SQL commands to manage this table. Conflicts with warehouse_id.
 	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/cluster/compute/v1alpha1.Cluster
@@ -271,8 +301,18 @@ type SQLTableParameters struct {
 	Properties map[string]*string `json:"properties,omitempty" tf:"properties,omitempty"`
 
 	// Name of parent Schema relative to parent Catalog. Change forces the creation of a new resource.
+	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/cluster/unity/v1alpha1.Schema
+	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/v2/pkg/resource.ExtractParamPath("name",false)
 	// +kubebuilder:validation:Optional
 	SchemaName *string `json:"schemaName,omitempty" tf:"schema_name,omitempty"`
+
+	// Reference to a Schema in unity to populate schemaName.
+	// +kubebuilder:validation:Optional
+	SchemaNameRef *v1.Reference `json:"schemaNameRef,omitempty" tf:"-"`
+
+	// Selector for a Schema in unity to populate schemaName.
+	// +kubebuilder:validation:Optional
+	SchemaNameSelector *v1.Selector `json:"schemaNameSelector,omitempty" tf:"-"`
 
 	// For EXTERNAL Tables only: the name of storage credential to use. Change forces the creation of a new resource.
 	// +kubebuilder:validation:Optional
@@ -340,9 +380,7 @@ type SQLTableStatus struct {
 type SQLTable struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.catalogName) || (has(self.initProvider) && has(self.initProvider.catalogName))",message="spec.forProvider.catalogName is a required parameter"
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.name) || (has(self.initProvider) && has(self.initProvider.name))",message="spec.forProvider.name is a required parameter"
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.schemaName) || (has(self.initProvider) && has(self.initProvider.schemaName))",message="spec.forProvider.schemaName is a required parameter"
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.tableType) || (has(self.initProvider) && has(self.initProvider.tableType))",message="spec.forProvider.tableType is a required parameter"
 	Spec   SQLTableSpec   `json:"spec"`
 	Status SQLTableStatus `json:"status,omitempty"`

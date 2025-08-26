@@ -63,7 +63,17 @@ type RecipientInitParameters struct {
 	Comment *string `json:"comment,omitempty" tf:"comment,omitempty"`
 
 	// Required when authentication_type is DATABRICKS.
+	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/cluster/unity/v1alpha1.Metastore
+	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/v2/pkg/resource.ExtractParamPath("global_metastore_id",false)
 	DataRecipientGlobalMetastoreID *string `json:"dataRecipientGlobalMetastoreId,omitempty" tf:"data_recipient_global_metastore_id,omitempty"`
+
+	// Reference to a Metastore in unity to populate dataRecipientGlobalMetastoreId.
+	// +kubebuilder:validation:Optional
+	DataRecipientGlobalMetastoreIDRef *v1.Reference `json:"dataRecipientGlobalMetastoreIdRef,omitempty" tf:"-"`
+
+	// Selector for a Metastore in unity to populate dataRecipientGlobalMetastoreId.
+	// +kubebuilder:validation:Optional
+	DataRecipientGlobalMetastoreIDSelector *v1.Selector `json:"dataRecipientGlobalMetastoreIdSelector,omitempty" tf:"-"`
 
 	// Expiration timestamp of the token in epoch milliseconds.
 	ExpirationTime *float64 `json:"expirationTime,omitempty" tf:"expiration_time,omitempty"`
@@ -156,8 +166,18 @@ type RecipientParameters struct {
 	Comment *string `json:"comment,omitempty" tf:"comment,omitempty"`
 
 	// Required when authentication_type is DATABRICKS.
+	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/cluster/unity/v1alpha1.Metastore
+	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/v2/pkg/resource.ExtractParamPath("global_metastore_id",false)
 	// +kubebuilder:validation:Optional
 	DataRecipientGlobalMetastoreID *string `json:"dataRecipientGlobalMetastoreId,omitempty" tf:"data_recipient_global_metastore_id,omitempty"`
+
+	// Reference to a Metastore in unity to populate dataRecipientGlobalMetastoreId.
+	// +kubebuilder:validation:Optional
+	DataRecipientGlobalMetastoreIDRef *v1.Reference `json:"dataRecipientGlobalMetastoreIdRef,omitempty" tf:"-"`
+
+	// Selector for a Metastore in unity to populate dataRecipientGlobalMetastoreId.
+	// +kubebuilder:validation:Optional
+	DataRecipientGlobalMetastoreIDSelector *v1.Selector `json:"dataRecipientGlobalMetastoreIdSelector,omitempty" tf:"-"`
 
 	// Expiration timestamp of the token in epoch milliseconds.
 	// +kubebuilder:validation:Optional

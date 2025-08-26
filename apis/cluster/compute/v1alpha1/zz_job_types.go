@@ -4367,7 +4367,17 @@ type JobTaskNotebookTaskInitParameters struct {
 	BaseParameters map[string]*string `json:"baseParameters,omitempty" tf:"base_parameters,omitempty"`
 
 	// The path of the databricks_notebook to be run in the Databricks workspace or remote repository. For notebooks stored in the Databricks workspace, the path must be absolute and begin with a slash. For notebooks stored in a remote repository, the path must be relative. This field is required.
+	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/cluster/workspace/v1alpha1.Notebook
+	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/v2/pkg/resource.ExtractParamPath("path",false)
 	NotebookPath *string `json:"notebookPath,omitempty" tf:"notebook_path,omitempty"`
+
+	// Reference to a Notebook in workspace to populate notebookPath.
+	// +kubebuilder:validation:Optional
+	NotebookPathRef *v1.Reference `json:"notebookPathRef,omitempty" tf:"-"`
+
+	// Selector for a Notebook in workspace to populate notebookPath.
+	// +kubebuilder:validation:Optional
+	NotebookPathSelector *v1.Selector `json:"notebookPathSelector,omitempty" tf:"-"`
 
 	// The source of the project. Possible values are WORKSPACE and GIT.  Defaults to GIT if a git_source block is present in the job definition.
 	Source *string `json:"source,omitempty" tf:"source,omitempty"`
@@ -4400,8 +4410,18 @@ type JobTaskNotebookTaskParameters struct {
 	BaseParameters map[string]*string `json:"baseParameters,omitempty" tf:"base_parameters,omitempty"`
 
 	// The path of the databricks_notebook to be run in the Databricks workspace or remote repository. For notebooks stored in the Databricks workspace, the path must be absolute and begin with a slash. For notebooks stored in a remote repository, the path must be relative. This field is required.
+	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/cluster/workspace/v1alpha1.Notebook
+	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/v2/pkg/resource.ExtractParamPath("path",false)
 	// +kubebuilder:validation:Optional
-	NotebookPath *string `json:"notebookPath" tf:"notebook_path,omitempty"`
+	NotebookPath *string `json:"notebookPath,omitempty" tf:"notebook_path,omitempty"`
+
+	// Reference to a Notebook in workspace to populate notebookPath.
+	// +kubebuilder:validation:Optional
+	NotebookPathRef *v1.Reference `json:"notebookPathRef,omitempty" tf:"-"`
+
+	// Selector for a Notebook in workspace to populate notebookPath.
+	// +kubebuilder:validation:Optional
+	NotebookPathSelector *v1.Selector `json:"notebookPathSelector,omitempty" tf:"-"`
 
 	// The source of the project. Possible values are WORKSPACE and GIT.  Defaults to GIT if a git_source block is present in the job definition.
 	// +kubebuilder:validation:Optional
@@ -4457,7 +4477,17 @@ type JobTaskPipelineTaskInitParameters struct {
 	FullRefresh *bool `json:"fullRefresh,omitempty" tf:"full_refresh,omitempty"`
 
 	// The pipeline's unique ID.
+	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/cluster/compute/v1alpha1.Pipeline
+	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/v2/pkg/resource.ExtractResourceID()
 	PipelineID *string `json:"pipelineId,omitempty" tf:"pipeline_id,omitempty"`
+
+	// Reference to a Pipeline in compute to populate pipelineId.
+	// +kubebuilder:validation:Optional
+	PipelineIDRef *v1.Reference `json:"pipelineIdRef,omitempty" tf:"-"`
+
+	// Selector for a Pipeline in compute to populate pipelineId.
+	// +kubebuilder:validation:Optional
+	PipelineIDSelector *v1.Selector `json:"pipelineIdSelector,omitempty" tf:"-"`
 }
 
 type JobTaskPipelineTaskObservation struct {
@@ -4476,8 +4506,18 @@ type JobTaskPipelineTaskParameters struct {
 	FullRefresh *bool `json:"fullRefresh,omitempty" tf:"full_refresh,omitempty"`
 
 	// The pipeline's unique ID.
+	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/cluster/compute/v1alpha1.Pipeline
+	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/v2/pkg/resource.ExtractResourceID()
 	// +kubebuilder:validation:Optional
-	PipelineID *string `json:"pipelineId" tf:"pipeline_id,omitempty"`
+	PipelineID *string `json:"pipelineId,omitempty" tf:"pipeline_id,omitempty"`
+
+	// Reference to a Pipeline in compute to populate pipelineId.
+	// +kubebuilder:validation:Optional
+	PipelineIDRef *v1.Reference `json:"pipelineIdRef,omitempty" tf:"-"`
+
+	// Selector for a Pipeline in compute to populate pipelineId.
+	// +kubebuilder:validation:Optional
+	PipelineIDSelector *v1.Selector `json:"pipelineIdSelector,omitempty" tf:"-"`
 }
 
 type JobTaskPythonWheelTaskInitParameters struct {
@@ -6061,7 +6101,17 @@ type NotebookTaskInitParameters struct {
 	BaseParameters map[string]*string `json:"baseParameters,omitempty" tf:"base_parameters,omitempty"`
 
 	// The path of the databricks_notebook to be run in the Databricks workspace or remote repository. For notebooks stored in the Databricks workspace, the path must be absolute and begin with a slash. For notebooks stored in a remote repository, the path must be relative. This field is required.
+	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/cluster/workspace/v1alpha1.Notebook
+	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/v2/pkg/resource.ExtractParamPath("path",false)
 	NotebookPath *string `json:"notebookPath,omitempty" tf:"notebook_path,omitempty"`
+
+	// Reference to a Notebook in workspace to populate notebookPath.
+	// +kubebuilder:validation:Optional
+	NotebookPathRef *v1.Reference `json:"notebookPathRef,omitempty" tf:"-"`
+
+	// Selector for a Notebook in workspace to populate notebookPath.
+	// +kubebuilder:validation:Optional
+	NotebookPathSelector *v1.Selector `json:"notebookPathSelector,omitempty" tf:"-"`
 
 	// The source of the project. Possible values are WORKSPACE and GIT.  Defaults to GIT if a git_source block is present in the job definition.
 	Source *string `json:"source,omitempty" tf:"source,omitempty"`
@@ -6094,8 +6144,18 @@ type NotebookTaskParameters struct {
 	BaseParameters map[string]*string `json:"baseParameters,omitempty" tf:"base_parameters,omitempty"`
 
 	// The path of the databricks_notebook to be run in the Databricks workspace or remote repository. For notebooks stored in the Databricks workspace, the path must be absolute and begin with a slash. For notebooks stored in a remote repository, the path must be relative. This field is required.
+	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/cluster/workspace/v1alpha1.Notebook
+	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/v2/pkg/resource.ExtractParamPath("path",false)
 	// +kubebuilder:validation:Optional
-	NotebookPath *string `json:"notebookPath" tf:"notebook_path,omitempty"`
+	NotebookPath *string `json:"notebookPath,omitempty" tf:"notebook_path,omitempty"`
+
+	// Reference to a Notebook in workspace to populate notebookPath.
+	// +kubebuilder:validation:Optional
+	NotebookPathRef *v1.Reference `json:"notebookPathRef,omitempty" tf:"-"`
+
+	// Selector for a Notebook in workspace to populate notebookPath.
+	// +kubebuilder:validation:Optional
+	NotebookPathSelector *v1.Selector `json:"notebookPathSelector,omitempty" tf:"-"`
 
 	// The source of the project. Possible values are WORKSPACE and GIT.  Defaults to GIT if a git_source block is present in the job definition.
 	// +kubebuilder:validation:Optional
@@ -6774,7 +6834,17 @@ type RunJobTaskPipelineParamsParameters struct {
 type SQLTaskAlertInitParameters struct {
 
 	// (String) identifier of the Databricks Alert (databricks_alert).
+	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/cluster/sql/v1alpha1.SQLAlert
+	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/v2/pkg/resource.ExtractResourceID()
 	AlertID *string `json:"alertId,omitempty" tf:"alert_id,omitempty"`
+
+	// Reference to a SQLAlert in sql to populate alertId.
+	// +kubebuilder:validation:Optional
+	AlertIDRef *v1.Reference `json:"alertIdRef,omitempty" tf:"-"`
+
+	// Selector for a SQLAlert in sql to populate alertId.
+	// +kubebuilder:validation:Optional
+	AlertIDSelector *v1.Selector `json:"alertIdSelector,omitempty" tf:"-"`
 
 	// flag that specifies if subscriptions are paused or not.
 	PauseSubscriptions *bool `json:"pauseSubscriptions,omitempty" tf:"pause_subscriptions,omitempty"`
@@ -6798,8 +6868,18 @@ type SQLTaskAlertObservation struct {
 type SQLTaskAlertParameters struct {
 
 	// (String) identifier of the Databricks Alert (databricks_alert).
+	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/cluster/sql/v1alpha1.SQLAlert
+	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/v2/pkg/resource.ExtractResourceID()
 	// +kubebuilder:validation:Optional
-	AlertID *string `json:"alertId" tf:"alert_id,omitempty"`
+	AlertID *string `json:"alertId,omitempty" tf:"alert_id,omitempty"`
+
+	// Reference to a SQLAlert in sql to populate alertId.
+	// +kubebuilder:validation:Optional
+	AlertIDRef *v1.Reference `json:"alertIdRef,omitempty" tf:"-"`
+
+	// Selector for a SQLAlert in sql to populate alertId.
+	// +kubebuilder:validation:Optional
+	AlertIDSelector *v1.Selector `json:"alertIdSelector,omitempty" tf:"-"`
 
 	// flag that specifies if subscriptions are paused or not.
 	// +kubebuilder:validation:Optional
@@ -6816,7 +6896,17 @@ type SQLTaskDashboardInitParameters struct {
 	CustomSubject *string `json:"customSubject,omitempty" tf:"custom_subject,omitempty"`
 
 	// The identifier of the dashboard to refresh
+	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/cluster/sql/v1alpha1.SQLDashboard
+	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/v2/pkg/resource.ExtractResourceID()
 	DashboardID *string `json:"dashboardId,omitempty" tf:"dashboard_id,omitempty"`
+
+	// Reference to a SQLDashboard in sql to populate dashboardId.
+	// +kubebuilder:validation:Optional
+	DashboardIDRef *v1.Reference `json:"dashboardIdRef,omitempty" tf:"-"`
+
+	// Selector for a SQLDashboard in sql to populate dashboardId.
+	// +kubebuilder:validation:Optional
+	DashboardIDSelector *v1.Selector `json:"dashboardIdSelector,omitempty" tf:"-"`
 
 	// flag that specifies if subscriptions are paused or not.
 	PauseSubscriptions *bool `json:"pauseSubscriptions,omitempty" tf:"pause_subscriptions,omitempty"`
@@ -6847,8 +6937,18 @@ type SQLTaskDashboardParameters struct {
 	CustomSubject *string `json:"customSubject,omitempty" tf:"custom_subject,omitempty"`
 
 	// The identifier of the dashboard to refresh
+	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/cluster/sql/v1alpha1.SQLDashboard
+	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/v2/pkg/resource.ExtractResourceID()
 	// +kubebuilder:validation:Optional
-	DashboardID *string `json:"dashboardId" tf:"dashboard_id,omitempty"`
+	DashboardID *string `json:"dashboardId,omitempty" tf:"dashboard_id,omitempty"`
+
+	// Reference to a SQLDashboard in sql to populate dashboardId.
+	// +kubebuilder:validation:Optional
+	DashboardIDRef *v1.Reference `json:"dashboardIdRef,omitempty" tf:"-"`
+
+	// Selector for a SQLDashboard in sql to populate dashboardId.
+	// +kubebuilder:validation:Optional
+	DashboardIDSelector *v1.Selector `json:"dashboardIdSelector,omitempty" tf:"-"`
 
 	// flag that specifies if subscriptions are paused or not.
 	// +kubebuilder:validation:Optional
@@ -6992,7 +7092,17 @@ type SQLTaskParameters struct {
 type SQLTaskQueryInitParameters struct {
 
 	// ID of the system notification that is notified when an event defined in webhook_notifications is triggered.
+	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/cluster/sql/v1alpha1.SQLQuery
+	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/v2/pkg/resource.ExtractResourceID()
 	QueryID *string `json:"queryId,omitempty" tf:"query_id,omitempty"`
+
+	// Reference to a SQLQuery in sql to populate queryId.
+	// +kubebuilder:validation:Optional
+	QueryIDRef *v1.Reference `json:"queryIdRef,omitempty" tf:"-"`
+
+	// Selector for a SQLQuery in sql to populate queryId.
+	// +kubebuilder:validation:Optional
+	QueryIDSelector *v1.Selector `json:"queryIdSelector,omitempty" tf:"-"`
 }
 
 type SQLTaskQueryObservation struct {
@@ -7004,8 +7114,18 @@ type SQLTaskQueryObservation struct {
 type SQLTaskQueryParameters struct {
 
 	// ID of the system notification that is notified when an event defined in webhook_notifications is triggered.
+	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/cluster/sql/v1alpha1.SQLQuery
+	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/v2/pkg/resource.ExtractResourceID()
 	// +kubebuilder:validation:Optional
-	QueryID *string `json:"queryId" tf:"query_id,omitempty"`
+	QueryID *string `json:"queryId,omitempty" tf:"query_id,omitempty"`
+
+	// Reference to a SQLQuery in sql to populate queryId.
+	// +kubebuilder:validation:Optional
+	QueryIDRef *v1.Reference `json:"queryIdRef,omitempty" tf:"-"`
+
+	// Selector for a SQLQuery in sql to populate queryId.
+	// +kubebuilder:validation:Optional
+	QueryIDSelector *v1.Selector `json:"queryIdSelector,omitempty" tf:"-"`
 }
 
 type ScheduleInitParameters struct {
@@ -7977,7 +8097,17 @@ type TaskInitParameters struct {
 	EnvironmentKey *string `json:"environmentKey,omitempty" tf:"environment_key,omitempty"`
 
 	// If existing_cluster_id, the ID of an existing cluster that will be used for all runs of this job. When running jobs on an existing cluster, you may need to manually restart the cluster if it stops responding. We strongly suggest to use new_cluster for greater reliability.
+	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/cluster/compute/v1alpha1.Cluster
+	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/v2/pkg/resource.ExtractResourceID()
 	ExistingClusterID *string `json:"existingClusterId,omitempty" tf:"existing_cluster_id,omitempty"`
+
+	// Reference to a Cluster in compute to populate existingClusterId.
+	// +kubebuilder:validation:Optional
+	ExistingClusterIDRef *v1.Reference `json:"existingClusterIdRef,omitempty" tf:"-"`
+
+	// Selector for a Cluster in compute to populate existingClusterId.
+	// +kubebuilder:validation:Optional
+	ExistingClusterIDSelector *v1.Selector `json:"existingClusterIdSelector,omitempty" tf:"-"`
 
 	// A list of task specification that the job will execute. See task Configuration Block below.
 	ForEachTask *ForEachTaskInitParameters `json:"forEachTask,omitempty" tf:"for_each_task,omitempty"`
@@ -9513,8 +9643,18 @@ type TaskParameters struct {
 	EnvironmentKey *string `json:"environmentKey,omitempty" tf:"environment_key,omitempty"`
 
 	// If existing_cluster_id, the ID of an existing cluster that will be used for all runs of this job. When running jobs on an existing cluster, you may need to manually restart the cluster if it stops responding. We strongly suggest to use new_cluster for greater reliability.
+	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/cluster/compute/v1alpha1.Cluster
+	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/v2/pkg/resource.ExtractResourceID()
 	// +kubebuilder:validation:Optional
 	ExistingClusterID *string `json:"existingClusterId,omitempty" tf:"existing_cluster_id,omitempty"`
+
+	// Reference to a Cluster in compute to populate existingClusterId.
+	// +kubebuilder:validation:Optional
+	ExistingClusterIDRef *v1.Reference `json:"existingClusterIdRef,omitempty" tf:"-"`
+
+	// Selector for a Cluster in compute to populate existingClusterId.
+	// +kubebuilder:validation:Optional
+	ExistingClusterIDSelector *v1.Selector `json:"existingClusterIdSelector,omitempty" tf:"-"`
 
 	// A list of task specification that the job will execute. See task Configuration Block below.
 	// +kubebuilder:validation:Optional
@@ -9897,7 +10037,17 @@ type TaskSQLTaskInitParameters struct {
 	Query *SQLTaskQueryInitParameters `json:"query,omitempty" tf:"query,omitempty"`
 
 	// The warehouse id to execute the dashboard with for the schedule. If not specified, will use the default warehouse of dashboard
+	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/cluster/sql/v1alpha1.SQLEndpoint
+	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/v2/pkg/resource.ExtractResourceID()
 	WarehouseID *string `json:"warehouseId,omitempty" tf:"warehouse_id,omitempty"`
+
+	// Reference to a SQLEndpoint in sql to populate warehouseId.
+	// +kubebuilder:validation:Optional
+	WarehouseIDRef *v1.Reference `json:"warehouseIdRef,omitempty" tf:"-"`
+
+	// Selector for a SQLEndpoint in sql to populate warehouseId.
+	// +kubebuilder:validation:Optional
+	WarehouseIDSelector *v1.Selector `json:"warehouseIdSelector,omitempty" tf:"-"`
 }
 
 type TaskSQLTaskObservation struct {
@@ -9946,8 +10096,18 @@ type TaskSQLTaskParameters struct {
 	Query *SQLTaskQueryParameters `json:"query,omitempty" tf:"query,omitempty"`
 
 	// The warehouse id to execute the dashboard with for the schedule. If not specified, will use the default warehouse of dashboard
+	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/cluster/sql/v1alpha1.SQLEndpoint
+	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/v2/pkg/resource.ExtractResourceID()
 	// +kubebuilder:validation:Optional
-	WarehouseID *string `json:"warehouseId" tf:"warehouse_id,omitempty"`
+	WarehouseID *string `json:"warehouseId,omitempty" tf:"warehouse_id,omitempty"`
+
+	// Reference to a SQLEndpoint in sql to populate warehouseId.
+	// +kubebuilder:validation:Optional
+	WarehouseIDRef *v1.Reference `json:"warehouseIdRef,omitempty" tf:"-"`
+
+	// Selector for a SQLEndpoint in sql to populate warehouseId.
+	// +kubebuilder:validation:Optional
+	WarehouseIDSelector *v1.Selector `json:"warehouseIdSelector,omitempty" tf:"-"`
 }
 
 type TaskSparkJarTaskInitParameters struct {

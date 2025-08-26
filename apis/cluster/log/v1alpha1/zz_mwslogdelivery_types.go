@@ -25,7 +25,17 @@ type MwsLogDeliveryInitParameters struct {
 	ConfigName *string `json:"configName,omitempty" tf:"config_name,omitempty"`
 
 	// The ID for a Databricks credential configuration that represents the AWS IAM role with policy and trust relationship as described in the main billable usage documentation page.
+	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/cluster/deployment/v1alpha1.MwsCredentials
+	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/v2/pkg/resource.ExtractParamPath("credentials_id",false)
 	CredentialsID *string `json:"credentialsId,omitempty" tf:"credentials_id,omitempty"`
+
+	// Reference to a MwsCredentials in deployment to populate credentialsId.
+	// +kubebuilder:validation:Optional
+	CredentialsIDRef *v1.Reference `json:"credentialsIdRef,omitempty" tf:"-"`
+
+	// Selector for a MwsCredentials in deployment to populate credentialsId.
+	// +kubebuilder:validation:Optional
+	CredentialsIDSelector *v1.Selector `json:"credentialsIdSelector,omitempty" tf:"-"`
 
 	// Defaults to empty, which means that logs are delivered to the root of the bucket. The value must be a valid S3 object key. It must not start or end with a slash character.
 	DeliveryPathPrefix *string `json:"deliveryPathPrefix,omitempty" tf:"delivery_path_prefix,omitempty"`
@@ -43,7 +53,17 @@ type MwsLogDeliveryInitParameters struct {
 	Status *string `json:"status,omitempty" tf:"status,omitempty"`
 
 	// The ID for a Databricks storage configuration that represents the S3 bucket with bucket policy as described in the main billable usage documentation page.
+	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/cluster/deployment/v1alpha1.MwsStorageConfigurations
+	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/v2/pkg/resource.ExtractParamPath("storage_configuration_id",true)
 	StorageConfigurationID *string `json:"storageConfigurationId,omitempty" tf:"storage_configuration_id,omitempty"`
+
+	// Reference to a MwsStorageConfigurations in deployment to populate storageConfigurationId.
+	// +kubebuilder:validation:Optional
+	StorageConfigurationIDRef *v1.Reference `json:"storageConfigurationIdRef,omitempty" tf:"-"`
+
+	// Selector for a MwsStorageConfigurations in deployment to populate storageConfigurationId.
+	// +kubebuilder:validation:Optional
+	StorageConfigurationIDSelector *v1.Selector `json:"storageConfigurationIdSelector,omitempty" tf:"-"`
 
 	// By default, this log configuration applies to all workspaces associated with your account ID. If your account is on the multitenant version of the platform or on a select custom plan that allows multiple workspaces per account, you may have multiple workspaces associated with your account ID. You can optionally set the field as mentioned earlier to an array of workspace IDs. If you plan to use different log delivery configurations for several workspaces, set this explicitly rather than leaving it blank. If you leave this blank and your account ID gets additional workspaces in the future, this configuration will also apply to the new workspaces.
 	WorkspaceIdsFilter []*float64 `json:"workspaceIdsFilter,omitempty" tf:"workspace_ids_filter,omitempty"`
@@ -103,8 +123,18 @@ type MwsLogDeliveryParameters struct {
 	ConfigName *string `json:"configName,omitempty" tf:"config_name,omitempty"`
 
 	// The ID for a Databricks credential configuration that represents the AWS IAM role with policy and trust relationship as described in the main billable usage documentation page.
+	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/cluster/deployment/v1alpha1.MwsCredentials
+	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/v2/pkg/resource.ExtractParamPath("credentials_id",false)
 	// +kubebuilder:validation:Optional
 	CredentialsID *string `json:"credentialsId,omitempty" tf:"credentials_id,omitempty"`
+
+	// Reference to a MwsCredentials in deployment to populate credentialsId.
+	// +kubebuilder:validation:Optional
+	CredentialsIDRef *v1.Reference `json:"credentialsIdRef,omitempty" tf:"-"`
+
+	// Selector for a MwsCredentials in deployment to populate credentialsId.
+	// +kubebuilder:validation:Optional
+	CredentialsIDSelector *v1.Selector `json:"credentialsIdSelector,omitempty" tf:"-"`
 
 	// Defaults to empty, which means that logs are delivered to the root of the bucket. The value must be a valid S3 object key. It must not start or end with a slash character.
 	// +kubebuilder:validation:Optional
@@ -127,8 +157,18 @@ type MwsLogDeliveryParameters struct {
 	Status *string `json:"status,omitempty" tf:"status,omitempty"`
 
 	// The ID for a Databricks storage configuration that represents the S3 bucket with bucket policy as described in the main billable usage documentation page.
+	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/cluster/deployment/v1alpha1.MwsStorageConfigurations
+	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/v2/pkg/resource.ExtractParamPath("storage_configuration_id",true)
 	// +kubebuilder:validation:Optional
 	StorageConfigurationID *string `json:"storageConfigurationId,omitempty" tf:"storage_configuration_id,omitempty"`
+
+	// Reference to a MwsStorageConfigurations in deployment to populate storageConfigurationId.
+	// +kubebuilder:validation:Optional
+	StorageConfigurationIDRef *v1.Reference `json:"storageConfigurationIdRef,omitempty" tf:"-"`
+
+	// Selector for a MwsStorageConfigurations in deployment to populate storageConfigurationId.
+	// +kubebuilder:validation:Optional
+	StorageConfigurationIDSelector *v1.Selector `json:"storageConfigurationIdSelector,omitempty" tf:"-"`
 
 	// By default, this log configuration applies to all workspaces associated with your account ID. If your account is on the multitenant version of the platform or on a select custom plan that allows multiple workspaces per account, you may have multiple workspaces associated with your account ID. You can optionally set the field as mentioned earlier to an array of workspace IDs. If you plan to use different log delivery configurations for several workspaces, set this explicitly rather than leaving it blank. If you leave this blank and your account ID gets additional workspaces in the future, this configuration will also apply to the new workspaces.
 	// +kubebuilder:validation:Optional
@@ -172,10 +212,8 @@ type MwsLogDelivery struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.accountId) || (has(self.initProvider) && has(self.initProvider.accountId))",message="spec.forProvider.accountId is a required parameter"
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.credentialsId) || (has(self.initProvider) && has(self.initProvider.credentialsId))",message="spec.forProvider.credentialsId is a required parameter"
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.logType) || (has(self.initProvider) && has(self.initProvider.logType))",message="spec.forProvider.logType is a required parameter"
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.outputFormat) || (has(self.initProvider) && has(self.initProvider.outputFormat))",message="spec.forProvider.outputFormat is a required parameter"
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.storageConfigurationId) || (has(self.initProvider) && has(self.initProvider.storageConfigurationId))",message="spec.forProvider.storageConfigurationId is a required parameter"
 	Spec   MwsLogDeliverySpec   `json:"spec"`
 	Status MwsLogDeliveryStatus `json:"status,omitempty"`
 }

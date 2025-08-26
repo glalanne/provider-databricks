@@ -9,6 +9,7 @@
 package v1alpha1
 
 import (
+	"github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
 	runtime "k8s.io/apimachinery/pkg/runtime"
 )
 
@@ -25,10 +26,30 @@ func (in *AbfsInitParameters) DeepCopyInto(out *AbfsInitParameters) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.ClientSecretKeyRef != nil {
+		in, out := &in.ClientSecretKeyRef, &out.ClientSecretKeyRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.ClientSecretKeySelector != nil {
+		in, out := &in.ClientSecretKeySelector, &out.ClientSecretKeySelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.ClientSecretScope != nil {
 		in, out := &in.ClientSecretScope, &out.ClientSecretScope
 		*out = new(string)
 		**out = **in
+	}
+	if in.ClientSecretScopeRef != nil {
+		in, out := &in.ClientSecretScopeRef, &out.ClientSecretScopeRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.ClientSecretScopeSelector != nil {
+		in, out := &in.ClientSecretScopeSelector, &out.ClientSecretScopeSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.ContainerName != nil {
 		in, out := &in.ContainerName, &out.ContainerName
@@ -135,10 +156,30 @@ func (in *AbfsParameters) DeepCopyInto(out *AbfsParameters) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.ClientSecretKeyRef != nil {
+		in, out := &in.ClientSecretKeyRef, &out.ClientSecretKeyRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.ClientSecretKeySelector != nil {
+		in, out := &in.ClientSecretKeySelector, &out.ClientSecretKeySelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.ClientSecretScope != nil {
 		in, out := &in.ClientSecretScope, &out.ClientSecretScope
 		*out = new(string)
 		**out = **in
+	}
+	if in.ClientSecretScopeRef != nil {
+		in, out := &in.ClientSecretScopeRef, &out.ClientSecretScopeRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.ClientSecretScopeSelector != nil {
+		in, out := &in.ClientSecretScopeSelector, &out.ClientSecretScopeSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.ContainerName != nil {
 		in, out := &in.ContainerName, &out.ContainerName
@@ -190,10 +231,30 @@ func (in *AdlInitParameters) DeepCopyInto(out *AdlInitParameters) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.ClientSecretKeyRef != nil {
+		in, out := &in.ClientSecretKeyRef, &out.ClientSecretKeyRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.ClientSecretKeySelector != nil {
+		in, out := &in.ClientSecretKeySelector, &out.ClientSecretKeySelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.ClientSecretScope != nil {
 		in, out := &in.ClientSecretScope, &out.ClientSecretScope
 		*out = new(string)
 		**out = **in
+	}
+	if in.ClientSecretScopeRef != nil {
+		in, out := &in.ClientSecretScopeRef, &out.ClientSecretScopeRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.ClientSecretScopeSelector != nil {
+		in, out := &in.ClientSecretScopeSelector, &out.ClientSecretScopeSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Directory != nil {
 		in, out := &in.Directory, &out.Directory
@@ -290,10 +351,30 @@ func (in *AdlParameters) DeepCopyInto(out *AdlParameters) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.ClientSecretKeyRef != nil {
+		in, out := &in.ClientSecretKeyRef, &out.ClientSecretKeyRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.ClientSecretKeySelector != nil {
+		in, out := &in.ClientSecretKeySelector, &out.ClientSecretKeySelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.ClientSecretScope != nil {
 		in, out := &in.ClientSecretScope, &out.ClientSecretScope
 		*out = new(string)
 		**out = **in
+	}
+	if in.ClientSecretScopeRef != nil {
+		in, out := &in.ClientSecretScopeRef, &out.ClientSecretScopeRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.ClientSecretScopeSelector != nil {
+		in, out := &in.ClientSecretScopeSelector, &out.ClientSecretScopeSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Directory != nil {
 		in, out := &in.Directory, &out.Directory
@@ -890,6 +971,16 @@ func (in *MountInitParameters) DeepCopyInto(out *MountInitParameters) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.ClusterIDRef != nil {
+		in, out := &in.ClusterIDRef, &out.ClusterIDRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.ClusterIDSelector != nil {
+		in, out := &in.ClusterIDSelector, &out.ClusterIDSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.EncryptionType != nil {
 		in, out := &in.EncryptionType, &out.EncryptionType
 		*out = new(string)
@@ -1094,6 +1185,16 @@ func (in *MountParameters) DeepCopyInto(out *MountParameters) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.ClusterIDRef != nil {
+		in, out := &in.ClusterIDRef, &out.ClusterIDRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.ClusterIDSelector != nil {
+		in, out := &in.ClusterIDSelector, &out.ClusterIDSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.EncryptionType != nil {
 		in, out := &in.EncryptionType, &out.EncryptionType
 		*out = new(string)
@@ -1205,6 +1306,16 @@ func (in *S3InitParameters) DeepCopyInto(out *S3InitParameters) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.InstanceProfileRef != nil {
+		in, out := &in.InstanceProfileRef, &out.InstanceProfileRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.InstanceProfileSelector != nil {
+		in, out := &in.InstanceProfileSelector, &out.InstanceProfileSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
+	}
 }
 
 // DeepCopy is an autogenerated deepcopy function, copying the receiver, creating a new S3InitParameters.
@@ -1255,6 +1366,16 @@ func (in *S3Parameters) DeepCopyInto(out *S3Parameters) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.InstanceProfileRef != nil {
+		in, out := &in.InstanceProfileRef, &out.InstanceProfileRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.InstanceProfileSelector != nil {
+		in, out := &in.InstanceProfileSelector, &out.InstanceProfileSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
+	}
 }
 
 // DeepCopy is an autogenerated deepcopy function, copying the receiver, creating a new S3Parameters.
@@ -1295,10 +1416,30 @@ func (in *WasbInitParameters) DeepCopyInto(out *WasbInitParameters) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.TokenSecretKeyRef != nil {
+		in, out := &in.TokenSecretKeyRef, &out.TokenSecretKeyRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.TokenSecretKeySelector != nil {
+		in, out := &in.TokenSecretKeySelector, &out.TokenSecretKeySelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.TokenSecretScope != nil {
 		in, out := &in.TokenSecretScope, &out.TokenSecretScope
 		*out = new(string)
 		**out = **in
+	}
+	if in.TokenSecretScopeRef != nil {
+		in, out := &in.TokenSecretScopeRef, &out.TokenSecretScopeRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.TokenSecretScopeSelector != nil {
+		in, out := &in.TokenSecretScopeSelector, &out.TokenSecretScopeSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
 	}
 }
 
@@ -1385,10 +1526,30 @@ func (in *WasbParameters) DeepCopyInto(out *WasbParameters) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.TokenSecretKeyRef != nil {
+		in, out := &in.TokenSecretKeyRef, &out.TokenSecretKeyRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.TokenSecretKeySelector != nil {
+		in, out := &in.TokenSecretKeySelector, &out.TokenSecretKeySelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.TokenSecretScope != nil {
 		in, out := &in.TokenSecretScope, &out.TokenSecretScope
 		*out = new(string)
 		**out = **in
+	}
+	if in.TokenSecretScopeRef != nil {
+		in, out := &in.TokenSecretScopeRef, &out.TokenSecretScopeRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.TokenSecretScopeSelector != nil {
+		in, out := &in.TokenSecretScopeSelector, &out.TokenSecretScopeSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
 	}
 }
 

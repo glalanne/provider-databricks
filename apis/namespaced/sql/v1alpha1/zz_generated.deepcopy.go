@@ -9,6 +9,7 @@
 package v1alpha1
 
 import (
+	"github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
 	runtime "k8s.io/apimachinery/pkg/runtime"
 )
 
@@ -77,10 +78,30 @@ func (in *AlertInitParameters) DeepCopyInto(out *AlertInitParameters) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.ParentPathRef != nil {
+		in, out := &in.ParentPathRef, &out.ParentPathRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.ParentPathSelector != nil {
+		in, out := &in.ParentPathSelector, &out.ParentPathSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.QueryID != nil {
 		in, out := &in.QueryID, &out.QueryID
 		*out = new(string)
 		**out = **in
+	}
+	if in.QueryIDRef != nil {
+		in, out := &in.QueryIDRef, &out.QueryIDRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.QueryIDSelector != nil {
+		in, out := &in.QueryIDSelector, &out.QueryIDSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.SecondsToRetrigger != nil {
 		in, out := &in.SecondsToRetrigger, &out.SecondsToRetrigger
@@ -259,10 +280,30 @@ func (in *AlertParameters) DeepCopyInto(out *AlertParameters) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.ParentPathRef != nil {
+		in, out := &in.ParentPathRef, &out.ParentPathRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.ParentPathSelector != nil {
+		in, out := &in.ParentPathSelector, &out.ParentPathSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.QueryID != nil {
 		in, out := &in.QueryID, &out.QueryID
 		*out = new(string)
 		**out = **in
+	}
+	if in.QueryIDRef != nil {
+		in, out := &in.QueryIDRef, &out.QueryIDRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.QueryIDSelector != nil {
+		in, out := &in.QueryIDSelector, &out.QueryIDSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.SecondsToRetrigger != nil {
 		in, out := &in.SecondsToRetrigger, &out.SecondsToRetrigger
@@ -2320,10 +2361,8 @@ func (in *HealthObservation) DeepCopyInto(out *HealthObservation) {
 	}
 	if in.FailureReason != nil {
 		in, out := &in.FailureReason, &out.FailureReason
-		*out = make([]FailureReasonObservation, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(FailureReasonObservation)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Message != nil {
 		in, out := &in.Message, &out.Message
@@ -3615,6 +3654,16 @@ func (in *QueryInitParameters) DeepCopyInto(out *QueryInitParameters) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.ParentPathRef != nil {
+		in, out := &in.ParentPathRef, &out.ParentPathRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.ParentPathSelector != nil {
+		in, out := &in.ParentPathSelector, &out.ParentPathSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.QueryText != nil {
 		in, out := &in.QueryText, &out.QueryText
 		*out = new(string)
@@ -3645,6 +3694,16 @@ func (in *QueryInitParameters) DeepCopyInto(out *QueryInitParameters) {
 		in, out := &in.WarehouseID, &out.WarehouseID
 		*out = new(string)
 		**out = **in
+	}
+	if in.WarehouseIDRef != nil {
+		in, out := &in.WarehouseIDRef, &out.WarehouseIDRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.WarehouseIDSelector != nil {
+		in, out := &in.WarehouseIDSelector, &out.WarehouseIDSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
 	}
 }
 
@@ -3928,6 +3987,16 @@ func (in *QueryParameters) DeepCopyInto(out *QueryParameters) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.ParentPathRef != nil {
+		in, out := &in.ParentPathRef, &out.ParentPathRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.ParentPathSelector != nil {
+		in, out := &in.ParentPathSelector, &out.ParentPathSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.QueryText != nil {
 		in, out := &in.QueryText, &out.QueryText
 		*out = new(string)
@@ -3958,6 +4027,16 @@ func (in *QueryParameters) DeepCopyInto(out *QueryParameters) {
 		in, out := &in.WarehouseID, &out.WarehouseID
 		*out = new(string)
 		**out = **in
+	}
+	if in.WarehouseIDRef != nil {
+		in, out := &in.WarehouseIDRef, &out.WarehouseIDRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.WarehouseIDSelector != nil {
+		in, out := &in.WarehouseIDSelector, &out.WarehouseIDSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
 	}
 }
 
@@ -4136,6 +4215,16 @@ func (in *SQLAlertInitParameters) DeepCopyInto(out *SQLAlertInitParameters) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.QueryIDRef != nil {
+		in, out := &in.QueryIDRef, &out.QueryIDRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.QueryIDSelector != nil {
+		in, out := &in.QueryIDSelector, &out.QueryIDSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.Rearm != nil {
 		in, out := &in.Rearm, &out.Rearm
 		*out = new(float64)
@@ -4272,6 +4361,16 @@ func (in *SQLAlertParameters) DeepCopyInto(out *SQLAlertParameters) {
 		in, out := &in.QueryID, &out.QueryID
 		*out = new(string)
 		**out = **in
+	}
+	if in.QueryIDRef != nil {
+		in, out := &in.QueryIDRef, &out.QueryIDRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.QueryIDSelector != nil {
+		in, out := &in.QueryIDSelector, &out.QueryIDSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Rearm != nil {
 		in, out := &in.Rearm, &out.Rearm
@@ -5315,6 +5414,16 @@ func (in *SQLQueryInitParameters) DeepCopyInto(out *SQLQueryInitParameters) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.DataSourceIDRef != nil {
+		in, out := &in.DataSourceIDRef, &out.DataSourceIDRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.DataSourceIDSelector != nil {
+		in, out := &in.DataSourceIDSelector, &out.DataSourceIDSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.Description != nil {
 		in, out := &in.Description, &out.Description
 		*out = new(string)
@@ -5733,6 +5842,16 @@ func (in *SQLQueryParameters) DeepCopyInto(out *SQLQueryParameters) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.DataSourceIDRef != nil {
+		in, out := &in.DataSourceIDRef, &out.DataSourceIDRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.DataSourceIDSelector != nil {
+		in, out := &in.DataSourceIDSelector, &out.DataSourceIDSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.Description != nil {
 		in, out := &in.Description, &out.Description
 		*out = new(string)
@@ -5883,6 +6002,16 @@ func (in *SQLVisualizationInitParameters) DeepCopyInto(out *SQLVisualizationInit
 		*out = new(string)
 		**out = **in
 	}
+	if in.QueryIDRef != nil {
+		in, out := &in.QueryIDRef, &out.QueryIDRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.QueryIDSelector != nil {
+		in, out := &in.QueryIDSelector, &out.QueryIDSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.QueryPlan != nil {
 		in, out := &in.QueryPlan, &out.QueryPlan
 		*out = new(string)
@@ -6020,6 +6149,16 @@ func (in *SQLVisualizationParameters) DeepCopyInto(out *SQLVisualizationParamete
 		*out = new(string)
 		**out = **in
 	}
+	if in.QueryIDRef != nil {
+		in, out := &in.QueryIDRef, &out.QueryIDRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.QueryIDSelector != nil {
+		in, out := &in.QueryIDSelector, &out.QueryIDSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.QueryPlan != nil {
 		in, out := &in.QueryPlan, &out.QueryPlan
 		*out = new(string)
@@ -6117,6 +6256,16 @@ func (in *SQLWidgetInitParameters) DeepCopyInto(out *SQLWidgetInitParameters) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.DashboardIDRef != nil {
+		in, out := &in.DashboardIDRef, &out.DashboardIDRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.DashboardIDSelector != nil {
+		in, out := &in.DashboardIDSelector, &out.DashboardIDSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.Description != nil {
 		in, out := &in.Description, &out.Description
 		*out = new(string)
@@ -6148,6 +6297,16 @@ func (in *SQLWidgetInitParameters) DeepCopyInto(out *SQLWidgetInitParameters) {
 		in, out := &in.VisualizationID, &out.VisualizationID
 		*out = new(string)
 		**out = **in
+	}
+	if in.VisualizationIDRef != nil {
+		in, out := &in.VisualizationIDRef, &out.VisualizationIDRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.VisualizationIDSelector != nil {
+		in, out := &in.VisualizationIDSelector, &out.VisualizationIDSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.WidgetID != nil {
 		in, out := &in.WidgetID, &out.WidgetID
@@ -6421,6 +6580,16 @@ func (in *SQLWidgetParameters) DeepCopyInto(out *SQLWidgetParameters) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.DashboardIDRef != nil {
+		in, out := &in.DashboardIDRef, &out.DashboardIDRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.DashboardIDSelector != nil {
+		in, out := &in.DashboardIDSelector, &out.DashboardIDSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.Description != nil {
 		in, out := &in.Description, &out.Description
 		*out = new(string)
@@ -6452,6 +6621,16 @@ func (in *SQLWidgetParameters) DeepCopyInto(out *SQLWidgetParameters) {
 		in, out := &in.VisualizationID, &out.VisualizationID
 		*out = new(string)
 		**out = **in
+	}
+	if in.VisualizationIDRef != nil {
+		in, out := &in.VisualizationIDRef, &out.VisualizationIDRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.VisualizationIDSelector != nil {
+		in, out := &in.VisualizationIDSelector, &out.VisualizationIDSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.WidgetID != nil {
 		in, out := &in.WidgetID, &out.WidgetID

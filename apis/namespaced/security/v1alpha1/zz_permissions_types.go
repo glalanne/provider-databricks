@@ -17,7 +17,17 @@ import (
 type AccessControlInitParameters struct {
 
 	// name of the group. We recommend setting permissions on groups.
+	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/namespaced/security/v1alpha1.Group
+	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/v2/pkg/resource.ExtractParamPath("display_name",false)
 	GroupName *string `json:"groupName,omitempty" tf:"group_name,omitempty"`
+
+	// Reference to a Group in security to populate groupName.
+	// +kubebuilder:validation:Optional
+	GroupNameRef *v1.NamespacedReference `json:"groupNameRef,omitempty" tf:"-"`
+
+	// Selector for a Group in security to populate groupName.
+	// +kubebuilder:validation:Optional
+	GroupNameSelector *v1.NamespacedSelector `json:"groupNameSelector,omitempty" tf:"-"`
 
 	// permission level according to specific resource. See examples above for the reference.
 	PermissionLevel *string `json:"permissionLevel,omitempty" tf:"permission_level,omitempty"`
@@ -57,8 +67,18 @@ type AccessControlObservation struct {
 type AccessControlParameters struct {
 
 	// name of the group. We recommend setting permissions on groups.
+	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/namespaced/security/v1alpha1.Group
+	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/v2/pkg/resource.ExtractParamPath("display_name",false)
 	// +kubebuilder:validation:Optional
 	GroupName *string `json:"groupName,omitempty" tf:"group_name,omitempty"`
+
+	// Reference to a Group in security to populate groupName.
+	// +kubebuilder:validation:Optional
+	GroupNameRef *v1.NamespacedReference `json:"groupNameRef,omitempty" tf:"-"`
+
+	// Selector for a Group in security to populate groupName.
+	// +kubebuilder:validation:Optional
+	GroupNameSelector *v1.NamespacedSelector `json:"groupNameSelector,omitempty" tf:"-"`
 
 	// permission level according to specific resource. See examples above for the reference.
 	// +kubebuilder:validation:Optional
@@ -120,18 +140,58 @@ type PermissionsInitParameters struct {
 	ClusterPolicyIDSelector *v1.NamespacedSelector `json:"clusterPolicyIdSelector,omitempty" tf:"-"`
 
 	// Canonical unique identifier for the permissions in form of /<object type>/<object id>.
+	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/namespaced/sql/v1alpha1.Dashboard
+	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/v2/pkg/resource.ExtractResourceID()
 	DashboardID *string `json:"dashboardId,omitempty" tf:"dashboard_id,omitempty"`
+
+	// Reference to a Dashboard in sql to populate dashboardId.
+	// +kubebuilder:validation:Optional
+	DashboardIDRef *v1.NamespacedReference `json:"dashboardIdRef,omitempty" tf:"-"`
+
+	// Selector for a Dashboard in sql to populate dashboardId.
+	// +kubebuilder:validation:Optional
+	DashboardIDSelector *v1.NamespacedSelector `json:"dashboardIdSelector,omitempty" tf:"-"`
 
 	DatabaseInstanceName *string `json:"databaseInstanceName,omitempty" tf:"database_instance_name,omitempty"`
 
 	// directory id
+	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/namespaced/workspace/v1alpha1.Directory
+	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/v2/pkg/resource.ExtractParamPath("object_id",false)
 	DirectoryID *string `json:"directoryId,omitempty" tf:"directory_id,omitempty"`
 
+	// Reference to a Directory in workspace to populate directoryId.
+	// +kubebuilder:validation:Optional
+	DirectoryIDRef *v1.NamespacedReference `json:"directoryIdRef,omitempty" tf:"-"`
+
+	// Selector for a Directory in workspace to populate directoryId.
+	// +kubebuilder:validation:Optional
+	DirectoryIDSelector *v1.NamespacedSelector `json:"directoryIdSelector,omitempty" tf:"-"`
+
 	// path of directory
+	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/namespaced/workspace/v1alpha1.Directory
+	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/v2/pkg/resource.ExtractParamPath("path",false)
 	DirectoryPath *string `json:"directoryPath,omitempty" tf:"directory_path,omitempty"`
 
+	// Reference to a Directory in workspace to populate directoryPath.
+	// +kubebuilder:validation:Optional
+	DirectoryPathRef *v1.NamespacedReference `json:"directoryPathRef,omitempty" tf:"-"`
+
+	// Selector for a Directory in workspace to populate directoryPath.
+	// +kubebuilder:validation:Optional
+	DirectoryPathSelector *v1.NamespacedSelector `json:"directoryPathSelector,omitempty" tf:"-"`
+
 	// MLflow experiment id
+	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/namespaced/mlflow/v1alpha1.MlflowExperiment
+	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/v2/pkg/resource.ExtractResourceID()
 	ExperimentID *string `json:"experimentId,omitempty" tf:"experiment_id,omitempty"`
+
+	// Reference to a MlflowExperiment in mlflow to populate experimentId.
+	// +kubebuilder:validation:Optional
+	ExperimentIDRef *v1.NamespacedReference `json:"experimentIdRef,omitempty" tf:"-"`
+
+	// Selector for a MlflowExperiment in mlflow to populate experimentId.
+	// +kubebuilder:validation:Optional
+	ExperimentIDSelector *v1.NamespacedSelector `json:"experimentIdSelector,omitempty" tf:"-"`
 
 	// instance pool id
 	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/namespaced/compute/v1alpha1.InstancePool
@@ -170,7 +230,17 @@ type PermissionsInitParameters struct {
 	NotebookIDSelector *v1.NamespacedSelector `json:"notebookIdSelector,omitempty" tf:"-"`
 
 	// path of notebook
+	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/namespaced/workspace/v1alpha1.Notebook
+	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/v2/pkg/resource.ExtractParamPath("path",false)
 	NotebookPath *string `json:"notebookPath,omitempty" tf:"notebook_path,omitempty"`
+
+	// Reference to a Notebook in workspace to populate notebookPath.
+	// +kubebuilder:validation:Optional
+	NotebookPathRef *v1.NamespacedReference `json:"notebookPathRef,omitempty" tf:"-"`
+
+	// Selector for a Notebook in workspace to populate notebookPath.
+	// +kubebuilder:validation:Optional
+	NotebookPathSelector *v1.NamespacedSelector `json:"notebookPathSelector,omitempty" tf:"-"`
 
 	// type of permissions.
 	ObjectType *string `json:"objectType,omitempty" tf:"object_type,omitempty"`
@@ -188,10 +258,30 @@ type PermissionsInitParameters struct {
 	PipelineIDSelector *v1.NamespacedSelector `json:"pipelineIdSelector,omitempty" tf:"-"`
 
 	// MLflow registered model id
+	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/namespaced/mlflow/v1alpha1.MlflowModel
+	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/v2/pkg/resource.ExtractParamPath("registered_model_id",true)
 	RegisteredModelID *string `json:"registeredModelId,omitempty" tf:"registered_model_id,omitempty"`
 
+	// Reference to a MlflowModel in mlflow to populate registeredModelId.
+	// +kubebuilder:validation:Optional
+	RegisteredModelIDRef *v1.NamespacedReference `json:"registeredModelIdRef,omitempty" tf:"-"`
+
+	// Selector for a MlflowModel in mlflow to populate registeredModelId.
+	// +kubebuilder:validation:Optional
+	RegisteredModelIDSelector *v1.NamespacedSelector `json:"registeredModelIdSelector,omitempty" tf:"-"`
+
 	// repo id
+	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/namespaced/workspace/v1alpha1.Repo
+	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/v2/pkg/resource.ExtractResourceID()
 	RepoID *string `json:"repoId,omitempty" tf:"repo_id,omitempty"`
+
+	// Reference to a Repo in workspace to populate repoId.
+	// +kubebuilder:validation:Optional
+	RepoIDRef *v1.NamespacedReference `json:"repoIdRef,omitempty" tf:"-"`
+
+	// Selector for a Repo in workspace to populate repoId.
+	// +kubebuilder:validation:Optional
+	RepoIDSelector *v1.NamespacedSelector `json:"repoIdSelector,omitempty" tf:"-"`
 
 	// path of databricks repo directory(/Repos/<username>/...)
 	RepoPath *string `json:"repoPath,omitempty" tf:"repo_path,omitempty"`
@@ -245,15 +335,55 @@ type PermissionsInitParameters struct {
 	SQLQueryIDSelector *v1.NamespacedSelector `json:"sqlQueryIdSelector,omitempty" tf:"-"`
 
 	// Model Serving endpoint id.
+	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/namespaced/serving/v1alpha1.ModelServing
+	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/v2/pkg/resource.ExtractParamPath("serving_endpoint_id",true)
 	ServingEndpointID *string `json:"servingEndpointId,omitempty" tf:"serving_endpoint_id,omitempty"`
 
+	// Reference to a ModelServing in serving to populate servingEndpointId.
+	// +kubebuilder:validation:Optional
+	ServingEndpointIDRef *v1.NamespacedReference `json:"servingEndpointIdRef,omitempty" tf:"-"`
+
+	// Selector for a ModelServing in serving to populate servingEndpointId.
+	// +kubebuilder:validation:Optional
+	ServingEndpointIDSelector *v1.NamespacedSelector `json:"servingEndpointIdSelector,omitempty" tf:"-"`
+
 	// Vector Search endpoint id.
+	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/namespaced/mosaic/v1alpha1.VectorSearchEndpoint
+	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/v2/pkg/resource.ExtractParamPath("endpoint_id",true)
 	VectorSearchEndpointID *string `json:"vectorSearchEndpointId,omitempty" tf:"vector_search_endpoint_id,omitempty"`
 
+	// Reference to a VectorSearchEndpoint in mosaic to populate vectorSearchEndpointId.
+	// +kubebuilder:validation:Optional
+	VectorSearchEndpointIDRef *v1.NamespacedReference `json:"vectorSearchEndpointIdRef,omitempty" tf:"-"`
+
+	// Selector for a VectorSearchEndpoint in mosaic to populate vectorSearchEndpointId.
+	// +kubebuilder:validation:Optional
+	VectorSearchEndpointIDSelector *v1.NamespacedSelector `json:"vectorSearchEndpointIdSelector,omitempty" tf:"-"`
+
 	// Canonical unique identifier for the permissions in form of /<object type>/<object id>.
+	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/namespaced/workspace/v1alpha1.WorkspaceFile
+	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/v2/pkg/resource.ExtractParamPath("object_id",false)
 	WorkspaceFileID *string `json:"workspaceFileId,omitempty" tf:"workspace_file_id,omitempty"`
 
+	// Reference to a WorkspaceFile in workspace to populate workspaceFileId.
+	// +kubebuilder:validation:Optional
+	WorkspaceFileIDRef *v1.NamespacedReference `json:"workspaceFileIdRef,omitempty" tf:"-"`
+
+	// Selector for a WorkspaceFile in workspace to populate workspaceFileId.
+	// +kubebuilder:validation:Optional
+	WorkspaceFileIDSelector *v1.NamespacedSelector `json:"workspaceFileIdSelector,omitempty" tf:"-"`
+
+	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/namespaced/workspace/v1alpha1.WorkspaceFile
+	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/v2/pkg/resource.ExtractParamPath("path",false)
 	WorkspaceFilePath *string `json:"workspaceFilePath,omitempty" tf:"workspace_file_path,omitempty"`
+
+	// Reference to a WorkspaceFile in workspace to populate workspaceFilePath.
+	// +kubebuilder:validation:Optional
+	WorkspaceFilePathRef *v1.NamespacedReference `json:"workspaceFilePathRef,omitempty" tf:"-"`
+
+	// Selector for a WorkspaceFile in workspace to populate workspaceFilePath.
+	// +kubebuilder:validation:Optional
+	WorkspaceFilePathSelector *v1.NamespacedSelector `json:"workspaceFilePathSelector,omitempty" tf:"-"`
 }
 
 type PermissionsObservation struct {
@@ -386,23 +516,63 @@ type PermissionsParameters struct {
 	ClusterPolicyIDSelector *v1.NamespacedSelector `json:"clusterPolicyIdSelector,omitempty" tf:"-"`
 
 	// Canonical unique identifier for the permissions in form of /<object type>/<object id>.
+	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/namespaced/sql/v1alpha1.Dashboard
+	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/v2/pkg/resource.ExtractResourceID()
 	// +kubebuilder:validation:Optional
 	DashboardID *string `json:"dashboardId,omitempty" tf:"dashboard_id,omitempty"`
+
+	// Reference to a Dashboard in sql to populate dashboardId.
+	// +kubebuilder:validation:Optional
+	DashboardIDRef *v1.NamespacedReference `json:"dashboardIdRef,omitempty" tf:"-"`
+
+	// Selector for a Dashboard in sql to populate dashboardId.
+	// +kubebuilder:validation:Optional
+	DashboardIDSelector *v1.NamespacedSelector `json:"dashboardIdSelector,omitempty" tf:"-"`
 
 	// +kubebuilder:validation:Optional
 	DatabaseInstanceName *string `json:"databaseInstanceName,omitempty" tf:"database_instance_name,omitempty"`
 
 	// directory id
+	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/namespaced/workspace/v1alpha1.Directory
+	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/v2/pkg/resource.ExtractParamPath("object_id",false)
 	// +kubebuilder:validation:Optional
 	DirectoryID *string `json:"directoryId,omitempty" tf:"directory_id,omitempty"`
 
+	// Reference to a Directory in workspace to populate directoryId.
+	// +kubebuilder:validation:Optional
+	DirectoryIDRef *v1.NamespacedReference `json:"directoryIdRef,omitempty" tf:"-"`
+
+	// Selector for a Directory in workspace to populate directoryId.
+	// +kubebuilder:validation:Optional
+	DirectoryIDSelector *v1.NamespacedSelector `json:"directoryIdSelector,omitempty" tf:"-"`
+
 	// path of directory
+	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/namespaced/workspace/v1alpha1.Directory
+	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/v2/pkg/resource.ExtractParamPath("path",false)
 	// +kubebuilder:validation:Optional
 	DirectoryPath *string `json:"directoryPath,omitempty" tf:"directory_path,omitempty"`
 
+	// Reference to a Directory in workspace to populate directoryPath.
+	// +kubebuilder:validation:Optional
+	DirectoryPathRef *v1.NamespacedReference `json:"directoryPathRef,omitempty" tf:"-"`
+
+	// Selector for a Directory in workspace to populate directoryPath.
+	// +kubebuilder:validation:Optional
+	DirectoryPathSelector *v1.NamespacedSelector `json:"directoryPathSelector,omitempty" tf:"-"`
+
 	// MLflow experiment id
+	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/namespaced/mlflow/v1alpha1.MlflowExperiment
+	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/v2/pkg/resource.ExtractResourceID()
 	// +kubebuilder:validation:Optional
 	ExperimentID *string `json:"experimentId,omitempty" tf:"experiment_id,omitempty"`
+
+	// Reference to a MlflowExperiment in mlflow to populate experimentId.
+	// +kubebuilder:validation:Optional
+	ExperimentIDRef *v1.NamespacedReference `json:"experimentIdRef,omitempty" tf:"-"`
+
+	// Selector for a MlflowExperiment in mlflow to populate experimentId.
+	// +kubebuilder:validation:Optional
+	ExperimentIDSelector *v1.NamespacedSelector `json:"experimentIdSelector,omitempty" tf:"-"`
 
 	// instance pool id
 	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/namespaced/compute/v1alpha1.InstancePool
@@ -444,8 +614,18 @@ type PermissionsParameters struct {
 	NotebookIDSelector *v1.NamespacedSelector `json:"notebookIdSelector,omitempty" tf:"-"`
 
 	// path of notebook
+	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/namespaced/workspace/v1alpha1.Notebook
+	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/v2/pkg/resource.ExtractParamPath("path",false)
 	// +kubebuilder:validation:Optional
 	NotebookPath *string `json:"notebookPath,omitempty" tf:"notebook_path,omitempty"`
+
+	// Reference to a Notebook in workspace to populate notebookPath.
+	// +kubebuilder:validation:Optional
+	NotebookPathRef *v1.NamespacedReference `json:"notebookPathRef,omitempty" tf:"-"`
+
+	// Selector for a Notebook in workspace to populate notebookPath.
+	// +kubebuilder:validation:Optional
+	NotebookPathSelector *v1.NamespacedSelector `json:"notebookPathSelector,omitempty" tf:"-"`
 
 	// type of permissions.
 	// +kubebuilder:validation:Optional
@@ -465,12 +645,32 @@ type PermissionsParameters struct {
 	PipelineIDSelector *v1.NamespacedSelector `json:"pipelineIdSelector,omitempty" tf:"-"`
 
 	// MLflow registered model id
+	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/namespaced/mlflow/v1alpha1.MlflowModel
+	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/v2/pkg/resource.ExtractParamPath("registered_model_id",true)
 	// +kubebuilder:validation:Optional
 	RegisteredModelID *string `json:"registeredModelId,omitempty" tf:"registered_model_id,omitempty"`
 
+	// Reference to a MlflowModel in mlflow to populate registeredModelId.
+	// +kubebuilder:validation:Optional
+	RegisteredModelIDRef *v1.NamespacedReference `json:"registeredModelIdRef,omitempty" tf:"-"`
+
+	// Selector for a MlflowModel in mlflow to populate registeredModelId.
+	// +kubebuilder:validation:Optional
+	RegisteredModelIDSelector *v1.NamespacedSelector `json:"registeredModelIdSelector,omitempty" tf:"-"`
+
 	// repo id
+	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/namespaced/workspace/v1alpha1.Repo
+	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/v2/pkg/resource.ExtractResourceID()
 	// +kubebuilder:validation:Optional
 	RepoID *string `json:"repoId,omitempty" tf:"repo_id,omitempty"`
+
+	// Reference to a Repo in workspace to populate repoId.
+	// +kubebuilder:validation:Optional
+	RepoIDRef *v1.NamespacedReference `json:"repoIdRef,omitempty" tf:"-"`
+
+	// Selector for a Repo in workspace to populate repoId.
+	// +kubebuilder:validation:Optional
+	RepoIDSelector *v1.NamespacedSelector `json:"repoIdSelector,omitempty" tf:"-"`
 
 	// path of databricks repo directory(/Repos/<username>/...)
 	// +kubebuilder:validation:Optional
@@ -529,19 +729,59 @@ type PermissionsParameters struct {
 	SQLQueryIDSelector *v1.NamespacedSelector `json:"sqlQueryIdSelector,omitempty" tf:"-"`
 
 	// Model Serving endpoint id.
+	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/namespaced/serving/v1alpha1.ModelServing
+	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/v2/pkg/resource.ExtractParamPath("serving_endpoint_id",true)
 	// +kubebuilder:validation:Optional
 	ServingEndpointID *string `json:"servingEndpointId,omitempty" tf:"serving_endpoint_id,omitempty"`
 
+	// Reference to a ModelServing in serving to populate servingEndpointId.
+	// +kubebuilder:validation:Optional
+	ServingEndpointIDRef *v1.NamespacedReference `json:"servingEndpointIdRef,omitempty" tf:"-"`
+
+	// Selector for a ModelServing in serving to populate servingEndpointId.
+	// +kubebuilder:validation:Optional
+	ServingEndpointIDSelector *v1.NamespacedSelector `json:"servingEndpointIdSelector,omitempty" tf:"-"`
+
 	// Vector Search endpoint id.
+	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/namespaced/mosaic/v1alpha1.VectorSearchEndpoint
+	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/v2/pkg/resource.ExtractParamPath("endpoint_id",true)
 	// +kubebuilder:validation:Optional
 	VectorSearchEndpointID *string `json:"vectorSearchEndpointId,omitempty" tf:"vector_search_endpoint_id,omitempty"`
 
+	// Reference to a VectorSearchEndpoint in mosaic to populate vectorSearchEndpointId.
+	// +kubebuilder:validation:Optional
+	VectorSearchEndpointIDRef *v1.NamespacedReference `json:"vectorSearchEndpointIdRef,omitempty" tf:"-"`
+
+	// Selector for a VectorSearchEndpoint in mosaic to populate vectorSearchEndpointId.
+	// +kubebuilder:validation:Optional
+	VectorSearchEndpointIDSelector *v1.NamespacedSelector `json:"vectorSearchEndpointIdSelector,omitempty" tf:"-"`
+
 	// Canonical unique identifier for the permissions in form of /<object type>/<object id>.
+	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/namespaced/workspace/v1alpha1.WorkspaceFile
+	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/v2/pkg/resource.ExtractParamPath("object_id",false)
 	// +kubebuilder:validation:Optional
 	WorkspaceFileID *string `json:"workspaceFileId,omitempty" tf:"workspace_file_id,omitempty"`
 
+	// Reference to a WorkspaceFile in workspace to populate workspaceFileId.
+	// +kubebuilder:validation:Optional
+	WorkspaceFileIDRef *v1.NamespacedReference `json:"workspaceFileIdRef,omitempty" tf:"-"`
+
+	// Selector for a WorkspaceFile in workspace to populate workspaceFileId.
+	// +kubebuilder:validation:Optional
+	WorkspaceFileIDSelector *v1.NamespacedSelector `json:"workspaceFileIdSelector,omitempty" tf:"-"`
+
+	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/namespaced/workspace/v1alpha1.WorkspaceFile
+	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/v2/pkg/resource.ExtractParamPath("path",false)
 	// +kubebuilder:validation:Optional
 	WorkspaceFilePath *string `json:"workspaceFilePath,omitempty" tf:"workspace_file_path,omitempty"`
+
+	// Reference to a WorkspaceFile in workspace to populate workspaceFilePath.
+	// +kubebuilder:validation:Optional
+	WorkspaceFilePathRef *v1.NamespacedReference `json:"workspaceFilePathRef,omitempty" tf:"-"`
+
+	// Selector for a WorkspaceFile in workspace to populate workspaceFilePath.
+	// +kubebuilder:validation:Optional
+	WorkspaceFilePathSelector *v1.NamespacedSelector `json:"workspaceFilePathSelector,omitempty" tf:"-"`
 }
 
 // PermissionsSpec defines the desired state of Permissions

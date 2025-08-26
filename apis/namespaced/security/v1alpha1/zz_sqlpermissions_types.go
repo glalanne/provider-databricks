@@ -58,7 +58,17 @@ type SQLPermissionsInitParameters struct {
 	Catalog *bool `json:"catalog,omitempty" tf:"catalog,omitempty"`
 
 	// Id of an existing databricks_cluster, where the appropriate GRANT/REVOKE commands are executed. This cluster must have the appropriate data security mode (USER_ISOLATION or LEGACY_TABLE_ACL specified).
+	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/namespaced/compute/v1alpha1.Cluster
+	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/v2/pkg/resource.ExtractResourceID()
 	ClusterID *string `json:"clusterId,omitempty" tf:"cluster_id,omitempty"`
+
+	// Reference to a Cluster in compute to populate clusterId.
+	// +kubebuilder:validation:Optional
+	ClusterIDRef *v1.NamespacedReference `json:"clusterIdRef,omitempty" tf:"-"`
+
+	// Selector for a Cluster in compute to populate clusterId.
+	// +kubebuilder:validation:Optional
+	ClusterIDSelector *v1.NamespacedSelector `json:"clusterIdSelector,omitempty" tf:"-"`
 
 	// Name of the database. Has a default value of default.
 	Database *string `json:"database,omitempty" tf:"database,omitempty"`
@@ -115,8 +125,18 @@ type SQLPermissionsParameters struct {
 	Catalog *bool `json:"catalog,omitempty" tf:"catalog,omitempty"`
 
 	// Id of an existing databricks_cluster, where the appropriate GRANT/REVOKE commands are executed. This cluster must have the appropriate data security mode (USER_ISOLATION or LEGACY_TABLE_ACL specified).
+	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/namespaced/compute/v1alpha1.Cluster
+	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/v2/pkg/resource.ExtractResourceID()
 	// +kubebuilder:validation:Optional
 	ClusterID *string `json:"clusterId,omitempty" tf:"cluster_id,omitempty"`
+
+	// Reference to a Cluster in compute to populate clusterId.
+	// +kubebuilder:validation:Optional
+	ClusterIDRef *v1.NamespacedReference `json:"clusterIdRef,omitempty" tf:"-"`
+
+	// Selector for a Cluster in compute to populate clusterId.
+	// +kubebuilder:validation:Optional
+	ClusterIDSelector *v1.NamespacedSelector `json:"clusterIdSelector,omitempty" tf:"-"`
 
 	// Name of the database. Has a default value of default.
 	// +kubebuilder:validation:Optional

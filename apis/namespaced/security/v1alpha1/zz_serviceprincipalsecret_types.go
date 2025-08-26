@@ -32,7 +32,17 @@ type ServicePrincipalSecretInitParameters struct {
 	SecretSecretRef *v1.LocalSecretKeySelector `json:"secretSecretRef,omitempty" tf:"-"`
 
 	// SCIM ID of the databricks_service_principal (not application ID).
+	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/namespaced/security/v1alpha1.ServicePrincipal
+	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/v2/pkg/resource.ExtractResourceID()
 	ServicePrincipalID *string `json:"servicePrincipalId,omitempty" tf:"service_principal_id,omitempty"`
+
+	// Reference to a ServicePrincipal in security to populate servicePrincipalId.
+	// +kubebuilder:validation:Optional
+	ServicePrincipalIDRef *v1.NamespacedReference `json:"servicePrincipalIdRef,omitempty" tf:"-"`
+
+	// Selector for a ServicePrincipal in security to populate servicePrincipalId.
+	// +kubebuilder:validation:Optional
+	ServicePrincipalIDSelector *v1.NamespacedSelector `json:"servicePrincipalIdSelector,omitempty" tf:"-"`
 
 	// Status of the secret (i.e., ACTIVE - see REST API docs for full list).
 	Status *string `json:"status,omitempty" tf:"status,omitempty"`
@@ -97,8 +107,18 @@ type ServicePrincipalSecretParameters struct {
 	SecretSecretRef *v1.LocalSecretKeySelector `json:"secretSecretRef,omitempty" tf:"-"`
 
 	// SCIM ID of the databricks_service_principal (not application ID).
+	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/namespaced/security/v1alpha1.ServicePrincipal
+	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/v2/pkg/resource.ExtractResourceID()
 	// +kubebuilder:validation:Optional
 	ServicePrincipalID *string `json:"servicePrincipalId,omitempty" tf:"service_principal_id,omitempty"`
+
+	// Reference to a ServicePrincipal in security to populate servicePrincipalId.
+	// +kubebuilder:validation:Optional
+	ServicePrincipalIDRef *v1.NamespacedReference `json:"servicePrincipalIdRef,omitempty" tf:"-"`
+
+	// Selector for a ServicePrincipal in security to populate servicePrincipalId.
+	// +kubebuilder:validation:Optional
+	ServicePrincipalIDSelector *v1.NamespacedSelector `json:"servicePrincipalIdSelector,omitempty" tf:"-"`
 
 	// Status of the secret (i.e., ACTIVE - see REST API docs for full list).
 	// +kubebuilder:validation:Optional
@@ -149,9 +169,8 @@ type ServicePrincipalSecretStatus struct {
 type ServicePrincipalSecret struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.servicePrincipalId) || (has(self.initProvider) && has(self.initProvider.servicePrincipalId))",message="spec.forProvider.servicePrincipalId is a required parameter"
-	Spec   ServicePrincipalSecretSpec   `json:"spec"`
-	Status ServicePrincipalSecretStatus `json:"status,omitempty"`
+	Spec              ServicePrincipalSecretSpec   `json:"spec"`
+	Status            ServicePrincipalSecretStatus `json:"status,omitempty"`
 }
 
 // +kubebuilder:object:root=true

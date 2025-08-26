@@ -70,15 +70,15 @@ export UP_CHANNEL := $(UP_CHANNEL)
 
 -include build/makelib/k8s_tools.mk
 
-# uptest download and install
-UPTEST_LOCAL := $(TOOLS_HOST_DIR)/uptest-$(UPTEST_LOCAL_VERSION)
+# # uptest download and install
+# UPTEST_LOCAL := $(TOOLS_HOST_DIR)/uptest-$(UPTEST_LOCAL_VERSION)
 
-$(UPTEST_LOCAL):
-	@$(INFO) installing uptest $(UPTEST_LOCAL)
-	@mkdir -p $(TOOLS_HOST_DIR)
-	@curl -fsSLo $(UPTEST_LOCAL) https://s3.us-west-2.amazonaws.com/crossplane.uptest.releases/$(UPTEST_LOCAL_CHANNEL)/$(UPTEST_LOCAL_VERSION)/bin/$(SAFEHOST_PLATFORM)/uptest || $(FAIL)
-	@chmod +x $(UPTEST_LOCAL)
-	@$(OK) installing uptest $(UPTEST_LOCAL)
+# $(UPTEST_LOCAL):
+# 	@$(INFO) installing uptest $(UPTEST_LOCAL)
+# 	@mkdir -p $(TOOLS_HOST_DIR)
+# 	@curl -fsSLo $(UPTEST_LOCAL) https://s3.us-west-2.amazonaws.com/crossplane.uptest.releases/$(UPTEST_LOCAL_CHANNEL)/$(UPTEST_LOCAL_VERSION)/bin/$(SAFEHOST_PLATFORM)/uptest || $(FAIL)
+# 	@chmod +x $(UPTEST_LOCAL)
+# 	@$(OK) installing uptest $(UPTEST_LOCAL)
 
 # ====================================================================================
 # Setup Images
@@ -117,7 +117,7 @@ xpkg.build.provider-databricks: do.build.images
 
 # NOTE(hasheddan): we ensure up is installed prior to running platform-specific
 # build steps in parallel to avoid encountering an installation race condition.
-build.init: $(UP) $(CROSSPLANE_CLI) check-terraform-version
+build.init: $(CROSSPLANE_CLI) check-terraform-version
 
 # ====================================================================================
 # Setup Terraform for fetching provider schema

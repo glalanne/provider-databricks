@@ -9,7 +9,9 @@ metadata:
   namespace: upbound-system
 spec:
   forProvider:
-    networkConnectivityConfigId: ${databricks_mws_network_connectivity_config.ncc.network_connectivity_config_id}
+    networkConnectivityConfigIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: ncc
     provider: ${databricks.account}
     workspaceId: ${var.databricks_workspace_id}
 

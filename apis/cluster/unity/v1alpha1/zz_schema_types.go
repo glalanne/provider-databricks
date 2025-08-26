@@ -16,7 +16,17 @@ import (
 type SchemaInitParameters struct {
 
 	// Name of parent catalog. Change forces creation of a new resource.
+	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/cluster/unity/v1alpha1.Catalog
+	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/v2/pkg/resource.ExtractResourceID()
 	CatalogName *string `json:"catalogName,omitempty" tf:"catalog_name,omitempty"`
+
+	// Reference to a Catalog in unity to populate catalogName.
+	// +kubebuilder:validation:Optional
+	CatalogNameRef *v1.Reference `json:"catalogNameRef,omitempty" tf:"-"`
+
+	// Selector for a Catalog in unity to populate catalogName.
+	// +kubebuilder:validation:Optional
+	CatalogNameSelector *v1.Selector `json:"catalogNameSelector,omitempty" tf:"-"`
 
 	// User-supplied free-form text.
 	Comment *string `json:"comment,omitempty" tf:"comment,omitempty"`
@@ -84,8 +94,18 @@ type SchemaObservation struct {
 type SchemaParameters struct {
 
 	// Name of parent catalog. Change forces creation of a new resource.
+	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/cluster/unity/v1alpha1.Catalog
+	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/v2/pkg/resource.ExtractResourceID()
 	// +kubebuilder:validation:Optional
 	CatalogName *string `json:"catalogName,omitempty" tf:"catalog_name,omitempty"`
+
+	// Reference to a Catalog in unity to populate catalogName.
+	// +kubebuilder:validation:Optional
+	CatalogNameRef *v1.Reference `json:"catalogNameRef,omitempty" tf:"-"`
+
+	// Selector for a Catalog in unity to populate catalogName.
+	// +kubebuilder:validation:Optional
+	CatalogNameSelector *v1.Selector `json:"catalogNameSelector,omitempty" tf:"-"`
 
 	// User-supplied free-form text.
 	// +kubebuilder:validation:Optional
@@ -157,7 +177,6 @@ type SchemaStatus struct {
 type Schema struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.catalogName) || (has(self.initProvider) && has(self.initProvider.catalogName))",message="spec.forProvider.catalogName is a required parameter"
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.name) || (has(self.initProvider) && has(self.initProvider.name))",message="spec.forProvider.name is a required parameter"
 	Spec   SchemaSpec   `json:"spec"`
 	Status SchemaStatus `json:"status,omitempty"`

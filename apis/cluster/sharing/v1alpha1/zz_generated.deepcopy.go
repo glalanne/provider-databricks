@@ -732,6 +732,16 @@ func (in *RecipientInitParameters) DeepCopyInto(out *RecipientInitParameters) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.DataRecipientGlobalMetastoreIDRef != nil {
+		in, out := &in.DataRecipientGlobalMetastoreIDRef, &out.DataRecipientGlobalMetastoreIDRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.DataRecipientGlobalMetastoreIDSelector != nil {
+		in, out := &in.DataRecipientGlobalMetastoreIDSelector, &out.DataRecipientGlobalMetastoreIDSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.ExpirationTime != nil {
 		in, out := &in.ExpirationTime, &out.ExpirationTime
 		*out = new(float64)
@@ -940,6 +950,16 @@ func (in *RecipientParameters) DeepCopyInto(out *RecipientParameters) {
 		in, out := &in.DataRecipientGlobalMetastoreID, &out.DataRecipientGlobalMetastoreID
 		*out = new(string)
 		**out = **in
+	}
+	if in.DataRecipientGlobalMetastoreIDRef != nil {
+		in, out := &in.DataRecipientGlobalMetastoreIDRef, &out.DataRecipientGlobalMetastoreIDRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.DataRecipientGlobalMetastoreIDSelector != nil {
+		in, out := &in.DataRecipientGlobalMetastoreIDSelector, &out.DataRecipientGlobalMetastoreIDSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.ExpirationTime != nil {
 		in, out := &in.ExpirationTime, &out.ExpirationTime

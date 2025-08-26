@@ -9,6 +9,7 @@
 package v1alpha1
 
 import (
+	"github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
 	runtime "k8s.io/apimachinery/pkg/runtime"
 )
 
@@ -62,6 +63,16 @@ func (in *MwsLogDeliveryInitParameters) DeepCopyInto(out *MwsLogDeliveryInitPara
 		*out = new(string)
 		**out = **in
 	}
+	if in.CredentialsIDRef != nil {
+		in, out := &in.CredentialsIDRef, &out.CredentialsIDRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.CredentialsIDSelector != nil {
+		in, out := &in.CredentialsIDSelector, &out.CredentialsIDSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.DeliveryPathPrefix != nil {
 		in, out := &in.DeliveryPathPrefix, &out.DeliveryPathPrefix
 		*out = new(string)
@@ -91,6 +102,16 @@ func (in *MwsLogDeliveryInitParameters) DeepCopyInto(out *MwsLogDeliveryInitPara
 		in, out := &in.StorageConfigurationID, &out.StorageConfigurationID
 		*out = new(string)
 		**out = **in
+	}
+	if in.StorageConfigurationIDRef != nil {
+		in, out := &in.StorageConfigurationIDRef, &out.StorageConfigurationIDRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.StorageConfigurationIDSelector != nil {
+		in, out := &in.StorageConfigurationIDSelector, &out.StorageConfigurationIDSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.WorkspaceIdsFilter != nil {
 		in, out := &in.WorkspaceIdsFilter, &out.WorkspaceIdsFilter
@@ -251,6 +272,16 @@ func (in *MwsLogDeliveryParameters) DeepCopyInto(out *MwsLogDeliveryParameters) 
 		*out = new(string)
 		**out = **in
 	}
+	if in.CredentialsIDRef != nil {
+		in, out := &in.CredentialsIDRef, &out.CredentialsIDRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.CredentialsIDSelector != nil {
+		in, out := &in.CredentialsIDSelector, &out.CredentialsIDSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.DeliveryPathPrefix != nil {
 		in, out := &in.DeliveryPathPrefix, &out.DeliveryPathPrefix
 		*out = new(string)
@@ -280,6 +311,16 @@ func (in *MwsLogDeliveryParameters) DeepCopyInto(out *MwsLogDeliveryParameters) 
 		in, out := &in.StorageConfigurationID, &out.StorageConfigurationID
 		*out = new(string)
 		**out = **in
+	}
+	if in.StorageConfigurationIDRef != nil {
+		in, out := &in.StorageConfigurationIDRef, &out.StorageConfigurationIDRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.StorageConfigurationIDSelector != nil {
+		in, out := &in.StorageConfigurationIDSelector, &out.StorageConfigurationIDSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.WorkspaceIdsFilter != nil {
 		in, out := &in.WorkspaceIdsFilter, &out.WorkspaceIdsFilter

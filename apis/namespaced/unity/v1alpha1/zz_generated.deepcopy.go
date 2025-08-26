@@ -1020,6 +1020,16 @@ func (in *CatalogWorkspaceBindingInitParameters) DeepCopyInto(out *CatalogWorksp
 		*out = new(string)
 		**out = **in
 	}
+	if in.SecurableNameRef != nil {
+		in, out := &in.SecurableNameRef, &out.SecurableNameRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.SecurableNameSelector != nil {
+		in, out := &in.SecurableNameSelector, &out.SecurableNameSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.SecurableType != nil {
 		in, out := &in.SecurableType, &out.SecurableType
 		*out = new(string)
@@ -1029,6 +1039,16 @@ func (in *CatalogWorkspaceBindingInitParameters) DeepCopyInto(out *CatalogWorksp
 		in, out := &in.WorkspaceID, &out.WorkspaceID
 		*out = new(float64)
 		**out = **in
+	}
+	if in.WorkspaceIDRef != nil {
+		in, out := &in.WorkspaceIDRef, &out.WorkspaceIDRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.WorkspaceIDSelector != nil {
+		in, out := &in.WorkspaceIDSelector, &out.WorkspaceIDSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
 	}
 }
 
@@ -1137,6 +1157,16 @@ func (in *CatalogWorkspaceBindingParameters) DeepCopyInto(out *CatalogWorkspaceB
 		*out = new(string)
 		**out = **in
 	}
+	if in.SecurableNameRef != nil {
+		in, out := &in.SecurableNameRef, &out.SecurableNameRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.SecurableNameSelector != nil {
+		in, out := &in.SecurableNameSelector, &out.SecurableNameSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.SecurableType != nil {
 		in, out := &in.SecurableType, &out.SecurableType
 		*out = new(string)
@@ -1146,6 +1176,16 @@ func (in *CatalogWorkspaceBindingParameters) DeepCopyInto(out *CatalogWorkspaceB
 		in, out := &in.WorkspaceID, &out.WorkspaceID
 		*out = new(float64)
 		**out = **in
+	}
+	if in.WorkspaceIDRef != nil {
+		in, out := &in.WorkspaceIDRef, &out.WorkspaceIDRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.WorkspaceIDSelector != nil {
+		in, out := &in.WorkspaceIDSelector, &out.WorkspaceIDSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
 	}
 }
 
@@ -1786,10 +1826,8 @@ func (in *ContinuousUpdateStatusObservation) DeepCopyInto(out *ContinuousUpdateS
 	*out = *in
 	if in.InitialPipelineSyncProgress != nil {
 		in, out := &in.InitialPipelineSyncProgress, &out.InitialPipelineSyncProgress
-		*out = make([]InitialPipelineSyncProgressObservation, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(InitialPipelineSyncProgressObservation)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.LastProcessedCommitVersion != nil {
 		in, out := &in.LastProcessedCommitVersion, &out.LastProcessedCommitVersion
@@ -2758,6 +2796,16 @@ func (in *ExternalLocationInitParameters) DeepCopyInto(out *ExternalLocationInit
 		*out = new(string)
 		**out = **in
 	}
+	if in.CredentialNameRef != nil {
+		in, out := &in.CredentialNameRef, &out.CredentialNameRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.CredentialNameSelector != nil {
+		in, out := &in.CredentialNameSelector, &out.CredentialNameSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.EnableFileEvents != nil {
 		in, out := &in.EnableFileEvents, &out.EnableFileEvents
 		*out = new(bool)
@@ -3004,6 +3052,16 @@ func (in *ExternalLocationParameters) DeepCopyInto(out *ExternalLocationParamete
 		in, out := &in.CredentialName, &out.CredentialName
 		*out = new(string)
 		**out = **in
+	}
+	if in.CredentialNameRef != nil {
+		in, out := &in.CredentialNameRef, &out.CredentialNameRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.CredentialNameSelector != nil {
+		in, out := &in.CredentialNameSelector, &out.CredentialNameSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.EnableFileEvents != nil {
 		in, out := &in.EnableFileEvents, &out.EnableFileEvents
@@ -3419,20 +3477,60 @@ func (in *GrantInitParameters) DeepCopyInto(out *GrantInitParameters) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.CatalogRef != nil {
+		in, out := &in.CatalogRef, &out.CatalogRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.CatalogSelector != nil {
+		in, out := &in.CatalogSelector, &out.CatalogSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.Credential != nil {
 		in, out := &in.Credential, &out.Credential
 		*out = new(string)
 		**out = **in
+	}
+	if in.CredentialRef != nil {
+		in, out := &in.CredentialRef, &out.CredentialRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.CredentialSelector != nil {
+		in, out := &in.CredentialSelector, &out.CredentialSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.ExternalLocation != nil {
 		in, out := &in.ExternalLocation, &out.ExternalLocation
 		*out = new(string)
 		**out = **in
 	}
+	if in.ExternalLocationRef != nil {
+		in, out := &in.ExternalLocationRef, &out.ExternalLocationRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.ExternalLocationSelector != nil {
+		in, out := &in.ExternalLocationSelector, &out.ExternalLocationSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.ForeignConnection != nil {
 		in, out := &in.ForeignConnection, &out.ForeignConnection
 		*out = new(string)
 		**out = **in
+	}
+	if in.ForeignConnectionRef != nil {
+		in, out := &in.ForeignConnectionRef, &out.ForeignConnectionRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.ForeignConnectionSelector != nil {
+		in, out := &in.ForeignConnectionSelector, &out.ForeignConnectionSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Function != nil {
 		in, out := &in.Function, &out.Function
@@ -3459,6 +3557,16 @@ func (in *GrantInitParameters) DeepCopyInto(out *GrantInitParameters) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.PrincipalRef != nil {
+		in, out := &in.PrincipalRef, &out.PrincipalRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.PrincipalSelector != nil {
+		in, out := &in.PrincipalSelector, &out.PrincipalSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.Privileges != nil {
 		in, out := &in.Privileges, &out.Privileges
 		*out = make([]*string, len(*in))
@@ -3480,15 +3588,45 @@ func (in *GrantInitParameters) DeepCopyInto(out *GrantInitParameters) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.SchemaRef != nil {
+		in, out := &in.SchemaRef, &out.SchemaRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.SchemaSelector != nil {
+		in, out := &in.SchemaSelector, &out.SchemaSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.Share != nil {
 		in, out := &in.Share, &out.Share
 		*out = new(string)
 		**out = **in
 	}
+	if in.ShareRef != nil {
+		in, out := &in.ShareRef, &out.ShareRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.ShareSelector != nil {
+		in, out := &in.ShareSelector, &out.ShareSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.StorageCredential != nil {
 		in, out := &in.StorageCredential, &out.StorageCredential
 		*out = new(string)
 		**out = **in
+	}
+	if in.StorageCredentialRef != nil {
+		in, out := &in.StorageCredentialRef, &out.StorageCredentialRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.StorageCredentialSelector != nil {
+		in, out := &in.StorageCredentialSelector, &out.StorageCredentialSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Table != nil {
 		in, out := &in.Table, &out.Table
@@ -3499,6 +3637,16 @@ func (in *GrantInitParameters) DeepCopyInto(out *GrantInitParameters) {
 		in, out := &in.Volume, &out.Volume
 		*out = new(string)
 		**out = **in
+	}
+	if in.VolumeRef != nil {
+		in, out := &in.VolumeRef, &out.VolumeRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.VolumeSelector != nil {
+		in, out := &in.VolumeSelector, &out.VolumeSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
 	}
 }
 
@@ -3579,6 +3727,16 @@ func (in *GrantMapGrantInitParameters) DeepCopyInto(out *GrantMapGrantInitParame
 		*out = new(string)
 		**out = **in
 	}
+	if in.PrincipalRef != nil {
+		in, out := &in.PrincipalRef, &out.PrincipalRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.PrincipalSelector != nil {
+		in, out := &in.PrincipalSelector, &out.PrincipalSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.Privileges != nil {
 		in, out := &in.Privileges, &out.Privileges
 		*out = make([]*string, len(*in))
@@ -3641,6 +3799,16 @@ func (in *GrantMapGrantParameters) DeepCopyInto(out *GrantMapGrantParameters) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.PrincipalRef != nil {
+		in, out := &in.PrincipalRef, &out.PrincipalRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.PrincipalSelector != nil {
+		in, out := &in.PrincipalSelector, &out.PrincipalSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.Privileges != nil {
 		in, out := &in.Privileges, &out.Privileges
 		*out = make([]*string, len(*in))
@@ -3672,20 +3840,60 @@ func (in *GrantMapInitParameters) DeepCopyInto(out *GrantMapInitParameters) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.CatalogRef != nil {
+		in, out := &in.CatalogRef, &out.CatalogRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.CatalogSelector != nil {
+		in, out := &in.CatalogSelector, &out.CatalogSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.Credential != nil {
 		in, out := &in.Credential, &out.Credential
 		*out = new(string)
 		**out = **in
+	}
+	if in.CredentialRef != nil {
+		in, out := &in.CredentialRef, &out.CredentialRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.CredentialSelector != nil {
+		in, out := &in.CredentialSelector, &out.CredentialSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.ExternalLocation != nil {
 		in, out := &in.ExternalLocation, &out.ExternalLocation
 		*out = new(string)
 		**out = **in
 	}
+	if in.ExternalLocationRef != nil {
+		in, out := &in.ExternalLocationRef, &out.ExternalLocationRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.ExternalLocationSelector != nil {
+		in, out := &in.ExternalLocationSelector, &out.ExternalLocationSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.ForeignConnection != nil {
 		in, out := &in.ForeignConnection, &out.ForeignConnection
 		*out = new(string)
 		**out = **in
+	}
+	if in.ForeignConnectionRef != nil {
+		in, out := &in.ForeignConnectionRef, &out.ForeignConnectionRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.ForeignConnectionSelector != nil {
+		in, out := &in.ForeignConnectionSelector, &out.ForeignConnectionSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Function != nil {
 		in, out := &in.Function, &out.Function
@@ -3724,15 +3932,45 @@ func (in *GrantMapInitParameters) DeepCopyInto(out *GrantMapInitParameters) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.SchemaRef != nil {
+		in, out := &in.SchemaRef, &out.SchemaRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.SchemaSelector != nil {
+		in, out := &in.SchemaSelector, &out.SchemaSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.Share != nil {
 		in, out := &in.Share, &out.Share
 		*out = new(string)
 		**out = **in
 	}
+	if in.ShareRef != nil {
+		in, out := &in.ShareRef, &out.ShareRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.ShareSelector != nil {
+		in, out := &in.ShareSelector, &out.ShareSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.StorageCredential != nil {
 		in, out := &in.StorageCredential, &out.StorageCredential
 		*out = new(string)
 		**out = **in
+	}
+	if in.StorageCredentialRef != nil {
+		in, out := &in.StorageCredentialRef, &out.StorageCredentialRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.StorageCredentialSelector != nil {
+		in, out := &in.StorageCredentialSelector, &out.StorageCredentialSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Table != nil {
 		in, out := &in.Table, &out.Table
@@ -3743,6 +3981,16 @@ func (in *GrantMapInitParameters) DeepCopyInto(out *GrantMapInitParameters) {
 		in, out := &in.Volume, &out.Volume
 		*out = new(string)
 		**out = **in
+	}
+	if in.VolumeRef != nil {
+		in, out := &in.VolumeRef, &out.VolumeRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.VolumeSelector != nil {
+		in, out := &in.VolumeSelector, &out.VolumeSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
 	}
 }
 
@@ -3893,20 +4141,60 @@ func (in *GrantMapParameters) DeepCopyInto(out *GrantMapParameters) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.CatalogRef != nil {
+		in, out := &in.CatalogRef, &out.CatalogRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.CatalogSelector != nil {
+		in, out := &in.CatalogSelector, &out.CatalogSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.Credential != nil {
 		in, out := &in.Credential, &out.Credential
 		*out = new(string)
 		**out = **in
+	}
+	if in.CredentialRef != nil {
+		in, out := &in.CredentialRef, &out.CredentialRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.CredentialSelector != nil {
+		in, out := &in.CredentialSelector, &out.CredentialSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.ExternalLocation != nil {
 		in, out := &in.ExternalLocation, &out.ExternalLocation
 		*out = new(string)
 		**out = **in
 	}
+	if in.ExternalLocationRef != nil {
+		in, out := &in.ExternalLocationRef, &out.ExternalLocationRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.ExternalLocationSelector != nil {
+		in, out := &in.ExternalLocationSelector, &out.ExternalLocationSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.ForeignConnection != nil {
 		in, out := &in.ForeignConnection, &out.ForeignConnection
 		*out = new(string)
 		**out = **in
+	}
+	if in.ForeignConnectionRef != nil {
+		in, out := &in.ForeignConnectionRef, &out.ForeignConnectionRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.ForeignConnectionSelector != nil {
+		in, out := &in.ForeignConnectionSelector, &out.ForeignConnectionSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Function != nil {
 		in, out := &in.Function, &out.Function
@@ -3945,15 +4233,45 @@ func (in *GrantMapParameters) DeepCopyInto(out *GrantMapParameters) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.SchemaRef != nil {
+		in, out := &in.SchemaRef, &out.SchemaRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.SchemaSelector != nil {
+		in, out := &in.SchemaSelector, &out.SchemaSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.Share != nil {
 		in, out := &in.Share, &out.Share
 		*out = new(string)
 		**out = **in
 	}
+	if in.ShareRef != nil {
+		in, out := &in.ShareRef, &out.ShareRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.ShareSelector != nil {
+		in, out := &in.ShareSelector, &out.ShareSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.StorageCredential != nil {
 		in, out := &in.StorageCredential, &out.StorageCredential
 		*out = new(string)
 		**out = **in
+	}
+	if in.StorageCredentialRef != nil {
+		in, out := &in.StorageCredentialRef, &out.StorageCredentialRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.StorageCredentialSelector != nil {
+		in, out := &in.StorageCredentialSelector, &out.StorageCredentialSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Table != nil {
 		in, out := &in.Table, &out.Table
@@ -3964,6 +4282,16 @@ func (in *GrantMapParameters) DeepCopyInto(out *GrantMapParameters) {
 		in, out := &in.Volume, &out.Volume
 		*out = new(string)
 		**out = **in
+	}
+	if in.VolumeRef != nil {
+		in, out := &in.VolumeRef, &out.VolumeRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.VolumeSelector != nil {
+		in, out := &in.VolumeSelector, &out.VolumeSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
 	}
 }
 
@@ -4126,20 +4454,60 @@ func (in *GrantParameters) DeepCopyInto(out *GrantParameters) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.CatalogRef != nil {
+		in, out := &in.CatalogRef, &out.CatalogRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.CatalogSelector != nil {
+		in, out := &in.CatalogSelector, &out.CatalogSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.Credential != nil {
 		in, out := &in.Credential, &out.Credential
 		*out = new(string)
 		**out = **in
+	}
+	if in.CredentialRef != nil {
+		in, out := &in.CredentialRef, &out.CredentialRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.CredentialSelector != nil {
+		in, out := &in.CredentialSelector, &out.CredentialSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.ExternalLocation != nil {
 		in, out := &in.ExternalLocation, &out.ExternalLocation
 		*out = new(string)
 		**out = **in
 	}
+	if in.ExternalLocationRef != nil {
+		in, out := &in.ExternalLocationRef, &out.ExternalLocationRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.ExternalLocationSelector != nil {
+		in, out := &in.ExternalLocationSelector, &out.ExternalLocationSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.ForeignConnection != nil {
 		in, out := &in.ForeignConnection, &out.ForeignConnection
 		*out = new(string)
 		**out = **in
+	}
+	if in.ForeignConnectionRef != nil {
+		in, out := &in.ForeignConnectionRef, &out.ForeignConnectionRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.ForeignConnectionSelector != nil {
+		in, out := &in.ForeignConnectionSelector, &out.ForeignConnectionSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Function != nil {
 		in, out := &in.Function, &out.Function
@@ -4166,6 +4534,16 @@ func (in *GrantParameters) DeepCopyInto(out *GrantParameters) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.PrincipalRef != nil {
+		in, out := &in.PrincipalRef, &out.PrincipalRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.PrincipalSelector != nil {
+		in, out := &in.PrincipalSelector, &out.PrincipalSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.Privileges != nil {
 		in, out := &in.Privileges, &out.Privileges
 		*out = make([]*string, len(*in))
@@ -4187,15 +4565,45 @@ func (in *GrantParameters) DeepCopyInto(out *GrantParameters) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.SchemaRef != nil {
+		in, out := &in.SchemaRef, &out.SchemaRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.SchemaSelector != nil {
+		in, out := &in.SchemaSelector, &out.SchemaSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.Share != nil {
 		in, out := &in.Share, &out.Share
 		*out = new(string)
 		**out = **in
 	}
+	if in.ShareRef != nil {
+		in, out := &in.ShareRef, &out.ShareRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.ShareSelector != nil {
+		in, out := &in.ShareSelector, &out.ShareSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.StorageCredential != nil {
 		in, out := &in.StorageCredential, &out.StorageCredential
 		*out = new(string)
 		**out = **in
+	}
+	if in.StorageCredentialRef != nil {
+		in, out := &in.StorageCredentialRef, &out.StorageCredentialRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.StorageCredentialSelector != nil {
+		in, out := &in.StorageCredentialSelector, &out.StorageCredentialSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Table != nil {
 		in, out := &in.Table, &out.Table
@@ -4206,6 +4614,16 @@ func (in *GrantParameters) DeepCopyInto(out *GrantParameters) {
 		in, out := &in.Volume, &out.Volume
 		*out = new(string)
 		**out = **in
+	}
+	if in.VolumeRef != nil {
+		in, out := &in.VolumeRef, &out.VolumeRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.VolumeSelector != nil {
+		in, out := &in.VolumeSelector, &out.VolumeSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
 	}
 }
 
@@ -5202,6 +5620,16 @@ func (in *MetastoreAssignmentInitParameters) DeepCopyInto(out *MetastoreAssignme
 		*out = new(string)
 		**out = **in
 	}
+	if in.MetastoreIDRef != nil {
+		in, out := &in.MetastoreIDRef, &out.MetastoreIDRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.MetastoreIDSelector != nil {
+		in, out := &in.MetastoreIDSelector, &out.MetastoreIDSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.WorkspaceID != nil {
 		in, out := &in.WorkspaceID, &out.WorkspaceID
 		*out = new(float64)
@@ -5298,6 +5726,16 @@ func (in *MetastoreAssignmentParameters) DeepCopyInto(out *MetastoreAssignmentPa
 		in, out := &in.MetastoreID, &out.MetastoreID
 		*out = new(string)
 		**out = **in
+	}
+	if in.MetastoreIDRef != nil {
+		in, out := &in.MetastoreIDRef, &out.MetastoreIDRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.MetastoreIDSelector != nil {
+		in, out := &in.MetastoreIDSelector, &out.MetastoreIDSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.WorkspaceID != nil {
 		in, out := &in.WorkspaceID, &out.WorkspaceID
@@ -5773,6 +6211,16 @@ func (in *MetastoreDataAccessInitParameters) DeepCopyInto(out *MetastoreDataAcce
 		*out = new(string)
 		**out = **in
 	}
+	if in.MetastoreIDRef != nil {
+		in, out := &in.MetastoreIDRef, &out.MetastoreIDRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.MetastoreIDSelector != nil {
+		in, out := &in.MetastoreIDSelector, &out.MetastoreIDSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.Name != nil {
 		in, out := &in.Name, &out.Name
 		*out = new(string)
@@ -5999,6 +6447,16 @@ func (in *MetastoreDataAccessParameters) DeepCopyInto(out *MetastoreDataAccessPa
 		in, out := &in.MetastoreID, &out.MetastoreID
 		*out = new(string)
 		**out = **in
+	}
+	if in.MetastoreIDRef != nil {
+		in, out := &in.MetastoreIDRef, &out.MetastoreIDRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.MetastoreIDSelector != nil {
+		in, out := &in.MetastoreIDSelector, &out.MetastoreIDSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Name != nil {
 		in, out := &in.Name, &out.Name
@@ -7382,10 +7840,8 @@ func (in *ProvisioningStatusObservation) DeepCopyInto(out *ProvisioningStatusObs
 	*out = *in
 	if in.InitialPipelineSyncProgress != nil {
 		in, out := &in.InitialPipelineSyncProgress, &out.InitialPipelineSyncProgress
-		*out = make([]ProvisioningStatusInitialPipelineSyncProgressObservation, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(ProvisioningStatusInitialPipelineSyncProgressObservation)
+		(*in).DeepCopyInto(*out)
 	}
 }
 
@@ -7829,17 +8285,13 @@ func (in *QualityMonitorInitParameters) DeepCopyInto(out *QualityMonitorInitPara
 	}
 	if in.DataClassificationConfig != nil {
 		in, out := &in.DataClassificationConfig, &out.DataClassificationConfig
-		*out = make([]QualityMonitorDataClassificationConfigInitParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(QualityMonitorDataClassificationConfigInitParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.InferenceLog != nil {
 		in, out := &in.InferenceLog, &out.InferenceLog
-		*out = make([]QualityMonitorInferenceLogInitParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(QualityMonitorInferenceLogInitParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.LatestMonitorFailureMsg != nil {
 		in, out := &in.LatestMonitorFailureMsg, &out.LatestMonitorFailureMsg
@@ -7848,10 +8300,8 @@ func (in *QualityMonitorInitParameters) DeepCopyInto(out *QualityMonitorInitPara
 	}
 	if in.Notifications != nil {
 		in, out := &in.Notifications, &out.Notifications
-		*out = make([]QualityMonitorNotificationsInitParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(QualityMonitorNotificationsInitParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.OutputSchemaName != nil {
 		in, out := &in.OutputSchemaName, &out.OutputSchemaName
@@ -7860,10 +8310,8 @@ func (in *QualityMonitorInitParameters) DeepCopyInto(out *QualityMonitorInitPara
 	}
 	if in.Schedule != nil {
 		in, out := &in.Schedule, &out.Schedule
-		*out = make([]QualityMonitorScheduleInitParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(QualityMonitorScheduleInitParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.SkipBuiltinDashboard != nil {
 		in, out := &in.SkipBuiltinDashboard, &out.SkipBuiltinDashboard
@@ -7883,8 +8331,8 @@ func (in *QualityMonitorInitParameters) DeepCopyInto(out *QualityMonitorInitPara
 	}
 	if in.Snapshot != nil {
 		in, out := &in.Snapshot, &out.Snapshot
-		*out = make([]QualityMonitorSnapshotInitParameters, len(*in))
-		copy(*out, *in)
+		*out = new(QualityMonitorSnapshotInitParameters)
+		**out = **in
 	}
 	if in.TableName != nil {
 		in, out := &in.TableName, &out.TableName
@@ -7893,10 +8341,8 @@ func (in *QualityMonitorInitParameters) DeepCopyInto(out *QualityMonitorInitPara
 	}
 	if in.TimeSeries != nil {
 		in, out := &in.TimeSeries, &out.TimeSeries
-		*out = make([]QualityMonitorTimeSeriesInitParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(QualityMonitorTimeSeriesInitParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.WarehouseID != nil {
 		in, out := &in.WarehouseID, &out.WarehouseID
@@ -7952,17 +8398,13 @@ func (in *QualityMonitorNotificationsInitParameters) DeepCopyInto(out *QualityMo
 	*out = *in
 	if in.OnFailure != nil {
 		in, out := &in.OnFailure, &out.OnFailure
-		*out = make([]NotificationsOnFailureInitParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(NotificationsOnFailureInitParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.OnNewClassificationTagDetected != nil {
 		in, out := &in.OnNewClassificationTagDetected, &out.OnNewClassificationTagDetected
-		*out = make([]NotificationsOnNewClassificationTagDetectedInitParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(NotificationsOnNewClassificationTagDetectedInitParameters)
+		(*in).DeepCopyInto(*out)
 	}
 }
 
@@ -7981,17 +8423,13 @@ func (in *QualityMonitorNotificationsObservation) DeepCopyInto(out *QualityMonit
 	*out = *in
 	if in.OnFailure != nil {
 		in, out := &in.OnFailure, &out.OnFailure
-		*out = make([]NotificationsOnFailureObservation, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(NotificationsOnFailureObservation)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.OnNewClassificationTagDetected != nil {
 		in, out := &in.OnNewClassificationTagDetected, &out.OnNewClassificationTagDetected
-		*out = make([]NotificationsOnNewClassificationTagDetectedObservation, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(NotificationsOnNewClassificationTagDetectedObservation)
+		(*in).DeepCopyInto(*out)
 	}
 }
 
@@ -8010,17 +8448,13 @@ func (in *QualityMonitorNotificationsParameters) DeepCopyInto(out *QualityMonito
 	*out = *in
 	if in.OnFailure != nil {
 		in, out := &in.OnFailure, &out.OnFailure
-		*out = make([]NotificationsOnFailureParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(NotificationsOnFailureParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.OnNewClassificationTagDetected != nil {
 		in, out := &in.OnNewClassificationTagDetected, &out.OnNewClassificationTagDetected
-		*out = make([]NotificationsOnNewClassificationTagDetectedParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(NotificationsOnNewClassificationTagDetectedParameters)
+		(*in).DeepCopyInto(*out)
 	}
 }
 
@@ -8061,10 +8495,8 @@ func (in *QualityMonitorObservation) DeepCopyInto(out *QualityMonitorObservation
 	}
 	if in.DataClassificationConfig != nil {
 		in, out := &in.DataClassificationConfig, &out.DataClassificationConfig
-		*out = make([]QualityMonitorDataClassificationConfigObservation, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(QualityMonitorDataClassificationConfigObservation)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.DriftMetricsTableName != nil {
 		in, out := &in.DriftMetricsTableName, &out.DriftMetricsTableName
@@ -8078,10 +8510,8 @@ func (in *QualityMonitorObservation) DeepCopyInto(out *QualityMonitorObservation
 	}
 	if in.InferenceLog != nil {
 		in, out := &in.InferenceLog, &out.InferenceLog
-		*out = make([]QualityMonitorInferenceLogObservation, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(QualityMonitorInferenceLogObservation)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.LatestMonitorFailureMsg != nil {
 		in, out := &in.LatestMonitorFailureMsg, &out.LatestMonitorFailureMsg
@@ -8095,10 +8525,8 @@ func (in *QualityMonitorObservation) DeepCopyInto(out *QualityMonitorObservation
 	}
 	if in.Notifications != nil {
 		in, out := &in.Notifications, &out.Notifications
-		*out = make([]QualityMonitorNotificationsObservation, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(QualityMonitorNotificationsObservation)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.OutputSchemaName != nil {
 		in, out := &in.OutputSchemaName, &out.OutputSchemaName
@@ -8112,10 +8540,8 @@ func (in *QualityMonitorObservation) DeepCopyInto(out *QualityMonitorObservation
 	}
 	if in.Schedule != nil {
 		in, out := &in.Schedule, &out.Schedule
-		*out = make([]QualityMonitorScheduleObservation, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(QualityMonitorScheduleObservation)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.SkipBuiltinDashboard != nil {
 		in, out := &in.SkipBuiltinDashboard, &out.SkipBuiltinDashboard
@@ -8135,8 +8561,8 @@ func (in *QualityMonitorObservation) DeepCopyInto(out *QualityMonitorObservation
 	}
 	if in.Snapshot != nil {
 		in, out := &in.Snapshot, &out.Snapshot
-		*out = make([]QualityMonitorSnapshotParameters, len(*in))
-		copy(*out, *in)
+		*out = new(QualityMonitorSnapshotParameters)
+		**out = **in
 	}
 	if in.Status != nil {
 		in, out := &in.Status, &out.Status
@@ -8150,10 +8576,8 @@ func (in *QualityMonitorObservation) DeepCopyInto(out *QualityMonitorObservation
 	}
 	if in.TimeSeries != nil {
 		in, out := &in.TimeSeries, &out.TimeSeries
-		*out = make([]QualityMonitorTimeSeriesObservation, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(QualityMonitorTimeSeriesObservation)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.WarehouseID != nil {
 		in, out := &in.WarehouseID, &out.WarehouseID
@@ -8194,17 +8618,13 @@ func (in *QualityMonitorParameters) DeepCopyInto(out *QualityMonitorParameters) 
 	}
 	if in.DataClassificationConfig != nil {
 		in, out := &in.DataClassificationConfig, &out.DataClassificationConfig
-		*out = make([]QualityMonitorDataClassificationConfigParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(QualityMonitorDataClassificationConfigParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.InferenceLog != nil {
 		in, out := &in.InferenceLog, &out.InferenceLog
-		*out = make([]QualityMonitorInferenceLogParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(QualityMonitorInferenceLogParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.LatestMonitorFailureMsg != nil {
 		in, out := &in.LatestMonitorFailureMsg, &out.LatestMonitorFailureMsg
@@ -8213,10 +8633,8 @@ func (in *QualityMonitorParameters) DeepCopyInto(out *QualityMonitorParameters) 
 	}
 	if in.Notifications != nil {
 		in, out := &in.Notifications, &out.Notifications
-		*out = make([]QualityMonitorNotificationsParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(QualityMonitorNotificationsParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.OutputSchemaName != nil {
 		in, out := &in.OutputSchemaName, &out.OutputSchemaName
@@ -8225,10 +8643,8 @@ func (in *QualityMonitorParameters) DeepCopyInto(out *QualityMonitorParameters) 
 	}
 	if in.Schedule != nil {
 		in, out := &in.Schedule, &out.Schedule
-		*out = make([]QualityMonitorScheduleParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(QualityMonitorScheduleParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.SkipBuiltinDashboard != nil {
 		in, out := &in.SkipBuiltinDashboard, &out.SkipBuiltinDashboard
@@ -8248,8 +8664,8 @@ func (in *QualityMonitorParameters) DeepCopyInto(out *QualityMonitorParameters) 
 	}
 	if in.Snapshot != nil {
 		in, out := &in.Snapshot, &out.Snapshot
-		*out = make([]QualityMonitorSnapshotParameters, len(*in))
-		copy(*out, *in)
+		*out = new(QualityMonitorSnapshotParameters)
+		**out = **in
 	}
 	if in.TableName != nil {
 		in, out := &in.TableName, &out.TableName
@@ -8258,10 +8674,8 @@ func (in *QualityMonitorParameters) DeepCopyInto(out *QualityMonitorParameters) 
 	}
 	if in.TimeSeries != nil {
 		in, out := &in.TimeSeries, &out.TimeSeries
-		*out = make([]QualityMonitorTimeSeriesParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(QualityMonitorTimeSeriesParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.WarehouseID != nil {
 		in, out := &in.WarehouseID, &out.WarehouseID
@@ -8892,6 +9306,16 @@ func (in *SQLTableInitParameters) DeepCopyInto(out *SQLTableInitParameters) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.CatalogNameRef != nil {
+		in, out := &in.CatalogNameRef, &out.CatalogNameRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.CatalogNameSelector != nil {
+		in, out := &in.CatalogNameSelector, &out.CatalogNameSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.ClusterID != nil {
 		in, out := &in.ClusterID, &out.ClusterID
 		*out = new(string)
@@ -8992,6 +9416,16 @@ func (in *SQLTableInitParameters) DeepCopyInto(out *SQLTableInitParameters) {
 		in, out := &in.SchemaName, &out.SchemaName
 		*out = new(string)
 		**out = **in
+	}
+	if in.SchemaNameRef != nil {
+		in, out := &in.SchemaNameRef, &out.SchemaNameRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.SchemaNameSelector != nil {
+		in, out := &in.SchemaNameSelector, &out.SchemaNameSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.StorageCredentialName != nil {
 		in, out := &in.StorageCredentialName, &out.StorageCredentialName
@@ -9237,6 +9671,16 @@ func (in *SQLTableParameters) DeepCopyInto(out *SQLTableParameters) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.CatalogNameRef != nil {
+		in, out := &in.CatalogNameRef, &out.CatalogNameRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.CatalogNameSelector != nil {
+		in, out := &in.CatalogNameSelector, &out.CatalogNameSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.ClusterID != nil {
 		in, out := &in.ClusterID, &out.ClusterID
 		*out = new(string)
@@ -9337,6 +9781,16 @@ func (in *SQLTableParameters) DeepCopyInto(out *SQLTableParameters) {
 		in, out := &in.SchemaName, &out.SchemaName
 		*out = new(string)
 		**out = **in
+	}
+	if in.SchemaNameRef != nil {
+		in, out := &in.SchemaNameRef, &out.SchemaNameRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.SchemaNameSelector != nil {
+		in, out := &in.SchemaNameSelector, &out.SchemaNameSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.StorageCredentialName != nil {
 		in, out := &in.StorageCredentialName, &out.StorageCredentialName
@@ -9535,6 +9989,16 @@ func (in *SchemaInitParameters) DeepCopyInto(out *SchemaInitParameters) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.CatalogNameRef != nil {
+		in, out := &in.CatalogNameRef, &out.CatalogNameRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.CatalogNameSelector != nil {
+		in, out := &in.CatalogNameSelector, &out.CatalogNameSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.Comment != nil {
 		in, out := &in.Comment, &out.Comment
 		*out = new(string)
@@ -9718,6 +10182,16 @@ func (in *SchemaParameters) DeepCopyInto(out *SchemaParameters) {
 		in, out := &in.CatalogName, &out.CatalogName
 		*out = new(string)
 		**out = **in
+	}
+	if in.CatalogNameRef != nil {
+		in, out := &in.CatalogNameRef, &out.CatalogNameRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.CatalogNameSelector != nil {
+		in, out := &in.CatalogNameSelector, &out.CatalogNameSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Comment != nil {
 		in, out := &in.Comment, &out.Comment
@@ -10115,10 +10589,8 @@ func (in *StatusObservation) DeepCopyInto(out *StatusObservation) {
 	*out = *in
 	if in.ContinuousUpdateStatus != nil {
 		in, out := &in.ContinuousUpdateStatus, &out.ContinuousUpdateStatus
-		*out = make([]ContinuousUpdateStatusObservation, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(ContinuousUpdateStatusObservation)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.DetailedState != nil {
 		in, out := &in.DetailedState, &out.DetailedState
@@ -10127,10 +10599,8 @@ func (in *StatusObservation) DeepCopyInto(out *StatusObservation) {
 	}
 	if in.FailedStatus != nil {
 		in, out := &in.FailedStatus, &out.FailedStatus
-		*out = make([]FailedStatusObservation, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(FailedStatusObservation)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Message != nil {
 		in, out := &in.Message, &out.Message
@@ -10139,17 +10609,13 @@ func (in *StatusObservation) DeepCopyInto(out *StatusObservation) {
 	}
 	if in.ProvisioningStatus != nil {
 		in, out := &in.ProvisioningStatus, &out.ProvisioningStatus
-		*out = make([]ProvisioningStatusObservation, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(ProvisioningStatusObservation)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.TriggeredUpdateStatus != nil {
 		in, out := &in.TriggeredUpdateStatus, &out.TriggeredUpdateStatus
-		*out = make([]TriggeredUpdateStatusObservation, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(TriggeredUpdateStatusObservation)
+		(*in).DeepCopyInto(*out)
 	}
 }
 
@@ -11410,10 +11876,8 @@ func (in *TriggeredUpdateStatusObservation) DeepCopyInto(out *TriggeredUpdateSta
 	}
 	if in.TriggeredUpdateProgress != nil {
 		in, out := &in.TriggeredUpdateProgress, &out.TriggeredUpdateProgress
-		*out = make([]TriggeredUpdateProgressObservation, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(TriggeredUpdateProgressObservation)
+		(*in).DeepCopyInto(*out)
 	}
 }
 
@@ -11477,6 +11941,16 @@ func (in *VolumeInitParameters) DeepCopyInto(out *VolumeInitParameters) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.CatalogNameRef != nil {
+		in, out := &in.CatalogNameRef, &out.CatalogNameRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.CatalogNameSelector != nil {
+		in, out := &in.CatalogNameSelector, &out.CatalogNameSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.Comment != nil {
 		in, out := &in.Comment, &out.Comment
 		*out = new(string)
@@ -11497,10 +11971,30 @@ func (in *VolumeInitParameters) DeepCopyInto(out *VolumeInitParameters) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.SchemaNameRef != nil {
+		in, out := &in.SchemaNameRef, &out.SchemaNameRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.SchemaNameSelector != nil {
+		in, out := &in.SchemaNameSelector, &out.SchemaNameSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.StorageLocation != nil {
 		in, out := &in.StorageLocation, &out.StorageLocation
 		*out = new(string)
 		**out = **in
+	}
+	if in.StorageLocationRef != nil {
+		in, out := &in.StorageLocationRef, &out.StorageLocationRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.StorageLocationSelector != nil {
+		in, out := &in.StorageLocationSelector, &out.StorageLocationSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.VolumeType != nil {
 		in, out := &in.VolumeType, &out.VolumeType
@@ -11619,6 +12113,16 @@ func (in *VolumeParameters) DeepCopyInto(out *VolumeParameters) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.CatalogNameRef != nil {
+		in, out := &in.CatalogNameRef, &out.CatalogNameRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.CatalogNameSelector != nil {
+		in, out := &in.CatalogNameSelector, &out.CatalogNameSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.Comment != nil {
 		in, out := &in.Comment, &out.Comment
 		*out = new(string)
@@ -11639,10 +12143,30 @@ func (in *VolumeParameters) DeepCopyInto(out *VolumeParameters) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.SchemaNameRef != nil {
+		in, out := &in.SchemaNameRef, &out.SchemaNameRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.SchemaNameSelector != nil {
+		in, out := &in.SchemaNameSelector, &out.SchemaNameSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.StorageLocation != nil {
 		in, out := &in.StorageLocation, &out.StorageLocation
 		*out = new(string)
 		**out = **in
+	}
+	if in.StorageLocationRef != nil {
+		in, out := &in.StorageLocationRef, &out.StorageLocationRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.StorageLocationSelector != nil {
+		in, out := &in.StorageLocationSelector, &out.StorageLocationSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.VolumeType != nil {
 		in, out := &in.VolumeType, &out.VolumeType
@@ -11741,6 +12265,16 @@ func (in *WorkspaceBindingInitParameters) DeepCopyInto(out *WorkspaceBindingInit
 		*out = new(string)
 		**out = **in
 	}
+	if in.SecurableNameRef != nil {
+		in, out := &in.SecurableNameRef, &out.SecurableNameRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.SecurableNameSelector != nil {
+		in, out := &in.SecurableNameSelector, &out.SecurableNameSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.SecurableType != nil {
 		in, out := &in.SecurableType, &out.SecurableType
 		*out = new(string)
@@ -11750,6 +12284,16 @@ func (in *WorkspaceBindingInitParameters) DeepCopyInto(out *WorkspaceBindingInit
 		in, out := &in.WorkspaceID, &out.WorkspaceID
 		*out = new(float64)
 		**out = **in
+	}
+	if in.WorkspaceIDRef != nil {
+		in, out := &in.WorkspaceIDRef, &out.WorkspaceIDRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.WorkspaceIDSelector != nil {
+		in, out := &in.WorkspaceIDSelector, &out.WorkspaceIDSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
 	}
 }
 
@@ -11858,6 +12402,16 @@ func (in *WorkspaceBindingParameters) DeepCopyInto(out *WorkspaceBindingParamete
 		*out = new(string)
 		**out = **in
 	}
+	if in.SecurableNameRef != nil {
+		in, out := &in.SecurableNameRef, &out.SecurableNameRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.SecurableNameSelector != nil {
+		in, out := &in.SecurableNameSelector, &out.SecurableNameSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.SecurableType != nil {
 		in, out := &in.SecurableType, &out.SecurableType
 		*out = new(string)
@@ -11867,6 +12421,16 @@ func (in *WorkspaceBindingParameters) DeepCopyInto(out *WorkspaceBindingParamete
 		in, out := &in.WorkspaceID, &out.WorkspaceID
 		*out = new(float64)
 		**out = **in
+	}
+	if in.WorkspaceIDRef != nil {
+		in, out := &in.WorkspaceIDRef, &out.WorkspaceIDRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.WorkspaceIDSelector != nil {
+		in, out := &in.WorkspaceIDSelector, &out.WorkspaceIDSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
 	}
 }
 

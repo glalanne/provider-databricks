@@ -8,7 +8,9 @@ metadata:
   name: d1w1
 spec:
   forProvider:
-    dashboardId: ${databricks_sql_dashboard.d1.id}
+    dashboardIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: d1
     position:
     - posX: 0
       posY: 0

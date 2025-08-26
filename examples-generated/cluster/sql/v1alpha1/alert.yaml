@@ -17,8 +17,12 @@ spec:
       - value:
         - doubleValue: 42
     displayName: TF new alert
-    parentPath: /my_custom_directory
-    queryId: ${databricks_query.this.id}
+    parentPathSelector:
+      matchLabels:
+        testing.upbound.io/example-name: shared_dir
+    queryIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: this
 
 ---
 
@@ -47,6 +51,10 @@ metadata:
 spec:
   forProvider:
     displayName: My Query Name
-    parentPath: /Shared/Queries
+    parentPathSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
     queryText: SELECT 42 as value
-    warehouseId: ${databricks_sql_endpoint.example.id}
+    warehouseIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example

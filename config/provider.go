@@ -10,107 +10,13 @@ import (
 	_ "embed"
 	"strings"
 
-	ujconfig "github.com/crossplane/upjet/v2/pkg/config"
+	"github.com/crossplane/upjet/v2/pkg/config"
+	"github.com/crossplane/upjet/v2/pkg/registry/reference"
 	"github.com/crossplane/upjet/v2/pkg/schema/traverser"
 	conversiontfjson "github.com/crossplane/upjet/v2/pkg/types/conversion/tfjson"
-	"github.com/crossplane/upjet/v2/pkg/types/name"
-	"github.com/glalanne/provider-databricks/config/access_control_rule_set"
-	"github.com/glalanne/provider-databricks/config/alert"
-	"github.com/glalanne/provider-databricks/config/artifact_allowlist"
-	"github.com/glalanne/provider-databricks/config/budget"
-	"github.com/glalanne/provider-databricks/config/catalog"
-	"github.com/glalanne/provider-databricks/config/catalog_workspace_binding"
+	uname "github.com/crossplane/upjet/v2/pkg/types/name"
 	"github.com/glalanne/provider-databricks/config/cluster"
-	"github.com/glalanne/provider-databricks/config/cluster_policy"
-	"github.com/glalanne/provider-databricks/config/compliance_security_profile_workspace_setting"
-	"github.com/glalanne/provider-databricks/config/connection"
-	"github.com/glalanne/provider-databricks/config/credential"
-	"github.com/glalanne/provider-databricks/config/custom_app_integration"
-	"github.com/glalanne/provider-databricks/config/dashboard"
-	"github.com/glalanne/provider-databricks/config/dbfs_file"
-	"github.com/glalanne/provider-databricks/config/default_namespace_setting"
-	"github.com/glalanne/provider-databricks/config/directory"
-	"github.com/glalanne/provider-databricks/config/enhanced_security_monitoring_workspace_setting"
-	"github.com/glalanne/provider-databricks/config/entitlements"
-	"github.com/glalanne/provider-databricks/config/external_location"
-	"github.com/glalanne/provider-databricks/config/file"
-	"github.com/glalanne/provider-databricks/config/git_credential"
-	"github.com/glalanne/provider-databricks/config/global_init_script"
-	"github.com/glalanne/provider-databricks/config/grant"
-	"github.com/glalanne/provider-databricks/config/grants"
-	"github.com/glalanne/provider-databricks/config/group"
-	"github.com/glalanne/provider-databricks/config/group_instance_profile"
-	"github.com/glalanne/provider-databricks/config/group_member"
-	"github.com/glalanne/provider-databricks/config/group_role"
-	"github.com/glalanne/provider-databricks/config/instance_pool"
-	"github.com/glalanne/provider-databricks/config/instance_profile"
-	"github.com/glalanne/provider-databricks/config/ip_access_list"
-	"github.com/glalanne/provider-databricks/config/job"
-	"github.com/glalanne/provider-databricks/config/lakehouse_monitor"
-	"github.com/glalanne/provider-databricks/config/library"
-	"github.com/glalanne/provider-databricks/config/metastore"
-	"github.com/glalanne/provider-databricks/config/metastore_assignment"
-	"github.com/glalanne/provider-databricks/config/metastore_data_access"
-	"github.com/glalanne/provider-databricks/config/mlflow_experiment"
-	"github.com/glalanne/provider-databricks/config/mlflow_model"
-	"github.com/glalanne/provider-databricks/config/mlflow_webhook"
-	"github.com/glalanne/provider-databricks/config/model_serving"
-	"github.com/glalanne/provider-databricks/config/mount"
-	"github.com/glalanne/provider-databricks/config/mws_credentials"
-	"github.com/glalanne/provider-databricks/config/mws_customer_managed_keys"
-	"github.com/glalanne/provider-databricks/config/mws_log_delivery"
-	"github.com/glalanne/provider-databricks/config/mws_ncc_binding"
-	"github.com/glalanne/provider-databricks/config/mws_ncc_private_endpoint_rule"
-	"github.com/glalanne/provider-databricks/config/mws_network_connectivity_config"
-	"github.com/glalanne/provider-databricks/config/mws_networks"
-	"github.com/glalanne/provider-databricks/config/mws_permission_assignment"
-	"github.com/glalanne/provider-databricks/config/mws_private_access_settings"
-	"github.com/glalanne/provider-databricks/config/mws_storage_configurations"
-	"github.com/glalanne/provider-databricks/config/mws_vpc_endpoint"
-	"github.com/glalanne/provider-databricks/config/mws_workspaces"
-	"github.com/glalanne/provider-databricks/config/notebook"
-	"github.com/glalanne/provider-databricks/config/notification_destination"
-	"github.com/glalanne/provider-databricks/config/obo_token"
-	"github.com/glalanne/provider-databricks/config/online_table"
-	"github.com/glalanne/provider-databricks/config/permission_assignment"
-	"github.com/glalanne/provider-databricks/config/permissions"
-	"github.com/glalanne/provider-databricks/config/pipeline"
-	"github.com/glalanne/provider-databricks/config/provider"
-	"github.com/glalanne/provider-databricks/config/quality_monitor"
-	"github.com/glalanne/provider-databricks/config/query"
-	"github.com/glalanne/provider-databricks/config/recipient"
-	"github.com/glalanne/provider-databricks/config/registered_model"
-	"github.com/glalanne/provider-databricks/config/repo"
-	"github.com/glalanne/provider-databricks/config/restrict_workspace_admins_setting"
-	"github.com/glalanne/provider-databricks/config/schema"
-	"github.com/glalanne/provider-databricks/config/secret"
-	"github.com/glalanne/provider-databricks/config/secret_acl"
-	"github.com/glalanne/provider-databricks/config/secret_scope"
-	"github.com/glalanne/provider-databricks/config/service_principal"
-	"github.com/glalanne/provider-databricks/config/service_principal_role"
-	"github.com/glalanne/provider-databricks/config/service_principal_secret"
-	"github.com/glalanne/provider-databricks/config/share"
-	"github.com/glalanne/provider-databricks/config/sql_alert"
-	"github.com/glalanne/provider-databricks/config/sql_dashboard"
-	"github.com/glalanne/provider-databricks/config/sql_endpoint"
-	"github.com/glalanne/provider-databricks/config/sql_global_config"
-	"github.com/glalanne/provider-databricks/config/sql_permissions"
-	"github.com/glalanne/provider-databricks/config/sql_query"
-	"github.com/glalanne/provider-databricks/config/sql_table"
-	"github.com/glalanne/provider-databricks/config/sql_visualization"
-	"github.com/glalanne/provider-databricks/config/sql_widget"
-	"github.com/glalanne/provider-databricks/config/storage_credential"
-	"github.com/glalanne/provider-databricks/config/system_schema"
-	"github.com/glalanne/provider-databricks/config/token"
-	"github.com/glalanne/provider-databricks/config/user"
-	"github.com/glalanne/provider-databricks/config/user_instance_profile"
-	"github.com/glalanne/provider-databricks/config/user_role"
-	"github.com/glalanne/provider-databricks/config/vector_search_endpoint"
-	"github.com/glalanne/provider-databricks/config/vector_search_index"
-	"github.com/glalanne/provider-databricks/config/volume"
-	"github.com/glalanne/provider-databricks/config/workspace_binding"
-	"github.com/glalanne/provider-databricks/config/workspace_conf"
-	"github.com/glalanne/provider-databricks/config/workspace_file"
+	"github.com/glalanne/provider-databricks/config/namespaced"
 	tfjson "github.com/hashicorp/terraform-json"
 	tfschema "github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
 
@@ -147,7 +53,7 @@ func getProviderSchema(s string) (*tfschema.Provider, error) {
 }
 
 // GetProvider returns provider configuration
-func GetProvider(_ context.Context, sdkProvider *tfschema.Provider, generationProvider bool) (*ujconfig.Provider, error) {
+func GetProvider(_ context.Context, sdkProvider *tfschema.Provider, generationProvider bool) (*config.Provider, error) {
 
 	if generationProvider {
 		p, err := getProviderSchema(providerSchema)
@@ -164,120 +70,17 @@ func GetProvider(_ context.Context, sdkProvider *tfschema.Provider, generationPr
 		sdkProvider = p
 	}
 
-	pc := ujconfig.NewProvider([]byte(providerSchema), resourcePrefix, modulePath, []byte(providerMetadata),
+	pc := config.NewProvider([]byte(providerSchema), resourcePrefix, modulePath, []byte(providerMetadata),
 		// ujconfig.WithShortName("databricks"),
-		ujconfig.WithRootGroup("databricks.crossplane.io"),
-		ujconfig.WithIncludeList(ExternalNameConfigured()),
-		ujconfig.WithFeaturesPackage("internal/features"),
-		ujconfig.WithDefaultResourceOptions(
-			ExternalNameConfigurations(),
-		),
-		ujconfig.WithTerraformProvider(sdkProvider),
-		ujconfig.WithSchemaTraversers(&ujconfig.SingletonListEmbedder{}),
+		config.WithRootGroup("databricks.crossplane.io"),
+		config.WithIncludeList(CLIReconciledResourceList()),
+		config.WithTerraformPluginSDKIncludeList(TerraformPluginSDKResourceList()),
+		config.WithDefaultResourceOptions(ResourceConfigurator()),
+		config.WithReferenceInjectors([]config.ReferenceInjector{reference.NewInjector(modulePath)}),
+		config.WithFeaturesPackage("internal/features"),
+		config.WithTerraformProvider(sdkProvider),
+		config.WithSchemaTraversers(&config.SingletonListEmbedder{}),
 	)
-
-	for _, configure := range []func(provider *ujconfig.Provider){
-		// app.Configure,
-		cluster.Configure,
-		cluster_policy.Configure,
-		credential.Configure,
-		token.Configure,
-		secret.Configure,
-		secret_scope.Configure,
-		notebook.Configure,
-		job.Configure,
-		instance_pool.Configure,
-		permissions.Configure,
-		sql_endpoint.Configure,
-		entitlements.Configure,
-		group.Configure,
-		group_member.Configure,
-		group_role.Configure,
-		ip_access_list.Configure,
-		permission_assignment.Configure,
-		service_principal.Configure,
-		service_principal_role.Configure,
-		sql_permissions.Configure,
-		grants.Configure,
-		pipeline.Configure,
-		alert.Configure,
-		query.Configure,
-		sql_alert.Configure,
-		sql_dashboard.Configure,
-		sql_global_config.Configure,
-		sql_query.Configure,
-		sql_table.Configure,
-		budget.Configure,
-		git_credential.Configure,
-		catalog.Configure,
-		connection.Configure,
-		external_location.Configure,
-		schema.Configure,
-		library.Configure,
-		sql_visualization.Configure,
-		sql_widget.Configure,
-		provider.Configure,
-		mlflow_experiment.Configure,
-		mlflow_model.Configure,
-		mlflow_webhook.Configure,
-		model_serving.Configure,
-		access_control_rule_set.Configure,
-		artifact_allowlist.Configure,
-		catalog_workspace_binding.Configure,
-		compliance_security_profile_workspace_setting.Configure,
-		custom_app_integration.Configure,
-		dashboard.Configure,
-		dbfs_file.Configure,
-		default_namespace_setting.Configure,
-		directory.Configure,
-		enhanced_security_monitoring_workspace_setting.Configure,
-		file.Configure,
-		global_init_script.Configure,
-		grant.Configure,
-		group_instance_profile.Configure,
-		instance_profile.Configure,
-		lakehouse_monitor.Configure,
-		metastore.Configure,
-		metastore_assignment.Configure,
-		metastore_data_access.Configure,
-		mount.Configure,
-		mws_credentials.Configure,
-		mws_customer_managed_keys.Configure,
-		mws_log_delivery.Configure,
-		mws_ncc_binding.Configure,
-		mws_ncc_private_endpoint_rule.Configure,
-		mws_network_connectivity_config.Configure,
-		mws_networks.Configure,
-		mws_permission_assignment.Configure,
-		mws_private_access_settings.Configure,
-		mws_storage_configurations.Configure,
-		mws_vpc_endpoint.Configure,
-		mws_workspaces.Configure,
-		notification_destination.Configure,
-		obo_token.Configure,
-		online_table.Configure,
-		quality_monitor.Configure,
-		recipient.Configure,
-		registered_model.Configure,
-		repo.Configure,
-		restrict_workspace_admins_setting.Configure,
-		secret_acl.Configure,
-		service_principal_secret.Configure,
-		share.Configure,
-		storage_credential.Configure,
-		system_schema.Configure,
-		user.Configure,
-		user_instance_profile.Configure,
-		user_role.Configure,
-		vector_search_endpoint.Configure,
-		vector_search_index.Configure,
-		volume.Configure,
-		workspace_binding.Configure,
-		workspace_conf.Configure,
-		workspace_file.Configure,
-	} {
-		configure(pc)
-	}
 
 	// Rename resources to make it more pleasing to the eye
 	for _, r := range pc.Resources {
@@ -285,9 +88,14 @@ func GetProvider(_ context.Context, sdkProvider *tfschema.Provider, generationPr
 		parts := strings.Split(r.Name, "_")
 		if len(parts) > 1 {
 			r.ShortGroup = resourcePrefix
-			r.Kind = name.NewFromSnake(strings.Join(parts[1:], "_")).Camel
+			r.Kind = uname.NewFromSnake(strings.Join(parts[1:], "_")).Camel
 		}
 
+	}
+
+	// add custom config functions
+	for _, configure := range cluster.ProviderConfiguration {
+		configure(pc)
 	}
 
 	pc.ConfigureResources()
@@ -295,7 +103,7 @@ func GetProvider(_ context.Context, sdkProvider *tfschema.Provider, generationPr
 }
 
 // GetProviderNamespaced returns provider configuration for namespace-scoped resources
-func GetProviderNamespaced(_ context.Context, sdkProvider *tfschema.Provider, generationProvider bool) (*ujconfig.Provider, error) {
+func GetProviderNamespaced(_ context.Context, sdkProvider *tfschema.Provider, generationProvider bool) (*config.Provider, error) {
 	if generationProvider {
 		p, err := getProviderSchema(providerSchema)
 		if err != nil {
@@ -311,120 +119,19 @@ func GetProviderNamespaced(_ context.Context, sdkProvider *tfschema.Provider, ge
 		sdkProvider = p
 	}
 
-	pc := ujconfig.NewProvider([]byte(providerSchema), resourcePrefix, modulePath, []byte(providerMetadata),
-		// ujconfig.WithShortName("databricks"),
-		ujconfig.WithRootGroup("databricks.m.crossplane.io"),
-		ujconfig.WithIncludeList(ExternalNameConfigured()),
-		ujconfig.WithFeaturesPackage("internal/features"),
-		ujconfig.WithDefaultResourceOptions(
-			ExternalNameConfigurations(),
-		),
-		ujconfig.WithTerraformProvider(sdkProvider),
-		ujconfig.WithSchemaTraversers(&ujconfig.SingletonListEmbedder{}),
+	pc := config.NewProvider([]byte(providerSchema), resourcePrefix, modulePath, []byte(providerMetadata),
+		// config.WithShortName("databricks"),
+		config.WithRootGroup("databricks.m.crossplane.io"),
+		config.WithIncludeList(CLIReconciledResourceList()),
+		config.WithTerraformPluginSDKIncludeList(TerraformPluginSDKResourceList()),
+		config.WithDefaultResourceOptions(ResourceConfigurator()),
+		config.WithReferenceInjectors([]config.ReferenceInjector{reference.NewInjector(modulePath)}),
+		config.WithFeaturesPackage("internal/features"),
+		config.WithTerraformProvider(sdkProvider),
+		config.WithSchemaTraversers(&config.SingletonListEmbedder{}),
 	)
 
-	for _, configure := range []func(provider *ujconfig.Provider){
-		// app.Configure,
-		cluster.Configure,
-		cluster_policy.Configure,
-		credential.Configure,
-		token.Configure,
-		secret.Configure,
-		secret_scope.Configure,
-		notebook.Configure,
-		job.Configure,
-		instance_pool.Configure,
-		permissions.Configure,
-		sql_endpoint.Configure,
-		entitlements.Configure,
-		group.Configure,
-		group_member.Configure,
-		group_role.Configure,
-		ip_access_list.Configure,
-		permission_assignment.Configure,
-		service_principal.Configure,
-		service_principal_role.Configure,
-		sql_permissions.Configure,
-		grants.Configure,
-		pipeline.Configure,
-		alert.Configure,
-		query.Configure,
-		sql_alert.Configure,
-		sql_dashboard.Configure,
-		sql_global_config.Configure,
-		sql_query.Configure,
-		sql_table.Configure,
-		budget.Configure,
-		git_credential.Configure,
-		catalog.Configure,
-		connection.Configure,
-		external_location.Configure,
-		schema.Configure,
-		library.Configure,
-		sql_visualization.Configure,
-		sql_widget.Configure,
-		provider.Configure,
-		mlflow_experiment.Configure,
-		mlflow_model.Configure,
-		mlflow_webhook.Configure,
-		model_serving.Configure,
-		access_control_rule_set.Configure,
-		artifact_allowlist.Configure,
-		catalog_workspace_binding.Configure,
-		compliance_security_profile_workspace_setting.Configure,
-		custom_app_integration.Configure,
-		dashboard.Configure,
-		dbfs_file.Configure,
-		default_namespace_setting.Configure,
-		directory.Configure,
-		enhanced_security_monitoring_workspace_setting.Configure,
-		file.Configure,
-		global_init_script.Configure,
-		grant.Configure,
-		group_instance_profile.Configure,
-		instance_profile.Configure,
-		lakehouse_monitor.Configure,
-		metastore.Configure,
-		metastore_assignment.Configure,
-		metastore_data_access.Configure,
-		mount.Configure,
-		mws_credentials.Configure,
-		mws_customer_managed_keys.Configure,
-		mws_log_delivery.Configure,
-		mws_ncc_binding.Configure,
-		mws_ncc_private_endpoint_rule.Configure,
-		mws_network_connectivity_config.Configure,
-		mws_networks.Configure,
-		mws_permission_assignment.Configure,
-		mws_private_access_settings.Configure,
-		mws_storage_configurations.Configure,
-		mws_vpc_endpoint.Configure,
-		mws_workspaces.Configure,
-		notification_destination.Configure,
-		obo_token.Configure,
-		online_table.Configure,
-		quality_monitor.Configure,
-		recipient.Configure,
-		registered_model.Configure,
-		repo.Configure,
-		restrict_workspace_admins_setting.Configure,
-		secret_acl.Configure,
-		service_principal_secret.Configure,
-		share.Configure,
-		storage_credential.Configure,
-		system_schema.Configure,
-		user.Configure,
-		user_instance_profile.Configure,
-		user_role.Configure,
-		vector_search_endpoint.Configure,
-		vector_search_index.Configure,
-		volume.Configure,
-		workspace_binding.Configure,
-		workspace_conf.Configure,
-		workspace_file.Configure,
-	} {
-		configure(pc)
-	}
+	registerTerraformConversions(pc)
 
 	// Rename resources to make it more pleasing to the eye
 	for _, r := range pc.Resources {
@@ -432,11 +139,59 @@ func GetProviderNamespaced(_ context.Context, sdkProvider *tfschema.Provider, ge
 		parts := strings.Split(r.Name, "_")
 		if len(parts) > 1 {
 			r.ShortGroup = resourcePrefix
-			r.Kind = name.NewFromSnake(strings.Join(parts[1:], "_")).Camel
+			r.Kind = uname.NewFromSnake(strings.Join(parts[1:], "_")).Camel
 		}
+	}
 
+	// add custom config functions
+	for _, configure := range namespaced.ProviderConfiguration {
+		configure(pc)
 	}
 
 	pc.ConfigureResources()
 	return pc, nil
+}
+
+func registerTerraformConversions(pc *config.Provider) {
+	for name, r := range pc.Resources {
+		r := r
+		// nothing to do if no singleton list has been converted to
+		// an embedded object
+		if len(r.CRDListConversionPaths()) == 0 {
+			continue
+		}
+
+		r.TerraformConversions = []config.TerraformConversion{
+			config.NewTFSingletonConversion(),
+		}
+		pc.Resources[name] = r
+	}
+}
+
+// CLIReconciledResourceList returns the list of resources that have external
+// name configured in ExternalNameConfigs table and to be reconciled under
+// the TF CLI based architecture.
+func CLIReconciledResourceList() []string {
+	l := make([]string, len(CLIReconciledExternalNameConfigs))
+	i := 0
+	for name := range CLIReconciledExternalNameConfigs {
+		// Expected format is regex and we'd like to have exact matches.
+		l[i] = name + "$"
+		i++
+	}
+	return l
+}
+
+// TerraformPluginSDKResourceList returns the list of resources that have external
+// name configured in ExternalNameConfigs table and to be reconciled under
+// the no-fork architecture.
+func TerraformPluginSDKResourceList() []string {
+	l := make([]string, len(TerraformPluginSDKExternalNameConfigs))
+	i := 0
+	for name := range TerraformPluginSDKExternalNameConfigs {
+		// Expected format is regex and we'd like to have exact matches.
+		l[i] = name + "$"
+		i++
+	}
+	return l
 }

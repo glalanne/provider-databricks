@@ -9,8 +9,12 @@ metadata:
   namespace: upbound-system
 spec:
   forProvider:
-    role: ${databricks_instance_profile.instance_profile.id}
-    servicePrincipalId: ${databricks_service_principal.this.id}
+    roleSelector:
+      matchLabels:
+        testing.upbound.io/example-name: instance_profile
+    servicePrincipalIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: this
 
 ---
 

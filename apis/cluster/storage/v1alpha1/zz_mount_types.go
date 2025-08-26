@@ -19,10 +19,30 @@ type AbfsInitParameters struct {
 	ClientID *string `json:"clientId,omitempty" tf:"client_id,omitempty"`
 
 	// (String) This is the secret key in which your service principal/enterprise app client secret will be stored.
+	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/cluster/security/v1alpha1.Secret
+	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/v2/pkg/resource.ExtractParamPath("key",false)
 	ClientSecretKey *string `json:"clientSecretKey,omitempty" tf:"client_secret_key,omitempty"`
 
+	// Reference to a Secret in security to populate clientSecretKey.
+	// +kubebuilder:validation:Optional
+	ClientSecretKeyRef *v1.Reference `json:"clientSecretKeyRef,omitempty" tf:"-"`
+
+	// Selector for a Secret in security to populate clientSecretKey.
+	// +kubebuilder:validation:Optional
+	ClientSecretKeySelector *v1.Selector `json:"clientSecretKeySelector,omitempty" tf:"-"`
+
 	// (String) This is the secret scope in which your service principal/enterprise app client secret will be stored.
+	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/cluster/security/v1alpha1.SecretScope
+	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/v2/pkg/resource.ExtractParamPath("name",false)
 	ClientSecretScope *string `json:"clientSecretScope,omitempty" tf:"client_secret_scope,omitempty"`
+
+	// Reference to a SecretScope in security to populate clientSecretScope.
+	// +kubebuilder:validation:Optional
+	ClientSecretScopeRef *v1.Reference `json:"clientSecretScopeRef,omitempty" tf:"-"`
+
+	// Selector for a SecretScope in security to populate clientSecretScope.
+	// +kubebuilder:validation:Optional
+	ClientSecretScopeSelector *v1.Selector `json:"clientSecretScopeSelector,omitempty" tf:"-"`
 
 	// (String) ADLS gen2 container name. (Could be omitted if resource_id is provided)
 	ContainerName *string `json:"containerName,omitempty" tf:"container_name,omitempty"`
@@ -74,12 +94,32 @@ type AbfsParameters struct {
 	ClientID *string `json:"clientId" tf:"client_id,omitempty"`
 
 	// (String) This is the secret key in which your service principal/enterprise app client secret will be stored.
+	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/cluster/security/v1alpha1.Secret
+	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/v2/pkg/resource.ExtractParamPath("key",false)
 	// +kubebuilder:validation:Optional
-	ClientSecretKey *string `json:"clientSecretKey" tf:"client_secret_key,omitempty"`
+	ClientSecretKey *string `json:"clientSecretKey,omitempty" tf:"client_secret_key,omitempty"`
+
+	// Reference to a Secret in security to populate clientSecretKey.
+	// +kubebuilder:validation:Optional
+	ClientSecretKeyRef *v1.Reference `json:"clientSecretKeyRef,omitempty" tf:"-"`
+
+	// Selector for a Secret in security to populate clientSecretKey.
+	// +kubebuilder:validation:Optional
+	ClientSecretKeySelector *v1.Selector `json:"clientSecretKeySelector,omitempty" tf:"-"`
 
 	// (String) This is the secret scope in which your service principal/enterprise app client secret will be stored.
+	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/cluster/security/v1alpha1.SecretScope
+	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/v2/pkg/resource.ExtractParamPath("name",false)
 	// +kubebuilder:validation:Optional
-	ClientSecretScope *string `json:"clientSecretScope" tf:"client_secret_scope,omitempty"`
+	ClientSecretScope *string `json:"clientSecretScope,omitempty" tf:"client_secret_scope,omitempty"`
+
+	// Reference to a SecretScope in security to populate clientSecretScope.
+	// +kubebuilder:validation:Optional
+	ClientSecretScopeRef *v1.Reference `json:"clientSecretScopeRef,omitempty" tf:"-"`
+
+	// Selector for a SecretScope in security to populate clientSecretScope.
+	// +kubebuilder:validation:Optional
+	ClientSecretScopeSelector *v1.Selector `json:"clientSecretScopeSelector,omitempty" tf:"-"`
 
 	// (String) ADLS gen2 container name. (Could be omitted if resource_id is provided)
 	// +kubebuilder:validation:Optional
@@ -108,10 +148,30 @@ type AdlInitParameters struct {
 	ClientID *string `json:"clientId,omitempty" tf:"client_id,omitempty"`
 
 	// (String) This is the secret key in which your service principal/enterprise app client secret will be stored.
+	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/cluster/security/v1alpha1.Secret
+	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/v2/pkg/resource.ExtractParamPath("key",false)
 	ClientSecretKey *string `json:"clientSecretKey,omitempty" tf:"client_secret_key,omitempty"`
 
+	// Reference to a Secret in security to populate clientSecretKey.
+	// +kubebuilder:validation:Optional
+	ClientSecretKeyRef *v1.Reference `json:"clientSecretKeyRef,omitempty" tf:"-"`
+
+	// Selector for a Secret in security to populate clientSecretKey.
+	// +kubebuilder:validation:Optional
+	ClientSecretKeySelector *v1.Selector `json:"clientSecretKeySelector,omitempty" tf:"-"`
+
 	// (String) This is the secret scope in which your service principal/enterprise app client secret will be stored.
+	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/cluster/security/v1alpha1.SecretScope
+	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/v2/pkg/resource.ExtractParamPath("name",false)
 	ClientSecretScope *string `json:"clientSecretScope,omitempty" tf:"client_secret_scope,omitempty"`
+
+	// Reference to a SecretScope in security to populate clientSecretScope.
+	// +kubebuilder:validation:Optional
+	ClientSecretScopeRef *v1.Reference `json:"clientSecretScopeRef,omitempty" tf:"-"`
+
+	// Selector for a SecretScope in security to populate clientSecretScope.
+	// +kubebuilder:validation:Optional
+	ClientSecretScopeSelector *v1.Selector `json:"clientSecretScopeSelector,omitempty" tf:"-"`
 
 	// (Computed) (String) This is optional if you don't want to add an additional directory that you wish to mount. This must start with a "/".
 	Directory *string `json:"directory,omitempty" tf:"directory,omitempty"`
@@ -157,12 +217,32 @@ type AdlParameters struct {
 	ClientID *string `json:"clientId" tf:"client_id,omitempty"`
 
 	// (String) This is the secret key in which your service principal/enterprise app client secret will be stored.
+	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/cluster/security/v1alpha1.Secret
+	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/v2/pkg/resource.ExtractParamPath("key",false)
 	// +kubebuilder:validation:Optional
-	ClientSecretKey *string `json:"clientSecretKey" tf:"client_secret_key,omitempty"`
+	ClientSecretKey *string `json:"clientSecretKey,omitempty" tf:"client_secret_key,omitempty"`
+
+	// Reference to a Secret in security to populate clientSecretKey.
+	// +kubebuilder:validation:Optional
+	ClientSecretKeyRef *v1.Reference `json:"clientSecretKeyRef,omitempty" tf:"-"`
+
+	// Selector for a Secret in security to populate clientSecretKey.
+	// +kubebuilder:validation:Optional
+	ClientSecretKeySelector *v1.Selector `json:"clientSecretKeySelector,omitempty" tf:"-"`
 
 	// (String) This is the secret scope in which your service principal/enterprise app client secret will be stored.
+	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/cluster/security/v1alpha1.SecretScope
+	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/v2/pkg/resource.ExtractParamPath("name",false)
 	// +kubebuilder:validation:Optional
-	ClientSecretScope *string `json:"clientSecretScope" tf:"client_secret_scope,omitempty"`
+	ClientSecretScope *string `json:"clientSecretScope,omitempty" tf:"client_secret_scope,omitempty"`
+
+	// Reference to a SecretScope in security to populate clientSecretScope.
+	// +kubebuilder:validation:Optional
+	ClientSecretScopeRef *v1.Reference `json:"clientSecretScopeRef,omitempty" tf:"-"`
+
+	// Selector for a SecretScope in security to populate clientSecretScope.
+	// +kubebuilder:validation:Optional
+	ClientSecretScopeSelector *v1.Selector `json:"clientSecretScopeSelector,omitempty" tf:"-"`
 
 	// (Computed) (String) This is optional if you don't want to add an additional directory that you wish to mount. This must start with a "/".
 	// +kubebuilder:validation:Optional
@@ -219,7 +299,17 @@ type MountInitParameters struct {
 	Adl *AdlInitParameters `json:"adl,omitempty" tf:"adl,omitempty"`
 
 	// Cluster to use for mounting. If no cluster is specified, a new cluster will be created and will mount the bucket for all of the clusters in this workspace. If the cluster is not running - it's going to be started, so be aware to set auto-termination rules on it.
+	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/cluster/compute/v1alpha1.Cluster
+	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/v2/pkg/resource.ExtractResourceID()
 	ClusterID *string `json:"clusterId,omitempty" tf:"cluster_id,omitempty"`
+
+	// Reference to a Cluster in compute to populate clusterId.
+	// +kubebuilder:validation:Optional
+	ClusterIDRef *v1.Reference `json:"clusterIdRef,omitempty" tf:"-"`
+
+	// Selector for a Cluster in compute to populate clusterId.
+	// +kubebuilder:validation:Optional
+	ClusterIDSelector *v1.Selector `json:"clusterIdSelector,omitempty" tf:"-"`
 
 	// encryption type. Currently used only for AWS S3 mounts
 	EncryptionType *string `json:"encryptionType,omitempty" tf:"encryption_type,omitempty"`
@@ -301,8 +391,18 @@ type MountParameters struct {
 	Adl *AdlParameters `json:"adl,omitempty" tf:"adl,omitempty"`
 
 	// Cluster to use for mounting. If no cluster is specified, a new cluster will be created and will mount the bucket for all of the clusters in this workspace. If the cluster is not running - it's going to be started, so be aware to set auto-termination rules on it.
+	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/cluster/compute/v1alpha1.Cluster
+	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/v2/pkg/resource.ExtractResourceID()
 	// +kubebuilder:validation:Optional
 	ClusterID *string `json:"clusterId,omitempty" tf:"cluster_id,omitempty"`
+
+	// Reference to a Cluster in compute to populate clusterId.
+	// +kubebuilder:validation:Optional
+	ClusterIDRef *v1.Reference `json:"clusterIdRef,omitempty" tf:"-"`
+
+	// Selector for a Cluster in compute to populate clusterId.
+	// +kubebuilder:validation:Optional
+	ClusterIDSelector *v1.Selector `json:"clusterIdSelector,omitempty" tf:"-"`
 
 	// encryption type. Currently used only for AWS S3 mounts
 	// +kubebuilder:validation:Optional
@@ -344,7 +444,17 @@ type S3InitParameters struct {
 	BucketName *string `json:"bucketName,omitempty" tf:"bucket_name,omitempty"`
 
 	// (String) ARN of registered instance profile for data access.  If it's not specified, then the cluster_id should be provided, and the cluster should have an instance profile attached to it. If both cluster_id & instance_profile are specified, then cluster_id takes precedence.
+	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/cluster/deployment/v1alpha1.InstanceProfile
+	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/v2/pkg/resource.ExtractResourceID()
 	InstanceProfile *string `json:"instanceProfile,omitempty" tf:"instance_profile,omitempty"`
+
+	// Reference to a InstanceProfile in deployment to populate instanceProfile.
+	// +kubebuilder:validation:Optional
+	InstanceProfileRef *v1.Reference `json:"instanceProfileRef,omitempty" tf:"-"`
+
+	// Selector for a InstanceProfile in deployment to populate instanceProfile.
+	// +kubebuilder:validation:Optional
+	InstanceProfileSelector *v1.Selector `json:"instanceProfileSelector,omitempty" tf:"-"`
 }
 
 type S3Observation struct {
@@ -363,8 +473,18 @@ type S3Parameters struct {
 	BucketName *string `json:"bucketName" tf:"bucket_name,omitempty"`
 
 	// (String) ARN of registered instance profile for data access.  If it's not specified, then the cluster_id should be provided, and the cluster should have an instance profile attached to it. If both cluster_id & instance_profile are specified, then cluster_id takes precedence.
+	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/cluster/deployment/v1alpha1.InstanceProfile
+	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/v2/pkg/resource.ExtractResourceID()
 	// +kubebuilder:validation:Optional
 	InstanceProfile *string `json:"instanceProfile,omitempty" tf:"instance_profile,omitempty"`
+
+	// Reference to a InstanceProfile in deployment to populate instanceProfile.
+	// +kubebuilder:validation:Optional
+	InstanceProfileRef *v1.Reference `json:"instanceProfileRef,omitempty" tf:"-"`
+
+	// Selector for a InstanceProfile in deployment to populate instanceProfile.
+	// +kubebuilder:validation:Optional
+	InstanceProfileSelector *v1.Selector `json:"instanceProfileSelector,omitempty" tf:"-"`
 }
 
 type WasbInitParameters struct {
@@ -382,10 +502,30 @@ type WasbInitParameters struct {
 	StorageAccountName *string `json:"storageAccountName,omitempty" tf:"storage_account_name,omitempty"`
 
 	// (String) This is the secret key in which your auth type token is stored.
+	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/cluster/security/v1alpha1.Secret
+	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/v2/pkg/resource.ExtractParamPath("key",false)
 	TokenSecretKey *string `json:"tokenSecretKey,omitempty" tf:"token_secret_key,omitempty"`
 
+	// Reference to a Secret in security to populate tokenSecretKey.
+	// +kubebuilder:validation:Optional
+	TokenSecretKeyRef *v1.Reference `json:"tokenSecretKeyRef,omitempty" tf:"-"`
+
+	// Selector for a Secret in security to populate tokenSecretKey.
+	// +kubebuilder:validation:Optional
+	TokenSecretKeySelector *v1.Selector `json:"tokenSecretKeySelector,omitempty" tf:"-"`
+
 	// (String) This is the secret scope in which your auth type token is stored.
+	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/cluster/security/v1alpha1.SecretScope
+	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/v2/pkg/resource.ExtractParamPath("name",false)
 	TokenSecretScope *string `json:"tokenSecretScope,omitempty" tf:"token_secret_scope,omitempty"`
+
+	// Reference to a SecretScope in security to populate tokenSecretScope.
+	// +kubebuilder:validation:Optional
+	TokenSecretScopeRef *v1.Reference `json:"tokenSecretScopeRef,omitempty" tf:"-"`
+
+	// Selector for a SecretScope in security to populate tokenSecretScope.
+	// +kubebuilder:validation:Optional
+	TokenSecretScopeSelector *v1.Selector `json:"tokenSecretScopeSelector,omitempty" tf:"-"`
 }
 
 type WasbObservation struct {
@@ -428,12 +568,32 @@ type WasbParameters struct {
 	StorageAccountName *string `json:"storageAccountName,omitempty" tf:"storage_account_name,omitempty"`
 
 	// (String) This is the secret key in which your auth type token is stored.
+	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/cluster/security/v1alpha1.Secret
+	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/v2/pkg/resource.ExtractParamPath("key",false)
 	// +kubebuilder:validation:Optional
-	TokenSecretKey *string `json:"tokenSecretKey" tf:"token_secret_key,omitempty"`
+	TokenSecretKey *string `json:"tokenSecretKey,omitempty" tf:"token_secret_key,omitempty"`
+
+	// Reference to a Secret in security to populate tokenSecretKey.
+	// +kubebuilder:validation:Optional
+	TokenSecretKeyRef *v1.Reference `json:"tokenSecretKeyRef,omitempty" tf:"-"`
+
+	// Selector for a Secret in security to populate tokenSecretKey.
+	// +kubebuilder:validation:Optional
+	TokenSecretKeySelector *v1.Selector `json:"tokenSecretKeySelector,omitempty" tf:"-"`
 
 	// (String) This is the secret scope in which your auth type token is stored.
+	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/cluster/security/v1alpha1.SecretScope
+	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/v2/pkg/resource.ExtractParamPath("name",false)
 	// +kubebuilder:validation:Optional
-	TokenSecretScope *string `json:"tokenSecretScope" tf:"token_secret_scope,omitempty"`
+	TokenSecretScope *string `json:"tokenSecretScope,omitempty" tf:"token_secret_scope,omitempty"`
+
+	// Reference to a SecretScope in security to populate tokenSecretScope.
+	// +kubebuilder:validation:Optional
+	TokenSecretScopeRef *v1.Reference `json:"tokenSecretScopeRef,omitempty" tf:"-"`
+
+	// Selector for a SecretScope in security to populate tokenSecretScope.
+	// +kubebuilder:validation:Optional
+	TokenSecretScopeSelector *v1.Selector `json:"tokenSecretScopeSelector,omitempty" tf:"-"`
 }
 
 // MountSpec defines the desired state of Mount

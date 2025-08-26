@@ -8,7 +8,9 @@ metadata:
   name: things
 spec:
   forProvider:
-    catalogName: ${databricks_catalog.sandbox.id}
+    catalogNameSelector:
+      matchLabels:
+        testing.upbound.io/example-name: sandbox
     comment: this database is managed by terraform
     name: things
     properties:

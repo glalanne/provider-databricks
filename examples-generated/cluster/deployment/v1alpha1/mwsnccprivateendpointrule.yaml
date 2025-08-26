@@ -9,7 +9,9 @@ metadata:
 spec:
   forProvider:
     groupId: blob
-    networkConnectivityConfigId: ${databricks_mws_network_connectivity_config.ncc.network_connectivity_config_id}
+    networkConnectivityConfigIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: ncc
     provider: ${databricks.account}
     resourceId: /subscriptions/653bb673-1234-abcd-a90b-d064d5d53ca4/resourcegroups/example-resource-group/providers/Microsoft.Storage/storageAccounts/examplesa
 

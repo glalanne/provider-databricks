@@ -32,5 +32,7 @@ spec:
             ]
           }
         )}
-    queryId: ${databricks_sql_query.q1.id}
+    queryIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: q1
     type: table

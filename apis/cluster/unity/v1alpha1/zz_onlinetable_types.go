@@ -17,7 +17,7 @@ type ContinuousUpdateStatusInitParameters struct {
 }
 
 type ContinuousUpdateStatusObservation struct {
-	InitialPipelineSyncProgress []InitialPipelineSyncProgressObservation `json:"initialPipelineSyncProgress,omitempty" tf:"initial_pipeline_sync_progress,omitempty"`
+	InitialPipelineSyncProgress *InitialPipelineSyncProgressObservation `json:"initialPipelineSyncProgress,omitempty" tf:"initial_pipeline_sync_progress,omitempty"`
 
 	LastProcessedCommitVersion *float64 `json:"lastProcessedCommitVersion,omitempty" tf:"last_processed_commit_version,omitempty"`
 
@@ -120,7 +120,7 @@ type ProvisioningStatusInitialPipelineSyncProgressParameters struct {
 }
 
 type ProvisioningStatusObservation struct {
-	InitialPipelineSyncProgress []ProvisioningStatusInitialPipelineSyncProgressObservation `json:"initialPipelineSyncProgress,omitempty" tf:"initial_pipeline_sync_progress,omitempty"`
+	InitialPipelineSyncProgress *ProvisioningStatusInitialPipelineSyncProgressObservation `json:"initialPipelineSyncProgress,omitempty" tf:"initial_pipeline_sync_progress,omitempty"`
 }
 
 type ProvisioningStatusParameters struct {
@@ -222,22 +222,22 @@ type StatusInitParameters struct {
 type StatusObservation struct {
 
 	// object describing status of the online table:
-	ContinuousUpdateStatus []ContinuousUpdateStatusObservation `json:"continuousUpdateStatus,omitempty" tf:"continuous_update_status,omitempty"`
+	ContinuousUpdateStatus *ContinuousUpdateStatusObservation `json:"continuousUpdateStatus,omitempty" tf:"continuous_update_status,omitempty"`
 
 	// The state of the online table.
 	DetailedState *string `json:"detailedState,omitempty" tf:"detailed_state,omitempty"`
 
 	// object describing status of the online table:
-	FailedStatus []FailedStatusObservation `json:"failedStatus,omitempty" tf:"failed_status,omitempty"`
+	FailedStatus *FailedStatusObservation `json:"failedStatus,omitempty" tf:"failed_status,omitempty"`
 
 	// A text description of the current state of the online table.
 	Message *string `json:"message,omitempty" tf:"message,omitempty"`
 
 	// object describing status of the online table:
-	ProvisioningStatus []ProvisioningStatusObservation `json:"provisioningStatus,omitempty" tf:"provisioning_status,omitempty"`
+	ProvisioningStatus *ProvisioningStatusObservation `json:"provisioningStatus,omitempty" tf:"provisioning_status,omitempty"`
 
 	// object describing status of the online table:
-	TriggeredUpdateStatus []TriggeredUpdateStatusObservation `json:"triggeredUpdateStatus,omitempty" tf:"triggered_update_status,omitempty"`
+	TriggeredUpdateStatus *TriggeredUpdateStatusObservation `json:"triggeredUpdateStatus,omitempty" tf:"triggered_update_status,omitempty"`
 }
 
 type StatusParameters struct {
@@ -269,7 +269,7 @@ type TriggeredUpdateStatusObservation struct {
 
 	Timestamp *string `json:"timestamp,omitempty" tf:"timestamp,omitempty"`
 
-	TriggeredUpdateProgress []TriggeredUpdateProgressObservation `json:"triggeredUpdateProgress,omitempty" tf:"triggered_update_progress,omitempty"`
+	TriggeredUpdateProgress *TriggeredUpdateProgressObservation `json:"triggeredUpdateProgress,omitempty" tf:"triggered_update_progress,omitempty"`
 }
 
 type TriggeredUpdateStatusParameters struct {

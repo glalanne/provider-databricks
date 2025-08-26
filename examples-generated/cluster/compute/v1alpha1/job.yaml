@@ -23,18 +23,26 @@ spec:
         numWorkers: 1
         sparkVersion: ${data.databricks_spark_version.latest.id}
       notebookTask:
-      - notebookPath: ${data.databricks_current_user.me.home}/AA/BB/CC
+      - notebookPathSelector:
+          matchLabels:
+            testing.upbound.io/example-name: this
       taskKey: a
     - dependsOn:
       - taskKey: a
-      existingClusterId: ${databricks_cluster.shared.id}
+      existingClusterIdSelector:
+        matchLabels:
+          testing.upbound.io/example-name: shared
       sparkJarTask:
       - mainClassName: com.acme.data.Main
       taskKey: b
     - jobClusterKey: j
       notebookTask:
-      - notebookPath: ${data.databricks_current_user.me.home}/AA/BB/CC
+      - notebookPathSelector:
+          matchLabels:
+            testing.upbound.io/example-name: this
       taskKey: c
     - pipelineTask:
-      - pipelineId: ${databricks_pipeline.this.id}
+      - pipelineIdSelector:
+          matchLabels:
+            testing.upbound.io/example-name: this
       taskKey: d

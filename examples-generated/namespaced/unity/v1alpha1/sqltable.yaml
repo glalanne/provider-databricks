@@ -9,7 +9,9 @@ metadata:
   namespace: upbound-system
 spec:
   forProvider:
-    catalogName: sandbox
+    catalogNameSelector:
+      matchLabels:
+        testing.upbound.io/example-name: sandbox
     column:
     - name: id
       type: int
@@ -19,7 +21,9 @@ spec:
     comment: this table is managed by terraform
     name: quickstart_table
     provider: ${databricks.workspace}
-    schemaName: things
+    schemaNameSelector:
+      matchLabels:
+        testing.upbound.io/example-name: things
     tableType: MANAGED
 
 ---
@@ -53,7 +57,9 @@ metadata:
   namespace: upbound-system
 spec:
   forProvider:
-    catalogName: ${databricks_catalog.sandbox.id}
+    catalogNameSelector:
+      matchLabels:
+        testing.upbound.io/example-name: sandbox
     comment: this database is managed by terraform
     name: things
     properties:

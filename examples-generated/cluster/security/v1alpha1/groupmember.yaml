@@ -11,7 +11,9 @@ spec:
     groupIdSelector:
       matchLabels:
         testing.upbound.io/example-name: a
-    memberId: ${databricks_group.b.id}
+    memberIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: b
 
 ---
 

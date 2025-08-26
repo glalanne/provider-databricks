@@ -50,8 +50,18 @@ type AccessControlRuleSetParameters struct {
 type GrantRulesInitParameters struct {
 
 	// a list of principals who are granted a role. The following format is supported:
+	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/namespaced/security/v1alpha1.Group
+	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/v2/pkg/resource.ExtractParamPath("acl_principal_id",false)
 	// +listType=set
 	Principals []*string `json:"principals,omitempty" tf:"principals,omitempty"`
+
+	// References to Group in security to populate principals.
+	// +kubebuilder:validation:Optional
+	PrincipalsRefs []v1.NamespacedReference `json:"principalsRefs,omitempty" tf:"-"`
+
+	// Selector for a list of Group in security to populate principals.
+	// +kubebuilder:validation:Optional
+	PrincipalsSelector *v1.NamespacedSelector `json:"principalsSelector,omitempty" tf:"-"`
 
 	// Role to be granted. The supported roles are listed below. For more information about these roles, refer to service principal roles, group roles, marketplace roles or budget policy permissions, depending on the name defined:
 	Role *string `json:"role,omitempty" tf:"role,omitempty"`
@@ -70,9 +80,19 @@ type GrantRulesObservation struct {
 type GrantRulesParameters struct {
 
 	// a list of principals who are granted a role. The following format is supported:
+	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/namespaced/security/v1alpha1.Group
+	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/v2/pkg/resource.ExtractParamPath("acl_principal_id",false)
 	// +kubebuilder:validation:Optional
 	// +listType=set
 	Principals []*string `json:"principals,omitempty" tf:"principals,omitempty"`
+
+	// References to Group in security to populate principals.
+	// +kubebuilder:validation:Optional
+	PrincipalsRefs []v1.NamespacedReference `json:"principalsRefs,omitempty" tf:"-"`
+
+	// Selector for a list of Group in security to populate principals.
+	// +kubebuilder:validation:Optional
+	PrincipalsSelector *v1.NamespacedSelector `json:"principalsSelector,omitempty" tf:"-"`
 
 	// Role to be granted. The supported roles are listed below. For more information about these roles, refer to service principal roles, group roles, marketplace roles or budget policy permissions, depending on the name defined:
 	// +kubebuilder:validation:Optional

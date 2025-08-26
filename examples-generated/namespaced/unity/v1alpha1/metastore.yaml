@@ -28,5 +28,7 @@ metadata:
   namespace: upbound-system
 spec:
   forProvider:
-    metastoreId: ${databricks_metastore.this.id}
+    metastoreIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: this
     workspaceId: ${local.workspace_id}

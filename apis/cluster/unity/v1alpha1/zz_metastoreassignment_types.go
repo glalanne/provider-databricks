@@ -19,7 +19,17 @@ type MetastoreAssignmentInitParameters struct {
 	DefaultCatalogName *string `json:"defaultCatalogName,omitempty" tf:"default_catalog_name,omitempty"`
 
 	// Unique identifier of the parent Metastore
+	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/cluster/unity/v1alpha1.Metastore
+	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/v2/pkg/resource.ExtractResourceID()
 	MetastoreID *string `json:"metastoreId,omitempty" tf:"metastore_id,omitempty"`
+
+	// Reference to a Metastore in unity to populate metastoreId.
+	// +kubebuilder:validation:Optional
+	MetastoreIDRef *v1.Reference `json:"metastoreIdRef,omitempty" tf:"-"`
+
+	// Selector for a Metastore in unity to populate metastoreId.
+	// +kubebuilder:validation:Optional
+	MetastoreIDSelector *v1.Selector `json:"metastoreIdSelector,omitempty" tf:"-"`
 
 	// id of the workspace for the assignment
 	WorkspaceID *float64 `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
@@ -47,8 +57,18 @@ type MetastoreAssignmentParameters struct {
 	DefaultCatalogName *string `json:"defaultCatalogName,omitempty" tf:"default_catalog_name,omitempty"`
 
 	// Unique identifier of the parent Metastore
+	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/cluster/unity/v1alpha1.Metastore
+	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/v2/pkg/resource.ExtractResourceID()
 	// +kubebuilder:validation:Optional
 	MetastoreID *string `json:"metastoreId,omitempty" tf:"metastore_id,omitempty"`
+
+	// Reference to a Metastore in unity to populate metastoreId.
+	// +kubebuilder:validation:Optional
+	MetastoreIDRef *v1.Reference `json:"metastoreIdRef,omitempty" tf:"-"`
+
+	// Selector for a Metastore in unity to populate metastoreId.
+	// +kubebuilder:validation:Optional
+	MetastoreIDSelector *v1.Selector `json:"metastoreIdSelector,omitempty" tf:"-"`
 
 	// id of the workspace for the assignment
 	// +kubebuilder:validation:Optional
@@ -91,7 +111,6 @@ type MetastoreAssignmentStatus struct {
 type MetastoreAssignment struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.metastoreId) || (has(self.initProvider) && has(self.initProvider.metastoreId))",message="spec.forProvider.metastoreId is a required parameter"
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.workspaceId) || (has(self.initProvider) && has(self.initProvider.workspaceId))",message="spec.forProvider.workspaceId is a required parameter"
 	Spec   MetastoreAssignmentSpec   `json:"spec"`
 	Status MetastoreAssignmentStatus `json:"status,omitempty"`

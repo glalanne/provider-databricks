@@ -346,19 +346,17 @@ spec:
                         details:
                           type: string
                         failureReason:
-                          items:
-                            properties:
-                              code:
+                          properties:
+                            code:
+                              type: string
+                            parameters:
+                              additionalProperties:
                                 type: string
-                              parameters:
-                                additionalProperties:
-                                  type: string
-                                type: object
-                                x-kubernetes-map-type: granular
-                              type:
-                                type: string
-                            type: object
-                          type: array
+                              type: object
+                              x-kubernetes-map-type: granular
+                            type:
+                              type: string
+                          type: object
                         message:
                           type: string
                         status:

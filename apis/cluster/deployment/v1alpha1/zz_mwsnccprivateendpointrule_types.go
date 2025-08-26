@@ -44,7 +44,17 @@ type MwsNccPrivateEndpointRuleInitParameters struct {
 	GroupID *string `json:"groupId,omitempty" tf:"group_id,omitempty"`
 
 	// Canonical unique identifier of Network Connectivity Config in Databricks Account. Change forces creation of a new resource.
+	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/cluster/deployment/v1alpha1.MwsNetworkConnectivityConfig
+	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/v2/pkg/resource.ExtractParamPath("network_connectivity_config_id",false)
 	NetworkConnectivityConfigID *string `json:"networkConnectivityConfigId,omitempty" tf:"network_connectivity_config_id,omitempty"`
+
+	// Reference to a MwsNetworkConnectivityConfig in deployment to populate networkConnectivityConfigId.
+	// +kubebuilder:validation:Optional
+	NetworkConnectivityConfigIDRef *v1.Reference `json:"networkConnectivityConfigIdRef,omitempty" tf:"-"`
+
+	// Selector for a MwsNetworkConnectivityConfig in deployment to populate networkConnectivityConfigId.
+	// +kubebuilder:validation:Optional
+	NetworkConnectivityConfigIDSelector *v1.Selector `json:"networkConnectivityConfigIdSelector,omitempty" tf:"-"`
 
 	// (Azure only) The Azure resource ID of the target resource. Change forces creation of a new resource.
 	ResourceID *string `json:"resourceId,omitempty" tf:"resource_id,omitempty"`
@@ -155,8 +165,18 @@ type MwsNccPrivateEndpointRuleParameters struct {
 	GroupID *string `json:"groupId,omitempty" tf:"group_id,omitempty"`
 
 	// Canonical unique identifier of Network Connectivity Config in Databricks Account. Change forces creation of a new resource.
+	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/cluster/deployment/v1alpha1.MwsNetworkConnectivityConfig
+	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/v2/pkg/resource.ExtractParamPath("network_connectivity_config_id",false)
 	// +kubebuilder:validation:Optional
 	NetworkConnectivityConfigID *string `json:"networkConnectivityConfigId,omitempty" tf:"network_connectivity_config_id,omitempty"`
+
+	// Reference to a MwsNetworkConnectivityConfig in deployment to populate networkConnectivityConfigId.
+	// +kubebuilder:validation:Optional
+	NetworkConnectivityConfigIDRef *v1.Reference `json:"networkConnectivityConfigIdRef,omitempty" tf:"-"`
+
+	// Selector for a MwsNetworkConnectivityConfig in deployment to populate networkConnectivityConfigId.
+	// +kubebuilder:validation:Optional
+	NetworkConnectivityConfigIDSelector *v1.Selector `json:"networkConnectivityConfigIdSelector,omitempty" tf:"-"`
 
 	// (Azure only) The Azure resource ID of the target resource. Change forces creation of a new resource.
 	// +kubebuilder:validation:Optional
@@ -215,9 +235,8 @@ type MwsNccPrivateEndpointRuleStatus struct {
 type MwsNccPrivateEndpointRule struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.networkConnectivityConfigId) || (has(self.initProvider) && has(self.initProvider.networkConnectivityConfigId))",message="spec.forProvider.networkConnectivityConfigId is a required parameter"
-	Spec   MwsNccPrivateEndpointRuleSpec   `json:"spec"`
-	Status MwsNccPrivateEndpointRuleStatus `json:"status,omitempty"`
+	Spec              MwsNccPrivateEndpointRuleSpec   `json:"spec"`
+	Status            MwsNccPrivateEndpointRuleStatus `json:"status,omitempty"`
 }
 
 // +kubebuilder:object:root=true

@@ -416,7 +416,17 @@ type QueryInitParameters struct {
 	Parameter []ParameterInitParameters `json:"parameter,omitempty" tf:"parameter,omitempty"`
 
 	// The path to a workspace folder containing the query. The default is the user's home folder.  If changed, the query will be recreated.
+	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/namespaced/workspace/v1alpha1.Directory
+	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/v2/pkg/resource.ExtractParamPath("path",false)
 	ParentPath *string `json:"parentPath,omitempty" tf:"parent_path,omitempty"`
+
+	// Reference to a Directory in workspace to populate parentPath.
+	// +kubebuilder:validation:Optional
+	ParentPathRef *v1.NamespacedReference `json:"parentPathRef,omitempty" tf:"-"`
+
+	// Selector for a Directory in workspace to populate parentPath.
+	// +kubebuilder:validation:Optional
+	ParentPathSelector *v1.NamespacedSelector `json:"parentPathSelector,omitempty" tf:"-"`
 
 	// Text of SQL query.
 	QueryText *string `json:"queryText,omitempty" tf:"query_text,omitempty"`
@@ -431,7 +441,17 @@ type QueryInitParameters struct {
 	Tags []*string `json:"tags,omitempty" tf:"tags,omitempty"`
 
 	// ID of a SQL warehouse which will be used to execute this query.
+	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/namespaced/sql/v1alpha1.SQLEndpoint
+	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/v2/pkg/resource.ExtractResourceID()
 	WarehouseID *string `json:"warehouseId,omitempty" tf:"warehouse_id,omitempty"`
+
+	// Reference to a SQLEndpoint in sql to populate warehouseId.
+	// +kubebuilder:validation:Optional
+	WarehouseIDRef *v1.NamespacedReference `json:"warehouseIdRef,omitempty" tf:"-"`
+
+	// Selector for a SQLEndpoint in sql to populate warehouseId.
+	// +kubebuilder:validation:Optional
+	WarehouseIDSelector *v1.NamespacedSelector `json:"warehouseIdSelector,omitempty" tf:"-"`
 }
 
 type QueryObservation struct {
@@ -515,8 +535,18 @@ type QueryParameters struct {
 	Parameter []ParameterParameters `json:"parameter,omitempty" tf:"parameter,omitempty"`
 
 	// The path to a workspace folder containing the query. The default is the user's home folder.  If changed, the query will be recreated.
+	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/namespaced/workspace/v1alpha1.Directory
+	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/v2/pkg/resource.ExtractParamPath("path",false)
 	// +kubebuilder:validation:Optional
 	ParentPath *string `json:"parentPath,omitempty" tf:"parent_path,omitempty"`
+
+	// Reference to a Directory in workspace to populate parentPath.
+	// +kubebuilder:validation:Optional
+	ParentPathRef *v1.NamespacedReference `json:"parentPathRef,omitempty" tf:"-"`
+
+	// Selector for a Directory in workspace to populate parentPath.
+	// +kubebuilder:validation:Optional
+	ParentPathSelector *v1.NamespacedSelector `json:"parentPathSelector,omitempty" tf:"-"`
 
 	// Text of SQL query.
 	// +kubebuilder:validation:Optional
@@ -535,8 +565,18 @@ type QueryParameters struct {
 	Tags []*string `json:"tags,omitempty" tf:"tags,omitempty"`
 
 	// ID of a SQL warehouse which will be used to execute this query.
+	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/namespaced/sql/v1alpha1.SQLEndpoint
+	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/v2/pkg/resource.ExtractResourceID()
 	// +kubebuilder:validation:Optional
 	WarehouseID *string `json:"warehouseId,omitempty" tf:"warehouse_id,omitempty"`
+
+	// Reference to a SQLEndpoint in sql to populate warehouseId.
+	// +kubebuilder:validation:Optional
+	WarehouseIDRef *v1.NamespacedReference `json:"warehouseIdRef,omitempty" tf:"-"`
+
+	// Selector for a SQLEndpoint in sql to populate warehouseId.
+	// +kubebuilder:validation:Optional
+	WarehouseIDSelector *v1.NamespacedSelector `json:"warehouseIdSelector,omitempty" tf:"-"`
 }
 
 type TextValueInitParameters struct {
@@ -596,7 +636,6 @@ type Query struct {
 	metav1.ObjectMeta `json:"metadata,omitempty"`
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.displayName) || (has(self.initProvider) && has(self.initProvider.displayName))",message="spec.forProvider.displayName is a required parameter"
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.queryText) || (has(self.initProvider) && has(self.initProvider.queryText))",message="spec.forProvider.queryText is a required parameter"
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.warehouseId) || (has(self.initProvider) && has(self.initProvider.warehouseId))",message="spec.forProvider.warehouseId is a required parameter"
 	Spec   QuerySpec   `json:"spec"`
 	Status QueryStatus `json:"status,omitempty"`
 }

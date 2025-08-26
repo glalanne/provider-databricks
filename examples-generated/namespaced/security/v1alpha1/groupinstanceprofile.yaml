@@ -9,8 +9,12 @@ metadata:
   namespace: upbound-system
 spec:
   forProvider:
-    groupId: ${databricks_group.my_group.id}
-    instanceProfileId: ${databricks_instance_profile.instance_profile.id}
+    groupIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: my_group
+    instanceProfileIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: instance_profile
 
 ---
 

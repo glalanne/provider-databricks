@@ -176,9 +176,6 @@ func main() {
 	namespacedProvider, err := config.GetProviderNamespaced(ctx, sdkProvider, false)
 	kingpin.FatalIfError(err, "Cannot initialize the namespaced provider configuration")
 
-	// clusterProvider := config.GetProvider()
-	// namespacedProvider := config.GetProviderNamespaced()
-
 	clusterOpts := tjcontroller.Options{
 		Options: xpcontroller.Options{
 			Logger:                  logr,

@@ -9,6 +9,7 @@
 package v1alpha1
 
 import (
+	"github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
 	runtime "k8s.io/apimachinery/pkg/runtime"
 )
 
@@ -409,6 +410,16 @@ func (in *EmbeddingSourceColumnsInitParameters) DeepCopyInto(out *EmbeddingSourc
 		*out = new(string)
 		**out = **in
 	}
+	if in.EmbeddingModelEndpointNameRef != nil {
+		in, out := &in.EmbeddingModelEndpointNameRef, &out.EmbeddingModelEndpointNameRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.EmbeddingModelEndpointNameSelector != nil {
+		in, out := &in.EmbeddingModelEndpointNameSelector, &out.EmbeddingModelEndpointNameSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.Name != nil {
 		in, out := &in.Name, &out.Name
 		*out = new(string)
@@ -458,6 +469,16 @@ func (in *EmbeddingSourceColumnsParameters) DeepCopyInto(out *EmbeddingSourceCol
 		in, out := &in.EmbeddingModelEndpointName, &out.EmbeddingModelEndpointName
 		*out = new(string)
 		**out = **in
+	}
+	if in.EmbeddingModelEndpointNameRef != nil {
+		in, out := &in.EmbeddingModelEndpointNameRef, &out.EmbeddingModelEndpointNameRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.EmbeddingModelEndpointNameSelector != nil {
+		in, out := &in.EmbeddingModelEndpointNameSelector, &out.EmbeddingModelEndpointNameSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Name != nil {
 		in, out := &in.Name, &out.Name
@@ -947,6 +968,16 @@ func (in *VectorSearchIndexInitParameters) DeepCopyInto(out *VectorSearchIndexIn
 		*out = new(string)
 		**out = **in
 	}
+	if in.EndpointNameRef != nil {
+		in, out := &in.EndpointNameRef, &out.EndpointNameRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.EndpointNameSelector != nil {
+		in, out := &in.EndpointNameSelector, &out.EndpointNameSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.IndexType != nil {
 		in, out := &in.IndexType, &out.IndexType
 		*out = new(string)
@@ -1085,6 +1116,16 @@ func (in *VectorSearchIndexParameters) DeepCopyInto(out *VectorSearchIndexParame
 		in, out := &in.EndpointName, &out.EndpointName
 		*out = new(string)
 		**out = **in
+	}
+	if in.EndpointNameRef != nil {
+		in, out := &in.EndpointNameRef, &out.EndpointNameRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.EndpointNameSelector != nil {
+		in, out := &in.EndpointNameSelector, &out.EndpointNameSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.IndexType != nil {
 		in, out := &in.IndexType, &out.IndexType

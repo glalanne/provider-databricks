@@ -45,7 +45,9 @@ metadata:
   name: things
 spec:
   forProvider:
-    catalogName: ${databricks_catalog.sandbox.id}
+    catalogNameSelector:
+      matchLabels:
+        testing.upbound.io/example-name: sandbox
     comment: this database is managed by terraform
     name: things
     properties:
@@ -63,11 +65,15 @@ metadata:
   name: mytesttable
 spec:
   forProvider:
-    catalogName: main
+    catalogNameSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
     column:
     - name: timestamp
       type: int
     dataSourceFormat: DELTA
     name: bar
-    schemaName: things
+    schemaNameSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
     tableType: MANAGED

@@ -10,11 +10,15 @@ spec:
   forProvider:
     deltaSyncIndexSpec:
     - embeddingSourceColumns:
-      - embeddingModelEndpointName: ads-serving-endpoint
+      - embeddingModelEndpointNameSelector:
+          matchLabels:
+            testing.upbound.io/example-name: this
         name: text
       pipelineType: TRIGGERED
       sourceTable: main.default.source_table
-    endpointName: vector-search-test
+    endpointNameSelector:
+      matchLabels:
+        testing.upbound.io/example-name: this
     indexType: DELTA_SYNC
     name: main.default.vector_search_index
     primaryKey: id

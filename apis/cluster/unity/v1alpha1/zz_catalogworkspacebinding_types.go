@@ -21,13 +21,33 @@ type CatalogWorkspaceBindingInitParameters struct {
 	CatalogName *string `json:"catalogName,omitempty" tf:"catalog_name,omitempty"`
 
 	// Name of securable. Change forces creation of a new resource.
+	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/cluster/unity/v1alpha1.Catalog
+	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/v2/pkg/resource.ExtractParamPath("name",false)
 	SecurableName *string `json:"securableName,omitempty" tf:"securable_name,omitempty"`
+
+	// Reference to a Catalog in unity to populate securableName.
+	// +kubebuilder:validation:Optional
+	SecurableNameRef *v1.Reference `json:"securableNameRef,omitempty" tf:"-"`
+
+	// Selector for a Catalog in unity to populate securableName.
+	// +kubebuilder:validation:Optional
+	SecurableNameSelector *v1.Selector `json:"securableNameSelector,omitempty" tf:"-"`
 
 	// Type of securable. Default to catalog. Change forces creation of a new resource.
 	SecurableType *string `json:"securableType,omitempty" tf:"securable_type,omitempty"`
 
 	// ID of the workspace. Change forces creation of a new resource.
+	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/cluster/deployment/v1alpha1.MwsWorkspaces
+	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/v2/pkg/resource.ExtractParamPath("workspace_id",false)
 	WorkspaceID *float64 `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
+
+	// Reference to a MwsWorkspaces in deployment to populate workspaceId.
+	// +kubebuilder:validation:Optional
+	WorkspaceIDRef *v1.Reference `json:"workspaceIdRef,omitempty" tf:"-"`
+
+	// Selector for a MwsWorkspaces in deployment to populate workspaceId.
+	// +kubebuilder:validation:Optional
+	WorkspaceIDSelector *v1.Selector `json:"workspaceIdSelector,omitempty" tf:"-"`
 }
 
 type CatalogWorkspaceBindingObservation struct {
@@ -59,16 +79,36 @@ type CatalogWorkspaceBindingParameters struct {
 	CatalogName *string `json:"catalogName,omitempty" tf:"catalog_name,omitempty"`
 
 	// Name of securable. Change forces creation of a new resource.
+	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/cluster/unity/v1alpha1.Catalog
+	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/v2/pkg/resource.ExtractParamPath("name",false)
 	// +kubebuilder:validation:Optional
 	SecurableName *string `json:"securableName,omitempty" tf:"securable_name,omitempty"`
+
+	// Reference to a Catalog in unity to populate securableName.
+	// +kubebuilder:validation:Optional
+	SecurableNameRef *v1.Reference `json:"securableNameRef,omitempty" tf:"-"`
+
+	// Selector for a Catalog in unity to populate securableName.
+	// +kubebuilder:validation:Optional
+	SecurableNameSelector *v1.Selector `json:"securableNameSelector,omitempty" tf:"-"`
 
 	// Type of securable. Default to catalog. Change forces creation of a new resource.
 	// +kubebuilder:validation:Optional
 	SecurableType *string `json:"securableType,omitempty" tf:"securable_type,omitempty"`
 
 	// ID of the workspace. Change forces creation of a new resource.
+	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/cluster/deployment/v1alpha1.MwsWorkspaces
+	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/v2/pkg/resource.ExtractParamPath("workspace_id",false)
 	// +kubebuilder:validation:Optional
 	WorkspaceID *float64 `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
+
+	// Reference to a MwsWorkspaces in deployment to populate workspaceId.
+	// +kubebuilder:validation:Optional
+	WorkspaceIDRef *v1.Reference `json:"workspaceIdRef,omitempty" tf:"-"`
+
+	// Selector for a MwsWorkspaces in deployment to populate workspaceId.
+	// +kubebuilder:validation:Optional
+	WorkspaceIDSelector *v1.Selector `json:"workspaceIdSelector,omitempty" tf:"-"`
 }
 
 // CatalogWorkspaceBindingSpec defines the desired state of CatalogWorkspaceBinding
@@ -107,9 +147,8 @@ type CatalogWorkspaceBindingStatus struct {
 type CatalogWorkspaceBinding struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.workspaceId) || (has(self.initProvider) && has(self.initProvider.workspaceId))",message="spec.forProvider.workspaceId is a required parameter"
-	Spec   CatalogWorkspaceBindingSpec   `json:"spec"`
-	Status CatalogWorkspaceBindingStatus `json:"status,omitempty"`
+	Spec              CatalogWorkspaceBindingSpec   `json:"spec"`
+	Status            CatalogWorkspaceBindingStatus `json:"status,omitempty"`
 }
 
 // +kubebuilder:object:root=true

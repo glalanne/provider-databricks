@@ -16,10 +16,30 @@ import (
 type UserRoleInitParameters struct {
 
 	// Either a role name or the ARN/ID of the instance profile resource.
+	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/cluster/deployment/v1alpha1.InstanceProfile
+	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/v2/pkg/resource.ExtractResourceID()
 	Role *string `json:"role,omitempty" tf:"role,omitempty"`
 
+	// Reference to a InstanceProfile in deployment to populate role.
+	// +kubebuilder:validation:Optional
+	RoleRef *v1.Reference `json:"roleRef,omitempty" tf:"-"`
+
+	// Selector for a InstanceProfile in deployment to populate role.
+	// +kubebuilder:validation:Optional
+	RoleSelector *v1.Selector `json:"roleSelector,omitempty" tf:"-"`
+
 	// This is the id of the user resource.
+	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/cluster/security/v1alpha1.User
+	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/v2/pkg/resource.ExtractResourceID()
 	UserID *string `json:"userId,omitempty" tf:"user_id,omitempty"`
+
+	// Reference to a User in security to populate userId.
+	// +kubebuilder:validation:Optional
+	UserIDRef *v1.Reference `json:"userIdRef,omitempty" tf:"-"`
+
+	// Selector for a User in security to populate userId.
+	// +kubebuilder:validation:Optional
+	UserIDSelector *v1.Selector `json:"userIdSelector,omitempty" tf:"-"`
 }
 
 type UserRoleObservation struct {
@@ -37,12 +57,32 @@ type UserRoleObservation struct {
 type UserRoleParameters struct {
 
 	// Either a role name or the ARN/ID of the instance profile resource.
+	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/cluster/deployment/v1alpha1.InstanceProfile
+	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/v2/pkg/resource.ExtractResourceID()
 	// +kubebuilder:validation:Optional
 	Role *string `json:"role,omitempty" tf:"role,omitempty"`
 
+	// Reference to a InstanceProfile in deployment to populate role.
+	// +kubebuilder:validation:Optional
+	RoleRef *v1.Reference `json:"roleRef,omitempty" tf:"-"`
+
+	// Selector for a InstanceProfile in deployment to populate role.
+	// +kubebuilder:validation:Optional
+	RoleSelector *v1.Selector `json:"roleSelector,omitempty" tf:"-"`
+
 	// This is the id of the user resource.
+	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/cluster/security/v1alpha1.User
+	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/v2/pkg/resource.ExtractResourceID()
 	// +kubebuilder:validation:Optional
 	UserID *string `json:"userId,omitempty" tf:"user_id,omitempty"`
+
+	// Reference to a User in security to populate userId.
+	// +kubebuilder:validation:Optional
+	UserIDRef *v1.Reference `json:"userIdRef,omitempty" tf:"-"`
+
+	// Selector for a User in security to populate userId.
+	// +kubebuilder:validation:Optional
+	UserIDSelector *v1.Selector `json:"userIdSelector,omitempty" tf:"-"`
 }
 
 // UserRoleSpec defines the desired state of UserRole
@@ -81,10 +121,8 @@ type UserRoleStatus struct {
 type UserRole struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.role) || (has(self.initProvider) && has(self.initProvider.role))",message="spec.forProvider.role is a required parameter"
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.userId) || (has(self.initProvider) && has(self.initProvider.userId))",message="spec.forProvider.userId is a required parameter"
-	Spec   UserRoleSpec   `json:"spec"`
-	Status UserRoleStatus `json:"status,omitempty"`
+	Spec              UserRoleSpec   `json:"spec"`
+	Status            UserRoleStatus `json:"status,omitempty"`
 }
 
 // +kubebuilder:object:root=true

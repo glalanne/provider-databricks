@@ -175,7 +175,17 @@ type DirectAccessIndexSpecParameters struct {
 type EmbeddingSourceColumnsInitParameters struct {
 
 	// The name of the embedding model endpoint
+	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/cluster/serving/v1alpha1.ModelServing
+	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/v2/pkg/resource.ExtractParamPath("name",false)
 	EmbeddingModelEndpointName *string `json:"embeddingModelEndpointName,omitempty" tf:"embedding_model_endpoint_name,omitempty"`
+
+	// Reference to a ModelServing in serving to populate embeddingModelEndpointName.
+	// +kubebuilder:validation:Optional
+	EmbeddingModelEndpointNameRef *v1.Reference `json:"embeddingModelEndpointNameRef,omitempty" tf:"-"`
+
+	// Selector for a ModelServing in serving to populate embeddingModelEndpointName.
+	// +kubebuilder:validation:Optional
+	EmbeddingModelEndpointNameSelector *v1.Selector `json:"embeddingModelEndpointNameSelector,omitempty" tf:"-"`
 
 	// Three-level name of the Mosaic AI Vector Search Index to create (catalog.schema.index_name).
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
@@ -193,8 +203,18 @@ type EmbeddingSourceColumnsObservation struct {
 type EmbeddingSourceColumnsParameters struct {
 
 	// The name of the embedding model endpoint
+	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/cluster/serving/v1alpha1.ModelServing
+	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/v2/pkg/resource.ExtractParamPath("name",false)
 	// +kubebuilder:validation:Optional
 	EmbeddingModelEndpointName *string `json:"embeddingModelEndpointName,omitempty" tf:"embedding_model_endpoint_name,omitempty"`
+
+	// Reference to a ModelServing in serving to populate embeddingModelEndpointName.
+	// +kubebuilder:validation:Optional
+	EmbeddingModelEndpointNameRef *v1.Reference `json:"embeddingModelEndpointNameRef,omitempty" tf:"-"`
+
+	// Selector for a ModelServing in serving to populate embeddingModelEndpointName.
+	// +kubebuilder:validation:Optional
+	EmbeddingModelEndpointNameSelector *v1.Selector `json:"embeddingModelEndpointNameSelector,omitempty" tf:"-"`
 
 	// Three-level name of the Mosaic AI Vector Search Index to create (catalog.schema.index_name).
 	// +kubebuilder:validation:Optional
@@ -260,7 +280,17 @@ type VectorSearchIndexInitParameters struct {
 	DirectAccessIndexSpec *DirectAccessIndexSpecInitParameters `json:"directAccessIndexSpec,omitempty" tf:"direct_access_index_spec,omitempty"`
 
 	// The name of the Mosaic AI Vector Search Endpoint that will be used for indexing the data.
+	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/cluster/mosaic/v1alpha1.VectorSearchEndpoint
+	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/v2/pkg/resource.ExtractParamPath("name",false)
 	EndpointName *string `json:"endpointName,omitempty" tf:"endpoint_name,omitempty"`
+
+	// Reference to a VectorSearchEndpoint in mosaic to populate endpointName.
+	// +kubebuilder:validation:Optional
+	EndpointNameRef *v1.Reference `json:"endpointNameRef,omitempty" tf:"-"`
+
+	// Selector for a VectorSearchEndpoint in mosaic to populate endpointName.
+	// +kubebuilder:validation:Optional
+	EndpointNameSelector *v1.Selector `json:"endpointNameSelector,omitempty" tf:"-"`
 
 	// Mosaic AI Vector Search index type. Currently supported values are:
 	IndexType *string `json:"indexType,omitempty" tf:"index_type,omitempty"`
@@ -313,8 +343,18 @@ type VectorSearchIndexParameters struct {
 	DirectAccessIndexSpec *DirectAccessIndexSpecParameters `json:"directAccessIndexSpec,omitempty" tf:"direct_access_index_spec,omitempty"`
 
 	// The name of the Mosaic AI Vector Search Endpoint that will be used for indexing the data.
+	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/cluster/mosaic/v1alpha1.VectorSearchEndpoint
+	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/v2/pkg/resource.ExtractParamPath("name",false)
 	// +kubebuilder:validation:Optional
 	EndpointName *string `json:"endpointName,omitempty" tf:"endpoint_name,omitempty"`
+
+	// Reference to a VectorSearchEndpoint in mosaic to populate endpointName.
+	// +kubebuilder:validation:Optional
+	EndpointNameRef *v1.Reference `json:"endpointNameRef,omitempty" tf:"-"`
+
+	// Selector for a VectorSearchEndpoint in mosaic to populate endpointName.
+	// +kubebuilder:validation:Optional
+	EndpointNameSelector *v1.Selector `json:"endpointNameSelector,omitempty" tf:"-"`
 
 	// Mosaic AI Vector Search index type. Currently supported values are:
 	// +kubebuilder:validation:Optional
@@ -365,7 +405,6 @@ type VectorSearchIndexStatus struct {
 type VectorSearchIndex struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.endpointName) || (has(self.initProvider) && has(self.initProvider.endpointName))",message="spec.forProvider.endpointName is a required parameter"
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.indexType) || (has(self.initProvider) && has(self.initProvider.indexType))",message="spec.forProvider.indexType is a required parameter"
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.name) || (has(self.initProvider) && has(self.initProvider.name))",message="spec.forProvider.name is a required parameter"
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.primaryKey) || (has(self.initProvider) && has(self.initProvider.primaryKey))",message="spec.forProvider.primaryKey is a required parameter"

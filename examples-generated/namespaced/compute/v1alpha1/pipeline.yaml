@@ -25,7 +25,9 @@ spec:
     continuous: false
     library:
     - notebook:
-      - path: ${databricks_notebook.ldp_demo.id}
+      - pathSelector:
+          matchLabels:
+            testing.upbound.io/example-name: ldp_demo
     - file:
       - path: ${databricks_repo.ldp_demo.path}/pipeline.sql
     - glob:
