@@ -1,0 +1,25 @@
+apiVersion: mosaic.databricks.m.crossplane.io/v1alpha1
+kind: VectorSearchIndex
+metadata:
+  annotations:
+    meta.upbound.io/example-id: mosaic/v1alpha1/vectorsearchindex
+  labels:
+    testing.upbound.io/example-name: sync
+  name: sync
+  namespace: upbound-system
+spec:
+  forProvider:
+    deltaSyncIndexSpec:
+    - embeddingSourceColumns:
+      - embeddingModelEndpointNameSelector:
+          matchLabels:
+            testing.upbound.io/example-name: this
+        name: text
+      pipelineType: TRIGGERED
+      sourceTable: main.default.source_table
+    endpointNameSelector:
+      matchLabels:
+        testing.upbound.io/example-name: this
+    indexType: DELTA_SYNC
+    name: main.default.vector_search_index
+    primaryKey: id

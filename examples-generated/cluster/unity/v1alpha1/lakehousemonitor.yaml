@@ -1,0 +1,79 @@
+apiVersion: unity.databricks.crossplane.io/v1alpha1
+kind: LakehouseMonitor
+metadata:
+  annotations:
+    meta.upbound.io/example-id: unity/v1alpha1/lakehousemonitor
+  labels:
+    testing.upbound.io/example-name: testTimeseriesMonitor
+  name: testtimeseriesmonitor
+spec:
+  forProvider:
+    assetsDir: quickstart_table
+    outputSchemaName: ${databricks_catalog.sandbox.name}.${databricks_schema.things.name}
+    tableName: ${databricks_catalog.sandbox.name}.${databricks_schema.things.name}.${databricks_sql_table.myTestTable.name}
+    timeSeries:
+    - granularities:
+      - 1 hour
+      timestampCol: timestamp
+
+---
+
+apiVersion: unity.databricks.crossplane.io/v1alpha1
+kind: Catalog
+metadata:
+  annotations:
+    meta.upbound.io/example-id: unity/v1alpha1/lakehousemonitor
+  labels:
+    testing.upbound.io/example-name: sandbox
+  name: sandbox
+spec:
+  forProvider:
+    comment: this catalog is managed by terraform
+    name: sandbox
+    properties:
+      purpose: testing
+
+---
+
+apiVersion: unity.databricks.crossplane.io/v1alpha1
+kind: Schema
+metadata:
+  annotations:
+    meta.upbound.io/example-id: unity/v1alpha1/lakehousemonitor
+  labels:
+    testing.upbound.io/example-name: things
+  name: things
+spec:
+  forProvider:
+    catalogNameSelector:
+      matchLabels:
+        testing.upbound.io/example-name: sandbox
+    comment: this database is managed by terraform
+    name: things
+    properties:
+      kind: various
+
+---
+
+apiVersion: unity.databricks.crossplane.io/v1alpha1
+kind: SQLTable
+metadata:
+  annotations:
+    meta.upbound.io/example-id: unity/v1alpha1/lakehousemonitor
+  labels:
+    testing.upbound.io/example-name: myTestTable
+  name: mytesttable
+spec:
+  forProvider:
+    catalogNameSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
+    column:
+    - name: timestamp
+      type: int
+    dataSourceFormat: DELTA
+    name: bar
+    schemaNameSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
+    tableType: MANAGED

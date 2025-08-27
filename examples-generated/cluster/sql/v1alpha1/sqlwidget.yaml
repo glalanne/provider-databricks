@@ -1,0 +1,19 @@
+apiVersion: sql.databricks.crossplane.io/v1alpha1
+kind: SQLWidget
+metadata:
+  annotations:
+    meta.upbound.io/example-id: sql/v1alpha1/sqlwidget
+  labels:
+    testing.upbound.io/example-name: d1w1
+  name: d1w1
+spec:
+  forProvider:
+    dashboardIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: d1
+    position:
+    - posX: 0
+      posY: 0
+      sizeX: 3
+      sizeY: 4
+    text: Hello! I'm a **text widget**!

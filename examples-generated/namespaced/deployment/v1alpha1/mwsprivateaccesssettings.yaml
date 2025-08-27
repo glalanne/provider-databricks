@@ -1,0 +1,16 @@
+apiVersion: deployment.databricks.m.crossplane.io/v1alpha1
+kind: MwsPrivateAccessSettings
+metadata:
+  annotations:
+    meta.upbound.io/example-id: deployment/v1alpha1/mwsprivateaccesssettings
+  labels:
+    testing.upbound.io/example-name: pas
+  name: pas
+  namespace: upbound-system
+spec:
+  forProvider:
+    accountId: ${var.databricks_account_id}
+    privateAccessSettingsName: Private Access Settings for ${local.prefix}
+    provider: ${databricks.mws}
+    publicAccessEnabled: true
+    region: ${var.region}

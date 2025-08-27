@@ -1,0 +1,40 @@
+apiVersion: compute.databricks.m.crossplane.io/v1alpha1
+kind: ClusterPolicy
+metadata:
+  annotations:
+    meta.upbound.io/example-id: compute/v1alpha1/clusterpolicy
+  labels:
+    testing.upbound.io/example-name: fair_use
+  name: fair-use
+  namespace: upbound-system
+spec:
+  forProvider:
+    definition: ${jsonencode(merge(local.default_policy, var.policy_overrides))}
+    libraries:
+    - pypi:
+      - package: databricks-sdk==0.12.0
+    - maven:
+      - coordinates: com.oracle.database.jdbc:ojdbc8:XXXX
+    name: ${var.team} cluster policy
+
+---
+
+apiVersion: security.databricks.m.crossplane.io/v1alpha1
+kind: Permissions
+metadata:
+  annotations:
+    meta.upbound.io/example-id: compute/v1alpha1/clusterpolicy
+  labels:
+    testing.upbound.io/example-name: can_use_cluster_policyinstance_profile
+  name: can-use-cluster-policyinstance-profile
+  namespace: upbound-system
+spec:
+  forProvider:
+    accessControl:
+    - groupNameSelector:
+        matchLabels:
+          testing.upbound.io/example-name: example
+      permissionLevel: CAN_USE
+    clusterPolicyIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: fair_use

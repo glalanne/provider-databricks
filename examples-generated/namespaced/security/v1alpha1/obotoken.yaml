@@ -1,0 +1,51 @@
+apiVersion: security.databricks.m.crossplane.io/v1alpha1
+kind: OboToken
+metadata:
+  annotations:
+    meta.upbound.io/example-id: security/v1alpha1/obotoken
+  labels:
+    testing.upbound.io/example-name: this
+  name: this
+  namespace: upbound-system
+spec:
+  forProvider:
+    applicationIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: this
+    comment: PAT on behalf of ${databricks_service_principal.this.display_name}
+    lifetimeSeconds: 3600
+
+---
+
+apiVersion: security.databricks.m.crossplane.io/v1alpha1
+kind: Permissions
+metadata:
+  annotations:
+    meta.upbound.io/example-id: security/v1alpha1/obotoken
+  labels:
+    testing.upbound.io/example-name: token_usage
+  name: token-usage
+  namespace: upbound-system
+spec:
+  forProvider:
+    accessControl:
+    - permissionLevel: CAN_USE
+      servicePrincipalNameSelector:
+        matchLabels:
+          testing.upbound.io/example-name: this
+    authorization: tokens
+
+---
+
+apiVersion: security.databricks.m.crossplane.io/v1alpha1
+kind: ServicePrincipal
+metadata:
+  annotations:
+    meta.upbound.io/example-id: security/v1alpha1/obotoken
+  labels:
+    testing.upbound.io/example-name: this
+  name: this
+  namespace: upbound-system
+spec:
+  forProvider:
+    displayName: Automation-only SP

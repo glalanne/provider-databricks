@@ -1,0 +1,70 @@
+apiVersion: storage.databricks.m.crossplane.io/v1alpha1
+kind: File
+metadata:
+  annotations:
+    meta.upbound.io/example-id: storage/v1alpha1/file
+  labels:
+    testing.upbound.io/example-name: this
+  name: this
+  namespace: upbound-system
+spec:
+  forProvider:
+    path: ${databricks_volume.this.volume_path}/fileName
+    source: /full/path/on/local/system
+
+---
+
+apiVersion: unity.databricks.m.crossplane.io/v1alpha1
+kind: Catalog
+metadata:
+  annotations:
+    meta.upbound.io/example-id: storage/v1alpha1/file
+  labels:
+    testing.upbound.io/example-name: sandbox
+  name: sandbox
+  namespace: upbound-system
+spec:
+  forProvider:
+    comment: this catalog is managed by terraform
+    metastoreId: ${databricks_metastore.this.id}
+    name: sandbox
+    properties:
+      purpose: testing
+
+---
+
+apiVersion: unity.databricks.m.crossplane.io/v1alpha1
+kind: Schema
+metadata:
+  annotations:
+    meta.upbound.io/example-id: storage/v1alpha1/file
+  labels:
+    testing.upbound.io/example-name: things
+  name: things
+  namespace: upbound-system
+spec:
+  forProvider:
+    catalogName: sandbox
+    comment: this schema is managed by terraform
+    name: things
+    properties:
+      kind: various
+
+---
+
+apiVersion: unity.databricks.m.crossplane.io/v1alpha1
+kind: Volume
+metadata:
+  annotations:
+    meta.upbound.io/example-id: storage/v1alpha1/file
+  labels:
+    testing.upbound.io/example-name: this
+  name: this
+  namespace: upbound-system
+spec:
+  forProvider:
+    catalogName: sandbox
+    comment: this volume is managed by terraform
+    name: quickstart_volume
+    schemaName: things
+    volumeType: MANAGED

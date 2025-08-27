@@ -1,0 +1,17 @@
+apiVersion: compute.databricks.m.crossplane.io/v1alpha1
+kind: Library
+metadata:
+  annotations:
+    meta.upbound.io/example-id: compute/v1alpha1/library
+  labels:
+    testing.upbound.io/example-name: cli
+  name: cli
+  namespace: upbound-system
+spec:
+  forProvider:
+    clusterIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
+    for_each: ${data.databricks_clusters.all.ids}
+    pypi:
+    - package: databricks-cli

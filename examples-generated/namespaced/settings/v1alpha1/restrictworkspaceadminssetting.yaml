@@ -1,0 +1,13 @@
+apiVersion: settings.databricks.m.crossplane.io/v1alpha1
+kind: RestrictWorkspaceAdminsSetting
+metadata:
+  annotations:
+    meta.upbound.io/example-id: settings/v1alpha1/restrictworkspaceadminssetting
+  labels:
+    testing.upbound.io/example-name: this
+  name: this
+  namespace: upbound-system
+spec:
+  forProvider:
+    restrictWorkspaceAdmins:
+    - status: RESTRICT_TOKENS_AND_JOB_RUN_AS

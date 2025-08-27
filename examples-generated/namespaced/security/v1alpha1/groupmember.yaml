@@ -1,0 +1,62 @@
+apiVersion: security.databricks.m.crossplane.io/v1alpha1
+kind: GroupMember
+metadata:
+  annotations:
+    meta.upbound.io/example-id: security/v1alpha1/groupmember
+  labels:
+    testing.upbound.io/example-name: ab
+  name: ab
+  namespace: upbound-system
+spec:
+  forProvider:
+    groupIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: a
+    memberIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: b
+
+---
+
+apiVersion: security.databricks.m.crossplane.io/v1alpha1
+kind: Group
+metadata:
+  annotations:
+    meta.upbound.io/example-id: security/v1alpha1/groupmember
+  labels:
+    testing.upbound.io/example-name: a
+  name: a
+  namespace: upbound-system
+spec:
+  forProvider:
+    displayName: A
+
+---
+
+apiVersion: security.databricks.m.crossplane.io/v1alpha1
+kind: Group
+metadata:
+  annotations:
+    meta.upbound.io/example-id: security/v1alpha1/groupmember
+  labels:
+    testing.upbound.io/example-name: b
+  name: b
+  namespace: upbound-system
+spec:
+  forProvider:
+    displayName: B
+
+---
+
+apiVersion: security.databricks.m.crossplane.io/v1alpha1
+kind: User
+metadata:
+  annotations:
+    meta.upbound.io/example-id: security/v1alpha1/groupmember
+  labels:
+    testing.upbound.io/example-name: bradley
+  name: bradley
+  namespace: upbound-system
+spec:
+  forProvider:
+    userName: bradley@example.com

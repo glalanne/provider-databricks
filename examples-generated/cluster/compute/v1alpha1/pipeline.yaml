@@ -1,0 +1,70 @@
+apiVersion: compute.databricks.crossplane.io/v1alpha1
+kind: Pipeline
+metadata:
+  annotations:
+    meta.upbound.io/example-id: compute/v1alpha1/pipeline
+  labels:
+    testing.upbound.io/example-name: this
+  name: this
+spec:
+  forProvider:
+    catalog: main
+    cluster:
+    - customTags:
+        cluster_type: default
+      label: default
+      numWorkers: 2
+    - customTags:
+        cluster_type: maintenance
+      label: maintenance
+      numWorkers: 1
+    configuration:
+      key1: value1
+      key2: value2
+    continuous: false
+    library:
+    - notebook:
+      - pathSelector:
+          matchLabels:
+            testing.upbound.io/example-name: ldp_demo
+    - file:
+      - path: ${databricks_repo.ldp_demo.path}/pipeline.sql
+    - glob:
+      - include: ${databricks_repo.ldp_demo.path}/subfolder/**
+    name: Pipeline Name
+    notification:
+    - alerts:
+      - on-update-failure
+      - on-update-fatal-failure
+      - on-update-success
+      - on-flow-failure
+      emailRecipients:
+      - user@domain.com
+      - user1@domain.com
+    schema: ldp_demo
+
+---
+
+apiVersion: workspace.databricks.crossplane.io/v1alpha1
+kind: Notebook
+metadata:
+  annotations:
+    meta.upbound.io/example-id: compute/v1alpha1/pipeline
+  labels:
+    testing.upbound.io/example-name: ldp_demo
+  name: ldp-demo
+spec:
+  forProvider: {}
+
+---
+
+apiVersion: workspace.databricks.crossplane.io/v1alpha1
+kind: Repo
+metadata:
+  annotations:
+    meta.upbound.io/example-id: compute/v1alpha1/pipeline
+  labels:
+    testing.upbound.io/example-name: ldp_demo
+  name: ldp-demo
+spec:
+  forProvider: {}

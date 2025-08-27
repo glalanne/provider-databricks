@@ -1,0 +1,19 @@
+apiVersion: unity.databricks.m.crossplane.io/v1alpha1
+kind: Connection
+metadata:
+  annotations:
+    meta.upbound.io/example-id: unity/v1alpha1/connection
+  labels:
+    testing.upbound.io/example-name: mysql
+  name: mysql
+  namespace: upbound-system
+spec:
+  forProvider:
+    comment: this is a connection to mysql db
+    connectionType: MYSQL
+    name: mysql_connection
+    optionsSecretRef:
+      key: example-key
+      name: example-secret
+    properties:
+      purpose: testing

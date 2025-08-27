@@ -1,0 +1,13 @@
+apiVersion: databricks.m.crossplane.io/v1beta1
+kind: ClusterProviderConfig
+metadata:
+  annotations: {}
+  name: default
+  namespace: upbound-system
+spec:
+  credentials:
+    source: Secret
+    secretRef:
+      name: provider-secret
+      namespace: upbound-system
+      key: credentials

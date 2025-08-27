@@ -1,0 +1,93 @@
+apiVersion: security.databricks.m.crossplane.io/v1alpha1
+kind: Permissions
+metadata:
+  annotations:
+    meta.upbound.io/example-id: security/v1alpha1/permissions
+  labels:
+    testing.upbound.io/example-name: cluster_usage
+  name: cluster-usage
+  namespace: upbound-system
+spec:
+  forProvider:
+    accessControl:
+    - groupNameSelector:
+        matchLabels:
+          testing.upbound.io/example-name: auto
+      permissionLevel: CAN_ATTACH_TO
+    - groupNameSelector:
+        matchLabels:
+          testing.upbound.io/example-name: eng
+      permissionLevel: CAN_RESTART
+    - groupNameSelector:
+        matchLabels:
+          testing.upbound.io/example-name: ds
+      permissionLevel: CAN_MANAGE
+    clusterIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: shared_autoscaling
+
+---
+
+apiVersion: compute.databricks.m.crossplane.io/v1alpha1
+kind: Cluster
+metadata:
+  annotations:
+    meta.upbound.io/example-id: security/v1alpha1/permissions
+  labels:
+    testing.upbound.io/example-name: shared_autoscaling
+  name: shared-autoscaling
+  namespace: upbound-system
+spec:
+  forProvider:
+    autoscale:
+    - maxWorkers: 10
+      minWorkers: 1
+    autoterminationMinutes: 60
+    clusterName: Shared Autoscaling
+    nodeTypeId: ${data.databricks_node_type.smallest.id}
+    sparkVersion: ${data.databricks_spark_version.latest.id}
+
+---
+
+apiVersion: security.databricks.m.crossplane.io/v1alpha1
+kind: Group
+metadata:
+  annotations:
+    meta.upbound.io/example-id: security/v1alpha1/permissions
+  labels:
+    testing.upbound.io/example-name: auto
+  name: auto
+  namespace: upbound-system
+spec:
+  forProvider:
+    displayName: Automation
+
+---
+
+apiVersion: security.databricks.m.crossplane.io/v1alpha1
+kind: Group
+metadata:
+  annotations:
+    meta.upbound.io/example-id: security/v1alpha1/permissions
+  labels:
+    testing.upbound.io/example-name: ds
+  name: ds
+  namespace: upbound-system
+spec:
+  forProvider:
+    displayName: Data Science
+
+---
+
+apiVersion: security.databricks.m.crossplane.io/v1alpha1
+kind: Group
+metadata:
+  annotations:
+    meta.upbound.io/example-id: security/v1alpha1/permissions
+  labels:
+    testing.upbound.io/example-name: eng
+  name: eng
+  namespace: upbound-system
+spec:
+  forProvider:
+    displayName: Engineering

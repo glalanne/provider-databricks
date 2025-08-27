@@ -1,0 +1,29 @@
+apiVersion: unity.databricks.m.crossplane.io/v1alpha1
+kind: WorkspaceBinding
+metadata:
+  annotations:
+    meta.upbound.io/example-id: unity/v1alpha1/workspacebinding
+  labels:
+    testing.upbound.io/example-name: sandbox
+  name: sandbox
+  namespace: upbound-system
+spec:
+  forProvider:
+    securableName: sandbox
+    workspaceId: ${databricks_mws_workspaces.other.workspace_id}
+
+---
+
+apiVersion: unity.databricks.m.crossplane.io/v1alpha1
+kind: Catalog
+metadata:
+  annotations:
+    meta.upbound.io/example-id: unity/v1alpha1/workspacebinding
+  labels:
+    testing.upbound.io/example-name: sandbox
+  name: sandbox
+  namespace: upbound-system
+spec:
+  forProvider:
+    isolationMode: ISOLATED
+    name: sandbox

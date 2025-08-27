@@ -1,0 +1,34 @@
+apiVersion: unity.databricks.m.crossplane.io/v1alpha1
+kind: Metastore
+metadata:
+  annotations:
+    meta.upbound.io/example-id: unity/v1alpha1/metastore
+  labels:
+    testing.upbound.io/example-name: this
+  name: this
+  namespace: upbound-system
+spec:
+  forProvider:
+    forceDestroy: true
+    name: primary
+    owner: uc admins
+    region: us-east-1
+    storageRoot: s3://${aws_s3_bucket.metastore.id}/metastore
+
+---
+
+apiVersion: unity.databricks.m.crossplane.io/v1alpha1
+kind: MetastoreAssignment
+metadata:
+  annotations:
+    meta.upbound.io/example-id: unity/v1alpha1/metastore
+  labels:
+    testing.upbound.io/example-name: this
+  name: this
+  namespace: upbound-system
+spec:
+  forProvider:
+    metastoreIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: this
+    workspaceId: ${local.workspace_id}

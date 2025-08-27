@@ -1,0 +1,12 @@
+apiVersion: databricks.crossplane.io/v1beta1
+kind: ProviderConfig
+metadata:
+  annotations: {}
+  name: default
+spec:
+  credentials:
+    source: Secret
+    secretRef:
+      name: provider-secret
+      namespace: upbound-system
+      key: credentials

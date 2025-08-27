@@ -1,0 +1,17 @@
+apiVersion: deployment.databricks.m.crossplane.io/v1alpha1
+kind: MwsStorageConfigurations
+metadata:
+  annotations:
+    meta.upbound.io/example-id: deployment/v1alpha1/mwsstorageconfigurations
+  labels:
+    testing.upbound.io/example-name: this
+  name: this
+  namespace: upbound-system
+spec:
+  forProvider:
+    accountIdSecretRef:
+      key: example-key
+      name: example-secret
+    bucketName: ${aws_s3_bucket.root_storage_bucket.bucket}
+    provider: ${databricks.mws}
+    storageConfigurationName: ${var.prefix}-storage

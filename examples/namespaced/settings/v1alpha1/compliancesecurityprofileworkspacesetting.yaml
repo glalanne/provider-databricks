@@ -1,0 +1,21 @@
+apiVersion: settings.databricks.m.crossplane.io/v1alpha1
+kind: ComplianceSecurityProfileWorkspaceSetting
+metadata:
+  annotations:
+    meta.upbound.io/example-id: settings/v1alpha1/compliancesecurityprofileworkspacesetting
+  labels:
+    testing.upbound.io/example-name: this
+  name: this
+  namespace: upbound-system
+spec:
+  forProvider:
+    complianceSecurityProfileWorkspace:
+      complianceStandards: []
+    etag: "workspace_id_value"
+    settingName: "workspace_name_value"
+  providerConfigRef:
+    name: default
+  reclaimPolicy: Delete
+  writeConnectionSecretToRef:
+    name: this-connection-secret
+    namespace: upbound-system

@@ -3,7 +3,7 @@ apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
   annotations:
-    controller-gen.kubebuilder.io/version: v0.14.0
+    controller-gen.kubebuilder.io/version: v0.18.0
   name: lakehousemonitors.unity.databricks.crossplane.io
 spec:
   group: unity.databricks.crossplane.io
@@ -110,43 +110,39 @@ spec:
                     type: array
                   dataClassificationConfig:
                     description: The data classification config for the monitor
-                    items:
-                      properties:
-                        enabled:
-                          type: boolean
-                      type: object
-                    type: array
+                    properties:
+                      enabled:
+                        type: boolean
+                    type: object
                   inferenceLog:
                     description: Configuration for the inference log monitor
-                    items:
-                      properties:
-                        granularities:
-                          description: List of granularities to use when aggregating
-                            data into time windows based on their timestamp.
-                          items:
-                            type: string
-                          type: array
-                        labelCol:
-                          description: Column of the model label
+                    properties:
+                      granularities:
+                        description: List of granularities to use when aggregating
+                          data into time windows based on their timestamp.
+                        items:
                           type: string
-                        modelIdCol:
-                          description: Column of the model id or version
-                          type: string
-                        predictionCol:
-                          description: Column of the model prediction
-                          type: string
-                        predictionProbaCol:
-                          description: Column of the model prediction probabilities
-                          type: string
-                        problemType:
-                          description: Problem type the model aims to solve. Either
-                            PROBLEM_TYPE_CLASSIFICATION or PROBLEM_TYPE_REGRESSION
-                          type: string
-                        timestampCol:
-                          description: Column of the timestamp of predictions
-                          type: string
-                      type: object
-                    type: array
+                        type: array
+                      labelCol:
+                        description: Column of the model label
+                        type: string
+                      modelIdCol:
+                        description: Column of the model id or version
+                        type: string
+                      predictionCol:
+                        description: Column of the model prediction
+                        type: string
+                      predictionProbaCol:
+                        description: Column of the model prediction probabilities
+                        type: string
+                      problemType:
+                        description: Problem type the model aims to solve. Either
+                          PROBLEM_TYPE_CLASSIFICATION or PROBLEM_TYPE_REGRESSION
+                        type: string
+                      timestampCol:
+                        description: Column of the timestamp of predictions
+                        type: string
+                    type: object
                   latestMonitorFailureMsg:
                     type: string
                   notifications:
@@ -154,49 +150,41 @@ spec:
                       following optional blocks are supported, each consisting of
                       the single string array field with name email_addresses containing
                       a list of emails to notify:'
-                    items:
-                      properties:
-                        onFailure:
-                          description: who to send notifications to on monitor failure.
-                          items:
-                            properties:
-                              emailAddresses:
-                                items:
-                                  type: string
-                                type: array
-                            type: object
-                          type: array
-                        onNewClassificationTagDetected:
-                          description: Who to send notifications to when new data
-                            classification tags are detected.
-                          items:
-                            properties:
-                              emailAddresses:
-                                items:
-                                  type: string
-                                type: array
-                            type: object
-                          type: array
-                      type: object
-                    type: array
+                    properties:
+                      onFailure:
+                        description: who to send notifications to on monitor failure.
+                        properties:
+                          emailAddresses:
+                            items:
+                              type: string
+                            type: array
+                        type: object
+                      onNewClassificationTagDetected:
+                        description: Who to send notifications to when new data classification
+                          tags are detected.
+                        properties:
+                          emailAddresses:
+                            items:
+                              type: string
+                            type: array
+                        type: object
+                    type: object
                   outputSchemaName:
                     description: '- Schema where output metric tables are created'
                     type: string
                   schedule:
                     description: 'The schedule for automatically updating and refreshing
                       metric tables.  This block consists of following fields:'
-                    items:
-                      properties:
-                        quartzCronExpression:
-                          description: string expression that determines when to run
-                            the monitor. See Quartz documentation for examples.
-                          type: string
-                        timezoneId:
-                          description: string with timezone id (e.g., PST) in which
-                            to evaluate the Quartz expression.
-                          type: string
-                      type: object
-                    type: array
+                    properties:
+                      quartzCronExpression:
+                        description: string expression that determines when to run
+                          the monitor. See Quartz documentation for examples.
+                        type: string
+                      timezoneId:
+                        description: string with timezone id (e.g., PST) in which
+                          to evaluate the Quartz expression.
+                        type: string
+                    type: object
                   skipBuiltinDashboard:
                     description: Whether to skip creating a default dashboard summarizing
                       data quality metrics.
@@ -212,28 +200,24 @@ spec:
                     type: array
                   snapshot:
                     description: Configuration for monitoring snapshot tables.
-                    items:
-                      type: object
-                    type: array
+                    type: object
                   tableName:
                     description: '- The full name of the table to attach the monitor
                       too. Its of the format {catalog}.{schema}.{tableName}'
                     type: string
                   timeSeries:
                     description: Configuration for monitoring timeseries tables.
-                    items:
-                      properties:
-                        granularities:
-                          description: List of granularities to use when aggregating
-                            data into time windows based on their timestamp.
-                          items:
-                            type: string
-                          type: array
-                        timestampCol:
-                          description: Column of the timestamp of predictions
+                    properties:
+                      granularities:
+                        description: List of granularities to use when aggregating
+                          data into time windows based on their timestamp.
+                        items:
                           type: string
-                      type: object
-                    type: array
+                        type: array
+                      timestampCol:
+                        description: Column of the timestamp of predictions
+                        type: string
+                    type: object
                   warehouseId:
                     description: Optional argument to specify the warehouse for dashboard
                       creation. If not specified, the first running warehouse will
@@ -291,43 +275,39 @@ spec:
                     type: array
                   dataClassificationConfig:
                     description: The data classification config for the monitor
-                    items:
-                      properties:
-                        enabled:
-                          type: boolean
-                      type: object
-                    type: array
+                    properties:
+                      enabled:
+                        type: boolean
+                    type: object
                   inferenceLog:
                     description: Configuration for the inference log monitor
-                    items:
-                      properties:
-                        granularities:
-                          description: List of granularities to use when aggregating
-                            data into time windows based on their timestamp.
-                          items:
-                            type: string
-                          type: array
-                        labelCol:
-                          description: Column of the model label
+                    properties:
+                      granularities:
+                        description: List of granularities to use when aggregating
+                          data into time windows based on their timestamp.
+                        items:
                           type: string
-                        modelIdCol:
-                          description: Column of the model id or version
-                          type: string
-                        predictionCol:
-                          description: Column of the model prediction
-                          type: string
-                        predictionProbaCol:
-                          description: Column of the model prediction probabilities
-                          type: string
-                        problemType:
-                          description: Problem type the model aims to solve. Either
-                            PROBLEM_TYPE_CLASSIFICATION or PROBLEM_TYPE_REGRESSION
-                          type: string
-                        timestampCol:
-                          description: Column of the timestamp of predictions
-                          type: string
-                      type: object
-                    type: array
+                        type: array
+                      labelCol:
+                        description: Column of the model label
+                        type: string
+                      modelIdCol:
+                        description: Column of the model id or version
+                        type: string
+                      predictionCol:
+                        description: Column of the model prediction
+                        type: string
+                      predictionProbaCol:
+                        description: Column of the model prediction probabilities
+                        type: string
+                      problemType:
+                        description: Problem type the model aims to solve. Either
+                          PROBLEM_TYPE_CLASSIFICATION or PROBLEM_TYPE_REGRESSION
+                        type: string
+                      timestampCol:
+                        description: Column of the timestamp of predictions
+                        type: string
+                    type: object
                   latestMonitorFailureMsg:
                     type: string
                   notifications:
@@ -335,49 +315,41 @@ spec:
                       following optional blocks are supported, each consisting of
                       the single string array field with name email_addresses containing
                       a list of emails to notify:'
-                    items:
-                      properties:
-                        onFailure:
-                          description: who to send notifications to on monitor failure.
-                          items:
-                            properties:
-                              emailAddresses:
-                                items:
-                                  type: string
-                                type: array
-                            type: object
-                          type: array
-                        onNewClassificationTagDetected:
-                          description: Who to send notifications to when new data
-                            classification tags are detected.
-                          items:
-                            properties:
-                              emailAddresses:
-                                items:
-                                  type: string
-                                type: array
-                            type: object
-                          type: array
-                      type: object
-                    type: array
+                    properties:
+                      onFailure:
+                        description: who to send notifications to on monitor failure.
+                        properties:
+                          emailAddresses:
+                            items:
+                              type: string
+                            type: array
+                        type: object
+                      onNewClassificationTagDetected:
+                        description: Who to send notifications to when new data classification
+                          tags are detected.
+                        properties:
+                          emailAddresses:
+                            items:
+                              type: string
+                            type: array
+                        type: object
+                    type: object
                   outputSchemaName:
                     description: '- Schema where output metric tables are created'
                     type: string
                   schedule:
                     description: 'The schedule for automatically updating and refreshing
                       metric tables.  This block consists of following fields:'
-                    items:
-                      properties:
-                        quartzCronExpression:
-                          description: string expression that determines when to run
-                            the monitor. See Quartz documentation for examples.
-                          type: string
-                        timezoneId:
-                          description: string with timezone id (e.g., PST) in which
-                            to evaluate the Quartz expression.
-                          type: string
-                      type: object
-                    type: array
+                    properties:
+                      quartzCronExpression:
+                        description: string expression that determines when to run
+                          the monitor. See Quartz documentation for examples.
+                        type: string
+                      timezoneId:
+                        description: string with timezone id (e.g., PST) in which
+                          to evaluate the Quartz expression.
+                        type: string
+                    type: object
                   skipBuiltinDashboard:
                     description: Whether to skip creating a default dashboard summarizing
                       data quality metrics.
@@ -393,28 +365,24 @@ spec:
                     type: array
                   snapshot:
                     description: Configuration for monitoring snapshot tables.
-                    items:
-                      type: object
-                    type: array
+                    type: object
                   tableName:
                     description: '- The full name of the table to attach the monitor
                       too. Its of the format {catalog}.{schema}.{tableName}'
                     type: string
                   timeSeries:
                     description: Configuration for monitoring timeseries tables.
-                    items:
-                      properties:
-                        granularities:
-                          description: List of granularities to use when aggregating
-                            data into time windows based on their timestamp.
-                          items:
-                            type: string
-                          type: array
-                        timestampCol:
-                          description: Column of the timestamp of predictions
+                    properties:
+                      granularities:
+                        description: List of granularities to use when aggregating
+                          data into time windows based on their timestamp.
+                        items:
                           type: string
-                      type: object
-                    type: array
+                        type: array
+                      timestampCol:
+                        description: Column of the timestamp of predictions
+                        type: string
+                    type: object
                   warehouseId:
                     description: Optional argument to specify the warehouse for dashboard
                       creation. If not specified, the first running warehouse will
@@ -487,93 +455,12 @@ spec:
                 required:
                 - name
                 type: object
-              publishConnectionDetailsTo:
-                description: |-
-                  PublishConnectionDetailsTo specifies the connection secret config which
-                  contains a name, metadata and a reference to secret store config to
-                  which any connection details for this managed resource should be written.
-                  Connection details frequently include the endpoint, username,
-                  and password required to connect to the managed resource.
-                properties:
-                  configRef:
-                    default:
-                      name: default
-                    description: |-
-                      SecretStoreConfigRef specifies which secret store config should be used
-                      for this ConnectionSecret.
-                    properties:
-                      name:
-                        description: Name of the referenced object.
-                        type: string
-                      policy:
-                        description: Policies for referencing.
-                        properties:
-                          resolution:
-                            default: Required
-                            description: |-
-                              Resolution specifies whether resolution of this reference is required.
-                              The default is 'Required', which means the reconcile will fail if the
-                              reference cannot be resolved. 'Optional' means this reference will be
-                              a no-op if it cannot be resolved.
-                            enum:
-                            - Required
-                            - Optional
-                            type: string
-                          resolve:
-                            description: |-
-                              Resolve specifies when this reference should be resolved. The default
-                              is 'IfNotPresent', which will attempt to resolve the reference only when
-                              the corresponding field is not present. Use 'Always' to resolve the
-                              reference on every reconcile.
-                            enum:
-                            - Always
-                            - IfNotPresent
-                            type: string
-                        type: object
-                    required:
-                    - name
-                    type: object
-                  metadata:
-                    description: Metadata is the metadata for connection secret.
-                    properties:
-                      annotations:
-                        additionalProperties:
-                          type: string
-                        description: |-
-                          Annotations are the annotations to be added to connection secret.
-                          - For Kubernetes secrets, this will be used as "metadata.annotations".
-                          - It is up to Secret Store implementation for others store types.
-                        type: object
-                      labels:
-                        additionalProperties:
-                          type: string
-                        description: |-
-                          Labels are the labels/tags to be added to connection secret.
-                          - For Kubernetes secrets, this will be used as "metadata.labels".
-                          - It is up to Secret Store implementation for others store types.
-                        type: object
-                      type:
-                        description: |-
-                          Type is the SecretType for the connection secret.
-                          - Only valid for Kubernetes Secret Stores.
-                        type: string
-                    type: object
-                  name:
-                    description: Name is the name of the connection secret.
-                    type: string
-                required:
-                - name
-                type: object
               writeConnectionSecretToRef:
                 description: |-
                   WriteConnectionSecretToReference specifies the namespace and name of a
                   Secret to which any connection details for this managed resource should
                   be written. Connection details frequently include the endpoint, username,
                   and password required to connect to the managed resource.
-                  This field is planned to be replaced in a future release in favor of
-                  PublishConnectionDetailsTo. Currently, both could be set independently
-                  and connection details would be published to both without affecting
-                  each other.
                 properties:
                   name:
                     description: Name of the secret.
@@ -647,12 +534,10 @@ spec:
                     type: string
                   dataClassificationConfig:
                     description: The data classification config for the monitor
-                    items:
-                      properties:
-                        enabled:
-                          type: boolean
-                      type: object
-                    type: array
+                    properties:
+                      enabled:
+                        type: boolean
+                    type: object
                   driftMetricsTableName:
                     description: 'The full name of the drift metrics table. Format:
                       catalog_name.schema_name.table_name.'
@@ -663,71 +548,63 @@ spec:
                     type: string
                   inferenceLog:
                     description: Configuration for the inference log monitor
-                    items:
-                      properties:
-                        granularities:
-                          description: List of granularities to use when aggregating
-                            data into time windows based on their timestamp.
-                          items:
-                            type: string
-                          type: array
-                        labelCol:
-                          description: Column of the model label
+                    properties:
+                      granularities:
+                        description: List of granularities to use when aggregating
+                          data into time windows based on their timestamp.
+                        items:
                           type: string
-                        modelIdCol:
-                          description: Column of the model id or version
-                          type: string
-                        predictionCol:
-                          description: Column of the model prediction
-                          type: string
-                        predictionProbaCol:
-                          description: Column of the model prediction probabilities
-                          type: string
-                        problemType:
-                          description: Problem type the model aims to solve. Either
-                            PROBLEM_TYPE_CLASSIFICATION or PROBLEM_TYPE_REGRESSION
-                          type: string
-                        timestampCol:
-                          description: Column of the timestamp of predictions
-                          type: string
-                      type: object
-                    type: array
+                        type: array
+                      labelCol:
+                        description: Column of the model label
+                        type: string
+                      modelIdCol:
+                        description: Column of the model id or version
+                        type: string
+                      predictionCol:
+                        description: Column of the model prediction
+                        type: string
+                      predictionProbaCol:
+                        description: Column of the model prediction probabilities
+                        type: string
+                      problemType:
+                        description: Problem type the model aims to solve. Either
+                          PROBLEM_TYPE_CLASSIFICATION or PROBLEM_TYPE_REGRESSION
+                        type: string
+                      timestampCol:
+                        description: Column of the timestamp of predictions
+                        type: string
+                    type: object
                   latestMonitorFailureMsg:
                     type: string
                   monitorVersion:
                     description: The version of the monitor config (e.g. 1,2,3). If
                       negative, the monitor may be corrupted
-                    type: string
+                    type: number
                   notifications:
                     description: 'The notification settings for the monitor.  The
                       following optional blocks are supported, each consisting of
                       the single string array field with name email_addresses containing
                       a list of emails to notify:'
-                    items:
-                      properties:
-                        onFailure:
-                          description: who to send notifications to on monitor failure.
-                          items:
-                            properties:
-                              emailAddresses:
-                                items:
-                                  type: string
-                                type: array
-                            type: object
-                          type: array
-                        onNewClassificationTagDetected:
-                          description: Who to send notifications to when new data
-                            classification tags are detected.
-                          items:
-                            properties:
-                              emailAddresses:
-                                items:
-                                  type: string
-                                type: array
-                            type: object
-                          type: array
-                      type: object
-                    type: array
+                    properties:
+                      onFailure:
+                        description: who to send notifications to on monitor failure.
+                        properties:
+                          emailAddresses:
+                            items:
+                              type: string
+                            type: array
+                        type: object
+                      onNewClassificationTagDetected:
+                        description: Who to send notifications to when new data classification
+                          tags are detected.
+                        properties:
+                          emailAddresses:
+                            items:
+                              type: string
+                            type: array
+                        type: object
+                    type: object
                   outputSchemaName:
                     description: '- Schema where output metric tables are created'
                     type: string
@@ -738,22 +615,20 @@ spec:
                   schedule:
                     description: 'The schedule for automatically updating and refreshing
                       metric tables.  This block consists of following fields:'
-                    items:
-                      properties:
-                        pauseStatus:
-                          description: optional string field that indicates whether
-                            a schedule is paused (PAUSED) or not (UNPAUSED).
-                          type: string
-                        quartzCronExpression:
-                          description: string expression that determines when to run
-                            the monitor. See Quartz documentation for examples.
-                          type: string
-                        timezoneId:
-                          description: string with timezone id (e.g., PST) in which
-                            to evaluate the Quartz expression.
-                          type: string
-                      type: object
-                    type: array
+                    properties:
+                      pauseStatus:
+                        description: optional string field that indicates whether
+                          a schedule is paused (PAUSED) or not (UNPAUSED).
+                        type: string
+                      quartzCronExpression:
+                        description: string expression that determines when to run
+                          the monitor. See Quartz documentation for examples.
+                        type: string
+                      timezoneId:
+                        description: string with timezone id (e.g., PST) in which
+                          to evaluate the Quartz expression.
+                        type: string
+                    type: object
                   skipBuiltinDashboard:
                     description: Whether to skip creating a default dashboard summarizing
                       data quality metrics.
@@ -769,9 +644,7 @@ spec:
                     type: array
                   snapshot:
                     description: Configuration for monitoring snapshot tables.
-                    items:
-                      type: object
-                    type: array
+                    type: object
                   status:
                     description: Status of the Monitor
                     type: string
@@ -781,19 +654,17 @@ spec:
                     type: string
                   timeSeries:
                     description: Configuration for monitoring timeseries tables.
-                    items:
-                      properties:
-                        granularities:
-                          description: List of granularities to use when aggregating
-                            data into time windows based on their timestamp.
-                          items:
-                            type: string
-                          type: array
-                        timestampCol:
-                          description: Column of the timestamp of predictions
+                    properties:
+                      granularities:
+                        description: List of granularities to use when aggregating
+                          data into time windows based on their timestamp.
+                        items:
                           type: string
-                      type: object
-                    type: array
+                        type: array
+                      timestampCol:
+                        description: Column of the timestamp of predictions
+                        type: string
+                    type: object
                   warehouseId:
                     description: Optional argument to specify the warehouse for dashboard
                       creation. If not specified, the first running warehouse will
