@@ -13,7 +13,7 @@ on:
 
 env:
   # Common versions
-  GO_VERSION: '1.24'
+  GO_VERSION: '1.25'
   GOLANGCI_VERSION: 'v1.64.4'
   DOCKER_BUILDX_VERSION: 'v0.20.1'
 
@@ -106,7 +106,7 @@ jobs:
       # We could run 'make lint' but we prefer this action because it leaves
       # 'annotations' (i.e. it comments on PRs to point out linter violations).
       - name: Lint
-        uses: golangci/golangci-lint-action@v8
+        uses: golangci/golangci-lint-action@v6
         with:
           version: ${{ env.GOLANGCI_VERSION }}
 

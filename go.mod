@@ -8,7 +8,7 @@ require (
 	github.com/crossplane/crossplane-runtime v1.20.0
 	github.com/crossplane/crossplane-runtime/v2 v2.0.0
 	github.com/crossplane/crossplane-tools v0.0.0-20250731192036-00d407d8b7ec
-	github.com/crossplane/upjet/v2 v2.0.0-20250804114937-4c6bfc216d3b
+	github.com/crossplane/upjet/v2 v2.0.0
 	github.com/databricks/terraform-provider-databricks v1.87.1
 	github.com/hashicorp/terraform-json v0.26.0
 	github.com/hashicorp/terraform-plugin-sdk/v2 v2.37.0
