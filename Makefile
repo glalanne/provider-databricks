@@ -4,6 +4,7 @@
 PROJECT_NAME ?= provider-databricks
 PROJECT_REPO ?= github.com/glalanne/$(PROJECT_NAME)
 UPTEST_EXAMPLE_LIST ?= "examples/cluster/cluster.yaml"
+CROSSPLANE_CLI_VERSION ?= v2.0.2
 
 export TERRAFORM_VERSION ?= 1.5.7
 

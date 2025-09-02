@@ -22,4 +22,4 @@ metadata:
       repo.
 spec:
   capabilities:
-  - SafeStart
+    - SafeStart
