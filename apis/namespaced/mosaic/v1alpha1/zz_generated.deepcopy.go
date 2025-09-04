@@ -9,7 +9,7 @@
 package v1alpha1
 
 import (
-	"github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
+	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
 	runtime "k8s.io/apimachinery/pkg/runtime"
 )
 
@@ -158,14 +158,11 @@ func (in *DirectAccessIndexSpecEmbeddingSourceColumnsInitParameters) DeepCopyInt
 		*out = new(string)
 		**out = **in
 	}
-<<<<<<< HEAD
 	if in.ModelEndpointNameForQuery != nil {
 		in, out := &in.ModelEndpointNameForQuery, &out.ModelEndpointNameForQuery
 		*out = new(string)
 		**out = **in
 	}
-=======
->>>>>>> 22d3f447638c67622a710bb969a42a932ffdb1af
 	if in.Name != nil {
 		in, out := &in.Name, &out.Name
 		*out = new(string)
@@ -191,14 +188,11 @@ func (in *DirectAccessIndexSpecEmbeddingSourceColumnsObservation) DeepCopyInto(o
 		*out = new(string)
 		**out = **in
 	}
-<<<<<<< HEAD
 	if in.ModelEndpointNameForQuery != nil {
 		in, out := &in.ModelEndpointNameForQuery, &out.ModelEndpointNameForQuery
 		*out = new(string)
 		**out = **in
 	}
-=======
->>>>>>> 22d3f447638c67622a710bb969a42a932ffdb1af
 	if in.Name != nil {
 		in, out := &in.Name, &out.Name
 		*out = new(string)
@@ -224,14 +218,11 @@ func (in *DirectAccessIndexSpecEmbeddingSourceColumnsParameters) DeepCopyInto(ou
 		*out = new(string)
 		**out = **in
 	}
-<<<<<<< HEAD
 	if in.ModelEndpointNameForQuery != nil {
 		in, out := &in.ModelEndpointNameForQuery, &out.ModelEndpointNameForQuery
 		*out = new(string)
 		**out = **in
 	}
-=======
->>>>>>> 22d3f447638c67622a710bb969a42a932ffdb1af
 	if in.Name != nil {
 		in, out := &in.Name, &out.Name
 		*out = new(string)
@@ -444,14 +435,11 @@ func (in *EmbeddingSourceColumnsInitParameters) DeepCopyInto(out *EmbeddingSourc
 		*out = new(v1.NamespacedSelector)
 		(*in).DeepCopyInto(*out)
 	}
-<<<<<<< HEAD
 	if in.ModelEndpointNameForQuery != nil {
 		in, out := &in.ModelEndpointNameForQuery, &out.ModelEndpointNameForQuery
 		*out = new(string)
 		**out = **in
 	}
-=======
->>>>>>> 22d3f447638c67622a710bb969a42a932ffdb1af
 	if in.Name != nil {
 		in, out := &in.Name, &out.Name
 		*out = new(string)
@@ -477,14 +465,11 @@ func (in *EmbeddingSourceColumnsObservation) DeepCopyInto(out *EmbeddingSourceCo
 		*out = new(string)
 		**out = **in
 	}
-<<<<<<< HEAD
 	if in.ModelEndpointNameForQuery != nil {
 		in, out := &in.ModelEndpointNameForQuery, &out.ModelEndpointNameForQuery
 		*out = new(string)
 		**out = **in
 	}
-=======
->>>>>>> 22d3f447638c67622a710bb969a42a932ffdb1af
 	if in.Name != nil {
 		in, out := &in.Name, &out.Name
 		*out = new(string)
@@ -520,14 +505,11 @@ func (in *EmbeddingSourceColumnsParameters) DeepCopyInto(out *EmbeddingSourceCol
 		*out = new(v1.NamespacedSelector)
 		(*in).DeepCopyInto(*out)
 	}
-<<<<<<< HEAD
 	if in.ModelEndpointNameForQuery != nil {
 		in, out := &in.ModelEndpointNameForQuery, &out.ModelEndpointNameForQuery
 		*out = new(string)
 		**out = **in
 	}
-=======
->>>>>>> 22d3f447638c67622a710bb969a42a932ffdb1af
 	if in.Name != nil {
 		in, out := &in.Name, &out.Name
 		*out = new(string)

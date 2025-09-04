@@ -6,14 +6,10 @@ package cluster
 
 import (
 	"github.com/glalanne/provider-databricks/config/cluster/access_control_rule_set"
-<<<<<<< HEAD
 	// "github.com/glalanne/provider-databricks/config/cluster/account_federation_policy"
 	"github.com/glalanne/provider-databricks/config/cluster/alert"
 
 	// "github.com/glalanne/provider-databricks/config/cluster/app"
-=======
-	"github.com/glalanne/provider-databricks/config/cluster/alert"
->>>>>>> 22d3f447638c67622a710bb969a42a932ffdb1af
 	"github.com/glalanne/provider-databricks/config/cluster/artifact_allowlist"
 	"github.com/glalanne/provider-databricks/config/cluster/budget"
 	"github.com/glalanne/provider-databricks/config/cluster/catalog"
@@ -85,11 +81,8 @@ import (
 	"github.com/glalanne/provider-databricks/config/cluster/secret_acl"
 	"github.com/glalanne/provider-databricks/config/cluster/secret_scope"
 	"github.com/glalanne/provider-databricks/config/cluster/service_principal"
-<<<<<<< HEAD
 
 	// "github.com/glalanne/provider-databricks/config/cluster/service_principal_federation_policy"
-=======
->>>>>>> 22d3f447638c67622a710bb969a42a932ffdb1af
 	"github.com/glalanne/provider-databricks/config/cluster/service_principal_role"
 	"github.com/glalanne/provider-databricks/config/cluster/service_principal_secret"
 	"github.com/glalanne/provider-databricks/config/cluster/share"
@@ -214,10 +207,7 @@ func init() {
 	ProviderConfiguration.AddConfig(workspace_binding.Configure)
 	ProviderConfiguration.AddConfig(workspace_conf.Configure)
 	ProviderConfiguration.AddConfig(workspace_file.Configure)
-<<<<<<< HEAD
 	// ProviderConfiguration.AddConfig(account_federation_policy.Configure) // TODO: waiting on protov6 support with Upjet https://github.com/crossplane/upjet/issues/372
 	// ProviderConfiguration.AddConfig(service_principal_federation_policy.Configure) // TODO: waiting on protov6 support with Upjet https://github.com/crossplane/upjet/issues/372
 	// ProviderConfiguration.AddConfig(app.Configure) // TODO: waiting on protov6 support with Upjet https://github.com/crossplane/upjet/issues/372
-=======
->>>>>>> 22d3f447638c67622a710bb969a42a932ffdb1af
 }

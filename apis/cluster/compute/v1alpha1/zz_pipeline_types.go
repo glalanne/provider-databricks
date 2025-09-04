@@ -1814,7 +1814,6 @@ type PipelineTriggerParameters struct {
 	Manual []ManualParameters `json:"manual,omitempty" tf:"manual,omitempty"`
 }
 
-<<<<<<< HEAD
 type PostgresInitParameters struct {
 	SlotConfig []SlotConfigInitParameters `json:"slotConfig,omitempty" tf:"slot_config,omitempty"`
 }
@@ -1829,8 +1828,6 @@ type PostgresParameters struct {
 	SlotConfig []SlotConfigParameters `json:"slotConfig,omitempty" tf:"slot_config,omitempty"`
 }
 
-=======
->>>>>>> 22d3f447638c67622a710bb969a42a932ffdb1af
 type QueryBasedConnectorConfigInitParameters struct {
 	CursorColumns []*string `json:"cursorColumns,omitempty" tf:"cursor_columns,omitempty"`
 

@@ -232,7 +232,6 @@ spec:
                             Destination. It must contain the following:'
                           items:
                             properties:
-<<<<<<< HEAD
                               channelIdSecretRef:
                                 description: Slack channel ID for notifications.
                                 properties:
@@ -269,15 +268,6 @@ spec:
                                 - name
                                 - namespace
                                 type: object
-=======
-                              channelId:
-                                description: The unique ID of the Notification Destination.
-                                type: string
-                              channelIdSet:
-                                type: boolean
-                              oauthToken:
-                                type: string
->>>>>>> 22d3f447638c67622a710bb969a42a932ffdb1af
                               oauthTokenSet:
                                 type: boolean
                               urlSecretRef:
@@ -481,7 +471,6 @@ spec:
                             Destination. It must contain the following:'
                           items:
                             properties:
-<<<<<<< HEAD
                               channelIdSecretRef:
                                 description: Slack channel ID for notifications.
                                 properties:
@@ -518,15 +507,6 @@ spec:
                                 - name
                                 - namespace
                                 type: object
-=======
-                              channelId:
-                                description: The unique ID of the Notification Destination.
-                                type: string
-                              channelIdSet:
-                                type: boolean
-                              oauthToken:
-                                type: string
->>>>>>> 22d3f447638c67622a710bb969a42a932ffdb1af
                               oauthTokenSet:
                                 type: boolean
                               urlSecretRef:
@@ -729,18 +709,8 @@ spec:
                             Destination. It must contain the following:'
                           items:
                             properties:
-<<<<<<< HEAD
                               channelIdSet:
                                 type: boolean
-=======
-                              channelId:
-                                description: The unique ID of the Notification Destination.
-                                type: string
-                              channelIdSet:
-                                type: boolean
-                              oauthToken:
-                                type: string
->>>>>>> 22d3f447638c67622a710bb969a42a932ffdb1af
                               oauthTokenSet:
                                 type: boolean
                               urlSet:

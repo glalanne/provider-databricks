@@ -339,22 +339,16 @@ type ContinuousInitParameters struct {
 
 	// Indicate whether this continuous job is paused or not. Either PAUSED or UNPAUSED. When the pause_status field is omitted in the block, the server will default to using UNPAUSED as a value for pause_status.
 	PauseStatus *string `json:"pauseStatus,omitempty" tf:"pause_status,omitempty"`
-<<<<<<< HEAD
 
 	TaskRetryMode *string `json:"taskRetryMode,omitempty" tf:"task_retry_mode,omitempty"`
-=======
->>>>>>> 22d3f447638c67622a710bb969a42a932ffdb1af
 }
 
 type ContinuousObservation struct {
 
 	// Indicate whether this continuous job is paused or not. Either PAUSED or UNPAUSED. When the pause_status field is omitted in the block, the server will default to using UNPAUSED as a value for pause_status.
 	PauseStatus *string `json:"pauseStatus,omitempty" tf:"pause_status,omitempty"`
-<<<<<<< HEAD
 
 	TaskRetryMode *string `json:"taskRetryMode,omitempty" tf:"task_retry_mode,omitempty"`
-=======
->>>>>>> 22d3f447638c67622a710bb969a42a932ffdb1af
 }
 
 type ContinuousParameters struct {
@@ -362,12 +356,9 @@ type ContinuousParameters struct {
 	// Indicate whether this continuous job is paused or not. Either PAUSED or UNPAUSED. When the pause_status field is omitted in the block, the server will default to using UNPAUSED as a value for pause_status.
 	// +kubebuilder:validation:Optional
 	PauseStatus *string `json:"pauseStatus,omitempty" tf:"pause_status,omitempty"`
-<<<<<<< HEAD
 
 	// +kubebuilder:validation:Optional
 	TaskRetryMode *string `json:"taskRetryMode,omitempty" tf:"task_retry_mode,omitempty"`
-=======
->>>>>>> 22d3f447638c67622a710bb969a42a932ffdb1af
 }
 
 type DashboardInitParameters struct {

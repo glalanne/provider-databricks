@@ -133,32 +133,7 @@ type ConnectionParameters struct {
 	ReadOnly *bool `json:"readOnly,omitempty" tf:"read_only,omitempty"`
 }
 
-<<<<<<< HEAD
 type ConnectionProvisioningInfoInitParameters struct {
-=======
-type EnvironmentSettingsInitParameters struct {
-	EnvironmentVersion *string `json:"environmentVersion,omitempty" tf:"environment_version,omitempty"`
-
-	JavaDependencies []*string `json:"javaDependencies,omitempty" tf:"java_dependencies,omitempty"`
-}
-
-type EnvironmentSettingsObservation struct {
-	EnvironmentVersion *string `json:"environmentVersion,omitempty" tf:"environment_version,omitempty"`
-
-	JavaDependencies []*string `json:"javaDependencies,omitempty" tf:"java_dependencies,omitempty"`
-}
-
-type EnvironmentSettingsParameters struct {
-
-	// +kubebuilder:validation:Optional
-	EnvironmentVersion *string `json:"environmentVersion,omitempty" tf:"environment_version,omitempty"`
-
-	// +kubebuilder:validation:Optional
-	JavaDependencies []*string `json:"javaDependencies,omitempty" tf:"java_dependencies,omitempty"`
-}
-
-type ProvisioningInfoInitParameters struct {
->>>>>>> 22d3f447638c67622a710bb969a42a932ffdb1af
 }
 
 type ConnectionProvisioningInfoObservation struct {

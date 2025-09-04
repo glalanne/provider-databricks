@@ -295,7 +295,6 @@ type PagerdutyParameters struct {
 
 type SlackInitParameters struct {
 
-<<<<<<< HEAD
 	// Slack channel ID for notifications.
 	ChannelIDSecretRef *v1.SecretKeySelector `json:"channelIdSecretRef,omitempty" tf:"-"`
 
@@ -303,14 +302,6 @@ type SlackInitParameters struct {
 
 	// OAuth token for Slack authentication.
 	OauthTokenSecretRef *v1.SecretKeySelector `json:"oauthTokenSecretRef,omitempty" tf:"-"`
-=======
-	// The unique ID of the Notification Destination.
-	ChannelID *string `json:"channelId,omitempty" tf:"channel_id,omitempty"`
-
-	ChannelIDSet *bool `json:"channelIdSet,omitempty" tf:"channel_id_set,omitempty"`
-
-	OauthToken *string `json:"oauthToken,omitempty" tf:"oauth_token,omitempty"`
->>>>>>> 22d3f447638c67622a710bb969a42a932ffdb1af
 
 	OauthTokenSet *bool `json:"oauthTokenSet,omitempty" tf:"oauth_token_set,omitempty"`
 
@@ -321,19 +312,8 @@ type SlackInitParameters struct {
 }
 
 type SlackObservation struct {
-<<<<<<< HEAD
 	ChannelIDSet *bool `json:"channelIdSet,omitempty" tf:"channel_id_set,omitempty"`
 
-=======
-
-	// The unique ID of the Notification Destination.
-	ChannelID *string `json:"channelId,omitempty" tf:"channel_id,omitempty"`
-
-	ChannelIDSet *bool `json:"channelIdSet,omitempty" tf:"channel_id_set,omitempty"`
-
-	OauthToken *string `json:"oauthToken,omitempty" tf:"oauth_token,omitempty"`
-
->>>>>>> 22d3f447638c67622a710bb969a42a932ffdb1af
 	OauthTokenSet *bool `json:"oauthTokenSet,omitempty" tf:"oauth_token_set,omitempty"`
 
 	URLSet *bool `json:"urlSet,omitempty" tf:"url_set,omitempty"`
@@ -341,27 +321,16 @@ type SlackObservation struct {
 
 type SlackParameters struct {
 
-<<<<<<< HEAD
 	// Slack channel ID for notifications.
 	// +kubebuilder:validation:Optional
 	ChannelIDSecretRef *v1.SecretKeySelector `json:"channelIdSecretRef,omitempty" tf:"-"`
-=======
-	// The unique ID of the Notification Destination.
-	// +kubebuilder:validation:Optional
-	ChannelID *string `json:"channelId,omitempty" tf:"channel_id,omitempty"`
->>>>>>> 22d3f447638c67622a710bb969a42a932ffdb1af
 
 	// +kubebuilder:validation:Optional
 	ChannelIDSet *bool `json:"channelIdSet,omitempty" tf:"channel_id_set,omitempty"`
 
-<<<<<<< HEAD
 	// OAuth token for Slack authentication.
 	// +kubebuilder:validation:Optional
 	OauthTokenSecretRef *v1.SecretKeySelector `json:"oauthTokenSecretRef,omitempty" tf:"-"`
-=======
-	// +kubebuilder:validation:Optional
-	OauthToken *string `json:"oauthToken,omitempty" tf:"oauth_token,omitempty"`
->>>>>>> 22d3f447638c67622a710bb969a42a932ffdb1af
 
 	// +kubebuilder:validation:Optional
 	OauthTokenSet *bool `json:"oauthTokenSet,omitempty" tf:"oauth_token_set,omitempty"`

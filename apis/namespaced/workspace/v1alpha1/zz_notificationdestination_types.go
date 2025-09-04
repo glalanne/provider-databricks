@@ -144,7 +144,6 @@ type GenericWebhookParameters struct {
 
 type MicrosoftTeamsInitParameters struct {
 
-<<<<<<< HEAD
 	// The unique ID of the Notification Destination.
 	AppID *string `json:"appId,omitempty" tf:"app_id,omitempty"`
 
@@ -164,8 +163,6 @@ type MicrosoftTeamsInitParameters struct {
 
 	TenantIDSet *bool `json:"tenantIdSet,omitempty" tf:"tenant_id_set,omitempty"`
 
-=======
->>>>>>> 22d3f447638c67622a710bb969a42a932ffdb1af
 	// The Slack webhook URL.
 	URLSecretRef *v1.LocalSecretKeySelector `json:"urlSecretRef,omitempty" tf:"-"`
 
@@ -173,7 +170,6 @@ type MicrosoftTeamsInitParameters struct {
 }
 
 type MicrosoftTeamsObservation struct {
-<<<<<<< HEAD
 
 	// The unique ID of the Notification Destination.
 	AppID *string `json:"appId,omitempty" tf:"app_id,omitempty"`
@@ -194,14 +190,11 @@ type MicrosoftTeamsObservation struct {
 
 	TenantIDSet *bool `json:"tenantIdSet,omitempty" tf:"tenant_id_set,omitempty"`
 
-=======
->>>>>>> 22d3f447638c67622a710bb969a42a932ffdb1af
 	URLSet *bool `json:"urlSet,omitempty" tf:"url_set,omitempty"`
 }
 
 type MicrosoftTeamsParameters struct {
 
-<<<<<<< HEAD
 	// The unique ID of the Notification Destination.
 	// +kubebuilder:validation:Optional
 	AppID *string `json:"appId,omitempty" tf:"app_id,omitempty"`
@@ -229,8 +222,6 @@ type MicrosoftTeamsParameters struct {
 	// +kubebuilder:validation:Optional
 	TenantIDSet *bool `json:"tenantIdSet,omitempty" tf:"tenant_id_set,omitempty"`
 
-=======
->>>>>>> 22d3f447638c67622a710bb969a42a932ffdb1af
 	// The Slack webhook URL.
 	// +kubebuilder:validation:Optional
 	URLSecretRef *v1.LocalSecretKeySelector `json:"urlSecretRef,omitempty" tf:"-"`
@@ -305,7 +296,6 @@ type PagerdutyParameters struct {
 
 type SlackInitParameters struct {
 
-<<<<<<< HEAD
 	// Slack channel ID for notifications.
 	ChannelIDSecretRef *v1.LocalSecretKeySelector `json:"channelIdSecretRef,omitempty" tf:"-"`
 
@@ -313,14 +303,6 @@ type SlackInitParameters struct {
 
 	// OAuth token for Slack authentication.
 	OauthTokenSecretRef *v1.LocalSecretKeySelector `json:"oauthTokenSecretRef,omitempty" tf:"-"`
-=======
-	// The unique ID of the Notification Destination.
-	ChannelID *string `json:"channelId,omitempty" tf:"channel_id,omitempty"`
-
-	ChannelIDSet *bool `json:"channelIdSet,omitempty" tf:"channel_id_set,omitempty"`
-
-	OauthToken *string `json:"oauthToken,omitempty" tf:"oauth_token,omitempty"`
->>>>>>> 22d3f447638c67622a710bb969a42a932ffdb1af
 
 	OauthTokenSet *bool `json:"oauthTokenSet,omitempty" tf:"oauth_token_set,omitempty"`
 
@@ -331,19 +313,8 @@ type SlackInitParameters struct {
 }
 
 type SlackObservation struct {
-<<<<<<< HEAD
 	ChannelIDSet *bool `json:"channelIdSet,omitempty" tf:"channel_id_set,omitempty"`
 
-=======
-
-	// The unique ID of the Notification Destination.
-	ChannelID *string `json:"channelId,omitempty" tf:"channel_id,omitempty"`
-
-	ChannelIDSet *bool `json:"channelIdSet,omitempty" tf:"channel_id_set,omitempty"`
-
-	OauthToken *string `json:"oauthToken,omitempty" tf:"oauth_token,omitempty"`
-
->>>>>>> 22d3f447638c67622a710bb969a42a932ffdb1af
 	OauthTokenSet *bool `json:"oauthTokenSet,omitempty" tf:"oauth_token_set,omitempty"`
 
 	URLSet *bool `json:"urlSet,omitempty" tf:"url_set,omitempty"`
@@ -351,27 +322,16 @@ type SlackObservation struct {
 
 type SlackParameters struct {
 
-<<<<<<< HEAD
 	// Slack channel ID for notifications.
 	// +kubebuilder:validation:Optional
 	ChannelIDSecretRef *v1.LocalSecretKeySelector `json:"channelIdSecretRef,omitempty" tf:"-"`
-=======
-	// The unique ID of the Notification Destination.
-	// +kubebuilder:validation:Optional
-	ChannelID *string `json:"channelId,omitempty" tf:"channel_id,omitempty"`
->>>>>>> 22d3f447638c67622a710bb969a42a932ffdb1af
 
 	// +kubebuilder:validation:Optional
 	ChannelIDSet *bool `json:"channelIdSet,omitempty" tf:"channel_id_set,omitempty"`
 
-<<<<<<< HEAD
 	// OAuth token for Slack authentication.
 	// +kubebuilder:validation:Optional
 	OauthTokenSecretRef *v1.LocalSecretKeySelector `json:"oauthTokenSecretRef,omitempty" tf:"-"`
-=======
-	// +kubebuilder:validation:Optional
-	OauthToken *string `json:"oauthToken,omitempty" tf:"oauth_token,omitempty"`
->>>>>>> 22d3f447638c67622a710bb969a42a932ffdb1af
 
 	// +kubebuilder:validation:Optional
 	OauthTokenSet *bool `json:"oauthTokenSet,omitempty" tf:"oauth_token_set,omitempty"`

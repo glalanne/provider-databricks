@@ -682,7 +682,6 @@ spec:
                                 type: array
                             type: object
                           type: array
-<<<<<<< HEAD
                         sourceConfigurations:
                           items:
                             properties:
@@ -723,8 +722,6 @@ spec:
                                 type: array
                             type: object
                           type: array
-=======
->>>>>>> 22d3f447638c67622a710bb969a42a932ffdb1af
                         sourceType:
                           type: string
                         tableConfiguration:
@@ -1682,7 +1679,6 @@ spec:
                                 type: array
                             type: object
                           type: array
-<<<<<<< HEAD
                         sourceConfigurations:
                           items:
                             properties:
@@ -1723,8 +1719,6 @@ spec:
                                 type: array
                             type: object
                           type: array
-=======
->>>>>>> 22d3f447638c67622a710bb969a42a932ffdb1af
                         sourceType:
                           type: string
                         tableConfiguration:
@@ -2736,7 +2730,6 @@ spec:
                                 type: array
                             type: object
                           type: array
-<<<<<<< HEAD
                         sourceConfigurations:
                           items:
                             properties:
@@ -2777,8 +2770,6 @@ spec:
                                 type: array
                             type: object
                           type: array
-=======
->>>>>>> 22d3f447638c67622a710bb969a42a932ffdb1af
                         sourceType:
                           type: string
                         tableConfiguration:

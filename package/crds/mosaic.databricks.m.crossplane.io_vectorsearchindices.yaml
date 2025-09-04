@@ -70,12 +70,8 @@ spec:
                           items:
                             properties:
                               embeddingModelEndpointName:
-<<<<<<< HEAD
                                 description: The name of the embedding model endpoint,
                                   used by default for both ingestion and querying.
-=======
-                                description: The name of the embedding model endpoint
->>>>>>> 22d3f447638c67622a710bb969a42a932ffdb1af
                                 type: string
                               embeddingModelEndpointNameRef:
                                 description: Reference to a ModelServing in serving
@@ -159,13 +155,10 @@ spec:
                                         type: string
                                     type: object
                                 type: object
-<<<<<<< HEAD
                               modelEndpointNameForQuery:
                                 description: The name of the embedding model endpoint
                                   which, if specified, is used for querying (not ingestion).
                                 type: string
-=======
->>>>>>> 22d3f447638c67622a710bb969a42a932ffdb1af
                               name:
                                 description: Three-level name of the Mosaic AI Vector
                                   Search Index to create (catalog.schema.index_name).
@@ -212,16 +205,12 @@ spec:
                           items:
                             properties:
                               embeddingModelEndpointName:
-<<<<<<< HEAD
                                 description: The name of the embedding model endpoint,
                                   used by default for both ingestion and querying.
                                 type: string
                               modelEndpointNameForQuery:
                                 description: The name of the embedding model endpoint
                                   which, if specified, is used for querying (not ingestion).
-=======
-                                description: The name of the embedding model endpoint
->>>>>>> 22d3f447638c67622a710bb969a42a932ffdb1af
                                 type: string
                               name:
                                 description: Three-level name of the Mosaic AI Vector
@@ -372,12 +361,8 @@ spec:
                           items:
                             properties:
                               embeddingModelEndpointName:
-<<<<<<< HEAD
                                 description: The name of the embedding model endpoint,
                                   used by default for both ingestion and querying.
-=======
-                                description: The name of the embedding model endpoint
->>>>>>> 22d3f447638c67622a710bb969a42a932ffdb1af
                                 type: string
                               embeddingModelEndpointNameRef:
                                 description: Reference to a ModelServing in serving
@@ -461,13 +446,10 @@ spec:
                                         type: string
                                     type: object
                                 type: object
-<<<<<<< HEAD
                               modelEndpointNameForQuery:
                                 description: The name of the embedding model endpoint
                                   which, if specified, is used for querying (not ingestion).
                                 type: string
-=======
->>>>>>> 22d3f447638c67622a710bb969a42a932ffdb1af
                               name:
                                 description: Three-level name of the Mosaic AI Vector
                                   Search Index to create (catalog.schema.index_name).
@@ -514,16 +496,12 @@ spec:
                           items:
                             properties:
                               embeddingModelEndpointName:
-<<<<<<< HEAD
                                 description: The name of the embedding model endpoint,
                                   used by default for both ingestion and querying.
                                 type: string
                               modelEndpointNameForQuery:
                                 description: The name of the embedding model endpoint
                                   which, if specified, is used for querying (not ingestion).
-=======
-                                description: The name of the embedding model endpoint
->>>>>>> 22d3f447638c67622a710bb969a42a932ffdb1af
                                 type: string
                               name:
                                 description: Three-level name of the Mosaic AI Vector
@@ -740,16 +718,12 @@ spec:
                           items:
                             properties:
                               embeddingModelEndpointName:
-<<<<<<< HEAD
                                 description: The name of the embedding model endpoint,
                                   used by default for both ingestion and querying.
                                 type: string
                               modelEndpointNameForQuery:
                                 description: The name of the embedding model endpoint
                                   which, if specified, is used for querying (not ingestion).
-=======
-                                description: The name of the embedding model endpoint
->>>>>>> 22d3f447638c67622a710bb969a42a932ffdb1af
                                 type: string
                               name:
                                 description: Three-level name of the Mosaic AI Vector
@@ -800,16 +774,12 @@ spec:
                           items:
                             properties:
                               embeddingModelEndpointName:
-<<<<<<< HEAD
                                 description: The name of the embedding model endpoint,
                                   used by default for both ingestion and querying.
                                 type: string
                               modelEndpointNameForQuery:
                                 description: The name of the embedding model endpoint
                                   which, if specified, is used for querying (not ingestion).
-=======
-                                description: The name of the embedding model endpoint
->>>>>>> 22d3f447638c67622a710bb969a42a932ffdb1af
                                 type: string
                               name:
                                 description: Three-level name of the Mosaic AI Vector

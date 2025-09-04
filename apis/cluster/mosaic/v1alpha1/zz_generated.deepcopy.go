@@ -9,7 +9,7 @@
 package v1alpha1
 
 import (
-	"github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
+	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
 	runtime "k8s.io/apimachinery/pkg/runtime"
 )
 
@@ -435,14 +435,11 @@ func (in *EmbeddingSourceColumnsInitParameters) DeepCopyInto(out *EmbeddingSourc
 		*out = new(v1.Selector)
 		(*in).DeepCopyInto(*out)
 	}
-<<<<<<< HEAD
 	if in.ModelEndpointNameForQuery != nil {
 		in, out := &in.ModelEndpointNameForQuery, &out.ModelEndpointNameForQuery
 		*out = new(string)
 		**out = **in
 	}
-=======
->>>>>>> 22d3f447638c67622a710bb969a42a932ffdb1af
 	if in.Name != nil {
 		in, out := &in.Name, &out.Name
 		*out = new(string)
@@ -508,14 +505,11 @@ func (in *EmbeddingSourceColumnsParameters) DeepCopyInto(out *EmbeddingSourceCol
 		*out = new(v1.Selector)
 		(*in).DeepCopyInto(*out)
 	}
-<<<<<<< HEAD
 	if in.ModelEndpointNameForQuery != nil {
 		in, out := &in.ModelEndpointNameForQuery, &out.ModelEndpointNameForQuery
 		*out = new(string)
 		**out = **in
 	}
-=======
->>>>>>> 22d3f447638c67622a710bb969a42a932ffdb1af
 	if in.Name != nil {
 		in, out := &in.Name, &out.Name
 		*out = new(string)

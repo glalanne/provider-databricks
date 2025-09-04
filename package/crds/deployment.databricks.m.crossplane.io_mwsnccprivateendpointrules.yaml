@@ -94,12 +94,8 @@ spec:
                   endpointService:
                     description: (AWS only) Example com.amazonaws.vpce.us-east-1.vpce-svc-123abcc1298abc123.
                       The full target AWS endpoint service name that connects to the
-<<<<<<< HEAD
                       destination resources of the private endpoint. Change forces
                       creation of a new resource.
-=======
-                      destination resources of the private endpoint.
->>>>>>> 22d3f447638c67622a710bb969a42a932ffdb1af
                     type: string
                   groupId:
                     description: (Azure only) Not used by customer-managed private
@@ -265,12 +261,8 @@ spec:
                   endpointService:
                     description: (AWS only) Example com.amazonaws.vpce.us-east-1.vpce-svc-123abcc1298abc123.
                       The full target AWS endpoint service name that connects to the
-<<<<<<< HEAD
                       destination resources of the private endpoint. Change forces
                       creation of a new resource.
-=======
-                      destination resources of the private endpoint.
->>>>>>> 22d3f447638c67622a710bb969a42a932ffdb1af
                     type: string
                   groupId:
                     description: (Azure only) Not used by customer-managed private
@@ -487,12 +479,8 @@ spec:
                   endpointService:
                     description: (AWS only) Example com.amazonaws.vpce.us-east-1.vpce-svc-123abcc1298abc123.
                       The full target AWS endpoint service name that connects to the
-<<<<<<< HEAD
                       destination resources of the private endpoint. Change forces
                       creation of a new resource.
-=======
-                      destination resources of the private endpoint.
->>>>>>> 22d3f447638c67622a710bb969a42a932ffdb1af
                     type: string
                   groupId:
                     description: (Azure only) Not used by customer-managed private

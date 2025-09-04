@@ -14,7 +14,6 @@ import (
 	v2 "github.com/crossplane/crossplane-runtime/v2/apis/common/v2"
 )
 
-<<<<<<< HEAD
 type CatalogInitParameters struct {
 	Postgres []PostgresInitParameters `json:"postgres,omitempty" tf:"postgres,omitempty"`
 
@@ -39,8 +38,6 @@ type CatalogParameters struct {
 	SourceCatalog *string `json:"sourceCatalog,omitempty" tf:"source_catalog,omitempty"`
 }
 
-=======
->>>>>>> 22d3f447638c67622a710bb969a42a932ffdb1af
 type ClusterAutoscaleInitParameters struct {
 	MaxWorkers *float64 `json:"maxWorkers,omitempty" tf:"max_workers,omitempty"`
 
@@ -745,11 +742,8 @@ type IngestionDefinitionInitParameters struct {
 	// Required. Settings specifying tables to replicate and the destination for the replicated tables.
 	Objects []ObjectsInitParameters `json:"objects,omitempty" tf:"objects,omitempty"`
 
-<<<<<<< HEAD
 	SourceConfigurations []SourceConfigurationsInitParameters `json:"sourceConfigurations,omitempty" tf:"source_configurations,omitempty"`
 
-=======
->>>>>>> 22d3f447638c67622a710bb969a42a932ffdb1af
 	SourceType *string `json:"sourceType,omitempty" tf:"source_type,omitempty"`
 
 	// Configuration settings to control the ingestion of tables. These settings are applied to all tables in the pipeline.
@@ -767,11 +761,8 @@ type IngestionDefinitionObservation struct {
 	// Required. Settings specifying tables to replicate and the destination for the replicated tables.
 	Objects []ObjectsObservation `json:"objects,omitempty" tf:"objects,omitempty"`
 
-<<<<<<< HEAD
 	SourceConfigurations []SourceConfigurationsObservation `json:"sourceConfigurations,omitempty" tf:"source_configurations,omitempty"`
 
-=======
->>>>>>> 22d3f447638c67622a710bb969a42a932ffdb1af
 	SourceType *string `json:"sourceType,omitempty" tf:"source_type,omitempty"`
 
 	// Configuration settings to control the ingestion of tables. These settings are applied to all tables in the pipeline.
@@ -793,12 +784,9 @@ type IngestionDefinitionParameters struct {
 	Objects []ObjectsParameters `json:"objects,omitempty" tf:"objects,omitempty"`
 
 	// +kubebuilder:validation:Optional
-<<<<<<< HEAD
 	SourceConfigurations []SourceConfigurationsParameters `json:"sourceConfigurations,omitempty" tf:"source_configurations,omitempty"`
 
 	// +kubebuilder:validation:Optional
-=======
->>>>>>> 22d3f447638c67622a710bb969a42a932ffdb1af
 	SourceType *string `json:"sourceType,omitempty" tf:"source_type,omitempty"`
 
 	// Configuration settings to control the ingestion of tables. These settings are applied to all tables in the pipeline.
@@ -1827,7 +1815,6 @@ type PipelineTriggerParameters struct {
 	Manual []ManualParameters `json:"manual,omitempty" tf:"manual,omitempty"`
 }
 
-<<<<<<< HEAD
 type PostgresInitParameters struct {
 	SlotConfig []SlotConfigInitParameters `json:"slotConfig,omitempty" tf:"slot_config,omitempty"`
 }
@@ -1842,8 +1829,6 @@ type PostgresParameters struct {
 	SlotConfig []SlotConfigParameters `json:"slotConfig,omitempty" tf:"slot_config,omitempty"`
 }
 
-=======
->>>>>>> 22d3f447638c67622a710bb969a42a932ffdb1af
 type QueryBasedConnectorConfigInitParameters struct {
 	CursorColumns []*string `json:"cursorColumns,omitempty" tf:"cursor_columns,omitempty"`
 
@@ -2074,7 +2059,6 @@ type SchemaTableConfigurationParameters struct {
 	SequenceBy []*string `json:"sequenceBy,omitempty" tf:"sequence_by,omitempty"`
 }
 
-<<<<<<< HEAD
 type SlotConfigInitParameters struct {
 
 	// A user-friendly name for this pipeline. The name can be used to identify pipeline jobs in the UI.
@@ -2123,8 +2107,6 @@ type SourceConfigurationsParameters struct {
 	Catalog []CatalogParameters `json:"catalog,omitempty" tf:"catalog,omitempty"`
 }
 
-=======
->>>>>>> 22d3f447638c67622a710bb969a42a932ffdb1af
 type TableConfigurationInitParameters struct {
 	ExcludeColumns []*string `json:"excludeColumns,omitempty" tf:"exclude_columns,omitempty"`
 
