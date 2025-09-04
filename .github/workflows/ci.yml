@@ -248,100 +248,100 @@ jobs:
         run: |
           ./scripts/check-examples.py package/crds examples
 
-  # publish-artifacts:
-  #   runs-on: ubuntu-24.04
-  #   permissions:
-  #     contents: read
-  #     packages: write
-  #     attestations: write
-  #     id-token: write
-  #   needs:
-  #     - detect-noop
-  #     - report-breaking-changes
-  #     - lint
-  #     - check-diff
-  #     - unit-tests
-  #     - local-deploy
-  #   if: needs.detect-noop.outputs.noop != 'true' && github.ref == 'refs/heads/main'
-  #   steps:
-  #     - name: Setup QEMU
-  #       uses: docker/setup-qemu-action@49b3bc8e6bdd4a60e6116a5414239cba5943d3cf # v3
-  #       with:
-  #         platforms: all
+  publish-artifacts:
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: read
+      packages: write
+      attestations: write
+      id-token: write
+    needs:
+      - detect-noop
+      - report-breaking-changes
+      - lint
+      - check-diff
+      - unit-tests
+      - local-deploy
+    if: needs.detect-noop.outputs.noop != 'true' && github.ref == 'refs/heads/main'
+    steps:
+      - name: Setup QEMU
+        uses: docker/setup-qemu-action@49b3bc8e6bdd4a60e6116a5414239cba5943d3cf # v3
+        with:
+          platforms: all
 
-  #     - name: Setup Docker Buildx
-  #       uses: docker/setup-buildx-action@v3
-  #       with:
-  #         version: ${{ env.DOCKER_BUILDX_VERSION }}
-  #         install: true
+      - name: Setup Docker Buildx
+        uses: docker/setup-buildx-action@v3
+        with:
+          version: ${{ env.DOCKER_BUILDX_VERSION }}
+          install: true
 
-  #     - name: Login to Upbound
-  #       uses: docker/login-action@v3
-  #       if: env.UPBOUND_MARKETPLACE_PUSH_ROBOT_USR != ''
-  #       with:
-  #         registry: xpkg.upbound.io
-  #         username: ${{ secrets.UPBOUND_MARKETPLACE_PUSH_ROBOT_USR }}
-  #         password: ${{ secrets.UPBOUND_MARKETPLACE_PUSH_ROBOT_PSW }}
+      - name: Login to Upbound
+        uses: docker/login-action@v3
+        if: env.UPBOUND_MARKETPLACE_PUSH_ROBOT_USR != ''
+        with:
+          registry: xpkg.upbound.io
+          username: ${{ secrets.UPBOUND_MARKETPLACE_PUSH_ROBOT_USR }}
+          password: ${{ secrets.UPBOUND_MARKETPLACE_PUSH_ROBOT_PSW }}
 
-  #     - name: Checkout
-  #       uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
-  #       with:
-  #         submodules: true
-  #         persist-credentials: false
+      - name: Checkout
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
+        with:
+          submodules: true
+          persist-credentials: false
           
-  #     - name: Semantic Release
-  #       uses: cycjimmy/semantic-release-action@v4
-  #       id: semantic
-  #       env:
-  #         GITHUB_TOKEN: ${{ secrets.REPO_PAT }}
+      - name: Semantic Release
+        uses: cycjimmy/semantic-release-action@v4
+        id: semantic
+        env:
+          GITHUB_TOKEN: ${{ secrets.REPO_PAT }}
 
-  #     - name: Fetch History
-  #       run: git fetch --prune
+      - name: Fetch History
+        run: git fetch --prune
 
-  #     - name: Setup Go
-  #       uses: actions/setup-go@d35c59abb061a4a6fb18e82ac0862c26744d6ab5 # v5
-  #       with:
-  #         go-version: ${{ env.GO_VERSION }}
+      - name: Setup Go
+        uses: actions/setup-go@d35c59abb061a4a6fb18e82ac0862c26744d6ab5 # v5
+        with:
+          go-version: ${{ env.GO_VERSION }}
 
-  #     - name: Find the Go Build Cache
-  #       id: go
-  #       run: echo "cache=$(make go.cachedir)" >> $GITHUB_OUTPUT
+      - name: Find the Go Build Cache
+        id: go
+        run: echo "cache=$(make go.cachedir)" >> $GITHUB_OUTPUT
 
-  #     - name: Cache the Go Build Cache
-  #       uses: actions/cache@v4
-  #       with:
-  #         path: ${{ steps.go.outputs.cache }}
-  #         key: ${{ runner.os }}-build-publish-artifacts-${{ hashFiles('**/go.sum') }}
-  #         restore-keys: ${{ runner.os }}-build-publish-artifacts-
+      - name: Cache the Go Build Cache
+        uses: actions/cache@v4
+        with:
+          path: ${{ steps.go.outputs.cache }}
+          key: ${{ runner.os }}-build-publish-artifacts-${{ hashFiles('**/go.sum') }}
+          restore-keys: ${{ runner.os }}-build-publish-artifacts-
 
-  #     - name: Cache Go Dependencies
-  #       uses: actions/cache@v4
-  #       with:
-  #         path: .work/pkg
-  #         key: ${{ runner.os }}-pkg-${{ hashFiles('**/go.sum') }}
-  #         restore-keys: ${{ runner.os }}-pkg-
+      - name: Cache Go Dependencies
+        uses: actions/cache@v4
+        with:
+          path: .work/pkg
+          key: ${{ runner.os }}-pkg-${{ hashFiles('**/go.sum') }}
+          restore-keys: ${{ runner.os }}-pkg-
 
-  #     - name: Vendor Dependencies
-  #       run: make vendor vendor.check
+      - name: Vendor Dependencies
+        run: make vendor vendor.check
 
-  #     - name: Build Artifacts
-  #       if: steps.semantic.outputs.new_release_published == 'true'
-  #       run: make -j2 build.all
-  #       env:
-  #         # We're using docker buildx, which doesn't actually load the images it
-  #         # builds by default. Specifying --load does so.
-  #         BUILD_ARGS: "--load"
+      - name: Build Artifacts
+        if: steps.semantic.outputs.new_release_published == 'true'
+        run: make -j2 XPKG_REG_ORGS="${{ env.UPBOUND_REGORG }}" XPKG_REG_ORGS_NO_PROMOTE="${{ env.UPBOUND_REGORG }}" BRANCH_NAME="main" VERSION="${{ steps.version.outputs.VERSION }}" build.all
+        env:
+          # We're using docker buildx, which doesn't actually load the images it
+          # builds by default. Specifying --load does so.
+          BUILD_ARGS: "--load"
 
-  #     - name: Upload Artifacts to GitHub
-  #       if: steps.semantic.outputs.new_release_published == 'true'
-  #       uses: actions/upload-artifact@50769540e7f4bd5e21e526ee35c689e35e0d6874 # v4
-  #       with:
-  #         name: output
-  #         path: _output/**
+      - name: Upload Artifacts to GitHub
+        if: steps.semantic.outputs.new_release_published == 'true'
+        uses: actions/upload-artifact@50769540e7f4bd5e21e526ee35c689e35e0d6874 # v4
+        with:
+          name: output
+          path: _output/**
 
-  #     - name: Publish Artifacts to Upbound
-  #       if: github.ref == 'refs/heads/main' && env.UPBOUND_MARKETPLACE_PUSH_ROBOT_USR != '' && steps.semantic.outputs.new_release_published == 'true'
-  #       run: make publish CHANNEL=main VERSION=v${{ steps.semantic.outputs.new_release_version }}
+      - name: Publish Artifacts to Upbound
+        if: github.ref == 'refs/heads/main' && env.UPBOUND_MARKETPLACE_PUSH_ROBOT_USR != '' && steps.semantic.outputs.new_release_published == 'true'
+        run: make publish CHANNEL=main VERSION=v${{ steps.semantic.outputs.new_release_version }}
   
   publish-gcr-artifacts:
     runs-on: ubuntu-24.04
