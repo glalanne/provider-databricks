@@ -193,6 +193,63 @@ resources:
             servicePrincipals/{applicationId}: (also exposed as acl_principal_id attribute of databricks_service_principal resource).
             users/{username}: (also exposed as acl_principal_id attribute of databricks_user resource).
         importStatements: []
+    databricks_account_federation_policy:
+        subCategory: ""
+        name: databricks_account_federation_policy
+        title: databricks_account_federation_policy Resource
+        examples:
+            - name: this
+              manifest: |-
+                {
+                  "oidc_policy": {
+                    "issuer": "https://myidp.example.com",
+                    "subject_claim": "sub"
+                  },
+                  "policy_id": "my-policy"
+                }
+        argumentDocs:
+            audiences: |-
+                (list of string, optional) - The allowed token audiences, as specified in the 'aud' claim of federated tokens.
+                The audience identifier is intended to represent the recipient of the token.
+                Can be any non-empty string value. As long as the audience in the token matches
+                at least one audience in the policy, the token is considered a match. If audiences
+                is unspecified, defaults to your Databricks account id
+            create_time: (string) - Creation time of the federation policy
+            description: (string, optional) - Description of the federation policy
+            issuer: (string, optional) - The required token issuer, as specified in the 'iss' claim of federated tokens
+            jwks_json: |-
+                (string, optional) - The public keys used to validate the signature of federated tokens, in JWKS format.
+                Most use cases should not need to specify this field. If jwks_uri and jwks_json
+                are both unspecified (recommended), Databricks automatically fetches the public
+                keys from your issuer’s well known endpoint. Databricks strongly recommends
+                relying on your issuer’s well known endpoint for discovering public keys
+            jwks_uri: |-
+                (string, optional) - URL of the public keys used to validate the signature of federated tokens, in
+                JWKS format. Most use cases should not need to specify this field. If jwks_uri
+                and jwks_json are both unspecified (recommended), Databricks automatically
+                fetches the public keys from your issuer’s well known endpoint. Databricks
+                strongly recommends relying on your issuer’s well known endpoint for discovering
+                public keys
+            name: |-
+                (string) - Resource name for the federation policy. Example values include
+                accounts/<account-id>/federationPolicies/my-federation-policy for Account Federation Policies, and
+                accounts/<account-id>/servicePrincipals/<service-principal-id>/federationPolicies/my-federation-policy
+                for Service Principal Federation Policies. Typically an output parameter, which does not need to be
+                specified in create or update requests. If specified in a request, must match the value in the
+                request URL
+            oidc_policy: (OidcFederationPolicy, optional)
+            policy_id: (string) - The ID of the federation policy
+            service_principal_id: (integer) - The service principal ID that this federation policy applies to. Only set for service principal federation policies
+            subject: |-
+                (string, optional) - The required token subject, as specified in the subject claim of federated tokens.
+                Must be specified for service principal federation policies. Must not be specified
+                for account federation policies
+            subject_claim: |-
+                (string, optional) - The claim that contains the subject of the token. If unspecified, the default value
+                is 'sub'
+            uid: (string) - Unique, immutable id of the federation policy
+            update_time: (string) - Last update time of the federation policy
+        importStatements: []
     databricks_account_network_policy:
         subCategory: ""
         name: databricks_account_network_policy
@@ -247,6 +304,49 @@ resources:
             region: (string, optional)
             restriction_mode: '(string, required) - The restriction mode that controls how serverless workloads can access the internet. Possible values are: FULL_ACCESS, RESTRICTED_ACCESS'
             storage_destination_type: '(string, optional) - The type of storage destination. Possible values are: AWS_S3, AZURE_STORAGE, GOOGLE_CLOUD_STORAGE'
+        importStatements: []
+    databricks_account_setting_v2 Resource:
+        subCategory: ""
+        name: databricks_account_setting_v2 Resource
+        title: databricks_account_setting_v2 Resource
+        argumentDocs:
+            access_policy_type: '(string, required) - . Possible values are: ALLOW_ALL_DOMAINS, ALLOW_APPROVED_DOMAINS, DENY_ALL_DOMAINS'
+            aibi_dashboard_embedding_access_policy: (AibiDashboardEmbeddingAccessPolicy, optional)
+            aibi_dashboard_embedding_approved_domains: (AibiDashboardEmbeddingApprovedDomains, optional)
+            approved_domains: (list of string, optional)
+            automatic_cluster_update_workspace: '(ClusterAutoRestartMessage, optional) - todo: Mark these Public after onboarded to DSL'
+            boolean_val: (BooleanMessage, optional)
+            can_toggle: (boolean, optional)
+            day_of_week: '(string, optional) - . Possible values are: FRIDAY, MONDAY, SATURDAY, SUNDAY, THURSDAY, TUESDAY, WEDNESDAY'
+            default_data_security_mode: (DefaultDataSecurityModeMessage, optional)
+            effective_aibi_dashboard_embedding_access_policy: (AibiDashboardEmbeddingAccessPolicy, optional)
+            effective_aibi_dashboard_embedding_approved_domains: (AibiDashboardEmbeddingApprovedDomains, optional)
+            effective_automatic_cluster_update_workspace: (ClusterAutoRestartMessage, optional)
+            effective_boolean_val: (BooleanMessage)
+            effective_default_data_security_mode: (DefaultDataSecurityModeMessage, optional)
+            effective_integer_val: (IntegerMessage)
+            effective_personal_compute: (PersonalComputeMessage, optional)
+            effective_restrict_workspace_admins: (RestrictWorkspaceAdminsMessage, optional)
+            effective_string_val: (StringMessage)
+            enabled: (boolean, optional)
+            enablement_details: (ClusterAutoRestartMessageEnablementDetails, optional)
+            forced_for_compliance_mode: (boolean, optional) - The feature is force enabled if compliance mode is active
+            frequency: '(string, optional) - . Possible values are: EVERY_WEEK, FIRST_AND_THIRD_OF_MONTH, FIRST_OF_MONTH, FOURTH_OF_MONTH, SECOND_AND_FOURTH_OF_MONTH, SECOND_OF_MONTH, THIRD_OF_MONTH'
+            hours: (integer, optional)
+            integer_val: (IntegerMessage, optional)
+            maintenance_window: (ClusterAutoRestartMessageMaintenanceWindow, optional)
+            minutes: (integer, optional)
+            name: (string, optional) - Name of the setting
+            personal_compute: (PersonalComputeMessage, optional)
+            restart_even_if_no_updates_available: (boolean, optional)
+            restrict_workspace_admins: (RestrictWorkspaceAdminsMessage, optional)
+            status: '(string, required) - . Possible values are: NOT_SET, SINGLE_USER, USER_ISOLATION'
+            string_val: (StringMessage, optional)
+            unavailable_for_disabled_entitlement: (boolean, optional) - The feature is unavailable if the corresponding entitlement disabled (see getShieldEntitlementEnable)
+            unavailable_for_non_enterprise_tier: (boolean, optional) - The feature is unavailable if the customer doesn't have enterprise tier
+            value: (boolean, optional)
+            week_day_based_schedule: (ClusterAutoRestartMessageMaintenanceWindowWeekDayBasedSchedule, optional)
+            window_start_time: (ClusterAutoRestartMessageMaintenanceWindowWindowStartTime, optional)
         importStatements: []
     databricks_aibi_dashboard_embedding_access_policy_setting:
         subCategory: ""
@@ -472,6 +572,10 @@ resources:
             display: (string, optional)
             display_name: (string, optional) - The display name of the alert
             double_value: (number, optional)
+            effective_run_as: |-
+                (AlertV2RunAs) - The actual identity that will be used to execute the alert.
+                This is an output-only field that shows the resolved run-as identity after applying
+                permissions and defaults
             empty_result_state: '(string, optional) - Alert state if result is empty. Possible values are: ERROR, OK, TRIGGERED, UNKNOWN'
             evaluation: (AlertV2Evaluation, optional)
             id: (string) - UUID identifying the alert
@@ -488,10 +592,17 @@ resources:
                 Should use the quartz format described here: http://www.quartz-scheduler.org/documentation/quartz-2.1.7/tutorials/tutorial-lesson-06.html
             query_text: (string, optional) - Text of the query to be run
             retrigger_seconds: (integer, optional) - Number of seconds an alert must wait after being triggered to rearm itself. After rearming, it can be triggered again. If 0 or not specified, the alert will not be triggered again
+            run_as: |-
+                (AlertV2RunAs, optional) - Specifies the identity that will be used to run the alert.
+                This field allows you to configure alerts to run as a specific user or service principal.
             run_as_user_name: |-
-                (string, optional) - The run as username or application ID of service principal.
-                On Create and Update, this field can be set to application ID of an active service principal. Setting this field requires the servicePrincipal/user role
+                (string, optional, deprecated) - The run as username or application ID of service principal.
+                On Create and Update, this field can be set to application ID of an active service principal. Setting this field requires the servicePrincipal/user role.
+                Deprecated: Use run_as field instead. This field will be removed in a future release
             schedule: (CronSchedule, optional)
+            service_principal_name: |-
+                to the application ID. Requires the servicePrincipal/user role.
+                If not specified, the alert will run as the request user
             source: (AlertV2OperandColumn, optional) - Source column from result to use to evaluate alert
             state: '(string) - Latest state of alert evaluation. Possible values are: ERROR, OK, TRIGGERED, UNKNOWN'
             string_value: (string, optional)
@@ -503,8 +614,10 @@ resources:
                 See https://docs.databricks.com/sql/language-manual/sql-ref-syntax-aux-conf-mgmt-set-timezone.html for details
             update_time: (string) - The timestamp indicating when the alert was updated
             user_email: (string, optional)
+            user_name: to the email of an active workspace user. Users can only set this to their own email.
             value: (AlertV2OperandValue, optional)
             warehouse_id: (string, optional) - ID of the SQL warehouse attached to the alert
+            workspace_id: (string, optional) - Workspace ID of the resource
         importStatements: []
     databricks_app:
         subCategory: ""
@@ -574,6 +687,92 @@ resources:
             updater: '- The email of the user that last updated the app.'
             url: '- The URL of the app once it is deployed.'
             user_api_scopes: '- (Optional) A list of api scopes granted to the user access token.'
+        importStatements: []
+    databricks_apps_settings_custom_template:
+        subCategory: ""
+        name: databricks_apps_settings_custom_template
+        title: databricks_apps_settings_custom_template Resource
+        examples:
+            - name: this
+              manifest: |-
+                {
+                  "description": "A sample custom app template",
+                  "git_provider": "github",
+                  "git_repo": "https://github.com/example/repo.git",
+                  "manifest": {
+                    "name": "my-custom-app",
+                    "version": 1
+                  },
+                  "name": "my-custom-template",
+                  "path": "path-to-template"
+                }
+            - name: api_scopes_example
+              manifest: |-
+                {
+                  "description": "A template that requests user API scopes",
+                  "git_provider": "github",
+                  "git_repo": "https://github.com/example/my-app.git",
+                  "manifest": {
+                    "description": "This app requires the SQL API scope.",
+                    "name": "my-databricks-app",
+                    "user_api_scopes": [
+                      "sql"
+                    ],
+                    "version": 1
+                  },
+                  "name": "my-api-template",
+                  "path": "templates/app"
+                }
+            - name: resources_example
+              manifest: |-
+                {
+                  "description": "Template that requires secret and SQL warehouse access",
+                  "git_provider": "github",
+                  "git_repo": "https://github.com/example/resource-app.git",
+                  "manifest": {
+                    "description": "This app requires access to a secret and SQL warehouse.",
+                    "name": "resource-consuming-app",
+                    "resource_specs": [
+                      {
+                        "description": "A secret needed by the app",
+                        "name": "my-secret",
+                        "secret_spec": {
+                          "permission": "READ"
+                        }
+                      },
+                      {
+                        "description": "Warehouse access",
+                        "name": "warehouse",
+                        "sql_warehouse_spec": {
+                          "permission": "CAN_USE"
+                        }
+                      }
+                    ],
+                    "version": 1
+                  },
+                  "name": "my-resource-template",
+                  "path": "resource-template"
+                }
+        argumentDocs:
+            creator: (string)
+            description: (string, optional) - The description of the template
+            git_provider: (string, required) - The Git provider of the template
+            git_repo: (string, required) - The Git repository URL that the template resides in
+            job_spec: (AppManifestAppResourceJobSpec, optional)
+            manifest: (AppManifest, required) - The manifest of the template. It defines fields and default values when installing the template
+            name: |-
+                (string, required) - The name of the template. It must contain only alphanumeric characters, hyphens, underscores, and whitespaces.
+                It must be unique within the workspace
+            path: (string, required) - The path to the template within the Git repository
+            permission: '(string, required) - Permissions to grant on the Job. Supported permissions are: "CAN_MANAGE", "IS_OWNER", "CAN_MANAGE_RUN", "CAN_VIEW". Possible values are: CAN_MANAGE, CAN_MANAGE_RUN, CAN_VIEW, IS_OWNER'
+            resource_specs: (list of AppManifestAppResourceSpec, optional)
+            secret_spec: (AppManifestAppResourceSecretSpec, optional)
+            securable_type: '(string, required) - . Possible values are: VOLUME'
+            serving_endpoint_spec: (AppManifestAppResourceServingEndpointSpec, optional)
+            sql_warehouse_spec: (AppManifestAppResourceSqlWarehouseSpec, optional)
+            uc_securable_spec: (AppManifestAppResourceUcSecurableSpec, optional)
+            version: (integer, required) - The manifest schema version, for now only 1 is allowed
+            workspace_id: (string, optional) - Workspace ID of the resource
         importStatements: []
     databricks_artifact_allowlist:
         subCategory: ""
@@ -823,7 +1022,7 @@ resources:
             review_sub_reason: '(string, optional) - Specified when the review was not explicitly made by a user. Possible values are: AUTO_APPROVED, BACKFILLED'
             reviewer_collaborator_alias: (string, optional) - Collaborator alias of the reviewer
             reviews: (list of CleanRoomNotebookReview) - All existing approvals or rejections
-            runner_collaborator_aliases: (list of string, optional) - collaborators that can run the notebook
+            runner_collaborator_aliases: (list of string, optional) - Aliases of collaborators that can run the notebook
             status: '(string) - Status of the asset. Possible values are: ACTIVE, PENDING, PERMISSION_DENIED'
             table: |-
                 (CleanRoomAssetTable, optional) - Table details available to all collaborators of the clean room.
@@ -854,6 +1053,7 @@ resources:
             volume_local_details: |-
                 (CleanRoomAssetVolumeLocalDetails, optional) - Local details for a volume that are only available to its owner.
                 Present if and only if asset_type is VOLUME
+            workspace_id: (string, optional) - Workspace ID of the resource
         importStatements: []
     databricks_clean_room_auto_approval_rule Resource:
         subCategory: ""
@@ -871,6 +1071,7 @@ resources:
             rule_id: (string) - A generated UUID identifying the rule
             rule_owner_collaborator_alias: (string) - The owner of the rule to whom the rule applies
             runner_collaborator_alias: (string, optional) - Collaborator alias of the runner covered by the rule
+            workspace_id: (string, optional) - Workspace ID of the resource
         importStatements: []
     databricks_clean_rooms_clean_room:
         subCategory: ""
@@ -938,7 +1139,7 @@ resources:
                 room name. For x-metastore clean rooms, it is the organization name of the metastore. It is not restricted to
                 these values and could change in the future
             egress_network_policy: (EgressNetworkPolicy, optional) - Egress network policy to apply to the central clean room workspace
-            global_metastore_id: (string, optional) - The global Unity Catalog metastore id of the collaborator. The identifier is of format cloud:region:metastore-uuid
+            global_metastore_id: (string, optional) - The global Unity Catalog metastore ID of the collaborator. The identifier is of format cloud:region:metastore-uuid
             internet_access: (EgressNetworkPolicyInternetAccessPolicy, optional) - The access policy enforced for egress traffic to the internet
             invite_recipient_email: |-
                 (string, optional) - Email of the user who is receiving the clean room "invitation". It should be empty
@@ -961,7 +1162,7 @@ resources:
             output_catalog: |-
                 (CleanRoomOutputCatalog) - Output catalog of the clean room. It is an output only field. Output catalog is manipulated
                 using the separate CreateCleanRoomOutputCatalog API
-            owner: (string, optional) - This is Databricks username of the owner of the local clean room securable for permission management
+            owner: (string, optional) - This is the Databricks username of the owner of the local clean room securable for permission management
             protocol: '(string, optional) - . Possible values are: TCP'
             region: (string, optional) - Region of the central clean room
             remote_detailed_info: |-
@@ -973,6 +1174,7 @@ resources:
             type: '(string, optional) - . Possible values are: FQDN'
             updated_at: (integer) - When the clean room was last updated, in epoch milliseconds
             workloads: (list of string, optional)
+            workspace_id: (string, optional) - Workspace ID of the resource
         importStatements: []
     databricks_cluster:
         subCategory: ""
@@ -1220,6 +1422,7 @@ resources:
             endpoint: '- (Optional) S3 endpoint, e.g. https://s3-us-west-2.amazonaws.com. Either region or endpoint needs to be set. If both are set, the endpoint is used.'
             gcp_attributes.availability: ', and will be removed soon.'
             gcp_attributes.boot_disk_size: (optional, int) Boot disk size in GB
+            gcp_attributes.first_on_demand: '- (Optional) The first first_on_demand nodes of the cluster will be placed on on-demand instances. If this value is greater than 0, the cluster driver node will be placed on an on-demand instance. If this value is greater than or equal to the current cluster size, all nodes will be placed on on-demand instances. If this value is less than the current cluster size, first_on_demand nodes will be placed on on-demand instances, and the remainder will be placed on availability instances. This value does not affect cluster size and cannot be mutated over the lifetime of a cluster.'
             gcp_attributes.google_service_account: '- (Optional, string) Google Service Account email address that the cluster uses to authenticate with Google Identity. This field is used for authentication with the GCS and BigQuery data sources.'
             gcp_attributes.local_ssd_count: (optional, int) Number of local SSD disks (each is 375GB in size) that will be attached to each node of the cluster.
             gcp_attributes.use_preemptible_executors: '- (Optional, bool) if we should use preemptible executors (GCP documentation). Warning: this field is deprecated in favor of'
@@ -1635,6 +1838,7 @@ resources:
             database_name: (string, required) - The name of the database (in a instance) associated with the catalog
             name: (string, required) - The name of the catalog in UC
             uid: (string)
+            workspace_id: (string, optional) - Workspace ID of the resource
         importStatements: []
     databricks_database_instance:
         subCategory: ""
@@ -1679,6 +1883,10 @@ resources:
                 parent instance
             creation_time: (string) - The timestamp when the instance was created
             creator: (string) - The email of the creator of the instance
+            effective_enable_pg_native_login: |-
+                (boolean) - xref AIP-129. enable_pg_native_login is owned by the client, while effective_enable_pg_native_login is owned by the server.
+                enable_pg_native_login will only be set in Create/Update response messages if and only if the user provides the field via the request.
+                effective_enable_pg_native_login on the other hand will always bet set in all response messages (Create/Update/Get/List)
             effective_enable_readable_secondaries: |-
                 (boolean) - xref AIP-129. enable_readable_secondaries is owned by the client, while effective_enable_readable_secondaries is owned by the server.
                 enable_readable_secondaries will only be set in Create/Update response messages if and only if the user provides the field via the request.
@@ -1703,6 +1911,7 @@ resources:
                 (boolean) - xref AIP-129. stopped is owned by the client, while effective_stopped is owned by the server.
                 stopped will only be set in Create/Update response messages if and only if the user provides the field via the request.
                 effective_stopped on the other hand will always bet set in all response messages (Create/Update/Get/List)
+            enable_pg_native_login: (boolean, optional) - Whether the instance has PG native password login enabled. Defaults to true
             enable_readable_secondaries: (boolean, optional) - Whether to enable secondaries to serve read-only traffic. Defaults to false
             lsn: (string, optional) - User-specified WAL LSN of the ref database instance.
             name: (string, required) - The name of the instance. This is the unique identifier for the instance
@@ -1727,6 +1936,7 @@ resources:
             state: '(string) - The current state of the instance. Possible values are: AVAILABLE, DELETING, FAILING_OVER, STARTING, STOPPED, UPDATING'
             stopped: (boolean, optional) - Whether the instance is stopped
             uid: (string) - An immutable UUID identifier for the instance
+            workspace_id: (string, optional) - Workspace ID of the resource
         importStatements: []
     databricks_database_synced_database_table:
         subCategory: ""
@@ -1888,6 +2098,7 @@ resources:
                 (string) - The provisioning state of the synced table entity in Unity Catalog. This is distinct from the
                 state of the data synchronization pipeline (i.e. the table may be in "ACTIVE" but the pipeline
                 may be in "PROVISIONING" as it runs asynchronously). Possible values are: ACTIVE, DEGRADED, DELETING, FAILED, PROVISIONING, UPDATING
+            workspace_id: (string, optional) - Workspace ID of the resource
         importStatements: []
     databricks_dbfs_file:
         subCategory: ""
@@ -2080,6 +2291,17 @@ resources:
             workspace_access: '- (Optional) This is a field to allow the principal to have access to a Databricks Workspace.'
             workspace_consume: '- (Optional) This is a field to allow the principal to have access to a Databricks Workspace as consumer, with limited access to workspace UI.  Couldn''t be used with workspace_access or databricks_sql_access.'
         importStatements: []
+    databricks_entity_tag_assignment Resource:
+        subCategory: ""
+        name: databricks_entity_tag_assignment Resource
+        title: databricks_entity_tag_assignment Resource
+        argumentDocs:
+            entity_name: (string, required) - The fully qualified name of the entity to which the tag is assigned
+            entity_type: '(string, required) - The type of the entity to which the tag is assigned. Allowed values are: catalogs, schemas, tables, columns, volumes'
+            tag_key: (string, required) - The key of the tag
+            tag_value: (string, optional) - The value of the tag
+            workspace_id: (string, optional) - Workspace ID of the resource
+        importStatements: []
     databricks_external_location:
         subCategory: ""
         name: databricks_external_location
@@ -2269,6 +2491,7 @@ resources:
             update_time: (string) - Time at which this external metadata object was last modified
             updated_by: (string) - Username of user who last modified external metadata object
             url: (string, optional) - URL associated with the external metadata object
+            workspace_id: (string, optional) - Workspace ID of the resource
         importStatements: []
     databricks_file:
         subCategory: ""
@@ -4160,6 +4383,7 @@ resources:
         argumentDocs:
             key: (string, required)
             value: (string, optional)
+            workspace_id: (string, optional) - Workspace ID of the resource
         importStatements: []
     databricks_metastore:
         subCategory: ""
@@ -4675,6 +4899,7 @@ resources:
             rate_limits.key: '- (Optional) Key field for a serving endpoint rate limit. Currently, user, user_group, service_principal, and endpoint are supported, with endpoint being the default if not specified.'
             rate_limits.principal: '- (Optional) Principal field for a user, user group, or service principal to apply rate limiting to. Accepts a user email, group name, or service principal application ID.'
             rate_limits.renewal_period: '- (Required) Renewal period field for a serving endpoint rate limit. Currently, only minute is supported.'
+            rate_limits.tokens: '- (Optional, int) Specifies how many tokens are allowed for a key within the renewal_period.'
             region: '- This is the region for the Google Cloud Vertex AI Service.'
             route_optimized: '- (Optional) A boolean enabling route optimization for the endpoint. Note: only available for custom models.'
             safety: '- the boolean flag that indicates whether the safety filter is enabled.'
@@ -5480,7 +5705,7 @@ resources:
             domain_names: ""
             enabled: '- (AWS only) Activation status. Only used by private endpoints towards an AWS S3 service. Update this field to activate/deactivate this private endpoint to allow egress access from serverless compute resources. Can only be updated after a private endpoint rule towards an AWS S3 service is successfully created.'
             endpoint_name: '- The name of the Azure private endpoint resource, e.g. "databricks-088781b3-77fa-4132-b429-1af0d91bc593-pe-3cb31234"'
-            endpoint_service: '- (AWS only) Example com.amazonaws.vpce.us-east-1.vpce-svc-123abcc1298abc123. The full target AWS endpoint service name that connects to the destination resources of the private endpoint.'
+            endpoint_service: '- (AWS only) Example com.amazonaws.vpce.us-east-1.vpce-svc-123abcc1298abc123. The full target AWS endpoint service name that connects to the destination resources of the private endpoint. Change forces creation of a new resource.'
             group_id: '- (Azure only) Not used by customer-managed private endpoint services. The sub-resource type (group ID) of the target resource. Must be one of supported resource types (i.e., blob, dfs, sqlServer , etc. Consult the Azure documentation for full list of supported resources). Note that to connect to workspace root storage (root DBFS), you need two endpoints, one for blob and one for dfs. Change forces creation of a new resource. Conflicts with domain_names.'
             network_connectivity_config_id: '- Canonical unique identifier of Network Connectivity Config in Databricks Account. Change forces creation of a new resource.'
             resource_id: '- (Azure only) The Azure resource ID of the target resource. Change forces creation of a new resource.'
@@ -5741,8 +5966,8 @@ resources:
                       "display_name": "Automation-only SP"
                     }
         argumentDocs:
-            '"ADMIN"': '- Can access the workspace and has workspace admin privileges to manage users and groups, workspace configurations, and more.'
-            '"USER"': '- Can access the workspace with basic privileges.'
+            '"ADMIN"': '- Adds principal to the workspace admins group. This gives workspace admin privileges to manage users and groups, workspace configurations, and more.'
+            '"USER"': '- Adds principal to the workspace users group. This gives basic workspace access.'
             id: '- ID of the permission assignment in form of workspace_id|principal_id.'
             permissions: '- The list of workspace permissions to assign to the principal:'
             principal_id: '- Databricks ID of the user, service principal, or group. The principal ID can be retrieved using the SCIM API, or using databricks_user, databricks_service_principal or databricks_group data sources.'
@@ -6272,6 +6497,7 @@ resources:
                 }
         argumentDocs:
             addresses: '- (Required) The list of email addresses to send notifications to.'
+            channel_id: '- (Optional) Slack channel ID for notifications.'
             config: '- (Required) The configuration of the Notification Destination. It must contain exactly one of the following blocks:'
             destination_type: '- the type of Notification Destination.'
             display_name: '- (Required) The display name of the Notification Destination.'
@@ -6280,6 +6506,7 @@ resources:
             id: '- The unique ID of the Notification Destination.'
             integration_key: '- (Required) The PagerDuty integration key.'
             microsoft_teams: '- The Microsoft Teams configuration of the Notification Destination. It must contain the following:'
+            oauth_token: '- (Optional) OAuth token for Slack authentication.'
             pagerduty: '- The PagerDuty configuration of the Notification Destination. It must contain the following:'
             password: '- (Optional) The password for basic authentication.'
             slack: '- The Slack configuration of the Notification Destination. It must contain the following:'
@@ -6358,6 +6585,7 @@ resources:
             name: (string, required) - The name of the online store. This is the unique identifier for the online store
             read_replica_count: (integer, optional) - The number of read replicas for the online store. Defaults to 0
             state: '(string) - The current state of the online store. Possible values are: AVAILABLE, DELETING, FAILING_OVER, STARTING, STOPPED, UPDATING'
+            workspace_id: (string, optional) - Workspace ID of the resource
         importStatements: []
     databricks_online_table:
         subCategory: ""
@@ -6439,8 +6667,8 @@ resources:
                 principal_id: data.databricks_group.account_level.id
                 provider: databricks.workspace
         argumentDocs:
-            '"ADMIN"': '- Can access the workspace and has workspace admin privileges to manage users and groups, workspace configurations, and more.'
-            '"USER"': '- Can access the workspace with basic privileges.'
+            '"ADMIN"': '- Adds principal to the workspace admins group. This gives workspace admin privileges to manage users and groups, workspace configurations, and more.'
+            '"USER"': '- Adds principal to the workspace users group. This gives basic workspace access.'
             id: '- ID of the permission assignment - same as principal_id.'
             permissions: '- The list of workspace permissions to assign to the principal:'
             principal_id: '- Databricks ID of the user, service principal, or group. The principal ID can be retrieved using the account-level SCIM API, or using databricks_user, databricks_service_principal or databricks_group data sources with account API (and has to be an account admin). A more sensible approach is to retrieve the list of principal_id as outputs from another Terraform stack.'
@@ -7558,7 +7786,7 @@ resources:
             except_principals: (list of string, optional) - Optional list of user or group names that should be excluded from the policy
             for_securable_type: |-
                 (string, required) - Type of securables that the policy should take effect on.
-                Only table is supported at this moment.
+                Only TABLE is supported at this moment.
                 Required on create and optional on update. Possible values are: CATALOG, CLEAN_ROOM, CONNECTION, CREDENTIAL, EXTERNAL_LOCATION, EXTERNAL_METADATA, FUNCTION, METASTORE, PIPELINE, PROVIDER, RECIPIENT, SCHEMA, SHARE, STAGING_TABLE, STORAGE_CREDENTIAL, TABLE, VOLUME
             function_name: |-
                 (string, required) - The fully qualified name of the column mask function.
@@ -7568,11 +7796,11 @@ resources:
             id: (string) - Unique identifier of the policy. This field is output only and is generated by the system
             match_columns: |-
                 (list of MatchColumn, optional) - Optional list of condition expressions used to match table columns.
-                Only valid when for_securable_type is table.
+                Only valid when for_securable_type is TABLE.
                 When specified, the policy only applies to tables whose columns satisfy all match conditions
             name: |-
-                (string, optional) - Name of the policy. Required on create and ignored on update.
-                To update the name, use the new_name field
+                (string, optional) - Name of the policy. Required on create and optional on update.
+                To rename the policy, set name to a different value on update
             on_column: |-
                 (string, required) - The alias of the column to be masked. The alias must refer to one of matched columns.
                 The values of the column is passed to the column mask function as the first argument.
@@ -7582,7 +7810,7 @@ resources:
                 Required on create and ignored on update
             on_securable_type: |-
                 (string, optional) - Type of the securable on which the policy is defined.
-                Only catalog, schema and table are supported at this moment.
+                Only CATALOG, SCHEMA and TABLE are supported at this moment.
                 Required on create and ignored on update. Possible values are: CATALOG, CLEAN_ROOM, CONNECTION, CREDENTIAL, EXTERNAL_LOCATION, EXTERNAL_METADATA, FUNCTION, METASTORE, PIPELINE, PROVIDER, RECIPIENT, SCHEMA, SHARE, STAGING_TABLE, STORAGE_CREDENTIAL, TABLE, VOLUME
             policy_type: '(string, required) - Type of the policy. Required on create and ignored on update. Possible values are: POLICY_TYPE_COLUMN_MASK, POLICY_TYPE_ROW_FILTER'
             row_filter: |-
@@ -7598,6 +7826,7 @@ resources:
                 (list of FunctionArgument, optional) - Optional list of column aliases or constant literals to be passed as additional arguments to the column mask function.
                 The type of each column should match the positional argument of the column mask function
             when_condition: (string, optional) - Optional condition when the policy should take effect
+            workspace_id: (string, optional) - Workspace ID of the resource
         importStatements: []
     databricks_provider:
         subCategory: ""
@@ -7764,6 +7993,7 @@ resources:
             latest_run_status: '(string) - The status of the last run of the workflow. Possible values are: ANOMALY_DETECTION_RUN_STATUS_CANCELED, ANOMALY_DETECTION_RUN_STATUS_FAILED, ANOMALY_DETECTION_RUN_STATUS_JOB_DELETED, ANOMALY_DETECTION_RUN_STATUS_PENDING, ANOMALY_DETECTION_RUN_STATUS_RUNNING, ANOMALY_DETECTION_RUN_STATUS_SUCCESS, ANOMALY_DETECTION_RUN_STATUS_UNKNOWN, ANOMALY_DETECTION_RUN_STATUS_WORKSPACE_MISMATCH_ERROR'
             object_id: (string, required) - The uuid of the request object. For example, schema id
             object_type: '(string, required) - The type of the monitored object. Can be one of the following: schema'
+            workspace_id: (string, optional) - Workspace ID of the resource
         importStatements: []
     databricks_query:
         subCategory: ""
@@ -7956,6 +8186,7 @@ resources:
                 (string, required) - The claim that contains the subject of the token.
                 Depending on the identity provider and the use case (U2M or M2M), this can vary:
             update_time: (string) - System-generated timestamp indicating when the policy was last updated
+            workspace_id: (string, optional) - Workspace ID of the resource
         importStatements: []
     databricks_registered_model:
         subCategory: ""
@@ -8244,6 +8475,65 @@ resources:
             repos: '- Personal Repos location of the service principal, e.g. /Repos/00000000-0000-0000-0000-000000000000.'
             workspace_access: '- (Optional) This is a field to allow the service principal to have access to a Databricks Workspace.'
             workspace_consume: '- (Optional) This is a field to allow the service principal to have access to a Databricks Workspace as consumer, with limited access to workspace UI.  Couldn''t be used with workspace_access or databricks_sql_access.'
+        importStatements: []
+    databricks_service_principal_federation_policy:
+        subCategory: ""
+        name: databricks_service_principal_federation_policy
+        title: databricks_service_principal_federation_policy Resource
+        examples:
+            - name: this
+              manifest: |-
+                {
+                  "oidc_policy": {
+                    "issuer": "https://myidp.example.com",
+                    "subject": "subject-in-token-from-myidp",
+                    "subject_claim": "sub"
+                  },
+                  "policy_id": "my-policy",
+                  "service_principal_id": 1234
+                }
+        argumentDocs:
+            audiences: |-
+                (list of string, optional) - The allowed token audiences, as specified in the 'aud' claim of federated tokens.
+                The audience identifier is intended to represent the recipient of the token.
+                Can be any non-empty string value. As long as the audience in the token matches
+                at least one audience in the policy, the token is considered a match. If audiences
+                is unspecified, defaults to your Databricks account id
+            create_time: (string) - Creation time of the federation policy
+            description: (string, optional) - Description of the federation policy
+            issuer: (string, optional) - The required token issuer, as specified in the 'iss' claim of federated tokens
+            jwks_json: |-
+                (string, optional) - The public keys used to validate the signature of federated tokens, in JWKS format.
+                Most use cases should not need to specify this field. If jwks_uri and jwks_json
+                are both unspecified (recommended), Databricks automatically fetches the public
+                keys from your issuer’s well known endpoint. Databricks strongly recommends
+                relying on your issuer’s well known endpoint for discovering public keys
+            jwks_uri: |-
+                (string, optional) - URL of the public keys used to validate the signature of federated tokens, in
+                JWKS format. Most use cases should not need to specify this field. If jwks_uri
+                and jwks_json are both unspecified (recommended), Databricks automatically
+                fetches the public keys from your issuer’s well known endpoint. Databricks
+                strongly recommends relying on your issuer’s well known endpoint for discovering
+                public keys
+            name: |-
+                (string) - Resource name for the federation policy. Example values include
+                accounts/<account-id>/federationPolicies/my-federation-policy for Account Federation Policies, and
+                accounts/<account-id>/servicePrincipals/<service-principal-id>/federationPolicies/my-federation-policy
+                for Service Principal Federation Policies. Typically an output parameter, which does not need to be
+                specified in create or update requests. If specified in a request, must match the value in the
+                request URL
+            oidc_policy: (OidcFederationPolicy, optional)
+            policy_id: (string) - The ID of the federation policy
+            service_principal_id: (integer) - The service principal ID that this federation policy applies to. Only set for service principal federation policies
+            subject: |-
+                (string, optional) - The required token subject, as specified in the subject claim of federated tokens.
+                Must be specified for service principal federation policies. Must not be specified
+                for account federation policies
+            subject_claim: |-
+                (string, optional) - The claim that contains the subject of the token. If unspecified, the default value
+                is 'sub'
+            uid: (string) - Unique, immutable id of the federation policy
+            update_time: (string) - Last update time of the federation policy
         importStatements: []
     databricks_service_principal_role:
         subCategory: ""
@@ -9156,6 +9446,18 @@ resources:
             schema: '- (Required) name of the system schema.'
             state: '- The current state of enablement for the system schema.'
         importStatements: []
+    databricks_tag_policy Resource:
+        subCategory: ""
+        name: databricks_tag_policy Resource
+        title: databricks_tag_policy Resource
+        argumentDocs:
+            description: (string, optional)
+            id: (string)
+            name: (string, required)
+            tag_key: (string, required)
+            values: (list of Value, optional)
+            workspace_id: (string, optional) - Workspace ID of the resource
+        importStatements: []
     databricks_token:
         subCategory: ""
         name: databricks_token
@@ -9394,13 +9696,14 @@ resources:
             direct_access_index_spec.embedding_vector_columns: '- (required if embedding_source_columns isn''t provided)  array of objects representing columns that contain the embedding vectors. Each entry consists of:'
             direct_access_index_spec.schema_json: '- The schema of the index in JSON format.  Check the API documentation for a list of supported data types.'
             embedding_dimension: '- Dimension of the embedding vector.'
-            embedding_model_endpoint_name: '- The name of the embedding model endpoint'
+            embedding_model_endpoint_name: '- The name of the embedding model endpoint, used by default for both ingestion and querying.'
             endpoint_name: '- (required) The name of the Mosaic AI Vector Search Endpoint that will be used for indexing the data.'
             id: '- The same as the name of the index.'
             index_type: '- (required) Mosaic AI Vector Search index type. Currently supported values are:'
             index_url: '- Index API Url to be used to perform operations on the index'
             indexed_row_count: '- Number of rows indexed'
             message: '- Message associated with the index status'
+            model_endpoint_name_for_query: '- (Optional) The name of the embedding model endpoint which, if specified, is used for querying (not ingestion).'
             name: '- (required) Three-level name of the Mosaic AI Vector Search Index to create (catalog.schema.index_name).'
             pipeline_id: '- ID of the associated Delta Live Table pipeline.'
             primary_key: '- (required) The column name that will be used as a primary key.'
@@ -9563,4 +9866,48 @@ resources:
                 linked to one policy at a time. If no policy is explicitly assigned,
                 the workspace will use 'default-policy'
             workspace_id: (integer, optional) - The workspace ID
+        importStatements: []
+    databricks_workspace_setting_v2 Resource:
+        subCategory: ""
+        name: databricks_workspace_setting_v2 Resource
+        title: databricks_workspace_setting_v2 Resource
+        argumentDocs:
+            access_policy_type: '(string, required) - . Possible values are: ALLOW_ALL_DOMAINS, ALLOW_APPROVED_DOMAINS, DENY_ALL_DOMAINS'
+            aibi_dashboard_embedding_access_policy: (AibiDashboardEmbeddingAccessPolicy, optional)
+            aibi_dashboard_embedding_approved_domains: (AibiDashboardEmbeddingApprovedDomains, optional)
+            approved_domains: (list of string, optional)
+            automatic_cluster_update_workspace: '(ClusterAutoRestartMessage, optional) - todo: Mark these Public after onboarded to DSL'
+            boolean_val: (BooleanMessage, optional)
+            can_toggle: (boolean, optional)
+            day_of_week: '(string, optional) - . Possible values are: FRIDAY, MONDAY, SATURDAY, SUNDAY, THURSDAY, TUESDAY, WEDNESDAY'
+            default_data_security_mode: (DefaultDataSecurityModeMessage, optional)
+            effective_aibi_dashboard_embedding_access_policy: (AibiDashboardEmbeddingAccessPolicy, optional)
+            effective_aibi_dashboard_embedding_approved_domains: (AibiDashboardEmbeddingApprovedDomains, optional)
+            effective_automatic_cluster_update_workspace: (ClusterAutoRestartMessage, optional)
+            effective_boolean_val: (BooleanMessage)
+            effective_default_data_security_mode: (DefaultDataSecurityModeMessage, optional)
+            effective_integer_val: (IntegerMessage)
+            effective_personal_compute: (PersonalComputeMessage, optional)
+            effective_restrict_workspace_admins: (RestrictWorkspaceAdminsMessage, optional)
+            effective_string_val: (StringMessage)
+            enabled: (boolean, optional)
+            enablement_details: (ClusterAutoRestartMessageEnablementDetails, optional)
+            forced_for_compliance_mode: (boolean, optional) - The feature is force enabled if compliance mode is active
+            frequency: '(string, optional) - . Possible values are: EVERY_WEEK, FIRST_AND_THIRD_OF_MONTH, FIRST_OF_MONTH, FOURTH_OF_MONTH, SECOND_AND_FOURTH_OF_MONTH, SECOND_OF_MONTH, THIRD_OF_MONTH'
+            hours: (integer, optional)
+            integer_val: (IntegerMessage, optional)
+            maintenance_window: (ClusterAutoRestartMessageMaintenanceWindow, optional)
+            minutes: (integer, optional)
+            name: (string, optional) - Name of the setting
+            personal_compute: (PersonalComputeMessage, optional)
+            restart_even_if_no_updates_available: (boolean, optional)
+            restrict_workspace_admins: (RestrictWorkspaceAdminsMessage, optional)
+            status: '(string, required) - . Possible values are: NOT_SET, SINGLE_USER, USER_ISOLATION'
+            string_val: (StringMessage, optional)
+            unavailable_for_disabled_entitlement: (boolean, optional) - The feature is unavailable if the corresponding entitlement disabled (see getShieldEntitlementEnable)
+            unavailable_for_non_enterprise_tier: (boolean, optional) - The feature is unavailable if the customer doesn't have enterprise tier
+            value: (boolean, optional)
+            week_day_based_schedule: (ClusterAutoRestartMessageMaintenanceWindowWeekDayBasedSchedule, optional)
+            window_start_time: (ClusterAutoRestartMessageMaintenanceWindowWindowStartTime, optional)
+            workspace_id: (string, optional) - Workspace ID of the resource
         importStatements: []

@@ -1236,6 +1236,9 @@ type RateLimitsInitParameters struct {
 
 	// Renewal period field for a serving endpoint rate limit. Currently, only minute is supported.
 	RenewalPeriod *string `json:"renewalPeriod,omitempty" tf:"renewal_period,omitempty"`
+
+	// Specifies how many tokens are allowed for a key within the renewal_period.
+	Tokens *float64 `json:"tokens,omitempty" tf:"tokens,omitempty"`
 }
 
 type RateLimitsObservation struct {
@@ -1251,6 +1254,9 @@ type RateLimitsObservation struct {
 
 	// Renewal period field for a serving endpoint rate limit. Currently, only minute is supported.
 	RenewalPeriod *string `json:"renewalPeriod,omitempty" tf:"renewal_period,omitempty"`
+
+	// Specifies how many tokens are allowed for a key within the renewal_period.
+	Tokens *float64 `json:"tokens,omitempty" tf:"tokens,omitempty"`
 }
 
 type RateLimitsParameters struct {
@@ -1270,6 +1276,10 @@ type RateLimitsParameters struct {
 	// Renewal period field for a serving endpoint rate limit. Currently, only minute is supported.
 	// +kubebuilder:validation:Optional
 	RenewalPeriod *string `json:"renewalPeriod" tf:"renewal_period,omitempty"`
+
+	// Specifies how many tokens are allowed for a key within the renewal_period.
+	// +kubebuilder:validation:Optional
+	Tokens *float64 `json:"tokens,omitempty" tf:"tokens,omitempty"`
 }
 
 type RoutesInitParameters struct {

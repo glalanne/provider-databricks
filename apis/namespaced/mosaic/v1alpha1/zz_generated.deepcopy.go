@@ -158,6 +158,11 @@ func (in *DirectAccessIndexSpecEmbeddingSourceColumnsInitParameters) DeepCopyInt
 		*out = new(string)
 		**out = **in
 	}
+	if in.ModelEndpointNameForQuery != nil {
+		in, out := &in.ModelEndpointNameForQuery, &out.ModelEndpointNameForQuery
+		*out = new(string)
+		**out = **in
+	}
 	if in.Name != nil {
 		in, out := &in.Name, &out.Name
 		*out = new(string)
@@ -183,6 +188,11 @@ func (in *DirectAccessIndexSpecEmbeddingSourceColumnsObservation) DeepCopyInto(o
 		*out = new(string)
 		**out = **in
 	}
+	if in.ModelEndpointNameForQuery != nil {
+		in, out := &in.ModelEndpointNameForQuery, &out.ModelEndpointNameForQuery
+		*out = new(string)
+		**out = **in
+	}
 	if in.Name != nil {
 		in, out := &in.Name, &out.Name
 		*out = new(string)
@@ -205,6 +215,11 @@ func (in *DirectAccessIndexSpecEmbeddingSourceColumnsParameters) DeepCopyInto(ou
 	*out = *in
 	if in.EmbeddingModelEndpointName != nil {
 		in, out := &in.EmbeddingModelEndpointName, &out.EmbeddingModelEndpointName
+		*out = new(string)
+		**out = **in
+	}
+	if in.ModelEndpointNameForQuery != nil {
+		in, out := &in.ModelEndpointNameForQuery, &out.ModelEndpointNameForQuery
 		*out = new(string)
 		**out = **in
 	}
@@ -420,6 +435,11 @@ func (in *EmbeddingSourceColumnsInitParameters) DeepCopyInto(out *EmbeddingSourc
 		*out = new(v1.NamespacedSelector)
 		(*in).DeepCopyInto(*out)
 	}
+	if in.ModelEndpointNameForQuery != nil {
+		in, out := &in.ModelEndpointNameForQuery, &out.ModelEndpointNameForQuery
+		*out = new(string)
+		**out = **in
+	}
 	if in.Name != nil {
 		in, out := &in.Name, &out.Name
 		*out = new(string)
@@ -442,6 +462,11 @@ func (in *EmbeddingSourceColumnsObservation) DeepCopyInto(out *EmbeddingSourceCo
 	*out = *in
 	if in.EmbeddingModelEndpointName != nil {
 		in, out := &in.EmbeddingModelEndpointName, &out.EmbeddingModelEndpointName
+		*out = new(string)
+		**out = **in
+	}
+	if in.ModelEndpointNameForQuery != nil {
+		in, out := &in.ModelEndpointNameForQuery, &out.ModelEndpointNameForQuery
 		*out = new(string)
 		**out = **in
 	}
@@ -479,6 +504,11 @@ func (in *EmbeddingSourceColumnsParameters) DeepCopyInto(out *EmbeddingSourceCol
 		in, out := &in.EmbeddingModelEndpointNameSelector, &out.EmbeddingModelEndpointNameSelector
 		*out = new(v1.NamespacedSelector)
 		(*in).DeepCopyInto(*out)
+	}
+	if in.ModelEndpointNameForQuery != nil {
+		in, out := &in.ModelEndpointNameForQuery, &out.ModelEndpointNameForQuery
+		*out = new(string)
+		**out = **in
 	}
 	if in.Name != nil {
 		in, out := &in.Name, &out.Name

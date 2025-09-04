@@ -82,6 +82,8 @@ spec:
                             field is omitted in the block, the server will default
                             to using UNPAUSED as a value for pause_status.
                           type: string
+                        taskRetryMode:
+                          type: string
                       type: object
                     type: array
                   controlRunState:
@@ -5163,6 +5165,8 @@ spec:
                             or not. Either PAUSED or UNPAUSED. When the pause_status
                             field is omitted in the block, the server will default
                             to using UNPAUSED as a value for pause_status.
+                          type: string
+                        taskRetryMode:
                           type: string
                       type: object
                     type: array
@@ -10303,6 +10307,8 @@ spec:
                             or not. Either PAUSED or UNPAUSED. When the pause_status
                             field is omitted in the block, the server will default
                             to using UNPAUSED as a value for pause_status.
+                          type: string
+                        taskRetryMode:
                           type: string
                       type: object
                     type: array

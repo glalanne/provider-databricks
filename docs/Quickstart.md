@@ -30,7 +30,7 @@ After installing the provider, verify the install with `kubectl get providers`.
 
 ```shell
 NAME                            INSTALLED   HEALTHY   PACKAGE                                                     AGE
-provider-databricks             True        True      xpkg.upbound.io/lalanne/provider-databricks:v0.0.7          42s
+provider-databricks             True        True      xpkg.upbound.io/lalanne/provider-databricks:v2.0.0          42s
 ```
 
 It may take up to 5 minutes to report `HEALTHY`.
@@ -88,6 +88,44 @@ apiVersion: databricks.crossplane.io/v1beta1
 metadata:
   name: default
 kind: ProviderConfig
+spec:
+  credentials:
+    source: Secret
+    secretRef:
+      namespace: crossplane-system
+      name: databricks-secret
+      key: credentials
+```
+
+Apply this configuration with `kubectl apply -f`.
+
+**Note:** the `Providerconfig` value `spec.secretRef.name` must match the `name` of the secret in `kubectl get secrets -n crossplane-system` and `spec.secretRef.key` must match the value in the `Data` section of the secret.
+
+Verify the `ProviderConfig` with `kubectl describe providerconfigs`. 
+
+```yaml
+$ kubectl describe providerconfigs
+Name:         default
+Namespace:
+API Version:  databricks.crossplane.io/v1beta1
+Kind:         ProviderConfig
+# Output truncated
+Spec:
+  Credentials:
+    Secret Ref:
+      Key:        credentials
+      Name:       databricks-secret
+      Namespace:  crossplane-system
+    Source:       Secret
+```
+## Create a ClusterProviderConfig
+Create a `ClusterProviderConfig` Kubernetes configuration file to attach the Databricks credentials to the installed `provider-databricks`.
+
+```yaml
+apiVersion: databricks.m.crossplane.io/v1beta1
+metadata:
+  name: default
+kind: ClusterProviderConfig
 spec:
   credentials:
     source: Secret
