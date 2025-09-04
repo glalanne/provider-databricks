@@ -75,14 +75,16 @@ spec:
               forProvider:
                 properties:
                   complianceSecurityProfileWorkspace:
-                    properties:
-                      complianceStandards:
-                        items:
-                          type: string
-                        type: array
-                      isEnabled:
-                        type: boolean
-                    type: object
+                    items:
+                      properties:
+                        complianceStandards:
+                          items:
+                            type: string
+                          type: array
+                        isEnabled:
+                          type: boolean
+                      type: object
+                    type: array
                   etag:
                     type: string
                   settingName:
@@ -102,14 +104,16 @@ spec:
                   autoscaler.
                 properties:
                   complianceSecurityProfileWorkspace:
-                    properties:
-                      complianceStandards:
-                        items:
-                          type: string
-                        type: array
-                      isEnabled:
-                        type: boolean
-                    type: object
+                    items:
+                      properties:
+                        complianceStandards:
+                          items:
+                            type: string
+                          type: array
+                        isEnabled:
+                          type: boolean
+                      type: object
+                    type: array
                   etag:
                     type: string
                   settingName:
@@ -214,14 +218,16 @@ spec:
               atProvider:
                 properties:
                   complianceSecurityProfileWorkspace:
-                    properties:
-                      complianceStandards:
-                        items:
-                          type: string
-                        type: array
-                      isEnabled:
-                        type: boolean
-                    type: object
+                    items:
+                      properties:
+                        complianceStandards:
+                          items:
+                            type: string
+                          type: array
+                        isEnabled:
+                          type: boolean
+                      type: object
+                    type: array
                   etag:
                     type: string
                   id:

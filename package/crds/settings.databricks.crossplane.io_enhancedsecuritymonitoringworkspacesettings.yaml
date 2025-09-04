@@ -75,10 +75,12 @@ spec:
               forProvider:
                 properties:
                   enhancedSecurityMonitoringWorkspace:
-                    properties:
-                      isEnabled:
-                        type: boolean
-                    type: object
+                    items:
+                      properties:
+                        isEnabled:
+                          type: boolean
+                      type: object
+                    type: array
                   etag:
                     type: string
                   settingName:
@@ -98,10 +100,12 @@ spec:
                   autoscaler.
                 properties:
                   enhancedSecurityMonitoringWorkspace:
-                    properties:
-                      isEnabled:
-                        type: boolean
-                    type: object
+                    items:
+                      properties:
+                        isEnabled:
+                          type: boolean
+                      type: object
+                    type: array
                   etag:
                     type: string
                   settingName:
@@ -206,10 +210,12 @@ spec:
               atProvider:
                 properties:
                   enhancedSecurityMonitoringWorkspace:
-                    properties:
-                      isEnabled:
-                        type: boolean
-                    type: object
+                    items:
+                      properties:
+                        isEnabled:
+                          type: boolean
+                      type: object
+                    type: array
                   etag:
                     type: string
                   id:

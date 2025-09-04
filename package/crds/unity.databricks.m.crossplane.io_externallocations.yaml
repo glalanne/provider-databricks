@@ -152,24 +152,29 @@ spec:
                       this external location.  Requires file_event_queue block.
                     type: boolean
                   encryptionDetails:
-                    properties:
-                      sseEncryptionDetails:
-                        description: 'a block describing server-Side Encryption properties
-                          for clients communicating with AWS S3. Consists of the following
-                          attributes:'
-                        properties:
-                          algorithm:
-                            description: Encryption algorithm value. Sets the value
-                              of the x-amz-server-side-encryption header in S3 request.
-                            type: string
-                          awsKmsKeyArn:
-                            description: Optional ARN of the SSE-KMS key used with
-                              the S3 location, when algorithm = "SSE-KMS". Sets the
-                              value of the x-amz-server-side-encryption-aws-kms-key-id
-                              header.
-                            type: string
-                        type: object
-                    type: object
+                    items:
+                      properties:
+                        sseEncryptionDetails:
+                          description: 'a block describing server-Side Encryption
+                            properties for clients communicating with AWS S3. Consists
+                            of the following attributes:'
+                          items:
+                            properties:
+                              algorithm:
+                                description: Encryption algorithm value. Sets the
+                                  value of the x-amz-server-side-encryption header
+                                  in S3 request.
+                                type: string
+                              awsKmsKeyArn:
+                                description: Optional ARN of the SSE-KMS key used
+                                  with the S3 location, when algorithm = "SSE-KMS".
+                                  Sets the value of the x-amz-server-side-encryption-aws-kms-key-id
+                                  header.
+                                type: string
+                            type: object
+                          type: array
+                      type: object
+                    type: array
                   fallback:
                     description: Indicates whether fallback mode is enabled for this
                       external location. When fallback mode is enabled (disabled by
@@ -177,65 +182,79 @@ spec:
                       if UC credentials are not sufficient.
                     type: boolean
                   fileEventQueue:
-                    properties:
-                      managedAqs:
-                        description: Configuration for managed Azure Queue Storage
-                          queue.
-                        properties:
-                          queueUrl:
-                            description: The URL of the queue.
-                            type: string
-                          resourceGroup:
-                            description: The Azure resource group.
-                            type: string
-                          subscriptionId:
-                            description: The Azure subscription ID.
-                            type: string
-                        type: object
-                      managedPubsub:
-                        description: Configuration for managed Google Cloud Pub/Sub
-                          queue.
-                        properties:
-                          subscriptionName:
-                            description: The name of the subscription.
-                            type: string
-                        type: object
-                      managedSqs:
-                        description: Configuration for managed Amazon SQS queue.
-                        properties:
-                          queueUrl:
-                            description: The URL of the queue.
-                            type: string
-                        type: object
-                      providedAqs:
-                        description: Configuration for provided Azure Storage Queue.
-                        properties:
-                          queueUrl:
-                            description: The URL of the queue.
-                            type: string
-                          resourceGroup:
-                            description: The Azure resource group.
-                            type: string
-                          subscriptionId:
-                            description: The Azure subscription ID.
-                            type: string
-                        type: object
-                      providedPubsub:
-                        description: Configuration for provided Google Cloud Pub/Sub
-                          queue.
-                        properties:
-                          subscriptionName:
-                            description: The name of the subscription.
-                            type: string
-                        type: object
-                      providedSqs:
-                        description: Configuration for provided Amazon SQS queue.
-                        properties:
-                          queueUrl:
-                            description: The URL of the queue.
-                            type: string
-                        type: object
-                    type: object
+                    items:
+                      properties:
+                        managedAqs:
+                          description: Configuration for managed Azure Queue Storage
+                            queue.
+                          items:
+                            properties:
+                              queueUrl:
+                                description: The URL of the queue.
+                                type: string
+                              resourceGroup:
+                                description: The Azure resource group.
+                                type: string
+                              subscriptionId:
+                                description: The Azure subscription ID.
+                                type: string
+                            type: object
+                          type: array
+                        managedPubsub:
+                          description: Configuration for managed Google Cloud Pub/Sub
+                            queue.
+                          items:
+                            properties:
+                              subscriptionName:
+                                description: The name of the subscription.
+                                type: string
+                            type: object
+                          type: array
+                        managedSqs:
+                          description: Configuration for managed Amazon SQS queue.
+                          items:
+                            properties:
+                              queueUrl:
+                                description: The URL of the queue.
+                                type: string
+                            type: object
+                          type: array
+                        providedAqs:
+                          description: Configuration for provided Azure Storage Queue.
+                          items:
+                            properties:
+                              queueUrl:
+                                description: The URL of the queue.
+                                type: string
+                              resourceGroup:
+                                description: The Azure resource group.
+                                type: string
+                              subscriptionId:
+                                description: The Azure subscription ID.
+                                type: string
+                            type: object
+                          type: array
+                        providedPubsub:
+                          description: Configuration for provided Google Cloud Pub/Sub
+                            queue.
+                          items:
+                            properties:
+                              subscriptionName:
+                                description: The name of the subscription.
+                                type: string
+                            type: object
+                          type: array
+                        providedSqs:
+                          description: Configuration for provided Amazon SQS queue.
+                          items:
+                            properties:
+                              queueUrl:
+                                description: The URL of the queue.
+                                type: string
+                            type: object
+                          type: array
+                      type: object
+                    type: array
                   forceDestroy:
                     description: Destroy external location regardless of its dependents.
                     type: boolean
@@ -379,24 +398,29 @@ spec:
                       this external location.  Requires file_event_queue block.
                     type: boolean
                   encryptionDetails:
-                    properties:
-                      sseEncryptionDetails:
-                        description: 'a block describing server-Side Encryption properties
-                          for clients communicating with AWS S3. Consists of the following
-                          attributes:'
-                        properties:
-                          algorithm:
-                            description: Encryption algorithm value. Sets the value
-                              of the x-amz-server-side-encryption header in S3 request.
-                            type: string
-                          awsKmsKeyArn:
-                            description: Optional ARN of the SSE-KMS key used with
-                              the S3 location, when algorithm = "SSE-KMS". Sets the
-                              value of the x-amz-server-side-encryption-aws-kms-key-id
-                              header.
-                            type: string
-                        type: object
-                    type: object
+                    items:
+                      properties:
+                        sseEncryptionDetails:
+                          description: 'a block describing server-Side Encryption
+                            properties for clients communicating with AWS S3. Consists
+                            of the following attributes:'
+                          items:
+                            properties:
+                              algorithm:
+                                description: Encryption algorithm value. Sets the
+                                  value of the x-amz-server-side-encryption header
+                                  in S3 request.
+                                type: string
+                              awsKmsKeyArn:
+                                description: Optional ARN of the SSE-KMS key used
+                                  with the S3 location, when algorithm = "SSE-KMS".
+                                  Sets the value of the x-amz-server-side-encryption-aws-kms-key-id
+                                  header.
+                                type: string
+                            type: object
+                          type: array
+                      type: object
+                    type: array
                   fallback:
                     description: Indicates whether fallback mode is enabled for this
                       external location. When fallback mode is enabled (disabled by
@@ -404,65 +428,79 @@ spec:
                       if UC credentials are not sufficient.
                     type: boolean
                   fileEventQueue:
-                    properties:
-                      managedAqs:
-                        description: Configuration for managed Azure Queue Storage
-                          queue.
-                        properties:
-                          queueUrl:
-                            description: The URL of the queue.
-                            type: string
-                          resourceGroup:
-                            description: The Azure resource group.
-                            type: string
-                          subscriptionId:
-                            description: The Azure subscription ID.
-                            type: string
-                        type: object
-                      managedPubsub:
-                        description: Configuration for managed Google Cloud Pub/Sub
-                          queue.
-                        properties:
-                          subscriptionName:
-                            description: The name of the subscription.
-                            type: string
-                        type: object
-                      managedSqs:
-                        description: Configuration for managed Amazon SQS queue.
-                        properties:
-                          queueUrl:
-                            description: The URL of the queue.
-                            type: string
-                        type: object
-                      providedAqs:
-                        description: Configuration for provided Azure Storage Queue.
-                        properties:
-                          queueUrl:
-                            description: The URL of the queue.
-                            type: string
-                          resourceGroup:
-                            description: The Azure resource group.
-                            type: string
-                          subscriptionId:
-                            description: The Azure subscription ID.
-                            type: string
-                        type: object
-                      providedPubsub:
-                        description: Configuration for provided Google Cloud Pub/Sub
-                          queue.
-                        properties:
-                          subscriptionName:
-                            description: The name of the subscription.
-                            type: string
-                        type: object
-                      providedSqs:
-                        description: Configuration for provided Amazon SQS queue.
-                        properties:
-                          queueUrl:
-                            description: The URL of the queue.
-                            type: string
-                        type: object
-                    type: object
+                    items:
+                      properties:
+                        managedAqs:
+                          description: Configuration for managed Azure Queue Storage
+                            queue.
+                          items:
+                            properties:
+                              queueUrl:
+                                description: The URL of the queue.
+                                type: string
+                              resourceGroup:
+                                description: The Azure resource group.
+                                type: string
+                              subscriptionId:
+                                description: The Azure subscription ID.
+                                type: string
+                            type: object
+                          type: array
+                        managedPubsub:
+                          description: Configuration for managed Google Cloud Pub/Sub
+                            queue.
+                          items:
+                            properties:
+                              subscriptionName:
+                                description: The name of the subscription.
+                                type: string
+                            type: object
+                          type: array
+                        managedSqs:
+                          description: Configuration for managed Amazon SQS queue.
+                          items:
+                            properties:
+                              queueUrl:
+                                description: The URL of the queue.
+                                type: string
+                            type: object
+                          type: array
+                        providedAqs:
+                          description: Configuration for provided Azure Storage Queue.
+                          items:
+                            properties:
+                              queueUrl:
+                                description: The URL of the queue.
+                                type: string
+                              resourceGroup:
+                                description: The Azure resource group.
+                                type: string
+                              subscriptionId:
+                                description: The Azure subscription ID.
+                                type: string
+                            type: object
+                          type: array
+                        providedPubsub:
+                          description: Configuration for provided Google Cloud Pub/Sub
+                            queue.
+                          items:
+                            properties:
+                              subscriptionName:
+                                description: The name of the subscription.
+                                type: string
+                            type: object
+                          type: array
+                        providedSqs:
+                          description: Configuration for provided Amazon SQS queue.
+                          items:
+                            properties:
+                              queueUrl:
+                                description: The URL of the queue.
+                                type: string
+                            type: object
+                          type: array
+                      type: object
+                    type: array
                   forceDestroy:
                     description: Destroy external location regardless of its dependents.
                     type: boolean
@@ -595,24 +633,29 @@ spec:
                       this external location.  Requires file_event_queue block.
                     type: boolean
                   encryptionDetails:
-                    properties:
-                      sseEncryptionDetails:
-                        description: 'a block describing server-Side Encryption properties
-                          for clients communicating with AWS S3. Consists of the following
-                          attributes:'
-                        properties:
-                          algorithm:
-                            description: Encryption algorithm value. Sets the value
-                              of the x-amz-server-side-encryption header in S3 request.
-                            type: string
-                          awsKmsKeyArn:
-                            description: Optional ARN of the SSE-KMS key used with
-                              the S3 location, when algorithm = "SSE-KMS". Sets the
-                              value of the x-amz-server-side-encryption-aws-kms-key-id
-                              header.
-                            type: string
-                        type: object
-                    type: object
+                    items:
+                      properties:
+                        sseEncryptionDetails:
+                          description: 'a block describing server-Side Encryption
+                            properties for clients communicating with AWS S3. Consists
+                            of the following attributes:'
+                          items:
+                            properties:
+                              algorithm:
+                                description: Encryption algorithm value. Sets the
+                                  value of the x-amz-server-side-encryption header
+                                  in S3 request.
+                                type: string
+                              awsKmsKeyArn:
+                                description: Optional ARN of the SSE-KMS key used
+                                  with the S3 location, when algorithm = "SSE-KMS".
+                                  Sets the value of the x-amz-server-side-encryption-aws-kms-key-id
+                                  header.
+                                type: string
+                            type: object
+                          type: array
+                      type: object
+                    type: array
                   fallback:
                     description: Indicates whether fallback mode is enabled for this
                       external location. When fallback mode is enabled (disabled by
@@ -620,83 +663,97 @@ spec:
                       if UC credentials are not sufficient.
                     type: boolean
                   fileEventQueue:
-                    properties:
-                      managedAqs:
-                        description: Configuration for managed Azure Queue Storage
-                          queue.
-                        properties:
-                          managedResourceId:
-                            description: (Computed) The ID of the managed resource.
-                            type: string
-                          queueUrl:
-                            description: The URL of the queue.
-                            type: string
-                          resourceGroup:
-                            description: The Azure resource group.
-                            type: string
-                          subscriptionId:
-                            description: The Azure subscription ID.
-                            type: string
-                        type: object
-                      managedPubsub:
-                        description: Configuration for managed Google Cloud Pub/Sub
-                          queue.
-                        properties:
-                          managedResourceId:
-                            description: (Computed) The ID of the managed resource.
-                            type: string
-                          subscriptionName:
-                            description: The name of the subscription.
-                            type: string
-                        type: object
-                      managedSqs:
-                        description: Configuration for managed Amazon SQS queue.
-                        properties:
-                          managedResourceId:
-                            description: (Computed) The ID of the managed resource.
-                            type: string
-                          queueUrl:
-                            description: The URL of the queue.
-                            type: string
-                        type: object
-                      providedAqs:
-                        description: Configuration for provided Azure Storage Queue.
-                        properties:
-                          managedResourceId:
-                            description: (Computed) The ID of the managed resource.
-                            type: string
-                          queueUrl:
-                            description: The URL of the queue.
-                            type: string
-                          resourceGroup:
-                            description: The Azure resource group.
-                            type: string
-                          subscriptionId:
-                            description: The Azure subscription ID.
-                            type: string
-                        type: object
-                      providedPubsub:
-                        description: Configuration for provided Google Cloud Pub/Sub
-                          queue.
-                        properties:
-                          managedResourceId:
-                            description: (Computed) The ID of the managed resource.
-                            type: string
-                          subscriptionName:
-                            description: The name of the subscription.
-                            type: string
-                        type: object
-                      providedSqs:
-                        description: Configuration for provided Amazon SQS queue.
-                        properties:
-                          managedResourceId:
-                            description: (Computed) The ID of the managed resource.
-                            type: string
-                          queueUrl:
-                            description: The URL of the queue.
-                            type: string
-                        type: object
-                    type: object
+                    items:
+                      properties:
+                        managedAqs:
+                          description: Configuration for managed Azure Queue Storage
+                            queue.
+                          items:
+                            properties:
+                              managedResourceId:
+                                description: (Computed) The ID of the managed resource.
+                                type: string
+                              queueUrl:
+                                description: The URL of the queue.
+                                type: string
+                              resourceGroup:
+                                description: The Azure resource group.
+                                type: string
+                              subscriptionId:
+                                description: The Azure subscription ID.
+                                type: string
+                            type: object
+                          type: array
+                        managedPubsub:
+                          description: Configuration for managed Google Cloud Pub/Sub
+                            queue.
+                          items:
+                            properties:
+                              managedResourceId:
+                                description: (Computed) The ID of the managed resource.
+                                type: string
+                              subscriptionName:
+                                description: The name of the subscription.
+                                type: string
+                            type: object
+                          type: array
+                        managedSqs:
+                          description: Configuration for managed Amazon SQS queue.
+                          items:
+                            properties:
+                              managedResourceId:
+                                description: (Computed) The ID of the managed resource.
+                                type: string
+                              queueUrl:
+                                description: The URL of the queue.
+                                type: string
+                            type: object
+                          type: array
+                        providedAqs:
+                          description: Configuration for provided Azure Storage Queue.
+                          items:
+                            properties:
+                              managedResourceId:
+                                description: (Computed) The ID of the managed resource.
+                                type: string
+                              queueUrl:
+                                description: The URL of the queue.
+                                type: string
+                              resourceGroup:
+                                description: The Azure resource group.
+                                type: string
+                              subscriptionId:
+                                description: The Azure subscription ID.
+                                type: string
+                            type: object
+                          type: array
+                        providedPubsub:
+                          description: Configuration for provided Google Cloud Pub/Sub
+                            queue.
+                          items:
+                            properties:
+                              managedResourceId:
+                                description: (Computed) The ID of the managed resource.
+                                type: string
+                              subscriptionName:
+                                description: The name of the subscription.
+                                type: string
+                            type: object
+                          type: array
+                        providedSqs:
+                          description: Configuration for provided Amazon SQS queue.
+                          items:
+                            properties:
+                              managedResourceId:
+                                description: (Computed) The ID of the managed resource.
+                                type: string
+                              queueUrl:
+                                description: The URL of the queue.
+                                type: string
+                            type: object
+                          type: array
+                      type: object
+                    type: array
                   forceDestroy:
                     description: Destroy external location regardless of its dependents.
                     type: boolean

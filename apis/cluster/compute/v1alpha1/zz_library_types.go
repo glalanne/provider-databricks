@@ -48,7 +48,7 @@ type LibraryInitParameters_2 struct {
 	// +kubebuilder:validation:Optional
 	ClusterIDSelector *v1.Selector `json:"clusterIdSelector,omitempty" tf:"-"`
 
-	Cran *LibraryCranInitParameters_2 `json:"cran,omitempty" tf:"cran,omitempty"`
+	Cran []LibraryCranInitParameters_2 `json:"cran,omitempty" tf:"cran,omitempty"`
 
 	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/cluster/storage/v1alpha1.DbfsFile
 	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/v2/pkg/resource.ExtractParamPath("dbfs_path",true)
@@ -74,9 +74,9 @@ type LibraryInitParameters_2 struct {
 	// +kubebuilder:validation:Optional
 	JarSelector *v1.Selector `json:"jarSelector,omitempty" tf:"-"`
 
-	Maven *LibraryMavenInitParameters_2 `json:"maven,omitempty" tf:"maven,omitempty"`
+	Maven []LibraryMavenInitParameters_2 `json:"maven,omitempty" tf:"maven,omitempty"`
 
-	Pypi *LibraryPypiInitParameters_2 `json:"pypi,omitempty" tf:"pypi,omitempty"`
+	Pypi []LibraryPypiInitParameters_2 `json:"pypi,omitempty" tf:"pypi,omitempty"`
 
 	Requirements *string `json:"requirements,omitempty" tf:"requirements,omitempty"`
 
@@ -124,7 +124,7 @@ type LibraryMavenParameters_2 struct {
 type LibraryObservation_2 struct {
 	ClusterID *string `json:"clusterId,omitempty" tf:"cluster_id,omitempty"`
 
-	Cran *LibraryCranObservation_2 `json:"cran,omitempty" tf:"cran,omitempty"`
+	Cran []LibraryCranObservation_2 `json:"cran,omitempty" tf:"cran,omitempty"`
 
 	Egg *string `json:"egg,omitempty" tf:"egg,omitempty"`
 
@@ -132,9 +132,9 @@ type LibraryObservation_2 struct {
 
 	Jar *string `json:"jar,omitempty" tf:"jar,omitempty"`
 
-	Maven *LibraryMavenObservation_2 `json:"maven,omitempty" tf:"maven,omitempty"`
+	Maven []LibraryMavenObservation_2 `json:"maven,omitempty" tf:"maven,omitempty"`
 
-	Pypi *LibraryPypiObservation_2 `json:"pypi,omitempty" tf:"pypi,omitempty"`
+	Pypi []LibraryPypiObservation_2 `json:"pypi,omitempty" tf:"pypi,omitempty"`
 
 	Requirements *string `json:"requirements,omitempty" tf:"requirements,omitempty"`
 
@@ -157,7 +157,7 @@ type LibraryParameters_2 struct {
 	ClusterIDSelector *v1.Selector `json:"clusterIdSelector,omitempty" tf:"-"`
 
 	// +kubebuilder:validation:Optional
-	Cran *LibraryCranParameters_2 `json:"cran,omitempty" tf:"cran,omitempty"`
+	Cran []LibraryCranParameters_2 `json:"cran,omitempty" tf:"cran,omitempty"`
 
 	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/cluster/storage/v1alpha1.DbfsFile
 	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/v2/pkg/resource.ExtractParamPath("dbfs_path",true)
@@ -186,10 +186,10 @@ type LibraryParameters_2 struct {
 	JarSelector *v1.Selector `json:"jarSelector,omitempty" tf:"-"`
 
 	// +kubebuilder:validation:Optional
-	Maven *LibraryMavenParameters_2 `json:"maven,omitempty" tf:"maven,omitempty"`
+	Maven []LibraryMavenParameters_2 `json:"maven,omitempty" tf:"maven,omitempty"`
 
 	// +kubebuilder:validation:Optional
-	Pypi *LibraryPypiParameters_2 `json:"pypi,omitempty" tf:"pypi,omitempty"`
+	Pypi []LibraryPypiParameters_2 `json:"pypi,omitempty" tf:"pypi,omitempty"`
 
 	// +kubebuilder:validation:Optional
 	Requirements *string `json:"requirements,omitempty" tf:"requirements,omitempty"`

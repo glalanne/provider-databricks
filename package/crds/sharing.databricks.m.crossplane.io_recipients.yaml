@@ -153,14 +153,16 @@ spec:
                     type: number
                   ipAccessList:
                     description: Recipient IP access list.
-                    properties:
-                      allowedIpAddresses:
-                        description: Allowed IP Addresses in CIDR notation. Limit
-                          of 100.
-                        items:
-                          type: string
-                        type: array
-                    type: object
+                    items:
+                      properties:
+                        allowedIpAddresses:
+                          description: Allowed IP Addresses in CIDR notation. Limit
+                            of 100.
+                          items:
+                            type: string
+                          type: array
+                      type: object
+                    type: array
                   name:
                     description: Name of recipient. Change forces creation of a new
                       resource.
@@ -172,15 +174,17 @@ spec:
                   propertiesKvpairs:
                     description: 'Recipient properties - object consisting of following
                       fields:'
-                    properties:
+                    items:
                       properties:
-                        additionalProperties:
-                          type: string
-                        description: value pairs with recipient's properties.  Properties
-                          with name starting with databricks. are reserved.
-                        type: object
-                        x-kubernetes-map-type: granular
-                    type: object
+                        properties:
+                          additionalProperties:
+                            type: string
+                          description: value pairs with recipient's properties.  Properties
+                            with name starting with databricks. are reserved.
+                          type: object
+                          x-kubernetes-map-type: granular
+                      type: object
+                    type: array
                   sharingCodeSecretRef:
                     description: The one-time sharing code provided by the data recipient.
                     properties:
@@ -309,14 +313,16 @@ spec:
                     type: number
                   ipAccessList:
                     description: Recipient IP access list.
-                    properties:
-                      allowedIpAddresses:
-                        description: Allowed IP Addresses in CIDR notation. Limit
-                          of 100.
-                        items:
-                          type: string
-                        type: array
-                    type: object
+                    items:
+                      properties:
+                        allowedIpAddresses:
+                          description: Allowed IP Addresses in CIDR notation. Limit
+                            of 100.
+                          items:
+                            type: string
+                          type: array
+                      type: object
+                    type: array
                   name:
                     description: Name of recipient. Change forces creation of a new
                       resource.
@@ -328,15 +334,17 @@ spec:
                   propertiesKvpairs:
                     description: 'Recipient properties - object consisting of following
                       fields:'
-                    properties:
+                    items:
                       properties:
-                        additionalProperties:
-                          type: string
-                        description: value pairs with recipient's properties.  Properties
-                          with name starting with databricks. are reserved.
-                        type: object
-                        x-kubernetes-map-type: granular
-                    type: object
+                        properties:
+                          additionalProperties:
+                            type: string
+                          description: value pairs with recipient's properties.  Properties
+                            with name starting with databricks. are reserved.
+                          type: object
+                          x-kubernetes-map-type: granular
+                      type: object
+                    type: array
                   sharingCodeSecretRef:
                     description: The one-time sharing code provided by the data recipient.
                     properties:
@@ -464,14 +472,16 @@ spec:
                     type: string
                   ipAccessList:
                     description: Recipient IP access list.
-                    properties:
-                      allowedIpAddresses:
-                        description: Allowed IP Addresses in CIDR notation. Limit
-                          of 100.
-                        items:
-                          type: string
-                        type: array
-                    type: object
+                    items:
+                      properties:
+                        allowedIpAddresses:
+                          description: Allowed IP Addresses in CIDR notation. Limit
+                            of 100.
+                          items:
+                            type: string
+                          type: array
+                      type: object
+                    type: array
                   metastoreId:
                     description: Unique identifier of recipient's Unity Catalog metastore.
                       This field is only present when the authentication_type is DATABRICKS.
@@ -487,15 +497,17 @@ spec:
                   propertiesKvpairs:
                     description: 'Recipient properties - object consisting of following
                       fields:'
-                    properties:
+                    items:
                       properties:
-                        additionalProperties:
-                          type: string
-                        description: value pairs with recipient's properties.  Properties
-                          with name starting with databricks. are reserved.
-                        type: object
-                        x-kubernetes-map-type: granular
-                    type: object
+                        properties:
+                          additionalProperties:
+                            type: string
+                          description: value pairs with recipient's properties.  Properties
+                            with name starting with databricks. are reserved.
+                          type: object
+                          x-kubernetes-map-type: granular
+                      type: object
+                    type: array
                   region:
                     description: Cloud region of the recipient's Unity Catalog Metstore.
                       This field is only present when the authentication_type is DATABRICKS.

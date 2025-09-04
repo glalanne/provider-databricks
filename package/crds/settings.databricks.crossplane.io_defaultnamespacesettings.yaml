@@ -78,11 +78,13 @@ spec:
                     type: string
                   namespace:
                     description: The configuration details.
-                    properties:
-                      value:
-                        description: The value for the setting.
-                        type: string
-                    type: object
+                    items:
+                      properties:
+                        value:
+                          description: The value for the setting.
+                          type: string
+                      type: object
+                    type: array
                   settingName:
                     type: string
                 type: object
@@ -103,11 +105,13 @@ spec:
                     type: string
                   namespace:
                     description: The configuration details.
-                    properties:
-                      value:
-                        description: The value for the setting.
-                        type: string
-                    type: object
+                    items:
+                      properties:
+                        value:
+                          description: The value for the setting.
+                          type: string
+                      type: object
+                    type: array
                   settingName:
                     type: string
                 type: object
@@ -214,11 +218,13 @@ spec:
                     type: string
                   namespace:
                     description: The configuration details.
-                    properties:
-                      value:
-                        description: The value for the setting.
-                        type: string
-                    type: object
+                    items:
+                      properties:
+                        value:
+                          description: The value for the setting.
+                          type: string
+                      type: object
+                    type: array
                   settingName:
                     type: string
                 type: object

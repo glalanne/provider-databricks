@@ -79,7 +79,7 @@ type HealthInitParameters struct {
 type HealthObservation struct {
 	Details *string `json:"details,omitempty" tf:"details,omitempty"`
 
-	FailureReason *FailureReasonObservation `json:"failureReason,omitempty" tf:"failure_reason,omitempty"`
+	FailureReason []FailureReasonObservation `json:"failureReason,omitempty" tf:"failure_reason,omitempty"`
 
 	Message *string `json:"message,omitempty" tf:"message,omitempty"`
 
@@ -115,7 +115,7 @@ type SQLEndpointInitParameters struct {
 	AutoStopMins *float64 `json:"autoStopMins,omitempty" tf:"auto_stop_mins,omitempty"`
 
 	// block, consisting of following fields:
-	Channel *ChannelInitParameters `json:"channel,omitempty" tf:"channel,omitempty"`
+	Channel []ChannelInitParameters `json:"channel,omitempty" tf:"channel,omitempty"`
 
 	// The size of the clusters allocated to the endpoint: "2X-Small", "X-Small", "Small", "Medium", "Large", "X-Large", "2X-Large", "3X-Large", "4X-Large".
 	ClusterSize *string `json:"clusterSize,omitempty" tf:"cluster_size,omitempty"`
@@ -144,7 +144,7 @@ type SQLEndpointInitParameters struct {
 	SpotInstancePolicy *string `json:"spotInstancePolicy,omitempty" tf:"spot_instance_policy,omitempty"`
 
 	// Databricks tags all endpoint resources with these tags.
-	Tags *TagsInitParameters `json:"tags,omitempty" tf:"tags,omitempty"`
+	Tags []TagsInitParameters `json:"tags,omitempty" tf:"tags,omitempty"`
 
 	// SQL warehouse type. See for AWS or Azure. Set to PRO or CLASSIC. If the field enable_serverless_compute has the value true either explicitly or through the default logic (see that field above for details), the default is PRO, which is required for serverless SQL warehouses. Otherwise, the default is CLASSIC.
 	WarehouseType *string `json:"warehouseType,omitempty" tf:"warehouse_type,omitempty"`
@@ -156,7 +156,7 @@ type SQLEndpointObservation struct {
 	AutoStopMins *float64 `json:"autoStopMins,omitempty" tf:"auto_stop_mins,omitempty"`
 
 	// block, consisting of following fields:
-	Channel *ChannelObservation `json:"channel,omitempty" tf:"channel,omitempty"`
+	Channel []ChannelObservation `json:"channel,omitempty" tf:"channel,omitempty"`
 
 	// The size of the clusters allocated to the endpoint: "2X-Small", "X-Small", "Small", "Medium", "Large", "X-Large", "2X-Large", "3X-Large", "4X-Large".
 	ClusterSize *string `json:"clusterSize,omitempty" tf:"cluster_size,omitempty"`
@@ -209,7 +209,7 @@ type SQLEndpointObservation struct {
 	State *string `json:"state,omitempty" tf:"state,omitempty"`
 
 	// Databricks tags all endpoint resources with these tags.
-	Tags *TagsObservation `json:"tags,omitempty" tf:"tags,omitempty"`
+	Tags []TagsObservation `json:"tags,omitempty" tf:"tags,omitempty"`
 
 	// SQL warehouse type. See for AWS or Azure. Set to PRO or CLASSIC. If the field enable_serverless_compute has the value true either explicitly or through the default logic (see that field above for details), the default is PRO, which is required for serverless SQL warehouses. Otherwise, the default is CLASSIC.
 	WarehouseType *string `json:"warehouseType,omitempty" tf:"warehouse_type,omitempty"`
@@ -223,7 +223,7 @@ type SQLEndpointParameters struct {
 
 	// block, consisting of following fields:
 	// +kubebuilder:validation:Optional
-	Channel *ChannelParameters `json:"channel,omitempty" tf:"channel,omitempty"`
+	Channel []ChannelParameters `json:"channel,omitempty" tf:"channel,omitempty"`
 
 	// The size of the clusters allocated to the endpoint: "2X-Small", "X-Small", "Small", "Medium", "Large", "X-Large", "2X-Large", "3X-Large", "4X-Large".
 	// +kubebuilder:validation:Optional
@@ -262,7 +262,7 @@ type SQLEndpointParameters struct {
 
 	// Databricks tags all endpoint resources with these tags.
 	// +kubebuilder:validation:Optional
-	Tags *TagsParameters `json:"tags,omitempty" tf:"tags,omitempty"`
+	Tags []TagsParameters `json:"tags,omitempty" tf:"tags,omitempty"`
 
 	// SQL warehouse type. See for AWS or Azure. Set to PRO or CLASSIC. If the field enable_serverless_compute has the value true either explicitly or through the default logic (see that field above for details), the default is PRO, which is required for serverless SQL warehouses. Otherwise, the default is CLASSIC.
 	// +kubebuilder:validation:Optional

@@ -17,7 +17,7 @@ type DefaultNamespaceSettingInitParameters struct {
 	Etag *string `json:"etag,omitempty" tf:"etag,omitempty"`
 
 	// The configuration details.
-	Namespace *NamespaceInitParameters `json:"namespace,omitempty" tf:"namespace,omitempty"`
+	Namespace []NamespaceInitParameters `json:"namespace,omitempty" tf:"namespace,omitempty"`
 
 	SettingName *string `json:"settingName,omitempty" tf:"setting_name,omitempty"`
 }
@@ -28,7 +28,7 @@ type DefaultNamespaceSettingObservation struct {
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
 	// The configuration details.
-	Namespace *NamespaceObservation `json:"namespace,omitempty" tf:"namespace,omitempty"`
+	Namespace []NamespaceObservation `json:"namespace,omitempty" tf:"namespace,omitempty"`
 
 	SettingName *string `json:"settingName,omitempty" tf:"setting_name,omitempty"`
 }
@@ -40,7 +40,7 @@ type DefaultNamespaceSettingParameters struct {
 
 	// The configuration details.
 	// +kubebuilder:validation:Optional
-	Namespace *NamespaceParameters `json:"namespace,omitempty" tf:"namespace,omitempty"`
+	Namespace []NamespaceParameters `json:"namespace,omitempty" tf:"namespace,omitempty"`
 
 	// +kubebuilder:validation:Optional
 	SettingName *string `json:"settingName,omitempty" tf:"setting_name,omitempty"`

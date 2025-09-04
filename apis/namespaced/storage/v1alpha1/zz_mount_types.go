@@ -294,10 +294,10 @@ type GsParameters struct {
 type MountInitParameters struct {
 
 	// to mount ADLS Gen2 using Azure Blob Filesystem (ABFS) driver
-	Abfs *AbfsInitParameters `json:"abfs,omitempty" tf:"abfs,omitempty"`
+	Abfs []AbfsInitParameters `json:"abfs,omitempty" tf:"abfs,omitempty"`
 
 	// to mount ADLS Gen1 using Azure Data Lake (ADL) driver
-	Adl *AdlInitParameters `json:"adl,omitempty" tf:"adl,omitempty"`
+	Adl []AdlInitParameters `json:"adl,omitempty" tf:"adl,omitempty"`
 
 	// Cluster to use for mounting. If no cluster is specified, a new cluster will be created and will mount the bucket for all of the clusters in this workspace. If the cluster is not running - it's going to be started, so be aware to set auto-termination rules on it.
 	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/namespaced/compute/v1alpha1.Cluster
@@ -320,7 +320,7 @@ type MountInitParameters struct {
 	ExtraConfigs map[string]*string `json:"extraConfigs,omitempty" tf:"extra_configs,omitempty"`
 
 	// to mount Google Cloud Storage
-	Gs *GsInitParameters `json:"gs,omitempty" tf:"gs,omitempty"`
+	Gs []GsInitParameters `json:"gs,omitempty" tf:"gs,omitempty"`
 
 	// Name, under which mount will be accessible in dbfs:/mnt/<MOUNT_NAME>. If not specified, provider will try to infer it from depending on the resource type:
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
@@ -329,22 +329,22 @@ type MountInitParameters struct {
 	ResourceID *string `json:"resourceId,omitempty" tf:"resource_id,omitempty"`
 
 	// to mount AWS S3
-	S3 *S3InitParameters `json:"s3,omitempty" tf:"s3,omitempty"`
+	S3 []S3InitParameters `json:"s3,omitempty" tf:"s3,omitempty"`
 
 	// the URI for accessing specific storage (s3a://...., abfss://...., gs://...., etc.)
 	URI *string `json:"uri,omitempty" tf:"uri,omitempty"`
 
 	// to mount Azure Blob Storage using Windows Azure Storage Blob (WASB) driver
-	Wasb *WasbInitParameters `json:"wasb,omitempty" tf:"wasb,omitempty"`
+	Wasb []WasbInitParameters `json:"wasb,omitempty" tf:"wasb,omitempty"`
 }
 
 type MountObservation struct {
 
 	// to mount ADLS Gen2 using Azure Blob Filesystem (ABFS) driver
-	Abfs *AbfsObservation `json:"abfs,omitempty" tf:"abfs,omitempty"`
+	Abfs []AbfsObservation `json:"abfs,omitempty" tf:"abfs,omitempty"`
 
 	// to mount ADLS Gen1 using Azure Data Lake (ADL) driver
-	Adl *AdlObservation `json:"adl,omitempty" tf:"adl,omitempty"`
+	Adl []AdlObservation `json:"adl,omitempty" tf:"adl,omitempty"`
 
 	// Cluster to use for mounting. If no cluster is specified, a new cluster will be created and will mount the bucket for all of the clusters in this workspace. If the cluster is not running - it's going to be started, so be aware to set auto-termination rules on it.
 	ClusterID *string `json:"clusterId,omitempty" tf:"cluster_id,omitempty"`
@@ -357,7 +357,7 @@ type MountObservation struct {
 	ExtraConfigs map[string]*string `json:"extraConfigs,omitempty" tf:"extra_configs,omitempty"`
 
 	// to mount Google Cloud Storage
-	Gs *GsObservation `json:"gs,omitempty" tf:"gs,omitempty"`
+	Gs []GsObservation `json:"gs,omitempty" tf:"gs,omitempty"`
 
 	// mount name
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
@@ -369,7 +369,7 @@ type MountObservation struct {
 	ResourceID *string `json:"resourceId,omitempty" tf:"resource_id,omitempty"`
 
 	// to mount AWS S3
-	S3 *S3Observation `json:"s3,omitempty" tf:"s3,omitempty"`
+	S3 []S3Observation `json:"s3,omitempty" tf:"s3,omitempty"`
 
 	// (String) HDFS-compatible url
 	Source *string `json:"source,omitempty" tf:"source,omitempty"`
@@ -378,18 +378,18 @@ type MountObservation struct {
 	URI *string `json:"uri,omitempty" tf:"uri,omitempty"`
 
 	// to mount Azure Blob Storage using Windows Azure Storage Blob (WASB) driver
-	Wasb *WasbObservation `json:"wasb,omitempty" tf:"wasb,omitempty"`
+	Wasb []WasbObservation `json:"wasb,omitempty" tf:"wasb,omitempty"`
 }
 
 type MountParameters struct {
 
 	// to mount ADLS Gen2 using Azure Blob Filesystem (ABFS) driver
 	// +kubebuilder:validation:Optional
-	Abfs *AbfsParameters `json:"abfs,omitempty" tf:"abfs,omitempty"`
+	Abfs []AbfsParameters `json:"abfs,omitempty" tf:"abfs,omitempty"`
 
 	// to mount ADLS Gen1 using Azure Data Lake (ADL) driver
 	// +kubebuilder:validation:Optional
-	Adl *AdlParameters `json:"adl,omitempty" tf:"adl,omitempty"`
+	Adl []AdlParameters `json:"adl,omitempty" tf:"adl,omitempty"`
 
 	// Cluster to use for mounting. If no cluster is specified, a new cluster will be created and will mount the bucket for all of the clusters in this workspace. If the cluster is not running - it's going to be started, so be aware to set auto-termination rules on it.
 	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/namespaced/compute/v1alpha1.Cluster
@@ -416,7 +416,7 @@ type MountParameters struct {
 
 	// to mount Google Cloud Storage
 	// +kubebuilder:validation:Optional
-	Gs *GsParameters `json:"gs,omitempty" tf:"gs,omitempty"`
+	Gs []GsParameters `json:"gs,omitempty" tf:"gs,omitempty"`
 
 	// Name, under which mount will be accessible in dbfs:/mnt/<MOUNT_NAME>. If not specified, provider will try to infer it from depending on the resource type:
 	// +kubebuilder:validation:Optional
@@ -428,7 +428,7 @@ type MountParameters struct {
 
 	// to mount AWS S3
 	// +kubebuilder:validation:Optional
-	S3 *S3Parameters `json:"s3,omitempty" tf:"s3,omitempty"`
+	S3 []S3Parameters `json:"s3,omitempty" tf:"s3,omitempty"`
 
 	// the URI for accessing specific storage (s3a://...., abfss://...., gs://...., etc.)
 	// +kubebuilder:validation:Optional
@@ -436,7 +436,7 @@ type MountParameters struct {
 
 	// to mount Azure Blob Storage using Windows Azure Storage Blob (WASB) driver
 	// +kubebuilder:validation:Optional
-	Wasb *WasbParameters `json:"wasb,omitempty" tf:"wasb,omitempty"`
+	Wasb []WasbParameters `json:"wasb,omitempty" tf:"wasb,omitempty"`
 }
 
 type S3InitParameters struct {

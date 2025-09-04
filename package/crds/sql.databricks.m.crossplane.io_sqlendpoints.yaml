@@ -65,15 +65,17 @@ spec:
                     type: number
                   channel:
                     description: 'block, consisting of following fields:'
-                    properties:
-                      dbsqlVersion:
-                        type: string
-                      name:
-                        description: 'Name of the Databricks SQL release channel.
-                          Possible values are: CHANNEL_NAME_PREVIEW and CHANNEL_NAME_CURRENT.
-                          Default is CHANNEL_NAME_CURRENT.'
-                        type: string
-                    type: object
+                    items:
+                      properties:
+                        dbsqlVersion:
+                          type: string
+                        name:
+                          description: 'Name of the Databricks SQL release channel.
+                            Possible values are: CHANNEL_NAME_PREVIEW and CHANNEL_NAME_CURRENT.
+                            Default is CHANNEL_NAME_CURRENT.'
+                          type: string
+                      type: object
+                    type: array
                   clusterSize:
                     description: 'The size of the clusters allocated to the endpoint:
                       "2X-Small", "X-Small", "Small", "Medium", "Large", "X-Large",
@@ -115,19 +117,21 @@ spec:
                   tags:
                     description: Databricks tags all endpoint resources with these
                       tags.
-                    properties:
-                      customTags:
-                        description: Databricks tags all endpoint resources with these
-                          tags.
-                        items:
-                          properties:
-                            key:
-                              type: string
-                            value:
-                              type: string
-                          type: object
-                        type: array
-                    type: object
+                    items:
+                      properties:
+                        customTags:
+                          description: Databricks tags all endpoint resources with
+                            these tags.
+                          items:
+                            properties:
+                              key:
+                                type: string
+                              value:
+                                type: string
+                            type: object
+                          type: array
+                      type: object
+                    type: array
                   warehouseType:
                     description: SQL warehouse type. See for AWS or Azure. Set to
                       PRO or CLASSIC. If the field enable_serverless_compute has the
@@ -157,15 +161,17 @@ spec:
                     type: number
                   channel:
                     description: 'block, consisting of following fields:'
-                    properties:
-                      dbsqlVersion:
-                        type: string
-                      name:
-                        description: 'Name of the Databricks SQL release channel.
-                          Possible values are: CHANNEL_NAME_PREVIEW and CHANNEL_NAME_CURRENT.
-                          Default is CHANNEL_NAME_CURRENT.'
-                        type: string
-                    type: object
+                    items:
+                      properties:
+                        dbsqlVersion:
+                          type: string
+                        name:
+                          description: 'Name of the Databricks SQL release channel.
+                            Possible values are: CHANNEL_NAME_PREVIEW and CHANNEL_NAME_CURRENT.
+                            Default is CHANNEL_NAME_CURRENT.'
+                          type: string
+                      type: object
+                    type: array
                   clusterSize:
                     description: 'The size of the clusters allocated to the endpoint:
                       "2X-Small", "X-Small", "Small", "Medium", "Large", "X-Large",
@@ -207,19 +213,21 @@ spec:
                   tags:
                     description: Databricks tags all endpoint resources with these
                       tags.
-                    properties:
-                      customTags:
-                        description: Databricks tags all endpoint resources with these
-                          tags.
-                        items:
-                          properties:
-                            key:
-                              type: string
-                            value:
-                              type: string
-                          type: object
-                        type: array
-                    type: object
+                    items:
+                      properties:
+                        customTags:
+                          description: Databricks tags all endpoint resources with
+                            these tags.
+                          items:
+                            properties:
+                              key:
+                                type: string
+                              value:
+                                type: string
+                            type: object
+                          type: array
+                      type: object
+                    type: array
                   warehouseType:
                     description: SQL warehouse type. See for AWS or Azure. Set to
                       PRO or CLASSIC. If the field enable_serverless_compute has the
@@ -308,15 +316,17 @@ spec:
                     type: number
                   channel:
                     description: 'block, consisting of following fields:'
-                    properties:
-                      dbsqlVersion:
-                        type: string
-                      name:
-                        description: 'Name of the Databricks SQL release channel.
-                          Possible values are: CHANNEL_NAME_PREVIEW and CHANNEL_NAME_CURRENT.
-                          Default is CHANNEL_NAME_CURRENT.'
-                        type: string
-                    type: object
+                    items:
+                      properties:
+                        dbsqlVersion:
+                          type: string
+                        name:
+                          description: 'Name of the Databricks SQL release channel.
+                            Possible values are: CHANNEL_NAME_PREVIEW and CHANNEL_NAME_CURRENT.
+                            Default is CHANNEL_NAME_CURRENT.'
+                          type: string
+                      type: object
+                    type: array
                   clusterSize:
                     description: 'The size of the clusters allocated to the endpoint:
                       "2X-Small", "X-Small", "Small", "Medium", "Large", "X-Large",
@@ -346,17 +356,19 @@ spec:
                         details:
                           type: string
                         failureReason:
-                          properties:
-                            code:
-                              type: string
-                            parameters:
-                              additionalProperties:
+                          items:
+                            properties:
+                              code:
                                 type: string
-                              type: object
-                              x-kubernetes-map-type: granular
-                            type:
-                              type: string
-                          type: object
+                              parameters:
+                                additionalProperties:
+                                  type: string
+                                type: object
+                                x-kubernetes-map-type: granular
+                              type:
+                                type: string
+                            type: object
+                          type: array
                         message:
                           type: string
                         status:
@@ -418,19 +430,21 @@ spec:
                   tags:
                     description: Databricks tags all endpoint resources with these
                       tags.
-                    properties:
-                      customTags:
-                        description: Databricks tags all endpoint resources with these
-                          tags.
-                        items:
-                          properties:
-                            key:
-                              type: string
-                            value:
-                              type: string
-                          type: object
-                        type: array
-                    type: object
+                    items:
+                      properties:
+                        customTags:
+                          description: Databricks tags all endpoint resources with
+                            these tags.
+                          items:
+                            properties:
+                              key:
+                                type: string
+                              value:
+                                type: string
+                            type: object
+                          type: array
+                      type: object
+                    type: array
                   warehouseType:
                     description: SQL warehouse type. See for AWS or Azure. Set to
                       PRO or CLASSIC. If the field enable_serverless_compute has the

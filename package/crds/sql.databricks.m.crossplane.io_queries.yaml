@@ -83,91 +83,102 @@ spec:
                           description: '(Block) Date-range query parameter value.
                             Consists of following attributes (Can only specify one
                             of dynamic_date_range_value or date_range_value):'
-                          properties:
-                            dateRangeValue:
-                              description: '(Block) Date-range query parameter value.
-                                Consists of following attributes (Can only specify
-                                one of dynamic_date_range_value or date_range_value):'
-                              properties:
-                                end:
-                                  description: end of the date range.
-                                  type: string
-                                start:
-                                  description: begin of the date range.
-                                  type: string
-                              type: object
-                            dynamicDateRangeValue:
-                              description: (String) Dynamic date-time range value
-                                based on current date-time.  Possible values are TODAY,
-                                YESTERDAY, THIS_WEEK, THIS_MONTH, THIS_YEAR, LAST_WEEK,
-                                LAST_MONTH, LAST_YEAR, LAST_HOUR, LAST_8_HOURS, LAST_24_HOURS,
-                                LAST_7_DAYS, LAST_14_DAYS, LAST_30_DAYS, LAST_60_DAYS,
-                                LAST_90_DAYS, LAST_12_MONTHS.
-                              type: string
-                            precision:
-                              description: Date-time precision to format the value
-                                into when the query is run.  Possible values are DAY_PRECISION,
-                                MINUTE_PRECISION, SECOND_PRECISION.  Defaults to DAY_PRECISION
-                                (YYYY-MM-DD).
-                              type: string
-                            startDayOfWeek:
-                              description: Specify what day that starts the week.
-                              type: number
-                          type: object
+                          items:
+                            properties:
+                              dateRangeValue:
+                                description: '(Block) Date-range query parameter value.
+                                  Consists of following attributes (Can only specify
+                                  one of dynamic_date_range_value or date_range_value):'
+                                items:
+                                  properties:
+                                    end:
+                                      description: end of the date range.
+                                      type: string
+                                    start:
+                                      description: begin of the date range.
+                                      type: string
+                                  type: object
+                                type: array
+                              dynamicDateRangeValue:
+                                description: (String) Dynamic date-time range value
+                                  based on current date-time.  Possible values are
+                                  TODAY, YESTERDAY, THIS_WEEK, THIS_MONTH, THIS_YEAR,
+                                  LAST_WEEK, LAST_MONTH, LAST_YEAR, LAST_HOUR, LAST_8_HOURS,
+                                  LAST_24_HOURS, LAST_7_DAYS, LAST_14_DAYS, LAST_30_DAYS,
+                                  LAST_60_DAYS, LAST_90_DAYS, LAST_12_MONTHS.
+                                type: string
+                              precision:
+                                description: Date-time precision to format the value
+                                  into when the query is run.  Possible values are
+                                  DAY_PRECISION, MINUTE_PRECISION, SECOND_PRECISION.  Defaults
+                                  to DAY_PRECISION (YYYY-MM-DD).
+                                type: string
+                              startDayOfWeek:
+                                description: Specify what day that starts the week.
+                                type: number
+                            type: object
+                          type: array
                         dateValue:
                           description: '(Block) Date query parameter value. Consists
                             of following attributes (Can only specify one of dynamic_date_value
                             or date_value):'
-                          properties:
-                            dateValue:
-                              description: '(Block) Date query parameter value. Consists
-                                of following attributes (Can only specify one of dynamic_date_value
-                                or date_value):'
-                              type: string
-                            dynamicDateValue:
-                              description: (String) Dynamic date-time value based
-                                on current date-time.  Possible values are NOW, YESTERDAY.
-                              type: string
-                            precision:
-                              description: Date-time precision to format the value
-                                into when the query is run.  Possible values are DAY_PRECISION,
-                                MINUTE_PRECISION, SECOND_PRECISION.  Defaults to DAY_PRECISION
-                                (YYYY-MM-DD).
-                              type: string
-                          type: object
+                          items:
+                            properties:
+                              dateValue:
+                                description: '(Block) Date query parameter value.
+                                  Consists of following attributes (Can only specify
+                                  one of dynamic_date_value or date_value):'
+                                type: string
+                              dynamicDateValue:
+                                description: (String) Dynamic date-time value based
+                                  on current date-time.  Possible values are NOW,
+                                  YESTERDAY.
+                                type: string
+                              precision:
+                                description: Date-time precision to format the value
+                                  into when the query is run.  Possible values are
+                                  DAY_PRECISION, MINUTE_PRECISION, SECOND_PRECISION.  Defaults
+                                  to DAY_PRECISION (YYYY-MM-DD).
+                                type: string
+                            type: object
+                          type: array
                         enumValue:
                           description: '(Block) Dropdown parameter value. Consists
                             of following attributes:'
-                          properties:
-                            enumOptions:
-                              description: (String) List of valid query parameter
-                                values, newline delimited.
-                              type: string
-                            multiValuesOptions:
-                              description: 'If specified, allows multiple values to
-                                be selected for this parameter. Consists of following
-                                attributes:'
-                              properties:
-                                prefix:
-                                  description: Character that prefixes each selected
-                                    parameter value.
-                                  type: string
-                                separator:
-                                  description: Character that separates each selected
-                                    parameter value. Defaults to a comma.
-                                  type: string
-                                suffix:
-                                  description: Character that suffixes each selected
-                                    parameter value.
-                                  type: string
-                              type: object
-                            values:
-                              description: (Array of strings) List of selected query
-                                parameter values.
-                              items:
+                          items:
+                            properties:
+                              enumOptions:
+                                description: (String) List of valid query parameter
+                                  values, newline delimited.
                                 type: string
-                              type: array
-                          type: object
+                              multiValuesOptions:
+                                description: 'If specified, allows multiple values
+                                  to be selected for this parameter. Consists of following
+                                  attributes:'
+                                items:
+                                  properties:
+                                    prefix:
+                                      description: Character that prefixes each selected
+                                        parameter value.
+                                      type: string
+                                    separator:
+                                      description: Character that separates each selected
+                                        parameter value. Defaults to a comma.
+                                      type: string
+                                    suffix:
+                                      description: Character that suffixes each selected
+                                        parameter value.
+                                      type: string
+                                  type: object
+                                type: array
+                              values:
+                                description: (Array of strings) List of selected query
+                                  parameter values.
+                                items:
+                                  type: string
+                                type: array
+                            type: object
+                          type: array
                         name:
                           description: Literal parameter marker that appears between
                             double curly braces in the query text.
@@ -175,52 +186,60 @@ spec:
                         numericValue:
                           description: '(Block) Numeric parameter value. Consists
                             of following attributes:'
-                          properties:
-                            value:
-                              description: '- actual text value.'
-                              type: number
-                          type: object
+                          items:
+                            properties:
+                              value:
+                                description: '- actual text value.'
+                                type: number
+                            type: object
+                          type: array
                         queryBackedValue:
                           description: '(Block) Query-based dropdown parameter value.
                             Consists of following attributes:'
-                          properties:
-                            multiValuesOptions:
-                              description: 'If specified, allows multiple values to
-                                be selected for this parameter. Consists of following
-                                attributes:'
-                              properties:
-                                prefix:
-                                  description: Character that prefixes each selected
-                                    parameter value.
-                                  type: string
-                                separator:
-                                  description: Character that separates each selected
-                                    parameter value. Defaults to a comma.
-                                  type: string
-                                suffix:
-                                  description: Character that suffixes each selected
-                                    parameter value.
-                                  type: string
-                              type: object
-                            queryId:
-                              description: ID of the query that provides the parameter
-                                values.
-                              type: string
-                            values:
-                              description: (Array of strings) List of selected query
-                                parameter values.
-                              items:
+                          items:
+                            properties:
+                              multiValuesOptions:
+                                description: 'If specified, allows multiple values
+                                  to be selected for this parameter. Consists of following
+                                  attributes:'
+                                items:
+                                  properties:
+                                    prefix:
+                                      description: Character that prefixes each selected
+                                        parameter value.
+                                      type: string
+                                    separator:
+                                      description: Character that separates each selected
+                                        parameter value. Defaults to a comma.
+                                      type: string
+                                    suffix:
+                                      description: Character that suffixes each selected
+                                        parameter value.
+                                      type: string
+                                  type: object
+                                type: array
+                              queryId:
+                                description: ID of the query that provides the parameter
+                                  values.
                                 type: string
-                              type: array
-                          type: object
+                              values:
+                                description: (Array of strings) List of selected query
+                                  parameter values.
+                                items:
+                                  type: string
+                                type: array
+                            type: object
+                          type: array
                         textValue:
                           description: '(Block) Text parameter value. Consists of
                             following attributes:'
-                          properties:
-                            value:
-                              description: '- actual text value.'
-                              type: string
-                          type: object
+                          items:
+                            properties:
+                              value:
+                                description: '- actual text value.'
+                                type: string
+                            type: object
+                          type: array
                         title:
                           description: Text displayed in the user-facing parameter
                             widget in the UI.
@@ -452,91 +471,102 @@ spec:
                           description: '(Block) Date-range query parameter value.
                             Consists of following attributes (Can only specify one
                             of dynamic_date_range_value or date_range_value):'
-                          properties:
-                            dateRangeValue:
-                              description: '(Block) Date-range query parameter value.
-                                Consists of following attributes (Can only specify
-                                one of dynamic_date_range_value or date_range_value):'
-                              properties:
-                                end:
-                                  description: end of the date range.
-                                  type: string
-                                start:
-                                  description: begin of the date range.
-                                  type: string
-                              type: object
-                            dynamicDateRangeValue:
-                              description: (String) Dynamic date-time range value
-                                based on current date-time.  Possible values are TODAY,
-                                YESTERDAY, THIS_WEEK, THIS_MONTH, THIS_YEAR, LAST_WEEK,
-                                LAST_MONTH, LAST_YEAR, LAST_HOUR, LAST_8_HOURS, LAST_24_HOURS,
-                                LAST_7_DAYS, LAST_14_DAYS, LAST_30_DAYS, LAST_60_DAYS,
-                                LAST_90_DAYS, LAST_12_MONTHS.
-                              type: string
-                            precision:
-                              description: Date-time precision to format the value
-                                into when the query is run.  Possible values are DAY_PRECISION,
-                                MINUTE_PRECISION, SECOND_PRECISION.  Defaults to DAY_PRECISION
-                                (YYYY-MM-DD).
-                              type: string
-                            startDayOfWeek:
-                              description: Specify what day that starts the week.
-                              type: number
-                          type: object
+                          items:
+                            properties:
+                              dateRangeValue:
+                                description: '(Block) Date-range query parameter value.
+                                  Consists of following attributes (Can only specify
+                                  one of dynamic_date_range_value or date_range_value):'
+                                items:
+                                  properties:
+                                    end:
+                                      description: end of the date range.
+                                      type: string
+                                    start:
+                                      description: begin of the date range.
+                                      type: string
+                                  type: object
+                                type: array
+                              dynamicDateRangeValue:
+                                description: (String) Dynamic date-time range value
+                                  based on current date-time.  Possible values are
+                                  TODAY, YESTERDAY, THIS_WEEK, THIS_MONTH, THIS_YEAR,
+                                  LAST_WEEK, LAST_MONTH, LAST_YEAR, LAST_HOUR, LAST_8_HOURS,
+                                  LAST_24_HOURS, LAST_7_DAYS, LAST_14_DAYS, LAST_30_DAYS,
+                                  LAST_60_DAYS, LAST_90_DAYS, LAST_12_MONTHS.
+                                type: string
+                              precision:
+                                description: Date-time precision to format the value
+                                  into when the query is run.  Possible values are
+                                  DAY_PRECISION, MINUTE_PRECISION, SECOND_PRECISION.  Defaults
+                                  to DAY_PRECISION (YYYY-MM-DD).
+                                type: string
+                              startDayOfWeek:
+                                description: Specify what day that starts the week.
+                                type: number
+                            type: object
+                          type: array
                         dateValue:
                           description: '(Block) Date query parameter value. Consists
                             of following attributes (Can only specify one of dynamic_date_value
                             or date_value):'
-                          properties:
-                            dateValue:
-                              description: '(Block) Date query parameter value. Consists
-                                of following attributes (Can only specify one of dynamic_date_value
-                                or date_value):'
-                              type: string
-                            dynamicDateValue:
-                              description: (String) Dynamic date-time value based
-                                on current date-time.  Possible values are NOW, YESTERDAY.
-                              type: string
-                            precision:
-                              description: Date-time precision to format the value
-                                into when the query is run.  Possible values are DAY_PRECISION,
-                                MINUTE_PRECISION, SECOND_PRECISION.  Defaults to DAY_PRECISION
-                                (YYYY-MM-DD).
-                              type: string
-                          type: object
+                          items:
+                            properties:
+                              dateValue:
+                                description: '(Block) Date query parameter value.
+                                  Consists of following attributes (Can only specify
+                                  one of dynamic_date_value or date_value):'
+                                type: string
+                              dynamicDateValue:
+                                description: (String) Dynamic date-time value based
+                                  on current date-time.  Possible values are NOW,
+                                  YESTERDAY.
+                                type: string
+                              precision:
+                                description: Date-time precision to format the value
+                                  into when the query is run.  Possible values are
+                                  DAY_PRECISION, MINUTE_PRECISION, SECOND_PRECISION.  Defaults
+                                  to DAY_PRECISION (YYYY-MM-DD).
+                                type: string
+                            type: object
+                          type: array
                         enumValue:
                           description: '(Block) Dropdown parameter value. Consists
                             of following attributes:'
-                          properties:
-                            enumOptions:
-                              description: (String) List of valid query parameter
-                                values, newline delimited.
-                              type: string
-                            multiValuesOptions:
-                              description: 'If specified, allows multiple values to
-                                be selected for this parameter. Consists of following
-                                attributes:'
-                              properties:
-                                prefix:
-                                  description: Character that prefixes each selected
-                                    parameter value.
-                                  type: string
-                                separator:
-                                  description: Character that separates each selected
-                                    parameter value. Defaults to a comma.
-                                  type: string
-                                suffix:
-                                  description: Character that suffixes each selected
-                                    parameter value.
-                                  type: string
-                              type: object
-                            values:
-                              description: (Array of strings) List of selected query
-                                parameter values.
-                              items:
+                          items:
+                            properties:
+                              enumOptions:
+                                description: (String) List of valid query parameter
+                                  values, newline delimited.
                                 type: string
-                              type: array
-                          type: object
+                              multiValuesOptions:
+                                description: 'If specified, allows multiple values
+                                  to be selected for this parameter. Consists of following
+                                  attributes:'
+                                items:
+                                  properties:
+                                    prefix:
+                                      description: Character that prefixes each selected
+                                        parameter value.
+                                      type: string
+                                    separator:
+                                      description: Character that separates each selected
+                                        parameter value. Defaults to a comma.
+                                      type: string
+                                    suffix:
+                                      description: Character that suffixes each selected
+                                        parameter value.
+                                      type: string
+                                  type: object
+                                type: array
+                              values:
+                                description: (Array of strings) List of selected query
+                                  parameter values.
+                                items:
+                                  type: string
+                                type: array
+                            type: object
+                          type: array
                         name:
                           description: Literal parameter marker that appears between
                             double curly braces in the query text.
@@ -544,52 +574,60 @@ spec:
                         numericValue:
                           description: '(Block) Numeric parameter value. Consists
                             of following attributes:'
-                          properties:
-                            value:
-                              description: '- actual text value.'
-                              type: number
-                          type: object
+                          items:
+                            properties:
+                              value:
+                                description: '- actual text value.'
+                                type: number
+                            type: object
+                          type: array
                         queryBackedValue:
                           description: '(Block) Query-based dropdown parameter value.
                             Consists of following attributes:'
-                          properties:
-                            multiValuesOptions:
-                              description: 'If specified, allows multiple values to
-                                be selected for this parameter. Consists of following
-                                attributes:'
-                              properties:
-                                prefix:
-                                  description: Character that prefixes each selected
-                                    parameter value.
-                                  type: string
-                                separator:
-                                  description: Character that separates each selected
-                                    parameter value. Defaults to a comma.
-                                  type: string
-                                suffix:
-                                  description: Character that suffixes each selected
-                                    parameter value.
-                                  type: string
-                              type: object
-                            queryId:
-                              description: ID of the query that provides the parameter
-                                values.
-                              type: string
-                            values:
-                              description: (Array of strings) List of selected query
-                                parameter values.
-                              items:
+                          items:
+                            properties:
+                              multiValuesOptions:
+                                description: 'If specified, allows multiple values
+                                  to be selected for this parameter. Consists of following
+                                  attributes:'
+                                items:
+                                  properties:
+                                    prefix:
+                                      description: Character that prefixes each selected
+                                        parameter value.
+                                      type: string
+                                    separator:
+                                      description: Character that separates each selected
+                                        parameter value. Defaults to a comma.
+                                      type: string
+                                    suffix:
+                                      description: Character that suffixes each selected
+                                        parameter value.
+                                      type: string
+                                  type: object
+                                type: array
+                              queryId:
+                                description: ID of the query that provides the parameter
+                                  values.
                                 type: string
-                              type: array
-                          type: object
+                              values:
+                                description: (Array of strings) List of selected query
+                                  parameter values.
+                                items:
+                                  type: string
+                                type: array
+                            type: object
+                          type: array
                         textValue:
                           description: '(Block) Text parameter value. Consists of
                             following attributes:'
-                          properties:
-                            value:
-                              description: '- actual text value.'
-                              type: string
-                          type: object
+                          items:
+                            properties:
+                              value:
+                                description: '- actual text value.'
+                                type: string
+                            type: object
+                          type: array
                         title:
                           description: Text displayed in the user-facing parameter
                             widget in the UI.
@@ -895,91 +933,102 @@ spec:
                           description: '(Block) Date-range query parameter value.
                             Consists of following attributes (Can only specify one
                             of dynamic_date_range_value or date_range_value):'
-                          properties:
-                            dateRangeValue:
-                              description: '(Block) Date-range query parameter value.
-                                Consists of following attributes (Can only specify
-                                one of dynamic_date_range_value or date_range_value):'
-                              properties:
-                                end:
-                                  description: end of the date range.
-                                  type: string
-                                start:
-                                  description: begin of the date range.
-                                  type: string
-                              type: object
-                            dynamicDateRangeValue:
-                              description: (String) Dynamic date-time range value
-                                based on current date-time.  Possible values are TODAY,
-                                YESTERDAY, THIS_WEEK, THIS_MONTH, THIS_YEAR, LAST_WEEK,
-                                LAST_MONTH, LAST_YEAR, LAST_HOUR, LAST_8_HOURS, LAST_24_HOURS,
-                                LAST_7_DAYS, LAST_14_DAYS, LAST_30_DAYS, LAST_60_DAYS,
-                                LAST_90_DAYS, LAST_12_MONTHS.
-                              type: string
-                            precision:
-                              description: Date-time precision to format the value
-                                into when the query is run.  Possible values are DAY_PRECISION,
-                                MINUTE_PRECISION, SECOND_PRECISION.  Defaults to DAY_PRECISION
-                                (YYYY-MM-DD).
-                              type: string
-                            startDayOfWeek:
-                              description: Specify what day that starts the week.
-                              type: number
-                          type: object
+                          items:
+                            properties:
+                              dateRangeValue:
+                                description: '(Block) Date-range query parameter value.
+                                  Consists of following attributes (Can only specify
+                                  one of dynamic_date_range_value or date_range_value):'
+                                items:
+                                  properties:
+                                    end:
+                                      description: end of the date range.
+                                      type: string
+                                    start:
+                                      description: begin of the date range.
+                                      type: string
+                                  type: object
+                                type: array
+                              dynamicDateRangeValue:
+                                description: (String) Dynamic date-time range value
+                                  based on current date-time.  Possible values are
+                                  TODAY, YESTERDAY, THIS_WEEK, THIS_MONTH, THIS_YEAR,
+                                  LAST_WEEK, LAST_MONTH, LAST_YEAR, LAST_HOUR, LAST_8_HOURS,
+                                  LAST_24_HOURS, LAST_7_DAYS, LAST_14_DAYS, LAST_30_DAYS,
+                                  LAST_60_DAYS, LAST_90_DAYS, LAST_12_MONTHS.
+                                type: string
+                              precision:
+                                description: Date-time precision to format the value
+                                  into when the query is run.  Possible values are
+                                  DAY_PRECISION, MINUTE_PRECISION, SECOND_PRECISION.  Defaults
+                                  to DAY_PRECISION (YYYY-MM-DD).
+                                type: string
+                              startDayOfWeek:
+                                description: Specify what day that starts the week.
+                                type: number
+                            type: object
+                          type: array
                         dateValue:
                           description: '(Block) Date query parameter value. Consists
                             of following attributes (Can only specify one of dynamic_date_value
                             or date_value):'
-                          properties:
-                            dateValue:
-                              description: '(Block) Date query parameter value. Consists
-                                of following attributes (Can only specify one of dynamic_date_value
-                                or date_value):'
-                              type: string
-                            dynamicDateValue:
-                              description: (String) Dynamic date-time value based
-                                on current date-time.  Possible values are NOW, YESTERDAY.
-                              type: string
-                            precision:
-                              description: Date-time precision to format the value
-                                into when the query is run.  Possible values are DAY_PRECISION,
-                                MINUTE_PRECISION, SECOND_PRECISION.  Defaults to DAY_PRECISION
-                                (YYYY-MM-DD).
-                              type: string
-                          type: object
+                          items:
+                            properties:
+                              dateValue:
+                                description: '(Block) Date query parameter value.
+                                  Consists of following attributes (Can only specify
+                                  one of dynamic_date_value or date_value):'
+                                type: string
+                              dynamicDateValue:
+                                description: (String) Dynamic date-time value based
+                                  on current date-time.  Possible values are NOW,
+                                  YESTERDAY.
+                                type: string
+                              precision:
+                                description: Date-time precision to format the value
+                                  into when the query is run.  Possible values are
+                                  DAY_PRECISION, MINUTE_PRECISION, SECOND_PRECISION.  Defaults
+                                  to DAY_PRECISION (YYYY-MM-DD).
+                                type: string
+                            type: object
+                          type: array
                         enumValue:
                           description: '(Block) Dropdown parameter value. Consists
                             of following attributes:'
-                          properties:
-                            enumOptions:
-                              description: (String) List of valid query parameter
-                                values, newline delimited.
-                              type: string
-                            multiValuesOptions:
-                              description: 'If specified, allows multiple values to
-                                be selected for this parameter. Consists of following
-                                attributes:'
-                              properties:
-                                prefix:
-                                  description: Character that prefixes each selected
-                                    parameter value.
-                                  type: string
-                                separator:
-                                  description: Character that separates each selected
-                                    parameter value. Defaults to a comma.
-                                  type: string
-                                suffix:
-                                  description: Character that suffixes each selected
-                                    parameter value.
-                                  type: string
-                              type: object
-                            values:
-                              description: (Array of strings) List of selected query
-                                parameter values.
-                              items:
+                          items:
+                            properties:
+                              enumOptions:
+                                description: (String) List of valid query parameter
+                                  values, newline delimited.
                                 type: string
-                              type: array
-                          type: object
+                              multiValuesOptions:
+                                description: 'If specified, allows multiple values
+                                  to be selected for this parameter. Consists of following
+                                  attributes:'
+                                items:
+                                  properties:
+                                    prefix:
+                                      description: Character that prefixes each selected
+                                        parameter value.
+                                      type: string
+                                    separator:
+                                      description: Character that separates each selected
+                                        parameter value. Defaults to a comma.
+                                      type: string
+                                    suffix:
+                                      description: Character that suffixes each selected
+                                        parameter value.
+                                      type: string
+                                  type: object
+                                type: array
+                              values:
+                                description: (Array of strings) List of selected query
+                                  parameter values.
+                                items:
+                                  type: string
+                                type: array
+                            type: object
+                          type: array
                         name:
                           description: Literal parameter marker that appears between
                             double curly braces in the query text.
@@ -987,52 +1036,60 @@ spec:
                         numericValue:
                           description: '(Block) Numeric parameter value. Consists
                             of following attributes:'
-                          properties:
-                            value:
-                              description: '- actual text value.'
-                              type: number
-                          type: object
+                          items:
+                            properties:
+                              value:
+                                description: '- actual text value.'
+                                type: number
+                            type: object
+                          type: array
                         queryBackedValue:
                           description: '(Block) Query-based dropdown parameter value.
                             Consists of following attributes:'
-                          properties:
-                            multiValuesOptions:
-                              description: 'If specified, allows multiple values to
-                                be selected for this parameter. Consists of following
-                                attributes:'
-                              properties:
-                                prefix:
-                                  description: Character that prefixes each selected
-                                    parameter value.
-                                  type: string
-                                separator:
-                                  description: Character that separates each selected
-                                    parameter value. Defaults to a comma.
-                                  type: string
-                                suffix:
-                                  description: Character that suffixes each selected
-                                    parameter value.
-                                  type: string
-                              type: object
-                            queryId:
-                              description: ID of the query that provides the parameter
-                                values.
-                              type: string
-                            values:
-                              description: (Array of strings) List of selected query
-                                parameter values.
-                              items:
+                          items:
+                            properties:
+                              multiValuesOptions:
+                                description: 'If specified, allows multiple values
+                                  to be selected for this parameter. Consists of following
+                                  attributes:'
+                                items:
+                                  properties:
+                                    prefix:
+                                      description: Character that prefixes each selected
+                                        parameter value.
+                                      type: string
+                                    separator:
+                                      description: Character that separates each selected
+                                        parameter value. Defaults to a comma.
+                                      type: string
+                                    suffix:
+                                      description: Character that suffixes each selected
+                                        parameter value.
+                                      type: string
+                                  type: object
+                                type: array
+                              queryId:
+                                description: ID of the query that provides the parameter
+                                  values.
                                 type: string
-                              type: array
-                          type: object
+                              values:
+                                description: (Array of strings) List of selected query
+                                  parameter values.
+                                items:
+                                  type: string
+                                type: array
+                            type: object
+                          type: array
                         textValue:
                           description: '(Block) Text parameter value. Consists of
                             following attributes:'
-                          properties:
-                            value:
-                              description: '- actual text value.'
-                              type: string
-                          type: object
+                          items:
+                            properties:
+                              value:
+                                description: '- actual text value.'
+                                type: string
+                            type: object
+                          type: array
                         title:
                           description: Text displayed in the user-facing parameter
                             widget in the UI.

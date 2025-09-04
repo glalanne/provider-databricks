@@ -141,12 +141,14 @@ spec:
                         type: object
                     type: object
                   cran:
-                    properties:
-                      package:
-                        type: string
-                      repo:
-                        type: string
-                    type: object
+                    items:
+                      properties:
+                        package:
+                          type: string
+                        repo:
+                          type: string
+                      type: object
+                    type: array
                   egg:
                     type: string
                   eggRef:
@@ -312,23 +314,27 @@ spec:
                         type: object
                     type: object
                   maven:
-                    properties:
-                      coordinates:
-                        type: string
-                      exclusions:
-                        items:
+                    items:
+                      properties:
+                        coordinates:
                           type: string
-                        type: array
-                      repo:
-                        type: string
-                    type: object
+                        exclusions:
+                          items:
+                            type: string
+                          type: array
+                        repo:
+                          type: string
+                      type: object
+                    type: array
                   pypi:
-                    properties:
-                      package:
-                        type: string
-                      repo:
-                        type: string
-                    type: object
+                    items:
+                      properties:
+                        package:
+                          type: string
+                        repo:
+                          type: string
+                      type: object
+                    type: array
                   requirements:
                     type: string
                   whl:
@@ -510,12 +516,14 @@ spec:
                         type: object
                     type: object
                   cran:
-                    properties:
-                      package:
-                        type: string
-                      repo:
-                        type: string
-                    type: object
+                    items:
+                      properties:
+                        package:
+                          type: string
+                        repo:
+                          type: string
+                      type: object
+                    type: array
                   egg:
                     type: string
                   eggRef:
@@ -681,23 +689,27 @@ spec:
                         type: object
                     type: object
                   maven:
-                    properties:
-                      coordinates:
-                        type: string
-                      exclusions:
-                        items:
+                    items:
+                      properties:
+                        coordinates:
                           type: string
-                        type: array
-                      repo:
-                        type: string
-                    type: object
+                        exclusions:
+                          items:
+                            type: string
+                          type: array
+                        repo:
+                          type: string
+                      type: object
+                    type: array
                   pypi:
-                    properties:
-                      package:
-                        type: string
-                      repo:
-                        type: string
-                    type: object
+                    items:
+                      properties:
+                        package:
+                          type: string
+                        repo:
+                          type: string
+                      type: object
+                    type: array
                   requirements:
                     type: string
                   whl:
@@ -849,12 +861,14 @@ spec:
                   clusterId:
                     type: string
                   cran:
-                    properties:
-                      package:
-                        type: string
-                      repo:
-                        type: string
-                    type: object
+                    items:
+                      properties:
+                        package:
+                          type: string
+                        repo:
+                          type: string
+                      type: object
+                    type: array
                   egg:
                     type: string
                   id:
@@ -862,23 +876,27 @@ spec:
                   jar:
                     type: string
                   maven:
-                    properties:
-                      coordinates:
-                        type: string
-                      exclusions:
-                        items:
+                    items:
+                      properties:
+                        coordinates:
                           type: string
-                        type: array
-                      repo:
-                        type: string
-                    type: object
+                        exclusions:
+                          items:
+                            type: string
+                          type: array
+                        repo:
+                          type: string
+                      type: object
+                    type: array
                   pypi:
-                    properties:
-                      package:
-                        type: string
-                      repo:
-                        type: string
-                    type: object
+                    items:
+                      properties:
+                        package:
+                          type: string
+                        repo:
+                          type: string
+                      type: object
+                    type: array
                   requirements:
                     type: string
                   whl:

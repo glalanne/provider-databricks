@@ -155,124 +155,154 @@ spec:
                     items:
                       properties:
                         date:
-                          properties:
-                            value:
-                              description: The default value for this parameter.
-                              type: string
-                          type: object
+                          items:
+                            properties:
+                              value:
+                                description: The default value for this parameter.
+                                type: string
+                            type: object
+                          type: array
                         dateRange:
-                          properties:
-                            range:
-                              properties:
-                                end:
-                                  type: string
-                                start:
-                                  type: string
-                              type: object
-                            value:
-                              description: The default value for this parameter.
-                              type: string
-                          type: object
+                          items:
+                            properties:
+                              range:
+                                items:
+                                  properties:
+                                    end:
+                                      type: string
+                                    start:
+                                      type: string
+                                  type: object
+                                type: array
+                              value:
+                                description: The default value for this parameter.
+                                type: string
+                            type: object
+                          type: array
                         datetime:
-                          properties:
-                            value:
-                              description: The default value for this parameter.
-                              type: string
-                          type: object
+                          items:
+                            properties:
+                              value:
+                                description: The default value for this parameter.
+                                type: string
+                            type: object
+                          type: array
                         datetimeRange:
-                          properties:
-                            range:
-                              properties:
-                                end:
-                                  type: string
-                                start:
-                                  type: string
-                              type: object
-                            value:
-                              description: The default value for this parameter.
-                              type: string
-                          type: object
+                          items:
+                            properties:
+                              range:
+                                items:
+                                  properties:
+                                    end:
+                                      type: string
+                                    start:
+                                      type: string
+                                  type: object
+                                type: array
+                              value:
+                                description: The default value for this parameter.
+                                type: string
+                            type: object
+                          type: array
                         datetimesec:
-                          properties:
-                            value:
-                              description: The default value for this parameter.
-                              type: string
-                          type: object
+                          items:
+                            properties:
+                              value:
+                                description: The default value for this parameter.
+                                type: string
+                            type: object
+                          type: array
                         datetimesecRange:
-                          properties:
-                            range:
-                              properties:
-                                end:
-                                  type: string
-                                start:
-                                  type: string
-                              type: object
-                            value:
-                              description: The default value for this parameter.
-                              type: string
-                          type: object
+                          items:
+                            properties:
+                              range:
+                                items:
+                                  properties:
+                                    end:
+                                      type: string
+                                    start:
+                                      type: string
+                                  type: object
+                                type: array
+                              value:
+                                description: The default value for this parameter.
+                                type: string
+                            type: object
+                          type: array
                         enum:
-                          properties:
-                            multiple:
-                              properties:
-                                prefix:
+                          items:
+                            properties:
+                              multiple:
+                                items:
+                                  properties:
+                                    prefix:
+                                      type: string
+                                    separator:
+                                      type: string
+                                    suffix:
+                                      type: string
+                                  type: object
+                                type: array
+                              options:
+                                items:
                                   type: string
-                                separator:
-                                  type: string
-                                suffix:
-                                  type: string
-                              type: object
-                            options:
-                              items:
+                                type: array
+                              value:
+                                description: The default value for this parameter.
                                 type: string
-                              type: array
-                            value:
-                              description: The default value for this parameter.
-                              type: string
-                            values:
-                              items:
-                                type: string
-                              type: array
-                          type: object
+                              values:
+                                items:
+                                  type: string
+                                type: array
+                            type: object
+                          type: array
                         name:
                           description: The title of this query that appears in list
                             views, widget headings, and on the query page.
                           type: string
                         number:
-                          properties:
-                            value:
-                              description: The default value for this parameter.
-                              type: number
-                          type: object
+                          items:
+                            properties:
+                              value:
+                                description: The default value for this parameter.
+                                type: number
+                            type: object
+                          type: array
                         query:
                           description: The text of the query to be run.
-                          properties:
-                            multiple:
-                              properties:
-                                prefix:
-                                  type: string
-                                separator:
-                                  type: string
-                                suffix:
-                                  type: string
-                              type: object
-                            queryId:
-                              description: the unique ID of the SQL Query.
-                              type: string
-                            value:
-                              description: The default value for this parameter.
-                              type: string
-                            values:
-                              items:
+                          items:
+                            properties:
+                              multiple:
+                                items:
+                                  properties:
+                                    prefix:
+                                      type: string
+                                    separator:
+                                      type: string
+                                    suffix:
+                                      type: string
+                                  type: object
+                                type: array
+                              queryId:
+                                description: the unique ID of the SQL Query.
                                 type: string
-                              type: array
-                          type: object
+                              value:
+                                description: The default value for this parameter.
+                                type: string
+                              values:
+                                items:
+                                  type: string
+                                type: array
+                            type: object
+                          type: array
                         text:
-                          properties:
-                            value:
-                              description: The default value for this parameter.
-                              type: string
-                          type: object
+                          items:
+                            properties:
+                              value:
+                                description: The default value for this parameter.
+                                type: string
+                            type: object
+                          type: array
                         title:
                           description: The text displayed in a parameter picking widget.
                           type: string
@@ -289,35 +319,43 @@ spec:
                     description: Run as role. Possible values are viewer, owner.
                     type: string
                   schedule:
-                    properties:
-                      continuous:
-                        properties:
-                          intervalSeconds:
-                            type: number
-                          untilDate:
-                            type: string
-                        type: object
-                      daily:
-                        properties:
-                          intervalDays:
-                            type: number
-                          timeOfDay:
-                            type: string
-                          untilDate:
-                            type: string
-                        type: object
-                      weekly:
-                        properties:
-                          dayOfWeek:
-                            type: string
-                          intervalWeeks:
-                            type: number
-                          timeOfDay:
-                            type: string
-                          untilDate:
-                            type: string
-                        type: object
-                    type: object
+                    items:
+                      properties:
+                        continuous:
+                          items:
+                            properties:
+                              intervalSeconds:
+                                type: number
+                              untilDate:
+                                type: string
+                            type: object
+                          type: array
+                        daily:
+                          items:
+                            properties:
+                              intervalDays:
+                                type: number
+                              timeOfDay:
+                                type: string
+                              untilDate:
+                                type: string
+                            type: object
+                          type: array
+                        weekly:
+                          items:
+                            properties:
+                              dayOfWeek:
+                                type: string
+                              intervalWeeks:
+                                type: number
+                              timeOfDay:
+                                type: string
+                              untilDate:
+                                type: string
+                            type: object
+                          type: array
+                      type: object
+                    type: array
                   tags:
                     items:
                       type: string
@@ -435,124 +473,154 @@ spec:
                     items:
                       properties:
                         date:
-                          properties:
-                            value:
-                              description: The default value for this parameter.
-                              type: string
-                          type: object
+                          items:
+                            properties:
+                              value:
+                                description: The default value for this parameter.
+                                type: string
+                            type: object
+                          type: array
                         dateRange:
-                          properties:
-                            range:
-                              properties:
-                                end:
-                                  type: string
-                                start:
-                                  type: string
-                              type: object
-                            value:
-                              description: The default value for this parameter.
-                              type: string
-                          type: object
+                          items:
+                            properties:
+                              range:
+                                items:
+                                  properties:
+                                    end:
+                                      type: string
+                                    start:
+                                      type: string
+                                  type: object
+                                type: array
+                              value:
+                                description: The default value for this parameter.
+                                type: string
+                            type: object
+                          type: array
                         datetime:
-                          properties:
-                            value:
-                              description: The default value for this parameter.
-                              type: string
-                          type: object
+                          items:
+                            properties:
+                              value:
+                                description: The default value for this parameter.
+                                type: string
+                            type: object
+                          type: array
                         datetimeRange:
-                          properties:
-                            range:
-                              properties:
-                                end:
-                                  type: string
-                                start:
-                                  type: string
-                              type: object
-                            value:
-                              description: The default value for this parameter.
-                              type: string
-                          type: object
+                          items:
+                            properties:
+                              range:
+                                items:
+                                  properties:
+                                    end:
+                                      type: string
+                                    start:
+                                      type: string
+                                  type: object
+                                type: array
+                              value:
+                                description: The default value for this parameter.
+                                type: string
+                            type: object
+                          type: array
                         datetimesec:
-                          properties:
-                            value:
-                              description: The default value for this parameter.
-                              type: string
-                          type: object
+                          items:
+                            properties:
+                              value:
+                                description: The default value for this parameter.
+                                type: string
+                            type: object
+                          type: array
                         datetimesecRange:
-                          properties:
-                            range:
-                              properties:
-                                end:
-                                  type: string
-                                start:
-                                  type: string
-                              type: object
-                            value:
-                              description: The default value for this parameter.
-                              type: string
-                          type: object
+                          items:
+                            properties:
+                              range:
+                                items:
+                                  properties:
+                                    end:
+                                      type: string
+                                    start:
+                                      type: string
+                                  type: object
+                                type: array
+                              value:
+                                description: The default value for this parameter.
+                                type: string
+                            type: object
+                          type: array
                         enum:
-                          properties:
-                            multiple:
-                              properties:
-                                prefix:
+                          items:
+                            properties:
+                              multiple:
+                                items:
+                                  properties:
+                                    prefix:
+                                      type: string
+                                    separator:
+                                      type: string
+                                    suffix:
+                                      type: string
+                                  type: object
+                                type: array
+                              options:
+                                items:
                                   type: string
-                                separator:
-                                  type: string
-                                suffix:
-                                  type: string
-                              type: object
-                            options:
-                              items:
+                                type: array
+                              value:
+                                description: The default value for this parameter.
                                 type: string
-                              type: array
-                            value:
-                              description: The default value for this parameter.
-                              type: string
-                            values:
-                              items:
-                                type: string
-                              type: array
-                          type: object
+                              values:
+                                items:
+                                  type: string
+                                type: array
+                            type: object
+                          type: array
                         name:
                           description: The title of this query that appears in list
                             views, widget headings, and on the query page.
                           type: string
                         number:
-                          properties:
-                            value:
-                              description: The default value for this parameter.
-                              type: number
-                          type: object
+                          items:
+                            properties:
+                              value:
+                                description: The default value for this parameter.
+                                type: number
+                            type: object
+                          type: array
                         query:
                           description: The text of the query to be run.
-                          properties:
-                            multiple:
-                              properties:
-                                prefix:
-                                  type: string
-                                separator:
-                                  type: string
-                                suffix:
-                                  type: string
-                              type: object
-                            queryId:
-                              description: the unique ID of the SQL Query.
-                              type: string
-                            value:
-                              description: The default value for this parameter.
-                              type: string
-                            values:
-                              items:
+                          items:
+                            properties:
+                              multiple:
+                                items:
+                                  properties:
+                                    prefix:
+                                      type: string
+                                    separator:
+                                      type: string
+                                    suffix:
+                                      type: string
+                                  type: object
+                                type: array
+                              queryId:
+                                description: the unique ID of the SQL Query.
                                 type: string
-                              type: array
-                          type: object
+                              value:
+                                description: The default value for this parameter.
+                                type: string
+                              values:
+                                items:
+                                  type: string
+                                type: array
+                            type: object
+                          type: array
                         text:
-                          properties:
-                            value:
-                              description: The default value for this parameter.
-                              type: string
-                          type: object
+                          items:
+                            properties:
+                              value:
+                                description: The default value for this parameter.
+                                type: string
+                            type: object
+                          type: array
                         title:
                           description: The text displayed in a parameter picking widget.
                           type: string
@@ -569,35 +637,43 @@ spec:
                     description: Run as role. Possible values are viewer, owner.
                     type: string
                   schedule:
-                    properties:
-                      continuous:
-                        properties:
-                          intervalSeconds:
-                            type: number
-                          untilDate:
-                            type: string
-                        type: object
-                      daily:
-                        properties:
-                          intervalDays:
-                            type: number
-                          timeOfDay:
-                            type: string
-                          untilDate:
-                            type: string
-                        type: object
-                      weekly:
-                        properties:
-                          dayOfWeek:
-                            type: string
-                          intervalWeeks:
-                            type: number
-                          timeOfDay:
-                            type: string
-                          untilDate:
-                            type: string
-                        type: object
-                    type: object
+                    items:
+                      properties:
+                        continuous:
+                          items:
+                            properties:
+                              intervalSeconds:
+                                type: number
+                              untilDate:
+                                type: string
+                            type: object
+                          type: array
+                        daily:
+                          items:
+                            properties:
+                              intervalDays:
+                                type: number
+                              timeOfDay:
+                                type: string
+                              untilDate:
+                                type: string
+                            type: object
+                          type: array
+                        weekly:
+                          items:
+                            properties:
+                              dayOfWeek:
+                                type: string
+                              intervalWeeks:
+                                type: number
+                              timeOfDay:
+                                type: string
+                              untilDate:
+                                type: string
+                            type: object
+                          type: array
+                      type: object
+                    type: array
                   tags:
                     items:
                       type: string
@@ -697,124 +773,154 @@ spec:
                     items:
                       properties:
                         date:
-                          properties:
-                            value:
-                              description: The default value for this parameter.
-                              type: string
-                          type: object
+                          items:
+                            properties:
+                              value:
+                                description: The default value for this parameter.
+                                type: string
+                            type: object
+                          type: array
                         dateRange:
-                          properties:
-                            range:
-                              properties:
-                                end:
-                                  type: string
-                                start:
-                                  type: string
-                              type: object
-                            value:
-                              description: The default value for this parameter.
-                              type: string
-                          type: object
+                          items:
+                            properties:
+                              range:
+                                items:
+                                  properties:
+                                    end:
+                                      type: string
+                                    start:
+                                      type: string
+                                  type: object
+                                type: array
+                              value:
+                                description: The default value for this parameter.
+                                type: string
+                            type: object
+                          type: array
                         datetime:
-                          properties:
-                            value:
-                              description: The default value for this parameter.
-                              type: string
-                          type: object
+                          items:
+                            properties:
+                              value:
+                                description: The default value for this parameter.
+                                type: string
+                            type: object
+                          type: array
                         datetimeRange:
-                          properties:
-                            range:
-                              properties:
-                                end:
-                                  type: string
-                                start:
-                                  type: string
-                              type: object
-                            value:
-                              description: The default value for this parameter.
-                              type: string
-                          type: object
+                          items:
+                            properties:
+                              range:
+                                items:
+                                  properties:
+                                    end:
+                                      type: string
+                                    start:
+                                      type: string
+                                  type: object
+                                type: array
+                              value:
+                                description: The default value for this parameter.
+                                type: string
+                            type: object
+                          type: array
                         datetimesec:
-                          properties:
-                            value:
-                              description: The default value for this parameter.
-                              type: string
-                          type: object
+                          items:
+                            properties:
+                              value:
+                                description: The default value for this parameter.
+                                type: string
+                            type: object
+                          type: array
                         datetimesecRange:
-                          properties:
-                            range:
-                              properties:
-                                end:
-                                  type: string
-                                start:
-                                  type: string
-                              type: object
-                            value:
-                              description: The default value for this parameter.
-                              type: string
-                          type: object
+                          items:
+                            properties:
+                              range:
+                                items:
+                                  properties:
+                                    end:
+                                      type: string
+                                    start:
+                                      type: string
+                                  type: object
+                                type: array
+                              value:
+                                description: The default value for this parameter.
+                                type: string
+                            type: object
+                          type: array
                         enum:
-                          properties:
-                            multiple:
-                              properties:
-                                prefix:
+                          items:
+                            properties:
+                              multiple:
+                                items:
+                                  properties:
+                                    prefix:
+                                      type: string
+                                    separator:
+                                      type: string
+                                    suffix:
+                                      type: string
+                                  type: object
+                                type: array
+                              options:
+                                items:
                                   type: string
-                                separator:
-                                  type: string
-                                suffix:
-                                  type: string
-                              type: object
-                            options:
-                              items:
+                                type: array
+                              value:
+                                description: The default value for this parameter.
                                 type: string
-                              type: array
-                            value:
-                              description: The default value for this parameter.
-                              type: string
-                            values:
-                              items:
-                                type: string
-                              type: array
-                          type: object
+                              values:
+                                items:
+                                  type: string
+                                type: array
+                            type: object
+                          type: array
                         name:
                           description: The title of this query that appears in list
                             views, widget headings, and on the query page.
                           type: string
                         number:
-                          properties:
-                            value:
-                              description: The default value for this parameter.
-                              type: number
-                          type: object
+                          items:
+                            properties:
+                              value:
+                                description: The default value for this parameter.
+                                type: number
+                            type: object
+                          type: array
                         query:
                           description: The text of the query to be run.
-                          properties:
-                            multiple:
-                              properties:
-                                prefix:
-                                  type: string
-                                separator:
-                                  type: string
-                                suffix:
-                                  type: string
-                              type: object
-                            queryId:
-                              description: the unique ID of the SQL Query.
-                              type: string
-                            value:
-                              description: The default value for this parameter.
-                              type: string
-                            values:
-                              items:
+                          items:
+                            properties:
+                              multiple:
+                                items:
+                                  properties:
+                                    prefix:
+                                      type: string
+                                    separator:
+                                      type: string
+                                    suffix:
+                                      type: string
+                                  type: object
+                                type: array
+                              queryId:
+                                description: the unique ID of the SQL Query.
                                 type: string
-                              type: array
-                          type: object
+                              value:
+                                description: The default value for this parameter.
+                                type: string
+                              values:
+                                items:
+                                  type: string
+                                type: array
+                            type: object
+                          type: array
                         text:
-                          properties:
-                            value:
-                              description: The default value for this parameter.
-                              type: string
-                          type: object
+                          items:
+                            properties:
+                              value:
+                                description: The default value for this parameter.
+                                type: string
+                            type: object
+                          type: array
                         title:
                           description: The text displayed in a parameter picking widget.
                           type: string
@@ -831,35 +937,43 @@ spec:
                     description: Run as role. Possible values are viewer, owner.
                     type: string
                   schedule:
-                    properties:
-                      continuous:
-                        properties:
-                          intervalSeconds:
-                            type: number
-                          untilDate:
-                            type: string
-                        type: object
-                      daily:
-                        properties:
-                          intervalDays:
-                            type: number
-                          timeOfDay:
-                            type: string
-                          untilDate:
-                            type: string
-                        type: object
-                      weekly:
-                        properties:
-                          dayOfWeek:
-                            type: string
-                          intervalWeeks:
-                            type: number
-                          timeOfDay:
-                            type: string
-                          untilDate:
-                            type: string
-                        type: object
-                    type: object
+                    items:
+                      properties:
+                        continuous:
+                          items:
+                            properties:
+                              intervalSeconds:
+                                type: number
+                              untilDate:
+                                type: string
+                            type: object
+                          type: array
+                        daily:
+                          items:
+                            properties:
+                              intervalDays:
+                                type: number
+                              timeOfDay:
+                                type: string
+                              untilDate:
+                                type: string
+                            type: object
+                          type: array
+                        weekly:
+                          items:
+                            properties:
+                              dayOfWeek:
+                                type: string
+                              intervalWeeks:
+                                type: number
+                              timeOfDay:
+                                type: string
+                              untilDate:
+                                type: string
+                            type: object
+                          type: array
+                      type: object
+                    type: array
                   tags:
                     items:
                       type: string

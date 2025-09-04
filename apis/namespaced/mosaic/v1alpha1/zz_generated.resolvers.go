@@ -26,27 +26,27 @@ func (mg *VectorSearchIndex) ResolveReferences( // ResolveReferences of this Vec
 	var rsp reference.NamespacedResolutionResponse
 	var err error
 
-	if mg.Spec.ForProvider.DeltaSyncIndexSpec != nil {
-		for i4 := 0; i4 < len(mg.Spec.ForProvider.DeltaSyncIndexSpec.EmbeddingSourceColumns); i4++ {
+	for i3 := 0; i3 < len(mg.Spec.ForProvider.DeltaSyncIndexSpec); i3++ {
+		for i4 := 0; i4 < len(mg.Spec.ForProvider.DeltaSyncIndexSpec[i3].EmbeddingSourceColumns); i4++ {
 			{
 				m, l, err = apisresolver.GetManagedResource("serving.databricks.m.crossplane.io", "v1alpha1", "ModelServing", "ModelServingList")
 				if err != nil {
 					return errors.Wrap(err, "failed to get the reference target managed resource and its list for reference resolution")
 				}
 				rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
-					CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.DeltaSyncIndexSpec.EmbeddingSourceColumns[i4].EmbeddingModelEndpointName),
+					CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.DeltaSyncIndexSpec[i3].EmbeddingSourceColumns[i4].EmbeddingModelEndpointName),
 					Extract:      resource.ExtractParamPath("name", false),
 					Namespace:    mg.GetNamespace(),
-					Reference:    mg.Spec.ForProvider.DeltaSyncIndexSpec.EmbeddingSourceColumns[i4].EmbeddingModelEndpointNameRef,
-					Selector:     mg.Spec.ForProvider.DeltaSyncIndexSpec.EmbeddingSourceColumns[i4].EmbeddingModelEndpointNameSelector,
+					Reference:    mg.Spec.ForProvider.DeltaSyncIndexSpec[i3].EmbeddingSourceColumns[i4].EmbeddingModelEndpointNameRef,
+					Selector:     mg.Spec.ForProvider.DeltaSyncIndexSpec[i3].EmbeddingSourceColumns[i4].EmbeddingModelEndpointNameSelector,
 					To:           reference.To{List: l, Managed: m},
 				})
 			}
 			if err != nil {
-				return errors.Wrap(err, "mg.Spec.ForProvider.DeltaSyncIndexSpec.EmbeddingSourceColumns[i4].EmbeddingModelEndpointName")
+				return errors.Wrap(err, "mg.Spec.ForProvider.DeltaSyncIndexSpec[i3].EmbeddingSourceColumns[i4].EmbeddingModelEndpointName")
 			}
-			mg.Spec.ForProvider.DeltaSyncIndexSpec.EmbeddingSourceColumns[i4].EmbeddingModelEndpointName = reference.ToPtrValue(rsp.ResolvedValue)
-			mg.Spec.ForProvider.DeltaSyncIndexSpec.EmbeddingSourceColumns[i4].EmbeddingModelEndpointNameRef = rsp.ResolvedReference
+			mg.Spec.ForProvider.DeltaSyncIndexSpec[i3].EmbeddingSourceColumns[i4].EmbeddingModelEndpointName = reference.ToPtrValue(rsp.ResolvedValue)
+			mg.Spec.ForProvider.DeltaSyncIndexSpec[i3].EmbeddingSourceColumns[i4].EmbeddingModelEndpointNameRef = rsp.ResolvedReference
 
 		}
 	}
@@ -70,27 +70,27 @@ func (mg *VectorSearchIndex) ResolveReferences( // ResolveReferences of this Vec
 	mg.Spec.ForProvider.EndpointName = reference.ToPtrValue(rsp.ResolvedValue)
 	mg.Spec.ForProvider.EndpointNameRef = rsp.ResolvedReference
 
-	if mg.Spec.InitProvider.DeltaSyncIndexSpec != nil {
-		for i4 := 0; i4 < len(mg.Spec.InitProvider.DeltaSyncIndexSpec.EmbeddingSourceColumns); i4++ {
+	for i3 := 0; i3 < len(mg.Spec.InitProvider.DeltaSyncIndexSpec); i3++ {
+		for i4 := 0; i4 < len(mg.Spec.InitProvider.DeltaSyncIndexSpec[i3].EmbeddingSourceColumns); i4++ {
 			{
 				m, l, err = apisresolver.GetManagedResource("serving.databricks.m.crossplane.io", "v1alpha1", "ModelServing", "ModelServingList")
 				if err != nil {
 					return errors.Wrap(err, "failed to get the reference target managed resource and its list for reference resolution")
 				}
 				rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
-					CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.DeltaSyncIndexSpec.EmbeddingSourceColumns[i4].EmbeddingModelEndpointName),
+					CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.DeltaSyncIndexSpec[i3].EmbeddingSourceColumns[i4].EmbeddingModelEndpointName),
 					Extract:      resource.ExtractParamPath("name", false),
 					Namespace:    mg.GetNamespace(),
-					Reference:    mg.Spec.InitProvider.DeltaSyncIndexSpec.EmbeddingSourceColumns[i4].EmbeddingModelEndpointNameRef,
-					Selector:     mg.Spec.InitProvider.DeltaSyncIndexSpec.EmbeddingSourceColumns[i4].EmbeddingModelEndpointNameSelector,
+					Reference:    mg.Spec.InitProvider.DeltaSyncIndexSpec[i3].EmbeddingSourceColumns[i4].EmbeddingModelEndpointNameRef,
+					Selector:     mg.Spec.InitProvider.DeltaSyncIndexSpec[i3].EmbeddingSourceColumns[i4].EmbeddingModelEndpointNameSelector,
 					To:           reference.To{List: l, Managed: m},
 				})
 			}
 			if err != nil {
-				return errors.Wrap(err, "mg.Spec.InitProvider.DeltaSyncIndexSpec.EmbeddingSourceColumns[i4].EmbeddingModelEndpointName")
+				return errors.Wrap(err, "mg.Spec.InitProvider.DeltaSyncIndexSpec[i3].EmbeddingSourceColumns[i4].EmbeddingModelEndpointName")
 			}
-			mg.Spec.InitProvider.DeltaSyncIndexSpec.EmbeddingSourceColumns[i4].EmbeddingModelEndpointName = reference.ToPtrValue(rsp.ResolvedValue)
-			mg.Spec.InitProvider.DeltaSyncIndexSpec.EmbeddingSourceColumns[i4].EmbeddingModelEndpointNameRef = rsp.ResolvedReference
+			mg.Spec.InitProvider.DeltaSyncIndexSpec[i3].EmbeddingSourceColumns[i4].EmbeddingModelEndpointName = reference.ToPtrValue(rsp.ResolvedValue)
+			mg.Spec.InitProvider.DeltaSyncIndexSpec[i3].EmbeddingSourceColumns[i4].EmbeddingModelEndpointNameRef = rsp.ResolvedReference
 
 		}
 	}

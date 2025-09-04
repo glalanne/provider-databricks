@@ -45,8 +45,10 @@ func (in *AlertInitParameters) DeepCopyInto(out *AlertInitParameters) {
 	*out = *in
 	if in.Condition != nil {
 		in, out := &in.Condition, &out.Condition
-		*out = new(ConditionInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]ConditionInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.CustomBody != nil {
 		in, out := &in.CustomBody, &out.CustomBody
@@ -157,8 +159,10 @@ func (in *AlertObservation) DeepCopyInto(out *AlertObservation) {
 	*out = *in
 	if in.Condition != nil {
 		in, out := &in.Condition, &out.Condition
-		*out = new(ConditionObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]ConditionObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.CreateTime != nil {
 		in, out := &in.CreateTime, &out.CreateTime
@@ -247,8 +251,10 @@ func (in *AlertParameters) DeepCopyInto(out *AlertParameters) {
 	*out = *in
 	if in.Condition != nil {
 		in, out := &in.Condition, &out.Condition
-		*out = new(ConditionParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]ConditionParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.CustomBody != nil {
 		in, out := &in.CustomBody, &out.CustomBody
@@ -507,13 +513,17 @@ func (in *ConditionInitParameters) DeepCopyInto(out *ConditionInitParameters) {
 	}
 	if in.Operand != nil {
 		in, out := &in.Operand, &out.Operand
-		*out = new(OperandInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]OperandInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Threshold != nil {
 		in, out := &in.Threshold, &out.Threshold
-		*out = new(ThresholdInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]ThresholdInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 }
 
@@ -542,13 +552,17 @@ func (in *ConditionObservation) DeepCopyInto(out *ConditionObservation) {
 	}
 	if in.Operand != nil {
 		in, out := &in.Operand, &out.Operand
-		*out = new(OperandObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]OperandObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Threshold != nil {
 		in, out := &in.Threshold, &out.Threshold
-		*out = new(ThresholdObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]ThresholdObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 }
 
@@ -577,13 +591,17 @@ func (in *ConditionParameters) DeepCopyInto(out *ConditionParameters) {
 	}
 	if in.Operand != nil {
 		in, out := &in.Operand, &out.Operand
-		*out = new(OperandParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]OperandParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Threshold != nil {
 		in, out := &in.Threshold, &out.Threshold
-		*out = new(ThresholdParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]ThresholdParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 }
 
@@ -1256,8 +1274,10 @@ func (in *DateRangeInitParameters) DeepCopyInto(out *DateRangeInitParameters) {
 	*out = *in
 	if in.Range != nil {
 		in, out := &in.Range, &out.Range
-		*out = new(RangeInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]RangeInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Value != nil {
 		in, out := &in.Value, &out.Value
@@ -1281,8 +1301,10 @@ func (in *DateRangeObservation) DeepCopyInto(out *DateRangeObservation) {
 	*out = *in
 	if in.Range != nil {
 		in, out := &in.Range, &out.Range
-		*out = new(RangeObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]RangeObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Value != nil {
 		in, out := &in.Value, &out.Value
@@ -1306,8 +1328,10 @@ func (in *DateRangeParameters) DeepCopyInto(out *DateRangeParameters) {
 	*out = *in
 	if in.Range != nil {
 		in, out := &in.Range, &out.Range
-		*out = new(RangeParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]RangeParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Value != nil {
 		in, out := &in.Value, &out.Value
@@ -1406,8 +1430,10 @@ func (in *DateRangeValueInitParameters) DeepCopyInto(out *DateRangeValueInitPara
 	*out = *in
 	if in.DateRangeValue != nil {
 		in, out := &in.DateRangeValue, &out.DateRangeValue
-		*out = new(DateRangeValueDateRangeValueInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]DateRangeValueDateRangeValueInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.DynamicDateRangeValue != nil {
 		in, out := &in.DynamicDateRangeValue, &out.DynamicDateRangeValue
@@ -1441,8 +1467,10 @@ func (in *DateRangeValueObservation) DeepCopyInto(out *DateRangeValueObservation
 	*out = *in
 	if in.DateRangeValue != nil {
 		in, out := &in.DateRangeValue, &out.DateRangeValue
-		*out = new(DateRangeValueDateRangeValueObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]DateRangeValueDateRangeValueObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.DynamicDateRangeValue != nil {
 		in, out := &in.DynamicDateRangeValue, &out.DynamicDateRangeValue
@@ -1476,8 +1504,10 @@ func (in *DateRangeValueParameters) DeepCopyInto(out *DateRangeValueParameters) 
 	*out = *in
 	if in.DateRangeValue != nil {
 		in, out := &in.DateRangeValue, &out.DateRangeValue
-		*out = new(DateRangeValueDateRangeValueParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]DateRangeValueDateRangeValueParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.DynamicDateRangeValue != nil {
 		in, out := &in.DynamicDateRangeValue, &out.DynamicDateRangeValue
@@ -1661,8 +1691,10 @@ func (in *DatetimeRangeInitParameters) DeepCopyInto(out *DatetimeRangeInitParame
 	*out = *in
 	if in.Range != nil {
 		in, out := &in.Range, &out.Range
-		*out = new(DatetimeRangeRangeInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]DatetimeRangeRangeInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Value != nil {
 		in, out := &in.Value, &out.Value
@@ -1686,8 +1718,10 @@ func (in *DatetimeRangeObservation) DeepCopyInto(out *DatetimeRangeObservation) 
 	*out = *in
 	if in.Range != nil {
 		in, out := &in.Range, &out.Range
-		*out = new(DatetimeRangeRangeObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]DatetimeRangeRangeObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Value != nil {
 		in, out := &in.Value, &out.Value
@@ -1711,8 +1745,10 @@ func (in *DatetimeRangeParameters) DeepCopyInto(out *DatetimeRangeParameters) {
 	*out = *in
 	if in.Range != nil {
 		in, out := &in.Range, &out.Range
-		*out = new(DatetimeRangeRangeParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]DatetimeRangeRangeParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Value != nil {
 		in, out := &in.Value, &out.Value
@@ -1871,8 +1907,10 @@ func (in *DatetimesecRangeInitParameters) DeepCopyInto(out *DatetimesecRangeInit
 	*out = *in
 	if in.Range != nil {
 		in, out := &in.Range, &out.Range
-		*out = new(DatetimesecRangeRangeInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]DatetimesecRangeRangeInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Value != nil {
 		in, out := &in.Value, &out.Value
@@ -1896,8 +1934,10 @@ func (in *DatetimesecRangeObservation) DeepCopyInto(out *DatetimesecRangeObserva
 	*out = *in
 	if in.Range != nil {
 		in, out := &in.Range, &out.Range
-		*out = new(DatetimesecRangeRangeObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]DatetimesecRangeRangeObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Value != nil {
 		in, out := &in.Value, &out.Value
@@ -1921,8 +1961,10 @@ func (in *DatetimesecRangeParameters) DeepCopyInto(out *DatetimesecRangeParamete
 	*out = *in
 	if in.Range != nil {
 		in, out := &in.Range, &out.Range
-		*out = new(DatetimesecRangeRangeParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]DatetimesecRangeRangeParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Value != nil {
 		in, out := &in.Value, &out.Value
@@ -2021,8 +2063,10 @@ func (in *EnumInitParameters) DeepCopyInto(out *EnumInitParameters) {
 	*out = *in
 	if in.Multiple != nil {
 		in, out := &in.Multiple, &out.Multiple
-		*out = new(MultipleInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]MultipleInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Options != nil {
 		in, out := &in.Options, &out.Options
@@ -2068,8 +2112,10 @@ func (in *EnumObservation) DeepCopyInto(out *EnumObservation) {
 	*out = *in
 	if in.Multiple != nil {
 		in, out := &in.Multiple, &out.Multiple
-		*out = new(MultipleObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]MultipleObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Options != nil {
 		in, out := &in.Options, &out.Options
@@ -2115,8 +2161,10 @@ func (in *EnumParameters) DeepCopyInto(out *EnumParameters) {
 	*out = *in
 	if in.Multiple != nil {
 		in, out := &in.Multiple, &out.Multiple
-		*out = new(MultipleParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]MultipleParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Options != nil {
 		in, out := &in.Options, &out.Options
@@ -2167,8 +2215,10 @@ func (in *EnumValueInitParameters) DeepCopyInto(out *EnumValueInitParameters) {
 	}
 	if in.MultiValuesOptions != nil {
 		in, out := &in.MultiValuesOptions, &out.MultiValuesOptions
-		*out = new(MultiValuesOptionsInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]MultiValuesOptionsInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Values != nil {
 		in, out := &in.Values, &out.Values
@@ -2203,8 +2253,10 @@ func (in *EnumValueObservation) DeepCopyInto(out *EnumValueObservation) {
 	}
 	if in.MultiValuesOptions != nil {
 		in, out := &in.MultiValuesOptions, &out.MultiValuesOptions
-		*out = new(MultiValuesOptionsObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]MultiValuesOptionsObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Values != nil {
 		in, out := &in.Values, &out.Values
@@ -2239,8 +2291,10 @@ func (in *EnumValueParameters) DeepCopyInto(out *EnumValueParameters) {
 	}
 	if in.MultiValuesOptions != nil {
 		in, out := &in.MultiValuesOptions, &out.MultiValuesOptions
-		*out = new(MultiValuesOptionsParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]MultiValuesOptionsParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Values != nil {
 		in, out := &in.Values, &out.Values
@@ -2361,8 +2415,10 @@ func (in *HealthObservation) DeepCopyInto(out *HealthObservation) {
 	}
 	if in.FailureReason != nil {
 		in, out := &in.FailureReason, &out.FailureReason
-		*out = new(FailureReasonObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]FailureReasonObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Message != nil {
 		in, out := &in.Message, &out.Message
@@ -2776,8 +2832,10 @@ func (in *OperandInitParameters) DeepCopyInto(out *OperandInitParameters) {
 	*out = *in
 	if in.Column != nil {
 		in, out := &in.Column, &out.Column
-		*out = new(ColumnInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]ColumnInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 }
 
@@ -2796,8 +2854,10 @@ func (in *OperandObservation) DeepCopyInto(out *OperandObservation) {
 	*out = *in
 	if in.Column != nil {
 		in, out := &in.Column, &out.Column
-		*out = new(ColumnObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]ColumnObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 }
 
@@ -2816,8 +2876,10 @@ func (in *OperandParameters) DeepCopyInto(out *OperandParameters) {
 	*out = *in
 	if in.Column != nil {
 		in, out := &in.Column, &out.Column
-		*out = new(ColumnParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]ColumnParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 }
 
@@ -2986,18 +3048,24 @@ func (in *ParameterInitParameters) DeepCopyInto(out *ParameterInitParameters) {
 	*out = *in
 	if in.DateRangeValue != nil {
 		in, out := &in.DateRangeValue, &out.DateRangeValue
-		*out = new(DateRangeValueInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]DateRangeValueInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.DateValue != nil {
 		in, out := &in.DateValue, &out.DateValue
-		*out = new(DateValueInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]DateValueInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.EnumValue != nil {
 		in, out := &in.EnumValue, &out.EnumValue
-		*out = new(EnumValueInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]EnumValueInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Name != nil {
 		in, out := &in.Name, &out.Name
@@ -3006,18 +3074,24 @@ func (in *ParameterInitParameters) DeepCopyInto(out *ParameterInitParameters) {
 	}
 	if in.NumericValue != nil {
 		in, out := &in.NumericValue, &out.NumericValue
-		*out = new(NumericValueInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]NumericValueInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.QueryBackedValue != nil {
 		in, out := &in.QueryBackedValue, &out.QueryBackedValue
-		*out = new(QueryBackedValueInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]QueryBackedValueInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.TextValue != nil {
 		in, out := &in.TextValue, &out.TextValue
-		*out = new(TextValueInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]TextValueInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Title != nil {
 		in, out := &in.Title, &out.Title
@@ -3041,18 +3115,24 @@ func (in *ParameterObservation) DeepCopyInto(out *ParameterObservation) {
 	*out = *in
 	if in.DateRangeValue != nil {
 		in, out := &in.DateRangeValue, &out.DateRangeValue
-		*out = new(DateRangeValueObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]DateRangeValueObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.DateValue != nil {
 		in, out := &in.DateValue, &out.DateValue
-		*out = new(DateValueObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]DateValueObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.EnumValue != nil {
 		in, out := &in.EnumValue, &out.EnumValue
-		*out = new(EnumValueObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]EnumValueObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Name != nil {
 		in, out := &in.Name, &out.Name
@@ -3061,18 +3141,24 @@ func (in *ParameterObservation) DeepCopyInto(out *ParameterObservation) {
 	}
 	if in.NumericValue != nil {
 		in, out := &in.NumericValue, &out.NumericValue
-		*out = new(NumericValueObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]NumericValueObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.QueryBackedValue != nil {
 		in, out := &in.QueryBackedValue, &out.QueryBackedValue
-		*out = new(QueryBackedValueObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]QueryBackedValueObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.TextValue != nil {
 		in, out := &in.TextValue, &out.TextValue
-		*out = new(TextValueObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]TextValueObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Title != nil {
 		in, out := &in.Title, &out.Title
@@ -3096,18 +3182,24 @@ func (in *ParameterParameters) DeepCopyInto(out *ParameterParameters) {
 	*out = *in
 	if in.DateRangeValue != nil {
 		in, out := &in.DateRangeValue, &out.DateRangeValue
-		*out = new(DateRangeValueParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]DateRangeValueParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.DateValue != nil {
 		in, out := &in.DateValue, &out.DateValue
-		*out = new(DateValueParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]DateValueParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.EnumValue != nil {
 		in, out := &in.EnumValue, &out.EnumValue
-		*out = new(EnumValueParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]EnumValueParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Name != nil {
 		in, out := &in.Name, &out.Name
@@ -3116,18 +3208,24 @@ func (in *ParameterParameters) DeepCopyInto(out *ParameterParameters) {
 	}
 	if in.NumericValue != nil {
 		in, out := &in.NumericValue, &out.NumericValue
-		*out = new(NumericValueParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]NumericValueParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.QueryBackedValue != nil {
 		in, out := &in.QueryBackedValue, &out.QueryBackedValue
-		*out = new(QueryBackedValueParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]QueryBackedValueParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.TextValue != nil {
 		in, out := &in.TextValue, &out.TextValue
-		*out = new(TextValueParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]TextValueParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Title != nil {
 		in, out := &in.Title, &out.Title
@@ -3151,8 +3249,10 @@ func (in *ParameterQueryInitParameters) DeepCopyInto(out *ParameterQueryInitPara
 	*out = *in
 	if in.Multiple != nil {
 		in, out := &in.Multiple, &out.Multiple
-		*out = new(QueryMultipleInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]QueryMultipleInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.QueryID != nil {
 		in, out := &in.QueryID, &out.QueryID
@@ -3192,8 +3292,10 @@ func (in *ParameterQueryObservation) DeepCopyInto(out *ParameterQueryObservation
 	*out = *in
 	if in.Multiple != nil {
 		in, out := &in.Multiple, &out.Multiple
-		*out = new(QueryMultipleObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]QueryMultipleObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.QueryID != nil {
 		in, out := &in.QueryID, &out.QueryID
@@ -3233,8 +3335,10 @@ func (in *ParameterQueryParameters) DeepCopyInto(out *ParameterQueryParameters) 
 	*out = *in
 	if in.Multiple != nil {
 		in, out := &in.Multiple, &out.Multiple
-		*out = new(QueryMultipleParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]QueryMultipleParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.QueryID != nil {
 		in, out := &in.QueryID, &out.QueryID
@@ -3421,8 +3525,10 @@ func (in *QueryBackedValueInitParameters) DeepCopyInto(out *QueryBackedValueInit
 	*out = *in
 	if in.MultiValuesOptions != nil {
 		in, out := &in.MultiValuesOptions, &out.MultiValuesOptions
-		*out = new(QueryBackedValueMultiValuesOptionsInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]QueryBackedValueMultiValuesOptionsInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.QueryID != nil {
 		in, out := &in.QueryID, &out.QueryID
@@ -3547,8 +3653,10 @@ func (in *QueryBackedValueObservation) DeepCopyInto(out *QueryBackedValueObserva
 	*out = *in
 	if in.MultiValuesOptions != nil {
 		in, out := &in.MultiValuesOptions, &out.MultiValuesOptions
-		*out = new(QueryBackedValueMultiValuesOptionsObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]QueryBackedValueMultiValuesOptionsObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.QueryID != nil {
 		in, out := &in.QueryID, &out.QueryID
@@ -3583,8 +3691,10 @@ func (in *QueryBackedValueParameters) DeepCopyInto(out *QueryBackedValueParamete
 	*out = *in
 	if in.MultiValuesOptions != nil {
 		in, out := &in.MultiValuesOptions, &out.MultiValuesOptions
-		*out = new(QueryBackedValueMultiValuesOptionsParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]QueryBackedValueMultiValuesOptionsParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.QueryID != nil {
 		in, out := &in.QueryID, &out.QueryID
@@ -4202,8 +4312,10 @@ func (in *SQLAlertInitParameters) DeepCopyInto(out *SQLAlertInitParameters) {
 	}
 	if in.Options != nil {
 		in, out := &in.Options, &out.Options
-		*out = new(OptionsInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]OptionsInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Parent != nil {
 		in, out := &in.Parent, &out.Parent
@@ -4299,8 +4411,10 @@ func (in *SQLAlertObservation) DeepCopyInto(out *SQLAlertObservation) {
 	}
 	if in.Options != nil {
 		in, out := &in.Options, &out.Options
-		*out = new(OptionsObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]OptionsObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Parent != nil {
 		in, out := &in.Parent, &out.Parent
@@ -4349,8 +4463,10 @@ func (in *SQLAlertParameters) DeepCopyInto(out *SQLAlertParameters) {
 	}
 	if in.Options != nil {
 		in, out := &in.Options, &out.Options
-		*out = new(OptionsParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]OptionsParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Parent != nil {
 		in, out := &in.Parent, &out.Parent
@@ -4733,8 +4849,10 @@ func (in *SQLEndpointInitParameters) DeepCopyInto(out *SQLEndpointInitParameters
 	}
 	if in.Channel != nil {
 		in, out := &in.Channel, &out.Channel
-		*out = new(ChannelInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]ChannelInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.ClusterSize != nil {
 		in, out := &in.ClusterSize, &out.ClusterSize
@@ -4783,8 +4901,10 @@ func (in *SQLEndpointInitParameters) DeepCopyInto(out *SQLEndpointInitParameters
 	}
 	if in.Tags != nil {
 		in, out := &in.Tags, &out.Tags
-		*out = new(TagsInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]TagsInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.WarehouseType != nil {
 		in, out := &in.WarehouseType, &out.WarehouseType
@@ -4845,8 +4965,10 @@ func (in *SQLEndpointObservation) DeepCopyInto(out *SQLEndpointObservation) {
 	}
 	if in.Channel != nil {
 		in, out := &in.Channel, &out.Channel
-		*out = new(ChannelObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]ChannelObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.ClusterSize != nil {
 		in, out := &in.ClusterSize, &out.ClusterSize
@@ -4939,8 +5061,10 @@ func (in *SQLEndpointObservation) DeepCopyInto(out *SQLEndpointObservation) {
 	}
 	if in.Tags != nil {
 		in, out := &in.Tags, &out.Tags
-		*out = new(TagsObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]TagsObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.WarehouseType != nil {
 		in, out := &in.WarehouseType, &out.WarehouseType
@@ -4969,8 +5093,10 @@ func (in *SQLEndpointParameters) DeepCopyInto(out *SQLEndpointParameters) {
 	}
 	if in.Channel != nil {
 		in, out := &in.Channel, &out.Channel
-		*out = new(ChannelParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]ChannelParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.ClusterSize != nil {
 		in, out := &in.ClusterSize, &out.ClusterSize
@@ -5019,8 +5145,10 @@ func (in *SQLEndpointParameters) DeepCopyInto(out *SQLEndpointParameters) {
 	}
 	if in.Tags != nil {
 		in, out := &in.Tags, &out.Tags
-		*out = new(TagsParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]TagsParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.WarehouseType != nil {
 		in, out := &in.WarehouseType, &out.WarehouseType
@@ -5458,8 +5586,10 @@ func (in *SQLQueryInitParameters) DeepCopyInto(out *SQLQueryInitParameters) {
 	}
 	if in.Schedule != nil {
 		in, out := &in.Schedule, &out.Schedule
-		*out = new(ScheduleInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]ScheduleInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Tags != nil {
 		in, out := &in.Tags, &out.Tags
@@ -5573,8 +5703,10 @@ func (in *SQLQueryObservation) DeepCopyInto(out *SQLQueryObservation) {
 	}
 	if in.Schedule != nil {
 		in, out := &in.Schedule, &out.Schedule
-		*out = new(ScheduleObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]ScheduleObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Tags != nil {
 		in, out := &in.Tags, &out.Tags
@@ -5609,38 +5741,52 @@ func (in *SQLQueryParameterInitParameters) DeepCopyInto(out *SQLQueryParameterIn
 	*out = *in
 	if in.Date != nil {
 		in, out := &in.Date, &out.Date
-		*out = new(DateInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]DateInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.DateRange != nil {
 		in, out := &in.DateRange, &out.DateRange
-		*out = new(DateRangeInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]DateRangeInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Datetime != nil {
 		in, out := &in.Datetime, &out.Datetime
-		*out = new(DatetimeInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]DatetimeInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.DatetimeRange != nil {
 		in, out := &in.DatetimeRange, &out.DatetimeRange
-		*out = new(DatetimeRangeInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]DatetimeRangeInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Datetimesec != nil {
 		in, out := &in.Datetimesec, &out.Datetimesec
-		*out = new(DatetimesecInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]DatetimesecInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.DatetimesecRange != nil {
 		in, out := &in.DatetimesecRange, &out.DatetimesecRange
-		*out = new(DatetimesecRangeInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]DatetimesecRangeInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Enum != nil {
 		in, out := &in.Enum, &out.Enum
-		*out = new(EnumInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]EnumInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Name != nil {
 		in, out := &in.Name, &out.Name
@@ -5649,18 +5795,24 @@ func (in *SQLQueryParameterInitParameters) DeepCopyInto(out *SQLQueryParameterIn
 	}
 	if in.Number != nil {
 		in, out := &in.Number, &out.Number
-		*out = new(NumberInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]NumberInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Query != nil {
 		in, out := &in.Query, &out.Query
-		*out = new(ParameterQueryInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]ParameterQueryInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Text != nil {
 		in, out := &in.Text, &out.Text
-		*out = new(TextInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]TextInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Title != nil {
 		in, out := &in.Title, &out.Title
@@ -5684,38 +5836,52 @@ func (in *SQLQueryParameterObservation) DeepCopyInto(out *SQLQueryParameterObser
 	*out = *in
 	if in.Date != nil {
 		in, out := &in.Date, &out.Date
-		*out = new(DateObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]DateObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.DateRange != nil {
 		in, out := &in.DateRange, &out.DateRange
-		*out = new(DateRangeObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]DateRangeObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Datetime != nil {
 		in, out := &in.Datetime, &out.Datetime
-		*out = new(DatetimeObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]DatetimeObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.DatetimeRange != nil {
 		in, out := &in.DatetimeRange, &out.DatetimeRange
-		*out = new(DatetimeRangeObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]DatetimeRangeObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Datetimesec != nil {
 		in, out := &in.Datetimesec, &out.Datetimesec
-		*out = new(DatetimesecObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]DatetimesecObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.DatetimesecRange != nil {
 		in, out := &in.DatetimesecRange, &out.DatetimesecRange
-		*out = new(DatetimesecRangeObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]DatetimesecRangeObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Enum != nil {
 		in, out := &in.Enum, &out.Enum
-		*out = new(EnumObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]EnumObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Name != nil {
 		in, out := &in.Name, &out.Name
@@ -5724,18 +5890,24 @@ func (in *SQLQueryParameterObservation) DeepCopyInto(out *SQLQueryParameterObser
 	}
 	if in.Number != nil {
 		in, out := &in.Number, &out.Number
-		*out = new(NumberObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]NumberObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Query != nil {
 		in, out := &in.Query, &out.Query
-		*out = new(ParameterQueryObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]ParameterQueryObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Text != nil {
 		in, out := &in.Text, &out.Text
-		*out = new(TextObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]TextObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Title != nil {
 		in, out := &in.Title, &out.Title
@@ -5759,38 +5931,52 @@ func (in *SQLQueryParameterParameters) DeepCopyInto(out *SQLQueryParameterParame
 	*out = *in
 	if in.Date != nil {
 		in, out := &in.Date, &out.Date
-		*out = new(DateParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]DateParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.DateRange != nil {
 		in, out := &in.DateRange, &out.DateRange
-		*out = new(DateRangeParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]DateRangeParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Datetime != nil {
 		in, out := &in.Datetime, &out.Datetime
-		*out = new(DatetimeParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]DatetimeParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.DatetimeRange != nil {
 		in, out := &in.DatetimeRange, &out.DatetimeRange
-		*out = new(DatetimeRangeParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]DatetimeRangeParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Datetimesec != nil {
 		in, out := &in.Datetimesec, &out.Datetimesec
-		*out = new(DatetimesecParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]DatetimesecParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.DatetimesecRange != nil {
 		in, out := &in.DatetimesecRange, &out.DatetimesecRange
-		*out = new(DatetimesecRangeParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]DatetimesecRangeParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Enum != nil {
 		in, out := &in.Enum, &out.Enum
-		*out = new(EnumParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]EnumParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Name != nil {
 		in, out := &in.Name, &out.Name
@@ -5799,18 +5985,24 @@ func (in *SQLQueryParameterParameters) DeepCopyInto(out *SQLQueryParameterParame
 	}
 	if in.Number != nil {
 		in, out := &in.Number, &out.Number
-		*out = new(NumberParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]NumberParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Query != nil {
 		in, out := &in.Query, &out.Query
-		*out = new(ParameterQueryParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]ParameterQueryParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Text != nil {
 		in, out := &in.Text, &out.Text
-		*out = new(TextParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]TextParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Title != nil {
 		in, out := &in.Title, &out.Title
@@ -5886,8 +6078,10 @@ func (in *SQLQueryParameters) DeepCopyInto(out *SQLQueryParameters) {
 	}
 	if in.Schedule != nil {
 		in, out := &in.Schedule, &out.Schedule
-		*out = new(ScheduleParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]ScheduleParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Tags != nil {
 		in, out := &in.Tags, &out.Tags
@@ -6280,8 +6474,10 @@ func (in *SQLWidgetInitParameters) DeepCopyInto(out *SQLWidgetInitParameters) {
 	}
 	if in.Position != nil {
 		in, out := &in.Position, &out.Position
-		*out = new(PositionInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]PositionInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Text != nil {
 		in, out := &in.Text, &out.Text
@@ -6384,8 +6580,10 @@ func (in *SQLWidgetObservation) DeepCopyInto(out *SQLWidgetObservation) {
 	}
 	if in.Position != nil {
 		in, out := &in.Position, &out.Position
-		*out = new(PositionObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]PositionObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Text != nil {
 		in, out := &in.Text, &out.Text
@@ -6604,8 +6802,10 @@ func (in *SQLWidgetParameters) DeepCopyInto(out *SQLWidgetParameters) {
 	}
 	if in.Position != nil {
 		in, out := &in.Position, &out.Position
-		*out = new(PositionParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]PositionParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Text != nil {
 		in, out := &in.Text, &out.Text
@@ -6689,18 +6889,24 @@ func (in *ScheduleInitParameters) DeepCopyInto(out *ScheduleInitParameters) {
 	*out = *in
 	if in.Continuous != nil {
 		in, out := &in.Continuous, &out.Continuous
-		*out = new(ContinuousInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]ContinuousInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Daily != nil {
 		in, out := &in.Daily, &out.Daily
-		*out = new(DailyInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]DailyInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Weekly != nil {
 		in, out := &in.Weekly, &out.Weekly
-		*out = new(WeeklyInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]WeeklyInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 }
 
@@ -6719,18 +6925,24 @@ func (in *ScheduleObservation) DeepCopyInto(out *ScheduleObservation) {
 	*out = *in
 	if in.Continuous != nil {
 		in, out := &in.Continuous, &out.Continuous
-		*out = new(ContinuousObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]ContinuousObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Daily != nil {
 		in, out := &in.Daily, &out.Daily
-		*out = new(DailyObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]DailyObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Weekly != nil {
 		in, out := &in.Weekly, &out.Weekly
-		*out = new(WeeklyObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]WeeklyObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 }
 
@@ -6749,18 +6961,24 @@ func (in *ScheduleParameters) DeepCopyInto(out *ScheduleParameters) {
 	*out = *in
 	if in.Continuous != nil {
 		in, out := &in.Continuous, &out.Continuous
-		*out = new(ContinuousParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]ContinuousParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Daily != nil {
 		in, out := &in.Daily, &out.Daily
-		*out = new(DailyParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]DailyParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Weekly != nil {
 		in, out := &in.Weekly, &out.Weekly
-		*out = new(WeeklyParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]WeeklyParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 }
 
@@ -6965,8 +7183,10 @@ func (in *ThresholdInitParameters) DeepCopyInto(out *ThresholdInitParameters) {
 	*out = *in
 	if in.Value != nil {
 		in, out := &in.Value, &out.Value
-		*out = new(ValueInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]ValueInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 }
 
@@ -6985,8 +7205,10 @@ func (in *ThresholdObservation) DeepCopyInto(out *ThresholdObservation) {
 	*out = *in
 	if in.Value != nil {
 		in, out := &in.Value, &out.Value
-		*out = new(ValueObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]ValueObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 }
 
@@ -7005,8 +7227,10 @@ func (in *ThresholdParameters) DeepCopyInto(out *ThresholdParameters) {
 	*out = *in
 	if in.Value != nil {
 		in, out := &in.Value, &out.Value
-		*out = new(ValueParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]ValueParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 }
 

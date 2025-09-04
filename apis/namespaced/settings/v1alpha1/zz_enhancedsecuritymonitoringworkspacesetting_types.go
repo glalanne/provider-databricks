@@ -29,7 +29,7 @@ type EnhancedSecurityMonitoringWorkspaceParameters struct {
 }
 
 type EnhancedSecurityMonitoringWorkspaceSettingInitParameters struct {
-	EnhancedSecurityMonitoringWorkspace *EnhancedSecurityMonitoringWorkspaceInitParameters `json:"enhancedSecurityMonitoringWorkspace,omitempty" tf:"enhanced_security_monitoring_workspace,omitempty"`
+	EnhancedSecurityMonitoringWorkspace []EnhancedSecurityMonitoringWorkspaceInitParameters `json:"enhancedSecurityMonitoringWorkspace,omitempty" tf:"enhanced_security_monitoring_workspace,omitempty"`
 
 	Etag *string `json:"etag,omitempty" tf:"etag,omitempty"`
 
@@ -37,7 +37,7 @@ type EnhancedSecurityMonitoringWorkspaceSettingInitParameters struct {
 }
 
 type EnhancedSecurityMonitoringWorkspaceSettingObservation struct {
-	EnhancedSecurityMonitoringWorkspace *EnhancedSecurityMonitoringWorkspaceObservation `json:"enhancedSecurityMonitoringWorkspace,omitempty" tf:"enhanced_security_monitoring_workspace,omitempty"`
+	EnhancedSecurityMonitoringWorkspace []EnhancedSecurityMonitoringWorkspaceObservation `json:"enhancedSecurityMonitoringWorkspace,omitempty" tf:"enhanced_security_monitoring_workspace,omitempty"`
 
 	Etag *string `json:"etag,omitempty" tf:"etag,omitempty"`
 
@@ -49,7 +49,7 @@ type EnhancedSecurityMonitoringWorkspaceSettingObservation struct {
 type EnhancedSecurityMonitoringWorkspaceSettingParameters struct {
 
 	// +kubebuilder:validation:Optional
-	EnhancedSecurityMonitoringWorkspace *EnhancedSecurityMonitoringWorkspaceParameters `json:"enhancedSecurityMonitoringWorkspace,omitempty" tf:"enhanced_security_monitoring_workspace,omitempty"`
+	EnhancedSecurityMonitoringWorkspace []EnhancedSecurityMonitoringWorkspaceParameters `json:"enhancedSecurityMonitoringWorkspace,omitempty" tf:"enhanced_security_monitoring_workspace,omitempty"`
 
 	// +kubebuilder:validation:Optional
 	Etag *string `json:"etag,omitempty" tf:"etag,omitempty"`

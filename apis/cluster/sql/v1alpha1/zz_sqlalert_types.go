@@ -99,7 +99,7 @@ type SQLAlertInitParameters struct {
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// Alert configuration options.
-	Options *OptionsInitParameters `json:"options,omitempty" tf:"options,omitempty"`
+	Options []OptionsInitParameters `json:"options,omitempty" tf:"options,omitempty"`
 
 	// The identifier of the workspace folder containing the alert. The default is ther user's home folder. The folder identifier is formatted as folder/<folder_id>.
 	Parent *string `json:"parent,omitempty" tf:"parent,omitempty"`
@@ -133,7 +133,7 @@ type SQLAlertObservation struct {
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// Alert configuration options.
-	Options *OptionsObservation `json:"options,omitempty" tf:"options,omitempty"`
+	Options []OptionsObservation `json:"options,omitempty" tf:"options,omitempty"`
 
 	// The identifier of the workspace folder containing the alert. The default is ther user's home folder. The folder identifier is formatted as folder/<folder_id>.
 	Parent *string `json:"parent,omitempty" tf:"parent,omitempty"`
@@ -158,7 +158,7 @@ type SQLAlertParameters struct {
 
 	// Alert configuration options.
 	// +kubebuilder:validation:Optional
-	Options *OptionsParameters `json:"options,omitempty" tf:"options,omitempty"`
+	Options []OptionsParameters `json:"options,omitempty" tf:"options,omitempty"`
 
 	// The identifier of the workspace folder containing the alert. The default is ther user's home folder. The folder identifier is formatted as folder/<folder_id>.
 	// +kubebuilder:validation:Optional

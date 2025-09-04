@@ -79,16 +79,21 @@ spec:
                   cloudResourceContainer:
                     description: '(GCP only) A block that specifies GCP workspace
                       configurations, consisting of following blocks:'
-                    properties:
-                      gcp:
-                        description: 'A block that consists of the following field:'
-                        properties:
-                          projectId:
-                            description: The Google Cloud project ID, which the workspace
-                              uses to instantiate cloud resources for your workspace.
-                            type: string
-                        type: object
-                    type: object
+                    items:
+                      properties:
+                        gcp:
+                          description: 'A block that consists of the following field:'
+                          items:
+                            properties:
+                              projectId:
+                                description: The Google Cloud project ID, which the
+                                  workspace uses to instantiate cloud resources for
+                                  your workspace.
+                                type: string
+                            type: object
+                          type: array
+                      type: object
+                    type: array
                   computeMode:
                     description: '- The compute mode for the workspace. When unset,
                       a classic workspace is created, and both credentials_id and
@@ -211,30 +216,36 @@ spec:
                       the new workspaces created.
                     type: string
                   externalCustomerInfo:
-                    properties:
-                      authoritativeUserEmail:
-                        type: string
-                      authoritativeUserFullName:
-                        type: string
-                      customerName:
-                        type: string
-                    type: object
+                    items:
+                      properties:
+                        authoritativeUserEmail:
+                          type: string
+                        authoritativeUserFullName:
+                          type: string
+                        customerName:
+                          type: string
+                      type: object
+                    type: array
                   gcpManagedNetworkConfig:
-                    properties:
-                      gkeClusterPodIpRange:
-                        type: string
-                      gkeClusterServiceIpRange:
-                        type: string
-                      subnetCidr:
-                        type: string
-                    type: object
+                    items:
+                      properties:
+                        gkeClusterPodIpRange:
+                          type: string
+                        gkeClusterServiceIpRange:
+                          type: string
+                        subnetCidr:
+                          type: string
+                      type: object
+                    type: array
                   gkeConfig:
-                    properties:
-                      connectivityType:
-                        type: string
-                      masterIpRange:
-                        type: string
-                    type: object
+                    items:
+                      properties:
+                        connectivityType:
+                          type: string
+                        masterIpRange:
+                          type: string
+                      type: object
+                    type: array
                   isNoPublicIpEnabled:
                     type: boolean
                   location:
@@ -430,34 +441,36 @@ spec:
                       Storage & Cluster Volumes.
                     type: string
                   token:
-                    properties:
-                      comment:
-                        description: Comment, that will appear in "User Settings /
-                          Access Tokens" page on Workspace UI.
-                        type: string
-                      lifetimeSeconds:
-                        description: Token expiry lifetime. By default its 2592000
-                          (30 days).
-                        type: number
-                      tokenId:
-                        description: (String) Canonical unique identifier for the
-                          workspace, of the format <account-id>/<workspace-id>
-                        type: string
-                      tokenValueSecretRef:
-                        description: |-
-                          A LocalSecretKeySelector is a reference to a secret key
-                          in the same namespace with the referencing object.
-                        properties:
-                          key:
-                            type: string
-                          name:
-                            description: Name of the secret.
-                            type: string
-                        required:
-                        - key
-                        - name
-                        type: object
-                    type: object
+                    items:
+                      properties:
+                        comment:
+                          description: Comment, that will appear in "User Settings
+                            / Access Tokens" page on Workspace UI.
+                          type: string
+                        lifetimeSeconds:
+                          description: Token expiry lifetime. By default its 2592000
+                            (30 days).
+                          type: number
+                        tokenId:
+                          description: (String) Canonical unique identifier for the
+                            workspace, of the format <account-id>/<workspace-id>
+                          type: string
+                        tokenValueSecretRef:
+                          description: |-
+                            A LocalSecretKeySelector is a reference to a secret key
+                            in the same namespace with the referencing object.
+                          properties:
+                            key:
+                              type: string
+                            name:
+                              description: Name of the secret.
+                              type: string
+                          required:
+                          - key
+                          - name
+                          type: object
+                      type: object
+                    type: array
                   workspaceId:
                     description: (String) workspace id
                     type: number
@@ -508,16 +521,21 @@ spec:
                   cloudResourceContainer:
                     description: '(GCP only) A block that specifies GCP workspace
                       configurations, consisting of following blocks:'
-                    properties:
-                      gcp:
-                        description: 'A block that consists of the following field:'
-                        properties:
-                          projectId:
-                            description: The Google Cloud project ID, which the workspace
-                              uses to instantiate cloud resources for your workspace.
-                            type: string
-                        type: object
-                    type: object
+                    items:
+                      properties:
+                        gcp:
+                          description: 'A block that consists of the following field:'
+                          items:
+                            properties:
+                              projectId:
+                                description: The Google Cloud project ID, which the
+                                  workspace uses to instantiate cloud resources for
+                                  your workspace.
+                                type: string
+                            type: object
+                          type: array
+                      type: object
+                    type: array
                   computeMode:
                     description: '- The compute mode for the workspace. When unset,
                       a classic workspace is created, and both credentials_id and
@@ -640,30 +658,36 @@ spec:
                       the new workspaces created.
                     type: string
                   externalCustomerInfo:
-                    properties:
-                      authoritativeUserEmail:
-                        type: string
-                      authoritativeUserFullName:
-                        type: string
-                      customerName:
-                        type: string
-                    type: object
+                    items:
+                      properties:
+                        authoritativeUserEmail:
+                          type: string
+                        authoritativeUserFullName:
+                          type: string
+                        customerName:
+                          type: string
+                      type: object
+                    type: array
                   gcpManagedNetworkConfig:
-                    properties:
-                      gkeClusterPodIpRange:
-                        type: string
-                      gkeClusterServiceIpRange:
-                        type: string
-                      subnetCidr:
-                        type: string
-                    type: object
+                    items:
+                      properties:
+                        gkeClusterPodIpRange:
+                          type: string
+                        gkeClusterServiceIpRange:
+                          type: string
+                        subnetCidr:
+                          type: string
+                      type: object
+                    type: array
                   gkeConfig:
-                    properties:
-                      connectivityType:
-                        type: string
-                      masterIpRange:
-                        type: string
-                    type: object
+                    items:
+                      properties:
+                        connectivityType:
+                          type: string
+                        masterIpRange:
+                          type: string
+                      type: object
+                    type: array
                   isNoPublicIpEnabled:
                     type: boolean
                   location:
@@ -859,34 +883,36 @@ spec:
                       Storage & Cluster Volumes.
                     type: string
                   token:
-                    properties:
-                      comment:
-                        description: Comment, that will appear in "User Settings /
-                          Access Tokens" page on Workspace UI.
-                        type: string
-                      lifetimeSeconds:
-                        description: Token expiry lifetime. By default its 2592000
-                          (30 days).
-                        type: number
-                      tokenId:
-                        description: (String) Canonical unique identifier for the
-                          workspace, of the format <account-id>/<workspace-id>
-                        type: string
-                      tokenValueSecretRef:
-                        description: |-
-                          A LocalSecretKeySelector is a reference to a secret key
-                          in the same namespace with the referencing object.
-                        properties:
-                          key:
-                            type: string
-                          name:
-                            description: Name of the secret.
-                            type: string
-                        required:
-                        - key
-                        - name
-                        type: object
-                    type: object
+                    items:
+                      properties:
+                        comment:
+                          description: Comment, that will appear in "User Settings
+                            / Access Tokens" page on Workspace UI.
+                          type: string
+                        lifetimeSeconds:
+                          description: Token expiry lifetime. By default its 2592000
+                            (30 days).
+                          type: number
+                        tokenId:
+                          description: (String) Canonical unique identifier for the
+                            workspace, of the format <account-id>/<workspace-id>
+                          type: string
+                        tokenValueSecretRef:
+                          description: |-
+                            A LocalSecretKeySelector is a reference to a secret key
+                            in the same namespace with the referencing object.
+                          properties:
+                            key:
+                              type: string
+                            name:
+                              description: Name of the secret.
+                              type: string
+                          required:
+                          - key
+                          - name
+                          type: object
+                      type: object
+                    type: array
                   workspaceId:
                     description: (String) workspace id
                     type: number
@@ -984,16 +1010,21 @@ spec:
                   cloudResourceContainer:
                     description: '(GCP only) A block that specifies GCP workspace
                       configurations, consisting of following blocks:'
-                    properties:
-                      gcp:
-                        description: 'A block that consists of the following field:'
-                        properties:
-                          projectId:
-                            description: The Google Cloud project ID, which the workspace
-                              uses to instantiate cloud resources for your workspace.
-                            type: string
-                        type: object
-                    type: object
+                    items:
+                      properties:
+                        gcp:
+                          description: 'A block that consists of the following field:'
+                          items:
+                            properties:
+                              projectId:
+                                description: The Google Cloud project ID, which the
+                                  workspace uses to instantiate cloud resources for
+                                  your workspace.
+                                type: string
+                            type: object
+                          type: array
+                      type: object
+                    type: array
                   computeMode:
                     description: '- The compute mode for the workspace. When unset,
                       a classic workspace is created, and both credentials_id and
@@ -1039,34 +1070,40 @@ spec:
                       for classic workspaces.
                     type: string
                   externalCustomerInfo:
-                    properties:
-                      authoritativeUserEmail:
-                        type: string
-                      authoritativeUserFullName:
-                        type: string
-                      customerName:
-                        type: string
-                    type: object
+                    items:
+                      properties:
+                        authoritativeUserEmail:
+                          type: string
+                        authoritativeUserFullName:
+                          type: string
+                        customerName:
+                          type: string
+                      type: object
+                    type: array
                   gcpManagedNetworkConfig:
-                    properties:
-                      gkeClusterPodIpRange:
-                        type: string
-                      gkeClusterServiceIpRange:
-                        type: string
-                      subnetCidr:
-                        type: string
-                    type: object
+                    items:
+                      properties:
+                        gkeClusterPodIpRange:
+                          type: string
+                        gkeClusterServiceIpRange:
+                          type: string
+                        subnetCidr:
+                          type: string
+                      type: object
+                    type: array
                   gcpWorkspaceSa:
                     description: (String, GCP only) identifier of a service account
                       created for the workspace in form of db-<workspace-id>@prod-gcp-<region>.iam.gserviceaccount.com
                     type: string
                   gkeConfig:
-                    properties:
-                      connectivityType:
-                        type: string
-                      masterIpRange:
-                        type: string
-                    type: object
+                    items:
+                      properties:
+                        connectivityType:
+                          type: string
+                        masterIpRange:
+                          type: string
+                      type: object
+                    type: array
                   id:
                     description: (String) Canonical unique identifier for the workspace,
                       of the format <account-id>/<workspace-id>
@@ -1102,20 +1139,22 @@ spec:
                       Storage & Cluster Volumes.
                     type: string
                   token:
-                    properties:
-                      comment:
-                        description: Comment, that will appear in "User Settings /
-                          Access Tokens" page on Workspace UI.
-                        type: string
-                      lifetimeSeconds:
-                        description: Token expiry lifetime. By default its 2592000
-                          (30 days).
-                        type: number
-                      tokenId:
-                        description: (String) Canonical unique identifier for the
-                          workspace, of the format <account-id>/<workspace-id>
-                        type: string
-                    type: object
+                    items:
+                      properties:
+                        comment:
+                          description: Comment, that will appear in "User Settings
+                            / Access Tokens" page on Workspace UI.
+                          type: string
+                        lifetimeSeconds:
+                          description: Token expiry lifetime. By default its 2592000
+                            (30 days).
+                          type: number
+                        tokenId:
+                          description: (String) Canonical unique identifier for the
+                            workspace, of the format <account-id>/<workspace-id>
+                          type: string
+                      type: object
+                    type: array
                   workspaceId:
                     description: (String) workspace id
                     type: number

@@ -84,14 +84,16 @@ spec:
                       forces creation of a new resource.
                     type: string
                   environmentSettings:
-                    properties:
-                      environmentVersion:
-                        type: string
-                      javaDependencies:
-                        items:
+                    items:
+                      properties:
+                        environmentVersion:
                           type: string
-                        type: array
-                    type: object
+                        javaDependencies:
+                          items:
+                            type: string
+                          type: array
+                      type: object
+                    type: array
                   name:
                     description: Name of the Connection.
                     type: string
@@ -151,14 +153,16 @@ spec:
                       forces creation of a new resource.
                     type: string
                   environmentSettings:
-                    properties:
-                      environmentVersion:
-                        type: string
-                      javaDependencies:
-                        items:
+                    items:
+                      properties:
+                        environmentVersion:
                           type: string
-                        type: array
-                    type: object
+                        javaDependencies:
+                          items:
+                            type: string
+                          type: array
+                      type: object
+                    type: array
                   name:
                     description: Name of the Connection.
                     type: string
@@ -297,14 +301,16 @@ spec:
                     description: The type of credential for this connection.
                     type: string
                   environmentSettings:
-                    properties:
-                      environmentVersion:
-                        type: string
-                      javaDependencies:
-                        items:
+                    items:
+                      properties:
+                        environmentVersion:
                           type: string
-                        type: array
-                    type: object
+                        javaDependencies:
+                          items:
+                            type: string
+                          type: array
+                      type: object
+                    type: array
                   fullName:
                     description: Full name of connection.
                     type: string

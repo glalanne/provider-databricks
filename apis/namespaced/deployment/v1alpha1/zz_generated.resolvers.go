@@ -130,92 +130,92 @@ func (mg *MwsNetworks) ResolveReferences(ctx context.Context, c client.Reader) e
 	var mrsp reference.MultiNamespacedResolutionResponse
 	var err error
 
-	if mg.Spec.ForProvider.VPCEndpoints != nil {
+	for i3 := 0; i3 < len(mg.Spec.ForProvider.VPCEndpoints); i3++ {
 		{
 			m, l, err = apisresolver.GetManagedResource("deployment.databricks.m.crossplane.io", "v1alpha1", "MwsVPCEndpoint", "MwsVPCEndpointList")
 			if err != nil {
 				return errors.Wrap(err, "failed to get the reference target managed resource and its list for reference resolution")
 			}
 			mrsp, err = r.ResolveMultiple(ctx, reference.MultiNamespacedResolutionRequest{
-				CurrentValues: reference.FromPtrValues(mg.Spec.ForProvider.VPCEndpoints.DataplaneRelay),
+				CurrentValues: reference.FromPtrValues(mg.Spec.ForProvider.VPCEndpoints[i3].DataplaneRelay),
 				Extract:       resource.ExtractParamPath("vpc_endpoint_id", false),
 				Namespace:     mg.GetNamespace(),
-				References:    mg.Spec.ForProvider.VPCEndpoints.DataplaneRelayRefs,
-				Selector:      mg.Spec.ForProvider.VPCEndpoints.DataplaneRelaySelector,
+				References:    mg.Spec.ForProvider.VPCEndpoints[i3].DataplaneRelayRefs,
+				Selector:      mg.Spec.ForProvider.VPCEndpoints[i3].DataplaneRelaySelector,
 				To:            reference.To{List: l, Managed: m},
 			})
 		}
 		if err != nil {
-			return errors.Wrap(err, "mg.Spec.ForProvider.VPCEndpoints.DataplaneRelay")
+			return errors.Wrap(err, "mg.Spec.ForProvider.VPCEndpoints[i3].DataplaneRelay")
 		}
-		mg.Spec.ForProvider.VPCEndpoints.DataplaneRelay = reference.ToPtrValues(mrsp.ResolvedValues)
-		mg.Spec.ForProvider.VPCEndpoints.DataplaneRelayRefs = mrsp.ResolvedReferences
+		mg.Spec.ForProvider.VPCEndpoints[i3].DataplaneRelay = reference.ToPtrValues(mrsp.ResolvedValues)
+		mg.Spec.ForProvider.VPCEndpoints[i3].DataplaneRelayRefs = mrsp.ResolvedReferences
 
 	}
-	if mg.Spec.ForProvider.VPCEndpoints != nil {
+	for i3 := 0; i3 < len(mg.Spec.ForProvider.VPCEndpoints); i3++ {
 		{
 			m, l, err = apisresolver.GetManagedResource("deployment.databricks.m.crossplane.io", "v1alpha1", "MwsVPCEndpoint", "MwsVPCEndpointList")
 			if err != nil {
 				return errors.Wrap(err, "failed to get the reference target managed resource and its list for reference resolution")
 			}
 			mrsp, err = r.ResolveMultiple(ctx, reference.MultiNamespacedResolutionRequest{
-				CurrentValues: reference.FromPtrValues(mg.Spec.ForProvider.VPCEndpoints.RestAPI),
+				CurrentValues: reference.FromPtrValues(mg.Spec.ForProvider.VPCEndpoints[i3].RestAPI),
 				Extract:       resource.ExtractParamPath("vpc_endpoint_id", false),
 				Namespace:     mg.GetNamespace(),
-				References:    mg.Spec.ForProvider.VPCEndpoints.RestAPIRefs,
-				Selector:      mg.Spec.ForProvider.VPCEndpoints.RestAPISelector,
+				References:    mg.Spec.ForProvider.VPCEndpoints[i3].RestAPIRefs,
+				Selector:      mg.Spec.ForProvider.VPCEndpoints[i3].RestAPISelector,
 				To:            reference.To{List: l, Managed: m},
 			})
 		}
 		if err != nil {
-			return errors.Wrap(err, "mg.Spec.ForProvider.VPCEndpoints.RestAPI")
+			return errors.Wrap(err, "mg.Spec.ForProvider.VPCEndpoints[i3].RestAPI")
 		}
-		mg.Spec.ForProvider.VPCEndpoints.RestAPI = reference.ToPtrValues(mrsp.ResolvedValues)
-		mg.Spec.ForProvider.VPCEndpoints.RestAPIRefs = mrsp.ResolvedReferences
+		mg.Spec.ForProvider.VPCEndpoints[i3].RestAPI = reference.ToPtrValues(mrsp.ResolvedValues)
+		mg.Spec.ForProvider.VPCEndpoints[i3].RestAPIRefs = mrsp.ResolvedReferences
 
 	}
-	if mg.Spec.InitProvider.VPCEndpoints != nil {
+	for i3 := 0; i3 < len(mg.Spec.InitProvider.VPCEndpoints); i3++ {
 		{
 			m, l, err = apisresolver.GetManagedResource("deployment.databricks.m.crossplane.io", "v1alpha1", "MwsVPCEndpoint", "MwsVPCEndpointList")
 			if err != nil {
 				return errors.Wrap(err, "failed to get the reference target managed resource and its list for reference resolution")
 			}
 			mrsp, err = r.ResolveMultiple(ctx, reference.MultiNamespacedResolutionRequest{
-				CurrentValues: reference.FromPtrValues(mg.Spec.InitProvider.VPCEndpoints.DataplaneRelay),
+				CurrentValues: reference.FromPtrValues(mg.Spec.InitProvider.VPCEndpoints[i3].DataplaneRelay),
 				Extract:       resource.ExtractParamPath("vpc_endpoint_id", false),
 				Namespace:     mg.GetNamespace(),
-				References:    mg.Spec.InitProvider.VPCEndpoints.DataplaneRelayRefs,
-				Selector:      mg.Spec.InitProvider.VPCEndpoints.DataplaneRelaySelector,
+				References:    mg.Spec.InitProvider.VPCEndpoints[i3].DataplaneRelayRefs,
+				Selector:      mg.Spec.InitProvider.VPCEndpoints[i3].DataplaneRelaySelector,
 				To:            reference.To{List: l, Managed: m},
 			})
 		}
 		if err != nil {
-			return errors.Wrap(err, "mg.Spec.InitProvider.VPCEndpoints.DataplaneRelay")
+			return errors.Wrap(err, "mg.Spec.InitProvider.VPCEndpoints[i3].DataplaneRelay")
 		}
-		mg.Spec.InitProvider.VPCEndpoints.DataplaneRelay = reference.ToPtrValues(mrsp.ResolvedValues)
-		mg.Spec.InitProvider.VPCEndpoints.DataplaneRelayRefs = mrsp.ResolvedReferences
+		mg.Spec.InitProvider.VPCEndpoints[i3].DataplaneRelay = reference.ToPtrValues(mrsp.ResolvedValues)
+		mg.Spec.InitProvider.VPCEndpoints[i3].DataplaneRelayRefs = mrsp.ResolvedReferences
 
 	}
-	if mg.Spec.InitProvider.VPCEndpoints != nil {
+	for i3 := 0; i3 < len(mg.Spec.InitProvider.VPCEndpoints); i3++ {
 		{
 			m, l, err = apisresolver.GetManagedResource("deployment.databricks.m.crossplane.io", "v1alpha1", "MwsVPCEndpoint", "MwsVPCEndpointList")
 			if err != nil {
 				return errors.Wrap(err, "failed to get the reference target managed resource and its list for reference resolution")
 			}
 			mrsp, err = r.ResolveMultiple(ctx, reference.MultiNamespacedResolutionRequest{
-				CurrentValues: reference.FromPtrValues(mg.Spec.InitProvider.VPCEndpoints.RestAPI),
+				CurrentValues: reference.FromPtrValues(mg.Spec.InitProvider.VPCEndpoints[i3].RestAPI),
 				Extract:       resource.ExtractParamPath("vpc_endpoint_id", false),
 				Namespace:     mg.GetNamespace(),
-				References:    mg.Spec.InitProvider.VPCEndpoints.RestAPIRefs,
-				Selector:      mg.Spec.InitProvider.VPCEndpoints.RestAPISelector,
+				References:    mg.Spec.InitProvider.VPCEndpoints[i3].RestAPIRefs,
+				Selector:      mg.Spec.InitProvider.VPCEndpoints[i3].RestAPISelector,
 				To:            reference.To{List: l, Managed: m},
 			})
 		}
 		if err != nil {
-			return errors.Wrap(err, "mg.Spec.InitProvider.VPCEndpoints.RestAPI")
+			return errors.Wrap(err, "mg.Spec.InitProvider.VPCEndpoints[i3].RestAPI")
 		}
-		mg.Spec.InitProvider.VPCEndpoints.RestAPI = reference.ToPtrValues(mrsp.ResolvedValues)
-		mg.Spec.InitProvider.VPCEndpoints.RestAPIRefs = mrsp.ResolvedReferences
+		mg.Spec.InitProvider.VPCEndpoints[i3].RestAPI = reference.ToPtrValues(mrsp.ResolvedValues)
+		mg.Spec.InitProvider.VPCEndpoints[i3].RestAPIRefs = mrsp.ResolvedReferences
 
 	}
 

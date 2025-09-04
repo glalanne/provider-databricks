@@ -9,9 +9,12 @@ metadata:
 spec:
   forProvider:
     autoscale:
-    - maxWorkers: 50
-      minWorkers: 1
+      - maxWorkers: 2
+        minWorkers: 1
     autoterminationMinutes: 20
     clusterName: Shared Autoscaling
-    nodeTypeId: ${data.databricks_node_type.smallest.id}
-    sparkVersion: ${data.databricks_spark_version.latest_lts.id}
+    nodeTypeId: "Standard_DS3_v2" # Azure
+    # nodeTypeId: "i3.xlarge" # AWS
+    # nodeTypeId: "n2-standard-4" # GCP
+    sparkVersion: "16.2.x-scala2.12"
+

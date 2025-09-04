@@ -79,7 +79,7 @@ func GetProvider(_ context.Context, sdkProvider *tfschema.Provider, generationPr
 		config.WithReferenceInjectors([]config.ReferenceInjector{reference.NewInjector(modulePath)}),
 		config.WithFeaturesPackage("internal/features"),
 		config.WithTerraformProvider(sdkProvider),
-		config.WithSchemaTraversers(&config.SingletonListEmbedder{}),
+		// config.WithSchemaTraversers(&config.SingletonListEmbedder{}),
 	)
 
 	// Rename resources to make it more pleasing to the eye
@@ -128,7 +128,7 @@ func GetProviderNamespaced(_ context.Context, sdkProvider *tfschema.Provider, ge
 		config.WithReferenceInjectors([]config.ReferenceInjector{reference.NewInjector(modulePath)}),
 		config.WithFeaturesPackage("internal/features"),
 		config.WithTerraformProvider(sdkProvider),
-		config.WithSchemaTraversers(&config.SingletonListEmbedder{}),
+		// config.WithSchemaTraversers(&config.SingletonListEmbedder{}),
 	)
 
 	registerTerraformConversions(pc)

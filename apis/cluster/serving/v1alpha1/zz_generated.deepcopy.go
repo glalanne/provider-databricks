@@ -17,18 +17,24 @@ func (in *AIGatewayInitParameters) DeepCopyInto(out *AIGatewayInitParameters) {
 	*out = *in
 	if in.FallbackConfig != nil {
 		in, out := &in.FallbackConfig, &out.FallbackConfig
-		*out = new(FallbackConfigInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]FallbackConfigInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Guardrails != nil {
 		in, out := &in.Guardrails, &out.Guardrails
-		*out = new(GuardrailsInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]GuardrailsInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.InferenceTableConfig != nil {
 		in, out := &in.InferenceTableConfig, &out.InferenceTableConfig
-		*out = new(InferenceTableConfigInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]InferenceTableConfigInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.RateLimits != nil {
 		in, out := &in.RateLimits, &out.RateLimits
@@ -39,8 +45,10 @@ func (in *AIGatewayInitParameters) DeepCopyInto(out *AIGatewayInitParameters) {
 	}
 	if in.UsageTrackingConfig != nil {
 		in, out := &in.UsageTrackingConfig, &out.UsageTrackingConfig
-		*out = new(UsageTrackingConfigInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]UsageTrackingConfigInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 }
 
@@ -59,18 +67,24 @@ func (in *AIGatewayObservation) DeepCopyInto(out *AIGatewayObservation) {
 	*out = *in
 	if in.FallbackConfig != nil {
 		in, out := &in.FallbackConfig, &out.FallbackConfig
-		*out = new(FallbackConfigObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]FallbackConfigObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Guardrails != nil {
 		in, out := &in.Guardrails, &out.Guardrails
-		*out = new(GuardrailsObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]GuardrailsObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.InferenceTableConfig != nil {
 		in, out := &in.InferenceTableConfig, &out.InferenceTableConfig
-		*out = new(InferenceTableConfigObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]InferenceTableConfigObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.RateLimits != nil {
 		in, out := &in.RateLimits, &out.RateLimits
@@ -81,8 +95,10 @@ func (in *AIGatewayObservation) DeepCopyInto(out *AIGatewayObservation) {
 	}
 	if in.UsageTrackingConfig != nil {
 		in, out := &in.UsageTrackingConfig, &out.UsageTrackingConfig
-		*out = new(UsageTrackingConfigObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]UsageTrackingConfigObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 }
 
@@ -101,18 +117,24 @@ func (in *AIGatewayParameters) DeepCopyInto(out *AIGatewayParameters) {
 	*out = *in
 	if in.FallbackConfig != nil {
 		in, out := &in.FallbackConfig, &out.FallbackConfig
-		*out = new(FallbackConfigParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]FallbackConfigParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Guardrails != nil {
 		in, out := &in.Guardrails, &out.Guardrails
-		*out = new(GuardrailsParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]GuardrailsParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.InferenceTableConfig != nil {
 		in, out := &in.InferenceTableConfig, &out.InferenceTableConfig
-		*out = new(InferenceTableConfigParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]InferenceTableConfigParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.RateLimits != nil {
 		in, out := &in.RateLimits, &out.RateLimits
@@ -123,8 +145,10 @@ func (in *AIGatewayParameters) DeepCopyInto(out *AIGatewayParameters) {
 	}
 	if in.UsageTrackingConfig != nil {
 		in, out := &in.UsageTrackingConfig, &out.UsageTrackingConfig
-		*out = new(UsageTrackingConfigParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]UsageTrackingConfigParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 }
 
@@ -803,8 +827,10 @@ func (in *ConfigInitParameters) DeepCopyInto(out *ConfigInitParameters) {
 	*out = *in
 	if in.AutoCaptureConfig != nil {
 		in, out := &in.AutoCaptureConfig, &out.AutoCaptureConfig
-		*out = new(AutoCaptureConfigInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]AutoCaptureConfigInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.ServedEntities != nil {
 		in, out := &in.ServedEntities, &out.ServedEntities
@@ -822,8 +848,10 @@ func (in *ConfigInitParameters) DeepCopyInto(out *ConfigInitParameters) {
 	}
 	if in.TrafficConfig != nil {
 		in, out := &in.TrafficConfig, &out.TrafficConfig
-		*out = new(TrafficConfigInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]TrafficConfigInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 }
 
@@ -842,8 +870,10 @@ func (in *ConfigObservation) DeepCopyInto(out *ConfigObservation) {
 	*out = *in
 	if in.AutoCaptureConfig != nil {
 		in, out := &in.AutoCaptureConfig, &out.AutoCaptureConfig
-		*out = new(AutoCaptureConfigObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]AutoCaptureConfigObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.ServedEntities != nil {
 		in, out := &in.ServedEntities, &out.ServedEntities
@@ -861,8 +891,10 @@ func (in *ConfigObservation) DeepCopyInto(out *ConfigObservation) {
 	}
 	if in.TrafficConfig != nil {
 		in, out := &in.TrafficConfig, &out.TrafficConfig
-		*out = new(TrafficConfigObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]TrafficConfigObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 }
 
@@ -881,8 +913,10 @@ func (in *ConfigParameters) DeepCopyInto(out *ConfigParameters) {
 	*out = *in
 	if in.AutoCaptureConfig != nil {
 		in, out := &in.AutoCaptureConfig, &out.AutoCaptureConfig
-		*out = new(AutoCaptureConfigParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]AutoCaptureConfigParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.ServedEntities != nil {
 		in, out := &in.ServedEntities, &out.ServedEntities
@@ -900,8 +934,10 @@ func (in *ConfigParameters) DeepCopyInto(out *ConfigParameters) {
 	}
 	if in.TrafficConfig != nil {
 		in, out := &in.TrafficConfig, &out.TrafficConfig
-		*out = new(TrafficConfigParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]TrafficConfigParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 }
 
@@ -920,13 +956,17 @@ func (in *CustomProviderConfigInitParameters) DeepCopyInto(out *CustomProviderCo
 	*out = *in
 	if in.APIKeyAuth != nil {
 		in, out := &in.APIKeyAuth, &out.APIKeyAuth
-		*out = new(APIKeyAuthInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]APIKeyAuthInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.BearerTokenAuth != nil {
 		in, out := &in.BearerTokenAuth, &out.BearerTokenAuth
-		*out = new(BearerTokenAuthInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]BearerTokenAuthInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.CustomProviderURL != nil {
 		in, out := &in.CustomProviderURL, &out.CustomProviderURL
@@ -950,13 +990,17 @@ func (in *CustomProviderConfigObservation) DeepCopyInto(out *CustomProviderConfi
 	*out = *in
 	if in.APIKeyAuth != nil {
 		in, out := &in.APIKeyAuth, &out.APIKeyAuth
-		*out = new(APIKeyAuthObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]APIKeyAuthObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.BearerTokenAuth != nil {
 		in, out := &in.BearerTokenAuth, &out.BearerTokenAuth
-		*out = new(BearerTokenAuthObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]BearerTokenAuthObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.CustomProviderURL != nil {
 		in, out := &in.CustomProviderURL, &out.CustomProviderURL
@@ -980,13 +1024,17 @@ func (in *CustomProviderConfigParameters) DeepCopyInto(out *CustomProviderConfig
 	*out = *in
 	if in.APIKeyAuth != nil {
 		in, out := &in.APIKeyAuth, &out.APIKeyAuth
-		*out = new(APIKeyAuthParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]APIKeyAuthParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.BearerTokenAuth != nil {
 		in, out := &in.BearerTokenAuth, &out.BearerTokenAuth
-		*out = new(BearerTokenAuthParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]BearerTokenAuthParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.CustomProviderURL != nil {
 		in, out := &in.CustomProviderURL, &out.CustomProviderURL
@@ -1211,38 +1259,52 @@ func (in *ExternalModelInitParameters) DeepCopyInto(out *ExternalModelInitParame
 	*out = *in
 	if in.Ai21LabsConfig != nil {
 		in, out := &in.Ai21LabsConfig, &out.Ai21LabsConfig
-		*out = new(Ai21LabsConfigInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]Ai21LabsConfigInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.AmazonBedrockConfig != nil {
 		in, out := &in.AmazonBedrockConfig, &out.AmazonBedrockConfig
-		*out = new(AmazonBedrockConfigInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]AmazonBedrockConfigInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.AnthropicConfig != nil {
 		in, out := &in.AnthropicConfig, &out.AnthropicConfig
-		*out = new(AnthropicConfigInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]AnthropicConfigInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.CohereConfig != nil {
 		in, out := &in.CohereConfig, &out.CohereConfig
-		*out = new(CohereConfigInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]CohereConfigInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.CustomProviderConfig != nil {
 		in, out := &in.CustomProviderConfig, &out.CustomProviderConfig
-		*out = new(CustomProviderConfigInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]CustomProviderConfigInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.DatabricksModelServingConfig != nil {
 		in, out := &in.DatabricksModelServingConfig, &out.DatabricksModelServingConfig
-		*out = new(DatabricksModelServingConfigInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]DatabricksModelServingConfigInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.GoogleCloudVertexAIConfig != nil {
 		in, out := &in.GoogleCloudVertexAIConfig, &out.GoogleCloudVertexAIConfig
-		*out = new(GoogleCloudVertexAIConfigInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]GoogleCloudVertexAIConfigInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Name != nil {
 		in, out := &in.Name, &out.Name
@@ -1251,13 +1313,17 @@ func (in *ExternalModelInitParameters) DeepCopyInto(out *ExternalModelInitParame
 	}
 	if in.OpenaiConfig != nil {
 		in, out := &in.OpenaiConfig, &out.OpenaiConfig
-		*out = new(OpenaiConfigInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]OpenaiConfigInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.PalmConfig != nil {
 		in, out := &in.PalmConfig, &out.PalmConfig
-		*out = new(PalmConfigInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]PalmConfigInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Provider != nil {
 		in, out := &in.Provider, &out.Provider
@@ -1286,38 +1352,52 @@ func (in *ExternalModelObservation) DeepCopyInto(out *ExternalModelObservation) 
 	*out = *in
 	if in.Ai21LabsConfig != nil {
 		in, out := &in.Ai21LabsConfig, &out.Ai21LabsConfig
-		*out = new(Ai21LabsConfigObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]Ai21LabsConfigObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.AmazonBedrockConfig != nil {
 		in, out := &in.AmazonBedrockConfig, &out.AmazonBedrockConfig
-		*out = new(AmazonBedrockConfigObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]AmazonBedrockConfigObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.AnthropicConfig != nil {
 		in, out := &in.AnthropicConfig, &out.AnthropicConfig
-		*out = new(AnthropicConfigObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]AnthropicConfigObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.CohereConfig != nil {
 		in, out := &in.CohereConfig, &out.CohereConfig
-		*out = new(CohereConfigObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]CohereConfigObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.CustomProviderConfig != nil {
 		in, out := &in.CustomProviderConfig, &out.CustomProviderConfig
-		*out = new(CustomProviderConfigObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]CustomProviderConfigObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.DatabricksModelServingConfig != nil {
 		in, out := &in.DatabricksModelServingConfig, &out.DatabricksModelServingConfig
-		*out = new(DatabricksModelServingConfigObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]DatabricksModelServingConfigObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.GoogleCloudVertexAIConfig != nil {
 		in, out := &in.GoogleCloudVertexAIConfig, &out.GoogleCloudVertexAIConfig
-		*out = new(GoogleCloudVertexAIConfigObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]GoogleCloudVertexAIConfigObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Name != nil {
 		in, out := &in.Name, &out.Name
@@ -1326,13 +1406,17 @@ func (in *ExternalModelObservation) DeepCopyInto(out *ExternalModelObservation) 
 	}
 	if in.OpenaiConfig != nil {
 		in, out := &in.OpenaiConfig, &out.OpenaiConfig
-		*out = new(OpenaiConfigObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]OpenaiConfigObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.PalmConfig != nil {
 		in, out := &in.PalmConfig, &out.PalmConfig
-		*out = new(PalmConfigObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]PalmConfigObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Provider != nil {
 		in, out := &in.Provider, &out.Provider
@@ -1361,38 +1445,52 @@ func (in *ExternalModelParameters) DeepCopyInto(out *ExternalModelParameters) {
 	*out = *in
 	if in.Ai21LabsConfig != nil {
 		in, out := &in.Ai21LabsConfig, &out.Ai21LabsConfig
-		*out = new(Ai21LabsConfigParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]Ai21LabsConfigParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.AmazonBedrockConfig != nil {
 		in, out := &in.AmazonBedrockConfig, &out.AmazonBedrockConfig
-		*out = new(AmazonBedrockConfigParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]AmazonBedrockConfigParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.AnthropicConfig != nil {
 		in, out := &in.AnthropicConfig, &out.AnthropicConfig
-		*out = new(AnthropicConfigParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]AnthropicConfigParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.CohereConfig != nil {
 		in, out := &in.CohereConfig, &out.CohereConfig
-		*out = new(CohereConfigParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]CohereConfigParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.CustomProviderConfig != nil {
 		in, out := &in.CustomProviderConfig, &out.CustomProviderConfig
-		*out = new(CustomProviderConfigParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]CustomProviderConfigParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.DatabricksModelServingConfig != nil {
 		in, out := &in.DatabricksModelServingConfig, &out.DatabricksModelServingConfig
-		*out = new(DatabricksModelServingConfigParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]DatabricksModelServingConfigParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.GoogleCloudVertexAIConfig != nil {
 		in, out := &in.GoogleCloudVertexAIConfig, &out.GoogleCloudVertexAIConfig
-		*out = new(GoogleCloudVertexAIConfigParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]GoogleCloudVertexAIConfigParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Name != nil {
 		in, out := &in.Name, &out.Name
@@ -1401,13 +1499,17 @@ func (in *ExternalModelParameters) DeepCopyInto(out *ExternalModelParameters) {
 	}
 	if in.OpenaiConfig != nil {
 		in, out := &in.OpenaiConfig, &out.OpenaiConfig
-		*out = new(OpenaiConfigParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]OpenaiConfigParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.PalmConfig != nil {
 		in, out := &in.PalmConfig, &out.PalmConfig
-		*out = new(PalmConfigParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]PalmConfigParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Provider != nil {
 		in, out := &in.Provider, &out.Provider
@@ -1601,13 +1703,17 @@ func (in *GuardrailsInitParameters) DeepCopyInto(out *GuardrailsInitParameters) 
 	*out = *in
 	if in.Input != nil {
 		in, out := &in.Input, &out.Input
-		*out = new(InputInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]InputInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Output != nil {
 		in, out := &in.Output, &out.Output
-		*out = new(OutputInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]OutputInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 }
 
@@ -1626,13 +1732,17 @@ func (in *GuardrailsObservation) DeepCopyInto(out *GuardrailsObservation) {
 	*out = *in
 	if in.Input != nil {
 		in, out := &in.Input, &out.Input
-		*out = new(InputObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]InputObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Output != nil {
 		in, out := &in.Output, &out.Output
-		*out = new(OutputObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]OutputObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 }
 
@@ -1651,13 +1761,17 @@ func (in *GuardrailsParameters) DeepCopyInto(out *GuardrailsParameters) {
 	*out = *in
 	if in.Input != nil {
 		in, out := &in.Input, &out.Input
-		*out = new(InputParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]InputParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Output != nil {
 		in, out := &in.Output, &out.Output
-		*out = new(OutputParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]OutputParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 }
 
@@ -1792,8 +1906,10 @@ func (in *InputInitParameters) DeepCopyInto(out *InputInitParameters) {
 	}
 	if in.Pii != nil {
 		in, out := &in.Pii, &out.Pii
-		*out = new(PiiInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]PiiInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Safety != nil {
 		in, out := &in.Safety, &out.Safety
@@ -1839,8 +1955,10 @@ func (in *InputObservation) DeepCopyInto(out *InputObservation) {
 	}
 	if in.Pii != nil {
 		in, out := &in.Pii, &out.Pii
-		*out = new(PiiObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]PiiObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Safety != nil {
 		in, out := &in.Safety, &out.Safety
@@ -1886,8 +2004,10 @@ func (in *InputParameters) DeepCopyInto(out *InputParameters) {
 	}
 	if in.Pii != nil {
 		in, out := &in.Pii, &out.Pii
-		*out = new(PiiParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]PiiParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Safety != nil {
 		in, out := &in.Safety, &out.Safety
@@ -1949,8 +2069,10 @@ func (in *ModelServingInitParameters) DeepCopyInto(out *ModelServingInitParamete
 	*out = *in
 	if in.AIGateway != nil {
 		in, out := &in.AIGateway, &out.AIGateway
-		*out = new(AIGatewayInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]AIGatewayInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.BudgetPolicyID != nil {
 		in, out := &in.BudgetPolicyID, &out.BudgetPolicyID
@@ -1959,8 +2081,10 @@ func (in *ModelServingInitParameters) DeepCopyInto(out *ModelServingInitParamete
 	}
 	if in.Config != nil {
 		in, out := &in.Config, &out.Config
-		*out = new(ConfigInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]ConfigInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Description != nil {
 		in, out := &in.Description, &out.Description
@@ -1969,8 +2093,10 @@ func (in *ModelServingInitParameters) DeepCopyInto(out *ModelServingInitParamete
 	}
 	if in.EmailNotifications != nil {
 		in, out := &in.EmailNotifications, &out.EmailNotifications
-		*out = new(EmailNotificationsInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]EmailNotificationsInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Name != nil {
 		in, out := &in.Name, &out.Name
@@ -2045,8 +2171,10 @@ func (in *ModelServingObservation) DeepCopyInto(out *ModelServingObservation) {
 	*out = *in
 	if in.AIGateway != nil {
 		in, out := &in.AIGateway, &out.AIGateway
-		*out = new(AIGatewayObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]AIGatewayObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.BudgetPolicyID != nil {
 		in, out := &in.BudgetPolicyID, &out.BudgetPolicyID
@@ -2055,8 +2183,10 @@ func (in *ModelServingObservation) DeepCopyInto(out *ModelServingObservation) {
 	}
 	if in.Config != nil {
 		in, out := &in.Config, &out.Config
-		*out = new(ConfigObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]ConfigObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Description != nil {
 		in, out := &in.Description, &out.Description
@@ -2065,8 +2195,10 @@ func (in *ModelServingObservation) DeepCopyInto(out *ModelServingObservation) {
 	}
 	if in.EmailNotifications != nil {
 		in, out := &in.EmailNotifications, &out.EmailNotifications
-		*out = new(EmailNotificationsObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]EmailNotificationsObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.EndpointURL != nil {
 		in, out := &in.EndpointURL, &out.EndpointURL
@@ -2124,8 +2256,10 @@ func (in *ModelServingParameters) DeepCopyInto(out *ModelServingParameters) {
 	*out = *in
 	if in.AIGateway != nil {
 		in, out := &in.AIGateway, &out.AIGateway
-		*out = new(AIGatewayParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]AIGatewayParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.BudgetPolicyID != nil {
 		in, out := &in.BudgetPolicyID, &out.BudgetPolicyID
@@ -2134,8 +2268,10 @@ func (in *ModelServingParameters) DeepCopyInto(out *ModelServingParameters) {
 	}
 	if in.Config != nil {
 		in, out := &in.Config, &out.Config
-		*out = new(ConfigParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]ConfigParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Description != nil {
 		in, out := &in.Description, &out.Description
@@ -2144,8 +2280,10 @@ func (in *ModelServingParameters) DeepCopyInto(out *ModelServingParameters) {
 	}
 	if in.EmailNotifications != nil {
 		in, out := &in.EmailNotifications, &out.EmailNotifications
-		*out = new(EmailNotificationsParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]EmailNotificationsParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Name != nil {
 		in, out := &in.Name, &out.Name
@@ -2534,8 +2672,10 @@ func (in *OutputInitParameters) DeepCopyInto(out *OutputInitParameters) {
 	}
 	if in.Pii != nil {
 		in, out := &in.Pii, &out.Pii
-		*out = new(OutputPiiInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]OutputPiiInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Safety != nil {
 		in, out := &in.Safety, &out.Safety
@@ -2581,8 +2721,10 @@ func (in *OutputObservation) DeepCopyInto(out *OutputObservation) {
 	}
 	if in.Pii != nil {
 		in, out := &in.Pii, &out.Pii
-		*out = new(OutputPiiObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]OutputPiiObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Safety != nil {
 		in, out := &in.Safety, &out.Safety
@@ -2628,8 +2770,10 @@ func (in *OutputParameters) DeepCopyInto(out *OutputParameters) {
 	}
 	if in.Pii != nil {
 		in, out := &in.Pii, &out.Pii
-		*out = new(OutputPiiParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]OutputPiiParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Safety != nil {
 		in, out := &in.Safety, &out.Safety
@@ -3080,8 +3224,10 @@ func (in *ServedEntitiesInitParameters) DeepCopyInto(out *ServedEntitiesInitPara
 	}
 	if in.ExternalModel != nil {
 		in, out := &in.ExternalModel, &out.ExternalModel
-		*out = new(ExternalModelInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]ExternalModelInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.InstanceProfileArn != nil {
 		in, out := &in.InstanceProfileArn, &out.InstanceProfileArn
@@ -3176,8 +3322,10 @@ func (in *ServedEntitiesObservation) DeepCopyInto(out *ServedEntitiesObservation
 	}
 	if in.ExternalModel != nil {
 		in, out := &in.ExternalModel, &out.ExternalModel
-		*out = new(ExternalModelObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]ExternalModelObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.InstanceProfileArn != nil {
 		in, out := &in.InstanceProfileArn, &out.InstanceProfileArn
@@ -3272,8 +3420,10 @@ func (in *ServedEntitiesParameters) DeepCopyInto(out *ServedEntitiesParameters) 
 	}
 	if in.ExternalModel != nil {
 		in, out := &in.ExternalModel, &out.ExternalModel
-		*out = new(ExternalModelParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]ExternalModelParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.InstanceProfileArn != nil {
 		in, out := &in.InstanceProfileArn, &out.InstanceProfileArn

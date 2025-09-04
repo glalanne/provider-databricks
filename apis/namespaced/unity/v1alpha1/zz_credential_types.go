@@ -126,11 +126,11 @@ type AzureServicePrincipalParameters struct {
 }
 
 type CredentialInitParameters struct {
-	AwsIAMRole *AwsIAMRoleInitParameters `json:"awsIamRole,omitempty" tf:"aws_iam_role,omitempty"`
+	AwsIAMRole []AwsIAMRoleInitParameters `json:"awsIamRole,omitempty" tf:"aws_iam_role,omitempty"`
 
-	AzureManagedIdentity *AzureManagedIdentityInitParameters `json:"azureManagedIdentity,omitempty" tf:"azure_managed_identity,omitempty"`
+	AzureManagedIdentity []AzureManagedIdentityInitParameters `json:"azureManagedIdentity,omitempty" tf:"azure_managed_identity,omitempty"`
 
-	AzureServicePrincipal *AzureServicePrincipalInitParameters `json:"azureServicePrincipal,omitempty" tf:"azure_service_principal,omitempty"`
+	AzureServicePrincipal []AzureServicePrincipalInitParameters `json:"azureServicePrincipal,omitempty" tf:"azure_service_principal,omitempty"`
 
 	Comment *string `json:"comment,omitempty" tf:"comment,omitempty"`
 
@@ -138,7 +138,7 @@ type CredentialInitParameters struct {
 
 	CreatedBy *string `json:"createdBy,omitempty" tf:"created_by,omitempty"`
 
-	DatabricksGCPServiceAccount *DatabricksGCPServiceAccountInitParameters `json:"databricksGcpServiceAccount,omitempty" tf:"databricks_gcp_service_account,omitempty"`
+	DatabricksGCPServiceAccount []DatabricksGCPServiceAccountInitParameters `json:"databricksGcpServiceAccount,omitempty" tf:"databricks_gcp_service_account,omitempty"`
 
 	// Delete credential regardless of its dependencies.
 	ForceDestroy *bool `json:"forceDestroy,omitempty" tf:"force_destroy,omitempty"`
@@ -178,11 +178,11 @@ type CredentialInitParameters struct {
 }
 
 type CredentialObservation struct {
-	AwsIAMRole *AwsIAMRoleObservation `json:"awsIamRole,omitempty" tf:"aws_iam_role,omitempty"`
+	AwsIAMRole []AwsIAMRoleObservation `json:"awsIamRole,omitempty" tf:"aws_iam_role,omitempty"`
 
-	AzureManagedIdentity *AzureManagedIdentityObservation `json:"azureManagedIdentity,omitempty" tf:"azure_managed_identity,omitempty"`
+	AzureManagedIdentity []AzureManagedIdentityObservation `json:"azureManagedIdentity,omitempty" tf:"azure_managed_identity,omitempty"`
 
-	AzureServicePrincipal *AzureServicePrincipalObservation `json:"azureServicePrincipal,omitempty" tf:"azure_service_principal,omitempty"`
+	AzureServicePrincipal []AzureServicePrincipalObservation `json:"azureServicePrincipal,omitempty" tf:"azure_service_principal,omitempty"`
 
 	Comment *string `json:"comment,omitempty" tf:"comment,omitempty"`
 
@@ -193,7 +193,7 @@ type CredentialObservation struct {
 	// Unique ID of the credential.
 	CredentialID *string `json:"credentialId,omitempty" tf:"credential_id,omitempty"`
 
-	DatabricksGCPServiceAccount *DatabricksGCPServiceAccountObservation `json:"databricksGcpServiceAccount,omitempty" tf:"databricks_gcp_service_account,omitempty"`
+	DatabricksGCPServiceAccount []DatabricksGCPServiceAccountObservation `json:"databricksGcpServiceAccount,omitempty" tf:"databricks_gcp_service_account,omitempty"`
 
 	// Delete credential regardless of its dependencies.
 	ForceDestroy *bool `json:"forceDestroy,omitempty" tf:"force_destroy,omitempty"`
@@ -238,13 +238,13 @@ type CredentialObservation struct {
 type CredentialParameters struct {
 
 	// +kubebuilder:validation:Optional
-	AwsIAMRole *AwsIAMRoleParameters `json:"awsIamRole,omitempty" tf:"aws_iam_role,omitempty"`
+	AwsIAMRole []AwsIAMRoleParameters `json:"awsIamRole,omitempty" tf:"aws_iam_role,omitempty"`
 
 	// +kubebuilder:validation:Optional
-	AzureManagedIdentity *AzureManagedIdentityParameters `json:"azureManagedIdentity,omitempty" tf:"azure_managed_identity,omitempty"`
+	AzureManagedIdentity []AzureManagedIdentityParameters `json:"azureManagedIdentity,omitempty" tf:"azure_managed_identity,omitempty"`
 
 	// +kubebuilder:validation:Optional
-	AzureServicePrincipal *AzureServicePrincipalParameters `json:"azureServicePrincipal,omitempty" tf:"azure_service_principal,omitempty"`
+	AzureServicePrincipal []AzureServicePrincipalParameters `json:"azureServicePrincipal,omitempty" tf:"azure_service_principal,omitempty"`
 
 	// +kubebuilder:validation:Optional
 	Comment *string `json:"comment,omitempty" tf:"comment,omitempty"`
@@ -256,7 +256,7 @@ type CredentialParameters struct {
 	CreatedBy *string `json:"createdBy,omitempty" tf:"created_by,omitempty"`
 
 	// +kubebuilder:validation:Optional
-	DatabricksGCPServiceAccount *DatabricksGCPServiceAccountParameters `json:"databricksGcpServiceAccount,omitempty" tf:"databricks_gcp_service_account,omitempty"`
+	DatabricksGCPServiceAccount []DatabricksGCPServiceAccountParameters `json:"databricksGcpServiceAccount,omitempty" tf:"databricks_gcp_service_account,omitempty"`
 
 	// Delete credential regardless of its dependencies.
 	// +kubebuilder:validation:Optional

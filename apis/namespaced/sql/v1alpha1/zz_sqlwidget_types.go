@@ -74,7 +74,7 @@ type SQLWidgetInitParameters struct {
 
 	Parameter []SQLWidgetParameterInitParameters `json:"parameter,omitempty" tf:"parameter,omitempty"`
 
-	Position *PositionInitParameters `json:"position,omitempty" tf:"position,omitempty"`
+	Position []PositionInitParameters `json:"position,omitempty" tf:"position,omitempty"`
 
 	Text *string `json:"text,omitempty" tf:"text,omitempty"`
 
@@ -104,7 +104,7 @@ type SQLWidgetObservation struct {
 
 	Parameter []SQLWidgetParameterObservation `json:"parameter,omitempty" tf:"parameter,omitempty"`
 
-	Position *PositionObservation `json:"position,omitempty" tf:"position,omitempty"`
+	Position []PositionObservation `json:"position,omitempty" tf:"position,omitempty"`
 
 	Text *string `json:"text,omitempty" tf:"text,omitempty"`
 
@@ -186,7 +186,7 @@ type SQLWidgetParameters struct {
 	Parameter []SQLWidgetParameterParameters `json:"parameter,omitempty" tf:"parameter,omitempty"`
 
 	// +kubebuilder:validation:Optional
-	Position *PositionParameters `json:"position,omitempty" tf:"position,omitempty"`
+	Position []PositionParameters `json:"position,omitempty" tf:"position,omitempty"`
 
 	// +kubebuilder:validation:Optional
 	Text *string `json:"text,omitempty" tf:"text,omitempty"`

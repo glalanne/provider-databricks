@@ -21,7 +21,7 @@ func (mg *Credential) GetTerraformResourceType() string {
 
 // GetConnectionDetailsMapping for this Credential
 func (tr *Credential) GetConnectionDetailsMapping() map[string]string {
-	return map[string]string{"azure_service_principal[*].client_secret": "azureServicePrincipal.clientSecretSecretRef"}
+	return map[string]string{"azure_service_principal[*].client_secret": "azureServicePrincipal[*].clientSecretSecretRef"}
 }
 
 // GetObservation of this Credential

@@ -749,8 +749,10 @@ func (in *RecipientInitParameters) DeepCopyInto(out *RecipientInitParameters) {
 	}
 	if in.IPAccessList != nil {
 		in, out := &in.IPAccessList, &out.IPAccessList
-		*out = new(IPAccessListInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]IPAccessListInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Name != nil {
 		in, out := &in.Name, &out.Name
@@ -764,8 +766,10 @@ func (in *RecipientInitParameters) DeepCopyInto(out *RecipientInitParameters) {
 	}
 	if in.PropertiesKvpairs != nil {
 		in, out := &in.PropertiesKvpairs, &out.PropertiesKvpairs
-		*out = new(PropertiesKvpairsInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]PropertiesKvpairsInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.SharingCodeSecretRef != nil {
 		in, out := &in.SharingCodeSecretRef, &out.SharingCodeSecretRef
@@ -876,8 +880,10 @@ func (in *RecipientObservation) DeepCopyInto(out *RecipientObservation) {
 	}
 	if in.IPAccessList != nil {
 		in, out := &in.IPAccessList, &out.IPAccessList
-		*out = new(IPAccessListObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]IPAccessListObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.MetastoreID != nil {
 		in, out := &in.MetastoreID, &out.MetastoreID
@@ -896,8 +902,10 @@ func (in *RecipientObservation) DeepCopyInto(out *RecipientObservation) {
 	}
 	if in.PropertiesKvpairs != nil {
 		in, out := &in.PropertiesKvpairs, &out.PropertiesKvpairs
-		*out = new(PropertiesKvpairsObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]PropertiesKvpairsObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Region != nil {
 		in, out := &in.Region, &out.Region
@@ -968,8 +976,10 @@ func (in *RecipientParameters) DeepCopyInto(out *RecipientParameters) {
 	}
 	if in.IPAccessList != nil {
 		in, out := &in.IPAccessList, &out.IPAccessList
-		*out = new(IPAccessListParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]IPAccessListParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Name != nil {
 		in, out := &in.Name, &out.Name
@@ -983,8 +993,10 @@ func (in *RecipientParameters) DeepCopyInto(out *RecipientParameters) {
 	}
 	if in.PropertiesKvpairs != nil {
 		in, out := &in.PropertiesKvpairs, &out.PropertiesKvpairs
-		*out = new(PropertiesKvpairsParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]PropertiesKvpairsParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.SharingCodeSecretRef != nil {
 		in, out := &in.SharingCodeSecretRef, &out.SharingCodeSecretRef

@@ -43,7 +43,7 @@ type CustomAppIntegrationInitParameters struct {
 	// OAuth scopes granted to the application. Supported scopes: all-apis, sql, offline_access, openid, profile, email.
 	Scopes []*string `json:"scopes,omitempty" tf:"scopes,omitempty"`
 
-	TokenAccessPolicy *TokenAccessPolicyInitParameters `json:"tokenAccessPolicy,omitempty" tf:"token_access_policy,omitempty"`
+	TokenAccessPolicy []TokenAccessPolicyInitParameters `json:"tokenAccessPolicy,omitempty" tf:"token_access_policy,omitempty"`
 
 	// OAuth scopes granted to the application. Supported scopes: all-apis, sql, offline_access, openid, profile, email.
 	UserAuthorizedScopes []*string `json:"userAuthorizedScopes,omitempty" tf:"user_authorized_scopes,omitempty"`
@@ -78,7 +78,7 @@ type CustomAppIntegrationObservation struct {
 	// OAuth scopes granted to the application. Supported scopes: all-apis, sql, offline_access, openid, profile, email.
 	Scopes []*string `json:"scopes,omitempty" tf:"scopes,omitempty"`
 
-	TokenAccessPolicy *TokenAccessPolicyObservation `json:"tokenAccessPolicy,omitempty" tf:"token_access_policy,omitempty"`
+	TokenAccessPolicy []TokenAccessPolicyObservation `json:"tokenAccessPolicy,omitempty" tf:"token_access_policy,omitempty"`
 
 	// OAuth scopes granted to the application. Supported scopes: all-apis, sql, offline_access, openid, profile, email.
 	UserAuthorizedScopes []*string `json:"userAuthorizedScopes,omitempty" tf:"user_authorized_scopes,omitempty"`
@@ -125,7 +125,7 @@ type CustomAppIntegrationParameters struct {
 	Scopes []*string `json:"scopes,omitempty" tf:"scopes,omitempty"`
 
 	// +kubebuilder:validation:Optional
-	TokenAccessPolicy *TokenAccessPolicyParameters `json:"tokenAccessPolicy,omitempty" tf:"token_access_policy,omitempty"`
+	TokenAccessPolicy []TokenAccessPolicyParameters `json:"tokenAccessPolicy,omitempty" tf:"token_access_policy,omitempty"`
 
 	// OAuth scopes granted to the application. Supported scopes: all-apis, sql, offline_access, openid, profile, email.
 	// +kubebuilder:validation:Optional

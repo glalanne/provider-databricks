@@ -21,7 +21,7 @@ func (mg *InstancePool) GetTerraformResourceType() string {
 
 // GetConnectionDetailsMapping for this InstancePool
 func (tr *InstancePool) GetConnectionDetailsMapping() map[string]string {
-	return map[string]string{"preloaded_docker_image[*].basic_auth[*].password": "preloadedDockerImage[*].basicAuth.passwordSecretRef"}
+	return map[string]string{"preloaded_docker_image[*].basic_auth[*].password": "preloadedDockerImage[*].basicAuth[*].passwordSecretRef"}
 }
 
 // GetObservation of this InstancePool

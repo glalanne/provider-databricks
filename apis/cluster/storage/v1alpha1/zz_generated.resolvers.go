@@ -26,92 +26,92 @@ func (mg *Mount) ResolveReferences( // ResolveReferences of this Mount.
 	var rsp reference.ResolutionResponse
 	var err error
 
-	if mg.Spec.ForProvider.Abfs != nil {
+	for i3 := 0; i3 < len(mg.Spec.ForProvider.Abfs); i3++ {
 		{
 			m, l, err = apisresolver.GetManagedResource("security.databricks.crossplane.io", "v1alpha1", "Secret", "SecretList")
 			if err != nil {
 				return errors.Wrap(err, "failed to get the reference target managed resource and its list for reference resolution")
 			}
 			rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
-				CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.Abfs.ClientSecretKey),
+				CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.Abfs[i3].ClientSecretKey),
 				Extract:      resource.ExtractParamPath("key", false),
 				Namespace:    mg.GetNamespace(),
-				Reference:    mg.Spec.ForProvider.Abfs.ClientSecretKeyRef,
-				Selector:     mg.Spec.ForProvider.Abfs.ClientSecretKeySelector,
+				Reference:    mg.Spec.ForProvider.Abfs[i3].ClientSecretKeyRef,
+				Selector:     mg.Spec.ForProvider.Abfs[i3].ClientSecretKeySelector,
 				To:           reference.To{List: l, Managed: m},
 			})
 		}
 		if err != nil {
-			return errors.Wrap(err, "mg.Spec.ForProvider.Abfs.ClientSecretKey")
+			return errors.Wrap(err, "mg.Spec.ForProvider.Abfs[i3].ClientSecretKey")
 		}
-		mg.Spec.ForProvider.Abfs.ClientSecretKey = reference.ToPtrValue(rsp.ResolvedValue)
-		mg.Spec.ForProvider.Abfs.ClientSecretKeyRef = rsp.ResolvedReference
+		mg.Spec.ForProvider.Abfs[i3].ClientSecretKey = reference.ToPtrValue(rsp.ResolvedValue)
+		mg.Spec.ForProvider.Abfs[i3].ClientSecretKeyRef = rsp.ResolvedReference
 
 	}
-	if mg.Spec.ForProvider.Abfs != nil {
+	for i3 := 0; i3 < len(mg.Spec.ForProvider.Abfs); i3++ {
 		{
 			m, l, err = apisresolver.GetManagedResource("security.databricks.crossplane.io", "v1alpha1", "SecretScope", "SecretScopeList")
 			if err != nil {
 				return errors.Wrap(err, "failed to get the reference target managed resource and its list for reference resolution")
 			}
 			rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
-				CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.Abfs.ClientSecretScope),
+				CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.Abfs[i3].ClientSecretScope),
 				Extract:      resource.ExtractParamPath("name", false),
 				Namespace:    mg.GetNamespace(),
-				Reference:    mg.Spec.ForProvider.Abfs.ClientSecretScopeRef,
-				Selector:     mg.Spec.ForProvider.Abfs.ClientSecretScopeSelector,
+				Reference:    mg.Spec.ForProvider.Abfs[i3].ClientSecretScopeRef,
+				Selector:     mg.Spec.ForProvider.Abfs[i3].ClientSecretScopeSelector,
 				To:           reference.To{List: l, Managed: m},
 			})
 		}
 		if err != nil {
-			return errors.Wrap(err, "mg.Spec.ForProvider.Abfs.ClientSecretScope")
+			return errors.Wrap(err, "mg.Spec.ForProvider.Abfs[i3].ClientSecretScope")
 		}
-		mg.Spec.ForProvider.Abfs.ClientSecretScope = reference.ToPtrValue(rsp.ResolvedValue)
-		mg.Spec.ForProvider.Abfs.ClientSecretScopeRef = rsp.ResolvedReference
+		mg.Spec.ForProvider.Abfs[i3].ClientSecretScope = reference.ToPtrValue(rsp.ResolvedValue)
+		mg.Spec.ForProvider.Abfs[i3].ClientSecretScopeRef = rsp.ResolvedReference
 
 	}
-	if mg.Spec.ForProvider.Adl != nil {
+	for i3 := 0; i3 < len(mg.Spec.ForProvider.Adl); i3++ {
 		{
 			m, l, err = apisresolver.GetManagedResource("security.databricks.crossplane.io", "v1alpha1", "Secret", "SecretList")
 			if err != nil {
 				return errors.Wrap(err, "failed to get the reference target managed resource and its list for reference resolution")
 			}
 			rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
-				CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.Adl.ClientSecretKey),
+				CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.Adl[i3].ClientSecretKey),
 				Extract:      resource.ExtractParamPath("key", false),
 				Namespace:    mg.GetNamespace(),
-				Reference:    mg.Spec.ForProvider.Adl.ClientSecretKeyRef,
-				Selector:     mg.Spec.ForProvider.Adl.ClientSecretKeySelector,
+				Reference:    mg.Spec.ForProvider.Adl[i3].ClientSecretKeyRef,
+				Selector:     mg.Spec.ForProvider.Adl[i3].ClientSecretKeySelector,
 				To:           reference.To{List: l, Managed: m},
 			})
 		}
 		if err != nil {
-			return errors.Wrap(err, "mg.Spec.ForProvider.Adl.ClientSecretKey")
+			return errors.Wrap(err, "mg.Spec.ForProvider.Adl[i3].ClientSecretKey")
 		}
-		mg.Spec.ForProvider.Adl.ClientSecretKey = reference.ToPtrValue(rsp.ResolvedValue)
-		mg.Spec.ForProvider.Adl.ClientSecretKeyRef = rsp.ResolvedReference
+		mg.Spec.ForProvider.Adl[i3].ClientSecretKey = reference.ToPtrValue(rsp.ResolvedValue)
+		mg.Spec.ForProvider.Adl[i3].ClientSecretKeyRef = rsp.ResolvedReference
 
 	}
-	if mg.Spec.ForProvider.Adl != nil {
+	for i3 := 0; i3 < len(mg.Spec.ForProvider.Adl); i3++ {
 		{
 			m, l, err = apisresolver.GetManagedResource("security.databricks.crossplane.io", "v1alpha1", "SecretScope", "SecretScopeList")
 			if err != nil {
 				return errors.Wrap(err, "failed to get the reference target managed resource and its list for reference resolution")
 			}
 			rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
-				CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.Adl.ClientSecretScope),
+				CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.Adl[i3].ClientSecretScope),
 				Extract:      resource.ExtractParamPath("name", false),
 				Namespace:    mg.GetNamespace(),
-				Reference:    mg.Spec.ForProvider.Adl.ClientSecretScopeRef,
-				Selector:     mg.Spec.ForProvider.Adl.ClientSecretScopeSelector,
+				Reference:    mg.Spec.ForProvider.Adl[i3].ClientSecretScopeRef,
+				Selector:     mg.Spec.ForProvider.Adl[i3].ClientSecretScopeSelector,
 				To:           reference.To{List: l, Managed: m},
 			})
 		}
 		if err != nil {
-			return errors.Wrap(err, "mg.Spec.ForProvider.Adl.ClientSecretScope")
+			return errors.Wrap(err, "mg.Spec.ForProvider.Adl[i3].ClientSecretScope")
 		}
-		mg.Spec.ForProvider.Adl.ClientSecretScope = reference.ToPtrValue(rsp.ResolvedValue)
-		mg.Spec.ForProvider.Adl.ClientSecretScopeRef = rsp.ResolvedReference
+		mg.Spec.ForProvider.Adl[i3].ClientSecretScope = reference.ToPtrValue(rsp.ResolvedValue)
+		mg.Spec.ForProvider.Adl[i3].ClientSecretScopeRef = rsp.ResolvedReference
 
 	}
 	{
@@ -134,158 +134,158 @@ func (mg *Mount) ResolveReferences( // ResolveReferences of this Mount.
 	mg.Spec.ForProvider.ClusterID = reference.ToPtrValue(rsp.ResolvedValue)
 	mg.Spec.ForProvider.ClusterIDRef = rsp.ResolvedReference
 
-	if mg.Spec.ForProvider.S3 != nil {
+	for i3 := 0; i3 < len(mg.Spec.ForProvider.S3); i3++ {
 		{
 			m, l, err = apisresolver.GetManagedResource("deployment.databricks.crossplane.io", "v1alpha1", "InstanceProfile", "InstanceProfileList")
 			if err != nil {
 				return errors.Wrap(err, "failed to get the reference target managed resource and its list for reference resolution")
 			}
 			rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
-				CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.S3.InstanceProfile),
+				CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.S3[i3].InstanceProfile),
 				Extract:      resource.ExtractResourceID(),
 				Namespace:    mg.GetNamespace(),
-				Reference:    mg.Spec.ForProvider.S3.InstanceProfileRef,
-				Selector:     mg.Spec.ForProvider.S3.InstanceProfileSelector,
+				Reference:    mg.Spec.ForProvider.S3[i3].InstanceProfileRef,
+				Selector:     mg.Spec.ForProvider.S3[i3].InstanceProfileSelector,
 				To:           reference.To{List: l, Managed: m},
 			})
 		}
 		if err != nil {
-			return errors.Wrap(err, "mg.Spec.ForProvider.S3.InstanceProfile")
+			return errors.Wrap(err, "mg.Spec.ForProvider.S3[i3].InstanceProfile")
 		}
-		mg.Spec.ForProvider.S3.InstanceProfile = reference.ToPtrValue(rsp.ResolvedValue)
-		mg.Spec.ForProvider.S3.InstanceProfileRef = rsp.ResolvedReference
+		mg.Spec.ForProvider.S3[i3].InstanceProfile = reference.ToPtrValue(rsp.ResolvedValue)
+		mg.Spec.ForProvider.S3[i3].InstanceProfileRef = rsp.ResolvedReference
 
 	}
-	if mg.Spec.ForProvider.Wasb != nil {
+	for i3 := 0; i3 < len(mg.Spec.ForProvider.Wasb); i3++ {
 		{
 			m, l, err = apisresolver.GetManagedResource("security.databricks.crossplane.io", "v1alpha1", "Secret", "SecretList")
 			if err != nil {
 				return errors.Wrap(err, "failed to get the reference target managed resource and its list for reference resolution")
 			}
 			rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
-				CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.Wasb.TokenSecretKey),
+				CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.Wasb[i3].TokenSecretKey),
 				Extract:      resource.ExtractParamPath("key", false),
 				Namespace:    mg.GetNamespace(),
-				Reference:    mg.Spec.ForProvider.Wasb.TokenSecretKeyRef,
-				Selector:     mg.Spec.ForProvider.Wasb.TokenSecretKeySelector,
+				Reference:    mg.Spec.ForProvider.Wasb[i3].TokenSecretKeyRef,
+				Selector:     mg.Spec.ForProvider.Wasb[i3].TokenSecretKeySelector,
 				To:           reference.To{List: l, Managed: m},
 			})
 		}
 		if err != nil {
-			return errors.Wrap(err, "mg.Spec.ForProvider.Wasb.TokenSecretKey")
+			return errors.Wrap(err, "mg.Spec.ForProvider.Wasb[i3].TokenSecretKey")
 		}
-		mg.Spec.ForProvider.Wasb.TokenSecretKey = reference.ToPtrValue(rsp.ResolvedValue)
-		mg.Spec.ForProvider.Wasb.TokenSecretKeyRef = rsp.ResolvedReference
+		mg.Spec.ForProvider.Wasb[i3].TokenSecretKey = reference.ToPtrValue(rsp.ResolvedValue)
+		mg.Spec.ForProvider.Wasb[i3].TokenSecretKeyRef = rsp.ResolvedReference
 
 	}
-	if mg.Spec.ForProvider.Wasb != nil {
+	for i3 := 0; i3 < len(mg.Spec.ForProvider.Wasb); i3++ {
 		{
 			m, l, err = apisresolver.GetManagedResource("security.databricks.crossplane.io", "v1alpha1", "SecretScope", "SecretScopeList")
 			if err != nil {
 				return errors.Wrap(err, "failed to get the reference target managed resource and its list for reference resolution")
 			}
 			rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
-				CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.Wasb.TokenSecretScope),
+				CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.Wasb[i3].TokenSecretScope),
 				Extract:      resource.ExtractParamPath("name", false),
 				Namespace:    mg.GetNamespace(),
-				Reference:    mg.Spec.ForProvider.Wasb.TokenSecretScopeRef,
-				Selector:     mg.Spec.ForProvider.Wasb.TokenSecretScopeSelector,
+				Reference:    mg.Spec.ForProvider.Wasb[i3].TokenSecretScopeRef,
+				Selector:     mg.Spec.ForProvider.Wasb[i3].TokenSecretScopeSelector,
 				To:           reference.To{List: l, Managed: m},
 			})
 		}
 		if err != nil {
-			return errors.Wrap(err, "mg.Spec.ForProvider.Wasb.TokenSecretScope")
+			return errors.Wrap(err, "mg.Spec.ForProvider.Wasb[i3].TokenSecretScope")
 		}
-		mg.Spec.ForProvider.Wasb.TokenSecretScope = reference.ToPtrValue(rsp.ResolvedValue)
-		mg.Spec.ForProvider.Wasb.TokenSecretScopeRef = rsp.ResolvedReference
+		mg.Spec.ForProvider.Wasb[i3].TokenSecretScope = reference.ToPtrValue(rsp.ResolvedValue)
+		mg.Spec.ForProvider.Wasb[i3].TokenSecretScopeRef = rsp.ResolvedReference
 
 	}
-	if mg.Spec.InitProvider.Abfs != nil {
+	for i3 := 0; i3 < len(mg.Spec.InitProvider.Abfs); i3++ {
 		{
 			m, l, err = apisresolver.GetManagedResource("security.databricks.crossplane.io", "v1alpha1", "Secret", "SecretList")
 			if err != nil {
 				return errors.Wrap(err, "failed to get the reference target managed resource and its list for reference resolution")
 			}
 			rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
-				CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.Abfs.ClientSecretKey),
+				CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.Abfs[i3].ClientSecretKey),
 				Extract:      resource.ExtractParamPath("key", false),
 				Namespace:    mg.GetNamespace(),
-				Reference:    mg.Spec.InitProvider.Abfs.ClientSecretKeyRef,
-				Selector:     mg.Spec.InitProvider.Abfs.ClientSecretKeySelector,
+				Reference:    mg.Spec.InitProvider.Abfs[i3].ClientSecretKeyRef,
+				Selector:     mg.Spec.InitProvider.Abfs[i3].ClientSecretKeySelector,
 				To:           reference.To{List: l, Managed: m},
 			})
 		}
 		if err != nil {
-			return errors.Wrap(err, "mg.Spec.InitProvider.Abfs.ClientSecretKey")
+			return errors.Wrap(err, "mg.Spec.InitProvider.Abfs[i3].ClientSecretKey")
 		}
-		mg.Spec.InitProvider.Abfs.ClientSecretKey = reference.ToPtrValue(rsp.ResolvedValue)
-		mg.Spec.InitProvider.Abfs.ClientSecretKeyRef = rsp.ResolvedReference
+		mg.Spec.InitProvider.Abfs[i3].ClientSecretKey = reference.ToPtrValue(rsp.ResolvedValue)
+		mg.Spec.InitProvider.Abfs[i3].ClientSecretKeyRef = rsp.ResolvedReference
 
 	}
-	if mg.Spec.InitProvider.Abfs != nil {
+	for i3 := 0; i3 < len(mg.Spec.InitProvider.Abfs); i3++ {
 		{
 			m, l, err = apisresolver.GetManagedResource("security.databricks.crossplane.io", "v1alpha1", "SecretScope", "SecretScopeList")
 			if err != nil {
 				return errors.Wrap(err, "failed to get the reference target managed resource and its list for reference resolution")
 			}
 			rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
-				CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.Abfs.ClientSecretScope),
+				CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.Abfs[i3].ClientSecretScope),
 				Extract:      resource.ExtractParamPath("name", false),
 				Namespace:    mg.GetNamespace(),
-				Reference:    mg.Spec.InitProvider.Abfs.ClientSecretScopeRef,
-				Selector:     mg.Spec.InitProvider.Abfs.ClientSecretScopeSelector,
+				Reference:    mg.Spec.InitProvider.Abfs[i3].ClientSecretScopeRef,
+				Selector:     mg.Spec.InitProvider.Abfs[i3].ClientSecretScopeSelector,
 				To:           reference.To{List: l, Managed: m},
 			})
 		}
 		if err != nil {
-			return errors.Wrap(err, "mg.Spec.InitProvider.Abfs.ClientSecretScope")
+			return errors.Wrap(err, "mg.Spec.InitProvider.Abfs[i3].ClientSecretScope")
 		}
-		mg.Spec.InitProvider.Abfs.ClientSecretScope = reference.ToPtrValue(rsp.ResolvedValue)
-		mg.Spec.InitProvider.Abfs.ClientSecretScopeRef = rsp.ResolvedReference
+		mg.Spec.InitProvider.Abfs[i3].ClientSecretScope = reference.ToPtrValue(rsp.ResolvedValue)
+		mg.Spec.InitProvider.Abfs[i3].ClientSecretScopeRef = rsp.ResolvedReference
 
 	}
-	if mg.Spec.InitProvider.Adl != nil {
+	for i3 := 0; i3 < len(mg.Spec.InitProvider.Adl); i3++ {
 		{
 			m, l, err = apisresolver.GetManagedResource("security.databricks.crossplane.io", "v1alpha1", "Secret", "SecretList")
 			if err != nil {
 				return errors.Wrap(err, "failed to get the reference target managed resource and its list for reference resolution")
 			}
 			rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
-				CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.Adl.ClientSecretKey),
+				CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.Adl[i3].ClientSecretKey),
 				Extract:      resource.ExtractParamPath("key", false),
 				Namespace:    mg.GetNamespace(),
-				Reference:    mg.Spec.InitProvider.Adl.ClientSecretKeyRef,
-				Selector:     mg.Spec.InitProvider.Adl.ClientSecretKeySelector,
+				Reference:    mg.Spec.InitProvider.Adl[i3].ClientSecretKeyRef,
+				Selector:     mg.Spec.InitProvider.Adl[i3].ClientSecretKeySelector,
 				To:           reference.To{List: l, Managed: m},
 			})
 		}
 		if err != nil {
-			return errors.Wrap(err, "mg.Spec.InitProvider.Adl.ClientSecretKey")
+			return errors.Wrap(err, "mg.Spec.InitProvider.Adl[i3].ClientSecretKey")
 		}
-		mg.Spec.InitProvider.Adl.ClientSecretKey = reference.ToPtrValue(rsp.ResolvedValue)
-		mg.Spec.InitProvider.Adl.ClientSecretKeyRef = rsp.ResolvedReference
+		mg.Spec.InitProvider.Adl[i3].ClientSecretKey = reference.ToPtrValue(rsp.ResolvedValue)
+		mg.Spec.InitProvider.Adl[i3].ClientSecretKeyRef = rsp.ResolvedReference
 
 	}
-	if mg.Spec.InitProvider.Adl != nil {
+	for i3 := 0; i3 < len(mg.Spec.InitProvider.Adl); i3++ {
 		{
 			m, l, err = apisresolver.GetManagedResource("security.databricks.crossplane.io", "v1alpha1", "SecretScope", "SecretScopeList")
 			if err != nil {
 				return errors.Wrap(err, "failed to get the reference target managed resource and its list for reference resolution")
 			}
 			rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
-				CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.Adl.ClientSecretScope),
+				CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.Adl[i3].ClientSecretScope),
 				Extract:      resource.ExtractParamPath("name", false),
 				Namespace:    mg.GetNamespace(),
-				Reference:    mg.Spec.InitProvider.Adl.ClientSecretScopeRef,
-				Selector:     mg.Spec.InitProvider.Adl.ClientSecretScopeSelector,
+				Reference:    mg.Spec.InitProvider.Adl[i3].ClientSecretScopeRef,
+				Selector:     mg.Spec.InitProvider.Adl[i3].ClientSecretScopeSelector,
 				To:           reference.To{List: l, Managed: m},
 			})
 		}
 		if err != nil {
-			return errors.Wrap(err, "mg.Spec.InitProvider.Adl.ClientSecretScope")
+			return errors.Wrap(err, "mg.Spec.InitProvider.Adl[i3].ClientSecretScope")
 		}
-		mg.Spec.InitProvider.Adl.ClientSecretScope = reference.ToPtrValue(rsp.ResolvedValue)
-		mg.Spec.InitProvider.Adl.ClientSecretScopeRef = rsp.ResolvedReference
+		mg.Spec.InitProvider.Adl[i3].ClientSecretScope = reference.ToPtrValue(rsp.ResolvedValue)
+		mg.Spec.InitProvider.Adl[i3].ClientSecretScopeRef = rsp.ResolvedReference
 
 	}
 	{
@@ -308,70 +308,70 @@ func (mg *Mount) ResolveReferences( // ResolveReferences of this Mount.
 	mg.Spec.InitProvider.ClusterID = reference.ToPtrValue(rsp.ResolvedValue)
 	mg.Spec.InitProvider.ClusterIDRef = rsp.ResolvedReference
 
-	if mg.Spec.InitProvider.S3 != nil {
+	for i3 := 0; i3 < len(mg.Spec.InitProvider.S3); i3++ {
 		{
 			m, l, err = apisresolver.GetManagedResource("deployment.databricks.crossplane.io", "v1alpha1", "InstanceProfile", "InstanceProfileList")
 			if err != nil {
 				return errors.Wrap(err, "failed to get the reference target managed resource and its list for reference resolution")
 			}
 			rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
-				CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.S3.InstanceProfile),
+				CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.S3[i3].InstanceProfile),
 				Extract:      resource.ExtractResourceID(),
 				Namespace:    mg.GetNamespace(),
-				Reference:    mg.Spec.InitProvider.S3.InstanceProfileRef,
-				Selector:     mg.Spec.InitProvider.S3.InstanceProfileSelector,
+				Reference:    mg.Spec.InitProvider.S3[i3].InstanceProfileRef,
+				Selector:     mg.Spec.InitProvider.S3[i3].InstanceProfileSelector,
 				To:           reference.To{List: l, Managed: m},
 			})
 		}
 		if err != nil {
-			return errors.Wrap(err, "mg.Spec.InitProvider.S3.InstanceProfile")
+			return errors.Wrap(err, "mg.Spec.InitProvider.S3[i3].InstanceProfile")
 		}
-		mg.Spec.InitProvider.S3.InstanceProfile = reference.ToPtrValue(rsp.ResolvedValue)
-		mg.Spec.InitProvider.S3.InstanceProfileRef = rsp.ResolvedReference
+		mg.Spec.InitProvider.S3[i3].InstanceProfile = reference.ToPtrValue(rsp.ResolvedValue)
+		mg.Spec.InitProvider.S3[i3].InstanceProfileRef = rsp.ResolvedReference
 
 	}
-	if mg.Spec.InitProvider.Wasb != nil {
+	for i3 := 0; i3 < len(mg.Spec.InitProvider.Wasb); i3++ {
 		{
 			m, l, err = apisresolver.GetManagedResource("security.databricks.crossplane.io", "v1alpha1", "Secret", "SecretList")
 			if err != nil {
 				return errors.Wrap(err, "failed to get the reference target managed resource and its list for reference resolution")
 			}
 			rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
-				CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.Wasb.TokenSecretKey),
+				CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.Wasb[i3].TokenSecretKey),
 				Extract:      resource.ExtractParamPath("key", false),
 				Namespace:    mg.GetNamespace(),
-				Reference:    mg.Spec.InitProvider.Wasb.TokenSecretKeyRef,
-				Selector:     mg.Spec.InitProvider.Wasb.TokenSecretKeySelector,
+				Reference:    mg.Spec.InitProvider.Wasb[i3].TokenSecretKeyRef,
+				Selector:     mg.Spec.InitProvider.Wasb[i3].TokenSecretKeySelector,
 				To:           reference.To{List: l, Managed: m},
 			})
 		}
 		if err != nil {
-			return errors.Wrap(err, "mg.Spec.InitProvider.Wasb.TokenSecretKey")
+			return errors.Wrap(err, "mg.Spec.InitProvider.Wasb[i3].TokenSecretKey")
 		}
-		mg.Spec.InitProvider.Wasb.TokenSecretKey = reference.ToPtrValue(rsp.ResolvedValue)
-		mg.Spec.InitProvider.Wasb.TokenSecretKeyRef = rsp.ResolvedReference
+		mg.Spec.InitProvider.Wasb[i3].TokenSecretKey = reference.ToPtrValue(rsp.ResolvedValue)
+		mg.Spec.InitProvider.Wasb[i3].TokenSecretKeyRef = rsp.ResolvedReference
 
 	}
-	if mg.Spec.InitProvider.Wasb != nil {
+	for i3 := 0; i3 < len(mg.Spec.InitProvider.Wasb); i3++ {
 		{
 			m, l, err = apisresolver.GetManagedResource("security.databricks.crossplane.io", "v1alpha1", "SecretScope", "SecretScopeList")
 			if err != nil {
 				return errors.Wrap(err, "failed to get the reference target managed resource and its list for reference resolution")
 			}
 			rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
-				CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.Wasb.TokenSecretScope),
+				CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.Wasb[i3].TokenSecretScope),
 				Extract:      resource.ExtractParamPath("name", false),
 				Namespace:    mg.GetNamespace(),
-				Reference:    mg.Spec.InitProvider.Wasb.TokenSecretScopeRef,
-				Selector:     mg.Spec.InitProvider.Wasb.TokenSecretScopeSelector,
+				Reference:    mg.Spec.InitProvider.Wasb[i3].TokenSecretScopeRef,
+				Selector:     mg.Spec.InitProvider.Wasb[i3].TokenSecretScopeSelector,
 				To:           reference.To{List: l, Managed: m},
 			})
 		}
 		if err != nil {
-			return errors.Wrap(err, "mg.Spec.InitProvider.Wasb.TokenSecretScope")
+			return errors.Wrap(err, "mg.Spec.InitProvider.Wasb[i3].TokenSecretScope")
 		}
-		mg.Spec.InitProvider.Wasb.TokenSecretScope = reference.ToPtrValue(rsp.ResolvedValue)
-		mg.Spec.InitProvider.Wasb.TokenSecretScopeRef = rsp.ResolvedReference
+		mg.Spec.InitProvider.Wasb[i3].TokenSecretScope = reference.ToPtrValue(rsp.ResolvedValue)
+		mg.Spec.InitProvider.Wasb[i3].TokenSecretScopeRef = rsp.ResolvedReference
 
 	}
 

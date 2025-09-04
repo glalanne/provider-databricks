@@ -61,409 +61,419 @@ spec:
                   abfs:
                     description: to mount ADLS Gen2 using Azure Blob Filesystem (ABFS)
                       driver
-                    properties:
-                      clientId:
-                        description: (String) This is the client_id (Application Object
-                          ID) for the enterprise application for the service principal.
-                        type: string
-                      clientSecretKey:
-                        description: (String) This is the secret key in which your
-                          service principal/enterprise app client secret will be stored.
-                        type: string
-                      clientSecretKeyRef:
-                        description: Reference to a Secret in security to populate
-                          clientSecretKey.
-                        properties:
-                          name:
-                            description: Name of the referenced object.
-                            type: string
-                          namespace:
-                            description: Namespace of the referenced object
-                            type: string
-                          policy:
-                            description: Policies for referencing.
-                            properties:
-                              resolution:
-                                default: Required
-                                description: |-
-                                  Resolution specifies whether resolution of this reference is required.
-                                  The default is 'Required', which means the reconcile will fail if the
-                                  reference cannot be resolved. 'Optional' means this reference will be
-                                  a no-op if it cannot be resolved.
-                                enum:
-                                - Required
-                                - Optional
-                                type: string
-                              resolve:
-                                description: |-
-                                  Resolve specifies when this reference should be resolved. The default
-                                  is 'IfNotPresent', which will attempt to resolve the reference only when
-                                  the corresponding field is not present. Use 'Always' to resolve the
-                                  reference on every reconcile.
-                                enum:
-                                - Always
-                                - IfNotPresent
-                                type: string
-                            type: object
-                        required:
-                        - name
-                        type: object
-                      clientSecretKeySelector:
-                        description: Selector for a Secret in security to populate
-                          clientSecretKey.
-                        properties:
-                          matchControllerRef:
-                            description: |-
-                              MatchControllerRef ensures an object with the same controller reference
-                              as the selecting object is selected.
-                            type: boolean
-                          matchLabels:
-                            additionalProperties:
+                    items:
+                      properties:
+                        clientId:
+                          description: (String) This is the client_id (Application
+                            Object ID) for the enterprise application for the service
+                            principal.
+                          type: string
+                        clientSecretKey:
+                          description: (String) This is the secret key in which your
+                            service principal/enterprise app client secret will be
+                            stored.
+                          type: string
+                        clientSecretKeyRef:
+                          description: Reference to a Secret in security to populate
+                            clientSecretKey.
+                          properties:
+                            name:
+                              description: Name of the referenced object.
                               type: string
-                            description: MatchLabels ensures an object with matching
-                              labels is selected.
-                            type: object
-                          namespace:
-                            description: Namespace for the selector
-                            type: string
-                          policy:
-                            description: Policies for selection.
-                            properties:
-                              resolution:
-                                default: Required
-                                description: |-
-                                  Resolution specifies whether resolution of this reference is required.
-                                  The default is 'Required', which means the reconcile will fail if the
-                                  reference cannot be resolved. 'Optional' means this reference will be
-                                  a no-op if it cannot be resolved.
-                                enum:
-                                - Required
-                                - Optional
-                                type: string
-                              resolve:
-                                description: |-
-                                  Resolve specifies when this reference should be resolved. The default
-                                  is 'IfNotPresent', which will attempt to resolve the reference only when
-                                  the corresponding field is not present. Use 'Always' to resolve the
-                                  reference on every reconcile.
-                                enum:
-                                - Always
-                                - IfNotPresent
-                                type: string
-                            type: object
-                        type: object
-                      clientSecretScope:
-                        description: (String) This is the secret scope in which your
-                          service principal/enterprise app client secret will be stored.
-                        type: string
-                      clientSecretScopeRef:
-                        description: Reference to a SecretScope in security to populate
-                          clientSecretScope.
-                        properties:
-                          name:
-                            description: Name of the referenced object.
-                            type: string
-                          namespace:
-                            description: Namespace of the referenced object
-                            type: string
-                          policy:
-                            description: Policies for referencing.
-                            properties:
-                              resolution:
-                                default: Required
-                                description: |-
-                                  Resolution specifies whether resolution of this reference is required.
-                                  The default is 'Required', which means the reconcile will fail if the
-                                  reference cannot be resolved. 'Optional' means this reference will be
-                                  a no-op if it cannot be resolved.
-                                enum:
-                                - Required
-                                - Optional
-                                type: string
-                              resolve:
-                                description: |-
-                                  Resolve specifies when this reference should be resolved. The default
-                                  is 'IfNotPresent', which will attempt to resolve the reference only when
-                                  the corresponding field is not present. Use 'Always' to resolve the
-                                  reference on every reconcile.
-                                enum:
-                                - Always
-                                - IfNotPresent
-                                type: string
-                            type: object
-                        required:
-                        - name
-                        type: object
-                      clientSecretScopeSelector:
-                        description: Selector for a SecretScope in security to populate
-                          clientSecretScope.
-                        properties:
-                          matchControllerRef:
-                            description: |-
-                              MatchControllerRef ensures an object with the same controller reference
-                              as the selecting object is selected.
-                            type: boolean
-                          matchLabels:
-                            additionalProperties:
+                            namespace:
+                              description: Namespace of the referenced object
                               type: string
-                            description: MatchLabels ensures an object with matching
-                              labels is selected.
-                            type: object
-                          namespace:
-                            description: Namespace for the selector
-                            type: string
-                          policy:
-                            description: Policies for selection.
-                            properties:
-                              resolution:
-                                default: Required
-                                description: |-
-                                  Resolution specifies whether resolution of this reference is required.
-                                  The default is 'Required', which means the reconcile will fail if the
-                                  reference cannot be resolved. 'Optional' means this reference will be
-                                  a no-op if it cannot be resolved.
-                                enum:
-                                - Required
-                                - Optional
+                            policy:
+                              description: Policies for referencing.
+                              properties:
+                                resolution:
+                                  default: Required
+                                  description: |-
+                                    Resolution specifies whether resolution of this reference is required.
+                                    The default is 'Required', which means the reconcile will fail if the
+                                    reference cannot be resolved. 'Optional' means this reference will be
+                                    a no-op if it cannot be resolved.
+                                  enum:
+                                  - Required
+                                  - Optional
+                                  type: string
+                                resolve:
+                                  description: |-
+                                    Resolve specifies when this reference should be resolved. The default
+                                    is 'IfNotPresent', which will attempt to resolve the reference only when
+                                    the corresponding field is not present. Use 'Always' to resolve the
+                                    reference on every reconcile.
+                                  enum:
+                                  - Always
+                                  - IfNotPresent
+                                  type: string
+                              type: object
+                          required:
+                          - name
+                          type: object
+                        clientSecretKeySelector:
+                          description: Selector for a Secret in security to populate
+                            clientSecretKey.
+                          properties:
+                            matchControllerRef:
+                              description: |-
+                                MatchControllerRef ensures an object with the same controller reference
+                                as the selecting object is selected.
+                              type: boolean
+                            matchLabels:
+                              additionalProperties:
                                 type: string
-                              resolve:
-                                description: |-
-                                  Resolve specifies when this reference should be resolved. The default
-                                  is 'IfNotPresent', which will attempt to resolve the reference only when
-                                  the corresponding field is not present. Use 'Always' to resolve the
-                                  reference on every reconcile.
-                                enum:
-                                - Always
-                                - IfNotPresent
+                              description: MatchLabels ensures an object with matching
+                                labels is selected.
+                              type: object
+                            namespace:
+                              description: Namespace for the selector
+                              type: string
+                            policy:
+                              description: Policies for selection.
+                              properties:
+                                resolution:
+                                  default: Required
+                                  description: |-
+                                    Resolution specifies whether resolution of this reference is required.
+                                    The default is 'Required', which means the reconcile will fail if the
+                                    reference cannot be resolved. 'Optional' means this reference will be
+                                    a no-op if it cannot be resolved.
+                                  enum:
+                                  - Required
+                                  - Optional
+                                  type: string
+                                resolve:
+                                  description: |-
+                                    Resolve specifies when this reference should be resolved. The default
+                                    is 'IfNotPresent', which will attempt to resolve the reference only when
+                                    the corresponding field is not present. Use 'Always' to resolve the
+                                    reference on every reconcile.
+                                  enum:
+                                  - Always
+                                  - IfNotPresent
+                                  type: string
+                              type: object
+                          type: object
+                        clientSecretScope:
+                          description: (String) This is the secret scope in which
+                            your service principal/enterprise app client secret will
+                            be stored.
+                          type: string
+                        clientSecretScopeRef:
+                          description: Reference to a SecretScope in security to populate
+                            clientSecretScope.
+                          properties:
+                            name:
+                              description: Name of the referenced object.
+                              type: string
+                            namespace:
+                              description: Namespace of the referenced object
+                              type: string
+                            policy:
+                              description: Policies for referencing.
+                              properties:
+                                resolution:
+                                  default: Required
+                                  description: |-
+                                    Resolution specifies whether resolution of this reference is required.
+                                    The default is 'Required', which means the reconcile will fail if the
+                                    reference cannot be resolved. 'Optional' means this reference will be
+                                    a no-op if it cannot be resolved.
+                                  enum:
+                                  - Required
+                                  - Optional
+                                  type: string
+                                resolve:
+                                  description: |-
+                                    Resolve specifies when this reference should be resolved. The default
+                                    is 'IfNotPresent', which will attempt to resolve the reference only when
+                                    the corresponding field is not present. Use 'Always' to resolve the
+                                    reference on every reconcile.
+                                  enum:
+                                  - Always
+                                  - IfNotPresent
+                                  type: string
+                              type: object
+                          required:
+                          - name
+                          type: object
+                        clientSecretScopeSelector:
+                          description: Selector for a SecretScope in security to populate
+                            clientSecretScope.
+                          properties:
+                            matchControllerRef:
+                              description: |-
+                                MatchControllerRef ensures an object with the same controller reference
+                                as the selecting object is selected.
+                              type: boolean
+                            matchLabels:
+                              additionalProperties:
                                 type: string
-                            type: object
-                        type: object
-                      containerName:
-                        description: (String) ADLS gen2 container name. (Could be
-                          omitted if resource_id is provided)
-                        type: string
-                      directory:
-                        description: (Computed) (String) This is optional if you don't
-                          want to add an additional directory that you wish to mount.
-                          This must start with a "/".
-                        type: string
-                      initializeFileSystem:
-                        description: (Bool) either or not initialize FS for the first
-                          use
-                        type: boolean
-                      storageAccountName:
-                        description: (String) The name of the storage resource in
-                          which the data is. (Could be omitted if resource_id is provided)
-                        type: string
-                      tenantId:
-                        description: (String) This is your azure directory tenant
-                          id. It is required for creating the mount. (Could be omitted
-                          if Azure authentication is used, and we can extract tenant_id
-                          from it).
-                        type: string
-                    type: object
+                              description: MatchLabels ensures an object with matching
+                                labels is selected.
+                              type: object
+                            namespace:
+                              description: Namespace for the selector
+                              type: string
+                            policy:
+                              description: Policies for selection.
+                              properties:
+                                resolution:
+                                  default: Required
+                                  description: |-
+                                    Resolution specifies whether resolution of this reference is required.
+                                    The default is 'Required', which means the reconcile will fail if the
+                                    reference cannot be resolved. 'Optional' means this reference will be
+                                    a no-op if it cannot be resolved.
+                                  enum:
+                                  - Required
+                                  - Optional
+                                  type: string
+                                resolve:
+                                  description: |-
+                                    Resolve specifies when this reference should be resolved. The default
+                                    is 'IfNotPresent', which will attempt to resolve the reference only when
+                                    the corresponding field is not present. Use 'Always' to resolve the
+                                    reference on every reconcile.
+                                  enum:
+                                  - Always
+                                  - IfNotPresent
+                                  type: string
+                              type: object
+                          type: object
+                        containerName:
+                          description: (String) ADLS gen2 container name. (Could be
+                            omitted if resource_id is provided)
+                          type: string
+                        directory:
+                          description: (Computed) (String) This is optional if you
+                            don't want to add an additional directory that you wish
+                            to mount. This must start with a "/".
+                          type: string
+                        initializeFileSystem:
+                          description: (Bool) either or not initialize FS for the
+                            first use
+                          type: boolean
+                        storageAccountName:
+                          description: (String) The name of the storage resource in
+                            which the data is. (Could be omitted if resource_id is
+                            provided)
+                          type: string
+                        tenantId:
+                          description: (String) This is your azure directory tenant
+                            id. It is required for creating the mount. (Could be omitted
+                            if Azure authentication is used, and we can extract tenant_id
+                            from it).
+                          type: string
+                      type: object
+                    type: array
                   adl:
                     description: to mount ADLS Gen1 using Azure Data Lake (ADL) driver
-                    properties:
-                      clientId:
-                        description: (String) This is the client_id for the enterprise
-                          application for the service principal.
-                        type: string
-                      clientSecretKey:
-                        description: (String) This is the secret key in which your
-                          service principal/enterprise app client secret will be stored.
-                        type: string
-                      clientSecretKeyRef:
-                        description: Reference to a Secret in security to populate
-                          clientSecretKey.
-                        properties:
-                          name:
-                            description: Name of the referenced object.
-                            type: string
-                          namespace:
-                            description: Namespace of the referenced object
-                            type: string
-                          policy:
-                            description: Policies for referencing.
-                            properties:
-                              resolution:
-                                default: Required
-                                description: |-
-                                  Resolution specifies whether resolution of this reference is required.
-                                  The default is 'Required', which means the reconcile will fail if the
-                                  reference cannot be resolved. 'Optional' means this reference will be
-                                  a no-op if it cannot be resolved.
-                                enum:
-                                - Required
-                                - Optional
-                                type: string
-                              resolve:
-                                description: |-
-                                  Resolve specifies when this reference should be resolved. The default
-                                  is 'IfNotPresent', which will attempt to resolve the reference only when
-                                  the corresponding field is not present. Use 'Always' to resolve the
-                                  reference on every reconcile.
-                                enum:
-                                - Always
-                                - IfNotPresent
-                                type: string
-                            type: object
-                        required:
-                        - name
-                        type: object
-                      clientSecretKeySelector:
-                        description: Selector for a Secret in security to populate
-                          clientSecretKey.
-                        properties:
-                          matchControllerRef:
-                            description: |-
-                              MatchControllerRef ensures an object with the same controller reference
-                              as the selecting object is selected.
-                            type: boolean
-                          matchLabels:
-                            additionalProperties:
+                    items:
+                      properties:
+                        clientId:
+                          description: (String) This is the client_id for the enterprise
+                            application for the service principal.
+                          type: string
+                        clientSecretKey:
+                          description: (String) This is the secret key in which your
+                            service principal/enterprise app client secret will be
+                            stored.
+                          type: string
+                        clientSecretKeyRef:
+                          description: Reference to a Secret in security to populate
+                            clientSecretKey.
+                          properties:
+                            name:
+                              description: Name of the referenced object.
                               type: string
-                            description: MatchLabels ensures an object with matching
-                              labels is selected.
-                            type: object
-                          namespace:
-                            description: Namespace for the selector
-                            type: string
-                          policy:
-                            description: Policies for selection.
-                            properties:
-                              resolution:
-                                default: Required
-                                description: |-
-                                  Resolution specifies whether resolution of this reference is required.
-                                  The default is 'Required', which means the reconcile will fail if the
-                                  reference cannot be resolved. 'Optional' means this reference will be
-                                  a no-op if it cannot be resolved.
-                                enum:
-                                - Required
-                                - Optional
-                                type: string
-                              resolve:
-                                description: |-
-                                  Resolve specifies when this reference should be resolved. The default
-                                  is 'IfNotPresent', which will attempt to resolve the reference only when
-                                  the corresponding field is not present. Use 'Always' to resolve the
-                                  reference on every reconcile.
-                                enum:
-                                - Always
-                                - IfNotPresent
-                                type: string
-                            type: object
-                        type: object
-                      clientSecretScope:
-                        description: (String) This is the secret scope in which your
-                          service principal/enterprise app client secret will be stored.
-                        type: string
-                      clientSecretScopeRef:
-                        description: Reference to a SecretScope in security to populate
-                          clientSecretScope.
-                        properties:
-                          name:
-                            description: Name of the referenced object.
-                            type: string
-                          namespace:
-                            description: Namespace of the referenced object
-                            type: string
-                          policy:
-                            description: Policies for referencing.
-                            properties:
-                              resolution:
-                                default: Required
-                                description: |-
-                                  Resolution specifies whether resolution of this reference is required.
-                                  The default is 'Required', which means the reconcile will fail if the
-                                  reference cannot be resolved. 'Optional' means this reference will be
-                                  a no-op if it cannot be resolved.
-                                enum:
-                                - Required
-                                - Optional
-                                type: string
-                              resolve:
-                                description: |-
-                                  Resolve specifies when this reference should be resolved. The default
-                                  is 'IfNotPresent', which will attempt to resolve the reference only when
-                                  the corresponding field is not present. Use 'Always' to resolve the
-                                  reference on every reconcile.
-                                enum:
-                                - Always
-                                - IfNotPresent
-                                type: string
-                            type: object
-                        required:
-                        - name
-                        type: object
-                      clientSecretScopeSelector:
-                        description: Selector for a SecretScope in security to populate
-                          clientSecretScope.
-                        properties:
-                          matchControllerRef:
-                            description: |-
-                              MatchControllerRef ensures an object with the same controller reference
-                              as the selecting object is selected.
-                            type: boolean
-                          matchLabels:
-                            additionalProperties:
+                            namespace:
+                              description: Namespace of the referenced object
                               type: string
-                            description: MatchLabels ensures an object with matching
-                              labels is selected.
-                            type: object
-                          namespace:
-                            description: Namespace for the selector
-                            type: string
-                          policy:
-                            description: Policies for selection.
-                            properties:
-                              resolution:
-                                default: Required
-                                description: |-
-                                  Resolution specifies whether resolution of this reference is required.
-                                  The default is 'Required', which means the reconcile will fail if the
-                                  reference cannot be resolved. 'Optional' means this reference will be
-                                  a no-op if it cannot be resolved.
-                                enum:
-                                - Required
-                                - Optional
+                            policy:
+                              description: Policies for referencing.
+                              properties:
+                                resolution:
+                                  default: Required
+                                  description: |-
+                                    Resolution specifies whether resolution of this reference is required.
+                                    The default is 'Required', which means the reconcile will fail if the
+                                    reference cannot be resolved. 'Optional' means this reference will be
+                                    a no-op if it cannot be resolved.
+                                  enum:
+                                  - Required
+                                  - Optional
+                                  type: string
+                                resolve:
+                                  description: |-
+                                    Resolve specifies when this reference should be resolved. The default
+                                    is 'IfNotPresent', which will attempt to resolve the reference only when
+                                    the corresponding field is not present. Use 'Always' to resolve the
+                                    reference on every reconcile.
+                                  enum:
+                                  - Always
+                                  - IfNotPresent
+                                  type: string
+                              type: object
+                          required:
+                          - name
+                          type: object
+                        clientSecretKeySelector:
+                          description: Selector for a Secret in security to populate
+                            clientSecretKey.
+                          properties:
+                            matchControllerRef:
+                              description: |-
+                                MatchControllerRef ensures an object with the same controller reference
+                                as the selecting object is selected.
+                              type: boolean
+                            matchLabels:
+                              additionalProperties:
                                 type: string
-                              resolve:
-                                description: |-
-                                  Resolve specifies when this reference should be resolved. The default
-                                  is 'IfNotPresent', which will attempt to resolve the reference only when
-                                  the corresponding field is not present. Use 'Always' to resolve the
-                                  reference on every reconcile.
-                                enum:
-                                - Always
-                                - IfNotPresent
+                              description: MatchLabels ensures an object with matching
+                                labels is selected.
+                              type: object
+                            namespace:
+                              description: Namespace for the selector
+                              type: string
+                            policy:
+                              description: Policies for selection.
+                              properties:
+                                resolution:
+                                  default: Required
+                                  description: |-
+                                    Resolution specifies whether resolution of this reference is required.
+                                    The default is 'Required', which means the reconcile will fail if the
+                                    reference cannot be resolved. 'Optional' means this reference will be
+                                    a no-op if it cannot be resolved.
+                                  enum:
+                                  - Required
+                                  - Optional
+                                  type: string
+                                resolve:
+                                  description: |-
+                                    Resolve specifies when this reference should be resolved. The default
+                                    is 'IfNotPresent', which will attempt to resolve the reference only when
+                                    the corresponding field is not present. Use 'Always' to resolve the
+                                    reference on every reconcile.
+                                  enum:
+                                  - Always
+                                  - IfNotPresent
+                                  type: string
+                              type: object
+                          type: object
+                        clientSecretScope:
+                          description: (String) This is the secret scope in which
+                            your service principal/enterprise app client secret will
+                            be stored.
+                          type: string
+                        clientSecretScopeRef:
+                          description: Reference to a SecretScope in security to populate
+                            clientSecretScope.
+                          properties:
+                            name:
+                              description: Name of the referenced object.
+                              type: string
+                            namespace:
+                              description: Namespace of the referenced object
+                              type: string
+                            policy:
+                              description: Policies for referencing.
+                              properties:
+                                resolution:
+                                  default: Required
+                                  description: |-
+                                    Resolution specifies whether resolution of this reference is required.
+                                    The default is 'Required', which means the reconcile will fail if the
+                                    reference cannot be resolved. 'Optional' means this reference will be
+                                    a no-op if it cannot be resolved.
+                                  enum:
+                                  - Required
+                                  - Optional
+                                  type: string
+                                resolve:
+                                  description: |-
+                                    Resolve specifies when this reference should be resolved. The default
+                                    is 'IfNotPresent', which will attempt to resolve the reference only when
+                                    the corresponding field is not present. Use 'Always' to resolve the
+                                    reference on every reconcile.
+                                  enum:
+                                  - Always
+                                  - IfNotPresent
+                                  type: string
+                              type: object
+                          required:
+                          - name
+                          type: object
+                        clientSecretScopeSelector:
+                          description: Selector for a SecretScope in security to populate
+                            clientSecretScope.
+                          properties:
+                            matchControllerRef:
+                              description: |-
+                                MatchControllerRef ensures an object with the same controller reference
+                                as the selecting object is selected.
+                              type: boolean
+                            matchLabels:
+                              additionalProperties:
                                 type: string
-                            type: object
-                        type: object
-                      directory:
-                        description: (Computed) (String) This is optional if you don't
-                          want to add an additional directory that you wish to mount.
-                          This must start with a "/".
-                        type: string
-                      sparkConfPrefix:
-                        description: '(String) This is the spark configuration prefix
-                          for adls gen 1 mount. The options are fs.adl, dfs.adls.
-                          Use fs.adl for runtime 6.0 and above for the clusters. Otherwise
-                          use dfs.adls. The default value is: fs.adl.'
-                        type: string
-                      storageResourceName:
-                        description: (String) The name of the storage resource in
-                          which the data is for ADLS gen 1. This is what you are trying
-                          to mount. (Could be omitted if resource_id is provided)
-                        type: string
-                      tenantId:
-                        description: (String) This is your azure directory tenant
-                          id. It is required for creating the mount. (Could be omitted
-                          if Azure authentication is used, and we can extract tenant_id
-                          from it)
-                        type: string
-                    type: object
+                              description: MatchLabels ensures an object with matching
+                                labels is selected.
+                              type: object
+                            namespace:
+                              description: Namespace for the selector
+                              type: string
+                            policy:
+                              description: Policies for selection.
+                              properties:
+                                resolution:
+                                  default: Required
+                                  description: |-
+                                    Resolution specifies whether resolution of this reference is required.
+                                    The default is 'Required', which means the reconcile will fail if the
+                                    reference cannot be resolved. 'Optional' means this reference will be
+                                    a no-op if it cannot be resolved.
+                                  enum:
+                                  - Required
+                                  - Optional
+                                  type: string
+                                resolve:
+                                  description: |-
+                                    Resolve specifies when this reference should be resolved. The default
+                                    is 'IfNotPresent', which will attempt to resolve the reference only when
+                                    the corresponding field is not present. Use 'Always' to resolve the
+                                    reference on every reconcile.
+                                  enum:
+                                  - Always
+                                  - IfNotPresent
+                                  type: string
+                              type: object
+                          type: object
+                        directory:
+                          description: (Computed) (String) This is optional if you
+                            don't want to add an additional directory that you wish
+                            to mount. This must start with a "/".
+                          type: string
+                        sparkConfPrefix:
+                          description: '(String) This is the spark configuration prefix
+                            for adls gen 1 mount. The options are fs.adl, dfs.adls.
+                            Use fs.adl for runtime 6.0 and above for the clusters.
+                            Otherwise use dfs.adls. The default value is: fs.adl.'
+                          type: string
+                        storageResourceName:
+                          description: (String) The name of the storage resource in
+                            which the data is for ADLS gen 1. This is what you are
+                            trying to mount. (Could be omitted if resource_id is provided)
+                          type: string
+                        tenantId:
+                          description: (String) This is your azure directory tenant
+                            id. It is required for creating the mount. (Could be omitted
+                            if Azure authentication is used, and we can extract tenant_id
+                            from it)
+                          type: string
+                      type: object
+                    type: array
                   clusterId:
                     description: Cluster to use for mounting. If no cluster is specified,
                       a new cluster will be created and will mount the bucket for
@@ -563,17 +573,19 @@ spec:
                     x-kubernetes-map-type: granular
                   gs:
                     description: to mount Google Cloud Storage
-                    properties:
-                      bucketName:
-                        description: (String) GCS bucket name to be mounted.
-                        type: string
-                      serviceAccount:
-                        description: (String) email of registered Google Service Account
-                          for data access.  If it's not specified, then the cluster_id
-                          should be provided, and the cluster should have a Google
-                          service account attached to it.
-                        type: string
-                    type: object
+                    items:
+                      properties:
+                        bucketName:
+                          description: (String) GCS bucket name to be mounted.
+                          type: string
+                        serviceAccount:
+                          description: (String) email of registered Google Service
+                            Account for data access.  If it's not specified, then
+                            the cluster_id should be provided, and the cluster should
+                            have a Google service account attached to it.
+                          type: string
+                      type: object
+                    type: array
                   name:
                     description: 'Name, under which mount will be accessible in dbfs:/mnt/<MOUNT_NAME>.
                       If not specified, provider will try to infer it from depending
@@ -586,100 +598,102 @@ spec:
                     type: string
                   s3:
                     description: to mount AWS S3
-                    properties:
-                      bucketName:
-                        description: (String) S3 bucket name to be mounted.
-                        type: string
-                      instanceProfile:
-                        description: (String) ARN of registered instance profile for
-                          data access.  If it's not specified, then the cluster_id
-                          should be provided, and the cluster should have an instance
-                          profile attached to it. If both cluster_id & instance_profile
-                          are specified, then cluster_id takes precedence.
-                        type: string
-                      instanceProfileRef:
-                        description: Reference to a InstanceProfile in deployment
-                          to populate instanceProfile.
-                        properties:
-                          name:
-                            description: Name of the referenced object.
-                            type: string
-                          namespace:
-                            description: Namespace of the referenced object
-                            type: string
-                          policy:
-                            description: Policies for referencing.
-                            properties:
-                              resolution:
-                                default: Required
-                                description: |-
-                                  Resolution specifies whether resolution of this reference is required.
-                                  The default is 'Required', which means the reconcile will fail if the
-                                  reference cannot be resolved. 'Optional' means this reference will be
-                                  a no-op if it cannot be resolved.
-                                enum:
-                                - Required
-                                - Optional
-                                type: string
-                              resolve:
-                                description: |-
-                                  Resolve specifies when this reference should be resolved. The default
-                                  is 'IfNotPresent', which will attempt to resolve the reference only when
-                                  the corresponding field is not present. Use 'Always' to resolve the
-                                  reference on every reconcile.
-                                enum:
-                                - Always
-                                - IfNotPresent
-                                type: string
-                            type: object
-                        required:
-                        - name
-                        type: object
-                      instanceProfileSelector:
-                        description: Selector for a InstanceProfile in deployment
-                          to populate instanceProfile.
-                        properties:
-                          matchControllerRef:
-                            description: |-
-                              MatchControllerRef ensures an object with the same controller reference
-                              as the selecting object is selected.
-                            type: boolean
-                          matchLabels:
-                            additionalProperties:
+                    items:
+                      properties:
+                        bucketName:
+                          description: (String) S3 bucket name to be mounted.
+                          type: string
+                        instanceProfile:
+                          description: (String) ARN of registered instance profile
+                            for data access.  If it's not specified, then the cluster_id
+                            should be provided, and the cluster should have an instance
+                            profile attached to it. If both cluster_id & instance_profile
+                            are specified, then cluster_id takes precedence.
+                          type: string
+                        instanceProfileRef:
+                          description: Reference to a InstanceProfile in deployment
+                            to populate instanceProfile.
+                          properties:
+                            name:
+                              description: Name of the referenced object.
                               type: string
-                            description: MatchLabels ensures an object with matching
-                              labels is selected.
-                            type: object
-                          namespace:
-                            description: Namespace for the selector
-                            type: string
-                          policy:
-                            description: Policies for selection.
-                            properties:
-                              resolution:
-                                default: Required
-                                description: |-
-                                  Resolution specifies whether resolution of this reference is required.
-                                  The default is 'Required', which means the reconcile will fail if the
-                                  reference cannot be resolved. 'Optional' means this reference will be
-                                  a no-op if it cannot be resolved.
-                                enum:
-                                - Required
-                                - Optional
+                            namespace:
+                              description: Namespace of the referenced object
+                              type: string
+                            policy:
+                              description: Policies for referencing.
+                              properties:
+                                resolution:
+                                  default: Required
+                                  description: |-
+                                    Resolution specifies whether resolution of this reference is required.
+                                    The default is 'Required', which means the reconcile will fail if the
+                                    reference cannot be resolved. 'Optional' means this reference will be
+                                    a no-op if it cannot be resolved.
+                                  enum:
+                                  - Required
+                                  - Optional
+                                  type: string
+                                resolve:
+                                  description: |-
+                                    Resolve specifies when this reference should be resolved. The default
+                                    is 'IfNotPresent', which will attempt to resolve the reference only when
+                                    the corresponding field is not present. Use 'Always' to resolve the
+                                    reference on every reconcile.
+                                  enum:
+                                  - Always
+                                  - IfNotPresent
+                                  type: string
+                              type: object
+                          required:
+                          - name
+                          type: object
+                        instanceProfileSelector:
+                          description: Selector for a InstanceProfile in deployment
+                            to populate instanceProfile.
+                          properties:
+                            matchControllerRef:
+                              description: |-
+                                MatchControllerRef ensures an object with the same controller reference
+                                as the selecting object is selected.
+                              type: boolean
+                            matchLabels:
+                              additionalProperties:
                                 type: string
-                              resolve:
-                                description: |-
-                                  Resolve specifies when this reference should be resolved. The default
-                                  is 'IfNotPresent', which will attempt to resolve the reference only when
-                                  the corresponding field is not present. Use 'Always' to resolve the
-                                  reference on every reconcile.
-                                enum:
-                                - Always
-                                - IfNotPresent
-                                type: string
-                            type: object
-                        type: object
-                    type: object
+                              description: MatchLabels ensures an object with matching
+                                labels is selected.
+                              type: object
+                            namespace:
+                              description: Namespace for the selector
+                              type: string
+                            policy:
+                              description: Policies for selection.
+                              properties:
+                                resolution:
+                                  default: Required
+                                  description: |-
+                                    Resolution specifies whether resolution of this reference is required.
+                                    The default is 'Required', which means the reconcile will fail if the
+                                    reference cannot be resolved. 'Optional' means this reference will be
+                                    a no-op if it cannot be resolved.
+                                  enum:
+                                  - Required
+                                  - Optional
+                                  type: string
+                                resolve:
+                                  description: |-
+                                    Resolve specifies when this reference should be resolved. The default
+                                    is 'IfNotPresent', which will attempt to resolve the reference only when
+                                    the corresponding field is not present. Use 'Always' to resolve the
+                                    reference on every reconcile.
+                                  enum:
+                                  - Always
+                                  - IfNotPresent
+                                  type: string
+                              type: object
+                          type: object
+                      type: object
+                    type: array
                   uri:
                     description: the URI for accessing specific storage (s3a://....,
                       abfss://...., gs://...., etc.)
@@ -687,199 +701,202 @@ spec:
                   wasb:
                     description: to mount Azure Blob Storage using Windows Azure Storage
                       Blob (WASB) driver
-                    properties:
-                      authType:
-                        description: (String) This is the auth type for blob storage.
-                          This can either be SAS tokens (SAS) or account access keys
-                          (ACCESS_KEY).
-                        type: string
-                      containerName:
-                        description: (String) The container in which the data is.
-                          This is what you are trying to mount. (Could be omitted
-                          if resource_id is provided)
-                        type: string
-                      directory:
-                        description: (Computed) (String) This is optional if you don't
-                          want to add an additional directory that you wish to mount.
-                          This must start with a "/".
-                        type: string
-                      storageAccountName:
-                        description: (String) The name of the storage resource in
-                          which the data is. (Could be omitted if resource_id is provided)
-                        type: string
-                      tokenSecretKey:
-                        description: (String) This is the secret key in which your
-                          auth type token is stored.
-                        type: string
-                      tokenSecretKeyRef:
-                        description: Reference to a Secret in security to populate
-                          tokenSecretKey.
-                        properties:
-                          name:
-                            description: Name of the referenced object.
-                            type: string
-                          namespace:
-                            description: Namespace of the referenced object
-                            type: string
-                          policy:
-                            description: Policies for referencing.
-                            properties:
-                              resolution:
-                                default: Required
-                                description: |-
-                                  Resolution specifies whether resolution of this reference is required.
-                                  The default is 'Required', which means the reconcile will fail if the
-                                  reference cannot be resolved. 'Optional' means this reference will be
-                                  a no-op if it cannot be resolved.
-                                enum:
-                                - Required
-                                - Optional
-                                type: string
-                              resolve:
-                                description: |-
-                                  Resolve specifies when this reference should be resolved. The default
-                                  is 'IfNotPresent', which will attempt to resolve the reference only when
-                                  the corresponding field is not present. Use 'Always' to resolve the
-                                  reference on every reconcile.
-                                enum:
-                                - Always
-                                - IfNotPresent
-                                type: string
-                            type: object
-                        required:
-                        - name
-                        type: object
-                      tokenSecretKeySelector:
-                        description: Selector for a Secret in security to populate
-                          tokenSecretKey.
-                        properties:
-                          matchControllerRef:
-                            description: |-
-                              MatchControllerRef ensures an object with the same controller reference
-                              as the selecting object is selected.
-                            type: boolean
-                          matchLabels:
-                            additionalProperties:
+                    items:
+                      properties:
+                        authType:
+                          description: (String) This is the auth type for blob storage.
+                            This can either be SAS tokens (SAS) or account access
+                            keys (ACCESS_KEY).
+                          type: string
+                        containerName:
+                          description: (String) The container in which the data is.
+                            This is what you are trying to mount. (Could be omitted
+                            if resource_id is provided)
+                          type: string
+                        directory:
+                          description: (Computed) (String) This is optional if you
+                            don't want to add an additional directory that you wish
+                            to mount. This must start with a "/".
+                          type: string
+                        storageAccountName:
+                          description: (String) The name of the storage resource in
+                            which the data is. (Could be omitted if resource_id is
+                            provided)
+                          type: string
+                        tokenSecretKey:
+                          description: (String) This is the secret key in which your
+                            auth type token is stored.
+                          type: string
+                        tokenSecretKeyRef:
+                          description: Reference to a Secret in security to populate
+                            tokenSecretKey.
+                          properties:
+                            name:
+                              description: Name of the referenced object.
                               type: string
-                            description: MatchLabels ensures an object with matching
-                              labels is selected.
-                            type: object
-                          namespace:
-                            description: Namespace for the selector
-                            type: string
-                          policy:
-                            description: Policies for selection.
-                            properties:
-                              resolution:
-                                default: Required
-                                description: |-
-                                  Resolution specifies whether resolution of this reference is required.
-                                  The default is 'Required', which means the reconcile will fail if the
-                                  reference cannot be resolved. 'Optional' means this reference will be
-                                  a no-op if it cannot be resolved.
-                                enum:
-                                - Required
-                                - Optional
-                                type: string
-                              resolve:
-                                description: |-
-                                  Resolve specifies when this reference should be resolved. The default
-                                  is 'IfNotPresent', which will attempt to resolve the reference only when
-                                  the corresponding field is not present. Use 'Always' to resolve the
-                                  reference on every reconcile.
-                                enum:
-                                - Always
-                                - IfNotPresent
-                                type: string
-                            type: object
-                        type: object
-                      tokenSecretScope:
-                        description: (String) This is the secret scope in which your
-                          auth type token is stored.
-                        type: string
-                      tokenSecretScopeRef:
-                        description: Reference to a SecretScope in security to populate
-                          tokenSecretScope.
-                        properties:
-                          name:
-                            description: Name of the referenced object.
-                            type: string
-                          namespace:
-                            description: Namespace of the referenced object
-                            type: string
-                          policy:
-                            description: Policies for referencing.
-                            properties:
-                              resolution:
-                                default: Required
-                                description: |-
-                                  Resolution specifies whether resolution of this reference is required.
-                                  The default is 'Required', which means the reconcile will fail if the
-                                  reference cannot be resolved. 'Optional' means this reference will be
-                                  a no-op if it cannot be resolved.
-                                enum:
-                                - Required
-                                - Optional
-                                type: string
-                              resolve:
-                                description: |-
-                                  Resolve specifies when this reference should be resolved. The default
-                                  is 'IfNotPresent', which will attempt to resolve the reference only when
-                                  the corresponding field is not present. Use 'Always' to resolve the
-                                  reference on every reconcile.
-                                enum:
-                                - Always
-                                - IfNotPresent
-                                type: string
-                            type: object
-                        required:
-                        - name
-                        type: object
-                      tokenSecretScopeSelector:
-                        description: Selector for a SecretScope in security to populate
-                          tokenSecretScope.
-                        properties:
-                          matchControllerRef:
-                            description: |-
-                              MatchControllerRef ensures an object with the same controller reference
-                              as the selecting object is selected.
-                            type: boolean
-                          matchLabels:
-                            additionalProperties:
+                            namespace:
+                              description: Namespace of the referenced object
                               type: string
-                            description: MatchLabels ensures an object with matching
-                              labels is selected.
-                            type: object
-                          namespace:
-                            description: Namespace for the selector
-                            type: string
-                          policy:
-                            description: Policies for selection.
-                            properties:
-                              resolution:
-                                default: Required
-                                description: |-
-                                  Resolution specifies whether resolution of this reference is required.
-                                  The default is 'Required', which means the reconcile will fail if the
-                                  reference cannot be resolved. 'Optional' means this reference will be
-                                  a no-op if it cannot be resolved.
-                                enum:
-                                - Required
-                                - Optional
+                            policy:
+                              description: Policies for referencing.
+                              properties:
+                                resolution:
+                                  default: Required
+                                  description: |-
+                                    Resolution specifies whether resolution of this reference is required.
+                                    The default is 'Required', which means the reconcile will fail if the
+                                    reference cannot be resolved. 'Optional' means this reference will be
+                                    a no-op if it cannot be resolved.
+                                  enum:
+                                  - Required
+                                  - Optional
+                                  type: string
+                                resolve:
+                                  description: |-
+                                    Resolve specifies when this reference should be resolved. The default
+                                    is 'IfNotPresent', which will attempt to resolve the reference only when
+                                    the corresponding field is not present. Use 'Always' to resolve the
+                                    reference on every reconcile.
+                                  enum:
+                                  - Always
+                                  - IfNotPresent
+                                  type: string
+                              type: object
+                          required:
+                          - name
+                          type: object
+                        tokenSecretKeySelector:
+                          description: Selector for a Secret in security to populate
+                            tokenSecretKey.
+                          properties:
+                            matchControllerRef:
+                              description: |-
+                                MatchControllerRef ensures an object with the same controller reference
+                                as the selecting object is selected.
+                              type: boolean
+                            matchLabels:
+                              additionalProperties:
                                 type: string
-                              resolve:
-                                description: |-
-                                  Resolve specifies when this reference should be resolved. The default
-                                  is 'IfNotPresent', which will attempt to resolve the reference only when
-                                  the corresponding field is not present. Use 'Always' to resolve the
-                                  reference on every reconcile.
-                                enum:
-                                - Always
-                                - IfNotPresent
+                              description: MatchLabels ensures an object with matching
+                                labels is selected.
+                              type: object
+                            namespace:
+                              description: Namespace for the selector
+                              type: string
+                            policy:
+                              description: Policies for selection.
+                              properties:
+                                resolution:
+                                  default: Required
+                                  description: |-
+                                    Resolution specifies whether resolution of this reference is required.
+                                    The default is 'Required', which means the reconcile will fail if the
+                                    reference cannot be resolved. 'Optional' means this reference will be
+                                    a no-op if it cannot be resolved.
+                                  enum:
+                                  - Required
+                                  - Optional
+                                  type: string
+                                resolve:
+                                  description: |-
+                                    Resolve specifies when this reference should be resolved. The default
+                                    is 'IfNotPresent', which will attempt to resolve the reference only when
+                                    the corresponding field is not present. Use 'Always' to resolve the
+                                    reference on every reconcile.
+                                  enum:
+                                  - Always
+                                  - IfNotPresent
+                                  type: string
+                              type: object
+                          type: object
+                        tokenSecretScope:
+                          description: (String) This is the secret scope in which
+                            your auth type token is stored.
+                          type: string
+                        tokenSecretScopeRef:
+                          description: Reference to a SecretScope in security to populate
+                            tokenSecretScope.
+                          properties:
+                            name:
+                              description: Name of the referenced object.
+                              type: string
+                            namespace:
+                              description: Namespace of the referenced object
+                              type: string
+                            policy:
+                              description: Policies for referencing.
+                              properties:
+                                resolution:
+                                  default: Required
+                                  description: |-
+                                    Resolution specifies whether resolution of this reference is required.
+                                    The default is 'Required', which means the reconcile will fail if the
+                                    reference cannot be resolved. 'Optional' means this reference will be
+                                    a no-op if it cannot be resolved.
+                                  enum:
+                                  - Required
+                                  - Optional
+                                  type: string
+                                resolve:
+                                  description: |-
+                                    Resolve specifies when this reference should be resolved. The default
+                                    is 'IfNotPresent', which will attempt to resolve the reference only when
+                                    the corresponding field is not present. Use 'Always' to resolve the
+                                    reference on every reconcile.
+                                  enum:
+                                  - Always
+                                  - IfNotPresent
+                                  type: string
+                              type: object
+                          required:
+                          - name
+                          type: object
+                        tokenSecretScopeSelector:
+                          description: Selector for a SecretScope in security to populate
+                            tokenSecretScope.
+                          properties:
+                            matchControllerRef:
+                              description: |-
+                                MatchControllerRef ensures an object with the same controller reference
+                                as the selecting object is selected.
+                              type: boolean
+                            matchLabels:
+                              additionalProperties:
                                 type: string
-                            type: object
-                        type: object
-                    type: object
+                              description: MatchLabels ensures an object with matching
+                                labels is selected.
+                              type: object
+                            namespace:
+                              description: Namespace for the selector
+                              type: string
+                            policy:
+                              description: Policies for selection.
+                              properties:
+                                resolution:
+                                  default: Required
+                                  description: |-
+                                    Resolution specifies whether resolution of this reference is required.
+                                    The default is 'Required', which means the reconcile will fail if the
+                                    reference cannot be resolved. 'Optional' means this reference will be
+                                    a no-op if it cannot be resolved.
+                                  enum:
+                                  - Required
+                                  - Optional
+                                  type: string
+                                resolve:
+                                  description: |-
+                                    Resolve specifies when this reference should be resolved. The default
+                                    is 'IfNotPresent', which will attempt to resolve the reference only when
+                                    the corresponding field is not present. Use 'Always' to resolve the
+                                    reference on every reconcile.
+                                  enum:
+                                  - Always
+                                  - IfNotPresent
+                                  type: string
+                              type: object
+                          type: object
+                      type: object
+                    type: array
                 type: object
               initProvider:
                 description: |-
@@ -897,409 +914,419 @@ spec:
                   abfs:
                     description: to mount ADLS Gen2 using Azure Blob Filesystem (ABFS)
                       driver
-                    properties:
-                      clientId:
-                        description: (String) This is the client_id (Application Object
-                          ID) for the enterprise application for the service principal.
-                        type: string
-                      clientSecretKey:
-                        description: (String) This is the secret key in which your
-                          service principal/enterprise app client secret will be stored.
-                        type: string
-                      clientSecretKeyRef:
-                        description: Reference to a Secret in security to populate
-                          clientSecretKey.
-                        properties:
-                          name:
-                            description: Name of the referenced object.
-                            type: string
-                          namespace:
-                            description: Namespace of the referenced object
-                            type: string
-                          policy:
-                            description: Policies for referencing.
-                            properties:
-                              resolution:
-                                default: Required
-                                description: |-
-                                  Resolution specifies whether resolution of this reference is required.
-                                  The default is 'Required', which means the reconcile will fail if the
-                                  reference cannot be resolved. 'Optional' means this reference will be
-                                  a no-op if it cannot be resolved.
-                                enum:
-                                - Required
-                                - Optional
-                                type: string
-                              resolve:
-                                description: |-
-                                  Resolve specifies when this reference should be resolved. The default
-                                  is 'IfNotPresent', which will attempt to resolve the reference only when
-                                  the corresponding field is not present. Use 'Always' to resolve the
-                                  reference on every reconcile.
-                                enum:
-                                - Always
-                                - IfNotPresent
-                                type: string
-                            type: object
-                        required:
-                        - name
-                        type: object
-                      clientSecretKeySelector:
-                        description: Selector for a Secret in security to populate
-                          clientSecretKey.
-                        properties:
-                          matchControllerRef:
-                            description: |-
-                              MatchControllerRef ensures an object with the same controller reference
-                              as the selecting object is selected.
-                            type: boolean
-                          matchLabels:
-                            additionalProperties:
+                    items:
+                      properties:
+                        clientId:
+                          description: (String) This is the client_id (Application
+                            Object ID) for the enterprise application for the service
+                            principal.
+                          type: string
+                        clientSecretKey:
+                          description: (String) This is the secret key in which your
+                            service principal/enterprise app client secret will be
+                            stored.
+                          type: string
+                        clientSecretKeyRef:
+                          description: Reference to a Secret in security to populate
+                            clientSecretKey.
+                          properties:
+                            name:
+                              description: Name of the referenced object.
                               type: string
-                            description: MatchLabels ensures an object with matching
-                              labels is selected.
-                            type: object
-                          namespace:
-                            description: Namespace for the selector
-                            type: string
-                          policy:
-                            description: Policies for selection.
-                            properties:
-                              resolution:
-                                default: Required
-                                description: |-
-                                  Resolution specifies whether resolution of this reference is required.
-                                  The default is 'Required', which means the reconcile will fail if the
-                                  reference cannot be resolved. 'Optional' means this reference will be
-                                  a no-op if it cannot be resolved.
-                                enum:
-                                - Required
-                                - Optional
-                                type: string
-                              resolve:
-                                description: |-
-                                  Resolve specifies when this reference should be resolved. The default
-                                  is 'IfNotPresent', which will attempt to resolve the reference only when
-                                  the corresponding field is not present. Use 'Always' to resolve the
-                                  reference on every reconcile.
-                                enum:
-                                - Always
-                                - IfNotPresent
-                                type: string
-                            type: object
-                        type: object
-                      clientSecretScope:
-                        description: (String) This is the secret scope in which your
-                          service principal/enterprise app client secret will be stored.
-                        type: string
-                      clientSecretScopeRef:
-                        description: Reference to a SecretScope in security to populate
-                          clientSecretScope.
-                        properties:
-                          name:
-                            description: Name of the referenced object.
-                            type: string
-                          namespace:
-                            description: Namespace of the referenced object
-                            type: string
-                          policy:
-                            description: Policies for referencing.
-                            properties:
-                              resolution:
-                                default: Required
-                                description: |-
-                                  Resolution specifies whether resolution of this reference is required.
-                                  The default is 'Required', which means the reconcile will fail if the
-                                  reference cannot be resolved. 'Optional' means this reference will be
-                                  a no-op if it cannot be resolved.
-                                enum:
-                                - Required
-                                - Optional
-                                type: string
-                              resolve:
-                                description: |-
-                                  Resolve specifies when this reference should be resolved. The default
-                                  is 'IfNotPresent', which will attempt to resolve the reference only when
-                                  the corresponding field is not present. Use 'Always' to resolve the
-                                  reference on every reconcile.
-                                enum:
-                                - Always
-                                - IfNotPresent
-                                type: string
-                            type: object
-                        required:
-                        - name
-                        type: object
-                      clientSecretScopeSelector:
-                        description: Selector for a SecretScope in security to populate
-                          clientSecretScope.
-                        properties:
-                          matchControllerRef:
-                            description: |-
-                              MatchControllerRef ensures an object with the same controller reference
-                              as the selecting object is selected.
-                            type: boolean
-                          matchLabels:
-                            additionalProperties:
+                            namespace:
+                              description: Namespace of the referenced object
                               type: string
-                            description: MatchLabels ensures an object with matching
-                              labels is selected.
-                            type: object
-                          namespace:
-                            description: Namespace for the selector
-                            type: string
-                          policy:
-                            description: Policies for selection.
-                            properties:
-                              resolution:
-                                default: Required
-                                description: |-
-                                  Resolution specifies whether resolution of this reference is required.
-                                  The default is 'Required', which means the reconcile will fail if the
-                                  reference cannot be resolved. 'Optional' means this reference will be
-                                  a no-op if it cannot be resolved.
-                                enum:
-                                - Required
-                                - Optional
+                            policy:
+                              description: Policies for referencing.
+                              properties:
+                                resolution:
+                                  default: Required
+                                  description: |-
+                                    Resolution specifies whether resolution of this reference is required.
+                                    The default is 'Required', which means the reconcile will fail if the
+                                    reference cannot be resolved. 'Optional' means this reference will be
+                                    a no-op if it cannot be resolved.
+                                  enum:
+                                  - Required
+                                  - Optional
+                                  type: string
+                                resolve:
+                                  description: |-
+                                    Resolve specifies when this reference should be resolved. The default
+                                    is 'IfNotPresent', which will attempt to resolve the reference only when
+                                    the corresponding field is not present. Use 'Always' to resolve the
+                                    reference on every reconcile.
+                                  enum:
+                                  - Always
+                                  - IfNotPresent
+                                  type: string
+                              type: object
+                          required:
+                          - name
+                          type: object
+                        clientSecretKeySelector:
+                          description: Selector for a Secret in security to populate
+                            clientSecretKey.
+                          properties:
+                            matchControllerRef:
+                              description: |-
+                                MatchControllerRef ensures an object with the same controller reference
+                                as the selecting object is selected.
+                              type: boolean
+                            matchLabels:
+                              additionalProperties:
                                 type: string
-                              resolve:
-                                description: |-
-                                  Resolve specifies when this reference should be resolved. The default
-                                  is 'IfNotPresent', which will attempt to resolve the reference only when
-                                  the corresponding field is not present. Use 'Always' to resolve the
-                                  reference on every reconcile.
-                                enum:
-                                - Always
-                                - IfNotPresent
+                              description: MatchLabels ensures an object with matching
+                                labels is selected.
+                              type: object
+                            namespace:
+                              description: Namespace for the selector
+                              type: string
+                            policy:
+                              description: Policies for selection.
+                              properties:
+                                resolution:
+                                  default: Required
+                                  description: |-
+                                    Resolution specifies whether resolution of this reference is required.
+                                    The default is 'Required', which means the reconcile will fail if the
+                                    reference cannot be resolved. 'Optional' means this reference will be
+                                    a no-op if it cannot be resolved.
+                                  enum:
+                                  - Required
+                                  - Optional
+                                  type: string
+                                resolve:
+                                  description: |-
+                                    Resolve specifies when this reference should be resolved. The default
+                                    is 'IfNotPresent', which will attempt to resolve the reference only when
+                                    the corresponding field is not present. Use 'Always' to resolve the
+                                    reference on every reconcile.
+                                  enum:
+                                  - Always
+                                  - IfNotPresent
+                                  type: string
+                              type: object
+                          type: object
+                        clientSecretScope:
+                          description: (String) This is the secret scope in which
+                            your service principal/enterprise app client secret will
+                            be stored.
+                          type: string
+                        clientSecretScopeRef:
+                          description: Reference to a SecretScope in security to populate
+                            clientSecretScope.
+                          properties:
+                            name:
+                              description: Name of the referenced object.
+                              type: string
+                            namespace:
+                              description: Namespace of the referenced object
+                              type: string
+                            policy:
+                              description: Policies for referencing.
+                              properties:
+                                resolution:
+                                  default: Required
+                                  description: |-
+                                    Resolution specifies whether resolution of this reference is required.
+                                    The default is 'Required', which means the reconcile will fail if the
+                                    reference cannot be resolved. 'Optional' means this reference will be
+                                    a no-op if it cannot be resolved.
+                                  enum:
+                                  - Required
+                                  - Optional
+                                  type: string
+                                resolve:
+                                  description: |-
+                                    Resolve specifies when this reference should be resolved. The default
+                                    is 'IfNotPresent', which will attempt to resolve the reference only when
+                                    the corresponding field is not present. Use 'Always' to resolve the
+                                    reference on every reconcile.
+                                  enum:
+                                  - Always
+                                  - IfNotPresent
+                                  type: string
+                              type: object
+                          required:
+                          - name
+                          type: object
+                        clientSecretScopeSelector:
+                          description: Selector for a SecretScope in security to populate
+                            clientSecretScope.
+                          properties:
+                            matchControllerRef:
+                              description: |-
+                                MatchControllerRef ensures an object with the same controller reference
+                                as the selecting object is selected.
+                              type: boolean
+                            matchLabels:
+                              additionalProperties:
                                 type: string
-                            type: object
-                        type: object
-                      containerName:
-                        description: (String) ADLS gen2 container name. (Could be
-                          omitted if resource_id is provided)
-                        type: string
-                      directory:
-                        description: (Computed) (String) This is optional if you don't
-                          want to add an additional directory that you wish to mount.
-                          This must start with a "/".
-                        type: string
-                      initializeFileSystem:
-                        description: (Bool) either or not initialize FS for the first
-                          use
-                        type: boolean
-                      storageAccountName:
-                        description: (String) The name of the storage resource in
-                          which the data is. (Could be omitted if resource_id is provided)
-                        type: string
-                      tenantId:
-                        description: (String) This is your azure directory tenant
-                          id. It is required for creating the mount. (Could be omitted
-                          if Azure authentication is used, and we can extract tenant_id
-                          from it).
-                        type: string
-                    type: object
+                              description: MatchLabels ensures an object with matching
+                                labels is selected.
+                              type: object
+                            namespace:
+                              description: Namespace for the selector
+                              type: string
+                            policy:
+                              description: Policies for selection.
+                              properties:
+                                resolution:
+                                  default: Required
+                                  description: |-
+                                    Resolution specifies whether resolution of this reference is required.
+                                    The default is 'Required', which means the reconcile will fail if the
+                                    reference cannot be resolved. 'Optional' means this reference will be
+                                    a no-op if it cannot be resolved.
+                                  enum:
+                                  - Required
+                                  - Optional
+                                  type: string
+                                resolve:
+                                  description: |-
+                                    Resolve specifies when this reference should be resolved. The default
+                                    is 'IfNotPresent', which will attempt to resolve the reference only when
+                                    the corresponding field is not present. Use 'Always' to resolve the
+                                    reference on every reconcile.
+                                  enum:
+                                  - Always
+                                  - IfNotPresent
+                                  type: string
+                              type: object
+                          type: object
+                        containerName:
+                          description: (String) ADLS gen2 container name. (Could be
+                            omitted if resource_id is provided)
+                          type: string
+                        directory:
+                          description: (Computed) (String) This is optional if you
+                            don't want to add an additional directory that you wish
+                            to mount. This must start with a "/".
+                          type: string
+                        initializeFileSystem:
+                          description: (Bool) either or not initialize FS for the
+                            first use
+                          type: boolean
+                        storageAccountName:
+                          description: (String) The name of the storage resource in
+                            which the data is. (Could be omitted if resource_id is
+                            provided)
+                          type: string
+                        tenantId:
+                          description: (String) This is your azure directory tenant
+                            id. It is required for creating the mount. (Could be omitted
+                            if Azure authentication is used, and we can extract tenant_id
+                            from it).
+                          type: string
+                      type: object
+                    type: array
                   adl:
                     description: to mount ADLS Gen1 using Azure Data Lake (ADL) driver
-                    properties:
-                      clientId:
-                        description: (String) This is the client_id for the enterprise
-                          application for the service principal.
-                        type: string
-                      clientSecretKey:
-                        description: (String) This is the secret key in which your
-                          service principal/enterprise app client secret will be stored.
-                        type: string
-                      clientSecretKeyRef:
-                        description: Reference to a Secret in security to populate
-                          clientSecretKey.
-                        properties:
-                          name:
-                            description: Name of the referenced object.
-                            type: string
-                          namespace:
-                            description: Namespace of the referenced object
-                            type: string
-                          policy:
-                            description: Policies for referencing.
-                            properties:
-                              resolution:
-                                default: Required
-                                description: |-
-                                  Resolution specifies whether resolution of this reference is required.
-                                  The default is 'Required', which means the reconcile will fail if the
-                                  reference cannot be resolved. 'Optional' means this reference will be
-                                  a no-op if it cannot be resolved.
-                                enum:
-                                - Required
-                                - Optional
-                                type: string
-                              resolve:
-                                description: |-
-                                  Resolve specifies when this reference should be resolved. The default
-                                  is 'IfNotPresent', which will attempt to resolve the reference only when
-                                  the corresponding field is not present. Use 'Always' to resolve the
-                                  reference on every reconcile.
-                                enum:
-                                - Always
-                                - IfNotPresent
-                                type: string
-                            type: object
-                        required:
-                        - name
-                        type: object
-                      clientSecretKeySelector:
-                        description: Selector for a Secret in security to populate
-                          clientSecretKey.
-                        properties:
-                          matchControllerRef:
-                            description: |-
-                              MatchControllerRef ensures an object with the same controller reference
-                              as the selecting object is selected.
-                            type: boolean
-                          matchLabels:
-                            additionalProperties:
+                    items:
+                      properties:
+                        clientId:
+                          description: (String) This is the client_id for the enterprise
+                            application for the service principal.
+                          type: string
+                        clientSecretKey:
+                          description: (String) This is the secret key in which your
+                            service principal/enterprise app client secret will be
+                            stored.
+                          type: string
+                        clientSecretKeyRef:
+                          description: Reference to a Secret in security to populate
+                            clientSecretKey.
+                          properties:
+                            name:
+                              description: Name of the referenced object.
                               type: string
-                            description: MatchLabels ensures an object with matching
-                              labels is selected.
-                            type: object
-                          namespace:
-                            description: Namespace for the selector
-                            type: string
-                          policy:
-                            description: Policies for selection.
-                            properties:
-                              resolution:
-                                default: Required
-                                description: |-
-                                  Resolution specifies whether resolution of this reference is required.
-                                  The default is 'Required', which means the reconcile will fail if the
-                                  reference cannot be resolved. 'Optional' means this reference will be
-                                  a no-op if it cannot be resolved.
-                                enum:
-                                - Required
-                                - Optional
-                                type: string
-                              resolve:
-                                description: |-
-                                  Resolve specifies when this reference should be resolved. The default
-                                  is 'IfNotPresent', which will attempt to resolve the reference only when
-                                  the corresponding field is not present. Use 'Always' to resolve the
-                                  reference on every reconcile.
-                                enum:
-                                - Always
-                                - IfNotPresent
-                                type: string
-                            type: object
-                        type: object
-                      clientSecretScope:
-                        description: (String) This is the secret scope in which your
-                          service principal/enterprise app client secret will be stored.
-                        type: string
-                      clientSecretScopeRef:
-                        description: Reference to a SecretScope in security to populate
-                          clientSecretScope.
-                        properties:
-                          name:
-                            description: Name of the referenced object.
-                            type: string
-                          namespace:
-                            description: Namespace of the referenced object
-                            type: string
-                          policy:
-                            description: Policies for referencing.
-                            properties:
-                              resolution:
-                                default: Required
-                                description: |-
-                                  Resolution specifies whether resolution of this reference is required.
-                                  The default is 'Required', which means the reconcile will fail if the
-                                  reference cannot be resolved. 'Optional' means this reference will be
-                                  a no-op if it cannot be resolved.
-                                enum:
-                                - Required
-                                - Optional
-                                type: string
-                              resolve:
-                                description: |-
-                                  Resolve specifies when this reference should be resolved. The default
-                                  is 'IfNotPresent', which will attempt to resolve the reference only when
-                                  the corresponding field is not present. Use 'Always' to resolve the
-                                  reference on every reconcile.
-                                enum:
-                                - Always
-                                - IfNotPresent
-                                type: string
-                            type: object
-                        required:
-                        - name
-                        type: object
-                      clientSecretScopeSelector:
-                        description: Selector for a SecretScope in security to populate
-                          clientSecretScope.
-                        properties:
-                          matchControllerRef:
-                            description: |-
-                              MatchControllerRef ensures an object with the same controller reference
-                              as the selecting object is selected.
-                            type: boolean
-                          matchLabels:
-                            additionalProperties:
+                            namespace:
+                              description: Namespace of the referenced object
                               type: string
-                            description: MatchLabels ensures an object with matching
-                              labels is selected.
-                            type: object
-                          namespace:
-                            description: Namespace for the selector
-                            type: string
-                          policy:
-                            description: Policies for selection.
-                            properties:
-                              resolution:
-                                default: Required
-                                description: |-
-                                  Resolution specifies whether resolution of this reference is required.
-                                  The default is 'Required', which means the reconcile will fail if the
-                                  reference cannot be resolved. 'Optional' means this reference will be
-                                  a no-op if it cannot be resolved.
-                                enum:
-                                - Required
-                                - Optional
+                            policy:
+                              description: Policies for referencing.
+                              properties:
+                                resolution:
+                                  default: Required
+                                  description: |-
+                                    Resolution specifies whether resolution of this reference is required.
+                                    The default is 'Required', which means the reconcile will fail if the
+                                    reference cannot be resolved. 'Optional' means this reference will be
+                                    a no-op if it cannot be resolved.
+                                  enum:
+                                  - Required
+                                  - Optional
+                                  type: string
+                                resolve:
+                                  description: |-
+                                    Resolve specifies when this reference should be resolved. The default
+                                    is 'IfNotPresent', which will attempt to resolve the reference only when
+                                    the corresponding field is not present. Use 'Always' to resolve the
+                                    reference on every reconcile.
+                                  enum:
+                                  - Always
+                                  - IfNotPresent
+                                  type: string
+                              type: object
+                          required:
+                          - name
+                          type: object
+                        clientSecretKeySelector:
+                          description: Selector for a Secret in security to populate
+                            clientSecretKey.
+                          properties:
+                            matchControllerRef:
+                              description: |-
+                                MatchControllerRef ensures an object with the same controller reference
+                                as the selecting object is selected.
+                              type: boolean
+                            matchLabels:
+                              additionalProperties:
                                 type: string
-                              resolve:
-                                description: |-
-                                  Resolve specifies when this reference should be resolved. The default
-                                  is 'IfNotPresent', which will attempt to resolve the reference only when
-                                  the corresponding field is not present. Use 'Always' to resolve the
-                                  reference on every reconcile.
-                                enum:
-                                - Always
-                                - IfNotPresent
+                              description: MatchLabels ensures an object with matching
+                                labels is selected.
+                              type: object
+                            namespace:
+                              description: Namespace for the selector
+                              type: string
+                            policy:
+                              description: Policies for selection.
+                              properties:
+                                resolution:
+                                  default: Required
+                                  description: |-
+                                    Resolution specifies whether resolution of this reference is required.
+                                    The default is 'Required', which means the reconcile will fail if the
+                                    reference cannot be resolved. 'Optional' means this reference will be
+                                    a no-op if it cannot be resolved.
+                                  enum:
+                                  - Required
+                                  - Optional
+                                  type: string
+                                resolve:
+                                  description: |-
+                                    Resolve specifies when this reference should be resolved. The default
+                                    is 'IfNotPresent', which will attempt to resolve the reference only when
+                                    the corresponding field is not present. Use 'Always' to resolve the
+                                    reference on every reconcile.
+                                  enum:
+                                  - Always
+                                  - IfNotPresent
+                                  type: string
+                              type: object
+                          type: object
+                        clientSecretScope:
+                          description: (String) This is the secret scope in which
+                            your service principal/enterprise app client secret will
+                            be stored.
+                          type: string
+                        clientSecretScopeRef:
+                          description: Reference to a SecretScope in security to populate
+                            clientSecretScope.
+                          properties:
+                            name:
+                              description: Name of the referenced object.
+                              type: string
+                            namespace:
+                              description: Namespace of the referenced object
+                              type: string
+                            policy:
+                              description: Policies for referencing.
+                              properties:
+                                resolution:
+                                  default: Required
+                                  description: |-
+                                    Resolution specifies whether resolution of this reference is required.
+                                    The default is 'Required', which means the reconcile will fail if the
+                                    reference cannot be resolved. 'Optional' means this reference will be
+                                    a no-op if it cannot be resolved.
+                                  enum:
+                                  - Required
+                                  - Optional
+                                  type: string
+                                resolve:
+                                  description: |-
+                                    Resolve specifies when this reference should be resolved. The default
+                                    is 'IfNotPresent', which will attempt to resolve the reference only when
+                                    the corresponding field is not present. Use 'Always' to resolve the
+                                    reference on every reconcile.
+                                  enum:
+                                  - Always
+                                  - IfNotPresent
+                                  type: string
+                              type: object
+                          required:
+                          - name
+                          type: object
+                        clientSecretScopeSelector:
+                          description: Selector for a SecretScope in security to populate
+                            clientSecretScope.
+                          properties:
+                            matchControllerRef:
+                              description: |-
+                                MatchControllerRef ensures an object with the same controller reference
+                                as the selecting object is selected.
+                              type: boolean
+                            matchLabels:
+                              additionalProperties:
                                 type: string
-                            type: object
-                        type: object
-                      directory:
-                        description: (Computed) (String) This is optional if you don't
-                          want to add an additional directory that you wish to mount.
-                          This must start with a "/".
-                        type: string
-                      sparkConfPrefix:
-                        description: '(String) This is the spark configuration prefix
-                          for adls gen 1 mount. The options are fs.adl, dfs.adls.
-                          Use fs.adl for runtime 6.0 and above for the clusters. Otherwise
-                          use dfs.adls. The default value is: fs.adl.'
-                        type: string
-                      storageResourceName:
-                        description: (String) The name of the storage resource in
-                          which the data is for ADLS gen 1. This is what you are trying
-                          to mount. (Could be omitted if resource_id is provided)
-                        type: string
-                      tenantId:
-                        description: (String) This is your azure directory tenant
-                          id. It is required for creating the mount. (Could be omitted
-                          if Azure authentication is used, and we can extract tenant_id
-                          from it)
-                        type: string
-                    type: object
+                              description: MatchLabels ensures an object with matching
+                                labels is selected.
+                              type: object
+                            namespace:
+                              description: Namespace for the selector
+                              type: string
+                            policy:
+                              description: Policies for selection.
+                              properties:
+                                resolution:
+                                  default: Required
+                                  description: |-
+                                    Resolution specifies whether resolution of this reference is required.
+                                    The default is 'Required', which means the reconcile will fail if the
+                                    reference cannot be resolved. 'Optional' means this reference will be
+                                    a no-op if it cannot be resolved.
+                                  enum:
+                                  - Required
+                                  - Optional
+                                  type: string
+                                resolve:
+                                  description: |-
+                                    Resolve specifies when this reference should be resolved. The default
+                                    is 'IfNotPresent', which will attempt to resolve the reference only when
+                                    the corresponding field is not present. Use 'Always' to resolve the
+                                    reference on every reconcile.
+                                  enum:
+                                  - Always
+                                  - IfNotPresent
+                                  type: string
+                              type: object
+                          type: object
+                        directory:
+                          description: (Computed) (String) This is optional if you
+                            don't want to add an additional directory that you wish
+                            to mount. This must start with a "/".
+                          type: string
+                        sparkConfPrefix:
+                          description: '(String) This is the spark configuration prefix
+                            for adls gen 1 mount. The options are fs.adl, dfs.adls.
+                            Use fs.adl for runtime 6.0 and above for the clusters.
+                            Otherwise use dfs.adls. The default value is: fs.adl.'
+                          type: string
+                        storageResourceName:
+                          description: (String) The name of the storage resource in
+                            which the data is for ADLS gen 1. This is what you are
+                            trying to mount. (Could be omitted if resource_id is provided)
+                          type: string
+                        tenantId:
+                          description: (String) This is your azure directory tenant
+                            id. It is required for creating the mount. (Could be omitted
+                            if Azure authentication is used, and we can extract tenant_id
+                            from it)
+                          type: string
+                      type: object
+                    type: array
                   clusterId:
                     description: Cluster to use for mounting. If no cluster is specified,
                       a new cluster will be created and will mount the bucket for
@@ -1399,17 +1426,19 @@ spec:
                     x-kubernetes-map-type: granular
                   gs:
                     description: to mount Google Cloud Storage
-                    properties:
-                      bucketName:
-                        description: (String) GCS bucket name to be mounted.
-                        type: string
-                      serviceAccount:
-                        description: (String) email of registered Google Service Account
-                          for data access.  If it's not specified, then the cluster_id
-                          should be provided, and the cluster should have a Google
-                          service account attached to it.
-                        type: string
-                    type: object
+                    items:
+                      properties:
+                        bucketName:
+                          description: (String) GCS bucket name to be mounted.
+                          type: string
+                        serviceAccount:
+                          description: (String) email of registered Google Service
+                            Account for data access.  If it's not specified, then
+                            the cluster_id should be provided, and the cluster should
+                            have a Google service account attached to it.
+                          type: string
+                      type: object
+                    type: array
                   name:
                     description: 'Name, under which mount will be accessible in dbfs:/mnt/<MOUNT_NAME>.
                       If not specified, provider will try to infer it from depending
@@ -1422,100 +1451,102 @@ spec:
                     type: string
                   s3:
                     description: to mount AWS S3
-                    properties:
-                      bucketName:
-                        description: (String) S3 bucket name to be mounted.
-                        type: string
-                      instanceProfile:
-                        description: (String) ARN of registered instance profile for
-                          data access.  If it's not specified, then the cluster_id
-                          should be provided, and the cluster should have an instance
-                          profile attached to it. If both cluster_id & instance_profile
-                          are specified, then cluster_id takes precedence.
-                        type: string
-                      instanceProfileRef:
-                        description: Reference to a InstanceProfile in deployment
-                          to populate instanceProfile.
-                        properties:
-                          name:
-                            description: Name of the referenced object.
-                            type: string
-                          namespace:
-                            description: Namespace of the referenced object
-                            type: string
-                          policy:
-                            description: Policies for referencing.
-                            properties:
-                              resolution:
-                                default: Required
-                                description: |-
-                                  Resolution specifies whether resolution of this reference is required.
-                                  The default is 'Required', which means the reconcile will fail if the
-                                  reference cannot be resolved. 'Optional' means this reference will be
-                                  a no-op if it cannot be resolved.
-                                enum:
-                                - Required
-                                - Optional
-                                type: string
-                              resolve:
-                                description: |-
-                                  Resolve specifies when this reference should be resolved. The default
-                                  is 'IfNotPresent', which will attempt to resolve the reference only when
-                                  the corresponding field is not present. Use 'Always' to resolve the
-                                  reference on every reconcile.
-                                enum:
-                                - Always
-                                - IfNotPresent
-                                type: string
-                            type: object
-                        required:
-                        - name
-                        type: object
-                      instanceProfileSelector:
-                        description: Selector for a InstanceProfile in deployment
-                          to populate instanceProfile.
-                        properties:
-                          matchControllerRef:
-                            description: |-
-                              MatchControllerRef ensures an object with the same controller reference
-                              as the selecting object is selected.
-                            type: boolean
-                          matchLabels:
-                            additionalProperties:
+                    items:
+                      properties:
+                        bucketName:
+                          description: (String) S3 bucket name to be mounted.
+                          type: string
+                        instanceProfile:
+                          description: (String) ARN of registered instance profile
+                            for data access.  If it's not specified, then the cluster_id
+                            should be provided, and the cluster should have an instance
+                            profile attached to it. If both cluster_id & instance_profile
+                            are specified, then cluster_id takes precedence.
+                          type: string
+                        instanceProfileRef:
+                          description: Reference to a InstanceProfile in deployment
+                            to populate instanceProfile.
+                          properties:
+                            name:
+                              description: Name of the referenced object.
                               type: string
-                            description: MatchLabels ensures an object with matching
-                              labels is selected.
-                            type: object
-                          namespace:
-                            description: Namespace for the selector
-                            type: string
-                          policy:
-                            description: Policies for selection.
-                            properties:
-                              resolution:
-                                default: Required
-                                description: |-
-                                  Resolution specifies whether resolution of this reference is required.
-                                  The default is 'Required', which means the reconcile will fail if the
-                                  reference cannot be resolved. 'Optional' means this reference will be
-                                  a no-op if it cannot be resolved.
-                                enum:
-                                - Required
-                                - Optional
+                            namespace:
+                              description: Namespace of the referenced object
+                              type: string
+                            policy:
+                              description: Policies for referencing.
+                              properties:
+                                resolution:
+                                  default: Required
+                                  description: |-
+                                    Resolution specifies whether resolution of this reference is required.
+                                    The default is 'Required', which means the reconcile will fail if the
+                                    reference cannot be resolved. 'Optional' means this reference will be
+                                    a no-op if it cannot be resolved.
+                                  enum:
+                                  - Required
+                                  - Optional
+                                  type: string
+                                resolve:
+                                  description: |-
+                                    Resolve specifies when this reference should be resolved. The default
+                                    is 'IfNotPresent', which will attempt to resolve the reference only when
+                                    the corresponding field is not present. Use 'Always' to resolve the
+                                    reference on every reconcile.
+                                  enum:
+                                  - Always
+                                  - IfNotPresent
+                                  type: string
+                              type: object
+                          required:
+                          - name
+                          type: object
+                        instanceProfileSelector:
+                          description: Selector for a InstanceProfile in deployment
+                            to populate instanceProfile.
+                          properties:
+                            matchControllerRef:
+                              description: |-
+                                MatchControllerRef ensures an object with the same controller reference
+                                as the selecting object is selected.
+                              type: boolean
+                            matchLabels:
+                              additionalProperties:
                                 type: string
-                              resolve:
-                                description: |-
-                                  Resolve specifies when this reference should be resolved. The default
-                                  is 'IfNotPresent', which will attempt to resolve the reference only when
-                                  the corresponding field is not present. Use 'Always' to resolve the
-                                  reference on every reconcile.
-                                enum:
-                                - Always
-                                - IfNotPresent
-                                type: string
-                            type: object
-                        type: object
-                    type: object
+                              description: MatchLabels ensures an object with matching
+                                labels is selected.
+                              type: object
+                            namespace:
+                              description: Namespace for the selector
+                              type: string
+                            policy:
+                              description: Policies for selection.
+                              properties:
+                                resolution:
+                                  default: Required
+                                  description: |-
+                                    Resolution specifies whether resolution of this reference is required.
+                                    The default is 'Required', which means the reconcile will fail if the
+                                    reference cannot be resolved. 'Optional' means this reference will be
+                                    a no-op if it cannot be resolved.
+                                  enum:
+                                  - Required
+                                  - Optional
+                                  type: string
+                                resolve:
+                                  description: |-
+                                    Resolve specifies when this reference should be resolved. The default
+                                    is 'IfNotPresent', which will attempt to resolve the reference only when
+                                    the corresponding field is not present. Use 'Always' to resolve the
+                                    reference on every reconcile.
+                                  enum:
+                                  - Always
+                                  - IfNotPresent
+                                  type: string
+                              type: object
+                          type: object
+                      type: object
+                    type: array
                   uri:
                     description: the URI for accessing specific storage (s3a://....,
                       abfss://...., gs://...., etc.)
@@ -1523,199 +1554,202 @@ spec:
                   wasb:
                     description: to mount Azure Blob Storage using Windows Azure Storage
                       Blob (WASB) driver
-                    properties:
-                      authType:
-                        description: (String) This is the auth type for blob storage.
-                          This can either be SAS tokens (SAS) or account access keys
-                          (ACCESS_KEY).
-                        type: string
-                      containerName:
-                        description: (String) The container in which the data is.
-                          This is what you are trying to mount. (Could be omitted
-                          if resource_id is provided)
-                        type: string
-                      directory:
-                        description: (Computed) (String) This is optional if you don't
-                          want to add an additional directory that you wish to mount.
-                          This must start with a "/".
-                        type: string
-                      storageAccountName:
-                        description: (String) The name of the storage resource in
-                          which the data is. (Could be omitted if resource_id is provided)
-                        type: string
-                      tokenSecretKey:
-                        description: (String) This is the secret key in which your
-                          auth type token is stored.
-                        type: string
-                      tokenSecretKeyRef:
-                        description: Reference to a Secret in security to populate
-                          tokenSecretKey.
-                        properties:
-                          name:
-                            description: Name of the referenced object.
-                            type: string
-                          namespace:
-                            description: Namespace of the referenced object
-                            type: string
-                          policy:
-                            description: Policies for referencing.
-                            properties:
-                              resolution:
-                                default: Required
-                                description: |-
-                                  Resolution specifies whether resolution of this reference is required.
-                                  The default is 'Required', which means the reconcile will fail if the
-                                  reference cannot be resolved. 'Optional' means this reference will be
-                                  a no-op if it cannot be resolved.
-                                enum:
-                                - Required
-                                - Optional
-                                type: string
-                              resolve:
-                                description: |-
-                                  Resolve specifies when this reference should be resolved. The default
-                                  is 'IfNotPresent', which will attempt to resolve the reference only when
-                                  the corresponding field is not present. Use 'Always' to resolve the
-                                  reference on every reconcile.
-                                enum:
-                                - Always
-                                - IfNotPresent
-                                type: string
-                            type: object
-                        required:
-                        - name
-                        type: object
-                      tokenSecretKeySelector:
-                        description: Selector for a Secret in security to populate
-                          tokenSecretKey.
-                        properties:
-                          matchControllerRef:
-                            description: |-
-                              MatchControllerRef ensures an object with the same controller reference
-                              as the selecting object is selected.
-                            type: boolean
-                          matchLabels:
-                            additionalProperties:
+                    items:
+                      properties:
+                        authType:
+                          description: (String) This is the auth type for blob storage.
+                            This can either be SAS tokens (SAS) or account access
+                            keys (ACCESS_KEY).
+                          type: string
+                        containerName:
+                          description: (String) The container in which the data is.
+                            This is what you are trying to mount. (Could be omitted
+                            if resource_id is provided)
+                          type: string
+                        directory:
+                          description: (Computed) (String) This is optional if you
+                            don't want to add an additional directory that you wish
+                            to mount. This must start with a "/".
+                          type: string
+                        storageAccountName:
+                          description: (String) The name of the storage resource in
+                            which the data is. (Could be omitted if resource_id is
+                            provided)
+                          type: string
+                        tokenSecretKey:
+                          description: (String) This is the secret key in which your
+                            auth type token is stored.
+                          type: string
+                        tokenSecretKeyRef:
+                          description: Reference to a Secret in security to populate
+                            tokenSecretKey.
+                          properties:
+                            name:
+                              description: Name of the referenced object.
                               type: string
-                            description: MatchLabels ensures an object with matching
-                              labels is selected.
-                            type: object
-                          namespace:
-                            description: Namespace for the selector
-                            type: string
-                          policy:
-                            description: Policies for selection.
-                            properties:
-                              resolution:
-                                default: Required
-                                description: |-
-                                  Resolution specifies whether resolution of this reference is required.
-                                  The default is 'Required', which means the reconcile will fail if the
-                                  reference cannot be resolved. 'Optional' means this reference will be
-                                  a no-op if it cannot be resolved.
-                                enum:
-                                - Required
-                                - Optional
-                                type: string
-                              resolve:
-                                description: |-
-                                  Resolve specifies when this reference should be resolved. The default
-                                  is 'IfNotPresent', which will attempt to resolve the reference only when
-                                  the corresponding field is not present. Use 'Always' to resolve the
-                                  reference on every reconcile.
-                                enum:
-                                - Always
-                                - IfNotPresent
-                                type: string
-                            type: object
-                        type: object
-                      tokenSecretScope:
-                        description: (String) This is the secret scope in which your
-                          auth type token is stored.
-                        type: string
-                      tokenSecretScopeRef:
-                        description: Reference to a SecretScope in security to populate
-                          tokenSecretScope.
-                        properties:
-                          name:
-                            description: Name of the referenced object.
-                            type: string
-                          namespace:
-                            description: Namespace of the referenced object
-                            type: string
-                          policy:
-                            description: Policies for referencing.
-                            properties:
-                              resolution:
-                                default: Required
-                                description: |-
-                                  Resolution specifies whether resolution of this reference is required.
-                                  The default is 'Required', which means the reconcile will fail if the
-                                  reference cannot be resolved. 'Optional' means this reference will be
-                                  a no-op if it cannot be resolved.
-                                enum:
-                                - Required
-                                - Optional
-                                type: string
-                              resolve:
-                                description: |-
-                                  Resolve specifies when this reference should be resolved. The default
-                                  is 'IfNotPresent', which will attempt to resolve the reference only when
-                                  the corresponding field is not present. Use 'Always' to resolve the
-                                  reference on every reconcile.
-                                enum:
-                                - Always
-                                - IfNotPresent
-                                type: string
-                            type: object
-                        required:
-                        - name
-                        type: object
-                      tokenSecretScopeSelector:
-                        description: Selector for a SecretScope in security to populate
-                          tokenSecretScope.
-                        properties:
-                          matchControllerRef:
-                            description: |-
-                              MatchControllerRef ensures an object with the same controller reference
-                              as the selecting object is selected.
-                            type: boolean
-                          matchLabels:
-                            additionalProperties:
+                            namespace:
+                              description: Namespace of the referenced object
                               type: string
-                            description: MatchLabels ensures an object with matching
-                              labels is selected.
-                            type: object
-                          namespace:
-                            description: Namespace for the selector
-                            type: string
-                          policy:
-                            description: Policies for selection.
-                            properties:
-                              resolution:
-                                default: Required
-                                description: |-
-                                  Resolution specifies whether resolution of this reference is required.
-                                  The default is 'Required', which means the reconcile will fail if the
-                                  reference cannot be resolved. 'Optional' means this reference will be
-                                  a no-op if it cannot be resolved.
-                                enum:
-                                - Required
-                                - Optional
+                            policy:
+                              description: Policies for referencing.
+                              properties:
+                                resolution:
+                                  default: Required
+                                  description: |-
+                                    Resolution specifies whether resolution of this reference is required.
+                                    The default is 'Required', which means the reconcile will fail if the
+                                    reference cannot be resolved. 'Optional' means this reference will be
+                                    a no-op if it cannot be resolved.
+                                  enum:
+                                  - Required
+                                  - Optional
+                                  type: string
+                                resolve:
+                                  description: |-
+                                    Resolve specifies when this reference should be resolved. The default
+                                    is 'IfNotPresent', which will attempt to resolve the reference only when
+                                    the corresponding field is not present. Use 'Always' to resolve the
+                                    reference on every reconcile.
+                                  enum:
+                                  - Always
+                                  - IfNotPresent
+                                  type: string
+                              type: object
+                          required:
+                          - name
+                          type: object
+                        tokenSecretKeySelector:
+                          description: Selector for a Secret in security to populate
+                            tokenSecretKey.
+                          properties:
+                            matchControllerRef:
+                              description: |-
+                                MatchControllerRef ensures an object with the same controller reference
+                                as the selecting object is selected.
+                              type: boolean
+                            matchLabels:
+                              additionalProperties:
                                 type: string
-                              resolve:
-                                description: |-
-                                  Resolve specifies when this reference should be resolved. The default
-                                  is 'IfNotPresent', which will attempt to resolve the reference only when
-                                  the corresponding field is not present. Use 'Always' to resolve the
-                                  reference on every reconcile.
-                                enum:
-                                - Always
-                                - IfNotPresent
+                              description: MatchLabels ensures an object with matching
+                                labels is selected.
+                              type: object
+                            namespace:
+                              description: Namespace for the selector
+                              type: string
+                            policy:
+                              description: Policies for selection.
+                              properties:
+                                resolution:
+                                  default: Required
+                                  description: |-
+                                    Resolution specifies whether resolution of this reference is required.
+                                    The default is 'Required', which means the reconcile will fail if the
+                                    reference cannot be resolved. 'Optional' means this reference will be
+                                    a no-op if it cannot be resolved.
+                                  enum:
+                                  - Required
+                                  - Optional
+                                  type: string
+                                resolve:
+                                  description: |-
+                                    Resolve specifies when this reference should be resolved. The default
+                                    is 'IfNotPresent', which will attempt to resolve the reference only when
+                                    the corresponding field is not present. Use 'Always' to resolve the
+                                    reference on every reconcile.
+                                  enum:
+                                  - Always
+                                  - IfNotPresent
+                                  type: string
+                              type: object
+                          type: object
+                        tokenSecretScope:
+                          description: (String) This is the secret scope in which
+                            your auth type token is stored.
+                          type: string
+                        tokenSecretScopeRef:
+                          description: Reference to a SecretScope in security to populate
+                            tokenSecretScope.
+                          properties:
+                            name:
+                              description: Name of the referenced object.
+                              type: string
+                            namespace:
+                              description: Namespace of the referenced object
+                              type: string
+                            policy:
+                              description: Policies for referencing.
+                              properties:
+                                resolution:
+                                  default: Required
+                                  description: |-
+                                    Resolution specifies whether resolution of this reference is required.
+                                    The default is 'Required', which means the reconcile will fail if the
+                                    reference cannot be resolved. 'Optional' means this reference will be
+                                    a no-op if it cannot be resolved.
+                                  enum:
+                                  - Required
+                                  - Optional
+                                  type: string
+                                resolve:
+                                  description: |-
+                                    Resolve specifies when this reference should be resolved. The default
+                                    is 'IfNotPresent', which will attempt to resolve the reference only when
+                                    the corresponding field is not present. Use 'Always' to resolve the
+                                    reference on every reconcile.
+                                  enum:
+                                  - Always
+                                  - IfNotPresent
+                                  type: string
+                              type: object
+                          required:
+                          - name
+                          type: object
+                        tokenSecretScopeSelector:
+                          description: Selector for a SecretScope in security to populate
+                            tokenSecretScope.
+                          properties:
+                            matchControllerRef:
+                              description: |-
+                                MatchControllerRef ensures an object with the same controller reference
+                                as the selecting object is selected.
+                              type: boolean
+                            matchLabels:
+                              additionalProperties:
                                 type: string
-                            type: object
-                        type: object
-                    type: object
+                              description: MatchLabels ensures an object with matching
+                                labels is selected.
+                              type: object
+                            namespace:
+                              description: Namespace for the selector
+                              type: string
+                            policy:
+                              description: Policies for selection.
+                              properties:
+                                resolution:
+                                  default: Required
+                                  description: |-
+                                    Resolution specifies whether resolution of this reference is required.
+                                    The default is 'Required', which means the reconcile will fail if the
+                                    reference cannot be resolved. 'Optional' means this reference will be
+                                    a no-op if it cannot be resolved.
+                                  enum:
+                                  - Required
+                                  - Optional
+                                  type: string
+                                resolve:
+                                  description: |-
+                                    Resolve specifies when this reference should be resolved. The default
+                                    is 'IfNotPresent', which will attempt to resolve the reference only when
+                                    the corresponding field is not present. Use 'Always' to resolve the
+                                    reference on every reconcile.
+                                  enum:
+                                  - Always
+                                  - IfNotPresent
+                                  type: string
+                              type: object
+                          type: object
+                      type: object
+                    type: array
                 type: object
               managementPolicies:
                 default:
@@ -1783,81 +1817,91 @@ spec:
                   abfs:
                     description: to mount ADLS Gen2 using Azure Blob Filesystem (ABFS)
                       driver
-                    properties:
-                      clientId:
-                        description: (String) This is the client_id (Application Object
-                          ID) for the enterprise application for the service principal.
-                        type: string
-                      clientSecretKey:
-                        description: (String) This is the secret key in which your
-                          service principal/enterprise app client secret will be stored.
-                        type: string
-                      clientSecretScope:
-                        description: (String) This is the secret scope in which your
-                          service principal/enterprise app client secret will be stored.
-                        type: string
-                      containerName:
-                        description: (String) ADLS gen2 container name. (Could be
-                          omitted if resource_id is provided)
-                        type: string
-                      directory:
-                        description: (Computed) (String) This is optional if you don't
-                          want to add an additional directory that you wish to mount.
-                          This must start with a "/".
-                        type: string
-                      initializeFileSystem:
-                        description: (Bool) either or not initialize FS for the first
-                          use
-                        type: boolean
-                      storageAccountName:
-                        description: (String) The name of the storage resource in
-                          which the data is. (Could be omitted if resource_id is provided)
-                        type: string
-                      tenantId:
-                        description: (String) This is your azure directory tenant
-                          id. It is required for creating the mount. (Could be omitted
-                          if Azure authentication is used, and we can extract tenant_id
-                          from it).
-                        type: string
-                    type: object
+                    items:
+                      properties:
+                        clientId:
+                          description: (String) This is the client_id (Application
+                            Object ID) for the enterprise application for the service
+                            principal.
+                          type: string
+                        clientSecretKey:
+                          description: (String) This is the secret key in which your
+                            service principal/enterprise app client secret will be
+                            stored.
+                          type: string
+                        clientSecretScope:
+                          description: (String) This is the secret scope in which
+                            your service principal/enterprise app client secret will
+                            be stored.
+                          type: string
+                        containerName:
+                          description: (String) ADLS gen2 container name. (Could be
+                            omitted if resource_id is provided)
+                          type: string
+                        directory:
+                          description: (Computed) (String) This is optional if you
+                            don't want to add an additional directory that you wish
+                            to mount. This must start with a "/".
+                          type: string
+                        initializeFileSystem:
+                          description: (Bool) either or not initialize FS for the
+                            first use
+                          type: boolean
+                        storageAccountName:
+                          description: (String) The name of the storage resource in
+                            which the data is. (Could be omitted if resource_id is
+                            provided)
+                          type: string
+                        tenantId:
+                          description: (String) This is your azure directory tenant
+                            id. It is required for creating the mount. (Could be omitted
+                            if Azure authentication is used, and we can extract tenant_id
+                            from it).
+                          type: string
+                      type: object
+                    type: array
                   adl:
                     description: to mount ADLS Gen1 using Azure Data Lake (ADL) driver
-                    properties:
-                      clientId:
-                        description: (String) This is the client_id for the enterprise
-                          application for the service principal.
-                        type: string
-                      clientSecretKey:
-                        description: (String) This is the secret key in which your
-                          service principal/enterprise app client secret will be stored.
-                        type: string
-                      clientSecretScope:
-                        description: (String) This is the secret scope in which your
-                          service principal/enterprise app client secret will be stored.
-                        type: string
-                      directory:
-                        description: (Computed) (String) This is optional if you don't
-                          want to add an additional directory that you wish to mount.
-                          This must start with a "/".
-                        type: string
-                      sparkConfPrefix:
-                        description: '(String) This is the spark configuration prefix
-                          for adls gen 1 mount. The options are fs.adl, dfs.adls.
-                          Use fs.adl for runtime 6.0 and above for the clusters. Otherwise
-                          use dfs.adls. The default value is: fs.adl.'
-                        type: string
-                      storageResourceName:
-                        description: (String) The name of the storage resource in
-                          which the data is for ADLS gen 1. This is what you are trying
-                          to mount. (Could be omitted if resource_id is provided)
-                        type: string
-                      tenantId:
-                        description: (String) This is your azure directory tenant
-                          id. It is required for creating the mount. (Could be omitted
-                          if Azure authentication is used, and we can extract tenant_id
-                          from it)
-                        type: string
-                    type: object
+                    items:
+                      properties:
+                        clientId:
+                          description: (String) This is the client_id for the enterprise
+                            application for the service principal.
+                          type: string
+                        clientSecretKey:
+                          description: (String) This is the secret key in which your
+                            service principal/enterprise app client secret will be
+                            stored.
+                          type: string
+                        clientSecretScope:
+                          description: (String) This is the secret scope in which
+                            your service principal/enterprise app client secret will
+                            be stored.
+                          type: string
+                        directory:
+                          description: (Computed) (String) This is optional if you
+                            don't want to add an additional directory that you wish
+                            to mount. This must start with a "/".
+                          type: string
+                        sparkConfPrefix:
+                          description: '(String) This is the spark configuration prefix
+                            for adls gen 1 mount. The options are fs.adl, dfs.adls.
+                            Use fs.adl for runtime 6.0 and above for the clusters.
+                            Otherwise use dfs.adls. The default value is: fs.adl.'
+                          type: string
+                        storageResourceName:
+                          description: (String) The name of the storage resource in
+                            which the data is for ADLS gen 1. This is what you are
+                            trying to mount. (Could be omitted if resource_id is provided)
+                          type: string
+                        tenantId:
+                          description: (String) This is your azure directory tenant
+                            id. It is required for creating the mount. (Could be omitted
+                            if Azure authentication is used, and we can extract tenant_id
+                            from it)
+                          type: string
+                      type: object
+                    type: array
                   clusterId:
                     description: Cluster to use for mounting. If no cluster is specified,
                       a new cluster will be created and will mount the bucket for
@@ -1877,17 +1921,19 @@ spec:
                     x-kubernetes-map-type: granular
                   gs:
                     description: to mount Google Cloud Storage
-                    properties:
-                      bucketName:
-                        description: (String) GCS bucket name to be mounted.
-                        type: string
-                      serviceAccount:
-                        description: (String) email of registered Google Service Account
-                          for data access.  If it's not specified, then the cluster_id
-                          should be provided, and the cluster should have a Google
-                          service account attached to it.
-                        type: string
-                    type: object
+                    items:
+                      properties:
+                        bucketName:
+                          description: (String) GCS bucket name to be mounted.
+                          type: string
+                        serviceAccount:
+                          description: (String) email of registered Google Service
+                            Account for data access.  If it's not specified, then
+                            the cluster_id should be provided, and the cluster should
+                            have a Google service account attached to it.
+                          type: string
+                      type: object
+                    type: array
                   id:
                     description: mount name
                     type: string
@@ -1903,18 +1949,20 @@ spec:
                     type: string
                   s3:
                     description: to mount AWS S3
-                    properties:
-                      bucketName:
-                        description: (String) S3 bucket name to be mounted.
-                        type: string
-                      instanceProfile:
-                        description: (String) ARN of registered instance profile for
-                          data access.  If it's not specified, then the cluster_id
-                          should be provided, and the cluster should have an instance
-                          profile attached to it. If both cluster_id & instance_profile
-                          are specified, then cluster_id takes precedence.
-                        type: string
-                    type: object
+                    items:
+                      properties:
+                        bucketName:
+                          description: (String) S3 bucket name to be mounted.
+                          type: string
+                        instanceProfile:
+                          description: (String) ARN of registered instance profile
+                            for data access.  If it's not specified, then the cluster_id
+                            should be provided, and the cluster should have an instance
+                            profile attached to it. If both cluster_id & instance_profile
+                            are specified, then cluster_id takes precedence.
+                          type: string
+                      type: object
+                    type: array
                   source:
                     description: (String) HDFS-compatible url
                     type: string
@@ -1925,35 +1973,38 @@ spec:
                   wasb:
                     description: to mount Azure Blob Storage using Windows Azure Storage
                       Blob (WASB) driver
-                    properties:
-                      authType:
-                        description: (String) This is the auth type for blob storage.
-                          This can either be SAS tokens (SAS) or account access keys
-                          (ACCESS_KEY).
-                        type: string
-                      containerName:
-                        description: (String) The container in which the data is.
-                          This is what you are trying to mount. (Could be omitted
-                          if resource_id is provided)
-                        type: string
-                      directory:
-                        description: (Computed) (String) This is optional if you don't
-                          want to add an additional directory that you wish to mount.
-                          This must start with a "/".
-                        type: string
-                      storageAccountName:
-                        description: (String) The name of the storage resource in
-                          which the data is. (Could be omitted if resource_id is provided)
-                        type: string
-                      tokenSecretKey:
-                        description: (String) This is the secret key in which your
-                          auth type token is stored.
-                        type: string
-                      tokenSecretScope:
-                        description: (String) This is the secret scope in which your
-                          auth type token is stored.
-                        type: string
-                    type: object
+                    items:
+                      properties:
+                        authType:
+                          description: (String) This is the auth type for blob storage.
+                            This can either be SAS tokens (SAS) or account access
+                            keys (ACCESS_KEY).
+                          type: string
+                        containerName:
+                          description: (String) The container in which the data is.
+                            This is what you are trying to mount. (Could be omitted
+                            if resource_id is provided)
+                          type: string
+                        directory:
+                          description: (Computed) (String) This is optional if you
+                            don't want to add an additional directory that you wish
+                            to mount. This must start with a "/".
+                          type: string
+                        storageAccountName:
+                          description: (String) The name of the storage resource in
+                            which the data is. (Could be omitted if resource_id is
+                            provided)
+                          type: string
+                        tokenSecretKey:
+                          description: (String) This is the secret key in which your
+                            auth type token is stored.
+                          type: string
+                        tokenSecretScope:
+                          description: (String) This is the secret scope in which
+                            your auth type token is stored.
+                          type: string
+                      type: object
+                    type: array
                 type: object
               conditions:
                 description: Conditions of the resource.

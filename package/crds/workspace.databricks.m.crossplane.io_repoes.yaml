@@ -82,15 +82,17 @@ spec:
                       the value changes, Git folder is re-created.
                     type: string
                   sparseCheckout:
-                    properties:
-                      patterns:
-                        description: array of paths (directories) that will be used
-                          for sparse checkout.  List of patterns could be updated
-                          in-place.
-                        items:
-                          type: string
-                        type: array
-                    type: object
+                    items:
+                      properties:
+                        patterns:
+                          description: array of paths (directories) that will be used
+                            for sparse checkout.  List of patterns could be updated
+                            in-place.
+                          items:
+                            type: string
+                          type: array
+                      type: object
+                    type: array
                   tag:
                     description: name of the tag for initial checkout.  Conflicts
                       with branch.
@@ -137,15 +139,17 @@ spec:
                       the value changes, Git folder is re-created.
                     type: string
                   sparseCheckout:
-                    properties:
-                      patterns:
-                        description: array of paths (directories) that will be used
-                          for sparse checkout.  List of patterns could be updated
-                          in-place.
-                        items:
-                          type: string
-                        type: array
-                    type: object
+                    items:
+                      properties:
+                        patterns:
+                          description: array of paths (directories) that will be used
+                            for sparse checkout.  List of patterns could be updated
+                            in-place.
+                          items:
+                            type: string
+                          type: array
+                      type: object
+                    type: array
                   tag:
                     description: name of the tag for initial checkout.  Conflicts
                       with branch.
@@ -250,15 +254,17 @@ spec:
                       the value changes, Git folder is re-created.
                     type: string
                   sparseCheckout:
-                    properties:
-                      patterns:
-                        description: array of paths (directories) that will be used
-                          for sparse checkout.  List of patterns could be updated
-                          in-place.
-                        items:
-                          type: string
-                        type: array
-                    type: object
+                    items:
+                      properties:
+                        patterns:
+                          description: array of paths (directories) that will be used
+                            for sparse checkout.  List of patterns could be updated
+                            in-place.
+                          items:
+                            type: string
+                          type: array
+                      type: object
+                    type: array
                   tag:
                     description: name of the tag for initial checkout.  Conflicts
                       with branch.

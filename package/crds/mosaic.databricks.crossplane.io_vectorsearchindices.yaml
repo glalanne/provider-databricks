@@ -76,162 +76,166 @@ spec:
                     description: (object) Specification for Delta Sync Index. Required
                       if index_type is DELTA_SYNC. This field is a block and is documented
                       below.
-                    properties:
-                      embeddingSourceColumns:
-                        description: 'array of objects representing columns that contain
-                          the embedding source.  Each entry consists of:'
-                        items:
-                          properties:
-                            embeddingModelEndpointName:
-                              description: The name of the embedding model endpoint
-                              type: string
-                            embeddingModelEndpointNameRef:
-                              description: Reference to a ModelServing in serving
-                                to populate embeddingModelEndpointName.
-                              properties:
-                                name:
-                                  description: Name of the referenced object.
-                                  type: string
-                                policy:
-                                  description: Policies for referencing.
-                                  properties:
-                                    resolution:
-                                      default: Required
-                                      description: |-
-                                        Resolution specifies whether resolution of this reference is required.
-                                        The default is 'Required', which means the reconcile will fail if the
-                                        reference cannot be resolved. 'Optional' means this reference will be
-                                        a no-op if it cannot be resolved.
-                                      enum:
-                                      - Required
-                                      - Optional
-                                      type: string
-                                    resolve:
-                                      description: |-
-                                        Resolve specifies when this reference should be resolved. The default
-                                        is 'IfNotPresent', which will attempt to resolve the reference only when
-                                        the corresponding field is not present. Use 'Always' to resolve the
-                                        reference on every reconcile.
-                                      enum:
-                                      - Always
-                                      - IfNotPresent
-                                      type: string
-                                  type: object
-                              required:
-                              - name
-                              type: object
-                            embeddingModelEndpointNameSelector:
-                              description: Selector for a ModelServing in serving
-                                to populate embeddingModelEndpointName.
-                              properties:
-                                matchControllerRef:
-                                  description: |-
-                                    MatchControllerRef ensures an object with the same controller reference
-                                    as the selecting object is selected.
-                                  type: boolean
-                                matchLabels:
-                                  additionalProperties:
+                    items:
+                      properties:
+                        embeddingSourceColumns:
+                          description: 'array of objects representing columns that
+                            contain the embedding source.  Each entry consists of:'
+                          items:
+                            properties:
+                              embeddingModelEndpointName:
+                                description: The name of the embedding model endpoint
+                                type: string
+                              embeddingModelEndpointNameRef:
+                                description: Reference to a ModelServing in serving
+                                  to populate embeddingModelEndpointName.
+                                properties:
+                                  name:
+                                    description: Name of the referenced object.
                                     type: string
-                                  description: MatchLabels ensures an object with
-                                    matching labels is selected.
-                                  type: object
-                                policy:
-                                  description: Policies for selection.
-                                  properties:
-                                    resolution:
-                                      default: Required
-                                      description: |-
-                                        Resolution specifies whether resolution of this reference is required.
-                                        The default is 'Required', which means the reconcile will fail if the
-                                        reference cannot be resolved. 'Optional' means this reference will be
-                                        a no-op if it cannot be resolved.
-                                      enum:
-                                      - Required
-                                      - Optional
+                                  policy:
+                                    description: Policies for referencing.
+                                    properties:
+                                      resolution:
+                                        default: Required
+                                        description: |-
+                                          Resolution specifies whether resolution of this reference is required.
+                                          The default is 'Required', which means the reconcile will fail if the
+                                          reference cannot be resolved. 'Optional' means this reference will be
+                                          a no-op if it cannot be resolved.
+                                        enum:
+                                        - Required
+                                        - Optional
+                                        type: string
+                                      resolve:
+                                        description: |-
+                                          Resolve specifies when this reference should be resolved. The default
+                                          is 'IfNotPresent', which will attempt to resolve the reference only when
+                                          the corresponding field is not present. Use 'Always' to resolve the
+                                          reference on every reconcile.
+                                        enum:
+                                        - Always
+                                        - IfNotPresent
+                                        type: string
+                                    type: object
+                                required:
+                                - name
+                                type: object
+                              embeddingModelEndpointNameSelector:
+                                description: Selector for a ModelServing in serving
+                                  to populate embeddingModelEndpointName.
+                                properties:
+                                  matchControllerRef:
+                                    description: |-
+                                      MatchControllerRef ensures an object with the same controller reference
+                                      as the selecting object is selected.
+                                    type: boolean
+                                  matchLabels:
+                                    additionalProperties:
                                       type: string
-                                    resolve:
-                                      description: |-
-                                        Resolve specifies when this reference should be resolved. The default
-                                        is 'IfNotPresent', which will attempt to resolve the reference only when
-                                        the corresponding field is not present. Use 'Always' to resolve the
-                                        reference on every reconcile.
-                                      enum:
-                                      - Always
-                                      - IfNotPresent
-                                      type: string
-                                  type: object
-                              type: object
-                            name:
-                              description: Three-level name of the Mosaic AI Vector
-                                Search Index to create (catalog.schema.index_name).
-                              type: string
-                          type: object
-                        type: array
-                      embeddingVectorColumns:
-                        description: 'array of objects representing columns that contain
-                          the embedding vectors. Each entry consists of:'
-                        items:
-                          properties:
-                            embeddingDimension:
-                              description: Dimension of the embedding vector.
-                              type: number
-                            name:
-                              description: Three-level name of the Mosaic AI Vector
-                                Search Index to create (catalog.schema.index_name).
-                              type: string
-                          type: object
-                        type: array
-                      embeddingWritebackTable:
-                        description: Automatically sync the vector index contents
-                          and computed embeddings to the specified Delta table. The
-                          only supported table name is the index name with the suffix
-                          _writeback_table.
-                        type: string
-                      pipelineType:
-                        description: 'Pipeline execution mode. Possible values are:'
-                        type: string
-                      sourceTable:
-                        description: The name of the source table.
-                        type: string
-                    type: object
+                                    description: MatchLabels ensures an object with
+                                      matching labels is selected.
+                                    type: object
+                                  policy:
+                                    description: Policies for selection.
+                                    properties:
+                                      resolution:
+                                        default: Required
+                                        description: |-
+                                          Resolution specifies whether resolution of this reference is required.
+                                          The default is 'Required', which means the reconcile will fail if the
+                                          reference cannot be resolved. 'Optional' means this reference will be
+                                          a no-op if it cannot be resolved.
+                                        enum:
+                                        - Required
+                                        - Optional
+                                        type: string
+                                      resolve:
+                                        description: |-
+                                          Resolve specifies when this reference should be resolved. The default
+                                          is 'IfNotPresent', which will attempt to resolve the reference only when
+                                          the corresponding field is not present. Use 'Always' to resolve the
+                                          reference on every reconcile.
+                                        enum:
+                                        - Always
+                                        - IfNotPresent
+                                        type: string
+                                    type: object
+                                type: object
+                              name:
+                                description: Three-level name of the Mosaic AI Vector
+                                  Search Index to create (catalog.schema.index_name).
+                                type: string
+                            type: object
+                          type: array
+                        embeddingVectorColumns:
+                          description: 'array of objects representing columns that
+                            contain the embedding vectors. Each entry consists of:'
+                          items:
+                            properties:
+                              embeddingDimension:
+                                description: Dimension of the embedding vector.
+                                type: number
+                              name:
+                                description: Three-level name of the Mosaic AI Vector
+                                  Search Index to create (catalog.schema.index_name).
+                                type: string
+                            type: object
+                          type: array
+                        embeddingWritebackTable:
+                          description: Automatically sync the vector index contents
+                            and computed embeddings to the specified Delta table.
+                            The only supported table name is the index name with the
+                            suffix _writeback_table.
+                          type: string
+                        pipelineType:
+                          description: 'Pipeline execution mode. Possible values are:'
+                          type: string
+                        sourceTable:
+                          description: The name of the source table.
+                          type: string
+                      type: object
+                    type: array
                   directAccessIndexSpec:
                     description: (object) Specification for Direct Vector Access Index.
                       Required if index_type is DIRECT_ACCESS. This field is a block
                       and is documented below.
-                    properties:
-                      embeddingSourceColumns:
-                        description: 'array of objects representing columns that contain
-                          the embedding source.  Each entry consists of:'
-                        items:
-                          properties:
-                            embeddingModelEndpointName:
-                              description: The name of the embedding model endpoint
-                              type: string
-                            name:
-                              description: Three-level name of the Mosaic AI Vector
-                                Search Index to create (catalog.schema.index_name).
-                              type: string
-                          type: object
-                        type: array
-                      embeddingVectorColumns:
-                        description: 'array of objects representing columns that contain
-                          the embedding vectors. Each entry consists of:'
-                        items:
-                          properties:
-                            embeddingDimension:
-                              description: Dimension of the embedding vector.
-                              type: number
-                            name:
-                              description: Three-level name of the Mosaic AI Vector
-                                Search Index to create (catalog.schema.index_name).
-                              type: string
-                          type: object
-                        type: array
-                      schemaJson:
-                        description: The schema of the index in JSON format.  Check
-                          the API documentation for a list of supported data types.
-                        type: string
-                    type: object
+                    items:
+                      properties:
+                        embeddingSourceColumns:
+                          description: 'array of objects representing columns that
+                            contain the embedding source.  Each entry consists of:'
+                          items:
+                            properties:
+                              embeddingModelEndpointName:
+                                description: The name of the embedding model endpoint
+                                type: string
+                              name:
+                                description: Three-level name of the Mosaic AI Vector
+                                  Search Index to create (catalog.schema.index_name).
+                                type: string
+                            type: object
+                          type: array
+                        embeddingVectorColumns:
+                          description: 'array of objects representing columns that
+                            contain the embedding vectors. Each entry consists of:'
+                          items:
+                            properties:
+                              embeddingDimension:
+                                description: Dimension of the embedding vector.
+                                type: number
+                              name:
+                                description: Three-level name of the Mosaic AI Vector
+                                  Search Index to create (catalog.schema.index_name).
+                                type: string
+                            type: object
+                          type: array
+                        schemaJson:
+                          description: The schema of the index in JSON format.  Check
+                            the API documentation for a list of supported data types.
+                          type: string
+                      type: object
+                    type: array
                   endpointName:
                     description: The name of the Mosaic AI Vector Search Endpoint
                       that will be used for indexing the data.
@@ -341,162 +345,166 @@ spec:
                     description: (object) Specification for Delta Sync Index. Required
                       if index_type is DELTA_SYNC. This field is a block and is documented
                       below.
-                    properties:
-                      embeddingSourceColumns:
-                        description: 'array of objects representing columns that contain
-                          the embedding source.  Each entry consists of:'
-                        items:
-                          properties:
-                            embeddingModelEndpointName:
-                              description: The name of the embedding model endpoint
-                              type: string
-                            embeddingModelEndpointNameRef:
-                              description: Reference to a ModelServing in serving
-                                to populate embeddingModelEndpointName.
-                              properties:
-                                name:
-                                  description: Name of the referenced object.
-                                  type: string
-                                policy:
-                                  description: Policies for referencing.
-                                  properties:
-                                    resolution:
-                                      default: Required
-                                      description: |-
-                                        Resolution specifies whether resolution of this reference is required.
-                                        The default is 'Required', which means the reconcile will fail if the
-                                        reference cannot be resolved. 'Optional' means this reference will be
-                                        a no-op if it cannot be resolved.
-                                      enum:
-                                      - Required
-                                      - Optional
-                                      type: string
-                                    resolve:
-                                      description: |-
-                                        Resolve specifies when this reference should be resolved. The default
-                                        is 'IfNotPresent', which will attempt to resolve the reference only when
-                                        the corresponding field is not present. Use 'Always' to resolve the
-                                        reference on every reconcile.
-                                      enum:
-                                      - Always
-                                      - IfNotPresent
-                                      type: string
-                                  type: object
-                              required:
-                              - name
-                              type: object
-                            embeddingModelEndpointNameSelector:
-                              description: Selector for a ModelServing in serving
-                                to populate embeddingModelEndpointName.
-                              properties:
-                                matchControllerRef:
-                                  description: |-
-                                    MatchControllerRef ensures an object with the same controller reference
-                                    as the selecting object is selected.
-                                  type: boolean
-                                matchLabels:
-                                  additionalProperties:
+                    items:
+                      properties:
+                        embeddingSourceColumns:
+                          description: 'array of objects representing columns that
+                            contain the embedding source.  Each entry consists of:'
+                          items:
+                            properties:
+                              embeddingModelEndpointName:
+                                description: The name of the embedding model endpoint
+                                type: string
+                              embeddingModelEndpointNameRef:
+                                description: Reference to a ModelServing in serving
+                                  to populate embeddingModelEndpointName.
+                                properties:
+                                  name:
+                                    description: Name of the referenced object.
                                     type: string
-                                  description: MatchLabels ensures an object with
-                                    matching labels is selected.
-                                  type: object
-                                policy:
-                                  description: Policies for selection.
-                                  properties:
-                                    resolution:
-                                      default: Required
-                                      description: |-
-                                        Resolution specifies whether resolution of this reference is required.
-                                        The default is 'Required', which means the reconcile will fail if the
-                                        reference cannot be resolved. 'Optional' means this reference will be
-                                        a no-op if it cannot be resolved.
-                                      enum:
-                                      - Required
-                                      - Optional
+                                  policy:
+                                    description: Policies for referencing.
+                                    properties:
+                                      resolution:
+                                        default: Required
+                                        description: |-
+                                          Resolution specifies whether resolution of this reference is required.
+                                          The default is 'Required', which means the reconcile will fail if the
+                                          reference cannot be resolved. 'Optional' means this reference will be
+                                          a no-op if it cannot be resolved.
+                                        enum:
+                                        - Required
+                                        - Optional
+                                        type: string
+                                      resolve:
+                                        description: |-
+                                          Resolve specifies when this reference should be resolved. The default
+                                          is 'IfNotPresent', which will attempt to resolve the reference only when
+                                          the corresponding field is not present. Use 'Always' to resolve the
+                                          reference on every reconcile.
+                                        enum:
+                                        - Always
+                                        - IfNotPresent
+                                        type: string
+                                    type: object
+                                required:
+                                - name
+                                type: object
+                              embeddingModelEndpointNameSelector:
+                                description: Selector for a ModelServing in serving
+                                  to populate embeddingModelEndpointName.
+                                properties:
+                                  matchControllerRef:
+                                    description: |-
+                                      MatchControllerRef ensures an object with the same controller reference
+                                      as the selecting object is selected.
+                                    type: boolean
+                                  matchLabels:
+                                    additionalProperties:
                                       type: string
-                                    resolve:
-                                      description: |-
-                                        Resolve specifies when this reference should be resolved. The default
-                                        is 'IfNotPresent', which will attempt to resolve the reference only when
-                                        the corresponding field is not present. Use 'Always' to resolve the
-                                        reference on every reconcile.
-                                      enum:
-                                      - Always
-                                      - IfNotPresent
-                                      type: string
-                                  type: object
-                              type: object
-                            name:
-                              description: Three-level name of the Mosaic AI Vector
-                                Search Index to create (catalog.schema.index_name).
-                              type: string
-                          type: object
-                        type: array
-                      embeddingVectorColumns:
-                        description: 'array of objects representing columns that contain
-                          the embedding vectors. Each entry consists of:'
-                        items:
-                          properties:
-                            embeddingDimension:
-                              description: Dimension of the embedding vector.
-                              type: number
-                            name:
-                              description: Three-level name of the Mosaic AI Vector
-                                Search Index to create (catalog.schema.index_name).
-                              type: string
-                          type: object
-                        type: array
-                      embeddingWritebackTable:
-                        description: Automatically sync the vector index contents
-                          and computed embeddings to the specified Delta table. The
-                          only supported table name is the index name with the suffix
-                          _writeback_table.
-                        type: string
-                      pipelineType:
-                        description: 'Pipeline execution mode. Possible values are:'
-                        type: string
-                      sourceTable:
-                        description: The name of the source table.
-                        type: string
-                    type: object
+                                    description: MatchLabels ensures an object with
+                                      matching labels is selected.
+                                    type: object
+                                  policy:
+                                    description: Policies for selection.
+                                    properties:
+                                      resolution:
+                                        default: Required
+                                        description: |-
+                                          Resolution specifies whether resolution of this reference is required.
+                                          The default is 'Required', which means the reconcile will fail if the
+                                          reference cannot be resolved. 'Optional' means this reference will be
+                                          a no-op if it cannot be resolved.
+                                        enum:
+                                        - Required
+                                        - Optional
+                                        type: string
+                                      resolve:
+                                        description: |-
+                                          Resolve specifies when this reference should be resolved. The default
+                                          is 'IfNotPresent', which will attempt to resolve the reference only when
+                                          the corresponding field is not present. Use 'Always' to resolve the
+                                          reference on every reconcile.
+                                        enum:
+                                        - Always
+                                        - IfNotPresent
+                                        type: string
+                                    type: object
+                                type: object
+                              name:
+                                description: Three-level name of the Mosaic AI Vector
+                                  Search Index to create (catalog.schema.index_name).
+                                type: string
+                            type: object
+                          type: array
+                        embeddingVectorColumns:
+                          description: 'array of objects representing columns that
+                            contain the embedding vectors. Each entry consists of:'
+                          items:
+                            properties:
+                              embeddingDimension:
+                                description: Dimension of the embedding vector.
+                                type: number
+                              name:
+                                description: Three-level name of the Mosaic AI Vector
+                                  Search Index to create (catalog.schema.index_name).
+                                type: string
+                            type: object
+                          type: array
+                        embeddingWritebackTable:
+                          description: Automatically sync the vector index contents
+                            and computed embeddings to the specified Delta table.
+                            The only supported table name is the index name with the
+                            suffix _writeback_table.
+                          type: string
+                        pipelineType:
+                          description: 'Pipeline execution mode. Possible values are:'
+                          type: string
+                        sourceTable:
+                          description: The name of the source table.
+                          type: string
+                      type: object
+                    type: array
                   directAccessIndexSpec:
                     description: (object) Specification for Direct Vector Access Index.
                       Required if index_type is DIRECT_ACCESS. This field is a block
                       and is documented below.
-                    properties:
-                      embeddingSourceColumns:
-                        description: 'array of objects representing columns that contain
-                          the embedding source.  Each entry consists of:'
-                        items:
-                          properties:
-                            embeddingModelEndpointName:
-                              description: The name of the embedding model endpoint
-                              type: string
-                            name:
-                              description: Three-level name of the Mosaic AI Vector
-                                Search Index to create (catalog.schema.index_name).
-                              type: string
-                          type: object
-                        type: array
-                      embeddingVectorColumns:
-                        description: 'array of objects representing columns that contain
-                          the embedding vectors. Each entry consists of:'
-                        items:
-                          properties:
-                            embeddingDimension:
-                              description: Dimension of the embedding vector.
-                              type: number
-                            name:
-                              description: Three-level name of the Mosaic AI Vector
-                                Search Index to create (catalog.schema.index_name).
-                              type: string
-                          type: object
-                        type: array
-                      schemaJson:
-                        description: The schema of the index in JSON format.  Check
-                          the API documentation for a list of supported data types.
-                        type: string
-                    type: object
+                    items:
+                      properties:
+                        embeddingSourceColumns:
+                          description: 'array of objects representing columns that
+                            contain the embedding source.  Each entry consists of:'
+                          items:
+                            properties:
+                              embeddingModelEndpointName:
+                                description: The name of the embedding model endpoint
+                                type: string
+                              name:
+                                description: Three-level name of the Mosaic AI Vector
+                                  Search Index to create (catalog.schema.index_name).
+                                type: string
+                            type: object
+                          type: array
+                        embeddingVectorColumns:
+                          description: 'array of objects representing columns that
+                            contain the embedding vectors. Each entry consists of:'
+                          items:
+                            properties:
+                              embeddingDimension:
+                                description: Dimension of the embedding vector.
+                                type: number
+                              name:
+                                description: Three-level name of the Mosaic AI Vector
+                                  Search Index to create (catalog.schema.index_name).
+                                type: string
+                            type: object
+                          type: array
+                        schemaJson:
+                          description: The schema of the index in JSON format.  Check
+                            the API documentation for a list of supported data types.
+                          type: string
+                      type: object
+                    type: array
                   endpointName:
                     description: The name of the Mosaic AI Vector Search Endpoint
                       that will be used for indexing the data.
@@ -700,89 +708,93 @@ spec:
                     description: (object) Specification for Delta Sync Index. Required
                       if index_type is DELTA_SYNC. This field is a block and is documented
                       below.
-                    properties:
-                      embeddingSourceColumns:
-                        description: 'array of objects representing columns that contain
-                          the embedding source.  Each entry consists of:'
-                        items:
-                          properties:
-                            embeddingModelEndpointName:
-                              description: The name of the embedding model endpoint
-                              type: string
-                            name:
-                              description: Three-level name of the Mosaic AI Vector
-                                Search Index to create (catalog.schema.index_name).
-                              type: string
-                          type: object
-                        type: array
-                      embeddingVectorColumns:
-                        description: 'array of objects representing columns that contain
-                          the embedding vectors. Each entry consists of:'
-                        items:
-                          properties:
-                            embeddingDimension:
-                              description: Dimension of the embedding vector.
-                              type: number
-                            name:
-                              description: Three-level name of the Mosaic AI Vector
-                                Search Index to create (catalog.schema.index_name).
-                              type: string
-                          type: object
-                        type: array
-                      embeddingWritebackTable:
-                        description: Automatically sync the vector index contents
-                          and computed embeddings to the specified Delta table. The
-                          only supported table name is the index name with the suffix
-                          _writeback_table.
-                        type: string
-                      pipelineId:
-                        description: ID of the associated Delta Live Table pipeline.
-                        type: string
-                      pipelineType:
-                        description: 'Pipeline execution mode. Possible values are:'
-                        type: string
-                      sourceTable:
-                        description: The name of the source table.
-                        type: string
-                    type: object
+                    items:
+                      properties:
+                        embeddingSourceColumns:
+                          description: 'array of objects representing columns that
+                            contain the embedding source.  Each entry consists of:'
+                          items:
+                            properties:
+                              embeddingModelEndpointName:
+                                description: The name of the embedding model endpoint
+                                type: string
+                              name:
+                                description: Three-level name of the Mosaic AI Vector
+                                  Search Index to create (catalog.schema.index_name).
+                                type: string
+                            type: object
+                          type: array
+                        embeddingVectorColumns:
+                          description: 'array of objects representing columns that
+                            contain the embedding vectors. Each entry consists of:'
+                          items:
+                            properties:
+                              embeddingDimension:
+                                description: Dimension of the embedding vector.
+                                type: number
+                              name:
+                                description: Three-level name of the Mosaic AI Vector
+                                  Search Index to create (catalog.schema.index_name).
+                                type: string
+                            type: object
+                          type: array
+                        embeddingWritebackTable:
+                          description: Automatically sync the vector index contents
+                            and computed embeddings to the specified Delta table.
+                            The only supported table name is the index name with the
+                            suffix _writeback_table.
+                          type: string
+                        pipelineId:
+                          description: ID of the associated Delta Live Table pipeline.
+                          type: string
+                        pipelineType:
+                          description: 'Pipeline execution mode. Possible values are:'
+                          type: string
+                        sourceTable:
+                          description: The name of the source table.
+                          type: string
+                      type: object
+                    type: array
                   directAccessIndexSpec:
                     description: (object) Specification for Direct Vector Access Index.
                       Required if index_type is DIRECT_ACCESS. This field is a block
                       and is documented below.
-                    properties:
-                      embeddingSourceColumns:
-                        description: 'array of objects representing columns that contain
-                          the embedding source.  Each entry consists of:'
-                        items:
-                          properties:
-                            embeddingModelEndpointName:
-                              description: The name of the embedding model endpoint
-                              type: string
-                            name:
-                              description: Three-level name of the Mosaic AI Vector
-                                Search Index to create (catalog.schema.index_name).
-                              type: string
-                          type: object
-                        type: array
-                      embeddingVectorColumns:
-                        description: 'array of objects representing columns that contain
-                          the embedding vectors. Each entry consists of:'
-                        items:
-                          properties:
-                            embeddingDimension:
-                              description: Dimension of the embedding vector.
-                              type: number
-                            name:
-                              description: Three-level name of the Mosaic AI Vector
-                                Search Index to create (catalog.schema.index_name).
-                              type: string
-                          type: object
-                        type: array
-                      schemaJson:
-                        description: The schema of the index in JSON format.  Check
-                          the API documentation for a list of supported data types.
-                        type: string
-                    type: object
+                    items:
+                      properties:
+                        embeddingSourceColumns:
+                          description: 'array of objects representing columns that
+                            contain the embedding source.  Each entry consists of:'
+                          items:
+                            properties:
+                              embeddingModelEndpointName:
+                                description: The name of the embedding model endpoint
+                                type: string
+                              name:
+                                description: Three-level name of the Mosaic AI Vector
+                                  Search Index to create (catalog.schema.index_name).
+                                type: string
+                            type: object
+                          type: array
+                        embeddingVectorColumns:
+                          description: 'array of objects representing columns that
+                            contain the embedding vectors. Each entry consists of:'
+                          items:
+                            properties:
+                              embeddingDimension:
+                                description: Dimension of the embedding vector.
+                                type: number
+                              name:
+                                description: Three-level name of the Mosaic AI Vector
+                                  Search Index to create (catalog.schema.index_name).
+                                type: string
+                            type: object
+                          type: array
+                        schemaJson:
+                          description: The schema of the index in JSON format.  Check
+                            the API documentation for a list of supported data types.
+                          type: string
+                      type: object
+                    type: array
                   endpointName:
                     description: The name of the Mosaic AI Vector Search Endpoint
                       that will be used for indexing the data.

@@ -955,13 +955,17 @@ func (in *VectorSearchIndexInitParameters) DeepCopyInto(out *VectorSearchIndexIn
 	*out = *in
 	if in.DeltaSyncIndexSpec != nil {
 		in, out := &in.DeltaSyncIndexSpec, &out.DeltaSyncIndexSpec
-		*out = new(DeltaSyncIndexSpecInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]DeltaSyncIndexSpecInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.DirectAccessIndexSpec != nil {
 		in, out := &in.DirectAccessIndexSpec, &out.DirectAccessIndexSpec
-		*out = new(DirectAccessIndexSpecInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]DirectAccessIndexSpecInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.EndpointName != nil {
 		in, out := &in.EndpointName, &out.EndpointName
@@ -1047,13 +1051,17 @@ func (in *VectorSearchIndexObservation) DeepCopyInto(out *VectorSearchIndexObser
 	}
 	if in.DeltaSyncIndexSpec != nil {
 		in, out := &in.DeltaSyncIndexSpec, &out.DeltaSyncIndexSpec
-		*out = new(DeltaSyncIndexSpecObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]DeltaSyncIndexSpecObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.DirectAccessIndexSpec != nil {
 		in, out := &in.DirectAccessIndexSpec, &out.DirectAccessIndexSpec
-		*out = new(DirectAccessIndexSpecObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]DirectAccessIndexSpecObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.EndpointName != nil {
 		in, out := &in.EndpointName, &out.EndpointName
@@ -1104,13 +1112,17 @@ func (in *VectorSearchIndexParameters) DeepCopyInto(out *VectorSearchIndexParame
 	*out = *in
 	if in.DeltaSyncIndexSpec != nil {
 		in, out := &in.DeltaSyncIndexSpec, &out.DeltaSyncIndexSpec
-		*out = new(DeltaSyncIndexSpecParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]DeltaSyncIndexSpecParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.DirectAccessIndexSpec != nil {
 		in, out := &in.DirectAccessIndexSpec, &out.DirectAccessIndexSpec
-		*out = new(DirectAccessIndexSpecParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]DirectAccessIndexSpecParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.EndpointName != nil {
 		in, out := &in.EndpointName, &out.EndpointName

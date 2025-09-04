@@ -114,45 +114,52 @@ spec:
                     description: Name of the budget in Databricks Account.
                     type: string
                   filter:
-                    properties:
-                      tags:
-                        description: 'List of tags to filter by. Consists of the following
-                          fields:'
-                        items:
-                          properties:
-                            key:
-                              description: The key of the tag.
-                              type: string
-                            value:
-                              description: 'Consists of the following fields:'
-                              properties:
-                                operator:
-                                  description: 'The operator to use for the filter.
-                                    (Enum: IN)'
-                                  type: string
-                                values:
-                                  description: The values to filter by.
-                                  items:
-                                    type: string
-                                  type: array
-                              type: object
-                          type: object
-                        type: array
-                      workspaceId:
-                        description: 'Filter by workspace ID (if empty, include usage
-                          all usage for this account). Consists of the following fields:'
-                        properties:
-                          operator:
-                            description: 'The operator to use for the filter. (Enum:
-                              IN)'
-                            type: string
-                          values:
-                            description: The values to filter by.
-                            items:
-                              type: number
-                            type: array
-                        type: object
-                    type: object
+                    items:
+                      properties:
+                        tags:
+                          description: 'List of tags to filter by. Consists of the
+                            following fields:'
+                          items:
+                            properties:
+                              key:
+                                description: The key of the tag.
+                                type: string
+                              value:
+                                description: 'Consists of the following fields:'
+                                items:
+                                  properties:
+                                    operator:
+                                      description: 'The operator to use for the filter.
+                                        (Enum: IN)'
+                                      type: string
+                                    values:
+                                      description: The values to filter by.
+                                      items:
+                                        type: string
+                                      type: array
+                                  type: object
+                                type: array
+                            type: object
+                          type: array
+                        workspaceId:
+                          description: 'Filter by workspace ID (if empty, include
+                            usage all usage for this account). Consists of the following
+                            fields:'
+                          items:
+                            properties:
+                              operator:
+                                description: 'The operator to use for the filter.
+                                  (Enum: IN)'
+                                type: string
+                              values:
+                                description: The values to filter by.
+                                items:
+                                  type: number
+                                type: array
+                            type: object
+                          type: array
+                      type: object
+                    type: array
                   updateTime:
                     type: number
                 type: object
@@ -225,45 +232,52 @@ spec:
                     description: Name of the budget in Databricks Account.
                     type: string
                   filter:
-                    properties:
-                      tags:
-                        description: 'List of tags to filter by. Consists of the following
-                          fields:'
-                        items:
-                          properties:
-                            key:
-                              description: The key of the tag.
-                              type: string
-                            value:
-                              description: 'Consists of the following fields:'
-                              properties:
-                                operator:
-                                  description: 'The operator to use for the filter.
-                                    (Enum: IN)'
-                                  type: string
-                                values:
-                                  description: The values to filter by.
-                                  items:
-                                    type: string
-                                  type: array
-                              type: object
-                          type: object
-                        type: array
-                      workspaceId:
-                        description: 'Filter by workspace ID (if empty, include usage
-                          all usage for this account). Consists of the following fields:'
-                        properties:
-                          operator:
-                            description: 'The operator to use for the filter. (Enum:
-                              IN)'
-                            type: string
-                          values:
-                            description: The values to filter by.
-                            items:
-                              type: number
-                            type: array
-                        type: object
-                    type: object
+                    items:
+                      properties:
+                        tags:
+                          description: 'List of tags to filter by. Consists of the
+                            following fields:'
+                          items:
+                            properties:
+                              key:
+                                description: The key of the tag.
+                                type: string
+                              value:
+                                description: 'Consists of the following fields:'
+                                items:
+                                  properties:
+                                    operator:
+                                      description: 'The operator to use for the filter.
+                                        (Enum: IN)'
+                                      type: string
+                                    values:
+                                      description: The values to filter by.
+                                      items:
+                                        type: string
+                                      type: array
+                                  type: object
+                                type: array
+                            type: object
+                          type: array
+                        workspaceId:
+                          description: 'Filter by workspace ID (if empty, include
+                            usage all usage for this account). Consists of the following
+                            fields:'
+                          items:
+                            properties:
+                              operator:
+                                description: 'The operator to use for the filter.
+                                  (Enum: IN)'
+                                type: string
+                              values:
+                                description: The values to filter by.
+                                items:
+                                  type: number
+                                type: array
+                            type: object
+                          type: array
+                      type: object
+                    type: array
                   updateTime:
                     type: number
                 type: object
@@ -386,45 +400,52 @@ spec:
                     description: Name of the budget in Databricks Account.
                     type: string
                   filter:
-                    properties:
-                      tags:
-                        description: 'List of tags to filter by. Consists of the following
-                          fields:'
-                        items:
-                          properties:
-                            key:
-                              description: The key of the tag.
-                              type: string
-                            value:
-                              description: 'Consists of the following fields:'
-                              properties:
-                                operator:
-                                  description: 'The operator to use for the filter.
-                                    (Enum: IN)'
-                                  type: string
-                                values:
-                                  description: The values to filter by.
-                                  items:
-                                    type: string
-                                  type: array
-                              type: object
-                          type: object
-                        type: array
-                      workspaceId:
-                        description: 'Filter by workspace ID (if empty, include usage
-                          all usage for this account). Consists of the following fields:'
-                        properties:
-                          operator:
-                            description: 'The operator to use for the filter. (Enum:
-                              IN)'
-                            type: string
-                          values:
-                            description: The values to filter by.
-                            items:
-                              type: number
-                            type: array
-                        type: object
-                    type: object
+                    items:
+                      properties:
+                        tags:
+                          description: 'List of tags to filter by. Consists of the
+                            following fields:'
+                          items:
+                            properties:
+                              key:
+                                description: The key of the tag.
+                                type: string
+                              value:
+                                description: 'Consists of the following fields:'
+                                items:
+                                  properties:
+                                    operator:
+                                      description: 'The operator to use for the filter.
+                                        (Enum: IN)'
+                                      type: string
+                                    values:
+                                      description: The values to filter by.
+                                      items:
+                                        type: string
+                                      type: array
+                                  type: object
+                                type: array
+                            type: object
+                          type: array
+                        workspaceId:
+                          description: 'Filter by workspace ID (if empty, include
+                            usage all usage for this account). Consists of the following
+                            fields:'
+                          items:
+                            properties:
+                              operator:
+                                description: 'The operator to use for the filter.
+                                  (Enum: IN)'
+                                type: string
+                              values:
+                                description: The values to filter by.
+                                items:
+                                  type: number
+                                type: array
+                            type: object
+                          type: array
+                      type: object
+                    type: array
                   id:
                     type: string
                   updateTime:

@@ -816,8 +816,10 @@ func (in *CloudResourceContainerInitParameters) DeepCopyInto(out *CloudResourceC
 	*out = *in
 	if in.GCP != nil {
 		in, out := &in.GCP, &out.GCP
-		*out = new(GCPInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]GCPInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 }
 
@@ -836,8 +838,10 @@ func (in *CloudResourceContainerObservation) DeepCopyInto(out *CloudResourceCont
 	*out = *in
 	if in.GCP != nil {
 		in, out := &in.GCP, &out.GCP
-		*out = new(GCPObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]GCPObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 }
 
@@ -856,8 +860,10 @@ func (in *CloudResourceContainerParameters) DeepCopyInto(out *CloudResourceConta
 	*out = *in
 	if in.GCP != nil {
 		in, out := &in.GCP, &out.GCP
-		*out = new(GCPParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]GCPParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 }
 
@@ -876,13 +882,17 @@ func (in *DefaultRulesInitParameters) DeepCopyInto(out *DefaultRulesInitParamete
 	*out = *in
 	if in.AwsStableIPRule != nil {
 		in, out := &in.AwsStableIPRule, &out.AwsStableIPRule
-		*out = new(AwsStableIPRuleInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]AwsStableIPRuleInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.AzureServiceEndpointRule != nil {
 		in, out := &in.AzureServiceEndpointRule, &out.AzureServiceEndpointRule
-		*out = new(AzureServiceEndpointRuleInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]AzureServiceEndpointRuleInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 }
 
@@ -901,13 +911,17 @@ func (in *DefaultRulesObservation) DeepCopyInto(out *DefaultRulesObservation) {
 	*out = *in
 	if in.AwsStableIPRule != nil {
 		in, out := &in.AwsStableIPRule, &out.AwsStableIPRule
-		*out = new(AwsStableIPRuleObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]AwsStableIPRuleObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.AzureServiceEndpointRule != nil {
 		in, out := &in.AzureServiceEndpointRule, &out.AzureServiceEndpointRule
-		*out = new(AzureServiceEndpointRuleObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]AzureServiceEndpointRuleObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 }
 
@@ -926,13 +940,17 @@ func (in *DefaultRulesParameters) DeepCopyInto(out *DefaultRulesParameters) {
 	*out = *in
 	if in.AwsStableIPRule != nil {
 		in, out := &in.AwsStableIPRule, &out.AwsStableIPRule
-		*out = new(AwsStableIPRuleParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]AwsStableIPRuleParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.AzureServiceEndpointRule != nil {
 		in, out := &in.AzureServiceEndpointRule, &out.AzureServiceEndpointRule
-		*out = new(AzureServiceEndpointRuleParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]AzureServiceEndpointRuleParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 }
 
@@ -951,13 +969,17 @@ func (in *EgressConfigInitParameters) DeepCopyInto(out *EgressConfigInitParamete
 	*out = *in
 	if in.DefaultRules != nil {
 		in, out := &in.DefaultRules, &out.DefaultRules
-		*out = new(DefaultRulesInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]DefaultRulesInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.TargetRules != nil {
 		in, out := &in.TargetRules, &out.TargetRules
-		*out = new(TargetRulesInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]TargetRulesInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 }
 
@@ -976,13 +998,17 @@ func (in *EgressConfigObservation) DeepCopyInto(out *EgressConfigObservation) {
 	*out = *in
 	if in.DefaultRules != nil {
 		in, out := &in.DefaultRules, &out.DefaultRules
-		*out = new(DefaultRulesObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]DefaultRulesObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.TargetRules != nil {
 		in, out := &in.TargetRules, &out.TargetRules
-		*out = new(TargetRulesObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]TargetRulesObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 }
 
@@ -1001,13 +1027,17 @@ func (in *EgressConfigParameters) DeepCopyInto(out *EgressConfigParameters) {
 	*out = *in
 	if in.DefaultRules != nil {
 		in, out := &in.DefaultRules, &out.DefaultRules
-		*out = new(DefaultRulesParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]DefaultRulesParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.TargetRules != nil {
 		in, out := &in.TargetRules, &out.TargetRules
-		*out = new(TargetRulesParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]TargetRulesParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 }
 
@@ -2201,8 +2231,10 @@ func (in *MwsCustomerManagedKeysInitParameters) DeepCopyInto(out *MwsCustomerMan
 	}
 	if in.AwsKeyInfo != nil {
 		in, out := &in.AwsKeyInfo, &out.AwsKeyInfo
-		*out = new(AwsKeyInfoInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]AwsKeyInfoInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.CreationTime != nil {
 		in, out := &in.CreationTime, &out.CreationTime
@@ -2216,8 +2248,10 @@ func (in *MwsCustomerManagedKeysInitParameters) DeepCopyInto(out *MwsCustomerMan
 	}
 	if in.GCPKeyInfo != nil {
 		in, out := &in.GCPKeyInfo, &out.GCPKeyInfo
-		*out = new(GCPKeyInfoInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]GCPKeyInfoInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.UseCases != nil {
 		in, out := &in.UseCases, &out.UseCases
@@ -2284,8 +2318,10 @@ func (in *MwsCustomerManagedKeysObservation) DeepCopyInto(out *MwsCustomerManage
 	}
 	if in.AwsKeyInfo != nil {
 		in, out := &in.AwsKeyInfo, &out.AwsKeyInfo
-		*out = new(AwsKeyInfoObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]AwsKeyInfoObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.CreationTime != nil {
 		in, out := &in.CreationTime, &out.CreationTime
@@ -2299,8 +2335,10 @@ func (in *MwsCustomerManagedKeysObservation) DeepCopyInto(out *MwsCustomerManage
 	}
 	if in.GCPKeyInfo != nil {
 		in, out := &in.GCPKeyInfo, &out.GCPKeyInfo
-		*out = new(GCPKeyInfoObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]GCPKeyInfoObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.ID != nil {
 		in, out := &in.ID, &out.ID
@@ -2340,8 +2378,10 @@ func (in *MwsCustomerManagedKeysParameters) DeepCopyInto(out *MwsCustomerManaged
 	}
 	if in.AwsKeyInfo != nil {
 		in, out := &in.AwsKeyInfo, &out.AwsKeyInfo
-		*out = new(AwsKeyInfoParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]AwsKeyInfoParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.CreationTime != nil {
 		in, out := &in.CreationTime, &out.CreationTime
@@ -2355,8 +2395,10 @@ func (in *MwsCustomerManagedKeysParameters) DeepCopyInto(out *MwsCustomerManaged
 	}
 	if in.GCPKeyInfo != nil {
 		in, out := &in.GCPKeyInfo, &out.GCPKeyInfo
-		*out = new(GCPKeyInfoParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]GCPKeyInfoParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.UseCases != nil {
 		in, out := &in.UseCases, &out.UseCases
@@ -3092,8 +3134,10 @@ func (in *MwsNetworkConnectivityConfigInitParameters) DeepCopyInto(out *MwsNetwo
 	}
 	if in.EgressConfig != nil {
 		in, out := &in.EgressConfig, &out.EgressConfig
-		*out = new(EgressConfigInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]EgressConfigInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Name != nil {
 		in, out := &in.Name, &out.Name
@@ -3174,8 +3218,10 @@ func (in *MwsNetworkConnectivityConfigObservation) DeepCopyInto(out *MwsNetworkC
 	}
 	if in.EgressConfig != nil {
 		in, out := &in.EgressConfig, &out.EgressConfig
-		*out = new(EgressConfigObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]EgressConfigObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.ID != nil {
 		in, out := &in.ID, &out.ID
@@ -3229,8 +3275,10 @@ func (in *MwsNetworkConnectivityConfigParameters) DeepCopyInto(out *MwsNetworkCo
 	}
 	if in.EgressConfig != nil {
 		in, out := &in.EgressConfig, &out.EgressConfig
-		*out = new(EgressConfigParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]EgressConfigParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Name != nil {
 		in, out := &in.Name, &out.Name
@@ -3344,8 +3392,10 @@ func (in *MwsNetworksInitParameters) DeepCopyInto(out *MwsNetworksInitParameters
 	}
 	if in.GCPNetworkInfo != nil {
 		in, out := &in.GCPNetworkInfo, &out.GCPNetworkInfo
-		*out = new(GCPNetworkInfoInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]GCPNetworkInfoInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.NetworkID != nil {
 		in, out := &in.NetworkID, &out.NetworkID
@@ -3381,8 +3431,10 @@ func (in *MwsNetworksInitParameters) DeepCopyInto(out *MwsNetworksInitParameters
 	}
 	if in.VPCEndpoints != nil {
 		in, out := &in.VPCEndpoints, &out.VPCEndpoints
-		*out = new(VPCEndpointsInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]VPCEndpointsInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.VPCID != nil {
 		in, out := &in.VPCID, &out.VPCID
@@ -3460,8 +3512,10 @@ func (in *MwsNetworksObservation) DeepCopyInto(out *MwsNetworksObservation) {
 	}
 	if in.GCPNetworkInfo != nil {
 		in, out := &in.GCPNetworkInfo, &out.GCPNetworkInfo
-		*out = new(GCPNetworkInfoObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]GCPNetworkInfoObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.ID != nil {
 		in, out := &in.ID, &out.ID
@@ -3502,8 +3556,10 @@ func (in *MwsNetworksObservation) DeepCopyInto(out *MwsNetworksObservation) {
 	}
 	if in.VPCEndpoints != nil {
 		in, out := &in.VPCEndpoints, &out.VPCEndpoints
-		*out = new(VPCEndpointsObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]VPCEndpointsObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.VPCID != nil {
 		in, out := &in.VPCID, &out.VPCID
@@ -3550,8 +3606,10 @@ func (in *MwsNetworksParameters) DeepCopyInto(out *MwsNetworksParameters) {
 	}
 	if in.GCPNetworkInfo != nil {
 		in, out := &in.GCPNetworkInfo, &out.GCPNetworkInfo
-		*out = new(GCPNetworkInfoParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]GCPNetworkInfoParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.NetworkID != nil {
 		in, out := &in.NetworkID, &out.NetworkID
@@ -3587,8 +3645,10 @@ func (in *MwsNetworksParameters) DeepCopyInto(out *MwsNetworksParameters) {
 	}
 	if in.VPCEndpoints != nil {
 		in, out := &in.VPCEndpoints, &out.VPCEndpoints
-		*out = new(VPCEndpointsParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]VPCEndpointsParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.VPCID != nil {
 		in, out := &in.VPCID, &out.VPCID
@@ -4157,8 +4217,10 @@ func (in *MwsVPCEndpointInitParameters) DeepCopyInto(out *MwsVPCEndpointInitPara
 	}
 	if in.GCPVPCEndpointInfo != nil {
 		in, out := &in.GCPVPCEndpointInfo, &out.GCPVPCEndpointInfo
-		*out = new(GCPVPCEndpointInfoInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]GCPVPCEndpointInfoInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Region != nil {
 		in, out := &in.Region, &out.Region
@@ -4254,8 +4316,10 @@ func (in *MwsVPCEndpointObservation) DeepCopyInto(out *MwsVPCEndpointObservation
 	}
 	if in.GCPVPCEndpointInfo != nil {
 		in, out := &in.GCPVPCEndpointInfo, &out.GCPVPCEndpointInfo
-		*out = new(GCPVPCEndpointInfoObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]GCPVPCEndpointInfoObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.ID != nil {
 		in, out := &in.ID, &out.ID
@@ -4324,8 +4388,10 @@ func (in *MwsVPCEndpointParameters) DeepCopyInto(out *MwsVPCEndpointParameters) 
 	}
 	if in.GCPVPCEndpointInfo != nil {
 		in, out := &in.GCPVPCEndpointInfo, &out.GCPVPCEndpointInfo
-		*out = new(GCPVPCEndpointInfoParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]GCPVPCEndpointInfoParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Region != nil {
 		in, out := &in.Region, &out.Region
@@ -4442,8 +4508,10 @@ func (in *MwsWorkspacesInitParameters) DeepCopyInto(out *MwsWorkspacesInitParame
 	}
 	if in.CloudResourceContainer != nil {
 		in, out := &in.CloudResourceContainer, &out.CloudResourceContainer
-		*out = new(CloudResourceContainerInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]CloudResourceContainerInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.ComputeMode != nil {
 		in, out := &in.ComputeMode, &out.ComputeMode
@@ -4498,18 +4566,24 @@ func (in *MwsWorkspacesInitParameters) DeepCopyInto(out *MwsWorkspacesInitParame
 	}
 	if in.ExternalCustomerInfo != nil {
 		in, out := &in.ExternalCustomerInfo, &out.ExternalCustomerInfo
-		*out = new(ExternalCustomerInfoInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]ExternalCustomerInfoInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.GCPManagedNetworkConfig != nil {
 		in, out := &in.GCPManagedNetworkConfig, &out.GCPManagedNetworkConfig
-		*out = new(GCPManagedNetworkConfigInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]GCPManagedNetworkConfigInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.GkeConfig != nil {
 		in, out := &in.GkeConfig, &out.GkeConfig
-		*out = new(GkeConfigInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]GkeConfigInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.IsNoPublicIPEnabled != nil {
 		in, out := &in.IsNoPublicIPEnabled, &out.IsNoPublicIPEnabled
@@ -4573,8 +4647,10 @@ func (in *MwsWorkspacesInitParameters) DeepCopyInto(out *MwsWorkspacesInitParame
 	}
 	if in.Token != nil {
 		in, out := &in.Token, &out.Token
-		*out = new(TokenInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]TokenInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.WorkspaceID != nil {
 		in, out := &in.WorkspaceID, &out.WorkspaceID
@@ -4660,8 +4736,10 @@ func (in *MwsWorkspacesObservation) DeepCopyInto(out *MwsWorkspacesObservation) 
 	}
 	if in.CloudResourceContainer != nil {
 		in, out := &in.CloudResourceContainer, &out.CloudResourceContainer
-		*out = new(CloudResourceContainerObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]CloudResourceContainerObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.ComputeMode != nil {
 		in, out := &in.ComputeMode, &out.ComputeMode
@@ -4711,13 +4789,17 @@ func (in *MwsWorkspacesObservation) DeepCopyInto(out *MwsWorkspacesObservation) 
 	}
 	if in.ExternalCustomerInfo != nil {
 		in, out := &in.ExternalCustomerInfo, &out.ExternalCustomerInfo
-		*out = new(ExternalCustomerInfoObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]ExternalCustomerInfoObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.GCPManagedNetworkConfig != nil {
 		in, out := &in.GCPManagedNetworkConfig, &out.GCPManagedNetworkConfig
-		*out = new(GCPManagedNetworkConfigObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]GCPManagedNetworkConfigObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.GCPWorkspaceSa != nil {
 		in, out := &in.GCPWorkspaceSa, &out.GCPWorkspaceSa
@@ -4726,8 +4808,10 @@ func (in *MwsWorkspacesObservation) DeepCopyInto(out *MwsWorkspacesObservation) 
 	}
 	if in.GkeConfig != nil {
 		in, out := &in.GkeConfig, &out.GkeConfig
-		*out = new(GkeConfigObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]GkeConfigObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.ID != nil {
 		in, out := &in.ID, &out.ID
@@ -4776,8 +4860,10 @@ func (in *MwsWorkspacesObservation) DeepCopyInto(out *MwsWorkspacesObservation) 
 	}
 	if in.Token != nil {
 		in, out := &in.Token, &out.Token
-		*out = new(TokenObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]TokenObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.WorkspaceID != nil {
 		in, out := &in.WorkspaceID, &out.WorkspaceID
@@ -4832,8 +4918,10 @@ func (in *MwsWorkspacesParameters) DeepCopyInto(out *MwsWorkspacesParameters) {
 	}
 	if in.CloudResourceContainer != nil {
 		in, out := &in.CloudResourceContainer, &out.CloudResourceContainer
-		*out = new(CloudResourceContainerParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]CloudResourceContainerParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.ComputeMode != nil {
 		in, out := &in.ComputeMode, &out.ComputeMode
@@ -4888,18 +4976,24 @@ func (in *MwsWorkspacesParameters) DeepCopyInto(out *MwsWorkspacesParameters) {
 	}
 	if in.ExternalCustomerInfo != nil {
 		in, out := &in.ExternalCustomerInfo, &out.ExternalCustomerInfo
-		*out = new(ExternalCustomerInfoParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]ExternalCustomerInfoParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.GCPManagedNetworkConfig != nil {
 		in, out := &in.GCPManagedNetworkConfig, &out.GCPManagedNetworkConfig
-		*out = new(GCPManagedNetworkConfigParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]GCPManagedNetworkConfigParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.GkeConfig != nil {
 		in, out := &in.GkeConfig, &out.GkeConfig
-		*out = new(GkeConfigParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]GkeConfigParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.IsNoPublicIPEnabled != nil {
 		in, out := &in.IsNoPublicIPEnabled, &out.IsNoPublicIPEnabled
@@ -4963,8 +5057,10 @@ func (in *MwsWorkspacesParameters) DeepCopyInto(out *MwsWorkspacesParameters) {
 	}
 	if in.Token != nil {
 		in, out := &in.Token, &out.Token
-		*out = new(TokenParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]TokenParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.WorkspaceID != nil {
 		in, out := &in.WorkspaceID, &out.WorkspaceID

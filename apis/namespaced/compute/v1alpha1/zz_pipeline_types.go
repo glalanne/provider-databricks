@@ -127,7 +127,7 @@ type ClusterAzureAttributesInitParameters struct {
 
 	FirstOnDemand *float64 `json:"firstOnDemand,omitempty" tf:"first_on_demand,omitempty"`
 
-	LogAnalyticsInfo *ClusterAzureAttributesLogAnalyticsInfoInitParameters `json:"logAnalyticsInfo,omitempty" tf:"log_analytics_info,omitempty"`
+	LogAnalyticsInfo []ClusterAzureAttributesLogAnalyticsInfoInitParameters `json:"logAnalyticsInfo,omitempty" tf:"log_analytics_info,omitempty"`
 
 	SpotBidMaxPrice *float64 `json:"spotBidMaxPrice,omitempty" tf:"spot_bid_max_price,omitempty"`
 }
@@ -161,7 +161,7 @@ type ClusterAzureAttributesObservation struct {
 
 	FirstOnDemand *float64 `json:"firstOnDemand,omitempty" tf:"first_on_demand,omitempty"`
 
-	LogAnalyticsInfo *ClusterAzureAttributesLogAnalyticsInfoObservation `json:"logAnalyticsInfo,omitempty" tf:"log_analytics_info,omitempty"`
+	LogAnalyticsInfo []ClusterAzureAttributesLogAnalyticsInfoObservation `json:"logAnalyticsInfo,omitempty" tf:"log_analytics_info,omitempty"`
 
 	SpotBidMaxPrice *float64 `json:"spotBidMaxPrice,omitempty" tf:"spot_bid_max_price,omitempty"`
 }
@@ -175,7 +175,7 @@ type ClusterAzureAttributesParameters struct {
 	FirstOnDemand *float64 `json:"firstOnDemand,omitempty" tf:"first_on_demand,omitempty"`
 
 	// +kubebuilder:validation:Optional
-	LogAnalyticsInfo *ClusterAzureAttributesLogAnalyticsInfoParameters `json:"logAnalyticsInfo,omitempty" tf:"log_analytics_info,omitempty"`
+	LogAnalyticsInfo []ClusterAzureAttributesLogAnalyticsInfoParameters `json:"logAnalyticsInfo,omitempty" tf:"log_analytics_info,omitempty"`
 
 	// +kubebuilder:validation:Optional
 	SpotBidMaxPrice *float64 `json:"spotBidMaxPrice,omitempty" tf:"spot_bid_max_price,omitempty"`
@@ -196,31 +196,31 @@ type ClusterClusterLogConfDbfsParameters struct {
 }
 
 type ClusterClusterLogConfInitParameters struct {
-	Dbfs *ClusterClusterLogConfDbfsInitParameters `json:"dbfs,omitempty" tf:"dbfs,omitempty"`
+	Dbfs []ClusterClusterLogConfDbfsInitParameters `json:"dbfs,omitempty" tf:"dbfs,omitempty"`
 
-	S3 *ClusterClusterLogConfS3InitParameters `json:"s3,omitempty" tf:"s3,omitempty"`
+	S3 []ClusterClusterLogConfS3InitParameters `json:"s3,omitempty" tf:"s3,omitempty"`
 
-	Volumes *ClusterClusterLogConfVolumesInitParameters `json:"volumes,omitempty" tf:"volumes,omitempty"`
+	Volumes []ClusterClusterLogConfVolumesInitParameters `json:"volumes,omitempty" tf:"volumes,omitempty"`
 }
 
 type ClusterClusterLogConfObservation struct {
-	Dbfs *ClusterClusterLogConfDbfsObservation `json:"dbfs,omitempty" tf:"dbfs,omitempty"`
+	Dbfs []ClusterClusterLogConfDbfsObservation `json:"dbfs,omitempty" tf:"dbfs,omitempty"`
 
-	S3 *ClusterClusterLogConfS3Observation `json:"s3,omitempty" tf:"s3,omitempty"`
+	S3 []ClusterClusterLogConfS3Observation `json:"s3,omitempty" tf:"s3,omitempty"`
 
-	Volumes *ClusterClusterLogConfVolumesObservation `json:"volumes,omitempty" tf:"volumes,omitempty"`
+	Volumes []ClusterClusterLogConfVolumesObservation `json:"volumes,omitempty" tf:"volumes,omitempty"`
 }
 
 type ClusterClusterLogConfParameters struct {
 
 	// +kubebuilder:validation:Optional
-	Dbfs *ClusterClusterLogConfDbfsParameters `json:"dbfs,omitempty" tf:"dbfs,omitempty"`
+	Dbfs []ClusterClusterLogConfDbfsParameters `json:"dbfs,omitempty" tf:"dbfs,omitempty"`
 
 	// +kubebuilder:validation:Optional
-	S3 *ClusterClusterLogConfS3Parameters `json:"s3,omitempty" tf:"s3,omitempty"`
+	S3 []ClusterClusterLogConfS3Parameters `json:"s3,omitempty" tf:"s3,omitempty"`
 
 	// +kubebuilder:validation:Optional
-	Volumes *ClusterClusterLogConfVolumesParameters `json:"volumes,omitempty" tf:"volumes,omitempty"`
+	Volumes []ClusterClusterLogConfVolumesParameters `json:"volumes,omitempty" tf:"volumes,omitempty"`
 }
 
 type ClusterClusterLogConfS3InitParameters struct {
@@ -395,62 +395,62 @@ type ClusterInitScriptsGcsParameters struct {
 }
 
 type ClusterInitScriptsInitParameters struct {
-	Abfss *ClusterInitScriptsAbfssInitParameters `json:"abfss,omitempty" tf:"abfss,omitempty"`
+	Abfss []ClusterInitScriptsAbfssInitParameters `json:"abfss,omitempty" tf:"abfss,omitempty"`
 
-	Dbfs *ClusterInitScriptsDbfsInitParameters `json:"dbfs,omitempty" tf:"dbfs,omitempty"`
+	Dbfs []ClusterInitScriptsDbfsInitParameters `json:"dbfs,omitempty" tf:"dbfs,omitempty"`
 
 	// specifies path to a file in Databricks Workspace to include as source. Actual path is specified as path attribute inside the block.
-	File *ClusterInitScriptsFileInitParameters `json:"file,omitempty" tf:"file,omitempty"`
+	File []ClusterInitScriptsFileInitParameters `json:"file,omitempty" tf:"file,omitempty"`
 
-	Gcs *ClusterInitScriptsGcsInitParameters `json:"gcs,omitempty" tf:"gcs,omitempty"`
+	Gcs []ClusterInitScriptsGcsInitParameters `json:"gcs,omitempty" tf:"gcs,omitempty"`
 
-	S3 *ClusterInitScriptsS3InitParameters `json:"s3,omitempty" tf:"s3,omitempty"`
+	S3 []ClusterInitScriptsS3InitParameters `json:"s3,omitempty" tf:"s3,omitempty"`
 
-	Volumes *ClusterInitScriptsVolumesInitParameters `json:"volumes,omitempty" tf:"volumes,omitempty"`
+	Volumes []ClusterInitScriptsVolumesInitParameters `json:"volumes,omitempty" tf:"volumes,omitempty"`
 
-	Workspace *ClusterInitScriptsWorkspaceInitParameters `json:"workspace,omitempty" tf:"workspace,omitempty"`
+	Workspace []ClusterInitScriptsWorkspaceInitParameters `json:"workspace,omitempty" tf:"workspace,omitempty"`
 }
 
 type ClusterInitScriptsObservation struct {
-	Abfss *ClusterInitScriptsAbfssObservation `json:"abfss,omitempty" tf:"abfss,omitempty"`
+	Abfss []ClusterInitScriptsAbfssObservation `json:"abfss,omitempty" tf:"abfss,omitempty"`
 
-	Dbfs *ClusterInitScriptsDbfsObservation `json:"dbfs,omitempty" tf:"dbfs,omitempty"`
+	Dbfs []ClusterInitScriptsDbfsObservation `json:"dbfs,omitempty" tf:"dbfs,omitempty"`
 
 	// specifies path to a file in Databricks Workspace to include as source. Actual path is specified as path attribute inside the block.
-	File *ClusterInitScriptsFileObservation `json:"file,omitempty" tf:"file,omitempty"`
+	File []ClusterInitScriptsFileObservation `json:"file,omitempty" tf:"file,omitempty"`
 
-	Gcs *ClusterInitScriptsGcsObservation `json:"gcs,omitempty" tf:"gcs,omitempty"`
+	Gcs []ClusterInitScriptsGcsObservation `json:"gcs,omitempty" tf:"gcs,omitempty"`
 
-	S3 *ClusterInitScriptsS3Observation `json:"s3,omitempty" tf:"s3,omitempty"`
+	S3 []ClusterInitScriptsS3Observation `json:"s3,omitempty" tf:"s3,omitempty"`
 
-	Volumes *ClusterInitScriptsVolumesObservation `json:"volumes,omitempty" tf:"volumes,omitempty"`
+	Volumes []ClusterInitScriptsVolumesObservation `json:"volumes,omitempty" tf:"volumes,omitempty"`
 
-	Workspace *ClusterInitScriptsWorkspaceObservation `json:"workspace,omitempty" tf:"workspace,omitempty"`
+	Workspace []ClusterInitScriptsWorkspaceObservation `json:"workspace,omitempty" tf:"workspace,omitempty"`
 }
 
 type ClusterInitScriptsParameters struct {
 
 	// +kubebuilder:validation:Optional
-	Abfss *ClusterInitScriptsAbfssParameters `json:"abfss,omitempty" tf:"abfss,omitempty"`
+	Abfss []ClusterInitScriptsAbfssParameters `json:"abfss,omitempty" tf:"abfss,omitempty"`
 
 	// +kubebuilder:validation:Optional
-	Dbfs *ClusterInitScriptsDbfsParameters `json:"dbfs,omitempty" tf:"dbfs,omitempty"`
+	Dbfs []ClusterInitScriptsDbfsParameters `json:"dbfs,omitempty" tf:"dbfs,omitempty"`
 
 	// specifies path to a file in Databricks Workspace to include as source. Actual path is specified as path attribute inside the block.
 	// +kubebuilder:validation:Optional
-	File *ClusterInitScriptsFileParameters `json:"file,omitempty" tf:"file,omitempty"`
+	File []ClusterInitScriptsFileParameters `json:"file,omitempty" tf:"file,omitempty"`
 
 	// +kubebuilder:validation:Optional
-	Gcs *ClusterInitScriptsGcsParameters `json:"gcs,omitempty" tf:"gcs,omitempty"`
+	Gcs []ClusterInitScriptsGcsParameters `json:"gcs,omitempty" tf:"gcs,omitempty"`
 
 	// +kubebuilder:validation:Optional
-	S3 *ClusterInitScriptsS3Parameters `json:"s3,omitempty" tf:"s3,omitempty"`
+	S3 []ClusterInitScriptsS3Parameters `json:"s3,omitempty" tf:"s3,omitempty"`
 
 	// +kubebuilder:validation:Optional
-	Volumes *ClusterInitScriptsVolumesParameters `json:"volumes,omitempty" tf:"volumes,omitempty"`
+	Volumes []ClusterInitScriptsVolumesParameters `json:"volumes,omitempty" tf:"volumes,omitempty"`
 
 	// +kubebuilder:validation:Optional
-	Workspace *ClusterInitScriptsWorkspaceParameters `json:"workspace,omitempty" tf:"workspace,omitempty"`
+	Workspace []ClusterInitScriptsWorkspaceParameters `json:"workspace,omitempty" tf:"workspace,omitempty"`
 }
 
 type ClusterInitScriptsS3InitParameters struct {
@@ -721,7 +721,7 @@ type IngestionDefinitionInitParameters struct {
 	SourceType *string `json:"sourceType,omitempty" tf:"source_type,omitempty"`
 
 	// Configuration settings to control the ingestion of tables. These settings are applied to all tables in the pipeline.
-	TableConfiguration *IngestionDefinitionTableConfigurationInitParameters `json:"tableConfiguration,omitempty" tf:"table_configuration,omitempty"`
+	TableConfiguration []IngestionDefinitionTableConfigurationInitParameters `json:"tableConfiguration,omitempty" tf:"table_configuration,omitempty"`
 }
 
 type IngestionDefinitionObservation struct {
@@ -738,7 +738,7 @@ type IngestionDefinitionObservation struct {
 	SourceType *string `json:"sourceType,omitempty" tf:"source_type,omitempty"`
 
 	// Configuration settings to control the ingestion of tables. These settings are applied to all tables in the pipeline.
-	TableConfiguration *IngestionDefinitionTableConfigurationObservation `json:"tableConfiguration,omitempty" tf:"table_configuration,omitempty"`
+	TableConfiguration []IngestionDefinitionTableConfigurationObservation `json:"tableConfiguration,omitempty" tf:"table_configuration,omitempty"`
 }
 
 type IngestionDefinitionParameters struct {
@@ -760,7 +760,7 @@ type IngestionDefinitionParameters struct {
 
 	// Configuration settings to control the ingestion of tables. These settings are applied to all tables in the pipeline.
 	// +kubebuilder:validation:Optional
-	TableConfiguration *IngestionDefinitionTableConfigurationParameters `json:"tableConfiguration,omitempty" tf:"table_configuration,omitempty"`
+	TableConfiguration []IngestionDefinitionTableConfigurationParameters `json:"tableConfiguration,omitempty" tf:"table_configuration,omitempty"`
 }
 
 type IngestionDefinitionTableConfigurationInitParameters struct {
@@ -770,7 +770,7 @@ type IngestionDefinitionTableConfigurationInitParameters struct {
 
 	PrimaryKeys []*string `json:"primaryKeys,omitempty" tf:"primary_keys,omitempty"`
 
-	QueryBasedConnectorConfig *IngestionDefinitionTableConfigurationQueryBasedConnectorConfigInitParameters `json:"queryBasedConnectorConfig,omitempty" tf:"query_based_connector_config,omitempty"`
+	QueryBasedConnectorConfig []IngestionDefinitionTableConfigurationQueryBasedConnectorConfigInitParameters `json:"queryBasedConnectorConfig,omitempty" tf:"query_based_connector_config,omitempty"`
 
 	SalesforceIncludeFormulaFields *bool `json:"salesforceIncludeFormulaFields,omitempty" tf:"salesforce_include_formula_fields,omitempty"`
 
@@ -786,7 +786,7 @@ type IngestionDefinitionTableConfigurationObservation struct {
 
 	PrimaryKeys []*string `json:"primaryKeys,omitempty" tf:"primary_keys,omitempty"`
 
-	QueryBasedConnectorConfig *IngestionDefinitionTableConfigurationQueryBasedConnectorConfigObservation `json:"queryBasedConnectorConfig,omitempty" tf:"query_based_connector_config,omitempty"`
+	QueryBasedConnectorConfig []IngestionDefinitionTableConfigurationQueryBasedConnectorConfigObservation `json:"queryBasedConnectorConfig,omitempty" tf:"query_based_connector_config,omitempty"`
 
 	SalesforceIncludeFormulaFields *bool `json:"salesforceIncludeFormulaFields,omitempty" tf:"salesforce_include_formula_fields,omitempty"`
 
@@ -807,7 +807,7 @@ type IngestionDefinitionTableConfigurationParameters struct {
 	PrimaryKeys []*string `json:"primaryKeys,omitempty" tf:"primary_keys,omitempty"`
 
 	// +kubebuilder:validation:Optional
-	QueryBasedConnectorConfig *IngestionDefinitionTableConfigurationQueryBasedConnectorConfigParameters `json:"queryBasedConnectorConfig,omitempty" tf:"query_based_connector_config,omitempty"`
+	QueryBasedConnectorConfig []IngestionDefinitionTableConfigurationQueryBasedConnectorConfigParameters `json:"queryBasedConnectorConfig,omitempty" tf:"query_based_connector_config,omitempty"`
 
 	// +kubebuilder:validation:Optional
 	SalesforceIncludeFormulaFields *bool `json:"salesforceIncludeFormulaFields,omitempty" tf:"salesforce_include_formula_fields,omitempty"`
@@ -966,34 +966,34 @@ type NotificationParameters struct {
 }
 
 type ObjectsInitParameters struct {
-	Report *ReportInitParameters `json:"report,omitempty" tf:"report,omitempty"`
+	Report []ReportInitParameters `json:"report,omitempty" tf:"report,omitempty"`
 
 	// The default schema (database) where tables are read from or published to. The presence of this attribute implies that the pipeline is in direct publishing mode.
-	Schema *SchemaInitParameters `json:"schema,omitempty" tf:"schema,omitempty"`
+	Schema []SchemaInitParameters `json:"schema,omitempty" tf:"schema,omitempty"`
 
-	Table *ObjectsTableInitParameters `json:"table,omitempty" tf:"table,omitempty"`
+	Table []ObjectsTableInitParameters `json:"table,omitempty" tf:"table,omitempty"`
 }
 
 type ObjectsObservation struct {
-	Report *ReportObservation `json:"report,omitempty" tf:"report,omitempty"`
+	Report []ReportObservation `json:"report,omitempty" tf:"report,omitempty"`
 
 	// The default schema (database) where tables are read from or published to. The presence of this attribute implies that the pipeline is in direct publishing mode.
-	Schema *SchemaObservation `json:"schema,omitempty" tf:"schema,omitempty"`
+	Schema []SchemaObservation `json:"schema,omitempty" tf:"schema,omitempty"`
 
-	Table *ObjectsTableObservation `json:"table,omitempty" tf:"table,omitempty"`
+	Table []ObjectsTableObservation `json:"table,omitempty" tf:"table,omitempty"`
 }
 
 type ObjectsParameters struct {
 
 	// +kubebuilder:validation:Optional
-	Report *ReportParameters `json:"report,omitempty" tf:"report,omitempty"`
+	Report []ReportParameters `json:"report,omitempty" tf:"report,omitempty"`
 
 	// The default schema (database) where tables are read from or published to. The presence of this attribute implies that the pipeline is in direct publishing mode.
 	// +kubebuilder:validation:Optional
-	Schema *SchemaParameters `json:"schema,omitempty" tf:"schema,omitempty"`
+	Schema []SchemaParameters `json:"schema,omitempty" tf:"schema,omitempty"`
 
 	// +kubebuilder:validation:Optional
-	Table *ObjectsTableParameters `json:"table,omitempty" tf:"table,omitempty"`
+	Table []ObjectsTableParameters `json:"table,omitempty" tf:"table,omitempty"`
 }
 
 type ObjectsTableInitParameters struct {
@@ -1015,7 +1015,7 @@ type ObjectsTableInitParameters struct {
 	SourceTable *string `json:"sourceTable,omitempty" tf:"source_table,omitempty"`
 
 	// Configuration settings to control the ingestion of tables. These settings are applied to all tables in the pipeline.
-	TableConfiguration *TableTableConfigurationInitParameters `json:"tableConfiguration,omitempty" tf:"table_configuration,omitempty"`
+	TableConfiguration []TableTableConfigurationInitParameters `json:"tableConfiguration,omitempty" tf:"table_configuration,omitempty"`
 }
 
 type ObjectsTableObservation struct {
@@ -1037,7 +1037,7 @@ type ObjectsTableObservation struct {
 	SourceTable *string `json:"sourceTable,omitempty" tf:"source_table,omitempty"`
 
 	// Configuration settings to control the ingestion of tables. These settings are applied to all tables in the pipeline.
-	TableConfiguration *TableTableConfigurationObservation `json:"tableConfiguration,omitempty" tf:"table_configuration,omitempty"`
+	TableConfiguration []TableTableConfigurationObservation `json:"tableConfiguration,omitempty" tf:"table_configuration,omitempty"`
 }
 
 type ObjectsTableParameters struct {
@@ -1066,19 +1066,19 @@ type ObjectsTableParameters struct {
 
 	// Configuration settings to control the ingestion of tables. These settings are applied to all tables in the pipeline.
 	// +kubebuilder:validation:Optional
-	TableConfiguration *TableTableConfigurationParameters `json:"tableConfiguration,omitempty" tf:"table_configuration,omitempty"`
+	TableConfiguration []TableTableConfigurationParameters `json:"tableConfiguration,omitempty" tf:"table_configuration,omitempty"`
 }
 
 type PipelineClusterInitParameters struct {
 	ApplyPolicyDefaultValues *bool `json:"applyPolicyDefaultValues,omitempty" tf:"apply_policy_default_values,omitempty"`
 
-	Autoscale *ClusterAutoscaleInitParameters `json:"autoscale,omitempty" tf:"autoscale,omitempty"`
+	Autoscale []ClusterAutoscaleInitParameters `json:"autoscale,omitempty" tf:"autoscale,omitempty"`
 
-	AwsAttributes *ClusterAwsAttributesInitParameters `json:"awsAttributes,omitempty" tf:"aws_attributes,omitempty"`
+	AwsAttributes []ClusterAwsAttributesInitParameters `json:"awsAttributes,omitempty" tf:"aws_attributes,omitempty"`
 
-	AzureAttributes *ClusterAzureAttributesInitParameters `json:"azureAttributes,omitempty" tf:"azure_attributes,omitempty"`
+	AzureAttributes []ClusterAzureAttributesInitParameters `json:"azureAttributes,omitempty" tf:"azure_attributes,omitempty"`
 
-	ClusterLogConf *ClusterClusterLogConfInitParameters `json:"clusterLogConf,omitempty" tf:"cluster_log_conf,omitempty"`
+	ClusterLogConf []ClusterClusterLogConfInitParameters `json:"clusterLogConf,omitempty" tf:"cluster_log_conf,omitempty"`
 
 	// A map of tags associated with the pipeline. These are forwarded to the cluster as cluster tags, and are therefore subject to the same limitations. A maximum of 25 tags can be added to the pipeline.
 	// +mapType=granular
@@ -1092,7 +1092,7 @@ type PipelineClusterInitParameters struct {
 
 	EnableLocalDiskEncryption *bool `json:"enableLocalDiskEncryption,omitempty" tf:"enable_local_disk_encryption,omitempty"`
 
-	GCPAttributes *ClusterGCPAttributesInitParameters `json:"gcpAttributes,omitempty" tf:"gcp_attributes,omitempty"`
+	GCPAttributes []ClusterGCPAttributesInitParameters `json:"gcpAttributes,omitempty" tf:"gcp_attributes,omitempty"`
 
 	InitScripts []ClusterInitScriptsInitParameters `json:"initScripts,omitempty" tf:"init_scripts,omitempty"`
 
@@ -1121,13 +1121,13 @@ type PipelineClusterInitParameters struct {
 type PipelineClusterObservation struct {
 	ApplyPolicyDefaultValues *bool `json:"applyPolicyDefaultValues,omitempty" tf:"apply_policy_default_values,omitempty"`
 
-	Autoscale *ClusterAutoscaleObservation `json:"autoscale,omitempty" tf:"autoscale,omitempty"`
+	Autoscale []ClusterAutoscaleObservation `json:"autoscale,omitempty" tf:"autoscale,omitempty"`
 
-	AwsAttributes *ClusterAwsAttributesObservation `json:"awsAttributes,omitempty" tf:"aws_attributes,omitempty"`
+	AwsAttributes []ClusterAwsAttributesObservation `json:"awsAttributes,omitempty" tf:"aws_attributes,omitempty"`
 
-	AzureAttributes *ClusterAzureAttributesObservation `json:"azureAttributes,omitempty" tf:"azure_attributes,omitempty"`
+	AzureAttributes []ClusterAzureAttributesObservation `json:"azureAttributes,omitempty" tf:"azure_attributes,omitempty"`
 
-	ClusterLogConf *ClusterClusterLogConfObservation `json:"clusterLogConf,omitempty" tf:"cluster_log_conf,omitempty"`
+	ClusterLogConf []ClusterClusterLogConfObservation `json:"clusterLogConf,omitempty" tf:"cluster_log_conf,omitempty"`
 
 	// A map of tags associated with the pipeline. These are forwarded to the cluster as cluster tags, and are therefore subject to the same limitations. A maximum of 25 tags can be added to the pipeline.
 	// +mapType=granular
@@ -1141,7 +1141,7 @@ type PipelineClusterObservation struct {
 
 	EnableLocalDiskEncryption *bool `json:"enableLocalDiskEncryption,omitempty" tf:"enable_local_disk_encryption,omitempty"`
 
-	GCPAttributes *ClusterGCPAttributesObservation `json:"gcpAttributes,omitempty" tf:"gcp_attributes,omitempty"`
+	GCPAttributes []ClusterGCPAttributesObservation `json:"gcpAttributes,omitempty" tf:"gcp_attributes,omitempty"`
 
 	InitScripts []ClusterInitScriptsObservation `json:"initScripts,omitempty" tf:"init_scripts,omitempty"`
 
@@ -1173,16 +1173,16 @@ type PipelineClusterParameters struct {
 	ApplyPolicyDefaultValues *bool `json:"applyPolicyDefaultValues,omitempty" tf:"apply_policy_default_values,omitempty"`
 
 	// +kubebuilder:validation:Optional
-	Autoscale *ClusterAutoscaleParameters `json:"autoscale,omitempty" tf:"autoscale,omitempty"`
+	Autoscale []ClusterAutoscaleParameters `json:"autoscale,omitempty" tf:"autoscale,omitempty"`
 
 	// +kubebuilder:validation:Optional
-	AwsAttributes *ClusterAwsAttributesParameters `json:"awsAttributes,omitempty" tf:"aws_attributes,omitempty"`
+	AwsAttributes []ClusterAwsAttributesParameters `json:"awsAttributes,omitempty" tf:"aws_attributes,omitempty"`
 
 	// +kubebuilder:validation:Optional
-	AzureAttributes *ClusterAzureAttributesParameters `json:"azureAttributes,omitempty" tf:"azure_attributes,omitempty"`
+	AzureAttributes []ClusterAzureAttributesParameters `json:"azureAttributes,omitempty" tf:"azure_attributes,omitempty"`
 
 	// +kubebuilder:validation:Optional
-	ClusterLogConf *ClusterClusterLogConfParameters `json:"clusterLogConf,omitempty" tf:"cluster_log_conf,omitempty"`
+	ClusterLogConf []ClusterClusterLogConfParameters `json:"clusterLogConf,omitempty" tf:"cluster_log_conf,omitempty"`
 
 	// A map of tags associated with the pipeline. These are forwarded to the cluster as cluster tags, and are therefore subject to the same limitations. A maximum of 25 tags can be added to the pipeline.
 	// +kubebuilder:validation:Optional
@@ -1201,7 +1201,7 @@ type PipelineClusterParameters struct {
 	EnableLocalDiskEncryption *bool `json:"enableLocalDiskEncryption,omitempty" tf:"enable_local_disk_encryption,omitempty"`
 
 	// +kubebuilder:validation:Optional
-	GCPAttributes *ClusterGCPAttributesParameters `json:"gcpAttributes,omitempty" tf:"gcp_attributes,omitempty"`
+	GCPAttributes []ClusterGCPAttributesParameters `json:"gcpAttributes,omitempty" tf:"gcp_attributes,omitempty"`
 
 	// +kubebuilder:validation:Optional
 	InitScripts []ClusterInitScriptsParameters `json:"initScripts,omitempty" tf:"init_scripts,omitempty"`
@@ -1317,7 +1317,7 @@ type PipelineInitParameters struct {
 	CreatorUserName *string `json:"creatorUserName,omitempty" tf:"creator_user_name,omitempty"`
 
 	// Deployment type of this pipeline. Supports following attributes:
-	Deployment *PipelineDeploymentInitParameters `json:"deployment,omitempty" tf:"deployment,omitempty"`
+	Deployment []PipelineDeploymentInitParameters `json:"deployment,omitempty" tf:"deployment,omitempty"`
 
 	// A flag indicating whether to run the pipeline in development mode. The default value is false.
 	Development *bool `json:"development,omitempty" tf:"development,omitempty"`
@@ -1325,22 +1325,22 @@ type PipelineInitParameters struct {
 	// optional name of the product edition. Supported values are: CORE, PRO, ADVANCED (default).  Not required when serverless is set to true.
 	Edition *string `json:"edition,omitempty" tf:"edition,omitempty"`
 
-	Environment *PipelineEnvironmentInitParameters `json:"environment,omitempty" tf:"environment,omitempty"`
+	Environment []PipelineEnvironmentInitParameters `json:"environment,omitempty" tf:"environment,omitempty"`
 
 	// an optional block specifying a table where LDP Event Log will be stored.  Consists of the following fields:
-	EventLog *EventLogInitParameters `json:"eventLog,omitempty" tf:"event_log,omitempty"`
+	EventLog []EventLogInitParameters `json:"eventLog,omitempty" tf:"event_log,omitempty"`
 
 	ExpectedLastModified *float64 `json:"expectedLastModified,omitempty" tf:"expected_last_modified,omitempty"`
 
 	// Filters on which Pipeline packages to include in the deployed graph.  This block consists of following attributes:
-	Filters *FiltersInitParameters `json:"filters,omitempty" tf:"filters,omitempty"`
+	Filters []FiltersInitParameters `json:"filters,omitempty" tf:"filters,omitempty"`
 
 	// The definition of a gateway pipeline to support CDC. Consists of following attributes:
-	GatewayDefinition *GatewayDefinitionInitParameters `json:"gatewayDefinition,omitempty" tf:"gateway_definition,omitempty"`
+	GatewayDefinition []GatewayDefinitionInitParameters `json:"gatewayDefinition,omitempty" tf:"gateway_definition,omitempty"`
 
 	Health *string `json:"health,omitempty" tf:"health,omitempty"`
 
-	IngestionDefinition *IngestionDefinitionInitParameters `json:"ingestionDefinition,omitempty" tf:"ingestion_definition,omitempty"`
+	IngestionDefinition []IngestionDefinitionInitParameters `json:"ingestionDefinition,omitempty" tf:"ingestion_definition,omitempty"`
 
 	LastModified *float64 `json:"lastModified,omitempty" tf:"last_modified,omitempty"`
 
@@ -1357,12 +1357,12 @@ type PipelineInitParameters struct {
 	// A flag indicating whether to use Photon engine. The default value is false.
 	Photon *bool `json:"photon,omitempty" tf:"photon,omitempty"`
 
-	RestartWindow *RestartWindowInitParameters `json:"restartWindow,omitempty" tf:"restart_window,omitempty"`
+	RestartWindow []RestartWindowInitParameters `json:"restartWindow,omitempty" tf:"restart_window,omitempty"`
 
 	// An optional string specifying the root path for this pipeline. This is used as the root directory when editing the pipeline in the Databricks user interface and it is added to sys.path when executing Python sources during pipeline execution.
 	RootPath *string `json:"rootPath,omitempty" tf:"root_path,omitempty"`
 
-	RunAs *PipelineRunAsInitParameters `json:"runAs,omitempty" tf:"run_as,omitempty"`
+	RunAs []PipelineRunAsInitParameters `json:"runAs,omitempty" tf:"run_as,omitempty"`
 
 	// A user-friendly name for this pipeline. The name can be used to identify pipeline jobs in the UI.
 	RunAsUserName *string `json:"runAsUserName,omitempty" tf:"run_as_user_name,omitempty"`
@@ -1385,7 +1385,7 @@ type PipelineInitParameters struct {
 	// The name of a database (in either the Hive metastore or in a UC catalog) for persisting pipeline output data. Configuring the target setting allows you to view and query the pipeline output data from the Databricks UI.
 	Target *string `json:"target,omitempty" tf:"target,omitempty"`
 
-	Trigger *PipelineTriggerInitParameters `json:"trigger,omitempty" tf:"trigger,omitempty"`
+	Trigger []PipelineTriggerInitParameters `json:"trigger,omitempty" tf:"trigger,omitempty"`
 
 	// URL of the Lakeflow Declarative Pipeline on the given workspace.
 	URL *string `json:"url,omitempty" tf:"url,omitempty"`
@@ -1394,17 +1394,17 @@ type PipelineInitParameters struct {
 type PipelineLibraryInitParameters struct {
 
 	// specifies path to a file in Databricks Workspace to include as source. Actual path is specified as path attribute inside the block.
-	File *LibraryFileInitParameters `json:"file,omitempty" tf:"file,omitempty"`
+	File []LibraryFileInitParameters `json:"file,omitempty" tf:"file,omitempty"`
 
 	// The unified field to include source code. Each entry should have the include attribute that can specify a notebook path, a file path, or a folder path that ends /** (to include everything from that folder). This field cannot be used together with notebook or file.
-	Glob *GlobInitParameters `json:"glob,omitempty" tf:"glob,omitempty"`
+	Glob []GlobInitParameters `json:"glob,omitempty" tf:"glob,omitempty"`
 
 	Jar *string `json:"jar,omitempty" tf:"jar,omitempty"`
 
-	Maven *PipelineLibraryMavenInitParameters `json:"maven,omitempty" tf:"maven,omitempty"`
+	Maven []PipelineLibraryMavenInitParameters `json:"maven,omitempty" tf:"maven,omitempty"`
 
 	// specifies path to a Databricks Notebook to include as source. Actual path is specified as path attribute inside the block.
-	Notebook *NotebookInitParameters `json:"notebook,omitempty" tf:"notebook,omitempty"`
+	Notebook []NotebookInitParameters `json:"notebook,omitempty" tf:"notebook,omitempty"`
 
 	Whl *string `json:"whl,omitempty" tf:"whl,omitempty"`
 }
@@ -1440,17 +1440,17 @@ type PipelineLibraryMavenParameters struct {
 type PipelineLibraryObservation struct {
 
 	// specifies path to a file in Databricks Workspace to include as source. Actual path is specified as path attribute inside the block.
-	File *LibraryFileObservation `json:"file,omitempty" tf:"file,omitempty"`
+	File []LibraryFileObservation `json:"file,omitempty" tf:"file,omitempty"`
 
 	// The unified field to include source code. Each entry should have the include attribute that can specify a notebook path, a file path, or a folder path that ends /** (to include everything from that folder). This field cannot be used together with notebook or file.
-	Glob *GlobObservation `json:"glob,omitempty" tf:"glob,omitempty"`
+	Glob []GlobObservation `json:"glob,omitempty" tf:"glob,omitempty"`
 
 	Jar *string `json:"jar,omitempty" tf:"jar,omitempty"`
 
-	Maven *PipelineLibraryMavenObservation `json:"maven,omitempty" tf:"maven,omitempty"`
+	Maven []PipelineLibraryMavenObservation `json:"maven,omitempty" tf:"maven,omitempty"`
 
 	// specifies path to a Databricks Notebook to include as source. Actual path is specified as path attribute inside the block.
-	Notebook *NotebookObservation `json:"notebook,omitempty" tf:"notebook,omitempty"`
+	Notebook []NotebookObservation `json:"notebook,omitempty" tf:"notebook,omitempty"`
 
 	Whl *string `json:"whl,omitempty" tf:"whl,omitempty"`
 }
@@ -1459,21 +1459,21 @@ type PipelineLibraryParameters struct {
 
 	// specifies path to a file in Databricks Workspace to include as source. Actual path is specified as path attribute inside the block.
 	// +kubebuilder:validation:Optional
-	File *LibraryFileParameters `json:"file,omitempty" tf:"file,omitempty"`
+	File []LibraryFileParameters `json:"file,omitempty" tf:"file,omitempty"`
 
 	// The unified field to include source code. Each entry should have the include attribute that can specify a notebook path, a file path, or a folder path that ends /** (to include everything from that folder). This field cannot be used together with notebook or file.
 	// +kubebuilder:validation:Optional
-	Glob *GlobParameters `json:"glob,omitempty" tf:"glob,omitempty"`
+	Glob []GlobParameters `json:"glob,omitempty" tf:"glob,omitempty"`
 
 	// +kubebuilder:validation:Optional
 	Jar *string `json:"jar,omitempty" tf:"jar,omitempty"`
 
 	// +kubebuilder:validation:Optional
-	Maven *PipelineLibraryMavenParameters `json:"maven,omitempty" tf:"maven,omitempty"`
+	Maven []PipelineLibraryMavenParameters `json:"maven,omitempty" tf:"maven,omitempty"`
 
 	// specifies path to a Databricks Notebook to include as source. Actual path is specified as path attribute inside the block.
 	// +kubebuilder:validation:Optional
-	Notebook *NotebookParameters `json:"notebook,omitempty" tf:"notebook,omitempty"`
+	Notebook []NotebookParameters `json:"notebook,omitempty" tf:"notebook,omitempty"`
 
 	// +kubebuilder:validation:Optional
 	Whl *string `json:"whl,omitempty" tf:"whl,omitempty"`
@@ -1512,7 +1512,7 @@ type PipelineObservation struct {
 	CreatorUserName *string `json:"creatorUserName,omitempty" tf:"creator_user_name,omitempty"`
 
 	// Deployment type of this pipeline. Supports following attributes:
-	Deployment *PipelineDeploymentObservation `json:"deployment,omitempty" tf:"deployment,omitempty"`
+	Deployment []PipelineDeploymentObservation `json:"deployment,omitempty" tf:"deployment,omitempty"`
 
 	// A flag indicating whether to run the pipeline in development mode. The default value is false.
 	Development *bool `json:"development,omitempty" tf:"development,omitempty"`
@@ -1520,25 +1520,25 @@ type PipelineObservation struct {
 	// optional name of the product edition. Supported values are: CORE, PRO, ADVANCED (default).  Not required when serverless is set to true.
 	Edition *string `json:"edition,omitempty" tf:"edition,omitempty"`
 
-	Environment *PipelineEnvironmentObservation `json:"environment,omitempty" tf:"environment,omitempty"`
+	Environment []PipelineEnvironmentObservation `json:"environment,omitempty" tf:"environment,omitempty"`
 
 	// an optional block specifying a table where LDP Event Log will be stored.  Consists of the following fields:
-	EventLog *EventLogObservation `json:"eventLog,omitempty" tf:"event_log,omitempty"`
+	EventLog []EventLogObservation `json:"eventLog,omitempty" tf:"event_log,omitempty"`
 
 	ExpectedLastModified *float64 `json:"expectedLastModified,omitempty" tf:"expected_last_modified,omitempty"`
 
 	// Filters on which Pipeline packages to include in the deployed graph.  This block consists of following attributes:
-	Filters *FiltersObservation `json:"filters,omitempty" tf:"filters,omitempty"`
+	Filters []FiltersObservation `json:"filters,omitempty" tf:"filters,omitempty"`
 
 	// The definition of a gateway pipeline to support CDC. Consists of following attributes:
-	GatewayDefinition *GatewayDefinitionObservation `json:"gatewayDefinition,omitempty" tf:"gateway_definition,omitempty"`
+	GatewayDefinition []GatewayDefinitionObservation `json:"gatewayDefinition,omitempty" tf:"gateway_definition,omitempty"`
 
 	Health *string `json:"health,omitempty" tf:"health,omitempty"`
 
 	// Canonical unique identifier of the Lakeflow Declarative Pipeline.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
-	IngestionDefinition *IngestionDefinitionObservation `json:"ingestionDefinition,omitempty" tf:"ingestion_definition,omitempty"`
+	IngestionDefinition []IngestionDefinitionObservation `json:"ingestionDefinition,omitempty" tf:"ingestion_definition,omitempty"`
 
 	LastModified *float64 `json:"lastModified,omitempty" tf:"last_modified,omitempty"`
 
@@ -1555,12 +1555,12 @@ type PipelineObservation struct {
 	// A flag indicating whether to use Photon engine. The default value is false.
 	Photon *bool `json:"photon,omitempty" tf:"photon,omitempty"`
 
-	RestartWindow *RestartWindowObservation `json:"restartWindow,omitempty" tf:"restart_window,omitempty"`
+	RestartWindow []RestartWindowObservation `json:"restartWindow,omitempty" tf:"restart_window,omitempty"`
 
 	// An optional string specifying the root path for this pipeline. This is used as the root directory when editing the pipeline in the Databricks user interface and it is added to sys.path when executing Python sources during pipeline execution.
 	RootPath *string `json:"rootPath,omitempty" tf:"root_path,omitempty"`
 
-	RunAs *PipelineRunAsObservation `json:"runAs,omitempty" tf:"run_as,omitempty"`
+	RunAs []PipelineRunAsObservation `json:"runAs,omitempty" tf:"run_as,omitempty"`
 
 	// A user-friendly name for this pipeline. The name can be used to identify pipeline jobs in the UI.
 	RunAsUserName *string `json:"runAsUserName,omitempty" tf:"run_as_user_name,omitempty"`
@@ -1583,7 +1583,7 @@ type PipelineObservation struct {
 	// The name of a database (in either the Hive metastore or in a UC catalog) for persisting pipeline output data. Configuring the target setting allows you to view and query the pipeline output data from the Databricks UI.
 	Target *string `json:"target,omitempty" tf:"target,omitempty"`
 
-	Trigger *PipelineTriggerObservation `json:"trigger,omitempty" tf:"trigger,omitempty"`
+	Trigger []PipelineTriggerObservation `json:"trigger,omitempty" tf:"trigger,omitempty"`
 
 	// URL of the Lakeflow Declarative Pipeline on the given workspace.
 	URL *string `json:"url,omitempty" tf:"url,omitempty"`
@@ -1633,7 +1633,7 @@ type PipelineParameters struct {
 
 	// Deployment type of this pipeline. Supports following attributes:
 	// +kubebuilder:validation:Optional
-	Deployment *PipelineDeploymentParameters `json:"deployment,omitempty" tf:"deployment,omitempty"`
+	Deployment []PipelineDeploymentParameters `json:"deployment,omitempty" tf:"deployment,omitempty"`
 
 	// A flag indicating whether to run the pipeline in development mode. The default value is false.
 	// +kubebuilder:validation:Optional
@@ -1644,28 +1644,28 @@ type PipelineParameters struct {
 	Edition *string `json:"edition,omitempty" tf:"edition,omitempty"`
 
 	// +kubebuilder:validation:Optional
-	Environment *PipelineEnvironmentParameters `json:"environment,omitempty" tf:"environment,omitempty"`
+	Environment []PipelineEnvironmentParameters `json:"environment,omitempty" tf:"environment,omitempty"`
 
 	// an optional block specifying a table where LDP Event Log will be stored.  Consists of the following fields:
 	// +kubebuilder:validation:Optional
-	EventLog *EventLogParameters `json:"eventLog,omitempty" tf:"event_log,omitempty"`
+	EventLog []EventLogParameters `json:"eventLog,omitempty" tf:"event_log,omitempty"`
 
 	// +kubebuilder:validation:Optional
 	ExpectedLastModified *float64 `json:"expectedLastModified,omitempty" tf:"expected_last_modified,omitempty"`
 
 	// Filters on which Pipeline packages to include in the deployed graph.  This block consists of following attributes:
 	// +kubebuilder:validation:Optional
-	Filters *FiltersParameters `json:"filters,omitempty" tf:"filters,omitempty"`
+	Filters []FiltersParameters `json:"filters,omitempty" tf:"filters,omitempty"`
 
 	// The definition of a gateway pipeline to support CDC. Consists of following attributes:
 	// +kubebuilder:validation:Optional
-	GatewayDefinition *GatewayDefinitionParameters `json:"gatewayDefinition,omitempty" tf:"gateway_definition,omitempty"`
+	GatewayDefinition []GatewayDefinitionParameters `json:"gatewayDefinition,omitempty" tf:"gateway_definition,omitempty"`
 
 	// +kubebuilder:validation:Optional
 	Health *string `json:"health,omitempty" tf:"health,omitempty"`
 
 	// +kubebuilder:validation:Optional
-	IngestionDefinition *IngestionDefinitionParameters `json:"ingestionDefinition,omitempty" tf:"ingestion_definition,omitempty"`
+	IngestionDefinition []IngestionDefinitionParameters `json:"ingestionDefinition,omitempty" tf:"ingestion_definition,omitempty"`
 
 	// +kubebuilder:validation:Optional
 	LastModified *float64 `json:"lastModified,omitempty" tf:"last_modified,omitempty"`
@@ -1689,14 +1689,14 @@ type PipelineParameters struct {
 	Photon *bool `json:"photon,omitempty" tf:"photon,omitempty"`
 
 	// +kubebuilder:validation:Optional
-	RestartWindow *RestartWindowParameters `json:"restartWindow,omitempty" tf:"restart_window,omitempty"`
+	RestartWindow []RestartWindowParameters `json:"restartWindow,omitempty" tf:"restart_window,omitempty"`
 
 	// An optional string specifying the root path for this pipeline. This is used as the root directory when editing the pipeline in the Databricks user interface and it is added to sys.path when executing Python sources during pipeline execution.
 	// +kubebuilder:validation:Optional
 	RootPath *string `json:"rootPath,omitempty" tf:"root_path,omitempty"`
 
 	// +kubebuilder:validation:Optional
-	RunAs *PipelineRunAsParameters `json:"runAs,omitempty" tf:"run_as,omitempty"`
+	RunAs []PipelineRunAsParameters `json:"runAs,omitempty" tf:"run_as,omitempty"`
 
 	// A user-friendly name for this pipeline. The name can be used to identify pipeline jobs in the UI.
 	// +kubebuilder:validation:Optional
@@ -1727,7 +1727,7 @@ type PipelineParameters struct {
 	Target *string `json:"target,omitempty" tf:"target,omitempty"`
 
 	// +kubebuilder:validation:Optional
-	Trigger *PipelineTriggerParameters `json:"trigger,omitempty" tf:"trigger,omitempty"`
+	Trigger []PipelineTriggerParameters `json:"trigger,omitempty" tf:"trigger,omitempty"`
 
 	// URL of the Lakeflow Declarative Pipeline on the given workspace.
 	// +kubebuilder:validation:Optional
@@ -1764,24 +1764,24 @@ type PipelineRunAsParameters struct {
 }
 
 type PipelineTriggerInitParameters struct {
-	Cron *CronInitParameters `json:"cron,omitempty" tf:"cron,omitempty"`
+	Cron []CronInitParameters `json:"cron,omitempty" tf:"cron,omitempty"`
 
-	Manual *ManualInitParameters `json:"manual,omitempty" tf:"manual,omitempty"`
+	Manual []ManualInitParameters `json:"manual,omitempty" tf:"manual,omitempty"`
 }
 
 type PipelineTriggerObservation struct {
-	Cron *CronObservation `json:"cron,omitempty" tf:"cron,omitempty"`
+	Cron []CronObservation `json:"cron,omitempty" tf:"cron,omitempty"`
 
-	Manual *ManualParameters `json:"manual,omitempty" tf:"manual,omitempty"`
+	Manual []ManualParameters `json:"manual,omitempty" tf:"manual,omitempty"`
 }
 
 type PipelineTriggerParameters struct {
 
 	// +kubebuilder:validation:Optional
-	Cron *CronParameters `json:"cron,omitempty" tf:"cron,omitempty"`
+	Cron []CronParameters `json:"cron,omitempty" tf:"cron,omitempty"`
 
 	// +kubebuilder:validation:Optional
-	Manual *ManualParameters `json:"manual,omitempty" tf:"manual,omitempty"`
+	Manual []ManualParameters `json:"manual,omitempty" tf:"manual,omitempty"`
 }
 
 type QueryBasedConnectorConfigInitParameters struct {
@@ -1826,7 +1826,7 @@ type ReportInitParameters struct {
 	SourceURL *string `json:"sourceUrl,omitempty" tf:"source_url,omitempty"`
 
 	// Configuration settings to control the ingestion of tables. These settings are applied to all tables in the pipeline.
-	TableConfiguration *TableConfigurationInitParameters `json:"tableConfiguration,omitempty" tf:"table_configuration,omitempty"`
+	TableConfiguration []TableConfigurationInitParameters `json:"tableConfiguration,omitempty" tf:"table_configuration,omitempty"`
 }
 
 type ReportObservation struct {
@@ -1843,7 +1843,7 @@ type ReportObservation struct {
 	SourceURL *string `json:"sourceUrl,omitempty" tf:"source_url,omitempty"`
 
 	// Configuration settings to control the ingestion of tables. These settings are applied to all tables in the pipeline.
-	TableConfiguration *TableConfigurationObservation `json:"tableConfiguration,omitempty" tf:"table_configuration,omitempty"`
+	TableConfiguration []TableConfigurationObservation `json:"tableConfiguration,omitempty" tf:"table_configuration,omitempty"`
 }
 
 type ReportParameters struct {
@@ -1865,7 +1865,7 @@ type ReportParameters struct {
 
 	// Configuration settings to control the ingestion of tables. These settings are applied to all tables in the pipeline.
 	// +kubebuilder:validation:Optional
-	TableConfiguration *TableConfigurationParameters `json:"tableConfiguration,omitempty" tf:"table_configuration,omitempty"`
+	TableConfiguration []TableConfigurationParameters `json:"tableConfiguration,omitempty" tf:"table_configuration,omitempty"`
 }
 
 type RestartWindowInitParameters struct {
@@ -1914,7 +1914,7 @@ type SchemaInitParameters struct {
 	SourceSchema *string `json:"sourceSchema,omitempty" tf:"source_schema,omitempty"`
 
 	// Configuration settings to control the ingestion of tables. These settings are applied to all tables in the pipeline.
-	TableConfiguration *SchemaTableConfigurationInitParameters `json:"tableConfiguration,omitempty" tf:"table_configuration,omitempty"`
+	TableConfiguration []SchemaTableConfigurationInitParameters `json:"tableConfiguration,omitempty" tf:"table_configuration,omitempty"`
 }
 
 type SchemaObservation struct {
@@ -1932,7 +1932,7 @@ type SchemaObservation struct {
 	SourceSchema *string `json:"sourceSchema,omitempty" tf:"source_schema,omitempty"`
 
 	// Configuration settings to control the ingestion of tables. These settings are applied to all tables in the pipeline.
-	TableConfiguration *SchemaTableConfigurationObservation `json:"tableConfiguration,omitempty" tf:"table_configuration,omitempty"`
+	TableConfiguration []SchemaTableConfigurationObservation `json:"tableConfiguration,omitempty" tf:"table_configuration,omitempty"`
 }
 
 type SchemaParameters struct {
@@ -1955,7 +1955,7 @@ type SchemaParameters struct {
 
 	// Configuration settings to control the ingestion of tables. These settings are applied to all tables in the pipeline.
 	// +kubebuilder:validation:Optional
-	TableConfiguration *SchemaTableConfigurationParameters `json:"tableConfiguration,omitempty" tf:"table_configuration,omitempty"`
+	TableConfiguration []SchemaTableConfigurationParameters `json:"tableConfiguration,omitempty" tf:"table_configuration,omitempty"`
 }
 
 type SchemaTableConfigurationInitParameters struct {
@@ -1965,7 +1965,7 @@ type SchemaTableConfigurationInitParameters struct {
 
 	PrimaryKeys []*string `json:"primaryKeys,omitempty" tf:"primary_keys,omitempty"`
 
-	QueryBasedConnectorConfig *TableConfigurationQueryBasedConnectorConfigInitParameters `json:"queryBasedConnectorConfig,omitempty" tf:"query_based_connector_config,omitempty"`
+	QueryBasedConnectorConfig []TableConfigurationQueryBasedConnectorConfigInitParameters `json:"queryBasedConnectorConfig,omitempty" tf:"query_based_connector_config,omitempty"`
 
 	SalesforceIncludeFormulaFields *bool `json:"salesforceIncludeFormulaFields,omitempty" tf:"salesforce_include_formula_fields,omitempty"`
 
@@ -1981,7 +1981,7 @@ type SchemaTableConfigurationObservation struct {
 
 	PrimaryKeys []*string `json:"primaryKeys,omitempty" tf:"primary_keys,omitempty"`
 
-	QueryBasedConnectorConfig *TableConfigurationQueryBasedConnectorConfigObservation `json:"queryBasedConnectorConfig,omitempty" tf:"query_based_connector_config,omitempty"`
+	QueryBasedConnectorConfig []TableConfigurationQueryBasedConnectorConfigObservation `json:"queryBasedConnectorConfig,omitempty" tf:"query_based_connector_config,omitempty"`
 
 	SalesforceIncludeFormulaFields *bool `json:"salesforceIncludeFormulaFields,omitempty" tf:"salesforce_include_formula_fields,omitempty"`
 
@@ -2002,7 +2002,7 @@ type SchemaTableConfigurationParameters struct {
 	PrimaryKeys []*string `json:"primaryKeys,omitempty" tf:"primary_keys,omitempty"`
 
 	// +kubebuilder:validation:Optional
-	QueryBasedConnectorConfig *TableConfigurationQueryBasedConnectorConfigParameters `json:"queryBasedConnectorConfig,omitempty" tf:"query_based_connector_config,omitempty"`
+	QueryBasedConnectorConfig []TableConfigurationQueryBasedConnectorConfigParameters `json:"queryBasedConnectorConfig,omitempty" tf:"query_based_connector_config,omitempty"`
 
 	// +kubebuilder:validation:Optional
 	SalesforceIncludeFormulaFields *bool `json:"salesforceIncludeFormulaFields,omitempty" tf:"salesforce_include_formula_fields,omitempty"`
@@ -2021,7 +2021,7 @@ type TableConfigurationInitParameters struct {
 
 	PrimaryKeys []*string `json:"primaryKeys,omitempty" tf:"primary_keys,omitempty"`
 
-	QueryBasedConnectorConfig *QueryBasedConnectorConfigInitParameters `json:"queryBasedConnectorConfig,omitempty" tf:"query_based_connector_config,omitempty"`
+	QueryBasedConnectorConfig []QueryBasedConnectorConfigInitParameters `json:"queryBasedConnectorConfig,omitempty" tf:"query_based_connector_config,omitempty"`
 
 	SalesforceIncludeFormulaFields *bool `json:"salesforceIncludeFormulaFields,omitempty" tf:"salesforce_include_formula_fields,omitempty"`
 
@@ -2037,7 +2037,7 @@ type TableConfigurationObservation struct {
 
 	PrimaryKeys []*string `json:"primaryKeys,omitempty" tf:"primary_keys,omitempty"`
 
-	QueryBasedConnectorConfig *QueryBasedConnectorConfigObservation `json:"queryBasedConnectorConfig,omitempty" tf:"query_based_connector_config,omitempty"`
+	QueryBasedConnectorConfig []QueryBasedConnectorConfigObservation `json:"queryBasedConnectorConfig,omitempty" tf:"query_based_connector_config,omitempty"`
 
 	SalesforceIncludeFormulaFields *bool `json:"salesforceIncludeFormulaFields,omitempty" tf:"salesforce_include_formula_fields,omitempty"`
 
@@ -2058,7 +2058,7 @@ type TableConfigurationParameters struct {
 	PrimaryKeys []*string `json:"primaryKeys,omitempty" tf:"primary_keys,omitempty"`
 
 	// +kubebuilder:validation:Optional
-	QueryBasedConnectorConfig *QueryBasedConnectorConfigParameters `json:"queryBasedConnectorConfig,omitempty" tf:"query_based_connector_config,omitempty"`
+	QueryBasedConnectorConfig []QueryBasedConnectorConfigParameters `json:"queryBasedConnectorConfig,omitempty" tf:"query_based_connector_config,omitempty"`
 
 	// +kubebuilder:validation:Optional
 	SalesforceIncludeFormulaFields *bool `json:"salesforceIncludeFormulaFields,omitempty" tf:"salesforce_include_formula_fields,omitempty"`
@@ -2105,7 +2105,7 @@ type TableTableConfigurationInitParameters struct {
 
 	PrimaryKeys []*string `json:"primaryKeys,omitempty" tf:"primary_keys,omitempty"`
 
-	QueryBasedConnectorConfig *TableTableConfigurationQueryBasedConnectorConfigInitParameters `json:"queryBasedConnectorConfig,omitempty" tf:"query_based_connector_config,omitempty"`
+	QueryBasedConnectorConfig []TableTableConfigurationQueryBasedConnectorConfigInitParameters `json:"queryBasedConnectorConfig,omitempty" tf:"query_based_connector_config,omitempty"`
 
 	SalesforceIncludeFormulaFields *bool `json:"salesforceIncludeFormulaFields,omitempty" tf:"salesforce_include_formula_fields,omitempty"`
 
@@ -2121,7 +2121,7 @@ type TableTableConfigurationObservation struct {
 
 	PrimaryKeys []*string `json:"primaryKeys,omitempty" tf:"primary_keys,omitempty"`
 
-	QueryBasedConnectorConfig *TableTableConfigurationQueryBasedConnectorConfigObservation `json:"queryBasedConnectorConfig,omitempty" tf:"query_based_connector_config,omitempty"`
+	QueryBasedConnectorConfig []TableTableConfigurationQueryBasedConnectorConfigObservation `json:"queryBasedConnectorConfig,omitempty" tf:"query_based_connector_config,omitempty"`
 
 	SalesforceIncludeFormulaFields *bool `json:"salesforceIncludeFormulaFields,omitempty" tf:"salesforce_include_formula_fields,omitempty"`
 
@@ -2142,7 +2142,7 @@ type TableTableConfigurationParameters struct {
 	PrimaryKeys []*string `json:"primaryKeys,omitempty" tf:"primary_keys,omitempty"`
 
 	// +kubebuilder:validation:Optional
-	QueryBasedConnectorConfig *TableTableConfigurationQueryBasedConnectorConfigParameters `json:"queryBasedConnectorConfig,omitempty" tf:"query_based_connector_config,omitempty"`
+	QueryBasedConnectorConfig []TableTableConfigurationQueryBasedConnectorConfigParameters `json:"queryBasedConnectorConfig,omitempty" tf:"query_based_connector_config,omitempty"`
 
 	// +kubebuilder:validation:Optional
 	SalesforceIncludeFormulaFields *bool `json:"salesforceIncludeFormulaFields,omitempty" tf:"salesforce_include_formula_fields,omitempty"`

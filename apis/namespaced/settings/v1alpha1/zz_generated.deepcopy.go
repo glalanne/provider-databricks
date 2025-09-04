@@ -137,8 +137,10 @@ func (in *ComplianceSecurityProfileWorkspaceSettingInitParameters) DeepCopyInto(
 	*out = *in
 	if in.ComplianceSecurityProfileWorkspace != nil {
 		in, out := &in.ComplianceSecurityProfileWorkspace, &out.ComplianceSecurityProfileWorkspace
-		*out = new(ComplianceSecurityProfileWorkspaceInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]ComplianceSecurityProfileWorkspaceInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Etag != nil {
 		in, out := &in.Etag, &out.Etag
@@ -199,8 +201,10 @@ func (in *ComplianceSecurityProfileWorkspaceSettingObservation) DeepCopyInto(out
 	*out = *in
 	if in.ComplianceSecurityProfileWorkspace != nil {
 		in, out := &in.ComplianceSecurityProfileWorkspace, &out.ComplianceSecurityProfileWorkspace
-		*out = new(ComplianceSecurityProfileWorkspaceObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]ComplianceSecurityProfileWorkspaceObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Etag != nil {
 		in, out := &in.Etag, &out.Etag
@@ -234,8 +238,10 @@ func (in *ComplianceSecurityProfileWorkspaceSettingParameters) DeepCopyInto(out 
 	*out = *in
 	if in.ComplianceSecurityProfileWorkspace != nil {
 		in, out := &in.ComplianceSecurityProfileWorkspace, &out.ComplianceSecurityProfileWorkspace
-		*out = new(ComplianceSecurityProfileWorkspaceParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]ComplianceSecurityProfileWorkspaceParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Etag != nil {
 		in, out := &in.Etag, &out.Etag
@@ -331,8 +337,10 @@ func (in *DefaultNamespaceSettingInitParameters) DeepCopyInto(out *DefaultNamesp
 	}
 	if in.Namespace != nil {
 		in, out := &in.Namespace, &out.Namespace
-		*out = new(NamespaceInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]NamespaceInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.SettingName != nil {
 		in, out := &in.SettingName, &out.SettingName
@@ -398,8 +406,10 @@ func (in *DefaultNamespaceSettingObservation) DeepCopyInto(out *DefaultNamespace
 	}
 	if in.Namespace != nil {
 		in, out := &in.Namespace, &out.Namespace
-		*out = new(NamespaceObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]NamespaceObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.SettingName != nil {
 		in, out := &in.SettingName, &out.SettingName
@@ -428,8 +438,10 @@ func (in *DefaultNamespaceSettingParameters) DeepCopyInto(out *DefaultNamespaceS
 	}
 	if in.Namespace != nil {
 		in, out := &in.Namespace, &out.Namespace
-		*out = new(NamespaceParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]NamespaceParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.SettingName != nil {
 		in, out := &in.SettingName, &out.SettingName
@@ -575,8 +587,10 @@ func (in *EnhancedSecurityMonitoringWorkspaceSettingInitParameters) DeepCopyInto
 	*out = *in
 	if in.EnhancedSecurityMonitoringWorkspace != nil {
 		in, out := &in.EnhancedSecurityMonitoringWorkspace, &out.EnhancedSecurityMonitoringWorkspace
-		*out = new(EnhancedSecurityMonitoringWorkspaceInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]EnhancedSecurityMonitoringWorkspaceInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Etag != nil {
 		in, out := &in.Etag, &out.Etag
@@ -637,8 +651,10 @@ func (in *EnhancedSecurityMonitoringWorkspaceSettingObservation) DeepCopyInto(ou
 	*out = *in
 	if in.EnhancedSecurityMonitoringWorkspace != nil {
 		in, out := &in.EnhancedSecurityMonitoringWorkspace, &out.EnhancedSecurityMonitoringWorkspace
-		*out = new(EnhancedSecurityMonitoringWorkspaceObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]EnhancedSecurityMonitoringWorkspaceObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Etag != nil {
 		in, out := &in.Etag, &out.Etag
@@ -672,8 +688,10 @@ func (in *EnhancedSecurityMonitoringWorkspaceSettingParameters) DeepCopyInto(out
 	*out = *in
 	if in.EnhancedSecurityMonitoringWorkspace != nil {
 		in, out := &in.EnhancedSecurityMonitoringWorkspace, &out.EnhancedSecurityMonitoringWorkspace
-		*out = new(EnhancedSecurityMonitoringWorkspaceParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]EnhancedSecurityMonitoringWorkspaceParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Etag != nil {
 		in, out := &in.Etag, &out.Etag
@@ -889,8 +907,10 @@ func (in *RestrictWorkspaceAdminsSettingInitParameters) DeepCopyInto(out *Restri
 	}
 	if in.RestrictWorkspaceAdmins != nil {
 		in, out := &in.RestrictWorkspaceAdmins, &out.RestrictWorkspaceAdmins
-		*out = new(RestrictWorkspaceAdminsInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]RestrictWorkspaceAdminsInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.SettingName != nil {
 		in, out := &in.SettingName, &out.SettingName
@@ -956,8 +976,10 @@ func (in *RestrictWorkspaceAdminsSettingObservation) DeepCopyInto(out *RestrictW
 	}
 	if in.RestrictWorkspaceAdmins != nil {
 		in, out := &in.RestrictWorkspaceAdmins, &out.RestrictWorkspaceAdmins
-		*out = new(RestrictWorkspaceAdminsObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]RestrictWorkspaceAdminsObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.SettingName != nil {
 		in, out := &in.SettingName, &out.SettingName
@@ -986,8 +1008,10 @@ func (in *RestrictWorkspaceAdminsSettingParameters) DeepCopyInto(out *RestrictWo
 	}
 	if in.RestrictWorkspaceAdmins != nil {
 		in, out := &in.RestrictWorkspaceAdmins, &out.RestrictWorkspaceAdmins
-		*out = new(RestrictWorkspaceAdminsParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]RestrictWorkspaceAdminsParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.SettingName != nil {
 		in, out := &in.SettingName, &out.SettingName

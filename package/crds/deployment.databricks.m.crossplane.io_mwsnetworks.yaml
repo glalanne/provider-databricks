@@ -86,25 +86,27 @@ spec:
                     description: '(GCP only) a block consists of Google Cloud specific
                       information for this network, for example the VPC ID, subnet
                       ID, and secondary IP ranges. It has the following fields:'
-                    properties:
-                      networkProjectId:
-                        description: The Google Cloud project ID of the VPC network.
-                        type: string
-                      podIpRangeName:
-                        type: string
-                      serviceIpRangeName:
-                        type: string
-                      subnetId:
-                        description: The ID of the subnet associated with this network.
-                        type: string
-                      subnetRegion:
-                        description: The Google Cloud region of the workspace data
-                          plane. For example, us-east4.
-                        type: string
-                      vpcId:
-                        description: (AWS only) aws_vpc id
-                        type: string
-                    type: object
+                    items:
+                      properties:
+                        networkProjectId:
+                          description: The Google Cloud project ID of the VPC network.
+                          type: string
+                        podIpRangeName:
+                          type: string
+                        serviceIpRangeName:
+                          type: string
+                        subnetId:
+                          description: The ID of the subnet associated with this network.
+                          type: string
+                        subnetRegion:
+                          description: The Google Cloud region of the workspace data
+                            plane. For example, us-east4.
+                          type: string
+                        vpcId:
+                          description: (AWS only) aws_vpc id
+                          type: string
+                      type: object
+                    type: array
                   networkId:
                     description: (String) id of network to be used for databricks_mws_workspaces
                       resource.
@@ -127,26 +129,74 @@ spec:
                   vpcEndpoints:
                     description: mapping of databricks_mws_vpc_endpoint for PrivateLink
                       or Private Service Connect connections
-                    properties:
-                      dataplaneRelay:
-                        items:
-                          type: string
-                        type: array
-                        x-kubernetes-list-type: set
-                      dataplaneRelayRefs:
-                        description: References to MwsVPCEndpoint in deployment to
-                          populate dataplaneRelay.
-                        items:
-                          description: A NamespacedReference to a named object.
+                    items:
+                      properties:
+                        dataplaneRelay:
+                          items:
+                            type: string
+                          type: array
+                          x-kubernetes-list-type: set
+                        dataplaneRelayRefs:
+                          description: References to MwsVPCEndpoint in deployment
+                            to populate dataplaneRelay.
+                          items:
+                            description: A NamespacedReference to a named object.
+                            properties:
+                              name:
+                                description: Name of the referenced object.
+                                type: string
+                              namespace:
+                                description: Namespace of the referenced object
+                                type: string
+                              policy:
+                                description: Policies for referencing.
+                                properties:
+                                  resolution:
+                                    default: Required
+                                    description: |-
+                                      Resolution specifies whether resolution of this reference is required.
+                                      The default is 'Required', which means the reconcile will fail if the
+                                      reference cannot be resolved. 'Optional' means this reference will be
+                                      a no-op if it cannot be resolved.
+                                    enum:
+                                    - Required
+                                    - Optional
+                                    type: string
+                                  resolve:
+                                    description: |-
+                                      Resolve specifies when this reference should be resolved. The default
+                                      is 'IfNotPresent', which will attempt to resolve the reference only when
+                                      the corresponding field is not present. Use 'Always' to resolve the
+                                      reference on every reconcile.
+                                    enum:
+                                    - Always
+                                    - IfNotPresent
+                                    type: string
+                                type: object
+                            required:
+                            - name
+                            type: object
+                          type: array
+                        dataplaneRelaySelector:
+                          description: Selector for a list of MwsVPCEndpoint in deployment
+                            to populate dataplaneRelay.
                           properties:
-                            name:
-                              description: Name of the referenced object.
-                              type: string
+                            matchControllerRef:
+                              description: |-
+                                MatchControllerRef ensures an object with the same controller reference
+                                as the selecting object is selected.
+                              type: boolean
+                            matchLabels:
+                              additionalProperties:
+                                type: string
+                              description: MatchLabels ensures an object with matching
+                                labels is selected.
+                              type: object
                             namespace:
-                              description: Namespace of the referenced object
+                              description: Namespace for the selector
                               type: string
                             policy:
-                              description: Policies for referencing.
+                              description: Policies for selection.
                               properties:
                                 resolution:
                                   default: Required
@@ -170,73 +220,73 @@ spec:
                                   - IfNotPresent
                                   type: string
                               type: object
-                          required:
-                          - name
                           type: object
-                        type: array
-                      dataplaneRelaySelector:
-                        description: Selector for a list of MwsVPCEndpoint in deployment
-                          to populate dataplaneRelay.
-                        properties:
-                          matchControllerRef:
-                            description: |-
-                              MatchControllerRef ensures an object with the same controller reference
-                              as the selecting object is selected.
-                            type: boolean
-                          matchLabels:
-                            additionalProperties:
-                              type: string
-                            description: MatchLabels ensures an object with matching
-                              labels is selected.
-                            type: object
-                          namespace:
-                            description: Namespace for the selector
+                        restApi:
+                          items:
                             type: string
-                          policy:
-                            description: Policies for selection.
+                          type: array
+                          x-kubernetes-list-type: set
+                        restApiRefs:
+                          description: References to MwsVPCEndpoint in deployment
+                            to populate restApi.
+                          items:
+                            description: A NamespacedReference to a named object.
                             properties:
-                              resolution:
-                                default: Required
-                                description: |-
-                                  Resolution specifies whether resolution of this reference is required.
-                                  The default is 'Required', which means the reconcile will fail if the
-                                  reference cannot be resolved. 'Optional' means this reference will be
-                                  a no-op if it cannot be resolved.
-                                enum:
-                                - Required
-                                - Optional
+                              name:
+                                description: Name of the referenced object.
                                 type: string
-                              resolve:
-                                description: |-
-                                  Resolve specifies when this reference should be resolved. The default
-                                  is 'IfNotPresent', which will attempt to resolve the reference only when
-                                  the corresponding field is not present. Use 'Always' to resolve the
-                                  reference on every reconcile.
-                                enum:
-                                - Always
-                                - IfNotPresent
+                              namespace:
+                                description: Namespace of the referenced object
                                 type: string
+                              policy:
+                                description: Policies for referencing.
+                                properties:
+                                  resolution:
+                                    default: Required
+                                    description: |-
+                                      Resolution specifies whether resolution of this reference is required.
+                                      The default is 'Required', which means the reconcile will fail if the
+                                      reference cannot be resolved. 'Optional' means this reference will be
+                                      a no-op if it cannot be resolved.
+                                    enum:
+                                    - Required
+                                    - Optional
+                                    type: string
+                                  resolve:
+                                    description: |-
+                                      Resolve specifies when this reference should be resolved. The default
+                                      is 'IfNotPresent', which will attempt to resolve the reference only when
+                                      the corresponding field is not present. Use 'Always' to resolve the
+                                      reference on every reconcile.
+                                    enum:
+                                    - Always
+                                    - IfNotPresent
+                                    type: string
+                                type: object
+                            required:
+                            - name
                             type: object
-                        type: object
-                      restApi:
-                        items:
-                          type: string
-                        type: array
-                        x-kubernetes-list-type: set
-                      restApiRefs:
-                        description: References to MwsVPCEndpoint in deployment to
-                          populate restApi.
-                        items:
-                          description: A NamespacedReference to a named object.
+                          type: array
+                        restApiSelector:
+                          description: Selector for a list of MwsVPCEndpoint in deployment
+                            to populate restApi.
                           properties:
-                            name:
-                              description: Name of the referenced object.
-                              type: string
+                            matchControllerRef:
+                              description: |-
+                                MatchControllerRef ensures an object with the same controller reference
+                                as the selecting object is selected.
+                              type: boolean
+                            matchLabels:
+                              additionalProperties:
+                                type: string
+                              description: MatchLabels ensures an object with matching
+                                labels is selected.
+                              type: object
                             namespace:
-                              description: Namespace of the referenced object
+                              description: Namespace for the selector
                               type: string
                             policy:
-                              description: Policies for referencing.
+                              description: Policies for selection.
                               properties:
                                 resolution:
                                   default: Required
@@ -260,55 +310,9 @@ spec:
                                   - IfNotPresent
                                   type: string
                               type: object
-                          required:
-                          - name
                           type: object
-                        type: array
-                      restApiSelector:
-                        description: Selector for a list of MwsVPCEndpoint in deployment
-                          to populate restApi.
-                        properties:
-                          matchControllerRef:
-                            description: |-
-                              MatchControllerRef ensures an object with the same controller reference
-                              as the selecting object is selected.
-                            type: boolean
-                          matchLabels:
-                            additionalProperties:
-                              type: string
-                            description: MatchLabels ensures an object with matching
-                              labels is selected.
-                            type: object
-                          namespace:
-                            description: Namespace for the selector
-                            type: string
-                          policy:
-                            description: Policies for selection.
-                            properties:
-                              resolution:
-                                default: Required
-                                description: |-
-                                  Resolution specifies whether resolution of this reference is required.
-                                  The default is 'Required', which means the reconcile will fail if the
-                                  reference cannot be resolved. 'Optional' means this reference will be
-                                  a no-op if it cannot be resolved.
-                                enum:
-                                - Required
-                                - Optional
-                                type: string
-                              resolve:
-                                description: |-
-                                  Resolve specifies when this reference should be resolved. The default
-                                  is 'IfNotPresent', which will attempt to resolve the reference only when
-                                  the corresponding field is not present. Use 'Always' to resolve the
-                                  reference on every reconcile.
-                                enum:
-                                - Always
-                                - IfNotPresent
-                                type: string
-                            type: object
-                        type: object
-                    type: object
+                      type: object
+                    type: array
                   vpcId:
                     description: (AWS only) aws_vpc id
                     type: string
@@ -360,25 +364,27 @@ spec:
                     description: '(GCP only) a block consists of Google Cloud specific
                       information for this network, for example the VPC ID, subnet
                       ID, and secondary IP ranges. It has the following fields:'
-                    properties:
-                      networkProjectId:
-                        description: The Google Cloud project ID of the VPC network.
-                        type: string
-                      podIpRangeName:
-                        type: string
-                      serviceIpRangeName:
-                        type: string
-                      subnetId:
-                        description: The ID of the subnet associated with this network.
-                        type: string
-                      subnetRegion:
-                        description: The Google Cloud region of the workspace data
-                          plane. For example, us-east4.
-                        type: string
-                      vpcId:
-                        description: (AWS only) aws_vpc id
-                        type: string
-                    type: object
+                    items:
+                      properties:
+                        networkProjectId:
+                          description: The Google Cloud project ID of the VPC network.
+                          type: string
+                        podIpRangeName:
+                          type: string
+                        serviceIpRangeName:
+                          type: string
+                        subnetId:
+                          description: The ID of the subnet associated with this network.
+                          type: string
+                        subnetRegion:
+                          description: The Google Cloud region of the workspace data
+                            plane. For example, us-east4.
+                          type: string
+                        vpcId:
+                          description: (AWS only) aws_vpc id
+                          type: string
+                      type: object
+                    type: array
                   networkId:
                     description: (String) id of network to be used for databricks_mws_workspaces
                       resource.
@@ -401,26 +407,74 @@ spec:
                   vpcEndpoints:
                     description: mapping of databricks_mws_vpc_endpoint for PrivateLink
                       or Private Service Connect connections
-                    properties:
-                      dataplaneRelay:
-                        items:
-                          type: string
-                        type: array
-                        x-kubernetes-list-type: set
-                      dataplaneRelayRefs:
-                        description: References to MwsVPCEndpoint in deployment to
-                          populate dataplaneRelay.
-                        items:
-                          description: A NamespacedReference to a named object.
+                    items:
+                      properties:
+                        dataplaneRelay:
+                          items:
+                            type: string
+                          type: array
+                          x-kubernetes-list-type: set
+                        dataplaneRelayRefs:
+                          description: References to MwsVPCEndpoint in deployment
+                            to populate dataplaneRelay.
+                          items:
+                            description: A NamespacedReference to a named object.
+                            properties:
+                              name:
+                                description: Name of the referenced object.
+                                type: string
+                              namespace:
+                                description: Namespace of the referenced object
+                                type: string
+                              policy:
+                                description: Policies for referencing.
+                                properties:
+                                  resolution:
+                                    default: Required
+                                    description: |-
+                                      Resolution specifies whether resolution of this reference is required.
+                                      The default is 'Required', which means the reconcile will fail if the
+                                      reference cannot be resolved. 'Optional' means this reference will be
+                                      a no-op if it cannot be resolved.
+                                    enum:
+                                    - Required
+                                    - Optional
+                                    type: string
+                                  resolve:
+                                    description: |-
+                                      Resolve specifies when this reference should be resolved. The default
+                                      is 'IfNotPresent', which will attempt to resolve the reference only when
+                                      the corresponding field is not present. Use 'Always' to resolve the
+                                      reference on every reconcile.
+                                    enum:
+                                    - Always
+                                    - IfNotPresent
+                                    type: string
+                                type: object
+                            required:
+                            - name
+                            type: object
+                          type: array
+                        dataplaneRelaySelector:
+                          description: Selector for a list of MwsVPCEndpoint in deployment
+                            to populate dataplaneRelay.
                           properties:
-                            name:
-                              description: Name of the referenced object.
-                              type: string
+                            matchControllerRef:
+                              description: |-
+                                MatchControllerRef ensures an object with the same controller reference
+                                as the selecting object is selected.
+                              type: boolean
+                            matchLabels:
+                              additionalProperties:
+                                type: string
+                              description: MatchLabels ensures an object with matching
+                                labels is selected.
+                              type: object
                             namespace:
-                              description: Namespace of the referenced object
+                              description: Namespace for the selector
                               type: string
                             policy:
-                              description: Policies for referencing.
+                              description: Policies for selection.
                               properties:
                                 resolution:
                                   default: Required
@@ -444,73 +498,73 @@ spec:
                                   - IfNotPresent
                                   type: string
                               type: object
-                          required:
-                          - name
                           type: object
-                        type: array
-                      dataplaneRelaySelector:
-                        description: Selector for a list of MwsVPCEndpoint in deployment
-                          to populate dataplaneRelay.
-                        properties:
-                          matchControllerRef:
-                            description: |-
-                              MatchControllerRef ensures an object with the same controller reference
-                              as the selecting object is selected.
-                            type: boolean
-                          matchLabels:
-                            additionalProperties:
-                              type: string
-                            description: MatchLabels ensures an object with matching
-                              labels is selected.
-                            type: object
-                          namespace:
-                            description: Namespace for the selector
+                        restApi:
+                          items:
                             type: string
-                          policy:
-                            description: Policies for selection.
+                          type: array
+                          x-kubernetes-list-type: set
+                        restApiRefs:
+                          description: References to MwsVPCEndpoint in deployment
+                            to populate restApi.
+                          items:
+                            description: A NamespacedReference to a named object.
                             properties:
-                              resolution:
-                                default: Required
-                                description: |-
-                                  Resolution specifies whether resolution of this reference is required.
-                                  The default is 'Required', which means the reconcile will fail if the
-                                  reference cannot be resolved. 'Optional' means this reference will be
-                                  a no-op if it cannot be resolved.
-                                enum:
-                                - Required
-                                - Optional
+                              name:
+                                description: Name of the referenced object.
                                 type: string
-                              resolve:
-                                description: |-
-                                  Resolve specifies when this reference should be resolved. The default
-                                  is 'IfNotPresent', which will attempt to resolve the reference only when
-                                  the corresponding field is not present. Use 'Always' to resolve the
-                                  reference on every reconcile.
-                                enum:
-                                - Always
-                                - IfNotPresent
+                              namespace:
+                                description: Namespace of the referenced object
                                 type: string
+                              policy:
+                                description: Policies for referencing.
+                                properties:
+                                  resolution:
+                                    default: Required
+                                    description: |-
+                                      Resolution specifies whether resolution of this reference is required.
+                                      The default is 'Required', which means the reconcile will fail if the
+                                      reference cannot be resolved. 'Optional' means this reference will be
+                                      a no-op if it cannot be resolved.
+                                    enum:
+                                    - Required
+                                    - Optional
+                                    type: string
+                                  resolve:
+                                    description: |-
+                                      Resolve specifies when this reference should be resolved. The default
+                                      is 'IfNotPresent', which will attempt to resolve the reference only when
+                                      the corresponding field is not present. Use 'Always' to resolve the
+                                      reference on every reconcile.
+                                    enum:
+                                    - Always
+                                    - IfNotPresent
+                                    type: string
+                                type: object
+                            required:
+                            - name
                             type: object
-                        type: object
-                      restApi:
-                        items:
-                          type: string
-                        type: array
-                        x-kubernetes-list-type: set
-                      restApiRefs:
-                        description: References to MwsVPCEndpoint in deployment to
-                          populate restApi.
-                        items:
-                          description: A NamespacedReference to a named object.
+                          type: array
+                        restApiSelector:
+                          description: Selector for a list of MwsVPCEndpoint in deployment
+                            to populate restApi.
                           properties:
-                            name:
-                              description: Name of the referenced object.
-                              type: string
+                            matchControllerRef:
+                              description: |-
+                                MatchControllerRef ensures an object with the same controller reference
+                                as the selecting object is selected.
+                              type: boolean
+                            matchLabels:
+                              additionalProperties:
+                                type: string
+                              description: MatchLabels ensures an object with matching
+                                labels is selected.
+                              type: object
                             namespace:
-                              description: Namespace of the referenced object
+                              description: Namespace for the selector
                               type: string
                             policy:
-                              description: Policies for referencing.
+                              description: Policies for selection.
                               properties:
                                 resolution:
                                   default: Required
@@ -534,55 +588,9 @@ spec:
                                   - IfNotPresent
                                   type: string
                               type: object
-                          required:
-                          - name
                           type: object
-                        type: array
-                      restApiSelector:
-                        description: Selector for a list of MwsVPCEndpoint in deployment
-                          to populate restApi.
-                        properties:
-                          matchControllerRef:
-                            description: |-
-                              MatchControllerRef ensures an object with the same controller reference
-                              as the selecting object is selected.
-                            type: boolean
-                          matchLabels:
-                            additionalProperties:
-                              type: string
-                            description: MatchLabels ensures an object with matching
-                              labels is selected.
-                            type: object
-                          namespace:
-                            description: Namespace for the selector
-                            type: string
-                          policy:
-                            description: Policies for selection.
-                            properties:
-                              resolution:
-                                default: Required
-                                description: |-
-                                  Resolution specifies whether resolution of this reference is required.
-                                  The default is 'Required', which means the reconcile will fail if the
-                                  reference cannot be resolved. 'Optional' means this reference will be
-                                  a no-op if it cannot be resolved.
-                                enum:
-                                - Required
-                                - Optional
-                                type: string
-                              resolve:
-                                description: |-
-                                  Resolve specifies when this reference should be resolved. The default
-                                  is 'IfNotPresent', which will attempt to resolve the reference only when
-                                  the corresponding field is not present. Use 'Always' to resolve the
-                                  reference on every reconcile.
-                                enum:
-                                - Always
-                                - IfNotPresent
-                                type: string
-                            type: object
-                        type: object
-                    type: object
+                      type: object
+                    type: array
                   vpcId:
                     description: (AWS only) aws_vpc id
                     type: string
@@ -681,25 +689,27 @@ spec:
                     description: '(GCP only) a block consists of Google Cloud specific
                       information for this network, for example the VPC ID, subnet
                       ID, and secondary IP ranges. It has the following fields:'
-                    properties:
-                      networkProjectId:
-                        description: The Google Cloud project ID of the VPC network.
-                        type: string
-                      podIpRangeName:
-                        type: string
-                      serviceIpRangeName:
-                        type: string
-                      subnetId:
-                        description: The ID of the subnet associated with this network.
-                        type: string
-                      subnetRegion:
-                        description: The Google Cloud region of the workspace data
-                          plane. For example, us-east4.
-                        type: string
-                      vpcId:
-                        description: (AWS only) aws_vpc id
-                        type: string
-                    type: object
+                    items:
+                      properties:
+                        networkProjectId:
+                          description: The Google Cloud project ID of the VPC network.
+                          type: string
+                        podIpRangeName:
+                          type: string
+                        serviceIpRangeName:
+                          type: string
+                        subnetId:
+                          description: The ID of the subnet associated with this network.
+                          type: string
+                        subnetRegion:
+                          description: The Google Cloud region of the workspace data
+                            plane. For example, us-east4.
+                          type: string
+                        vpcId:
+                          description: (AWS only) aws_vpc id
+                          type: string
+                      type: object
+                    type: array
                   id:
                     description: Canonical unique identifier for the mws networks.
                     type: string
@@ -725,18 +735,20 @@ spec:
                   vpcEndpoints:
                     description: mapping of databricks_mws_vpc_endpoint for PrivateLink
                       or Private Service Connect connections
-                    properties:
-                      dataplaneRelay:
-                        items:
-                          type: string
-                        type: array
-                        x-kubernetes-list-type: set
-                      restApi:
-                        items:
-                          type: string
-                        type: array
-                        x-kubernetes-list-type: set
-                    type: object
+                    items:
+                      properties:
+                        dataplaneRelay:
+                          items:
+                            type: string
+                          type: array
+                          x-kubernetes-list-type: set
+                        restApi:
+                          items:
+                            type: string
+                          type: array
+                          x-kubernetes-list-type: set
+                      type: object
+                    type: array
                   vpcId:
                     description: (AWS only) aws_vpc id
                     type: string

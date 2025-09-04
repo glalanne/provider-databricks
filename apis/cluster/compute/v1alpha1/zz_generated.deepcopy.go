@@ -529,8 +529,10 @@ func (in *AzureAttributesInitParameters) DeepCopyInto(out *AzureAttributesInitPa
 	}
 	if in.LogAnalyticsInfo != nil {
 		in, out := &in.LogAnalyticsInfo, &out.LogAnalyticsInfo
-		*out = new(LogAnalyticsInfoInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]LogAnalyticsInfoInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.SpotBidMaxPrice != nil {
 		in, out := &in.SpotBidMaxPrice, &out.SpotBidMaxPrice
@@ -639,8 +641,10 @@ func (in *AzureAttributesObservation) DeepCopyInto(out *AzureAttributesObservati
 	}
 	if in.LogAnalyticsInfo != nil {
 		in, out := &in.LogAnalyticsInfo, &out.LogAnalyticsInfo
-		*out = new(LogAnalyticsInfoObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]LogAnalyticsInfoObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.SpotBidMaxPrice != nil {
 		in, out := &in.SpotBidMaxPrice, &out.SpotBidMaxPrice
@@ -674,8 +678,10 @@ func (in *AzureAttributesParameters) DeepCopyInto(out *AzureAttributesParameters
 	}
 	if in.LogAnalyticsInfo != nil {
 		in, out := &in.LogAnalyticsInfo, &out.LogAnalyticsInfo
-		*out = new(LogAnalyticsInfoParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]LogAnalyticsInfoParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.SpotBidMaxPrice != nil {
 		in, out := &in.SpotBidMaxPrice, &out.SpotBidMaxPrice
@@ -1296,8 +1302,10 @@ func (in *ClusterAzureAttributesInitParameters) DeepCopyInto(out *ClusterAzureAt
 	}
 	if in.LogAnalyticsInfo != nil {
 		in, out := &in.LogAnalyticsInfo, &out.LogAnalyticsInfo
-		*out = new(ClusterAzureAttributesLogAnalyticsInfoInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]ClusterAzureAttributesLogAnalyticsInfoInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.SpotBidMaxPrice != nil {
 		in, out := &in.SpotBidMaxPrice, &out.SpotBidMaxPrice
@@ -1406,8 +1414,10 @@ func (in *ClusterAzureAttributesObservation) DeepCopyInto(out *ClusterAzureAttri
 	}
 	if in.LogAnalyticsInfo != nil {
 		in, out := &in.LogAnalyticsInfo, &out.LogAnalyticsInfo
-		*out = new(ClusterAzureAttributesLogAnalyticsInfoObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]ClusterAzureAttributesLogAnalyticsInfoObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.SpotBidMaxPrice != nil {
 		in, out := &in.SpotBidMaxPrice, &out.SpotBidMaxPrice
@@ -1441,8 +1451,10 @@ func (in *ClusterAzureAttributesParameters) DeepCopyInto(out *ClusterAzureAttrib
 	}
 	if in.LogAnalyticsInfo != nil {
 		in, out := &in.LogAnalyticsInfo, &out.LogAnalyticsInfo
-		*out = new(ClusterAzureAttributesLogAnalyticsInfoParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]ClusterAzureAttributesLogAnalyticsInfoParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.SpotBidMaxPrice != nil {
 		in, out := &in.SpotBidMaxPrice, &out.SpotBidMaxPrice
@@ -1526,18 +1538,24 @@ func (in *ClusterClusterLogConfInitParameters) DeepCopyInto(out *ClusterClusterL
 	*out = *in
 	if in.Dbfs != nil {
 		in, out := &in.Dbfs, &out.Dbfs
-		*out = new(ClusterClusterLogConfDbfsInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]ClusterClusterLogConfDbfsInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.S3 != nil {
 		in, out := &in.S3, &out.S3
-		*out = new(ClusterClusterLogConfS3InitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]ClusterClusterLogConfS3InitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Volumes != nil {
 		in, out := &in.Volumes, &out.Volumes
-		*out = new(ClusterClusterLogConfVolumesInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]ClusterClusterLogConfVolumesInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 }
 
@@ -1556,18 +1574,24 @@ func (in *ClusterClusterLogConfObservation) DeepCopyInto(out *ClusterClusterLogC
 	*out = *in
 	if in.Dbfs != nil {
 		in, out := &in.Dbfs, &out.Dbfs
-		*out = new(ClusterClusterLogConfDbfsObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]ClusterClusterLogConfDbfsObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.S3 != nil {
 		in, out := &in.S3, &out.S3
-		*out = new(ClusterClusterLogConfS3Observation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]ClusterClusterLogConfS3Observation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Volumes != nil {
 		in, out := &in.Volumes, &out.Volumes
-		*out = new(ClusterClusterLogConfVolumesObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]ClusterClusterLogConfVolumesObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 }
 
@@ -1586,18 +1610,24 @@ func (in *ClusterClusterLogConfParameters) DeepCopyInto(out *ClusterClusterLogCo
 	*out = *in
 	if in.Dbfs != nil {
 		in, out := &in.Dbfs, &out.Dbfs
-		*out = new(ClusterClusterLogConfDbfsParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]ClusterClusterLogConfDbfsParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.S3 != nil {
 		in, out := &in.S3, &out.S3
-		*out = new(ClusterClusterLogConfS3Parameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]ClusterClusterLogConfS3Parameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Volumes != nil {
 		in, out := &in.Volumes, &out.Volumes
-		*out = new(ClusterClusterLogConfVolumesParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]ClusterClusterLogConfVolumesParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 }
 
@@ -1951,8 +1981,10 @@ func (in *ClusterInitParameters) DeepCopyInto(out *ClusterInitParameters) {
 	}
 	if in.Autoscale != nil {
 		in, out := &in.Autoscale, &out.Autoscale
-		*out = new(AutoscaleInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]AutoscaleInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.AutoterminationMinutes != nil {
 		in, out := &in.AutoterminationMinutes, &out.AutoterminationMinutes
@@ -1961,18 +1993,24 @@ func (in *ClusterInitParameters) DeepCopyInto(out *ClusterInitParameters) {
 	}
 	if in.AwsAttributes != nil {
 		in, out := &in.AwsAttributes, &out.AwsAttributes
-		*out = new(AwsAttributesInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]AwsAttributesInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.AzureAttributes != nil {
 		in, out := &in.AzureAttributes, &out.AzureAttributes
-		*out = new(AzureAttributesInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]AzureAttributesInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.ClusterLogConf != nil {
 		in, out := &in.ClusterLogConf, &out.ClusterLogConf
-		*out = new(ClusterLogConfInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]ClusterLogConfInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.ClusterMountInfo != nil {
 		in, out := &in.ClusterMountInfo, &out.ClusterMountInfo
@@ -2009,8 +2047,10 @@ func (in *ClusterInitParameters) DeepCopyInto(out *ClusterInitParameters) {
 	}
 	if in.DockerImage != nil {
 		in, out := &in.DockerImage, &out.DockerImage
-		*out = new(DockerImageInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]DockerImageInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.DriverInstancePoolID != nil {
 		in, out := &in.DriverInstancePoolID, &out.DriverInstancePoolID
@@ -2034,8 +2074,10 @@ func (in *ClusterInitParameters) DeepCopyInto(out *ClusterInitParameters) {
 	}
 	if in.GCPAttributes != nil {
 		in, out := &in.GCPAttributes, &out.GCPAttributes
-		*out = new(GCPAttributesInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]GCPAttributesInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.IdempotencyToken != nil {
 		in, out := &in.IdempotencyToken, &out.IdempotencyToken
@@ -2171,8 +2213,10 @@ func (in *ClusterInitParameters) DeepCopyInto(out *ClusterInitParameters) {
 	}
 	if in.WorkloadType != nil {
 		in, out := &in.WorkloadType, &out.WorkloadType
-		*out = new(WorkloadTypeInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]WorkloadTypeInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 }
 
@@ -2431,38 +2475,52 @@ func (in *ClusterInitScriptsInitParameters) DeepCopyInto(out *ClusterInitScripts
 	*out = *in
 	if in.Abfss != nil {
 		in, out := &in.Abfss, &out.Abfss
-		*out = new(ClusterInitScriptsAbfssInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]ClusterInitScriptsAbfssInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Dbfs != nil {
 		in, out := &in.Dbfs, &out.Dbfs
-		*out = new(ClusterInitScriptsDbfsInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]ClusterInitScriptsDbfsInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.File != nil {
 		in, out := &in.File, &out.File
-		*out = new(ClusterInitScriptsFileInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]ClusterInitScriptsFileInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Gcs != nil {
 		in, out := &in.Gcs, &out.Gcs
-		*out = new(ClusterInitScriptsGcsInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]ClusterInitScriptsGcsInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.S3 != nil {
 		in, out := &in.S3, &out.S3
-		*out = new(ClusterInitScriptsS3InitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]ClusterInitScriptsS3InitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Volumes != nil {
 		in, out := &in.Volumes, &out.Volumes
-		*out = new(ClusterInitScriptsVolumesInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]ClusterInitScriptsVolumesInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Workspace != nil {
 		in, out := &in.Workspace, &out.Workspace
-		*out = new(ClusterInitScriptsWorkspaceInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]ClusterInitScriptsWorkspaceInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 }
 
@@ -2481,38 +2539,52 @@ func (in *ClusterInitScriptsObservation) DeepCopyInto(out *ClusterInitScriptsObs
 	*out = *in
 	if in.Abfss != nil {
 		in, out := &in.Abfss, &out.Abfss
-		*out = new(ClusterInitScriptsAbfssObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]ClusterInitScriptsAbfssObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Dbfs != nil {
 		in, out := &in.Dbfs, &out.Dbfs
-		*out = new(ClusterInitScriptsDbfsObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]ClusterInitScriptsDbfsObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.File != nil {
 		in, out := &in.File, &out.File
-		*out = new(ClusterInitScriptsFileObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]ClusterInitScriptsFileObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Gcs != nil {
 		in, out := &in.Gcs, &out.Gcs
-		*out = new(ClusterInitScriptsGcsObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]ClusterInitScriptsGcsObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.S3 != nil {
 		in, out := &in.S3, &out.S3
-		*out = new(ClusterInitScriptsS3Observation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]ClusterInitScriptsS3Observation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Volumes != nil {
 		in, out := &in.Volumes, &out.Volumes
-		*out = new(ClusterInitScriptsVolumesObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]ClusterInitScriptsVolumesObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Workspace != nil {
 		in, out := &in.Workspace, &out.Workspace
-		*out = new(ClusterInitScriptsWorkspaceObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]ClusterInitScriptsWorkspaceObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 }
 
@@ -2531,38 +2603,52 @@ func (in *ClusterInitScriptsParameters) DeepCopyInto(out *ClusterInitScriptsPara
 	*out = *in
 	if in.Abfss != nil {
 		in, out := &in.Abfss, &out.Abfss
-		*out = new(ClusterInitScriptsAbfssParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]ClusterInitScriptsAbfssParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Dbfs != nil {
 		in, out := &in.Dbfs, &out.Dbfs
-		*out = new(ClusterInitScriptsDbfsParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]ClusterInitScriptsDbfsParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.File != nil {
 		in, out := &in.File, &out.File
-		*out = new(ClusterInitScriptsFileParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]ClusterInitScriptsFileParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Gcs != nil {
 		in, out := &in.Gcs, &out.Gcs
-		*out = new(ClusterInitScriptsGcsParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]ClusterInitScriptsGcsParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.S3 != nil {
 		in, out := &in.S3, &out.S3
-		*out = new(ClusterInitScriptsS3Parameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]ClusterInitScriptsS3Parameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Volumes != nil {
 		in, out := &in.Volumes, &out.Volumes
-		*out = new(ClusterInitScriptsVolumesParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]ClusterInitScriptsVolumesParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Workspace != nil {
 		in, out := &in.Workspace, &out.Workspace
-		*out = new(ClusterInitScriptsWorkspaceParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]ClusterInitScriptsWorkspaceParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 }
 
@@ -2943,18 +3029,24 @@ func (in *ClusterLogConfInitParameters) DeepCopyInto(out *ClusterLogConfInitPara
 	*out = *in
 	if in.Dbfs != nil {
 		in, out := &in.Dbfs, &out.Dbfs
-		*out = new(DbfsInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]DbfsInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.S3 != nil {
 		in, out := &in.S3, &out.S3
-		*out = new(S3InitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]S3InitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Volumes != nil {
 		in, out := &in.Volumes, &out.Volumes
-		*out = new(VolumesInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]VolumesInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 }
 
@@ -2973,18 +3065,24 @@ func (in *ClusterLogConfObservation) DeepCopyInto(out *ClusterLogConfObservation
 	*out = *in
 	if in.Dbfs != nil {
 		in, out := &in.Dbfs, &out.Dbfs
-		*out = new(DbfsObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]DbfsObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.S3 != nil {
 		in, out := &in.S3, &out.S3
-		*out = new(S3Observation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]S3Observation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Volumes != nil {
 		in, out := &in.Volumes, &out.Volumes
-		*out = new(VolumesObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]VolumesObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 }
 
@@ -3003,18 +3101,24 @@ func (in *ClusterLogConfParameters) DeepCopyInto(out *ClusterLogConfParameters) 
 	*out = *in
 	if in.Dbfs != nil {
 		in, out := &in.Dbfs, &out.Dbfs
-		*out = new(DbfsParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]DbfsParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.S3 != nil {
 		in, out := &in.S3, &out.S3
-		*out = new(S3Parameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]S3Parameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Volumes != nil {
 		in, out := &in.Volumes, &out.Volumes
-		*out = new(VolumesParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]VolumesParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 }
 
@@ -3248,8 +3352,10 @@ func (in *ClusterMountInfoInitParameters) DeepCopyInto(out *ClusterMountInfoInit
 	}
 	if in.NetworkFilesystemInfo != nil {
 		in, out := &in.NetworkFilesystemInfo, &out.NetworkFilesystemInfo
-		*out = new(NetworkFilesystemInfoInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]NetworkFilesystemInfoInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.RemoteMountDirPath != nil {
 		in, out := &in.RemoteMountDirPath, &out.RemoteMountDirPath
@@ -3353,8 +3459,10 @@ func (in *ClusterMountInfoObservation) DeepCopyInto(out *ClusterMountInfoObserva
 	}
 	if in.NetworkFilesystemInfo != nil {
 		in, out := &in.NetworkFilesystemInfo, &out.NetworkFilesystemInfo
-		*out = new(NetworkFilesystemInfoObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]NetworkFilesystemInfoObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.RemoteMountDirPath != nil {
 		in, out := &in.RemoteMountDirPath, &out.RemoteMountDirPath
@@ -3383,8 +3491,10 @@ func (in *ClusterMountInfoParameters) DeepCopyInto(out *ClusterMountInfoParamete
 	}
 	if in.NetworkFilesystemInfo != nil {
 		in, out := &in.NetworkFilesystemInfo, &out.NetworkFilesystemInfo
-		*out = new(NetworkFilesystemInfoParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]NetworkFilesystemInfoParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.RemoteMountDirPath != nil {
 		in, out := &in.RemoteMountDirPath, &out.RemoteMountDirPath
@@ -3413,8 +3523,10 @@ func (in *ClusterObservation) DeepCopyInto(out *ClusterObservation) {
 	}
 	if in.Autoscale != nil {
 		in, out := &in.Autoscale, &out.Autoscale
-		*out = new(AutoscaleObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]AutoscaleObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.AutoterminationMinutes != nil {
 		in, out := &in.AutoterminationMinutes, &out.AutoterminationMinutes
@@ -3423,13 +3535,17 @@ func (in *ClusterObservation) DeepCopyInto(out *ClusterObservation) {
 	}
 	if in.AwsAttributes != nil {
 		in, out := &in.AwsAttributes, &out.AwsAttributes
-		*out = new(AwsAttributesObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]AwsAttributesObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.AzureAttributes != nil {
 		in, out := &in.AzureAttributes, &out.AzureAttributes
-		*out = new(AzureAttributesObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]AzureAttributesObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.ClusterID != nil {
 		in, out := &in.ClusterID, &out.ClusterID
@@ -3438,8 +3554,10 @@ func (in *ClusterObservation) DeepCopyInto(out *ClusterObservation) {
 	}
 	if in.ClusterLogConf != nil {
 		in, out := &in.ClusterLogConf, &out.ClusterLogConf
-		*out = new(ClusterLogConfObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]ClusterLogConfObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.ClusterMountInfo != nil {
 		in, out := &in.ClusterMountInfo, &out.ClusterMountInfo
@@ -3492,8 +3610,10 @@ func (in *ClusterObservation) DeepCopyInto(out *ClusterObservation) {
 	}
 	if in.DockerImage != nil {
 		in, out := &in.DockerImage, &out.DockerImage
-		*out = new(DockerImageObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]DockerImageObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.DriverInstancePoolID != nil {
 		in, out := &in.DriverInstancePoolID, &out.DriverInstancePoolID
@@ -3517,8 +3637,10 @@ func (in *ClusterObservation) DeepCopyInto(out *ClusterObservation) {
 	}
 	if in.GCPAttributes != nil {
 		in, out := &in.GCPAttributes, &out.GCPAttributes
-		*out = new(GCPAttributesObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]GCPAttributesObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.ID != nil {
 		in, out := &in.ID, &out.ID
@@ -3669,8 +3791,10 @@ func (in *ClusterObservation) DeepCopyInto(out *ClusterObservation) {
 	}
 	if in.WorkloadType != nil {
 		in, out := &in.WorkloadType, &out.WorkloadType
-		*out = new(WorkloadTypeObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]WorkloadTypeObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 }
 
@@ -3694,8 +3818,10 @@ func (in *ClusterParameters) DeepCopyInto(out *ClusterParameters) {
 	}
 	if in.Autoscale != nil {
 		in, out := &in.Autoscale, &out.Autoscale
-		*out = new(AutoscaleParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]AutoscaleParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.AutoterminationMinutes != nil {
 		in, out := &in.AutoterminationMinutes, &out.AutoterminationMinutes
@@ -3704,18 +3830,24 @@ func (in *ClusterParameters) DeepCopyInto(out *ClusterParameters) {
 	}
 	if in.AwsAttributes != nil {
 		in, out := &in.AwsAttributes, &out.AwsAttributes
-		*out = new(AwsAttributesParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]AwsAttributesParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.AzureAttributes != nil {
 		in, out := &in.AzureAttributes, &out.AzureAttributes
-		*out = new(AzureAttributesParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]AzureAttributesParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.ClusterLogConf != nil {
 		in, out := &in.ClusterLogConf, &out.ClusterLogConf
-		*out = new(ClusterLogConfParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]ClusterLogConfParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.ClusterMountInfo != nil {
 		in, out := &in.ClusterMountInfo, &out.ClusterMountInfo
@@ -3752,8 +3884,10 @@ func (in *ClusterParameters) DeepCopyInto(out *ClusterParameters) {
 	}
 	if in.DockerImage != nil {
 		in, out := &in.DockerImage, &out.DockerImage
-		*out = new(DockerImageParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]DockerImageParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.DriverInstancePoolID != nil {
 		in, out := &in.DriverInstancePoolID, &out.DriverInstancePoolID
@@ -3777,8 +3911,10 @@ func (in *ClusterParameters) DeepCopyInto(out *ClusterParameters) {
 	}
 	if in.GCPAttributes != nil {
 		in, out := &in.GCPAttributes, &out.GCPAttributes
-		*out = new(GCPAttributesParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]GCPAttributesParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.IdempotencyToken != nil {
 		in, out := &in.IdempotencyToken, &out.IdempotencyToken
@@ -3914,8 +4050,10 @@ func (in *ClusterParameters) DeepCopyInto(out *ClusterParameters) {
 	}
 	if in.WorkloadType != nil {
 		in, out := &in.WorkloadType, &out.WorkloadType
-		*out = new(WorkloadTypeParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]WorkloadTypeParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 }
 
@@ -4810,8 +4948,10 @@ func (in *DashboardTaskInitParameters) DeepCopyInto(out *DashboardTaskInitParame
 	}
 	if in.Subscription != nil {
 		in, out := &in.Subscription, &out.Subscription
-		*out = new(SubscriptionInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]SubscriptionInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.WarehouseID != nil {
 		in, out := &in.WarehouseID, &out.WarehouseID
@@ -4840,8 +4980,10 @@ func (in *DashboardTaskObservation) DeepCopyInto(out *DashboardTaskObservation) 
 	}
 	if in.Subscription != nil {
 		in, out := &in.Subscription, &out.Subscription
-		*out = new(SubscriptionObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]SubscriptionObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.WarehouseID != nil {
 		in, out := &in.WarehouseID, &out.WarehouseID
@@ -4870,8 +5012,10 @@ func (in *DashboardTaskParameters) DeepCopyInto(out *DashboardTaskParameters) {
 	}
 	if in.Subscription != nil {
 		in, out := &in.Subscription, &out.Subscription
-		*out = new(SubscriptionParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]SubscriptionParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.WarehouseID != nil {
 		in, out := &in.WarehouseID, &out.WarehouseID
@@ -5529,8 +5673,10 @@ func (in *DiskSpecInitParameters) DeepCopyInto(out *DiskSpecInitParameters) {
 	}
 	if in.DiskType != nil {
 		in, out := &in.DiskType, &out.DiskType
-		*out = new(DiskTypeInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]DiskTypeInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 }
 
@@ -5559,8 +5705,10 @@ func (in *DiskSpecObservation) DeepCopyInto(out *DiskSpecObservation) {
 	}
 	if in.DiskType != nil {
 		in, out := &in.DiskType, &out.DiskType
-		*out = new(DiskTypeObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]DiskTypeObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 }
 
@@ -5589,8 +5737,10 @@ func (in *DiskSpecParameters) DeepCopyInto(out *DiskSpecParameters) {
 	}
 	if in.DiskType != nil {
 		in, out := &in.DiskType, &out.DiskType
-		*out = new(DiskTypeParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]DiskTypeParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 }
 
@@ -5746,8 +5896,10 @@ func (in *DockerImageInitParameters) DeepCopyInto(out *DockerImageInitParameters
 	*out = *in
 	if in.BasicAuth != nil {
 		in, out := &in.BasicAuth, &out.BasicAuth
-		*out = new(BasicAuthInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]BasicAuthInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.URL != nil {
 		in, out := &in.URL, &out.URL
@@ -5771,8 +5923,10 @@ func (in *DockerImageObservation) DeepCopyInto(out *DockerImageObservation) {
 	*out = *in
 	if in.BasicAuth != nil {
 		in, out := &in.BasicAuth, &out.BasicAuth
-		*out = new(BasicAuthObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]BasicAuthObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.URL != nil {
 		in, out := &in.URL, &out.URL
@@ -5796,8 +5950,10 @@ func (in *DockerImageParameters) DeepCopyInto(out *DockerImageParameters) {
 	*out = *in
 	if in.BasicAuth != nil {
 		in, out := &in.BasicAuth, &out.BasicAuth
-		*out = new(BasicAuthParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]BasicAuthParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.URL != nil {
 		in, out := &in.URL, &out.URL
@@ -6051,8 +6207,10 @@ func (in *EnvironmentInitParameters) DeepCopyInto(out *EnvironmentInitParameters
 	}
 	if in.Spec != nil {
 		in, out := &in.Spec, &out.Spec
-		*out = new(SpecInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]SpecInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 }
 
@@ -6076,8 +6234,10 @@ func (in *EnvironmentObservation) DeepCopyInto(out *EnvironmentObservation) {
 	}
 	if in.Spec != nil {
 		in, out := &in.Spec, &out.Spec
-		*out = new(SpecObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]SpecObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 }
 
@@ -6101,8 +6261,10 @@ func (in *EnvironmentParameters) DeepCopyInto(out *EnvironmentParameters) {
 	}
 	if in.Spec != nil {
 		in, out := &in.Spec, &out.Spec
-		*out = new(SpecParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]SpecParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 }
 
@@ -6632,8 +6794,10 @@ func (in *ForEachTaskInitParameters) DeepCopyInto(out *ForEachTaskInitParameters
 	}
 	if in.Task != nil {
 		in, out := &in.Task, &out.Task
-		*out = new(ForEachTaskTaskInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]ForEachTaskTaskInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 }
 
@@ -6662,8 +6826,10 @@ func (in *ForEachTaskObservation) DeepCopyInto(out *ForEachTaskObservation) {
 	}
 	if in.Task != nil {
 		in, out := &in.Task, &out.Task
-		*out = new(ForEachTaskTaskObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]ForEachTaskTaskObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 }
 
@@ -6692,8 +6858,10 @@ func (in *ForEachTaskParameters) DeepCopyInto(out *ForEachTaskParameters) {
 	}
 	if in.Task != nil {
 		in, out := &in.Task, &out.Task
-		*out = new(ForEachTaskTaskParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]ForEachTaskTaskParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 }
 
@@ -7105,33 +7273,45 @@ func (in *ForEachTaskTaskInitParameters) DeepCopyInto(out *ForEachTaskTaskInitPa
 	*out = *in
 	if in.CleanRoomsNotebookTask != nil {
 		in, out := &in.CleanRoomsNotebookTask, &out.CleanRoomsNotebookTask
-		*out = new(TaskCleanRoomsNotebookTaskInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]TaskCleanRoomsNotebookTaskInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.ConditionTask != nil {
 		in, out := &in.ConditionTask, &out.ConditionTask
-		*out = new(TaskConditionTaskInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]TaskConditionTaskInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.DashboardTask != nil {
 		in, out := &in.DashboardTask, &out.DashboardTask
-		*out = new(TaskDashboardTaskInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]TaskDashboardTaskInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.DbtCloudTask != nil {
 		in, out := &in.DbtCloudTask, &out.DbtCloudTask
-		*out = new(TaskDbtCloudTaskInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]TaskDbtCloudTaskInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.DbtPlatformTask != nil {
 		in, out := &in.DbtPlatformTask, &out.DbtPlatformTask
-		*out = new(TaskDbtPlatformTaskInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]TaskDbtPlatformTaskInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.DbtTask != nil {
 		in, out := &in.DbtTask, &out.DbtTask
-		*out = new(ForEachTaskTaskDbtTaskInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]ForEachTaskTaskDbtTaskInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.DependsOn != nil {
 		in, out := &in.DependsOn, &out.DependsOn
@@ -7152,8 +7332,10 @@ func (in *ForEachTaskTaskInitParameters) DeepCopyInto(out *ForEachTaskTaskInitPa
 	}
 	if in.EmailNotifications != nil {
 		in, out := &in.EmailNotifications, &out.EmailNotifications
-		*out = new(ForEachTaskTaskEmailNotificationsInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]ForEachTaskTaskEmailNotificationsInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.EnvironmentKey != nil {
 		in, out := &in.EnvironmentKey, &out.EnvironmentKey
@@ -7167,13 +7349,17 @@ func (in *ForEachTaskTaskInitParameters) DeepCopyInto(out *ForEachTaskTaskInitPa
 	}
 	if in.GenAIComputeTask != nil {
 		in, out := &in.GenAIComputeTask, &out.GenAIComputeTask
-		*out = new(GenAIComputeTaskInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]GenAIComputeTaskInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Health != nil {
 		in, out := &in.Health, &out.Health
-		*out = new(TaskHealthInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]TaskHealthInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.JobClusterKey != nil {
 		in, out := &in.JobClusterKey, &out.JobClusterKey
@@ -7199,33 +7385,45 @@ func (in *ForEachTaskTaskInitParameters) DeepCopyInto(out *ForEachTaskTaskInitPa
 	}
 	if in.NewCluster != nil {
 		in, out := &in.NewCluster, &out.NewCluster
-		*out = new(TaskNewClusterInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]TaskNewClusterInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.NotebookTask != nil {
 		in, out := &in.NotebookTask, &out.NotebookTask
-		*out = new(TaskNotebookTaskInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]TaskNotebookTaskInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.NotificationSettings != nil {
 		in, out := &in.NotificationSettings, &out.NotificationSettings
-		*out = new(TaskNotificationSettingsInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]TaskNotificationSettingsInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.PipelineTask != nil {
 		in, out := &in.PipelineTask, &out.PipelineTask
-		*out = new(TaskPipelineTaskInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]TaskPipelineTaskInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.PowerBiTask != nil {
 		in, out := &in.PowerBiTask, &out.PowerBiTask
-		*out = new(PowerBiTaskInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]PowerBiTaskInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.PythonWheelTask != nil {
 		in, out := &in.PythonWheelTask, &out.PythonWheelTask
-		*out = new(TaskPythonWheelTaskInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]TaskPythonWheelTaskInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.RetryOnTimeout != nil {
 		in, out := &in.RetryOnTimeout, &out.RetryOnTimeout
@@ -7239,28 +7437,38 @@ func (in *ForEachTaskTaskInitParameters) DeepCopyInto(out *ForEachTaskTaskInitPa
 	}
 	if in.RunJobTask != nil {
 		in, out := &in.RunJobTask, &out.RunJobTask
-		*out = new(TaskRunJobTaskInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]TaskRunJobTaskInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.SQLTask != nil {
 		in, out := &in.SQLTask, &out.SQLTask
-		*out = new(SQLTaskInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]SQLTaskInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.SparkJarTask != nil {
 		in, out := &in.SparkJarTask, &out.SparkJarTask
-		*out = new(TaskSparkJarTaskInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]TaskSparkJarTaskInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.SparkPythonTask != nil {
 		in, out := &in.SparkPythonTask, &out.SparkPythonTask
-		*out = new(TaskSparkPythonTaskInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]TaskSparkPythonTaskInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.SparkSubmitTask != nil {
 		in, out := &in.SparkSubmitTask, &out.SparkSubmitTask
-		*out = new(TaskSparkSubmitTaskInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]TaskSparkSubmitTaskInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.TaskKey != nil {
 		in, out := &in.TaskKey, &out.TaskKey
@@ -7274,8 +7482,10 @@ func (in *ForEachTaskTaskInitParameters) DeepCopyInto(out *ForEachTaskTaskInitPa
 	}
 	if in.WebhookNotifications != nil {
 		in, out := &in.WebhookNotifications, &out.WebhookNotifications
-		*out = new(WebhookNotificationsInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]WebhookNotificationsInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 }
 
@@ -7294,33 +7504,45 @@ func (in *ForEachTaskTaskObservation) DeepCopyInto(out *ForEachTaskTaskObservati
 	*out = *in
 	if in.CleanRoomsNotebookTask != nil {
 		in, out := &in.CleanRoomsNotebookTask, &out.CleanRoomsNotebookTask
-		*out = new(TaskCleanRoomsNotebookTaskObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]TaskCleanRoomsNotebookTaskObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.ConditionTask != nil {
 		in, out := &in.ConditionTask, &out.ConditionTask
-		*out = new(TaskConditionTaskObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]TaskConditionTaskObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.DashboardTask != nil {
 		in, out := &in.DashboardTask, &out.DashboardTask
-		*out = new(TaskDashboardTaskObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]TaskDashboardTaskObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.DbtCloudTask != nil {
 		in, out := &in.DbtCloudTask, &out.DbtCloudTask
-		*out = new(TaskDbtCloudTaskObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]TaskDbtCloudTaskObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.DbtPlatformTask != nil {
 		in, out := &in.DbtPlatformTask, &out.DbtPlatformTask
-		*out = new(TaskDbtPlatformTaskObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]TaskDbtPlatformTaskObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.DbtTask != nil {
 		in, out := &in.DbtTask, &out.DbtTask
-		*out = new(ForEachTaskTaskDbtTaskObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]ForEachTaskTaskDbtTaskObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.DependsOn != nil {
 		in, out := &in.DependsOn, &out.DependsOn
@@ -7341,8 +7563,10 @@ func (in *ForEachTaskTaskObservation) DeepCopyInto(out *ForEachTaskTaskObservati
 	}
 	if in.EmailNotifications != nil {
 		in, out := &in.EmailNotifications, &out.EmailNotifications
-		*out = new(ForEachTaskTaskEmailNotificationsObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]ForEachTaskTaskEmailNotificationsObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.EnvironmentKey != nil {
 		in, out := &in.EnvironmentKey, &out.EnvironmentKey
@@ -7356,13 +7580,17 @@ func (in *ForEachTaskTaskObservation) DeepCopyInto(out *ForEachTaskTaskObservati
 	}
 	if in.GenAIComputeTask != nil {
 		in, out := &in.GenAIComputeTask, &out.GenAIComputeTask
-		*out = new(GenAIComputeTaskObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]GenAIComputeTaskObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Health != nil {
 		in, out := &in.Health, &out.Health
-		*out = new(TaskHealthObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]TaskHealthObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.JobClusterKey != nil {
 		in, out := &in.JobClusterKey, &out.JobClusterKey
@@ -7388,33 +7616,45 @@ func (in *ForEachTaskTaskObservation) DeepCopyInto(out *ForEachTaskTaskObservati
 	}
 	if in.NewCluster != nil {
 		in, out := &in.NewCluster, &out.NewCluster
-		*out = new(TaskNewClusterObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]TaskNewClusterObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.NotebookTask != nil {
 		in, out := &in.NotebookTask, &out.NotebookTask
-		*out = new(TaskNotebookTaskObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]TaskNotebookTaskObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.NotificationSettings != nil {
 		in, out := &in.NotificationSettings, &out.NotificationSettings
-		*out = new(TaskNotificationSettingsObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]TaskNotificationSettingsObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.PipelineTask != nil {
 		in, out := &in.PipelineTask, &out.PipelineTask
-		*out = new(TaskPipelineTaskObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]TaskPipelineTaskObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.PowerBiTask != nil {
 		in, out := &in.PowerBiTask, &out.PowerBiTask
-		*out = new(PowerBiTaskObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]PowerBiTaskObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.PythonWheelTask != nil {
 		in, out := &in.PythonWheelTask, &out.PythonWheelTask
-		*out = new(TaskPythonWheelTaskObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]TaskPythonWheelTaskObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.RetryOnTimeout != nil {
 		in, out := &in.RetryOnTimeout, &out.RetryOnTimeout
@@ -7428,28 +7668,38 @@ func (in *ForEachTaskTaskObservation) DeepCopyInto(out *ForEachTaskTaskObservati
 	}
 	if in.RunJobTask != nil {
 		in, out := &in.RunJobTask, &out.RunJobTask
-		*out = new(TaskRunJobTaskObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]TaskRunJobTaskObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.SQLTask != nil {
 		in, out := &in.SQLTask, &out.SQLTask
-		*out = new(SQLTaskObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]SQLTaskObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.SparkJarTask != nil {
 		in, out := &in.SparkJarTask, &out.SparkJarTask
-		*out = new(TaskSparkJarTaskObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]TaskSparkJarTaskObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.SparkPythonTask != nil {
 		in, out := &in.SparkPythonTask, &out.SparkPythonTask
-		*out = new(TaskSparkPythonTaskObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]TaskSparkPythonTaskObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.SparkSubmitTask != nil {
 		in, out := &in.SparkSubmitTask, &out.SparkSubmitTask
-		*out = new(TaskSparkSubmitTaskObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]TaskSparkSubmitTaskObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.TaskKey != nil {
 		in, out := &in.TaskKey, &out.TaskKey
@@ -7463,8 +7713,10 @@ func (in *ForEachTaskTaskObservation) DeepCopyInto(out *ForEachTaskTaskObservati
 	}
 	if in.WebhookNotifications != nil {
 		in, out := &in.WebhookNotifications, &out.WebhookNotifications
-		*out = new(WebhookNotificationsObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]WebhookNotificationsObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 }
 
@@ -7483,33 +7735,45 @@ func (in *ForEachTaskTaskParameters) DeepCopyInto(out *ForEachTaskTaskParameters
 	*out = *in
 	if in.CleanRoomsNotebookTask != nil {
 		in, out := &in.CleanRoomsNotebookTask, &out.CleanRoomsNotebookTask
-		*out = new(TaskCleanRoomsNotebookTaskParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]TaskCleanRoomsNotebookTaskParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.ConditionTask != nil {
 		in, out := &in.ConditionTask, &out.ConditionTask
-		*out = new(TaskConditionTaskParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]TaskConditionTaskParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.DashboardTask != nil {
 		in, out := &in.DashboardTask, &out.DashboardTask
-		*out = new(TaskDashboardTaskParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]TaskDashboardTaskParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.DbtCloudTask != nil {
 		in, out := &in.DbtCloudTask, &out.DbtCloudTask
-		*out = new(TaskDbtCloudTaskParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]TaskDbtCloudTaskParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.DbtPlatformTask != nil {
 		in, out := &in.DbtPlatformTask, &out.DbtPlatformTask
-		*out = new(TaskDbtPlatformTaskParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]TaskDbtPlatformTaskParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.DbtTask != nil {
 		in, out := &in.DbtTask, &out.DbtTask
-		*out = new(ForEachTaskTaskDbtTaskParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]ForEachTaskTaskDbtTaskParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.DependsOn != nil {
 		in, out := &in.DependsOn, &out.DependsOn
@@ -7530,8 +7794,10 @@ func (in *ForEachTaskTaskParameters) DeepCopyInto(out *ForEachTaskTaskParameters
 	}
 	if in.EmailNotifications != nil {
 		in, out := &in.EmailNotifications, &out.EmailNotifications
-		*out = new(ForEachTaskTaskEmailNotificationsParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]ForEachTaskTaskEmailNotificationsParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.EnvironmentKey != nil {
 		in, out := &in.EnvironmentKey, &out.EnvironmentKey
@@ -7545,13 +7811,17 @@ func (in *ForEachTaskTaskParameters) DeepCopyInto(out *ForEachTaskTaskParameters
 	}
 	if in.GenAIComputeTask != nil {
 		in, out := &in.GenAIComputeTask, &out.GenAIComputeTask
-		*out = new(GenAIComputeTaskParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]GenAIComputeTaskParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Health != nil {
 		in, out := &in.Health, &out.Health
-		*out = new(TaskHealthParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]TaskHealthParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.JobClusterKey != nil {
 		in, out := &in.JobClusterKey, &out.JobClusterKey
@@ -7577,33 +7847,45 @@ func (in *ForEachTaskTaskParameters) DeepCopyInto(out *ForEachTaskTaskParameters
 	}
 	if in.NewCluster != nil {
 		in, out := &in.NewCluster, &out.NewCluster
-		*out = new(TaskNewClusterParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]TaskNewClusterParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.NotebookTask != nil {
 		in, out := &in.NotebookTask, &out.NotebookTask
-		*out = new(TaskNotebookTaskParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]TaskNotebookTaskParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.NotificationSettings != nil {
 		in, out := &in.NotificationSettings, &out.NotificationSettings
-		*out = new(TaskNotificationSettingsParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]TaskNotificationSettingsParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.PipelineTask != nil {
 		in, out := &in.PipelineTask, &out.PipelineTask
-		*out = new(TaskPipelineTaskParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]TaskPipelineTaskParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.PowerBiTask != nil {
 		in, out := &in.PowerBiTask, &out.PowerBiTask
-		*out = new(PowerBiTaskParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]PowerBiTaskParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.PythonWheelTask != nil {
 		in, out := &in.PythonWheelTask, &out.PythonWheelTask
-		*out = new(TaskPythonWheelTaskParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]TaskPythonWheelTaskParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.RetryOnTimeout != nil {
 		in, out := &in.RetryOnTimeout, &out.RetryOnTimeout
@@ -7617,28 +7899,38 @@ func (in *ForEachTaskTaskParameters) DeepCopyInto(out *ForEachTaskTaskParameters
 	}
 	if in.RunJobTask != nil {
 		in, out := &in.RunJobTask, &out.RunJobTask
-		*out = new(TaskRunJobTaskParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]TaskRunJobTaskParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.SQLTask != nil {
 		in, out := &in.SQLTask, &out.SQLTask
-		*out = new(SQLTaskParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]SQLTaskParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.SparkJarTask != nil {
 		in, out := &in.SparkJarTask, &out.SparkJarTask
-		*out = new(TaskSparkJarTaskParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]TaskSparkJarTaskParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.SparkPythonTask != nil {
 		in, out := &in.SparkPythonTask, &out.SparkPythonTask
-		*out = new(TaskSparkPythonTaskParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]TaskSparkPythonTaskParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.SparkSubmitTask != nil {
 		in, out := &in.SparkSubmitTask, &out.SparkSubmitTask
-		*out = new(TaskSparkSubmitTaskParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]TaskSparkSubmitTaskParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.TaskKey != nil {
 		in, out := &in.TaskKey, &out.TaskKey
@@ -7652,8 +7944,10 @@ func (in *ForEachTaskTaskParameters) DeepCopyInto(out *ForEachTaskTaskParameters
 	}
 	if in.WebhookNotifications != nil {
 		in, out := &in.WebhookNotifications, &out.WebhookNotifications
-		*out = new(WebhookNotificationsParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]WebhookNotificationsParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 }
 
@@ -8097,8 +8391,10 @@ func (in *GenAIComputeTaskInitParameters) DeepCopyInto(out *GenAIComputeTaskInit
 	}
 	if in.Compute != nil {
 		in, out := &in.Compute, &out.Compute
-		*out = new(ComputeInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]ComputeInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.DlRuntimeImage != nil {
 		in, out := &in.DlRuntimeImage, &out.DlRuntimeImage
@@ -8152,8 +8448,10 @@ func (in *GenAIComputeTaskObservation) DeepCopyInto(out *GenAIComputeTaskObserva
 	}
 	if in.Compute != nil {
 		in, out := &in.Compute, &out.Compute
-		*out = new(ComputeObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]ComputeObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.DlRuntimeImage != nil {
 		in, out := &in.DlRuntimeImage, &out.DlRuntimeImage
@@ -8207,8 +8505,10 @@ func (in *GenAIComputeTaskParameters) DeepCopyInto(out *GenAIComputeTaskParamete
 	}
 	if in.Compute != nil {
 		in, out := &in.Compute, &out.Compute
-		*out = new(ComputeParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]ComputeParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.DlRuntimeImage != nil {
 		in, out := &in.DlRuntimeImage, &out.DlRuntimeImage
@@ -8327,13 +8627,17 @@ func (in *GitSourceInitParameters) DeepCopyInto(out *GitSourceInitParameters) {
 	}
 	if in.GitSnapshot != nil {
 		in, out := &in.GitSnapshot, &out.GitSnapshot
-		*out = new(GitSnapshotInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]GitSnapshotInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.JobSource != nil {
 		in, out := &in.JobSource, &out.JobSource
-		*out = new(JobSourceInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]JobSourceInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Provider != nil {
 		in, out := &in.Provider, &out.Provider
@@ -8377,13 +8681,17 @@ func (in *GitSourceObservation) DeepCopyInto(out *GitSourceObservation) {
 	}
 	if in.GitSnapshot != nil {
 		in, out := &in.GitSnapshot, &out.GitSnapshot
-		*out = new(GitSnapshotObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]GitSnapshotObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.JobSource != nil {
 		in, out := &in.JobSource, &out.JobSource
-		*out = new(JobSourceObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]JobSourceObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Provider != nil {
 		in, out := &in.Provider, &out.Provider
@@ -8427,13 +8735,17 @@ func (in *GitSourceParameters) DeepCopyInto(out *GitSourceParameters) {
 	}
 	if in.GitSnapshot != nil {
 		in, out := &in.GitSnapshot, &out.GitSnapshot
-		*out = new(GitSnapshotParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]GitSnapshotParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.JobSource != nil {
 		in, out := &in.JobSource, &out.JobSource
-		*out = new(JobSourceParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]JobSourceParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Provider != nil {
 		in, out := &in.Provider, &out.Provider
@@ -8705,8 +9017,10 @@ func (in *IngestionDefinitionInitParameters) DeepCopyInto(out *IngestionDefiniti
 	}
 	if in.TableConfiguration != nil {
 		in, out := &in.TableConfiguration, &out.TableConfiguration
-		*out = new(IngestionDefinitionTableConfigurationInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]IngestionDefinitionTableConfigurationInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 }
 
@@ -8747,8 +9061,10 @@ func (in *IngestionDefinitionObservation) DeepCopyInto(out *IngestionDefinitionO
 	}
 	if in.TableConfiguration != nil {
 		in, out := &in.TableConfiguration, &out.TableConfiguration
-		*out = new(IngestionDefinitionTableConfigurationObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]IngestionDefinitionTableConfigurationObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 }
 
@@ -8789,8 +9105,10 @@ func (in *IngestionDefinitionParameters) DeepCopyInto(out *IngestionDefinitionPa
 	}
 	if in.TableConfiguration != nil {
 		in, out := &in.TableConfiguration, &out.TableConfiguration
-		*out = new(IngestionDefinitionTableConfigurationParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]IngestionDefinitionTableConfigurationParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 }
 
@@ -8842,8 +9160,10 @@ func (in *IngestionDefinitionTableConfigurationInitParameters) DeepCopyInto(out 
 	}
 	if in.QueryBasedConnectorConfig != nil {
 		in, out := &in.QueryBasedConnectorConfig, &out.QueryBasedConnectorConfig
-		*out = new(IngestionDefinitionTableConfigurationQueryBasedConnectorConfigInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]IngestionDefinitionTableConfigurationQueryBasedConnectorConfigInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.SalesforceIncludeFormulaFields != nil {
 		in, out := &in.SalesforceIncludeFormulaFields, &out.SalesforceIncludeFormulaFields
@@ -8916,8 +9236,10 @@ func (in *IngestionDefinitionTableConfigurationObservation) DeepCopyInto(out *In
 	}
 	if in.QueryBasedConnectorConfig != nil {
 		in, out := &in.QueryBasedConnectorConfig, &out.QueryBasedConnectorConfig
-		*out = new(IngestionDefinitionTableConfigurationQueryBasedConnectorConfigObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]IngestionDefinitionTableConfigurationQueryBasedConnectorConfigObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.SalesforceIncludeFormulaFields != nil {
 		in, out := &in.SalesforceIncludeFormulaFields, &out.SalesforceIncludeFormulaFields
@@ -8990,8 +9312,10 @@ func (in *IngestionDefinitionTableConfigurationParameters) DeepCopyInto(out *Ing
 	}
 	if in.QueryBasedConnectorConfig != nil {
 		in, out := &in.QueryBasedConnectorConfig, &out.QueryBasedConnectorConfig
-		*out = new(IngestionDefinitionTableConfigurationQueryBasedConnectorConfigParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]IngestionDefinitionTableConfigurationQueryBasedConnectorConfigParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.SalesforceIncludeFormulaFields != nil {
 		in, out := &in.SalesforceIncludeFormulaFields, &out.SalesforceIncludeFormulaFields
@@ -9379,38 +9703,52 @@ func (in *InitScriptsInitParameters) DeepCopyInto(out *InitScriptsInitParameters
 	*out = *in
 	if in.Abfss != nil {
 		in, out := &in.Abfss, &out.Abfss
-		*out = new(AbfssInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]AbfssInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Dbfs != nil {
 		in, out := &in.Dbfs, &out.Dbfs
-		*out = new(InitScriptsDbfsInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]InitScriptsDbfsInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.File != nil {
 		in, out := &in.File, &out.File
-		*out = new(FileInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]FileInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Gcs != nil {
 		in, out := &in.Gcs, &out.Gcs
-		*out = new(GcsInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]GcsInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.S3 != nil {
 		in, out := &in.S3, &out.S3
-		*out = new(InitScriptsS3InitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]InitScriptsS3InitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Volumes != nil {
 		in, out := &in.Volumes, &out.Volumes
-		*out = new(InitScriptsVolumesInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]InitScriptsVolumesInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Workspace != nil {
 		in, out := &in.Workspace, &out.Workspace
-		*out = new(WorkspaceInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]WorkspaceInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 }
 
@@ -9429,38 +9767,52 @@ func (in *InitScriptsObservation) DeepCopyInto(out *InitScriptsObservation) {
 	*out = *in
 	if in.Abfss != nil {
 		in, out := &in.Abfss, &out.Abfss
-		*out = new(AbfssObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]AbfssObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Dbfs != nil {
 		in, out := &in.Dbfs, &out.Dbfs
-		*out = new(InitScriptsDbfsObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]InitScriptsDbfsObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.File != nil {
 		in, out := &in.File, &out.File
-		*out = new(FileObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]FileObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Gcs != nil {
 		in, out := &in.Gcs, &out.Gcs
-		*out = new(GcsObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]GcsObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.S3 != nil {
 		in, out := &in.S3, &out.S3
-		*out = new(InitScriptsS3Observation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]InitScriptsS3Observation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Volumes != nil {
 		in, out := &in.Volumes, &out.Volumes
-		*out = new(InitScriptsVolumesObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]InitScriptsVolumesObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Workspace != nil {
 		in, out := &in.Workspace, &out.Workspace
-		*out = new(WorkspaceObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]WorkspaceObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 }
 
@@ -9479,38 +9831,52 @@ func (in *InitScriptsParameters) DeepCopyInto(out *InitScriptsParameters) {
 	*out = *in
 	if in.Abfss != nil {
 		in, out := &in.Abfss, &out.Abfss
-		*out = new(AbfssParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]AbfssParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Dbfs != nil {
 		in, out := &in.Dbfs, &out.Dbfs
-		*out = new(InitScriptsDbfsParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]InitScriptsDbfsParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.File != nil {
 		in, out := &in.File, &out.File
-		*out = new(FileParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]FileParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Gcs != nil {
 		in, out := &in.Gcs, &out.Gcs
-		*out = new(GcsParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]GcsParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.S3 != nil {
 		in, out := &in.S3, &out.S3
-		*out = new(InitScriptsS3Parameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]InitScriptsS3Parameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Volumes != nil {
 		in, out := &in.Volumes, &out.Volumes
-		*out = new(InitScriptsVolumesParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]InitScriptsVolumesParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Workspace != nil {
 		in, out := &in.Workspace, &out.Workspace
-		*out = new(WorkspaceParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]WorkspaceParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 }
 
@@ -9991,13 +10357,17 @@ func (in *InstancePoolFleetAttributesInitParameters) DeepCopyInto(out *InstanceP
 	*out = *in
 	if in.FleetOnDemandOption != nil {
 		in, out := &in.FleetOnDemandOption, &out.FleetOnDemandOption
-		*out = new(FleetOnDemandOptionInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]FleetOnDemandOptionInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.FleetSpotOption != nil {
 		in, out := &in.FleetSpotOption, &out.FleetSpotOption
-		*out = new(FleetSpotOptionInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]FleetSpotOptionInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.LaunchTemplateOverride != nil {
 		in, out := &in.LaunchTemplateOverride, &out.LaunchTemplateOverride
@@ -10023,13 +10393,17 @@ func (in *InstancePoolFleetAttributesObservation) DeepCopyInto(out *InstancePool
 	*out = *in
 	if in.FleetOnDemandOption != nil {
 		in, out := &in.FleetOnDemandOption, &out.FleetOnDemandOption
-		*out = new(FleetOnDemandOptionObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]FleetOnDemandOptionObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.FleetSpotOption != nil {
 		in, out := &in.FleetSpotOption, &out.FleetSpotOption
-		*out = new(FleetSpotOptionObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]FleetSpotOptionObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.LaunchTemplateOverride != nil {
 		in, out := &in.LaunchTemplateOverride, &out.LaunchTemplateOverride
@@ -10055,13 +10429,17 @@ func (in *InstancePoolFleetAttributesParameters) DeepCopyInto(out *InstancePoolF
 	*out = *in
 	if in.FleetOnDemandOption != nil {
 		in, out := &in.FleetOnDemandOption, &out.FleetOnDemandOption
-		*out = new(FleetOnDemandOptionParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]FleetOnDemandOptionParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.FleetSpotOption != nil {
 		in, out := &in.FleetSpotOption, &out.FleetSpotOption
-		*out = new(FleetSpotOptionParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]FleetSpotOptionParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.LaunchTemplateOverride != nil {
 		in, out := &in.LaunchTemplateOverride, &out.LaunchTemplateOverride
@@ -10177,13 +10555,17 @@ func (in *InstancePoolInitParameters) DeepCopyInto(out *InstancePoolInitParamete
 	*out = *in
 	if in.AwsAttributes != nil {
 		in, out := &in.AwsAttributes, &out.AwsAttributes
-		*out = new(InstancePoolAwsAttributesInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]InstancePoolAwsAttributesInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.AzureAttributes != nil {
 		in, out := &in.AzureAttributes, &out.AzureAttributes
-		*out = new(InstancePoolAzureAttributesInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]InstancePoolAzureAttributesInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.CustomTags != nil {
 		in, out := &in.CustomTags, &out.CustomTags
@@ -10203,8 +10585,10 @@ func (in *InstancePoolInitParameters) DeepCopyInto(out *InstancePoolInitParamete
 	}
 	if in.DiskSpec != nil {
 		in, out := &in.DiskSpec, &out.DiskSpec
-		*out = new(DiskSpecInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]DiskSpecInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.EnableElasticDisk != nil {
 		in, out := &in.EnableElasticDisk, &out.EnableElasticDisk
@@ -10213,8 +10597,10 @@ func (in *InstancePoolInitParameters) DeepCopyInto(out *InstancePoolInitParamete
 	}
 	if in.GCPAttributes != nil {
 		in, out := &in.GCPAttributes, &out.GCPAttributes
-		*out = new(InstancePoolGCPAttributesInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]InstancePoolGCPAttributesInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.IdleInstanceAutoterminationMinutes != nil {
 		in, out := &in.IdleInstanceAutoterminationMinutes, &out.IdleInstanceAutoterminationMinutes
@@ -10223,8 +10609,10 @@ func (in *InstancePoolInitParameters) DeepCopyInto(out *InstancePoolInitParamete
 	}
 	if in.InstancePoolFleetAttributes != nil {
 		in, out := &in.InstancePoolFleetAttributes, &out.InstancePoolFleetAttributes
-		*out = new(InstancePoolFleetAttributesInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]InstancePoolFleetAttributesInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.InstancePoolID != nil {
 		in, out := &in.InstancePoolID, &out.InstancePoolID
@@ -10318,13 +10706,17 @@ func (in *InstancePoolObservation) DeepCopyInto(out *InstancePoolObservation) {
 	*out = *in
 	if in.AwsAttributes != nil {
 		in, out := &in.AwsAttributes, &out.AwsAttributes
-		*out = new(InstancePoolAwsAttributesObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]InstancePoolAwsAttributesObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.AzureAttributes != nil {
 		in, out := &in.AzureAttributes, &out.AzureAttributes
-		*out = new(InstancePoolAzureAttributesObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]InstancePoolAzureAttributesObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.CustomTags != nil {
 		in, out := &in.CustomTags, &out.CustomTags
@@ -10344,8 +10736,10 @@ func (in *InstancePoolObservation) DeepCopyInto(out *InstancePoolObservation) {
 	}
 	if in.DiskSpec != nil {
 		in, out := &in.DiskSpec, &out.DiskSpec
-		*out = new(DiskSpecObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]DiskSpecObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.EnableElasticDisk != nil {
 		in, out := &in.EnableElasticDisk, &out.EnableElasticDisk
@@ -10354,8 +10748,10 @@ func (in *InstancePoolObservation) DeepCopyInto(out *InstancePoolObservation) {
 	}
 	if in.GCPAttributes != nil {
 		in, out := &in.GCPAttributes, &out.GCPAttributes
-		*out = new(InstancePoolGCPAttributesObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]InstancePoolGCPAttributesObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.ID != nil {
 		in, out := &in.ID, &out.ID
@@ -10369,8 +10765,10 @@ func (in *InstancePoolObservation) DeepCopyInto(out *InstancePoolObservation) {
 	}
 	if in.InstancePoolFleetAttributes != nil {
 		in, out := &in.InstancePoolFleetAttributes, &out.InstancePoolFleetAttributes
-		*out = new(InstancePoolFleetAttributesObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]InstancePoolFleetAttributesObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.InstancePoolID != nil {
 		in, out := &in.InstancePoolID, &out.InstancePoolID
@@ -10432,13 +10830,17 @@ func (in *InstancePoolParameters) DeepCopyInto(out *InstancePoolParameters) {
 	*out = *in
 	if in.AwsAttributes != nil {
 		in, out := &in.AwsAttributes, &out.AwsAttributes
-		*out = new(InstancePoolAwsAttributesParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]InstancePoolAwsAttributesParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.AzureAttributes != nil {
 		in, out := &in.AzureAttributes, &out.AzureAttributes
-		*out = new(InstancePoolAzureAttributesParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]InstancePoolAzureAttributesParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.CustomTags != nil {
 		in, out := &in.CustomTags, &out.CustomTags
@@ -10458,8 +10860,10 @@ func (in *InstancePoolParameters) DeepCopyInto(out *InstancePoolParameters) {
 	}
 	if in.DiskSpec != nil {
 		in, out := &in.DiskSpec, &out.DiskSpec
-		*out = new(DiskSpecParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]DiskSpecParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.EnableElasticDisk != nil {
 		in, out := &in.EnableElasticDisk, &out.EnableElasticDisk
@@ -10468,8 +10872,10 @@ func (in *InstancePoolParameters) DeepCopyInto(out *InstancePoolParameters) {
 	}
 	if in.GCPAttributes != nil {
 		in, out := &in.GCPAttributes, &out.GCPAttributes
-		*out = new(InstancePoolGCPAttributesParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]InstancePoolGCPAttributesParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.IdleInstanceAutoterminationMinutes != nil {
 		in, out := &in.IdleInstanceAutoterminationMinutes, &out.IdleInstanceAutoterminationMinutes
@@ -10478,8 +10884,10 @@ func (in *InstancePoolParameters) DeepCopyInto(out *InstancePoolParameters) {
 	}
 	if in.InstancePoolFleetAttributes != nil {
 		in, out := &in.InstancePoolFleetAttributes, &out.InstancePoolFleetAttributes
-		*out = new(InstancePoolFleetAttributesParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]InstancePoolFleetAttributesParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.InstancePoolID != nil {
 		in, out := &in.InstancePoolID, &out.InstancePoolID
@@ -10608,8 +11016,10 @@ func (in *JobClusterInitParameters) DeepCopyInto(out *JobClusterInitParameters) 
 	}
 	if in.NewCluster != nil {
 		in, out := &in.NewCluster, &out.NewCluster
-		*out = new(NewClusterInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]NewClusterInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 }
 
@@ -10633,8 +11043,10 @@ func (in *JobClusterObservation) DeepCopyInto(out *JobClusterObservation) {
 	}
 	if in.NewCluster != nil {
 		in, out := &in.NewCluster, &out.NewCluster
-		*out = new(NewClusterObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]NewClusterObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 }
 
@@ -10658,8 +11070,10 @@ func (in *JobClusterParameters) DeepCopyInto(out *JobClusterParameters) {
 	}
 	if in.NewCluster != nil {
 		in, out := &in.NewCluster, &out.NewCluster
-		*out = new(NewClusterParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]NewClusterParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 }
 
@@ -10688,8 +11102,10 @@ func (in *JobInitParameters) DeepCopyInto(out *JobInitParameters) {
 	}
 	if in.Continuous != nil {
 		in, out := &in.Continuous, &out.Continuous
-		*out = new(ContinuousInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]ContinuousInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.ControlRunState != nil {
 		in, out := &in.ControlRunState, &out.ControlRunState
@@ -10698,13 +11114,17 @@ func (in *JobInitParameters) DeepCopyInto(out *JobInitParameters) {
 	}
 	if in.DbtTask != nil {
 		in, out := &in.DbtTask, &out.DbtTask
-		*out = new(DbtTaskInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]DbtTaskInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Deployment != nil {
 		in, out := &in.Deployment, &out.Deployment
-		*out = new(DeploymentInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]DeploymentInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Description != nil {
 		in, out := &in.Description, &out.Description
@@ -10718,8 +11138,10 @@ func (in *JobInitParameters) DeepCopyInto(out *JobInitParameters) {
 	}
 	if in.EmailNotifications != nil {
 		in, out := &in.EmailNotifications, &out.EmailNotifications
-		*out = new(EmailNotificationsInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]EmailNotificationsInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Environment != nil {
 		in, out := &in.Environment, &out.Environment
@@ -10740,13 +11162,17 @@ func (in *JobInitParameters) DeepCopyInto(out *JobInitParameters) {
 	}
 	if in.GitSource != nil {
 		in, out := &in.GitSource, &out.GitSource
-		*out = new(GitSourceInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]GitSourceInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Health != nil {
 		in, out := &in.Health, &out.Health
-		*out = new(HealthInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]HealthInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.JobCluster != nil {
 		in, out := &in.JobCluster, &out.JobCluster
@@ -10784,18 +11210,24 @@ func (in *JobInitParameters) DeepCopyInto(out *JobInitParameters) {
 	}
 	if in.NewCluster != nil {
 		in, out := &in.NewCluster, &out.NewCluster
-		*out = new(JobNewClusterInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]JobNewClusterInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.NotebookTask != nil {
 		in, out := &in.NotebookTask, &out.NotebookTask
-		*out = new(NotebookTaskInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]NotebookTaskInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.NotificationSettings != nil {
 		in, out := &in.NotificationSettings, &out.NotificationSettings
-		*out = new(NotificationSettingsInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]NotificationSettingsInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Parameter != nil {
 		in, out := &in.Parameter, &out.Parameter
@@ -10811,18 +11243,24 @@ func (in *JobInitParameters) DeepCopyInto(out *JobInitParameters) {
 	}
 	if in.PipelineTask != nil {
 		in, out := &in.PipelineTask, &out.PipelineTask
-		*out = new(PipelineTaskInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]PipelineTaskInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.PythonWheelTask != nil {
 		in, out := &in.PythonWheelTask, &out.PythonWheelTask
-		*out = new(PythonWheelTaskInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]PythonWheelTaskInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Queue != nil {
 		in, out := &in.Queue, &out.Queue
-		*out = new(QueueInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]QueueInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.RetryOnTimeout != nil {
 		in, out := &in.RetryOnTimeout, &out.RetryOnTimeout
@@ -10831,33 +11269,45 @@ func (in *JobInitParameters) DeepCopyInto(out *JobInitParameters) {
 	}
 	if in.RunAs != nil {
 		in, out := &in.RunAs, &out.RunAs
-		*out = new(RunAsInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]RunAsInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.RunJobTask != nil {
 		in, out := &in.RunJobTask, &out.RunJobTask
-		*out = new(RunJobTaskInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]RunJobTaskInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Schedule != nil {
 		in, out := &in.Schedule, &out.Schedule
-		*out = new(ScheduleInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]ScheduleInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.SparkJarTask != nil {
 		in, out := &in.SparkJarTask, &out.SparkJarTask
-		*out = new(SparkJarTaskInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]SparkJarTaskInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.SparkPythonTask != nil {
 		in, out := &in.SparkPythonTask, &out.SparkPythonTask
-		*out = new(SparkPythonTaskInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]SparkPythonTaskInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.SparkSubmitTask != nil {
 		in, out := &in.SparkSubmitTask, &out.SparkSubmitTask
-		*out = new(SparkSubmitTaskInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]SparkSubmitTaskInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Tags != nil {
 		in, out := &in.Tags, &out.Tags
@@ -10889,8 +11339,10 @@ func (in *JobInitParameters) DeepCopyInto(out *JobInitParameters) {
 	}
 	if in.Trigger != nil {
 		in, out := &in.Trigger, &out.Trigger
-		*out = new(TriggerInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]TriggerInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.UsagePolicyID != nil {
 		in, out := &in.UsagePolicyID, &out.UsagePolicyID
@@ -10899,8 +11351,10 @@ func (in *JobInitParameters) DeepCopyInto(out *JobInitParameters) {
 	}
 	if in.WebhookNotifications != nil {
 		in, out := &in.WebhookNotifications, &out.WebhookNotifications
-		*out = new(JobWebhookNotificationsInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]JobWebhookNotificationsInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 }
 
@@ -10994,8 +11448,10 @@ func (in *JobLibraryInitParameters) DeepCopyInto(out *JobLibraryInitParameters) 
 	*out = *in
 	if in.Cran != nil {
 		in, out := &in.Cran, &out.Cran
-		*out = new(JobLibraryCranInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]JobLibraryCranInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Egg != nil {
 		in, out := &in.Egg, &out.Egg
@@ -11009,13 +11465,17 @@ func (in *JobLibraryInitParameters) DeepCopyInto(out *JobLibraryInitParameters) 
 	}
 	if in.Maven != nil {
 		in, out := &in.Maven, &out.Maven
-		*out = new(JobLibraryMavenInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]JobLibraryMavenInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Pypi != nil {
 		in, out := &in.Pypi, &out.Pypi
-		*out = new(JobLibraryPypiInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]JobLibraryPypiInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Requirements != nil {
 		in, out := &in.Requirements, &out.Requirements
@@ -11152,8 +11612,10 @@ func (in *JobLibraryObservation) DeepCopyInto(out *JobLibraryObservation) {
 	*out = *in
 	if in.Cran != nil {
 		in, out := &in.Cran, &out.Cran
-		*out = new(JobLibraryCranObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]JobLibraryCranObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Egg != nil {
 		in, out := &in.Egg, &out.Egg
@@ -11167,13 +11629,17 @@ func (in *JobLibraryObservation) DeepCopyInto(out *JobLibraryObservation) {
 	}
 	if in.Maven != nil {
 		in, out := &in.Maven, &out.Maven
-		*out = new(JobLibraryMavenObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]JobLibraryMavenObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Pypi != nil {
 		in, out := &in.Pypi, &out.Pypi
-		*out = new(JobLibraryPypiObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]JobLibraryPypiObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Requirements != nil {
 		in, out := &in.Requirements, &out.Requirements
@@ -11202,8 +11668,10 @@ func (in *JobLibraryParameters) DeepCopyInto(out *JobLibraryParameters) {
 	*out = *in
 	if in.Cran != nil {
 		in, out := &in.Cran, &out.Cran
-		*out = new(JobLibraryCranParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]JobLibraryCranParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Egg != nil {
 		in, out := &in.Egg, &out.Egg
@@ -11217,13 +11685,17 @@ func (in *JobLibraryParameters) DeepCopyInto(out *JobLibraryParameters) {
 	}
 	if in.Maven != nil {
 		in, out := &in.Maven, &out.Maven
-		*out = new(JobLibraryMavenParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]JobLibraryMavenParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Pypi != nil {
 		in, out := &in.Pypi, &out.Pypi
-		*out = new(JobLibraryPypiParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]JobLibraryPypiParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Requirements != nil {
 		in, out := &in.Requirements, &out.Requirements
@@ -11639,8 +12111,10 @@ func (in *JobNewClusterAzureAttributesInitParameters) DeepCopyInto(out *JobNewCl
 	}
 	if in.LogAnalyticsInfo != nil {
 		in, out := &in.LogAnalyticsInfo, &out.LogAnalyticsInfo
-		*out = new(NewClusterAzureAttributesLogAnalyticsInfoInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]NewClusterAzureAttributesLogAnalyticsInfoInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.SpotBidMaxPrice != nil {
 		in, out := &in.SpotBidMaxPrice, &out.SpotBidMaxPrice
@@ -11674,8 +12148,10 @@ func (in *JobNewClusterAzureAttributesObservation) DeepCopyInto(out *JobNewClust
 	}
 	if in.LogAnalyticsInfo != nil {
 		in, out := &in.LogAnalyticsInfo, &out.LogAnalyticsInfo
-		*out = new(NewClusterAzureAttributesLogAnalyticsInfoObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]NewClusterAzureAttributesLogAnalyticsInfoObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.SpotBidMaxPrice != nil {
 		in, out := &in.SpotBidMaxPrice, &out.SpotBidMaxPrice
@@ -11709,8 +12185,10 @@ func (in *JobNewClusterAzureAttributesParameters) DeepCopyInto(out *JobNewCluste
 	}
 	if in.LogAnalyticsInfo != nil {
 		in, out := &in.LogAnalyticsInfo, &out.LogAnalyticsInfo
-		*out = new(NewClusterAzureAttributesLogAnalyticsInfoParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]NewClusterAzureAttributesLogAnalyticsInfoParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.SpotBidMaxPrice != nil {
 		in, out := &in.SpotBidMaxPrice, &out.SpotBidMaxPrice
@@ -11734,18 +12212,24 @@ func (in *JobNewClusterClusterLogConfInitParameters) DeepCopyInto(out *JobNewClu
 	*out = *in
 	if in.Dbfs != nil {
 		in, out := &in.Dbfs, &out.Dbfs
-		*out = new(NewClusterClusterLogConfDbfsInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]NewClusterClusterLogConfDbfsInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.S3 != nil {
 		in, out := &in.S3, &out.S3
-		*out = new(NewClusterClusterLogConfS3InitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]NewClusterClusterLogConfS3InitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Volumes != nil {
 		in, out := &in.Volumes, &out.Volumes
-		*out = new(NewClusterClusterLogConfVolumesInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]NewClusterClusterLogConfVolumesInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 }
 
@@ -11764,18 +12248,24 @@ func (in *JobNewClusterClusterLogConfObservation) DeepCopyInto(out *JobNewCluste
 	*out = *in
 	if in.Dbfs != nil {
 		in, out := &in.Dbfs, &out.Dbfs
-		*out = new(NewClusterClusterLogConfDbfsObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]NewClusterClusterLogConfDbfsObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.S3 != nil {
 		in, out := &in.S3, &out.S3
-		*out = new(NewClusterClusterLogConfS3Observation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]NewClusterClusterLogConfS3Observation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Volumes != nil {
 		in, out := &in.Volumes, &out.Volumes
-		*out = new(NewClusterClusterLogConfVolumesObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]NewClusterClusterLogConfVolumesObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 }
 
@@ -11794,18 +12284,24 @@ func (in *JobNewClusterClusterLogConfParameters) DeepCopyInto(out *JobNewCluster
 	*out = *in
 	if in.Dbfs != nil {
 		in, out := &in.Dbfs, &out.Dbfs
-		*out = new(NewClusterClusterLogConfDbfsParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]NewClusterClusterLogConfDbfsParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.S3 != nil {
 		in, out := &in.S3, &out.S3
-		*out = new(NewClusterClusterLogConfS3Parameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]NewClusterClusterLogConfS3Parameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Volumes != nil {
 		in, out := &in.Volumes, &out.Volumes
-		*out = new(NewClusterClusterLogConfVolumesParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]NewClusterClusterLogConfVolumesParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 }
 
@@ -11829,8 +12325,10 @@ func (in *JobNewClusterClusterMountInfoInitParameters) DeepCopyInto(out *JobNewC
 	}
 	if in.NetworkFilesystemInfo != nil {
 		in, out := &in.NetworkFilesystemInfo, &out.NetworkFilesystemInfo
-		*out = new(NewClusterClusterMountInfoNetworkFilesystemInfoInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]NewClusterClusterMountInfoNetworkFilesystemInfoInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.RemoteMountDirPath != nil {
 		in, out := &in.RemoteMountDirPath, &out.RemoteMountDirPath
@@ -11859,8 +12357,10 @@ func (in *JobNewClusterClusterMountInfoObservation) DeepCopyInto(out *JobNewClus
 	}
 	if in.NetworkFilesystemInfo != nil {
 		in, out := &in.NetworkFilesystemInfo, &out.NetworkFilesystemInfo
-		*out = new(NewClusterClusterMountInfoNetworkFilesystemInfoObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]NewClusterClusterMountInfoNetworkFilesystemInfoObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.RemoteMountDirPath != nil {
 		in, out := &in.RemoteMountDirPath, &out.RemoteMountDirPath
@@ -11889,8 +12389,10 @@ func (in *JobNewClusterClusterMountInfoParameters) DeepCopyInto(out *JobNewClust
 	}
 	if in.NetworkFilesystemInfo != nil {
 		in, out := &in.NetworkFilesystemInfo, &out.NetworkFilesystemInfo
-		*out = new(NewClusterClusterMountInfoNetworkFilesystemInfoParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]NewClusterClusterMountInfoNetworkFilesystemInfoParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.RemoteMountDirPath != nil {
 		in, out := &in.RemoteMountDirPath, &out.RemoteMountDirPath
@@ -11914,8 +12416,10 @@ func (in *JobNewClusterDockerImageInitParameters) DeepCopyInto(out *JobNewCluste
 	*out = *in
 	if in.BasicAuth != nil {
 		in, out := &in.BasicAuth, &out.BasicAuth
-		*out = new(NewClusterDockerImageBasicAuthInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]NewClusterDockerImageBasicAuthInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.URL != nil {
 		in, out := &in.URL, &out.URL
@@ -11939,8 +12443,10 @@ func (in *JobNewClusterDockerImageObservation) DeepCopyInto(out *JobNewClusterDo
 	*out = *in
 	if in.BasicAuth != nil {
 		in, out := &in.BasicAuth, &out.BasicAuth
-		*out = new(NewClusterDockerImageBasicAuthObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]NewClusterDockerImageBasicAuthObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.URL != nil {
 		in, out := &in.URL, &out.URL
@@ -11964,8 +12470,10 @@ func (in *JobNewClusterDockerImageParameters) DeepCopyInto(out *JobNewClusterDoc
 	*out = *in
 	if in.BasicAuth != nil {
 		in, out := &in.BasicAuth, &out.BasicAuth
-		*out = new(NewClusterDockerImageBasicAuthParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]NewClusterDockerImageBasicAuthParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.URL != nil {
 		in, out := &in.URL, &out.URL
@@ -12144,18 +12652,24 @@ func (in *JobNewClusterInitParameters) DeepCopyInto(out *JobNewClusterInitParame
 	}
 	if in.Autoscale != nil {
 		in, out := &in.Autoscale, &out.Autoscale
-		*out = new(JobNewClusterAutoscaleInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]JobNewClusterAutoscaleInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.AwsAttributes != nil {
 		in, out := &in.AwsAttributes, &out.AwsAttributes
-		*out = new(JobNewClusterAwsAttributesInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]JobNewClusterAwsAttributesInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.AzureAttributes != nil {
 		in, out := &in.AzureAttributes, &out.AzureAttributes
-		*out = new(JobNewClusterAzureAttributesInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]JobNewClusterAzureAttributesInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.ClusterID != nil {
 		in, out := &in.ClusterID, &out.ClusterID
@@ -12164,8 +12678,10 @@ func (in *JobNewClusterInitParameters) DeepCopyInto(out *JobNewClusterInitParame
 	}
 	if in.ClusterLogConf != nil {
 		in, out := &in.ClusterLogConf, &out.ClusterLogConf
-		*out = new(JobNewClusterClusterLogConfInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]JobNewClusterClusterLogConfInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.ClusterMountInfo != nil {
 		in, out := &in.ClusterMountInfo, &out.ClusterMountInfo
@@ -12202,8 +12718,10 @@ func (in *JobNewClusterInitParameters) DeepCopyInto(out *JobNewClusterInitParame
 	}
 	if in.DockerImage != nil {
 		in, out := &in.DockerImage, &out.DockerImage
-		*out = new(JobNewClusterDockerImageInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]JobNewClusterDockerImageInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.DriverInstancePoolID != nil {
 		in, out := &in.DriverInstancePoolID, &out.DriverInstancePoolID
@@ -12227,8 +12745,10 @@ func (in *JobNewClusterInitParameters) DeepCopyInto(out *JobNewClusterInitParame
 	}
 	if in.GCPAttributes != nil {
 		in, out := &in.GCPAttributes, &out.GCPAttributes
-		*out = new(JobNewClusterGCPAttributesInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]JobNewClusterGCPAttributesInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.IdempotencyToken != nil {
 		in, out := &in.IdempotencyToken, &out.IdempotencyToken
@@ -12354,8 +12874,10 @@ func (in *JobNewClusterInitParameters) DeepCopyInto(out *JobNewClusterInitParame
 	}
 	if in.WorkloadType != nil {
 		in, out := &in.WorkloadType, &out.WorkloadType
-		*out = new(JobNewClusterWorkloadTypeInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]JobNewClusterWorkloadTypeInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 }
 
@@ -12434,38 +12956,52 @@ func (in *JobNewClusterInitScriptsInitParameters) DeepCopyInto(out *JobNewCluste
 	*out = *in
 	if in.Abfss != nil {
 		in, out := &in.Abfss, &out.Abfss
-		*out = new(NewClusterInitScriptsAbfssInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]NewClusterInitScriptsAbfssInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Dbfs != nil {
 		in, out := &in.Dbfs, &out.Dbfs
-		*out = new(JobNewClusterInitScriptsDbfsInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]JobNewClusterInitScriptsDbfsInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.File != nil {
 		in, out := &in.File, &out.File
-		*out = new(NewClusterInitScriptsFileInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]NewClusterInitScriptsFileInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Gcs != nil {
 		in, out := &in.Gcs, &out.Gcs
-		*out = new(NewClusterInitScriptsGcsInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]NewClusterInitScriptsGcsInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.S3 != nil {
 		in, out := &in.S3, &out.S3
-		*out = new(JobNewClusterInitScriptsS3InitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]JobNewClusterInitScriptsS3InitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Volumes != nil {
 		in, out := &in.Volumes, &out.Volumes
-		*out = new(JobNewClusterInitScriptsVolumesInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]JobNewClusterInitScriptsVolumesInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Workspace != nil {
 		in, out := &in.Workspace, &out.Workspace
-		*out = new(NewClusterInitScriptsWorkspaceInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]NewClusterInitScriptsWorkspaceInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 }
 
@@ -12484,38 +13020,52 @@ func (in *JobNewClusterInitScriptsObservation) DeepCopyInto(out *JobNewClusterIn
 	*out = *in
 	if in.Abfss != nil {
 		in, out := &in.Abfss, &out.Abfss
-		*out = new(NewClusterInitScriptsAbfssObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]NewClusterInitScriptsAbfssObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Dbfs != nil {
 		in, out := &in.Dbfs, &out.Dbfs
-		*out = new(JobNewClusterInitScriptsDbfsObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]JobNewClusterInitScriptsDbfsObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.File != nil {
 		in, out := &in.File, &out.File
-		*out = new(NewClusterInitScriptsFileObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]NewClusterInitScriptsFileObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Gcs != nil {
 		in, out := &in.Gcs, &out.Gcs
-		*out = new(NewClusterInitScriptsGcsObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]NewClusterInitScriptsGcsObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.S3 != nil {
 		in, out := &in.S3, &out.S3
-		*out = new(JobNewClusterInitScriptsS3Observation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]JobNewClusterInitScriptsS3Observation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Volumes != nil {
 		in, out := &in.Volumes, &out.Volumes
-		*out = new(JobNewClusterInitScriptsVolumesObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]JobNewClusterInitScriptsVolumesObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Workspace != nil {
 		in, out := &in.Workspace, &out.Workspace
-		*out = new(NewClusterInitScriptsWorkspaceObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]NewClusterInitScriptsWorkspaceObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 }
 
@@ -12534,38 +13084,52 @@ func (in *JobNewClusterInitScriptsParameters) DeepCopyInto(out *JobNewClusterIni
 	*out = *in
 	if in.Abfss != nil {
 		in, out := &in.Abfss, &out.Abfss
-		*out = new(NewClusterInitScriptsAbfssParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]NewClusterInitScriptsAbfssParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Dbfs != nil {
 		in, out := &in.Dbfs, &out.Dbfs
-		*out = new(JobNewClusterInitScriptsDbfsParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]JobNewClusterInitScriptsDbfsParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.File != nil {
 		in, out := &in.File, &out.File
-		*out = new(NewClusterInitScriptsFileParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]NewClusterInitScriptsFileParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Gcs != nil {
 		in, out := &in.Gcs, &out.Gcs
-		*out = new(NewClusterInitScriptsGcsParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]NewClusterInitScriptsGcsParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.S3 != nil {
 		in, out := &in.S3, &out.S3
-		*out = new(JobNewClusterInitScriptsS3Parameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]JobNewClusterInitScriptsS3Parameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Volumes != nil {
 		in, out := &in.Volumes, &out.Volumes
-		*out = new(JobNewClusterInitScriptsVolumesParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]JobNewClusterInitScriptsVolumesParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Workspace != nil {
 		in, out := &in.Workspace, &out.Workspace
-		*out = new(NewClusterInitScriptsWorkspaceParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]NewClusterInitScriptsWorkspaceParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 }
 
@@ -12794,8 +13358,10 @@ func (in *JobNewClusterLibraryInitParameters) DeepCopyInto(out *JobNewClusterLib
 	*out = *in
 	if in.Cran != nil {
 		in, out := &in.Cran, &out.Cran
-		*out = new(NewClusterLibraryCranInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]NewClusterLibraryCranInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Egg != nil {
 		in, out := &in.Egg, &out.Egg
@@ -12809,13 +13375,17 @@ func (in *JobNewClusterLibraryInitParameters) DeepCopyInto(out *JobNewClusterLib
 	}
 	if in.Maven != nil {
 		in, out := &in.Maven, &out.Maven
-		*out = new(NewClusterLibraryMavenInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]NewClusterLibraryMavenInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Pypi != nil {
 		in, out := &in.Pypi, &out.Pypi
-		*out = new(NewClusterLibraryPypiInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]NewClusterLibraryPypiInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Requirements != nil {
 		in, out := &in.Requirements, &out.Requirements
@@ -12844,8 +13414,10 @@ func (in *JobNewClusterLibraryObservation) DeepCopyInto(out *JobNewClusterLibrar
 	*out = *in
 	if in.Cran != nil {
 		in, out := &in.Cran, &out.Cran
-		*out = new(NewClusterLibraryCranObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]NewClusterLibraryCranObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Egg != nil {
 		in, out := &in.Egg, &out.Egg
@@ -12859,13 +13431,17 @@ func (in *JobNewClusterLibraryObservation) DeepCopyInto(out *JobNewClusterLibrar
 	}
 	if in.Maven != nil {
 		in, out := &in.Maven, &out.Maven
-		*out = new(NewClusterLibraryMavenObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]NewClusterLibraryMavenObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Pypi != nil {
 		in, out := &in.Pypi, &out.Pypi
-		*out = new(NewClusterLibraryPypiObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]NewClusterLibraryPypiObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Requirements != nil {
 		in, out := &in.Requirements, &out.Requirements
@@ -12894,8 +13470,10 @@ func (in *JobNewClusterLibraryParameters) DeepCopyInto(out *JobNewClusterLibrary
 	*out = *in
 	if in.Cran != nil {
 		in, out := &in.Cran, &out.Cran
-		*out = new(NewClusterLibraryCranParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]NewClusterLibraryCranParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Egg != nil {
 		in, out := &in.Egg, &out.Egg
@@ -12909,13 +13487,17 @@ func (in *JobNewClusterLibraryParameters) DeepCopyInto(out *JobNewClusterLibrary
 	}
 	if in.Maven != nil {
 		in, out := &in.Maven, &out.Maven
-		*out = new(NewClusterLibraryMavenParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]NewClusterLibraryMavenParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Pypi != nil {
 		in, out := &in.Pypi, &out.Pypi
-		*out = new(NewClusterLibraryPypiParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]NewClusterLibraryPypiParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Requirements != nil {
 		in, out := &in.Requirements, &out.Requirements
@@ -12949,18 +13531,24 @@ func (in *JobNewClusterObservation) DeepCopyInto(out *JobNewClusterObservation) 
 	}
 	if in.Autoscale != nil {
 		in, out := &in.Autoscale, &out.Autoscale
-		*out = new(JobNewClusterAutoscaleObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]JobNewClusterAutoscaleObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.AwsAttributes != nil {
 		in, out := &in.AwsAttributes, &out.AwsAttributes
-		*out = new(JobNewClusterAwsAttributesObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]JobNewClusterAwsAttributesObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.AzureAttributes != nil {
 		in, out := &in.AzureAttributes, &out.AzureAttributes
-		*out = new(JobNewClusterAzureAttributesObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]JobNewClusterAzureAttributesObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.ClusterID != nil {
 		in, out := &in.ClusterID, &out.ClusterID
@@ -12969,8 +13557,10 @@ func (in *JobNewClusterObservation) DeepCopyInto(out *JobNewClusterObservation) 
 	}
 	if in.ClusterLogConf != nil {
 		in, out := &in.ClusterLogConf, &out.ClusterLogConf
-		*out = new(JobNewClusterClusterLogConfObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]JobNewClusterClusterLogConfObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.ClusterMountInfo != nil {
 		in, out := &in.ClusterMountInfo, &out.ClusterMountInfo
@@ -13007,8 +13597,10 @@ func (in *JobNewClusterObservation) DeepCopyInto(out *JobNewClusterObservation) 
 	}
 	if in.DockerImage != nil {
 		in, out := &in.DockerImage, &out.DockerImage
-		*out = new(JobNewClusterDockerImageObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]JobNewClusterDockerImageObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.DriverInstancePoolID != nil {
 		in, out := &in.DriverInstancePoolID, &out.DriverInstancePoolID
@@ -13032,8 +13624,10 @@ func (in *JobNewClusterObservation) DeepCopyInto(out *JobNewClusterObservation) 
 	}
 	if in.GCPAttributes != nil {
 		in, out := &in.GCPAttributes, &out.GCPAttributes
-		*out = new(JobNewClusterGCPAttributesObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]JobNewClusterGCPAttributesObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.IdempotencyToken != nil {
 		in, out := &in.IdempotencyToken, &out.IdempotencyToken
@@ -13159,8 +13753,10 @@ func (in *JobNewClusterObservation) DeepCopyInto(out *JobNewClusterObservation) 
 	}
 	if in.WorkloadType != nil {
 		in, out := &in.WorkloadType, &out.WorkloadType
-		*out = new(JobNewClusterWorkloadTypeObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]JobNewClusterWorkloadTypeObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 }
 
@@ -13184,18 +13780,24 @@ func (in *JobNewClusterParameters) DeepCopyInto(out *JobNewClusterParameters) {
 	}
 	if in.Autoscale != nil {
 		in, out := &in.Autoscale, &out.Autoscale
-		*out = new(JobNewClusterAutoscaleParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]JobNewClusterAutoscaleParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.AwsAttributes != nil {
 		in, out := &in.AwsAttributes, &out.AwsAttributes
-		*out = new(JobNewClusterAwsAttributesParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]JobNewClusterAwsAttributesParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.AzureAttributes != nil {
 		in, out := &in.AzureAttributes, &out.AzureAttributes
-		*out = new(JobNewClusterAzureAttributesParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]JobNewClusterAzureAttributesParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.ClusterID != nil {
 		in, out := &in.ClusterID, &out.ClusterID
@@ -13204,8 +13806,10 @@ func (in *JobNewClusterParameters) DeepCopyInto(out *JobNewClusterParameters) {
 	}
 	if in.ClusterLogConf != nil {
 		in, out := &in.ClusterLogConf, &out.ClusterLogConf
-		*out = new(JobNewClusterClusterLogConfParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]JobNewClusterClusterLogConfParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.ClusterMountInfo != nil {
 		in, out := &in.ClusterMountInfo, &out.ClusterMountInfo
@@ -13242,8 +13846,10 @@ func (in *JobNewClusterParameters) DeepCopyInto(out *JobNewClusterParameters) {
 	}
 	if in.DockerImage != nil {
 		in, out := &in.DockerImage, &out.DockerImage
-		*out = new(JobNewClusterDockerImageParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]JobNewClusterDockerImageParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.DriverInstancePoolID != nil {
 		in, out := &in.DriverInstancePoolID, &out.DriverInstancePoolID
@@ -13267,8 +13873,10 @@ func (in *JobNewClusterParameters) DeepCopyInto(out *JobNewClusterParameters) {
 	}
 	if in.GCPAttributes != nil {
 		in, out := &in.GCPAttributes, &out.GCPAttributes
-		*out = new(JobNewClusterGCPAttributesParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]JobNewClusterGCPAttributesParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.IdempotencyToken != nil {
 		in, out := &in.IdempotencyToken, &out.IdempotencyToken
@@ -13394,8 +14002,10 @@ func (in *JobNewClusterParameters) DeepCopyInto(out *JobNewClusterParameters) {
 	}
 	if in.WorkloadType != nil {
 		in, out := &in.WorkloadType, &out.WorkloadType
-		*out = new(JobNewClusterWorkloadTypeParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]JobNewClusterWorkloadTypeParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 }
 
@@ -13414,8 +14024,10 @@ func (in *JobNewClusterWorkloadTypeInitParameters) DeepCopyInto(out *JobNewClust
 	*out = *in
 	if in.Clients != nil {
 		in, out := &in.Clients, &out.Clients
-		*out = new(NewClusterWorkloadTypeClientsInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]NewClusterWorkloadTypeClientsInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 }
 
@@ -13434,8 +14046,10 @@ func (in *JobNewClusterWorkloadTypeObservation) DeepCopyInto(out *JobNewClusterW
 	*out = *in
 	if in.Clients != nil {
 		in, out := &in.Clients, &out.Clients
-		*out = new(NewClusterWorkloadTypeClientsObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]NewClusterWorkloadTypeClientsObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 }
 
@@ -13454,8 +14068,10 @@ func (in *JobNewClusterWorkloadTypeParameters) DeepCopyInto(out *JobNewClusterWo
 	*out = *in
 	if in.Clients != nil {
 		in, out := &in.Clients, &out.Clients
-		*out = new(NewClusterWorkloadTypeClientsParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]NewClusterWorkloadTypeClientsParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 }
 
@@ -13484,8 +14100,10 @@ func (in *JobObservation) DeepCopyInto(out *JobObservation) {
 	}
 	if in.Continuous != nil {
 		in, out := &in.Continuous, &out.Continuous
-		*out = new(ContinuousObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]ContinuousObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.ControlRunState != nil {
 		in, out := &in.ControlRunState, &out.ControlRunState
@@ -13494,13 +14112,17 @@ func (in *JobObservation) DeepCopyInto(out *JobObservation) {
 	}
 	if in.DbtTask != nil {
 		in, out := &in.DbtTask, &out.DbtTask
-		*out = new(DbtTaskObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]DbtTaskObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Deployment != nil {
 		in, out := &in.Deployment, &out.Deployment
-		*out = new(DeploymentObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]DeploymentObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Description != nil {
 		in, out := &in.Description, &out.Description
@@ -13514,8 +14136,10 @@ func (in *JobObservation) DeepCopyInto(out *JobObservation) {
 	}
 	if in.EmailNotifications != nil {
 		in, out := &in.EmailNotifications, &out.EmailNotifications
-		*out = new(EmailNotificationsObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]EmailNotificationsObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Environment != nil {
 		in, out := &in.Environment, &out.Environment
@@ -13536,13 +14160,17 @@ func (in *JobObservation) DeepCopyInto(out *JobObservation) {
 	}
 	if in.GitSource != nil {
 		in, out := &in.GitSource, &out.GitSource
-		*out = new(GitSourceObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]GitSourceObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Health != nil {
 		in, out := &in.Health, &out.Health
-		*out = new(HealthObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]HealthObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.ID != nil {
 		in, out := &in.ID, &out.ID
@@ -13585,18 +14213,24 @@ func (in *JobObservation) DeepCopyInto(out *JobObservation) {
 	}
 	if in.NewCluster != nil {
 		in, out := &in.NewCluster, &out.NewCluster
-		*out = new(JobNewClusterObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]JobNewClusterObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.NotebookTask != nil {
 		in, out := &in.NotebookTask, &out.NotebookTask
-		*out = new(NotebookTaskObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]NotebookTaskObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.NotificationSettings != nil {
 		in, out := &in.NotificationSettings, &out.NotificationSettings
-		*out = new(NotificationSettingsObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]NotificationSettingsObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Parameter != nil {
 		in, out := &in.Parameter, &out.Parameter
@@ -13612,18 +14246,24 @@ func (in *JobObservation) DeepCopyInto(out *JobObservation) {
 	}
 	if in.PipelineTask != nil {
 		in, out := &in.PipelineTask, &out.PipelineTask
-		*out = new(PipelineTaskObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]PipelineTaskObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.PythonWheelTask != nil {
 		in, out := &in.PythonWheelTask, &out.PythonWheelTask
-		*out = new(PythonWheelTaskObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]PythonWheelTaskObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Queue != nil {
 		in, out := &in.Queue, &out.Queue
-		*out = new(QueueObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]QueueObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.RetryOnTimeout != nil {
 		in, out := &in.RetryOnTimeout, &out.RetryOnTimeout
@@ -13632,33 +14272,45 @@ func (in *JobObservation) DeepCopyInto(out *JobObservation) {
 	}
 	if in.RunAs != nil {
 		in, out := &in.RunAs, &out.RunAs
-		*out = new(RunAsObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]RunAsObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.RunJobTask != nil {
 		in, out := &in.RunJobTask, &out.RunJobTask
-		*out = new(RunJobTaskObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]RunJobTaskObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Schedule != nil {
 		in, out := &in.Schedule, &out.Schedule
-		*out = new(ScheduleObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]ScheduleObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.SparkJarTask != nil {
 		in, out := &in.SparkJarTask, &out.SparkJarTask
-		*out = new(SparkJarTaskObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]SparkJarTaskObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.SparkPythonTask != nil {
 		in, out := &in.SparkPythonTask, &out.SparkPythonTask
-		*out = new(SparkPythonTaskObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]SparkPythonTaskObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.SparkSubmitTask != nil {
 		in, out := &in.SparkSubmitTask, &out.SparkSubmitTask
-		*out = new(SparkSubmitTaskObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]SparkSubmitTaskObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Tags != nil {
 		in, out := &in.Tags, &out.Tags
@@ -13690,8 +14342,10 @@ func (in *JobObservation) DeepCopyInto(out *JobObservation) {
 	}
 	if in.Trigger != nil {
 		in, out := &in.Trigger, &out.Trigger
-		*out = new(TriggerObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]TriggerObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.URL != nil {
 		in, out := &in.URL, &out.URL
@@ -13705,8 +14359,10 @@ func (in *JobObservation) DeepCopyInto(out *JobObservation) {
 	}
 	if in.WebhookNotifications != nil {
 		in, out := &in.WebhookNotifications, &out.WebhookNotifications
-		*out = new(JobWebhookNotificationsObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]JobWebhookNotificationsObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 }
 
@@ -13735,8 +14391,10 @@ func (in *JobParameters) DeepCopyInto(out *JobParameters) {
 	}
 	if in.Continuous != nil {
 		in, out := &in.Continuous, &out.Continuous
-		*out = new(ContinuousParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]ContinuousParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.ControlRunState != nil {
 		in, out := &in.ControlRunState, &out.ControlRunState
@@ -13745,13 +14403,17 @@ func (in *JobParameters) DeepCopyInto(out *JobParameters) {
 	}
 	if in.DbtTask != nil {
 		in, out := &in.DbtTask, &out.DbtTask
-		*out = new(DbtTaskParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]DbtTaskParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Deployment != nil {
 		in, out := &in.Deployment, &out.Deployment
-		*out = new(DeploymentParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]DeploymentParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Description != nil {
 		in, out := &in.Description, &out.Description
@@ -13765,8 +14427,10 @@ func (in *JobParameters) DeepCopyInto(out *JobParameters) {
 	}
 	if in.EmailNotifications != nil {
 		in, out := &in.EmailNotifications, &out.EmailNotifications
-		*out = new(EmailNotificationsParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]EmailNotificationsParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Environment != nil {
 		in, out := &in.Environment, &out.Environment
@@ -13787,13 +14451,17 @@ func (in *JobParameters) DeepCopyInto(out *JobParameters) {
 	}
 	if in.GitSource != nil {
 		in, out := &in.GitSource, &out.GitSource
-		*out = new(GitSourceParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]GitSourceParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Health != nil {
 		in, out := &in.Health, &out.Health
-		*out = new(HealthParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]HealthParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.JobCluster != nil {
 		in, out := &in.JobCluster, &out.JobCluster
@@ -13831,18 +14499,24 @@ func (in *JobParameters) DeepCopyInto(out *JobParameters) {
 	}
 	if in.NewCluster != nil {
 		in, out := &in.NewCluster, &out.NewCluster
-		*out = new(JobNewClusterParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]JobNewClusterParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.NotebookTask != nil {
 		in, out := &in.NotebookTask, &out.NotebookTask
-		*out = new(NotebookTaskParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]NotebookTaskParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.NotificationSettings != nil {
 		in, out := &in.NotificationSettings, &out.NotificationSettings
-		*out = new(NotificationSettingsParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]NotificationSettingsParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Parameter != nil {
 		in, out := &in.Parameter, &out.Parameter
@@ -13858,18 +14532,24 @@ func (in *JobParameters) DeepCopyInto(out *JobParameters) {
 	}
 	if in.PipelineTask != nil {
 		in, out := &in.PipelineTask, &out.PipelineTask
-		*out = new(PipelineTaskParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]PipelineTaskParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.PythonWheelTask != nil {
 		in, out := &in.PythonWheelTask, &out.PythonWheelTask
-		*out = new(PythonWheelTaskParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]PythonWheelTaskParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Queue != nil {
 		in, out := &in.Queue, &out.Queue
-		*out = new(QueueParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]QueueParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.RetryOnTimeout != nil {
 		in, out := &in.RetryOnTimeout, &out.RetryOnTimeout
@@ -13878,33 +14558,45 @@ func (in *JobParameters) DeepCopyInto(out *JobParameters) {
 	}
 	if in.RunAs != nil {
 		in, out := &in.RunAs, &out.RunAs
-		*out = new(RunAsParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]RunAsParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.RunJobTask != nil {
 		in, out := &in.RunJobTask, &out.RunJobTask
-		*out = new(RunJobTaskParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]RunJobTaskParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Schedule != nil {
 		in, out := &in.Schedule, &out.Schedule
-		*out = new(ScheduleParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]ScheduleParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.SparkJarTask != nil {
 		in, out := &in.SparkJarTask, &out.SparkJarTask
-		*out = new(SparkJarTaskParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]SparkJarTaskParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.SparkPythonTask != nil {
 		in, out := &in.SparkPythonTask, &out.SparkPythonTask
-		*out = new(SparkPythonTaskParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]SparkPythonTaskParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.SparkSubmitTask != nil {
 		in, out := &in.SparkSubmitTask, &out.SparkSubmitTask
-		*out = new(SparkSubmitTaskParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]SparkSubmitTaskParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Tags != nil {
 		in, out := &in.Tags, &out.Tags
@@ -13936,8 +14628,10 @@ func (in *JobParameters) DeepCopyInto(out *JobParameters) {
 	}
 	if in.Trigger != nil {
 		in, out := &in.Trigger, &out.Trigger
-		*out = new(TriggerParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]TriggerParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.UsagePolicyID != nil {
 		in, out := &in.UsagePolicyID, &out.UsagePolicyID
@@ -13946,8 +14640,10 @@ func (in *JobParameters) DeepCopyInto(out *JobParameters) {
 	}
 	if in.WebhookNotifications != nil {
 		in, out := &in.WebhookNotifications, &out.WebhookNotifications
-		*out = new(JobWebhookNotificationsParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]JobWebhookNotificationsParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 }
 
@@ -14232,8 +14928,10 @@ func (in *JobTaskLibraryInitParameters) DeepCopyInto(out *JobTaskLibraryInitPara
 	*out = *in
 	if in.Cran != nil {
 		in, out := &in.Cran, &out.Cran
-		*out = new(JobTaskLibraryCranInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]JobTaskLibraryCranInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Egg != nil {
 		in, out := &in.Egg, &out.Egg
@@ -14247,13 +14945,17 @@ func (in *JobTaskLibraryInitParameters) DeepCopyInto(out *JobTaskLibraryInitPara
 	}
 	if in.Maven != nil {
 		in, out := &in.Maven, &out.Maven
-		*out = new(JobTaskLibraryMavenInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]JobTaskLibraryMavenInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Pypi != nil {
 		in, out := &in.Pypi, &out.Pypi
-		*out = new(JobTaskLibraryPypiInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]JobTaskLibraryPypiInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Requirements != nil {
 		in, out := &in.Requirements, &out.Requirements
@@ -14390,8 +15092,10 @@ func (in *JobTaskLibraryObservation) DeepCopyInto(out *JobTaskLibraryObservation
 	*out = *in
 	if in.Cran != nil {
 		in, out := &in.Cran, &out.Cran
-		*out = new(JobTaskLibraryCranObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]JobTaskLibraryCranObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Egg != nil {
 		in, out := &in.Egg, &out.Egg
@@ -14405,13 +15109,17 @@ func (in *JobTaskLibraryObservation) DeepCopyInto(out *JobTaskLibraryObservation
 	}
 	if in.Maven != nil {
 		in, out := &in.Maven, &out.Maven
-		*out = new(JobTaskLibraryMavenObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]JobTaskLibraryMavenObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Pypi != nil {
 		in, out := &in.Pypi, &out.Pypi
-		*out = new(JobTaskLibraryPypiObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]JobTaskLibraryPypiObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Requirements != nil {
 		in, out := &in.Requirements, &out.Requirements
@@ -14440,8 +15148,10 @@ func (in *JobTaskLibraryParameters) DeepCopyInto(out *JobTaskLibraryParameters) 
 	*out = *in
 	if in.Cran != nil {
 		in, out := &in.Cran, &out.Cran
-		*out = new(JobTaskLibraryCranParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]JobTaskLibraryCranParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Egg != nil {
 		in, out := &in.Egg, &out.Egg
@@ -14455,13 +15165,17 @@ func (in *JobTaskLibraryParameters) DeepCopyInto(out *JobTaskLibraryParameters) 
 	}
 	if in.Maven != nil {
 		in, out := &in.Maven, &out.Maven
-		*out = new(JobTaskLibraryMavenParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]JobTaskLibraryMavenParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Pypi != nil {
 		in, out := &in.Pypi, &out.Pypi
-		*out = new(JobTaskLibraryPypiParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]JobTaskLibraryPypiParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Requirements != nil {
 		in, out := &in.Requirements, &out.Requirements
@@ -14845,8 +15559,10 @@ func (in *JobTaskNewClusterAzureAttributesInitParameters) DeepCopyInto(out *JobT
 	}
 	if in.LogAnalyticsInfo != nil {
 		in, out := &in.LogAnalyticsInfo, &out.LogAnalyticsInfo
-		*out = new(JobTaskNewClusterAzureAttributesLogAnalyticsInfoInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]JobTaskNewClusterAzureAttributesLogAnalyticsInfoInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.SpotBidMaxPrice != nil {
 		in, out := &in.SpotBidMaxPrice, &out.SpotBidMaxPrice
@@ -14955,8 +15671,10 @@ func (in *JobTaskNewClusterAzureAttributesObservation) DeepCopyInto(out *JobTask
 	}
 	if in.LogAnalyticsInfo != nil {
 		in, out := &in.LogAnalyticsInfo, &out.LogAnalyticsInfo
-		*out = new(JobTaskNewClusterAzureAttributesLogAnalyticsInfoObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]JobTaskNewClusterAzureAttributesLogAnalyticsInfoObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.SpotBidMaxPrice != nil {
 		in, out := &in.SpotBidMaxPrice, &out.SpotBidMaxPrice
@@ -14990,8 +15708,10 @@ func (in *JobTaskNewClusterAzureAttributesParameters) DeepCopyInto(out *JobTaskN
 	}
 	if in.LogAnalyticsInfo != nil {
 		in, out := &in.LogAnalyticsInfo, &out.LogAnalyticsInfo
-		*out = new(JobTaskNewClusterAzureAttributesLogAnalyticsInfoParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]JobTaskNewClusterAzureAttributesLogAnalyticsInfoParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.SpotBidMaxPrice != nil {
 		in, out := &in.SpotBidMaxPrice, &out.SpotBidMaxPrice
@@ -15075,18 +15795,24 @@ func (in *JobTaskNewClusterClusterLogConfInitParameters) DeepCopyInto(out *JobTa
 	*out = *in
 	if in.Dbfs != nil {
 		in, out := &in.Dbfs, &out.Dbfs
-		*out = new(JobTaskNewClusterClusterLogConfDbfsInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]JobTaskNewClusterClusterLogConfDbfsInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.S3 != nil {
 		in, out := &in.S3, &out.S3
-		*out = new(JobTaskNewClusterClusterLogConfS3InitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]JobTaskNewClusterClusterLogConfS3InitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Volumes != nil {
 		in, out := &in.Volumes, &out.Volumes
-		*out = new(JobTaskNewClusterClusterLogConfVolumesInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]JobTaskNewClusterClusterLogConfVolumesInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 }
 
@@ -15105,18 +15831,24 @@ func (in *JobTaskNewClusterClusterLogConfObservation) DeepCopyInto(out *JobTaskN
 	*out = *in
 	if in.Dbfs != nil {
 		in, out := &in.Dbfs, &out.Dbfs
-		*out = new(JobTaskNewClusterClusterLogConfDbfsObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]JobTaskNewClusterClusterLogConfDbfsObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.S3 != nil {
 		in, out := &in.S3, &out.S3
-		*out = new(JobTaskNewClusterClusterLogConfS3Observation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]JobTaskNewClusterClusterLogConfS3Observation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Volumes != nil {
 		in, out := &in.Volumes, &out.Volumes
-		*out = new(JobTaskNewClusterClusterLogConfVolumesObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]JobTaskNewClusterClusterLogConfVolumesObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 }
 
@@ -15135,18 +15867,24 @@ func (in *JobTaskNewClusterClusterLogConfParameters) DeepCopyInto(out *JobTaskNe
 	*out = *in
 	if in.Dbfs != nil {
 		in, out := &in.Dbfs, &out.Dbfs
-		*out = new(JobTaskNewClusterClusterLogConfDbfsParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]JobTaskNewClusterClusterLogConfDbfsParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.S3 != nil {
 		in, out := &in.S3, &out.S3
-		*out = new(JobTaskNewClusterClusterLogConfS3Parameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]JobTaskNewClusterClusterLogConfS3Parameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Volumes != nil {
 		in, out := &in.Volumes, &out.Volumes
-		*out = new(JobTaskNewClusterClusterLogConfVolumesParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]JobTaskNewClusterClusterLogConfVolumesParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 }
 
@@ -15380,8 +16118,10 @@ func (in *JobTaskNewClusterClusterMountInfoInitParameters) DeepCopyInto(out *Job
 	}
 	if in.NetworkFilesystemInfo != nil {
 		in, out := &in.NetworkFilesystemInfo, &out.NetworkFilesystemInfo
-		*out = new(JobTaskNewClusterClusterMountInfoNetworkFilesystemInfoInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]JobTaskNewClusterClusterMountInfoNetworkFilesystemInfoInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.RemoteMountDirPath != nil {
 		in, out := &in.RemoteMountDirPath, &out.RemoteMountDirPath
@@ -15485,8 +16225,10 @@ func (in *JobTaskNewClusterClusterMountInfoObservation) DeepCopyInto(out *JobTas
 	}
 	if in.NetworkFilesystemInfo != nil {
 		in, out := &in.NetworkFilesystemInfo, &out.NetworkFilesystemInfo
-		*out = new(JobTaskNewClusterClusterMountInfoNetworkFilesystemInfoObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]JobTaskNewClusterClusterMountInfoNetworkFilesystemInfoObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.RemoteMountDirPath != nil {
 		in, out := &in.RemoteMountDirPath, &out.RemoteMountDirPath
@@ -15515,8 +16257,10 @@ func (in *JobTaskNewClusterClusterMountInfoParameters) DeepCopyInto(out *JobTask
 	}
 	if in.NetworkFilesystemInfo != nil {
 		in, out := &in.NetworkFilesystemInfo, &out.NetworkFilesystemInfo
-		*out = new(JobTaskNewClusterClusterMountInfoNetworkFilesystemInfoParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]JobTaskNewClusterClusterMountInfoNetworkFilesystemInfoParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.RemoteMountDirPath != nil {
 		in, out := &in.RemoteMountDirPath, &out.RemoteMountDirPath
@@ -15602,8 +16346,10 @@ func (in *JobTaskNewClusterDockerImageInitParameters) DeepCopyInto(out *JobTaskN
 	*out = *in
 	if in.BasicAuth != nil {
 		in, out := &in.BasicAuth, &out.BasicAuth
-		*out = new(JobTaskNewClusterDockerImageBasicAuthInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]JobTaskNewClusterDockerImageBasicAuthInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.URL != nil {
 		in, out := &in.URL, &out.URL
@@ -15627,8 +16373,10 @@ func (in *JobTaskNewClusterDockerImageObservation) DeepCopyInto(out *JobTaskNewC
 	*out = *in
 	if in.BasicAuth != nil {
 		in, out := &in.BasicAuth, &out.BasicAuth
-		*out = new(JobTaskNewClusterDockerImageBasicAuthObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]JobTaskNewClusterDockerImageBasicAuthObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.URL != nil {
 		in, out := &in.URL, &out.URL
@@ -15652,8 +16400,10 @@ func (in *JobTaskNewClusterDockerImageParameters) DeepCopyInto(out *JobTaskNewCl
 	*out = *in
 	if in.BasicAuth != nil {
 		in, out := &in.BasicAuth, &out.BasicAuth
-		*out = new(JobTaskNewClusterDockerImageBasicAuthParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]JobTaskNewClusterDockerImageBasicAuthParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.URL != nil {
 		in, out := &in.URL, &out.URL
@@ -15843,18 +16593,24 @@ func (in *JobTaskNewClusterInitParameters) DeepCopyInto(out *JobTaskNewClusterIn
 	}
 	if in.Autoscale != nil {
 		in, out := &in.Autoscale, &out.Autoscale
-		*out = new(JobTaskNewClusterAutoscaleInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]JobTaskNewClusterAutoscaleInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.AwsAttributes != nil {
 		in, out := &in.AwsAttributes, &out.AwsAttributes
-		*out = new(JobTaskNewClusterAwsAttributesInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]JobTaskNewClusterAwsAttributesInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.AzureAttributes != nil {
 		in, out := &in.AzureAttributes, &out.AzureAttributes
-		*out = new(JobTaskNewClusterAzureAttributesInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]JobTaskNewClusterAzureAttributesInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.ClusterID != nil {
 		in, out := &in.ClusterID, &out.ClusterID
@@ -15863,8 +16619,10 @@ func (in *JobTaskNewClusterInitParameters) DeepCopyInto(out *JobTaskNewClusterIn
 	}
 	if in.ClusterLogConf != nil {
 		in, out := &in.ClusterLogConf, &out.ClusterLogConf
-		*out = new(JobTaskNewClusterClusterLogConfInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]JobTaskNewClusterClusterLogConfInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.ClusterMountInfo != nil {
 		in, out := &in.ClusterMountInfo, &out.ClusterMountInfo
@@ -15901,8 +16659,10 @@ func (in *JobTaskNewClusterInitParameters) DeepCopyInto(out *JobTaskNewClusterIn
 	}
 	if in.DockerImage != nil {
 		in, out := &in.DockerImage, &out.DockerImage
-		*out = new(JobTaskNewClusterDockerImageInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]JobTaskNewClusterDockerImageInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.DriverInstancePoolID != nil {
 		in, out := &in.DriverInstancePoolID, &out.DriverInstancePoolID
@@ -15926,8 +16686,10 @@ func (in *JobTaskNewClusterInitParameters) DeepCopyInto(out *JobTaskNewClusterIn
 	}
 	if in.GCPAttributes != nil {
 		in, out := &in.GCPAttributes, &out.GCPAttributes
-		*out = new(JobTaskNewClusterGCPAttributesInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]JobTaskNewClusterGCPAttributesInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.IdempotencyToken != nil {
 		in, out := &in.IdempotencyToken, &out.IdempotencyToken
@@ -16053,8 +16815,10 @@ func (in *JobTaskNewClusterInitParameters) DeepCopyInto(out *JobTaskNewClusterIn
 	}
 	if in.WorkloadType != nil {
 		in, out := &in.WorkloadType, &out.WorkloadType
-		*out = new(JobTaskNewClusterWorkloadTypeInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]JobTaskNewClusterWorkloadTypeInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 }
 
@@ -16313,38 +17077,52 @@ func (in *JobTaskNewClusterInitScriptsInitParameters) DeepCopyInto(out *JobTaskN
 	*out = *in
 	if in.Abfss != nil {
 		in, out := &in.Abfss, &out.Abfss
-		*out = new(JobTaskNewClusterInitScriptsAbfssInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]JobTaskNewClusterInitScriptsAbfssInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Dbfs != nil {
 		in, out := &in.Dbfs, &out.Dbfs
-		*out = new(JobTaskNewClusterInitScriptsDbfsInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]JobTaskNewClusterInitScriptsDbfsInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.File != nil {
 		in, out := &in.File, &out.File
-		*out = new(JobTaskNewClusterInitScriptsFileInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]JobTaskNewClusterInitScriptsFileInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Gcs != nil {
 		in, out := &in.Gcs, &out.Gcs
-		*out = new(JobTaskNewClusterInitScriptsGcsInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]JobTaskNewClusterInitScriptsGcsInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.S3 != nil {
 		in, out := &in.S3, &out.S3
-		*out = new(JobTaskNewClusterInitScriptsS3InitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]JobTaskNewClusterInitScriptsS3InitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Volumes != nil {
 		in, out := &in.Volumes, &out.Volumes
-		*out = new(JobTaskNewClusterInitScriptsVolumesInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]JobTaskNewClusterInitScriptsVolumesInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Workspace != nil {
 		in, out := &in.Workspace, &out.Workspace
-		*out = new(JobTaskNewClusterInitScriptsWorkspaceInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]JobTaskNewClusterInitScriptsWorkspaceInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 }
 
@@ -16363,38 +17141,52 @@ func (in *JobTaskNewClusterInitScriptsObservation) DeepCopyInto(out *JobTaskNewC
 	*out = *in
 	if in.Abfss != nil {
 		in, out := &in.Abfss, &out.Abfss
-		*out = new(JobTaskNewClusterInitScriptsAbfssObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]JobTaskNewClusterInitScriptsAbfssObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Dbfs != nil {
 		in, out := &in.Dbfs, &out.Dbfs
-		*out = new(JobTaskNewClusterInitScriptsDbfsObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]JobTaskNewClusterInitScriptsDbfsObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.File != nil {
 		in, out := &in.File, &out.File
-		*out = new(JobTaskNewClusterInitScriptsFileObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]JobTaskNewClusterInitScriptsFileObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Gcs != nil {
 		in, out := &in.Gcs, &out.Gcs
-		*out = new(JobTaskNewClusterInitScriptsGcsObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]JobTaskNewClusterInitScriptsGcsObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.S3 != nil {
 		in, out := &in.S3, &out.S3
-		*out = new(JobTaskNewClusterInitScriptsS3Observation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]JobTaskNewClusterInitScriptsS3Observation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Volumes != nil {
 		in, out := &in.Volumes, &out.Volumes
-		*out = new(JobTaskNewClusterInitScriptsVolumesObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]JobTaskNewClusterInitScriptsVolumesObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Workspace != nil {
 		in, out := &in.Workspace, &out.Workspace
-		*out = new(JobTaskNewClusterInitScriptsWorkspaceObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]JobTaskNewClusterInitScriptsWorkspaceObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 }
 
@@ -16413,38 +17205,52 @@ func (in *JobTaskNewClusterInitScriptsParameters) DeepCopyInto(out *JobTaskNewCl
 	*out = *in
 	if in.Abfss != nil {
 		in, out := &in.Abfss, &out.Abfss
-		*out = new(JobTaskNewClusterInitScriptsAbfssParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]JobTaskNewClusterInitScriptsAbfssParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Dbfs != nil {
 		in, out := &in.Dbfs, &out.Dbfs
-		*out = new(JobTaskNewClusterInitScriptsDbfsParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]JobTaskNewClusterInitScriptsDbfsParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.File != nil {
 		in, out := &in.File, &out.File
-		*out = new(JobTaskNewClusterInitScriptsFileParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]JobTaskNewClusterInitScriptsFileParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Gcs != nil {
 		in, out := &in.Gcs, &out.Gcs
-		*out = new(JobTaskNewClusterInitScriptsGcsParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]JobTaskNewClusterInitScriptsGcsParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.S3 != nil {
 		in, out := &in.S3, &out.S3
-		*out = new(JobTaskNewClusterInitScriptsS3Parameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]JobTaskNewClusterInitScriptsS3Parameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Volumes != nil {
 		in, out := &in.Volumes, &out.Volumes
-		*out = new(JobTaskNewClusterInitScriptsVolumesParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]JobTaskNewClusterInitScriptsVolumesParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Workspace != nil {
 		in, out := &in.Workspace, &out.Workspace
-		*out = new(JobTaskNewClusterInitScriptsWorkspaceParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]JobTaskNewClusterInitScriptsWorkspaceParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 }
 
@@ -16808,8 +17614,10 @@ func (in *JobTaskNewClusterLibraryInitParameters) DeepCopyInto(out *JobTaskNewCl
 	*out = *in
 	if in.Cran != nil {
 		in, out := &in.Cran, &out.Cran
-		*out = new(JobTaskNewClusterLibraryCranInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]JobTaskNewClusterLibraryCranInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Egg != nil {
 		in, out := &in.Egg, &out.Egg
@@ -16823,13 +17631,17 @@ func (in *JobTaskNewClusterLibraryInitParameters) DeepCopyInto(out *JobTaskNewCl
 	}
 	if in.Maven != nil {
 		in, out := &in.Maven, &out.Maven
-		*out = new(JobTaskNewClusterLibraryMavenInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]JobTaskNewClusterLibraryMavenInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Pypi != nil {
 		in, out := &in.Pypi, &out.Pypi
-		*out = new(JobTaskNewClusterLibraryPypiInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]JobTaskNewClusterLibraryPypiInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Requirements != nil {
 		in, out := &in.Requirements, &out.Requirements
@@ -16966,8 +17778,10 @@ func (in *JobTaskNewClusterLibraryObservation) DeepCopyInto(out *JobTaskNewClust
 	*out = *in
 	if in.Cran != nil {
 		in, out := &in.Cran, &out.Cran
-		*out = new(JobTaskNewClusterLibraryCranObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]JobTaskNewClusterLibraryCranObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Egg != nil {
 		in, out := &in.Egg, &out.Egg
@@ -16981,13 +17795,17 @@ func (in *JobTaskNewClusterLibraryObservation) DeepCopyInto(out *JobTaskNewClust
 	}
 	if in.Maven != nil {
 		in, out := &in.Maven, &out.Maven
-		*out = new(JobTaskNewClusterLibraryMavenObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]JobTaskNewClusterLibraryMavenObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Pypi != nil {
 		in, out := &in.Pypi, &out.Pypi
-		*out = new(JobTaskNewClusterLibraryPypiObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]JobTaskNewClusterLibraryPypiObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Requirements != nil {
 		in, out := &in.Requirements, &out.Requirements
@@ -17016,8 +17834,10 @@ func (in *JobTaskNewClusterLibraryParameters) DeepCopyInto(out *JobTaskNewCluste
 	*out = *in
 	if in.Cran != nil {
 		in, out := &in.Cran, &out.Cran
-		*out = new(JobTaskNewClusterLibraryCranParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]JobTaskNewClusterLibraryCranParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Egg != nil {
 		in, out := &in.Egg, &out.Egg
@@ -17031,13 +17851,17 @@ func (in *JobTaskNewClusterLibraryParameters) DeepCopyInto(out *JobTaskNewCluste
 	}
 	if in.Maven != nil {
 		in, out := &in.Maven, &out.Maven
-		*out = new(JobTaskNewClusterLibraryMavenParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]JobTaskNewClusterLibraryMavenParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Pypi != nil {
 		in, out := &in.Pypi, &out.Pypi
-		*out = new(JobTaskNewClusterLibraryPypiParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]JobTaskNewClusterLibraryPypiParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Requirements != nil {
 		in, out := &in.Requirements, &out.Requirements
@@ -17157,18 +17981,24 @@ func (in *JobTaskNewClusterObservation) DeepCopyInto(out *JobTaskNewClusterObser
 	}
 	if in.Autoscale != nil {
 		in, out := &in.Autoscale, &out.Autoscale
-		*out = new(JobTaskNewClusterAutoscaleObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]JobTaskNewClusterAutoscaleObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.AwsAttributes != nil {
 		in, out := &in.AwsAttributes, &out.AwsAttributes
-		*out = new(JobTaskNewClusterAwsAttributesObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]JobTaskNewClusterAwsAttributesObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.AzureAttributes != nil {
 		in, out := &in.AzureAttributes, &out.AzureAttributes
-		*out = new(JobTaskNewClusterAzureAttributesObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]JobTaskNewClusterAzureAttributesObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.ClusterID != nil {
 		in, out := &in.ClusterID, &out.ClusterID
@@ -17177,8 +18007,10 @@ func (in *JobTaskNewClusterObservation) DeepCopyInto(out *JobTaskNewClusterObser
 	}
 	if in.ClusterLogConf != nil {
 		in, out := &in.ClusterLogConf, &out.ClusterLogConf
-		*out = new(JobTaskNewClusterClusterLogConfObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]JobTaskNewClusterClusterLogConfObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.ClusterMountInfo != nil {
 		in, out := &in.ClusterMountInfo, &out.ClusterMountInfo
@@ -17215,8 +18047,10 @@ func (in *JobTaskNewClusterObservation) DeepCopyInto(out *JobTaskNewClusterObser
 	}
 	if in.DockerImage != nil {
 		in, out := &in.DockerImage, &out.DockerImage
-		*out = new(JobTaskNewClusterDockerImageObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]JobTaskNewClusterDockerImageObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.DriverInstancePoolID != nil {
 		in, out := &in.DriverInstancePoolID, &out.DriverInstancePoolID
@@ -17240,8 +18074,10 @@ func (in *JobTaskNewClusterObservation) DeepCopyInto(out *JobTaskNewClusterObser
 	}
 	if in.GCPAttributes != nil {
 		in, out := &in.GCPAttributes, &out.GCPAttributes
-		*out = new(JobTaskNewClusterGCPAttributesObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]JobTaskNewClusterGCPAttributesObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.IdempotencyToken != nil {
 		in, out := &in.IdempotencyToken, &out.IdempotencyToken
@@ -17367,8 +18203,10 @@ func (in *JobTaskNewClusterObservation) DeepCopyInto(out *JobTaskNewClusterObser
 	}
 	if in.WorkloadType != nil {
 		in, out := &in.WorkloadType, &out.WorkloadType
-		*out = new(JobTaskNewClusterWorkloadTypeObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]JobTaskNewClusterWorkloadTypeObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 }
 
@@ -17403,18 +18241,24 @@ func (in *JobTaskNewClusterParameters) DeepCopyInto(out *JobTaskNewClusterParame
 	}
 	if in.Autoscale != nil {
 		in, out := &in.Autoscale, &out.Autoscale
-		*out = new(JobTaskNewClusterAutoscaleParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]JobTaskNewClusterAutoscaleParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.AwsAttributes != nil {
 		in, out := &in.AwsAttributes, &out.AwsAttributes
-		*out = new(JobTaskNewClusterAwsAttributesParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]JobTaskNewClusterAwsAttributesParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.AzureAttributes != nil {
 		in, out := &in.AzureAttributes, &out.AzureAttributes
-		*out = new(JobTaskNewClusterAzureAttributesParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]JobTaskNewClusterAzureAttributesParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.ClusterID != nil {
 		in, out := &in.ClusterID, &out.ClusterID
@@ -17423,8 +18267,10 @@ func (in *JobTaskNewClusterParameters) DeepCopyInto(out *JobTaskNewClusterParame
 	}
 	if in.ClusterLogConf != nil {
 		in, out := &in.ClusterLogConf, &out.ClusterLogConf
-		*out = new(JobTaskNewClusterClusterLogConfParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]JobTaskNewClusterClusterLogConfParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.ClusterMountInfo != nil {
 		in, out := &in.ClusterMountInfo, &out.ClusterMountInfo
@@ -17461,8 +18307,10 @@ func (in *JobTaskNewClusterParameters) DeepCopyInto(out *JobTaskNewClusterParame
 	}
 	if in.DockerImage != nil {
 		in, out := &in.DockerImage, &out.DockerImage
-		*out = new(JobTaskNewClusterDockerImageParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]JobTaskNewClusterDockerImageParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.DriverInstancePoolID != nil {
 		in, out := &in.DriverInstancePoolID, &out.DriverInstancePoolID
@@ -17486,8 +18334,10 @@ func (in *JobTaskNewClusterParameters) DeepCopyInto(out *JobTaskNewClusterParame
 	}
 	if in.GCPAttributes != nil {
 		in, out := &in.GCPAttributes, &out.GCPAttributes
-		*out = new(JobTaskNewClusterGCPAttributesParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]JobTaskNewClusterGCPAttributesParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.IdempotencyToken != nil {
 		in, out := &in.IdempotencyToken, &out.IdempotencyToken
@@ -17613,8 +18463,10 @@ func (in *JobTaskNewClusterParameters) DeepCopyInto(out *JobTaskNewClusterParame
 	}
 	if in.WorkloadType != nil {
 		in, out := &in.WorkloadType, &out.WorkloadType
-		*out = new(JobTaskNewClusterWorkloadTypeParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]JobTaskNewClusterWorkloadTypeParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 }
 
@@ -17708,8 +18560,10 @@ func (in *JobTaskNewClusterWorkloadTypeInitParameters) DeepCopyInto(out *JobTask
 	*out = *in
 	if in.Clients != nil {
 		in, out := &in.Clients, &out.Clients
-		*out = new(JobTaskNewClusterWorkloadTypeClientsInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]JobTaskNewClusterWorkloadTypeClientsInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 }
 
@@ -17728,8 +18582,10 @@ func (in *JobTaskNewClusterWorkloadTypeObservation) DeepCopyInto(out *JobTaskNew
 	*out = *in
 	if in.Clients != nil {
 		in, out := &in.Clients, &out.Clients
-		*out = new(JobTaskNewClusterWorkloadTypeClientsObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]JobTaskNewClusterWorkloadTypeClientsObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 }
 
@@ -17748,8 +18604,10 @@ func (in *JobTaskNewClusterWorkloadTypeParameters) DeepCopyInto(out *JobTaskNewC
 	*out = *in
 	if in.Clients != nil {
 		in, out := &in.Clients, &out.Clients
-		*out = new(JobTaskNewClusterWorkloadTypeClientsParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]JobTaskNewClusterWorkloadTypeClientsParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 }
 
@@ -18326,8 +19184,10 @@ func (in *JobTaskRunJobTaskInitParameters) DeepCopyInto(out *JobTaskRunJobTaskIn
 	}
 	if in.PipelineParams != nil {
 		in, out := &in.PipelineParams, &out.PipelineParams
-		*out = new(RunJobTaskPipelineParamsInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]RunJobTaskPipelineParamsInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.PythonNamedParams != nil {
 		in, out := &in.PythonNamedParams, &out.PythonNamedParams
@@ -18459,8 +19319,10 @@ func (in *JobTaskRunJobTaskObservation) DeepCopyInto(out *JobTaskRunJobTaskObser
 	}
 	if in.PipelineParams != nil {
 		in, out := &in.PipelineParams, &out.PipelineParams
-		*out = new(RunJobTaskPipelineParamsObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]RunJobTaskPipelineParamsObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.PythonNamedParams != nil {
 		in, out := &in.PythonNamedParams, &out.PythonNamedParams
@@ -18592,8 +19454,10 @@ func (in *JobTaskRunJobTaskParameters) DeepCopyInto(out *JobTaskRunJobTaskParame
 	}
 	if in.PipelineParams != nil {
 		in, out := &in.PipelineParams, &out.PipelineParams
-		*out = new(RunJobTaskPipelineParamsParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]RunJobTaskPipelineParamsParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.PythonNamedParams != nil {
 		in, out := &in.PythonNamedParams, &out.PythonNamedParams
@@ -19665,8 +20529,10 @@ func (in *LibrariesInitParameters) DeepCopyInto(out *LibrariesInitParameters) {
 	*out = *in
 	if in.Cran != nil {
 		in, out := &in.Cran, &out.Cran
-		*out = new(LibrariesCranInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]LibrariesCranInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Egg != nil {
 		in, out := &in.Egg, &out.Egg
@@ -19680,13 +20546,17 @@ func (in *LibrariesInitParameters) DeepCopyInto(out *LibrariesInitParameters) {
 	}
 	if in.Maven != nil {
 		in, out := &in.Maven, &out.Maven
-		*out = new(LibrariesMavenInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]LibrariesMavenInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Pypi != nil {
 		in, out := &in.Pypi, &out.Pypi
-		*out = new(LibrariesPypiInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]LibrariesPypiInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Requirements != nil {
 		in, out := &in.Requirements, &out.Requirements
@@ -19823,8 +20693,10 @@ func (in *LibrariesObservation) DeepCopyInto(out *LibrariesObservation) {
 	*out = *in
 	if in.Cran != nil {
 		in, out := &in.Cran, &out.Cran
-		*out = new(LibrariesCranObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]LibrariesCranObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Egg != nil {
 		in, out := &in.Egg, &out.Egg
@@ -19838,13 +20710,17 @@ func (in *LibrariesObservation) DeepCopyInto(out *LibrariesObservation) {
 	}
 	if in.Maven != nil {
 		in, out := &in.Maven, &out.Maven
-		*out = new(LibrariesMavenObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]LibrariesMavenObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Pypi != nil {
 		in, out := &in.Pypi, &out.Pypi
-		*out = new(LibrariesPypiObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]LibrariesPypiObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Requirements != nil {
 		in, out := &in.Requirements, &out.Requirements
@@ -19873,8 +20749,10 @@ func (in *LibrariesParameters) DeepCopyInto(out *LibrariesParameters) {
 	*out = *in
 	if in.Cran != nil {
 		in, out := &in.Cran, &out.Cran
-		*out = new(LibrariesCranParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]LibrariesCranParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Egg != nil {
 		in, out := &in.Egg, &out.Egg
@@ -19888,13 +20766,17 @@ func (in *LibrariesParameters) DeepCopyInto(out *LibrariesParameters) {
 	}
 	if in.Maven != nil {
 		in, out := &in.Maven, &out.Maven
-		*out = new(LibrariesMavenParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]LibrariesMavenParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Pypi != nil {
 		in, out := &in.Pypi, &out.Pypi
-		*out = new(LibrariesPypiParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]LibrariesPypiParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Requirements != nil {
 		in, out := &in.Requirements, &out.Requirements
@@ -20235,8 +21117,10 @@ func (in *LibraryInitParameters) DeepCopyInto(out *LibraryInitParameters) {
 	*out = *in
 	if in.Cran != nil {
 		in, out := &in.Cran, &out.Cran
-		*out = new(CranInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]CranInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Egg != nil {
 		in, out := &in.Egg, &out.Egg
@@ -20250,13 +21134,17 @@ func (in *LibraryInitParameters) DeepCopyInto(out *LibraryInitParameters) {
 	}
 	if in.Maven != nil {
 		in, out := &in.Maven, &out.Maven
-		*out = new(MavenInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]MavenInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Pypi != nil {
 		in, out := &in.Pypi, &out.Pypi
-		*out = new(PypiInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]PypiInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Requirements != nil {
 		in, out := &in.Requirements, &out.Requirements
@@ -20300,8 +21188,10 @@ func (in *LibraryInitParameters_2) DeepCopyInto(out *LibraryInitParameters_2) {
 	}
 	if in.Cran != nil {
 		in, out := &in.Cran, &out.Cran
-		*out = new(LibraryCranInitParameters_2)
-		(*in).DeepCopyInto(*out)
+		*out = make([]LibraryCranInitParameters_2, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Egg != nil {
 		in, out := &in.Egg, &out.Egg
@@ -20335,13 +21225,17 @@ func (in *LibraryInitParameters_2) DeepCopyInto(out *LibraryInitParameters_2) {
 	}
 	if in.Maven != nil {
 		in, out := &in.Maven, &out.Maven
-		*out = new(LibraryMavenInitParameters_2)
-		(*in).DeepCopyInto(*out)
+		*out = make([]LibraryMavenInitParameters_2, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Pypi != nil {
 		in, out := &in.Pypi, &out.Pypi
-		*out = new(LibraryPypiInitParameters_2)
-		(*in).DeepCopyInto(*out)
+		*out = make([]LibraryPypiInitParameters_2, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Requirements != nil {
 		in, out := &in.Requirements, &out.Requirements
@@ -20628,8 +21522,10 @@ func (in *LibraryObservation) DeepCopyInto(out *LibraryObservation) {
 	*out = *in
 	if in.Cran != nil {
 		in, out := &in.Cran, &out.Cran
-		*out = new(CranObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]CranObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Egg != nil {
 		in, out := &in.Egg, &out.Egg
@@ -20643,13 +21539,17 @@ func (in *LibraryObservation) DeepCopyInto(out *LibraryObservation) {
 	}
 	if in.Maven != nil {
 		in, out := &in.Maven, &out.Maven
-		*out = new(MavenObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]MavenObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Pypi != nil {
 		in, out := &in.Pypi, &out.Pypi
-		*out = new(PypiObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]PypiObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Requirements != nil {
 		in, out := &in.Requirements, &out.Requirements
@@ -20683,8 +21583,10 @@ func (in *LibraryObservation_2) DeepCopyInto(out *LibraryObservation_2) {
 	}
 	if in.Cran != nil {
 		in, out := &in.Cran, &out.Cran
-		*out = new(LibraryCranObservation_2)
-		(*in).DeepCopyInto(*out)
+		*out = make([]LibraryCranObservation_2, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Egg != nil {
 		in, out := &in.Egg, &out.Egg
@@ -20703,13 +21605,17 @@ func (in *LibraryObservation_2) DeepCopyInto(out *LibraryObservation_2) {
 	}
 	if in.Maven != nil {
 		in, out := &in.Maven, &out.Maven
-		*out = new(LibraryMavenObservation_2)
-		(*in).DeepCopyInto(*out)
+		*out = make([]LibraryMavenObservation_2, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Pypi != nil {
 		in, out := &in.Pypi, &out.Pypi
-		*out = new(LibraryPypiObservation_2)
-		(*in).DeepCopyInto(*out)
+		*out = make([]LibraryPypiObservation_2, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Requirements != nil {
 		in, out := &in.Requirements, &out.Requirements
@@ -20738,8 +21644,10 @@ func (in *LibraryParameters) DeepCopyInto(out *LibraryParameters) {
 	*out = *in
 	if in.Cran != nil {
 		in, out := &in.Cran, &out.Cran
-		*out = new(CranParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]CranParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Egg != nil {
 		in, out := &in.Egg, &out.Egg
@@ -20753,13 +21661,17 @@ func (in *LibraryParameters) DeepCopyInto(out *LibraryParameters) {
 	}
 	if in.Maven != nil {
 		in, out := &in.Maven, &out.Maven
-		*out = new(MavenParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]MavenParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Pypi != nil {
 		in, out := &in.Pypi, &out.Pypi
-		*out = new(PypiParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]PypiParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Requirements != nil {
 		in, out := &in.Requirements, &out.Requirements
@@ -20803,8 +21715,10 @@ func (in *LibraryParameters_2) DeepCopyInto(out *LibraryParameters_2) {
 	}
 	if in.Cran != nil {
 		in, out := &in.Cran, &out.Cran
-		*out = new(LibraryCranParameters_2)
-		(*in).DeepCopyInto(*out)
+		*out = make([]LibraryCranParameters_2, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Egg != nil {
 		in, out := &in.Egg, &out.Egg
@@ -20838,13 +21752,17 @@ func (in *LibraryParameters_2) DeepCopyInto(out *LibraryParameters_2) {
 	}
 	if in.Maven != nil {
 		in, out := &in.Maven, &out.Maven
-		*out = new(LibraryMavenParameters_2)
-		(*in).DeepCopyInto(*out)
+		*out = make([]LibraryMavenParameters_2, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Pypi != nil {
 		in, out := &in.Pypi, &out.Pypi
-		*out = new(LibraryPypiParameters_2)
-		(*in).DeepCopyInto(*out)
+		*out = make([]LibraryPypiParameters_2, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Requirements != nil {
 		in, out := &in.Requirements, &out.Requirements
@@ -21651,8 +22569,10 @@ func (in *NewClusterAzureAttributesInitParameters) DeepCopyInto(out *NewClusterA
 	}
 	if in.LogAnalyticsInfo != nil {
 		in, out := &in.LogAnalyticsInfo, &out.LogAnalyticsInfo
-		*out = new(AzureAttributesLogAnalyticsInfoInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]AzureAttributesLogAnalyticsInfoInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.SpotBidMaxPrice != nil {
 		in, out := &in.SpotBidMaxPrice, &out.SpotBidMaxPrice
@@ -21761,8 +22681,10 @@ func (in *NewClusterAzureAttributesObservation) DeepCopyInto(out *NewClusterAzur
 	}
 	if in.LogAnalyticsInfo != nil {
 		in, out := &in.LogAnalyticsInfo, &out.LogAnalyticsInfo
-		*out = new(AzureAttributesLogAnalyticsInfoObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]AzureAttributesLogAnalyticsInfoObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.SpotBidMaxPrice != nil {
 		in, out := &in.SpotBidMaxPrice, &out.SpotBidMaxPrice
@@ -21796,8 +22718,10 @@ func (in *NewClusterAzureAttributesParameters) DeepCopyInto(out *NewClusterAzure
 	}
 	if in.LogAnalyticsInfo != nil {
 		in, out := &in.LogAnalyticsInfo, &out.LogAnalyticsInfo
-		*out = new(AzureAttributesLogAnalyticsInfoParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]AzureAttributesLogAnalyticsInfoParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.SpotBidMaxPrice != nil {
 		in, out := &in.SpotBidMaxPrice, &out.SpotBidMaxPrice
@@ -21881,18 +22805,24 @@ func (in *NewClusterClusterLogConfInitParameters) DeepCopyInto(out *NewClusterCl
 	*out = *in
 	if in.Dbfs != nil {
 		in, out := &in.Dbfs, &out.Dbfs
-		*out = new(ClusterLogConfDbfsInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]ClusterLogConfDbfsInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.S3 != nil {
 		in, out := &in.S3, &out.S3
-		*out = new(ClusterLogConfS3InitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]ClusterLogConfS3InitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Volumes != nil {
 		in, out := &in.Volumes, &out.Volumes
-		*out = new(ClusterLogConfVolumesInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]ClusterLogConfVolumesInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 }
 
@@ -21911,18 +22841,24 @@ func (in *NewClusterClusterLogConfObservation) DeepCopyInto(out *NewClusterClust
 	*out = *in
 	if in.Dbfs != nil {
 		in, out := &in.Dbfs, &out.Dbfs
-		*out = new(ClusterLogConfDbfsObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]ClusterLogConfDbfsObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.S3 != nil {
 		in, out := &in.S3, &out.S3
-		*out = new(ClusterLogConfS3Observation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]ClusterLogConfS3Observation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Volumes != nil {
 		in, out := &in.Volumes, &out.Volumes
-		*out = new(ClusterLogConfVolumesObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]ClusterLogConfVolumesObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 }
 
@@ -21941,18 +22877,24 @@ func (in *NewClusterClusterLogConfParameters) DeepCopyInto(out *NewClusterCluste
 	*out = *in
 	if in.Dbfs != nil {
 		in, out := &in.Dbfs, &out.Dbfs
-		*out = new(ClusterLogConfDbfsParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]ClusterLogConfDbfsParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.S3 != nil {
 		in, out := &in.S3, &out.S3
-		*out = new(ClusterLogConfS3Parameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]ClusterLogConfS3Parameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Volumes != nil {
 		in, out := &in.Volumes, &out.Volumes
-		*out = new(ClusterLogConfVolumesParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]ClusterLogConfVolumesParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 }
 
@@ -22186,8 +23128,10 @@ func (in *NewClusterClusterMountInfoInitParameters) DeepCopyInto(out *NewCluster
 	}
 	if in.NetworkFilesystemInfo != nil {
 		in, out := &in.NetworkFilesystemInfo, &out.NetworkFilesystemInfo
-		*out = new(ClusterMountInfoNetworkFilesystemInfoInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]ClusterMountInfoNetworkFilesystemInfoInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.RemoteMountDirPath != nil {
 		in, out := &in.RemoteMountDirPath, &out.RemoteMountDirPath
@@ -22291,8 +23235,10 @@ func (in *NewClusterClusterMountInfoObservation) DeepCopyInto(out *NewClusterClu
 	}
 	if in.NetworkFilesystemInfo != nil {
 		in, out := &in.NetworkFilesystemInfo, &out.NetworkFilesystemInfo
-		*out = new(ClusterMountInfoNetworkFilesystemInfoObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]ClusterMountInfoNetworkFilesystemInfoObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.RemoteMountDirPath != nil {
 		in, out := &in.RemoteMountDirPath, &out.RemoteMountDirPath
@@ -22321,8 +23267,10 @@ func (in *NewClusterClusterMountInfoParameters) DeepCopyInto(out *NewClusterClus
 	}
 	if in.NetworkFilesystemInfo != nil {
 		in, out := &in.NetworkFilesystemInfo, &out.NetworkFilesystemInfo
-		*out = new(ClusterMountInfoNetworkFilesystemInfoParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]ClusterMountInfoNetworkFilesystemInfoParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.RemoteMountDirPath != nil {
 		in, out := &in.RemoteMountDirPath, &out.RemoteMountDirPath
@@ -22408,8 +23356,10 @@ func (in *NewClusterDockerImageInitParameters) DeepCopyInto(out *NewClusterDocke
 	*out = *in
 	if in.BasicAuth != nil {
 		in, out := &in.BasicAuth, &out.BasicAuth
-		*out = new(DockerImageBasicAuthInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]DockerImageBasicAuthInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.URL != nil {
 		in, out := &in.URL, &out.URL
@@ -22433,8 +23383,10 @@ func (in *NewClusterDockerImageObservation) DeepCopyInto(out *NewClusterDockerIm
 	*out = *in
 	if in.BasicAuth != nil {
 		in, out := &in.BasicAuth, &out.BasicAuth
-		*out = new(DockerImageBasicAuthObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]DockerImageBasicAuthObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.URL != nil {
 		in, out := &in.URL, &out.URL
@@ -22458,8 +23410,10 @@ func (in *NewClusterDockerImageParameters) DeepCopyInto(out *NewClusterDockerIma
 	*out = *in
 	if in.BasicAuth != nil {
 		in, out := &in.BasicAuth, &out.BasicAuth
-		*out = new(DockerImageBasicAuthParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]DockerImageBasicAuthParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.URL != nil {
 		in, out := &in.URL, &out.URL
@@ -22649,18 +23603,24 @@ func (in *NewClusterInitParameters) DeepCopyInto(out *NewClusterInitParameters) 
 	}
 	if in.Autoscale != nil {
 		in, out := &in.Autoscale, &out.Autoscale
-		*out = new(NewClusterAutoscaleInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]NewClusterAutoscaleInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.AwsAttributes != nil {
 		in, out := &in.AwsAttributes, &out.AwsAttributes
-		*out = new(NewClusterAwsAttributesInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]NewClusterAwsAttributesInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.AzureAttributes != nil {
 		in, out := &in.AzureAttributes, &out.AzureAttributes
-		*out = new(NewClusterAzureAttributesInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]NewClusterAzureAttributesInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.ClusterID != nil {
 		in, out := &in.ClusterID, &out.ClusterID
@@ -22669,8 +23629,10 @@ func (in *NewClusterInitParameters) DeepCopyInto(out *NewClusterInitParameters) 
 	}
 	if in.ClusterLogConf != nil {
 		in, out := &in.ClusterLogConf, &out.ClusterLogConf
-		*out = new(NewClusterClusterLogConfInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]NewClusterClusterLogConfInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.ClusterMountInfo != nil {
 		in, out := &in.ClusterMountInfo, &out.ClusterMountInfo
@@ -22707,8 +23669,10 @@ func (in *NewClusterInitParameters) DeepCopyInto(out *NewClusterInitParameters) 
 	}
 	if in.DockerImage != nil {
 		in, out := &in.DockerImage, &out.DockerImage
-		*out = new(NewClusterDockerImageInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]NewClusterDockerImageInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.DriverInstancePoolID != nil {
 		in, out := &in.DriverInstancePoolID, &out.DriverInstancePoolID
@@ -22732,8 +23696,10 @@ func (in *NewClusterInitParameters) DeepCopyInto(out *NewClusterInitParameters) 
 	}
 	if in.GCPAttributes != nil {
 		in, out := &in.GCPAttributes, &out.GCPAttributes
-		*out = new(NewClusterGCPAttributesInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]NewClusterGCPAttributesInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.IdempotencyToken != nil {
 		in, out := &in.IdempotencyToken, &out.IdempotencyToken
@@ -22859,8 +23825,10 @@ func (in *NewClusterInitParameters) DeepCopyInto(out *NewClusterInitParameters) 
 	}
 	if in.WorkloadType != nil {
 		in, out := &in.WorkloadType, &out.WorkloadType
-		*out = new(NewClusterWorkloadTypeInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]NewClusterWorkloadTypeInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 }
 
@@ -23119,38 +24087,52 @@ func (in *NewClusterInitScriptsInitParameters) DeepCopyInto(out *NewClusterInitS
 	*out = *in
 	if in.Abfss != nil {
 		in, out := &in.Abfss, &out.Abfss
-		*out = new(InitScriptsAbfssInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]InitScriptsAbfssInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Dbfs != nil {
 		in, out := &in.Dbfs, &out.Dbfs
-		*out = new(NewClusterInitScriptsDbfsInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]NewClusterInitScriptsDbfsInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.File != nil {
 		in, out := &in.File, &out.File
-		*out = new(InitScriptsFileInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]InitScriptsFileInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Gcs != nil {
 		in, out := &in.Gcs, &out.Gcs
-		*out = new(InitScriptsGcsInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]InitScriptsGcsInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.S3 != nil {
 		in, out := &in.S3, &out.S3
-		*out = new(NewClusterInitScriptsS3InitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]NewClusterInitScriptsS3InitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Volumes != nil {
 		in, out := &in.Volumes, &out.Volumes
-		*out = new(NewClusterInitScriptsVolumesInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]NewClusterInitScriptsVolumesInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Workspace != nil {
 		in, out := &in.Workspace, &out.Workspace
-		*out = new(InitScriptsWorkspaceInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]InitScriptsWorkspaceInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 }
 
@@ -23169,38 +24151,52 @@ func (in *NewClusterInitScriptsObservation) DeepCopyInto(out *NewClusterInitScri
 	*out = *in
 	if in.Abfss != nil {
 		in, out := &in.Abfss, &out.Abfss
-		*out = new(InitScriptsAbfssObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]InitScriptsAbfssObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Dbfs != nil {
 		in, out := &in.Dbfs, &out.Dbfs
-		*out = new(NewClusterInitScriptsDbfsObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]NewClusterInitScriptsDbfsObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.File != nil {
 		in, out := &in.File, &out.File
-		*out = new(InitScriptsFileObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]InitScriptsFileObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Gcs != nil {
 		in, out := &in.Gcs, &out.Gcs
-		*out = new(InitScriptsGcsObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]InitScriptsGcsObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.S3 != nil {
 		in, out := &in.S3, &out.S3
-		*out = new(NewClusterInitScriptsS3Observation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]NewClusterInitScriptsS3Observation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Volumes != nil {
 		in, out := &in.Volumes, &out.Volumes
-		*out = new(NewClusterInitScriptsVolumesObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]NewClusterInitScriptsVolumesObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Workspace != nil {
 		in, out := &in.Workspace, &out.Workspace
-		*out = new(InitScriptsWorkspaceObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]InitScriptsWorkspaceObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 }
 
@@ -23219,38 +24215,52 @@ func (in *NewClusterInitScriptsParameters) DeepCopyInto(out *NewClusterInitScrip
 	*out = *in
 	if in.Abfss != nil {
 		in, out := &in.Abfss, &out.Abfss
-		*out = new(InitScriptsAbfssParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]InitScriptsAbfssParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Dbfs != nil {
 		in, out := &in.Dbfs, &out.Dbfs
-		*out = new(NewClusterInitScriptsDbfsParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]NewClusterInitScriptsDbfsParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.File != nil {
 		in, out := &in.File, &out.File
-		*out = new(InitScriptsFileParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]InitScriptsFileParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Gcs != nil {
 		in, out := &in.Gcs, &out.Gcs
-		*out = new(InitScriptsGcsParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]InitScriptsGcsParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.S3 != nil {
 		in, out := &in.S3, &out.S3
-		*out = new(NewClusterInitScriptsS3Parameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]NewClusterInitScriptsS3Parameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Volumes != nil {
 		in, out := &in.Volumes, &out.Volumes
-		*out = new(NewClusterInitScriptsVolumesParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]NewClusterInitScriptsVolumesParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Workspace != nil {
 		in, out := &in.Workspace, &out.Workspace
-		*out = new(InitScriptsWorkspaceParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]InitScriptsWorkspaceParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 }
 
@@ -23614,8 +24624,10 @@ func (in *NewClusterLibraryInitParameters) DeepCopyInto(out *NewClusterLibraryIn
 	*out = *in
 	if in.Cran != nil {
 		in, out := &in.Cran, &out.Cran
-		*out = new(LibraryCranInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]LibraryCranInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Egg != nil {
 		in, out := &in.Egg, &out.Egg
@@ -23629,13 +24641,17 @@ func (in *NewClusterLibraryInitParameters) DeepCopyInto(out *NewClusterLibraryIn
 	}
 	if in.Maven != nil {
 		in, out := &in.Maven, &out.Maven
-		*out = new(LibraryMavenInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]LibraryMavenInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Pypi != nil {
 		in, out := &in.Pypi, &out.Pypi
-		*out = new(LibraryPypiInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]LibraryPypiInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Requirements != nil {
 		in, out := &in.Requirements, &out.Requirements
@@ -23772,8 +24788,10 @@ func (in *NewClusterLibraryObservation) DeepCopyInto(out *NewClusterLibraryObser
 	*out = *in
 	if in.Cran != nil {
 		in, out := &in.Cran, &out.Cran
-		*out = new(LibraryCranObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]LibraryCranObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Egg != nil {
 		in, out := &in.Egg, &out.Egg
@@ -23787,13 +24805,17 @@ func (in *NewClusterLibraryObservation) DeepCopyInto(out *NewClusterLibraryObser
 	}
 	if in.Maven != nil {
 		in, out := &in.Maven, &out.Maven
-		*out = new(LibraryMavenObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]LibraryMavenObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Pypi != nil {
 		in, out := &in.Pypi, &out.Pypi
-		*out = new(LibraryPypiObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]LibraryPypiObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Requirements != nil {
 		in, out := &in.Requirements, &out.Requirements
@@ -23822,8 +24844,10 @@ func (in *NewClusterLibraryParameters) DeepCopyInto(out *NewClusterLibraryParame
 	*out = *in
 	if in.Cran != nil {
 		in, out := &in.Cran, &out.Cran
-		*out = new(LibraryCranParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]LibraryCranParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Egg != nil {
 		in, out := &in.Egg, &out.Egg
@@ -23837,13 +24861,17 @@ func (in *NewClusterLibraryParameters) DeepCopyInto(out *NewClusterLibraryParame
 	}
 	if in.Maven != nil {
 		in, out := &in.Maven, &out.Maven
-		*out = new(LibraryMavenParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]LibraryMavenParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Pypi != nil {
 		in, out := &in.Pypi, &out.Pypi
-		*out = new(LibraryPypiParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]LibraryPypiParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Requirements != nil {
 		in, out := &in.Requirements, &out.Requirements
@@ -23963,18 +24991,24 @@ func (in *NewClusterObservation) DeepCopyInto(out *NewClusterObservation) {
 	}
 	if in.Autoscale != nil {
 		in, out := &in.Autoscale, &out.Autoscale
-		*out = new(NewClusterAutoscaleObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]NewClusterAutoscaleObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.AwsAttributes != nil {
 		in, out := &in.AwsAttributes, &out.AwsAttributes
-		*out = new(NewClusterAwsAttributesObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]NewClusterAwsAttributesObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.AzureAttributes != nil {
 		in, out := &in.AzureAttributes, &out.AzureAttributes
-		*out = new(NewClusterAzureAttributesObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]NewClusterAzureAttributesObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.ClusterID != nil {
 		in, out := &in.ClusterID, &out.ClusterID
@@ -23983,8 +25017,10 @@ func (in *NewClusterObservation) DeepCopyInto(out *NewClusterObservation) {
 	}
 	if in.ClusterLogConf != nil {
 		in, out := &in.ClusterLogConf, &out.ClusterLogConf
-		*out = new(NewClusterClusterLogConfObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]NewClusterClusterLogConfObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.ClusterMountInfo != nil {
 		in, out := &in.ClusterMountInfo, &out.ClusterMountInfo
@@ -24021,8 +25057,10 @@ func (in *NewClusterObservation) DeepCopyInto(out *NewClusterObservation) {
 	}
 	if in.DockerImage != nil {
 		in, out := &in.DockerImage, &out.DockerImage
-		*out = new(NewClusterDockerImageObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]NewClusterDockerImageObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.DriverInstancePoolID != nil {
 		in, out := &in.DriverInstancePoolID, &out.DriverInstancePoolID
@@ -24046,8 +25084,10 @@ func (in *NewClusterObservation) DeepCopyInto(out *NewClusterObservation) {
 	}
 	if in.GCPAttributes != nil {
 		in, out := &in.GCPAttributes, &out.GCPAttributes
-		*out = new(NewClusterGCPAttributesObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]NewClusterGCPAttributesObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.IdempotencyToken != nil {
 		in, out := &in.IdempotencyToken, &out.IdempotencyToken
@@ -24173,8 +25213,10 @@ func (in *NewClusterObservation) DeepCopyInto(out *NewClusterObservation) {
 	}
 	if in.WorkloadType != nil {
 		in, out := &in.WorkloadType, &out.WorkloadType
-		*out = new(NewClusterWorkloadTypeObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]NewClusterWorkloadTypeObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 }
 
@@ -24209,18 +25251,24 @@ func (in *NewClusterParameters) DeepCopyInto(out *NewClusterParameters) {
 	}
 	if in.Autoscale != nil {
 		in, out := &in.Autoscale, &out.Autoscale
-		*out = new(NewClusterAutoscaleParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]NewClusterAutoscaleParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.AwsAttributes != nil {
 		in, out := &in.AwsAttributes, &out.AwsAttributes
-		*out = new(NewClusterAwsAttributesParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]NewClusterAwsAttributesParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.AzureAttributes != nil {
 		in, out := &in.AzureAttributes, &out.AzureAttributes
-		*out = new(NewClusterAzureAttributesParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]NewClusterAzureAttributesParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.ClusterID != nil {
 		in, out := &in.ClusterID, &out.ClusterID
@@ -24229,8 +25277,10 @@ func (in *NewClusterParameters) DeepCopyInto(out *NewClusterParameters) {
 	}
 	if in.ClusterLogConf != nil {
 		in, out := &in.ClusterLogConf, &out.ClusterLogConf
-		*out = new(NewClusterClusterLogConfParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]NewClusterClusterLogConfParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.ClusterMountInfo != nil {
 		in, out := &in.ClusterMountInfo, &out.ClusterMountInfo
@@ -24267,8 +25317,10 @@ func (in *NewClusterParameters) DeepCopyInto(out *NewClusterParameters) {
 	}
 	if in.DockerImage != nil {
 		in, out := &in.DockerImage, &out.DockerImage
-		*out = new(NewClusterDockerImageParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]NewClusterDockerImageParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.DriverInstancePoolID != nil {
 		in, out := &in.DriverInstancePoolID, &out.DriverInstancePoolID
@@ -24292,8 +25344,10 @@ func (in *NewClusterParameters) DeepCopyInto(out *NewClusterParameters) {
 	}
 	if in.GCPAttributes != nil {
 		in, out := &in.GCPAttributes, &out.GCPAttributes
-		*out = new(NewClusterGCPAttributesParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]NewClusterGCPAttributesParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.IdempotencyToken != nil {
 		in, out := &in.IdempotencyToken, &out.IdempotencyToken
@@ -24419,8 +25473,10 @@ func (in *NewClusterParameters) DeepCopyInto(out *NewClusterParameters) {
 	}
 	if in.WorkloadType != nil {
 		in, out := &in.WorkloadType, &out.WorkloadType
-		*out = new(NewClusterWorkloadTypeParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]NewClusterWorkloadTypeParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 }
 
@@ -24514,8 +25570,10 @@ func (in *NewClusterWorkloadTypeInitParameters) DeepCopyInto(out *NewClusterWork
 	*out = *in
 	if in.Clients != nil {
 		in, out := &in.Clients, &out.Clients
-		*out = new(WorkloadTypeClientsInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]WorkloadTypeClientsInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 }
 
@@ -24534,8 +25592,10 @@ func (in *NewClusterWorkloadTypeObservation) DeepCopyInto(out *NewClusterWorkloa
 	*out = *in
 	if in.Clients != nil {
 		in, out := &in.Clients, &out.Clients
-		*out = new(WorkloadTypeClientsObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]WorkloadTypeClientsObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 }
 
@@ -24554,8 +25614,10 @@ func (in *NewClusterWorkloadTypeParameters) DeepCopyInto(out *NewClusterWorkload
 	*out = *in
 	if in.Clients != nil {
 		in, out := &in.Clients, &out.Clients
-		*out = new(WorkloadTypeClientsParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]WorkloadTypeClientsParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 }
 
@@ -24998,18 +26060,24 @@ func (in *ObjectsInitParameters) DeepCopyInto(out *ObjectsInitParameters) {
 	*out = *in
 	if in.Report != nil {
 		in, out := &in.Report, &out.Report
-		*out = new(ReportInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]ReportInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Schema != nil {
 		in, out := &in.Schema, &out.Schema
-		*out = new(SchemaInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]SchemaInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Table != nil {
 		in, out := &in.Table, &out.Table
-		*out = new(ObjectsTableInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]ObjectsTableInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 }
 
@@ -25028,18 +26096,24 @@ func (in *ObjectsObservation) DeepCopyInto(out *ObjectsObservation) {
 	*out = *in
 	if in.Report != nil {
 		in, out := &in.Report, &out.Report
-		*out = new(ReportObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]ReportObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Schema != nil {
 		in, out := &in.Schema, &out.Schema
-		*out = new(SchemaObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]SchemaObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Table != nil {
 		in, out := &in.Table, &out.Table
-		*out = new(ObjectsTableObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]ObjectsTableObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 }
 
@@ -25058,18 +26132,24 @@ func (in *ObjectsParameters) DeepCopyInto(out *ObjectsParameters) {
 	*out = *in
 	if in.Report != nil {
 		in, out := &in.Report, &out.Report
-		*out = new(ReportParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]ReportParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Schema != nil {
 		in, out := &in.Schema, &out.Schema
-		*out = new(SchemaParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]SchemaParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Table != nil {
 		in, out := &in.Table, &out.Table
-		*out = new(ObjectsTableParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]ObjectsTableParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 }
 
@@ -25118,8 +26198,10 @@ func (in *ObjectsTableInitParameters) DeepCopyInto(out *ObjectsTableInitParamete
 	}
 	if in.TableConfiguration != nil {
 		in, out := &in.TableConfiguration, &out.TableConfiguration
-		*out = new(TableTableConfigurationInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]TableTableConfigurationInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 }
 
@@ -25168,8 +26250,10 @@ func (in *ObjectsTableObservation) DeepCopyInto(out *ObjectsTableObservation) {
 	}
 	if in.TableConfiguration != nil {
 		in, out := &in.TableConfiguration, &out.TableConfiguration
-		*out = new(TableTableConfigurationObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]TableTableConfigurationObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 }
 
@@ -25218,8 +26302,10 @@ func (in *ObjectsTableParameters) DeepCopyInto(out *ObjectsTableParameters) {
 	}
 	if in.TableConfiguration != nil {
 		in, out := &in.TableConfiguration, &out.TableConfiguration
-		*out = new(TableTableConfigurationParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]TableTableConfigurationParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 }
 
@@ -25720,23 +26806,31 @@ func (in *PipelineClusterInitParameters) DeepCopyInto(out *PipelineClusterInitPa
 	}
 	if in.Autoscale != nil {
 		in, out := &in.Autoscale, &out.Autoscale
-		*out = new(ClusterAutoscaleInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]ClusterAutoscaleInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.AwsAttributes != nil {
 		in, out := &in.AwsAttributes, &out.AwsAttributes
-		*out = new(ClusterAwsAttributesInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]ClusterAwsAttributesInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.AzureAttributes != nil {
 		in, out := &in.AzureAttributes, &out.AzureAttributes
-		*out = new(ClusterAzureAttributesInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]ClusterAzureAttributesInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.ClusterLogConf != nil {
 		in, out := &in.ClusterLogConf, &out.ClusterLogConf
-		*out = new(ClusterClusterLogConfInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]ClusterClusterLogConfInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.CustomTags != nil {
 		in, out := &in.CustomTags, &out.CustomTags
@@ -25771,8 +26865,10 @@ func (in *PipelineClusterInitParameters) DeepCopyInto(out *PipelineClusterInitPa
 	}
 	if in.GCPAttributes != nil {
 		in, out := &in.GCPAttributes, &out.GCPAttributes
-		*out = new(ClusterGCPAttributesInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]ClusterGCPAttributesInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.InitScripts != nil {
 		in, out := &in.InitScripts, &out.InitScripts
@@ -25871,23 +26967,31 @@ func (in *PipelineClusterObservation) DeepCopyInto(out *PipelineClusterObservati
 	}
 	if in.Autoscale != nil {
 		in, out := &in.Autoscale, &out.Autoscale
-		*out = new(ClusterAutoscaleObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]ClusterAutoscaleObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.AwsAttributes != nil {
 		in, out := &in.AwsAttributes, &out.AwsAttributes
-		*out = new(ClusterAwsAttributesObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]ClusterAwsAttributesObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.AzureAttributes != nil {
 		in, out := &in.AzureAttributes, &out.AzureAttributes
-		*out = new(ClusterAzureAttributesObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]ClusterAzureAttributesObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.ClusterLogConf != nil {
 		in, out := &in.ClusterLogConf, &out.ClusterLogConf
-		*out = new(ClusterClusterLogConfObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]ClusterClusterLogConfObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.CustomTags != nil {
 		in, out := &in.CustomTags, &out.CustomTags
@@ -25922,8 +27026,10 @@ func (in *PipelineClusterObservation) DeepCopyInto(out *PipelineClusterObservati
 	}
 	if in.GCPAttributes != nil {
 		in, out := &in.GCPAttributes, &out.GCPAttributes
-		*out = new(ClusterGCPAttributesObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]ClusterGCPAttributesObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.InitScripts != nil {
 		in, out := &in.InitScripts, &out.InitScripts
@@ -26022,23 +27128,31 @@ func (in *PipelineClusterParameters) DeepCopyInto(out *PipelineClusterParameters
 	}
 	if in.Autoscale != nil {
 		in, out := &in.Autoscale, &out.Autoscale
-		*out = new(ClusterAutoscaleParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]ClusterAutoscaleParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.AwsAttributes != nil {
 		in, out := &in.AwsAttributes, &out.AwsAttributes
-		*out = new(ClusterAwsAttributesParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]ClusterAwsAttributesParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.AzureAttributes != nil {
 		in, out := &in.AzureAttributes, &out.AzureAttributes
-		*out = new(ClusterAzureAttributesParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]ClusterAzureAttributesParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.ClusterLogConf != nil {
 		in, out := &in.ClusterLogConf, &out.ClusterLogConf
-		*out = new(ClusterClusterLogConfParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]ClusterClusterLogConfParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.CustomTags != nil {
 		in, out := &in.CustomTags, &out.CustomTags
@@ -26073,8 +27187,10 @@ func (in *PipelineClusterParameters) DeepCopyInto(out *PipelineClusterParameters
 	}
 	if in.GCPAttributes != nil {
 		in, out := &in.GCPAttributes, &out.GCPAttributes
-		*out = new(ClusterGCPAttributesParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]ClusterGCPAttributesParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.InitScripts != nil {
 		in, out := &in.InitScripts, &out.InitScripts
@@ -26384,8 +27500,10 @@ func (in *PipelineInitParameters) DeepCopyInto(out *PipelineInitParameters) {
 	}
 	if in.Deployment != nil {
 		in, out := &in.Deployment, &out.Deployment
-		*out = new(PipelineDeploymentInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]PipelineDeploymentInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Development != nil {
 		in, out := &in.Development, &out.Development
@@ -26399,13 +27517,17 @@ func (in *PipelineInitParameters) DeepCopyInto(out *PipelineInitParameters) {
 	}
 	if in.Environment != nil {
 		in, out := &in.Environment, &out.Environment
-		*out = new(PipelineEnvironmentInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]PipelineEnvironmentInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.EventLog != nil {
 		in, out := &in.EventLog, &out.EventLog
-		*out = new(EventLogInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]EventLogInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.ExpectedLastModified != nil {
 		in, out := &in.ExpectedLastModified, &out.ExpectedLastModified
@@ -26414,13 +27536,17 @@ func (in *PipelineInitParameters) DeepCopyInto(out *PipelineInitParameters) {
 	}
 	if in.Filters != nil {
 		in, out := &in.Filters, &out.Filters
-		*out = new(FiltersInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]FiltersInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.GatewayDefinition != nil {
 		in, out := &in.GatewayDefinition, &out.GatewayDefinition
-		*out = new(GatewayDefinitionInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]GatewayDefinitionInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Health != nil {
 		in, out := &in.Health, &out.Health
@@ -26429,8 +27555,10 @@ func (in *PipelineInitParameters) DeepCopyInto(out *PipelineInitParameters) {
 	}
 	if in.IngestionDefinition != nil {
 		in, out := &in.IngestionDefinition, &out.IngestionDefinition
-		*out = new(IngestionDefinitionInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]IngestionDefinitionInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.LastModified != nil {
 		in, out := &in.LastModified, &out.LastModified
@@ -26470,8 +27598,10 @@ func (in *PipelineInitParameters) DeepCopyInto(out *PipelineInitParameters) {
 	}
 	if in.RestartWindow != nil {
 		in, out := &in.RestartWindow, &out.RestartWindow
-		*out = new(RestartWindowInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]RestartWindowInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.RootPath != nil {
 		in, out := &in.RootPath, &out.RootPath
@@ -26480,8 +27610,10 @@ func (in *PipelineInitParameters) DeepCopyInto(out *PipelineInitParameters) {
 	}
 	if in.RunAs != nil {
 		in, out := &in.RunAs, &out.RunAs
-		*out = new(PipelineRunAsInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]PipelineRunAsInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.RunAsUserName != nil {
 		in, out := &in.RunAsUserName, &out.RunAsUserName
@@ -26531,8 +27663,10 @@ func (in *PipelineInitParameters) DeepCopyInto(out *PipelineInitParameters) {
 	}
 	if in.Trigger != nil {
 		in, out := &in.Trigger, &out.Trigger
-		*out = new(PipelineTriggerInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]PipelineTriggerInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.URL != nil {
 		in, out := &in.URL, &out.URL
@@ -26556,13 +27690,17 @@ func (in *PipelineLibraryInitParameters) DeepCopyInto(out *PipelineLibraryInitPa
 	*out = *in
 	if in.File != nil {
 		in, out := &in.File, &out.File
-		*out = new(LibraryFileInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]LibraryFileInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Glob != nil {
 		in, out := &in.Glob, &out.Glob
-		*out = new(GlobInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]GlobInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Jar != nil {
 		in, out := &in.Jar, &out.Jar
@@ -26571,13 +27709,17 @@ func (in *PipelineLibraryInitParameters) DeepCopyInto(out *PipelineLibraryInitPa
 	}
 	if in.Maven != nil {
 		in, out := &in.Maven, &out.Maven
-		*out = new(PipelineLibraryMavenInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]PipelineLibraryMavenInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Notebook != nil {
 		in, out := &in.Notebook, &out.Notebook
-		*out = new(NotebookInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]NotebookInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Whl != nil {
 		in, out := &in.Whl, &out.Whl
@@ -26709,13 +27851,17 @@ func (in *PipelineLibraryObservation) DeepCopyInto(out *PipelineLibraryObservati
 	*out = *in
 	if in.File != nil {
 		in, out := &in.File, &out.File
-		*out = new(LibraryFileObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]LibraryFileObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Glob != nil {
 		in, out := &in.Glob, &out.Glob
-		*out = new(GlobObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]GlobObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Jar != nil {
 		in, out := &in.Jar, &out.Jar
@@ -26724,13 +27870,17 @@ func (in *PipelineLibraryObservation) DeepCopyInto(out *PipelineLibraryObservati
 	}
 	if in.Maven != nil {
 		in, out := &in.Maven, &out.Maven
-		*out = new(PipelineLibraryMavenObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]PipelineLibraryMavenObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Notebook != nil {
 		in, out := &in.Notebook, &out.Notebook
-		*out = new(NotebookObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]NotebookObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Whl != nil {
 		in, out := &in.Whl, &out.Whl
@@ -26754,13 +27904,17 @@ func (in *PipelineLibraryParameters) DeepCopyInto(out *PipelineLibraryParameters
 	*out = *in
 	if in.File != nil {
 		in, out := &in.File, &out.File
-		*out = new(LibraryFileParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]LibraryFileParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Glob != nil {
 		in, out := &in.Glob, &out.Glob
-		*out = new(GlobParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]GlobParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Jar != nil {
 		in, out := &in.Jar, &out.Jar
@@ -26769,13 +27923,17 @@ func (in *PipelineLibraryParameters) DeepCopyInto(out *PipelineLibraryParameters
 	}
 	if in.Maven != nil {
 		in, out := &in.Maven, &out.Maven
-		*out = new(PipelineLibraryMavenParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]PipelineLibraryMavenParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Notebook != nil {
 		in, out := &in.Notebook, &out.Notebook
-		*out = new(NotebookParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]NotebookParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Whl != nil {
 		in, out := &in.Whl, &out.Whl
@@ -26894,8 +28052,10 @@ func (in *PipelineObservation) DeepCopyInto(out *PipelineObservation) {
 	}
 	if in.Deployment != nil {
 		in, out := &in.Deployment, &out.Deployment
-		*out = new(PipelineDeploymentObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]PipelineDeploymentObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Development != nil {
 		in, out := &in.Development, &out.Development
@@ -26909,13 +28069,17 @@ func (in *PipelineObservation) DeepCopyInto(out *PipelineObservation) {
 	}
 	if in.Environment != nil {
 		in, out := &in.Environment, &out.Environment
-		*out = new(PipelineEnvironmentObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]PipelineEnvironmentObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.EventLog != nil {
 		in, out := &in.EventLog, &out.EventLog
-		*out = new(EventLogObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]EventLogObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.ExpectedLastModified != nil {
 		in, out := &in.ExpectedLastModified, &out.ExpectedLastModified
@@ -26924,13 +28088,17 @@ func (in *PipelineObservation) DeepCopyInto(out *PipelineObservation) {
 	}
 	if in.Filters != nil {
 		in, out := &in.Filters, &out.Filters
-		*out = new(FiltersObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]FiltersObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.GatewayDefinition != nil {
 		in, out := &in.GatewayDefinition, &out.GatewayDefinition
-		*out = new(GatewayDefinitionObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]GatewayDefinitionObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Health != nil {
 		in, out := &in.Health, &out.Health
@@ -26944,8 +28112,10 @@ func (in *PipelineObservation) DeepCopyInto(out *PipelineObservation) {
 	}
 	if in.IngestionDefinition != nil {
 		in, out := &in.IngestionDefinition, &out.IngestionDefinition
-		*out = new(IngestionDefinitionObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]IngestionDefinitionObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.LastModified != nil {
 		in, out := &in.LastModified, &out.LastModified
@@ -26985,8 +28155,10 @@ func (in *PipelineObservation) DeepCopyInto(out *PipelineObservation) {
 	}
 	if in.RestartWindow != nil {
 		in, out := &in.RestartWindow, &out.RestartWindow
-		*out = new(RestartWindowObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]RestartWindowObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.RootPath != nil {
 		in, out := &in.RootPath, &out.RootPath
@@ -26995,8 +28167,10 @@ func (in *PipelineObservation) DeepCopyInto(out *PipelineObservation) {
 	}
 	if in.RunAs != nil {
 		in, out := &in.RunAs, &out.RunAs
-		*out = new(PipelineRunAsObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]PipelineRunAsObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.RunAsUserName != nil {
 		in, out := &in.RunAsUserName, &out.RunAsUserName
@@ -27046,8 +28220,10 @@ func (in *PipelineObservation) DeepCopyInto(out *PipelineObservation) {
 	}
 	if in.Trigger != nil {
 		in, out := &in.Trigger, &out.Trigger
-		*out = new(PipelineTriggerObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]PipelineTriggerObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.URL != nil {
 		in, out := &in.URL, &out.URL
@@ -27134,8 +28310,10 @@ func (in *PipelineParameters) DeepCopyInto(out *PipelineParameters) {
 	}
 	if in.Deployment != nil {
 		in, out := &in.Deployment, &out.Deployment
-		*out = new(PipelineDeploymentParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]PipelineDeploymentParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Development != nil {
 		in, out := &in.Development, &out.Development
@@ -27149,13 +28327,17 @@ func (in *PipelineParameters) DeepCopyInto(out *PipelineParameters) {
 	}
 	if in.Environment != nil {
 		in, out := &in.Environment, &out.Environment
-		*out = new(PipelineEnvironmentParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]PipelineEnvironmentParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.EventLog != nil {
 		in, out := &in.EventLog, &out.EventLog
-		*out = new(EventLogParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]EventLogParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.ExpectedLastModified != nil {
 		in, out := &in.ExpectedLastModified, &out.ExpectedLastModified
@@ -27164,13 +28346,17 @@ func (in *PipelineParameters) DeepCopyInto(out *PipelineParameters) {
 	}
 	if in.Filters != nil {
 		in, out := &in.Filters, &out.Filters
-		*out = new(FiltersParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]FiltersParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.GatewayDefinition != nil {
 		in, out := &in.GatewayDefinition, &out.GatewayDefinition
-		*out = new(GatewayDefinitionParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]GatewayDefinitionParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Health != nil {
 		in, out := &in.Health, &out.Health
@@ -27179,8 +28365,10 @@ func (in *PipelineParameters) DeepCopyInto(out *PipelineParameters) {
 	}
 	if in.IngestionDefinition != nil {
 		in, out := &in.IngestionDefinition, &out.IngestionDefinition
-		*out = new(IngestionDefinitionParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]IngestionDefinitionParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.LastModified != nil {
 		in, out := &in.LastModified, &out.LastModified
@@ -27220,8 +28408,10 @@ func (in *PipelineParameters) DeepCopyInto(out *PipelineParameters) {
 	}
 	if in.RestartWindow != nil {
 		in, out := &in.RestartWindow, &out.RestartWindow
-		*out = new(RestartWindowParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]RestartWindowParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.RootPath != nil {
 		in, out := &in.RootPath, &out.RootPath
@@ -27230,8 +28420,10 @@ func (in *PipelineParameters) DeepCopyInto(out *PipelineParameters) {
 	}
 	if in.RunAs != nil {
 		in, out := &in.RunAs, &out.RunAs
-		*out = new(PipelineRunAsParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]PipelineRunAsParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.RunAsUserName != nil {
 		in, out := &in.RunAsUserName, &out.RunAsUserName
@@ -27281,8 +28473,10 @@ func (in *PipelineParameters) DeepCopyInto(out *PipelineParameters) {
 	}
 	if in.Trigger != nil {
 		in, out := &in.Trigger, &out.Trigger
-		*out = new(PipelineTriggerParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]PipelineTriggerParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.URL != nil {
 		in, out := &in.URL, &out.URL
@@ -27551,13 +28745,15 @@ func (in *PipelineTriggerInitParameters) DeepCopyInto(out *PipelineTriggerInitPa
 	*out = *in
 	if in.Cron != nil {
 		in, out := &in.Cron, &out.Cron
-		*out = new(CronInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]CronInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Manual != nil {
 		in, out := &in.Manual, &out.Manual
-		*out = new(ManualInitParameters)
-		**out = **in
+		*out = make([]ManualInitParameters, len(*in))
+		copy(*out, *in)
 	}
 }
 
@@ -27576,13 +28772,15 @@ func (in *PipelineTriggerObservation) DeepCopyInto(out *PipelineTriggerObservati
 	*out = *in
 	if in.Cron != nil {
 		in, out := &in.Cron, &out.Cron
-		*out = new(CronObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]CronObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Manual != nil {
 		in, out := &in.Manual, &out.Manual
-		*out = new(ManualParameters)
-		**out = **in
+		*out = make([]ManualParameters, len(*in))
+		copy(*out, *in)
 	}
 }
 
@@ -27601,13 +28799,15 @@ func (in *PipelineTriggerParameters) DeepCopyInto(out *PipelineTriggerParameters
 	*out = *in
 	if in.Cron != nil {
 		in, out := &in.Cron, &out.Cron
-		*out = new(CronParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]CronParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Manual != nil {
 		in, out := &in.Manual, &out.Manual
-		*out = new(ManualParameters)
-		**out = **in
+		*out = make([]ManualParameters, len(*in))
+		copy(*out, *in)
 	}
 }
 
@@ -27751,8 +28951,10 @@ func (in *PowerBiTaskInitParameters) DeepCopyInto(out *PowerBiTaskInitParameters
 	}
 	if in.PowerBiModel != nil {
 		in, out := &in.PowerBiModel, &out.PowerBiModel
-		*out = new(PowerBiModelInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]PowerBiModelInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.RefreshAfterUpdate != nil {
 		in, out := &in.RefreshAfterUpdate, &out.RefreshAfterUpdate
@@ -27793,8 +28995,10 @@ func (in *PowerBiTaskObservation) DeepCopyInto(out *PowerBiTaskObservation) {
 	}
 	if in.PowerBiModel != nil {
 		in, out := &in.PowerBiModel, &out.PowerBiModel
-		*out = new(PowerBiModelObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]PowerBiModelObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.RefreshAfterUpdate != nil {
 		in, out := &in.RefreshAfterUpdate, &out.RefreshAfterUpdate
@@ -27835,8 +29039,10 @@ func (in *PowerBiTaskParameters) DeepCopyInto(out *PowerBiTaskParameters) {
 	}
 	if in.PowerBiModel != nil {
 		in, out := &in.PowerBiModel, &out.PowerBiModel
-		*out = new(PowerBiModelParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]PowerBiModelParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.RefreshAfterUpdate != nil {
 		in, out := &in.RefreshAfterUpdate, &out.RefreshAfterUpdate
@@ -28159,8 +29365,10 @@ func (in *PreloadedDockerImageInitParameters) DeepCopyInto(out *PreloadedDockerI
 	*out = *in
 	if in.BasicAuth != nil {
 		in, out := &in.BasicAuth, &out.BasicAuth
-		*out = new(PreloadedDockerImageBasicAuthInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]PreloadedDockerImageBasicAuthInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.URL != nil {
 		in, out := &in.URL, &out.URL
@@ -28184,8 +29392,10 @@ func (in *PreloadedDockerImageObservation) DeepCopyInto(out *PreloadedDockerImag
 	*out = *in
 	if in.BasicAuth != nil {
 		in, out := &in.BasicAuth, &out.BasicAuth
-		*out = new(PreloadedDockerImageBasicAuthObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]PreloadedDockerImageBasicAuthObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.URL != nil {
 		in, out := &in.URL, &out.URL
@@ -28209,8 +29419,10 @@ func (in *PreloadedDockerImageParameters) DeepCopyInto(out *PreloadedDockerImage
 	*out = *in
 	if in.BasicAuth != nil {
 		in, out := &in.BasicAuth, &out.BasicAuth
-		*out = new(PreloadedDockerImageBasicAuthParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]PreloadedDockerImageBasicAuthParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.URL != nil {
 		in, out := &in.URL, &out.URL
@@ -28713,8 +29925,10 @@ func (in *ReportInitParameters) DeepCopyInto(out *ReportInitParameters) {
 	}
 	if in.TableConfiguration != nil {
 		in, out := &in.TableConfiguration, &out.TableConfiguration
-		*out = new(TableConfigurationInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]TableConfigurationInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 }
 
@@ -28753,8 +29967,10 @@ func (in *ReportObservation) DeepCopyInto(out *ReportObservation) {
 	}
 	if in.TableConfiguration != nil {
 		in, out := &in.TableConfiguration, &out.TableConfiguration
-		*out = new(TableConfigurationObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]TableConfigurationObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 }
 
@@ -28793,8 +30009,10 @@ func (in *ReportParameters) DeepCopyInto(out *ReportParameters) {
 	}
 	if in.TableConfiguration != nil {
 		in, out := &in.TableConfiguration, &out.TableConfiguration
-		*out = new(TableConfigurationParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]TableConfigurationParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 }
 
@@ -29801,18 +31019,24 @@ func (in *SQLTaskInitParameters) DeepCopyInto(out *SQLTaskInitParameters) {
 	*out = *in
 	if in.Alert != nil {
 		in, out := &in.Alert, &out.Alert
-		*out = new(AlertInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]AlertInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Dashboard != nil {
 		in, out := &in.Dashboard, &out.Dashboard
-		*out = new(DashboardInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]DashboardInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.File != nil {
 		in, out := &in.File, &out.File
-		*out = new(SQLTaskFileInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]SQLTaskFileInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Parameters != nil {
 		in, out := &in.Parameters, &out.Parameters
@@ -29832,8 +31056,10 @@ func (in *SQLTaskInitParameters) DeepCopyInto(out *SQLTaskInitParameters) {
 	}
 	if in.Query != nil {
 		in, out := &in.Query, &out.Query
-		*out = new(QueryInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]QueryInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.WarehouseID != nil {
 		in, out := &in.WarehouseID, &out.WarehouseID
@@ -29857,18 +31083,24 @@ func (in *SQLTaskObservation) DeepCopyInto(out *SQLTaskObservation) {
 	*out = *in
 	if in.Alert != nil {
 		in, out := &in.Alert, &out.Alert
-		*out = new(AlertObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]AlertObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Dashboard != nil {
 		in, out := &in.Dashboard, &out.Dashboard
-		*out = new(DashboardObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]DashboardObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.File != nil {
 		in, out := &in.File, &out.File
-		*out = new(SQLTaskFileObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]SQLTaskFileObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Parameters != nil {
 		in, out := &in.Parameters, &out.Parameters
@@ -29888,8 +31120,10 @@ func (in *SQLTaskObservation) DeepCopyInto(out *SQLTaskObservation) {
 	}
 	if in.Query != nil {
 		in, out := &in.Query, &out.Query
-		*out = new(QueryObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]QueryObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.WarehouseID != nil {
 		in, out := &in.WarehouseID, &out.WarehouseID
@@ -29913,18 +31147,24 @@ func (in *SQLTaskParameters) DeepCopyInto(out *SQLTaskParameters) {
 	*out = *in
 	if in.Alert != nil {
 		in, out := &in.Alert, &out.Alert
-		*out = new(AlertParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]AlertParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Dashboard != nil {
 		in, out := &in.Dashboard, &out.Dashboard
-		*out = new(DashboardParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]DashboardParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.File != nil {
 		in, out := &in.File, &out.File
-		*out = new(SQLTaskFileParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]SQLTaskFileParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Parameters != nil {
 		in, out := &in.Parameters, &out.Parameters
@@ -29944,8 +31184,10 @@ func (in *SQLTaskParameters) DeepCopyInto(out *SQLTaskParameters) {
 	}
 	if in.Query != nil {
 		in, out := &in.Query, &out.Query
-		*out = new(QueryParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]QueryParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.WarehouseID != nil {
 		in, out := &in.WarehouseID, &out.WarehouseID
@@ -30159,8 +31401,10 @@ func (in *SchemaInitParameters) DeepCopyInto(out *SchemaInitParameters) {
 	}
 	if in.TableConfiguration != nil {
 		in, out := &in.TableConfiguration, &out.TableConfiguration
-		*out = new(SchemaTableConfigurationInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]SchemaTableConfigurationInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 }
 
@@ -30199,8 +31443,10 @@ func (in *SchemaObservation) DeepCopyInto(out *SchemaObservation) {
 	}
 	if in.TableConfiguration != nil {
 		in, out := &in.TableConfiguration, &out.TableConfiguration
-		*out = new(SchemaTableConfigurationObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]SchemaTableConfigurationObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 }
 
@@ -30239,8 +31485,10 @@ func (in *SchemaParameters) DeepCopyInto(out *SchemaParameters) {
 	}
 	if in.TableConfiguration != nil {
 		in, out := &in.TableConfiguration, &out.TableConfiguration
-		*out = new(SchemaTableConfigurationParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]SchemaTableConfigurationParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 }
 
@@ -30292,8 +31540,10 @@ func (in *SchemaTableConfigurationInitParameters) DeepCopyInto(out *SchemaTableC
 	}
 	if in.QueryBasedConnectorConfig != nil {
 		in, out := &in.QueryBasedConnectorConfig, &out.QueryBasedConnectorConfig
-		*out = new(TableConfigurationQueryBasedConnectorConfigInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]TableConfigurationQueryBasedConnectorConfigInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.SalesforceIncludeFormulaFields != nil {
 		in, out := &in.SalesforceIncludeFormulaFields, &out.SalesforceIncludeFormulaFields
@@ -30366,8 +31616,10 @@ func (in *SchemaTableConfigurationObservation) DeepCopyInto(out *SchemaTableConf
 	}
 	if in.QueryBasedConnectorConfig != nil {
 		in, out := &in.QueryBasedConnectorConfig, &out.QueryBasedConnectorConfig
-		*out = new(TableConfigurationQueryBasedConnectorConfigObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]TableConfigurationQueryBasedConnectorConfigObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.SalesforceIncludeFormulaFields != nil {
 		in, out := &in.SalesforceIncludeFormulaFields, &out.SalesforceIncludeFormulaFields
@@ -30440,8 +31692,10 @@ func (in *SchemaTableConfigurationParameters) DeepCopyInto(out *SchemaTableConfi
 	}
 	if in.QueryBasedConnectorConfig != nil {
 		in, out := &in.QueryBasedConnectorConfig, &out.QueryBasedConnectorConfig
-		*out = new(TableConfigurationQueryBasedConnectorConfigParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]TableConfigurationQueryBasedConnectorConfigParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.SalesforceIncludeFormulaFields != nil {
 		in, out := &in.SalesforceIncludeFormulaFields, &out.SalesforceIncludeFormulaFields
@@ -31270,8 +32524,10 @@ func (in *TableConfigurationInitParameters) DeepCopyInto(out *TableConfiguration
 	}
 	if in.QueryBasedConnectorConfig != nil {
 		in, out := &in.QueryBasedConnectorConfig, &out.QueryBasedConnectorConfig
-		*out = new(QueryBasedConnectorConfigInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]QueryBasedConnectorConfigInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.SalesforceIncludeFormulaFields != nil {
 		in, out := &in.SalesforceIncludeFormulaFields, &out.SalesforceIncludeFormulaFields
@@ -31344,8 +32600,10 @@ func (in *TableConfigurationObservation) DeepCopyInto(out *TableConfigurationObs
 	}
 	if in.QueryBasedConnectorConfig != nil {
 		in, out := &in.QueryBasedConnectorConfig, &out.QueryBasedConnectorConfig
-		*out = new(QueryBasedConnectorConfigObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]QueryBasedConnectorConfigObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.SalesforceIncludeFormulaFields != nil {
 		in, out := &in.SalesforceIncludeFormulaFields, &out.SalesforceIncludeFormulaFields
@@ -31418,8 +32676,10 @@ func (in *TableConfigurationParameters) DeepCopyInto(out *TableConfigurationPara
 	}
 	if in.QueryBasedConnectorConfig != nil {
 		in, out := &in.QueryBasedConnectorConfig, &out.QueryBasedConnectorConfig
-		*out = new(QueryBasedConnectorConfigParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]QueryBasedConnectorConfigParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.SalesforceIncludeFormulaFields != nil {
 		in, out := &in.SalesforceIncludeFormulaFields, &out.SalesforceIncludeFormulaFields
@@ -31723,8 +32983,10 @@ func (in *TableTableConfigurationInitParameters) DeepCopyInto(out *TableTableCon
 	}
 	if in.QueryBasedConnectorConfig != nil {
 		in, out := &in.QueryBasedConnectorConfig, &out.QueryBasedConnectorConfig
-		*out = new(TableTableConfigurationQueryBasedConnectorConfigInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]TableTableConfigurationQueryBasedConnectorConfigInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.SalesforceIncludeFormulaFields != nil {
 		in, out := &in.SalesforceIncludeFormulaFields, &out.SalesforceIncludeFormulaFields
@@ -31797,8 +33059,10 @@ func (in *TableTableConfigurationObservation) DeepCopyInto(out *TableTableConfig
 	}
 	if in.QueryBasedConnectorConfig != nil {
 		in, out := &in.QueryBasedConnectorConfig, &out.QueryBasedConnectorConfig
-		*out = new(TableTableConfigurationQueryBasedConnectorConfigObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]TableTableConfigurationQueryBasedConnectorConfigObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.SalesforceIncludeFormulaFields != nil {
 		in, out := &in.SalesforceIncludeFormulaFields, &out.SalesforceIncludeFormulaFields
@@ -31871,8 +33135,10 @@ func (in *TableTableConfigurationParameters) DeepCopyInto(out *TableTableConfigu
 	}
 	if in.QueryBasedConnectorConfig != nil {
 		in, out := &in.QueryBasedConnectorConfig, &out.QueryBasedConnectorConfig
-		*out = new(TableTableConfigurationQueryBasedConnectorConfigParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]TableTableConfigurationQueryBasedConnectorConfigParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.SalesforceIncludeFormulaFields != nil {
 		in, out := &in.SalesforceIncludeFormulaFields, &out.SalesforceIncludeFormulaFields
@@ -32481,8 +33747,10 @@ func (in *TaskDashboardTaskInitParameters) DeepCopyInto(out *TaskDashboardTaskIn
 	}
 	if in.Subscription != nil {
 		in, out := &in.Subscription, &out.Subscription
-		*out = new(DashboardTaskSubscriptionInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]DashboardTaskSubscriptionInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.WarehouseID != nil {
 		in, out := &in.WarehouseID, &out.WarehouseID
@@ -32511,8 +33779,10 @@ func (in *TaskDashboardTaskObservation) DeepCopyInto(out *TaskDashboardTaskObser
 	}
 	if in.Subscription != nil {
 		in, out := &in.Subscription, &out.Subscription
-		*out = new(DashboardTaskSubscriptionObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]DashboardTaskSubscriptionObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.WarehouseID != nil {
 		in, out := &in.WarehouseID, &out.WarehouseID
@@ -32541,8 +33811,10 @@ func (in *TaskDashboardTaskParameters) DeepCopyInto(out *TaskDashboardTaskParame
 	}
 	if in.Subscription != nil {
 		in, out := &in.Subscription, &out.Subscription
-		*out = new(DashboardTaskSubscriptionParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]DashboardTaskSubscriptionParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.WarehouseID != nil {
 		in, out := &in.WarehouseID, &out.WarehouseID
@@ -33189,8 +34461,10 @@ func (in *TaskGenAIComputeTaskInitParameters) DeepCopyInto(out *TaskGenAICompute
 	}
 	if in.Compute != nil {
 		in, out := &in.Compute, &out.Compute
-		*out = new(GenAIComputeTaskComputeInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]GenAIComputeTaskComputeInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.DlRuntimeImage != nil {
 		in, out := &in.DlRuntimeImage, &out.DlRuntimeImage
@@ -33244,8 +34518,10 @@ func (in *TaskGenAIComputeTaskObservation) DeepCopyInto(out *TaskGenAIComputeTas
 	}
 	if in.Compute != nil {
 		in, out := &in.Compute, &out.Compute
-		*out = new(GenAIComputeTaskComputeObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]GenAIComputeTaskComputeObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.DlRuntimeImage != nil {
 		in, out := &in.DlRuntimeImage, &out.DlRuntimeImage
@@ -33299,8 +34575,10 @@ func (in *TaskGenAIComputeTaskParameters) DeepCopyInto(out *TaskGenAIComputeTask
 	}
 	if in.Compute != nil {
 		in, out := &in.Compute, &out.Compute
-		*out = new(GenAIComputeTaskComputeParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]GenAIComputeTaskComputeParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.DlRuntimeImage != nil {
 		in, out := &in.DlRuntimeImage, &out.DlRuntimeImage
@@ -33505,33 +34783,45 @@ func (in *TaskInitParameters) DeepCopyInto(out *TaskInitParameters) {
 	*out = *in
 	if in.CleanRoomsNotebookTask != nil {
 		in, out := &in.CleanRoomsNotebookTask, &out.CleanRoomsNotebookTask
-		*out = new(CleanRoomsNotebookTaskInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]CleanRoomsNotebookTaskInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.ConditionTask != nil {
 		in, out := &in.ConditionTask, &out.ConditionTask
-		*out = new(ConditionTaskInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]ConditionTaskInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.DashboardTask != nil {
 		in, out := &in.DashboardTask, &out.DashboardTask
-		*out = new(DashboardTaskInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]DashboardTaskInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.DbtCloudTask != nil {
 		in, out := &in.DbtCloudTask, &out.DbtCloudTask
-		*out = new(DbtCloudTaskInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]DbtCloudTaskInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.DbtPlatformTask != nil {
 		in, out := &in.DbtPlatformTask, &out.DbtPlatformTask
-		*out = new(DbtPlatformTaskInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]DbtPlatformTaskInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.DbtTask != nil {
 		in, out := &in.DbtTask, &out.DbtTask
-		*out = new(TaskDbtTaskInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]TaskDbtTaskInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.DependsOn != nil {
 		in, out := &in.DependsOn, &out.DependsOn
@@ -33552,8 +34842,10 @@ func (in *TaskInitParameters) DeepCopyInto(out *TaskInitParameters) {
 	}
 	if in.EmailNotifications != nil {
 		in, out := &in.EmailNotifications, &out.EmailNotifications
-		*out = new(TaskEmailNotificationsInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]TaskEmailNotificationsInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.EnvironmentKey != nil {
 		in, out := &in.EnvironmentKey, &out.EnvironmentKey
@@ -33577,18 +34869,24 @@ func (in *TaskInitParameters) DeepCopyInto(out *TaskInitParameters) {
 	}
 	if in.ForEachTask != nil {
 		in, out := &in.ForEachTask, &out.ForEachTask
-		*out = new(ForEachTaskInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]ForEachTaskInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.GenAIComputeTask != nil {
 		in, out := &in.GenAIComputeTask, &out.GenAIComputeTask
-		*out = new(TaskGenAIComputeTaskInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]TaskGenAIComputeTaskInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Health != nil {
 		in, out := &in.Health, &out.Health
-		*out = new(JobTaskHealthInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]JobTaskHealthInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.JobClusterKey != nil {
 		in, out := &in.JobClusterKey, &out.JobClusterKey
@@ -33614,33 +34912,45 @@ func (in *TaskInitParameters) DeepCopyInto(out *TaskInitParameters) {
 	}
 	if in.NewCluster != nil {
 		in, out := &in.NewCluster, &out.NewCluster
-		*out = new(JobTaskNewClusterInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]JobTaskNewClusterInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.NotebookTask != nil {
 		in, out := &in.NotebookTask, &out.NotebookTask
-		*out = new(JobTaskNotebookTaskInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]JobTaskNotebookTaskInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.NotificationSettings != nil {
 		in, out := &in.NotificationSettings, &out.NotificationSettings
-		*out = new(JobTaskNotificationSettingsInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]JobTaskNotificationSettingsInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.PipelineTask != nil {
 		in, out := &in.PipelineTask, &out.PipelineTask
-		*out = new(JobTaskPipelineTaskInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]JobTaskPipelineTaskInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.PowerBiTask != nil {
 		in, out := &in.PowerBiTask, &out.PowerBiTask
-		*out = new(TaskPowerBiTaskInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]TaskPowerBiTaskInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.PythonWheelTask != nil {
 		in, out := &in.PythonWheelTask, &out.PythonWheelTask
-		*out = new(JobTaskPythonWheelTaskInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]JobTaskPythonWheelTaskInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.RetryOnTimeout != nil {
 		in, out := &in.RetryOnTimeout, &out.RetryOnTimeout
@@ -33654,28 +34964,38 @@ func (in *TaskInitParameters) DeepCopyInto(out *TaskInitParameters) {
 	}
 	if in.RunJobTask != nil {
 		in, out := &in.RunJobTask, &out.RunJobTask
-		*out = new(JobTaskRunJobTaskInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]JobTaskRunJobTaskInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.SQLTask != nil {
 		in, out := &in.SQLTask, &out.SQLTask
-		*out = new(TaskSQLTaskInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]TaskSQLTaskInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.SparkJarTask != nil {
 		in, out := &in.SparkJarTask, &out.SparkJarTask
-		*out = new(JobTaskSparkJarTaskInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]JobTaskSparkJarTaskInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.SparkPythonTask != nil {
 		in, out := &in.SparkPythonTask, &out.SparkPythonTask
-		*out = new(JobTaskSparkPythonTaskInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]JobTaskSparkPythonTaskInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.SparkSubmitTask != nil {
 		in, out := &in.SparkSubmitTask, &out.SparkSubmitTask
-		*out = new(JobTaskSparkSubmitTaskInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]JobTaskSparkSubmitTaskInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.TaskKey != nil {
 		in, out := &in.TaskKey, &out.TaskKey
@@ -33689,8 +35009,10 @@ func (in *TaskInitParameters) DeepCopyInto(out *TaskInitParameters) {
 	}
 	if in.WebhookNotifications != nil {
 		in, out := &in.WebhookNotifications, &out.WebhookNotifications
-		*out = new(TaskWebhookNotificationsInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]TaskWebhookNotificationsInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 }
 
@@ -33784,8 +35106,10 @@ func (in *TaskLibraryInitParameters) DeepCopyInto(out *TaskLibraryInitParameters
 	*out = *in
 	if in.Cran != nil {
 		in, out := &in.Cran, &out.Cran
-		*out = new(TaskLibraryCranInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]TaskLibraryCranInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Egg != nil {
 		in, out := &in.Egg, &out.Egg
@@ -33799,13 +35123,17 @@ func (in *TaskLibraryInitParameters) DeepCopyInto(out *TaskLibraryInitParameters
 	}
 	if in.Maven != nil {
 		in, out := &in.Maven, &out.Maven
-		*out = new(TaskLibraryMavenInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]TaskLibraryMavenInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Pypi != nil {
 		in, out := &in.Pypi, &out.Pypi
-		*out = new(TaskLibraryPypiInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]TaskLibraryPypiInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Requirements != nil {
 		in, out := &in.Requirements, &out.Requirements
@@ -33942,8 +35270,10 @@ func (in *TaskLibraryObservation) DeepCopyInto(out *TaskLibraryObservation) {
 	*out = *in
 	if in.Cran != nil {
 		in, out := &in.Cran, &out.Cran
-		*out = new(TaskLibraryCranObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]TaskLibraryCranObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Egg != nil {
 		in, out := &in.Egg, &out.Egg
@@ -33957,13 +35287,17 @@ func (in *TaskLibraryObservation) DeepCopyInto(out *TaskLibraryObservation) {
 	}
 	if in.Maven != nil {
 		in, out := &in.Maven, &out.Maven
-		*out = new(TaskLibraryMavenObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]TaskLibraryMavenObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Pypi != nil {
 		in, out := &in.Pypi, &out.Pypi
-		*out = new(TaskLibraryPypiObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]TaskLibraryPypiObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Requirements != nil {
 		in, out := &in.Requirements, &out.Requirements
@@ -33992,8 +35326,10 @@ func (in *TaskLibraryParameters) DeepCopyInto(out *TaskLibraryParameters) {
 	*out = *in
 	if in.Cran != nil {
 		in, out := &in.Cran, &out.Cran
-		*out = new(TaskLibraryCranParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]TaskLibraryCranParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Egg != nil {
 		in, out := &in.Egg, &out.Egg
@@ -34007,13 +35343,17 @@ func (in *TaskLibraryParameters) DeepCopyInto(out *TaskLibraryParameters) {
 	}
 	if in.Maven != nil {
 		in, out := &in.Maven, &out.Maven
-		*out = new(TaskLibraryMavenParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]TaskLibraryMavenParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Pypi != nil {
 		in, out := &in.Pypi, &out.Pypi
-		*out = new(TaskLibraryPypiParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]TaskLibraryPypiParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Requirements != nil {
 		in, out := &in.Requirements, &out.Requirements
@@ -34397,8 +35737,10 @@ func (in *TaskNewClusterAzureAttributesInitParameters) DeepCopyInto(out *TaskNew
 	}
 	if in.LogAnalyticsInfo != nil {
 		in, out := &in.LogAnalyticsInfo, &out.LogAnalyticsInfo
-		*out = new(TaskNewClusterAzureAttributesLogAnalyticsInfoInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]TaskNewClusterAzureAttributesLogAnalyticsInfoInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.SpotBidMaxPrice != nil {
 		in, out := &in.SpotBidMaxPrice, &out.SpotBidMaxPrice
@@ -34507,8 +35849,10 @@ func (in *TaskNewClusterAzureAttributesObservation) DeepCopyInto(out *TaskNewClu
 	}
 	if in.LogAnalyticsInfo != nil {
 		in, out := &in.LogAnalyticsInfo, &out.LogAnalyticsInfo
-		*out = new(TaskNewClusterAzureAttributesLogAnalyticsInfoObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]TaskNewClusterAzureAttributesLogAnalyticsInfoObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.SpotBidMaxPrice != nil {
 		in, out := &in.SpotBidMaxPrice, &out.SpotBidMaxPrice
@@ -34542,8 +35886,10 @@ func (in *TaskNewClusterAzureAttributesParameters) DeepCopyInto(out *TaskNewClus
 	}
 	if in.LogAnalyticsInfo != nil {
 		in, out := &in.LogAnalyticsInfo, &out.LogAnalyticsInfo
-		*out = new(TaskNewClusterAzureAttributesLogAnalyticsInfoParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]TaskNewClusterAzureAttributesLogAnalyticsInfoParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.SpotBidMaxPrice != nil {
 		in, out := &in.SpotBidMaxPrice, &out.SpotBidMaxPrice
@@ -34627,18 +35973,24 @@ func (in *TaskNewClusterClusterLogConfInitParameters) DeepCopyInto(out *TaskNewC
 	*out = *in
 	if in.Dbfs != nil {
 		in, out := &in.Dbfs, &out.Dbfs
-		*out = new(TaskNewClusterClusterLogConfDbfsInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]TaskNewClusterClusterLogConfDbfsInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.S3 != nil {
 		in, out := &in.S3, &out.S3
-		*out = new(TaskNewClusterClusterLogConfS3InitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]TaskNewClusterClusterLogConfS3InitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Volumes != nil {
 		in, out := &in.Volumes, &out.Volumes
-		*out = new(TaskNewClusterClusterLogConfVolumesInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]TaskNewClusterClusterLogConfVolumesInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 }
 
@@ -34657,18 +36009,24 @@ func (in *TaskNewClusterClusterLogConfObservation) DeepCopyInto(out *TaskNewClus
 	*out = *in
 	if in.Dbfs != nil {
 		in, out := &in.Dbfs, &out.Dbfs
-		*out = new(TaskNewClusterClusterLogConfDbfsObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]TaskNewClusterClusterLogConfDbfsObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.S3 != nil {
 		in, out := &in.S3, &out.S3
-		*out = new(TaskNewClusterClusterLogConfS3Observation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]TaskNewClusterClusterLogConfS3Observation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Volumes != nil {
 		in, out := &in.Volumes, &out.Volumes
-		*out = new(TaskNewClusterClusterLogConfVolumesObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]TaskNewClusterClusterLogConfVolumesObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 }
 
@@ -34687,18 +36045,24 @@ func (in *TaskNewClusterClusterLogConfParameters) DeepCopyInto(out *TaskNewClust
 	*out = *in
 	if in.Dbfs != nil {
 		in, out := &in.Dbfs, &out.Dbfs
-		*out = new(TaskNewClusterClusterLogConfDbfsParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]TaskNewClusterClusterLogConfDbfsParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.S3 != nil {
 		in, out := &in.S3, &out.S3
-		*out = new(TaskNewClusterClusterLogConfS3Parameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]TaskNewClusterClusterLogConfS3Parameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Volumes != nil {
 		in, out := &in.Volumes, &out.Volumes
-		*out = new(TaskNewClusterClusterLogConfVolumesParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]TaskNewClusterClusterLogConfVolumesParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 }
 
@@ -34932,8 +36296,10 @@ func (in *TaskNewClusterClusterMountInfoInitParameters) DeepCopyInto(out *TaskNe
 	}
 	if in.NetworkFilesystemInfo != nil {
 		in, out := &in.NetworkFilesystemInfo, &out.NetworkFilesystemInfo
-		*out = new(TaskNewClusterClusterMountInfoNetworkFilesystemInfoInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]TaskNewClusterClusterMountInfoNetworkFilesystemInfoInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.RemoteMountDirPath != nil {
 		in, out := &in.RemoteMountDirPath, &out.RemoteMountDirPath
@@ -35037,8 +36403,10 @@ func (in *TaskNewClusterClusterMountInfoObservation) DeepCopyInto(out *TaskNewCl
 	}
 	if in.NetworkFilesystemInfo != nil {
 		in, out := &in.NetworkFilesystemInfo, &out.NetworkFilesystemInfo
-		*out = new(TaskNewClusterClusterMountInfoNetworkFilesystemInfoObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]TaskNewClusterClusterMountInfoNetworkFilesystemInfoObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.RemoteMountDirPath != nil {
 		in, out := &in.RemoteMountDirPath, &out.RemoteMountDirPath
@@ -35067,8 +36435,10 @@ func (in *TaskNewClusterClusterMountInfoParameters) DeepCopyInto(out *TaskNewClu
 	}
 	if in.NetworkFilesystemInfo != nil {
 		in, out := &in.NetworkFilesystemInfo, &out.NetworkFilesystemInfo
-		*out = new(TaskNewClusterClusterMountInfoNetworkFilesystemInfoParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]TaskNewClusterClusterMountInfoNetworkFilesystemInfoParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.RemoteMountDirPath != nil {
 		in, out := &in.RemoteMountDirPath, &out.RemoteMountDirPath
@@ -35154,8 +36524,10 @@ func (in *TaskNewClusterDockerImageInitParameters) DeepCopyInto(out *TaskNewClus
 	*out = *in
 	if in.BasicAuth != nil {
 		in, out := &in.BasicAuth, &out.BasicAuth
-		*out = new(TaskNewClusterDockerImageBasicAuthInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]TaskNewClusterDockerImageBasicAuthInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.URL != nil {
 		in, out := &in.URL, &out.URL
@@ -35179,8 +36551,10 @@ func (in *TaskNewClusterDockerImageObservation) DeepCopyInto(out *TaskNewCluster
 	*out = *in
 	if in.BasicAuth != nil {
 		in, out := &in.BasicAuth, &out.BasicAuth
-		*out = new(TaskNewClusterDockerImageBasicAuthObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]TaskNewClusterDockerImageBasicAuthObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.URL != nil {
 		in, out := &in.URL, &out.URL
@@ -35204,8 +36578,10 @@ func (in *TaskNewClusterDockerImageParameters) DeepCopyInto(out *TaskNewClusterD
 	*out = *in
 	if in.BasicAuth != nil {
 		in, out := &in.BasicAuth, &out.BasicAuth
-		*out = new(TaskNewClusterDockerImageBasicAuthParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]TaskNewClusterDockerImageBasicAuthParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.URL != nil {
 		in, out := &in.URL, &out.URL
@@ -35384,18 +36760,24 @@ func (in *TaskNewClusterInitParameters) DeepCopyInto(out *TaskNewClusterInitPara
 	}
 	if in.Autoscale != nil {
 		in, out := &in.Autoscale, &out.Autoscale
-		*out = new(TaskNewClusterAutoscaleInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]TaskNewClusterAutoscaleInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.AwsAttributes != nil {
 		in, out := &in.AwsAttributes, &out.AwsAttributes
-		*out = new(TaskNewClusterAwsAttributesInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]TaskNewClusterAwsAttributesInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.AzureAttributes != nil {
 		in, out := &in.AzureAttributes, &out.AzureAttributes
-		*out = new(TaskNewClusterAzureAttributesInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]TaskNewClusterAzureAttributesInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.ClusterID != nil {
 		in, out := &in.ClusterID, &out.ClusterID
@@ -35404,8 +36786,10 @@ func (in *TaskNewClusterInitParameters) DeepCopyInto(out *TaskNewClusterInitPara
 	}
 	if in.ClusterLogConf != nil {
 		in, out := &in.ClusterLogConf, &out.ClusterLogConf
-		*out = new(TaskNewClusterClusterLogConfInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]TaskNewClusterClusterLogConfInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.ClusterMountInfo != nil {
 		in, out := &in.ClusterMountInfo, &out.ClusterMountInfo
@@ -35442,8 +36826,10 @@ func (in *TaskNewClusterInitParameters) DeepCopyInto(out *TaskNewClusterInitPara
 	}
 	if in.DockerImage != nil {
 		in, out := &in.DockerImage, &out.DockerImage
-		*out = new(TaskNewClusterDockerImageInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]TaskNewClusterDockerImageInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.DriverInstancePoolID != nil {
 		in, out := &in.DriverInstancePoolID, &out.DriverInstancePoolID
@@ -35467,8 +36853,10 @@ func (in *TaskNewClusterInitParameters) DeepCopyInto(out *TaskNewClusterInitPara
 	}
 	if in.GCPAttributes != nil {
 		in, out := &in.GCPAttributes, &out.GCPAttributes
-		*out = new(TaskNewClusterGCPAttributesInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]TaskNewClusterGCPAttributesInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.IdempotencyToken != nil {
 		in, out := &in.IdempotencyToken, &out.IdempotencyToken
@@ -35594,8 +36982,10 @@ func (in *TaskNewClusterInitParameters) DeepCopyInto(out *TaskNewClusterInitPara
 	}
 	if in.WorkloadType != nil {
 		in, out := &in.WorkloadType, &out.WorkloadType
-		*out = new(TaskNewClusterWorkloadTypeInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]TaskNewClusterWorkloadTypeInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 }
 
@@ -35854,38 +37244,52 @@ func (in *TaskNewClusterInitScriptsInitParameters) DeepCopyInto(out *TaskNewClus
 	*out = *in
 	if in.Abfss != nil {
 		in, out := &in.Abfss, &out.Abfss
-		*out = new(TaskNewClusterInitScriptsAbfssInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]TaskNewClusterInitScriptsAbfssInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Dbfs != nil {
 		in, out := &in.Dbfs, &out.Dbfs
-		*out = new(TaskNewClusterInitScriptsDbfsInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]TaskNewClusterInitScriptsDbfsInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.File != nil {
 		in, out := &in.File, &out.File
-		*out = new(TaskNewClusterInitScriptsFileInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]TaskNewClusterInitScriptsFileInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Gcs != nil {
 		in, out := &in.Gcs, &out.Gcs
-		*out = new(TaskNewClusterInitScriptsGcsInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]TaskNewClusterInitScriptsGcsInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.S3 != nil {
 		in, out := &in.S3, &out.S3
-		*out = new(TaskNewClusterInitScriptsS3InitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]TaskNewClusterInitScriptsS3InitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Volumes != nil {
 		in, out := &in.Volumes, &out.Volumes
-		*out = new(TaskNewClusterInitScriptsVolumesInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]TaskNewClusterInitScriptsVolumesInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Workspace != nil {
 		in, out := &in.Workspace, &out.Workspace
-		*out = new(TaskNewClusterInitScriptsWorkspaceInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]TaskNewClusterInitScriptsWorkspaceInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 }
 
@@ -35904,38 +37308,52 @@ func (in *TaskNewClusterInitScriptsObservation) DeepCopyInto(out *TaskNewCluster
 	*out = *in
 	if in.Abfss != nil {
 		in, out := &in.Abfss, &out.Abfss
-		*out = new(TaskNewClusterInitScriptsAbfssObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]TaskNewClusterInitScriptsAbfssObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Dbfs != nil {
 		in, out := &in.Dbfs, &out.Dbfs
-		*out = new(TaskNewClusterInitScriptsDbfsObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]TaskNewClusterInitScriptsDbfsObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.File != nil {
 		in, out := &in.File, &out.File
-		*out = new(TaskNewClusterInitScriptsFileObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]TaskNewClusterInitScriptsFileObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Gcs != nil {
 		in, out := &in.Gcs, &out.Gcs
-		*out = new(TaskNewClusterInitScriptsGcsObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]TaskNewClusterInitScriptsGcsObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.S3 != nil {
 		in, out := &in.S3, &out.S3
-		*out = new(TaskNewClusterInitScriptsS3Observation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]TaskNewClusterInitScriptsS3Observation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Volumes != nil {
 		in, out := &in.Volumes, &out.Volumes
-		*out = new(TaskNewClusterInitScriptsVolumesObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]TaskNewClusterInitScriptsVolumesObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Workspace != nil {
 		in, out := &in.Workspace, &out.Workspace
-		*out = new(TaskNewClusterInitScriptsWorkspaceObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]TaskNewClusterInitScriptsWorkspaceObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 }
 
@@ -35954,38 +37372,52 @@ func (in *TaskNewClusterInitScriptsParameters) DeepCopyInto(out *TaskNewClusterI
 	*out = *in
 	if in.Abfss != nil {
 		in, out := &in.Abfss, &out.Abfss
-		*out = new(TaskNewClusterInitScriptsAbfssParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]TaskNewClusterInitScriptsAbfssParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Dbfs != nil {
 		in, out := &in.Dbfs, &out.Dbfs
-		*out = new(TaskNewClusterInitScriptsDbfsParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]TaskNewClusterInitScriptsDbfsParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.File != nil {
 		in, out := &in.File, &out.File
-		*out = new(TaskNewClusterInitScriptsFileParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]TaskNewClusterInitScriptsFileParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Gcs != nil {
 		in, out := &in.Gcs, &out.Gcs
-		*out = new(TaskNewClusterInitScriptsGcsParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]TaskNewClusterInitScriptsGcsParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.S3 != nil {
 		in, out := &in.S3, &out.S3
-		*out = new(TaskNewClusterInitScriptsS3Parameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]TaskNewClusterInitScriptsS3Parameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Volumes != nil {
 		in, out := &in.Volumes, &out.Volumes
-		*out = new(TaskNewClusterInitScriptsVolumesParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]TaskNewClusterInitScriptsVolumesParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Workspace != nil {
 		in, out := &in.Workspace, &out.Workspace
-		*out = new(TaskNewClusterInitScriptsWorkspaceParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]TaskNewClusterInitScriptsWorkspaceParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 }
 
@@ -36349,8 +37781,10 @@ func (in *TaskNewClusterLibraryInitParameters) DeepCopyInto(out *TaskNewClusterL
 	*out = *in
 	if in.Cran != nil {
 		in, out := &in.Cran, &out.Cran
-		*out = new(TaskNewClusterLibraryCranInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]TaskNewClusterLibraryCranInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Egg != nil {
 		in, out := &in.Egg, &out.Egg
@@ -36364,13 +37798,17 @@ func (in *TaskNewClusterLibraryInitParameters) DeepCopyInto(out *TaskNewClusterL
 	}
 	if in.Maven != nil {
 		in, out := &in.Maven, &out.Maven
-		*out = new(TaskNewClusterLibraryMavenInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]TaskNewClusterLibraryMavenInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Pypi != nil {
 		in, out := &in.Pypi, &out.Pypi
-		*out = new(TaskNewClusterLibraryPypiInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]TaskNewClusterLibraryPypiInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Requirements != nil {
 		in, out := &in.Requirements, &out.Requirements
@@ -36507,8 +37945,10 @@ func (in *TaskNewClusterLibraryObservation) DeepCopyInto(out *TaskNewClusterLibr
 	*out = *in
 	if in.Cran != nil {
 		in, out := &in.Cran, &out.Cran
-		*out = new(TaskNewClusterLibraryCranObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]TaskNewClusterLibraryCranObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Egg != nil {
 		in, out := &in.Egg, &out.Egg
@@ -36522,13 +37962,17 @@ func (in *TaskNewClusterLibraryObservation) DeepCopyInto(out *TaskNewClusterLibr
 	}
 	if in.Maven != nil {
 		in, out := &in.Maven, &out.Maven
-		*out = new(TaskNewClusterLibraryMavenObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]TaskNewClusterLibraryMavenObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Pypi != nil {
 		in, out := &in.Pypi, &out.Pypi
-		*out = new(TaskNewClusterLibraryPypiObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]TaskNewClusterLibraryPypiObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Requirements != nil {
 		in, out := &in.Requirements, &out.Requirements
@@ -36557,8 +38001,10 @@ func (in *TaskNewClusterLibraryParameters) DeepCopyInto(out *TaskNewClusterLibra
 	*out = *in
 	if in.Cran != nil {
 		in, out := &in.Cran, &out.Cran
-		*out = new(TaskNewClusterLibraryCranParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]TaskNewClusterLibraryCranParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Egg != nil {
 		in, out := &in.Egg, &out.Egg
@@ -36572,13 +38018,17 @@ func (in *TaskNewClusterLibraryParameters) DeepCopyInto(out *TaskNewClusterLibra
 	}
 	if in.Maven != nil {
 		in, out := &in.Maven, &out.Maven
-		*out = new(TaskNewClusterLibraryMavenParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]TaskNewClusterLibraryMavenParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Pypi != nil {
 		in, out := &in.Pypi, &out.Pypi
-		*out = new(TaskNewClusterLibraryPypiParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]TaskNewClusterLibraryPypiParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Requirements != nil {
 		in, out := &in.Requirements, &out.Requirements
@@ -36687,18 +38137,24 @@ func (in *TaskNewClusterObservation) DeepCopyInto(out *TaskNewClusterObservation
 	}
 	if in.Autoscale != nil {
 		in, out := &in.Autoscale, &out.Autoscale
-		*out = new(TaskNewClusterAutoscaleObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]TaskNewClusterAutoscaleObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.AwsAttributes != nil {
 		in, out := &in.AwsAttributes, &out.AwsAttributes
-		*out = new(TaskNewClusterAwsAttributesObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]TaskNewClusterAwsAttributesObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.AzureAttributes != nil {
 		in, out := &in.AzureAttributes, &out.AzureAttributes
-		*out = new(TaskNewClusterAzureAttributesObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]TaskNewClusterAzureAttributesObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.ClusterID != nil {
 		in, out := &in.ClusterID, &out.ClusterID
@@ -36707,8 +38163,10 @@ func (in *TaskNewClusterObservation) DeepCopyInto(out *TaskNewClusterObservation
 	}
 	if in.ClusterLogConf != nil {
 		in, out := &in.ClusterLogConf, &out.ClusterLogConf
-		*out = new(TaskNewClusterClusterLogConfObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]TaskNewClusterClusterLogConfObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.ClusterMountInfo != nil {
 		in, out := &in.ClusterMountInfo, &out.ClusterMountInfo
@@ -36745,8 +38203,10 @@ func (in *TaskNewClusterObservation) DeepCopyInto(out *TaskNewClusterObservation
 	}
 	if in.DockerImage != nil {
 		in, out := &in.DockerImage, &out.DockerImage
-		*out = new(TaskNewClusterDockerImageObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]TaskNewClusterDockerImageObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.DriverInstancePoolID != nil {
 		in, out := &in.DriverInstancePoolID, &out.DriverInstancePoolID
@@ -36770,8 +38230,10 @@ func (in *TaskNewClusterObservation) DeepCopyInto(out *TaskNewClusterObservation
 	}
 	if in.GCPAttributes != nil {
 		in, out := &in.GCPAttributes, &out.GCPAttributes
-		*out = new(TaskNewClusterGCPAttributesObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]TaskNewClusterGCPAttributesObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.IdempotencyToken != nil {
 		in, out := &in.IdempotencyToken, &out.IdempotencyToken
@@ -36897,8 +38359,10 @@ func (in *TaskNewClusterObservation) DeepCopyInto(out *TaskNewClusterObservation
 	}
 	if in.WorkloadType != nil {
 		in, out := &in.WorkloadType, &out.WorkloadType
-		*out = new(TaskNewClusterWorkloadTypeObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]TaskNewClusterWorkloadTypeObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 }
 
@@ -36922,18 +38386,24 @@ func (in *TaskNewClusterParameters) DeepCopyInto(out *TaskNewClusterParameters) 
 	}
 	if in.Autoscale != nil {
 		in, out := &in.Autoscale, &out.Autoscale
-		*out = new(TaskNewClusterAutoscaleParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]TaskNewClusterAutoscaleParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.AwsAttributes != nil {
 		in, out := &in.AwsAttributes, &out.AwsAttributes
-		*out = new(TaskNewClusterAwsAttributesParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]TaskNewClusterAwsAttributesParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.AzureAttributes != nil {
 		in, out := &in.AzureAttributes, &out.AzureAttributes
-		*out = new(TaskNewClusterAzureAttributesParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]TaskNewClusterAzureAttributesParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.ClusterID != nil {
 		in, out := &in.ClusterID, &out.ClusterID
@@ -36942,8 +38412,10 @@ func (in *TaskNewClusterParameters) DeepCopyInto(out *TaskNewClusterParameters) 
 	}
 	if in.ClusterLogConf != nil {
 		in, out := &in.ClusterLogConf, &out.ClusterLogConf
-		*out = new(TaskNewClusterClusterLogConfParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]TaskNewClusterClusterLogConfParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.ClusterMountInfo != nil {
 		in, out := &in.ClusterMountInfo, &out.ClusterMountInfo
@@ -36980,8 +38452,10 @@ func (in *TaskNewClusterParameters) DeepCopyInto(out *TaskNewClusterParameters) 
 	}
 	if in.DockerImage != nil {
 		in, out := &in.DockerImage, &out.DockerImage
-		*out = new(TaskNewClusterDockerImageParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]TaskNewClusterDockerImageParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.DriverInstancePoolID != nil {
 		in, out := &in.DriverInstancePoolID, &out.DriverInstancePoolID
@@ -37005,8 +38479,10 @@ func (in *TaskNewClusterParameters) DeepCopyInto(out *TaskNewClusterParameters) 
 	}
 	if in.GCPAttributes != nil {
 		in, out := &in.GCPAttributes, &out.GCPAttributes
-		*out = new(TaskNewClusterGCPAttributesParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]TaskNewClusterGCPAttributesParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.IdempotencyToken != nil {
 		in, out := &in.IdempotencyToken, &out.IdempotencyToken
@@ -37132,8 +38608,10 @@ func (in *TaskNewClusterParameters) DeepCopyInto(out *TaskNewClusterParameters) 
 	}
 	if in.WorkloadType != nil {
 		in, out := &in.WorkloadType, &out.WorkloadType
-		*out = new(TaskNewClusterWorkloadTypeParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]TaskNewClusterWorkloadTypeParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 }
 
@@ -37227,8 +38705,10 @@ func (in *TaskNewClusterWorkloadTypeInitParameters) DeepCopyInto(out *TaskNewClu
 	*out = *in
 	if in.Clients != nil {
 		in, out := &in.Clients, &out.Clients
-		*out = new(TaskNewClusterWorkloadTypeClientsInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]TaskNewClusterWorkloadTypeClientsInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 }
 
@@ -37247,8 +38727,10 @@ func (in *TaskNewClusterWorkloadTypeObservation) DeepCopyInto(out *TaskNewCluste
 	*out = *in
 	if in.Clients != nil {
 		in, out := &in.Clients, &out.Clients
-		*out = new(TaskNewClusterWorkloadTypeClientsObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]TaskNewClusterWorkloadTypeClientsObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 }
 
@@ -37267,8 +38749,10 @@ func (in *TaskNewClusterWorkloadTypeParameters) DeepCopyInto(out *TaskNewCluster
 	*out = *in
 	if in.Clients != nil {
 		in, out := &in.Clients, &out.Clients
-		*out = new(TaskNewClusterWorkloadTypeClientsParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]TaskNewClusterWorkloadTypeClientsParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 }
 
@@ -37515,33 +38999,45 @@ func (in *TaskObservation) DeepCopyInto(out *TaskObservation) {
 	*out = *in
 	if in.CleanRoomsNotebookTask != nil {
 		in, out := &in.CleanRoomsNotebookTask, &out.CleanRoomsNotebookTask
-		*out = new(CleanRoomsNotebookTaskObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]CleanRoomsNotebookTaskObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.ConditionTask != nil {
 		in, out := &in.ConditionTask, &out.ConditionTask
-		*out = new(ConditionTaskObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]ConditionTaskObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.DashboardTask != nil {
 		in, out := &in.DashboardTask, &out.DashboardTask
-		*out = new(DashboardTaskObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]DashboardTaskObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.DbtCloudTask != nil {
 		in, out := &in.DbtCloudTask, &out.DbtCloudTask
-		*out = new(DbtCloudTaskObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]DbtCloudTaskObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.DbtPlatformTask != nil {
 		in, out := &in.DbtPlatformTask, &out.DbtPlatformTask
-		*out = new(DbtPlatformTaskObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]DbtPlatformTaskObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.DbtTask != nil {
 		in, out := &in.DbtTask, &out.DbtTask
-		*out = new(TaskDbtTaskObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]TaskDbtTaskObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.DependsOn != nil {
 		in, out := &in.DependsOn, &out.DependsOn
@@ -37562,8 +39058,10 @@ func (in *TaskObservation) DeepCopyInto(out *TaskObservation) {
 	}
 	if in.EmailNotifications != nil {
 		in, out := &in.EmailNotifications, &out.EmailNotifications
-		*out = new(TaskEmailNotificationsObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]TaskEmailNotificationsObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.EnvironmentKey != nil {
 		in, out := &in.EnvironmentKey, &out.EnvironmentKey
@@ -37577,18 +39075,24 @@ func (in *TaskObservation) DeepCopyInto(out *TaskObservation) {
 	}
 	if in.ForEachTask != nil {
 		in, out := &in.ForEachTask, &out.ForEachTask
-		*out = new(ForEachTaskObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]ForEachTaskObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.GenAIComputeTask != nil {
 		in, out := &in.GenAIComputeTask, &out.GenAIComputeTask
-		*out = new(TaskGenAIComputeTaskObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]TaskGenAIComputeTaskObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Health != nil {
 		in, out := &in.Health, &out.Health
-		*out = new(JobTaskHealthObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]JobTaskHealthObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.JobClusterKey != nil {
 		in, out := &in.JobClusterKey, &out.JobClusterKey
@@ -37614,33 +39118,45 @@ func (in *TaskObservation) DeepCopyInto(out *TaskObservation) {
 	}
 	if in.NewCluster != nil {
 		in, out := &in.NewCluster, &out.NewCluster
-		*out = new(JobTaskNewClusterObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]JobTaskNewClusterObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.NotebookTask != nil {
 		in, out := &in.NotebookTask, &out.NotebookTask
-		*out = new(JobTaskNotebookTaskObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]JobTaskNotebookTaskObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.NotificationSettings != nil {
 		in, out := &in.NotificationSettings, &out.NotificationSettings
-		*out = new(JobTaskNotificationSettingsObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]JobTaskNotificationSettingsObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.PipelineTask != nil {
 		in, out := &in.PipelineTask, &out.PipelineTask
-		*out = new(JobTaskPipelineTaskObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]JobTaskPipelineTaskObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.PowerBiTask != nil {
 		in, out := &in.PowerBiTask, &out.PowerBiTask
-		*out = new(TaskPowerBiTaskObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]TaskPowerBiTaskObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.PythonWheelTask != nil {
 		in, out := &in.PythonWheelTask, &out.PythonWheelTask
-		*out = new(JobTaskPythonWheelTaskObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]JobTaskPythonWheelTaskObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.RetryOnTimeout != nil {
 		in, out := &in.RetryOnTimeout, &out.RetryOnTimeout
@@ -37654,28 +39170,38 @@ func (in *TaskObservation) DeepCopyInto(out *TaskObservation) {
 	}
 	if in.RunJobTask != nil {
 		in, out := &in.RunJobTask, &out.RunJobTask
-		*out = new(JobTaskRunJobTaskObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]JobTaskRunJobTaskObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.SQLTask != nil {
 		in, out := &in.SQLTask, &out.SQLTask
-		*out = new(TaskSQLTaskObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]TaskSQLTaskObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.SparkJarTask != nil {
 		in, out := &in.SparkJarTask, &out.SparkJarTask
-		*out = new(JobTaskSparkJarTaskObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]JobTaskSparkJarTaskObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.SparkPythonTask != nil {
 		in, out := &in.SparkPythonTask, &out.SparkPythonTask
-		*out = new(JobTaskSparkPythonTaskObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]JobTaskSparkPythonTaskObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.SparkSubmitTask != nil {
 		in, out := &in.SparkSubmitTask, &out.SparkSubmitTask
-		*out = new(JobTaskSparkSubmitTaskObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]JobTaskSparkSubmitTaskObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.TaskKey != nil {
 		in, out := &in.TaskKey, &out.TaskKey
@@ -37689,8 +39215,10 @@ func (in *TaskObservation) DeepCopyInto(out *TaskObservation) {
 	}
 	if in.WebhookNotifications != nil {
 		in, out := &in.WebhookNotifications, &out.WebhookNotifications
-		*out = new(TaskWebhookNotificationsObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]TaskWebhookNotificationsObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 }
 
@@ -37709,33 +39237,45 @@ func (in *TaskParameters) DeepCopyInto(out *TaskParameters) {
 	*out = *in
 	if in.CleanRoomsNotebookTask != nil {
 		in, out := &in.CleanRoomsNotebookTask, &out.CleanRoomsNotebookTask
-		*out = new(CleanRoomsNotebookTaskParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]CleanRoomsNotebookTaskParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.ConditionTask != nil {
 		in, out := &in.ConditionTask, &out.ConditionTask
-		*out = new(ConditionTaskParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]ConditionTaskParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.DashboardTask != nil {
 		in, out := &in.DashboardTask, &out.DashboardTask
-		*out = new(DashboardTaskParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]DashboardTaskParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.DbtCloudTask != nil {
 		in, out := &in.DbtCloudTask, &out.DbtCloudTask
-		*out = new(DbtCloudTaskParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]DbtCloudTaskParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.DbtPlatformTask != nil {
 		in, out := &in.DbtPlatformTask, &out.DbtPlatformTask
-		*out = new(DbtPlatformTaskParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]DbtPlatformTaskParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.DbtTask != nil {
 		in, out := &in.DbtTask, &out.DbtTask
-		*out = new(TaskDbtTaskParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]TaskDbtTaskParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.DependsOn != nil {
 		in, out := &in.DependsOn, &out.DependsOn
@@ -37756,8 +39296,10 @@ func (in *TaskParameters) DeepCopyInto(out *TaskParameters) {
 	}
 	if in.EmailNotifications != nil {
 		in, out := &in.EmailNotifications, &out.EmailNotifications
-		*out = new(TaskEmailNotificationsParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]TaskEmailNotificationsParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.EnvironmentKey != nil {
 		in, out := &in.EnvironmentKey, &out.EnvironmentKey
@@ -37781,18 +39323,24 @@ func (in *TaskParameters) DeepCopyInto(out *TaskParameters) {
 	}
 	if in.ForEachTask != nil {
 		in, out := &in.ForEachTask, &out.ForEachTask
-		*out = new(ForEachTaskParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]ForEachTaskParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.GenAIComputeTask != nil {
 		in, out := &in.GenAIComputeTask, &out.GenAIComputeTask
-		*out = new(TaskGenAIComputeTaskParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]TaskGenAIComputeTaskParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Health != nil {
 		in, out := &in.Health, &out.Health
-		*out = new(JobTaskHealthParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]JobTaskHealthParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.JobClusterKey != nil {
 		in, out := &in.JobClusterKey, &out.JobClusterKey
@@ -37818,33 +39366,45 @@ func (in *TaskParameters) DeepCopyInto(out *TaskParameters) {
 	}
 	if in.NewCluster != nil {
 		in, out := &in.NewCluster, &out.NewCluster
-		*out = new(JobTaskNewClusterParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]JobTaskNewClusterParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.NotebookTask != nil {
 		in, out := &in.NotebookTask, &out.NotebookTask
-		*out = new(JobTaskNotebookTaskParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]JobTaskNotebookTaskParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.NotificationSettings != nil {
 		in, out := &in.NotificationSettings, &out.NotificationSettings
-		*out = new(JobTaskNotificationSettingsParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]JobTaskNotificationSettingsParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.PipelineTask != nil {
 		in, out := &in.PipelineTask, &out.PipelineTask
-		*out = new(JobTaskPipelineTaskParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]JobTaskPipelineTaskParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.PowerBiTask != nil {
 		in, out := &in.PowerBiTask, &out.PowerBiTask
-		*out = new(TaskPowerBiTaskParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]TaskPowerBiTaskParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.PythonWheelTask != nil {
 		in, out := &in.PythonWheelTask, &out.PythonWheelTask
-		*out = new(JobTaskPythonWheelTaskParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]JobTaskPythonWheelTaskParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.RetryOnTimeout != nil {
 		in, out := &in.RetryOnTimeout, &out.RetryOnTimeout
@@ -37858,28 +39418,38 @@ func (in *TaskParameters) DeepCopyInto(out *TaskParameters) {
 	}
 	if in.RunJobTask != nil {
 		in, out := &in.RunJobTask, &out.RunJobTask
-		*out = new(JobTaskRunJobTaskParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]JobTaskRunJobTaskParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.SQLTask != nil {
 		in, out := &in.SQLTask, &out.SQLTask
-		*out = new(TaskSQLTaskParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]TaskSQLTaskParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.SparkJarTask != nil {
 		in, out := &in.SparkJarTask, &out.SparkJarTask
-		*out = new(JobTaskSparkJarTaskParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]JobTaskSparkJarTaskParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.SparkPythonTask != nil {
 		in, out := &in.SparkPythonTask, &out.SparkPythonTask
-		*out = new(JobTaskSparkPythonTaskParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]JobTaskSparkPythonTaskParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.SparkSubmitTask != nil {
 		in, out := &in.SparkSubmitTask, &out.SparkSubmitTask
-		*out = new(JobTaskSparkSubmitTaskParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]JobTaskSparkSubmitTaskParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.TaskKey != nil {
 		in, out := &in.TaskKey, &out.TaskKey
@@ -37893,8 +39463,10 @@ func (in *TaskParameters) DeepCopyInto(out *TaskParameters) {
 	}
 	if in.WebhookNotifications != nil {
 		in, out := &in.WebhookNotifications, &out.WebhookNotifications
-		*out = new(TaskWebhookNotificationsParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]TaskWebhookNotificationsParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 }
 
@@ -37993,8 +39565,10 @@ func (in *TaskPowerBiTaskInitParameters) DeepCopyInto(out *TaskPowerBiTaskInitPa
 	}
 	if in.PowerBiModel != nil {
 		in, out := &in.PowerBiModel, &out.PowerBiModel
-		*out = new(PowerBiTaskPowerBiModelInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]PowerBiTaskPowerBiModelInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.RefreshAfterUpdate != nil {
 		in, out := &in.RefreshAfterUpdate, &out.RefreshAfterUpdate
@@ -38035,8 +39609,10 @@ func (in *TaskPowerBiTaskObservation) DeepCopyInto(out *TaskPowerBiTaskObservati
 	}
 	if in.PowerBiModel != nil {
 		in, out := &in.PowerBiModel, &out.PowerBiModel
-		*out = new(PowerBiTaskPowerBiModelObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]PowerBiTaskPowerBiModelObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.RefreshAfterUpdate != nil {
 		in, out := &in.RefreshAfterUpdate, &out.RefreshAfterUpdate
@@ -38077,8 +39653,10 @@ func (in *TaskPowerBiTaskParameters) DeepCopyInto(out *TaskPowerBiTaskParameters
 	}
 	if in.PowerBiModel != nil {
 		in, out := &in.PowerBiModel, &out.PowerBiModel
-		*out = new(PowerBiTaskPowerBiModelParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]PowerBiTaskPowerBiModelParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.RefreshAfterUpdate != nil {
 		in, out := &in.RefreshAfterUpdate, &out.RefreshAfterUpdate
@@ -38329,8 +39907,10 @@ func (in *TaskRunJobTaskInitParameters) DeepCopyInto(out *TaskRunJobTaskInitPara
 	}
 	if in.PipelineParams != nil {
 		in, out := &in.PipelineParams, &out.PipelineParams
-		*out = new(PipelineParamsInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]PipelineParamsInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.PythonNamedParams != nil {
 		in, out := &in.PythonNamedParams, &out.PythonNamedParams
@@ -38462,8 +40042,10 @@ func (in *TaskRunJobTaskObservation) DeepCopyInto(out *TaskRunJobTaskObservation
 	}
 	if in.PipelineParams != nil {
 		in, out := &in.PipelineParams, &out.PipelineParams
-		*out = new(PipelineParamsObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]PipelineParamsObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.PythonNamedParams != nil {
 		in, out := &in.PythonNamedParams, &out.PythonNamedParams
@@ -38595,8 +40177,10 @@ func (in *TaskRunJobTaskParameters) DeepCopyInto(out *TaskRunJobTaskParameters) 
 	}
 	if in.PipelineParams != nil {
 		in, out := &in.PipelineParams, &out.PipelineParams
-		*out = new(PipelineParamsParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]PipelineParamsParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.PythonNamedParams != nil {
 		in, out := &in.PythonNamedParams, &out.PythonNamedParams
@@ -38744,18 +40328,24 @@ func (in *TaskSQLTaskInitParameters) DeepCopyInto(out *TaskSQLTaskInitParameters
 	*out = *in
 	if in.Alert != nil {
 		in, out := &in.Alert, &out.Alert
-		*out = new(SQLTaskAlertInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]SQLTaskAlertInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Dashboard != nil {
 		in, out := &in.Dashboard, &out.Dashboard
-		*out = new(SQLTaskDashboardInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]SQLTaskDashboardInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.File != nil {
 		in, out := &in.File, &out.File
-		*out = new(TaskSQLTaskFileInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]TaskSQLTaskFileInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Parameters != nil {
 		in, out := &in.Parameters, &out.Parameters
@@ -38775,8 +40365,10 @@ func (in *TaskSQLTaskInitParameters) DeepCopyInto(out *TaskSQLTaskInitParameters
 	}
 	if in.Query != nil {
 		in, out := &in.Query, &out.Query
-		*out = new(SQLTaskQueryInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]SQLTaskQueryInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.WarehouseID != nil {
 		in, out := &in.WarehouseID, &out.WarehouseID
@@ -38810,18 +40402,24 @@ func (in *TaskSQLTaskObservation) DeepCopyInto(out *TaskSQLTaskObservation) {
 	*out = *in
 	if in.Alert != nil {
 		in, out := &in.Alert, &out.Alert
-		*out = new(SQLTaskAlertObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]SQLTaskAlertObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Dashboard != nil {
 		in, out := &in.Dashboard, &out.Dashboard
-		*out = new(SQLTaskDashboardObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]SQLTaskDashboardObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.File != nil {
 		in, out := &in.File, &out.File
-		*out = new(TaskSQLTaskFileObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]TaskSQLTaskFileObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Parameters != nil {
 		in, out := &in.Parameters, &out.Parameters
@@ -38841,8 +40439,10 @@ func (in *TaskSQLTaskObservation) DeepCopyInto(out *TaskSQLTaskObservation) {
 	}
 	if in.Query != nil {
 		in, out := &in.Query, &out.Query
-		*out = new(SQLTaskQueryObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]SQLTaskQueryObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.WarehouseID != nil {
 		in, out := &in.WarehouseID, &out.WarehouseID
@@ -38866,18 +40466,24 @@ func (in *TaskSQLTaskParameters) DeepCopyInto(out *TaskSQLTaskParameters) {
 	*out = *in
 	if in.Alert != nil {
 		in, out := &in.Alert, &out.Alert
-		*out = new(SQLTaskAlertParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]SQLTaskAlertParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Dashboard != nil {
 		in, out := &in.Dashboard, &out.Dashboard
-		*out = new(SQLTaskDashboardParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]SQLTaskDashboardParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.File != nil {
 		in, out := &in.File, &out.File
-		*out = new(TaskSQLTaskFileParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]TaskSQLTaskFileParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Parameters != nil {
 		in, out := &in.Parameters, &out.Parameters
@@ -38897,8 +40503,10 @@ func (in *TaskSQLTaskParameters) DeepCopyInto(out *TaskSQLTaskParameters) {
 	}
 	if in.Query != nil {
 		in, out := &in.Query, &out.Query
-		*out = new(SQLTaskQueryParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]SQLTaskQueryParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.WarehouseID != nil {
 		in, out := &in.WarehouseID, &out.WarehouseID
@@ -39391,8 +40999,10 @@ func (in *TriggerInitParameters) DeepCopyInto(out *TriggerInitParameters) {
 	*out = *in
 	if in.FileArrival != nil {
 		in, out := &in.FileArrival, &out.FileArrival
-		*out = new(FileArrivalInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]FileArrivalInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.PauseStatus != nil {
 		in, out := &in.PauseStatus, &out.PauseStatus
@@ -39401,18 +41011,24 @@ func (in *TriggerInitParameters) DeepCopyInto(out *TriggerInitParameters) {
 	}
 	if in.Periodic != nil {
 		in, out := &in.Periodic, &out.Periodic
-		*out = new(PeriodicInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]PeriodicInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Table != nil {
 		in, out := &in.Table, &out.Table
-		*out = new(TableInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]TableInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.TableUpdate != nil {
 		in, out := &in.TableUpdate, &out.TableUpdate
-		*out = new(TableUpdateInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]TableUpdateInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 }
 
@@ -39431,8 +41047,10 @@ func (in *TriggerObservation) DeepCopyInto(out *TriggerObservation) {
 	*out = *in
 	if in.FileArrival != nil {
 		in, out := &in.FileArrival, &out.FileArrival
-		*out = new(FileArrivalObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]FileArrivalObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.PauseStatus != nil {
 		in, out := &in.PauseStatus, &out.PauseStatus
@@ -39441,18 +41059,24 @@ func (in *TriggerObservation) DeepCopyInto(out *TriggerObservation) {
 	}
 	if in.Periodic != nil {
 		in, out := &in.Periodic, &out.Periodic
-		*out = new(PeriodicObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]PeriodicObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Table != nil {
 		in, out := &in.Table, &out.Table
-		*out = new(TableObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]TableObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.TableUpdate != nil {
 		in, out := &in.TableUpdate, &out.TableUpdate
-		*out = new(TableUpdateObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]TableUpdateObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 }
 
@@ -39471,8 +41095,10 @@ func (in *TriggerParameters) DeepCopyInto(out *TriggerParameters) {
 	*out = *in
 	if in.FileArrival != nil {
 		in, out := &in.FileArrival, &out.FileArrival
-		*out = new(FileArrivalParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]FileArrivalParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.PauseStatus != nil {
 		in, out := &in.PauseStatus, &out.PauseStatus
@@ -39481,18 +41107,24 @@ func (in *TriggerParameters) DeepCopyInto(out *TriggerParameters) {
 	}
 	if in.Periodic != nil {
 		in, out := &in.Periodic, &out.Periodic
-		*out = new(PeriodicParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]PeriodicParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Table != nil {
 		in, out := &in.Table, &out.Table
-		*out = new(TableParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]TableParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.TableUpdate != nil {
 		in, out := &in.TableUpdate, &out.TableUpdate
-		*out = new(TableUpdateParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]TableUpdateParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 }
 
@@ -40096,8 +41728,10 @@ func (in *WorkloadTypeInitParameters) DeepCopyInto(out *WorkloadTypeInitParamete
 	*out = *in
 	if in.Clients != nil {
 		in, out := &in.Clients, &out.Clients
-		*out = new(ClientsInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]ClientsInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 }
 
@@ -40116,8 +41750,10 @@ func (in *WorkloadTypeObservation) DeepCopyInto(out *WorkloadTypeObservation) {
 	*out = *in
 	if in.Clients != nil {
 		in, out := &in.Clients, &out.Clients
-		*out = new(ClientsObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]ClientsObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 }
 
@@ -40136,8 +41772,10 @@ func (in *WorkloadTypeParameters) DeepCopyInto(out *WorkloadTypeParameters) {
 	*out = *in
 	if in.Clients != nil {
 		in, out := &in.Clients, &out.Clients
-		*out = new(ClientsParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]ClientsParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 }
 
