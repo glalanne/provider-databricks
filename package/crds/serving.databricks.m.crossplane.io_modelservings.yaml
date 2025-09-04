@@ -222,10 +222,13 @@ spec:
                                 description: Renewal period field for a serving endpoint
                                   rate limit. Currently, only minute is supported.
                                 type: string
+<<<<<<< HEAD
                               tokens:
                                 description: Specifies how many tokens are allowed
                                   for a key within the renewal_period.
                                 type: number
+=======
+>>>>>>> 22d3f447638c67622a710bb969a42a932ffdb1af
                             type: object
                           type: array
                         usageTrackingConfig:
@@ -1047,10 +1050,13 @@ spec:
                                 description: Renewal period field for a serving endpoint
                                   rate limit. Currently, only minute is supported.
                                 type: string
+<<<<<<< HEAD
                               tokens:
                                 description: Specifies how many tokens are allowed
                                   for a key within the renewal_period.
                                 type: number
+=======
+>>>>>>> 22d3f447638c67622a710bb969a42a932ffdb1af
                             type: object
                           type: array
                         usageTrackingConfig:
@@ -1927,10 +1933,13 @@ spec:
                                 description: Renewal period field for a serving endpoint
                                   rate limit. Currently, only minute is supported.
                                 type: string
+<<<<<<< HEAD
                               tokens:
                                 description: Specifies how many tokens are allowed
                                   for a key within the renewal_period.
                                 type: number
+=======
+>>>>>>> 22d3f447638c67622a710bb969a42a932ffdb1af
                             type: object
                           type: array
                         usageTrackingConfig:

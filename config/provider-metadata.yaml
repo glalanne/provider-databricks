@@ -572,10 +572,13 @@ resources:
             display: (string, optional)
             display_name: (string, optional) - The display name of the alert
             double_value: (number, optional)
+<<<<<<< HEAD
             effective_run_as: |-
                 (AlertV2RunAs) - The actual identity that will be used to execute the alert.
                 This is an output-only field that shows the resolved run-as identity after applying
                 permissions and defaults
+=======
+>>>>>>> 22d3f447638c67622a710bb969a42a932ffdb1af
             empty_result_state: '(string, optional) - Alert state if result is empty. Possible values are: ERROR, OK, TRIGGERED, UNKNOWN'
             evaluation: (AlertV2Evaluation, optional)
             id: (string) - UUID identifying the alert
@@ -596,6 +599,7 @@ resources:
                 (AlertV2RunAs, optional) - Specifies the identity that will be used to run the alert.
                 This field allows you to configure alerts to run as a specific user or service principal.
             run_as_user_name: |-
+<<<<<<< HEAD
                 (string, optional, deprecated) - The run as username or application ID of service principal.
                 On Create and Update, this field can be set to application ID of an active service principal. Setting this field requires the servicePrincipal/user role.
                 Deprecated: Use run_as field instead. This field will be removed in a future release
@@ -603,6 +607,11 @@ resources:
             service_principal_name: |-
                 to the application ID. Requires the servicePrincipal/user role.
                 If not specified, the alert will run as the request user
+=======
+                (string, optional) - The run as username or application ID of service principal.
+                On Create and Update, this field can be set to application ID of an active service principal. Setting this field requires the servicePrincipal/user role
+            schedule: (CronSchedule, optional)
+>>>>>>> 22d3f447638c67622a710bb969a42a932ffdb1af
             source: (AlertV2OperandColumn, optional) - Source column from result to use to evaluate alert
             state: '(string) - Latest state of alert evaluation. Possible values are: ERROR, OK, TRIGGERED, UNKNOWN'
             string_value: (string, optional)
@@ -614,7 +623,10 @@ resources:
                 See https://docs.databricks.com/sql/language-manual/sql-ref-syntax-aux-conf-mgmt-set-timezone.html for details
             update_time: (string) - The timestamp indicating when the alert was updated
             user_email: (string, optional)
+<<<<<<< HEAD
             user_name: to the email of an active workspace user. Users can only set this to their own email.
+=======
+>>>>>>> 22d3f447638c67622a710bb969a42a932ffdb1af
             value: (AlertV2OperandValue, optional)
             warehouse_id: (string, optional) - ID of the SQL warehouse attached to the alert
             workspace_id: (string, optional) - Workspace ID of the resource
@@ -1022,7 +1034,11 @@ resources:
             review_sub_reason: '(string, optional) - Specified when the review was not explicitly made by a user. Possible values are: AUTO_APPROVED, BACKFILLED'
             reviewer_collaborator_alias: (string, optional) - Collaborator alias of the reviewer
             reviews: (list of CleanRoomNotebookReview) - All existing approvals or rejections
+<<<<<<< HEAD
             runner_collaborator_aliases: (list of string, optional) - Aliases of collaborators that can run the notebook
+=======
+            runner_collaborator_aliases: (list of string, optional) - collaborators that can run the notebook
+>>>>>>> 22d3f447638c67622a710bb969a42a932ffdb1af
             status: '(string) - Status of the asset. Possible values are: ACTIVE, PENDING, PERMISSION_DENIED'
             table: |-
                 (CleanRoomAssetTable, optional) - Table details available to all collaborators of the clean room.
@@ -1053,7 +1069,10 @@ resources:
             volume_local_details: |-
                 (CleanRoomAssetVolumeLocalDetails, optional) - Local details for a volume that are only available to its owner.
                 Present if and only if asset_type is VOLUME
+<<<<<<< HEAD
             workspace_id: (string, optional) - Workspace ID of the resource
+=======
+>>>>>>> 22d3f447638c67622a710bb969a42a932ffdb1af
         importStatements: []
     databricks_clean_room_auto_approval_rule Resource:
         subCategory: ""
@@ -1071,7 +1090,10 @@ resources:
             rule_id: (string) - A generated UUID identifying the rule
             rule_owner_collaborator_alias: (string) - The owner of the rule to whom the rule applies
             runner_collaborator_alias: (string, optional) - Collaborator alias of the runner covered by the rule
+<<<<<<< HEAD
             workspace_id: (string, optional) - Workspace ID of the resource
+=======
+>>>>>>> 22d3f447638c67622a710bb969a42a932ffdb1af
         importStatements: []
     databricks_clean_rooms_clean_room:
         subCategory: ""
@@ -1174,7 +1196,10 @@ resources:
             type: '(string, optional) - . Possible values are: FQDN'
             updated_at: (integer) - When the clean room was last updated, in epoch milliseconds
             workloads: (list of string, optional)
+<<<<<<< HEAD
             workspace_id: (string, optional) - Workspace ID of the resource
+=======
+>>>>>>> 22d3f447638c67622a710bb969a42a932ffdb1af
         importStatements: []
     databricks_cluster:
         subCategory: ""
@@ -1838,7 +1863,10 @@ resources:
             database_name: (string, required) - The name of the database (in a instance) associated with the catalog
             name: (string, required) - The name of the catalog in UC
             uid: (string)
+<<<<<<< HEAD
             workspace_id: (string, optional) - Workspace ID of the resource
+=======
+>>>>>>> 22d3f447638c67622a710bb969a42a932ffdb1af
         importStatements: []
     databricks_database_instance:
         subCategory: ""
@@ -2099,6 +2127,167 @@ resources:
                 state of the data synchronization pipeline (i.e. the table may be in "ACTIVE" but the pipeline
                 may be in "PROVISIONING" as it runs asynchronously). Possible values are: ACTIVE, DEGRADED, DELETING, FAILED, PROVISIONING, UPDATING
             workspace_id: (string, optional) - Workspace ID of the resource
+        importStatements: []
+    databricks_database_synced_database_table:
+        subCategory: ""
+        name: databricks_database_synced_database_table
+        title: databricks_database_synced_database_table Resource
+        examples:
+            - name: this
+              manifest: |-
+                {
+                  "logical_database_name": "databricks_postgres",
+                  "name": "my_database_catalog.public.synced_table",
+                  "spec": {
+                    "create_database_objects_if_missing": true,
+                    "new_pipeline_spec": {
+                      "storage_catalog": "source_delta",
+                      "storage_schema": "tpch"
+                    },
+                    "primary_key_columns": [
+                      "c_custkey"
+                    ],
+                    "scheduling_policy": "SNAPSHOT",
+                    "source_table_full_name": "source_delta.tpch.customer"
+                  }
+                }
+            - name: this
+              manifest: |-
+                {
+                  "database_instance_name": "my-database-instance",
+                  "logical_database_name": "databricks_postgres",
+                  "name": "my_standard_catalog.public.synced_table",
+                  "spec": {
+                    "create_database_objects_if_missing": true,
+                    "new_pipeline_spec": {
+                      "storage_catalog": "source_delta",
+                      "storage_schema": "tpch"
+                    },
+                    "primary_key_columns": [
+                      "c_custkey"
+                    ],
+                    "scheduling_policy": "SNAPSHOT",
+                    "source_table_full_name": "source_delta.tpch.customer"
+                  }
+                }
+            - name: synced_table_1
+              manifest: |-
+                {
+                  "database_instance_name": "${databricks_database_instance.instance.name}",
+                  "logical_database_name": "databricks_postgres",
+                  "name": "my_standard_catalog.public.synced_table1",
+                  "spec": {
+                    "create_database_objects_if_missing": true,
+                    "new_pipeline_spec": {
+                      "storage_catalog": "source_delta",
+                      "storage_schema": "tpch"
+                    },
+                    "primary_key_columns": [
+                      "c_custkey"
+                    ],
+                    "scheduling_policy": "SNAPSHOT",
+                    "source_table_full_name": "source_delta.tpch.customer"
+                  }
+                }
+              references:
+                database_instance_name: databricks_database_instance.instance.name
+              dependencies:
+                databricks_database_instance.instance: |-
+                    {
+                      "capacity": "CU_1",
+                      "name": "my-database-instance"
+                    }
+            - name: synced_table_2
+              manifest: |-
+                {
+                  "database_instance_name": "${databricks_database_instance.instance.name}",
+                  "logical_database_name": "databricks_postgres",
+                  "name": "my_standard_catalog.public.synced_table2",
+                  "spec": {
+                    "create_database_objects_if_missing": true,
+                    "existing_pipeline_id": "${databricks_database_synced_database_table.synced_table_1.data_synchronization_status.pipeline_id}",
+                    "primary_key_columns": [
+                      "c_custkey"
+                    ],
+                    "scheduling_policy": "SNAPSHOT",
+                    "source_table_full_name": "source_delta.tpch.customer"
+                  }
+                }
+              references:
+                database_instance_name: databricks_database_instance.instance.name
+              dependencies:
+                databricks_database_instance.instance: |-
+                    {
+                      "capacity": "CU_1",
+                      "name": "my-database-instance"
+                    }
+        argumentDocs:
+            continuous_update_status: (SyncedTableContinuousUpdateStatus, optional)
+            create_database_objects_if_missing: |-
+                (boolean, optional) - If true, the synced table's logical database and schema resources in PG
+                will be created if they do not already exist
+            create_database_objects_is_missing: field in spec
+            data_synchronization_status: (SyncedTableStatus) - Synced Table data synchronization status
+            database_instance_name: |-
+                (string, optional) - Name of the target database instance. This is required when creating synced database tables in standard catalogs.
+                This is optional when creating synced database tables in registered catalogs. If this field is specified
+                when creating synced database tables in registered catalogs, the database instance name MUST
+                match that of the registered catalog (or the request will be rejected)
+            delta_commit_timestamp: |-
+                (string) - The timestamp when the above Delta version was committed in the source Delta table.
+                Note: This is the Delta commit time, not the time the data was written to the synced table
+            delta_commit_version: (integer) - The Delta Lake commit version that was last successfully synced
+            delta_table_sync_info: (DeltaTableSyncInfo)
+            detailed_state: '(string) - The state of the synced table. Possible values are: SYNCED_TABLED_OFFLINE, SYNCED_TABLE_OFFLINE_FAILED, SYNCED_TABLE_ONLINE, SYNCED_TABLE_ONLINE_CONTINUOUS_UPDATE, SYNCED_TABLE_ONLINE_NO_PENDING_UPDATE, SYNCED_TABLE_ONLINE_PIPELINE_FAILED, SYNCED_TABLE_ONLINE_TRIGGERED_UPDATE, SYNCED_TABLE_ONLINE_UPDATING_PIPELINE_RESOURCES, SYNCED_TABLE_PROVISIONING, SYNCED_TABLE_PROVISIONING_INITIAL_SNAPSHOT, SYNCED_TABLE_PROVISIONING_PIPELINE_RESOURCES'
+            effective_database_instance_name: |-
+                (string) - The name of the database instance that this table is registered to. This field is always returned, and for
+                tables inside database catalogs is inferred database instance associated with the catalog
+            effective_logical_database_name: (string) - The name of the logical database that this table is registered to
+            estimated_completion_time_seconds: (number) - The estimated time remaining to complete this update in seconds
+            existing_pipeline_id: (string, optional) - At most one of existing_pipeline_id and new_pipeline_spec should be defined.
+            failed_status: (SyncedTableFailedStatus, optional)
+            initial_pipeline_sync_progress: (SyncedTablePipelineProgress) - Progress of the initial data synchronization
+            last_processed_commit_version: (integer) - The last source table Delta version that was successfully synced to the synced table
+            last_sync: (SyncedTablePosition) - Summary of the last successful synchronization from source to destination.
+            latest_version_currently_processing: |-
+                (integer) - The source table Delta version that was last processed by the pipeline. The pipeline may not
+                have completely processed this version yet
+            logical_database_name: (string, optional) - Target Postgres database object (logical database) name for this table.
+            message: (string) - A text description of the current state of the synced table
+            name: (string, required) - Full three-part (catalog, schema, table) name of the table
+            new_pipeline_spec: (NewPipelineSpec, optional) - At most one of existing_pipeline_id and new_pipeline_spec should be defined.
+            pipeline_id: |-
+                (string) - ID of the associated pipeline. The pipeline ID may have been provided by the client
+                (in the case of bin packing), or generated by the server (when creating a new pipeline)
+            primary_key_columns: (list of string, optional) - Primary Key columns to be used for data insert/update in the destination
+            provisioning_phase: '(string) - The current phase of the data synchronization pipeline. Possible values are: PROVISIONING_PHASE_INDEX_SCAN, PROVISIONING_PHASE_INDEX_SORT, PROVISIONING_PHASE_MAIN'
+            provisioning_status: (SyncedTableProvisioningStatus, optional)
+            scheduling_policy: '(string, optional) - Scheduling policy of the underlying pipeline. Possible values are: CONTINUOUS, SNAPSHOT, TRIGGERED'
+            source_table_full_name: (string, optional) - Three-part (catalog, schema, table) name of the source Delta table
+            spec: (SyncedTableSpec, optional)
+            storage_catalog: (string, optional) - This field needs to be specified if the destination catalog is a managed postgres catalog.
+            storage_schema: (string, optional) - This field needs to be specified if the destination catalog is a managed postgres catalog.
+            sync_end_timestamp: |-
+                (string) - The end timestamp of the most recent successful synchronization.
+                This is the time when the data is available in the synced table
+            sync_progress_completion: (number) - The completion ratio of this update. This is a number between 0 and 1
+            sync_start_timestamp: |-
+                (string) - The starting timestamp of the most recent successful synchronization from the source table
+                to the destination (synced) table.
+                Note this is the starting timestamp of the sync operation, not the end time.
+                E.g., for a batch, this is the time when the sync operation started
+            synced_row_count: (integer) - The number of rows that have been synced in this update
+            timeseries_key: (string, optional) - Time series key to deduplicate (tie-break) rows with the same primary key
+            timestamp: |-
+                (string) - The end timestamp of the last time any data was synchronized from the source table to the synced
+                table. This is when the data is available in the synced table
+            total_row_count: (integer) - The total number of rows that need to be synced in this update. This number may be an estimate
+            triggered_update_progress: (SyncedTablePipelineProgress) - Progress of the active data synchronization pipeline
+            triggered_update_status: (SyncedTableTriggeredUpdateStatus, optional)
+            unity_catalog_provisioning_state: |-
+                (string) - The provisioning state of the synced table entity in Unity Catalog. This is distinct from the
+                state of the data synchronization pipeline (i.e. the table may be in "ACTIVE" but the pipeline
+                may be in "PROVISIONING" as it runs asynchronously). Possible values are: ACTIVE, DEGRADED, DELETING, FAILED, PROVISIONING, UPDATING
         importStatements: []
     databricks_dbfs_file:
         subCategory: ""
@@ -4383,7 +4572,10 @@ resources:
         argumentDocs:
             key: (string, required)
             value: (string, optional)
+<<<<<<< HEAD
             workspace_id: (string, optional) - Workspace ID of the resource
+=======
+>>>>>>> 22d3f447638c67622a710bb969a42a932ffdb1af
         importStatements: []
     databricks_metastore:
         subCategory: ""
@@ -7786,7 +7978,11 @@ resources:
             except_principals: (list of string, optional) - Optional list of user or group names that should be excluded from the policy
             for_securable_type: |-
                 (string, required) - Type of securables that the policy should take effect on.
+<<<<<<< HEAD
                 Only TABLE is supported at this moment.
+=======
+                Only table is supported at this moment.
+>>>>>>> 22d3f447638c67622a710bb969a42a932ffdb1af
                 Required on create and optional on update. Possible values are: CATALOG, CLEAN_ROOM, CONNECTION, CREDENTIAL, EXTERNAL_LOCATION, EXTERNAL_METADATA, FUNCTION, METASTORE, PIPELINE, PROVIDER, RECIPIENT, SCHEMA, SHARE, STAGING_TABLE, STORAGE_CREDENTIAL, TABLE, VOLUME
             function_name: |-
                 (string, required) - The fully qualified name of the column mask function.
@@ -7796,11 +7992,19 @@ resources:
             id: (string) - Unique identifier of the policy. This field is output only and is generated by the system
             match_columns: |-
                 (list of MatchColumn, optional) - Optional list of condition expressions used to match table columns.
+<<<<<<< HEAD
                 Only valid when for_securable_type is TABLE.
                 When specified, the policy only applies to tables whose columns satisfy all match conditions
             name: |-
                 (string, optional) - Name of the policy. Required on create and optional on update.
                 To rename the policy, set name to a different value on update
+=======
+                Only valid when for_securable_type is table.
+                When specified, the policy only applies to tables whose columns satisfy all match conditions
+            name: |-
+                (string, optional) - Name of the policy. Required on create and ignored on update.
+                To update the name, use the new_name field
+>>>>>>> 22d3f447638c67622a710bb969a42a932ffdb1af
             on_column: |-
                 (string, required) - The alias of the column to be masked. The alias must refer to one of matched columns.
                 The values of the column is passed to the column mask function as the first argument.
@@ -7810,7 +8014,11 @@ resources:
                 Required on create and ignored on update
             on_securable_type: |-
                 (string, optional) - Type of the securable on which the policy is defined.
+<<<<<<< HEAD
                 Only CATALOG, SCHEMA and TABLE are supported at this moment.
+=======
+                Only catalog, schema and table are supported at this moment.
+>>>>>>> 22d3f447638c67622a710bb969a42a932ffdb1af
                 Required on create and ignored on update. Possible values are: CATALOG, CLEAN_ROOM, CONNECTION, CREDENTIAL, EXTERNAL_LOCATION, EXTERNAL_METADATA, FUNCTION, METASTORE, PIPELINE, PROVIDER, RECIPIENT, SCHEMA, SHARE, STAGING_TABLE, STORAGE_CREDENTIAL, TABLE, VOLUME
             policy_type: '(string, required) - Type of the policy. Required on create and ignored on update. Possible values are: POLICY_TYPE_COLUMN_MASK, POLICY_TYPE_ROW_FILTER'
             row_filter: |-
@@ -7826,7 +8034,10 @@ resources:
                 (list of FunctionArgument, optional) - Optional list of column aliases or constant literals to be passed as additional arguments to the column mask function.
                 The type of each column should match the positional argument of the column mask function
             when_condition: (string, optional) - Optional condition when the policy should take effect
+<<<<<<< HEAD
             workspace_id: (string, optional) - Workspace ID of the resource
+=======
+>>>>>>> 22d3f447638c67622a710bb969a42a932ffdb1af
         importStatements: []
     databricks_provider:
         subCategory: ""

@@ -50,8 +50,13 @@ github.com/crossplane/upjet/v2 v2.0.0 h1:8yC2pFTD3UiYjp+3Cdp8RTXFpM+inznVZm0hSb9
 github.com/crossplane/upjet/v2 v2.0.0/go.mod h1:nXboF68y9ZQRu39kZirQQiPL/BA4Afic17rEdHE+VQo=
 github.com/cyphar/filepath-securejoin v0.4.1 h1:JyxxyPEaktOD+GAnqIqTf9A8tHyAG22rowi7HkoSU1s=
 github.com/cyphar/filepath-securejoin v0.4.1/go.mod h1:Sdj7gXlvMcPZsbhwhQ33GguGLDGQL7h7bg04C/+u9jI=
+<<<<<<< HEAD
 github.com/databricks/databricks-sdk-go v0.82.0 h1:Amosg1Jp6M3w04jrvL+sIdMyPx7M+D1W/JtYJFwsGGA=
 github.com/databricks/databricks-sdk-go v0.82.0/go.mod h1:xBtjeP9nq+6MgTewZW1EcbRkD7aDY9gZvcRPcwPhZjw=
+=======
+github.com/databricks/databricks-sdk-go v0.80.0 h1:KBOgrKB80gHd5XqSP6uOpJoiJiWTzOeqKpoTmM6MzX8=
+github.com/databricks/databricks-sdk-go v0.80.0/go.mod h1:xBtjeP9nq+6MgTewZW1EcbRkD7aDY9gZvcRPcwPhZjw=
+>>>>>>> 22d3f447638c67622a710bb969a42a932ffdb1af
 github.com/dave/jennifer v1.7.1 h1:B4jJJDHelWcDhlRQxWeo0Npa/pYKBLrirAQoTN45txo=
 github.com/dave/jennifer v1.7.1/go.mod h1:nXbxhEmQfOZhWml3D1cDK5M1FLnMSozpbFN/m3RmGZc=
 github.com/davecgh/go-spew v1.1.0/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
@@ -77,8 +82,13 @@ github.com/fsnotify/fsnotify v1.8.0 h1:dAwr6QBTBZIkG8roQaJjGof0pp0EeF+tNV7YBP3F/
 github.com/fsnotify/fsnotify v1.8.0/go.mod h1:8jBTzvmWwFyi3Pb8djgCCO5IBqzKJ/Jwo8TRcHyHii0=
 github.com/fxamacker/cbor/v2 v2.7.0 h1:iM5WgngdRBanHcxugY4JySA0nk1wZorNOpTgCMedv5E=
 github.com/fxamacker/cbor/v2 v2.7.0/go.mod h1:pxXPTn3joSm21Gbwsv0w9OSA2y1HFR9qXEeXQVeNoDQ=
+<<<<<<< HEAD
 github.com/glalanne/terraform-provider-databricks v0.0.0-20250904200151-2206474e2e83 h1:Z30AQQz4zp0v7dXK48yHdsaFCeWqt1k9TCPOCTlMBiM=
 github.com/glalanne/terraform-provider-databricks v0.0.0-20250904200151-2206474e2e83/go.mod h1:D1xXIT7Ew/OqBPwk0oJ+f5Sd/oK0o1t2x0bC37+q6JY=
+=======
+github.com/glalanne/terraform-provider-databricks v0.0.0-20250825211438-56177bc34906 h1:ATNF1wWa9fMRv8yCaqEs5mpOWs4dAXQOb6lM3sOw4Ok=
+github.com/glalanne/terraform-provider-databricks v0.0.0-20250825211438-56177bc34906/go.mod h1:gl2sIL9wdBFuMzcbZYcbQGQISzs2ET3s6Ey5lwwyYNk=
+>>>>>>> 22d3f447638c67622a710bb969a42a932ffdb1af
 github.com/go-git/gcfg v1.5.1-0.20230307220236-3a3c6141e376 h1:+zs/tPmkDkHx3U66DAb0lQFJrpS6731Oaa12ikc+DiI=
 github.com/go-git/gcfg v1.5.1-0.20230307220236-3a3c6141e376/go.mod h1:an3vInlBmSxCcxctByoQdvwPiA7DTK7jaaFDBTtu0ic=
 github.com/go-git/go-billy/v5 v5.6.2 h1:6Q86EsPXMa7c3YZ3aLAQsMA0VlWmy43r6FHqa/UNbRM=
@@ -319,8 +329,13 @@ github.com/stretchr/testify v1.8.0/go.mod h1:yNjHg4UonilssWZ8iaSj1OCr/vHnekPRkoO
 github.com/stretchr/testify v1.8.1/go.mod h1:w2LPCIKwWwSfY2zedu0+kehJoqGctiVI29o6fzry7u4=
 github.com/stretchr/testify v1.8.4/go.mod h1:sz/lmYIOXD/1dqDmKjjqLyZ2RngseejIcXlSw2iwfAo=
 github.com/stretchr/testify v1.9.0/go.mod h1:r2ic/lqez/lEtzL7wO/rwa5dbSLXVDPFyf8C91i36aY=
+<<<<<<< HEAD
 github.com/stretchr/testify v1.11.1 h1:7s2iGBzp5EwR7/aIZr8ao5+dra3wiQyKjjFuvgVKu7U=
 github.com/stretchr/testify v1.11.1/go.mod h1:wZwfW3scLgRK+23gO65QZefKpKQRnfz6sD981Nm4B6U=
+=======
+github.com/stretchr/testify v1.10.0 h1:Xv5erBjTwe/5IxqUQTdXv5kgmIvbHo3QQyRwhJsOfJA=
+github.com/stretchr/testify v1.10.0/go.mod h1:r2ic/lqez/lEtzL7wO/rwa5dbSLXVDPFyf8C91i36aY=
+>>>>>>> 22d3f447638c67622a710bb969a42a932ffdb1af
 github.com/tmccombs/hcl2json v0.3.3 h1:+DLNYqpWE0CsOQiEZu+OZm5ZBImake3wtITYxQ8uLFQ=
 github.com/tmccombs/hcl2json v0.3.3/go.mod h1:Y2chtz2x9bAeRTvSibVRVgbLJhLJXKlUeIvjeVdnm4w=
 github.com/vmihailenco/msgpack v3.3.3+incompatible/go.mod h1:fy3FlTQTDXWkZ7Bh6AcGMlsjHatGryHQYUTf1ShIgkk=
@@ -346,8 +361,13 @@ github.com/yuin/goldmark v1.4.13/go.mod h1:6yULJ656Px+3vBD8DxQVa3kxgyrAnzto9xy5t
 github.com/zclconf/go-cty v1.2.0/go.mod h1:hOPWgoHbaTUnI5k4D2ld+GRpFJSCe6bCM7m1q/N4PQ8=
 github.com/zclconf/go-cty v1.8.0/go.mod h1:vVKLxnk3puL4qRAv72AO+W99LUD4da90g3uUAzyuvAk=
 github.com/zclconf/go-cty v1.8.1/go.mod h1:vVKLxnk3puL4qRAv72AO+W99LUD4da90g3uUAzyuvAk=
+<<<<<<< HEAD
 github.com/zclconf/go-cty v1.16.4 h1:QGXaag7/7dCzb+odlGrgr+YmYZFaOCMW6DEpS+UD1eE=
 github.com/zclconf/go-cty v1.16.4/go.mod h1:VvMs5i0vgZdhYawQNq5kePSpLAoz8u1xvZgrPIxfnZE=
+=======
+github.com/zclconf/go-cty v1.16.3 h1:osr++gw2T61A8KVYHoQiFbFd1Lh3JOCXc/jFLJXKTxk=
+github.com/zclconf/go-cty v1.16.3/go.mod h1:VvMs5i0vgZdhYawQNq5kePSpLAoz8u1xvZgrPIxfnZE=
+>>>>>>> 22d3f447638c67622a710bb969a42a932ffdb1af
 github.com/zclconf/go-cty-debug v0.0.0-20191215020915-b22d67c1ba0b/go.mod h1:ZRKQfBXbGkpdV6QMzT3rU1kSTAnfu1dO8dPKjYprgj8=
 github.com/zclconf/go-cty-debug v0.0.0-20240509010212-0d6042c53940 h1:4r45xpDWB6ZMSMNJFMOjqrGHynW3DIBuR2H9j0ug+Mo=
 github.com/zclconf/go-cty-debug v0.0.0-20240509010212-0d6042c53940/go.mod h1:CmBdvvj3nqzfzJ6nTCIwDTPZ56aVGvDrmztiO5g3qrM=

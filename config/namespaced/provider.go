@@ -7,8 +7,11 @@ package namespaced
 import (
 	"github.com/glalanne/provider-databricks/config/namespaced/access_control_rule_set"
 	"github.com/glalanne/provider-databricks/config/namespaced/alert"
+<<<<<<< HEAD
 
 	// "github.com/glalanne/provider-databricks/config/namespaced/app"
+=======
+>>>>>>> 22d3f447638c67622a710bb969a42a932ffdb1af
 	"github.com/glalanne/provider-databricks/config/namespaced/artifact_allowlist"
 	"github.com/glalanne/provider-databricks/config/namespaced/budget"
 	"github.com/glalanne/provider-databricks/config/namespaced/catalog"
@@ -107,7 +110,10 @@ import (
 )
 
 func init() {
+<<<<<<< HEAD
 	// ProviderConfiguration.AddConfig(app.Configure) // TODO: waiting on protov6 support with Upjet https://github.com/crossplane/upjet/issues/372
+=======
+>>>>>>> 22d3f447638c67622a710bb969a42a932ffdb1af
 	ProviderConfiguration.AddConfig(cluster.Configure)
 	ProviderConfiguration.AddConfig(cluster_policy.Configure)
 	ProviderConfiguration.AddConfig(credential.Configure)

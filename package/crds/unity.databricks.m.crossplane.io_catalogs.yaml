@@ -58,8 +58,11 @@ spec:
             properties:
               forProvider:
                 properties:
+<<<<<<< HEAD
                   browseOnly:
                     type: boolean
+=======
+>>>>>>> 22d3f447638c67622a710bb969a42a932ffdb1af
                   comment:
                     description: User-supplied free-form text.
                     type: string
@@ -68,6 +71,7 @@ spec:
                       to an external data source. Changes forces creation of a new
                       resource.'
                     type: string
+<<<<<<< HEAD
                   effectivePredictiveOptimizationFlag:
                     items:
                       properties:
@@ -80,6 +84,8 @@ spec:
                           type: string
                       type: object
                     type: array
+=======
+>>>>>>> 22d3f447638c67622a710bb969a42a932ffdb1af
                   enablePredictiveOptimization:
                     description: Whether predictive optimization should be enabled
                       for this object and objects under it. Can be ENABLE, DISABLE
@@ -122,6 +128,7 @@ spec:
                     description: 'For Delta Sharing Catalogs: the name of the delta
                       sharing provider. Change forces creation of a new resource.'
                     type: string
+<<<<<<< HEAD
                   provisioningInfo:
                     items:
                       properties:
@@ -129,12 +136,17 @@ spec:
                           type: string
                       type: object
                     type: array
+=======
+>>>>>>> 22d3f447638c67622a710bb969a42a932ffdb1af
                   shareName:
                     description: 'For Delta Sharing Catalogs: the name of the share
                       under the share provider. Change forces creation of a new resource.'
                     type: string
+<<<<<<< HEAD
                   storageLocation:
                     type: string
+=======
+>>>>>>> 22d3f447638c67622a710bb969a42a932ffdb1af
                   storageRoot:
                     description: Managed location of the catalog. Location in cloud
                       storage where data for managed tables will be stored. If not
@@ -155,8 +167,11 @@ spec:
                   for example because of an external controller is managing them, like an
                   autoscaler.
                 properties:
+<<<<<<< HEAD
                   browseOnly:
                     type: boolean
+=======
+>>>>>>> 22d3f447638c67622a710bb969a42a932ffdb1af
                   comment:
                     description: User-supplied free-form text.
                     type: string
@@ -165,6 +180,7 @@ spec:
                       to an external data source. Changes forces creation of a new
                       resource.'
                     type: string
+<<<<<<< HEAD
                   effectivePredictiveOptimizationFlag:
                     items:
                       properties:
@@ -177,6 +193,8 @@ spec:
                           type: string
                       type: object
                     type: array
+=======
+>>>>>>> 22d3f447638c67622a710bb969a42a932ffdb1af
                   enablePredictiveOptimization:
                     description: Whether predictive optimization should be enabled
                       for this object and objects under it. Can be ENABLE, DISABLE
@@ -219,6 +237,7 @@ spec:
                     description: 'For Delta Sharing Catalogs: the name of the delta
                       sharing provider. Change forces creation of a new resource.'
                     type: string
+<<<<<<< HEAD
                   provisioningInfo:
                     items:
                       properties:
@@ -226,12 +245,17 @@ spec:
                           type: string
                       type: object
                     type: array
+=======
+>>>>>>> 22d3f447638c67622a710bb969a42a932ffdb1af
                   shareName:
                     description: 'For Delta Sharing Catalogs: the name of the share
                       under the share provider. Change forces creation of a new resource.'
                     type: string
+<<<<<<< HEAD
                   storageLocation:
                     type: string
+=======
+>>>>>>> 22d3f447638c67622a710bb969a42a932ffdb1af
                   storageRoot:
                     description: Managed location of the catalog. Location in cloud
                       storage where data for managed tables will be stored. If not
@@ -297,15 +321,26 @@ spec:
             required:
             - forProvider
             type: object
+<<<<<<< HEAD
+=======
+            x-kubernetes-validations:
+            - message: spec.forProvider.name is a required parameter
+              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
+                || ''Update'' in self.managementPolicies) || has(self.forProvider.name)
+                || (has(self.initProvider) && has(self.initProvider.name))'
+>>>>>>> 22d3f447638c67622a710bb969a42a932ffdb1af
           status:
             description: CatalogStatus defines the observed state of Catalog.
             properties:
               atProvider:
                 properties:
+<<<<<<< HEAD
                   browseOnly:
                     type: boolean
                   catalogType:
                     type: string
+=======
+>>>>>>> 22d3f447638c67622a710bb969a42a932ffdb1af
                   comment:
                     description: User-supplied free-form text.
                     type: string
@@ -314,6 +349,7 @@ spec:
                       to an external data source. Changes forces creation of a new
                       resource.'
                     type: string
+<<<<<<< HEAD
                   createdAt:
                     type: number
                   createdBy:
@@ -330,6 +366,8 @@ spec:
                           type: string
                       type: object
                     type: array
+=======
+>>>>>>> 22d3f447638c67622a710bb969a42a932ffdb1af
                   enablePredictiveOptimization:
                     description: Whether predictive optimization should be enabled
                       for this object and objects under it. Can be ENABLE, DISABLE
@@ -338,9 +376,12 @@ spec:
                   forceDestroy:
                     description: Delete catalog regardless of its contents.
                     type: boolean
+<<<<<<< HEAD
                   fullName:
                     description: Name of Catalog relative to parent metastore.
                     type: string
+=======
+>>>>>>> 22d3f447638c67622a710bb969a42a932ffdb1af
                   id:
                     description: ID of this catalog - same as the name.
                     type: string
@@ -378,6 +419,7 @@ spec:
                     description: 'For Delta Sharing Catalogs: the name of the delta
                       sharing provider. Change forces creation of a new resource.'
                     type: string
+<<<<<<< HEAD
                   provisioningInfo:
                     items:
                       properties:
@@ -387,22 +429,30 @@ spec:
                     type: array
                   securableType:
                     type: string
+=======
+>>>>>>> 22d3f447638c67622a710bb969a42a932ffdb1af
                   shareName:
                     description: 'For Delta Sharing Catalogs: the name of the share
                       under the share provider. Change forces creation of a new resource.'
                     type: string
+<<<<<<< HEAD
                   storageLocation:
                     type: string
+=======
+>>>>>>> 22d3f447638c67622a710bb969a42a932ffdb1af
                   storageRoot:
                     description: Managed location of the catalog. Location in cloud
                       storage where data for managed tables will be stored. If not
                       specified, the location will default to the metastore root location.
                       Change forces creation of a new resource.
                     type: string
+<<<<<<< HEAD
                   updatedAt:
                     type: number
                   updatedBy:
                     type: string
+=======
+>>>>>>> 22d3f447638c67622a710bb969a42a932ffdb1af
                 type: object
               conditions:
                 description: Conditions of the resource.

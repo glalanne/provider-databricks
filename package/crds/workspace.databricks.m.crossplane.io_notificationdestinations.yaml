@@ -132,6 +132,7 @@ spec:
                             Destination. It must contain the following:'
                           items:
                             properties:
+<<<<<<< HEAD
                               appId:
                                 description: The unique ID of the Notification Destination.
                                 type: string
@@ -151,6 +152,8 @@ spec:
                                 type: string
                               tenantIdSet:
                                 type: boolean
+=======
+>>>>>>> 22d3f447638c67622a710bb969a42a932ffdb1af
                               urlSecretRef:
                                 description: The Slack webhook URL.
                                 properties:
@@ -193,6 +196,7 @@ spec:
                             Destination. It must contain the following:'
                           items:
                             properties:
+<<<<<<< HEAD
                               channelIdSecretRef:
                                 description: Slack channel ID for notifications.
                                 properties:
@@ -219,6 +223,15 @@ spec:
                                 - key
                                 - name
                                 type: object
+=======
+                              channelId:
+                                description: The unique ID of the Notification Destination.
+                                type: string
+                              channelIdSet:
+                                type: boolean
+                              oauthToken:
+                                type: string
+>>>>>>> 22d3f447638c67622a710bb969a42a932ffdb1af
                               oauthTokenSet:
                                 type: boolean
                               urlSecretRef:
@@ -331,6 +344,7 @@ spec:
                             Destination. It must contain the following:'
                           items:
                             properties:
+<<<<<<< HEAD
                               appId:
                                 description: The unique ID of the Notification Destination.
                                 type: string
@@ -350,6 +364,8 @@ spec:
                                 type: string
                               tenantIdSet:
                                 type: boolean
+=======
+>>>>>>> 22d3f447638c67622a710bb969a42a932ffdb1af
                               urlSecretRef:
                                 description: The Slack webhook URL.
                                 properties:
@@ -392,6 +408,7 @@ spec:
                             Destination. It must contain the following:'
                           items:
                             properties:
+<<<<<<< HEAD
                               channelIdSecretRef:
                                 description: Slack channel ID for notifications.
                                 properties:
@@ -418,6 +435,15 @@ spec:
                                 - key
                                 - name
                                 type: object
+=======
+                              channelId:
+                                description: The unique ID of the Notification Destination.
+                                type: string
+                              channelIdSet:
+                                type: boolean
+                              oauthToken:
+                                type: string
+>>>>>>> 22d3f447638c67622a710bb969a42a932ffdb1af
                               oauthTokenSet:
                                 type: boolean
                               urlSecretRef:
@@ -550,6 +576,7 @@ spec:
                             Destination. It must contain the following:'
                           items:
                             properties:
+<<<<<<< HEAD
                               appId:
                                 description: The unique ID of the Notification Destination.
                                 type: string
@@ -569,6 +596,8 @@ spec:
                                 type: string
                               tenantIdSet:
                                 type: boolean
+=======
+>>>>>>> 22d3f447638c67622a710bb969a42a932ffdb1af
                               urlSet:
                                 type: boolean
                             type: object
@@ -587,8 +616,18 @@ spec:
                             Destination. It must contain the following:'
                           items:
                             properties:
+<<<<<<< HEAD
                               channelIdSet:
                                 type: boolean
+=======
+                              channelId:
+                                description: The unique ID of the Notification Destination.
+                                type: string
+                              channelIdSet:
+                                type: boolean
+                              oauthToken:
+                                type: string
+>>>>>>> 22d3f447638c67622a710bb969a42a932ffdb1af
                               oauthTokenSet:
                                 type: boolean
                               urlSet:

@@ -22,6 +22,11 @@ type ConnectionInitParameters struct {
 	// Connection type. MYSQL, POSTGRESQL, SNOWFLAKE, REDSHIFT SQLDW, SQLSERVER, DATABRICKS, SALESFORCE, BIGQUERY, WORKDAY_RAAS, HIVE_METASTORE, GA4_RAW_DATA, SERVICENOW, SALESFORCE_DATA_CLOUD, GLUE, ORACLE, TERADATA, HTTP or POWER_BI are supported. Up-to-date list of connection type supported is in the documentation. Change forces creation of a new resource.
 	ConnectionType *string `json:"connectionType,omitempty" tf:"connection_type,omitempty"`
 
+<<<<<<< HEAD
+=======
+	EnvironmentSettings []EnvironmentSettingsInitParameters `json:"environmentSettings,omitempty" tf:"environment_settings,omitempty"`
+
+>>>>>>> 22d3f447638c67622a710bb969a42a932ffdb1af
 	// Name of the Connection.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
@@ -58,6 +63,11 @@ type ConnectionObservation struct {
 	// The type of credential for this connection.
 	CredentialType *string `json:"credentialType,omitempty" tf:"credential_type,omitempty"`
 
+<<<<<<< HEAD
+=======
+	EnvironmentSettings []EnvironmentSettingsObservation `json:"environmentSettings,omitempty" tf:"environment_settings,omitempty"`
+
+>>>>>>> 22d3f447638c67622a710bb969a42a932ffdb1af
 	// Full name of connection.
 	FullName *string `json:"fullName,omitempty" tf:"full_name,omitempty"`
 
@@ -78,7 +88,11 @@ type ConnectionObservation struct {
 	Properties map[string]*string `json:"properties,omitempty" tf:"properties,omitempty"`
 
 	// Object with the status of an asynchronously provisioned resource.
+<<<<<<< HEAD
 	ProvisioningInfo []ConnectionProvisioningInfoObservation `json:"provisioningInfo,omitempty" tf:"provisioning_info,omitempty"`
+=======
+	ProvisioningInfo []ProvisioningInfoObservation `json:"provisioningInfo,omitempty" tf:"provisioning_info,omitempty"`
+>>>>>>> 22d3f447638c67622a710bb969a42a932ffdb1af
 
 	// Indicates whether the connection is read-only. Change forces creation of a new resource.
 	ReadOnly *bool `json:"readOnly,omitempty" tf:"read_only,omitempty"`
@@ -105,6 +119,12 @@ type ConnectionParameters struct {
 	// +kubebuilder:validation:Optional
 	ConnectionType *string `json:"connectionType,omitempty" tf:"connection_type,omitempty"`
 
+<<<<<<< HEAD
+=======
+	// +kubebuilder:validation:Optional
+	EnvironmentSettings []EnvironmentSettingsParameters `json:"environmentSettings,omitempty" tf:"environment_settings,omitempty"`
+
+>>>>>>> 22d3f447638c67622a710bb969a42a932ffdb1af
 	// Name of the Connection.
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
@@ -127,6 +147,7 @@ type ConnectionParameters struct {
 	ReadOnly *bool `json:"readOnly,omitempty" tf:"read_only,omitempty"`
 }
 
+<<<<<<< HEAD
 type ConnectionProvisioningInfoInitParameters struct {
 }
 
@@ -135,6 +156,37 @@ type ConnectionProvisioningInfoObservation struct {
 }
 
 type ConnectionProvisioningInfoParameters struct {
+=======
+type EnvironmentSettingsInitParameters struct {
+	EnvironmentVersion *string `json:"environmentVersion,omitempty" tf:"environment_version,omitempty"`
+
+	JavaDependencies []*string `json:"javaDependencies,omitempty" tf:"java_dependencies,omitempty"`
+}
+
+type EnvironmentSettingsObservation struct {
+	EnvironmentVersion *string `json:"environmentVersion,omitempty" tf:"environment_version,omitempty"`
+
+	JavaDependencies []*string `json:"javaDependencies,omitempty" tf:"java_dependencies,omitempty"`
+}
+
+type EnvironmentSettingsParameters struct {
+
+	// +kubebuilder:validation:Optional
+	EnvironmentVersion *string `json:"environmentVersion,omitempty" tf:"environment_version,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	JavaDependencies []*string `json:"javaDependencies,omitempty" tf:"java_dependencies,omitempty"`
+}
+
+type ProvisioningInfoInitParameters struct {
+}
+
+type ProvisioningInfoObservation struct {
+	State *string `json:"state,omitempty" tf:"state,omitempty"`
+}
+
+type ProvisioningInfoParameters struct {
+>>>>>>> 22d3f447638c67622a710bb969a42a932ffdb1af
 }
 
 // ConnectionSpec defines the desired state of Connection

@@ -69,6 +69,20 @@ spec:
                       list of connection type supported is in the documentation. Change
                       forces creation of a new resource.
                     type: string
+<<<<<<< HEAD
+=======
+                  environmentSettings:
+                    items:
+                      properties:
+                        environmentVersion:
+                          type: string
+                        javaDependencies:
+                          items:
+                            type: string
+                          type: array
+                      type: object
+                    type: array
+>>>>>>> 22d3f447638c67622a710bb969a42a932ffdb1af
                   name:
                     description: Name of the Connection.
                     type: string
@@ -123,6 +137,20 @@ spec:
                       list of connection type supported is in the documentation. Change
                       forces creation of a new resource.
                     type: string
+<<<<<<< HEAD
+=======
+                  environmentSettings:
+                    items:
+                      properties:
+                        environmentVersion:
+                          type: string
+                        javaDependencies:
+                          items:
+                            type: string
+                          type: array
+                      type: object
+                    type: array
+>>>>>>> 22d3f447638c67622a710bb969a42a932ffdb1af
                   name:
                     description: Name of the Connection.
                     type: string
@@ -232,6 +260,20 @@ spec:
                   credentialType:
                     description: The type of credential for this connection.
                     type: string
+<<<<<<< HEAD
+=======
+                  environmentSettings:
+                    items:
+                      properties:
+                        environmentVersion:
+                          type: string
+                        javaDependencies:
+                          items:
+                            type: string
+                          type: array
+                      type: object
+                    type: array
+>>>>>>> 22d3f447638c67622a710bb969a42a932ffdb1af
                   fullName:
                     description: Full name of connection.
                     type: string
