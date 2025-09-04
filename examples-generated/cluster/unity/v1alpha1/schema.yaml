@@ -1,0 +1,34 @@
+apiVersion: unity.databricks.crossplane.io/v1alpha1
+kind: Schema
+metadata:
+  annotations:
+    meta.upbound.io/example-id: unity/v1alpha1/schema
+  labels:
+    testing.upbound.io/example-name: things
+  name: things
+spec:
+  forProvider:
+    catalogNameSelector:
+      matchLabels:
+        testing.upbound.io/example-name: sandbox
+    comment: this database is managed by terraform
+    name: things
+    properties:
+      kind: various
+
+---
+
+apiVersion: unity.databricks.crossplane.io/v1alpha1
+kind: Catalog
+metadata:
+  annotations:
+    meta.upbound.io/example-id: unity/v1alpha1/schema
+  labels:
+    testing.upbound.io/example-name: sandbox
+  name: sandbox
+spec:
+  forProvider:
+    comment: this catalog is managed by terraform
+    name: sandbox
+    properties:
+      purpose: testing

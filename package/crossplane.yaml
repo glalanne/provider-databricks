@@ -9,9 +9,17 @@ metadata:
     meta.crossplane.io/maintainer: Geoffrey Lalanne <apps@lalanne.ca>
     meta.crossplane.io/source: github.com/glalanne/provider-databricks
     meta.crossplane.io/readme: |
-      `provider-databricks` is the Crossplane infrastructure provider for [Databricks](https://www.databricks.com/).
+      `provider-databricks` is a community provider to manage [Databricks](https://www.databricks.com/) workspaces.
+
+      The new version 2.x.x of this provider has breacking changes compaired the previous versions 0.x.x and  1.x.x. 
+      Major changes include:
+      - The provider now uses the [new crossplane runtime v2.x.x](https://docs.crossplane.io/latest/whats-new/)
+      - Resources in v1.x.x used arrays of objects and in v2.x.x they use maps of objects (e.g Cluster, Job...).
 
       If you encounter an issue please create an issue in
       the
       [glalanne/provider-databricks](https://github.com/glalanne/provider-databricks/issues)
       repo.
+spec:
+  capabilities:
+    - SafeStart

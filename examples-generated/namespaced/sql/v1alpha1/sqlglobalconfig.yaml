@@ -1,0 +1,15 @@
+apiVersion: sql.databricks.m.crossplane.io/v1alpha1
+kind: SQLGlobalConfig
+metadata:
+  annotations:
+    meta.upbound.io/example-id: sql/v1alpha1/sqlglobalconfig
+  labels:
+    testing.upbound.io/example-name: this
+  name: this
+  namespace: upbound-system
+spec:
+  forProvider:
+    dataAccessConfig:
+      spark.sql.session.timeZone: UTC
+    instanceProfileArn: arn:....
+    securityPolicy: DATA_ACCESS_CONTROL

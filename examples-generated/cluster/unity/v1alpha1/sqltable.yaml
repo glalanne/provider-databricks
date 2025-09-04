@@ -1,0 +1,63 @@
+apiVersion: unity.databricks.crossplane.io/v1alpha1
+kind: SQLTable
+metadata:
+  annotations:
+    meta.upbound.io/example-id: unity/v1alpha1/sqltable
+  labels:
+    testing.upbound.io/example-name: thing
+  name: thing
+spec:
+  forProvider:
+    catalogNameSelector:
+      matchLabels:
+        testing.upbound.io/example-name: sandbox
+    column:
+    - name: id
+      type: int
+    - comment: name of thing
+      name: name
+      type: string
+    comment: this table is managed by terraform
+    name: quickstart_table
+    provider: ${databricks.workspace}
+    schemaNameSelector:
+      matchLabels:
+        testing.upbound.io/example-name: things
+    tableType: MANAGED
+
+---
+
+apiVersion: unity.databricks.crossplane.io/v1alpha1
+kind: Catalog
+metadata:
+  annotations:
+    meta.upbound.io/example-id: unity/v1alpha1/sqltable
+  labels:
+    testing.upbound.io/example-name: sandbox
+  name: sandbox
+spec:
+  forProvider:
+    comment: this catalog is managed by terraform
+    name: sandbox
+    properties:
+      purpose: testing
+
+---
+
+apiVersion: unity.databricks.crossplane.io/v1alpha1
+kind: Schema
+metadata:
+  annotations:
+    meta.upbound.io/example-id: unity/v1alpha1/sqltable
+  labels:
+    testing.upbound.io/example-name: things
+  name: things
+spec:
+  forProvider:
+    catalogNameSelector:
+      matchLabels:
+        testing.upbound.io/example-name: sandbox
+    comment: this database is managed by terraform
+    name: things
+    properties:
+      kind: various

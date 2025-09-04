@@ -3,7 +3,7 @@ kind: Provider
 metadata:
   name: provider-databricks
 spec:
-  package: xpkg.upbound.io/lalanne/provider-databricks:v0.1.5
+  package: xpkg.upbound.io/lalanne/provider-databricks:v2.0.0
   # controllerConfigRef: # This is optional if you want to have more logs to troubleshoot
   #   name: debug-config
 

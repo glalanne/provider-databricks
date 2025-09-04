@@ -1,0 +1,20 @@
+apiVersion: deployment.databricks.m.crossplane.io/v1alpha1
+kind: MwsNetworks
+metadata:
+  annotations:
+    meta.upbound.io/example-id: deployment/v1alpha1/mwsnetworks
+  labels:
+    testing.upbound.io/example-name: this
+  name: this
+  namespace: upbound-system
+spec:
+  forProvider:
+    accountIdSecretRef:
+      key: example-key
+      name: example-secret
+    networkName: ${local.prefix}-network
+    provider: ${databricks.mws}
+    securityGroupIds:
+    - ${module.vpc.default_security_group_id}
+    subnetIds: ${module.vpc.private_subnets}
+    vpcId: ${module.vpc.vpc_id}

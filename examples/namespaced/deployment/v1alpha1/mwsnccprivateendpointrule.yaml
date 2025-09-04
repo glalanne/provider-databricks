@@ -1,0 +1,32 @@
+apiVersion: deployment.databricks.m.crossplane.io/v1alpha1
+kind: MwsNccPrivateEndpointRule
+metadata:
+  annotations:
+    meta.upbound.io/example-id: deployment/v1alpha1/mwsnccprivateendpointrule
+  labels:
+    testing.upbound.io/example-name: storage
+  name: storage
+  namespace: upbound-system
+spec:
+  forProvider:
+    groupId: blob
+    networkConnectivityConfigId: ${databricks_mws_network_connectivity_config.ncc.network_connectivity_config_id}
+    provider: ${databricks.account}
+    resourceId: /subscriptions/653bb673-1234-abcd-a90b-d064d5d53ca4/resourcegroups/example-resource-group/providers/Microsoft.Storage/storageAccounts/examplesa
+
+---
+
+apiVersion: deployment.databricks.m.crossplane.io/v1alpha1
+kind: MwsNetworkConnectivityConfig
+metadata:
+  annotations:
+    meta.upbound.io/example-id: deployment/v1alpha1/mwsnccprivateendpointrule
+  labels:
+    testing.upbound.io/example-name: ncc
+  name: ncc
+  namespace: upbound-system
+spec:
+  forProvider:
+    name: ncc-for-${var.prefix}
+    provider: ${databricks.account}
+    region: ${var.region}

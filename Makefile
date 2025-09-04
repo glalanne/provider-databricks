@@ -4,6 +4,7 @@
 PROJECT_NAME ?= provider-databricks
 PROJECT_REPO ?= github.com/glalanne/$(PROJECT_NAME)
 UPTEST_EXAMPLE_LIST ?= "examples/cluster/cluster.yaml"
+CROSSPLANE_CLI_VERSION ?= v2.0.2
 
 export TERRAFORM_VERSION ?= 1.5.7
 
@@ -13,7 +14,7 @@ TERRAFORM_VERSION_VALID := $(shell [ "$(TERRAFORM_VERSION)" = "`printf "$(TERRAF
 
 export TERRAFORM_PROVIDER_SOURCE ?= databricks/databricks
 export TERRAFORM_PROVIDER_REPO ?= https://github.com/databricks/terraform-provider-databricks
-export TERRAFORM_PROVIDER_VERSION ?= 1.85.0
+export TERRAFORM_PROVIDER_VERSION ?= 1.87.1
 export TERRAFORM_PROVIDER_DOWNLOAD_NAME ?= terraform-provider-databricks
 export TERRAFORM_PROVIDER_DOWNLOAD_URL_PREFIX ?= https://github.com/databricks/$(TERRAFORM_PROVIDER_DOWNLOAD_NAME)/releases/download/v$(TERRAFORM_PROVIDER_VERSION)
 export TERRAFORM_NATIVE_PROVIDER_BINARY ?= $(TERRAFORM_PROVIDER_DOWNLOAD_NAME)_v$(TERRAFORM_PROVIDER_VERSION)
@@ -45,8 +46,8 @@ NPROCS ?= 1
 # to half the number of CPU cores.
 GO_TEST_PARALLEL := $(shell echo $$(( $(NPROCS) / 2 )))
 
-GO_REQUIRED_VERSION ?= 1.21
-GOLANGCILINT_VERSION ?= 1.54.0
+GO_REQUIRED_VERSION ?= 1.25.0
+GOLANGCILINT_VERSION ?= 1.64.4
 GO_STATIC_PACKAGES = $(GO_PROJECT)/cmd/provider $(GO_PROJECT)/cmd/generator
 GO_LDFLAGS += -X $(GO_PROJECT)/internal/version.Version=$(VERSION)
 GO_SUBDIRS += cmd internal apis
@@ -55,11 +56,30 @@ GO_SUBDIRS += cmd internal apis
 # ====================================================================================
 # Setup Kubernetes tools
 
-KIND_VERSION = v0.15.0
-UP_VERSION = v0.28.0
-UP_CHANNEL = stable
-UPTEST_VERSION = v0.5.0
+KIND_VERSION = v0.29.0
+UP_VERSION = v0.40.0-0.rc.3
+UP_CHANNEL = alpha
+UPTEST_VERSION = v0.13.0
+UPTEST_LOCAL_VERSION = v0.13.0
+UPTEST_LOCAL_CHANNEL = stable
+KUSTOMIZE_VERSION = v5.3.0
+YQ_VERSION = v4.40.5
+CRDDIFF_VERSION = v0.12.1
+
+export UP_VERSION := $(UP_VERSION)
+export UP_CHANNEL := $(UP_CHANNEL)
+
 -include build/makelib/k8s_tools.mk
+
+# # uptest download and install
+# UPTEST_LOCAL := $(TOOLS_HOST_DIR)/uptest-$(UPTEST_LOCAL_VERSION)
+
+# $(UPTEST_LOCAL):
+# 	@$(INFO) installing uptest $(UPTEST_LOCAL)
+# 	@mkdir -p $(TOOLS_HOST_DIR)
+# 	@curl -fsSLo $(UPTEST_LOCAL) https://s3.us-west-2.amazonaws.com/crossplane.uptest.releases/$(UPTEST_LOCAL_CHANNEL)/$(UPTEST_LOCAL_VERSION)/bin/$(SAFEHOST_PLATFORM)/uptest || $(FAIL)
+# 	@chmod +x $(UPTEST_LOCAL)
+# 	@$(OK) installing uptest $(UPTEST_LOCAL)
 
 # ====================================================================================
 # Setup Images
@@ -98,7 +118,7 @@ xpkg.build.provider-databricks: do.build.images
 
 # NOTE(hasheddan): we ensure up is installed prior to running platform-specific
 # build steps in parallel to avoid encountering an installation race condition.
-build.init: $(UP) check-terraform-version
+build.init: $(CROSSPLANE_CLI) check-terraform-version
 
 # ====================================================================================
 # Setup Terraform for fetching provider schema

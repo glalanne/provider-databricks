@@ -1,0 +1,57 @@
+apiVersion: sql.databricks.m.crossplane.io/v1alpha1
+kind: SQLAlert
+metadata:
+  annotations:
+    meta.upbound.io/example-id: sql/v1alpha1/sqlalert
+  labels:
+    testing.upbound.io/example-name: alert
+  name: alert
+  namespace: upbound-system
+spec:
+  forProvider:
+    name: My Alert
+    options:
+    - column: p1
+      muted: false
+      op: ==
+      value: "2"
+    parent: folders/${databricks_directory.shared_dir.object_id}
+    queryIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: this
+    rearm: 1
+
+---
+
+apiVersion: workspace.databricks.m.crossplane.io/v1alpha1
+kind: Directory
+metadata:
+  annotations:
+    meta.upbound.io/example-id: sql/v1alpha1/sqlalert
+  labels:
+    testing.upbound.io/example-name: shared_dir
+  name: shared-dir
+  namespace: upbound-system
+spec:
+  forProvider:
+    path: /Shared/Queries
+
+---
+
+apiVersion: sql.databricks.m.crossplane.io/v1alpha1
+kind: SQLQuery
+metadata:
+  annotations:
+    meta.upbound.io/example-id: sql/v1alpha1/sqlalert
+  labels:
+    testing.upbound.io/example-name: this
+  name: this
+  namespace: upbound-system
+spec:
+  forProvider:
+    dataSourceIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
+    name: My Query Name
+    parent: folders/${databricks_directory.shared_dir.object_id}
+    query: SELECT 1 AS p1, 2 as p2

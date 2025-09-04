@@ -1,0 +1,12 @@
+apiVersion: security.databricks.m.crossplane.io/v1alpha1
+kind: User
+metadata:
+  annotations:
+    meta.upbound.io/example-id: security/v1alpha1/user
+  labels:
+    testing.upbound.io/example-name: me
+  name: me
+  namespace: upbound-system
+spec:
+  forProvider:
+    userName: me@example.com

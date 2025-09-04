@@ -1,0 +1,59 @@
+apiVersion: unity.databricks.m.crossplane.io/v1alpha1
+kind: ExternalLocation
+metadata:
+  annotations:
+    meta.upbound.io/example-id: unity/v1alpha1/externallocation
+  labels:
+    testing.upbound.io/example-name: some
+  name: some
+  namespace: upbound-system
+spec:
+  forProvider:
+    comment: Managed by TF
+    credentialNameSelector:
+      matchLabels:
+        testing.upbound.io/example-name: external
+    name: external
+    url: s3://${aws_s3_bucket.external.id}/some
+
+---
+
+apiVersion: unity.databricks.m.crossplane.io/v1alpha1
+kind: GrantMap
+metadata:
+  annotations:
+    meta.upbound.io/example-id: unity/v1alpha1/externallocation
+  labels:
+    testing.upbound.io/example-name: some
+  name: some
+  namespace: upbound-system
+spec:
+  forProvider:
+    externalLocationSelector:
+      matchLabels:
+        testing.upbound.io/example-name: some
+    grant:
+    - principalSelector:
+        matchLabels:
+          testing.upbound.io/example-name: example
+      privileges:
+      - CREATE_EXTERNAL_TABLE
+      - READ_FILES
+
+---
+
+apiVersion: unity.databricks.m.crossplane.io/v1alpha1
+kind: StorageCredential
+metadata:
+  annotations:
+    meta.upbound.io/example-id: unity/v1alpha1/externallocation
+  labels:
+    testing.upbound.io/example-name: external
+  name: external
+  namespace: upbound-system
+spec:
+  forProvider:
+    awsIamRole:
+    - roleArn: ${aws_iam_role.external_data_access.arn}
+    comment: Managed by TF
+    name: ${aws_iam_role.external_data_access.name}

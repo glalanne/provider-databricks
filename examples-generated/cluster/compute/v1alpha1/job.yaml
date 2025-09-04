@@ -1,0 +1,48 @@
+apiVersion: compute.databricks.crossplane.io/v1alpha1
+kind: Job
+metadata:
+  annotations:
+    meta.upbound.io/example-id: compute/v1alpha1/job
+  labels:
+    testing.upbound.io/example-name: this
+  name: this
+spec:
+  forProvider:
+    description: This job executes multiple tasks on a shared job cluster, which will
+      be provisioned as part of execution, and terminated once all tasks are finished.
+    jobCluster:
+    - jobClusterKey: j
+      newCluster:
+      - nodeTypeId: ${data.databricks_node_type.smallest.id}
+        numWorkers: 2
+        sparkVersion: ${data.databricks_spark_version.latest.id}
+    name: Job with multiple tasks
+    task:
+    - newCluster:
+      - nodeTypeId: ${data.databricks_node_type.smallest.id}
+        numWorkers: 1
+        sparkVersion: ${data.databricks_spark_version.latest.id}
+      notebookTask:
+      - notebookPathSelector:
+          matchLabels:
+            testing.upbound.io/example-name: this
+      taskKey: a
+    - dependsOn:
+      - taskKey: a
+      existingClusterIdSelector:
+        matchLabels:
+          testing.upbound.io/example-name: shared
+      sparkJarTask:
+      - mainClassName: com.acme.data.Main
+      taskKey: b
+    - jobClusterKey: j
+      notebookTask:
+      - notebookPathSelector:
+          matchLabels:
+            testing.upbound.io/example-name: this
+      taskKey: c
+    - pipelineTask:
+      - pipelineIdSelector:
+          matchLabels:
+            testing.upbound.io/example-name: this
+      taskKey: d

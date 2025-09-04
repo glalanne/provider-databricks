@@ -1,0 +1,34 @@
+apiVersion: sql.databricks.m.crossplane.io/v1alpha1
+kind: Query
+metadata:
+  annotations:
+    meta.upbound.io/example-id: sql/v1alpha1/query
+  labels:
+    testing.upbound.io/example-name: this
+  name: this
+  namespace: upbound-system
+spec:
+  forProvider:
+    displayName: My Query Name
+    parentPathSelector:
+      matchLabels:
+        testing.upbound.io/example-name: shared_dir
+    queryText: SELECT 42 as value
+    warehouseIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
+
+---
+
+apiVersion: workspace.databricks.m.crossplane.io/v1alpha1
+kind: Directory
+metadata:
+  annotations:
+    meta.upbound.io/example-id: sql/v1alpha1/query
+  labels:
+    testing.upbound.io/example-name: shared_dir
+  name: shared-dir
+  namespace: upbound-system
+spec:
+  forProvider:
+    path: /Shared/Queries
