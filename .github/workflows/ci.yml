@@ -388,6 +388,7 @@ jobs:
         id: semantic
         with:
           dry_run: true
+          ci: false
         env:
           GITHUB_TOKEN: ${{ secrets.REPO_PAT }}
           
