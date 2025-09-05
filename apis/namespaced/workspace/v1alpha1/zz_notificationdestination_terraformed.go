@@ -21,7 +21,7 @@ func (mg *NotificationDestination) GetTerraformResourceType() string {
 
 // GetConnectionDetailsMapping for this NotificationDestination
 func (tr *NotificationDestination) GetConnectionDetailsMapping() map[string]string {
-	return map[string]string{"config[*].generic_webhook[*].password": "config[*].genericWebhook[*].passwordSecretRef", "config[*].generic_webhook[*].url": "config[*].genericWebhook[*].urlSecretRef", "config[*].generic_webhook[*].username": "config[*].genericWebhook[*].usernameSecretRef", "config[*].microsoft_teams[*].url": "config[*].microsoftTeams[*].urlSecretRef", "config[*].pagerduty[*].integration_key": "config[*].pagerduty[*].integrationKeySecretRef", "config[*].slack[*].url": "config[*].slack[*].urlSecretRef"}
+	return map[string]string{"config[*].generic_webhook[*].password": "config[*].genericWebhook[*].passwordSecretRef", "config[*].generic_webhook[*].url": "config[*].genericWebhook[*].urlSecretRef", "config[*].generic_webhook[*].username": "config[*].genericWebhook[*].usernameSecretRef", "config[*].microsoft_teams[*].url": "config[*].microsoftTeams[*].urlSecretRef", "config[*].pagerduty[*].integration_key": "config[*].pagerduty[*].integrationKeySecretRef", "config[*].slack[*].channel_id": "config[*].slack[*].channelIdSecretRef", "config[*].slack[*].oauth_token": "config[*].slack[*].oauthTokenSecretRef", "config[*].slack[*].url": "config[*].slack[*].urlSecretRef"}
 }
 
 // GetObservation of this NotificationDestination

@@ -78,8 +78,11 @@ type DeltaSyncIndexSpecParameters struct {
 
 type DirectAccessIndexSpecEmbeddingSourceColumnsInitParameters struct {
 
-	// The name of the embedding model endpoint
+	// The name of the embedding model endpoint, used by default for both ingestion and querying.
 	EmbeddingModelEndpointName *string `json:"embeddingModelEndpointName,omitempty" tf:"embedding_model_endpoint_name,omitempty"`
+
+	// The name of the embedding model endpoint which, if specified, is used for querying (not ingestion).
+	ModelEndpointNameForQuery *string `json:"modelEndpointNameForQuery,omitempty" tf:"model_endpoint_name_for_query,omitempty"`
 
 	// Three-level name of the Mosaic AI Vector Search Index to create (catalog.schema.index_name).
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
@@ -87,8 +90,11 @@ type DirectAccessIndexSpecEmbeddingSourceColumnsInitParameters struct {
 
 type DirectAccessIndexSpecEmbeddingSourceColumnsObservation struct {
 
-	// The name of the embedding model endpoint
+	// The name of the embedding model endpoint, used by default for both ingestion and querying.
 	EmbeddingModelEndpointName *string `json:"embeddingModelEndpointName,omitempty" tf:"embedding_model_endpoint_name,omitempty"`
+
+	// The name of the embedding model endpoint which, if specified, is used for querying (not ingestion).
+	ModelEndpointNameForQuery *string `json:"modelEndpointNameForQuery,omitempty" tf:"model_endpoint_name_for_query,omitempty"`
 
 	// Three-level name of the Mosaic AI Vector Search Index to create (catalog.schema.index_name).
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
@@ -96,9 +102,13 @@ type DirectAccessIndexSpecEmbeddingSourceColumnsObservation struct {
 
 type DirectAccessIndexSpecEmbeddingSourceColumnsParameters struct {
 
-	// The name of the embedding model endpoint
+	// The name of the embedding model endpoint, used by default for both ingestion and querying.
 	// +kubebuilder:validation:Optional
 	EmbeddingModelEndpointName *string `json:"embeddingModelEndpointName,omitempty" tf:"embedding_model_endpoint_name,omitempty"`
+
+	// The name of the embedding model endpoint which, if specified, is used for querying (not ingestion).
+	// +kubebuilder:validation:Optional
+	ModelEndpointNameForQuery *string `json:"modelEndpointNameForQuery,omitempty" tf:"model_endpoint_name_for_query,omitempty"`
 
 	// Three-level name of the Mosaic AI Vector Search Index to create (catalog.schema.index_name).
 	// +kubebuilder:validation:Optional
@@ -175,7 +185,7 @@ type DirectAccessIndexSpecParameters struct {
 
 type EmbeddingSourceColumnsInitParameters struct {
 
-	// The name of the embedding model endpoint
+	// The name of the embedding model endpoint, used by default for both ingestion and querying.
 	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/namespaced/serving/v1alpha1.ModelServing
 	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/v2/pkg/resource.ExtractParamPath("name",false)
 	EmbeddingModelEndpointName *string `json:"embeddingModelEndpointName,omitempty" tf:"embedding_model_endpoint_name,omitempty"`
@@ -187,6 +197,9 @@ type EmbeddingSourceColumnsInitParameters struct {
 	// Selector for a ModelServing in serving to populate embeddingModelEndpointName.
 	// +kubebuilder:validation:Optional
 	EmbeddingModelEndpointNameSelector *v1.NamespacedSelector `json:"embeddingModelEndpointNameSelector,omitempty" tf:"-"`
+
+	// The name of the embedding model endpoint which, if specified, is used for querying (not ingestion).
+	ModelEndpointNameForQuery *string `json:"modelEndpointNameForQuery,omitempty" tf:"model_endpoint_name_for_query,omitempty"`
 
 	// Three-level name of the Mosaic AI Vector Search Index to create (catalog.schema.index_name).
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
@@ -194,8 +207,11 @@ type EmbeddingSourceColumnsInitParameters struct {
 
 type EmbeddingSourceColumnsObservation struct {
 
-	// The name of the embedding model endpoint
+	// The name of the embedding model endpoint, used by default for both ingestion and querying.
 	EmbeddingModelEndpointName *string `json:"embeddingModelEndpointName,omitempty" tf:"embedding_model_endpoint_name,omitempty"`
+
+	// The name of the embedding model endpoint which, if specified, is used for querying (not ingestion).
+	ModelEndpointNameForQuery *string `json:"modelEndpointNameForQuery,omitempty" tf:"model_endpoint_name_for_query,omitempty"`
 
 	// Three-level name of the Mosaic AI Vector Search Index to create (catalog.schema.index_name).
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
@@ -203,7 +219,7 @@ type EmbeddingSourceColumnsObservation struct {
 
 type EmbeddingSourceColumnsParameters struct {
 
-	// The name of the embedding model endpoint
+	// The name of the embedding model endpoint, used by default for both ingestion and querying.
 	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/namespaced/serving/v1alpha1.ModelServing
 	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/v2/pkg/resource.ExtractParamPath("name",false)
 	// +kubebuilder:validation:Optional
@@ -216,6 +232,10 @@ type EmbeddingSourceColumnsParameters struct {
 	// Selector for a ModelServing in serving to populate embeddingModelEndpointName.
 	// +kubebuilder:validation:Optional
 	EmbeddingModelEndpointNameSelector *v1.NamespacedSelector `json:"embeddingModelEndpointNameSelector,omitempty" tf:"-"`
+
+	// The name of the embedding model endpoint which, if specified, is used for querying (not ingestion).
+	// +kubebuilder:validation:Optional
+	ModelEndpointNameForQuery *string `json:"modelEndpointNameForQuery,omitempty" tf:"model_endpoint_name_for_query,omitempty"`
 
 	// Three-level name of the Mosaic AI Vector Search Index to create (catalog.schema.index_name).
 	// +kubebuilder:validation:Optional

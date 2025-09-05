@@ -13,6 +13,30 @@ import (
 	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
 )
 
+type CatalogInitParameters struct {
+	Postgres []PostgresInitParameters `json:"postgres,omitempty" tf:"postgres,omitempty"`
+
+	// The name of catalog in Unity Catalog. Change of this parameter forces recreation of the pipeline. (Conflicts with storage).
+	SourceCatalog *string `json:"sourceCatalog,omitempty" tf:"source_catalog,omitempty"`
+}
+
+type CatalogObservation struct {
+	Postgres []PostgresObservation `json:"postgres,omitempty" tf:"postgres,omitempty"`
+
+	// The name of catalog in Unity Catalog. Change of this parameter forces recreation of the pipeline. (Conflicts with storage).
+	SourceCatalog *string `json:"sourceCatalog,omitempty" tf:"source_catalog,omitempty"`
+}
+
+type CatalogParameters struct {
+
+	// +kubebuilder:validation:Optional
+	Postgres []PostgresParameters `json:"postgres,omitempty" tf:"postgres,omitempty"`
+
+	// The name of catalog in Unity Catalog. Change of this parameter forces recreation of the pipeline. (Conflicts with storage).
+	// +kubebuilder:validation:Optional
+	SourceCatalog *string `json:"sourceCatalog,omitempty" tf:"source_catalog,omitempty"`
+}
+
 type ClusterAutoscaleInitParameters struct {
 	MaxWorkers *float64 `json:"maxWorkers,omitempty" tf:"max_workers,omitempty"`
 
@@ -717,6 +741,8 @@ type IngestionDefinitionInitParameters struct {
 	// Required. Settings specifying tables to replicate and the destination for the replicated tables.
 	Objects []ObjectsInitParameters `json:"objects,omitempty" tf:"objects,omitempty"`
 
+	SourceConfigurations []SourceConfigurationsInitParameters `json:"sourceConfigurations,omitempty" tf:"source_configurations,omitempty"`
+
 	SourceType *string `json:"sourceType,omitempty" tf:"source_type,omitempty"`
 
 	// Configuration settings to control the ingestion of tables. These settings are applied to all tables in the pipeline.
@@ -733,6 +759,8 @@ type IngestionDefinitionObservation struct {
 
 	// Required. Settings specifying tables to replicate and the destination for the replicated tables.
 	Objects []ObjectsObservation `json:"objects,omitempty" tf:"objects,omitempty"`
+
+	SourceConfigurations []SourceConfigurationsObservation `json:"sourceConfigurations,omitempty" tf:"source_configurations,omitempty"`
 
 	SourceType *string `json:"sourceType,omitempty" tf:"source_type,omitempty"`
 
@@ -753,6 +781,9 @@ type IngestionDefinitionParameters struct {
 	// Required. Settings specifying tables to replicate and the destination for the replicated tables.
 	// +kubebuilder:validation:Optional
 	Objects []ObjectsParameters `json:"objects,omitempty" tf:"objects,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	SourceConfigurations []SourceConfigurationsParameters `json:"sourceConfigurations,omitempty" tf:"source_configurations,omitempty"`
 
 	// +kubebuilder:validation:Optional
 	SourceType *string `json:"sourceType,omitempty" tf:"source_type,omitempty"`
@@ -1783,6 +1814,20 @@ type PipelineTriggerParameters struct {
 	Manual []ManualParameters `json:"manual,omitempty" tf:"manual,omitempty"`
 }
 
+type PostgresInitParameters struct {
+	SlotConfig []SlotConfigInitParameters `json:"slotConfig,omitempty" tf:"slot_config,omitempty"`
+}
+
+type PostgresObservation struct {
+	SlotConfig []SlotConfigObservation `json:"slotConfig,omitempty" tf:"slot_config,omitempty"`
+}
+
+type PostgresParameters struct {
+
+	// +kubebuilder:validation:Optional
+	SlotConfig []SlotConfigParameters `json:"slotConfig,omitempty" tf:"slot_config,omitempty"`
+}
+
 type QueryBasedConnectorConfigInitParameters struct {
 	CursorColumns []*string `json:"cursorColumns,omitempty" tf:"cursor_columns,omitempty"`
 
@@ -2011,6 +2056,54 @@ type SchemaTableConfigurationParameters struct {
 
 	// +kubebuilder:validation:Optional
 	SequenceBy []*string `json:"sequenceBy,omitempty" tf:"sequence_by,omitempty"`
+}
+
+type SlotConfigInitParameters struct {
+
+	// A user-friendly name for this pipeline. The name can be used to identify pipeline jobs in the UI.
+	PublicationName *string `json:"publicationName,omitempty" tf:"publication_name,omitempty"`
+
+	// A user-friendly name for this pipeline. The name can be used to identify pipeline jobs in the UI.
+	SlotName *string `json:"slotName,omitempty" tf:"slot_name,omitempty"`
+}
+
+type SlotConfigObservation struct {
+
+	// A user-friendly name for this pipeline. The name can be used to identify pipeline jobs in the UI.
+	PublicationName *string `json:"publicationName,omitempty" tf:"publication_name,omitempty"`
+
+	// A user-friendly name for this pipeline. The name can be used to identify pipeline jobs in the UI.
+	SlotName *string `json:"slotName,omitempty" tf:"slot_name,omitempty"`
+}
+
+type SlotConfigParameters struct {
+
+	// A user-friendly name for this pipeline. The name can be used to identify pipeline jobs in the UI.
+	// +kubebuilder:validation:Optional
+	PublicationName *string `json:"publicationName,omitempty" tf:"publication_name,omitempty"`
+
+	// A user-friendly name for this pipeline. The name can be used to identify pipeline jobs in the UI.
+	// +kubebuilder:validation:Optional
+	SlotName *string `json:"slotName,omitempty" tf:"slot_name,omitempty"`
+}
+
+type SourceConfigurationsInitParameters struct {
+
+	// The name of catalog in Unity Catalog. Change of this parameter forces recreation of the pipeline. (Conflicts with storage).
+	Catalog []CatalogInitParameters `json:"catalog,omitempty" tf:"catalog,omitempty"`
+}
+
+type SourceConfigurationsObservation struct {
+
+	// The name of catalog in Unity Catalog. Change of this parameter forces recreation of the pipeline. (Conflicts with storage).
+	Catalog []CatalogObservation `json:"catalog,omitempty" tf:"catalog,omitempty"`
+}
+
+type SourceConfigurationsParameters struct {
+
+	// The name of catalog in Unity Catalog. Change of this parameter forces recreation of the pipeline. (Conflicts with storage).
+	// +kubebuilder:validation:Optional
+	Catalog []CatalogParameters `json:"catalog,omitempty" tf:"catalog,omitempty"`
 }
 
 type TableConfigurationInitParameters struct {

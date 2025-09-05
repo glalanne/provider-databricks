@@ -15,12 +15,15 @@ import (
 )
 
 type CatalogInitParameters struct {
+	BrowseOnly *bool `json:"browseOnly,omitempty" tf:"browse_only,omitempty"`
 
 	// User-supplied free-form text.
 	Comment *string `json:"comment,omitempty" tf:"comment,omitempty"`
 
 	// For Foreign Catalogs: the name of the connection to an external data source. Changes forces creation of a new resource.
 	ConnectionName *string `json:"connectionName,omitempty" tf:"connection_name,omitempty"`
+
+	EffectivePredictiveOptimizationFlag []EffectivePredictiveOptimizationFlagInitParameters `json:"effectivePredictiveOptimizationFlag,omitempty" tf:"effective_predictive_optimization_flag,omitempty"`
 
 	// Whether predictive optimization should be enabled for this object and objects under it. Can be ENABLE, DISABLE or INHERIT
 	EnablePredictiveOptimization *string `json:"enablePredictiveOptimization,omitempty" tf:"enable_predictive_optimization,omitempty"`
@@ -51,14 +54,21 @@ type CatalogInitParameters struct {
 	// For Delta Sharing Catalogs: the name of the delta sharing provider. Change forces creation of a new resource.
 	ProviderName *string `json:"providerName,omitempty" tf:"provider_name,omitempty"`
 
+	ProvisioningInfo []ProvisioningInfoInitParameters `json:"provisioningInfo,omitempty" tf:"provisioning_info,omitempty"`
+
 	// For Delta Sharing Catalogs: the name of the share under the share provider. Change forces creation of a new resource.
 	ShareName *string `json:"shareName,omitempty" tf:"share_name,omitempty"`
+
+	StorageLocation *string `json:"storageLocation,omitempty" tf:"storage_location,omitempty"`
 
 	// Managed location of the catalog. Location in cloud storage where data for managed tables will be stored. If not specified, the location will default to the metastore root location. Change forces creation of a new resource.
 	StorageRoot *string `json:"storageRoot,omitempty" tf:"storage_root,omitempty"`
 }
 
 type CatalogObservation struct {
+	BrowseOnly *bool `json:"browseOnly,omitempty" tf:"browse_only,omitempty"`
+
+	CatalogType *string `json:"catalogType,omitempty" tf:"catalog_type,omitempty"`
 
 	// User-supplied free-form text.
 	Comment *string `json:"comment,omitempty" tf:"comment,omitempty"`
@@ -66,11 +76,20 @@ type CatalogObservation struct {
 	// For Foreign Catalogs: the name of the connection to an external data source. Changes forces creation of a new resource.
 	ConnectionName *string `json:"connectionName,omitempty" tf:"connection_name,omitempty"`
 
+	CreatedAt *float64 `json:"createdAt,omitempty" tf:"created_at,omitempty"`
+
+	CreatedBy *string `json:"createdBy,omitempty" tf:"created_by,omitempty"`
+
+	EffectivePredictiveOptimizationFlag []EffectivePredictiveOptimizationFlagObservation `json:"effectivePredictiveOptimizationFlag,omitempty" tf:"effective_predictive_optimization_flag,omitempty"`
+
 	// Whether predictive optimization should be enabled for this object and objects under it. Can be ENABLE, DISABLE or INHERIT
 	EnablePredictiveOptimization *string `json:"enablePredictiveOptimization,omitempty" tf:"enable_predictive_optimization,omitempty"`
 
 	// Delete catalog regardless of its contents.
 	ForceDestroy *bool `json:"forceDestroy,omitempty" tf:"force_destroy,omitempty"`
+
+	// Name of Catalog relative to parent metastore.
+	FullName *string `json:"fullName,omitempty" tf:"full_name,omitempty"`
 
 	// ID of this catalog - same as the name.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
@@ -98,14 +117,27 @@ type CatalogObservation struct {
 	// For Delta Sharing Catalogs: the name of the delta sharing provider. Change forces creation of a new resource.
 	ProviderName *string `json:"providerName,omitempty" tf:"provider_name,omitempty"`
 
+	ProvisioningInfo []ProvisioningInfoObservation `json:"provisioningInfo,omitempty" tf:"provisioning_info,omitempty"`
+
+	SecurableType *string `json:"securableType,omitempty" tf:"securable_type,omitempty"`
+
 	// For Delta Sharing Catalogs: the name of the share under the share provider. Change forces creation of a new resource.
 	ShareName *string `json:"shareName,omitempty" tf:"share_name,omitempty"`
 
+	StorageLocation *string `json:"storageLocation,omitempty" tf:"storage_location,omitempty"`
+
 	// Managed location of the catalog. Location in cloud storage where data for managed tables will be stored. If not specified, the location will default to the metastore root location. Change forces creation of a new resource.
 	StorageRoot *string `json:"storageRoot,omitempty" tf:"storage_root,omitempty"`
+
+	UpdatedAt *float64 `json:"updatedAt,omitempty" tf:"updated_at,omitempty"`
+
+	UpdatedBy *string `json:"updatedBy,omitempty" tf:"updated_by,omitempty"`
 }
 
 type CatalogParameters struct {
+
+	// +kubebuilder:validation:Optional
+	BrowseOnly *bool `json:"browseOnly,omitempty" tf:"browse_only,omitempty"`
 
 	// User-supplied free-form text.
 	// +kubebuilder:validation:Optional
@@ -114,6 +146,9 @@ type CatalogParameters struct {
 	// For Foreign Catalogs: the name of the connection to an external data source. Changes forces creation of a new resource.
 	// +kubebuilder:validation:Optional
 	ConnectionName *string `json:"connectionName,omitempty" tf:"connection_name,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	EffectivePredictiveOptimizationFlag []EffectivePredictiveOptimizationFlagParameters `json:"effectivePredictiveOptimizationFlag,omitempty" tf:"effective_predictive_optimization_flag,omitempty"`
 
 	// Whether predictive optimization should be enabled for this object and objects under it. Can be ENABLE, DISABLE or INHERIT
 	// +kubebuilder:validation:Optional
@@ -153,13 +188,66 @@ type CatalogParameters struct {
 	// +kubebuilder:validation:Optional
 	ProviderName *string `json:"providerName,omitempty" tf:"provider_name,omitempty"`
 
+	// +kubebuilder:validation:Optional
+	ProvisioningInfo []ProvisioningInfoParameters `json:"provisioningInfo,omitempty" tf:"provisioning_info,omitempty"`
+
 	// For Delta Sharing Catalogs: the name of the share under the share provider. Change forces creation of a new resource.
 	// +kubebuilder:validation:Optional
 	ShareName *string `json:"shareName,omitempty" tf:"share_name,omitempty"`
 
+	// +kubebuilder:validation:Optional
+	StorageLocation *string `json:"storageLocation,omitempty" tf:"storage_location,omitempty"`
+
 	// Managed location of the catalog. Location in cloud storage where data for managed tables will be stored. If not specified, the location will default to the metastore root location. Change forces creation of a new resource.
 	// +kubebuilder:validation:Optional
 	StorageRoot *string `json:"storageRoot,omitempty" tf:"storage_root,omitempty"`
+}
+
+type EffectivePredictiveOptimizationFlagInitParameters struct {
+
+	// Name of Catalog relative to parent metastore.
+	InheritedFromName *string `json:"inheritedFromName,omitempty" tf:"inherited_from_name,omitempty"`
+
+	InheritedFromType *string `json:"inheritedFromType,omitempty" tf:"inherited_from_type,omitempty"`
+
+	Value *string `json:"value,omitempty" tf:"value,omitempty"`
+}
+
+type EffectivePredictiveOptimizationFlagObservation struct {
+
+	// Name of Catalog relative to parent metastore.
+	InheritedFromName *string `json:"inheritedFromName,omitempty" tf:"inherited_from_name,omitempty"`
+
+	InheritedFromType *string `json:"inheritedFromType,omitempty" tf:"inherited_from_type,omitempty"`
+
+	Value *string `json:"value,omitempty" tf:"value,omitempty"`
+}
+
+type EffectivePredictiveOptimizationFlagParameters struct {
+
+	// Name of Catalog relative to parent metastore.
+	// +kubebuilder:validation:Optional
+	InheritedFromName *string `json:"inheritedFromName,omitempty" tf:"inherited_from_name,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	InheritedFromType *string `json:"inheritedFromType,omitempty" tf:"inherited_from_type,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	Value *string `json:"value" tf:"value,omitempty"`
+}
+
+type ProvisioningInfoInitParameters struct {
+	State *string `json:"state,omitempty" tf:"state,omitempty"`
+}
+
+type ProvisioningInfoObservation struct {
+	State *string `json:"state,omitempty" tf:"state,omitempty"`
+}
+
+type ProvisioningInfoParameters struct {
+
+	// +kubebuilder:validation:Optional
+	State *string `json:"state,omitempty" tf:"state,omitempty"`
 }
 
 // CatalogSpec defines the desired state of Catalog
@@ -198,9 +286,8 @@ type CatalogStatus struct {
 type Catalog struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.name) || (has(self.initProvider) && has(self.initProvider.name))",message="spec.forProvider.name is a required parameter"
-	Spec   CatalogSpec   `json:"spec"`
-	Status CatalogStatus `json:"status,omitempty"`
+	Spec              CatalogSpec   `json:"spec"`
+	Status            CatalogStatus `json:"status,omitempty"`
 }
 
 // +kubebuilder:object:root=true
