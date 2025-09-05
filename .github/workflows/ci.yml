@@ -347,7 +347,7 @@ jobs:
   publish-artifacts-alpha:
     runs-on: ubuntu-24.04
     permissions:
-      contents: read
+      contents: write
       packages: write
       attestations: write
       id-token: write
