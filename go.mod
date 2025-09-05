@@ -166,4 +166,4 @@ require (
 	sigs.k8s.io/yaml v1.4.0 // indirect
 )
 
-replace github.com/databricks/terraform-provider-databricks => github.com/glalanne/terraform-provider-databricks v0.0.0-20250904200151-2206474e2e83
+replace github.com/databricks/terraform-provider-databricks => github.com/glalanne/terraform-provider-databricks d84bc6f28d8a
