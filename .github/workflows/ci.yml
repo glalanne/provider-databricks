@@ -389,10 +389,7 @@ jobs:
         with:
           dry_run: true
           ci: false
-          branches: |
-            [
-              '${{ github.ref_name }}'
-            ]
+          branch: ${{ github.ref_name }}
         env:
           GITHUB_TOKEN: ${{ secrets.REPO_PAT }}
           
