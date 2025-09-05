@@ -389,6 +389,11 @@ jobs:
         with:
           dry_run: true
           ci: false
+          branches: |
+            [
+              'fix/*',
+              'feat/*',
+            ]
         env:
           GITHUB_TOKEN: ${{ secrets.REPO_PAT }}
           
