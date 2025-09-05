@@ -391,7 +391,7 @@ jobs:
           ci: false
           branches: |
             [
-              'refs/pull/*/merge'
+              '${{ github.ref_name }}'
             ]
         env:
           GITHUB_TOKEN: ${{ secrets.REPO_PAT }}
