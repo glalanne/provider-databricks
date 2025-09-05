@@ -7,7 +7,7 @@ on:
       - '*.md'
     branches:
       - main
-      - release-*
+      - alpha
   pull_request: {}
   workflow_dispatch: {}
 
@@ -255,6 +255,7 @@ jobs:
       packages: write
       attestations: write
       id-token: write
+      issues: read
     needs:
       - detect-noop
       - report-breaking-changes
@@ -293,7 +294,7 @@ jobs:
         uses: cycjimmy/semantic-release-action@v5
         id: semantic
         env:
-          GITHUB_TOKEN: ${{ secrets.REPO_PAT }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Fetch History
         run: git fetch --prune
@@ -343,13 +344,14 @@ jobs:
         if: github.ref == 'refs/heads/main' && env.UPBOUND_MARKETPLACE_PUSH_ROBOT_USR != '' && steps.semantic.outputs.new_release_published == 'true'
         run: make publish CHANNEL=main VERSION=v${{ steps.semantic.outputs.new_release_version }}
   
-  publish-gcr-artifacts:
+  publish-artifacts-alpha:
     runs-on: ubuntu-24.04
     permissions:
       contents: read
       packages: write
       attestations: write
       id-token: write
+      issues: read
     needs:
       - detect-noop
       - report-breaking-changes
@@ -357,7 +359,7 @@ jobs:
       - check-diff
       - unit-tests
       - local-deploy
-    if: needs.detect-noop.outputs.noop != 'true' && github.ref != 'refs/heads/main'
+    if: needs.detect-noop.outputs.noop != 'true' && github.ref == 'refs/heads/alpha'
     steps:
       - name: Setup QEMU
         uses: docker/setup-qemu-action@49b3bc8e6bdd4a60e6116a5414239cba5943d3cf # v3
@@ -389,7 +391,7 @@ jobs:
         with:
           dry_run: true
         env:
-          GITHUB_TOKEN: ${{ secrets.REPO_PAT }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           
       - name: Fetch History
         run: git fetch --prune
