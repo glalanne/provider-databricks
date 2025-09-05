@@ -7,7 +7,7 @@ on:
       - '*.md'
     branches:
       - main
-      - release-*
+      - alpha
   pull_request: {}
   workflow_dispatch: {}
 
@@ -251,10 +251,11 @@ jobs:
   publish-artifacts:
     runs-on: ubuntu-24.04
     permissions:
-      contents: read
+      contents: write
       packages: write
       attestations: write
       id-token: write
+      issues: read
     needs:
       - detect-noop
       - report-breaking-changes
@@ -284,16 +285,16 @@ jobs:
           password: ${{ secrets.UPBOUND_MARKETPLACE_PUSH_ROBOT_PSW }}
 
       - name: Checkout
-        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
+        uses: actions/checkout@v5
         with:
           submodules: true
           persist-credentials: false
           
       - name: Semantic Release
-        uses: cycjimmy/semantic-release-action@v4
+        uses: cycjimmy/semantic-release-action@v5
         id: semantic
         env:
-          GITHUB_TOKEN: ${{ secrets.REPO_PAT }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Fetch History
         run: git fetch --prune
@@ -326,7 +327,7 @@ jobs:
 
       - name: Build Artifacts
         if: steps.semantic.outputs.new_release_published == 'true'
-        run: make -j2 XPKG_REG_ORGS="${{ env.UPBOUND_REGORG }}" XPKG_REG_ORGS_NO_PROMOTE="${{ env.UPBOUND_REGORG }}" BRANCH_NAME="main" VERSION="${{ steps.version.outputs.VERSION }}" build.all
+        run: make -j2 XPKG_REG_ORGS="${{ env.UPBOUND_REGORG }}" XPKG_REG_ORGS_NO_PROMOTE="${{ env.UPBOUND_REGORG }}" BRANCH_NAME="main" VERSION="${{ steps.semantic.outputs.new_release_version }}" build.all
         env:
           # We're using docker buildx, which doesn't actually load the images it
           # builds by default. Specifying --load does so.
@@ -343,15 +344,14 @@ jobs:
         if: github.ref == 'refs/heads/main' && env.UPBOUND_MARKETPLACE_PUSH_ROBOT_USR != '' && steps.semantic.outputs.new_release_published == 'true'
         run: make publish CHANNEL=main VERSION=v${{ steps.semantic.outputs.new_release_version }}
   
-  publish-gcr-artifacts:
+  publish-artifacts-alpha:
     runs-on: ubuntu-24.04
-    outputs:
-      version: ${{ steps.version.outputs.VERSION }}
     permissions:
-      contents: read
+      contents: write
       packages: write
       attestations: write
       id-token: write
+      issues: read
     needs:
       - detect-noop
       - report-breaking-changes
@@ -359,7 +359,7 @@ jobs:
       - check-diff
       - unit-tests
       - local-deploy
-    if: needs.detect-noop.outputs.noop != 'true' && github.ref != 'refs/heads/main'
+    if: needs.detect-noop.outputs.noop != 'true' && github.ref == 'refs/heads/alpha'
     steps:
       - name: Setup QEMU
         uses: docker/setup-qemu-action@49b3bc8e6bdd4a60e6116a5414239cba5943d3cf # v3
@@ -380,10 +380,18 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Checkout
-        uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5
+        uses: actions/checkout@v5
         with:
           submodules: true
           persist-credentials: false
+
+      - name: Semantic Release
+        uses: cycjimmy/semantic-release-action@v5
+        id: semantic
+        with:
+          dry_run: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           
       - name: Fetch History
         run: git fetch --prune
@@ -396,10 +404,6 @@ jobs:
       - name: Find the Go Build Cache
         id: go
         run: echo "cache=$(make go.cachedir)" >> $GITHUB_OUTPUT
-
-      - name: Find the version
-        id: version
-        run: make common.buildvars >> $GITHUB_OUTPUT
 
       - name: Cache the Go Build Cache
         uses: actions/cache@v4
@@ -420,7 +424,7 @@ jobs:
 
       - name: Build Artifacts
         run: |-
-          make -j2 XPKG_REG_ORGS="${{ env.CROSSPLANE_REGORG }}" XPKG_REG_ORGS_NO_PROMOTE="${{ env.CROSSPLANE_REGORG }}" BRANCH_NAME="main" VERSION="${{ steps.version.outputs.VERSION }}" build.all
+          make -j2 XPKG_REG_ORGS="${{ env.CROSSPLANE_REGORG }}" XPKG_REG_ORGS_NO_PROMOTE="${{ env.CROSSPLANE_REGORG }}" BRANCH_NAME="main" VERSION="${{ steps.semantic.outputs.new_release_version }}" build.all
         env:
           # We're using docker buildx, which doesn't actually load the images it
           # builds by default. Specifying --load does so.
@@ -434,6 +438,6 @@ jobs:
 
       - name: Publish Artifacts
         run: |-
-          make -j2 XPKG_REG_ORGS="${{ env.CROSSPLANE_REGORG }}" XPKG_REG_ORGS_NO_PROMOTE="${{ env.CROSSPLANE_REGORG }}" BRANCH_NAME="main" VERSION="${{ steps.version.outputs.VERSION }}" publish
+          make -j2 XPKG_REG_ORGS="${{ env.CROSSPLANE_REGORG }}" XPKG_REG_ORGS_NO_PROMOTE="${{ env.CROSSPLANE_REGORG }}" BRANCH_NAME="main" VERSION="${{ steps.semantic.outputs.new_release_version }}" publish
 
   
