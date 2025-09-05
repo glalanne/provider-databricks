@@ -21,8 +21,6 @@ type ConnectionInitParameters struct {
 	// Connection type. MYSQL, POSTGRESQL, SNOWFLAKE, REDSHIFT SQLDW, SQLSERVER, DATABRICKS, SALESFORCE, BIGQUERY, WORKDAY_RAAS, HIVE_METASTORE, GA4_RAW_DATA, SERVICENOW, SALESFORCE_DATA_CLOUD, GLUE, ORACLE, TERADATA, HTTP or POWER_BI are supported. Up-to-date list of connection type supported is in the documentation. Change forces creation of a new resource.
 	ConnectionType *string `json:"connectionType,omitempty" tf:"connection_type,omitempty"`
 
-	EnvironmentSettings []EnvironmentSettingsInitParameters `json:"environmentSettings,omitempty" tf:"environment_settings,omitempty"`
-
 	// Name of the Connection.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
@@ -58,8 +56,6 @@ type ConnectionObservation struct {
 
 	// The type of credential for this connection.
 	CredentialType *string `json:"credentialType,omitempty" tf:"credential_type,omitempty"`
-
-	EnvironmentSettings []EnvironmentSettingsObservation `json:"environmentSettings,omitempty" tf:"environment_settings,omitempty"`
 
 	// Full name of connection.
 	FullName *string `json:"fullName,omitempty" tf:"full_name,omitempty"`
@@ -107,9 +103,6 @@ type ConnectionParameters struct {
 	// Connection type. MYSQL, POSTGRESQL, SNOWFLAKE, REDSHIFT SQLDW, SQLSERVER, DATABRICKS, SALESFORCE, BIGQUERY, WORKDAY_RAAS, HIVE_METASTORE, GA4_RAW_DATA, SERVICENOW, SALESFORCE_DATA_CLOUD, GLUE, ORACLE, TERADATA, HTTP or POWER_BI are supported. Up-to-date list of connection type supported is in the documentation. Change forces creation of a new resource.
 	// +kubebuilder:validation:Optional
 	ConnectionType *string `json:"connectionType,omitempty" tf:"connection_type,omitempty"`
-
-	// +kubebuilder:validation:Optional
-	EnvironmentSettings []EnvironmentSettingsParameters `json:"environmentSettings,omitempty" tf:"environment_settings,omitempty"`
 
 	// Name of the Connection.
 	// +kubebuilder:validation:Optional
