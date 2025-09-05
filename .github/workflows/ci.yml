@@ -391,8 +391,7 @@ jobs:
           ci: false
           branches: |
             [
-              'fix/*',
-              'feat/*',
+              'refs/pull/*/merge'
             ]
         env:
           GITHUB_TOKEN: ${{ secrets.REPO_PAT }}
