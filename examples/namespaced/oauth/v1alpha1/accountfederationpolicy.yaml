@@ -1,0 +1,15 @@
+apiVersion: oauth.databricks.m.crossplane.io/v1alpha1
+kind: AccountFederationPolicy
+metadata:
+  annotations:
+    meta.upbound.io/example-id: oauth/v1alpha1/accountfederationpolicy
+  labels:
+    testing.upbound.io/example-name: this
+  name: this
+  namespace: upbound-system
+spec:
+  forProvider:
+    oidcPolicy:
+      issuer: https://myidp.example.com
+      subjectClaim: sub
+    policyId: my-policy

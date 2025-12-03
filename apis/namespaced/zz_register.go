@@ -17,6 +17,7 @@ import (
 	v1alpha1log "github.com/glalanne/provider-databricks/apis/namespaced/log/v1alpha1"
 	v1alpha1mlflow "github.com/glalanne/provider-databricks/apis/namespaced/mlflow/v1alpha1"
 	v1alpha1mosaic "github.com/glalanne/provider-databricks/apis/namespaced/mosaic/v1alpha1"
+	v1alpha1oauth "github.com/glalanne/provider-databricks/apis/namespaced/oauth/v1alpha1"
 	v1alpha1security "github.com/glalanne/provider-databricks/apis/namespaced/security/v1alpha1"
 	v1alpha1serving "github.com/glalanne/provider-databricks/apis/namespaced/serving/v1alpha1"
 	v1alpha1settings "github.com/glalanne/provider-databricks/apis/namespaced/settings/v1alpha1"
@@ -39,6 +40,7 @@ func init() {
 		v1alpha1log.SchemeBuilder.AddToScheme,
 		v1alpha1mlflow.SchemeBuilder.AddToScheme,
 		v1alpha1mosaic.SchemeBuilder.AddToScheme,
+		v1alpha1oauth.SchemeBuilder.AddToScheme,
 		v1alpha1security.SchemeBuilder.AddToScheme,
 		v1alpha1serving.SchemeBuilder.AddToScheme,
 		v1alpha1settings.SchemeBuilder.AddToScheme,
