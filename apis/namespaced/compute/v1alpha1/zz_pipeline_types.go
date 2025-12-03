@@ -17,14 +17,14 @@ import (
 type CatalogInitParameters struct {
 	Postgres []PostgresInitParameters `json:"postgres,omitempty" tf:"postgres,omitempty"`
 
-	// The name of catalog in Unity Catalog. Change of this parameter forces recreation of the pipeline. (Conflicts with storage).
+	// The name of default catalog in Unity Catalog. Change of this parameter forces recreation of the pipeline if you switch from  (Conflicts with storage).
 	SourceCatalog *string `json:"sourceCatalog,omitempty" tf:"source_catalog,omitempty"`
 }
 
 type CatalogObservation struct {
 	Postgres []PostgresObservation `json:"postgres,omitempty" tf:"postgres,omitempty"`
 
-	// The name of catalog in Unity Catalog. Change of this parameter forces recreation of the pipeline. (Conflicts with storage).
+	// The name of default catalog in Unity Catalog. Change of this parameter forces recreation of the pipeline if you switch from  (Conflicts with storage).
 	SourceCatalog *string `json:"sourceCatalog,omitempty" tf:"source_catalog,omitempty"`
 }
 
@@ -33,7 +33,7 @@ type CatalogParameters struct {
 	// +kubebuilder:validation:Optional
 	Postgres []PostgresParameters `json:"postgres,omitempty" tf:"postgres,omitempty"`
 
-	// The name of catalog in Unity Catalog. Change of this parameter forces recreation of the pipeline. (Conflicts with storage).
+	// The name of default catalog in Unity Catalog. Change of this parameter forces recreation of the pipeline if you switch from  (Conflicts with storage).
 	// +kubebuilder:validation:Optional
 	SourceCatalog *string `json:"sourceCatalog,omitempty" tf:"source_catalog,omitempty"`
 }
@@ -561,6 +561,25 @@ type ClusterInitScriptsWorkspaceParameters struct {
 	Destination *string `json:"destination" tf:"destination,omitempty"`
 }
 
+type ConnectionParametersInitParameters struct {
+
+	// The name of default catalog in Unity Catalog. Change of this parameter forces recreation of the pipeline if you switch from  (Conflicts with storage).
+	SourceCatalog *string `json:"sourceCatalog,omitempty" tf:"source_catalog,omitempty"`
+}
+
+type ConnectionParametersObservation struct {
+
+	// The name of default catalog in Unity Catalog. Change of this parameter forces recreation of the pipeline if you switch from  (Conflicts with storage).
+	SourceCatalog *string `json:"sourceCatalog,omitempty" tf:"source_catalog,omitempty"`
+}
+
+type ConnectionParametersParameters struct {
+
+	// The name of default catalog in Unity Catalog. Change of this parameter forces recreation of the pipeline if you switch from  (Conflicts with storage).
+	// +kubebuilder:validation:Optional
+	SourceCatalog *string `json:"sourceCatalog,omitempty" tf:"source_catalog,omitempty"`
+}
+
 type CronInitParameters struct {
 	QuartzCronSchedule *string `json:"quartzCronSchedule,omitempty" tf:"quartz_cron_schedule,omitempty"`
 
@@ -587,7 +606,7 @@ type CronParameters struct {
 
 type EventLogInitParameters struct {
 
-	// The name of catalog in Unity Catalog. Change of this parameter forces recreation of the pipeline. (Conflicts with storage).
+	// The name of default catalog in Unity Catalog. Change of this parameter forces recreation of the pipeline if you switch from  (Conflicts with storage).
 	Catalog *string `json:"catalog,omitempty" tf:"catalog,omitempty"`
 
 	// A user-friendly name for this pipeline. The name can be used to identify pipeline jobs in the UI.
@@ -599,7 +618,7 @@ type EventLogInitParameters struct {
 
 type EventLogObservation struct {
 
-	// The name of catalog in Unity Catalog. Change of this parameter forces recreation of the pipeline. (Conflicts with storage).
+	// The name of default catalog in Unity Catalog. Change of this parameter forces recreation of the pipeline if you switch from  (Conflicts with storage).
 	Catalog *string `json:"catalog,omitempty" tf:"catalog,omitempty"`
 
 	// A user-friendly name for this pipeline. The name can be used to identify pipeline jobs in the UI.
@@ -611,7 +630,7 @@ type EventLogObservation struct {
 
 type EventLogParameters struct {
 
-	// The name of catalog in Unity Catalog. Change of this parameter forces recreation of the pipeline. (Conflicts with storage).
+	// The name of default catalog in Unity Catalog. Change of this parameter forces recreation of the pipeline if you switch from  (Conflicts with storage).
 	// +kubebuilder:validation:Optional
 	Catalog *string `json:"catalog,omitempty" tf:"catalog,omitempty"`
 
@@ -661,6 +680,8 @@ type GatewayDefinitionInitParameters struct {
 	// Immutable. The Unity Catalog connection this ingestion pipeline uses to communicate with the source. Specify either ingestion_gateway_id or connection_name.
 	ConnectionName *string `json:"connectionName,omitempty" tf:"connection_name,omitempty"`
 
+	ConnectionParameters []ConnectionParametersInitParameters `json:"connectionParameters,omitempty" tf:"connection_parameters,omitempty"`
+
 	// Required, Immutable. The name of the catalog for the gateway pipeline's storage location.
 	GatewayStorageCatalog *string `json:"gatewayStorageCatalog,omitempty" tf:"gateway_storage_catalog,omitempty"`
 
@@ -678,6 +699,8 @@ type GatewayDefinitionObservation struct {
 
 	// Immutable. The Unity Catalog connection this ingestion pipeline uses to communicate with the source. Specify either ingestion_gateway_id or connection_name.
 	ConnectionName *string `json:"connectionName,omitempty" tf:"connection_name,omitempty"`
+
+	ConnectionParameters []ConnectionParametersObservation `json:"connectionParameters,omitempty" tf:"connection_parameters,omitempty"`
 
 	// Required, Immutable. The name of the catalog for the gateway pipeline's storage location.
 	GatewayStorageCatalog *string `json:"gatewayStorageCatalog,omitempty" tf:"gateway_storage_catalog,omitempty"`
@@ -698,6 +721,9 @@ type GatewayDefinitionParameters struct {
 	// Immutable. The Unity Catalog connection this ingestion pipeline uses to communicate with the source. Specify either ingestion_gateway_id or connection_name.
 	// +kubebuilder:validation:Optional
 	ConnectionName *string `json:"connectionName" tf:"connection_name,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	ConnectionParameters []ConnectionParametersParameters `json:"connectionParameters,omitempty" tf:"connection_parameters,omitempty"`
 
 	// Required, Immutable. The name of the catalog for the gateway pipeline's storage location.
 	// +kubebuilder:validation:Optional
@@ -736,8 +762,13 @@ type IngestionDefinitionInitParameters struct {
 	// Immutable. The Unity Catalog connection this ingestion pipeline uses to communicate with the source. Specify either ingestion_gateway_id or connection_name.
 	ConnectionName *string `json:"connectionName,omitempty" tf:"connection_name,omitempty"`
 
+	// The name of default catalog in Unity Catalog. Change of this parameter forces recreation of the pipeline if you switch from  (Conflicts with storage).
+	IngestFromUcForeignCatalog *bool `json:"ingestFromUcForeignCatalog,omitempty" tf:"ingest_from_uc_foreign_catalog,omitempty"`
+
 	// Immutable. Identifier for the ingestion gateway used by this ingestion pipeline to communicate with the source. Specify either ingestion_gateway_id or connection_name.
 	IngestionGatewayID *string `json:"ingestionGatewayId,omitempty" tf:"ingestion_gateway_id,omitempty"`
+
+	NetsuiteJarPath *string `json:"netsuiteJarPath,omitempty" tf:"netsuite_jar_path,omitempty"`
 
 	// Required. Settings specifying tables to replicate and the destination for the replicated tables.
 	Objects []ObjectsInitParameters `json:"objects,omitempty" tf:"objects,omitempty"`
@@ -755,8 +786,13 @@ type IngestionDefinitionObservation struct {
 	// Immutable. The Unity Catalog connection this ingestion pipeline uses to communicate with the source. Specify either ingestion_gateway_id or connection_name.
 	ConnectionName *string `json:"connectionName,omitempty" tf:"connection_name,omitempty"`
 
+	// The name of default catalog in Unity Catalog. Change of this parameter forces recreation of the pipeline if you switch from  (Conflicts with storage).
+	IngestFromUcForeignCatalog *bool `json:"ingestFromUcForeignCatalog,omitempty" tf:"ingest_from_uc_foreign_catalog,omitempty"`
+
 	// Immutable. Identifier for the ingestion gateway used by this ingestion pipeline to communicate with the source. Specify either ingestion_gateway_id or connection_name.
 	IngestionGatewayID *string `json:"ingestionGatewayId,omitempty" tf:"ingestion_gateway_id,omitempty"`
+
+	NetsuiteJarPath *string `json:"netsuiteJarPath,omitempty" tf:"netsuite_jar_path,omitempty"`
 
 	// Required. Settings specifying tables to replicate and the destination for the replicated tables.
 	Objects []ObjectsObservation `json:"objects,omitempty" tf:"objects,omitempty"`
@@ -775,9 +811,16 @@ type IngestionDefinitionParameters struct {
 	// +kubebuilder:validation:Optional
 	ConnectionName *string `json:"connectionName,omitempty" tf:"connection_name,omitempty"`
 
+	// The name of default catalog in Unity Catalog. Change of this parameter forces recreation of the pipeline if you switch from  (Conflicts with storage).
+	// +kubebuilder:validation:Optional
+	IngestFromUcForeignCatalog *bool `json:"ingestFromUcForeignCatalog,omitempty" tf:"ingest_from_uc_foreign_catalog,omitempty"`
+
 	// Immutable. Identifier for the ingestion gateway used by this ingestion pipeline to communicate with the source. Specify either ingestion_gateway_id or connection_name.
 	// +kubebuilder:validation:Optional
 	IngestionGatewayID *string `json:"ingestionGatewayId,omitempty" tf:"ingestion_gateway_id,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	NetsuiteJarPath *string `json:"netsuiteJarPath,omitempty" tf:"netsuite_jar_path,omitempty"`
 
 	// Required. Settings specifying tables to replicate and the destination for the replicated tables.
 	// +kubebuilder:validation:Optional
@@ -808,6 +851,8 @@ type IngestionDefinitionTableConfigurationInitParameters struct {
 	ScdType *string `json:"scdType,omitempty" tf:"scd_type,omitempty"`
 
 	SequenceBy []*string `json:"sequenceBy,omitempty" tf:"sequence_by,omitempty"`
+
+	WorkdayReportParameters []IngestionDefinitionTableConfigurationWorkdayReportParametersInitParameters `json:"workdayReportParameters,omitempty" tf:"workday_report_parameters,omitempty"`
 }
 
 type IngestionDefinitionTableConfigurationObservation struct {
@@ -824,6 +869,8 @@ type IngestionDefinitionTableConfigurationObservation struct {
 	ScdType *string `json:"scdType,omitempty" tf:"scd_type,omitempty"`
 
 	SequenceBy []*string `json:"sequenceBy,omitempty" tf:"sequence_by,omitempty"`
+
+	WorkdayReportParameters []IngestionDefinitionTableConfigurationWorkdayReportParametersObservation `json:"workdayReportParameters,omitempty" tf:"workday_report_parameters,omitempty"`
 }
 
 type IngestionDefinitionTableConfigurationParameters struct {
@@ -848,6 +895,9 @@ type IngestionDefinitionTableConfigurationParameters struct {
 
 	// +kubebuilder:validation:Optional
 	SequenceBy []*string `json:"sequenceBy,omitempty" tf:"sequence_by,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	WorkdayReportParameters []IngestionDefinitionTableConfigurationWorkdayReportParametersParameters `json:"workdayReportParameters,omitempty" tf:"workday_report_parameters,omitempty"`
 }
 
 type IngestionDefinitionTableConfigurationQueryBasedConnectorConfigInitParameters struct {
@@ -876,6 +926,58 @@ type IngestionDefinitionTableConfigurationQueryBasedConnectorConfigParameters st
 
 	// +kubebuilder:validation:Optional
 	HardDeletionSyncMinIntervalInSeconds *float64 `json:"hardDeletionSyncMinIntervalInSeconds,omitempty" tf:"hard_deletion_sync_min_interval_in_seconds,omitempty"`
+}
+
+type IngestionDefinitionTableConfigurationWorkdayReportParametersInitParameters struct {
+	Incremental *bool `json:"incremental,omitempty" tf:"incremental,omitempty"`
+
+	// +mapType=granular
+	Parameters map[string]*string `json:"parameters,omitempty" tf:"parameters,omitempty"`
+
+	ReportParameters []IngestionDefinitionTableConfigurationWorkdayReportParametersReportParametersInitParameters `json:"reportParameters,omitempty" tf:"report_parameters,omitempty"`
+}
+
+type IngestionDefinitionTableConfigurationWorkdayReportParametersObservation struct {
+	Incremental *bool `json:"incremental,omitempty" tf:"incremental,omitempty"`
+
+	// +mapType=granular
+	Parameters map[string]*string `json:"parameters,omitempty" tf:"parameters,omitempty"`
+
+	ReportParameters []IngestionDefinitionTableConfigurationWorkdayReportParametersReportParametersObservation `json:"reportParameters,omitempty" tf:"report_parameters,omitempty"`
+}
+
+type IngestionDefinitionTableConfigurationWorkdayReportParametersParameters struct {
+
+	// +kubebuilder:validation:Optional
+	Incremental *bool `json:"incremental,omitempty" tf:"incremental,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	// +mapType=granular
+	Parameters map[string]*string `json:"parameters,omitempty" tf:"parameters,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	ReportParameters []IngestionDefinitionTableConfigurationWorkdayReportParametersReportParametersParameters `json:"reportParameters,omitempty" tf:"report_parameters,omitempty"`
+}
+
+type IngestionDefinitionTableConfigurationWorkdayReportParametersReportParametersInitParameters struct {
+	Key *string `json:"key,omitempty" tf:"key,omitempty"`
+
+	Value *string `json:"value,omitempty" tf:"value,omitempty"`
+}
+
+type IngestionDefinitionTableConfigurationWorkdayReportParametersReportParametersObservation struct {
+	Key *string `json:"key,omitempty" tf:"key,omitempty"`
+
+	Value *string `json:"value,omitempty" tf:"value,omitempty"`
+}
+
+type IngestionDefinitionTableConfigurationWorkdayReportParametersReportParametersParameters struct {
+
+	// +kubebuilder:validation:Optional
+	Key *string `json:"key,omitempty" tf:"key,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	Value *string `json:"value,omitempty" tf:"value,omitempty"`
 }
 
 type LatestUpdatesInitParameters struct {
@@ -1002,7 +1104,7 @@ type ObjectsInitParameters struct {
 	// The default schema (database) where tables are read from or published to. The presence of this attribute implies that the pipeline is in direct publishing mode.
 	Schema []SchemaInitParameters `json:"schema,omitempty" tf:"schema,omitempty"`
 
-	Table []ObjectsTableInitParameters `json:"table,omitempty" tf:"table,omitempty"`
+	Table []TableInitParameters `json:"table,omitempty" tf:"table,omitempty"`
 }
 
 type ObjectsObservation struct {
@@ -1011,7 +1113,7 @@ type ObjectsObservation struct {
 	// The default schema (database) where tables are read from or published to. The presence of this attribute implies that the pipeline is in direct publishing mode.
 	Schema []SchemaObservation `json:"schema,omitempty" tf:"schema,omitempty"`
 
-	Table []ObjectsTableObservation `json:"table,omitempty" tf:"table,omitempty"`
+	Table []TableObservation `json:"table,omitempty" tf:"table,omitempty"`
 }
 
 type ObjectsParameters struct {
@@ -1024,80 +1126,7 @@ type ObjectsParameters struct {
 	Schema []SchemaParameters `json:"schema,omitempty" tf:"schema,omitempty"`
 
 	// +kubebuilder:validation:Optional
-	Table []ObjectsTableParameters `json:"table,omitempty" tf:"table,omitempty"`
-}
-
-type ObjectsTableInitParameters struct {
-
-	// The name of catalog in Unity Catalog. Change of this parameter forces recreation of the pipeline. (Conflicts with storage).
-	DestinationCatalog *string `json:"destinationCatalog,omitempty" tf:"destination_catalog,omitempty"`
-
-	// The default schema (database) where tables are read from or published to. The presence of this attribute implies that the pipeline is in direct publishing mode.
-	DestinationSchema *string `json:"destinationSchema,omitempty" tf:"destination_schema,omitempty"`
-
-	DestinationTable *string `json:"destinationTable,omitempty" tf:"destination_table,omitempty"`
-
-	// The name of catalog in Unity Catalog. Change of this parameter forces recreation of the pipeline. (Conflicts with storage).
-	SourceCatalog *string `json:"sourceCatalog,omitempty" tf:"source_catalog,omitempty"`
-
-	// The default schema (database) where tables are read from or published to. The presence of this attribute implies that the pipeline is in direct publishing mode.
-	SourceSchema *string `json:"sourceSchema,omitempty" tf:"source_schema,omitempty"`
-
-	SourceTable *string `json:"sourceTable,omitempty" tf:"source_table,omitempty"`
-
-	// Configuration settings to control the ingestion of tables. These settings are applied to all tables in the pipeline.
-	TableConfiguration []TableTableConfigurationInitParameters `json:"tableConfiguration,omitempty" tf:"table_configuration,omitempty"`
-}
-
-type ObjectsTableObservation struct {
-
-	// The name of catalog in Unity Catalog. Change of this parameter forces recreation of the pipeline. (Conflicts with storage).
-	DestinationCatalog *string `json:"destinationCatalog,omitempty" tf:"destination_catalog,omitempty"`
-
-	// The default schema (database) where tables are read from or published to. The presence of this attribute implies that the pipeline is in direct publishing mode.
-	DestinationSchema *string `json:"destinationSchema,omitempty" tf:"destination_schema,omitempty"`
-
-	DestinationTable *string `json:"destinationTable,omitempty" tf:"destination_table,omitempty"`
-
-	// The name of catalog in Unity Catalog. Change of this parameter forces recreation of the pipeline. (Conflicts with storage).
-	SourceCatalog *string `json:"sourceCatalog,omitempty" tf:"source_catalog,omitempty"`
-
-	// The default schema (database) where tables are read from or published to. The presence of this attribute implies that the pipeline is in direct publishing mode.
-	SourceSchema *string `json:"sourceSchema,omitempty" tf:"source_schema,omitempty"`
-
-	SourceTable *string `json:"sourceTable,omitempty" tf:"source_table,omitempty"`
-
-	// Configuration settings to control the ingestion of tables. These settings are applied to all tables in the pipeline.
-	TableConfiguration []TableTableConfigurationObservation `json:"tableConfiguration,omitempty" tf:"table_configuration,omitempty"`
-}
-
-type ObjectsTableParameters struct {
-
-	// The name of catalog in Unity Catalog. Change of this parameter forces recreation of the pipeline. (Conflicts with storage).
-	// +kubebuilder:validation:Optional
-	DestinationCatalog *string `json:"destinationCatalog" tf:"destination_catalog,omitempty"`
-
-	// The default schema (database) where tables are read from or published to. The presence of this attribute implies that the pipeline is in direct publishing mode.
-	// +kubebuilder:validation:Optional
-	DestinationSchema *string `json:"destinationSchema" tf:"destination_schema,omitempty"`
-
-	// +kubebuilder:validation:Optional
-	DestinationTable *string `json:"destinationTable,omitempty" tf:"destination_table,omitempty"`
-
-	// The name of catalog in Unity Catalog. Change of this parameter forces recreation of the pipeline. (Conflicts with storage).
-	// +kubebuilder:validation:Optional
-	SourceCatalog *string `json:"sourceCatalog,omitempty" tf:"source_catalog,omitempty"`
-
-	// The default schema (database) where tables are read from or published to. The presence of this attribute implies that the pipeline is in direct publishing mode.
-	// +kubebuilder:validation:Optional
-	SourceSchema *string `json:"sourceSchema,omitempty" tf:"source_schema,omitempty"`
-
-	// +kubebuilder:validation:Optional
-	SourceTable *string `json:"sourceTable" tf:"source_table,omitempty"`
-
-	// Configuration settings to control the ingestion of tables. These settings are applied to all tables in the pipeline.
-	// +kubebuilder:validation:Optional
-	TableConfiguration []TableTableConfigurationParameters `json:"tableConfiguration,omitempty" tf:"table_configuration,omitempty"`
+	Table []TableParameters `json:"table,omitempty" tf:"table,omitempty"`
 }
 
 type PipelineClusterInitParameters struct {
@@ -1323,7 +1352,7 @@ type PipelineInitParameters struct {
 	// optional string specifying ID of the budget policy for this Lakeflow Declarative Pipeline.
 	BudgetPolicyID *string `json:"budgetPolicyId,omitempty" tf:"budget_policy_id,omitempty"`
 
-	// The name of catalog in Unity Catalog. Change of this parameter forces recreation of the pipeline. (Conflicts with storage).
+	// The name of default catalog in Unity Catalog. Change of this parameter forces recreation of the pipeline if you switch from  (Conflicts with storage).
 	Catalog *string `json:"catalog,omitempty" tf:"catalog,omitempty"`
 
 	Cause *string `json:"cause,omitempty" tf:"cause,omitempty"`
@@ -1406,7 +1435,7 @@ type PipelineInitParameters struct {
 
 	State *string `json:"state,omitempty" tf:"state,omitempty"`
 
-	// A location on cloud storage where output data and metadata required for pipeline execution are stored. By default, tables are stored in a subdirectory of this location. Change of this parameter forces recreation of the pipeline. (Conflicts with catalog).
+	// to catalog or vice versa.  If pipeline was already created with catalog set, the value could be changed.
 	Storage *string `json:"storage,omitempty" tf:"storage,omitempty"`
 
 	// A map of tags associated with the pipeline. These are forwarded to the cluster as cluster tags, and are therefore subject to the same limitations. A maximum of 25 tags can be added to the pipeline.
@@ -1420,6 +1449,9 @@ type PipelineInitParameters struct {
 
 	// URL of the Lakeflow Declarative Pipeline on the given workspace.
 	URL *string `json:"url,omitempty" tf:"url,omitempty"`
+
+	// Canonical unique identifier of the Lakeflow Declarative Pipeline.
+	UsagePolicyID *string `json:"usagePolicyId,omitempty" tf:"usage_policy_id,omitempty"`
 }
 
 type PipelineLibraryInitParameters struct {
@@ -1518,7 +1550,7 @@ type PipelineObservation struct {
 	// optional string specifying ID of the budget policy for this Lakeflow Declarative Pipeline.
 	BudgetPolicyID *string `json:"budgetPolicyId,omitempty" tf:"budget_policy_id,omitempty"`
 
-	// The name of catalog in Unity Catalog. Change of this parameter forces recreation of the pipeline. (Conflicts with storage).
+	// The name of default catalog in Unity Catalog. Change of this parameter forces recreation of the pipeline if you switch from  (Conflicts with storage).
 	Catalog *string `json:"catalog,omitempty" tf:"catalog,omitempty"`
 
 	Cause *string `json:"cause,omitempty" tf:"cause,omitempty"`
@@ -1604,7 +1636,7 @@ type PipelineObservation struct {
 
 	State *string `json:"state,omitempty" tf:"state,omitempty"`
 
-	// A location on cloud storage where output data and metadata required for pipeline execution are stored. By default, tables are stored in a subdirectory of this location. Change of this parameter forces recreation of the pipeline. (Conflicts with catalog).
+	// to catalog or vice versa.  If pipeline was already created with catalog set, the value could be changed.
 	Storage *string `json:"storage,omitempty" tf:"storage,omitempty"`
 
 	// A map of tags associated with the pipeline. These are forwarded to the cluster as cluster tags, and are therefore subject to the same limitations. A maximum of 25 tags can be added to the pipeline.
@@ -1618,6 +1650,9 @@ type PipelineObservation struct {
 
 	// URL of the Lakeflow Declarative Pipeline on the given workspace.
 	URL *string `json:"url,omitempty" tf:"url,omitempty"`
+
+	// Canonical unique identifier of the Lakeflow Declarative Pipeline.
+	UsagePolicyID *string `json:"usagePolicyId,omitempty" tf:"usage_policy_id,omitempty"`
 }
 
 type PipelineParameters struct {
@@ -1630,7 +1665,7 @@ type PipelineParameters struct {
 	// +kubebuilder:validation:Optional
 	BudgetPolicyID *string `json:"budgetPolicyId,omitempty" tf:"budget_policy_id,omitempty"`
 
-	// The name of catalog in Unity Catalog. Change of this parameter forces recreation of the pipeline. (Conflicts with storage).
+	// The name of default catalog in Unity Catalog. Change of this parameter forces recreation of the pipeline if you switch from  (Conflicts with storage).
 	// +kubebuilder:validation:Optional
 	Catalog *string `json:"catalog,omitempty" tf:"catalog,omitempty"`
 
@@ -1744,7 +1779,7 @@ type PipelineParameters struct {
 	// +kubebuilder:validation:Optional
 	State *string `json:"state,omitempty" tf:"state,omitempty"`
 
-	// A location on cloud storage where output data and metadata required for pipeline execution are stored. By default, tables are stored in a subdirectory of this location. Change of this parameter forces recreation of the pipeline. (Conflicts with catalog).
+	// to catalog or vice versa.  If pipeline was already created with catalog set, the value could be changed.
 	// +kubebuilder:validation:Optional
 	Storage *string `json:"storage,omitempty" tf:"storage,omitempty"`
 
@@ -1763,6 +1798,10 @@ type PipelineParameters struct {
 	// URL of the Lakeflow Declarative Pipeline on the given workspace.
 	// +kubebuilder:validation:Optional
 	URL *string `json:"url,omitempty" tf:"url,omitempty"`
+
+	// Canonical unique identifier of the Lakeflow Declarative Pipeline.
+	// +kubebuilder:validation:Optional
+	UsagePolicyID *string `json:"usagePolicyId,omitempty" tf:"usage_policy_id,omitempty"`
 }
 
 type PipelineRunAsInitParameters struct {
@@ -1859,7 +1898,7 @@ type QueryBasedConnectorConfigParameters struct {
 
 type ReportInitParameters struct {
 
-	// The name of catalog in Unity Catalog. Change of this parameter forces recreation of the pipeline. (Conflicts with storage).
+	// The name of default catalog in Unity Catalog. Change of this parameter forces recreation of the pipeline if you switch from  (Conflicts with storage).
 	DestinationCatalog *string `json:"destinationCatalog,omitempty" tf:"destination_catalog,omitempty"`
 
 	// The default schema (database) where tables are read from or published to. The presence of this attribute implies that the pipeline is in direct publishing mode.
@@ -1876,7 +1915,7 @@ type ReportInitParameters struct {
 
 type ReportObservation struct {
 
-	// The name of catalog in Unity Catalog. Change of this parameter forces recreation of the pipeline. (Conflicts with storage).
+	// The name of default catalog in Unity Catalog. Change of this parameter forces recreation of the pipeline if you switch from  (Conflicts with storage).
 	DestinationCatalog *string `json:"destinationCatalog,omitempty" tf:"destination_catalog,omitempty"`
 
 	// The default schema (database) where tables are read from or published to. The presence of this attribute implies that the pipeline is in direct publishing mode.
@@ -1893,7 +1932,7 @@ type ReportObservation struct {
 
 type ReportParameters struct {
 
-	// The name of catalog in Unity Catalog. Change of this parameter forces recreation of the pipeline. (Conflicts with storage).
+	// The name of default catalog in Unity Catalog. Change of this parameter forces recreation of the pipeline if you switch from  (Conflicts with storage).
 	// +kubebuilder:validation:Optional
 	DestinationCatalog *string `json:"destinationCatalog" tf:"destination_catalog,omitempty"`
 
@@ -1911,6 +1950,27 @@ type ReportParameters struct {
 	// Configuration settings to control the ingestion of tables. These settings are applied to all tables in the pipeline.
 	// +kubebuilder:validation:Optional
 	TableConfiguration []TableConfigurationParameters `json:"tableConfiguration,omitempty" tf:"table_configuration,omitempty"`
+}
+
+type ReportParametersInitParameters struct {
+	Key *string `json:"key,omitempty" tf:"key,omitempty"`
+
+	Value *string `json:"value,omitempty" tf:"value,omitempty"`
+}
+
+type ReportParametersObservation struct {
+	Key *string `json:"key,omitempty" tf:"key,omitempty"`
+
+	Value *string `json:"value,omitempty" tf:"value,omitempty"`
+}
+
+type ReportParametersParameters struct {
+
+	// +kubebuilder:validation:Optional
+	Key *string `json:"key,omitempty" tf:"key,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	Value *string `json:"value,omitempty" tf:"value,omitempty"`
 }
 
 type RestartWindowInitParameters struct {
@@ -1946,13 +2006,13 @@ type RestartWindowParameters struct {
 
 type SchemaInitParameters struct {
 
-	// The name of catalog in Unity Catalog. Change of this parameter forces recreation of the pipeline. (Conflicts with storage).
+	// The name of default catalog in Unity Catalog. Change of this parameter forces recreation of the pipeline if you switch from  (Conflicts with storage).
 	DestinationCatalog *string `json:"destinationCatalog,omitempty" tf:"destination_catalog,omitempty"`
 
 	// The default schema (database) where tables are read from or published to. The presence of this attribute implies that the pipeline is in direct publishing mode.
 	DestinationSchema *string `json:"destinationSchema,omitempty" tf:"destination_schema,omitempty"`
 
-	// The name of catalog in Unity Catalog. Change of this parameter forces recreation of the pipeline. (Conflicts with storage).
+	// The name of default catalog in Unity Catalog. Change of this parameter forces recreation of the pipeline if you switch from  (Conflicts with storage).
 	SourceCatalog *string `json:"sourceCatalog,omitempty" tf:"source_catalog,omitempty"`
 
 	// The default schema (database) where tables are read from or published to. The presence of this attribute implies that the pipeline is in direct publishing mode.
@@ -1964,13 +2024,13 @@ type SchemaInitParameters struct {
 
 type SchemaObservation struct {
 
-	// The name of catalog in Unity Catalog. Change of this parameter forces recreation of the pipeline. (Conflicts with storage).
+	// The name of default catalog in Unity Catalog. Change of this parameter forces recreation of the pipeline if you switch from  (Conflicts with storage).
 	DestinationCatalog *string `json:"destinationCatalog,omitempty" tf:"destination_catalog,omitempty"`
 
 	// The default schema (database) where tables are read from or published to. The presence of this attribute implies that the pipeline is in direct publishing mode.
 	DestinationSchema *string `json:"destinationSchema,omitempty" tf:"destination_schema,omitempty"`
 
-	// The name of catalog in Unity Catalog. Change of this parameter forces recreation of the pipeline. (Conflicts with storage).
+	// The name of default catalog in Unity Catalog. Change of this parameter forces recreation of the pipeline if you switch from  (Conflicts with storage).
 	SourceCatalog *string `json:"sourceCatalog,omitempty" tf:"source_catalog,omitempty"`
 
 	// The default schema (database) where tables are read from or published to. The presence of this attribute implies that the pipeline is in direct publishing mode.
@@ -1982,7 +2042,7 @@ type SchemaObservation struct {
 
 type SchemaParameters struct {
 
-	// The name of catalog in Unity Catalog. Change of this parameter forces recreation of the pipeline. (Conflicts with storage).
+	// The name of default catalog in Unity Catalog. Change of this parameter forces recreation of the pipeline if you switch from  (Conflicts with storage).
 	// +kubebuilder:validation:Optional
 	DestinationCatalog *string `json:"destinationCatalog" tf:"destination_catalog,omitempty"`
 
@@ -1990,7 +2050,7 @@ type SchemaParameters struct {
 	// +kubebuilder:validation:Optional
 	DestinationSchema *string `json:"destinationSchema" tf:"destination_schema,omitempty"`
 
-	// The name of catalog in Unity Catalog. Change of this parameter forces recreation of the pipeline. (Conflicts with storage).
+	// The name of default catalog in Unity Catalog. Change of this parameter forces recreation of the pipeline if you switch from  (Conflicts with storage).
 	// +kubebuilder:validation:Optional
 	SourceCatalog *string `json:"sourceCatalog,omitempty" tf:"source_catalog,omitempty"`
 
@@ -2017,6 +2077,8 @@ type SchemaTableConfigurationInitParameters struct {
 	ScdType *string `json:"scdType,omitempty" tf:"scd_type,omitempty"`
 
 	SequenceBy []*string `json:"sequenceBy,omitempty" tf:"sequence_by,omitempty"`
+
+	WorkdayReportParameters []TableConfigurationWorkdayReportParametersInitParameters `json:"workdayReportParameters,omitempty" tf:"workday_report_parameters,omitempty"`
 }
 
 type SchemaTableConfigurationObservation struct {
@@ -2033,6 +2095,8 @@ type SchemaTableConfigurationObservation struct {
 	ScdType *string `json:"scdType,omitempty" tf:"scd_type,omitempty"`
 
 	SequenceBy []*string `json:"sequenceBy,omitempty" tf:"sequence_by,omitempty"`
+
+	WorkdayReportParameters []TableConfigurationWorkdayReportParametersObservation `json:"workdayReportParameters,omitempty" tf:"workday_report_parameters,omitempty"`
 }
 
 type SchemaTableConfigurationParameters struct {
@@ -2057,6 +2121,9 @@ type SchemaTableConfigurationParameters struct {
 
 	// +kubebuilder:validation:Optional
 	SequenceBy []*string `json:"sequenceBy,omitempty" tf:"sequence_by,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	WorkdayReportParameters []TableConfigurationWorkdayReportParametersParameters `json:"workdayReportParameters,omitempty" tf:"workday_report_parameters,omitempty"`
 }
 
 type SlotConfigInitParameters struct {
@@ -2090,19 +2157,19 @@ type SlotConfigParameters struct {
 
 type SourceConfigurationsInitParameters struct {
 
-	// The name of catalog in Unity Catalog. Change of this parameter forces recreation of the pipeline. (Conflicts with storage).
+	// The name of default catalog in Unity Catalog. Change of this parameter forces recreation of the pipeline if you switch from  (Conflicts with storage).
 	Catalog []CatalogInitParameters `json:"catalog,omitempty" tf:"catalog,omitempty"`
 }
 
 type SourceConfigurationsObservation struct {
 
-	// The name of catalog in Unity Catalog. Change of this parameter forces recreation of the pipeline. (Conflicts with storage).
+	// The name of default catalog in Unity Catalog. Change of this parameter forces recreation of the pipeline if you switch from  (Conflicts with storage).
 	Catalog []CatalogObservation `json:"catalog,omitempty" tf:"catalog,omitempty"`
 }
 
 type SourceConfigurationsParameters struct {
 
-	// The name of catalog in Unity Catalog. Change of this parameter forces recreation of the pipeline. (Conflicts with storage).
+	// The name of default catalog in Unity Catalog. Change of this parameter forces recreation of the pipeline if you switch from  (Conflicts with storage).
 	// +kubebuilder:validation:Optional
 	Catalog []CatalogParameters `json:"catalog,omitempty" tf:"catalog,omitempty"`
 }
@@ -2121,6 +2188,8 @@ type TableConfigurationInitParameters struct {
 	ScdType *string `json:"scdType,omitempty" tf:"scd_type,omitempty"`
 
 	SequenceBy []*string `json:"sequenceBy,omitempty" tf:"sequence_by,omitempty"`
+
+	WorkdayReportParameters []WorkdayReportParametersInitParameters `json:"workdayReportParameters,omitempty" tf:"workday_report_parameters,omitempty"`
 }
 
 type TableConfigurationObservation struct {
@@ -2137,6 +2206,8 @@ type TableConfigurationObservation struct {
 	ScdType *string `json:"scdType,omitempty" tf:"scd_type,omitempty"`
 
 	SequenceBy []*string `json:"sequenceBy,omitempty" tf:"sequence_by,omitempty"`
+
+	WorkdayReportParameters []WorkdayReportParametersObservation `json:"workdayReportParameters,omitempty" tf:"workday_report_parameters,omitempty"`
 }
 
 type TableConfigurationParameters struct {
@@ -2161,6 +2232,9 @@ type TableConfigurationParameters struct {
 
 	// +kubebuilder:validation:Optional
 	SequenceBy []*string `json:"sequenceBy,omitempty" tf:"sequence_by,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	WorkdayReportParameters []WorkdayReportParametersParameters `json:"workdayReportParameters,omitempty" tf:"workday_report_parameters,omitempty"`
 }
 
 type TableConfigurationQueryBasedConnectorConfigInitParameters struct {
@@ -2191,6 +2265,131 @@ type TableConfigurationQueryBasedConnectorConfigParameters struct {
 	HardDeletionSyncMinIntervalInSeconds *float64 `json:"hardDeletionSyncMinIntervalInSeconds,omitempty" tf:"hard_deletion_sync_min_interval_in_seconds,omitempty"`
 }
 
+type TableConfigurationWorkdayReportParametersInitParameters struct {
+	Incremental *bool `json:"incremental,omitempty" tf:"incremental,omitempty"`
+
+	// +mapType=granular
+	Parameters map[string]*string `json:"parameters,omitempty" tf:"parameters,omitempty"`
+
+	ReportParameters []WorkdayReportParametersReportParametersInitParameters `json:"reportParameters,omitempty" tf:"report_parameters,omitempty"`
+}
+
+type TableConfigurationWorkdayReportParametersObservation struct {
+	Incremental *bool `json:"incremental,omitempty" tf:"incremental,omitempty"`
+
+	// +mapType=granular
+	Parameters map[string]*string `json:"parameters,omitempty" tf:"parameters,omitempty"`
+
+	ReportParameters []WorkdayReportParametersReportParametersObservation `json:"reportParameters,omitempty" tf:"report_parameters,omitempty"`
+}
+
+type TableConfigurationWorkdayReportParametersParameters struct {
+
+	// +kubebuilder:validation:Optional
+	Incremental *bool `json:"incremental,omitempty" tf:"incremental,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	// +mapType=granular
+	Parameters map[string]*string `json:"parameters,omitempty" tf:"parameters,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	ReportParameters []WorkdayReportParametersReportParametersParameters `json:"reportParameters,omitempty" tf:"report_parameters,omitempty"`
+}
+
+type TableConfigurationWorkdayReportParametersReportParametersInitParameters struct {
+	Key *string `json:"key,omitempty" tf:"key,omitempty"`
+
+	Value *string `json:"value,omitempty" tf:"value,omitempty"`
+}
+
+type TableConfigurationWorkdayReportParametersReportParametersObservation struct {
+	Key *string `json:"key,omitempty" tf:"key,omitempty"`
+
+	Value *string `json:"value,omitempty" tf:"value,omitempty"`
+}
+
+type TableConfigurationWorkdayReportParametersReportParametersParameters struct {
+
+	// +kubebuilder:validation:Optional
+	Key *string `json:"key,omitempty" tf:"key,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	Value *string `json:"value,omitempty" tf:"value,omitempty"`
+}
+
+type TableInitParameters struct {
+
+	// The name of default catalog in Unity Catalog. Change of this parameter forces recreation of the pipeline if you switch from  (Conflicts with storage).
+	DestinationCatalog *string `json:"destinationCatalog,omitempty" tf:"destination_catalog,omitempty"`
+
+	// The default schema (database) where tables are read from or published to. The presence of this attribute implies that the pipeline is in direct publishing mode.
+	DestinationSchema *string `json:"destinationSchema,omitempty" tf:"destination_schema,omitempty"`
+
+	DestinationTable *string `json:"destinationTable,omitempty" tf:"destination_table,omitempty"`
+
+	// The name of default catalog in Unity Catalog. Change of this parameter forces recreation of the pipeline if you switch from  (Conflicts with storage).
+	SourceCatalog *string `json:"sourceCatalog,omitempty" tf:"source_catalog,omitempty"`
+
+	// The default schema (database) where tables are read from or published to. The presence of this attribute implies that the pipeline is in direct publishing mode.
+	SourceSchema *string `json:"sourceSchema,omitempty" tf:"source_schema,omitempty"`
+
+	SourceTable *string `json:"sourceTable,omitempty" tf:"source_table,omitempty"`
+
+	// Configuration settings to control the ingestion of tables. These settings are applied to all tables in the pipeline.
+	TableConfiguration []TableTableConfigurationInitParameters `json:"tableConfiguration,omitempty" tf:"table_configuration,omitempty"`
+}
+
+type TableObservation struct {
+
+	// The name of default catalog in Unity Catalog. Change of this parameter forces recreation of the pipeline if you switch from  (Conflicts with storage).
+	DestinationCatalog *string `json:"destinationCatalog,omitempty" tf:"destination_catalog,omitempty"`
+
+	// The default schema (database) where tables are read from or published to. The presence of this attribute implies that the pipeline is in direct publishing mode.
+	DestinationSchema *string `json:"destinationSchema,omitempty" tf:"destination_schema,omitempty"`
+
+	DestinationTable *string `json:"destinationTable,omitempty" tf:"destination_table,omitempty"`
+
+	// The name of default catalog in Unity Catalog. Change of this parameter forces recreation of the pipeline if you switch from  (Conflicts with storage).
+	SourceCatalog *string `json:"sourceCatalog,omitempty" tf:"source_catalog,omitempty"`
+
+	// The default schema (database) where tables are read from or published to. The presence of this attribute implies that the pipeline is in direct publishing mode.
+	SourceSchema *string `json:"sourceSchema,omitempty" tf:"source_schema,omitempty"`
+
+	SourceTable *string `json:"sourceTable,omitempty" tf:"source_table,omitempty"`
+
+	// Configuration settings to control the ingestion of tables. These settings are applied to all tables in the pipeline.
+	TableConfiguration []TableTableConfigurationObservation `json:"tableConfiguration,omitempty" tf:"table_configuration,omitempty"`
+}
+
+type TableParameters struct {
+
+	// The name of default catalog in Unity Catalog. Change of this parameter forces recreation of the pipeline if you switch from  (Conflicts with storage).
+	// +kubebuilder:validation:Optional
+	DestinationCatalog *string `json:"destinationCatalog" tf:"destination_catalog,omitempty"`
+
+	// The default schema (database) where tables are read from or published to. The presence of this attribute implies that the pipeline is in direct publishing mode.
+	// +kubebuilder:validation:Optional
+	DestinationSchema *string `json:"destinationSchema" tf:"destination_schema,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	DestinationTable *string `json:"destinationTable,omitempty" tf:"destination_table,omitempty"`
+
+	// The name of default catalog in Unity Catalog. Change of this parameter forces recreation of the pipeline if you switch from  (Conflicts with storage).
+	// +kubebuilder:validation:Optional
+	SourceCatalog *string `json:"sourceCatalog,omitempty" tf:"source_catalog,omitempty"`
+
+	// The default schema (database) where tables are read from or published to. The presence of this attribute implies that the pipeline is in direct publishing mode.
+	// +kubebuilder:validation:Optional
+	SourceSchema *string `json:"sourceSchema,omitempty" tf:"source_schema,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	SourceTable *string `json:"sourceTable" tf:"source_table,omitempty"`
+
+	// Configuration settings to control the ingestion of tables. These settings are applied to all tables in the pipeline.
+	// +kubebuilder:validation:Optional
+	TableConfiguration []TableTableConfigurationParameters `json:"tableConfiguration,omitempty" tf:"table_configuration,omitempty"`
+}
+
 type TableTableConfigurationInitParameters struct {
 	ExcludeColumns []*string `json:"excludeColumns,omitempty" tf:"exclude_columns,omitempty"`
 
@@ -2205,6 +2404,8 @@ type TableTableConfigurationInitParameters struct {
 	ScdType *string `json:"scdType,omitempty" tf:"scd_type,omitempty"`
 
 	SequenceBy []*string `json:"sequenceBy,omitempty" tf:"sequence_by,omitempty"`
+
+	WorkdayReportParameters []TableTableConfigurationWorkdayReportParametersInitParameters `json:"workdayReportParameters,omitempty" tf:"workday_report_parameters,omitempty"`
 }
 
 type TableTableConfigurationObservation struct {
@@ -2221,6 +2422,8 @@ type TableTableConfigurationObservation struct {
 	ScdType *string `json:"scdType,omitempty" tf:"scd_type,omitempty"`
 
 	SequenceBy []*string `json:"sequenceBy,omitempty" tf:"sequence_by,omitempty"`
+
+	WorkdayReportParameters []TableTableConfigurationWorkdayReportParametersObservation `json:"workdayReportParameters,omitempty" tf:"workday_report_parameters,omitempty"`
 }
 
 type TableTableConfigurationParameters struct {
@@ -2245,6 +2448,9 @@ type TableTableConfigurationParameters struct {
 
 	// +kubebuilder:validation:Optional
 	SequenceBy []*string `json:"sequenceBy,omitempty" tf:"sequence_by,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	WorkdayReportParameters []TableTableConfigurationWorkdayReportParametersParameters `json:"workdayReportParameters,omitempty" tf:"workday_report_parameters,omitempty"`
 }
 
 type TableTableConfigurationQueryBasedConnectorConfigInitParameters struct {
@@ -2273,6 +2479,89 @@ type TableTableConfigurationQueryBasedConnectorConfigParameters struct {
 
 	// +kubebuilder:validation:Optional
 	HardDeletionSyncMinIntervalInSeconds *float64 `json:"hardDeletionSyncMinIntervalInSeconds,omitempty" tf:"hard_deletion_sync_min_interval_in_seconds,omitempty"`
+}
+
+type TableTableConfigurationWorkdayReportParametersInitParameters struct {
+	Incremental *bool `json:"incremental,omitempty" tf:"incremental,omitempty"`
+
+	// +mapType=granular
+	Parameters map[string]*string `json:"parameters,omitempty" tf:"parameters,omitempty"`
+
+	ReportParameters []TableConfigurationWorkdayReportParametersReportParametersInitParameters `json:"reportParameters,omitempty" tf:"report_parameters,omitempty"`
+}
+
+type TableTableConfigurationWorkdayReportParametersObservation struct {
+	Incremental *bool `json:"incremental,omitempty" tf:"incremental,omitempty"`
+
+	// +mapType=granular
+	Parameters map[string]*string `json:"parameters,omitempty" tf:"parameters,omitempty"`
+
+	ReportParameters []TableConfigurationWorkdayReportParametersReportParametersObservation `json:"reportParameters,omitempty" tf:"report_parameters,omitempty"`
+}
+
+type TableTableConfigurationWorkdayReportParametersParameters struct {
+
+	// +kubebuilder:validation:Optional
+	Incremental *bool `json:"incremental,omitempty" tf:"incremental,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	// +mapType=granular
+	Parameters map[string]*string `json:"parameters,omitempty" tf:"parameters,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	ReportParameters []TableConfigurationWorkdayReportParametersReportParametersParameters `json:"reportParameters,omitempty" tf:"report_parameters,omitempty"`
+}
+
+type WorkdayReportParametersInitParameters struct {
+	Incremental *bool `json:"incremental,omitempty" tf:"incremental,omitempty"`
+
+	// +mapType=granular
+	Parameters map[string]*string `json:"parameters,omitempty" tf:"parameters,omitempty"`
+
+	ReportParameters []ReportParametersInitParameters `json:"reportParameters,omitempty" tf:"report_parameters,omitempty"`
+}
+
+type WorkdayReportParametersObservation struct {
+	Incremental *bool `json:"incremental,omitempty" tf:"incremental,omitempty"`
+
+	// +mapType=granular
+	Parameters map[string]*string `json:"parameters,omitempty" tf:"parameters,omitempty"`
+
+	ReportParameters []ReportParametersObservation `json:"reportParameters,omitempty" tf:"report_parameters,omitempty"`
+}
+
+type WorkdayReportParametersParameters struct {
+
+	// +kubebuilder:validation:Optional
+	Incremental *bool `json:"incremental,omitempty" tf:"incremental,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	// +mapType=granular
+	Parameters map[string]*string `json:"parameters,omitempty" tf:"parameters,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	ReportParameters []ReportParametersParameters `json:"reportParameters,omitempty" tf:"report_parameters,omitempty"`
+}
+
+type WorkdayReportParametersReportParametersInitParameters struct {
+	Key *string `json:"key,omitempty" tf:"key,omitempty"`
+
+	Value *string `json:"value,omitempty" tf:"value,omitempty"`
+}
+
+type WorkdayReportParametersReportParametersObservation struct {
+	Key *string `json:"key,omitempty" tf:"key,omitempty"`
+
+	Value *string `json:"value,omitempty" tf:"value,omitempty"`
+}
+
+type WorkdayReportParametersReportParametersParameters struct {
+
+	// +kubebuilder:validation:Optional
+	Key *string `json:"key,omitempty" tf:"key,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	Value *string `json:"value,omitempty" tf:"value,omitempty"`
 }
 
 // PipelineSpec defines the desired state of Pipeline

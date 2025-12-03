@@ -83,6 +83,8 @@ spec:
                             to using UNPAUSED as a value for pause_status.
                           type: string
                         taskRetryMode:
+                          description: 'Controls task level retry behaviour. Allowed
+                            values are:'
                           type: string
                       type: object
                     type: array
@@ -234,7 +236,7 @@ spec:
                                   Each version comes with a specific Python version
                                   and a set of Python packages.
                                 type: string
-                              jarDependencies:
+                              javaDependencies:
                                 description: (list of strings) List of pip dependencies,
                                   as supported by the version of pip in this environment.
                                   Each dependency is a pip requirement file line.  See
@@ -698,6 +700,20 @@ spec:
                                             type: string
                                         type: object
                                       type: array
+                                    providerConfig:
+                                      description: 'Configure the provider for management
+                                        through account provider. This block consists
+                                        of the following fields:'
+                                      items:
+                                        properties:
+                                          workspaceId:
+                                            description: Workspace ID which the resource
+                                              belongs to. This workspace must be part
+                                              of the account which the provider is
+                                              configured with.
+                                            type: string
+                                        type: object
+                                      type: array
                                     pypi:
                                       items:
                                         properties:
@@ -725,6 +741,20 @@ spec:
                                   notified when an event defined in webhook_notifications
                                   is triggered.
                                 type: string
+                              providerConfig:
+                                description: 'Configure the provider for management
+                                  through account provider. This block consists of
+                                  the following fields:'
+                                items:
+                                  properties:
+                                    workspaceId:
+                                      description: Workspace ID which the resource
+                                        belongs to. This workspace must be part of
+                                        the account which the provider is configured
+                                        with.
+                                      type: string
+                                  type: object
+                                type: array
                               remoteDiskThroughput:
                                 type: number
                               runtimeEngine:
@@ -804,6 +834,19 @@ spec:
                                   type: string
                                 type: array
                               repo:
+                                type: string
+                            type: object
+                          type: array
+                        providerConfig:
+                          description: 'Configure the provider for management through
+                            account provider. This block consists of the following
+                            fields:'
+                          items:
+                            properties:
+                              workspaceId:
+                                description: Workspace ID which the resource belongs
+                                  to. This workspace must be part of the account which
+                                  the provider is configured with.
                                 type: string
                             type: object
                           type: array
@@ -1172,6 +1215,20 @@ spec:
                                       type: string
                                   type: object
                                 type: array
+                              providerConfig:
+                                description: 'Configure the provider for management
+                                  through account provider. This block consists of
+                                  the following fields:'
+                                items:
+                                  properties:
+                                    workspaceId:
+                                      description: Workspace ID which the resource
+                                        belongs to. This workspace must be part of
+                                        the account which the provider is configured
+                                        with.
+                                      type: string
+                                  type: object
+                                type: array
                               pypi:
                                 items:
                                   properties:
@@ -1197,6 +1254,19 @@ spec:
                           description: ID of the system notification that is notified
                             when an event defined in webhook_notifications is triggered.
                           type: string
+                        providerConfig:
+                          description: 'Configure the provider for management through
+                            account provider. This block consists of the following
+                            fields:'
+                          items:
+                            properties:
+                              workspaceId:
+                                description: Workspace ID which the resource belongs
+                                  to. This workspace must be part of the account which
+                                  the provider is configured with.
+                                type: string
+                            type: object
+                          type: array
                         remoteDiskThroughput:
                           type: number
                         runtimeEngine:
@@ -1409,6 +1479,18 @@ spec:
                           type: boolean
                         pipelineId:
                           description: The pipeline's unique ID.
+                          type: string
+                      type: object
+                    type: array
+                  providerConfig:
+                    description: 'Configure the provider for management through account
+                      provider. This block consists of the following fields:'
+                    items:
+                      properties:
+                        workspaceId:
+                          description: Workspace ID which the resource belongs to.
+                            This workspace must be part of the account which the provider
+                            is configured with.
                           type: string
                       type: object
                     type: array
@@ -1767,6 +1849,8 @@ spec:
                         disableAutoOptimization:
                           description: A flag to disable auto optimization in serverless
                             tasks.
+                          type: boolean
+                        disabled:
                           type: boolean
                         emailNotifications:
                           description: (List) An optional set of email addresses notified
@@ -2150,6 +2234,8 @@ spec:
                                       description: A flag to disable auto optimization
                                         in serverless tasks.
                                       type: boolean
+                                    disabled:
+                                      type: boolean
                                     emailNotifications:
                                       description: (List) An optional set of email
                                         addresses notified when runs of this job begins,
@@ -2345,6 +2431,22 @@ spec:
                                                     type: string
                                                   type: array
                                                 repo:
+                                                  type: string
+                                              type: object
+                                            type: array
+                                          providerConfig:
+                                            description: 'Configure the provider for
+                                              management through account provider.
+                                              This block consists of the following
+                                              fields:'
+                                            items:
+                                              properties:
+                                                workspaceId:
+                                                  description: Workspace ID which
+                                                    the resource belongs to. This
+                                                    workspace must be part of the
+                                                    account which the provider is
+                                                    configured with.
                                                   type: string
                                               type: object
                                             type: array
@@ -2729,6 +2831,23 @@ spec:
                                                         type: string
                                                     type: object
                                                   type: array
+                                                providerConfig:
+                                                  description: 'Configure the provider
+                                                    for management through account
+                                                    provider. This block consists
+                                                    of the following fields:'
+                                                  items:
+                                                    properties:
+                                                      workspaceId:
+                                                        description: Workspace ID
+                                                          which the resource belongs
+                                                          to. This workspace must
+                                                          be part of the account which
+                                                          the provider is configured
+                                                          with.
+                                                        type: string
+                                                    type: object
+                                                  type: array
                                                 pypi:
                                                   items:
                                                     properties:
@@ -2756,6 +2875,22 @@ spec:
                                               that is notified when an event defined
                                               in webhook_notifications is triggered.
                                             type: string
+                                          providerConfig:
+                                            description: 'Configure the provider for
+                                              management through account provider.
+                                              This block consists of the following
+                                              fields:'
+                                            items:
+                                              properties:
+                                                workspaceId:
+                                                  description: Workspace ID which
+                                                    the resource belongs to. This
+                                                    workspace must be part of the
+                                                    account which the provider is
+                                                    configured with.
+                                                  type: string
+                                              type: object
+                                            type: array
                                           remoteDiskThroughput:
                                             type: number
                                           runtimeEngine:
@@ -3497,6 +3632,20 @@ spec:
                                       type: string
                                   type: object
                                 type: array
+                              providerConfig:
+                                description: 'Configure the provider for management
+                                  through account provider. This block consists of
+                                  the following fields:'
+                                items:
+                                  properties:
+                                    workspaceId:
+                                      description: Workspace ID which the resource
+                                        belongs to. This workspace must be part of
+                                        the account which the provider is configured
+                                        with.
+                                      type: string
+                                  type: object
+                                type: array
                               pypi:
                                 items:
                                   properties:
@@ -3868,6 +4017,20 @@ spec:
                                             type: string
                                         type: object
                                       type: array
+                                    providerConfig:
+                                      description: 'Configure the provider for management
+                                        through account provider. This block consists
+                                        of the following fields:'
+                                      items:
+                                        properties:
+                                          workspaceId:
+                                            description: Workspace ID which the resource
+                                              belongs to. This workspace must be part
+                                              of the account which the provider is
+                                              configured with.
+                                            type: string
+                                        type: object
+                                      type: array
                                     pypi:
                                       items:
                                         properties:
@@ -3895,6 +4058,20 @@ spec:
                                   notified when an event defined in webhook_notifications
                                   is triggered.
                                 type: string
+                              providerConfig:
+                                description: 'Configure the provider for management
+                                  through account provider. This block consists of
+                                  the following fields:'
+                                items:
+                                  properties:
+                                    workspaceId:
+                                      description: Workspace ID which the resource
+                                        belongs to. This workspace must be part of
+                                        the account which the provider is configured
+                                        with.
+                                      type: string
+                                  type: object
+                                type: array
                               remoteDiskThroughput:
                                 type: number
                               runtimeEngine:
@@ -4981,6 +5158,37 @@ spec:
                                 type: number
                             type: object
                           type: array
+                        model:
+                          items:
+                            properties:
+                              aliases:
+                                items:
+                                  type: string
+                                type: array
+                              condition:
+                                description: The table(s) condition based on which
+                                  to trigger a job run.  Possible values are ANY_UPDATED,
+                                  ALL_UPDATED.
+                                type: string
+                              minTimeBetweenTriggersSeconds:
+                                description: If set, the trigger starts a run only
+                                  after the specified amount of time passed since
+                                  the last time the trigger fired. The minimum allowed
+                                  value is 60 seconds.
+                                type: number
+                              securableName:
+                                description: An optional name for the job. The default
+                                  value is Untitled.
+                                type: string
+                              waitAfterLastChangeSeconds:
+                                description: If set, the trigger starts a run only
+                                  after no file activity has occurred for the specified
+                                  amount of time. This makes it possible to wait for
+                                  a batch of incoming files to arrive before triggering
+                                  a run. The minimum allowed value is 60 seconds.
+                                type: number
+                            type: object
+                          type: array
                         pauseStatus:
                           description: Indicate whether this trigger is paused or
                             not. Either PAUSED or UNPAUSED. When the pause_status
@@ -4994,41 +5202,23 @@ spec:
                             properties:
                               interval:
                                 description: Specifies the interval at which the job
-                                  should run. This value is required.
+                                  should run.
                                 type: number
                               unit:
-                                description: Options are {"DAYS", "HOURS", "WEEKS"}.
+                                description: 'The unit of time for the interval.  Possible
+                                  values are: DAYS, HOURS, WEEKS.'
                                 type: string
-                            type: object
-                          type: array
-                        table:
-                          items:
-                            properties:
-                              condition:
-                                type: string
-                              minTimeBetweenTriggersSeconds:
-                                description: If set, the trigger starts a run only
-                                  after the specified amount of time passed since
-                                  the last time the trigger fired. The minimum allowed
-                                  value is 60 seconds.
-                                type: number
-                              tableNames:
-                                items:
-                                  type: string
-                                type: array
-                              waitAfterLastChangeSeconds:
-                                description: If set, the trigger starts a run only
-                                  after no file activity has occurred for the specified
-                                  amount of time. This makes it possible to wait for
-                                  a batch of incoming files to arrive before triggering
-                                  a run. The minimum allowed value is 60 seconds.
-                                type: number
                             type: object
                           type: array
                         tableUpdate:
+                          description: 'configuration block to define a trigger for
+                            Table Updates consisting of following attributes:'
                           items:
                             properties:
                               condition:
+                                description: The table(s) condition based on which
+                                  to trigger a job run.  Possible values are ANY_UPDATED,
+                                  ALL_UPDATED.
                                 type: string
                               minTimeBetweenTriggersSeconds:
                                 description: If set, the trigger starts a run only
@@ -5037,6 +5227,9 @@ spec:
                                   value is 60 seconds.
                                 type: number
                               tableNames:
+                                description: A non-empty list of tables to monitor
+                                  for changes. The table name must be in the format
+                                  catalog_name.schema_name.table_name.
                                 items:
                                   type: string
                                 type: array
@@ -5167,6 +5360,8 @@ spec:
                             to using UNPAUSED as a value for pause_status.
                           type: string
                         taskRetryMode:
+                          description: 'Controls task level retry behaviour. Allowed
+                            values are:'
                           type: string
                       type: object
                     type: array
@@ -5318,7 +5513,7 @@ spec:
                                   Each version comes with a specific Python version
                                   and a set of Python packages.
                                 type: string
-                              jarDependencies:
+                              javaDependencies:
                                 description: (list of strings) List of pip dependencies,
                                   as supported by the version of pip in this environment.
                                   Each dependency is a pip requirement file line.  See
@@ -5784,6 +5979,20 @@ spec:
                                             type: string
                                         type: object
                                       type: array
+                                    providerConfig:
+                                      description: 'Configure the provider for management
+                                        through account provider. This block consists
+                                        of the following fields:'
+                                      items:
+                                        properties:
+                                          workspaceId:
+                                            description: Workspace ID which the resource
+                                              belongs to. This workspace must be part
+                                              of the account which the provider is
+                                              configured with.
+                                            type: string
+                                        type: object
+                                      type: array
                                     pypi:
                                       items:
                                         properties:
@@ -5811,6 +6020,20 @@ spec:
                                   notified when an event defined in webhook_notifications
                                   is triggered.
                                 type: string
+                              providerConfig:
+                                description: 'Configure the provider for management
+                                  through account provider. This block consists of
+                                  the following fields:'
+                                items:
+                                  properties:
+                                    workspaceId:
+                                      description: Workspace ID which the resource
+                                        belongs to. This workspace must be part of
+                                        the account which the provider is configured
+                                        with.
+                                      type: string
+                                  type: object
+                                type: array
                               remoteDiskThroughput:
                                 type: number
                               runtimeEngine:
@@ -5890,6 +6113,19 @@ spec:
                                   type: string
                                 type: array
                               repo:
+                                type: string
+                            type: object
+                          type: array
+                        providerConfig:
+                          description: 'Configure the provider for management through
+                            account provider. This block consists of the following
+                            fields:'
+                          items:
+                            properties:
+                              workspaceId:
+                                description: Workspace ID which the resource belongs
+                                  to. This workspace must be part of the account which
+                                  the provider is configured with.
                                 type: string
                             type: object
                           type: array
@@ -6260,6 +6496,20 @@ spec:
                                       type: string
                                   type: object
                                 type: array
+                              providerConfig:
+                                description: 'Configure the provider for management
+                                  through account provider. This block consists of
+                                  the following fields:'
+                                items:
+                                  properties:
+                                    workspaceId:
+                                      description: Workspace ID which the resource
+                                        belongs to. This workspace must be part of
+                                        the account which the provider is configured
+                                        with.
+                                      type: string
+                                  type: object
+                                type: array
                               pypi:
                                 items:
                                   properties:
@@ -6285,6 +6535,19 @@ spec:
                           description: ID of the system notification that is notified
                             when an event defined in webhook_notifications is triggered.
                           type: string
+                        providerConfig:
+                          description: 'Configure the provider for management through
+                            account provider. This block consists of the following
+                            fields:'
+                          items:
+                            properties:
+                              workspaceId:
+                                description: Workspace ID which the resource belongs
+                                  to. This workspace must be part of the account which
+                                  the provider is configured with.
+                                type: string
+                            type: object
+                          type: array
                         remoteDiskThroughput:
                           type: number
                         runtimeEngine:
@@ -6497,6 +6760,18 @@ spec:
                           type: boolean
                         pipelineId:
                           description: The pipeline's unique ID.
+                          type: string
+                      type: object
+                    type: array
+                  providerConfig:
+                    description: 'Configure the provider for management through account
+                      provider. This block consists of the following fields:'
+                    items:
+                      properties:
+                        workspaceId:
+                          description: Workspace ID which the resource belongs to.
+                            This workspace must be part of the account which the provider
+                            is configured with.
                           type: string
                       type: object
                     type: array
@@ -6855,6 +7130,8 @@ spec:
                         disableAutoOptimization:
                           description: A flag to disable auto optimization in serverless
                             tasks.
+                          type: boolean
+                        disabled:
                           type: boolean
                         emailNotifications:
                           description: (List) An optional set of email addresses notified
@@ -7238,6 +7515,8 @@ spec:
                                       description: A flag to disable auto optimization
                                         in serverless tasks.
                                       type: boolean
+                                    disabled:
+                                      type: boolean
                                     emailNotifications:
                                       description: (List) An optional set of email
                                         addresses notified when runs of this job begins,
@@ -7433,6 +7712,22 @@ spec:
                                                     type: string
                                                   type: array
                                                 repo:
+                                                  type: string
+                                              type: object
+                                            type: array
+                                          providerConfig:
+                                            description: 'Configure the provider for
+                                              management through account provider.
+                                              This block consists of the following
+                                              fields:'
+                                            items:
+                                              properties:
+                                                workspaceId:
+                                                  description: Workspace ID which
+                                                    the resource belongs to. This
+                                                    workspace must be part of the
+                                                    account which the provider is
+                                                    configured with.
                                                   type: string
                                               type: object
                                             type: array
@@ -7819,6 +8114,23 @@ spec:
                                                         type: string
                                                     type: object
                                                   type: array
+                                                providerConfig:
+                                                  description: 'Configure the provider
+                                                    for management through account
+                                                    provider. This block consists
+                                                    of the following fields:'
+                                                  items:
+                                                    properties:
+                                                      workspaceId:
+                                                        description: Workspace ID
+                                                          which the resource belongs
+                                                          to. This workspace must
+                                                          be part of the account which
+                                                          the provider is configured
+                                                          with.
+                                                        type: string
+                                                    type: object
+                                                  type: array
                                                 pypi:
                                                   items:
                                                     properties:
@@ -7846,6 +8158,22 @@ spec:
                                               that is notified when an event defined
                                               in webhook_notifications is triggered.
                                             type: string
+                                          providerConfig:
+                                            description: 'Configure the provider for
+                                              management through account provider.
+                                              This block consists of the following
+                                              fields:'
+                                            items:
+                                              properties:
+                                                workspaceId:
+                                                  description: Workspace ID which
+                                                    the resource belongs to. This
+                                                    workspace must be part of the
+                                                    account which the provider is
+                                                    configured with.
+                                                  type: string
+                                              type: object
+                                            type: array
                                           remoteDiskThroughput:
                                             type: number
                                           runtimeEngine:
@@ -8587,6 +8915,20 @@ spec:
                                       type: string
                                   type: object
                                 type: array
+                              providerConfig:
+                                description: 'Configure the provider for management
+                                  through account provider. This block consists of
+                                  the following fields:'
+                                items:
+                                  properties:
+                                    workspaceId:
+                                      description: Workspace ID which the resource
+                                        belongs to. This workspace must be part of
+                                        the account which the provider is configured
+                                        with.
+                                      type: string
+                                  type: object
+                                type: array
                               pypi:
                                 items:
                                   properties:
@@ -8960,6 +9302,20 @@ spec:
                                             type: string
                                         type: object
                                       type: array
+                                    providerConfig:
+                                      description: 'Configure the provider for management
+                                        through account provider. This block consists
+                                        of the following fields:'
+                                      items:
+                                        properties:
+                                          workspaceId:
+                                            description: Workspace ID which the resource
+                                              belongs to. This workspace must be part
+                                              of the account which the provider is
+                                              configured with.
+                                            type: string
+                                        type: object
+                                      type: array
                                     pypi:
                                       items:
                                         properties:
@@ -8987,6 +9343,20 @@ spec:
                                   notified when an event defined in webhook_notifications
                                   is triggered.
                                 type: string
+                              providerConfig:
+                                description: 'Configure the provider for management
+                                  through account provider. This block consists of
+                                  the following fields:'
+                                items:
+                                  properties:
+                                    workspaceId:
+                                      description: Workspace ID which the resource
+                                        belongs to. This workspace must be part of
+                                        the account which the provider is configured
+                                        with.
+                                      type: string
+                                  type: object
+                                type: array
                               remoteDiskThroughput:
                                 type: number
                               runtimeEngine:
@@ -10073,6 +10443,37 @@ spec:
                                 type: number
                             type: object
                           type: array
+                        model:
+                          items:
+                            properties:
+                              aliases:
+                                items:
+                                  type: string
+                                type: array
+                              condition:
+                                description: The table(s) condition based on which
+                                  to trigger a job run.  Possible values are ANY_UPDATED,
+                                  ALL_UPDATED.
+                                type: string
+                              minTimeBetweenTriggersSeconds:
+                                description: If set, the trigger starts a run only
+                                  after the specified amount of time passed since
+                                  the last time the trigger fired. The minimum allowed
+                                  value is 60 seconds.
+                                type: number
+                              securableName:
+                                description: An optional name for the job. The default
+                                  value is Untitled.
+                                type: string
+                              waitAfterLastChangeSeconds:
+                                description: If set, the trigger starts a run only
+                                  after no file activity has occurred for the specified
+                                  amount of time. This makes it possible to wait for
+                                  a batch of incoming files to arrive before triggering
+                                  a run. The minimum allowed value is 60 seconds.
+                                type: number
+                            type: object
+                          type: array
                         pauseStatus:
                           description: Indicate whether this trigger is paused or
                             not. Either PAUSED or UNPAUSED. When the pause_status
@@ -10086,41 +10487,23 @@ spec:
                             properties:
                               interval:
                                 description: Specifies the interval at which the job
-                                  should run. This value is required.
+                                  should run.
                                 type: number
                               unit:
-                                description: Options are {"DAYS", "HOURS", "WEEKS"}.
+                                description: 'The unit of time for the interval.  Possible
+                                  values are: DAYS, HOURS, WEEKS.'
                                 type: string
-                            type: object
-                          type: array
-                        table:
-                          items:
-                            properties:
-                              condition:
-                                type: string
-                              minTimeBetweenTriggersSeconds:
-                                description: If set, the trigger starts a run only
-                                  after the specified amount of time passed since
-                                  the last time the trigger fired. The minimum allowed
-                                  value is 60 seconds.
-                                type: number
-                              tableNames:
-                                items:
-                                  type: string
-                                type: array
-                              waitAfterLastChangeSeconds:
-                                description: If set, the trigger starts a run only
-                                  after no file activity has occurred for the specified
-                                  amount of time. This makes it possible to wait for
-                                  a batch of incoming files to arrive before triggering
-                                  a run. The minimum allowed value is 60 seconds.
-                                type: number
                             type: object
                           type: array
                         tableUpdate:
+                          description: 'configuration block to define a trigger for
+                            Table Updates consisting of following attributes:'
                           items:
                             properties:
                               condition:
+                                description: The table(s) condition based on which
+                                  to trigger a job run.  Possible values are ANY_UPDATED,
+                                  ALL_UPDATED.
                                 type: string
                               minTimeBetweenTriggersSeconds:
                                 description: If set, the trigger starts a run only
@@ -10129,6 +10512,9 @@ spec:
                                   value is 60 seconds.
                                 type: number
                               tableNames:
+                                description: A non-empty list of tables to monitor
+                                  for changes. The table name must be in the format
+                                  catalog_name.schema_name.table_name.
                                 items:
                                   type: string
                                 type: array
@@ -10309,6 +10695,8 @@ spec:
                             to using UNPAUSED as a value for pause_status.
                           type: string
                         taskRetryMode:
+                          description: 'Controls task level retry behaviour. Allowed
+                            values are:'
                           type: string
                       type: object
                     type: array
@@ -10460,7 +10848,7 @@ spec:
                                   Each version comes with a specific Python version
                                   and a set of Python packages.
                                 type: string
-                              jarDependencies:
+                              javaDependencies:
                                 description: (list of strings) List of pip dependencies,
                                   as supported by the version of pip in this environment.
                                   Each dependency is a pip requirement file line.  See
@@ -10914,6 +11302,20 @@ spec:
                                             type: string
                                         type: object
                                       type: array
+                                    providerConfig:
+                                      description: 'Configure the provider for management
+                                        through account provider. This block consists
+                                        of the following fields:'
+                                      items:
+                                        properties:
+                                          workspaceId:
+                                            description: Workspace ID which the resource
+                                              belongs to. This workspace must be part
+                                              of the account which the provider is
+                                              configured with.
+                                            type: string
+                                        type: object
+                                      type: array
                                     pypi:
                                       items:
                                         properties:
@@ -10941,6 +11343,20 @@ spec:
                                   notified when an event defined in webhook_notifications
                                   is triggered.
                                 type: string
+                              providerConfig:
+                                description: 'Configure the provider for management
+                                  through account provider. This block consists of
+                                  the following fields:'
+                                items:
+                                  properties:
+                                    workspaceId:
+                                      description: Workspace ID which the resource
+                                        belongs to. This workspace must be part of
+                                        the account which the provider is configured
+                                        with.
+                                      type: string
+                                  type: object
+                                type: array
                               remoteDiskThroughput:
                                 type: number
                               runtimeEngine:
@@ -11020,6 +11436,19 @@ spec:
                                   type: string
                                 type: array
                               repo:
+                                type: string
+                            type: object
+                          type: array
+                        providerConfig:
+                          description: 'Configure the provider for management through
+                            account provider. This block consists of the following
+                            fields:'
+                          items:
+                            properties:
+                              workspaceId:
+                                description: Workspace ID which the resource belongs
+                                  to. This workspace must be part of the account which
+                                  the provider is configured with.
                                 type: string
                             type: object
                           type: array
@@ -11374,6 +11803,20 @@ spec:
                                       type: string
                                   type: object
                                 type: array
+                              providerConfig:
+                                description: 'Configure the provider for management
+                                  through account provider. This block consists of
+                                  the following fields:'
+                                items:
+                                  properties:
+                                    workspaceId:
+                                      description: Workspace ID which the resource
+                                        belongs to. This workspace must be part of
+                                        the account which the provider is configured
+                                        with.
+                                      type: string
+                                  type: object
+                                type: array
                               pypi:
                                 items:
                                   properties:
@@ -11399,6 +11842,19 @@ spec:
                           description: ID of the system notification that is notified
                             when an event defined in webhook_notifications is triggered.
                           type: string
+                        providerConfig:
+                          description: 'Configure the provider for management through
+                            account provider. This block consists of the following
+                            fields:'
+                          items:
+                            properties:
+                              workspaceId:
+                                description: Workspace ID which the resource belongs
+                                  to. This workspace must be part of the account which
+                                  the provider is configured with.
+                                type: string
+                            type: object
+                          type: array
                         remoteDiskThroughput:
                           type: number
                         runtimeEngine:
@@ -11529,6 +11985,18 @@ spec:
                           type: boolean
                         pipelineId:
                           description: The pipeline's unique ID.
+                          type: string
+                      type: object
+                    type: array
+                  providerConfig:
+                    description: 'Configure the provider for management through account
+                      provider. This block consists of the following fields:'
+                    items:
+                      properties:
+                        workspaceId:
+                          description: Workspace ID which the resource belongs to.
+                            This workspace must be part of the account which the provider
+                            is configured with.
                           type: string
                       type: object
                     type: array
@@ -11888,6 +12356,8 @@ spec:
                           description: A flag to disable auto optimization in serverless
                             tasks.
                           type: boolean
+                        disabled:
+                          type: boolean
                         emailNotifications:
                           description: (List) An optional set of email addresses notified
                             when runs of this job begins, completes or fails. The
@@ -12188,6 +12658,8 @@ spec:
                                       description: A flag to disable auto optimization
                                         in serverless tasks.
                                       type: boolean
+                                    disabled:
+                                      type: boolean
                                     emailNotifications:
                                       description: (List) An optional set of email
                                         addresses notified when runs of this job begins,
@@ -12383,6 +12855,22 @@ spec:
                                                     type: string
                                                   type: array
                                                 repo:
+                                                  type: string
+                                              type: object
+                                            type: array
+                                          providerConfig:
+                                            description: 'Configure the provider for
+                                              management through account provider.
+                                              This block consists of the following
+                                              fields:'
+                                            items:
+                                              properties:
+                                                workspaceId:
+                                                  description: Workspace ID which
+                                                    the resource belongs to. This
+                                                    workspace must be part of the
+                                                    account which the provider is
+                                                    configured with.
                                                   type: string
                                               type: object
                                             type: array
@@ -12752,6 +13240,23 @@ spec:
                                                         type: string
                                                     type: object
                                                   type: array
+                                                providerConfig:
+                                                  description: 'Configure the provider
+                                                    for management through account
+                                                    provider. This block consists
+                                                    of the following fields:'
+                                                  items:
+                                                    properties:
+                                                      workspaceId:
+                                                        description: Workspace ID
+                                                          which the resource belongs
+                                                          to. This workspace must
+                                                          be part of the account which
+                                                          the provider is configured
+                                                          with.
+                                                        type: string
+                                                    type: object
+                                                  type: array
                                                 pypi:
                                                   items:
                                                     properties:
@@ -12779,6 +13284,22 @@ spec:
                                               that is notified when an event defined
                                               in webhook_notifications is triggered.
                                             type: string
+                                          providerConfig:
+                                            description: 'Configure the provider for
+                                              management through account provider.
+                                              This block consists of the following
+                                              fields:'
+                                            items:
+                                              properties:
+                                                workspaceId:
+                                                  description: Workspace ID which
+                                                    the resource belongs to. This
+                                                    workspace must be part of the
+                                                    account which the provider is
+                                                    configured with.
+                                                  type: string
+                                              type: object
+                                            type: array
                                           remoteDiskThroughput:
                                             type: number
                                           runtimeEngine:
@@ -13520,6 +14041,20 @@ spec:
                                       type: string
                                   type: object
                                 type: array
+                              providerConfig:
+                                description: 'Configure the provider for management
+                                  through account provider. This block consists of
+                                  the following fields:'
+                                items:
+                                  properties:
+                                    workspaceId:
+                                      description: Workspace ID which the resource
+                                        belongs to. This workspace must be part of
+                                        the account which the provider is configured
+                                        with.
+                                      type: string
+                                  type: object
+                                type: array
                               pypi:
                                 items:
                                   properties:
@@ -13877,6 +14412,20 @@ spec:
                                             type: string
                                         type: object
                                       type: array
+                                    providerConfig:
+                                      description: 'Configure the provider for management
+                                        through account provider. This block consists
+                                        of the following fields:'
+                                      items:
+                                        properties:
+                                          workspaceId:
+                                            description: Workspace ID which the resource
+                                              belongs to. This workspace must be part
+                                              of the account which the provider is
+                                              configured with.
+                                            type: string
+                                        type: object
+                                      type: array
                                     pypi:
                                       items:
                                         properties:
@@ -13904,6 +14453,20 @@ spec:
                                   notified when an event defined in webhook_notifications
                                   is triggered.
                                 type: string
+                              providerConfig:
+                                description: 'Configure the provider for management
+                                  through account provider. This block consists of
+                                  the following fields:'
+                                items:
+                                  properties:
+                                    workspaceId:
+                                      description: Workspace ID which the resource
+                                        belongs to. This workspace must be part of
+                                        the account which the provider is configured
+                                        with.
+                                      type: string
+                                  type: object
+                                type: array
                               remoteDiskThroughput:
                                 type: number
                               runtimeEngine:
@@ -14495,6 +15058,37 @@ spec:
                                 type: number
                             type: object
                           type: array
+                        model:
+                          items:
+                            properties:
+                              aliases:
+                                items:
+                                  type: string
+                                type: array
+                              condition:
+                                description: The table(s) condition based on which
+                                  to trigger a job run.  Possible values are ANY_UPDATED,
+                                  ALL_UPDATED.
+                                type: string
+                              minTimeBetweenTriggersSeconds:
+                                description: If set, the trigger starts a run only
+                                  after the specified amount of time passed since
+                                  the last time the trigger fired. The minimum allowed
+                                  value is 60 seconds.
+                                type: number
+                              securableName:
+                                description: An optional name for the job. The default
+                                  value is Untitled.
+                                type: string
+                              waitAfterLastChangeSeconds:
+                                description: If set, the trigger starts a run only
+                                  after no file activity has occurred for the specified
+                                  amount of time. This makes it possible to wait for
+                                  a batch of incoming files to arrive before triggering
+                                  a run. The minimum allowed value is 60 seconds.
+                                type: number
+                            type: object
+                          type: array
                         pauseStatus:
                           description: Indicate whether this trigger is paused or
                             not. Either PAUSED or UNPAUSED. When the pause_status
@@ -14508,41 +15102,23 @@ spec:
                             properties:
                               interval:
                                 description: Specifies the interval at which the job
-                                  should run. This value is required.
+                                  should run.
                                 type: number
                               unit:
-                                description: Options are {"DAYS", "HOURS", "WEEKS"}.
+                                description: 'The unit of time for the interval.  Possible
+                                  values are: DAYS, HOURS, WEEKS.'
                                 type: string
-                            type: object
-                          type: array
-                        table:
-                          items:
-                            properties:
-                              condition:
-                                type: string
-                              minTimeBetweenTriggersSeconds:
-                                description: If set, the trigger starts a run only
-                                  after the specified amount of time passed since
-                                  the last time the trigger fired. The minimum allowed
-                                  value is 60 seconds.
-                                type: number
-                              tableNames:
-                                items:
-                                  type: string
-                                type: array
-                              waitAfterLastChangeSeconds:
-                                description: If set, the trigger starts a run only
-                                  after no file activity has occurred for the specified
-                                  amount of time. This makes it possible to wait for
-                                  a batch of incoming files to arrive before triggering
-                                  a run. The minimum allowed value is 60 seconds.
-                                type: number
                             type: object
                           type: array
                         tableUpdate:
+                          description: 'configuration block to define a trigger for
+                            Table Updates consisting of following attributes:'
                           items:
                             properties:
                               condition:
+                                description: The table(s) condition based on which
+                                  to trigger a job run.  Possible values are ANY_UPDATED,
+                                  ALL_UPDATED.
                                 type: string
                               minTimeBetweenTriggersSeconds:
                                 description: If set, the trigger starts a run only
@@ -14551,6 +15127,9 @@ spec:
                                   value is 60 seconds.
                                 type: number
                               tableNames:
+                                description: A non-empty list of tables to monitor
+                                  for changes. The table name must be in the format
+                                  catalog_name.schema_name.table_name.
                                 items:
                                   type: string
                                 type: array

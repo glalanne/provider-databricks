@@ -4564,6 +4564,11 @@ func (in *MwsWorkspacesInitParameters) DeepCopyInto(out *MwsWorkspacesInitParame
 		*out = new(string)
 		**out = **in
 	}
+	if in.ExpectedWorkspaceStatus != nil {
+		in, out := &in.ExpectedWorkspaceStatus, &out.ExpectedWorkspaceStatus
+		*out = new(string)
+		**out = **in
+	}
 	if in.ExternalCustomerInfo != nil {
 		in, out := &in.ExternalCustomerInfo, &out.ExternalCustomerInfo
 		*out = make([]ExternalCustomerInfoInitParameters, len(*in))
@@ -4597,6 +4602,11 @@ func (in *MwsWorkspacesInitParameters) DeepCopyInto(out *MwsWorkspacesInitParame
 	}
 	if in.ManagedServicesCustomerManagedKeyID != nil {
 		in, out := &in.ManagedServicesCustomerManagedKeyID, &out.ManagedServicesCustomerManagedKeyID
+		*out = new(string)
+		**out = **in
+	}
+	if in.NetworkConnectivityConfigID != nil {
+		in, out := &in.NetworkConnectivityConfigID, &out.NetworkConnectivityConfigID
 		*out = new(string)
 		**out = **in
 	}
@@ -4787,6 +4797,11 @@ func (in *MwsWorkspacesObservation) DeepCopyInto(out *MwsWorkspacesObservation) 
 		*out = new(string)
 		**out = **in
 	}
+	if in.ExpectedWorkspaceStatus != nil {
+		in, out := &in.ExpectedWorkspaceStatus, &out.ExpectedWorkspaceStatus
+		*out = new(string)
+		**out = **in
+	}
 	if in.ExternalCustomerInfo != nil {
 		in, out := &in.ExternalCustomerInfo, &out.ExternalCustomerInfo
 		*out = make([]ExternalCustomerInfoObservation, len(*in))
@@ -4830,6 +4845,11 @@ func (in *MwsWorkspacesObservation) DeepCopyInto(out *MwsWorkspacesObservation) 
 	}
 	if in.ManagedServicesCustomerManagedKeyID != nil {
 		in, out := &in.ManagedServicesCustomerManagedKeyID, &out.ManagedServicesCustomerManagedKeyID
+		*out = new(string)
+		**out = **in
+	}
+	if in.NetworkConnectivityConfigID != nil {
+		in, out := &in.NetworkConnectivityConfigID, &out.NetworkConnectivityConfigID
 		*out = new(string)
 		**out = **in
 	}
@@ -4974,6 +4994,11 @@ func (in *MwsWorkspacesParameters) DeepCopyInto(out *MwsWorkspacesParameters) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.ExpectedWorkspaceStatus != nil {
+		in, out := &in.ExpectedWorkspaceStatus, &out.ExpectedWorkspaceStatus
+		*out = new(string)
+		**out = **in
+	}
 	if in.ExternalCustomerInfo != nil {
 		in, out := &in.ExternalCustomerInfo, &out.ExternalCustomerInfo
 		*out = make([]ExternalCustomerInfoParameters, len(*in))
@@ -5007,6 +5032,11 @@ func (in *MwsWorkspacesParameters) DeepCopyInto(out *MwsWorkspacesParameters) {
 	}
 	if in.ManagedServicesCustomerManagedKeyID != nil {
 		in, out := &in.ManagedServicesCustomerManagedKeyID, &out.ManagedServicesCustomerManagedKeyID
+		*out = new(string)
+		**out = **in
+	}
+	if in.NetworkConnectivityConfigID != nil {
+		in, out := &in.NetworkConnectivityConfigID, &out.NetworkConnectivityConfigID
 		*out = new(string)
 		**out = **in
 	}

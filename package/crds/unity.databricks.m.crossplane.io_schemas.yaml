@@ -172,9 +172,11 @@ spec:
                     x-kubernetes-map-type: granular
                   storageRoot:
                     description: Managed location of the schema. Location in cloud
-                      storage where data for managed tables will be stored. If not
-                      specified, the location will default to the catalog root location.
-                      Change forces creation of a new resource.
+                      storage where data for managed tables will be stored.  If the
+                      URL contains special characters, such as space, &, etc., they
+                      should be percent-encoded (space -> %20, etc.). If not specified,
+                      the location will default to the catalog root location. Change
+                      forces creation of a new resource.
                     type: string
                 type: object
               initProvider:
@@ -304,9 +306,11 @@ spec:
                     x-kubernetes-map-type: granular
                   storageRoot:
                     description: Managed location of the schema. Location in cloud
-                      storage where data for managed tables will be stored. If not
-                      specified, the location will default to the catalog root location.
-                      Change forces creation of a new resource.
+                      storage where data for managed tables will be stored.  If the
+                      URL contains special characters, such as space, &, etc., they
+                      should be percent-encoded (space -> %20, etc.). If not specified,
+                      the location will default to the catalog root location. Change
+                      forces creation of a new resource.
                     type: string
                 type: object
               managementPolicies:
@@ -417,9 +421,11 @@ spec:
                     type: string
                   storageRoot:
                     description: Managed location of the schema. Location in cloud
-                      storage where data for managed tables will be stored. If not
-                      specified, the location will default to the catalog root location.
-                      Change forces creation of a new resource.
+                      storage where data for managed tables will be stored.  If the
+                      URL contains special characters, such as space, &, etc., they
+                      should be percent-encoded (space -> %20, etc.). If not specified,
+                      the location will default to the catalog root location. Change
+                      forces creation of a new resource.
                     type: string
                 type: object
               conditions:

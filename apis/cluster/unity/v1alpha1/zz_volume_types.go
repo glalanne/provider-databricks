@@ -50,7 +50,7 @@ type VolumeInitParameters struct {
 	// +kubebuilder:validation:Optional
 	SchemaNameSelector *v1.Selector `json:"schemaNameSelector,omitempty" tf:"-"`
 
-	// Path inside an External Location. Only used for EXTERNAL Volumes. Change forces creation of a new resource.
+	// URL for the volume (should be inside of an existing External Location). Only used for EXTERNAL Volumes.  If the URL contains special characters, such as space, &, etc., they should be percent-encoded (space -> %20, etc.). Change forces creation of a new resource.
 	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/cluster/unity/v1alpha1.ExternalLocation
 	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/v2/pkg/resource.ExtractParamPath("url",false)
 	StorageLocation *string `json:"storageLocation,omitempty" tf:"storage_location,omitempty"`
@@ -87,7 +87,7 @@ type VolumeObservation struct {
 	// Name of parent Schema relative to parent Catalog. Change forces creation of a new resource.
 	SchemaName *string `json:"schemaName,omitempty" tf:"schema_name,omitempty"`
 
-	// Path inside an External Location. Only used for EXTERNAL Volumes. Change forces creation of a new resource.
+	// URL for the volume (should be inside of an existing External Location). Only used for EXTERNAL Volumes.  If the URL contains special characters, such as space, &, etc., they should be percent-encoded (space -> %20, etc.). Change forces creation of a new resource.
 	StorageLocation *string `json:"storageLocation,omitempty" tf:"storage_location,omitempty"`
 
 	// base file path for this Unity Catalog Volume in form of /Volumes/<catalog>/<schema>/<name>.
@@ -139,7 +139,7 @@ type VolumeParameters struct {
 	// +kubebuilder:validation:Optional
 	SchemaNameSelector *v1.Selector `json:"schemaNameSelector,omitempty" tf:"-"`
 
-	// Path inside an External Location. Only used for EXTERNAL Volumes. Change forces creation of a new resource.
+	// URL for the volume (should be inside of an existing External Location). Only used for EXTERNAL Volumes.  If the URL contains special characters, such as space, &, etc., they should be percent-encoded (space -> %20, etc.). Change forces creation of a new resource.
 	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/cluster/unity/v1alpha1.ExternalLocation
 	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/v2/pkg/resource.ExtractParamPath("url",false)
 	// +kubebuilder:validation:Optional

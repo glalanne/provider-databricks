@@ -13,39 +13,94 @@ import (
 	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
 )
 
-type RegisteredModelInitParameters struct {
-
-	// The name of the catalog where the schema and the registered model reside. Change of this parameter forces recreation of the resource.
-	CatalogName *string `json:"catalogName,omitempty" tf:"catalog_name,omitempty"`
-
-	// The comment attached to the registered model.
-	Comment *string `json:"comment,omitempty" tf:"comment,omitempty"`
+type AliasesInitParameters struct {
 
 	// The name of the registered model.  Change of this parameter forces recreation of the resource.
-	Name *string `json:"name,omitempty" tf:"name,omitempty"`
-
-	// Name of the registered model owner.
-	Owner *string `json:"owner,omitempty" tf:"owner,omitempty"`
-
-	// The name of the schema where the registered model resides. Change of this parameter forces recreation of the resource.
-	SchemaName *string `json:"schemaName,omitempty" tf:"schema_name,omitempty"`
-
-	// The storage location under which model version data files are stored. Change of this parameter forces recreation of the resource.
-	StorageLocation *string `json:"storageLocation,omitempty" tf:"storage_location,omitempty"`
-}
-
-type RegisteredModelObservation struct {
+	AliasName *string `json:"aliasName,omitempty" tf:"alias_name,omitempty"`
 
 	// The name of the catalog where the schema and the registered model reside. Change of this parameter forces recreation of the resource.
 	CatalogName *string `json:"catalogName,omitempty" tf:"catalog_name,omitempty"`
-
-	// The comment attached to the registered model.
-	Comment *string `json:"comment,omitempty" tf:"comment,omitempty"`
 
 	// Equal to the full name of the model (catalog_name.schema_name.name) and used to identify the model uniquely across the metastore.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
 	// The name of the registered model.  Change of this parameter forces recreation of the resource.
+	ModelName *string `json:"modelName,omitempty" tf:"model_name,omitempty"`
+
+	// The name of the schema where the registered model resides. Change of this parameter forces recreation of the resource.
+	SchemaName *string `json:"schemaName,omitempty" tf:"schema_name,omitempty"`
+
+	VersionNum *float64 `json:"versionNum,omitempty" tf:"version_num,omitempty"`
+}
+
+type AliasesObservation struct {
+
+	// The name of the registered model.  Change of this parameter forces recreation of the resource.
+	AliasName *string `json:"aliasName,omitempty" tf:"alias_name,omitempty"`
+
+	// The name of the catalog where the schema and the registered model reside. Change of this parameter forces recreation of the resource.
+	CatalogName *string `json:"catalogName,omitempty" tf:"catalog_name,omitempty"`
+
+	// Equal to the full name of the model (catalog_name.schema_name.name) and used to identify the model uniquely across the metastore.
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
+	// The name of the registered model.  Change of this parameter forces recreation of the resource.
+	ModelName *string `json:"modelName,omitempty" tf:"model_name,omitempty"`
+
+	// The name of the schema where the registered model resides. Change of this parameter forces recreation of the resource.
+	SchemaName *string `json:"schemaName,omitempty" tf:"schema_name,omitempty"`
+
+	VersionNum *float64 `json:"versionNum,omitempty" tf:"version_num,omitempty"`
+}
+
+type AliasesParameters struct {
+
+	// The name of the registered model.  Change of this parameter forces recreation of the resource.
+	// +kubebuilder:validation:Optional
+	AliasName *string `json:"aliasName,omitempty" tf:"alias_name,omitempty"`
+
+	// The name of the catalog where the schema and the registered model reside. Change of this parameter forces recreation of the resource.
+	// +kubebuilder:validation:Optional
+	CatalogName *string `json:"catalogName,omitempty" tf:"catalog_name,omitempty"`
+
+	// Equal to the full name of the model (catalog_name.schema_name.name) and used to identify the model uniquely across the metastore.
+	// +kubebuilder:validation:Optional
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
+	// The name of the registered model.  Change of this parameter forces recreation of the resource.
+	// +kubebuilder:validation:Optional
+	ModelName *string `json:"modelName,omitempty" tf:"model_name,omitempty"`
+
+	// The name of the schema where the registered model resides. Change of this parameter forces recreation of the resource.
+	// +kubebuilder:validation:Optional
+	SchemaName *string `json:"schemaName,omitempty" tf:"schema_name,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	VersionNum *float64 `json:"versionNum,omitempty" tf:"version_num,omitempty"`
+}
+
+type RegisteredModelInitParameters struct {
+	Aliases []AliasesInitParameters `json:"aliases,omitempty" tf:"aliases,omitempty"`
+
+	BrowseOnly *bool `json:"browseOnly,omitempty" tf:"browse_only,omitempty"`
+
+	// The name of the catalog where the schema and the registered model reside. Change of this parameter forces recreation of the resource.
+	CatalogName *string `json:"catalogName,omitempty" tf:"catalog_name,omitempty"`
+
+	// The comment attached to the registered model.
+	Comment *string `json:"comment,omitempty" tf:"comment,omitempty"`
+
+	CreatedAt *float64 `json:"createdAt,omitempty" tf:"created_at,omitempty"`
+
+	CreatedBy *string `json:"createdBy,omitempty" tf:"created_by,omitempty"`
+
+	// The name of the registered model.  Change of this parameter forces recreation of the resource.
+	FullName *string `json:"fullName,omitempty" tf:"full_name,omitempty"`
+
+	// Equal to the full name of the model (catalog_name.schema_name.name) and used to identify the model uniquely across the metastore.
+	MetastoreID *string `json:"metastoreId,omitempty" tf:"metastore_id,omitempty"`
+
+	// The name of the registered model.  Change of this parameter forces recreation of the resource.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// Name of the registered model owner.
@@ -54,11 +109,62 @@ type RegisteredModelObservation struct {
 	// The name of the schema where the registered model resides. Change of this parameter forces recreation of the resource.
 	SchemaName *string `json:"schemaName,omitempty" tf:"schema_name,omitempty"`
 
-	// The storage location under which model version data files are stored. Change of this parameter forces recreation of the resource.
+	// The storage location under which model version data files are stored.  If the URL contains special characters, such as space, &, etc., they should be percent-encoded (space -> %20, etc.). Change of this parameter forces recreation of the resource.
 	StorageLocation *string `json:"storageLocation,omitempty" tf:"storage_location,omitempty"`
+
+	UpdatedAt *float64 `json:"updatedAt,omitempty" tf:"updated_at,omitempty"`
+
+	UpdatedBy *string `json:"updatedBy,omitempty" tf:"updated_by,omitempty"`
+}
+
+type RegisteredModelObservation struct {
+	Aliases []AliasesObservation `json:"aliases,omitempty" tf:"aliases,omitempty"`
+
+	BrowseOnly *bool `json:"browseOnly,omitempty" tf:"browse_only,omitempty"`
+
+	// The name of the catalog where the schema and the registered model reside. Change of this parameter forces recreation of the resource.
+	CatalogName *string `json:"catalogName,omitempty" tf:"catalog_name,omitempty"`
+
+	// The comment attached to the registered model.
+	Comment *string `json:"comment,omitempty" tf:"comment,omitempty"`
+
+	CreatedAt *float64 `json:"createdAt,omitempty" tf:"created_at,omitempty"`
+
+	CreatedBy *string `json:"createdBy,omitempty" tf:"created_by,omitempty"`
+
+	// The name of the registered model.  Change of this parameter forces recreation of the resource.
+	FullName *string `json:"fullName,omitempty" tf:"full_name,omitempty"`
+
+	// Equal to the full name of the model (catalog_name.schema_name.name) and used to identify the model uniquely across the metastore.
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
+	// Equal to the full name of the model (catalog_name.schema_name.name) and used to identify the model uniquely across the metastore.
+	MetastoreID *string `json:"metastoreId,omitempty" tf:"metastore_id,omitempty"`
+
+	// The name of the registered model.  Change of this parameter forces recreation of the resource.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// Name of the registered model owner.
+	Owner *string `json:"owner,omitempty" tf:"owner,omitempty"`
+
+	// The name of the schema where the registered model resides. Change of this parameter forces recreation of the resource.
+	SchemaName *string `json:"schemaName,omitempty" tf:"schema_name,omitempty"`
+
+	// The storage location under which model version data files are stored.  If the URL contains special characters, such as space, &, etc., they should be percent-encoded (space -> %20, etc.). Change of this parameter forces recreation of the resource.
+	StorageLocation *string `json:"storageLocation,omitempty" tf:"storage_location,omitempty"`
+
+	UpdatedAt *float64 `json:"updatedAt,omitempty" tf:"updated_at,omitempty"`
+
+	UpdatedBy *string `json:"updatedBy,omitempty" tf:"updated_by,omitempty"`
 }
 
 type RegisteredModelParameters struct {
+
+	// +kubebuilder:validation:Optional
+	Aliases []AliasesParameters `json:"aliases,omitempty" tf:"aliases,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	BrowseOnly *bool `json:"browseOnly,omitempty" tf:"browse_only,omitempty"`
 
 	// The name of the catalog where the schema and the registered model reside. Change of this parameter forces recreation of the resource.
 	// +kubebuilder:validation:Optional
@@ -67,6 +173,20 @@ type RegisteredModelParameters struct {
 	// The comment attached to the registered model.
 	// +kubebuilder:validation:Optional
 	Comment *string `json:"comment,omitempty" tf:"comment,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	CreatedAt *float64 `json:"createdAt,omitempty" tf:"created_at,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	CreatedBy *string `json:"createdBy,omitempty" tf:"created_by,omitempty"`
+
+	// The name of the registered model.  Change of this parameter forces recreation of the resource.
+	// +kubebuilder:validation:Optional
+	FullName *string `json:"fullName,omitempty" tf:"full_name,omitempty"`
+
+	// Equal to the full name of the model (catalog_name.schema_name.name) and used to identify the model uniquely across the metastore.
+	// +kubebuilder:validation:Optional
+	MetastoreID *string `json:"metastoreId,omitempty" tf:"metastore_id,omitempty"`
 
 	// The name of the registered model.  Change of this parameter forces recreation of the resource.
 	// +kubebuilder:validation:Optional
@@ -80,9 +200,15 @@ type RegisteredModelParameters struct {
 	// +kubebuilder:validation:Optional
 	SchemaName *string `json:"schemaName,omitempty" tf:"schema_name,omitempty"`
 
-	// The storage location under which model version data files are stored. Change of this parameter forces recreation of the resource.
+	// The storage location under which model version data files are stored.  If the URL contains special characters, such as space, &, etc., they should be percent-encoded (space -> %20, etc.). Change of this parameter forces recreation of the resource.
 	// +kubebuilder:validation:Optional
 	StorageLocation *string `json:"storageLocation,omitempty" tf:"storage_location,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	UpdatedAt *float64 `json:"updatedAt,omitempty" tf:"updated_at,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	UpdatedBy *string `json:"updatedBy,omitempty" tf:"updated_by,omitempty"`
 }
 
 // RegisteredModelSpec defines the desired state of RegisteredModel
@@ -121,11 +247,8 @@ type RegisteredModelStatus struct {
 type RegisteredModel struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.catalogName) || (has(self.initProvider) && has(self.initProvider.catalogName))",message="spec.forProvider.catalogName is a required parameter"
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.name) || (has(self.initProvider) && has(self.initProvider.name))",message="spec.forProvider.name is a required parameter"
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.schemaName) || (has(self.initProvider) && has(self.initProvider.schemaName))",message="spec.forProvider.schemaName is a required parameter"
-	Spec   RegisteredModelSpec   `json:"spec"`
-	Status RegisteredModelStatus `json:"status,omitempty"`
+	Spec              RegisteredModelSpec   `json:"spec"`
+	Status            RegisteredModelStatus `json:"status,omitempty"`
 }
 
 // +kubebuilder:object:root=true

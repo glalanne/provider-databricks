@@ -16,36 +16,39 @@ import (
 
 type StorageCredentialAwsIAMRoleInitParameters struct {
 
-	// ID of this storage credential - same as the name.
+	// The external ID used in role assumption to prevent the confused deputy problem.
 	ExternalID *string `json:"externalId,omitempty" tf:"external_id,omitempty"`
 
-	// The Amazon Resource Name (ARN) of the AWS IAM role for S3 data access, of the form arn:aws:iam::1234567890:role/MyRole-AJJHDSKSDF
+	// The Amazon Resource Name (ARN) of the AWS IAM role for S3 data access, of the form arn:aws:iam::1234567890:role/MyRole-AJJHDSKSDF.
 	RoleArn *string `json:"roleArn,omitempty" tf:"role_arn,omitempty"`
 
+	// The Amazon Resource Name (ARN) of the AWS IAM user managed by Databricks. This is the identity that is going to assume the AWS IAM role.
 	UnityCatalogIAMArn *string `json:"unityCatalogIamArn,omitempty" tf:"unity_catalog_iam_arn,omitempty"`
 }
 
 type StorageCredentialAwsIAMRoleObservation struct {
 
-	// ID of this storage credential - same as the name.
+	// The external ID used in role assumption to prevent the confused deputy problem.
 	ExternalID *string `json:"externalId,omitempty" tf:"external_id,omitempty"`
 
-	// The Amazon Resource Name (ARN) of the AWS IAM role for S3 data access, of the form arn:aws:iam::1234567890:role/MyRole-AJJHDSKSDF
+	// The Amazon Resource Name (ARN) of the AWS IAM role for S3 data access, of the form arn:aws:iam::1234567890:role/MyRole-AJJHDSKSDF.
 	RoleArn *string `json:"roleArn,omitempty" tf:"role_arn,omitempty"`
 
+	// The Amazon Resource Name (ARN) of the AWS IAM user managed by Databricks. This is the identity that is going to assume the AWS IAM role.
 	UnityCatalogIAMArn *string `json:"unityCatalogIamArn,omitempty" tf:"unity_catalog_iam_arn,omitempty"`
 }
 
 type StorageCredentialAwsIAMRoleParameters struct {
 
-	// ID of this storage credential - same as the name.
+	// The external ID used in role assumption to prevent the confused deputy problem.
 	// +kubebuilder:validation:Optional
 	ExternalID *string `json:"externalId,omitempty" tf:"external_id,omitempty"`
 
-	// The Amazon Resource Name (ARN) of the AWS IAM role for S3 data access, of the form arn:aws:iam::1234567890:role/MyRole-AJJHDSKSDF
+	// The Amazon Resource Name (ARN) of the AWS IAM role for S3 data access, of the form arn:aws:iam::1234567890:role/MyRole-AJJHDSKSDF.
 	// +kubebuilder:validation:Optional
 	RoleArn *string `json:"roleArn" tf:"role_arn,omitempty"`
 
+	// The Amazon Resource Name (ARN) of the AWS IAM user managed by Databricks. This is the identity that is going to assume the AWS IAM role.
 	// +kubebuilder:validation:Optional
 	UnityCatalogIAMArn *string `json:"unityCatalogIamArn,omitempty" tf:"unity_catalog_iam_arn,omitempty"`
 }
@@ -225,6 +228,8 @@ type StorageCredentialGCPServiceAccountKeyParameters struct {
 }
 
 type StorageCredentialInitParameters struct {
+
+	// exposes two additional attributes:
 	AwsIAMRole []StorageCredentialAwsIAMRoleInitParameters `json:"awsIamRole,omitempty" tf:"aws_iam_role,omitempty"`
 
 	AzureManagedIdentity []StorageCredentialAzureManagedIdentityInitParameters `json:"azureManagedIdentity,omitempty" tf:"azure_managed_identity,omitempty"`
@@ -265,6 +270,8 @@ type StorageCredentialInitParameters struct {
 }
 
 type StorageCredentialObservation struct {
+
+	// exposes two additional attributes:
 	AwsIAMRole []StorageCredentialAwsIAMRoleObservation `json:"awsIamRole,omitempty" tf:"aws_iam_role,omitempty"`
 
 	AzureManagedIdentity []StorageCredentialAzureManagedIdentityObservation `json:"azureManagedIdentity,omitempty" tf:"azure_managed_identity,omitempty"`
@@ -312,6 +319,7 @@ type StorageCredentialObservation struct {
 
 type StorageCredentialParameters struct {
 
+	// exposes two additional attributes:
 	// +kubebuilder:validation:Optional
 	AwsIAMRole []StorageCredentialAwsIAMRoleParameters `json:"awsIamRole,omitempty" tf:"aws_iam_role,omitempty"`
 

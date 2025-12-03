@@ -88,7 +88,7 @@ spec:
                     type: boolean
                   databricksSqlAccess:
                     description: This is a field to allow the principal to have access
-                      to Databricks SQL feature in User Interface and through databricks_sql_endpoint.
+                      to Databricks SQL  UI, Databricks One and through databricks_sql_endpoint.
                     type: boolean
                   groupId:
                     description: Canonical unique identifier for the group.
@@ -101,12 +101,12 @@ spec:
                     type: string
                   workspaceAccess:
                     description: This is a field to allow the principal to have access
-                      to a Databricks Workspace.
+                      to a Databricks Workspace UI and Databricks One.
                     type: boolean
                   workspaceConsume:
                     description: This is a field to allow the principal to have access
-                      to a Databricks Workspace as consumer, with limited access to
-                      workspace UI.  Couldn't be used with workspace_access or databricks_sql_access.
+                      only to Databricks One.  Couldn't be used with workspace_access
+                      or databricks_sql_access.
                     type: boolean
                 type: object
               initProvider:
@@ -138,7 +138,7 @@ spec:
                     type: boolean
                   databricksSqlAccess:
                     description: This is a field to allow the principal to have access
-                      to Databricks SQL feature in User Interface and through databricks_sql_endpoint.
+                      to Databricks SQL  UI, Databricks One and through databricks_sql_endpoint.
                     type: boolean
                   groupId:
                     description: Canonical unique identifier for the group.
@@ -151,12 +151,12 @@ spec:
                     type: string
                   workspaceAccess:
                     description: This is a field to allow the principal to have access
-                      to a Databricks Workspace.
+                      to a Databricks Workspace UI and Databricks One.
                     type: boolean
                   workspaceConsume:
                     description: This is a field to allow the principal to have access
-                      to a Databricks Workspace as consumer, with limited access to
-                      workspace UI.  Couldn't be used with workspace_access or databricks_sql_access.
+                      only to Databricks One.  Couldn't be used with workspace_access
+                      or databricks_sql_access.
                     type: boolean
                 type: object
               managementPolicies:
@@ -266,7 +266,7 @@ spec:
                     type: boolean
                   databricksSqlAccess:
                     description: This is a field to allow the principal to have access
-                      to Databricks SQL feature in User Interface and through databricks_sql_endpoint.
+                      to Databricks SQL  UI, Databricks One and through databricks_sql_endpoint.
                     type: boolean
                   groupId:
                     description: Canonical unique identifier for the group.
@@ -281,12 +281,12 @@ spec:
                     type: string
                   workspaceAccess:
                     description: This is a field to allow the principal to have access
-                      to a Databricks Workspace.
+                      to a Databricks Workspace UI and Databricks One.
                     type: boolean
                   workspaceConsume:
                     description: This is a field to allow the principal to have access
-                      to a Databricks Workspace as consumer, with limited access to
-                      workspace UI.  Couldn't be used with workspace_access or databricks_sql_access.
+                      only to Databricks One.  Couldn't be used with workspace_access
+                      or databricks_sql_access.
                     type: boolean
                 type: object
               conditions:

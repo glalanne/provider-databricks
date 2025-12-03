@@ -75,22 +75,12 @@ spec:
                   comment:
                     description: User-supplied free-form text.
                     type: string
-                  createdAt:
-                    description: Time when the share was created.
-                    type: number
-                  createdBy:
-                    description: The principal that created the share.
-                    type: string
                   name:
                     description: Name of share. Change forces creation of a new resource.
                     type: string
                   object:
                     items:
                       properties:
-                        addedAt:
-                          type: number
-                        addedBy:
-                          type: string
                         cdfEnabled:
                           description: Whether to enable Change Data Feed (cdf) on
                             the shared object. When this field is set, field history_data_sharing_status
@@ -100,10 +90,16 @@ spec:
                           description: User-supplied free-form text.
                           type: string
                         content:
+                          description: The content of the notebook file when the data
+                            object type is NOTEBOOK_FILE. This should be base64 encoded.
+                            Required for adding a NOTEBOOK_FILE, optional for updating,
+                            ignored for other types.
                           type: string
                         dataObjectType:
-                          description: Type of the data object, currently TABLE, VIEW,
-                            SCHEMA, VOLUME, and MODEL are supported.
+                          description: 'Type of the data object. Supported types:
+                            TABLE, FOREIGN_TABLE, SCHEMA, VIEW, MATERIALIZED_VIEW,
+                            STREAMING_TABLE, MODEL, NOTEBOOK_FILE, FUNCTION, FEATURE_SPEC,
+                            and VOLUME.'
                           type: string
                         historyDataSharingStatus:
                           description: 'Whether to enable history sharing, one of:
@@ -121,6 +117,7 @@ spec:
                             new resource.
                           type: string
                         partition:
+                          description: Array of partitions for the shared data.
                           items:
                             properties:
                               value:
@@ -166,9 +163,6 @@ spec:
                             for cdf. This allows data providers to control the lowest
                             object version that is accessible by clients.
                           type: number
-                        status:
-                          description: 'Status of the object, one of: ACTIVE, PERMISSION_DENIED.'
-                          type: string
                         stringSharedAs:
                           description: A user-provided new name for the data object
                             within the share. If this new name is not provided, the
@@ -182,13 +176,19 @@ spec:
                     description: User name/group name/sp application_id of the share
                       owner.
                     type: string
-                  storageLocation:
-                    type: string
+                  providerConfig:
+                    description: 'Configure the provider for management through account
+                      provider. This block consists of the following fields:'
+                    items:
+                      properties:
+                        workspaceId:
+                          description: Workspace ID which the resource belongs to.
+                            This workspace must be part of the account which the provider
+                            is configured with.
+                          type: string
+                      type: object
+                    type: array
                   storageRoot:
-                    type: string
-                  updatedAt:
-                    type: number
-                  updatedBy:
                     type: string
                 type: object
               initProvider:
@@ -207,22 +207,12 @@ spec:
                   comment:
                     description: User-supplied free-form text.
                     type: string
-                  createdAt:
-                    description: Time when the share was created.
-                    type: number
-                  createdBy:
-                    description: The principal that created the share.
-                    type: string
                   name:
                     description: Name of share. Change forces creation of a new resource.
                     type: string
                   object:
                     items:
                       properties:
-                        addedAt:
-                          type: number
-                        addedBy:
-                          type: string
                         cdfEnabled:
                           description: Whether to enable Change Data Feed (cdf) on
                             the shared object. When this field is set, field history_data_sharing_status
@@ -232,10 +222,16 @@ spec:
                           description: User-supplied free-form text.
                           type: string
                         content:
+                          description: The content of the notebook file when the data
+                            object type is NOTEBOOK_FILE. This should be base64 encoded.
+                            Required for adding a NOTEBOOK_FILE, optional for updating,
+                            ignored for other types.
                           type: string
                         dataObjectType:
-                          description: Type of the data object, currently TABLE, VIEW,
-                            SCHEMA, VOLUME, and MODEL are supported.
+                          description: 'Type of the data object. Supported types:
+                            TABLE, FOREIGN_TABLE, SCHEMA, VIEW, MATERIALIZED_VIEW,
+                            STREAMING_TABLE, MODEL, NOTEBOOK_FILE, FUNCTION, FEATURE_SPEC,
+                            and VOLUME.'
                           type: string
                         historyDataSharingStatus:
                           description: 'Whether to enable history sharing, one of:
@@ -253,6 +249,7 @@ spec:
                             new resource.
                           type: string
                         partition:
+                          description: Array of partitions for the shared data.
                           items:
                             properties:
                               value:
@@ -298,9 +295,6 @@ spec:
                             for cdf. This allows data providers to control the lowest
                             object version that is accessible by clients.
                           type: number
-                        status:
-                          description: 'Status of the object, one of: ACTIVE, PERMISSION_DENIED.'
-                          type: string
                         stringSharedAs:
                           description: A user-provided new name for the data object
                             within the share. If this new name is not provided, the
@@ -314,13 +308,19 @@ spec:
                     description: User name/group name/sp application_id of the share
                       owner.
                     type: string
-                  storageLocation:
-                    type: string
+                  providerConfig:
+                    description: 'Configure the provider for management through account
+                      provider. This block consists of the following fields:'
+                    items:
+                      properties:
+                        workspaceId:
+                          description: Workspace ID which the resource belongs to.
+                            This workspace must be part of the account which the provider
+                            is configured with.
+                          type: string
+                      type: object
+                    type: array
                   storageRoot:
-                    type: string
-                  updatedAt:
-                    type: number
-                  updatedBy:
                     type: string
                 type: object
               managementPolicies:
@@ -428,6 +428,10 @@ spec:
                   createdBy:
                     description: The principal that created the share.
                     type: string
+                  effectiveOwner:
+                    description: User name/group name/sp application_id of the share
+                      owner.
+                    type: string
                   id:
                     description: the ID of the share, the same as name.
                     type: string
@@ -450,10 +454,51 @@ spec:
                           description: User-supplied free-form text.
                           type: string
                         content:
+                          description: The content of the notebook file when the data
+                            object type is NOTEBOOK_FILE. This should be base64 encoded.
+                            Required for adding a NOTEBOOK_FILE, optional for updating,
+                            ignored for other types.
                           type: string
                         dataObjectType:
-                          description: Type of the data object, currently TABLE, VIEW,
-                            SCHEMA, VOLUME, and MODEL are supported.
+                          description: 'Type of the data object. Supported types:
+                            TABLE, FOREIGN_TABLE, SCHEMA, VIEW, MATERIALIZED_VIEW,
+                            STREAMING_TABLE, MODEL, NOTEBOOK_FILE, FUNCTION, FEATURE_SPEC,
+                            and VOLUME.'
+                          type: string
+                        effectiveCdfEnabled:
+                          description: Whether to enable Change Data Feed (cdf) on
+                            the shared object. When this field is set, field history_data_sharing_status
+                            can not be set.
+                          type: boolean
+                        effectiveHistoryDataSharingStatus:
+                          description: 'Whether to enable history sharing, one of:
+                            ENABLED, DISABLED. When a table has history sharing enabled,
+                            recipients can query table data by version, starting from
+                            the current table version. If not specified, clients can
+                            only query starting from the version of the object at
+                            the time it was added to the share. NOTE: The start_version
+                            should be less than or equal the current version of the
+                            object. When this field is set, field cdf_enabled can
+                            not be set.'
+                          type: string
+                        effectiveSharedAs:
+                          description: A user-provided new name for the data object
+                            within the share. If this new name is not provided, the
+                            object's original name will be used as the shared_as name.
+                            The shared_as name must be unique within a Share. Change
+                            forces creation of a new resource.
+                          type: string
+                        effectiveStartVersion:
+                          description: The start version associated with the object
+                            for cdf. This allows data providers to control the lowest
+                            object version that is accessible by clients.
+                          type: number
+                        effectiveStringSharedAs:
+                          description: A user-provided new name for the data object
+                            within the share. If this new name is not provided, the
+                            object's original name will be used as the shared_as name.
+                            The shared_as name must be unique within a Share. Change
+                            forces creation of a new resource.
                           type: string
                         historyDataSharingStatus:
                           description: 'Whether to enable history sharing, one of:
@@ -471,6 +516,7 @@ spec:
                             new resource.
                           type: string
                         partition:
+                          description: Array of partitions for the shared data.
                           items:
                             properties:
                               value:
@@ -532,6 +578,18 @@ spec:
                     description: User name/group name/sp application_id of the share
                       owner.
                     type: string
+                  providerConfig:
+                    description: 'Configure the provider for management through account
+                      provider. This block consists of the following fields:'
+                    items:
+                      properties:
+                        workspaceId:
+                          description: Workspace ID which the resource belongs to.
+                            This workspace must be part of the account which the provider
+                            is configured with.
+                          type: string
+                      type: object
+                    type: array
                   storageLocation:
                     type: string
                   storageRoot:

@@ -140,6 +140,10 @@ type SQLEndpointInitParameters struct {
 	// Name of the SQL warehouse. Must be unique.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
+	// Whether to skip waiting for the SQL warehouse to start after creation. Default is false.
+	// If true, skip waiting for the warehouse to start after creation.
+	NoWait *bool `json:"noWait,omitempty" tf:"no_wait,omitempty"`
+
 	// The spot policy to use for allocating instances to clusters: COST_OPTIMIZED or RELIABILITY_OPTIMIZED. This field is optional. Default is COST_OPTIMIZED.
 	SpotInstancePolicy *string `json:"spotInstancePolicy,omitempty" tf:"spot_instance_policy,omitempty"`
 
@@ -192,6 +196,10 @@ type SQLEndpointObservation struct {
 
 	// Name of the SQL warehouse. Must be unique.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// Whether to skip waiting for the SQL warehouse to start after creation. Default is false.
+	// If true, skip waiting for the warehouse to start after creation.
+	NoWait *bool `json:"noWait,omitempty" tf:"no_wait,omitempty"`
 
 	// The current number of clusters used by the endpoint.
 	NumActiveSessions *float64 `json:"numActiveSessions,omitempty" tf:"num_active_sessions,omitempty"`
@@ -255,6 +263,11 @@ type SQLEndpointParameters struct {
 	// Name of the SQL warehouse. Must be unique.
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// Whether to skip waiting for the SQL warehouse to start after creation. Default is false.
+	// If true, skip waiting for the warehouse to start after creation.
+	// +kubebuilder:validation:Optional
+	NoWait *bool `json:"noWait,omitempty" tf:"no_wait,omitempty"`
 
 	// The spot policy to use for allocating instances to clusters: COST_OPTIMIZED or RELIABILITY_OPTIMIZED. This field is optional. Default is COST_OPTIMIZED.
 	// +kubebuilder:validation:Optional

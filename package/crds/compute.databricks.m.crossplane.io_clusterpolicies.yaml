@@ -95,6 +95,15 @@ spec:
                                 type: string
                             type: object
                           type: array
+                        providerConfig:
+                          items:
+                            properties:
+                              workspaceId:
+                                description: Canonical unique identifier for the cluster
+                                  policy. This is equal to policy_id.
+                                type: string
+                            type: object
+                          type: array
                         pypi:
                           items:
                             properties:
@@ -173,6 +182,15 @@ spec:
                                   type: string
                                 type: array
                               repo:
+                                type: string
+                            type: object
+                          type: array
+                        providerConfig:
+                          items:
+                            properties:
+                              workspaceId:
+                                description: Canonical unique identifier for the cluster
+                                  policy. This is equal to policy_id.
                                 type: string
                             type: object
                           type: array
@@ -308,6 +326,15 @@ spec:
                                   type: string
                                 type: array
                               repo:
+                                type: string
+                            type: object
+                          type: array
+                        providerConfig:
+                          items:
+                            properties:
+                              workspaceId:
+                                description: Canonical unique identifier for the cluster
+                                  policy. This is equal to policy_id.
                                 type: string
                             type: object
                           type: array

@@ -133,18 +133,24 @@ type CustomAppIntegrationParameters struct {
 }
 
 type TokenAccessPolicyInitParameters struct {
+	AbsoluteSessionLifetimeInMinutes *float64 `json:"absoluteSessionLifetimeInMinutes,omitempty" tf:"absolute_session_lifetime_in_minutes,omitempty"`
 
 	// access token time to live (TTL) in minutes.
 	AccessTokenTTLInMinutes *float64 `json:"accessTokenTtlInMinutes,omitempty" tf:"access_token_ttl_in_minutes,omitempty"`
+
+	EnableSingleUseRefreshTokens *bool `json:"enableSingleUseRefreshTokens,omitempty" tf:"enable_single_use_refresh_tokens,omitempty"`
 
 	// refresh token TTL in minutes. The TTL of refresh token cannot be lower than TTL of access token.
 	RefreshTokenTTLInMinutes *float64 `json:"refreshTokenTtlInMinutes,omitempty" tf:"refresh_token_ttl_in_minutes,omitempty"`
 }
 
 type TokenAccessPolicyObservation struct {
+	AbsoluteSessionLifetimeInMinutes *float64 `json:"absoluteSessionLifetimeInMinutes,omitempty" tf:"absolute_session_lifetime_in_minutes,omitempty"`
 
 	// access token time to live (TTL) in minutes.
 	AccessTokenTTLInMinutes *float64 `json:"accessTokenTtlInMinutes,omitempty" tf:"access_token_ttl_in_minutes,omitempty"`
+
+	EnableSingleUseRefreshTokens *bool `json:"enableSingleUseRefreshTokens,omitempty" tf:"enable_single_use_refresh_tokens,omitempty"`
 
 	// refresh token TTL in minutes. The TTL of refresh token cannot be lower than TTL of access token.
 	RefreshTokenTTLInMinutes *float64 `json:"refreshTokenTtlInMinutes,omitempty" tf:"refresh_token_ttl_in_minutes,omitempty"`
@@ -152,9 +158,15 @@ type TokenAccessPolicyObservation struct {
 
 type TokenAccessPolicyParameters struct {
 
+	// +kubebuilder:validation:Optional
+	AbsoluteSessionLifetimeInMinutes *float64 `json:"absoluteSessionLifetimeInMinutes,omitempty" tf:"absolute_session_lifetime_in_minutes,omitempty"`
+
 	// access token time to live (TTL) in minutes.
 	// +kubebuilder:validation:Optional
 	AccessTokenTTLInMinutes *float64 `json:"accessTokenTtlInMinutes,omitempty" tf:"access_token_ttl_in_minutes,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	EnableSingleUseRefreshTokens *bool `json:"enableSingleUseRefreshTokens,omitempty" tf:"enable_single_use_refresh_tokens,omitempty"`
 
 	// refresh token TTL in minutes. The TTL of refresh token cannot be lower than TTL of access token.
 	// +kubebuilder:validation:Optional

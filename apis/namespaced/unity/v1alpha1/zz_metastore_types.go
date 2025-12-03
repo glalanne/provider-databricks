@@ -51,7 +51,7 @@ type MetastoreInitParameters struct {
 	// (Mandatory for account-level) The region of the metastore
 	Region *string `json:"region,omitempty" tf:"region,omitempty"`
 
-	// Path on cloud storage account, where managed databricks_table are stored. Change forces creation of a new resource. If no storage_root is defined for the metastore, each catalog must have a storage_root defined.
+	// Path on cloud storage account, where managed databricks_table are stored.  If the URL contains special characters, such as space, &, etc., they should be percent-encoded (space -> %20, etc.). Change forces creation of a new resource. If no storage_root is defined for the metastore, each catalog must have a storage_root defined.
 	StorageRoot *string `json:"storageRoot,omitempty" tf:"storage_root,omitempty"`
 
 	// system-generated ID of this Unity Catalog Metastore.
@@ -102,7 +102,7 @@ type MetastoreObservation struct {
 	// (Mandatory for account-level) The region of the metastore
 	Region *string `json:"region,omitempty" tf:"region,omitempty"`
 
-	// Path on cloud storage account, where managed databricks_table are stored. Change forces creation of a new resource. If no storage_root is defined for the metastore, each catalog must have a storage_root defined.
+	// Path on cloud storage account, where managed databricks_table are stored.  If the URL contains special characters, such as space, &, etc., they should be percent-encoded (space -> %20, etc.). Change forces creation of a new resource. If no storage_root is defined for the metastore, each catalog must have a storage_root defined.
 	StorageRoot *string `json:"storageRoot,omitempty" tf:"storage_root,omitempty"`
 
 	// system-generated ID of this Unity Catalog Metastore.
@@ -164,7 +164,7 @@ type MetastoreParameters struct {
 	// +kubebuilder:validation:Optional
 	Region *string `json:"region,omitempty" tf:"region,omitempty"`
 
-	// Path on cloud storage account, where managed databricks_table are stored. Change forces creation of a new resource. If no storage_root is defined for the metastore, each catalog must have a storage_root defined.
+	// Path on cloud storage account, where managed databricks_table are stored.  If the URL contains special characters, such as space, &, etc., they should be percent-encoded (space -> %20, etc.). Change forces creation of a new resource. If no storage_root is defined for the metastore, each catalog must have a storage_root defined.
 	// +kubebuilder:validation:Optional
 	StorageRoot *string `json:"storageRoot,omitempty" tf:"storage_root,omitempty"`
 

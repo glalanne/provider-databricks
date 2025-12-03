@@ -59,6 +59,9 @@ spec:
             properties:
               forProvider:
                 properties:
+                  groupName:
+                    description: the group name to assign to a workspace.
+                    type: string
                   permissions:
                     description: 'The list of workspace permissions to assign to the
                       principal:'
@@ -72,6 +75,25 @@ spec:
                       or databricks_group data sources with account API (and has to
                       be an account admin).
                     type: number
+                  providerConfig:
+                    description: 'Configure the provider for management through account
+                      provider. This block consists of the following fields:'
+                    items:
+                      properties:
+                        workspaceId:
+                          description: Workspace ID which the resource belongs to.
+                            This workspace must be part of the account which the provider
+                            is configured with.
+                          type: string
+                      type: object
+                    type: array
+                  servicePrincipalName:
+                    description: the application ID of service principal to assign
+                      to a workspace.
+                    type: string
+                  userName:
+                    description: the user name (email) to assign to a workspace.
+                    type: string
                 type: object
               initProvider:
                 description: |-
@@ -86,6 +108,9 @@ spec:
                   for example because of an external controller is managing them, like an
                   autoscaler.
                 properties:
+                  groupName:
+                    description: the group name to assign to a workspace.
+                    type: string
                   permissions:
                     description: 'The list of workspace permissions to assign to the
                       principal:'
@@ -99,6 +124,25 @@ spec:
                       or databricks_group data sources with account API (and has to
                       be an account admin).
                     type: number
+                  providerConfig:
+                    description: 'Configure the provider for management through account
+                      provider. This block consists of the following fields:'
+                    items:
+                      properties:
+                        workspaceId:
+                          description: Workspace ID which the resource belongs to.
+                            This workspace must be part of the account which the provider
+                            is configured with.
+                          type: string
+                      type: object
+                    type: array
+                  servicePrincipalName:
+                    description: the application ID of service principal to assign
+                      to a workspace.
+                    type: string
+                  userName:
+                    description: the user name (email) to assign to a workspace.
+                    type: string
                 type: object
               managementPolicies:
                 default:
@@ -163,16 +207,18 @@ spec:
               rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
                 || ''Update'' in self.managementPolicies) || has(self.forProvider.permissions)
                 || (has(self.initProvider) && has(self.initProvider.permissions))'
-            - message: spec.forProvider.principalId is a required parameter
-              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
-                || ''Update'' in self.managementPolicies) || has(self.forProvider.principalId)
-                || (has(self.initProvider) && has(self.initProvider.principalId))'
           status:
             description: PermissionAssignmentStatus defines the observed state of
               PermissionAssignment.
             properties:
               atProvider:
                 properties:
+                  displayName:
+                    description: the display name of the assigned principal.
+                    type: string
+                  groupName:
+                    description: the group name to assign to a workspace.
+                    type: string
                   id:
                     description: ID of the permission assignment - same as principal_id.
                     type: string
@@ -189,6 +235,25 @@ spec:
                       or databricks_group data sources with account API (and has to
                       be an account admin).
                     type: number
+                  providerConfig:
+                    description: 'Configure the provider for management through account
+                      provider. This block consists of the following fields:'
+                    items:
+                      properties:
+                        workspaceId:
+                          description: Workspace ID which the resource belongs to.
+                            This workspace must be part of the account which the provider
+                            is configured with.
+                          type: string
+                      type: object
+                    type: array
+                  servicePrincipalName:
+                    description: the application ID of service principal to assign
+                      to a workspace.
+                    type: string
+                  userName:
+                    description: the user name (email) to assign to a workspace.
+                    type: string
                 type: object
               conditions:
                 description: Conditions of the resource.

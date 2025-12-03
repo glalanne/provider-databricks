@@ -150,10 +150,10 @@ type SQLTableInitParameters struct {
 	// For EXTERNAL Tables only: the name of storage credential to use. Change forces the creation of a new resource.
 	StorageCredentialName *string `json:"storageCredentialName,omitempty" tf:"storage_credential_name,omitempty"`
 
-	// URL of storage location for Table data . Not supported for VIEW or MANAGED table_type.
+	// URL of storage location for Table data .  If the URL contains special characters, such as space, &, etc., they should be percent-encoded (space -> %20, etc.).  Not supported for VIEW or MANAGED table_type.
 	StorageLocation *string `json:"storageLocation,omitempty" tf:"storage_location,omitempty"`
 
-	// Distinguishes a view vs. managed/external Table. MANAGED, EXTERNAL, METRIC_VIEW or VIEW. Change forces the creation of a new resource.
+	// Distinguishes a view vs. managed/external Table. MANAGED, EXTERNAL or VIEW. Change forces the creation of a new resource.
 	TableType *string `json:"tableType,omitempty" tf:"table_type,omitempty"`
 
 	// SQL text defining the view (for table_type == "VIEW"). Not supported for MANAGED or EXTERNAL table_type.
@@ -221,10 +221,13 @@ type SQLTableObservation struct {
 	// For EXTERNAL Tables only: the name of storage credential to use. Change forces the creation of a new resource.
 	StorageCredentialName *string `json:"storageCredentialName,omitempty" tf:"storage_credential_name,omitempty"`
 
-	// URL of storage location for Table data . Not supported for VIEW or MANAGED table_type.
+	// URL of storage location for Table data .  If the URL contains special characters, such as space, &, etc., they should be percent-encoded (space -> %20, etc.).  Not supported for VIEW or MANAGED table_type.
 	StorageLocation *string `json:"storageLocation,omitempty" tf:"storage_location,omitempty"`
 
-	// Distinguishes a view vs. managed/external Table. MANAGED, EXTERNAL, METRIC_VIEW or VIEW. Change forces the creation of a new resource.
+	// The unique identifier of the table.
+	TableID *string `json:"tableId,omitempty" tf:"table_id,omitempty"`
+
+	// Distinguishes a view vs. managed/external Table. MANAGED, EXTERNAL or VIEW. Change forces the creation of a new resource.
 	TableType *string `json:"tableType,omitempty" tf:"table_type,omitempty"`
 
 	// SQL text defining the view (for table_type == "VIEW"). Not supported for MANAGED or EXTERNAL table_type.
@@ -318,11 +321,11 @@ type SQLTableParameters struct {
 	// +kubebuilder:validation:Optional
 	StorageCredentialName *string `json:"storageCredentialName,omitempty" tf:"storage_credential_name,omitempty"`
 
-	// URL of storage location for Table data . Not supported for VIEW or MANAGED table_type.
+	// URL of storage location for Table data .  If the URL contains special characters, such as space, &, etc., they should be percent-encoded (space -> %20, etc.).  Not supported for VIEW or MANAGED table_type.
 	// +kubebuilder:validation:Optional
 	StorageLocation *string `json:"storageLocation,omitempty" tf:"storage_location,omitempty"`
 
-	// Distinguishes a view vs. managed/external Table. MANAGED, EXTERNAL, METRIC_VIEW or VIEW. Change forces the creation of a new resource.
+	// Distinguishes a view vs. managed/external Table. MANAGED, EXTERNAL or VIEW. Change forces the creation of a new resource.
 	// +kubebuilder:validation:Optional
 	TableType *string `json:"tableType,omitempty" tf:"table_type,omitempty"`
 

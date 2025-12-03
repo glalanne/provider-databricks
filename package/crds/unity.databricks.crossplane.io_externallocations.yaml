@@ -201,7 +201,7 @@ spec:
                                 description: The URL of the queue.
                                 type: string
                               resourceGroup:
-                                description: The Azure resource group.
+                                description: The name of the Azure resource group.
                                 type: string
                               subscriptionId:
                                 description: The Azure subscription ID.
@@ -235,7 +235,7 @@ spec:
                                 description: The URL of the queue.
                                 type: string
                               resourceGroup:
-                                description: The Azure resource group.
+                                description: The name of the Azure resource group.
                                 type: string
                               subscriptionId:
                                 description: The Azure subscription ID.
@@ -296,7 +296,8 @@ spec:
                   url:
                     description: 'Path URL in cloud storage, of the form: s3://[bucket-host]/[bucket-dir]
                       (AWS), abfss://[user]@[host]/[path] (Azure), gs://[bucket-host]/[bucket-dir]
-                      (GCP).'
+                      (GCP).   If the URL contains special characters, such as space,
+                      &, etc., they should be percent-encoded (space -> %20, etc.).'
                     type: string
                 type: object
               initProvider:
@@ -441,7 +442,7 @@ spec:
                                 description: The URL of the queue.
                                 type: string
                               resourceGroup:
-                                description: The Azure resource group.
+                                description: The name of the Azure resource group.
                                 type: string
                               subscriptionId:
                                 description: The Azure subscription ID.
@@ -475,7 +476,7 @@ spec:
                                 description: The URL of the queue.
                                 type: string
                               resourceGroup:
-                                description: The Azure resource group.
+                                description: The name of the Azure resource group.
                                 type: string
                               subscriptionId:
                                 description: The Azure subscription ID.
@@ -536,7 +537,8 @@ spec:
                   url:
                     description: 'Path URL in cloud storage, of the form: s3://[bucket-host]/[bucket-dir]
                       (AWS), abfss://[user]@[host]/[path] (Azure), gs://[bucket-host]/[bucket-dir]
-                      (GCP).'
+                      (GCP).   If the URL contains special characters, such as space,
+                      &, etc., they should be percent-encoded (space -> %20, etc.).'
                     type: string
                 type: object
               managementPolicies:
@@ -707,7 +709,7 @@ spec:
                                 description: The URL of the queue.
                                 type: string
                               resourceGroup:
-                                description: The Azure resource group.
+                                description: The name of the Azure resource group.
                                 type: string
                               subscriptionId:
                                 description: The Azure subscription ID.
@@ -750,7 +752,7 @@ spec:
                                 description: The URL of the queue.
                                 type: string
                               resourceGroup:
-                                description: The Azure resource group.
+                                description: The name of the Azure resource group.
                                 type: string
                               subscriptionId:
                                 description: The Azure subscription ID.
@@ -827,7 +829,8 @@ spec:
                   url:
                     description: 'Path URL in cloud storage, of the form: s3://[bucket-host]/[bucket-dir]
                       (AWS), abfss://[user]@[host]/[path] (Azure), gs://[bucket-host]/[bucket-dir]
-                      (GCP).'
+                      (GCP).   If the URL contains special characters, such as space,
+                      &, etc., they should be percent-encoded (space -> %20, etc.).'
                     type: string
                 type: object
               conditions:

@@ -236,8 +236,11 @@ spec:
                         type: object
                     type: object
                   storageLocation:
-                    description: Path inside an External Location. Only used for EXTERNAL
-                      Volumes. Change forces creation of a new resource.
+                    description: URL for the volume (should be inside of an existing
+                      External Location). Only used for EXTERNAL Volumes.  If the
+                      URL contains special characters, such as space, &, etc., they
+                      should be percent-encoded (space -> %20, etc.). Change forces
+                      creation of a new resource.
                     type: string
                   storageLocationRef:
                     description: Reference to a ExternalLocation in unity to populate
@@ -517,8 +520,11 @@ spec:
                         type: object
                     type: object
                   storageLocation:
-                    description: Path inside an External Location. Only used for EXTERNAL
-                      Volumes. Change forces creation of a new resource.
+                    description: URL for the volume (should be inside of an existing
+                      External Location). Only used for EXTERNAL Volumes.  If the
+                      URL contains special characters, such as space, &, etc., they
+                      should be percent-encoded (space -> %20, etc.). Change forces
+                      creation of a new resource.
                     type: string
                   storageLocationRef:
                     description: Reference to a ExternalLocation in unity to populate
@@ -700,8 +706,11 @@ spec:
                       Change forces creation of a new resource.
                     type: string
                   storageLocation:
-                    description: Path inside an External Location. Only used for EXTERNAL
-                      Volumes. Change forces creation of a new resource.
+                    description: URL for the volume (should be inside of an existing
+                      External Location). Only used for EXTERNAL Volumes.  If the
+                      URL contains special characters, such as space, &, etc., they
+                      should be percent-encoded (space -> %20, etc.). Change forces
+                      creation of a new resource.
                     type: string
                   volumePath:
                     description: base file path for this Unity Catalog Volume in form

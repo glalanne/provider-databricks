@@ -18,10 +18,13 @@ type GitCredentialInitParameters struct {
 	// specify if settings need to be enforced (i.e., to overwrite previously set credential for service principals).
 	Force *bool `json:"force,omitempty" tf:"force,omitempty"`
 
+	// The email associated with your Git provider user account. Used for authentication with the remote repository and also sets the author & committer identity for commits.
+	GitEmail *string `json:"gitEmail,omitempty" tf:"git_email,omitempty"`
+
 	// case insensitive name of the Git provider.  Following values are supported right now (could be a subject for a change, consult Git Credentials API documentation): gitHub, gitHubEnterprise, bitbucketCloud, bitbucketServer, azureDevOpsServices, gitLab, gitLabEnterpriseEdition, awsCodeCommit, azureDevOpsServicesAad.
 	GitProvider *string `json:"gitProvider,omitempty" tf:"git_provider,omitempty"`
 
-	// user name at Git provider.
+	// user name at Git provider.  For most Git providers it is only used to set the Git committer & author names for commits, however it may be required for authentication depending on your Git provider / token requirements.
 	GitUsername *string `json:"gitUsername,omitempty" tf:"git_username,omitempty"`
 
 	// boolean flag specifying if the credential is the default for the given provider type.
@@ -39,10 +42,13 @@ type GitCredentialObservation struct {
 	// specify if settings need to be enforced (i.e., to overwrite previously set credential for service principals).
 	Force *bool `json:"force,omitempty" tf:"force,omitempty"`
 
+	// The email associated with your Git provider user account. Used for authentication with the remote repository and also sets the author & committer identity for commits.
+	GitEmail *string `json:"gitEmail,omitempty" tf:"git_email,omitempty"`
+
 	// case insensitive name of the Git provider.  Following values are supported right now (could be a subject for a change, consult Git Credentials API documentation): gitHub, gitHubEnterprise, bitbucketCloud, bitbucketServer, azureDevOpsServices, gitLab, gitLabEnterpriseEdition, awsCodeCommit, azureDevOpsServicesAad.
 	GitProvider *string `json:"gitProvider,omitempty" tf:"git_provider,omitempty"`
 
-	// user name at Git provider.
+	// user name at Git provider.  For most Git providers it is only used to set the Git committer & author names for commits, however it may be required for authentication depending on your Git provider / token requirements.
 	GitUsername *string `json:"gitUsername,omitempty" tf:"git_username,omitempty"`
 
 	// identifier of specific Git credential
@@ -64,11 +70,15 @@ type GitCredentialParameters struct {
 	// +kubebuilder:validation:Optional
 	Force *bool `json:"force,omitempty" tf:"force,omitempty"`
 
+	// The email associated with your Git provider user account. Used for authentication with the remote repository and also sets the author & committer identity for commits.
+	// +kubebuilder:validation:Optional
+	GitEmail *string `json:"gitEmail,omitempty" tf:"git_email,omitempty"`
+
 	// case insensitive name of the Git provider.  Following values are supported right now (could be a subject for a change, consult Git Credentials API documentation): gitHub, gitHubEnterprise, bitbucketCloud, bitbucketServer, azureDevOpsServices, gitLab, gitLabEnterpriseEdition, awsCodeCommit, azureDevOpsServicesAad.
 	// +kubebuilder:validation:Optional
 	GitProvider *string `json:"gitProvider,omitempty" tf:"git_provider,omitempty"`
 
-	// user name at Git provider.
+	// user name at Git provider.  For most Git providers it is only used to set the Git committer & author names for commits, however it may be required for authentication depending on your Git provider / token requirements.
 	// +kubebuilder:validation:Optional
 	GitUsername *string `json:"gitUsername,omitempty" tf:"git_username,omitempty"`
 

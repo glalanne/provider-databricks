@@ -107,9 +107,11 @@ spec:
                     type: string
                   storageRoot:
                     description: Path on cloud storage account, where managed databricks_table
-                      are stored. Change forces creation of a new resource. If no
-                      storage_root is defined for the metastore, each catalog must
-                      have a storage_root defined.
+                      are stored.  If the URL contains special characters, such as
+                      space, &, etc., they should be percent-encoded (space -> %20,
+                      etc.). Change forces creation of a new resource. If no storage_root
+                      is defined for the metastore, each catalog must have a storage_root
+                      defined.
                     type: string
                   storageRootCredentialId:
                     description: system-generated ID of this Unity Catalog Metastore.
@@ -181,9 +183,11 @@ spec:
                     type: string
                   storageRoot:
                     description: Path on cloud storage account, where managed databricks_table
-                      are stored. Change forces creation of a new resource. If no
-                      storage_root is defined for the metastore, each catalog must
-                      have a storage_root defined.
+                      are stored.  If the URL contains special characters, such as
+                      space, &, etc., they should be percent-encoded (space -> %20,
+                      etc.). Change forces creation of a new resource. If no storage_root
+                      is defined for the metastore, each catalog must have a storage_root
+                      defined.
                     type: string
                   storageRootCredentialId:
                     description: system-generated ID of this Unity Catalog Metastore.
@@ -313,9 +317,11 @@ spec:
                     type: string
                   storageRoot:
                     description: Path on cloud storage account, where managed databricks_table
-                      are stored. Change forces creation of a new resource. If no
-                      storage_root is defined for the metastore, each catalog must
-                      have a storage_root defined.
+                      are stored.  If the URL contains special characters, such as
+                      space, &, etc., they should be percent-encoded (space -> %20,
+                      etc.). Change forces creation of a new resource. If no storage_root
+                      is defined for the metastore, each catalog must have a storage_root
+                      defined.
                     type: string
                   storageRootCredentialId:
                     description: system-generated ID of this Unity Catalog Metastore.

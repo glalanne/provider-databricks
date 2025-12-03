@@ -384,13 +384,15 @@ spec:
                       to use. Change forces the creation of a new resource.'
                     type: string
                   storageLocation:
-                    description: URL of storage location for Table data . Not supported
+                    description: URL of storage location for Table data .  If the
+                      URL contains special characters, such as space, &, etc., they
+                      should be percent-encoded (space -> %20, etc.).  Not supported
                       for VIEW or MANAGED table_type.
                     type: string
                   tableType:
                     description: Distinguishes a view vs. managed/external Table.
-                      MANAGED, EXTERNAL, METRIC_VIEW or VIEW. Change forces the creation
-                      of a new resource.
+                      MANAGED, EXTERNAL or VIEW. Change forces the creation of a new
+                      resource.
                     type: string
                   viewDefinition:
                     description: SQL text defining the view (for table_type == "VIEW").
@@ -802,13 +804,15 @@ spec:
                       to use. Change forces the creation of a new resource.'
                     type: string
                   storageLocation:
-                    description: URL of storage location for Table data . Not supported
+                    description: URL of storage location for Table data .  If the
+                      URL contains special characters, such as space, &, etc., they
+                      should be percent-encoded (space -> %20, etc.).  Not supported
                       for VIEW or MANAGED table_type.
                     type: string
                   tableType:
                     description: Distinguishes a view vs. managed/external Table.
-                      MANAGED, EXTERNAL, METRIC_VIEW or VIEW. Change forces the creation
-                      of a new resource.
+                      MANAGED, EXTERNAL or VIEW. Change forces the creation of a new
+                      resource.
                     type: string
                   viewDefinition:
                     description: SQL text defining the view (for table_type == "VIEW").
@@ -1094,13 +1098,18 @@ spec:
                       to use. Change forces the creation of a new resource.'
                     type: string
                   storageLocation:
-                    description: URL of storage location for Table data . Not supported
+                    description: URL of storage location for Table data .  If the
+                      URL contains special characters, such as space, &, etc., they
+                      should be percent-encoded (space -> %20, etc.).  Not supported
                       for VIEW or MANAGED table_type.
+                    type: string
+                  tableId:
+                    description: The unique identifier of the table.
                     type: string
                   tableType:
                     description: Distinguishes a view vs. managed/external Table.
-                      MANAGED, EXTERNAL, METRIC_VIEW or VIEW. Change forces the creation
-                      of a new resource.
+                      MANAGED, EXTERNAL or VIEW. Change forces the creation of a new
+                      resource.
                     type: string
                   viewDefinition:
                     description: SQL text defining the view (for table_type == "VIEW").
