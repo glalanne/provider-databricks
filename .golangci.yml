@@ -87,7 +87,7 @@ linters:
         text: '(hugeParam|rangeValCopy):'
       - linters:
           - staticcheck
-        text: 'SA3000:'
+        text: '(SA3000:|QF1008:)'
       - linters:
           - gosec
         text: 'G101:'
