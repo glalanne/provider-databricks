@@ -13,9 +13,9 @@ on:
 
 env:
   # Common versions
-  GO_VERSION: '1.25'
-  GOLANGCI_VERSION: 'v1.64.4'
-  DOCKER_BUILDX_VERSION: 'v0.20.1'
+  GO_VERSION: '1.24'
+  GOLANGCI_VERSION: 'v2.1.2'
+  DOCKER_BUILDX_VERSION: 'v0.23.0'
 
   CROSSPLANE_REGORG: 'ghcr.io/glalanne' # xpkg.crossplane.io/crossplane-contrib
   UPBOUND_REGORG: 'xpkg.upbound.io/glalanne'
