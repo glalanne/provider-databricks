@@ -15,10 +15,11 @@ import (
 	"github.com/crossplane/upjet/v2/pkg/schema/traverser"
 	conversiontfjson "github.com/crossplane/upjet/v2/pkg/types/conversion/tfjson"
 	uname "github.com/crossplane/upjet/v2/pkg/types/name"
-	"github.com/glalanne/provider-databricks/config/cluster"
-	"github.com/glalanne/provider-databricks/config/namespaced"
 	tfjson "github.com/hashicorp/terraform-json"
 	tfschema "github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
+
+	"github.com/glalanne/provider-databricks/config/cluster"
+	"github.com/glalanne/provider-databricks/config/namespaced"
 
 	"github.com/pkg/errors"
 )

@@ -13,6 +13,7 @@ import (
 	"github.com/alecthomas/kingpin/v2"
 	"github.com/crossplane/upjet/v2/pkg/pipeline"
 	"github.com/databricks/terraform-provider-databricks/xpprovider"
+
 	"github.com/glalanne/provider-databricks/config"
 )
 

@@ -41,6 +41,7 @@ import (
 
 	changelogsv1alpha1 "github.com/crossplane/crossplane-runtime/v2/apis/changelogs/proto/v1alpha1"
 	"github.com/databricks/terraform-provider-databricks/xpprovider"
+
 	"github.com/glalanne/provider-databricks/config"
 	"github.com/glalanne/provider-databricks/internal/clients"
 	"github.com/glalanne/provider-databricks/internal/features"
