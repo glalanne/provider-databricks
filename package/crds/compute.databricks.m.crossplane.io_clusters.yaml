@@ -3,7 +3,7 @@ apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
   annotations:
-    controller-gen.kubebuilder.io/version: v0.18.0
+    controller-gen.kubebuilder.io/version: v0.19.0
   name: clusters.compute.databricks.m.crossplane.io
 spec:
   group: compute.databricks.m.crossplane.io
@@ -115,6 +115,9 @@ spec:
                             Spark configuration spark.local.dir will be overridden.
                           type: number
                         ebsVolumeIops:
+                          description: If using gp3 volumes, what IOPS to use for
+                            the disk. If this is not set, the maximum performance
+                            of a gp2 volume with the same volume size will be used.
                           type: number
                         ebsVolumeSize:
                           description: The size of each EBS volume (in GiB) launched
@@ -125,6 +128,9 @@ spec:
                             (memory-optimized and compute-optimized).
                           type: number
                         ebsVolumeThroughput:
+                          description: If using gp3 volumes, what throughput to use
+                            for the disk. If this is not set, the maximum performance
+                            of a gp2 volume with the same volume size will be used.
                           type: number
                         ebsVolumeType:
                           description: The type of EBS volumes that will be launched
@@ -206,7 +212,9 @@ spec:
                               logAnalyticsPrimaryKey:
                                 type: string
                               logAnalyticsWorkspaceId:
-                                description: Canonical unique identifier for the cluster.
+                                description: Workspace ID which the resource belongs
+                                  to. This workspace must be part of the account which
+                                  the provider is configured with.
                                 type: string
                             type: object
                           type: array
@@ -345,13 +353,15 @@ spec:
                     items:
                       properties:
                         basicAuth:
-                          description: basic_auth.username and basic_auth.password
+                          description: 'basic_auth.username and basic_auth.password
                             for Docker repository. Docker registry credentials are
                             encrypted when they are stored in Databricks internal
                             storage and when they are passed to a registry upon fetching
-                            Docker images at cluster launch. However, other authenticated
-                            and authorized API users of this workspace can access
-                            the username and password.
+                            Docker images at cluster launch.  For better security,
+                            these credentials should be stored in the secret scope
+                            and referred using secret path syntax: {{secrets/scope/key}},
+                            otherwise other users of the workspace may access them
+                            via UI/API.'
                           items:
                             properties:
                               passwordSecretRef:
@@ -684,6 +694,18 @@ spec:
                       when you specify policy_id of external metastore policy, you
                       still have to fill in relevant keys for spark_conf.
                     type: string
+                  providerConfig:
+                    description: 'Configure the provider for management through account
+                      provider. This block consists of the following fields:'
+                    items:
+                      properties:
+                        workspaceId:
+                          description: Workspace ID which the resource belongs to.
+                            This workspace must be part of the account which the provider
+                            is configured with.
+                          type: string
+                      type: object
+                    type: array
                   remoteDiskThroughput:
                     type: number
                   runtimeEngine:
@@ -824,6 +846,9 @@ spec:
                             Spark configuration spark.local.dir will be overridden.
                           type: number
                         ebsVolumeIops:
+                          description: If using gp3 volumes, what IOPS to use for
+                            the disk. If this is not set, the maximum performance
+                            of a gp2 volume with the same volume size will be used.
                           type: number
                         ebsVolumeSize:
                           description: The size of each EBS volume (in GiB) launched
@@ -834,6 +859,9 @@ spec:
                             (memory-optimized and compute-optimized).
                           type: number
                         ebsVolumeThroughput:
+                          description: If using gp3 volumes, what throughput to use
+                            for the disk. If this is not set, the maximum performance
+                            of a gp2 volume with the same volume size will be used.
                           type: number
                         ebsVolumeType:
                           description: The type of EBS volumes that will be launched
@@ -915,7 +943,9 @@ spec:
                               logAnalyticsPrimaryKey:
                                 type: string
                               logAnalyticsWorkspaceId:
-                                description: Canonical unique identifier for the cluster.
+                                description: Workspace ID which the resource belongs
+                                  to. This workspace must be part of the account which
+                                  the provider is configured with.
                                 type: string
                             type: object
                           type: array
@@ -1054,13 +1084,15 @@ spec:
                     items:
                       properties:
                         basicAuth:
-                          description: basic_auth.username and basic_auth.password
+                          description: 'basic_auth.username and basic_auth.password
                             for Docker repository. Docker registry credentials are
                             encrypted when they are stored in Databricks internal
                             storage and when they are passed to a registry upon fetching
-                            Docker images at cluster launch. However, other authenticated
-                            and authorized API users of this workspace can access
-                            the username and password.
+                            Docker images at cluster launch.  For better security,
+                            these credentials should be stored in the secret scope
+                            and referred using secret path syntax: {{secrets/scope/key}},
+                            otherwise other users of the workspace may access them
+                            via UI/API.'
                           items:
                             properties:
                               passwordSecretRef:
@@ -1395,6 +1427,18 @@ spec:
                       when you specify policy_id of external metastore policy, you
                       still have to fill in relevant keys for spark_conf.
                     type: string
+                  providerConfig:
+                    description: 'Configure the provider for management through account
+                      provider. This block consists of the following fields:'
+                    items:
+                      properties:
+                        workspaceId:
+                          description: Workspace ID which the resource belongs to.
+                            This workspace must be part of the account which the provider
+                            is configured with.
+                          type: string
+                      type: object
+                    type: array
                   remoteDiskThroughput:
                     type: number
                   runtimeEngine:
@@ -1590,6 +1634,9 @@ spec:
                             Spark configuration spark.local.dir will be overridden.
                           type: number
                         ebsVolumeIops:
+                          description: If using gp3 volumes, what IOPS to use for
+                            the disk. If this is not set, the maximum performance
+                            of a gp2 volume with the same volume size will be used.
                           type: number
                         ebsVolumeSize:
                           description: The size of each EBS volume (in GiB) launched
@@ -1600,6 +1647,9 @@ spec:
                             (memory-optimized and compute-optimized).
                           type: number
                         ebsVolumeThroughput:
+                          description: If using gp3 volumes, what throughput to use
+                            for the disk. If this is not set, the maximum performance
+                            of a gp2 volume with the same volume size will be used.
                           type: number
                         ebsVolumeType:
                           description: The type of EBS volumes that will be launched
@@ -1681,7 +1731,9 @@ spec:
                               logAnalyticsPrimaryKey:
                                 type: string
                               logAnalyticsWorkspaceId:
-                                description: Canonical unique identifier for the cluster.
+                                description: Workspace ID which the resource belongs
+                                  to. This workspace must be part of the account which
+                                  the provider is configured with.
                                 type: string
                             type: object
                           type: array
@@ -1833,13 +1885,15 @@ spec:
                     items:
                       properties:
                         basicAuth:
-                          description: basic_auth.username and basic_auth.password
+                          description: 'basic_auth.username and basic_auth.password
                             for Docker repository. Docker registry credentials are
                             encrypted when they are stored in Databricks internal
                             storage and when they are passed to a registry upon fetching
-                            Docker images at cluster launch. However, other authenticated
-                            and authorized API users of this workspace can access
-                            the username and password.
+                            Docker images at cluster launch.  For better security,
+                            these credentials should be stored in the secret scope
+                            and referred using secret path syntax: {{secrets/scope/key}},
+                            otherwise other users of the workspace may access them
+                            via UI/API.'
                           items:
                             properties:
                               username:
@@ -2161,6 +2215,18 @@ spec:
                       when you specify policy_id of external metastore policy, you
                       still have to fill in relevant keys for spark_conf.
                     type: string
+                  providerConfig:
+                    description: 'Configure the provider for management through account
+                      provider. This block consists of the following fields:'
+                    items:
+                      properties:
+                        workspaceId:
+                          description: Workspace ID which the resource belongs to.
+                            This workspace must be part of the account which the provider
+                            is configured with.
+                          type: string
+                      type: object
+                    type: array
                   remoteDiskThroughput:
                     type: number
                   runtimeEngine:

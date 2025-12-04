@@ -70,11 +70,13 @@ type AwsAttributesInitParameters struct {
 	// The number of volumes launched for each instance. You can choose up to 10 volumes. This feature is only enabled for supported node types. Legacy node types cannot specify custom EBS volumes. For node types with no instance store, at least one EBS volume needs to be specified; otherwise, cluster creation will fail. These EBS volumes will be mounted at /ebs0, /ebs1, and etc. Instance store volumes will be mounted at /local_disk0, /local_disk1, and etc. If EBS volumes are attached, Databricks will configure Spark to use only the EBS volumes for scratch storage because heterogeneously sized scratch devices can lead to inefficient disk utilization. If no EBS volumes are attached, Databricks will configure Spark to use instance store volumes. If EBS volumes are specified, then the Spark configuration spark.local.dir will be overridden.
 	EBSVolumeCount *float64 `json:"ebsVolumeCount,omitempty" tf:"ebs_volume_count,omitempty"`
 
+	// If using gp3 volumes, what IOPS to use for the disk. If this is not set, the maximum performance of a gp2 volume with the same volume size will be used.
 	EBSVolumeIops *float64 `json:"ebsVolumeIops,omitempty" tf:"ebs_volume_iops,omitempty"`
 
 	// The size of each EBS volume (in GiB) launched for each instance. For general purpose SSD, this value must be within the range 100 - 4096. For throughput optimized HDD, this value must be within the range 500 - 4096. Custom EBS volumes cannot be specified for the legacy node types (memory-optimized and compute-optimized).
 	EBSVolumeSize *float64 `json:"ebsVolumeSize,omitempty" tf:"ebs_volume_size,omitempty"`
 
+	// If using gp3 volumes, what throughput to use for the disk. If this is not set, the maximum performance of a gp2 volume with the same volume size will be used.
 	EBSVolumeThroughput *float64 `json:"ebsVolumeThroughput,omitempty" tf:"ebs_volume_throughput,omitempty"`
 
 	// The type of EBS volumes that will be launched with this cluster. Valid values are GENERAL_PURPOSE_SSD or THROUGHPUT_OPTIMIZED_HDD. Use this option only if you're not picking Delta Optimized  node types.
@@ -101,11 +103,13 @@ type AwsAttributesObservation struct {
 	// The number of volumes launched for each instance. You can choose up to 10 volumes. This feature is only enabled for supported node types. Legacy node types cannot specify custom EBS volumes. For node types with no instance store, at least one EBS volume needs to be specified; otherwise, cluster creation will fail. These EBS volumes will be mounted at /ebs0, /ebs1, and etc. Instance store volumes will be mounted at /local_disk0, /local_disk1, and etc. If EBS volumes are attached, Databricks will configure Spark to use only the EBS volumes for scratch storage because heterogeneously sized scratch devices can lead to inefficient disk utilization. If no EBS volumes are attached, Databricks will configure Spark to use instance store volumes. If EBS volumes are specified, then the Spark configuration spark.local.dir will be overridden.
 	EBSVolumeCount *float64 `json:"ebsVolumeCount,omitempty" tf:"ebs_volume_count,omitempty"`
 
+	// If using gp3 volumes, what IOPS to use for the disk. If this is not set, the maximum performance of a gp2 volume with the same volume size will be used.
 	EBSVolumeIops *float64 `json:"ebsVolumeIops,omitempty" tf:"ebs_volume_iops,omitempty"`
 
 	// The size of each EBS volume (in GiB) launched for each instance. For general purpose SSD, this value must be within the range 100 - 4096. For throughput optimized HDD, this value must be within the range 500 - 4096. Custom EBS volumes cannot be specified for the legacy node types (memory-optimized and compute-optimized).
 	EBSVolumeSize *float64 `json:"ebsVolumeSize,omitempty" tf:"ebs_volume_size,omitempty"`
 
+	// If using gp3 volumes, what throughput to use for the disk. If this is not set, the maximum performance of a gp2 volume with the same volume size will be used.
 	EBSVolumeThroughput *float64 `json:"ebsVolumeThroughput,omitempty" tf:"ebs_volume_throughput,omitempty"`
 
 	// The type of EBS volumes that will be launched with this cluster. Valid values are GENERAL_PURPOSE_SSD or THROUGHPUT_OPTIMIZED_HDD. Use this option only if you're not picking Delta Optimized  node types.
@@ -134,6 +138,7 @@ type AwsAttributesParameters struct {
 	// +kubebuilder:validation:Optional
 	EBSVolumeCount *float64 `json:"ebsVolumeCount,omitempty" tf:"ebs_volume_count,omitempty"`
 
+	// If using gp3 volumes, what IOPS to use for the disk. If this is not set, the maximum performance of a gp2 volume with the same volume size will be used.
 	// +kubebuilder:validation:Optional
 	EBSVolumeIops *float64 `json:"ebsVolumeIops,omitempty" tf:"ebs_volume_iops,omitempty"`
 
@@ -141,6 +146,7 @@ type AwsAttributesParameters struct {
 	// +kubebuilder:validation:Optional
 	EBSVolumeSize *float64 `json:"ebsVolumeSize,omitempty" tf:"ebs_volume_size,omitempty"`
 
+	// If using gp3 volumes, what throughput to use for the disk. If this is not set, the maximum performance of a gp2 volume with the same volume size will be used.
 	// +kubebuilder:validation:Optional
 	EBSVolumeThroughput *float64 `json:"ebsVolumeThroughput,omitempty" tf:"ebs_volume_throughput,omitempty"`
 
@@ -334,6 +340,9 @@ type ClusterInitParameters struct {
 	// Identifier of Cluster Policy to validate cluster and preset certain defaults. The primary use for cluster policies is to allow users to create policy-scoped clusters via UI rather than sharing configuration for API-created clusters. For example, when you specify policy_id of external metastore policy, you still have to fill in relevant keys for spark_conf.
 	PolicyID *string `json:"policyId,omitempty" tf:"policy_id,omitempty"`
 
+	// Configure the provider for management through account provider. This block consists of the following fields:
+	ProviderConfig []ProviderConfigInitParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
+
 	RemoteDiskThroughput *float64 `json:"remoteDiskThroughput,omitempty" tf:"remote_disk_throughput,omitempty"`
 
 	// The type of runtime engine to use. If not specified, the runtime engine type is inferred based on the spark_version value. Allowed values include: PHOTON, STANDARD.
@@ -516,6 +525,9 @@ type ClusterObservation struct {
 	// Identifier of Cluster Policy to validate cluster and preset certain defaults. The primary use for cluster policies is to allow users to create policy-scoped clusters via UI rather than sharing configuration for API-created clusters. For example, when you specify policy_id of external metastore policy, you still have to fill in relevant keys for spark_conf.
 	PolicyID *string `json:"policyId,omitempty" tf:"policy_id,omitempty"`
 
+	// Configure the provider for management through account provider. This block consists of the following fields:
+	ProviderConfig []ProviderConfigObservation `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
+
 	RemoteDiskThroughput *float64 `json:"remoteDiskThroughput,omitempty" tf:"remote_disk_throughput,omitempty"`
 
 	// The type of runtime engine to use. If not specified, the runtime engine type is inferred based on the spark_version value. Allowed values include: PHOTON, STANDARD.
@@ -654,6 +666,10 @@ type ClusterParameters struct {
 	// +kubebuilder:validation:Optional
 	PolicyID *string `json:"policyId,omitempty" tf:"policy_id,omitempty"`
 
+	// Configure the provider for management through account provider. This block consists of the following fields:
+	// +kubebuilder:validation:Optional
+	ProviderConfig []ProviderConfigParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
+
 	// +kubebuilder:validation:Optional
 	RemoteDiskThroughput *float64 `json:"remoteDiskThroughput,omitempty" tf:"remote_disk_throughput,omitempty"`
 
@@ -736,7 +752,7 @@ type DbfsParameters struct {
 
 type DockerImageInitParameters struct {
 
-	// basic_auth.username and basic_auth.password for Docker repository. Docker registry credentials are encrypted when they are stored in Databricks internal storage and when they are passed to a registry upon fetching Docker images at cluster launch. However, other authenticated and authorized API users of this workspace can access the username and password.
+	// basic_auth.username and basic_auth.password for Docker repository. Docker registry credentials are encrypted when they are stored in Databricks internal storage and when they are passed to a registry upon fetching Docker images at cluster launch.  For better security, these credentials should be stored in the secret scope and referred using secret path syntax: {{secrets/scope/key}}, otherwise other users of the workspace may access them via UI/API.
 	BasicAuth []BasicAuthInitParameters `json:"basicAuth,omitempty" tf:"basic_auth,omitempty"`
 
 	// URL for the Docker image
@@ -745,7 +761,7 @@ type DockerImageInitParameters struct {
 
 type DockerImageObservation struct {
 
-	// basic_auth.username and basic_auth.password for Docker repository. Docker registry credentials are encrypted when they are stored in Databricks internal storage and when they are passed to a registry upon fetching Docker images at cluster launch. However, other authenticated and authorized API users of this workspace can access the username and password.
+	// basic_auth.username and basic_auth.password for Docker repository. Docker registry credentials are encrypted when they are stored in Databricks internal storage and when they are passed to a registry upon fetching Docker images at cluster launch.  For better security, these credentials should be stored in the secret scope and referred using secret path syntax: {{secrets/scope/key}}, otherwise other users of the workspace may access them via UI/API.
 	BasicAuth []BasicAuthObservation `json:"basicAuth,omitempty" tf:"basic_auth,omitempty"`
 
 	// URL for the Docker image
@@ -754,7 +770,7 @@ type DockerImageObservation struct {
 
 type DockerImageParameters struct {
 
-	// basic_auth.username and basic_auth.password for Docker repository. Docker registry credentials are encrypted when they are stored in Databricks internal storage and when they are passed to a registry upon fetching Docker images at cluster launch. However, other authenticated and authorized API users of this workspace can access the username and password.
+	// basic_auth.username and basic_auth.password for Docker repository. Docker registry credentials are encrypted when they are stored in Databricks internal storage and when they are passed to a registry upon fetching Docker images at cluster launch.  For better security, these credentials should be stored in the secret scope and referred using secret path syntax: {{secrets/scope/key}}, otherwise other users of the workspace may access them via UI/API.
 	// +kubebuilder:validation:Optional
 	BasicAuth []BasicAuthParameters `json:"basicAuth,omitempty" tf:"basic_auth,omitempty"`
 
@@ -1112,14 +1128,14 @@ type LibraryParameters struct {
 type LogAnalyticsInfoInitParameters struct {
 	LogAnalyticsPrimaryKey *string `json:"logAnalyticsPrimaryKey,omitempty" tf:"log_analytics_primary_key,omitempty"`
 
-	// Canonical unique identifier for the cluster.
+	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
 	LogAnalyticsWorkspaceID *string `json:"logAnalyticsWorkspaceId,omitempty" tf:"log_analytics_workspace_id,omitempty"`
 }
 
 type LogAnalyticsInfoObservation struct {
 	LogAnalyticsPrimaryKey *string `json:"logAnalyticsPrimaryKey,omitempty" tf:"log_analytics_primary_key,omitempty"`
 
-	// Canonical unique identifier for the cluster.
+	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
 	LogAnalyticsWorkspaceID *string `json:"logAnalyticsWorkspaceId,omitempty" tf:"log_analytics_workspace_id,omitempty"`
 }
 
@@ -1128,7 +1144,7 @@ type LogAnalyticsInfoParameters struct {
 	// +kubebuilder:validation:Optional
 	LogAnalyticsPrimaryKey *string `json:"logAnalyticsPrimaryKey,omitempty" tf:"log_analytics_primary_key,omitempty"`
 
-	// Canonical unique identifier for the cluster.
+	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
 	// +kubebuilder:validation:Optional
 	LogAnalyticsWorkspaceID *string `json:"logAnalyticsWorkspaceId,omitempty" tf:"log_analytics_workspace_id,omitempty"`
 }
@@ -1188,6 +1204,25 @@ type NetworkFilesystemInfoParameters struct {
 	// host name.
 	// +kubebuilder:validation:Optional
 	ServerAddress *string `json:"serverAddress" tf:"server_address,omitempty"`
+}
+
+type ProviderConfigInitParameters struct {
+
+	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
+}
+
+type ProviderConfigObservation struct {
+
+	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
+}
+
+type ProviderConfigParameters struct {
+
+	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
+	// +kubebuilder:validation:Optional
+	WorkspaceID *string `json:"workspaceId" tf:"workspace_id,omitempty"`
 }
 
 type PypiInitParameters struct {

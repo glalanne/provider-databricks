@@ -50,7 +50,7 @@ type SchemaInitParameters struct {
 	// +mapType=granular
 	Properties map[string]*string `json:"properties,omitempty" tf:"properties,omitempty"`
 
-	// Managed location of the schema. Location in cloud storage where data for managed tables will be stored. If not specified, the location will default to the catalog root location. Change forces creation of a new resource.
+	// Managed location of the schema. Location in cloud storage where data for managed tables will be stored.  If the URL contains special characters, such as space, &, etc., they should be percent-encoded (space -> %20, etc.). If not specified, the location will default to the catalog root location. Change forces creation of a new resource.
 	StorageRoot *string `json:"storageRoot,omitempty" tf:"storage_root,omitempty"`
 }
 
@@ -87,7 +87,7 @@ type SchemaObservation struct {
 	// The unique identifier of the schema.
 	SchemaID *string `json:"schemaId,omitempty" tf:"schema_id,omitempty"`
 
-	// Managed location of the schema. Location in cloud storage where data for managed tables will be stored. If not specified, the location will default to the catalog root location. Change forces creation of a new resource.
+	// Managed location of the schema. Location in cloud storage where data for managed tables will be stored.  If the URL contains special characters, such as space, &, etc., they should be percent-encoded (space -> %20, etc.). If not specified, the location will default to the catalog root location. Change forces creation of a new resource.
 	StorageRoot *string `json:"storageRoot,omitempty" tf:"storage_root,omitempty"`
 }
 
@@ -136,7 +136,7 @@ type SchemaParameters struct {
 	// +mapType=granular
 	Properties map[string]*string `json:"properties,omitempty" tf:"properties,omitempty"`
 
-	// Managed location of the schema. Location in cloud storage where data for managed tables will be stored. If not specified, the location will default to the catalog root location. Change forces creation of a new resource.
+	// Managed location of the schema. Location in cloud storage where data for managed tables will be stored.  If the URL contains special characters, such as space, &, etc., they should be percent-encoded (space -> %20, etc.). If not specified, the location will default to the catalog root location. Change forces creation of a new resource.
 	// +kubebuilder:validation:Optional
 	StorageRoot *string `json:"storageRoot,omitempty" tf:"storage_root,omitempty"`
 }

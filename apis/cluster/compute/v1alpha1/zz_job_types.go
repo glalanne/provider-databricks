@@ -339,6 +339,7 @@ type ContinuousInitParameters struct {
 	// Indicate whether this continuous job is paused or not. Either PAUSED or UNPAUSED. When the pause_status field is omitted in the block, the server will default to using UNPAUSED as a value for pause_status.
 	PauseStatus *string `json:"pauseStatus,omitempty" tf:"pause_status,omitempty"`
 
+	// Controls task level retry behaviour. Allowed values are:
 	TaskRetryMode *string `json:"taskRetryMode,omitempty" tf:"task_retry_mode,omitempty"`
 }
 
@@ -347,6 +348,7 @@ type ContinuousObservation struct {
 	// Indicate whether this continuous job is paused or not. Either PAUSED or UNPAUSED. When the pause_status field is omitted in the block, the server will default to using UNPAUSED as a value for pause_status.
 	PauseStatus *string `json:"pauseStatus,omitempty" tf:"pause_status,omitempty"`
 
+	// Controls task level retry behaviour. Allowed values are:
 	TaskRetryMode *string `json:"taskRetryMode,omitempty" tf:"task_retry_mode,omitempty"`
 }
 
@@ -356,6 +358,7 @@ type ContinuousParameters struct {
 	// +kubebuilder:validation:Optional
 	PauseStatus *string `json:"pauseStatus,omitempty" tf:"pause_status,omitempty"`
 
+	// Controls task level retry behaviour. Allowed values are:
 	// +kubebuilder:validation:Optional
 	TaskRetryMode *string `json:"taskRetryMode,omitempty" tf:"task_retry_mode,omitempty"`
 }
@@ -1082,6 +1085,8 @@ type ForEachTaskTaskInitParameters struct {
 	// A flag to disable auto optimization in serverless tasks.
 	DisableAutoOptimization *bool `json:"disableAutoOptimization,omitempty" tf:"disable_auto_optimization,omitempty"`
 
+	Disabled *bool `json:"disabled,omitempty" tf:"disabled,omitempty"`
+
 	// (List) An optional set of email addresses notified when runs of this job begins, completes or fails. The default behavior is to not send any emails. This field is a block and is documented below.
 	EmailNotifications []ForEachTaskTaskEmailNotificationsInitParameters `json:"emailNotifications,omitempty" tf:"email_notifications,omitempty"`
 
@@ -1186,6 +1191,8 @@ type ForEachTaskTaskObservation struct {
 
 	// A flag to disable auto optimization in serverless tasks.
 	DisableAutoOptimization *bool `json:"disableAutoOptimization,omitempty" tf:"disable_auto_optimization,omitempty"`
+
+	Disabled *bool `json:"disabled,omitempty" tf:"disabled,omitempty"`
 
 	// (List) An optional set of email addresses notified when runs of this job begins, completes or fails. The default behavior is to not send any emails. This field is a block and is documented below.
 	EmailNotifications []ForEachTaskTaskEmailNotificationsObservation `json:"emailNotifications,omitempty" tf:"email_notifications,omitempty"`
@@ -1300,6 +1307,9 @@ type ForEachTaskTaskParameters struct {
 	// A flag to disable auto optimization in serverless tasks.
 	// +kubebuilder:validation:Optional
 	DisableAutoOptimization *bool `json:"disableAutoOptimization,omitempty" tf:"disable_auto_optimization,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	Disabled *bool `json:"disabled,omitempty" tf:"disabled,omitempty"`
 
 	// (List) An optional set of email addresses notified when runs of this job begins, completes or fails. The default behavior is to not send any emails. This field is a block and is documented below.
 	// +kubebuilder:validation:Optional
@@ -1828,6 +1838,9 @@ type JobInitParameters struct {
 	// A list of task specification that the job will execute. See task Configuration Block below.
 	PipelineTask []PipelineTaskInitParameters `json:"pipelineTask,omitempty" tf:"pipeline_task,omitempty"`
 
+	// Configure the provider for management through account provider. This block consists of the following fields:
+	ProviderConfig []JobProviderConfigInitParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
+
 	// A list of task specification that the job will execute. See task Configuration Block below.
 	PythonWheelTask []PythonWheelTaskInitParameters `json:"pythonWheelTask,omitempty" tf:"python_wheel_task,omitempty"`
 
@@ -1905,6 +1918,9 @@ type JobLibraryInitParameters struct {
 
 	Maven []JobLibraryMavenInitParameters `json:"maven,omitempty" tf:"maven,omitempty"`
 
+	// Configure the provider for management through account provider. This block consists of the following fields:
+	ProviderConfig []JobLibraryProviderConfigInitParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
+
 	Pypi []JobLibraryPypiInitParameters `json:"pypi,omitempty" tf:"pypi,omitempty"`
 
 	Requirements *string `json:"requirements,omitempty" tf:"requirements,omitempty"`
@@ -1949,6 +1965,9 @@ type JobLibraryObservation struct {
 
 	Maven []JobLibraryMavenObservation `json:"maven,omitempty" tf:"maven,omitempty"`
 
+	// Configure the provider for management through account provider. This block consists of the following fields:
+	ProviderConfig []JobLibraryProviderConfigObservation `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
+
 	Pypi []JobLibraryPypiObservation `json:"pypi,omitempty" tf:"pypi,omitempty"`
 
 	Requirements *string `json:"requirements,omitempty" tf:"requirements,omitempty"`
@@ -1970,6 +1989,10 @@ type JobLibraryParameters struct {
 	// +kubebuilder:validation:Optional
 	Maven []JobLibraryMavenParameters `json:"maven,omitempty" tf:"maven,omitempty"`
 
+	// Configure the provider for management through account provider. This block consists of the following fields:
+	// +kubebuilder:validation:Optional
+	ProviderConfig []JobLibraryProviderConfigParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
+
 	// +kubebuilder:validation:Optional
 	Pypi []JobLibraryPypiParameters `json:"pypi,omitempty" tf:"pypi,omitempty"`
 
@@ -1978,6 +2001,25 @@ type JobLibraryParameters struct {
 
 	// +kubebuilder:validation:Optional
 	Whl *string `json:"whl,omitempty" tf:"whl,omitempty"`
+}
+
+type JobLibraryProviderConfigInitParameters struct {
+
+	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
+}
+
+type JobLibraryProviderConfigObservation struct {
+
+	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
+}
+
+type JobLibraryProviderConfigParameters struct {
+
+	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
+	// +kubebuilder:validation:Optional
+	WorkspaceID *string `json:"workspaceId" tf:"workspace_id,omitempty"`
 }
 
 type JobLibraryPypiInitParameters struct {
@@ -2345,6 +2387,9 @@ type JobNewClusterInitParameters struct {
 	// ID of the system notification that is notified when an event defined in webhook_notifications is triggered.
 	PolicyID *string `json:"policyId,omitempty" tf:"policy_id,omitempty"`
 
+	// Configure the provider for management through account provider. This block consists of the following fields:
+	ProviderConfig []JobNewClusterProviderConfigInitParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
+
 	RemoteDiskThroughput *float64 `json:"remoteDiskThroughput,omitempty" tf:"remote_disk_throughput,omitempty"`
 
 	RuntimeEngine *string `json:"runtimeEngine,omitempty" tf:"runtime_engine,omitempty"`
@@ -2523,6 +2568,9 @@ type JobNewClusterLibraryInitParameters struct {
 
 	Maven []NewClusterLibraryMavenInitParameters `json:"maven,omitempty" tf:"maven,omitempty"`
 
+	// Configure the provider for management through account provider. This block consists of the following fields:
+	ProviderConfig []NewClusterLibraryProviderConfigInitParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
+
 	Pypi []NewClusterLibraryPypiInitParameters `json:"pypi,omitempty" tf:"pypi,omitempty"`
 
 	Requirements *string `json:"requirements,omitempty" tf:"requirements,omitempty"`
@@ -2538,6 +2586,9 @@ type JobNewClusterLibraryObservation struct {
 	Jar *string `json:"jar,omitempty" tf:"jar,omitempty"`
 
 	Maven []NewClusterLibraryMavenObservation `json:"maven,omitempty" tf:"maven,omitempty"`
+
+	// Configure the provider for management through account provider. This block consists of the following fields:
+	ProviderConfig []NewClusterLibraryProviderConfigObservation `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
 
 	Pypi []NewClusterLibraryPypiObservation `json:"pypi,omitempty" tf:"pypi,omitempty"`
 
@@ -2559,6 +2610,10 @@ type JobNewClusterLibraryParameters struct {
 
 	// +kubebuilder:validation:Optional
 	Maven []NewClusterLibraryMavenParameters `json:"maven,omitempty" tf:"maven,omitempty"`
+
+	// Configure the provider for management through account provider. This block consists of the following fields:
+	// +kubebuilder:validation:Optional
+	ProviderConfig []NewClusterLibraryProviderConfigParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
 
 	// +kubebuilder:validation:Optional
 	Pypi []NewClusterLibraryPypiParameters `json:"pypi,omitempty" tf:"pypi,omitempty"`
@@ -2630,6 +2685,9 @@ type JobNewClusterObservation struct {
 
 	// ID of the system notification that is notified when an event defined in webhook_notifications is triggered.
 	PolicyID *string `json:"policyId,omitempty" tf:"policy_id,omitempty"`
+
+	// Configure the provider for management through account provider. This block consists of the following fields:
+	ProviderConfig []JobNewClusterProviderConfigObservation `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
 
 	RemoteDiskThroughput *float64 `json:"remoteDiskThroughput,omitempty" tf:"remote_disk_throughput,omitempty"`
 
@@ -2744,6 +2802,10 @@ type JobNewClusterParameters struct {
 	// +kubebuilder:validation:Optional
 	PolicyID *string `json:"policyId,omitempty" tf:"policy_id,omitempty"`
 
+	// Configure the provider for management through account provider. This block consists of the following fields:
+	// +kubebuilder:validation:Optional
+	ProviderConfig []JobNewClusterProviderConfigParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
+
 	// +kubebuilder:validation:Optional
 	RemoteDiskThroughput *float64 `json:"remoteDiskThroughput,omitempty" tf:"remote_disk_throughput,omitempty"`
 
@@ -2778,6 +2840,25 @@ type JobNewClusterParameters struct {
 	// isn't supported
 	// +kubebuilder:validation:Optional
 	WorkloadType []JobNewClusterWorkloadTypeParameters `json:"workloadType,omitempty" tf:"workload_type,omitempty"`
+}
+
+type JobNewClusterProviderConfigInitParameters struct {
+
+	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
+}
+
+type JobNewClusterProviderConfigObservation struct {
+
+	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
+}
+
+type JobNewClusterProviderConfigParameters struct {
+
+	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
+	// +kubebuilder:validation:Optional
+	WorkspaceID *string `json:"workspaceId" tf:"workspace_id,omitempty"`
 }
 
 type JobNewClusterWorkloadTypeInitParameters struct {
@@ -2873,6 +2954,9 @@ type JobObservation struct {
 
 	// A list of task specification that the job will execute. See task Configuration Block below.
 	PipelineTask []PipelineTaskObservation `json:"pipelineTask,omitempty" tf:"pipeline_task,omitempty"`
+
+	// Configure the provider for management through account provider. This block consists of the following fields:
+	ProviderConfig []JobProviderConfigObservation `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
 
 	// A list of task specification that the job will execute. See task Configuration Block below.
 	PythonWheelTask []PythonWheelTaskObservation `json:"pythonWheelTask,omitempty" tf:"python_wheel_task,omitempty"`
@@ -3027,6 +3111,10 @@ type JobParameters struct {
 	// +kubebuilder:validation:Optional
 	PipelineTask []PipelineTaskParameters `json:"pipelineTask,omitempty" tf:"pipeline_task,omitempty"`
 
+	// Configure the provider for management through account provider. This block consists of the following fields:
+	// +kubebuilder:validation:Optional
+	ProviderConfig []JobProviderConfigParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
+
 	// A list of task specification that the job will execute. See task Configuration Block below.
 	// +kubebuilder:validation:Optional
 	PythonWheelTask []PythonWheelTaskParameters `json:"pythonWheelTask,omitempty" tf:"python_wheel_task,omitempty"`
@@ -3087,6 +3175,25 @@ type JobParameters struct {
 	// (List) An optional set of system destinations (for example, webhook destinations or Slack) to be notified when runs of this job begins, completes or fails. The default behavior is to not send any notifications. This field is a block and is documented below.
 	// +kubebuilder:validation:Optional
 	WebhookNotifications []JobWebhookNotificationsParameters `json:"webhookNotifications,omitempty" tf:"webhook_notifications,omitempty"`
+}
+
+type JobProviderConfigInitParameters struct {
+
+	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
+}
+
+type JobProviderConfigObservation struct {
+
+	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
+}
+
+type JobProviderConfigParameters struct {
+
+	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
+	// +kubebuilder:validation:Optional
+	WorkspaceID *string `json:"workspaceId" tf:"workspace_id,omitempty"`
 }
 
 type JobSourceInitParameters struct {
@@ -3172,6 +3279,9 @@ type JobTaskLibraryInitParameters struct {
 
 	Maven []JobTaskLibraryMavenInitParameters `json:"maven,omitempty" tf:"maven,omitempty"`
 
+	// Configure the provider for management through account provider. This block consists of the following fields:
+	ProviderConfig []JobTaskLibraryProviderConfigInitParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
+
 	Pypi []JobTaskLibraryPypiInitParameters `json:"pypi,omitempty" tf:"pypi,omitempty"`
 
 	Requirements *string `json:"requirements,omitempty" tf:"requirements,omitempty"`
@@ -3216,6 +3326,9 @@ type JobTaskLibraryObservation struct {
 
 	Maven []JobTaskLibraryMavenObservation `json:"maven,omitempty" tf:"maven,omitempty"`
 
+	// Configure the provider for management through account provider. This block consists of the following fields:
+	ProviderConfig []JobTaskLibraryProviderConfigObservation `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
+
 	Pypi []JobTaskLibraryPypiObservation `json:"pypi,omitempty" tf:"pypi,omitempty"`
 
 	Requirements *string `json:"requirements,omitempty" tf:"requirements,omitempty"`
@@ -3237,6 +3350,10 @@ type JobTaskLibraryParameters struct {
 	// +kubebuilder:validation:Optional
 	Maven []JobTaskLibraryMavenParameters `json:"maven,omitempty" tf:"maven,omitempty"`
 
+	// Configure the provider for management through account provider. This block consists of the following fields:
+	// +kubebuilder:validation:Optional
+	ProviderConfig []JobTaskLibraryProviderConfigParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
+
 	// +kubebuilder:validation:Optional
 	Pypi []JobTaskLibraryPypiParameters `json:"pypi,omitempty" tf:"pypi,omitempty"`
 
@@ -3245,6 +3362,25 @@ type JobTaskLibraryParameters struct {
 
 	// +kubebuilder:validation:Optional
 	Whl *string `json:"whl,omitempty" tf:"whl,omitempty"`
+}
+
+type JobTaskLibraryProviderConfigInitParameters struct {
+
+	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
+}
+
+type JobTaskLibraryProviderConfigObservation struct {
+
+	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
+}
+
+type JobTaskLibraryProviderConfigParameters struct {
+
+	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
+	// +kubebuilder:validation:Optional
+	WorkspaceID *string `json:"workspaceId" tf:"workspace_id,omitempty"`
 }
 
 type JobTaskLibraryPypiInitParameters struct {
@@ -3766,6 +3902,9 @@ type JobTaskNewClusterInitParameters struct {
 	// ID of the system notification that is notified when an event defined in webhook_notifications is triggered.
 	PolicyID *string `json:"policyId,omitempty" tf:"policy_id,omitempty"`
 
+	// Configure the provider for management through account provider. This block consists of the following fields:
+	ProviderConfig []JobTaskNewClusterProviderConfigInitParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
+
 	RemoteDiskThroughput *float64 `json:"remoteDiskThroughput,omitempty" tf:"remote_disk_throughput,omitempty"`
 
 	RuntimeEngine *string `json:"runtimeEngine,omitempty" tf:"runtime_engine,omitempty"`
@@ -4021,6 +4160,9 @@ type JobTaskNewClusterLibraryInitParameters struct {
 
 	Maven []JobTaskNewClusterLibraryMavenInitParameters `json:"maven,omitempty" tf:"maven,omitempty"`
 
+	// Configure the provider for management through account provider. This block consists of the following fields:
+	ProviderConfig []JobTaskNewClusterLibraryProviderConfigInitParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
+
 	Pypi []JobTaskNewClusterLibraryPypiInitParameters `json:"pypi,omitempty" tf:"pypi,omitempty"`
 
 	Requirements *string `json:"requirements,omitempty" tf:"requirements,omitempty"`
@@ -4065,6 +4207,9 @@ type JobTaskNewClusterLibraryObservation struct {
 
 	Maven []JobTaskNewClusterLibraryMavenObservation `json:"maven,omitempty" tf:"maven,omitempty"`
 
+	// Configure the provider for management through account provider. This block consists of the following fields:
+	ProviderConfig []JobTaskNewClusterLibraryProviderConfigObservation `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
+
 	Pypi []JobTaskNewClusterLibraryPypiObservation `json:"pypi,omitempty" tf:"pypi,omitempty"`
 
 	Requirements *string `json:"requirements,omitempty" tf:"requirements,omitempty"`
@@ -4086,6 +4231,10 @@ type JobTaskNewClusterLibraryParameters struct {
 	// +kubebuilder:validation:Optional
 	Maven []JobTaskNewClusterLibraryMavenParameters `json:"maven,omitempty" tf:"maven,omitempty"`
 
+	// Configure the provider for management through account provider. This block consists of the following fields:
+	// +kubebuilder:validation:Optional
+	ProviderConfig []JobTaskNewClusterLibraryProviderConfigParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
+
 	// +kubebuilder:validation:Optional
 	Pypi []JobTaskNewClusterLibraryPypiParameters `json:"pypi,omitempty" tf:"pypi,omitempty"`
 
@@ -4094,6 +4243,25 @@ type JobTaskNewClusterLibraryParameters struct {
 
 	// +kubebuilder:validation:Optional
 	Whl *string `json:"whl,omitempty" tf:"whl,omitempty"`
+}
+
+type JobTaskNewClusterLibraryProviderConfigInitParameters struct {
+
+	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
+}
+
+type JobTaskNewClusterLibraryProviderConfigObservation struct {
+
+	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
+}
+
+type JobTaskNewClusterLibraryProviderConfigParameters struct {
+
+	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
+	// +kubebuilder:validation:Optional
+	WorkspaceID *string `json:"workspaceId" tf:"workspace_id,omitempty"`
 }
 
 type JobTaskNewClusterLibraryPypiInitParameters struct {
@@ -4179,6 +4347,9 @@ type JobTaskNewClusterObservation struct {
 
 	// ID of the system notification that is notified when an event defined in webhook_notifications is triggered.
 	PolicyID *string `json:"policyId,omitempty" tf:"policy_id,omitempty"`
+
+	// Configure the provider for management through account provider. This block consists of the following fields:
+	ProviderConfig []JobTaskNewClusterProviderConfigObservation `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
 
 	RemoteDiskThroughput *float64 `json:"remoteDiskThroughput,omitempty" tf:"remote_disk_throughput,omitempty"`
 
@@ -4296,6 +4467,10 @@ type JobTaskNewClusterParameters struct {
 	// +kubebuilder:validation:Optional
 	PolicyID *string `json:"policyId,omitempty" tf:"policy_id,omitempty"`
 
+	// Configure the provider for management through account provider. This block consists of the following fields:
+	// +kubebuilder:validation:Optional
+	ProviderConfig []JobTaskNewClusterProviderConfigParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
+
 	// +kubebuilder:validation:Optional
 	RemoteDiskThroughput *float64 `json:"remoteDiskThroughput,omitempty" tf:"remote_disk_throughput,omitempty"`
 
@@ -4330,6 +4505,25 @@ type JobTaskNewClusterParameters struct {
 	// isn't supported
 	// +kubebuilder:validation:Optional
 	WorkloadType []JobTaskNewClusterWorkloadTypeParameters `json:"workloadType,omitempty" tf:"workload_type,omitempty"`
+}
+
+type JobTaskNewClusterProviderConfigInitParameters struct {
+
+	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
+}
+
+type JobTaskNewClusterProviderConfigObservation struct {
+
+	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
+}
+
+type JobTaskNewClusterProviderConfigParameters struct {
+
+	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
+	// +kubebuilder:validation:Optional
+	WorkspaceID *string `json:"workspaceId" tf:"workspace_id,omitempty"`
 }
 
 type JobTaskNewClusterWorkloadTypeClientsInitParameters struct {
@@ -4981,6 +5175,25 @@ type LibraryMavenParameters struct {
 	Repo *string `json:"repo,omitempty" tf:"repo,omitempty"`
 }
 
+type LibraryProviderConfigInitParameters struct {
+
+	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
+}
+
+type LibraryProviderConfigObservation struct {
+
+	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
+}
+
+type LibraryProviderConfigParameters struct {
+
+	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
+	// +kubebuilder:validation:Optional
+	WorkspaceID *string `json:"workspaceId" tf:"workspace_id,omitempty"`
+}
+
 type LibraryPypiInitParameters struct {
 	Package *string `json:"package,omitempty" tf:"package,omitempty"`
 
@@ -5000,6 +5213,60 @@ type LibraryPypiParameters struct {
 
 	// +kubebuilder:validation:Optional
 	Repo *string `json:"repo,omitempty" tf:"repo,omitempty"`
+}
+
+type ModelInitParameters struct {
+	Aliases []*string `json:"aliases,omitempty" tf:"aliases,omitempty"`
+
+	// The table(s) condition based on which to trigger a job run.  Possible values are ANY_UPDATED, ALL_UPDATED.
+	Condition *string `json:"condition,omitempty" tf:"condition,omitempty"`
+
+	// If set, the trigger starts a run only after the specified amount of time passed since the last time the trigger fired. The minimum allowed value is 60 seconds.
+	MinTimeBetweenTriggersSeconds *float64 `json:"minTimeBetweenTriggersSeconds,omitempty" tf:"min_time_between_triggers_seconds,omitempty"`
+
+	// An optional name for the job. The default value is Untitled.
+	SecurableName *string `json:"securableName,omitempty" tf:"securable_name,omitempty"`
+
+	// If set, the trigger starts a run only after no file activity has occurred for the specified amount of time. This makes it possible to wait for a batch of incoming files to arrive before triggering a run. The minimum allowed value is 60 seconds.
+	WaitAfterLastChangeSeconds *float64 `json:"waitAfterLastChangeSeconds,omitempty" tf:"wait_after_last_change_seconds,omitempty"`
+}
+
+type ModelObservation struct {
+	Aliases []*string `json:"aliases,omitempty" tf:"aliases,omitempty"`
+
+	// The table(s) condition based on which to trigger a job run.  Possible values are ANY_UPDATED, ALL_UPDATED.
+	Condition *string `json:"condition,omitempty" tf:"condition,omitempty"`
+
+	// If set, the trigger starts a run only after the specified amount of time passed since the last time the trigger fired. The minimum allowed value is 60 seconds.
+	MinTimeBetweenTriggersSeconds *float64 `json:"minTimeBetweenTriggersSeconds,omitempty" tf:"min_time_between_triggers_seconds,omitempty"`
+
+	// An optional name for the job. The default value is Untitled.
+	SecurableName *string `json:"securableName,omitempty" tf:"securable_name,omitempty"`
+
+	// If set, the trigger starts a run only after no file activity has occurred for the specified amount of time. This makes it possible to wait for a batch of incoming files to arrive before triggering a run. The minimum allowed value is 60 seconds.
+	WaitAfterLastChangeSeconds *float64 `json:"waitAfterLastChangeSeconds,omitempty" tf:"wait_after_last_change_seconds,omitempty"`
+}
+
+type ModelParameters struct {
+
+	// +kubebuilder:validation:Optional
+	Aliases []*string `json:"aliases,omitempty" tf:"aliases,omitempty"`
+
+	// The table(s) condition based on which to trigger a job run.  Possible values are ANY_UPDATED, ALL_UPDATED.
+	// +kubebuilder:validation:Optional
+	Condition *string `json:"condition" tf:"condition,omitempty"`
+
+	// If set, the trigger starts a run only after the specified amount of time passed since the last time the trigger fired. The minimum allowed value is 60 seconds.
+	// +kubebuilder:validation:Optional
+	MinTimeBetweenTriggersSeconds *float64 `json:"minTimeBetweenTriggersSeconds,omitempty" tf:"min_time_between_triggers_seconds,omitempty"`
+
+	// An optional name for the job. The default value is Untitled.
+	// +kubebuilder:validation:Optional
+	SecurableName *string `json:"securableName,omitempty" tf:"securable_name,omitempty"`
+
+	// If set, the trigger starts a run only after no file activity has occurred for the specified amount of time. This makes it possible to wait for a batch of incoming files to arrive before triggering a run. The minimum allowed value is 60 seconds.
+	// +kubebuilder:validation:Optional
+	WaitAfterLastChangeSeconds *float64 `json:"waitAfterLastChangeSeconds,omitempty" tf:"wait_after_last_change_seconds,omitempty"`
 }
 
 type NewClusterAutoscaleInitParameters struct {
@@ -5500,6 +5767,9 @@ type NewClusterInitParameters struct {
 	// ID of the system notification that is notified when an event defined in webhook_notifications is triggered.
 	PolicyID *string `json:"policyId,omitempty" tf:"policy_id,omitempty"`
 
+	// Configure the provider for management through account provider. This block consists of the following fields:
+	ProviderConfig []NewClusterProviderConfigInitParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
+
 	RemoteDiskThroughput *float64 `json:"remoteDiskThroughput,omitempty" tf:"remote_disk_throughput,omitempty"`
 
 	RuntimeEngine *string `json:"runtimeEngine,omitempty" tf:"runtime_engine,omitempty"`
@@ -5755,6 +6025,9 @@ type NewClusterLibraryInitParameters struct {
 
 	Maven []LibraryMavenInitParameters `json:"maven,omitempty" tf:"maven,omitempty"`
 
+	// Configure the provider for management through account provider. This block consists of the following fields:
+	ProviderConfig []LibraryProviderConfigInitParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
+
 	Pypi []LibraryPypiInitParameters `json:"pypi,omitempty" tf:"pypi,omitempty"`
 
 	Requirements *string `json:"requirements,omitempty" tf:"requirements,omitempty"`
@@ -5799,6 +6072,9 @@ type NewClusterLibraryObservation struct {
 
 	Maven []LibraryMavenObservation `json:"maven,omitempty" tf:"maven,omitempty"`
 
+	// Configure the provider for management through account provider. This block consists of the following fields:
+	ProviderConfig []LibraryProviderConfigObservation `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
+
 	Pypi []LibraryPypiObservation `json:"pypi,omitempty" tf:"pypi,omitempty"`
 
 	Requirements *string `json:"requirements,omitempty" tf:"requirements,omitempty"`
@@ -5820,6 +6096,10 @@ type NewClusterLibraryParameters struct {
 	// +kubebuilder:validation:Optional
 	Maven []LibraryMavenParameters `json:"maven,omitempty" tf:"maven,omitempty"`
 
+	// Configure the provider for management through account provider. This block consists of the following fields:
+	// +kubebuilder:validation:Optional
+	ProviderConfig []LibraryProviderConfigParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
+
 	// +kubebuilder:validation:Optional
 	Pypi []LibraryPypiParameters `json:"pypi,omitempty" tf:"pypi,omitempty"`
 
@@ -5828,6 +6108,25 @@ type NewClusterLibraryParameters struct {
 
 	// +kubebuilder:validation:Optional
 	Whl *string `json:"whl,omitempty" tf:"whl,omitempty"`
+}
+
+type NewClusterLibraryProviderConfigInitParameters struct {
+
+	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
+}
+
+type NewClusterLibraryProviderConfigObservation struct {
+
+	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
+}
+
+type NewClusterLibraryProviderConfigParameters struct {
+
+	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
+	// +kubebuilder:validation:Optional
+	WorkspaceID *string `json:"workspaceId" tf:"workspace_id,omitempty"`
 }
 
 type NewClusterLibraryPypiInitParameters struct {
@@ -5913,6 +6212,9 @@ type NewClusterObservation struct {
 
 	// ID of the system notification that is notified when an event defined in webhook_notifications is triggered.
 	PolicyID *string `json:"policyId,omitempty" tf:"policy_id,omitempty"`
+
+	// Configure the provider for management through account provider. This block consists of the following fields:
+	ProviderConfig []NewClusterProviderConfigObservation `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
 
 	RemoteDiskThroughput *float64 `json:"remoteDiskThroughput,omitempty" tf:"remote_disk_throughput,omitempty"`
 
@@ -6030,6 +6332,10 @@ type NewClusterParameters struct {
 	// +kubebuilder:validation:Optional
 	PolicyID *string `json:"policyId,omitempty" tf:"policy_id,omitempty"`
 
+	// Configure the provider for management through account provider. This block consists of the following fields:
+	// +kubebuilder:validation:Optional
+	ProviderConfig []NewClusterProviderConfigParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
+
 	// +kubebuilder:validation:Optional
 	RemoteDiskThroughput *float64 `json:"remoteDiskThroughput,omitempty" tf:"remote_disk_throughput,omitempty"`
 
@@ -6064,6 +6370,25 @@ type NewClusterParameters struct {
 	// isn't supported
 	// +kubebuilder:validation:Optional
 	WorkloadType []NewClusterWorkloadTypeParameters `json:"workloadType,omitempty" tf:"workload_type,omitempty"`
+}
+
+type NewClusterProviderConfigInitParameters struct {
+
+	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
+}
+
+type NewClusterProviderConfigObservation struct {
+
+	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
+}
+
+type NewClusterProviderConfigParameters struct {
+
+	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
+	// +kubebuilder:validation:Optional
+	WorkspaceID *string `json:"workspaceId" tf:"workspace_id,omitempty"`
 }
 
 type NewClusterWorkloadTypeClientsInitParameters struct {
@@ -6328,29 +6653,29 @@ type ParameterParameters struct {
 
 type PeriodicInitParameters struct {
 
-	// Specifies the interval at which the job should run. This value is required.
+	// Specifies the interval at which the job should run.
 	Interval *float64 `json:"interval,omitempty" tf:"interval,omitempty"`
 
-	// Options are {"DAYS", "HOURS", "WEEKS"}.
+	// The unit of time for the interval.  Possible values are: DAYS, HOURS, WEEKS.
 	Unit *string `json:"unit,omitempty" tf:"unit,omitempty"`
 }
 
 type PeriodicObservation struct {
 
-	// Specifies the interval at which the job should run. This value is required.
+	// Specifies the interval at which the job should run.
 	Interval *float64 `json:"interval,omitempty" tf:"interval,omitempty"`
 
-	// Options are {"DAYS", "HOURS", "WEEKS"}.
+	// The unit of time for the interval.  Possible values are: DAYS, HOURS, WEEKS.
 	Unit *string `json:"unit,omitempty" tf:"unit,omitempty"`
 }
 
 type PeriodicParameters struct {
 
-	// Specifies the interval at which the job should run. This value is required.
+	// Specifies the interval at which the job should run.
 	// +kubebuilder:validation:Optional
 	Interval *float64 `json:"interval" tf:"interval,omitempty"`
 
-	// Options are {"DAYS", "HOURS", "WEEKS"}.
+	// The unit of time for the interval.  Possible values are: DAYS, HOURS, WEEKS.
 	// +kubebuilder:validation:Optional
 	Unit *string `json:"unit" tf:"unit,omitempty"`
 }
@@ -7276,7 +7601,7 @@ type SpecInitParameters struct {
 	EnvironmentVersion *string `json:"environmentVersion,omitempty" tf:"environment_version,omitempty"`
 
 	// (list of strings) List of pip dependencies, as supported by the version of pip in this environment. Each dependency is a pip requirement file line.  See API docs for more information.
-	JarDependencies []*string `json:"jarDependencies,omitempty" tf:"jar_dependencies,omitempty"`
+	JavaDependencies []*string `json:"javaDependencies,omitempty" tf:"java_dependencies,omitempty"`
 }
 
 type SpecObservation struct {
@@ -7289,7 +7614,7 @@ type SpecObservation struct {
 	EnvironmentVersion *string `json:"environmentVersion,omitempty" tf:"environment_version,omitempty"`
 
 	// (list of strings) List of pip dependencies, as supported by the version of pip in this environment. Each dependency is a pip requirement file line.  See API docs for more information.
-	JarDependencies []*string `json:"jarDependencies,omitempty" tf:"jar_dependencies,omitempty"`
+	JavaDependencies []*string `json:"javaDependencies,omitempty" tf:"java_dependencies,omitempty"`
 }
 
 type SpecParameters struct {
@@ -7307,7 +7632,7 @@ type SpecParameters struct {
 
 	// (list of strings) List of pip dependencies, as supported by the version of pip in this environment. Each dependency is a pip requirement file line.  See API docs for more information.
 	// +kubebuilder:validation:Optional
-	JarDependencies []*string `json:"jarDependencies,omitempty" tf:"jar_dependencies,omitempty"`
+	JavaDependencies []*string `json:"javaDependencies,omitempty" tf:"java_dependencies,omitempty"`
 }
 
 type SubscribersInitParameters struct {
@@ -7436,53 +7761,15 @@ type SubscriptionsParameters struct {
 	UserName *string `json:"userName,omitempty" tf:"user_name,omitempty"`
 }
 
-type TableInitParameters struct {
-	Condition *string `json:"condition,omitempty" tf:"condition,omitempty"`
-
-	// If set, the trigger starts a run only after the specified amount of time passed since the last time the trigger fired. The minimum allowed value is 60 seconds.
-	MinTimeBetweenTriggersSeconds *float64 `json:"minTimeBetweenTriggersSeconds,omitempty" tf:"min_time_between_triggers_seconds,omitempty"`
-
-	TableNames []*string `json:"tableNames,omitempty" tf:"table_names,omitempty"`
-
-	// If set, the trigger starts a run only after no file activity has occurred for the specified amount of time. This makes it possible to wait for a batch of incoming files to arrive before triggering a run. The minimum allowed value is 60 seconds.
-	WaitAfterLastChangeSeconds *float64 `json:"waitAfterLastChangeSeconds,omitempty" tf:"wait_after_last_change_seconds,omitempty"`
-}
-
-type TableObservation struct {
-	Condition *string `json:"condition,omitempty" tf:"condition,omitempty"`
-
-	// If set, the trigger starts a run only after the specified amount of time passed since the last time the trigger fired. The minimum allowed value is 60 seconds.
-	MinTimeBetweenTriggersSeconds *float64 `json:"minTimeBetweenTriggersSeconds,omitempty" tf:"min_time_between_triggers_seconds,omitempty"`
-
-	TableNames []*string `json:"tableNames,omitempty" tf:"table_names,omitempty"`
-
-	// If set, the trigger starts a run only after no file activity has occurred for the specified amount of time. This makes it possible to wait for a batch of incoming files to arrive before triggering a run. The minimum allowed value is 60 seconds.
-	WaitAfterLastChangeSeconds *float64 `json:"waitAfterLastChangeSeconds,omitempty" tf:"wait_after_last_change_seconds,omitempty"`
-}
-
-type TableParameters struct {
-
-	// +kubebuilder:validation:Optional
-	Condition *string `json:"condition,omitempty" tf:"condition,omitempty"`
-
-	// If set, the trigger starts a run only after the specified amount of time passed since the last time the trigger fired. The minimum allowed value is 60 seconds.
-	// +kubebuilder:validation:Optional
-	MinTimeBetweenTriggersSeconds *float64 `json:"minTimeBetweenTriggersSeconds,omitempty" tf:"min_time_between_triggers_seconds,omitempty"`
-
-	// +kubebuilder:validation:Optional
-	TableNames []*string `json:"tableNames,omitempty" tf:"table_names,omitempty"`
-
-	// If set, the trigger starts a run only after no file activity has occurred for the specified amount of time. This makes it possible to wait for a batch of incoming files to arrive before triggering a run. The minimum allowed value is 60 seconds.
-	// +kubebuilder:validation:Optional
-	WaitAfterLastChangeSeconds *float64 `json:"waitAfterLastChangeSeconds,omitempty" tf:"wait_after_last_change_seconds,omitempty"`
-}
-
 type TableUpdateInitParameters struct {
+
+	// The table(s) condition based on which to trigger a job run.  Possible values are ANY_UPDATED, ALL_UPDATED.
 	Condition *string `json:"condition,omitempty" tf:"condition,omitempty"`
 
 	// If set, the trigger starts a run only after the specified amount of time passed since the last time the trigger fired. The minimum allowed value is 60 seconds.
 	MinTimeBetweenTriggersSeconds *float64 `json:"minTimeBetweenTriggersSeconds,omitempty" tf:"min_time_between_triggers_seconds,omitempty"`
 
+	// A non-empty list of tables to monitor for changes. The table name must be in the format catalog_name.schema_name.table_name.
 	TableNames []*string `json:"tableNames,omitempty" tf:"table_names,omitempty"`
 
 	// If set, the trigger starts a run only after no file activity has occurred for the specified amount of time. This makes it possible to wait for a batch of incoming files to arrive before triggering a run. The minimum allowed value is 60 seconds.
@@ -7490,11 +7777,14 @@ type TableUpdateInitParameters struct {
 }
 
 type TableUpdateObservation struct {
+
+	// The table(s) condition based on which to trigger a job run.  Possible values are ANY_UPDATED, ALL_UPDATED.
 	Condition *string `json:"condition,omitempty" tf:"condition,omitempty"`
 
 	// If set, the trigger starts a run only after the specified amount of time passed since the last time the trigger fired. The minimum allowed value is 60 seconds.
 	MinTimeBetweenTriggersSeconds *float64 `json:"minTimeBetweenTriggersSeconds,omitempty" tf:"min_time_between_triggers_seconds,omitempty"`
 
+	// A non-empty list of tables to monitor for changes. The table name must be in the format catalog_name.schema_name.table_name.
 	TableNames []*string `json:"tableNames,omitempty" tf:"table_names,omitempty"`
 
 	// If set, the trigger starts a run only after no file activity has occurred for the specified amount of time. This makes it possible to wait for a batch of incoming files to arrive before triggering a run. The minimum allowed value is 60 seconds.
@@ -7503,6 +7793,7 @@ type TableUpdateObservation struct {
 
 type TableUpdateParameters struct {
 
+	// The table(s) condition based on which to trigger a job run.  Possible values are ANY_UPDATED, ALL_UPDATED.
 	// +kubebuilder:validation:Optional
 	Condition *string `json:"condition,omitempty" tf:"condition,omitempty"`
 
@@ -7510,6 +7801,7 @@ type TableUpdateParameters struct {
 	// +kubebuilder:validation:Optional
 	MinTimeBetweenTriggersSeconds *float64 `json:"minTimeBetweenTriggersSeconds,omitempty" tf:"min_time_between_triggers_seconds,omitempty"`
 
+	// A non-empty list of tables to monitor for changes. The table name must be in the format catalog_name.schema_name.table_name.
 	// +kubebuilder:validation:Optional
 	TableNames []*string `json:"tableNames" tf:"table_names,omitempty"`
 
@@ -8097,6 +8389,8 @@ type TaskInitParameters struct {
 	// A flag to disable auto optimization in serverless tasks.
 	DisableAutoOptimization *bool `json:"disableAutoOptimization,omitempty" tf:"disable_auto_optimization,omitempty"`
 
+	Disabled *bool `json:"disabled,omitempty" tf:"disabled,omitempty"`
+
 	// (List) An optional set of email addresses notified when runs of this job begins, completes or fails. The default behavior is to not send any emails. This field is a block and is documented below.
 	EmailNotifications []TaskEmailNotificationsInitParameters `json:"emailNotifications,omitempty" tf:"email_notifications,omitempty"`
 
@@ -8216,6 +8510,9 @@ type TaskLibraryInitParameters struct {
 
 	Maven []TaskLibraryMavenInitParameters `json:"maven,omitempty" tf:"maven,omitempty"`
 
+	// Configure the provider for management through account provider. This block consists of the following fields:
+	ProviderConfig []TaskLibraryProviderConfigInitParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
+
 	Pypi []TaskLibraryPypiInitParameters `json:"pypi,omitempty" tf:"pypi,omitempty"`
 
 	Requirements *string `json:"requirements,omitempty" tf:"requirements,omitempty"`
@@ -8260,6 +8557,9 @@ type TaskLibraryObservation struct {
 
 	Maven []TaskLibraryMavenObservation `json:"maven,omitempty" tf:"maven,omitempty"`
 
+	// Configure the provider for management through account provider. This block consists of the following fields:
+	ProviderConfig []TaskLibraryProviderConfigObservation `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
+
 	Pypi []TaskLibraryPypiObservation `json:"pypi,omitempty" tf:"pypi,omitempty"`
 
 	Requirements *string `json:"requirements,omitempty" tf:"requirements,omitempty"`
@@ -8281,6 +8581,10 @@ type TaskLibraryParameters struct {
 	// +kubebuilder:validation:Optional
 	Maven []TaskLibraryMavenParameters `json:"maven,omitempty" tf:"maven,omitempty"`
 
+	// Configure the provider for management through account provider. This block consists of the following fields:
+	// +kubebuilder:validation:Optional
+	ProviderConfig []TaskLibraryProviderConfigParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
+
 	// +kubebuilder:validation:Optional
 	Pypi []TaskLibraryPypiParameters `json:"pypi,omitempty" tf:"pypi,omitempty"`
 
@@ -8289,6 +8593,25 @@ type TaskLibraryParameters struct {
 
 	// +kubebuilder:validation:Optional
 	Whl *string `json:"whl,omitempty" tf:"whl,omitempty"`
+}
+
+type TaskLibraryProviderConfigInitParameters struct {
+
+	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
+}
+
+type TaskLibraryProviderConfigObservation struct {
+
+	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
+}
+
+type TaskLibraryProviderConfigParameters struct {
+
+	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
+	// +kubebuilder:validation:Optional
+	WorkspaceID *string `json:"workspaceId" tf:"workspace_id,omitempty"`
 }
 
 type TaskLibraryPypiInitParameters struct {
@@ -8808,6 +9131,9 @@ type TaskNewClusterInitParameters struct {
 	// ID of the system notification that is notified when an event defined in webhook_notifications is triggered.
 	PolicyID *string `json:"policyId,omitempty" tf:"policy_id,omitempty"`
 
+	// Configure the provider for management through account provider. This block consists of the following fields:
+	ProviderConfig []TaskNewClusterProviderConfigInitParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
+
 	RemoteDiskThroughput *float64 `json:"remoteDiskThroughput,omitempty" tf:"remote_disk_throughput,omitempty"`
 
 	RuntimeEngine *string `json:"runtimeEngine,omitempty" tf:"runtime_engine,omitempty"`
@@ -9063,6 +9389,9 @@ type TaskNewClusterLibraryInitParameters struct {
 
 	Maven []TaskNewClusterLibraryMavenInitParameters `json:"maven,omitempty" tf:"maven,omitempty"`
 
+	// Configure the provider for management through account provider. This block consists of the following fields:
+	ProviderConfig []TaskNewClusterLibraryProviderConfigInitParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
+
 	Pypi []TaskNewClusterLibraryPypiInitParameters `json:"pypi,omitempty" tf:"pypi,omitempty"`
 
 	Requirements *string `json:"requirements,omitempty" tf:"requirements,omitempty"`
@@ -9107,6 +9436,9 @@ type TaskNewClusterLibraryObservation struct {
 
 	Maven []TaskNewClusterLibraryMavenObservation `json:"maven,omitempty" tf:"maven,omitempty"`
 
+	// Configure the provider for management through account provider. This block consists of the following fields:
+	ProviderConfig []TaskNewClusterLibraryProviderConfigObservation `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
+
 	Pypi []TaskNewClusterLibraryPypiObservation `json:"pypi,omitempty" tf:"pypi,omitempty"`
 
 	Requirements *string `json:"requirements,omitempty" tf:"requirements,omitempty"`
@@ -9128,6 +9460,10 @@ type TaskNewClusterLibraryParameters struct {
 	// +kubebuilder:validation:Optional
 	Maven []TaskNewClusterLibraryMavenParameters `json:"maven,omitempty" tf:"maven,omitempty"`
 
+	// Configure the provider for management through account provider. This block consists of the following fields:
+	// +kubebuilder:validation:Optional
+	ProviderConfig []TaskNewClusterLibraryProviderConfigParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
+
 	// +kubebuilder:validation:Optional
 	Pypi []TaskNewClusterLibraryPypiParameters `json:"pypi,omitempty" tf:"pypi,omitempty"`
 
@@ -9136,6 +9472,25 @@ type TaskNewClusterLibraryParameters struct {
 
 	// +kubebuilder:validation:Optional
 	Whl *string `json:"whl,omitempty" tf:"whl,omitempty"`
+}
+
+type TaskNewClusterLibraryProviderConfigInitParameters struct {
+
+	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
+}
+
+type TaskNewClusterLibraryProviderConfigObservation struct {
+
+	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
+}
+
+type TaskNewClusterLibraryProviderConfigParameters struct {
+
+	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
+	// +kubebuilder:validation:Optional
+	WorkspaceID *string `json:"workspaceId" tf:"workspace_id,omitempty"`
 }
 
 type TaskNewClusterLibraryPypiInitParameters struct {
@@ -9219,6 +9574,9 @@ type TaskNewClusterObservation struct {
 
 	// ID of the system notification that is notified when an event defined in webhook_notifications is triggered.
 	PolicyID *string `json:"policyId,omitempty" tf:"policy_id,omitempty"`
+
+	// Configure the provider for management through account provider. This block consists of the following fields:
+	ProviderConfig []TaskNewClusterProviderConfigObservation `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
 
 	RemoteDiskThroughput *float64 `json:"remoteDiskThroughput,omitempty" tf:"remote_disk_throughput,omitempty"`
 
@@ -9333,6 +9691,10 @@ type TaskNewClusterParameters struct {
 	// +kubebuilder:validation:Optional
 	PolicyID *string `json:"policyId,omitempty" tf:"policy_id,omitempty"`
 
+	// Configure the provider for management through account provider. This block consists of the following fields:
+	// +kubebuilder:validation:Optional
+	ProviderConfig []TaskNewClusterProviderConfigParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
+
 	// +kubebuilder:validation:Optional
 	RemoteDiskThroughput *float64 `json:"remoteDiskThroughput,omitempty" tf:"remote_disk_throughput,omitempty"`
 
@@ -9367,6 +9729,25 @@ type TaskNewClusterParameters struct {
 	// isn't supported
 	// +kubebuilder:validation:Optional
 	WorkloadType []TaskNewClusterWorkloadTypeParameters `json:"workloadType,omitempty" tf:"workload_type,omitempty"`
+}
+
+type TaskNewClusterProviderConfigInitParameters struct {
+
+	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
+}
+
+type TaskNewClusterProviderConfigObservation struct {
+
+	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
+}
+
+type TaskNewClusterProviderConfigParameters struct {
+
+	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
+	// +kubebuilder:validation:Optional
+	WorkspaceID *string `json:"workspaceId" tf:"workspace_id,omitempty"`
 }
 
 type TaskNewClusterWorkloadTypeClientsInitParameters struct {
@@ -9524,6 +9905,8 @@ type TaskObservation struct {
 	// A flag to disable auto optimization in serverless tasks.
 	DisableAutoOptimization *bool `json:"disableAutoOptimization,omitempty" tf:"disable_auto_optimization,omitempty"`
 
+	Disabled *bool `json:"disabled,omitempty" tf:"disabled,omitempty"`
+
 	// (List) An optional set of email addresses notified when runs of this job begins, completes or fails. The default behavior is to not send any emails. This field is a block and is documented below.
 	EmailNotifications []TaskEmailNotificationsObservation `json:"emailNotifications,omitempty" tf:"email_notifications,omitempty"`
 
@@ -9640,6 +10023,9 @@ type TaskParameters struct {
 	// A flag to disable auto optimization in serverless tasks.
 	// +kubebuilder:validation:Optional
 	DisableAutoOptimization *bool `json:"disableAutoOptimization,omitempty" tf:"disable_auto_optimization,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	Disabled *bool `json:"disabled,omitempty" tf:"disabled,omitempty"`
 
 	// (List) An optional set of email addresses notified when runs of this job begins, completes or fails. The default behavior is to not send any emails. This field is a block and is documented below.
 	// +kubebuilder:validation:Optional
@@ -10280,14 +10666,15 @@ type TriggerInitParameters struct {
 	// configuration block to define a trigger for File Arrival events consisting of following attributes:
 	FileArrival []FileArrivalInitParameters `json:"fileArrival,omitempty" tf:"file_arrival,omitempty"`
 
+	Model []ModelInitParameters `json:"model,omitempty" tf:"model,omitempty"`
+
 	// Indicate whether this trigger is paused or not. Either PAUSED or UNPAUSED. When the pause_status field is omitted in the block, the server will default to using UNPAUSED as a value for pause_status.
 	PauseStatus *string `json:"pauseStatus,omitempty" tf:"pause_status,omitempty"`
 
 	// configuration block to define a trigger for Periodic Triggers consisting of the following attributes:
 	Periodic []PeriodicInitParameters `json:"periodic,omitempty" tf:"periodic,omitempty"`
 
-	Table []TableInitParameters `json:"table,omitempty" tf:"table,omitempty"`
-
+	// configuration block to define a trigger for Table Updates consisting of following attributes:
 	TableUpdate []TableUpdateInitParameters `json:"tableUpdate,omitempty" tf:"table_update,omitempty"`
 }
 
@@ -10296,14 +10683,15 @@ type TriggerObservation struct {
 	// configuration block to define a trigger for File Arrival events consisting of following attributes:
 	FileArrival []FileArrivalObservation `json:"fileArrival,omitempty" tf:"file_arrival,omitempty"`
 
+	Model []ModelObservation `json:"model,omitempty" tf:"model,omitempty"`
+
 	// Indicate whether this trigger is paused or not. Either PAUSED or UNPAUSED. When the pause_status field is omitted in the block, the server will default to using UNPAUSED as a value for pause_status.
 	PauseStatus *string `json:"pauseStatus,omitempty" tf:"pause_status,omitempty"`
 
 	// configuration block to define a trigger for Periodic Triggers consisting of the following attributes:
 	Periodic []PeriodicObservation `json:"periodic,omitempty" tf:"periodic,omitempty"`
 
-	Table []TableObservation `json:"table,omitempty" tf:"table,omitempty"`
-
+	// configuration block to define a trigger for Table Updates consisting of following attributes:
 	TableUpdate []TableUpdateObservation `json:"tableUpdate,omitempty" tf:"table_update,omitempty"`
 }
 
@@ -10313,6 +10701,9 @@ type TriggerParameters struct {
 	// +kubebuilder:validation:Optional
 	FileArrival []FileArrivalParameters `json:"fileArrival,omitempty" tf:"file_arrival,omitempty"`
 
+	// +kubebuilder:validation:Optional
+	Model []ModelParameters `json:"model,omitempty" tf:"model,omitempty"`
+
 	// Indicate whether this trigger is paused or not. Either PAUSED or UNPAUSED. When the pause_status field is omitted in the block, the server will default to using UNPAUSED as a value for pause_status.
 	// +kubebuilder:validation:Optional
 	PauseStatus *string `json:"pauseStatus,omitempty" tf:"pause_status,omitempty"`
@@ -10321,9 +10712,7 @@ type TriggerParameters struct {
 	// +kubebuilder:validation:Optional
 	Periodic []PeriodicParameters `json:"periodic,omitempty" tf:"periodic,omitempty"`
 
-	// +kubebuilder:validation:Optional
-	Table []TableParameters `json:"table,omitempty" tf:"table,omitempty"`
-
+	// configuration block to define a trigger for Table Updates consisting of following attributes:
 	// +kubebuilder:validation:Optional
 	TableUpdate []TableUpdateParameters `json:"tableUpdate,omitempty" tf:"table_update,omitempty"`
 }

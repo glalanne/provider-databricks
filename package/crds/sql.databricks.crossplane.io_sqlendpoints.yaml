@@ -3,7 +3,7 @@ apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
   annotations:
-    controller-gen.kubebuilder.io/version: v0.18.0
+    controller-gen.kubebuilder.io/version: v0.19.0
   name: sqlendpoints.sql.databricks.crossplane.io
 spec:
   group: sql.databricks.crossplane.io
@@ -123,6 +123,11 @@ spec:
                   name:
                     description: Name of the SQL warehouse. Must be unique.
                     type: string
+                  noWait:
+                    description: |-
+                      Whether to skip waiting for the SQL warehouse to start after creation. Default is false.
+                      If true, skip waiting for the warehouse to start after creation.
+                    type: boolean
                   spotInstancePolicy:
                     description: 'The spot policy to use for allocating instances
                       to clusters: COST_OPTIMIZED or RELIABILITY_OPTIMIZED. This field
@@ -219,6 +224,11 @@ spec:
                   name:
                     description: Name of the SQL warehouse. Must be unique.
                     type: string
+                  noWait:
+                    description: |-
+                      Whether to skip waiting for the SQL warehouse to start after creation. Default is false.
+                      If true, skip waiting for the warehouse to start after creation.
+                    type: boolean
                   spotInstancePolicy:
                     description: 'The spot policy to use for allocating instances
                       to clusters: COST_OPTIMIZED or RELIABILITY_OPTIMIZED. This field
@@ -439,6 +449,11 @@ spec:
                   name:
                     description: Name of the SQL warehouse. Must be unique.
                     type: string
+                  noWait:
+                    description: |-
+                      Whether to skip waiting for the SQL warehouse to start after creation. Default is false.
+                      If true, skip waiting for the warehouse to start after creation.
+                    type: boolean
                   numActiveSessions:
                     description: The current number of clusters used by the endpoint.
                     type: number

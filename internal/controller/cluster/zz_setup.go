@@ -9,6 +9,7 @@ import (
 
 	"github.com/crossplane/upjet/v2/pkg/controller"
 
+	app "github.com/glalanne/provider-databricks/internal/controller/cluster/apps/app"
 	customappintegration "github.com/glalanne/provider-databricks/internal/controller/cluster/apps/customappintegration"
 	cluster "github.com/glalanne/provider-databricks/internal/controller/cluster/compute/cluster"
 	clusterpolicy "github.com/glalanne/provider-databricks/internal/controller/cluster/compute/clusterpolicy"
@@ -33,6 +34,8 @@ import (
 	mlflowmodel "github.com/glalanne/provider-databricks/internal/controller/cluster/mlflow/mlflowmodel"
 	vectorsearchendpoint "github.com/glalanne/provider-databricks/internal/controller/cluster/mosaic/vectorsearchendpoint"
 	vectorsearchindex "github.com/glalanne/provider-databricks/internal/controller/cluster/mosaic/vectorsearchindex"
+	accountfederationpolicy "github.com/glalanne/provider-databricks/internal/controller/cluster/oauth/accountfederationpolicy"
+	serviceprincipalfederationpolicy "github.com/glalanne/provider-databricks/internal/controller/cluster/oauth/serviceprincipalfederationpolicy"
 	providerconfig "github.com/glalanne/provider-databricks/internal/controller/cluster/providerconfig"
 	accesscontrolruleset "github.com/glalanne/provider-databricks/internal/controller/cluster/security/accesscontrolruleset"
 	entitlements "github.com/glalanne/provider-databricks/internal/controller/cluster/security/entitlements"
@@ -112,6 +115,7 @@ import (
 // the supplied manager.
 func Setup(mgr ctrl.Manager, o controller.Options) error {
 	for _, setup := range []func(ctrl.Manager, controller.Options) error{
+		app.Setup,
 		customappintegration.Setup,
 		cluster.Setup,
 		clusterpolicy.Setup,
@@ -136,6 +140,8 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 		mlflowmodel.Setup,
 		vectorsearchendpoint.Setup,
 		vectorsearchindex.Setup,
+		accountfederationpolicy.Setup,
+		serviceprincipalfederationpolicy.Setup,
 		providerconfig.Setup,
 		accesscontrolruleset.Setup,
 		entitlements.Setup,
@@ -221,6 +227,7 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 // the supplied manager gated.
 func SetupGated(mgr ctrl.Manager, o controller.Options) error {
 	for _, setup := range []func(ctrl.Manager, controller.Options) error{
+		app.SetupGated,
 		customappintegration.SetupGated,
 		cluster.SetupGated,
 		clusterpolicy.SetupGated,
@@ -245,6 +252,8 @@ func SetupGated(mgr ctrl.Manager, o controller.Options) error {
 		mlflowmodel.SetupGated,
 		vectorsearchendpoint.SetupGated,
 		vectorsearchindex.SetupGated,
+		accountfederationpolicy.SetupGated,
+		serviceprincipalfederationpolicy.SetupGated,
 		providerconfig.SetupGated,
 		accesscontrolruleset.SetupGated,
 		entitlements.SetupGated,

@@ -41,6 +41,25 @@ type NotificationsOnNewClassificationTagDetectedParameters struct {
 	EmailAddresses []*string `json:"emailAddresses,omitempty" tf:"email_addresses,omitempty"`
 }
 
+type ProviderConfigInitParameters struct {
+
+	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
+}
+
+type ProviderConfigObservation struct {
+
+	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
+}
+
+type ProviderConfigParameters struct {
+
+	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
+	// +kubebuilder:validation:Optional
+	WorkspaceID *string `json:"workspaceId" tf:"workspace_id,omitempty"`
+}
+
 type QualityMonitorCustomMetricsInitParameters struct {
 
 	// create metric definition
@@ -101,15 +120,20 @@ type QualityMonitorCustomMetricsParameters struct {
 }
 
 type QualityMonitorDataClassificationConfigInitParameters struct {
+
+	// Whether to enable data classification
 	Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
 }
 
 type QualityMonitorDataClassificationConfigObservation struct {
+
+	// Whether to enable data classification
 	Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
 }
 
 type QualityMonitorDataClassificationConfigParameters struct {
 
+	// Whether to enable data classification
 	// +kubebuilder:validation:Optional
 	Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
 }
@@ -219,6 +243,9 @@ type QualityMonitorInitParameters struct {
 	// - Schema where output metric tables are created
 	OutputSchemaName *string `json:"outputSchemaName,omitempty" tf:"output_schema_name,omitempty"`
 
+	// Configure the provider for management through account provider. This block consists of the following fields:
+	ProviderConfig []ProviderConfigInitParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
+
 	// The schedule for automatically updating and refreshing metric tables.  This block consists of following fields:
 	Schedule []QualityMonitorScheduleInitParameters `json:"schedule,omitempty" tf:"schedule,omitempty"`
 
@@ -311,6 +338,9 @@ type QualityMonitorObservation struct {
 	// The full name of the profile metrics table. Format: catalog_name.schema_name.table_name.
 	ProfileMetricsTableName *string `json:"profileMetricsTableName,omitempty" tf:"profile_metrics_table_name,omitempty"`
 
+	// Configure the provider for management through account provider. This block consists of the following fields:
+	ProviderConfig []ProviderConfigObservation `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
+
 	// The schedule for automatically updating and refreshing metric tables.  This block consists of following fields:
 	Schedule []QualityMonitorScheduleObservation `json:"schedule,omitempty" tf:"schedule,omitempty"`
 
@@ -369,6 +399,10 @@ type QualityMonitorParameters struct {
 	// - Schema where output metric tables are created
 	// +kubebuilder:validation:Optional
 	OutputSchemaName *string `json:"outputSchemaName,omitempty" tf:"output_schema_name,omitempty"`
+
+	// Configure the provider for management through account provider. This block consists of the following fields:
+	// +kubebuilder:validation:Optional
+	ProviderConfig []ProviderConfigParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
 
 	// The schedule for automatically updating and refreshing metric tables.  This block consists of following fields:
 	// +kubebuilder:validation:Optional

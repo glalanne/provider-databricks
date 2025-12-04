@@ -3,7 +3,7 @@ apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
   annotations:
-    controller-gen.kubebuilder.io/version: v0.18.0
+    controller-gen.kubebuilder.io/version: v0.19.0
   name: registeredmodels.unity.databricks.m.crossplane.io
 spec:
   group: unity.databricks.m.crossplane.io
@@ -58,6 +58,37 @@ spec:
             properties:
               forProvider:
                 properties:
+                  aliases:
+                    items:
+                      properties:
+                        aliasName:
+                          description: The name of the registered model.  Change of
+                            this parameter forces recreation of the resource.
+                          type: string
+                        catalogName:
+                          description: The name of the catalog where the schema and
+                            the registered model reside. Change of this parameter
+                            forces recreation of the resource.
+                          type: string
+                        id:
+                          description: Equal to the full name of the model (catalog_name.schema_name.name)
+                            and used to identify the model uniquely across the metastore.
+                          type: string
+                        modelName:
+                          description: The name of the registered model.  Change of
+                            this parameter forces recreation of the resource.
+                          type: string
+                        schemaName:
+                          description: The name of the schema where the registered
+                            model resides. Change of this parameter forces recreation
+                            of the resource.
+                          type: string
+                        versionNum:
+                          type: number
+                      type: object
+                    type: array
+                  browseOnly:
+                    type: boolean
                   catalogName:
                     description: The name of the catalog where the schema and the
                       registered model reside. Change of this parameter forces recreation
@@ -65,6 +96,18 @@ spec:
                     type: string
                   comment:
                     description: The comment attached to the registered model.
+                    type: string
+                  createdAt:
+                    type: number
+                  createdBy:
+                    type: string
+                  fullName:
+                    description: The name of the registered model.  Change of this
+                      parameter forces recreation of the resource.
+                    type: string
+                  metastoreId:
+                    description: Equal to the full name of the model (catalog_name.schema_name.name)
+                      and used to identify the model uniquely across the metastore.
                     type: string
                   name:
                     description: The name of the registered model.  Change of this
@@ -79,8 +122,14 @@ spec:
                     type: string
                   storageLocation:
                     description: The storage location under which model version data
-                      files are stored. Change of this parameter forces recreation
-                      of the resource.
+                      files are stored.  If the URL contains special characters, such
+                      as space, &, etc., they should be percent-encoded (space ->
+                      %20, etc.). Change of this parameter forces recreation of the
+                      resource.
+                    type: string
+                  updatedAt:
+                    type: number
+                  updatedBy:
                     type: string
                 type: object
               initProvider:
@@ -96,6 +145,37 @@ spec:
                   for example because of an external controller is managing them, like an
                   autoscaler.
                 properties:
+                  aliases:
+                    items:
+                      properties:
+                        aliasName:
+                          description: The name of the registered model.  Change of
+                            this parameter forces recreation of the resource.
+                          type: string
+                        catalogName:
+                          description: The name of the catalog where the schema and
+                            the registered model reside. Change of this parameter
+                            forces recreation of the resource.
+                          type: string
+                        id:
+                          description: Equal to the full name of the model (catalog_name.schema_name.name)
+                            and used to identify the model uniquely across the metastore.
+                          type: string
+                        modelName:
+                          description: The name of the registered model.  Change of
+                            this parameter forces recreation of the resource.
+                          type: string
+                        schemaName:
+                          description: The name of the schema where the registered
+                            model resides. Change of this parameter forces recreation
+                            of the resource.
+                          type: string
+                        versionNum:
+                          type: number
+                      type: object
+                    type: array
+                  browseOnly:
+                    type: boolean
                   catalogName:
                     description: The name of the catalog where the schema and the
                       registered model reside. Change of this parameter forces recreation
@@ -103,6 +183,18 @@ spec:
                     type: string
                   comment:
                     description: The comment attached to the registered model.
+                    type: string
+                  createdAt:
+                    type: number
+                  createdBy:
+                    type: string
+                  fullName:
+                    description: The name of the registered model.  Change of this
+                      parameter forces recreation of the resource.
+                    type: string
+                  metastoreId:
+                    description: Equal to the full name of the model (catalog_name.schema_name.name)
+                      and used to identify the model uniquely across the metastore.
                     type: string
                   name:
                     description: The name of the registered model.  Change of this
@@ -117,8 +209,14 @@ spec:
                     type: string
                   storageLocation:
                     description: The storage location under which model version data
-                      files are stored. Change of this parameter forces recreation
-                      of the resource.
+                      files are stored.  If the URL contains special characters, such
+                      as space, &, etc., they should be percent-encoded (space ->
+                      %20, etc.). Change of this parameter forces recreation of the
+                      resource.
+                    type: string
+                  updatedAt:
+                    type: number
+                  updatedBy:
                     type: string
                 type: object
               managementPolicies:
@@ -179,24 +277,42 @@ spec:
             required:
             - forProvider
             type: object
-            x-kubernetes-validations:
-            - message: spec.forProvider.catalogName is a required parameter
-              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
-                || ''Update'' in self.managementPolicies) || has(self.forProvider.catalogName)
-                || (has(self.initProvider) && has(self.initProvider.catalogName))'
-            - message: spec.forProvider.name is a required parameter
-              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
-                || ''Update'' in self.managementPolicies) || has(self.forProvider.name)
-                || (has(self.initProvider) && has(self.initProvider.name))'
-            - message: spec.forProvider.schemaName is a required parameter
-              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
-                || ''Update'' in self.managementPolicies) || has(self.forProvider.schemaName)
-                || (has(self.initProvider) && has(self.initProvider.schemaName))'
           status:
             description: RegisteredModelStatus defines the observed state of RegisteredModel.
             properties:
               atProvider:
                 properties:
+                  aliases:
+                    items:
+                      properties:
+                        aliasName:
+                          description: The name of the registered model.  Change of
+                            this parameter forces recreation of the resource.
+                          type: string
+                        catalogName:
+                          description: The name of the catalog where the schema and
+                            the registered model reside. Change of this parameter
+                            forces recreation of the resource.
+                          type: string
+                        id:
+                          description: Equal to the full name of the model (catalog_name.schema_name.name)
+                            and used to identify the model uniquely across the metastore.
+                          type: string
+                        modelName:
+                          description: The name of the registered model.  Change of
+                            this parameter forces recreation of the resource.
+                          type: string
+                        schemaName:
+                          description: The name of the schema where the registered
+                            model resides. Change of this parameter forces recreation
+                            of the resource.
+                          type: string
+                        versionNum:
+                          type: number
+                      type: object
+                    type: array
+                  browseOnly:
+                    type: boolean
                   catalogName:
                     description: The name of the catalog where the schema and the
                       registered model reside. Change of this parameter forces recreation
@@ -205,7 +321,19 @@ spec:
                   comment:
                     description: The comment attached to the registered model.
                     type: string
+                  createdAt:
+                    type: number
+                  createdBy:
+                    type: string
+                  fullName:
+                    description: The name of the registered model.  Change of this
+                      parameter forces recreation of the resource.
+                    type: string
                   id:
+                    description: Equal to the full name of the model (catalog_name.schema_name.name)
+                      and used to identify the model uniquely across the metastore.
+                    type: string
+                  metastoreId:
                     description: Equal to the full name of the model (catalog_name.schema_name.name)
                       and used to identify the model uniquely across the metastore.
                     type: string
@@ -222,8 +350,14 @@ spec:
                     type: string
                   storageLocation:
                     description: The storage location under which model version data
-                      files are stored. Change of this parameter forces recreation
-                      of the resource.
+                      files are stored.  If the URL contains special characters, such
+                      as space, &, etc., they should be percent-encoded (space ->
+                      %20, etc.). Change of this parameter forces recreation of the
+                      resource.
+                    type: string
+                  updatedAt:
+                    type: number
+                  updatedBy:
                     type: string
                 type: object
               conditions:

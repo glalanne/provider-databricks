@@ -143,22 +143,23 @@ type GenericWebhookParameters struct {
 
 type MicrosoftTeamsInitParameters struct {
 
-	// The unique ID of the Notification Destination.
-	AppID *string `json:"appId,omitempty" tf:"app_id,omitempty"`
+	// App ID for Microsoft Teams App.
+	AppIDSecretRef *v1.SecretKeySelector `json:"appIdSecretRef,omitempty" tf:"-"`
 
 	AppIDSet *bool `json:"appIdSet,omitempty" tf:"app_id_set,omitempty"`
 
-	AuthSecret *string `json:"authSecret,omitempty" tf:"auth_secret,omitempty"`
+	// Secret for Microsoft Teams App authentication.
+	AuthSecretSecretRef *v1.SecretKeySelector `json:"authSecretSecretRef,omitempty" tf:"-"`
 
 	AuthSecretSet *bool `json:"authSecretSet,omitempty" tf:"auth_secret_set,omitempty"`
 
-	// The Slack webhook URL.
-	ChannelURL *string `json:"channelUrl,omitempty" tf:"channel_url,omitempty"`
+	// Channel URL for Microsoft Teams App.
+	ChannelURLSecretRef *v1.SecretKeySelector `json:"channelUrlSecretRef,omitempty" tf:"-"`
 
 	ChannelURLSet *bool `json:"channelUrlSet,omitempty" tf:"channel_url_set,omitempty"`
 
-	// The unique ID of the Notification Destination.
-	TenantID *string `json:"tenantId,omitempty" tf:"tenant_id,omitempty"`
+	// Tenant ID for Microsoft Teams App.
+	TenantIDSecretRef *v1.SecretKeySelector `json:"tenantIdSecretRef,omitempty" tf:"-"`
 
 	TenantIDSet *bool `json:"tenantIdSet,omitempty" tf:"tenant_id_set,omitempty"`
 
@@ -169,23 +170,11 @@ type MicrosoftTeamsInitParameters struct {
 }
 
 type MicrosoftTeamsObservation struct {
-
-	// The unique ID of the Notification Destination.
-	AppID *string `json:"appId,omitempty" tf:"app_id,omitempty"`
-
 	AppIDSet *bool `json:"appIdSet,omitempty" tf:"app_id_set,omitempty"`
-
-	AuthSecret *string `json:"authSecret,omitempty" tf:"auth_secret,omitempty"`
 
 	AuthSecretSet *bool `json:"authSecretSet,omitempty" tf:"auth_secret_set,omitempty"`
 
-	// The Slack webhook URL.
-	ChannelURL *string `json:"channelUrl,omitempty" tf:"channel_url,omitempty"`
-
 	ChannelURLSet *bool `json:"channelUrlSet,omitempty" tf:"channel_url_set,omitempty"`
-
-	// The unique ID of the Notification Destination.
-	TenantID *string `json:"tenantId,omitempty" tf:"tenant_id,omitempty"`
 
 	TenantIDSet *bool `json:"tenantIdSet,omitempty" tf:"tenant_id_set,omitempty"`
 
@@ -194,29 +183,30 @@ type MicrosoftTeamsObservation struct {
 
 type MicrosoftTeamsParameters struct {
 
-	// The unique ID of the Notification Destination.
+	// App ID for Microsoft Teams App.
 	// +kubebuilder:validation:Optional
-	AppID *string `json:"appId,omitempty" tf:"app_id,omitempty"`
+	AppIDSecretRef *v1.SecretKeySelector `json:"appIdSecretRef,omitempty" tf:"-"`
 
 	// +kubebuilder:validation:Optional
 	AppIDSet *bool `json:"appIdSet,omitempty" tf:"app_id_set,omitempty"`
 
+	// Secret for Microsoft Teams App authentication.
 	// +kubebuilder:validation:Optional
-	AuthSecret *string `json:"authSecret,omitempty" tf:"auth_secret,omitempty"`
+	AuthSecretSecretRef *v1.SecretKeySelector `json:"authSecretSecretRef,omitempty" tf:"-"`
 
 	// +kubebuilder:validation:Optional
 	AuthSecretSet *bool `json:"authSecretSet,omitempty" tf:"auth_secret_set,omitempty"`
 
-	// The Slack webhook URL.
+	// Channel URL for Microsoft Teams App.
 	// +kubebuilder:validation:Optional
-	ChannelURL *string `json:"channelUrl,omitempty" tf:"channel_url,omitempty"`
+	ChannelURLSecretRef *v1.SecretKeySelector `json:"channelUrlSecretRef,omitempty" tf:"-"`
 
 	// +kubebuilder:validation:Optional
 	ChannelURLSet *bool `json:"channelUrlSet,omitempty" tf:"channel_url_set,omitempty"`
 
-	// The unique ID of the Notification Destination.
+	// Tenant ID for Microsoft Teams App.
 	// +kubebuilder:validation:Optional
-	TenantID *string `json:"tenantId,omitempty" tf:"tenant_id,omitempty"`
+	TenantIDSecretRef *v1.SecretKeySelector `json:"tenantIdSecretRef,omitempty" tf:"-"`
 
 	// +kubebuilder:validation:Optional
 	TenantIDSet *bool `json:"tenantIdSet,omitempty" tf:"tenant_id_set,omitempty"`

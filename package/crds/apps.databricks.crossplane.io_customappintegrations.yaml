@@ -3,7 +3,7 @@ apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
   annotations:
-    controller-gen.kubebuilder.io/version: v0.18.0
+    controller-gen.kubebuilder.io/version: v0.19.0
   name: customappintegrations.apps.databricks.crossplane.io
 spec:
   group: apps.databricks.crossplane.io
@@ -128,9 +128,13 @@ spec:
                   tokenAccessPolicy:
                     items:
                       properties:
+                        absoluteSessionLifetimeInMinutes:
+                          type: number
                         accessTokenTtlInMinutes:
                           description: access token time to live (TTL) in minutes.
                           type: number
+                        enableSingleUseRefreshTokens:
+                          type: boolean
                         refreshTokenTtlInMinutes:
                           description: refresh token TTL in minutes. The TTL of refresh
                             token cannot be lower than TTL of access token.
@@ -212,9 +216,13 @@ spec:
                   tokenAccessPolicy:
                     items:
                       properties:
+                        absoluteSessionLifetimeInMinutes:
+                          type: number
                         accessTokenTtlInMinutes:
                           description: access token time to live (TTL) in minutes.
                           type: number
+                        enableSingleUseRefreshTokens:
+                          type: boolean
                         refreshTokenTtlInMinutes:
                           description: refresh token TTL in minutes. The TTL of refresh
                             token cannot be lower than TTL of access token.
@@ -359,9 +367,13 @@ spec:
                   tokenAccessPolicy:
                     items:
                       properties:
+                        absoluteSessionLifetimeInMinutes:
+                          type: number
                         accessTokenTtlInMinutes:
                           description: access token time to live (TTL) in minutes.
                           type: number
+                        enableSingleUseRefreshTokens:
+                          type: boolean
                         refreshTokenTtlInMinutes:
                           description: refresh token TTL in minutes. The TTL of refresh
                             token cannot be lower than TTL of access token.

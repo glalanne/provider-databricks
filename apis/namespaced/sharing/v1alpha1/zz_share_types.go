@@ -15,9 +15,6 @@ import (
 )
 
 type ObjectInitParameters struct {
-	AddedAt *float64 `json:"addedAt,omitempty" tf:"added_at,omitempty"`
-
-	AddedBy *string `json:"addedBy,omitempty" tf:"added_by,omitempty"`
 
 	// Whether to enable Change Data Feed (cdf) on the shared object. When this field is set, field history_data_sharing_status can not be set.
 	CdfEnabled *bool `json:"cdfEnabled,omitempty" tf:"cdf_enabled,omitempty"`
@@ -25,9 +22,10 @@ type ObjectInitParameters struct {
 	// User-supplied free-form text.
 	Comment *string `json:"comment,omitempty" tf:"comment,omitempty"`
 
+	// The content of the notebook file when the data object type is NOTEBOOK_FILE. This should be base64 encoded. Required for adding a NOTEBOOK_FILE, optional for updating, ignored for other types.
 	Content *string `json:"content,omitempty" tf:"content,omitempty"`
 
-	// Type of the data object, currently TABLE, VIEW, SCHEMA, VOLUME, and MODEL are supported.
+	// Type of the data object. Supported types: TABLE, FOREIGN_TABLE, SCHEMA, VIEW, MATERIALIZED_VIEW, STREAMING_TABLE, MODEL, NOTEBOOK_FILE, FUNCTION, FEATURE_SPEC, and VOLUME.
 	DataObjectType *string `json:"dataObjectType,omitempty" tf:"data_object_type,omitempty"`
 
 	// Whether to enable history sharing, one of: ENABLED, DISABLED. When a table has history sharing enabled, recipients can query table data by version, starting from the current table version. If not specified, clients can only query starting from the version of the object at the time it was added to the share. NOTE: The start_version should be less than or equal the current version of the object. When this field is set, field cdf_enabled can not be set.
@@ -36,6 +34,7 @@ type ObjectInitParameters struct {
 	// Name of share. Change forces creation of a new resource.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
+	// Array of partitions for the shared data.
 	Partition []PartitionInitParameters `json:"partition,omitempty" tf:"partition,omitempty"`
 
 	// A user-provided new name for the data object within the share. If this new name is not provided, the object's original name will be used as the shared_as name. The shared_as name must be unique within a Share. Change forces creation of a new resource.
@@ -43,9 +42,6 @@ type ObjectInitParameters struct {
 
 	// The start version associated with the object for cdf. This allows data providers to control the lowest object version that is accessible by clients.
 	StartVersion *float64 `json:"startVersion,omitempty" tf:"start_version,omitempty"`
-
-	// Status of the object, one of: ACTIVE, PERMISSION_DENIED.
-	Status *string `json:"status,omitempty" tf:"status,omitempty"`
 
 	// A user-provided new name for the data object within the share. If this new name is not provided, the object's original name will be used as the shared_as name. The shared_as name must be unique within a Share. Change forces creation of a new resource.
 	StringSharedAs *string `json:"stringSharedAs,omitempty" tf:"string_shared_as,omitempty"`
@@ -62,10 +58,26 @@ type ObjectObservation struct {
 	// User-supplied free-form text.
 	Comment *string `json:"comment,omitempty" tf:"comment,omitempty"`
 
+	// The content of the notebook file when the data object type is NOTEBOOK_FILE. This should be base64 encoded. Required for adding a NOTEBOOK_FILE, optional for updating, ignored for other types.
 	Content *string `json:"content,omitempty" tf:"content,omitempty"`
 
-	// Type of the data object, currently TABLE, VIEW, SCHEMA, VOLUME, and MODEL are supported.
+	// Type of the data object. Supported types: TABLE, FOREIGN_TABLE, SCHEMA, VIEW, MATERIALIZED_VIEW, STREAMING_TABLE, MODEL, NOTEBOOK_FILE, FUNCTION, FEATURE_SPEC, and VOLUME.
 	DataObjectType *string `json:"dataObjectType,omitempty" tf:"data_object_type,omitempty"`
+
+	// Whether to enable Change Data Feed (cdf) on the shared object. When this field is set, field history_data_sharing_status can not be set.
+	EffectiveCdfEnabled *bool `json:"effectiveCdfEnabled,omitempty" tf:"effective_cdf_enabled,omitempty"`
+
+	// Whether to enable history sharing, one of: ENABLED, DISABLED. When a table has history sharing enabled, recipients can query table data by version, starting from the current table version. If not specified, clients can only query starting from the version of the object at the time it was added to the share. NOTE: The start_version should be less than or equal the current version of the object. When this field is set, field cdf_enabled can not be set.
+	EffectiveHistoryDataSharingStatus *string `json:"effectiveHistoryDataSharingStatus,omitempty" tf:"effective_history_data_sharing_status,omitempty"`
+
+	// A user-provided new name for the data object within the share. If this new name is not provided, the object's original name will be used as the shared_as name. The shared_as name must be unique within a Share. Change forces creation of a new resource.
+	EffectiveSharedAs *string `json:"effectiveSharedAs,omitempty" tf:"effective_shared_as,omitempty"`
+
+	// The start version associated with the object for cdf. This allows data providers to control the lowest object version that is accessible by clients.
+	EffectiveStartVersion *float64 `json:"effectiveStartVersion,omitempty" tf:"effective_start_version,omitempty"`
+
+	// A user-provided new name for the data object within the share. If this new name is not provided, the object's original name will be used as the shared_as name. The shared_as name must be unique within a Share. Change forces creation of a new resource.
+	EffectiveStringSharedAs *string `json:"effectiveStringSharedAs,omitempty" tf:"effective_string_shared_as,omitempty"`
 
 	// Whether to enable history sharing, one of: ENABLED, DISABLED. When a table has history sharing enabled, recipients can query table data by version, starting from the current table version. If not specified, clients can only query starting from the version of the object at the time it was added to the share. NOTE: The start_version should be less than or equal the current version of the object. When this field is set, field cdf_enabled can not be set.
 	HistoryDataSharingStatus *string `json:"historyDataSharingStatus,omitempty" tf:"history_data_sharing_status,omitempty"`
@@ -73,6 +85,7 @@ type ObjectObservation struct {
 	// Name of share. Change forces creation of a new resource.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
+	// Array of partitions for the shared data.
 	Partition []PartitionObservation `json:"partition,omitempty" tf:"partition,omitempty"`
 
 	// A user-provided new name for the data object within the share. If this new name is not provided, the object's original name will be used as the shared_as name. The shared_as name must be unique within a Share. Change forces creation of a new resource.
@@ -90,12 +103,6 @@ type ObjectObservation struct {
 
 type ObjectParameters struct {
 
-	// +kubebuilder:validation:Optional
-	AddedAt *float64 `json:"addedAt,omitempty" tf:"added_at,omitempty"`
-
-	// +kubebuilder:validation:Optional
-	AddedBy *string `json:"addedBy,omitempty" tf:"added_by,omitempty"`
-
 	// Whether to enable Change Data Feed (cdf) on the shared object. When this field is set, field history_data_sharing_status can not be set.
 	// +kubebuilder:validation:Optional
 	CdfEnabled *bool `json:"cdfEnabled,omitempty" tf:"cdf_enabled,omitempty"`
@@ -104,10 +111,11 @@ type ObjectParameters struct {
 	// +kubebuilder:validation:Optional
 	Comment *string `json:"comment,omitempty" tf:"comment,omitempty"`
 
+	// The content of the notebook file when the data object type is NOTEBOOK_FILE. This should be base64 encoded. Required for adding a NOTEBOOK_FILE, optional for updating, ignored for other types.
 	// +kubebuilder:validation:Optional
 	Content *string `json:"content,omitempty" tf:"content,omitempty"`
 
-	// Type of the data object, currently TABLE, VIEW, SCHEMA, VOLUME, and MODEL are supported.
+	// Type of the data object. Supported types: TABLE, FOREIGN_TABLE, SCHEMA, VIEW, MATERIALIZED_VIEW, STREAMING_TABLE, MODEL, NOTEBOOK_FILE, FUNCTION, FEATURE_SPEC, and VOLUME.
 	// +kubebuilder:validation:Optional
 	DataObjectType *string `json:"dataObjectType" tf:"data_object_type,omitempty"`
 
@@ -119,6 +127,7 @@ type ObjectParameters struct {
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name" tf:"name,omitempty"`
 
+	// Array of partitions for the shared data.
 	// +kubebuilder:validation:Optional
 	Partition []PartitionParameters `json:"partition,omitempty" tf:"partition,omitempty"`
 
@@ -129,10 +138,6 @@ type ObjectParameters struct {
 	// The start version associated with the object for cdf. This allows data providers to control the lowest object version that is accessible by clients.
 	// +kubebuilder:validation:Optional
 	StartVersion *float64 `json:"startVersion,omitempty" tf:"start_version,omitempty"`
-
-	// Status of the object, one of: ACTIVE, PERMISSION_DENIED.
-	// +kubebuilder:validation:Optional
-	Status *string `json:"status,omitempty" tf:"status,omitempty"`
 
 	// A user-provided new name for the data object within the share. If this new name is not provided, the object's original name will be used as the shared_as name. The shared_as name must be unique within a Share. Change forces creation of a new resource.
 	// +kubebuilder:validation:Optional
@@ -158,16 +163,29 @@ type PartitionParameters struct {
 	Value []ValueParameters `json:"value,omitempty" tf:"value,omitempty"`
 }
 
+type ProviderConfigInitParameters struct {
+
+	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
+}
+
+type ProviderConfigObservation struct {
+
+	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
+}
+
+type ProviderConfigParameters struct {
+
+	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
+	// +kubebuilder:validation:Optional
+	WorkspaceID *string `json:"workspaceId" tf:"workspace_id,omitempty"`
+}
+
 type ShareInitParameters struct {
 
 	// User-supplied free-form text.
 	Comment *string `json:"comment,omitempty" tf:"comment,omitempty"`
-
-	// Time when the share was created.
-	CreatedAt *float64 `json:"createdAt,omitempty" tf:"created_at,omitempty"`
-
-	// The principal that created the share.
-	CreatedBy *string `json:"createdBy,omitempty" tf:"created_by,omitempty"`
 
 	// Name of share. Change forces creation of a new resource.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
@@ -177,13 +195,10 @@ type ShareInitParameters struct {
 	// User name/group name/sp application_id of the share owner.
 	Owner *string `json:"owner,omitempty" tf:"owner,omitempty"`
 
-	StorageLocation *string `json:"storageLocation,omitempty" tf:"storage_location,omitempty"`
+	// Configure the provider for management through account provider. This block consists of the following fields:
+	ProviderConfig []ProviderConfigInitParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
 
 	StorageRoot *string `json:"storageRoot,omitempty" tf:"storage_root,omitempty"`
-
-	UpdatedAt *float64 `json:"updatedAt,omitempty" tf:"updated_at,omitempty"`
-
-	UpdatedBy *string `json:"updatedBy,omitempty" tf:"updated_by,omitempty"`
 }
 
 type ShareObservation struct {
@@ -197,6 +212,9 @@ type ShareObservation struct {
 	// The principal that created the share.
 	CreatedBy *string `json:"createdBy,omitempty" tf:"created_by,omitempty"`
 
+	// User name/group name/sp application_id of the share owner.
+	EffectiveOwner *string `json:"effectiveOwner,omitempty" tf:"effective_owner,omitempty"`
+
 	// the ID of the share, the same as name.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
@@ -207,6 +225,9 @@ type ShareObservation struct {
 
 	// User name/group name/sp application_id of the share owner.
 	Owner *string `json:"owner,omitempty" tf:"owner,omitempty"`
+
+	// Configure the provider for management through account provider. This block consists of the following fields:
+	ProviderConfig []ProviderConfigObservation `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
 
 	StorageLocation *string `json:"storageLocation,omitempty" tf:"storage_location,omitempty"`
 
@@ -223,14 +244,6 @@ type ShareParameters struct {
 	// +kubebuilder:validation:Optional
 	Comment *string `json:"comment,omitempty" tf:"comment,omitempty"`
 
-	// Time when the share was created.
-	// +kubebuilder:validation:Optional
-	CreatedAt *float64 `json:"createdAt,omitempty" tf:"created_at,omitempty"`
-
-	// The principal that created the share.
-	// +kubebuilder:validation:Optional
-	CreatedBy *string `json:"createdBy,omitempty" tf:"created_by,omitempty"`
-
 	// Name of share. Change forces creation of a new resource.
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
@@ -242,17 +255,12 @@ type ShareParameters struct {
 	// +kubebuilder:validation:Optional
 	Owner *string `json:"owner,omitempty" tf:"owner,omitempty"`
 
+	// Configure the provider for management through account provider. This block consists of the following fields:
 	// +kubebuilder:validation:Optional
-	StorageLocation *string `json:"storageLocation,omitempty" tf:"storage_location,omitempty"`
+	ProviderConfig []ProviderConfigParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
 
 	// +kubebuilder:validation:Optional
 	StorageRoot *string `json:"storageRoot,omitempty" tf:"storage_root,omitempty"`
-
-	// +kubebuilder:validation:Optional
-	UpdatedAt *float64 `json:"updatedAt,omitempty" tf:"updated_at,omitempty"`
-
-	// +kubebuilder:validation:Optional
-	UpdatedBy *string `json:"updatedBy,omitempty" tf:"updated_by,omitempty"`
 }
 
 type ValueInitParameters struct {

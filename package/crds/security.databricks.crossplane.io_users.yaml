@@ -3,7 +3,7 @@ apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
   annotations:
-    controller-gen.kubebuilder.io/version: v0.18.0
+    controller-gen.kubebuilder.io/version: v0.19.0
   name: users.security.databricks.crossplane.io
 spec:
   group: security.databricks.crossplane.io
@@ -96,7 +96,7 @@ spec:
                     type: boolean
                   databricksSqlAccess:
                     description: This is a field to allow the user to have access
-                      to Databricks SQL feature in User Interface and through databricks_sql_endpoint.
+                      to Databricks SQL  UI, Databricks One and through databricks_sql_endpoint.
                     type: boolean
                   disableAsUserDeletion:
                     description: Deactivate the user when deleting the resource, rather
@@ -139,12 +139,12 @@ spec:
                     type: string
                   workspaceAccess:
                     description: This is a field to allow the user to have access
-                      to a Databricks Workspace.
+                      to a Databricks Workspace UI and Databricks One.
                     type: boolean
                   workspaceConsume:
                     description: This is a field to allow the user to have access
-                      to a Databricks Workspace as consumer, with limited access to
-                      workspace UI.  Couldn't be used with workspace_access or databricks_sql_access.
+                      only to Databricks One.  Couldn't be used with workspace_access
+                      or databricks_sql_access.
                     type: boolean
                 type: object
               initProvider:
@@ -184,7 +184,7 @@ spec:
                     type: boolean
                   databricksSqlAccess:
                     description: This is a field to allow the user to have access
-                      to Databricks SQL feature in User Interface and through databricks_sql_endpoint.
+                      to Databricks SQL  UI, Databricks One and through databricks_sql_endpoint.
                     type: boolean
                   disableAsUserDeletion:
                     description: Deactivate the user when deleting the resource, rather
@@ -227,12 +227,12 @@ spec:
                     type: string
                   workspaceAccess:
                     description: This is a field to allow the user to have access
-                      to a Databricks Workspace.
+                      to a Databricks Workspace UI and Databricks One.
                     type: boolean
                   workspaceConsume:
                     description: This is a field to allow the user to have access
-                      to a Databricks Workspace as consumer, with limited access to
-                      workspace UI.  Couldn't be used with workspace_access or databricks_sql_access.
+                      only to Databricks One.  Couldn't be used with workspace_access
+                      or databricks_sql_access.
                     type: boolean
                 type: object
               managementPolicies:
@@ -355,7 +355,7 @@ spec:
                     type: boolean
                   databricksSqlAccess:
                     description: This is a field to allow the user to have access
-                      to Databricks SQL feature in User Interface and through databricks_sql_endpoint.
+                      to Databricks SQL  UI, Databricks One and through databricks_sql_endpoint.
                     type: boolean
                   disableAsUserDeletion:
                     description: Deactivate the user when deleting the resource, rather
@@ -401,12 +401,12 @@ spec:
                     type: string
                   workspaceAccess:
                     description: This is a field to allow the user to have access
-                      to a Databricks Workspace.
+                      to a Databricks Workspace UI and Databricks One.
                     type: boolean
                   workspaceConsume:
                     description: This is a field to allow the user to have access
-                      to a Databricks Workspace as consumer, with limited access to
-                      workspace UI.  Couldn't be used with workspace_access or databricks_sql_access.
+                      only to Databricks One.  Couldn't be used with workspace_access
+                      or databricks_sql_access.
                     type: boolean
                 type: object
               conditions:

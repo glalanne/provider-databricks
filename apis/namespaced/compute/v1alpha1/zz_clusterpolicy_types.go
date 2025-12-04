@@ -126,6 +126,8 @@ type LibrariesInitParameters struct {
 
 	Maven []LibrariesMavenInitParameters `json:"maven,omitempty" tf:"maven,omitempty"`
 
+	ProviderConfig []LibrariesProviderConfigInitParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
+
 	Pypi []LibrariesPypiInitParameters `json:"pypi,omitempty" tf:"pypi,omitempty"`
 
 	Requirements *string `json:"requirements,omitempty" tf:"requirements,omitempty"`
@@ -170,6 +172,8 @@ type LibrariesObservation struct {
 
 	Maven []LibrariesMavenObservation `json:"maven,omitempty" tf:"maven,omitempty"`
 
+	ProviderConfig []LibrariesProviderConfigObservation `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
+
 	Pypi []LibrariesPypiObservation `json:"pypi,omitempty" tf:"pypi,omitempty"`
 
 	Requirements *string `json:"requirements,omitempty" tf:"requirements,omitempty"`
@@ -192,6 +196,9 @@ type LibrariesParameters struct {
 	Maven []LibrariesMavenParameters `json:"maven,omitempty" tf:"maven,omitempty"`
 
 	// +kubebuilder:validation:Optional
+	ProviderConfig []LibrariesProviderConfigParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
+
+	// +kubebuilder:validation:Optional
 	Pypi []LibrariesPypiParameters `json:"pypi,omitempty" tf:"pypi,omitempty"`
 
 	// +kubebuilder:validation:Optional
@@ -199,6 +206,25 @@ type LibrariesParameters struct {
 
 	// +kubebuilder:validation:Optional
 	Whl *string `json:"whl,omitempty" tf:"whl,omitempty"`
+}
+
+type LibrariesProviderConfigInitParameters struct {
+
+	// Canonical unique identifier for the cluster policy. This is equal to policy_id.
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
+}
+
+type LibrariesProviderConfigObservation struct {
+
+	// Canonical unique identifier for the cluster policy. This is equal to policy_id.
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
+}
+
+type LibrariesProviderConfigParameters struct {
+
+	// Canonical unique identifier for the cluster policy. This is equal to policy_id.
+	// +kubebuilder:validation:Optional
+	WorkspaceID *string `json:"workspaceId" tf:"workspace_id,omitempty"`
 }
 
 type LibrariesPypiInitParameters struct {

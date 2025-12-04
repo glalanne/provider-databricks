@@ -4894,6 +4894,11 @@ func (in *SQLEndpointInitParameters) DeepCopyInto(out *SQLEndpointInitParameters
 		*out = new(string)
 		**out = **in
 	}
+	if in.NoWait != nil {
+		in, out := &in.NoWait, &out.NoWait
+		*out = new(bool)
+		**out = **in
+	}
 	if in.SpotInstancePolicy != nil {
 		in, out := &in.SpotInstancePolicy, &out.SpotInstancePolicy
 		*out = new(string)
@@ -5032,6 +5037,11 @@ func (in *SQLEndpointObservation) DeepCopyInto(out *SQLEndpointObservation) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.NoWait != nil {
+		in, out := &in.NoWait, &out.NoWait
+		*out = new(bool)
+		**out = **in
+	}
 	if in.NumActiveSessions != nil {
 		in, out := &in.NumActiveSessions, &out.NumActiveSessions
 		*out = new(float64)
@@ -5136,6 +5146,11 @@ func (in *SQLEndpointParameters) DeepCopyInto(out *SQLEndpointParameters) {
 	if in.Name != nil {
 		in, out := &in.Name, &out.Name
 		*out = new(string)
+		**out = **in
+	}
+	if in.NoWait != nil {
+		in, out := &in.NoWait, &out.NoWait
+		*out = new(bool)
 		**out = **in
 	}
 	if in.SpotInstancePolicy != nil {

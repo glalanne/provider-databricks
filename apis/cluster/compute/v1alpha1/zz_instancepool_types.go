@@ -117,6 +117,9 @@ type InstancePoolAwsAttributesInitParameters struct {
 	// Availability type used for all nodes. Valid values are SPOT_AZURE and ON_DEMAND_AZURE.
 	Availability *string `json:"availability,omitempty" tf:"availability,omitempty"`
 
+	// Nodes belonging to the pool will only be placed on AWS instances with this instance profile.
+	InstanceProfileArn *string `json:"instanceProfileArn,omitempty" tf:"instance_profile_arn,omitempty"`
+
 	// (Integer) The max price for AWS spot instances, as a percentage of the corresponding instance type's on-demand price. For example, if this field is set to 50, and the instance pool needs a new i3.xlarge spot instance, then the max price is half of the price of on-demand i3.xlarge instances. Similarly, if this field is set to 200, the max price is twice the price of on-demand i3.xlarge instances. If not specified, the default value is 100. When spot instances are requested for this instance pool, only spot instances whose max price percentage matches this field are considered. For safety, this field cannot be greater than 10000.
 	SpotBidPricePercent *float64 `json:"spotBidPricePercent,omitempty" tf:"spot_bid_price_percent,omitempty"`
 
@@ -128,6 +131,9 @@ type InstancePoolAwsAttributesObservation struct {
 
 	// Availability type used for all nodes. Valid values are SPOT_AZURE and ON_DEMAND_AZURE.
 	Availability *string `json:"availability,omitempty" tf:"availability,omitempty"`
+
+	// Nodes belonging to the pool will only be placed on AWS instances with this instance profile.
+	InstanceProfileArn *string `json:"instanceProfileArn,omitempty" tf:"instance_profile_arn,omitempty"`
 
 	// (Integer) The max price for AWS spot instances, as a percentage of the corresponding instance type's on-demand price. For example, if this field is set to 50, and the instance pool needs a new i3.xlarge spot instance, then the max price is half of the price of on-demand i3.xlarge instances. Similarly, if this field is set to 200, the max price is twice the price of on-demand i3.xlarge instances. If not specified, the default value is 100. When spot instances are requested for this instance pool, only spot instances whose max price percentage matches this field are considered. For safety, this field cannot be greater than 10000.
 	SpotBidPricePercent *float64 `json:"spotBidPricePercent,omitempty" tf:"spot_bid_price_percent,omitempty"`
@@ -141,6 +147,10 @@ type InstancePoolAwsAttributesParameters struct {
 	// Availability type used for all nodes. Valid values are SPOT_AZURE and ON_DEMAND_AZURE.
 	// +kubebuilder:validation:Optional
 	Availability *string `json:"availability,omitempty" tf:"availability,omitempty"`
+
+	// Nodes belonging to the pool will only be placed on AWS instances with this instance profile.
+	// +kubebuilder:validation:Optional
+	InstanceProfileArn *string `json:"instanceProfileArn,omitempty" tf:"instance_profile_arn,omitempty"`
 
 	// (Integer) The max price for AWS spot instances, as a percentage of the corresponding instance type's on-demand price. For example, if this field is set to 50, and the instance pool needs a new i3.xlarge spot instance, then the max price is half of the price of on-demand i3.xlarge instances. Similarly, if this field is set to 200, the max price is twice the price of on-demand i3.xlarge instances. If not specified, the default value is 100. When spot instances are requested for this instance pool, only spot instances whose max price percentage matches this field are considered. For safety, this field cannot be greater than 10000.
 	// +kubebuilder:validation:Optional
@@ -434,7 +444,7 @@ type PreloadedDockerImageBasicAuthParameters struct {
 
 type PreloadedDockerImageInitParameters struct {
 
-	// basic_auth.username and basic_auth.password for Docker repository. Docker registry credentials are encrypted when they are stored in Databricks internal storage and when they are passed to a registry upon fetching Docker images at cluster launch. However, other authenticated and authorized API users of this workspace can access the username and password.
+	// basic_auth.username and basic_auth.password for Docker repository. Docker registry credentials are encrypted when they are stored in Databricks internal storage and when they are passed to a registry upon fetching Docker images at cluster launch.  For better security, these credentials should be stored in the secret scope and referred using secret path syntax: {{secrets/scope/key}}, otherwise other users of the workspace may access them via UI/API.
 	BasicAuth []PreloadedDockerImageBasicAuthInitParameters `json:"basicAuth,omitempty" tf:"basic_auth,omitempty"`
 
 	// URL for the Docker image
@@ -443,7 +453,7 @@ type PreloadedDockerImageInitParameters struct {
 
 type PreloadedDockerImageObservation struct {
 
-	// basic_auth.username and basic_auth.password for Docker repository. Docker registry credentials are encrypted when they are stored in Databricks internal storage and when they are passed to a registry upon fetching Docker images at cluster launch. However, other authenticated and authorized API users of this workspace can access the username and password.
+	// basic_auth.username and basic_auth.password for Docker repository. Docker registry credentials are encrypted when they are stored in Databricks internal storage and when they are passed to a registry upon fetching Docker images at cluster launch.  For better security, these credentials should be stored in the secret scope and referred using secret path syntax: {{secrets/scope/key}}, otherwise other users of the workspace may access them via UI/API.
 	BasicAuth []PreloadedDockerImageBasicAuthObservation `json:"basicAuth,omitempty" tf:"basic_auth,omitempty"`
 
 	// URL for the Docker image
@@ -452,7 +462,7 @@ type PreloadedDockerImageObservation struct {
 
 type PreloadedDockerImageParameters struct {
 
-	// basic_auth.username and basic_auth.password for Docker repository. Docker registry credentials are encrypted when they are stored in Databricks internal storage and when they are passed to a registry upon fetching Docker images at cluster launch. However, other authenticated and authorized API users of this workspace can access the username and password.
+	// basic_auth.username and basic_auth.password for Docker repository. Docker registry credentials are encrypted when they are stored in Databricks internal storage and when they are passed to a registry upon fetching Docker images at cluster launch.  For better security, these credentials should be stored in the secret scope and referred using secret path syntax: {{secrets/scope/key}}, otherwise other users of the workspace may access them via UI/API.
 	// +kubebuilder:validation:Optional
 	BasicAuth []PreloadedDockerImageBasicAuthParameters `json:"basicAuth,omitempty" tf:"basic_auth,omitempty"`
 

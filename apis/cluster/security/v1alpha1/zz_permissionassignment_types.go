@@ -15,14 +15,32 @@ import (
 
 type PermissionAssignmentInitParameters struct {
 
+	// the group name to assign to a workspace.
+	GroupName *string `json:"groupName,omitempty" tf:"group_name,omitempty"`
+
 	// The list of workspace permissions to assign to the principal:
 	Permissions []*string `json:"permissions,omitempty" tf:"permissions,omitempty"`
 
 	// Databricks ID of the user, service principal, or group. The principal ID can be retrieved using the account-level SCIM API, or using databricks_user, databricks_service_principal or databricks_group data sources with account API (and has to be an account admin).
 	PrincipalID *float64 `json:"principalId,omitempty" tf:"principal_id,omitempty"`
+
+	// Configure the provider for management through account provider. This block consists of the following fields:
+	ProviderConfig []ProviderConfigInitParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
+
+	// the application ID of service principal to assign to a workspace.
+	ServicePrincipalName *string `json:"servicePrincipalName,omitempty" tf:"service_principal_name,omitempty"`
+
+	// the user name (email) to assign to a workspace.
+	UserName *string `json:"userName,omitempty" tf:"user_name,omitempty"`
 }
 
 type PermissionAssignmentObservation struct {
+
+	// the display name of the assigned principal.
+	DisplayName *string `json:"displayName,omitempty" tf:"display_name,omitempty"`
+
+	// the group name to assign to a workspace.
+	GroupName *string `json:"groupName,omitempty" tf:"group_name,omitempty"`
 
 	// ID of the permission assignment - same as principal_id.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
@@ -32,9 +50,22 @@ type PermissionAssignmentObservation struct {
 
 	// Databricks ID of the user, service principal, or group. The principal ID can be retrieved using the account-level SCIM API, or using databricks_user, databricks_service_principal or databricks_group data sources with account API (and has to be an account admin).
 	PrincipalID *float64 `json:"principalId,omitempty" tf:"principal_id,omitempty"`
+
+	// Configure the provider for management through account provider. This block consists of the following fields:
+	ProviderConfig []ProviderConfigObservation `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
+
+	// the application ID of service principal to assign to a workspace.
+	ServicePrincipalName *string `json:"servicePrincipalName,omitempty" tf:"service_principal_name,omitempty"`
+
+	// the user name (email) to assign to a workspace.
+	UserName *string `json:"userName,omitempty" tf:"user_name,omitempty"`
 }
 
 type PermissionAssignmentParameters struct {
+
+	// the group name to assign to a workspace.
+	// +kubebuilder:validation:Optional
+	GroupName *string `json:"groupName,omitempty" tf:"group_name,omitempty"`
 
 	// The list of workspace permissions to assign to the principal:
 	// +kubebuilder:validation:Optional
@@ -43,6 +74,37 @@ type PermissionAssignmentParameters struct {
 	// Databricks ID of the user, service principal, or group. The principal ID can be retrieved using the account-level SCIM API, or using databricks_user, databricks_service_principal or databricks_group data sources with account API (and has to be an account admin).
 	// +kubebuilder:validation:Optional
 	PrincipalID *float64 `json:"principalId,omitempty" tf:"principal_id,omitempty"`
+
+	// Configure the provider for management through account provider. This block consists of the following fields:
+	// +kubebuilder:validation:Optional
+	ProviderConfig []ProviderConfigParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
+
+	// the application ID of service principal to assign to a workspace.
+	// +kubebuilder:validation:Optional
+	ServicePrincipalName *string `json:"servicePrincipalName,omitempty" tf:"service_principal_name,omitempty"`
+
+	// the user name (email) to assign to a workspace.
+	// +kubebuilder:validation:Optional
+	UserName *string `json:"userName,omitempty" tf:"user_name,omitempty"`
+}
+
+type ProviderConfigInitParameters struct {
+
+	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
+}
+
+type ProviderConfigObservation struct {
+
+	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
+}
+
+type ProviderConfigParameters struct {
+
+	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
+	// +kubebuilder:validation:Optional
+	WorkspaceID *string `json:"workspaceId" tf:"workspace_id,omitempty"`
 }
 
 // PermissionAssignmentSpec defines the desired state of PermissionAssignment
@@ -82,7 +144,6 @@ type PermissionAssignment struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.permissions) || (has(self.initProvider) && has(self.initProvider.permissions))",message="spec.forProvider.permissions is a required parameter"
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.principalId) || (has(self.initProvider) && has(self.initProvider.principalId))",message="spec.forProvider.principalId is a required parameter"
 	Spec   PermissionAssignmentSpec   `json:"spec"`
 	Status PermissionAssignmentStatus `json:"status,omitempty"`
 }
