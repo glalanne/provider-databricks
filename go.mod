@@ -9,8 +9,9 @@ require (
 	github.com/crossplane/crossplane-runtime/v2 v2.1.0
 	github.com/crossplane/crossplane-tools v0.0.0-20251017183449-dd4517244339
 	github.com/crossplane/upjet/v2 v2.2.0
-	github.com/databricks/terraform-provider-databricks v1.98.0
+	github.com/databricks/terraform-provider-databricks v1.99.0
 	github.com/hashicorp/terraform-json v0.27.2
+	github.com/hashicorp/terraform-plugin-framework v1.17.0
 	github.com/hashicorp/terraform-plugin-sdk/v2 v2.38.1
 	github.com/pkg/errors v0.9.1
 	google.golang.org/grpc v1.77.0
@@ -103,7 +104,6 @@ require (
 	github.com/hashicorp/hcl/v2 v2.24.0 // indirect
 	github.com/hashicorp/logutils v1.0.0 // indirect
 	github.com/hashicorp/terraform-exec v0.24.0 // indirect
-	github.com/hashicorp/terraform-plugin-framework v1.17.0 // indirect
 	github.com/hashicorp/terraform-plugin-framework-jsontypes v0.2.0 // indirect
 	github.com/hashicorp/terraform-plugin-framework-timetypes v0.5.0 // indirect
 	github.com/hashicorp/terraform-plugin-framework-validators v0.19.0 // indirect
@@ -159,6 +159,7 @@ require (
 	golang.org/x/net v0.47.0 // indirect
 	golang.org/x/oauth2 v0.33.0 // indirect
 	golang.org/x/sys v0.38.0 // indirect
+	golang.org/x/telemetry v0.0.0-20251111182119-bc8e575c7b54 // indirect
 	golang.org/x/term v0.37.0 // indirect
 	golang.org/x/text v0.31.0 // indirect
 	golang.org/x/time v0.14.0 // indirect
@@ -181,4 +182,6 @@ require (
 	sigs.k8s.io/yaml v1.6.0 // indirect
 )
 
-replace github.com/databricks/terraform-provider-databricks => github.com/glalanne/terraform-provider-databricks v0.0.0-20251203170547-b2eb2d0c9d03
+replace github.com/databricks/terraform-provider-databricks => github.com/glalanne/terraform-provider-databricks v0.0.0-20251204230805-9b76b02ab0bf
+
+tool golang.org/x/tools/cmd/goimports

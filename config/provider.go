@@ -16,6 +16,7 @@ import (
 	conversiontfjson "github.com/crossplane/upjet/v2/pkg/types/conversion/tfjson"
 	uname "github.com/crossplane/upjet/v2/pkg/types/name"
 	tfjson "github.com/hashicorp/terraform-json"
+	fwprovider "github.com/hashicorp/terraform-plugin-framework/provider"
 	tfschema "github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
 
 	"github.com/glalanne/provider-databricks/config/cluster"
@@ -54,7 +55,7 @@ func getProviderSchema(s string) (*tfschema.Provider, error) {
 }
 
 // GetProvider returns provider configuration
-func GetProvider(_ context.Context, sdkProvider *tfschema.Provider, generationProvider bool) (*config.Provider, error) {
+func GetProvider(_ context.Context, fwProvider fwprovider.Provider, sdkProvider *tfschema.Provider, generationProvider bool) (*config.Provider, error) {
 
 	if generationProvider {
 		p, err := getProviderSchema(providerSchema)
@@ -76,11 +77,12 @@ func GetProvider(_ context.Context, sdkProvider *tfschema.Provider, generationPr
 		config.WithRootGroup("databricks.crossplane.io"),
 		config.WithIncludeList(CLIReconciledResourceList()),
 		config.WithTerraformPluginSDKIncludeList(TerraformPluginSDKResourceList()),
+		config.WithTerraformPluginFrameworkIncludeList(TerraformPluginFrameworkResourceList()),
 		config.WithDefaultResourceOptions(ResourceConfigurator()),
 		config.WithReferenceInjectors([]config.ReferenceInjector{reference.NewInjector(modulePath)}),
 		config.WithFeaturesPackage("internal/features"),
 		config.WithTerraformProvider(sdkProvider),
-		// config.WithSchemaTraversers(&config.SingletonListEmbedder{}),
+		config.WithTerraformPluginFrameworkProvider(fwProvider),
 	)
 
 	// Rename resources to make it more pleasing to the eye
@@ -104,7 +106,7 @@ func GetProvider(_ context.Context, sdkProvider *tfschema.Provider, generationPr
 }
 
 // GetProviderNamespaced returns provider configuration for namespace-scoped resources
-func GetProviderNamespaced(_ context.Context, sdkProvider *tfschema.Provider, generationProvider bool) (*config.Provider, error) {
+func GetProviderNamespaced(_ context.Context, fwProvider fwprovider.Provider, sdkProvider *tfschema.Provider, generationProvider bool) (*config.Provider, error) {
 	if generationProvider {
 		p, err := getProviderSchema(providerSchema)
 		if err != nil {
@@ -125,11 +127,12 @@ func GetProviderNamespaced(_ context.Context, sdkProvider *tfschema.Provider, ge
 		config.WithRootGroup("databricks.m.crossplane.io"),
 		config.WithIncludeList(CLIReconciledResourceList()),
 		config.WithTerraformPluginSDKIncludeList(TerraformPluginSDKResourceList()),
+		config.WithTerraformPluginFrameworkIncludeList(TerraformPluginFrameworkResourceList()),
 		config.WithDefaultResourceOptions(ResourceConfigurator()),
 		config.WithReferenceInjectors([]config.ReferenceInjector{reference.NewInjector(modulePath)}),
 		config.WithFeaturesPackage("internal/features"),
 		config.WithTerraformProvider(sdkProvider),
-		// config.WithSchemaTraversers(&config.SingletonListEmbedder{}),
+		config.WithTerraformPluginFrameworkProvider(fwProvider),
 	)
 
 	registerTerraformConversions(pc)
@@ -191,6 +194,17 @@ func TerraformPluginSDKResourceList() []string {
 	i := 0
 	for name := range TerraformPluginSDKExternalNameConfigs {
 		// Expected format is regex and we'd like to have exact matches.
+		l[i] = name + "$"
+		i++
+	}
+	return l
+}
+
+func TerraformPluginFrameworkResourceList() []string {
+	l := make([]string, len(TerraformPluginFrameworkExternalNameConfigs))
+	i := 0
+	for name := range TerraformPluginFrameworkExternalNameConfigs {
+		// Expected format is regex, and we'd like to have exact matches.
 		l[i] = name + "$"
 		i++
 	}

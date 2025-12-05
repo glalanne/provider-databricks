@@ -637,7 +637,10 @@ resources:
                 (string, required) - A cron expression using quartz syntax that specifies the schedule for this pipeline.
                 Should use the quartz format described here: http://www.quartz-scheduler.org/documentation/quartz-2.1.7/tutorials/tutorial-lesson-06.html
             query_text: (string, required) - Text of the query to be run
-            retrigger_seconds: (integer, optional) - Number of seconds an alert must wait after being triggered to rearm itself. After rearming, it can be triggered again. If 0 or not specified, the alert will not be triggered again
+            retrigger_seconds: |-
+                (integer, optional) - Number of seconds an alert waits after being triggered before it is allowed to send another notification.
+                If set to 0 or omitted, the alert will not send any further notifications after the first trigger
+                Setting this value to 1 allows the alert to send a notification on every evaluation where the condition is met, effectively making it always retrigger for notification purposes
             run_as: |-
                 (AlertV2RunAs, optional) - Specifies the identity that will be used to run the alert.
                 This field allows you to configure alerts to run as a specific user or service principal.
@@ -10216,6 +10219,16 @@ resources:
             enableIpAccessLists: '- enables the use of databricks_ip_access_list resources'
             enableTokensConfig: '- (boolean) Enable or disable personal access tokens for this workspace.'
             maxTokenLifetimeDays: '- (string) Maximum token lifetime of new tokens in days, as an integer. This value can range from 1 day to 730 days (2 years). If not specified, the maximum lifetime of new tokens is 730 days. WARNING: This limit only applies to new tokens, so there may be tokens with lifetimes longer than this value, including unlimited lifetime. Such tokens may have been created before the current maximum token lifetime was set.'
+        importStatements: []
+    databricks_workspace_entity_tag_assignment Resource:
+        subCategory: ""
+        name: databricks_workspace_entity_tag_assignment Resource
+        title: databricks_workspace_entity_tag_assignment Resource
+        argumentDocs:
+            entity_id: (string, required) - The identifier of the entity to which the tag is assigned
+            entity_type: (string, required) - The type of entity to which the tag is assigned. Allowed values are dashboards, geniespaces
+            tag_key: '(string, required) - The key of the tag. The characters , . : / - = and leading/trailing spaces are not allowed'
+            tag_value: (string, optional) - The value of the tag
         importStatements: []
     databricks_workspace_file:
         subCategory: ""
