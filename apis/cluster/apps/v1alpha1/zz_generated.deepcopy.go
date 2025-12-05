@@ -173,11 +173,6 @@ func (in *AppInitParameters) DeepCopyInto(out *AppInitParameters) {
 		*out = new(string)
 		**out = **in
 	}
-	if in.Name != nil {
-		in, out := &in.Name, &out.Name
-		*out = new(string)
-		**out = **in
-	}
 	if in.NoCompute != nil {
 		in, out := &in.NoCompute, &out.NoCompute
 		*out = new(bool)
@@ -319,11 +314,6 @@ func (in *AppObservation) DeepCopyInto(out *AppObservation) {
 		*out = new(string)
 		**out = **in
 	}
-	if in.Name != nil {
-		in, out := &in.Name, &out.Name
-		*out = new(string)
-		**out = **in
-	}
 	if in.NoCompute != nil {
 		in, out := &in.NoCompute, &out.NoCompute
 		*out = new(bool)
@@ -424,11 +414,6 @@ func (in *AppParameters) DeepCopyInto(out *AppParameters) {
 	}
 	if in.Description != nil {
 		in, out := &in.Description, &out.Description
-		*out = new(string)
-		**out = **in
-	}
-	if in.Name != nil {
-		in, out := &in.Name, &out.Name
 		*out = new(string)
 		**out = **in
 	}

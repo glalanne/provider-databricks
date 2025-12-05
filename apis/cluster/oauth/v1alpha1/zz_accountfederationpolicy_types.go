@@ -38,14 +38,6 @@ type AccountFederationPolicyObservation struct {
 
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
-	// Resource name for the federation policy. Example values include
-	// accounts/<account-id>/federationPolicies/my-federation-policy for Account Federation Policies, and
-	// accounts/<account-id>/servicePrincipals/<service-principal-id>/federationPolicies/my-federation-policy
-	// for Service Principal Federation Policies. Typically an output parameter, which does not need to be
-	// specified in create or update requests. If specified in a request, must match the value in the
-	// request URL
-	Name *string `json:"name,omitempty" tf:"name,omitempty"`
-
 	// (OidcFederationPolicy, optional)
 	OidcPolicy *OidcPolicyObservation `json:"oidcPolicy,omitempty" tf:"oidc_policy,omitempty"`
 

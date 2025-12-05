@@ -71,9 +71,6 @@ type AppInitParameters struct {
 	// The description of the app.
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
 
-	// The name of the app. The name must contain only lowercase alphanumeric characters and hyphens. It must be unique within the workspace.
-	Name *string `json:"name,omitempty" tf:"name,omitempty"`
-
 	NoCompute *bool `json:"noCompute,omitempty" tf:"no_compute,omitempty"`
 
 	ProviderConfig *ProviderConfigInitParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
@@ -120,9 +117,6 @@ type AppObservation struct {
 
 	// Id of the SQL warehouse to grant permission on.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
-
-	// The name of the app. The name must contain only lowercase alphanumeric characters and hyphens. It must be unique within the workspace.
-	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	NoCompute *bool `json:"noCompute,omitempty" tf:"no_compute,omitempty"`
 
@@ -174,10 +168,6 @@ type AppParameters struct {
 	// The description of the app.
 	// +kubebuilder:validation:Optional
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
-
-	// The name of the app. The name must contain only lowercase alphanumeric characters and hyphens. It must be unique within the workspace.
-	// +kubebuilder:validation:Optional
-	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// +kubebuilder:validation:Optional
 	NoCompute *bool `json:"noCompute,omitempty" tf:"no_compute,omitempty"`
@@ -725,9 +715,8 @@ type AppStatus struct {
 type App struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.name) || (has(self.initProvider) && has(self.initProvider.name))",message="spec.forProvider.name is a required parameter"
-	Spec   AppSpec   `json:"spec"`
-	Status AppStatus `json:"status,omitempty"`
+	Spec              AppSpec   `json:"spec"`
+	Status            AppStatus `json:"status,omitempty"`
 }
 
 // +kubebuilder:object:root=true

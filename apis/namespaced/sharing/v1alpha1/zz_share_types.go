@@ -187,9 +187,6 @@ type ShareInitParameters struct {
 	// User-supplied free-form text.
 	Comment *string `json:"comment,omitempty" tf:"comment,omitempty"`
 
-	// Name of share. Change forces creation of a new resource.
-	Name *string `json:"name,omitempty" tf:"name,omitempty"`
-
 	Object []ObjectInitParameters `json:"object,omitempty" tf:"object,omitempty"`
 
 	// User name/group name/sp application_id of the share owner.
@@ -218,9 +215,6 @@ type ShareObservation struct {
 	// the ID of the share, the same as name.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
-	// Name of share. Change forces creation of a new resource.
-	Name *string `json:"name,omitempty" tf:"name,omitempty"`
-
 	Object []ObjectObservation `json:"object,omitempty" tf:"object,omitempty"`
 
 	// User name/group name/sp application_id of the share owner.
@@ -243,10 +237,6 @@ type ShareParameters struct {
 	// User-supplied free-form text.
 	// +kubebuilder:validation:Optional
 	Comment *string `json:"comment,omitempty" tf:"comment,omitempty"`
-
-	// Name of share. Change forces creation of a new resource.
-	// +kubebuilder:validation:Optional
-	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// +kubebuilder:validation:Optional
 	Object []ObjectParameters `json:"object,omitempty" tf:"object,omitempty"`
@@ -348,9 +338,8 @@ type ShareStatus struct {
 type Share struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.name) || (has(self.initProvider) && has(self.initProvider.name))",message="spec.forProvider.name is a required parameter"
-	Spec   ShareSpec   `json:"spec"`
-	Status ShareStatus `json:"status,omitempty"`
+	Spec              ShareSpec   `json:"spec"`
+	Status            ShareStatus `json:"status,omitempty"`
 }
 
 // +kubebuilder:object:root=true

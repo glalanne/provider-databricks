@@ -1145,11 +1145,6 @@ func (in *ShareInitParameters) DeepCopyInto(out *ShareInitParameters) {
 		*out = new(string)
 		**out = **in
 	}
-	if in.Name != nil {
-		in, out := &in.Name, &out.Name
-		*out = new(string)
-		**out = **in
-	}
 	if in.Object != nil {
 		in, out := &in.Object, &out.Object
 		*out = make([]ObjectInitParameters, len(*in))
@@ -1246,11 +1241,6 @@ func (in *ShareObservation) DeepCopyInto(out *ShareObservation) {
 		*out = new(string)
 		**out = **in
 	}
-	if in.Name != nil {
-		in, out := &in.Name, &out.Name
-		*out = new(string)
-		**out = **in
-	}
 	if in.Object != nil {
 		in, out := &in.Object, &out.Object
 		*out = make([]ObjectObservation, len(*in))
@@ -1307,11 +1297,6 @@ func (in *ShareParameters) DeepCopyInto(out *ShareParameters) {
 	*out = *in
 	if in.Comment != nil {
 		in, out := &in.Comment, &out.Comment
-		*out = new(string)
-		**out = **in
-	}
-	if in.Name != nil {
-		in, out := &in.Name, &out.Name
 		*out = new(string)
 		**out = **in
 	}

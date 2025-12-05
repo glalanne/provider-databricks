@@ -9,7 +9,6 @@ metadata:
 spec:
   forProvider:
     description: My app
-    name: my-custom-app
     resources:
     - name: sql-warehouse
       sqlWarehouse:
