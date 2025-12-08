@@ -3,7 +3,8 @@
 
 PROJECT_NAME ?= provider-databricks
 PROJECT_REPO ?= github.com/glalanne/$(PROJECT_NAME)
-UPTEST_EXAMPLE_LIST ?= "examples/cluster/compute/v1alpha1/cluster.yaml,examples/namespaced/compute/v1alpha1/cluster.yaml"
+UPTEST_EXAMPLE_LIST ?= "examples/cluster/compute/v1alpha1/cluster.yaml,examples/namespaced/compute/v1alpha1/cluster.yaml,examples/cluster/sql/v1alpha1/sqlendpoint.yaml,examples/cluster/unity/v1alpha1/schema.yaml"
+UPTEST_DATASOURCE_PATH?= 
 CROSSPLANE_CLI_VERSION ?= v2.0.2
 
 export TERRAFORM_VERSION ?= 1.5.7

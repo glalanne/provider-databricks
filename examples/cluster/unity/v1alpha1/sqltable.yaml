@@ -4,21 +4,21 @@ metadata:
   annotations:
     meta.upbound.io/example-id: unity/v1alpha1/sqltable
   labels:
-    testing.upbound.io/example-name: thing
-  name: thing
+    testing.upbound.io/example-name: sql-table-test
+  name: sql-table-test
 spec:
   forProvider:
-    catalogName: sandbox
+    catalogName: ${data.databricks_catalog}
     column:
     - name: id
       type: int
     - comment: name of thing
       name: name
       type: string
-    comment: this table is managed by terraform
+    comment: this table is managed by crossplane
     name: quickstart_table
-    provider: ${databricks.workspace}
-    schemaName: things
+    warehouseIdRef: sql-endpoint-test
+    schemaName: test
     tableType: MANAGED
 
 ---

@@ -4,29 +4,14 @@ metadata:
   annotations:
     meta.upbound.io/example-id: unity/v1alpha1/schema
   labels:
-    testing.upbound.io/example-name: things
-  name: things
+    testing.upbound.io/example-name: uc-catalog-schema-test
+  name: uc-catalog-schema-test
 spec:
   forProvider:
-    catalogName: ${databricks_catalog.sandbox.id}
+    catalogName: ${data.databricks_catalog}
     comment: this database is managed by terraform
-    name: things
+    name: test
     properties:
-      kind: various
+      kind: test
+      owner: crossplane
 
----
-
-apiVersion: unity.databricks.crossplane.io/v1alpha1
-kind: Catalog
-metadata:
-  annotations:
-    meta.upbound.io/example-id: unity/v1alpha1/schema
-  labels:
-    testing.upbound.io/example-name: sandbox
-  name: sandbox
-spec:
-  forProvider:
-    comment: this catalog is managed by terraform
-    name: sandbox
-    properties:
-      purpose: testing

@@ -4,15 +4,15 @@ metadata:
   annotations:
     meta.upbound.io/example-id: sql/v1alpha1/sqlendpoint
   labels:
-    testing.upbound.io/example-name: this
-  name: this
-  namespace: upbound-system
+    testing.upbound.io/example-name: sql-endpoint-test
+  name: sql-endpoint-test
+  namespace: default
 spec:
   forProvider:
     clusterSize: Small
     maxNumClusters: 1
-    name: Endpoint of ${data.databricks_current_user.me.alphanumeric}
+    name: sql-endpoint-test-1
     tags:
     - customTags:
       - key: City
-        value: Amsterdam
+        value: Vancouver

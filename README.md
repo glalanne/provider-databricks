@@ -73,6 +73,21 @@ Build binary:
 make build
 ```
 
+Local deployment:
+
+```console
+make local-deploy
+```
+
+End to end tests:
+
+```console
+# Ensure that you have a .datasource.yaml use the sample for instructions
+# Ensure that you have a UPTEST_CLOUD_CREDENTIALS env define with the creds you want to use.
+
+make e2e
+```
+
 ## Report a Bug
 
 For filing bugs, suggesting improvements, or requesting new features, please

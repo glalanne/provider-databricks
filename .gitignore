@@ -12,3 +12,4 @@ cover.out
 cmd/provider/__debug*
 .env
 kubeconfig
+.datasource.yaml
