@@ -3,7 +3,7 @@
 
 PROJECT_NAME ?= provider-databricks
 PROJECT_REPO ?= github.com/glalanne/$(PROJECT_NAME)
-UPTEST_EXAMPLE_LIST ?= "examples/cluster/cluster.yaml"
+UPTEST_EXAMPLE_LIST ?= "examples/cluster/compute/v1alpha1/cluster.yaml,examples/namespaced/compute/v1alpha1/cluster.yaml"
 CROSSPLANE_CLI_VERSION ?= v2.0.2
 
 export TERRAFORM_VERSION ?= 1.5.7
@@ -62,8 +62,8 @@ GO_SUBDIRS += cmd internal apis
 KIND_VERSION = v0.29.0
 UP_VERSION = v0.40.0-0.rc.3
 UP_CHANNEL = alpha
-UPTEST_VERSION = v0.13.0
-UPTEST_LOCAL_VERSION = v0.13.0
+UPTEST_VERSION = v2.2.0
+UPTEST_LOCAL_VERSION = v2.2.0
 UPTEST_LOCAL_CHANNEL = stable
 KUSTOMIZE_VERSION = v5.3.0
 YQ_VERSION = v4.40.5
@@ -215,9 +215,9 @@ CROSSPLANE_NAMESPACE = upbound-system
 #   aws_secret_access_key = REDACTED'
 #   The associated `ProviderConfig`s will be named as `default` and `peer`.
 # - UPTEST_DATASOURCE_PATH (optional), please see https://github.com/crossplane/uptest#injecting-dynamic-values-and-datasource
-uptest: $(UPTEST) $(KUBECTL) $(KUTTL)
+uptest: $(UPTEST) $(KUBECTL) $(CHAINSAW)
 	@$(INFO) running automated tests
-	@KUBECTL=$(KUBECTL) KUTTL=$(KUTTL) $(UPTEST) e2e "${UPTEST_EXAMPLE_LIST}" --data-source="${UPTEST_DATASOURCE_PATH}" --setup-script=cluster/test/setup.sh --default-conditions="Test" || $(FAIL)
+	@KUBECTL=$(KUBECTL) CHAINSAW=$(CHAINSAW) $(UPTEST) e2e "${UPTEST_EXAMPLE_LIST}" --data-source="${UPTEST_DATASOURCE_PATH}" --setup-script=cluster/test/setup.sh --default-conditions="Test" || $(FAIL)
 	@$(OK) running automated tests
 
 local-deploy: build controlplane.up local.xpkg.deploy.provider.$(PROJECT_NAME)

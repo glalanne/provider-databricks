@@ -169,7 +169,7 @@ func main() {
 
 	ctx := context.Background()
 	fwProvider, sdkProvider, err := xpprovider.GetProvider(ctx)
-	kingpin.FatalIfError(err, "Cannot get the Terraform provider")
+	kingpin.FatalIfError(err, "Cannot get the Terraform framework and SDK providers")
 
 	clusterProvider, err := config.GetProvider(ctx, fwProvider, sdkProvider, false)
 	kingpin.FatalIfError(err, "Cannot initialize the cluster provider configuration")
