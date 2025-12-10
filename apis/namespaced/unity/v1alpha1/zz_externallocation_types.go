@@ -85,7 +85,7 @@ type ExternalLocationInitParameters struct {
 	// Suppress validation errors if any & force save the external location
 	SkipValidation *bool `json:"skipValidation,omitempty" tf:"skip_validation,omitempty"`
 
-	// Path URL in cloud storage, of the form: s3://[bucket-host]/[bucket-dir] (AWS), abfss://[user]@[host]/[path] (Azure), gs://[bucket-host]/[bucket-dir] (GCP).
+	// Path URL in cloud storage, of the form: s3://[bucket-host]/[bucket-dir] (AWS), abfss://[user]@[host]/[path] (Azure), gs://[bucket-host]/[bucket-dir] (GCP).   If the URL contains special characters, such as space, &, etc., they should be percent-encoded (space -> %20, etc.).
 	URL *string `json:"url,omitempty" tf:"url,omitempty"`
 }
 
@@ -144,7 +144,7 @@ type ExternalLocationObservation struct {
 	// Suppress validation errors if any & force save the external location
 	SkipValidation *bool `json:"skipValidation,omitempty" tf:"skip_validation,omitempty"`
 
-	// Path URL in cloud storage, of the form: s3://[bucket-host]/[bucket-dir] (AWS), abfss://[user]@[host]/[path] (Azure), gs://[bucket-host]/[bucket-dir] (GCP).
+	// Path URL in cloud storage, of the form: s3://[bucket-host]/[bucket-dir] (AWS), abfss://[user]@[host]/[path] (Azure), gs://[bucket-host]/[bucket-dir] (GCP).   If the URL contains special characters, such as space, &, etc., they should be percent-encoded (space -> %20, etc.).
 	URL *string `json:"url,omitempty" tf:"url,omitempty"`
 
 	// Time at which external location this was last modified, in epoch milliseconds.
@@ -220,7 +220,7 @@ type ExternalLocationParameters struct {
 	// +kubebuilder:validation:Optional
 	SkipValidation *bool `json:"skipValidation,omitempty" tf:"skip_validation,omitempty"`
 
-	// Path URL in cloud storage, of the form: s3://[bucket-host]/[bucket-dir] (AWS), abfss://[user]@[host]/[path] (Azure), gs://[bucket-host]/[bucket-dir] (GCP).
+	// Path URL in cloud storage, of the form: s3://[bucket-host]/[bucket-dir] (AWS), abfss://[user]@[host]/[path] (Azure), gs://[bucket-host]/[bucket-dir] (GCP).   If the URL contains special characters, such as space, &, etc., they should be percent-encoded (space -> %20, etc.).
 	// +kubebuilder:validation:Optional
 	URL *string `json:"url,omitempty" tf:"url,omitempty"`
 }
@@ -299,7 +299,7 @@ type ManagedAqsInitParameters struct {
 	// The URL of the queue.
 	QueueURL *string `json:"queueUrl,omitempty" tf:"queue_url,omitempty"`
 
-	// The Azure resource group.
+	// The name of the Azure resource group.
 	ResourceGroup *string `json:"resourceGroup,omitempty" tf:"resource_group,omitempty"`
 
 	// The Azure subscription ID.
@@ -314,7 +314,7 @@ type ManagedAqsObservation struct {
 	// The URL of the queue.
 	QueueURL *string `json:"queueUrl,omitempty" tf:"queue_url,omitempty"`
 
-	// The Azure resource group.
+	// The name of the Azure resource group.
 	ResourceGroup *string `json:"resourceGroup,omitempty" tf:"resource_group,omitempty"`
 
 	// The Azure subscription ID.
@@ -327,7 +327,7 @@ type ManagedAqsParameters struct {
 	// +kubebuilder:validation:Optional
 	QueueURL *string `json:"queueUrl,omitempty" tf:"queue_url,omitempty"`
 
-	// The Azure resource group.
+	// The name of the Azure resource group.
 	// +kubebuilder:validation:Optional
 	ResourceGroup *string `json:"resourceGroup" tf:"resource_group,omitempty"`
 
@@ -385,7 +385,7 @@ type ProvidedAqsInitParameters struct {
 	// The URL of the queue.
 	QueueURL *string `json:"queueUrl,omitempty" tf:"queue_url,omitempty"`
 
-	// The Azure resource group.
+	// The name of the Azure resource group.
 	ResourceGroup *string `json:"resourceGroup,omitempty" tf:"resource_group,omitempty"`
 
 	// The Azure subscription ID.
@@ -400,7 +400,7 @@ type ProvidedAqsObservation struct {
 	// The URL of the queue.
 	QueueURL *string `json:"queueUrl,omitempty" tf:"queue_url,omitempty"`
 
-	// The Azure resource group.
+	// The name of the Azure resource group.
 	ResourceGroup *string `json:"resourceGroup,omitempty" tf:"resource_group,omitempty"`
 
 	// The Azure subscription ID.
@@ -413,7 +413,7 @@ type ProvidedAqsParameters struct {
 	// +kubebuilder:validation:Optional
 	QueueURL *string `json:"queueUrl" tf:"queue_url,omitempty"`
 
-	// The Azure resource group.
+	// The name of the Azure resource group.
 	// +kubebuilder:validation:Optional
 	ResourceGroup *string `json:"resourceGroup,omitempty" tf:"resource_group,omitempty"`
 

@@ -33,6 +33,9 @@ type NotebookInitParameters struct {
 	// The absolute path of the notebook or directory, beginning with "/", e.g. "/Demo".
 	Path *string `json:"path,omitempty" tf:"path,omitempty"`
 
+	// Configure the provider for management through account provider. This block consists of the following fields:
+	ProviderConfig []ProviderConfigInitParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
+
 	// Path to notebook in source code format on local filesystem. Conflicts with content_base64.
 	Source *string `json:"source,omitempty" tf:"source,omitempty"`
 }
@@ -59,6 +62,9 @@ type NotebookObservation struct {
 
 	// The absolute path of the notebook or directory, beginning with "/", e.g. "/Demo".
 	Path *string `json:"path,omitempty" tf:"path,omitempty"`
+
+	// Configure the provider for management through account provider. This block consists of the following fields:
+	ProviderConfig []ProviderConfigObservation `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
 
 	// Path to notebook in source code format on local filesystem. Conflicts with content_base64.
 	Source *string `json:"source,omitempty" tf:"source,omitempty"`
@@ -97,9 +103,32 @@ type NotebookParameters struct {
 	// +kubebuilder:validation:Optional
 	Path *string `json:"path,omitempty" tf:"path,omitempty"`
 
+	// Configure the provider for management through account provider. This block consists of the following fields:
+	// +kubebuilder:validation:Optional
+	ProviderConfig []ProviderConfigParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
+
 	// Path to notebook in source code format on local filesystem. Conflicts with content_base64.
 	// +kubebuilder:validation:Optional
 	Source *string `json:"source,omitempty" tf:"source,omitempty"`
+}
+
+type ProviderConfigInitParameters struct {
+
+	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
+}
+
+type ProviderConfigObservation struct {
+
+	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
+}
+
+type ProviderConfigParameters struct {
+
+	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
+	// +kubebuilder:validation:Optional
+	WorkspaceID *string `json:"workspaceId" tf:"workspace_id,omitempty"`
 }
 
 // NotebookSpec defines the desired state of Notebook

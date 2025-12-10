@@ -5,10 +5,11 @@
 package namespaced
 
 import (
+	"github.com/glalanne/provider-databricks/config/cluster/account_federation_policy"
+	"github.com/glalanne/provider-databricks/config/cluster/service_principal_federation_policy"
 	"github.com/glalanne/provider-databricks/config/namespaced/access_control_rule_set"
 	"github.com/glalanne/provider-databricks/config/namespaced/alert"
-
-	// "github.com/glalanne/provider-databricks/config/namespaced/app"
+	"github.com/glalanne/provider-databricks/config/namespaced/app"
 	"github.com/glalanne/provider-databricks/config/namespaced/artifact_allowlist"
 	"github.com/glalanne/provider-databricks/config/namespaced/budget"
 	"github.com/glalanne/provider-databricks/config/namespaced/catalog"
@@ -107,7 +108,7 @@ import (
 )
 
 func init() {
-	// ProviderConfiguration.AddConfig(app.Configure) // TODO: waiting on protov6 support with Upjet https://github.com/crossplane/upjet/issues/372
+	ProviderConfiguration.AddConfig(app.Configure)
 	ProviderConfiguration.AddConfig(cluster.Configure)
 	ProviderConfiguration.AddConfig(cluster_policy.Configure)
 	ProviderConfiguration.AddConfig(credential.Configure)
@@ -205,4 +206,6 @@ func init() {
 	ProviderConfiguration.AddConfig(workspace_binding.Configure)
 	ProviderConfiguration.AddConfig(workspace_conf.Configure)
 	ProviderConfiguration.AddConfig(workspace_file.Configure)
+	ProviderConfiguration.AddConfig(account_federation_policy.Configure)
+	ProviderConfiguration.AddConfig(service_principal_federation_policy.Configure)
 }

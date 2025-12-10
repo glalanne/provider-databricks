@@ -3,7 +3,7 @@ apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
   annotations:
-    controller-gen.kubebuilder.io/version: v0.18.0
+    controller-gen.kubebuilder.io/version: v0.19.0
   name: mwsworkspaces.deployment.databricks.crossplane.io
 spec:
   group: deployment.databricks.crossplane.io
@@ -228,6 +228,12 @@ spec:
                       a new deployment prefix is added/updated, it only will affect
                       the new workspaces created.
                     type: string
+                  expectedWorkspaceStatus:
+                    description: '- The expected status of the workspace. When unset,
+                      it defaults to RUNNING. When set to PROVISIONING, workspace
+                      provisioning will pause and not enter RUNNING status. The only
+                      allowed values for this is RUNNING and PROVISIONING.'
+                    type: string
                   externalCustomerInfo:
                     items:
                       properties:
@@ -268,6 +274,10 @@ spec:
                     description: customer_managed_key_id from customer managed keys
                       with use_cases set to MANAGED_SERVICES. This is used to encrypt
                       the workspace's notebook and secret data in the control plane.
+                    type: string
+                  networkConnectivityConfigId:
+                    description: (String) Canonical unique identifier for the workspace,
+                      of the format <account-id>/<workspace-id>
                     type: string
                   networkId:
                     description: network_id from networks.
@@ -661,6 +671,12 @@ spec:
                       a new deployment prefix is added/updated, it only will affect
                       the new workspaces created.
                     type: string
+                  expectedWorkspaceStatus:
+                    description: '- The expected status of the workspace. When unset,
+                      it defaults to RUNNING. When set to PROVISIONING, workspace
+                      provisioning will pause and not enter RUNNING status. The only
+                      allowed values for this is RUNNING and PROVISIONING.'
+                    type: string
                   externalCustomerInfo:
                     items:
                       properties:
@@ -701,6 +717,10 @@ spec:
                     description: customer_managed_key_id from customer managed keys
                       with use_cases set to MANAGED_SERVICES. This is used to encrypt
                       the workspace's notebook and secret data in the control plane.
+                    type: string
+                  networkConnectivityConfigId:
+                    description: (String) Canonical unique identifier for the workspace,
+                      of the format <account-id>/<workspace-id>
                     type: string
                   networkId:
                     description: network_id from networks.
@@ -1093,6 +1113,12 @@ spec:
                       This is either SERVERLESS for serverless workspaces or HYBRID
                       for classic workspaces.
                     type: string
+                  expectedWorkspaceStatus:
+                    description: '- The expected status of the workspace. When unset,
+                      it defaults to RUNNING. When set to PROVISIONING, workspace
+                      provisioning will pause and not enter RUNNING status. The only
+                      allowed values for this is RUNNING and PROVISIONING.'
+                    type: string
                   externalCustomerInfo:
                     items:
                       properties:
@@ -1141,6 +1167,10 @@ spec:
                     description: customer_managed_key_id from customer managed keys
                       with use_cases set to MANAGED_SERVICES. This is used to encrypt
                       the workspace's notebook and secret data in the control plane.
+                    type: string
+                  networkConnectivityConfigId:
+                    description: (String) Canonical unique identifier for the workspace,
+                      of the format <account-id>/<workspace-id>
                     type: string
                   networkId:
                     description: network_id from networks.

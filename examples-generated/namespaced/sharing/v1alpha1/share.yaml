@@ -15,4 +15,3 @@ spec:
         - data_object_type: TABLE
           name: ${object.value}
         for_each: ${data.databricks_tables.things.ids}
-    name: my_share

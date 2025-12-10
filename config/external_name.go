@@ -13,7 +13,6 @@ import (
 // architecture for this provider.
 var TerraformPluginSDKExternalNameConfigs = map[string]config.ExternalName{
 	// Import requires using a randomly generated ID from provider: nl-2e21sda
-	// "databricks_app":                                            config.IdentifierFromProvider, // TODO: waiting on protov6 support with Upjet https://github.com/crossplane/upjet/issues/372
 	"databricks_cluster":                                        config.IdentifierFromProvider,
 	"databricks_cluster_policy":                                 config.IdentifierFromProvider,
 	"databricks_credential":                                     config.IdentifierFromProvider,
@@ -98,7 +97,6 @@ var TerraformPluginSDKExternalNameConfigs = map[string]config.ExternalName{
 	"databricks_restrict_workspace_admins_setting":              config.IdentifierFromProvider,
 	"databricks_secret_acl":                                     config.IdentifierFromProvider,
 	"databricks_service_principal_secret":                       config.IdentifierFromProvider,
-	"databricks_share":                                          config.IdentifierFromProvider,
 	"databricks_storage_credential":                             config.IdentifierFromProvider,
 	"databricks_system_schema":                                  config.IdentifierFromProvider,
 	"databricks_user":                                           config.IdentifierFromProvider,
@@ -110,8 +108,13 @@ var TerraformPluginSDKExternalNameConfigs = map[string]config.ExternalName{
 	"databricks_workspace_binding":                              config.IdentifierFromProvider,
 	"databricks_workspace_conf":                                 config.IdentifierFromProvider,
 	"databricks_workspace_file":                                 config.IdentifierFromProvider,
-	// "databricks_service_principal_federation_policy":            config.IdentifierFromProvider, // TODO: waiting on protov6 support with Upjet https://github.com/crossplane/upjet/issues/372
-	// "databricks_account_federation_policy":                      config.IdentifierFromProvider, // TODO: waiting on protov6 support with Upjet https://github.com/crossplane/upjet/issues/372
+}
+
+var TerraformPluginFrameworkExternalNameConfigs = map[string]config.ExternalName{
+	"databricks_app":   config.IdentifierFromProvider,
+	"databricks_share": config.IdentifierFromProvider,
+	"databricks_service_principal_federation_policy": config.IdentifierFromProvider,
+	"databricks_account_federation_policy":           config.IdentifierFromProvider,
 }
 
 var CLIReconciledExternalNameConfigs = map[string]config.ExternalName{}

@@ -3,7 +3,7 @@ apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
   annotations:
-    controller-gen.kubebuilder.io/version: v0.18.0
+    controller-gen.kubebuilder.io/version: v0.19.0
   name: qualitymonitors.unity.databricks.crossplane.io
 spec:
   group: unity.databricks.crossplane.io
@@ -113,6 +113,7 @@ spec:
                     items:
                       properties:
                         enabled:
+                          description: Whether to enable data classification
                           type: boolean
                       type: object
                     type: array
@@ -182,6 +183,18 @@ spec:
                   outputSchemaName:
                     description: '- Schema where output metric tables are created'
                     type: string
+                  providerConfig:
+                    description: 'Configure the provider for management through account
+                      provider. This block consists of the following fields:'
+                    items:
+                      properties:
+                        workspaceId:
+                          description: Workspace ID which the resource belongs to.
+                            This workspace must be part of the account which the provider
+                            is configured with.
+                          type: string
+                      type: object
+                    type: array
                   schedule:
                     description: 'The schedule for automatically updating and refreshing
                       metric tables.  This block consists of following fields:'
@@ -294,6 +307,7 @@ spec:
                     items:
                       properties:
                         enabled:
+                          description: Whether to enable data classification
                           type: boolean
                       type: object
                     type: array
@@ -363,6 +377,18 @@ spec:
                   outputSchemaName:
                     description: '- Schema where output metric tables are created'
                     type: string
+                  providerConfig:
+                    description: 'Configure the provider for management through account
+                      provider. This block consists of the following fields:'
+                    items:
+                      properties:
+                        workspaceId:
+                          description: Workspace ID which the resource belongs to.
+                            This workspace must be part of the account which the provider
+                            is configured with.
+                          type: string
+                      type: object
+                    type: array
                   schedule:
                     description: 'The schedule for automatically updating and refreshing
                       metric tables.  This block consists of following fields:'
@@ -569,6 +595,7 @@ spec:
                     items:
                       properties:
                         enabled:
+                          description: Whether to enable data classification
                           type: boolean
                       type: object
                     type: array
@@ -654,6 +681,18 @@ spec:
                     description: 'The full name of the profile metrics table. Format:
                       catalog_name.schema_name.table_name.'
                     type: string
+                  providerConfig:
+                    description: 'Configure the provider for management through account
+                      provider. This block consists of the following fields:'
+                    items:
+                      properties:
+                        workspaceId:
+                          description: Workspace ID which the resource belongs to.
+                            This workspace must be part of the account which the provider
+                            is configured with.
+                          type: string
+                      type: object
+                    type: array
                   schedule:
                     description: 'The schedule for automatically updating and refreshing
                       metric tables.  This block consists of following fields:'

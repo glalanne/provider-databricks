@@ -21,7 +21,7 @@ type EntitlementsInitParameters struct {
 	// Allow the principal to have instance pool create privileges. Defaults to false. More fine grained permissions could be assigned with databricks_permissions and instance_pool_id argument.
 	AllowInstancePoolCreate *bool `json:"allowInstancePoolCreate,omitempty" tf:"allow_instance_pool_create,omitempty"`
 
-	// This is a field to allow the principal to have access to Databricks SQL feature in User Interface and through databricks_sql_endpoint.
+	// This is a field to allow the principal to have access to Databricks SQL  UI, Databricks One and through databricks_sql_endpoint.
 	DatabricksSQLAccess *bool `json:"databricksSqlAccess,omitempty" tf:"databricks_sql_access,omitempty"`
 
 	// Canonical unique identifier for the group.
@@ -33,10 +33,10 @@ type EntitlementsInitParameters struct {
 	// Canonical unique identifier for the user.
 	UserID *string `json:"userId,omitempty" tf:"user_id,omitempty"`
 
-	// This is a field to allow the principal to have access to a Databricks Workspace.
+	// This is a field to allow the principal to have access to a Databricks Workspace UI and Databricks One.
 	WorkspaceAccess *bool `json:"workspaceAccess,omitempty" tf:"workspace_access,omitempty"`
 
-	// This is a field to allow the principal to have access to a Databricks Workspace as consumer, with limited access to workspace UI.  Couldn't be used with workspace_access or databricks_sql_access.
+	// This is a field to allow the principal to have access only to Databricks One.  Couldn't be used with workspace_access or databricks_sql_access.
 	WorkspaceConsume *bool `json:"workspaceConsume,omitempty" tf:"workspace_consume,omitempty"`
 }
 
@@ -48,7 +48,7 @@ type EntitlementsObservation struct {
 	// Allow the principal to have instance pool create privileges. Defaults to false. More fine grained permissions could be assigned with databricks_permissions and instance_pool_id argument.
 	AllowInstancePoolCreate *bool `json:"allowInstancePoolCreate,omitempty" tf:"allow_instance_pool_create,omitempty"`
 
-	// This is a field to allow the principal to have access to Databricks SQL feature in User Interface and through databricks_sql_endpoint.
+	// This is a field to allow the principal to have access to Databricks SQL  UI, Databricks One and through databricks_sql_endpoint.
 	DatabricksSQLAccess *bool `json:"databricksSqlAccess,omitempty" tf:"databricks_sql_access,omitempty"`
 
 	// Canonical unique identifier for the group.
@@ -62,10 +62,10 @@ type EntitlementsObservation struct {
 	// Canonical unique identifier for the user.
 	UserID *string `json:"userId,omitempty" tf:"user_id,omitempty"`
 
-	// This is a field to allow the principal to have access to a Databricks Workspace.
+	// This is a field to allow the principal to have access to a Databricks Workspace UI and Databricks One.
 	WorkspaceAccess *bool `json:"workspaceAccess,omitempty" tf:"workspace_access,omitempty"`
 
-	// This is a field to allow the principal to have access to a Databricks Workspace as consumer, with limited access to workspace UI.  Couldn't be used with workspace_access or databricks_sql_access.
+	// This is a field to allow the principal to have access only to Databricks One.  Couldn't be used with workspace_access or databricks_sql_access.
 	WorkspaceConsume *bool `json:"workspaceConsume,omitempty" tf:"workspace_consume,omitempty"`
 }
 
@@ -79,7 +79,7 @@ type EntitlementsParameters struct {
 	// +kubebuilder:validation:Optional
 	AllowInstancePoolCreate *bool `json:"allowInstancePoolCreate,omitempty" tf:"allow_instance_pool_create,omitempty"`
 
-	// This is a field to allow the principal to have access to Databricks SQL feature in User Interface and through databricks_sql_endpoint.
+	// This is a field to allow the principal to have access to Databricks SQL  UI, Databricks One and through databricks_sql_endpoint.
 	// +kubebuilder:validation:Optional
 	DatabricksSQLAccess *bool `json:"databricksSqlAccess,omitempty" tf:"databricks_sql_access,omitempty"`
 
@@ -95,11 +95,11 @@ type EntitlementsParameters struct {
 	// +kubebuilder:validation:Optional
 	UserID *string `json:"userId,omitempty" tf:"user_id,omitempty"`
 
-	// This is a field to allow the principal to have access to a Databricks Workspace.
+	// This is a field to allow the principal to have access to a Databricks Workspace UI and Databricks One.
 	// +kubebuilder:validation:Optional
 	WorkspaceAccess *bool `json:"workspaceAccess,omitempty" tf:"workspace_access,omitempty"`
 
-	// This is a field to allow the principal to have access to a Databricks Workspace as consumer, with limited access to workspace UI.  Couldn't be used with workspace_access or databricks_sql_access.
+	// This is a field to allow the principal to have access only to Databricks One.  Couldn't be used with workspace_access or databricks_sql_access.
 	// +kubebuilder:validation:Optional
 	WorkspaceConsume *bool `json:"workspaceConsume,omitempty" tf:"workspace_consume,omitempty"`
 }

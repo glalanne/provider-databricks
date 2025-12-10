@@ -24,7 +24,7 @@ type GroupInitParameters struct {
 	// This is a field to allow the group to have instance pool create privileges. More fine grained permissions could be assigned with databricks_permissions and instance_pool_id argument.
 	AllowInstancePoolCreate *bool `json:"allowInstancePoolCreate,omitempty" tf:"allow_instance_pool_create,omitempty"`
 
-	// This is a field to allow the group to have access to Databricks SQL feature in User Interface and through databricks_sql_endpoint.
+	// This is a field to allow the group to have access to Databricks SQL  UI, Databricks One and through databricks_sql_endpoint.
 	DatabricksSQLAccess *bool `json:"databricksSqlAccess,omitempty" tf:"databricks_sql_access,omitempty"`
 
 	// This is the display name for the given group.
@@ -38,10 +38,10 @@ type GroupInitParameters struct {
 
 	URL *string `json:"url,omitempty" tf:"url,omitempty"`
 
-	// This is a field to allow the group to have access to a Databricks Workspace.
+	// This is a field to allow the group to have access to a Databricks Workspace UI and Databricks One.
 	WorkspaceAccess *bool `json:"workspaceAccess,omitempty" tf:"workspace_access,omitempty"`
 
-	// This is a field to allow the group to have access to a Databricks Workspace as consumer, with limited access to workspace UI.  Couldn't be used with workspace_access or databricks_sql_access.
+	// This is a field to allow the group to have access only to Databricks One.  Couldn't be used with workspace_access or databricks_sql_access.
 	WorkspaceConsume *bool `json:"workspaceConsume,omitempty" tf:"workspace_consume,omitempty"`
 }
 
@@ -56,7 +56,7 @@ type GroupObservation struct {
 	// This is a field to allow the group to have instance pool create privileges. More fine grained permissions could be assigned with databricks_permissions and instance_pool_id argument.
 	AllowInstancePoolCreate *bool `json:"allowInstancePoolCreate,omitempty" tf:"allow_instance_pool_create,omitempty"`
 
-	// This is a field to allow the group to have access to Databricks SQL feature in User Interface and through databricks_sql_endpoint.
+	// This is a field to allow the group to have access to Databricks SQL  UI, Databricks One and through databricks_sql_endpoint.
 	DatabricksSQLAccess *bool `json:"databricksSqlAccess,omitempty" tf:"databricks_sql_access,omitempty"`
 
 	// This is the display name for the given group.
@@ -73,10 +73,10 @@ type GroupObservation struct {
 
 	URL *string `json:"url,omitempty" tf:"url,omitempty"`
 
-	// This is a field to allow the group to have access to a Databricks Workspace.
+	// This is a field to allow the group to have access to a Databricks Workspace UI and Databricks One.
 	WorkspaceAccess *bool `json:"workspaceAccess,omitempty" tf:"workspace_access,omitempty"`
 
-	// This is a field to allow the group to have access to a Databricks Workspace as consumer, with limited access to workspace UI.  Couldn't be used with workspace_access or databricks_sql_access.
+	// This is a field to allow the group to have access only to Databricks One.  Couldn't be used with workspace_access or databricks_sql_access.
 	WorkspaceConsume *bool `json:"workspaceConsume,omitempty" tf:"workspace_consume,omitempty"`
 }
 
@@ -94,7 +94,7 @@ type GroupParameters struct {
 	// +kubebuilder:validation:Optional
 	AllowInstancePoolCreate *bool `json:"allowInstancePoolCreate,omitempty" tf:"allow_instance_pool_create,omitempty"`
 
-	// This is a field to allow the group to have access to Databricks SQL feature in User Interface and through databricks_sql_endpoint.
+	// This is a field to allow the group to have access to Databricks SQL  UI, Databricks One and through databricks_sql_endpoint.
 	// +kubebuilder:validation:Optional
 	DatabricksSQLAccess *bool `json:"databricksSqlAccess,omitempty" tf:"databricks_sql_access,omitempty"`
 
@@ -113,11 +113,11 @@ type GroupParameters struct {
 	// +kubebuilder:validation:Optional
 	URL *string `json:"url,omitempty" tf:"url,omitempty"`
 
-	// This is a field to allow the group to have access to a Databricks Workspace.
+	// This is a field to allow the group to have access to a Databricks Workspace UI and Databricks One.
 	// +kubebuilder:validation:Optional
 	WorkspaceAccess *bool `json:"workspaceAccess,omitempty" tf:"workspace_access,omitempty"`
 
-	// This is a field to allow the group to have access to a Databricks Workspace as consumer, with limited access to workspace UI.  Couldn't be used with workspace_access or databricks_sql_access.
+	// This is a field to allow the group to have access only to Databricks One.  Couldn't be used with workspace_access or databricks_sql_access.
 	// +kubebuilder:validation:Optional
 	WorkspaceConsume *bool `json:"workspaceConsume,omitempty" tf:"workspace_consume,omitempty"`
 }

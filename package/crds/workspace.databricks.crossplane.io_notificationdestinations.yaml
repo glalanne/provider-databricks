@@ -3,7 +3,7 @@ apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
   annotations:
-    controller-gen.kubebuilder.io/version: v0.18.0
+    controller-gen.kubebuilder.io/version: v0.19.0
   name: notificationdestinations.workspace.databricks.crossplane.io
 spec:
   group: workspace.databricks.crossplane.io
@@ -161,23 +161,80 @@ spec:
                             Destination. It must contain the following:'
                           items:
                             properties:
-                              appId:
-                                description: The unique ID of the Notification Destination.
-                                type: string
+                              appIdSecretRef:
+                                description: App ID for Microsoft Teams App.
+                                properties:
+                                  key:
+                                    description: The key to select.
+                                    type: string
+                                  name:
+                                    description: Name of the secret.
+                                    type: string
+                                  namespace:
+                                    description: Namespace of the secret.
+                                    type: string
+                                required:
+                                - key
+                                - name
+                                - namespace
+                                type: object
                               appIdSet:
                                 type: boolean
-                              authSecret:
-                                type: string
+                              authSecretSecretRef:
+                                description: Secret for Microsoft Teams App authentication.
+                                properties:
+                                  key:
+                                    description: The key to select.
+                                    type: string
+                                  name:
+                                    description: Name of the secret.
+                                    type: string
+                                  namespace:
+                                    description: Namespace of the secret.
+                                    type: string
+                                required:
+                                - key
+                                - name
+                                - namespace
+                                type: object
                               authSecretSet:
                                 type: boolean
-                              channelUrl:
-                                description: The Slack webhook URL.
-                                type: string
+                              channelUrlSecretRef:
+                                description: Channel URL for Microsoft Teams App.
+                                properties:
+                                  key:
+                                    description: The key to select.
+                                    type: string
+                                  name:
+                                    description: Name of the secret.
+                                    type: string
+                                  namespace:
+                                    description: Namespace of the secret.
+                                    type: string
+                                required:
+                                - key
+                                - name
+                                - namespace
+                                type: object
                               channelUrlSet:
                                 type: boolean
-                              tenantId:
-                                description: The unique ID of the Notification Destination.
-                                type: string
+                              tenantIdSecretRef:
+                                description: Tenant ID for Microsoft Teams App.
+                                properties:
+                                  key:
+                                    description: The key to select.
+                                    type: string
+                                  name:
+                                    description: Name of the secret.
+                                    type: string
+                                  namespace:
+                                    description: Namespace of the secret.
+                                    type: string
+                                required:
+                                - key
+                                - name
+                                - namespace
+                                type: object
                               tenantIdSet:
                                 type: boolean
                               urlSecretRef:
@@ -400,23 +457,80 @@ spec:
                             Destination. It must contain the following:'
                           items:
                             properties:
-                              appId:
-                                description: The unique ID of the Notification Destination.
-                                type: string
+                              appIdSecretRef:
+                                description: App ID for Microsoft Teams App.
+                                properties:
+                                  key:
+                                    description: The key to select.
+                                    type: string
+                                  name:
+                                    description: Name of the secret.
+                                    type: string
+                                  namespace:
+                                    description: Namespace of the secret.
+                                    type: string
+                                required:
+                                - key
+                                - name
+                                - namespace
+                                type: object
                               appIdSet:
                                 type: boolean
-                              authSecret:
-                                type: string
+                              authSecretSecretRef:
+                                description: Secret for Microsoft Teams App authentication.
+                                properties:
+                                  key:
+                                    description: The key to select.
+                                    type: string
+                                  name:
+                                    description: Name of the secret.
+                                    type: string
+                                  namespace:
+                                    description: Namespace of the secret.
+                                    type: string
+                                required:
+                                - key
+                                - name
+                                - namespace
+                                type: object
                               authSecretSet:
                                 type: boolean
-                              channelUrl:
-                                description: The Slack webhook URL.
-                                type: string
+                              channelUrlSecretRef:
+                                description: Channel URL for Microsoft Teams App.
+                                properties:
+                                  key:
+                                    description: The key to select.
+                                    type: string
+                                  name:
+                                    description: Name of the secret.
+                                    type: string
+                                  namespace:
+                                    description: Namespace of the secret.
+                                    type: string
+                                required:
+                                - key
+                                - name
+                                - namespace
+                                type: object
                               channelUrlSet:
                                 type: boolean
-                              tenantId:
-                                description: The unique ID of the Notification Destination.
-                                type: string
+                              tenantIdSecretRef:
+                                description: Tenant ID for Microsoft Teams App.
+                                properties:
+                                  key:
+                                    description: The key to select.
+                                    type: string
+                                  name:
+                                    description: Name of the secret.
+                                    type: string
+                                  namespace:
+                                    description: Namespace of the secret.
+                                    type: string
+                                required:
+                                - key
+                                - name
+                                - namespace
+                                type: object
                               tenantIdSet:
                                 type: boolean
                               urlSecretRef:
@@ -672,23 +786,12 @@ spec:
                             Destination. It must contain the following:'
                           items:
                             properties:
-                              appId:
-                                description: The unique ID of the Notification Destination.
-                                type: string
                               appIdSet:
                                 type: boolean
-                              authSecret:
-                                type: string
                               authSecretSet:
                                 type: boolean
-                              channelUrl:
-                                description: The Slack webhook URL.
-                                type: string
                               channelUrlSet:
                                 type: boolean
-                              tenantId:
-                                description: The unique ID of the Notification Destination.
-                                type: string
                               tenantIdSet:
                                 type: boolean
                               urlSet:

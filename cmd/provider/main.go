@@ -41,6 +41,7 @@ import (
 
 	changelogsv1alpha1 "github.com/crossplane/crossplane-runtime/v2/apis/changelogs/proto/v1alpha1"
 	"github.com/databricks/terraform-provider-databricks/xpprovider"
+
 	"github.com/glalanne/provider-databricks/config"
 	"github.com/glalanne/provider-databricks/internal/clients"
 	"github.com/glalanne/provider-databricks/internal/features"
@@ -167,13 +168,13 @@ func main() {
 	metrics.Registry.MustRegister(stateMetrics)
 
 	ctx := context.Background()
-	sdkProvider, err := xpprovider.GetProvider(ctx)
-	kingpin.FatalIfError(err, "Cannot get the Terraform provider")
+	fwProvider, sdkProvider, err := xpprovider.GetProvider(ctx)
+	kingpin.FatalIfError(err, "Cannot get the Terraform framework and SDK providers")
 
-	clusterProvider, err := config.GetProvider(ctx, sdkProvider, false)
+	clusterProvider, err := config.GetProvider(ctx, fwProvider, sdkProvider, false)
 	kingpin.FatalIfError(err, "Cannot initialize the cluster provider configuration")
 
-	namespacedProvider, err := config.GetProviderNamespaced(ctx, sdkProvider, false)
+	namespacedProvider, err := config.GetProviderNamespaced(ctx, fwProvider, sdkProvider, false)
 	kingpin.FatalIfError(err, "Cannot initialize the namespaced provider configuration")
 
 	clusterOpts := tjcontroller.Options{

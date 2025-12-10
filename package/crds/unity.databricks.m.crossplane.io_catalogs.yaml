@@ -3,7 +3,7 @@ apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
   annotations:
-    controller-gen.kubebuilder.io/version: v0.18.0
+    controller-gen.kubebuilder.io/version: v0.19.0
   name: catalogs.unity.databricks.m.crossplane.io
 spec:
   group: unity.databricks.m.crossplane.io
@@ -133,13 +133,13 @@ spec:
                     description: 'For Delta Sharing Catalogs: the name of the share
                       under the share provider. Change forces creation of a new resource.'
                     type: string
-                  storageLocation:
-                    type: string
                   storageRoot:
                     description: Managed location of the catalog. Location in cloud
-                      storage where data for managed tables will be stored. If not
-                      specified, the location will default to the metastore root location.
-                      Change forces creation of a new resource.
+                      storage where data for managed tables will be stored.  If the
+                      URL contains special characters, such as space, &, etc., they
+                      should be percent-encoded (space -> %20, etc.). If not specified,
+                      the location will default to the metastore root location. Change
+                      forces creation of a new resource.
                     type: string
                 type: object
               initProvider:
@@ -230,13 +230,13 @@ spec:
                     description: 'For Delta Sharing Catalogs: the name of the share
                       under the share provider. Change forces creation of a new resource.'
                     type: string
-                  storageLocation:
-                    type: string
                   storageRoot:
                     description: Managed location of the catalog. Location in cloud
-                      storage where data for managed tables will be stored. If not
-                      specified, the location will default to the metastore root location.
-                      Change forces creation of a new resource.
+                      storage where data for managed tables will be stored.  If the
+                      URL contains special characters, such as space, &, etc., they
+                      should be percent-encoded (space -> %20, etc.). If not specified,
+                      the location will default to the metastore root location. Change
+                      forces creation of a new resource.
                     type: string
                 type: object
               managementPolicies:
@@ -305,6 +305,7 @@ spec:
                   browseOnly:
                     type: boolean
                   catalogType:
+                    description: the type of the catalog.
                     type: string
                   comment:
                     description: User-supplied free-form text.
@@ -315,8 +316,11 @@ spec:
                       resource.'
                     type: string
                   createdAt:
+                    description: time at which this catalog was created, in epoch
+                      milliseconds.
                     type: number
                   createdBy:
+                    description: username of catalog creator.
                     type: string
                   effectivePredictiveOptimizationFlag:
                     items:
@@ -386,22 +390,30 @@ spec:
                       type: object
                     type: array
                   securableType:
+                    description: the type of Unity Catalog securable.
                     type: string
                   shareName:
                     description: 'For Delta Sharing Catalogs: the name of the share
                       under the share provider. Change forces creation of a new resource.'
                     type: string
                   storageLocation:
+                    description: effective storage Location URL (full path) for managed
+                      tables within catalog.
                     type: string
                   storageRoot:
                     description: Managed location of the catalog. Location in cloud
-                      storage where data for managed tables will be stored. If not
-                      specified, the location will default to the metastore root location.
-                      Change forces creation of a new resource.
+                      storage where data for managed tables will be stored.  If the
+                      URL contains special characters, such as space, &, etc., they
+                      should be percent-encoded (space -> %20, etc.). If not specified,
+                      the location will default to the metastore root location. Change
+                      forces creation of a new resource.
                     type: string
                   updatedAt:
+                    description: time at which this catalog was last modified, in
+                      epoch milliseconds..
                     type: number
                   updatedBy:
+                    description: username of user who last modified catalog.
                     type: string
                 type: object
               conditions:

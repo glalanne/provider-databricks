@@ -1,0 +1,17 @@
+apiVersion: oauth.databricks.m.crossplane.io/v1alpha1
+kind: ServicePrincipalFederationPolicy
+metadata:
+  annotations:
+    meta.upbound.io/example-id: oauth/v1alpha1/serviceprincipalfederationpolicy
+  labels:
+    testing.upbound.io/example-name: this
+  name: this
+  namespace: upbound-system
+spec:
+  forProvider:
+    oidcPolicy:
+      issuer: https://myidp.example.com
+      subject: subject-in-token-from-myidp
+      subjectClaim: sub
+    policyId: my-policy
+    servicePrincipalId: 1234

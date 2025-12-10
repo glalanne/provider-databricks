@@ -170,6 +170,9 @@ type MwsWorkspacesInitParameters struct {
 	// part of URL as in https://<prefix>-<deployment-name>.cloud.databricks.com. Deployment name cannot be used until a deployment name prefix is defined. Please contact your Databricks representative. Once a new deployment prefix is added/updated, it only will affect the new workspaces created.
 	DeploymentName *string `json:"deploymentName,omitempty" tf:"deployment_name,omitempty"`
 
+	// - The expected status of the workspace. When unset, it defaults to RUNNING. When set to PROVISIONING, workspace provisioning will pause and not enter RUNNING status. The only allowed values for this is RUNNING and PROVISIONING.
+	ExpectedWorkspaceStatus *string `json:"expectedWorkspaceStatus,omitempty" tf:"expected_workspace_status,omitempty"`
+
 	ExternalCustomerInfo []ExternalCustomerInfoInitParameters `json:"externalCustomerInfo,omitempty" tf:"external_customer_info,omitempty"`
 
 	GCPManagedNetworkConfig []GCPManagedNetworkConfigInitParameters `json:"gcpManagedNetworkConfig,omitempty" tf:"gcp_managed_network_config,omitempty"`
@@ -183,6 +186,9 @@ type MwsWorkspacesInitParameters struct {
 
 	// customer_managed_key_id from customer managed keys with use_cases set to MANAGED_SERVICES. This is used to encrypt the workspace's notebook and secret data in the control plane.
 	ManagedServicesCustomerManagedKeyID *string `json:"managedServicesCustomerManagedKeyId,omitempty" tf:"managed_services_customer_managed_key_id,omitempty"`
+
+	// (String) Canonical unique identifier for the workspace, of the format <account-id>/<workspace-id>
+	NetworkConnectivityConfigID *string `json:"networkConnectivityConfigId,omitempty" tf:"network_connectivity_config_id,omitempty"`
 
 	// network_id from networks.
 	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/cluster/deployment/v1alpha1.MwsNetworks
@@ -269,6 +275,9 @@ type MwsWorkspacesObservation struct {
 	// (String) The effective compute mode for the workspace. This is either SERVERLESS for serverless workspaces or HYBRID for classic workspaces.
 	EffectiveComputeMode *string `json:"effectiveComputeMode,omitempty" tf:"effective_compute_mode,omitempty"`
 
+	// - The expected status of the workspace. When unset, it defaults to RUNNING. When set to PROVISIONING, workspace provisioning will pause and not enter RUNNING status. The only allowed values for this is RUNNING and PROVISIONING.
+	ExpectedWorkspaceStatus *string `json:"expectedWorkspaceStatus,omitempty" tf:"expected_workspace_status,omitempty"`
+
 	ExternalCustomerInfo []ExternalCustomerInfoObservation `json:"externalCustomerInfo,omitempty" tf:"external_customer_info,omitempty"`
 
 	GCPManagedNetworkConfig []GCPManagedNetworkConfigObservation `json:"gcpManagedNetworkConfig,omitempty" tf:"gcp_managed_network_config,omitempty"`
@@ -288,6 +297,9 @@ type MwsWorkspacesObservation struct {
 
 	// customer_managed_key_id from customer managed keys with use_cases set to MANAGED_SERVICES. This is used to encrypt the workspace's notebook and secret data in the control plane.
 	ManagedServicesCustomerManagedKeyID *string `json:"managedServicesCustomerManagedKeyId,omitempty" tf:"managed_services_customer_managed_key_id,omitempty"`
+
+	// (String) Canonical unique identifier for the workspace, of the format <account-id>/<workspace-id>
+	NetworkConnectivityConfigID *string `json:"networkConnectivityConfigId,omitempty" tf:"network_connectivity_config_id,omitempty"`
 
 	// network_id from networks.
 	NetworkID *string `json:"networkId,omitempty" tf:"network_id,omitempty"`
@@ -374,6 +386,10 @@ type MwsWorkspacesParameters struct {
 	// +kubebuilder:validation:Optional
 	DeploymentName *string `json:"deploymentName,omitempty" tf:"deployment_name,omitempty"`
 
+	// - The expected status of the workspace. When unset, it defaults to RUNNING. When set to PROVISIONING, workspace provisioning will pause and not enter RUNNING status. The only allowed values for this is RUNNING and PROVISIONING.
+	// +kubebuilder:validation:Optional
+	ExpectedWorkspaceStatus *string `json:"expectedWorkspaceStatus,omitempty" tf:"expected_workspace_status,omitempty"`
+
 	// +kubebuilder:validation:Optional
 	ExternalCustomerInfo []ExternalCustomerInfoParameters `json:"externalCustomerInfo,omitempty" tf:"external_customer_info,omitempty"`
 
@@ -393,6 +409,10 @@ type MwsWorkspacesParameters struct {
 	// customer_managed_key_id from customer managed keys with use_cases set to MANAGED_SERVICES. This is used to encrypt the workspace's notebook and secret data in the control plane.
 	// +kubebuilder:validation:Optional
 	ManagedServicesCustomerManagedKeyID *string `json:"managedServicesCustomerManagedKeyId,omitempty" tf:"managed_services_customer_managed_key_id,omitempty"`
+
+	// (String) Canonical unique identifier for the workspace, of the format <account-id>/<workspace-id>
+	// +kubebuilder:validation:Optional
+	NetworkConnectivityConfigID *string `json:"networkConnectivityConfigId,omitempty" tf:"network_connectivity_config_id,omitempty"`
 
 	// network_id from networks.
 	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/cluster/deployment/v1alpha1.MwsNetworks

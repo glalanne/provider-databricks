@@ -4,14 +4,17 @@ metadata:
   annotations:
     meta.upbound.io/example-id: sql/v1alpha1/sqlendpoint
   labels:
-    testing.upbound.io/example-name: this
-  name: this
+    testing.upbound.io/example-name: sql-endpoint-test
+  name: sql-endpoint-test
 spec:
   forProvider:
-    clusterSize: Small
+    clusterSize: 2X-Small # "2X-Small", "X-Small", "Small", "Medium", "Large", "X-Large", "2X-Large", "3X-Large", "4X-Large".
+    autoStopMins: 20
+    enableServerlessCompute: true
+    spotInstancePolicy: COST_OPTIMIZED #Optional
     maxNumClusters: 1
-    name: Endpoint of ${data.databricks_current_user.me.alphanumeric}
+    name: sql-endpoint-test-1
     tags:
     - customTags:
       - key: City
-        value: Amsterdam
+        value: Vancouver

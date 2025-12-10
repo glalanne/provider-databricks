@@ -58,15 +58,14 @@ type CatalogInitParameters struct {
 	// For Delta Sharing Catalogs: the name of the share under the share provider. Change forces creation of a new resource.
 	ShareName *string `json:"shareName,omitempty" tf:"share_name,omitempty"`
 
-	StorageLocation *string `json:"storageLocation,omitempty" tf:"storage_location,omitempty"`
-
-	// Managed location of the catalog. Location in cloud storage where data for managed tables will be stored. If not specified, the location will default to the metastore root location. Change forces creation of a new resource.
+	// Managed location of the catalog. Location in cloud storage where data for managed tables will be stored.  If the URL contains special characters, such as space, &, etc., they should be percent-encoded (space -> %20, etc.). If not specified, the location will default to the metastore root location. Change forces creation of a new resource.
 	StorageRoot *string `json:"storageRoot,omitempty" tf:"storage_root,omitempty"`
 }
 
 type CatalogObservation struct {
 	BrowseOnly *bool `json:"browseOnly,omitempty" tf:"browse_only,omitempty"`
 
+	// the type of the catalog.
 	CatalogType *string `json:"catalogType,omitempty" tf:"catalog_type,omitempty"`
 
 	// User-supplied free-form text.
@@ -75,8 +74,10 @@ type CatalogObservation struct {
 	// For Foreign Catalogs: the name of the connection to an external data source. Changes forces creation of a new resource.
 	ConnectionName *string `json:"connectionName,omitempty" tf:"connection_name,omitempty"`
 
+	// time at which this catalog was created, in epoch milliseconds.
 	CreatedAt *float64 `json:"createdAt,omitempty" tf:"created_at,omitempty"`
 
+	// username of catalog creator.
 	CreatedBy *string `json:"createdBy,omitempty" tf:"created_by,omitempty"`
 
 	EffectivePredictiveOptimizationFlag []EffectivePredictiveOptimizationFlagObservation `json:"effectivePredictiveOptimizationFlag,omitempty" tf:"effective_predictive_optimization_flag,omitempty"`
@@ -118,18 +119,22 @@ type CatalogObservation struct {
 
 	ProvisioningInfo []ProvisioningInfoObservation `json:"provisioningInfo,omitempty" tf:"provisioning_info,omitempty"`
 
+	// the type of Unity Catalog securable.
 	SecurableType *string `json:"securableType,omitempty" tf:"securable_type,omitempty"`
 
 	// For Delta Sharing Catalogs: the name of the share under the share provider. Change forces creation of a new resource.
 	ShareName *string `json:"shareName,omitempty" tf:"share_name,omitempty"`
 
+	// effective storage Location URL (full path) for managed tables within catalog.
 	StorageLocation *string `json:"storageLocation,omitempty" tf:"storage_location,omitempty"`
 
-	// Managed location of the catalog. Location in cloud storage where data for managed tables will be stored. If not specified, the location will default to the metastore root location. Change forces creation of a new resource.
+	// Managed location of the catalog. Location in cloud storage where data for managed tables will be stored.  If the URL contains special characters, such as space, &, etc., they should be percent-encoded (space -> %20, etc.). If not specified, the location will default to the metastore root location. Change forces creation of a new resource.
 	StorageRoot *string `json:"storageRoot,omitempty" tf:"storage_root,omitempty"`
 
+	// time at which this catalog was last modified, in epoch milliseconds..
 	UpdatedAt *float64 `json:"updatedAt,omitempty" tf:"updated_at,omitempty"`
 
+	// username of user who last modified catalog.
 	UpdatedBy *string `json:"updatedBy,omitempty" tf:"updated_by,omitempty"`
 }
 
@@ -194,10 +199,7 @@ type CatalogParameters struct {
 	// +kubebuilder:validation:Optional
 	ShareName *string `json:"shareName,omitempty" tf:"share_name,omitempty"`
 
-	// +kubebuilder:validation:Optional
-	StorageLocation *string `json:"storageLocation,omitempty" tf:"storage_location,omitempty"`
-
-	// Managed location of the catalog. Location in cloud storage where data for managed tables will be stored. If not specified, the location will default to the metastore root location. Change forces creation of a new resource.
+	// Managed location of the catalog. Location in cloud storage where data for managed tables will be stored.  If the URL contains special characters, such as space, &, etc., they should be percent-encoded (space -> %20, etc.). If not specified, the location will default to the metastore root location. Change forces creation of a new resource.
 	// +kubebuilder:validation:Optional
 	StorageRoot *string `json:"storageRoot,omitempty" tf:"storage_root,omitempty"`
 }
