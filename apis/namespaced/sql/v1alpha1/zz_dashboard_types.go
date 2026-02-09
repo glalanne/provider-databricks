@@ -22,6 +22,12 @@ type DashboardInitParameters struct {
 	// The unique ID of the dashboard.
 	DashboardID *string `json:"dashboardId,omitempty" tf:"dashboard_id,omitempty"`
 
+	// Sets the default catalog for all datasets in this dashboard. Does not impact table references that use fully qualified catalog names (ex: samples.nyctaxi.trips).
+	DatasetCatalog *string `json:"datasetCatalog,omitempty" tf:"dataset_catalog,omitempty"`
+
+	// Sets the default schema for all datasets in this dashboard. Does not impact table references that use fully qualified catalog names (ex: samples.nyctaxi.trips).
+	DatasetSchema *string `json:"datasetSchema,omitempty" tf:"dataset_schema,omitempty"`
+
 	// The display name of the dashboard.
 	DisplayName *string `json:"displayName,omitempty" tf:"display_name,omitempty"`
 
@@ -58,6 +64,12 @@ type DashboardObservation struct {
 
 	// The unique ID of the dashboard.
 	DashboardID *string `json:"dashboardId,omitempty" tf:"dashboard_id,omitempty"`
+
+	// Sets the default catalog for all datasets in this dashboard. Does not impact table references that use fully qualified catalog names (ex: samples.nyctaxi.trips).
+	DatasetCatalog *string `json:"datasetCatalog,omitempty" tf:"dataset_catalog,omitempty"`
+
+	// Sets the default schema for all datasets in this dashboard. Does not impact table references that use fully qualified catalog names (ex: samples.nyctaxi.trips).
+	DatasetSchema *string `json:"datasetSchema,omitempty" tf:"dataset_schema,omitempty"`
 
 	// The display name of the dashboard.
 	DisplayName *string `json:"displayName,omitempty" tf:"display_name,omitempty"`
@@ -102,6 +114,14 @@ type DashboardParameters struct {
 	// The unique ID of the dashboard.
 	// +kubebuilder:validation:Optional
 	DashboardID *string `json:"dashboardId,omitempty" tf:"dashboard_id,omitempty"`
+
+	// Sets the default catalog for all datasets in this dashboard. Does not impact table references that use fully qualified catalog names (ex: samples.nyctaxi.trips).
+	// +kubebuilder:validation:Optional
+	DatasetCatalog *string `json:"datasetCatalog,omitempty" tf:"dataset_catalog,omitempty"`
+
+	// Sets the default schema for all datasets in this dashboard. Does not impact table references that use fully qualified catalog names (ex: samples.nyctaxi.trips).
+	// +kubebuilder:validation:Optional
+	DatasetSchema *string `json:"datasetSchema,omitempty" tf:"dataset_schema,omitempty"`
 
 	// The display name of the dashboard.
 	// +kubebuilder:validation:Optional

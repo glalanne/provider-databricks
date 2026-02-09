@@ -15,9 +15,14 @@ import (
 )
 
 type ActiveDeploymentInitParameters struct {
+	Command []*string `json:"command,omitempty" tf:"command,omitempty"`
 
 	// Id of the SQL warehouse to grant permission on.
 	DeploymentID *string `json:"deploymentId,omitempty" tf:"deployment_id,omitempty"`
+
+	EnvVars []EnvVarsInitParameters `json:"envVars,omitempty" tf:"env_vars,omitempty"`
+
+	GitSource *GitSourceInitParameters `json:"gitSource,omitempty" tf:"git_source,omitempty"`
 
 	Mode *string `json:"mode,omitempty" tf:"mode,omitempty"`
 
@@ -25,6 +30,7 @@ type ActiveDeploymentInitParameters struct {
 }
 
 type ActiveDeploymentObservation struct {
+	Command []*string `json:"command,omitempty" tf:"command,omitempty"`
 
 	// The creation time of the app.
 	CreateTime *string `json:"createTime,omitempty" tf:"create_time,omitempty"`
@@ -36,6 +42,10 @@ type ActiveDeploymentObservation struct {
 
 	// Id of the SQL warehouse to grant permission on.
 	DeploymentID *string `json:"deploymentId,omitempty" tf:"deployment_id,omitempty"`
+
+	EnvVars []EnvVarsObservation `json:"envVars,omitempty" tf:"env_vars,omitempty"`
+
+	GitSource *GitSourceObservation `json:"gitSource,omitempty" tf:"git_source,omitempty"`
 
 	Mode *string `json:"mode,omitempty" tf:"mode,omitempty"`
 
@@ -49,15 +59,48 @@ type ActiveDeploymentObservation struct {
 
 type ActiveDeploymentParameters struct {
 
+	// +kubebuilder:validation:Optional
+	Command []*string `json:"command,omitempty" tf:"command,omitempty"`
+
 	// Id of the SQL warehouse to grant permission on.
 	// +kubebuilder:validation:Optional
 	DeploymentID *string `json:"deploymentId,omitempty" tf:"deployment_id,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	EnvVars []EnvVarsParameters `json:"envVars,omitempty" tf:"env_vars,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	GitSource *GitSourceParameters `json:"gitSource,omitempty" tf:"git_source,omitempty"`
 
 	// +kubebuilder:validation:Optional
 	Mode *string `json:"mode,omitempty" tf:"mode,omitempty"`
 
 	// +kubebuilder:validation:Optional
 	SourceCodePath *string `json:"sourceCodePath,omitempty" tf:"source_code_path,omitempty"`
+}
+
+type AppGitRepositoryInitParameters struct {
+	Provider *string `json:"provider,omitempty" tf:"provider,omitempty"`
+
+	// The URL of the app once it is deployed.
+	URL *string `json:"url,omitempty" tf:"url,omitempty"`
+}
+
+type AppGitRepositoryObservation struct {
+	Provider *string `json:"provider,omitempty" tf:"provider,omitempty"`
+
+	// The URL of the app once it is deployed.
+	URL *string `json:"url,omitempty" tf:"url,omitempty"`
+}
+
+type AppGitRepositoryParameters struct {
+
+	// +kubebuilder:validation:Optional
+	Provider *string `json:"provider" tf:"provider,omitempty"`
+
+	// The URL of the app once it is deployed.
+	// +kubebuilder:validation:Optional
+	URL *string `json:"url" tf:"url,omitempty"`
 }
 
 type AppInitParameters struct {
@@ -71,12 +114,17 @@ type AppInitParameters struct {
 	// The description of the app.
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
 
+	GitRepository *AppGitRepositoryInitParameters `json:"gitRepository,omitempty" tf:"git_repository,omitempty"`
+
 	NoCompute *bool `json:"noCompute,omitempty" tf:"no_compute,omitempty"`
 
 	ProviderConfig *ProviderConfigInitParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
 
 	// A list of resources that the app have access to.
 	Resources []ResourcesInitParameters `json:"resources,omitempty" tf:"resources,omitempty"`
+
+	// Id of the SQL warehouse to grant permission on.
+	UsagePolicyID *string `json:"usagePolicyId,omitempty" tf:"usage_policy_id,omitempty"`
 
 	// A list of api scopes granted to the user access token.
 	UserAPIScopes []*string `json:"userApiScopes,omitempty" tf:"user_api_scopes,omitempty"`
@@ -112,8 +160,13 @@ type AppObservation struct {
 	// The effective budget policy ID.
 	EffectiveBudgetPolicyID *string `json:"effectiveBudgetPolicyId,omitempty" tf:"effective_budget_policy_id,omitempty"`
 
+	// Id of the SQL warehouse to grant permission on.
+	EffectiveUsagePolicyID *string `json:"effectiveUsagePolicyId,omitempty" tf:"effective_usage_policy_id,omitempty"`
+
 	// A list of effective api scopes granted to the user access token.
 	EffectiveUserAPIScopes []*string `json:"effectiveUserApiScopes,omitempty" tf:"effective_user_api_scopes,omitempty"`
+
+	GitRepository *AppGitRepositoryObservation `json:"gitRepository,omitempty" tf:"git_repository,omitempty"`
 
 	// Id of the SQL warehouse to grant permission on.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
@@ -151,6 +204,9 @@ type AppObservation struct {
 	// The email of the user that last updated the app.
 	Updater *string `json:"updater,omitempty" tf:"updater,omitempty"`
 
+	// Id of the SQL warehouse to grant permission on.
+	UsagePolicyID *string `json:"usagePolicyId,omitempty" tf:"usage_policy_id,omitempty"`
+
 	// A list of api scopes granted to the user access token.
 	UserAPIScopes []*string `json:"userApiScopes,omitempty" tf:"user_api_scopes,omitempty"`
 }
@@ -170,6 +226,9 @@ type AppParameters struct {
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
 
 	// +kubebuilder:validation:Optional
+	GitRepository *AppGitRepositoryParameters `json:"gitRepository,omitempty" tf:"git_repository,omitempty"`
+
+	// +kubebuilder:validation:Optional
 	NoCompute *bool `json:"noCompute,omitempty" tf:"no_compute,omitempty"`
 
 	// +kubebuilder:validation:Optional
@@ -178,6 +237,10 @@ type AppParameters struct {
 	// A list of resources that the app have access to.
 	// +kubebuilder:validation:Optional
 	Resources []ResourcesParameters `json:"resources,omitempty" tf:"resources,omitempty"`
+
+	// Id of the SQL warehouse to grant permission on.
+	// +kubebuilder:validation:Optional
+	UsagePolicyID *string `json:"usagePolicyId,omitempty" tf:"usage_policy_id,omitempty"`
 
 	// A list of api scopes granted to the user access token.
 	// +kubebuilder:validation:Optional
@@ -203,6 +266,7 @@ type ComputeStatusInitParameters struct {
 }
 
 type ComputeStatusObservation struct {
+	ActiveInstances *float64 `json:"activeInstances,omitempty" tf:"active_instances,omitempty"`
 
 	// Compute status message
 	Message *string `json:"message,omitempty" tf:"message,omitempty"`
@@ -267,6 +331,68 @@ type DeploymentArtifactsParameters struct {
 	SourceCodePath *string `json:"sourceCodePath,omitempty" tf:"source_code_path,omitempty"`
 }
 
+type EnvVarsInitParameters struct {
+
+	// The name of the app. The name must contain only lowercase alphanumeric characters and hyphens. It must be unique within the workspace.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	Value *string `json:"value,omitempty" tf:"value,omitempty"`
+
+	ValueFrom *string `json:"valueFrom,omitempty" tf:"value_from,omitempty"`
+}
+
+type EnvVarsObservation struct {
+
+	// The name of the app. The name must contain only lowercase alphanumeric characters and hyphens. It must be unique within the workspace.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	Value *string `json:"value,omitempty" tf:"value,omitempty"`
+
+	ValueFrom *string `json:"valueFrom,omitempty" tf:"value_from,omitempty"`
+}
+
+type EnvVarsParameters struct {
+
+	// The name of the app. The name must contain only lowercase alphanumeric characters and hyphens. It must be unique within the workspace.
+	// +kubebuilder:validation:Optional
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	Value *string `json:"value,omitempty" tf:"value,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	ValueFrom *string `json:"valueFrom,omitempty" tf:"value_from,omitempty"`
+}
+
+type ExperimentInitParameters struct {
+
+	// Id of the SQL warehouse to grant permission on.
+	ExperimentID *string `json:"experimentId,omitempty" tf:"experiment_id,omitempty"`
+
+	// Permission to grant on the secret scope. For secrets, only one permission is allowed. Permission must be one of: READ, WRITE, MANAGE.
+	Permission *string `json:"permission,omitempty" tf:"permission,omitempty"`
+}
+
+type ExperimentObservation struct {
+
+	// Id of the SQL warehouse to grant permission on.
+	ExperimentID *string `json:"experimentId,omitempty" tf:"experiment_id,omitempty"`
+
+	// Permission to grant on the secret scope. For secrets, only one permission is allowed. Permission must be one of: READ, WRITE, MANAGE.
+	Permission *string `json:"permission,omitempty" tf:"permission,omitempty"`
+}
+
+type ExperimentParameters struct {
+
+	// Id of the SQL warehouse to grant permission on.
+	// +kubebuilder:validation:Optional
+	ExperimentID *string `json:"experimentId" tf:"experiment_id,omitempty"`
+
+	// Permission to grant on the secret scope. For secrets, only one permission is allowed. Permission must be one of: READ, WRITE, MANAGE.
+	// +kubebuilder:validation:Optional
+	Permission *string `json:"permission" tf:"permission,omitempty"`
+}
+
 type GenieSpaceInitParameters struct {
 
 	// The name of the app. The name must contain only lowercase alphanumeric characters and hyphens. It must be unique within the workspace.
@@ -304,6 +430,93 @@ type GenieSpaceParameters struct {
 	// The unique ID of Genie Space.
 	// +kubebuilder:validation:Optional
 	SpaceID *string `json:"spaceId" tf:"space_id,omitempty"`
+}
+
+type GitRepositoryInitParameters struct {
+	Provider *string `json:"provider,omitempty" tf:"provider,omitempty"`
+
+	// The URL of the app once it is deployed.
+	URL *string `json:"url,omitempty" tf:"url,omitempty"`
+}
+
+type GitRepositoryObservation struct {
+	Provider *string `json:"provider,omitempty" tf:"provider,omitempty"`
+
+	// The URL of the app once it is deployed.
+	URL *string `json:"url,omitempty" tf:"url,omitempty"`
+}
+
+type GitRepositoryParameters struct {
+
+	// +kubebuilder:validation:Optional
+	Provider *string `json:"provider" tf:"provider,omitempty"`
+
+	// The URL of the app once it is deployed.
+	// +kubebuilder:validation:Optional
+	URL *string `json:"url" tf:"url,omitempty"`
+}
+
+type GitSourceGitRepositoryInitParameters struct {
+	Provider *string `json:"provider,omitempty" tf:"provider,omitempty"`
+
+	// The URL of the app once it is deployed.
+	URL *string `json:"url,omitempty" tf:"url,omitempty"`
+}
+
+type GitSourceGitRepositoryObservation struct {
+	Provider *string `json:"provider,omitempty" tf:"provider,omitempty"`
+
+	// The URL of the app once it is deployed.
+	URL *string `json:"url,omitempty" tf:"url,omitempty"`
+}
+
+type GitSourceGitRepositoryParameters struct {
+
+	// +kubebuilder:validation:Optional
+	Provider *string `json:"provider" tf:"provider,omitempty"`
+
+	// The URL of the app once it is deployed.
+	// +kubebuilder:validation:Optional
+	URL *string `json:"url" tf:"url,omitempty"`
+}
+
+type GitSourceInitParameters struct {
+	Branch *string `json:"branch,omitempty" tf:"branch,omitempty"`
+
+	Commit *string `json:"commit,omitempty" tf:"commit,omitempty"`
+
+	SourceCodePath *string `json:"sourceCodePath,omitempty" tf:"source_code_path,omitempty"`
+
+	Tag *string `json:"tag,omitempty" tf:"tag,omitempty"`
+}
+
+type GitSourceObservation struct {
+	Branch *string `json:"branch,omitempty" tf:"branch,omitempty"`
+
+	Commit *string `json:"commit,omitempty" tf:"commit,omitempty"`
+
+	GitRepository *GitRepositoryObservation `json:"gitRepository,omitempty" tf:"git_repository,omitempty"`
+
+	ResolvedCommit *string `json:"resolvedCommit,omitempty" tf:"resolved_commit,omitempty"`
+
+	SourceCodePath *string `json:"sourceCodePath,omitempty" tf:"source_code_path,omitempty"`
+
+	Tag *string `json:"tag,omitempty" tf:"tag,omitempty"`
+}
+
+type GitSourceParameters struct {
+
+	// +kubebuilder:validation:Optional
+	Branch *string `json:"branch,omitempty" tf:"branch,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	Commit *string `json:"commit,omitempty" tf:"commit,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	SourceCodePath *string `json:"sourceCodePath,omitempty" tf:"source_code_path,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	Tag *string `json:"tag,omitempty" tf:"tag,omitempty"`
 }
 
 type JobInitParameters struct {
@@ -349,10 +562,87 @@ type PendingDeploymentDeploymentArtifactsParameters struct {
 	SourceCodePath *string `json:"sourceCodePath,omitempty" tf:"source_code_path,omitempty"`
 }
 
+type PendingDeploymentEnvVarsInitParameters struct {
+
+	// The name of the app. The name must contain only lowercase alphanumeric characters and hyphens. It must be unique within the workspace.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	Value *string `json:"value,omitempty" tf:"value,omitempty"`
+
+	ValueFrom *string `json:"valueFrom,omitempty" tf:"value_from,omitempty"`
+}
+
+type PendingDeploymentEnvVarsObservation struct {
+
+	// The name of the app. The name must contain only lowercase alphanumeric characters and hyphens. It must be unique within the workspace.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	Value *string `json:"value,omitempty" tf:"value,omitempty"`
+
+	ValueFrom *string `json:"valueFrom,omitempty" tf:"value_from,omitempty"`
+}
+
+type PendingDeploymentEnvVarsParameters struct {
+
+	// The name of the app. The name must contain only lowercase alphanumeric characters and hyphens. It must be unique within the workspace.
+	// +kubebuilder:validation:Optional
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	Value *string `json:"value,omitempty" tf:"value,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	ValueFrom *string `json:"valueFrom,omitempty" tf:"value_from,omitempty"`
+}
+
+type PendingDeploymentGitSourceInitParameters struct {
+	Branch *string `json:"branch,omitempty" tf:"branch,omitempty"`
+
+	Commit *string `json:"commit,omitempty" tf:"commit,omitempty"`
+
+	SourceCodePath *string `json:"sourceCodePath,omitempty" tf:"source_code_path,omitempty"`
+
+	Tag *string `json:"tag,omitempty" tf:"tag,omitempty"`
+}
+
+type PendingDeploymentGitSourceObservation struct {
+	Branch *string `json:"branch,omitempty" tf:"branch,omitempty"`
+
+	Commit *string `json:"commit,omitempty" tf:"commit,omitempty"`
+
+	GitRepository *GitSourceGitRepositoryObservation `json:"gitRepository,omitempty" tf:"git_repository,omitempty"`
+
+	ResolvedCommit *string `json:"resolvedCommit,omitempty" tf:"resolved_commit,omitempty"`
+
+	SourceCodePath *string `json:"sourceCodePath,omitempty" tf:"source_code_path,omitempty"`
+
+	Tag *string `json:"tag,omitempty" tf:"tag,omitempty"`
+}
+
+type PendingDeploymentGitSourceParameters struct {
+
+	// +kubebuilder:validation:Optional
+	Branch *string `json:"branch,omitempty" tf:"branch,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	Commit *string `json:"commit,omitempty" tf:"commit,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	SourceCodePath *string `json:"sourceCodePath,omitempty" tf:"source_code_path,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	Tag *string `json:"tag,omitempty" tf:"tag,omitempty"`
+}
+
 type PendingDeploymentInitParameters struct {
+	Command []*string `json:"command,omitempty" tf:"command,omitempty"`
 
 	// Id of the SQL warehouse to grant permission on.
 	DeploymentID *string `json:"deploymentId,omitempty" tf:"deployment_id,omitempty"`
+
+	EnvVars []PendingDeploymentEnvVarsInitParameters `json:"envVars,omitempty" tf:"env_vars,omitempty"`
+
+	GitSource *PendingDeploymentGitSourceInitParameters `json:"gitSource,omitempty" tf:"git_source,omitempty"`
 
 	Mode *string `json:"mode,omitempty" tf:"mode,omitempty"`
 
@@ -360,6 +650,7 @@ type PendingDeploymentInitParameters struct {
 }
 
 type PendingDeploymentObservation struct {
+	Command []*string `json:"command,omitempty" tf:"command,omitempty"`
 
 	// The creation time of the app.
 	CreateTime *string `json:"createTime,omitempty" tf:"create_time,omitempty"`
@@ -371,6 +662,10 @@ type PendingDeploymentObservation struct {
 
 	// Id of the SQL warehouse to grant permission on.
 	DeploymentID *string `json:"deploymentId,omitempty" tf:"deployment_id,omitempty"`
+
+	EnvVars []PendingDeploymentEnvVarsObservation `json:"envVars,omitempty" tf:"env_vars,omitempty"`
+
+	GitSource *PendingDeploymentGitSourceObservation `json:"gitSource,omitempty" tf:"git_source,omitempty"`
 
 	Mode *string `json:"mode,omitempty" tf:"mode,omitempty"`
 
@@ -384,9 +679,18 @@ type PendingDeploymentObservation struct {
 
 type PendingDeploymentParameters struct {
 
+	// +kubebuilder:validation:Optional
+	Command []*string `json:"command,omitempty" tf:"command,omitempty"`
+
 	// Id of the SQL warehouse to grant permission on.
 	// +kubebuilder:validation:Optional
 	DeploymentID *string `json:"deploymentId,omitempty" tf:"deployment_id,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	EnvVars []PendingDeploymentEnvVarsParameters `json:"envVars,omitempty" tf:"env_vars,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	GitSource *PendingDeploymentGitSourceParameters `json:"gitSource,omitempty" tf:"git_source,omitempty"`
 
 	// +kubebuilder:validation:Optional
 	Mode *string `json:"mode,omitempty" tf:"mode,omitempty"`
@@ -437,6 +741,8 @@ type ResourcesInitParameters struct {
 	// The description of the app.
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
 
+	Experiment *ExperimentInitParameters `json:"experiment,omitempty" tf:"experiment,omitempty"`
+
 	// attribute
 	GenieSpace *GenieSpaceInitParameters `json:"genieSpace,omitempty" tf:"genie_space,omitempty"`
 
@@ -466,6 +772,8 @@ type ResourcesObservation struct {
 
 	// The description of the app.
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
+
+	Experiment *ExperimentObservation `json:"experiment,omitempty" tf:"experiment,omitempty"`
 
 	// attribute
 	GenieSpace *GenieSpaceObservation `json:"genieSpace,omitempty" tf:"genie_space,omitempty"`
@@ -498,6 +806,9 @@ type ResourcesParameters struct {
 	// The description of the app.
 	// +kubebuilder:validation:Optional
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	Experiment *ExperimentParameters `json:"experiment,omitempty" tf:"experiment,omitempty"`
 
 	// attribute
 	// +kubebuilder:validation:Optional

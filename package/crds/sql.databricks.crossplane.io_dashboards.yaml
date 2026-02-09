@@ -79,6 +79,16 @@ spec:
                   dashboardId:
                     description: The unique ID of the dashboard.
                     type: string
+                  datasetCatalog:
+                    description: 'Sets the default catalog for all datasets in this
+                      dashboard. Does not impact table references that use fully qualified
+                      catalog names (ex: samples.nyctaxi.trips).'
+                    type: string
+                  datasetSchema:
+                    description: 'Sets the default schema for all datasets in this
+                      dashboard. Does not impact table references that use fully qualified
+                      catalog names (ex: samples.nyctaxi.trips).'
+                    type: string
                   displayName:
                     description: The display name of the dashboard.
                     type: string
@@ -132,6 +142,16 @@ spec:
                     type: boolean
                   dashboardId:
                     description: The unique ID of the dashboard.
+                    type: string
+                  datasetCatalog:
+                    description: 'Sets the default catalog for all datasets in this
+                      dashboard. Does not impact table references that use fully qualified
+                      catalog names (ex: samples.nyctaxi.trips).'
+                    type: string
+                  datasetSchema:
+                    description: 'Sets the default schema for all datasets in this
+                      dashboard. Does not impact table references that use fully qualified
+                      catalog names (ex: samples.nyctaxi.trips).'
                     type: string
                   displayName:
                     description: The display name of the dashboard.
@@ -277,6 +297,16 @@ spec:
                     type: boolean
                   dashboardId:
                     description: The unique ID of the dashboard.
+                    type: string
+                  datasetCatalog:
+                    description: 'Sets the default catalog for all datasets in this
+                      dashboard. Does not impact table references that use fully qualified
+                      catalog names (ex: samples.nyctaxi.trips).'
+                    type: string
+                  datasetSchema:
+                    description: 'Sets the default schema for all datasets in this
+                      dashboard. Does not impact table references that use fully qualified
+                      catalog names (ex: samples.nyctaxi.trips).'
                     type: string
                   displayName:
                     description: The display name of the dashboard.

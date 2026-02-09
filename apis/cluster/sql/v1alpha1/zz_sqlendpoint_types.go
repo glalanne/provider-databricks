@@ -117,10 +117,10 @@ type SQLEndpointInitParameters struct {
 	// block, consisting of following fields:
 	Channel []ChannelInitParameters `json:"channel,omitempty" tf:"channel,omitempty"`
 
-	// The size of the clusters allocated to the endpoint: "2X-Small", "X-Small", "Small", "Medium", "Large", "X-Large", "2X-Large", "3X-Large", "4X-Large".
+	// The size of the clusters allocated to the endpoint: "2X-Small", "X-Small", "Small", "Medium", "Large", "X-Large", "2X-Large", "3X-Large", "4X-Large", "5X-Large".
 	ClusterSize *string `json:"clusterSize,omitempty" tf:"cluster_size,omitempty"`
 
-	// (Deprecated) ID of the data source for this endpoint. This is used to bind an Databricks SQL query to an endpoint.
+	// (Deprecated, will be removed) ID of the data source for this endpoint. This is used to bind an Databricks SQL query to an endpoint.
 	DataSourceID *string `json:"dataSourceId,omitempty" tf:"data_source_id,omitempty"`
 
 	// Whether to enable Photon. This field is optional and is enabled by default.
@@ -162,13 +162,13 @@ type SQLEndpointObservation struct {
 	// block, consisting of following fields:
 	Channel []ChannelObservation `json:"channel,omitempty" tf:"channel,omitempty"`
 
-	// The size of the clusters allocated to the endpoint: "2X-Small", "X-Small", "Small", "Medium", "Large", "X-Large", "2X-Large", "3X-Large", "4X-Large".
+	// The size of the clusters allocated to the endpoint: "2X-Small", "X-Small", "Small", "Medium", "Large", "X-Large", "2X-Large", "3X-Large", "4X-Large", "5X-Large".
 	ClusterSize *string `json:"clusterSize,omitempty" tf:"cluster_size,omitempty"`
 
 	// The username of the user who created the endpoint.
 	CreatorName *string `json:"creatorName,omitempty" tf:"creator_name,omitempty"`
 
-	// (Deprecated) ID of the data source for this endpoint. This is used to bind an Databricks SQL query to an endpoint.
+	// (Deprecated, will be removed) ID of the data source for this endpoint. This is used to bind an Databricks SQL query to an endpoint.
 	DataSourceID *string `json:"dataSourceId,omitempty" tf:"data_source_id,omitempty"`
 
 	// Whether to enable Photon. This field is optional and is enabled by default.
@@ -233,11 +233,11 @@ type SQLEndpointParameters struct {
 	// +kubebuilder:validation:Optional
 	Channel []ChannelParameters `json:"channel,omitempty" tf:"channel,omitempty"`
 
-	// The size of the clusters allocated to the endpoint: "2X-Small", "X-Small", "Small", "Medium", "Large", "X-Large", "2X-Large", "3X-Large", "4X-Large".
+	// The size of the clusters allocated to the endpoint: "2X-Small", "X-Small", "Small", "Medium", "Large", "X-Large", "2X-Large", "3X-Large", "4X-Large", "5X-Large".
 	// +kubebuilder:validation:Optional
 	ClusterSize *string `json:"clusterSize,omitempty" tf:"cluster_size,omitempty"`
 
-	// (Deprecated) ID of the data source for this endpoint. This is used to bind an Databricks SQL query to an endpoint.
+	// (Deprecated, will be removed) ID of the data source for this endpoint. This is used to bind an Databricks SQL query to an endpoint.
 	// +kubebuilder:validation:Optional
 	DataSourceID *string `json:"dataSourceId,omitempty" tf:"data_source_id,omitempty"`
 

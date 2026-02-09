@@ -1322,6 +1322,9 @@ type RoutesParameters struct {
 
 type ServedEntitiesInitParameters struct {
 
+	// Whether to enable traffic fallback. When a served entity in the serving endpoint returns specific error codes (e.g. 500), the request will automatically be round-robin attempted with other served entities in the same endpoint, following the order of served entity list, until a successful response is returned.
+	BurstScalingEnabled *bool `json:"burstScalingEnabled,omitempty" tf:"burst_scaling_enabled,omitempty"`
+
 	// The name of the entity to be served. The entity may be a model in the Databricks Model Registry, a model in the Unity Catalog (UC), or a function of type FEATURE_SPEC in the UC. If it is a UC object, the full name of the object should be given in the form of catalog_name.schema_name.model_name.
 	EntityName *string `json:"entityName,omitempty" tf:"entity_name,omitempty"`
 
@@ -1367,6 +1370,9 @@ type ServedEntitiesInitParameters struct {
 
 type ServedEntitiesObservation struct {
 
+	// Whether to enable traffic fallback. When a served entity in the serving endpoint returns specific error codes (e.g. 500), the request will automatically be round-robin attempted with other served entities in the same endpoint, following the order of served entity list, until a successful response is returned.
+	BurstScalingEnabled *bool `json:"burstScalingEnabled,omitempty" tf:"burst_scaling_enabled,omitempty"`
+
 	// The name of the entity to be served. The entity may be a model in the Databricks Model Registry, a model in the Unity Catalog (UC), or a function of type FEATURE_SPEC in the UC. If it is a UC object, the full name of the object should be given in the form of catalog_name.schema_name.model_name.
 	EntityName *string `json:"entityName,omitempty" tf:"entity_name,omitempty"`
 
@@ -1411,6 +1417,10 @@ type ServedEntitiesObservation struct {
 }
 
 type ServedEntitiesParameters struct {
+
+	// Whether to enable traffic fallback. When a served entity in the serving endpoint returns specific error codes (e.g. 500), the request will automatically be round-robin attempted with other served entities in the same endpoint, following the order of served entity list, until a successful response is returned.
+	// +kubebuilder:validation:Optional
+	BurstScalingEnabled *bool `json:"burstScalingEnabled,omitempty" tf:"burst_scaling_enabled,omitempty"`
 
 	// The name of the entity to be served. The entity may be a model in the Databricks Model Registry, a model in the Unity Catalog (UC), or a function of type FEATURE_SPEC in the UC. If it is a UC object, the full name of the object should be given in the form of catalog_name.schema_name.model_name.
 	// +kubebuilder:validation:Optional
@@ -1471,6 +1481,9 @@ type ServedEntitiesParameters struct {
 
 type ServedModelsInitParameters struct {
 
+	// Whether to enable traffic fallback. When a served entity in the serving endpoint returns specific error codes (e.g. 500), the request will automatically be round-robin attempted with other served entities in the same endpoint, following the order of served entity list, until a successful response is returned.
+	BurstScalingEnabled *bool `json:"burstScalingEnabled,omitempty" tf:"burst_scaling_enabled,omitempty"`
+
 	// a map of environment variable names/values that will be used for serving this model.  Environment variables may refer to Databricks secrets using the standard syntax: {{secrets/secret_scope/secret_key}}.
 	// +mapType=granular
 	EnvironmentVars map[string]*string `json:"environmentVars,omitempty" tf:"environment_vars,omitempty"`
@@ -1513,6 +1526,9 @@ type ServedModelsInitParameters struct {
 
 type ServedModelsObservation struct {
 
+	// Whether to enable traffic fallback. When a served entity in the serving endpoint returns specific error codes (e.g. 500), the request will automatically be round-robin attempted with other served entities in the same endpoint, following the order of served entity list, until a successful response is returned.
+	BurstScalingEnabled *bool `json:"burstScalingEnabled,omitempty" tf:"burst_scaling_enabled,omitempty"`
+
 	// a map of environment variable names/values that will be used for serving this model.  Environment variables may refer to Databricks secrets using the standard syntax: {{secrets/secret_scope/secret_key}}.
 	// +mapType=granular
 	EnvironmentVars map[string]*string `json:"environmentVars,omitempty" tf:"environment_vars,omitempty"`
@@ -1554,6 +1570,10 @@ type ServedModelsObservation struct {
 }
 
 type ServedModelsParameters struct {
+
+	// Whether to enable traffic fallback. When a served entity in the serving endpoint returns specific error codes (e.g. 500), the request will automatically be round-robin attempted with other served entities in the same endpoint, following the order of served entity list, until a successful response is returned.
+	// +kubebuilder:validation:Optional
+	BurstScalingEnabled *bool `json:"burstScalingEnabled,omitempty" tf:"burst_scaling_enabled,omitempty"`
 
 	// a map of environment variable names/values that will be used for serving this model.  Environment variables may refer to Databricks secrets using the standard syntax: {{secrets/secret_scope/secret_key}}.
 	// +kubebuilder:validation:Optional

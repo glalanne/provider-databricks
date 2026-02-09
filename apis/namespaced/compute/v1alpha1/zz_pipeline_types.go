@@ -14,6 +14,27 @@ import (
 	v2 "github.com/crossplane/crossplane-runtime/v2/apis/common/v2"
 )
 
+type AutoFullRefreshPolicyInitParameters struct {
+	Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
+
+	MinIntervalHours *float64 `json:"minIntervalHours,omitempty" tf:"min_interval_hours,omitempty"`
+}
+
+type AutoFullRefreshPolicyObservation struct {
+	Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
+
+	MinIntervalHours *float64 `json:"minIntervalHours,omitempty" tf:"min_interval_hours,omitempty"`
+}
+
+type AutoFullRefreshPolicyParameters struct {
+
+	// +kubebuilder:validation:Optional
+	Enabled *bool `json:"enabled" tf:"enabled,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	MinIntervalHours *float64 `json:"minIntervalHours,omitempty" tf:"min_interval_hours,omitempty"`
+}
+
 type CatalogInitParameters struct {
 	Postgres []PostgresInitParameters `json:"postgres,omitempty" tf:"postgres,omitempty"`
 
@@ -672,9 +693,40 @@ type FiltersParameters struct {
 	Include []*string `json:"include,omitempty" tf:"include,omitempty"`
 }
 
+type FullRefreshWindowInitParameters struct {
+	DaysOfWeek []*string `json:"daysOfWeek,omitempty" tf:"days_of_week,omitempty"`
+
+	StartHour *float64 `json:"startHour,omitempty" tf:"start_hour,omitempty"`
+
+	// Canonical unique identifier of the Lakeflow Declarative Pipeline.
+	TimeZoneID *string `json:"timeZoneId,omitempty" tf:"time_zone_id,omitempty"`
+}
+
+type FullRefreshWindowObservation struct {
+	DaysOfWeek []*string `json:"daysOfWeek,omitempty" tf:"days_of_week,omitempty"`
+
+	StartHour *float64 `json:"startHour,omitempty" tf:"start_hour,omitempty"`
+
+	// Canonical unique identifier of the Lakeflow Declarative Pipeline.
+	TimeZoneID *string `json:"timeZoneId,omitempty" tf:"time_zone_id,omitempty"`
+}
+
+type FullRefreshWindowParameters struct {
+
+	// +kubebuilder:validation:Optional
+	DaysOfWeek []*string `json:"daysOfWeek,omitempty" tf:"days_of_week,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	StartHour *float64 `json:"startHour" tf:"start_hour,omitempty"`
+
+	// Canonical unique identifier of the Lakeflow Declarative Pipeline.
+	// +kubebuilder:validation:Optional
+	TimeZoneID *string `json:"timeZoneId,omitempty" tf:"time_zone_id,omitempty"`
+}
+
 type GatewayDefinitionInitParameters struct {
 
-	// Immutable. The Unity Catalog connection this gateway pipeline uses to communicate with the source.
+	// Deprecated, Immutable. The Unity Catalog connection this gateway pipeline uses to communicate with the source. Use
 	ConnectionID *string `json:"connectionId,omitempty" tf:"connection_id,omitempty"`
 
 	// Immutable. The Unity Catalog connection this ingestion pipeline uses to communicate with the source. Specify either ingestion_gateway_id or connection_name.
@@ -694,7 +746,7 @@ type GatewayDefinitionInitParameters struct {
 
 type GatewayDefinitionObservation struct {
 
-	// Immutable. The Unity Catalog connection this gateway pipeline uses to communicate with the source.
+	// Deprecated, Immutable. The Unity Catalog connection this gateway pipeline uses to communicate with the source. Use
 	ConnectionID *string `json:"connectionId,omitempty" tf:"connection_id,omitempty"`
 
 	// Immutable. The Unity Catalog connection this ingestion pipeline uses to communicate with the source. Specify either ingestion_gateway_id or connection_name.
@@ -714,7 +766,7 @@ type GatewayDefinitionObservation struct {
 
 type GatewayDefinitionParameters struct {
 
-	// Immutable. The Unity Catalog connection this gateway pipeline uses to communicate with the source.
+	// Deprecated, Immutable. The Unity Catalog connection this gateway pipeline uses to communicate with the source. Use
 	// +kubebuilder:validation:Optional
 	ConnectionID *string `json:"connectionId,omitempty" tf:"connection_id,omitempty"`
 
@@ -762,6 +814,8 @@ type IngestionDefinitionInitParameters struct {
 	// Immutable. The Unity Catalog connection this ingestion pipeline uses to communicate with the source. Specify either ingestion_gateway_id or connection_name.
 	ConnectionName *string `json:"connectionName,omitempty" tf:"connection_name,omitempty"`
 
+	FullRefreshWindow []FullRefreshWindowInitParameters `json:"fullRefreshWindow,omitempty" tf:"full_refresh_window,omitempty"`
+
 	// The name of default catalog in Unity Catalog. Change of this parameter forces recreation of the pipeline if you switch from  (Conflicts with storage).
 	IngestFromUcForeignCatalog *bool `json:"ingestFromUcForeignCatalog,omitempty" tf:"ingest_from_uc_foreign_catalog,omitempty"`
 
@@ -773,6 +827,7 @@ type IngestionDefinitionInitParameters struct {
 	// Required. Settings specifying tables to replicate and the destination for the replicated tables.
 	Objects []ObjectsInitParameters `json:"objects,omitempty" tf:"objects,omitempty"`
 
+	// Array of objects describing top-level source configurations. See the REST API docs for reference.
 	SourceConfigurations []SourceConfigurationsInitParameters `json:"sourceConfigurations,omitempty" tf:"source_configurations,omitempty"`
 
 	SourceType *string `json:"sourceType,omitempty" tf:"source_type,omitempty"`
@@ -786,6 +841,8 @@ type IngestionDefinitionObservation struct {
 	// Immutable. The Unity Catalog connection this ingestion pipeline uses to communicate with the source. Specify either ingestion_gateway_id or connection_name.
 	ConnectionName *string `json:"connectionName,omitempty" tf:"connection_name,omitempty"`
 
+	FullRefreshWindow []FullRefreshWindowObservation `json:"fullRefreshWindow,omitempty" tf:"full_refresh_window,omitempty"`
+
 	// The name of default catalog in Unity Catalog. Change of this parameter forces recreation of the pipeline if you switch from  (Conflicts with storage).
 	IngestFromUcForeignCatalog *bool `json:"ingestFromUcForeignCatalog,omitempty" tf:"ingest_from_uc_foreign_catalog,omitempty"`
 
@@ -797,6 +854,7 @@ type IngestionDefinitionObservation struct {
 	// Required. Settings specifying tables to replicate and the destination for the replicated tables.
 	Objects []ObjectsObservation `json:"objects,omitempty" tf:"objects,omitempty"`
 
+	// Array of objects describing top-level source configurations. See the REST API docs for reference.
 	SourceConfigurations []SourceConfigurationsObservation `json:"sourceConfigurations,omitempty" tf:"source_configurations,omitempty"`
 
 	SourceType *string `json:"sourceType,omitempty" tf:"source_type,omitempty"`
@@ -810,6 +868,9 @@ type IngestionDefinitionParameters struct {
 	// Immutable. The Unity Catalog connection this ingestion pipeline uses to communicate with the source. Specify either ingestion_gateway_id or connection_name.
 	// +kubebuilder:validation:Optional
 	ConnectionName *string `json:"connectionName,omitempty" tf:"connection_name,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	FullRefreshWindow []FullRefreshWindowParameters `json:"fullRefreshWindow,omitempty" tf:"full_refresh_window,omitempty"`
 
 	// The name of default catalog in Unity Catalog. Change of this parameter forces recreation of the pipeline if you switch from  (Conflicts with storage).
 	// +kubebuilder:validation:Optional
@@ -826,6 +887,7 @@ type IngestionDefinitionParameters struct {
 	// +kubebuilder:validation:Optional
 	Objects []ObjectsParameters `json:"objects,omitempty" tf:"objects,omitempty"`
 
+	// Array of objects describing top-level source configurations. See the REST API docs for reference.
 	// +kubebuilder:validation:Optional
 	SourceConfigurations []SourceConfigurationsParameters `json:"sourceConfigurations,omitempty" tf:"source_configurations,omitempty"`
 
@@ -837,7 +899,30 @@ type IngestionDefinitionParameters struct {
 	TableConfiguration []IngestionDefinitionTableConfigurationParameters `json:"tableConfiguration,omitempty" tf:"table_configuration,omitempty"`
 }
 
+type IngestionDefinitionTableConfigurationAutoFullRefreshPolicyInitParameters struct {
+	Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
+
+	MinIntervalHours *float64 `json:"minIntervalHours,omitempty" tf:"min_interval_hours,omitempty"`
+}
+
+type IngestionDefinitionTableConfigurationAutoFullRefreshPolicyObservation struct {
+	Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
+
+	MinIntervalHours *float64 `json:"minIntervalHours,omitempty" tf:"min_interval_hours,omitempty"`
+}
+
+type IngestionDefinitionTableConfigurationAutoFullRefreshPolicyParameters struct {
+
+	// +kubebuilder:validation:Optional
+	Enabled *bool `json:"enabled" tf:"enabled,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	MinIntervalHours *float64 `json:"minIntervalHours,omitempty" tf:"min_interval_hours,omitempty"`
+}
+
 type IngestionDefinitionTableConfigurationInitParameters struct {
+	AutoFullRefreshPolicy []IngestionDefinitionTableConfigurationAutoFullRefreshPolicyInitParameters `json:"autoFullRefreshPolicy,omitempty" tf:"auto_full_refresh_policy,omitempty"`
+
 	ExcludeColumns []*string `json:"excludeColumns,omitempty" tf:"exclude_columns,omitempty"`
 
 	IncludeColumns []*string `json:"includeColumns,omitempty" tf:"include_columns,omitempty"`
@@ -845,6 +930,8 @@ type IngestionDefinitionTableConfigurationInitParameters struct {
 	PrimaryKeys []*string `json:"primaryKeys,omitempty" tf:"primary_keys,omitempty"`
 
 	QueryBasedConnectorConfig []IngestionDefinitionTableConfigurationQueryBasedConnectorConfigInitParameters `json:"queryBasedConnectorConfig,omitempty" tf:"query_based_connector_config,omitempty"`
+
+	RowFilter *string `json:"rowFilter,omitempty" tf:"row_filter,omitempty"`
 
 	SalesforceIncludeFormulaFields *bool `json:"salesforceIncludeFormulaFields,omitempty" tf:"salesforce_include_formula_fields,omitempty"`
 
@@ -856,6 +943,8 @@ type IngestionDefinitionTableConfigurationInitParameters struct {
 }
 
 type IngestionDefinitionTableConfigurationObservation struct {
+	AutoFullRefreshPolicy []IngestionDefinitionTableConfigurationAutoFullRefreshPolicyObservation `json:"autoFullRefreshPolicy,omitempty" tf:"auto_full_refresh_policy,omitempty"`
+
 	ExcludeColumns []*string `json:"excludeColumns,omitempty" tf:"exclude_columns,omitempty"`
 
 	IncludeColumns []*string `json:"includeColumns,omitempty" tf:"include_columns,omitempty"`
@@ -863,6 +952,8 @@ type IngestionDefinitionTableConfigurationObservation struct {
 	PrimaryKeys []*string `json:"primaryKeys,omitempty" tf:"primary_keys,omitempty"`
 
 	QueryBasedConnectorConfig []IngestionDefinitionTableConfigurationQueryBasedConnectorConfigObservation `json:"queryBasedConnectorConfig,omitempty" tf:"query_based_connector_config,omitempty"`
+
+	RowFilter *string `json:"rowFilter,omitempty" tf:"row_filter,omitempty"`
 
 	SalesforceIncludeFormulaFields *bool `json:"salesforceIncludeFormulaFields,omitempty" tf:"salesforce_include_formula_fields,omitempty"`
 
@@ -876,6 +967,9 @@ type IngestionDefinitionTableConfigurationObservation struct {
 type IngestionDefinitionTableConfigurationParameters struct {
 
 	// +kubebuilder:validation:Optional
+	AutoFullRefreshPolicy []IngestionDefinitionTableConfigurationAutoFullRefreshPolicyParameters `json:"autoFullRefreshPolicy,omitempty" tf:"auto_full_refresh_policy,omitempty"`
+
+	// +kubebuilder:validation:Optional
 	ExcludeColumns []*string `json:"excludeColumns,omitempty" tf:"exclude_columns,omitempty"`
 
 	// +kubebuilder:validation:Optional
@@ -886,6 +980,9 @@ type IngestionDefinitionTableConfigurationParameters struct {
 
 	// +kubebuilder:validation:Optional
 	QueryBasedConnectorConfig []IngestionDefinitionTableConfigurationQueryBasedConnectorConfigParameters `json:"queryBasedConnectorConfig,omitempty" tf:"query_based_connector_config,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	RowFilter *string `json:"rowFilter,omitempty" tf:"row_filter,omitempty"`
 
 	// +kubebuilder:validation:Optional
 	SalesforceIncludeFormulaFields *bool `json:"salesforceIncludeFormulaFields,omitempty" tf:"salesforce_include_formula_fields,omitempty"`
@@ -2064,6 +2161,8 @@ type SchemaParameters struct {
 }
 
 type SchemaTableConfigurationInitParameters struct {
+	AutoFullRefreshPolicy []TableConfigurationAutoFullRefreshPolicyInitParameters `json:"autoFullRefreshPolicy,omitempty" tf:"auto_full_refresh_policy,omitempty"`
+
 	ExcludeColumns []*string `json:"excludeColumns,omitempty" tf:"exclude_columns,omitempty"`
 
 	IncludeColumns []*string `json:"includeColumns,omitempty" tf:"include_columns,omitempty"`
@@ -2071,6 +2170,8 @@ type SchemaTableConfigurationInitParameters struct {
 	PrimaryKeys []*string `json:"primaryKeys,omitempty" tf:"primary_keys,omitempty"`
 
 	QueryBasedConnectorConfig []TableConfigurationQueryBasedConnectorConfigInitParameters `json:"queryBasedConnectorConfig,omitempty" tf:"query_based_connector_config,omitempty"`
+
+	RowFilter *string `json:"rowFilter,omitempty" tf:"row_filter,omitempty"`
 
 	SalesforceIncludeFormulaFields *bool `json:"salesforceIncludeFormulaFields,omitempty" tf:"salesforce_include_formula_fields,omitempty"`
 
@@ -2082,6 +2183,8 @@ type SchemaTableConfigurationInitParameters struct {
 }
 
 type SchemaTableConfigurationObservation struct {
+	AutoFullRefreshPolicy []TableConfigurationAutoFullRefreshPolicyObservation `json:"autoFullRefreshPolicy,omitempty" tf:"auto_full_refresh_policy,omitempty"`
+
 	ExcludeColumns []*string `json:"excludeColumns,omitempty" tf:"exclude_columns,omitempty"`
 
 	IncludeColumns []*string `json:"includeColumns,omitempty" tf:"include_columns,omitempty"`
@@ -2089,6 +2192,8 @@ type SchemaTableConfigurationObservation struct {
 	PrimaryKeys []*string `json:"primaryKeys,omitempty" tf:"primary_keys,omitempty"`
 
 	QueryBasedConnectorConfig []TableConfigurationQueryBasedConnectorConfigObservation `json:"queryBasedConnectorConfig,omitempty" tf:"query_based_connector_config,omitempty"`
+
+	RowFilter *string `json:"rowFilter,omitempty" tf:"row_filter,omitempty"`
 
 	SalesforceIncludeFormulaFields *bool `json:"salesforceIncludeFormulaFields,omitempty" tf:"salesforce_include_formula_fields,omitempty"`
 
@@ -2102,6 +2207,9 @@ type SchemaTableConfigurationObservation struct {
 type SchemaTableConfigurationParameters struct {
 
 	// +kubebuilder:validation:Optional
+	AutoFullRefreshPolicy []TableConfigurationAutoFullRefreshPolicyParameters `json:"autoFullRefreshPolicy,omitempty" tf:"auto_full_refresh_policy,omitempty"`
+
+	// +kubebuilder:validation:Optional
 	ExcludeColumns []*string `json:"excludeColumns,omitempty" tf:"exclude_columns,omitempty"`
 
 	// +kubebuilder:validation:Optional
@@ -2112,6 +2220,9 @@ type SchemaTableConfigurationParameters struct {
 
 	// +kubebuilder:validation:Optional
 	QueryBasedConnectorConfig []TableConfigurationQueryBasedConnectorConfigParameters `json:"queryBasedConnectorConfig,omitempty" tf:"query_based_connector_config,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	RowFilter *string `json:"rowFilter,omitempty" tf:"row_filter,omitempty"`
 
 	// +kubebuilder:validation:Optional
 	SalesforceIncludeFormulaFields *bool `json:"salesforceIncludeFormulaFields,omitempty" tf:"salesforce_include_formula_fields,omitempty"`
@@ -2174,7 +2285,30 @@ type SourceConfigurationsParameters struct {
 	Catalog []CatalogParameters `json:"catalog,omitempty" tf:"catalog,omitempty"`
 }
 
+type TableConfigurationAutoFullRefreshPolicyInitParameters struct {
+	Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
+
+	MinIntervalHours *float64 `json:"minIntervalHours,omitempty" tf:"min_interval_hours,omitempty"`
+}
+
+type TableConfigurationAutoFullRefreshPolicyObservation struct {
+	Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
+
+	MinIntervalHours *float64 `json:"minIntervalHours,omitempty" tf:"min_interval_hours,omitempty"`
+}
+
+type TableConfigurationAutoFullRefreshPolicyParameters struct {
+
+	// +kubebuilder:validation:Optional
+	Enabled *bool `json:"enabled" tf:"enabled,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	MinIntervalHours *float64 `json:"minIntervalHours,omitempty" tf:"min_interval_hours,omitempty"`
+}
+
 type TableConfigurationInitParameters struct {
+	AutoFullRefreshPolicy []AutoFullRefreshPolicyInitParameters `json:"autoFullRefreshPolicy,omitempty" tf:"auto_full_refresh_policy,omitempty"`
+
 	ExcludeColumns []*string `json:"excludeColumns,omitempty" tf:"exclude_columns,omitempty"`
 
 	IncludeColumns []*string `json:"includeColumns,omitempty" tf:"include_columns,omitempty"`
@@ -2182,6 +2316,8 @@ type TableConfigurationInitParameters struct {
 	PrimaryKeys []*string `json:"primaryKeys,omitempty" tf:"primary_keys,omitempty"`
 
 	QueryBasedConnectorConfig []QueryBasedConnectorConfigInitParameters `json:"queryBasedConnectorConfig,omitempty" tf:"query_based_connector_config,omitempty"`
+
+	RowFilter *string `json:"rowFilter,omitempty" tf:"row_filter,omitempty"`
 
 	SalesforceIncludeFormulaFields *bool `json:"salesforceIncludeFormulaFields,omitempty" tf:"salesforce_include_formula_fields,omitempty"`
 
@@ -2193,6 +2329,8 @@ type TableConfigurationInitParameters struct {
 }
 
 type TableConfigurationObservation struct {
+	AutoFullRefreshPolicy []AutoFullRefreshPolicyObservation `json:"autoFullRefreshPolicy,omitempty" tf:"auto_full_refresh_policy,omitempty"`
+
 	ExcludeColumns []*string `json:"excludeColumns,omitempty" tf:"exclude_columns,omitempty"`
 
 	IncludeColumns []*string `json:"includeColumns,omitempty" tf:"include_columns,omitempty"`
@@ -2200,6 +2338,8 @@ type TableConfigurationObservation struct {
 	PrimaryKeys []*string `json:"primaryKeys,omitempty" tf:"primary_keys,omitempty"`
 
 	QueryBasedConnectorConfig []QueryBasedConnectorConfigObservation `json:"queryBasedConnectorConfig,omitempty" tf:"query_based_connector_config,omitempty"`
+
+	RowFilter *string `json:"rowFilter,omitempty" tf:"row_filter,omitempty"`
 
 	SalesforceIncludeFormulaFields *bool `json:"salesforceIncludeFormulaFields,omitempty" tf:"salesforce_include_formula_fields,omitempty"`
 
@@ -2213,6 +2353,9 @@ type TableConfigurationObservation struct {
 type TableConfigurationParameters struct {
 
 	// +kubebuilder:validation:Optional
+	AutoFullRefreshPolicy []AutoFullRefreshPolicyParameters `json:"autoFullRefreshPolicy,omitempty" tf:"auto_full_refresh_policy,omitempty"`
+
+	// +kubebuilder:validation:Optional
 	ExcludeColumns []*string `json:"excludeColumns,omitempty" tf:"exclude_columns,omitempty"`
 
 	// +kubebuilder:validation:Optional
@@ -2223,6 +2366,9 @@ type TableConfigurationParameters struct {
 
 	// +kubebuilder:validation:Optional
 	QueryBasedConnectorConfig []QueryBasedConnectorConfigParameters `json:"queryBasedConnectorConfig,omitempty" tf:"query_based_connector_config,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	RowFilter *string `json:"rowFilter,omitempty" tf:"row_filter,omitempty"`
 
 	// +kubebuilder:validation:Optional
 	SalesforceIncludeFormulaFields *bool `json:"salesforceIncludeFormulaFields,omitempty" tf:"salesforce_include_formula_fields,omitempty"`
@@ -2390,7 +2536,30 @@ type TableParameters struct {
 	TableConfiguration []TableTableConfigurationParameters `json:"tableConfiguration,omitempty" tf:"table_configuration,omitempty"`
 }
 
+type TableTableConfigurationAutoFullRefreshPolicyInitParameters struct {
+	Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
+
+	MinIntervalHours *float64 `json:"minIntervalHours,omitempty" tf:"min_interval_hours,omitempty"`
+}
+
+type TableTableConfigurationAutoFullRefreshPolicyObservation struct {
+	Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
+
+	MinIntervalHours *float64 `json:"minIntervalHours,omitempty" tf:"min_interval_hours,omitempty"`
+}
+
+type TableTableConfigurationAutoFullRefreshPolicyParameters struct {
+
+	// +kubebuilder:validation:Optional
+	Enabled *bool `json:"enabled" tf:"enabled,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	MinIntervalHours *float64 `json:"minIntervalHours,omitempty" tf:"min_interval_hours,omitempty"`
+}
+
 type TableTableConfigurationInitParameters struct {
+	AutoFullRefreshPolicy []TableTableConfigurationAutoFullRefreshPolicyInitParameters `json:"autoFullRefreshPolicy,omitempty" tf:"auto_full_refresh_policy,omitempty"`
+
 	ExcludeColumns []*string `json:"excludeColumns,omitempty" tf:"exclude_columns,omitempty"`
 
 	IncludeColumns []*string `json:"includeColumns,omitempty" tf:"include_columns,omitempty"`
@@ -2398,6 +2567,8 @@ type TableTableConfigurationInitParameters struct {
 	PrimaryKeys []*string `json:"primaryKeys,omitempty" tf:"primary_keys,omitempty"`
 
 	QueryBasedConnectorConfig []TableTableConfigurationQueryBasedConnectorConfigInitParameters `json:"queryBasedConnectorConfig,omitempty" tf:"query_based_connector_config,omitempty"`
+
+	RowFilter *string `json:"rowFilter,omitempty" tf:"row_filter,omitempty"`
 
 	SalesforceIncludeFormulaFields *bool `json:"salesforceIncludeFormulaFields,omitempty" tf:"salesforce_include_formula_fields,omitempty"`
 
@@ -2409,6 +2580,8 @@ type TableTableConfigurationInitParameters struct {
 }
 
 type TableTableConfigurationObservation struct {
+	AutoFullRefreshPolicy []TableTableConfigurationAutoFullRefreshPolicyObservation `json:"autoFullRefreshPolicy,omitempty" tf:"auto_full_refresh_policy,omitempty"`
+
 	ExcludeColumns []*string `json:"excludeColumns,omitempty" tf:"exclude_columns,omitempty"`
 
 	IncludeColumns []*string `json:"includeColumns,omitempty" tf:"include_columns,omitempty"`
@@ -2416,6 +2589,8 @@ type TableTableConfigurationObservation struct {
 	PrimaryKeys []*string `json:"primaryKeys,omitempty" tf:"primary_keys,omitempty"`
 
 	QueryBasedConnectorConfig []TableTableConfigurationQueryBasedConnectorConfigObservation `json:"queryBasedConnectorConfig,omitempty" tf:"query_based_connector_config,omitempty"`
+
+	RowFilter *string `json:"rowFilter,omitempty" tf:"row_filter,omitempty"`
 
 	SalesforceIncludeFormulaFields *bool `json:"salesforceIncludeFormulaFields,omitempty" tf:"salesforce_include_formula_fields,omitempty"`
 
@@ -2429,6 +2604,9 @@ type TableTableConfigurationObservation struct {
 type TableTableConfigurationParameters struct {
 
 	// +kubebuilder:validation:Optional
+	AutoFullRefreshPolicy []TableTableConfigurationAutoFullRefreshPolicyParameters `json:"autoFullRefreshPolicy,omitempty" tf:"auto_full_refresh_policy,omitempty"`
+
+	// +kubebuilder:validation:Optional
 	ExcludeColumns []*string `json:"excludeColumns,omitempty" tf:"exclude_columns,omitempty"`
 
 	// +kubebuilder:validation:Optional
@@ -2439,6 +2617,9 @@ type TableTableConfigurationParameters struct {
 
 	// +kubebuilder:validation:Optional
 	QueryBasedConnectorConfig []TableTableConfigurationQueryBasedConnectorConfigParameters `json:"queryBasedConnectorConfig,omitempty" tf:"query_based_connector_config,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	RowFilter *string `json:"rowFilter,omitempty" tf:"row_filter,omitempty"`
 
 	// +kubebuilder:validation:Optional
 	SalesforceIncludeFormulaFields *bool `json:"salesforceIncludeFormulaFields,omitempty" tf:"salesforce_include_formula_fields,omitempty"`
