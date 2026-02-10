@@ -15,13 +15,8 @@ import (
 )
 
 type MetastoreInitParameters struct {
-	Cloud *string `json:"cloud,omitempty" tf:"cloud,omitempty"`
 
-	CreatedAt *float64 `json:"createdAt,omitempty" tf:"created_at,omitempty"`
-
-	CreatedBy *string `json:"createdBy,omitempty" tf:"created_by,omitempty"`
-
-	// system-generated ID of this Unity Catalog Metastore.
+	// Unique identifier of the metastore's default data access configuration.
 	DefaultDataAccessConfigID *string `json:"defaultDataAccessConfigId,omitempty" tf:"default_data_access_config_id,omitempty"`
 
 	// The organization name of a Delta Sharing entity. This field is used for Databricks to Databricks sharing. Once this is set it cannot be removed and can only be modified to another valid value. To delete this value please taint and recreate the resource.
@@ -33,14 +28,11 @@ type MetastoreInitParameters struct {
 	// Required along with delta_sharing_recipient_token_lifetime_in_seconds. Used to enable delta sharing on the metastore. Valid values: INTERNAL, INTERNAL_AND_EXTERNAL.  INTERNAL only allows sharing within the same account, and INTERNAL_AND_EXTERNAL allows cross account sharing and token based sharing.
 	DeltaSharingScope *string `json:"deltaSharingScope,omitempty" tf:"delta_sharing_scope,omitempty"`
 
+	// Whether to allow non-DBR clients to directly access entities under the metastore.
+	ExternalAccessEnabled *bool `json:"externalAccessEnabled,omitempty" tf:"external_access_enabled,omitempty"`
+
 	// Destroy metastore regardless of its contents.
 	ForceDestroy *bool `json:"forceDestroy,omitempty" tf:"force_destroy,omitempty"`
-
-	// system-generated ID of this Unity Catalog Metastore.
-	GlobalMetastoreID *string `json:"globalMetastoreId,omitempty" tf:"global_metastore_id,omitempty"`
-
-	// system-generated ID of this Unity Catalog Metastore.
-	MetastoreID *string `json:"metastoreId,omitempty" tf:"metastore_id,omitempty"`
 
 	// Name of metastore.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
@@ -48,28 +40,34 @@ type MetastoreInitParameters struct {
 	// Username/groupname/sp application_id of the metastore owner.
 	Owner *string `json:"owner,omitempty" tf:"owner,omitempty"`
 
+	// Privilege model version of the metastore, of the form major.minor (e.g., 1.0).
+	PrivilegeModelVersion *string `json:"privilegeModelVersion,omitempty" tf:"privilege_model_version,omitempty"`
+
 	// (Mandatory for account-level) The region of the metastore
 	Region *string `json:"region,omitempty" tf:"region,omitempty"`
 
-	// Path on cloud storage account, where managed databricks_table are stored.  If the URL contains special characters, such as space, &, etc., they should be percent-encoded (space -> %20, etc.). Change forces creation of a new resource. If no storage_root is defined for the metastore, each catalog must have a storage_root defined.
+	// Path on cloud storage account, where managed databricks_table are stored.  If the URL contains special characters, such as space, &, etc., they should be percent-encoded (space -> %20, etc.). Change forces creation of a new resource. If no storage_root is defined for the metastore, each catalog must have a storage_root defined.  **It's recommended to define storage_root on the catalog level.
 	StorageRoot *string `json:"storageRoot,omitempty" tf:"storage_root,omitempty"`
 
-	// system-generated ID of this Unity Catalog Metastore.
+	// UUID of storage credential to access the metastore storage_root.
 	StorageRootCredentialID *string `json:"storageRootCredentialId,omitempty" tf:"storage_root_credential_id,omitempty"`
 
-	UpdatedAt *float64 `json:"updatedAt,omitempty" tf:"updated_at,omitempty"`
-
-	UpdatedBy *string `json:"updatedBy,omitempty" tf:"updated_by,omitempty"`
+	// Name of the storage credential to access the metastore storage_root.
+	StorageRootCredentialName *string `json:"storageRootCredentialName,omitempty" tf:"storage_root_credential_name,omitempty"`
 }
 
 type MetastoreObservation struct {
+
+	// Cloud vendor of the metastore home shard (e.g., aws, azure, gcp).
 	Cloud *string `json:"cloud,omitempty" tf:"cloud,omitempty"`
 
+	// Time at which the metastore was created, in epoch milliseconds.
 	CreatedAt *float64 `json:"createdAt,omitempty" tf:"created_at,omitempty"`
 
+	// Username of metastore creator.
 	CreatedBy *string `json:"createdBy,omitempty" tf:"created_by,omitempty"`
 
-	// system-generated ID of this Unity Catalog Metastore.
+	// Unique identifier of the metastore's default data access configuration.
 	DefaultDataAccessConfigID *string `json:"defaultDataAccessConfigId,omitempty" tf:"default_data_access_config_id,omitempty"`
 
 	// The organization name of a Delta Sharing entity. This field is used for Databricks to Databricks sharing. Once this is set it cannot be removed and can only be modified to another valid value. To delete this value please taint and recreate the resource.
@@ -81,16 +79,19 @@ type MetastoreObservation struct {
 	// Required along with delta_sharing_recipient_token_lifetime_in_seconds. Used to enable delta sharing on the metastore. Valid values: INTERNAL, INTERNAL_AND_EXTERNAL.  INTERNAL only allows sharing within the same account, and INTERNAL_AND_EXTERNAL allows cross account sharing and token based sharing.
 	DeltaSharingScope *string `json:"deltaSharingScope,omitempty" tf:"delta_sharing_scope,omitempty"`
 
+	// Whether to allow non-DBR clients to directly access entities under the metastore.
+	ExternalAccessEnabled *bool `json:"externalAccessEnabled,omitempty" tf:"external_access_enabled,omitempty"`
+
 	// Destroy metastore regardless of its contents.
 	ForceDestroy *bool `json:"forceDestroy,omitempty" tf:"force_destroy,omitempty"`
 
-	// system-generated ID of this Unity Catalog Metastore.
+	// Globally unique metastore ID across clouds and regions, of the form cloud:region:metastore_id.
 	GlobalMetastoreID *string `json:"globalMetastoreId,omitempty" tf:"global_metastore_id,omitempty"`
 
-	// system-generated ID of this Unity Catalog Metastore.
+	// System-generated ID of this Unity Catalog Metastore. Same as metastore_id.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
-	// system-generated ID of this Unity Catalog Metastore.
+	// Unique identifier of the metastore.
 	MetastoreID *string `json:"metastoreId,omitempty" tf:"metastore_id,omitempty"`
 
 	// Name of metastore.
@@ -99,32 +100,31 @@ type MetastoreObservation struct {
 	// Username/groupname/sp application_id of the metastore owner.
 	Owner *string `json:"owner,omitempty" tf:"owner,omitempty"`
 
+	// Privilege model version of the metastore, of the form major.minor (e.g., 1.0).
+	PrivilegeModelVersion *string `json:"privilegeModelVersion,omitempty" tf:"privilege_model_version,omitempty"`
+
 	// (Mandatory for account-level) The region of the metastore
 	Region *string `json:"region,omitempty" tf:"region,omitempty"`
 
-	// Path on cloud storage account, where managed databricks_table are stored.  If the URL contains special characters, such as space, &, etc., they should be percent-encoded (space -> %20, etc.). Change forces creation of a new resource. If no storage_root is defined for the metastore, each catalog must have a storage_root defined.
+	// Path on cloud storage account, where managed databricks_table are stored.  If the URL contains special characters, such as space, &, etc., they should be percent-encoded (space -> %20, etc.). Change forces creation of a new resource. If no storage_root is defined for the metastore, each catalog must have a storage_root defined.  **It's recommended to define storage_root on the catalog level.
 	StorageRoot *string `json:"storageRoot,omitempty" tf:"storage_root,omitempty"`
 
-	// system-generated ID of this Unity Catalog Metastore.
+	// UUID of storage credential to access the metastore storage_root.
 	StorageRootCredentialID *string `json:"storageRootCredentialId,omitempty" tf:"storage_root_credential_id,omitempty"`
 
+	// Name of the storage credential to access the metastore storage_root.
+	StorageRootCredentialName *string `json:"storageRootCredentialName,omitempty" tf:"storage_root_credential_name,omitempty"`
+
+	// Time at which the metastore was last modified, in epoch milliseconds.
 	UpdatedAt *float64 `json:"updatedAt,omitempty" tf:"updated_at,omitempty"`
 
+	// Username of user who last modified the metastore.
 	UpdatedBy *string `json:"updatedBy,omitempty" tf:"updated_by,omitempty"`
 }
 
 type MetastoreParameters struct {
 
-	// +kubebuilder:validation:Optional
-	Cloud *string `json:"cloud,omitempty" tf:"cloud,omitempty"`
-
-	// +kubebuilder:validation:Optional
-	CreatedAt *float64 `json:"createdAt,omitempty" tf:"created_at,omitempty"`
-
-	// +kubebuilder:validation:Optional
-	CreatedBy *string `json:"createdBy,omitempty" tf:"created_by,omitempty"`
-
-	// system-generated ID of this Unity Catalog Metastore.
+	// Unique identifier of the metastore's default data access configuration.
 	// +kubebuilder:validation:Optional
 	DefaultDataAccessConfigID *string `json:"defaultDataAccessConfigId,omitempty" tf:"default_data_access_config_id,omitempty"`
 
@@ -140,17 +140,13 @@ type MetastoreParameters struct {
 	// +kubebuilder:validation:Optional
 	DeltaSharingScope *string `json:"deltaSharingScope,omitempty" tf:"delta_sharing_scope,omitempty"`
 
+	// Whether to allow non-DBR clients to directly access entities under the metastore.
+	// +kubebuilder:validation:Optional
+	ExternalAccessEnabled *bool `json:"externalAccessEnabled,omitempty" tf:"external_access_enabled,omitempty"`
+
 	// Destroy metastore regardless of its contents.
 	// +kubebuilder:validation:Optional
 	ForceDestroy *bool `json:"forceDestroy,omitempty" tf:"force_destroy,omitempty"`
-
-	// system-generated ID of this Unity Catalog Metastore.
-	// +kubebuilder:validation:Optional
-	GlobalMetastoreID *string `json:"globalMetastoreId,omitempty" tf:"global_metastore_id,omitempty"`
-
-	// system-generated ID of this Unity Catalog Metastore.
-	// +kubebuilder:validation:Optional
-	MetastoreID *string `json:"metastoreId,omitempty" tf:"metastore_id,omitempty"`
 
 	// Name of metastore.
 	// +kubebuilder:validation:Optional
@@ -160,23 +156,25 @@ type MetastoreParameters struct {
 	// +kubebuilder:validation:Optional
 	Owner *string `json:"owner,omitempty" tf:"owner,omitempty"`
 
+	// Privilege model version of the metastore, of the form major.minor (e.g., 1.0).
+	// +kubebuilder:validation:Optional
+	PrivilegeModelVersion *string `json:"privilegeModelVersion,omitempty" tf:"privilege_model_version,omitempty"`
+
 	// (Mandatory for account-level) The region of the metastore
 	// +kubebuilder:validation:Optional
 	Region *string `json:"region,omitempty" tf:"region,omitempty"`
 
-	// Path on cloud storage account, where managed databricks_table are stored.  If the URL contains special characters, such as space, &, etc., they should be percent-encoded (space -> %20, etc.). Change forces creation of a new resource. If no storage_root is defined for the metastore, each catalog must have a storage_root defined.
+	// Path on cloud storage account, where managed databricks_table are stored.  If the URL contains special characters, such as space, &, etc., they should be percent-encoded (space -> %20, etc.). Change forces creation of a new resource. If no storage_root is defined for the metastore, each catalog must have a storage_root defined.  **It's recommended to define storage_root on the catalog level.
 	// +kubebuilder:validation:Optional
 	StorageRoot *string `json:"storageRoot,omitempty" tf:"storage_root,omitempty"`
 
-	// system-generated ID of this Unity Catalog Metastore.
+	// UUID of storage credential to access the metastore storage_root.
 	// +kubebuilder:validation:Optional
 	StorageRootCredentialID *string `json:"storageRootCredentialId,omitempty" tf:"storage_root_credential_id,omitempty"`
 
+	// Name of the storage credential to access the metastore storage_root.
 	// +kubebuilder:validation:Optional
-	UpdatedAt *float64 `json:"updatedAt,omitempty" tf:"updated_at,omitempty"`
-
-	// +kubebuilder:validation:Optional
-	UpdatedBy *string `json:"updatedBy,omitempty" tf:"updated_by,omitempty"`
+	StorageRootCredentialName *string `json:"storageRootCredentialName,omitempty" tf:"storage_root_credential_name,omitempty"`
 }
 
 // MetastoreSpec defines the desired state of Metastore
@@ -215,9 +213,8 @@ type MetastoreStatus struct {
 type Metastore struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.name) || (has(self.initProvider) && has(self.initProvider.name))",message="spec.forProvider.name is a required parameter"
-	Spec   MetastoreSpec   `json:"spec"`
-	Status MetastoreStatus `json:"status,omitempty"`
+	Spec              MetastoreSpec   `json:"spec"`
+	Status            MetastoreStatus `json:"status,omitempty"`
 }
 
 // +kubebuilder:object:root=true

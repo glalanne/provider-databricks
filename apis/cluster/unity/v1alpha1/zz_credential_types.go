@@ -145,7 +145,7 @@ type CredentialInitParameters struct {
 	// Update credential regardless of its dependents.
 	ForceUpdate *bool `json:"forceUpdate,omitempty" tf:"force_update,omitempty"`
 
-	// Name of Credentials, which must be unique within the databricks_metastore. Change forces creation of a new resource.
+	// Name of Credentials, which must be unique within the databricks_metastore. Change of the name forces creation of a new resource.
 	FullName *string `json:"fullName,omitempty" tf:"full_name,omitempty"`
 
 	// Whether the credential is accessible from all workspaces or a specific set of workspaces. Can be ISOLATION_MODE_ISOLATED or ISOLATION_MODE_OPEN. Setting the credential to ISOLATION_MODE_ISOLATED will automatically restrict access to only from the current workspace.
@@ -154,7 +154,7 @@ type CredentialInitParameters struct {
 	// ID of this credential - same as the name.
 	MetastoreID *string `json:"metastoreId,omitempty" tf:"metastore_id,omitempty"`
 
-	// Name of Credentials, which must be unique within the databricks_metastore. Change forces creation of a new resource.
+	// Name of Credentials, which must be unique within the databricks_metastore. Change of the name forces creation of a new resource.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// Username/groupname/sp application_id of the credential owner.
@@ -200,7 +200,7 @@ type CredentialObservation struct {
 	// Update credential regardless of its dependents.
 	ForceUpdate *bool `json:"forceUpdate,omitempty" tf:"force_update,omitempty"`
 
-	// Name of Credentials, which must be unique within the databricks_metastore. Change forces creation of a new resource.
+	// Name of Credentials, which must be unique within the databricks_metastore. Change of the name forces creation of a new resource.
 	FullName *string `json:"fullName,omitempty" tf:"full_name,omitempty"`
 
 	// ID of this credential - same as the name.
@@ -212,7 +212,7 @@ type CredentialObservation struct {
 	// ID of this credential - same as the name.
 	MetastoreID *string `json:"metastoreId,omitempty" tf:"metastore_id,omitempty"`
 
-	// Name of Credentials, which must be unique within the databricks_metastore. Change forces creation of a new resource.
+	// Name of Credentials, which must be unique within the databricks_metastore. Change of the name forces creation of a new resource.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// Username/groupname/sp application_id of the credential owner.
@@ -265,7 +265,7 @@ type CredentialParameters struct {
 	// +kubebuilder:validation:Optional
 	ForceUpdate *bool `json:"forceUpdate,omitempty" tf:"force_update,omitempty"`
 
-	// Name of Credentials, which must be unique within the databricks_metastore. Change forces creation of a new resource.
+	// Name of Credentials, which must be unique within the databricks_metastore. Change of the name forces creation of a new resource.
 	// +kubebuilder:validation:Optional
 	FullName *string `json:"fullName,omitempty" tf:"full_name,omitempty"`
 
@@ -277,7 +277,7 @@ type CredentialParameters struct {
 	// +kubebuilder:validation:Optional
 	MetastoreID *string `json:"metastoreId,omitempty" tf:"metastore_id,omitempty"`
 
-	// Name of Credentials, which must be unique within the databricks_metastore. Change forces creation of a new resource.
+	// Name of Credentials, which must be unique within the databricks_metastore. Change of the name forces creation of a new resource.
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 

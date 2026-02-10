@@ -156,6 +156,8 @@ spec:
                                       type: boolean
                                     endpointService:
                                       type: string
+                                    errorMessage:
+                                      type: string
                                     networkConnectivityConfigId:
                                       description: Canonical unique identifier of
                                         Network Connectivity Config in Databricks
@@ -206,6 +208,8 @@ spec:
                                         The name must match the regular expression
                                         ^[0-9a-zA-Z-_]{3,30}$. Change forces creation
                                         of a new resource.
+                                      type: string
+                                    errorMessage:
                                       type: string
                                     groupId:
                                       description: combination of account_id and network_connectivity_config_id
@@ -363,6 +367,8 @@ spec:
                                       type: boolean
                                     endpointService:
                                       type: string
+                                    errorMessage:
+                                      type: string
                                     networkConnectivityConfigId:
                                       description: Canonical unique identifier of
                                         Network Connectivity Config in Databricks
@@ -413,6 +419,8 @@ spec:
                                         The name must match the regular expression
                                         ^[0-9a-zA-Z-_]{3,30}$. Change forces creation
                                         of a new resource.
+                                      type: string
+                                    errorMessage:
                                       type: string
                                     groupId:
                                       description: combination of account_id and network_connectivity_config_id
@@ -630,6 +638,8 @@ spec:
                                       type: boolean
                                     endpointService:
                                       type: string
+                                    errorMessage:
+                                      type: string
                                     networkConnectivityConfigId:
                                       description: Canonical unique identifier of
                                         Network Connectivity Config in Databricks
@@ -680,6 +690,8 @@ spec:
                                         The name must match the regular expression
                                         ^[0-9a-zA-Z-_]{3,30}$. Change forces creation
                                         of a new resource.
+                                      type: string
+                                    errorMessage:
                                       type: string
                                     groupId:
                                       description: combination of account_id and network_connectivity_config_id

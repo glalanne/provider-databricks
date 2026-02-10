@@ -152,6 +152,11 @@ func (in *AwsPrivateEndpointRulesInitParameters) DeepCopyInto(out *AwsPrivateEnd
 		*out = new(string)
 		**out = **in
 	}
+	if in.ErrorMessage != nil {
+		in, out := &in.ErrorMessage, &out.ErrorMessage
+		*out = new(string)
+		**out = **in
+	}
 	if in.NetworkConnectivityConfigID != nil {
 		in, out := &in.NetworkConnectivityConfigID, &out.NetworkConnectivityConfigID
 		*out = new(string)
@@ -244,6 +249,11 @@ func (in *AwsPrivateEndpointRulesObservation) DeepCopyInto(out *AwsPrivateEndpoi
 		*out = new(string)
 		**out = **in
 	}
+	if in.ErrorMessage != nil {
+		in, out := &in.ErrorMessage, &out.ErrorMessage
+		*out = new(string)
+		**out = **in
+	}
 	if in.NetworkConnectivityConfigID != nil {
 		in, out := &in.NetworkConnectivityConfigID, &out.NetworkConnectivityConfigID
 		*out = new(string)
@@ -333,6 +343,11 @@ func (in *AwsPrivateEndpointRulesParameters) DeepCopyInto(out *AwsPrivateEndpoin
 	}
 	if in.EndpointService != nil {
 		in, out := &in.EndpointService, &out.EndpointService
+		*out = new(string)
+		**out = **in
+	}
+	if in.ErrorMessage != nil {
+		in, out := &in.ErrorMessage, &out.ErrorMessage
 		*out = new(string)
 		**out = **in
 	}
@@ -496,6 +511,11 @@ func (in *AzurePrivateEndpointRulesInitParameters) DeepCopyInto(out *AzurePrivat
 		*out = new(string)
 		**out = **in
 	}
+	if in.ErrorMessage != nil {
+		in, out := &in.ErrorMessage, &out.ErrorMessage
+		*out = new(string)
+		**out = **in
+	}
 	if in.GroupID != nil {
 		in, out := &in.GroupID, &out.GroupID
 		*out = new(string)
@@ -572,6 +592,11 @@ func (in *AzurePrivateEndpointRulesObservation) DeepCopyInto(out *AzurePrivateEn
 		*out = new(string)
 		**out = **in
 	}
+	if in.ErrorMessage != nil {
+		in, out := &in.ErrorMessage, &out.ErrorMessage
+		*out = new(string)
+		**out = **in
+	}
 	if in.GroupID != nil {
 		in, out := &in.GroupID, &out.GroupID
 		*out = new(string)
@@ -645,6 +670,11 @@ func (in *AzurePrivateEndpointRulesParameters) DeepCopyInto(out *AzurePrivateEnd
 	}
 	if in.EndpointName != nil {
 		in, out := &in.EndpointName, &out.EndpointName
+		*out = new(string)
+		**out = **in
+	}
+	if in.ErrorMessage != nil {
+		in, out := &in.ErrorMessage, &out.ErrorMessage
 		*out = new(string)
 		**out = **in
 	}
@@ -2733,6 +2763,11 @@ func (in *MwsNccPrivateEndpointRuleInitParameters) DeepCopyInto(out *MwsNccPriva
 		*out = new(string)
 		**out = **in
 	}
+	if in.ErrorMessage != nil {
+		in, out := &in.ErrorMessage, &out.ErrorMessage
+		*out = new(string)
+		**out = **in
+	}
 	if in.GroupID != nil {
 		in, out := &in.GroupID, &out.GroupID
 		*out = new(string)
@@ -2882,6 +2917,11 @@ func (in *MwsNccPrivateEndpointRuleObservation) DeepCopyInto(out *MwsNccPrivateE
 		*out = new(string)
 		**out = **in
 	}
+	if in.ErrorMessage != nil {
+		in, out := &in.ErrorMessage, &out.ErrorMessage
+		*out = new(string)
+		**out = **in
+	}
 	if in.GroupID != nil {
 		in, out := &in.GroupID, &out.GroupID
 		*out = new(string)
@@ -2991,6 +3031,11 @@ func (in *MwsNccPrivateEndpointRuleParameters) DeepCopyInto(out *MwsNccPrivateEn
 	}
 	if in.EndpointService != nil {
 		in, out := &in.EndpointService, &out.EndpointService
+		*out = new(string)
+		**out = **in
+	}
+	if in.ErrorMessage != nil {
+		in, out := &in.ErrorMessage, &out.ErrorMessage
 		*out = new(string)
 		**out = **in
 	}

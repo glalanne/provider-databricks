@@ -36,6 +36,9 @@ type GitCredentialInitParameters struct {
 
 	// The personal access token used to authenticate to the corresponding Git provider. If value is not provided, it's sourced from the first environment variable of GITHUB_TOKEN, GITLAB_TOKEN, or AZDO_PERSONAL_ACCESS_TOKEN, that has a non-empty value.
 	PersonalAccessToken *string `json:"personalAccessToken,omitempty" tf:"personal_access_token,omitempty"`
+
+	// identifier of specific Git credential
+	PrincipalID *float64 `json:"principalId,omitempty" tf:"principal_id,omitempty"`
 }
 
 type GitCredentialObservation struct {
@@ -63,6 +66,9 @@ type GitCredentialObservation struct {
 
 	// The personal access token used to authenticate to the corresponding Git provider. If value is not provided, it's sourced from the first environment variable of GITHUB_TOKEN, GITLAB_TOKEN, or AZDO_PERSONAL_ACCESS_TOKEN, that has a non-empty value.
 	PersonalAccessToken *string `json:"personalAccessToken,omitempty" tf:"personal_access_token,omitempty"`
+
+	// identifier of specific Git credential
+	PrincipalID *float64 `json:"principalId,omitempty" tf:"principal_id,omitempty"`
 }
 
 type GitCredentialParameters struct {
@@ -94,6 +100,10 @@ type GitCredentialParameters struct {
 	// The personal access token used to authenticate to the corresponding Git provider. If value is not provided, it's sourced from the first environment variable of GITHUB_TOKEN, GITLAB_TOKEN, or AZDO_PERSONAL_ACCESS_TOKEN, that has a non-empty value.
 	// +kubebuilder:validation:Optional
 	PersonalAccessToken *string `json:"personalAccessToken,omitempty" tf:"personal_access_token,omitempty"`
+
+	// identifier of specific Git credential
+	// +kubebuilder:validation:Optional
+	PrincipalID *float64 `json:"principalId,omitempty" tf:"principal_id,omitempty"`
 }
 
 // GitCredentialSpec defines the desired state of GitCredential

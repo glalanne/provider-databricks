@@ -344,6 +344,19 @@ resources:
             restriction_mode: '(string, required) - The restriction mode that controls how serverless workloads can access the internet. Possible values are: FULL_ACCESS, RESTRICTED_ACCESS'
             storage_destination_type: '(string, optional) - The type of storage destination. Possible values are: AWS_S3, AZURE_STORAGE, GOOGLE_CLOUD_STORAGE'
         importStatements: []
+    databricks_account_setting_user_preference_v2 Resource:
+        subCategory: ""
+        name: databricks_account_setting_user_preference_v2 Resource
+        title: databricks_account_setting_user_preference_v2 Resource
+        argumentDocs:
+            boolean_val: (BooleanMessage, optional)
+            effective_boolean_val: (BooleanMessage)
+            effective_string_val: (StringMessage)
+            name: (string, optional) - Name of the setting
+            string_val: (StringMessage, optional)
+            user_id: (string, optional) - User ID of the user
+            value: (boolean, optional)
+        importStatements: []
     databricks_account_setting_v2:
         subCategory: ""
         name: databricks_account_setting_v2
@@ -633,6 +646,7 @@ resources:
             owner_user_name: (string) - The owner's username. This field is set to "Unavailable" if the user has been deleted
             parent_path: (string, optional) - The workspace path of the folder containing the alert. Can only be set on create, and cannot be updated
             pause_status: '(string, optional) - Indicate whether this schedule is paused or not. Possible values are: PAUSED, UNPAUSED'
+            purge_on_delete: (boolean, optional) - Purge the resource on delete
             quartz_cron_schedule: |-
                 (string, required) - A cron expression using quartz syntax that specifies the schedule for this pipeline.
                 Should use the quartz format described here: http://www.quartz-scheduler.org/documentation/quartz-2.1.7/tutorials/tutorial-lesson-06.html
@@ -809,6 +823,7 @@ resources:
         argumentDocs:
             creator: (string)
             description: (string, optional) - The description of the template
+            experiment_spec: (AppManifestAppResourceExperimentSpec, optional)
             git_provider: (string, required) - The Git provider of the template
             git_repo: (string, required) - The Git repository URL that the template resides in
             job_spec: (AppManifestAppResourceJobSpec, optional)
@@ -817,10 +832,10 @@ resources:
                 (string, required) - The name of the template. It must contain only alphanumeric characters, hyphens, underscores, and whitespaces.
                 It must be unique within the workspace
             path: (string, required) - The path to the template within the Git repository
-            permission: '(string, required) - Permissions to grant on the Job. Supported permissions are: "CAN_MANAGE", "IS_OWNER", "CAN_MANAGE_RUN", "CAN_VIEW". Possible values are: CAN_MANAGE, CAN_MANAGE_RUN, CAN_VIEW, IS_OWNER'
+            permission: '(string, required) - Possible values are: CAN_EDIT, CAN_MANAGE, CAN_READ'
             resource_specs: (list of AppManifestAppResourceSpec, optional)
             secret_spec: (AppManifestAppResourceSecretSpec, optional)
-            securable_type: '(string, required) - Possible values are: TABLE, VOLUME'
+            securable_type: '(string, required) - Possible values are: CONNECTION, FUNCTION, TABLE, VOLUME'
             serving_endpoint_spec: (AppManifestAppResourceServingEndpointSpec, optional)
             sql_warehouse_spec: (AppManifestAppResourceSqlWarehouseSpec, optional)
             uc_securable_spec: (AppManifestAppResourceUcSecurableSpec, optional)
@@ -1583,7 +1598,7 @@ resources:
             force_update: '- (Optional) Update credential regardless of its dependents.'
             id: '- ID of this credential - same as the name.'
             isolation_mode: '- (Optional) Whether the credential is accessible from all workspaces or a specific set of workspaces. Can be ISOLATION_MODE_ISOLATED or ISOLATION_MODE_OPEN. Setting the credential to ISOLATION_MODE_ISOLATED will automatically restrict access to only from the current workspace.'
-            name: '- Name of Credentials, which must be unique within the databricks_metastore. Change forces creation of a new resource.'
+            name: '- Name of Credentials, which must be unique within the databricks_metastore. Change of the name forces creation of a new resource.'
             owner: '- (Optional) Username/groupname/sp application_id of the credential owner.'
             purpose: '- Indicates the purpose of the credential. Can be SERVICE or STORAGE.'
             read_only: '- (Optional) Indicates whether the credential is only usable for read operations. Only applicable when purpose is STORAGE.'
@@ -1650,6 +1665,8 @@ resources:
               references:
                 warehouse_id: data.databricks_sql_warehouse.starter.id
         argumentDocs:
+            dataset_catalog: '- (Optional) Sets the default catalog for all datasets in this dashboard. Does not impact table references that use fully qualified catalog names (ex: samples.nyctaxi.trips).'
+            dataset_schema: '- (Optional) Sets the default schema for all datasets in this dashboard. Does not impact table references that use fully qualified catalog names (ex: samples.nyctaxi.trips).'
             display_name: '- (Required) The display name of the dashboard.'
             embed_credentials: '- (Optional) Whether to embed credentials in the dashboard. Default is true.'
             file_path: '- (Optional) The path to the dashboard JSON file. Conflicts with serialized_dashboard.'
@@ -1695,6 +1712,7 @@ resources:
                 must be present
             definition: (string, required) - Jinja template for a SQL expression that specifies how to compute the metric. See create metric definition
             email_addresses: (list of string, optional) - The list of email addresses to send the notification to. A maximum of 5 email addresses is supported
+            excluded_table_full_names: (list of string, optional) - List of fully qualified table names to exclude from anomaly detection
             granularities: (list of string, required) - List of granularities to use when aggregating data into time windows based on their timestamp
             inference_log: (InferenceLogConfig, optional) - Analysis Configuration for monitoring inference log tables
             input_columns: |-
@@ -1910,23 +1928,47 @@ resources:
             creation_time: (string) - The timestamp when the instance was created
             creator: (string) - The email of the creator of the instance
             custom_tags: (list of CustomTag, optional) - Custom tags associated with the instance. This field is only included on create and update responses
-            effective_capacity: (string, deprecated) - Deprecated. The sku of the instance; this field will always match the value of capacity
-            effective_custom_tags: (list of CustomTag) - The recorded custom tags associated with the instance
-            effective_enable_pg_native_login: (boolean) - Whether the instance has PG native password login enabled
-            effective_enable_readable_secondaries: (boolean) - Whether secondaries serving read-only traffic are enabled. Defaults to false
+            effective_capacity: |-
+                (string, deprecated) - Deprecated. The sku of the instance; this field will always match the value of capacity.
+                This is an output only field that contains the value computed from the input field combined with
+                server side defaults. Use the field without the effective_ prefix to set the value
+            effective_custom_tags: |-
+                (list of CustomTag) - The recorded custom tags associated with the instance.
+                This is an output only field that contains the value computed from the input field combined with
+                server side defaults. Use the field without the effective_ prefix to set the value
+            effective_enable_pg_native_login: |-
+                (boolean) - Whether the instance has PG native password login enabled.
+                This is an output only field that contains the value computed from the input field combined with
+                server side defaults. Use the field without the effective_ prefix to set the value
+            effective_enable_readable_secondaries: |-
+                (boolean) - Whether secondaries serving read-only traffic are enabled. Defaults to false.
+                This is an output only field that contains the value computed from the input field combined with
+                server side defaults. Use the field without the effective_ prefix to set the value
             effective_lsn: |-
                 (string) - For a parent ref instance, this is the LSN on the parent instance from which the
                 instance was created.
                 For a child ref instance, this is the LSN on the instance from which the child instance
-                was created
+                was created.
+                This is an output only field that contains the value computed from the input field combined with
+                server side defaults. Use the field without the effective_ prefix to set the value
             effective_node_count: |-
                 (integer) - The number of nodes in the instance, composed of 1 primary and 0 or more secondaries. Defaults to
-                1 primary and 0 secondaries
+                1 primary and 0 secondaries.
+                This is an output only field that contains the value computed from the input field combined with
+                server side defaults. Use the field without the effective_ prefix to set the value
             effective_retention_window_in_days: |-
                 (integer) - The retention window for the instance. This is the time window in days
-                for which the historical data is retained
-            effective_stopped: (boolean) - Whether the instance is stopped
-            effective_usage_policy_id: (string) - The policy that is applied to the instance
+                for which the historical data is retained.
+                This is an output only field that contains the value computed from the input field combined with
+                server side defaults. Use the field without the effective_ prefix to set the value
+            effective_stopped: |-
+                (boolean) - Whether the instance is stopped.
+                This is an output only field that contains the value computed from the input field combined with
+                server side defaults. Use the field without the effective_ prefix to set the value
+            effective_usage_policy_id: |-
+                (string) - The policy that is applied to the instance.
+                This is an output only field that contains the value computed from the input field combined with
+                server side defaults. Use the field without the effective_ prefix to set the value
             enable_pg_native_login: (boolean, optional) - Whether to enable PG native password login on the instance. Defaults to false
             enable_readable_secondaries: (boolean, optional) - Whether to enable secondaries to serve read-only traffic. Defaults to false
             key: (string, optional) - The key of the custom tag
@@ -2112,8 +2154,13 @@ resources:
             detailed_state: '(string) - The state of the synced table. Possible values are: SYNCED_TABLED_OFFLINE, SYNCED_TABLE_OFFLINE_FAILED, SYNCED_TABLE_ONLINE, SYNCED_TABLE_ONLINE_CONTINUOUS_UPDATE, SYNCED_TABLE_ONLINE_NO_PENDING_UPDATE, SYNCED_TABLE_ONLINE_PIPELINE_FAILED, SYNCED_TABLE_ONLINE_TRIGGERED_UPDATE, SYNCED_TABLE_ONLINE_UPDATING_PIPELINE_RESOURCES, SYNCED_TABLE_PROVISIONING, SYNCED_TABLE_PROVISIONING_INITIAL_SNAPSHOT, SYNCED_TABLE_PROVISIONING_PIPELINE_RESOURCES'
             effective_database_instance_name: |-
                 (string) - The name of the database instance that this table is registered to. This field is always returned, and for
-                tables inside database catalogs is inferred database instance associated with the catalog
-            effective_logical_database_name: (string) - The name of the logical database that this table is registered to
+                tables inside database catalogs is inferred database instance associated with the catalog.
+                This is an output only field that contains the value computed from the input field combined with
+                server side defaults. Use the field without the effective_ prefix to set the value
+            effective_logical_database_name: |-
+                (string) - The name of the logical database that this table is registered to.
+                This is an output only field that contains the value computed from the input field combined with
+                server side defaults. Use the field without the effective_ prefix to set the value
             estimated_completion_time_seconds: (number) - The estimated time remaining to complete this update in seconds
             existing_pipeline_id: (string, optional) - At most one of existing_pipeline_id and new_pipeline_spec should be defined.
             failed_status: (SyncedTableFailedStatus, optional)
@@ -2624,7 +2671,7 @@ resources:
             slide_duration: (string, required) - The slide duration (interval by which windows advance, must be positive and less than duration)
             sliding: (SlidingWindow, optional)
             source: (DataSource, required) - The data source of the feature
-            time_window: (TimeWindow, required) - The time window in which the feature is computed
+            time_window: (TimeWindow, optional) - The time window in which the feature is computed
             timeseries_column: (string, required) - The timeseries column of the Delta table
             timeseries_column_identifier: (ColumnIdentifier, required) - The timeseries column identifier of the Kafka source
             tumbling: (TumblingWindow, optional)
@@ -2643,8 +2690,17 @@ resources:
                 (string, optional) - A JSON string that contains the specific topic-partitions to consume from.
                 For example, for '{"topicA":[0,1],"topicB":[2,4]}', topicA's 0'th and 1st partitions will be consumed from
             auth_config: (AuthConfig, required) - Authentication configuration for connection to topics
+            backfill_source: |-
+                (BackfillSource, optional) - A user-provided and managed source for backfilling data. Historical data is used when creating a training set from streaming features linked to this Kafka config.
+                In the future, a separate table will be maintained by Databricks for forward filling data.
+                The schema for this source must match exactly that of the key and value schemas specified for this Kafka config
             bootstrap_servers: (string, required) - A comma-separated list of host/port pairs pointing to Kafka cluster
+            delta_table_source: |-
+                (DeltaTableSource, optional) - The Delta table source containing the historic data to backfill.
+                Only the delta table name is used for backfill, the entity columns and timeseries column are ignored as they are defined by the associated KafkaSource
+            entity_columns: (list of string, required) - The entity columns of the Delta table
             extra_options: (object, optional) - Catch-all for miscellaneous options. Keys should be source options or Kafka consumer options (kafka.*)
+            full_name: (string, required) - The full three-part (catalog, schema, table) name of the Delta table
             json_schema: (string, optional) - Schema of the JSON object in standard IETF JSON schema format (https://json-schema.org/)
             key_schema: (SchemaConfig, optional) - Schema configuration for extracting message keys from topics. At least one of key_schema and value_schema must be provided
             name: |-
@@ -2653,6 +2709,7 @@ resources:
             subscribe: (string, optional) - A comma-separated list of Kafka topics to read from. For example, 'topicA,topicB,topicC'
             subscribe_pattern: (string, optional) - A regular expression matching topics to subscribe to. For example, 'topic.*' will subscribe to all topics starting with 'topic'
             subscription_mode: (SubscriptionMode, required) - Options to configure which Kafka topics to pull data from
+            timeseries_column: (string, required) - The timeseries column of the Delta table
             uc_service_credential_name: (string, optional) - Name of the Unity Catalog service credential. This value will be set under the option databricks.serviceCredential
             value_schema: (SchemaConfig, optional) - Schema configuration for extracting message values from topics. At least one of key_schema and value_schema must be provided
         importStatements: []
@@ -2662,6 +2719,7 @@ resources:
         title: databricks_feature_engineering_materialized_feature Resource
         argumentDocs:
             catalog_name: (string, required) - The Unity Catalog catalog name
+            cron_schedule: (string, optional) - The quartz cron expression that defines the schedule of the materialization pipeline. The schedule is evaluated in the UTC timezone
             feature_name: (string, required) - The full name of the feature in Unity Catalog
             last_materialization_time: |-
                 (string) - The timestamp when the pipeline last ran and updated the materialized feature values.
@@ -4648,15 +4706,27 @@ resources:
                       "workspace_id": "${local.workspace_id}"
                     }
         argumentDocs:
+            cloud: '- Cloud vendor of the metastore home shard (e.g., aws, azure, gcp).'
+            created_at: '- Time at which the metastore was created, in epoch milliseconds.'
+            created_by: '- Username of metastore creator.'
+            default_data_access_config_id: '- (Optional) Unique identifier of the metastore''s default data access configuration.'
             delta_sharing_organization_name: '- (Optional) The organization name of a Delta Sharing entity. This field is used for Databricks to Databricks sharing. Once this is set it cannot be removed and can only be modified to another valid value. To delete this value please taint and recreate the resource.'
             delta_sharing_recipient_token_lifetime_in_seconds: '- (Optional) Required along with delta_sharing_scope. Used to set expiration duration in seconds on recipient data access tokens. Set to 0 for unlimited duration.'
             delta_sharing_scope: '- (Optional) Required along with delta_sharing_recipient_token_lifetime_in_seconds. Used to enable delta sharing on the metastore. Valid values: INTERNAL, INTERNAL_AND_EXTERNAL.  INTERNAL only allows sharing within the same account, and INTERNAL_AND_EXTERNAL allows cross account sharing and token based sharing.'
+            external_access_enabled: '- (Optional) Whether to allow non-DBR clients to directly access entities under the metastore.'
             force_destroy: '- (Optional) Destroy metastore regardless of its contents.'
-            id: '- system-generated ID of this Unity Catalog Metastore.'
+            global_metastore_id: '- Globally unique metastore ID across clouds and regions, of the form cloud:region:metastore_id.'
+            id: '- System-generated ID of this Unity Catalog Metastore. Same as metastore_id.'
+            metastore_id: '- Unique identifier of the metastore.'
             name: '- Name of metastore.'
             owner: '- (Optional) Username/groupname/sp application_id of the metastore owner.'
+            privilege_model_version: '- Privilege model version of the metastore, of the form major.minor (e.g., 1.0).'
             region: '- (Mandatory for account-level) The region of the metastore'
-            storage_root: '- (Optional) Path on cloud storage account, where managed databricks_table are stored.  If the URL contains special characters, such as space, &, etc., they should be percent-encoded (space -> %20, etc.). Change forces creation of a new resource. If no storage_root is defined for the metastore, each catalog must have a storage_root defined.'
+            storage_root: '- (Optional) Path on cloud storage account, where managed databricks_table are stored.  If the URL contains special characters, such as space, &, etc., they should be percent-encoded (space -> %20, etc.). Change forces creation of a new resource. If no storage_root is defined for the metastore, each catalog must have a storage_root defined.  **It''s recommended to define storage_root on the catalog level.'
+            storage_root_credential_id: '- (Optional) UUID of storage credential to access the metastore storage_root.'
+            storage_root_credential_name: '- Name of the storage credential to access the metastore storage_root.'
+            updated_at: '- Time at which the metastore was last modified, in epoch milliseconds.'
+            updated_by: '- Username of user who last modified the metastore.'
         importStatements: []
     databricks_metastore_assignment:
         subCategory: ""
@@ -6810,6 +6880,7 @@ resources:
             name: (string, required) - The name of the online store. This is the unique identifier for the online store
             read_replica_count: (integer, optional) - The number of read replicas for the online store. Defaults to 0
             state: '(string) - The current state of the online store. Possible values are: AVAILABLE, DELETING, FAILING_OVER, STARTING, STOPPED, UPDATING'
+            usage_policy_id: (string, optional) - The usage policy applied to the online store to track billing
         importStatements: []
     databricks_online_table:
         subCategory: ""
@@ -7991,7 +8062,8 @@ resources:
             channel: '- optional name of the release channel for Spark version used by Lakeflow Declarative Pipeline.  Supported values are: CURRENT (default) and PREVIEW.'
             cluster: blocks - Clusters to run the pipeline. If none is specified, pipelines will automatically select a default cluster configuration for the pipeline. Please note that Lakeflow Declarative Pipeline clusters are supporting only subset of attributes as described in   Also, note that autoscale block is extended with the mode parameter that controls the autoscaling algorithm (possible values are ENHANCED for new, enhanced autoscaling algorithm, or LEGACY for old algorithm).
             configuration: '- An optional list of values to apply to the entire pipeline. Elements must be formatted as key:value pairs.'
-            connection_id: '- Immutable. The Unity Catalog connection this gateway pipeline uses to communicate with the source.'
+            connection_id: '- Deprecated, Immutable. The Unity Catalog connection this gateway pipeline uses to communicate with the source. Use'
+            connection_name: instead!
             continuous: '- A flag indicating whether to run the pipeline continuously. The default value is false.'
             dependencies: '- (Required) a list of pip dependencies, as supported by the version of pip in this environment. Each dependency is a pip requirement file line.  See API docs for more information.'
             deployment: '- Deployment type of this pipeline. Supports following attributes:'
@@ -8014,6 +8086,7 @@ resources:
             library.connection_name: '- Immutable. The Unity Catalog connection this ingestion pipeline uses to communicate with the source. Specify either ingestion_gateway_id or connection_name.'
             library.ingestion_gateway_id: '- Immutable. Identifier for the ingestion gateway used by this ingestion pipeline to communicate with the source. Specify either ingestion_gateway_id or connection_name.'
             library.objects: '- Required. Settings specifying tables to replicate and the destination for the replicated tables.'
+            library.source_configurations: '- Array of objects describing top-level source configurations. See the REST API docs for reference.'
             library.table_configuration: '- Configuration settings to control the ingestion of tables. These settings are applied to all tables in the pipeline.'
             metadata_file_path: '- The path to the file containing metadata about the deployment.'
             name: '- A user-friendly name for this pipeline. The name can be used to identify pipeline jobs in the UI.'
@@ -8148,6 +8221,363 @@ resources:
                 (list of FunctionArgument, optional) - Optional list of column aliases or constant literals to be passed as additional arguments to the column mask function.
                 The type of each column should match the positional argument of the column mask function
             when_condition: (string, optional) - Optional condition when the policy should take effect
+        importStatements: []
+    databricks_postgres_branch:
+        subCategory: ""
+        name: databricks_postgres_branch
+        title: databricks_postgres_branch Resource
+        examples:
+            - name: dev
+              manifest: |-
+                {
+                  "branch_id": "dev-branch",
+                  "parent": "${databricks_postgres_project.this.name}",
+                  "spec": {
+                    "no_expiry": true
+                  }
+                }
+              references:
+                parent: databricks_postgres_project.this.name
+              dependencies:
+                databricks_postgres_project.this: |-
+                    {
+                      "project_id": "my-project",
+                      "spec": {
+                        "display_name": "My Project",
+                        "pg_version": 17
+                      }
+                    }
+            - name: production
+              manifest: |-
+                {
+                  "branch_id": "production",
+                  "parent": "${databricks_postgres_project.this.name}",
+                  "spec": {
+                    "is_protected": true,
+                    "no_expiry": true
+                  }
+                }
+              references:
+                parent: databricks_postgres_project.this.name
+            - name: temporary
+              manifest: |-
+                {
+                  "branch_id": "temp-feature-test",
+                  "parent": "${databricks_postgres_project.this.name}",
+                  "spec": {
+                    "ttl": "604800s"
+                  }
+                }
+              references:
+                parent: databricks_postgres_project.this.name
+        argumentDocs:
+            branch_id: |-
+                (string, required) - The ID to use for the Branch. This becomes the final component of the branch's resource name.
+                The ID is required and must be 1-63 characters long, start with a lowercase letter, and contain only lowercase letters, numbers, and hyphens.
+                For example, development becomes projects/my-app/branches/development
+            create_time: (string) - A timestamp indicating when the branch was created
+            current_state: '(string) - The branch''s state, indicating if it is initializing, ready for use, or archived. Possible values are: ARCHIVED, IMPORTING, INIT, READY, RESETTING'
+            default: (boolean) - Whether the branch is the project's default branch
+            expire_time: (string, optional) - Absolute expiration timestamp. When set, the branch will expire at this time
+            is_protected: (boolean, optional) - When set to true, protects the branch from deletion and reset. Associated compute endpoints and the project cannot be deleted while the branch is protected
+            logical_size_bytes: (integer) - The logical size of the branch
+            name: |-
+                (string) - Output only. The full resource path of the branch.
+                Format: projects/{project_id}/branches/{branch_id}
+            no_expiry: |-
+                (boolean, optional) - Explicitly disable expiration. When set to true, the branch will not expire.
+                If set to false, the request is invalid; provide either ttl or expire_time instead
+            parent: |-
+                (string, required) - The project containing this branch (API resource hierarchy).
+                Format: projects/{project_id}
+            pending_state: '(string) - The pending state of the branch, if a state transition is in progress. Possible values are: ARCHIVED, IMPORTING, INIT, READY, RESETTING'
+            source_branch: |-
+                (string, optional) - The name of the source branch from which this branch was created (data lineage for point-in-time recovery).
+                If not specified, defaults to the project's default branch.
+                Format: projects/{project_id}/branches/{branch_id}
+            source_branch_lsn: (string, optional) - The Log Sequence Number (LSN) on the source branch from which this branch was created
+            source_branch_time: (string, optional) - The point in time on the source branch from which this branch was created
+            spec: (BranchSpec, optional) - The spec contains the branch configuration
+            state_change_time: (string) - A timestamp indicating when the current_state began
+            status: (BranchStatus) - The current status of a Branch
+            ttl: (string, optional) - Relative time-to-live duration. When set, the branch will expire at creation_time + ttl
+            uid: (string) - System-generated unique ID for the branch
+            update_time: (string) - A timestamp indicating when the branch was last updated
+        importStatements: []
+    databricks_postgres_endpoint:
+        subCategory: ""
+        name: databricks_postgres_endpoint
+        title: databricks_postgres_endpoint Resource
+        examples:
+            - name: primary
+              manifest: |-
+                {
+                  "endpoint_id": "primary",
+                  "parent": "${databricks_postgres_branch.dev.name}",
+                  "spec": {
+                    "endpoint_type": "ENDPOINT_TYPE_READ_WRITE"
+                  }
+                }
+              references:
+                parent: databricks_postgres_branch.dev.name
+              dependencies:
+                databricks_postgres_branch.dev: |-
+                    {
+                      "branch_id": "dev-branch",
+                      "parent": "${databricks_postgres_project.this.name}",
+                      "spec": {
+                        "no_expiry": true
+                      }
+                    }
+                databricks_postgres_project.this: |-
+                    {
+                      "project_id": "my-project",
+                      "spec": {
+                        "display_name": "My Project",
+                        "pg_version": 17
+                      }
+                    }
+            - name: read_replica
+              manifest: |-
+                {
+                  "endpoint_id": "read-replica-1",
+                  "parent": "${databricks_postgres_branch.dev.name}",
+                  "spec": {
+                    "autoscaling_limit_max_cu": 4,
+                    "autoscaling_limit_min_cu": 0.5,
+                    "endpoint_type": "ENDPOINT_TYPE_READ_ONLY"
+                  }
+                }
+              references:
+                parent: databricks_postgres_branch.dev.name
+            - name: analytics
+              manifest: |-
+                {
+                  "endpoint_id": "analytics",
+                  "parent": "${databricks_postgres_branch.dev.name}",
+                  "spec": {
+                    "autoscaling_limit_max_cu": 8,
+                    "autoscaling_limit_min_cu": 1,
+                    "endpoint_type": "ENDPOINT_TYPE_READ_ONLY",
+                    "suspend_timeout_duration": "600s"
+                  }
+                }
+              references:
+                parent: databricks_postgres_branch.dev.name
+            - name: maintenance
+              manifest: |-
+                {
+                  "endpoint_id": "primary",
+                  "parent": "${databricks_postgres_branch.dev.name}",
+                  "spec": {
+                    "disabled": true,
+                    "endpoint_type": "ENDPOINT_TYPE_READ_WRITE"
+                  }
+                }
+              references:
+                parent: databricks_postgres_branch.dev.name
+            - name: always_on
+              manifest: |-
+                {
+                  "endpoint_id": "always-on",
+                  "parent": "${databricks_postgres_branch.dev.name}",
+                  "spec": {
+                    "endpoint_type": "ENDPOINT_TYPE_READ_WRITE",
+                    "no_suspension": true
+                  }
+                }
+              references:
+                parent: databricks_postgres_branch.dev.name
+            - name: primary
+              manifest: |-
+                {
+                  "endpoint_id": "primary",
+                  "parent": "${databricks_postgres_branch.main.name}",
+                  "spec": {
+                    "autoscaling_limit_max_cu": 9,
+                    "autoscaling_limit_min_cu": 1,
+                    "endpoint_type": "ENDPOINT_TYPE_READ_WRITE",
+                    "no_suspension": true
+                  }
+                }
+              references:
+                parent: databricks_postgres_branch.main.name
+              dependencies:
+                databricks_postgres_branch.main: |-
+                    {
+                      "branch_id": "main",
+                      "parent": "${databricks_postgres_project.prod.name}",
+                      "spec": {
+                        "no_expiry": true
+                      }
+                    }
+                databricks_postgres_project.prod: |-
+                    {
+                      "project_id": "production",
+                      "spec": {
+                        "default_endpoint_settings": {
+                          "autoscaling_limit_max_cu": 8,
+                          "autoscaling_limit_min_cu": 1,
+                          "suspend_timeout_duration": "300s"
+                        },
+                        "display_name": "Production Workloads",
+                        "history_retention_duration": "2592000s",
+                        "pg_version": 17
+                      }
+                    }
+            - name: read_replica
+              manifest: |-
+                {
+                  "endpoint_id": "read-replica",
+                  "parent": "${databricks_postgres_branch.main.name}",
+                  "spec": {
+                    "autoscaling_limit_max_cu": 8,
+                    "autoscaling_limit_min_cu": 0.5,
+                    "endpoint_type": "ENDPOINT_TYPE_READ_ONLY",
+                    "suspend_timeout_duration": "600s"
+                  }
+                }
+              references:
+                parent: databricks_postgres_branch.main.name
+              dependencies:
+                databricks_postgres_branch.main: |-
+                    {
+                      "branch_id": "main",
+                      "parent": "${databricks_postgres_project.prod.name}",
+                      "spec": {
+                        "no_expiry": true
+                      }
+                    }
+                databricks_postgres_project.prod: |-
+                    {
+                      "project_id": "production",
+                      "spec": {
+                        "default_endpoint_settings": {
+                          "autoscaling_limit_max_cu": 8,
+                          "autoscaling_limit_min_cu": 1,
+                          "suspend_timeout_duration": "300s"
+                        },
+                        "display_name": "Production Workloads",
+                        "history_retention_duration": "2592000s",
+                        "pg_version": 17
+                      }
+                    }
+        argumentDocs:
+            autoscaling_limit_max_cu: (number, optional) - The maximum number of Compute Units. Minimum value is 0.5
+            autoscaling_limit_min_cu: (number, optional) - The minimum number of Compute Units. Minimum value is 0.5
+            create_time: (string) - A timestamp indicating when the compute endpoint was created
+            current_state: '(string) - Possible values are: ACTIVE, IDLE, INIT'
+            disabled: |-
+                (boolean, optional) - Whether to restrict connections to the compute endpoint.
+                Enabling this option schedules a suspend compute operation.
+                A disabled compute endpoint cannot be enabled by a connection or
+                console action
+            endpoint_id: |-
+                (string, required) - The ID to use for the Endpoint. This becomes the final component of the endpoint's resource name.
+                The ID is required and must be 1-63 characters long, start with a lowercase letter, and contain only lowercase letters, numbers, and hyphens.
+                For example, primary becomes projects/my-app/branches/development/endpoints/primary
+            endpoint_type: '(string, required) - The endpoint type. A branch can only have one READ_WRITE endpoint. Possible values are: ENDPOINT_TYPE_READ_ONLY, ENDPOINT_TYPE_READ_WRITE'
+            host: |-
+                (string) - The hostname to connect to this endpoint. For read-write endpoints, this is a read-write hostname which connects
+                to the primary compute. For read-only endpoints, this is a read-only hostname which allows read-only operations
+            hosts: (EndpointHosts) - Contains host information for connecting to the endpoint
+            name: |-
+                (string) - Output only. The full resource path of the endpoint.
+                Format: projects/{project_id}/branches/{branch_id}/endpoints/{endpoint_id}
+            no_suspension: |-
+                (boolean, optional) - When set to true, explicitly disables automatic suspension (never suspend).
+                Should be set to true when provided
+            parent: |-
+                (string, required) - The branch containing this endpoint (API resource hierarchy).
+                Format: projects/{project_id}/branches/{branch_id}
+            pending_state: '(string) - Possible values are: ACTIVE, IDLE, INIT'
+            pg_settings: (object, optional) - A raw representation of Postgres settings
+            settings: (EndpointSettings, optional)
+            spec: (EndpointSpec, optional) - The spec contains the compute endpoint configuration, including autoscaling limits, suspend timeout, and disabled state
+            status: (EndpointStatus) - Current operational status of the compute endpoint
+            suspend_timeout_duration: |-
+                (string, optional) - Duration of inactivity after which the compute endpoint is automatically suspended.
+                If specified should be between 60s and 604800s (1 minute to 1 week)
+            uid: (string) - System-generated unique ID for the endpoint
+            update_time: (string) - A timestamp indicating when the compute endpoint was last updated
+        importStatements: []
+    databricks_postgres_project:
+        subCategory: ""
+        name: databricks_postgres_project
+        title: databricks_postgres_project Resource
+        examples:
+            - name: this
+              manifest: |-
+                {
+                  "project_id": "my-project",
+                  "spec": {
+                    "display_name": "My Application Project",
+                    "pg_version": 17
+                  }
+                }
+            - name: this
+              manifest: |-
+                {
+                  "project_id": "analytics-project",
+                  "spec": {
+                    "default_endpoint_settings": {
+                      "autoscaling_limit_max_cu": 8,
+                      "autoscaling_limit_min_cu": 1,
+                      "suspend_timeout_duration": "300s"
+                    },
+                    "display_name": "Analytics Workloads",
+                    "history_retention_duration": "1209600s",
+                    "pg_version": 16
+                  }
+                }
+            - name: this
+              manifest: |-
+                {
+                  "project_id": "my-project",
+                  "spec": {
+                    "display_name": "My Project",
+                    "pg_version": 17
+                  }
+                }
+              dependencies:
+                databricks_postgres_branch.dev: |-
+                    {
+                      "branch_id": "dev-branch",
+                      "parent": "${databricks_postgres_project.this.name}",
+                      "spec": {
+                        "no_expiry": true
+                      }
+                    }
+        argumentDocs:
+            autoscaling_limit_max_cu: (number, optional) - The maximum number of Compute Units. Minimum value is 0.5
+            autoscaling_limit_min_cu: (number, optional) - The minimum number of Compute Units. Minimum value is 0.5
+            branch_logical_size_limit_bytes: (integer) - The logical size limit for a branch
+            create_time: (string) - A timestamp indicating when the project was created
+            default_endpoint_settings: (ProjectDefaultEndpointSettings, optional)
+            display_name: (string, optional) - Human-readable project name. Length should be between 1 and 256 characters
+            history_retention_duration: (string, optional) - The number of seconds to retain the shared history for point in time recovery for all branches in this project. Value should be between 0s and 2592000s (up to 30 days)
+            name: |-
+                (string) - Output only. The full resource path of the project.
+                Format: projects/{project_id}
+            no_suspension: |-
+                (boolean, optional) - When set to true, explicitly disables automatic suspension (never suspend).
+                Should be set to true when provided
+            owner: (string) - The email of the project owner
+            pg_settings: (object, optional) - A raw representation of Postgres settings
+            pg_version: (integer, optional) - The major Postgres version number. Supported versions are 16 and 17
+            project_id: |-
+                (string, required) - The ID to use for the Project. This becomes the final component of the project's resource name.
+                The ID is required and must be 1-63 characters long, start with a lowercase letter, and contain only lowercase letters, numbers, and hyphens.
+                For example, my-app becomes projects/my-app
+            spec: field represents your intended resource configuration - what you want the resource to be.
+            status: field represents the current system state - what the resource actually is.
+            suspend_timeout_duration: |-
+                (string, optional) - Duration of inactivity after which the compute endpoint is automatically suspended.
+                If specified should be between 60s and 604800s (1 minute to 1 week)
+            synthetic_storage_size_bytes: (integer) - The current space occupied by the project in storage
+            terraform apply: will not surface those differences. It only applies updates based on the Terraform configuration.
+            uid: (string) - System-generated unique ID for the project
+            update_time: (string) - A timestamp indicating when the project was last updated
         importStatements: []
     databricks_provider:
         subCategory: ""
@@ -8313,10 +8743,19 @@ resources:
                     }
         argumentDocs:
             anomaly_detection_config: (AnomalyDetectionConfig)
+            column_names: (list of string, optional) - List of column names to check for null percentage
+            excluded_table_full_names: (list of string, optional) - List of fully qualified table names to exclude from anomaly detection
             last_run_id: (string) - Run id of the last run of the workflow
             latest_run_status: '(string) - The status of the last run of the workflow. Possible values are: ANOMALY_DETECTION_RUN_STATUS_CANCELED, ANOMALY_DETECTION_RUN_STATUS_FAILED, ANOMALY_DETECTION_RUN_STATUS_JOB_DELETED, ANOMALY_DETECTION_RUN_STATUS_PENDING, ANOMALY_DETECTION_RUN_STATUS_RUNNING, ANOMALY_DETECTION_RUN_STATUS_SUCCESS, ANOMALY_DETECTION_RUN_STATUS_UNKNOWN, ANOMALY_DETECTION_RUN_STATUS_WORKSPACE_MISMATCH_ERROR'
+            lower_bound: (number, optional) - Lower bound for the range
+            name: (string, optional) - Can be set by system. Does not need to be user facing
             object_id: (string, required) - The uuid of the request object. For example, schema id
             object_type: '(string, required) - The type of the monitored object. Can be one of the following: schema'
+            percent_null_validity_check: (PercentNullValidityCheck, optional)
+            range_validity_check: (RangeValidityCheck, optional)
+            uniqueness_validity_check: (UniquenessValidityCheck, optional)
+            upper_bound: (number, optional) - Optional upper bound; we should use auto determined bounds for now
+            validity_check_configurations: (list of ValidityCheckConfiguration, optional) - Validity check configurations for anomaly detection
         importStatements: []
     databricks_query:
         subCategory: ""
@@ -8584,6 +9023,9 @@ resources:
             destination_id: |-
                 (string, optional) - The identifier for the destination. This is the email address for EMAIL destinations, the URL for URL destinations,
                 or the unique Databricks notification destination ID for all other external destinations
+            destination_source_securable: |-
+                (Securable) - The source securable from which the destinations are inherited. Either the same value as securable (if destination
+                is set directly on the securable) or the nearest parent securable with destinations set
             destination_type: '(string, optional) - The type of the destination. Possible values are: EMAIL, GENERIC_WEBHOOK, MICROSOFT_TEAMS, SLACK, URL'
             destinations: (list of NotificationDestination, optional) - The access request destinations for the securable
             full_name: |-
@@ -8592,7 +9034,8 @@ resources:
             provider_share: |-
                 (string, optional) - Optional. The name of the Share object that contains the securable when the securable is
                 getting shared in D2D Delta Sharing
-            securable: (Securable, required) - The securable for which the access request destinations are being retrieved
+            securable: (Securable, required) - The securable for which the access request destinations are being modified or read
+            securable_type: (string) - The type of the securable. Redundant with the type in the securable object, but necessary for Terraform integration
             special_destination: |-
                 (string, optional) - This field is used to denote whether the destination is the email of the owner of the securable object.
                 The special destination cannot be assigned to a securable and only represents the default destination of the securable.
@@ -8992,6 +9435,28 @@ resources:
               references:
                 dynamic.content.name: object.value
                 dynamic.for_each: data.databricks_tables.things.ids
+            - name: mixed
+              manifest: |-
+                {
+                  "name": "mixed_share",
+                  "object": [
+                    {
+                      "data_object_type": "TABLE",
+                      "name": "my_catalog.my_schema.sales_table",
+                      "shared_as": "my_schema.sales_table"
+                    },
+                    {
+                      "data_object_type": "MATERIALIZED_VIEW",
+                      "name": "my_catalog.my_schema.sales_mv",
+                      "shared_as": "my_schema.sales_mv"
+                    },
+                    {
+                      "data_object_type": "VOLUME",
+                      "name": "my_catalog.my_schema.training_data",
+                      "string_shared_as": "my_schema.training_data"
+                    }
+                  ]
+                }
             - name: schema_share
               manifest: |-
                 {
@@ -9056,9 +9521,10 @@ resources:
             partition: '- (Optional) Array of partitions for the shared data.'
             provider_config: '- (Optional) Configure the provider for management through account provider. This block consists of the following fields:'
             recipient_property_key: '- (Optional) The key of a Delta Sharing recipient''s property. For example databricks-account-id. When this field is set, field value can not be set.'
-            shared_as: '- (Optional) A user-provided new name for the data object within the share. If this new name is not provided, the object''s original name will be used as the shared_as name. The shared_as name must be unique within a Share. Change forces creation of a new resource.'
+            shared_as: '- (Optional) A user-provided alias name for table-like data objects within the share. Use this field for: TABLE, VIEW, MATERIALIZED_VIEW, STREAMING_TABLE, FOREIGN_TABLE. Do not use this field for volumes, models, notebooks, or functions (use string_shared_as instead). If not provided, the object''s original name will be used. Must be a 2-part name <schema>.<table> containing only alphanumeric characters and underscores. The shared_as name must be unique within a share. Change forces creation of a new resource.'
             start_version: '- (Optional) The start version associated with the object for cdf. This allows data providers to control the lowest object version that is accessible by clients.'
             status: '- Status of the object, one of: ACTIVE, PERMISSION_DENIED.'
+            string_shared_as: '- (Optional) A user-provided alias name for non-table data objects within the share. Use this field for: VOLUME, MODEL, NOTEBOOK_FILE, FUNCTION. Do not use this field for tables, views, or streaming tables (use shared_as instead). Format varies by type: For volumes, models, and functions use <schema>.<name> (2-part name); for notebooks use the file name. Names must contain only alphanumeric characters and underscores. The string_shared_as name must be unique for objects of the same type within a share. Change forces creation of a new resource.'
             value: '- (Optional) The value of the partition column. When this value is not set, it means null value. When this field is set, field recipient_property_key can not be set.'
             workspace_id: '- (Required) Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.'
         importStatements: []
@@ -9161,9 +9627,9 @@ resources:
             auto_stop_mins: '- Time in minutes until an idle SQL warehouse terminates all clusters and stops. This field is optional. The default is 120, set to 0 to disable the auto stop.'
             channel: 'block, consisting of following fields:'
             channel.name: '- Name of the Databricks SQL release channel. Possible values are: CHANNEL_NAME_PREVIEW and CHANNEL_NAME_CURRENT. Default is CHANNEL_NAME_CURRENT.'
-            cluster_size: '- (Required) The size of the clusters allocated to the endpoint: "2X-Small", "X-Small", "Small", "Medium", "Large", "X-Large", "2X-Large", "3X-Large", "4X-Large".'
+            cluster_size: '- (Required) The size of the clusters allocated to the endpoint: "2X-Small", "X-Small", "Small", "Medium", "Large", "X-Large", "2X-Large", "3X-Large", "4X-Large", "5X-Large".'
             creator_name: '- The username of the user who created the endpoint.'
-            data_source_id: '- (Deprecated) ID of the data source for this endpoint. This is used to bind an Databricks SQL query to an endpoint.'
+            data_source_id: '- (Deprecated, will be removed) ID of the data source for this endpoint. This is used to bind an Databricks SQL query to an endpoint.'
             databricks_sql_access: on databricks_group or databricks_user.
             enable_photon: '- Whether to enable Photon. This field is optional and is enabled by default.'
             enable_serverless_compute: '- Whether this SQL warehouse is a serverless endpoint. See below for details about the default values. To avoid ambiguity, especially for organizations with many workspaces, Databricks recommends that you always set this field explicitly.'
@@ -10157,6 +10623,22 @@ resources:
             volume_path: '- base file path for this Unity Catalog Volume in form of /Volumes/<catalog>/<schema>/<name>.'
             volume_type: '- Volume type. EXTERNAL or MANAGED. Change forces creation of a new resource.'
         importStatements: []
+    databricks_warehouses_default_warehouse_override Resource:
+        subCategory: ""
+        name: databricks_warehouses_default_warehouse_override Resource
+        title: databricks_warehouses_default_warehouse_override Resource
+        argumentDocs:
+            CUSTOM: type with a warehouse ID)
+            LAST_SELECTED: type)
+            default_warehouse_override_id: (string, required) - The ID component of the resource name (user ID)
+            name: |-
+                (string) - The resource name of the default warehouse override.
+                Format: default-warehouse-overrides/{default_warehouse_override_id}
+            type: '(string, required) - The type of override behavior. Possible values are: CUSTOM, LAST_SELECTED'
+            warehouse_id: |-
+                (string, optional) - The specific warehouse ID when type is CUSTOM.
+                Not set for LAST_SELECTED type
+        importStatements: []
     databricks_workspace_binding:
         subCategory: ""
         name: databricks_workspace_binding
@@ -10220,13 +10702,38 @@ resources:
             enableTokensConfig: '- (boolean) Enable or disable personal access tokens for this workspace.'
             maxTokenLifetimeDays: '- (string) Maximum token lifetime of new tokens in days, as an integer. This value can range from 1 day to 730 days (2 years). If not specified, the maximum lifetime of new tokens is 730 days. WARNING: This limit only applies to new tokens, so there may be tokens with lifetimes longer than this value, including unlimited lifetime. Such tokens may have been created before the current maximum token lifetime was set.'
         importStatements: []
-    databricks_workspace_entity_tag_assignment Resource:
+    databricks_workspace_entity_tag_assignment:
         subCategory: ""
-        name: databricks_workspace_entity_tag_assignment Resource
+        name: databricks_workspace_entity_tag_assignment
         title: databricks_workspace_entity_tag_assignment Resource
+        examples:
+            - name: app_tag
+              manifest: |-
+                {
+                  "entity_id": "2807324866692453",
+                  "entity_type": "apps",
+                  "tag_key": "sensitivity_level",
+                  "tag_value": "high"
+                }
+            - name: dashboard_tag
+              manifest: |-
+                {
+                  "entity_id": "2807324866692453",
+                  "entity_type": "dashboards",
+                  "tag_key": "sensitivity_level",
+                  "tag_value": "high"
+                }
+            - name: geniespace_tag
+              manifest: |-
+                {
+                  "entity_id": "2807324866692453",
+                  "entity_type": "geniespaces",
+                  "tag_key": "sensitivity_level",
+                  "tag_value": "high"
+                }
         argumentDocs:
             entity_id: (string, required) - The identifier of the entity to which the tag is assigned
-            entity_type: (string, required) - The type of entity to which the tag is assigned. Allowed values are dashboards, geniespaces
+            entity_type: (string, required) - The type of entity to which the tag is assigned. Allowed values are apps, dashboards, geniespaces
             tag_key: '(string, required) - The key of the tag. The characters , . : / - = and leading/trailing spaces are not allowed'
             tag_value: (string, optional) - The value of the tag
         importStatements: []

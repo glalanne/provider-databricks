@@ -64,7 +64,7 @@ type RecipientInitParameters struct {
 
 	// Required when authentication_type is DATABRICKS.
 	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/cluster/unity/v1alpha1.Metastore
-	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/v2/pkg/resource.ExtractParamPath("global_metastore_id",false)
+	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/v2/pkg/resource.ExtractParamPath("global_metastore_id",true)
 	DataRecipientGlobalMetastoreID *string `json:"dataRecipientGlobalMetastoreId,omitempty" tf:"data_recipient_global_metastore_id,omitempty"`
 
 	// Reference to a Metastore in unity to populate dataRecipientGlobalMetastoreId.
@@ -167,7 +167,7 @@ type RecipientParameters struct {
 
 	// Required when authentication_type is DATABRICKS.
 	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/cluster/unity/v1alpha1.Metastore
-	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/v2/pkg/resource.ExtractParamPath("global_metastore_id",false)
+	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/v2/pkg/resource.ExtractParamPath("global_metastore_id",true)
 	// +kubebuilder:validation:Optional
 	DataRecipientGlobalMetastoreID *string `json:"dataRecipientGlobalMetastoreId,omitempty" tf:"data_recipient_global_metastore_id,omitempty"`
 

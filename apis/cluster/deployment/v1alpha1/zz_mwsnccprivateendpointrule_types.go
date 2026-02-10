@@ -40,6 +40,8 @@ type MwsNccPrivateEndpointRuleInitParameters struct {
 	// (AWS only) Example com.amazonaws.vpce.us-east-1.vpce-svc-123abcc1298abc123. The full target AWS endpoint service name that connects to the destination resources of the private endpoint. Change forces creation of a new resource.
 	EndpointService *string `json:"endpointService,omitempty" tf:"endpoint_service,omitempty"`
 
+	ErrorMessage *string `json:"errorMessage,omitempty" tf:"error_message,omitempty"`
+
 	// (Azure only) Not used by customer-managed private endpoint services. The sub-resource type (group ID) of the target resource. Must be one of supported resource types (i.e., blob, dfs, sqlServer , etc. Consult the Azure documentation for full list of supported resources). Note that to connect to workspace root storage (root DBFS), you need two endpoints, one for blob and one for dfs. Change forces creation of a new resource. Conflicts with domain_names.
 	GroupID *string `json:"groupId,omitempty" tf:"group_id,omitempty"`
 
@@ -98,6 +100,8 @@ type MwsNccPrivateEndpointRuleObservation struct {
 
 	// (AWS only) Example com.amazonaws.vpce.us-east-1.vpce-svc-123abcc1298abc123. The full target AWS endpoint service name that connects to the destination resources of the private endpoint. Change forces creation of a new resource.
 	EndpointService *string `json:"endpointService,omitempty" tf:"endpoint_service,omitempty"`
+
+	ErrorMessage *string `json:"errorMessage,omitempty" tf:"error_message,omitempty"`
 
 	// (Azure only) Not used by customer-managed private endpoint services. The sub-resource type (group ID) of the target resource. Must be one of supported resource types (i.e., blob, dfs, sqlServer , etc. Consult the Azure documentation for full list of supported resources). Note that to connect to workspace root storage (root DBFS), you need two endpoints, one for blob and one for dfs. Change forces creation of a new resource. Conflicts with domain_names.
 	GroupID *string `json:"groupId,omitempty" tf:"group_id,omitempty"`
@@ -159,6 +163,9 @@ type MwsNccPrivateEndpointRuleParameters struct {
 	// (AWS only) Example com.amazonaws.vpce.us-east-1.vpce-svc-123abcc1298abc123. The full target AWS endpoint service name that connects to the destination resources of the private endpoint. Change forces creation of a new resource.
 	// +kubebuilder:validation:Optional
 	EndpointService *string `json:"endpointService,omitempty" tf:"endpoint_service,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	ErrorMessage *string `json:"errorMessage,omitempty" tf:"error_message,omitempty"`
 
 	// (Azure only) Not used by customer-managed private endpoint services. The sub-resource type (group ID) of the target resource. Must be one of supported resource types (i.e., blob, dfs, sqlServer , etc. Consult the Azure documentation for full list of supported resources). Note that to connect to workspace root storage (root DBFS), you need two endpoints, one for blob and one for dfs. Change forces creation of a new resource. Conflicts with domain_names.
 	// +kubebuilder:validation:Optional
