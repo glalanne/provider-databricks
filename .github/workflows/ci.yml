@@ -246,7 +246,7 @@ jobs:
 
       - name: Check Example Manifests
         run: |
-          ./scripts/check-examples.py package/crds examples
+          ./scripts/check_examples.py package/crds examples
 
   publish-artifacts:
     runs-on: ubuntu-24.04

@@ -36,7 +36,7 @@ exception_set = {
 # Example usage: check-examples.py <CRD dir> <example manifests dir>
 if __name__ == "__main__":
     if len(sys.argv) != 3:
-        print("Example usage: check-examples.py <CRD dir> <example manifests dir>")
+        print("Example usage: check_examples.py <CRD dir> <example manifests dir>")
         sys.exit(1)
     known_crd_types = load_gvks(sys.argv[1], load_crd_type)
     example_types = load_gvks(sys.argv[2], lambda t: [] if t is None or not {"kind", "apiVersion"}.issubset(t.keys())
