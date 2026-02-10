@@ -79,11 +79,12 @@ spec:
                   clusterSize:
                     description: 'The size of the clusters allocated to the endpoint:
                       "2X-Small", "X-Small", "Small", "Medium", "Large", "X-Large",
-                      "2X-Large", "3X-Large", "4X-Large".'
+                      "2X-Large", "3X-Large", "4X-Large", "5X-Large".'
                     type: string
                   dataSourceId:
-                    description: (Deprecated) ID of the data source for this endpoint.
-                      This is used to bind an Databricks SQL query to an endpoint.
+                    description: (Deprecated, will be removed) ID of the data source
+                      for this endpoint. This is used to bind an Databricks SQL query
+                      to an endpoint.
                     type: string
                   enablePhoton:
                     description: Whether to enable Photon. This field is optional
@@ -180,11 +181,12 @@ spec:
                   clusterSize:
                     description: 'The size of the clusters allocated to the endpoint:
                       "2X-Small", "X-Small", "Small", "Medium", "Large", "X-Large",
-                      "2X-Large", "3X-Large", "4X-Large".'
+                      "2X-Large", "3X-Large", "4X-Large", "5X-Large".'
                     type: string
                   dataSourceId:
-                    description: (Deprecated) ID of the data source for this endpoint.
-                      This is used to bind an Databricks SQL query to an endpoint.
+                    description: (Deprecated, will be removed) ID of the data source
+                      for this endpoint. This is used to bind an Databricks SQL query
+                      to an endpoint.
                     type: string
                   enablePhoton:
                     description: Whether to enable Photon. This field is optional
@@ -340,14 +342,15 @@ spec:
                   clusterSize:
                     description: 'The size of the clusters allocated to the endpoint:
                       "2X-Small", "X-Small", "Small", "Medium", "Large", "X-Large",
-                      "2X-Large", "3X-Large", "4X-Large".'
+                      "2X-Large", "3X-Large", "4X-Large", "5X-Large".'
                     type: string
                   creatorName:
                     description: The username of the user who created the endpoint.
                     type: string
                   dataSourceId:
-                    description: (Deprecated) ID of the data source for this endpoint.
-                      This is used to bind an Databricks SQL query to an endpoint.
+                    description: (Deprecated, will be removed) ID of the data source
+                      for this endpoint. This is used to bind an Databricks SQL query
+                      to an endpoint.
                     type: string
                   enablePhoton:
                     description: Whether to enable Photon. This field is optional

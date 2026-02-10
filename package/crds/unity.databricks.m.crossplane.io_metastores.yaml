@@ -58,14 +58,9 @@ spec:
             properties:
               forProvider:
                 properties:
-                  cloud:
-                    type: string
-                  createdAt:
-                    type: number
-                  createdBy:
-                    type: string
                   defaultDataAccessConfigId:
-                    description: system-generated ID of this Unity Catalog Metastore.
+                    description: Unique identifier of the metastore's default data
+                      access configuration.
                     type: string
                   deltaSharingOrganizationName:
                     description: The organization name of a Delta Sharing entity.
@@ -86,21 +81,23 @@ spec:
                       within the same account, and INTERNAL_AND_EXTERNAL allows cross
                       account sharing and token based sharing.'
                     type: string
+                  externalAccessEnabled:
+                    description: Whether to allow non-DBR clients to directly access
+                      entities under the metastore.
+                    type: boolean
                   forceDestroy:
                     description: Destroy metastore regardless of its contents.
                     type: boolean
-                  globalMetastoreId:
-                    description: system-generated ID of this Unity Catalog Metastore.
-                    type: string
-                  metastoreId:
-                    description: system-generated ID of this Unity Catalog Metastore.
-                    type: string
                   name:
                     description: Name of metastore.
                     type: string
                   owner:
                     description: Username/groupname/sp application_id of the metastore
                       owner.
+                    type: string
+                  privilegeModelVersion:
+                    description: Privilege model version of the metastore, of the
+                      form major.minor (e.g., 1.0).
                     type: string
                   region:
                     description: (Mandatory for account-level) The region of the metastore
@@ -111,14 +108,16 @@ spec:
                       space, &, etc., they should be percent-encoded (space -> %20,
                       etc.). Change forces creation of a new resource. If no storage_root
                       is defined for the metastore, each catalog must have a storage_root
-                      defined.
+                      defined.  **It's recommended to define storage_root on the catalog
+                      level.
                     type: string
                   storageRootCredentialId:
-                    description: system-generated ID of this Unity Catalog Metastore.
+                    description: UUID of storage credential to access the metastore
+                      storage_root.
                     type: string
-                  updatedAt:
-                    type: number
-                  updatedBy:
+                  storageRootCredentialName:
+                    description: Name of the storage credential to access the metastore
+                      storage_root.
                     type: string
                 type: object
               initProvider:
@@ -134,14 +133,9 @@ spec:
                   for example because of an external controller is managing them, like an
                   autoscaler.
                 properties:
-                  cloud:
-                    type: string
-                  createdAt:
-                    type: number
-                  createdBy:
-                    type: string
                   defaultDataAccessConfigId:
-                    description: system-generated ID of this Unity Catalog Metastore.
+                    description: Unique identifier of the metastore's default data
+                      access configuration.
                     type: string
                   deltaSharingOrganizationName:
                     description: The organization name of a Delta Sharing entity.
@@ -162,21 +156,23 @@ spec:
                       within the same account, and INTERNAL_AND_EXTERNAL allows cross
                       account sharing and token based sharing.'
                     type: string
+                  externalAccessEnabled:
+                    description: Whether to allow non-DBR clients to directly access
+                      entities under the metastore.
+                    type: boolean
                   forceDestroy:
                     description: Destroy metastore regardless of its contents.
                     type: boolean
-                  globalMetastoreId:
-                    description: system-generated ID of this Unity Catalog Metastore.
-                    type: string
-                  metastoreId:
-                    description: system-generated ID of this Unity Catalog Metastore.
-                    type: string
                   name:
                     description: Name of metastore.
                     type: string
                   owner:
                     description: Username/groupname/sp application_id of the metastore
                       owner.
+                    type: string
+                  privilegeModelVersion:
+                    description: Privilege model version of the metastore, of the
+                      form major.minor (e.g., 1.0).
                     type: string
                   region:
                     description: (Mandatory for account-level) The region of the metastore
@@ -187,14 +183,16 @@ spec:
                       space, &, etc., they should be percent-encoded (space -> %20,
                       etc.). Change forces creation of a new resource. If no storage_root
                       is defined for the metastore, each catalog must have a storage_root
-                      defined.
+                      defined.  **It's recommended to define storage_root on the catalog
+                      level.
                     type: string
                   storageRootCredentialId:
-                    description: system-generated ID of this Unity Catalog Metastore.
+                    description: UUID of storage credential to access the metastore
+                      storage_root.
                     type: string
-                  updatedAt:
-                    type: number
-                  updatedBy:
+                  storageRootCredentialName:
+                    description: Name of the storage credential to access the metastore
+                      storage_root.
                     type: string
                 type: object
               managementPolicies:
@@ -255,24 +253,25 @@ spec:
             required:
             - forProvider
             type: object
-            x-kubernetes-validations:
-            - message: spec.forProvider.name is a required parameter
-              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
-                || ''Update'' in self.managementPolicies) || has(self.forProvider.name)
-                || (has(self.initProvider) && has(self.initProvider.name))'
           status:
             description: MetastoreStatus defines the observed state of Metastore.
             properties:
               atProvider:
                 properties:
                   cloud:
+                    description: Cloud vendor of the metastore home shard (e.g., aws,
+                      azure, gcp).
                     type: string
                   createdAt:
+                    description: Time at which the metastore was created, in epoch
+                      milliseconds.
                     type: number
                   createdBy:
+                    description: Username of metastore creator.
                     type: string
                   defaultDataAccessConfigId:
-                    description: system-generated ID of this Unity Catalog Metastore.
+                    description: Unique identifier of the metastore's default data
+                      access configuration.
                     type: string
                   deltaSharingOrganizationName:
                     description: The organization name of a Delta Sharing entity.
@@ -293,17 +292,23 @@ spec:
                       within the same account, and INTERNAL_AND_EXTERNAL allows cross
                       account sharing and token based sharing.'
                     type: string
+                  externalAccessEnabled:
+                    description: Whether to allow non-DBR clients to directly access
+                      entities under the metastore.
+                    type: boolean
                   forceDestroy:
                     description: Destroy metastore regardless of its contents.
                     type: boolean
                   globalMetastoreId:
-                    description: system-generated ID of this Unity Catalog Metastore.
+                    description: Globally unique metastore ID across clouds and regions,
+                      of the form cloud:region:metastore_id.
                     type: string
                   id:
-                    description: system-generated ID of this Unity Catalog Metastore.
+                    description: System-generated ID of this Unity Catalog Metastore.
+                      Same as metastore_id.
                     type: string
                   metastoreId:
-                    description: system-generated ID of this Unity Catalog Metastore.
+                    description: Unique identifier of the metastore.
                     type: string
                   name:
                     description: Name of metastore.
@@ -311,6 +316,10 @@ spec:
                   owner:
                     description: Username/groupname/sp application_id of the metastore
                       owner.
+                    type: string
+                  privilegeModelVersion:
+                    description: Privilege model version of the metastore, of the
+                      form major.minor (e.g., 1.0).
                     type: string
                   region:
                     description: (Mandatory for account-level) The region of the metastore
@@ -321,14 +330,23 @@ spec:
                       space, &, etc., they should be percent-encoded (space -> %20,
                       etc.). Change forces creation of a new resource. If no storage_root
                       is defined for the metastore, each catalog must have a storage_root
-                      defined.
+                      defined.  **It's recommended to define storage_root on the catalog
+                      level.
                     type: string
                   storageRootCredentialId:
-                    description: system-generated ID of this Unity Catalog Metastore.
+                    description: UUID of storage credential to access the metastore
+                      storage_root.
+                    type: string
+                  storageRootCredentialName:
+                    description: Name of the storage credential to access the metastore
+                      storage_root.
                     type: string
                   updatedAt:
+                    description: Time at which the metastore was last modified, in
+                      epoch milliseconds.
                     type: number
                   updatedBy:
+                    description: Username of user who last modified the metastore.
                     type: string
                 type: object
               conditions:

@@ -297,6 +297,15 @@ spec:
                             entities.
                           items:
                             properties:
+                              burstScalingEnabled:
+                                description: Whether to enable traffic fallback. When
+                                  a served entity in the serving endpoint returns
+                                  specific error codes (e.g. 500), the request will
+                                  automatically be round-robin attempted with other
+                                  served entities in the same endpoint, following
+                                  the order of served entity list, until a successful
+                                  response is returned.
+                                type: boolean
                               entityName:
                                 description: The name of the entity to be served.
                                   The entity may be a model in the Databricks Model
@@ -691,6 +700,15 @@ spec:
                             A model serving endpoint can have up to 10 served models.
                           items:
                             properties:
+                              burstScalingEnabled:
+                                description: Whether to enable traffic fallback. When
+                                  a served entity in the serving endpoint returns
+                                  specific error codes (e.g. 500), the request will
+                                  automatically be round-robin attempted with other
+                                  served entities in the same endpoint, following
+                                  the order of served entity list, until a successful
+                                  response is returned.
+                                type: boolean
                               environmentVars:
                                 additionalProperties:
                                   type: string
@@ -1122,6 +1140,15 @@ spec:
                             entities.
                           items:
                             properties:
+                              burstScalingEnabled:
+                                description: Whether to enable traffic fallback. When
+                                  a served entity in the serving endpoint returns
+                                  specific error codes (e.g. 500), the request will
+                                  automatically be round-robin attempted with other
+                                  served entities in the same endpoint, following
+                                  the order of served entity list, until a successful
+                                  response is returned.
+                                type: boolean
                               entityName:
                                 description: The name of the entity to be served.
                                   The entity may be a model in the Databricks Model
@@ -1516,6 +1543,15 @@ spec:
                             A model serving endpoint can have up to 10 served models.
                           items:
                             properties:
+                              burstScalingEnabled:
+                                description: Whether to enable traffic fallback. When
+                                  a served entity in the serving endpoint returns
+                                  specific error codes (e.g. 500), the request will
+                                  automatically be round-robin attempted with other
+                                  served entities in the same endpoint, following
+                                  the order of served entity list, until a successful
+                                  response is returned.
+                                type: boolean
                               environmentVars:
                                 additionalProperties:
                                   type: string
@@ -2002,6 +2038,15 @@ spec:
                             entities.
                           items:
                             properties:
+                              burstScalingEnabled:
+                                description: Whether to enable traffic fallback. When
+                                  a served entity in the serving endpoint returns
+                                  specific error codes (e.g. 500), the request will
+                                  automatically be round-robin attempted with other
+                                  served entities in the same endpoint, following
+                                  the order of served entity list, until a successful
+                                  response is returned.
+                                type: boolean
                               entityName:
                                 description: The name of the entity to be served.
                                   The entity may be a model in the Databricks Model
@@ -2396,6 +2441,15 @@ spec:
                             A model serving endpoint can have up to 10 served models.
                           items:
                             properties:
+                              burstScalingEnabled:
+                                description: Whether to enable traffic fallback. When
+                                  a served entity in the serving endpoint returns
+                                  specific error codes (e.g. 500), the request will
+                                  automatically be round-robin attempted with other
+                                  served entities in the same endpoint, following
+                                  the order of served entity list, until a successful
+                                  response is returned.
+                                type: boolean
                               environmentVars:
                                 additionalProperties:
                                   type: string

@@ -264,36 +264,17 @@ type ClusterMountInfoNetworkFilesystemInfoParameters struct {
 }
 
 type ComputeInitParameters struct {
-
-	// ID of the system notification that is notified when an event defined in webhook_notifications is triggered.
-	GpuNodePoolID *string `json:"gpuNodePoolId,omitempty" tf:"gpu_node_pool_id,omitempty"`
-
-	GpuType *string `json:"gpuType,omitempty" tf:"gpu_type,omitempty"`
-
-	NumGpus *float64 `json:"numGpus,omitempty" tf:"num_gpus,omitempty"`
+	HardwareAccelerator *string `json:"hardwareAccelerator,omitempty" tf:"hardware_accelerator,omitempty"`
 }
 
 type ComputeObservation struct {
-
-	// ID of the system notification that is notified when an event defined in webhook_notifications is triggered.
-	GpuNodePoolID *string `json:"gpuNodePoolId,omitempty" tf:"gpu_node_pool_id,omitempty"`
-
-	GpuType *string `json:"gpuType,omitempty" tf:"gpu_type,omitempty"`
-
-	NumGpus *float64 `json:"numGpus,omitempty" tf:"num_gpus,omitempty"`
+	HardwareAccelerator *string `json:"hardwareAccelerator,omitempty" tf:"hardware_accelerator,omitempty"`
 }
 
 type ComputeParameters struct {
 
-	// ID of the system notification that is notified when an event defined in webhook_notifications is triggered.
 	// +kubebuilder:validation:Optional
-	GpuNodePoolID *string `json:"gpuNodePoolId,omitempty" tf:"gpu_node_pool_id,omitempty"`
-
-	// +kubebuilder:validation:Optional
-	GpuType *string `json:"gpuType,omitempty" tf:"gpu_type,omitempty"`
-
-	// +kubebuilder:validation:Optional
-	NumGpus *float64 `json:"numGpus" tf:"num_gpus,omitempty"`
+	HardwareAccelerator *string `json:"hardwareAccelerator,omitempty" tf:"hardware_accelerator,omitempty"`
 }
 
 type ConditionTaskInitParameters struct {
@@ -1062,6 +1043,8 @@ type ForEachTaskTaskInitParameters struct {
 	// A list of task specification that the job will execute. See task Configuration Block below.
 	CleanRoomsNotebookTask []TaskCleanRoomsNotebookTaskInitParameters `json:"cleanRoomsNotebookTask,omitempty" tf:"clean_rooms_notebook_task,omitempty"`
 
+	Compute []TaskComputeInitParameters `json:"compute,omitempty" tf:"compute,omitempty"`
+
 	// A list of task specification that the job will execute. See task Configuration Block below.
 	ConditionTask []TaskConditionTaskInitParameters `json:"conditionTask,omitempty" tf:"condition_task,omitempty"`
 
@@ -1168,6 +1151,8 @@ type ForEachTaskTaskObservation struct {
 
 	// A list of task specification that the job will execute. See task Configuration Block below.
 	CleanRoomsNotebookTask []TaskCleanRoomsNotebookTaskObservation `json:"cleanRoomsNotebookTask,omitempty" tf:"clean_rooms_notebook_task,omitempty"`
+
+	Compute []TaskComputeObservation `json:"compute,omitempty" tf:"compute,omitempty"`
 
 	// A list of task specification that the job will execute. See task Configuration Block below.
 	ConditionTask []TaskConditionTaskObservation `json:"conditionTask,omitempty" tf:"condition_task,omitempty"`
@@ -1276,6 +1261,9 @@ type ForEachTaskTaskParameters struct {
 	// A list of task specification that the job will execute. See task Configuration Block below.
 	// +kubebuilder:validation:Optional
 	CleanRoomsNotebookTask []TaskCleanRoomsNotebookTaskParameters `json:"cleanRoomsNotebookTask,omitempty" tf:"clean_rooms_notebook_task,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	Compute []TaskComputeParameters `json:"compute,omitempty" tf:"compute,omitempty"`
 
 	// A list of task specification that the job will execute. See task Configuration Block below.
 	// +kubebuilder:validation:Optional
@@ -1449,7 +1437,7 @@ type GenAIComputeTaskComputeParameters struct {
 type GenAIComputeTaskInitParameters struct {
 	Command *string `json:"command,omitempty" tf:"command,omitempty"`
 
-	Compute []ComputeInitParameters `json:"compute,omitempty" tf:"compute,omitempty"`
+	Compute []GenAIComputeTaskComputeInitParameters `json:"compute,omitempty" tf:"compute,omitempty"`
 
 	DlRuntimeImage *string `json:"dlRuntimeImage,omitempty" tf:"dl_runtime_image,omitempty"`
 
@@ -1472,7 +1460,7 @@ type GenAIComputeTaskInitParameters struct {
 type GenAIComputeTaskObservation struct {
 	Command *string `json:"command,omitempty" tf:"command,omitempty"`
 
-	Compute []ComputeObservation `json:"compute,omitempty" tf:"compute,omitempty"`
+	Compute []GenAIComputeTaskComputeObservation `json:"compute,omitempty" tf:"compute,omitempty"`
 
 	DlRuntimeImage *string `json:"dlRuntimeImage,omitempty" tf:"dl_runtime_image,omitempty"`
 
@@ -1498,7 +1486,7 @@ type GenAIComputeTaskParameters struct {
 	Command *string `json:"command,omitempty" tf:"command,omitempty"`
 
 	// +kubebuilder:validation:Optional
-	Compute []ComputeParameters `json:"compute,omitempty" tf:"compute,omitempty"`
+	Compute []GenAIComputeTaskComputeParameters `json:"compute,omitempty" tf:"compute,omitempty"`
 
 	// +kubebuilder:validation:Optional
 	DlRuntimeImage *string `json:"dlRuntimeImage" tf:"dl_runtime_image,omitempty"`
@@ -2268,6 +2256,20 @@ type JobNewClusterDockerImageParameters struct {
 	URL *string `json:"url" tf:"url,omitempty"`
 }
 
+type JobNewClusterDriverNodeTypeFlexibilityInitParameters struct {
+	AlternateNodeTypeIds []*string `json:"alternateNodeTypeIds,omitempty" tf:"alternate_node_type_ids,omitempty"`
+}
+
+type JobNewClusterDriverNodeTypeFlexibilityObservation struct {
+	AlternateNodeTypeIds []*string `json:"alternateNodeTypeIds,omitempty" tf:"alternate_node_type_ids,omitempty"`
+}
+
+type JobNewClusterDriverNodeTypeFlexibilityParameters struct {
+
+	// +kubebuilder:validation:Optional
+	AlternateNodeTypeIds []*string `json:"alternateNodeTypeIds,omitempty" tf:"alternate_node_type_ids,omitempty"`
+}
+
 type JobNewClusterGCPAttributesInitParameters struct {
 	Availability *string `json:"availability,omitempty" tf:"availability,omitempty"`
 
@@ -2357,6 +2359,8 @@ type JobNewClusterInitParameters struct {
 	// ID of the system notification that is notified when an event defined in webhook_notifications is triggered.
 	DriverInstancePoolID *string `json:"driverInstancePoolId,omitempty" tf:"driver_instance_pool_id,omitempty"`
 
+	DriverNodeTypeFlexibility []JobNewClusterDriverNodeTypeFlexibilityInitParameters `json:"driverNodeTypeFlexibility,omitempty" tf:"driver_node_type_flexibility,omitempty"`
+
 	// ID of the system notification that is notified when an event defined in webhook_notifications is triggered.
 	DriverNodeTypeID *string `json:"driverNodeTypeId,omitempty" tf:"driver_node_type_id,omitempty"`
 
@@ -2412,6 +2416,8 @@ type JobNewClusterInitParameters struct {
 	TotalInitialRemoteDiskSize *float64 `json:"totalInitialRemoteDiskSize,omitempty" tf:"total_initial_remote_disk_size,omitempty"`
 
 	UseMLRuntime *bool `json:"useMlRuntime,omitempty" tf:"use_ml_runtime,omitempty"`
+
+	WorkerNodeTypeFlexibility []JobNewClusterWorkerNodeTypeFlexibilityInitParameters `json:"workerNodeTypeFlexibility,omitempty" tf:"worker_node_type_flexibility,omitempty"`
 
 	// isn't supported
 	WorkloadType []JobNewClusterWorkloadTypeInitParameters `json:"workloadType,omitempty" tf:"workload_type,omitempty"`
@@ -2656,6 +2662,8 @@ type JobNewClusterObservation struct {
 	// ID of the system notification that is notified when an event defined in webhook_notifications is triggered.
 	DriverInstancePoolID *string `json:"driverInstancePoolId,omitempty" tf:"driver_instance_pool_id,omitempty"`
 
+	DriverNodeTypeFlexibility []JobNewClusterDriverNodeTypeFlexibilityObservation `json:"driverNodeTypeFlexibility,omitempty" tf:"driver_node_type_flexibility,omitempty"`
+
 	// ID of the system notification that is notified when an event defined in webhook_notifications is triggered.
 	DriverNodeTypeID *string `json:"driverNodeTypeId,omitempty" tf:"driver_node_type_id,omitempty"`
 
@@ -2712,6 +2720,8 @@ type JobNewClusterObservation struct {
 
 	UseMLRuntime *bool `json:"useMlRuntime,omitempty" tf:"use_ml_runtime,omitempty"`
 
+	WorkerNodeTypeFlexibility []JobNewClusterWorkerNodeTypeFlexibilityObservation `json:"workerNodeTypeFlexibility,omitempty" tf:"worker_node_type_flexibility,omitempty"`
+
 	// isn't supported
 	WorkloadType []JobNewClusterWorkloadTypeObservation `json:"workloadType,omitempty" tf:"workload_type,omitempty"`
 }
@@ -2758,6 +2768,9 @@ type JobNewClusterParameters struct {
 	// ID of the system notification that is notified when an event defined in webhook_notifications is triggered.
 	// +kubebuilder:validation:Optional
 	DriverInstancePoolID *string `json:"driverInstancePoolId,omitempty" tf:"driver_instance_pool_id,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	DriverNodeTypeFlexibility []JobNewClusterDriverNodeTypeFlexibilityParameters `json:"driverNodeTypeFlexibility,omitempty" tf:"driver_node_type_flexibility,omitempty"`
 
 	// ID of the system notification that is notified when an event defined in webhook_notifications is triggered.
 	// +kubebuilder:validation:Optional
@@ -2838,6 +2851,9 @@ type JobNewClusterParameters struct {
 	// +kubebuilder:validation:Optional
 	UseMLRuntime *bool `json:"useMlRuntime,omitempty" tf:"use_ml_runtime,omitempty"`
 
+	// +kubebuilder:validation:Optional
+	WorkerNodeTypeFlexibility []JobNewClusterWorkerNodeTypeFlexibilityParameters `json:"workerNodeTypeFlexibility,omitempty" tf:"worker_node_type_flexibility,omitempty"`
+
 	// isn't supported
 	// +kubebuilder:validation:Optional
 	WorkloadType []JobNewClusterWorkloadTypeParameters `json:"workloadType,omitempty" tf:"workload_type,omitempty"`
@@ -2860,6 +2876,20 @@ type JobNewClusterProviderConfigParameters struct {
 	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
 	// +kubebuilder:validation:Optional
 	WorkspaceID *string `json:"workspaceId" tf:"workspace_id,omitempty"`
+}
+
+type JobNewClusterWorkerNodeTypeFlexibilityInitParameters struct {
+	AlternateNodeTypeIds []*string `json:"alternateNodeTypeIds,omitempty" tf:"alternate_node_type_ids,omitempty"`
+}
+
+type JobNewClusterWorkerNodeTypeFlexibilityObservation struct {
+	AlternateNodeTypeIds []*string `json:"alternateNodeTypeIds,omitempty" tf:"alternate_node_type_ids,omitempty"`
+}
+
+type JobNewClusterWorkerNodeTypeFlexibilityParameters struct {
+
+	// +kubebuilder:validation:Optional
+	AlternateNodeTypeIds []*string `json:"alternateNodeTypeIds,omitempty" tf:"alternate_node_type_ids,omitempty"`
 }
 
 type JobNewClusterWorkloadTypeInitParameters struct {
@@ -3781,6 +3811,20 @@ type JobTaskNewClusterDockerImageParameters struct {
 	URL *string `json:"url" tf:"url,omitempty"`
 }
 
+type JobTaskNewClusterDriverNodeTypeFlexibilityInitParameters struct {
+	AlternateNodeTypeIds []*string `json:"alternateNodeTypeIds,omitempty" tf:"alternate_node_type_ids,omitempty"`
+}
+
+type JobTaskNewClusterDriverNodeTypeFlexibilityObservation struct {
+	AlternateNodeTypeIds []*string `json:"alternateNodeTypeIds,omitempty" tf:"alternate_node_type_ids,omitempty"`
+}
+
+type JobTaskNewClusterDriverNodeTypeFlexibilityParameters struct {
+
+	// +kubebuilder:validation:Optional
+	AlternateNodeTypeIds []*string `json:"alternateNodeTypeIds,omitempty" tf:"alternate_node_type_ids,omitempty"`
+}
+
 type JobTaskNewClusterGCPAttributesInitParameters struct {
 	Availability *string `json:"availability,omitempty" tf:"availability,omitempty"`
 
@@ -3872,6 +3916,8 @@ type JobTaskNewClusterInitParameters struct {
 	// ID of the system notification that is notified when an event defined in webhook_notifications is triggered.
 	DriverInstancePoolID *string `json:"driverInstancePoolId,omitempty" tf:"driver_instance_pool_id,omitempty"`
 
+	DriverNodeTypeFlexibility []JobTaskNewClusterDriverNodeTypeFlexibilityInitParameters `json:"driverNodeTypeFlexibility,omitempty" tf:"driver_node_type_flexibility,omitempty"`
+
 	// ID of the system notification that is notified when an event defined in webhook_notifications is triggered.
 	DriverNodeTypeID *string `json:"driverNodeTypeId,omitempty" tf:"driver_node_type_id,omitempty"`
 
@@ -3927,6 +3973,8 @@ type JobTaskNewClusterInitParameters struct {
 	TotalInitialRemoteDiskSize *float64 `json:"totalInitialRemoteDiskSize,omitempty" tf:"total_initial_remote_disk_size,omitempty"`
 
 	UseMLRuntime *bool `json:"useMlRuntime,omitempty" tf:"use_ml_runtime,omitempty"`
+
+	WorkerNodeTypeFlexibility []JobTaskNewClusterWorkerNodeTypeFlexibilityInitParameters `json:"workerNodeTypeFlexibility,omitempty" tf:"worker_node_type_flexibility,omitempty"`
 
 	// isn't supported
 	WorkloadType []JobTaskNewClusterWorkloadTypeInitParameters `json:"workloadType,omitempty" tf:"workload_type,omitempty"`
@@ -4318,6 +4366,8 @@ type JobTaskNewClusterObservation struct {
 	// ID of the system notification that is notified when an event defined in webhook_notifications is triggered.
 	DriverInstancePoolID *string `json:"driverInstancePoolId,omitempty" tf:"driver_instance_pool_id,omitempty"`
 
+	DriverNodeTypeFlexibility []JobTaskNewClusterDriverNodeTypeFlexibilityObservation `json:"driverNodeTypeFlexibility,omitempty" tf:"driver_node_type_flexibility,omitempty"`
+
 	// ID of the system notification that is notified when an event defined in webhook_notifications is triggered.
 	DriverNodeTypeID *string `json:"driverNodeTypeId,omitempty" tf:"driver_node_type_id,omitempty"`
 
@@ -4374,6 +4424,8 @@ type JobTaskNewClusterObservation struct {
 
 	UseMLRuntime *bool `json:"useMlRuntime,omitempty" tf:"use_ml_runtime,omitempty"`
 
+	WorkerNodeTypeFlexibility []JobTaskNewClusterWorkerNodeTypeFlexibilityObservation `json:"workerNodeTypeFlexibility,omitempty" tf:"worker_node_type_flexibility,omitempty"`
+
 	// isn't supported
 	WorkloadType []JobTaskNewClusterWorkloadTypeObservation `json:"workloadType,omitempty" tf:"workload_type,omitempty"`
 }
@@ -4423,6 +4475,9 @@ type JobTaskNewClusterParameters struct {
 	// ID of the system notification that is notified when an event defined in webhook_notifications is triggered.
 	// +kubebuilder:validation:Optional
 	DriverInstancePoolID *string `json:"driverInstancePoolId,omitempty" tf:"driver_instance_pool_id,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	DriverNodeTypeFlexibility []JobTaskNewClusterDriverNodeTypeFlexibilityParameters `json:"driverNodeTypeFlexibility,omitempty" tf:"driver_node_type_flexibility,omitempty"`
 
 	// ID of the system notification that is notified when an event defined in webhook_notifications is triggered.
 	// +kubebuilder:validation:Optional
@@ -4503,6 +4558,9 @@ type JobTaskNewClusterParameters struct {
 	// +kubebuilder:validation:Optional
 	UseMLRuntime *bool `json:"useMlRuntime,omitempty" tf:"use_ml_runtime,omitempty"`
 
+	// +kubebuilder:validation:Optional
+	WorkerNodeTypeFlexibility []JobTaskNewClusterWorkerNodeTypeFlexibilityParameters `json:"workerNodeTypeFlexibility,omitempty" tf:"worker_node_type_flexibility,omitempty"`
+
 	// isn't supported
 	// +kubebuilder:validation:Optional
 	WorkloadType []JobTaskNewClusterWorkloadTypeParameters `json:"workloadType,omitempty" tf:"workload_type,omitempty"`
@@ -4525,6 +4583,20 @@ type JobTaskNewClusterProviderConfigParameters struct {
 	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
 	// +kubebuilder:validation:Optional
 	WorkspaceID *string `json:"workspaceId" tf:"workspace_id,omitempty"`
+}
+
+type JobTaskNewClusterWorkerNodeTypeFlexibilityInitParameters struct {
+	AlternateNodeTypeIds []*string `json:"alternateNodeTypeIds,omitempty" tf:"alternate_node_type_ids,omitempty"`
+}
+
+type JobTaskNewClusterWorkerNodeTypeFlexibilityObservation struct {
+	AlternateNodeTypeIds []*string `json:"alternateNodeTypeIds,omitempty" tf:"alternate_node_type_ids,omitempty"`
+}
+
+type JobTaskNewClusterWorkerNodeTypeFlexibilityParameters struct {
+
+	// +kubebuilder:validation:Optional
+	AlternateNodeTypeIds []*string `json:"alternateNodeTypeIds,omitempty" tf:"alternate_node_type_ids,omitempty"`
 }
 
 type JobTaskNewClusterWorkloadTypeClientsInitParameters struct {
@@ -5646,6 +5718,20 @@ type NewClusterDockerImageParameters struct {
 	URL *string `json:"url" tf:"url,omitempty"`
 }
 
+type NewClusterDriverNodeTypeFlexibilityInitParameters struct {
+	AlternateNodeTypeIds []*string `json:"alternateNodeTypeIds,omitempty" tf:"alternate_node_type_ids,omitempty"`
+}
+
+type NewClusterDriverNodeTypeFlexibilityObservation struct {
+	AlternateNodeTypeIds []*string `json:"alternateNodeTypeIds,omitempty" tf:"alternate_node_type_ids,omitempty"`
+}
+
+type NewClusterDriverNodeTypeFlexibilityParameters struct {
+
+	// +kubebuilder:validation:Optional
+	AlternateNodeTypeIds []*string `json:"alternateNodeTypeIds,omitempty" tf:"alternate_node_type_ids,omitempty"`
+}
+
 type NewClusterGCPAttributesInitParameters struct {
 	Availability *string `json:"availability,omitempty" tf:"availability,omitempty"`
 
@@ -5737,6 +5823,8 @@ type NewClusterInitParameters struct {
 	// ID of the system notification that is notified when an event defined in webhook_notifications is triggered.
 	DriverInstancePoolID *string `json:"driverInstancePoolId,omitempty" tf:"driver_instance_pool_id,omitempty"`
 
+	DriverNodeTypeFlexibility []NewClusterDriverNodeTypeFlexibilityInitParameters `json:"driverNodeTypeFlexibility,omitempty" tf:"driver_node_type_flexibility,omitempty"`
+
 	// ID of the system notification that is notified when an event defined in webhook_notifications is triggered.
 	DriverNodeTypeID *string `json:"driverNodeTypeId,omitempty" tf:"driver_node_type_id,omitempty"`
 
@@ -5792,6 +5880,8 @@ type NewClusterInitParameters struct {
 	TotalInitialRemoteDiskSize *float64 `json:"totalInitialRemoteDiskSize,omitempty" tf:"total_initial_remote_disk_size,omitempty"`
 
 	UseMLRuntime *bool `json:"useMlRuntime,omitempty" tf:"use_ml_runtime,omitempty"`
+
+	WorkerNodeTypeFlexibility []NewClusterWorkerNodeTypeFlexibilityInitParameters `json:"workerNodeTypeFlexibility,omitempty" tf:"worker_node_type_flexibility,omitempty"`
 
 	// isn't supported
 	WorkloadType []NewClusterWorkloadTypeInitParameters `json:"workloadType,omitempty" tf:"workload_type,omitempty"`
@@ -6183,6 +6273,8 @@ type NewClusterObservation struct {
 	// ID of the system notification that is notified when an event defined in webhook_notifications is triggered.
 	DriverInstancePoolID *string `json:"driverInstancePoolId,omitempty" tf:"driver_instance_pool_id,omitempty"`
 
+	DriverNodeTypeFlexibility []NewClusterDriverNodeTypeFlexibilityObservation `json:"driverNodeTypeFlexibility,omitempty" tf:"driver_node_type_flexibility,omitempty"`
+
 	// ID of the system notification that is notified when an event defined in webhook_notifications is triggered.
 	DriverNodeTypeID *string `json:"driverNodeTypeId,omitempty" tf:"driver_node_type_id,omitempty"`
 
@@ -6239,6 +6331,8 @@ type NewClusterObservation struct {
 
 	UseMLRuntime *bool `json:"useMlRuntime,omitempty" tf:"use_ml_runtime,omitempty"`
 
+	WorkerNodeTypeFlexibility []NewClusterWorkerNodeTypeFlexibilityObservation `json:"workerNodeTypeFlexibility,omitempty" tf:"worker_node_type_flexibility,omitempty"`
+
 	// isn't supported
 	WorkloadType []NewClusterWorkloadTypeObservation `json:"workloadType,omitempty" tf:"workload_type,omitempty"`
 }
@@ -6288,6 +6382,9 @@ type NewClusterParameters struct {
 	// ID of the system notification that is notified when an event defined in webhook_notifications is triggered.
 	// +kubebuilder:validation:Optional
 	DriverInstancePoolID *string `json:"driverInstancePoolId,omitempty" tf:"driver_instance_pool_id,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	DriverNodeTypeFlexibility []NewClusterDriverNodeTypeFlexibilityParameters `json:"driverNodeTypeFlexibility,omitempty" tf:"driver_node_type_flexibility,omitempty"`
 
 	// ID of the system notification that is notified when an event defined in webhook_notifications is triggered.
 	// +kubebuilder:validation:Optional
@@ -6368,6 +6465,9 @@ type NewClusterParameters struct {
 	// +kubebuilder:validation:Optional
 	UseMLRuntime *bool `json:"useMlRuntime,omitempty" tf:"use_ml_runtime,omitempty"`
 
+	// +kubebuilder:validation:Optional
+	WorkerNodeTypeFlexibility []NewClusterWorkerNodeTypeFlexibilityParameters `json:"workerNodeTypeFlexibility,omitempty" tf:"worker_node_type_flexibility,omitempty"`
+
 	// isn't supported
 	// +kubebuilder:validation:Optional
 	WorkloadType []NewClusterWorkloadTypeParameters `json:"workloadType,omitempty" tf:"workload_type,omitempty"`
@@ -6390,6 +6490,20 @@ type NewClusterProviderConfigParameters struct {
 	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
 	// +kubebuilder:validation:Optional
 	WorkspaceID *string `json:"workspaceId" tf:"workspace_id,omitempty"`
+}
+
+type NewClusterWorkerNodeTypeFlexibilityInitParameters struct {
+	AlternateNodeTypeIds []*string `json:"alternateNodeTypeIds,omitempty" tf:"alternate_node_type_ids,omitempty"`
+}
+
+type NewClusterWorkerNodeTypeFlexibilityObservation struct {
+	AlternateNodeTypeIds []*string `json:"alternateNodeTypeIds,omitempty" tf:"alternate_node_type_ids,omitempty"`
+}
+
+type NewClusterWorkerNodeTypeFlexibilityParameters struct {
+
+	// +kubebuilder:validation:Optional
+	AlternateNodeTypeIds []*string `json:"alternateNodeTypeIds,omitempty" tf:"alternate_node_type_ids,omitempty"`
 }
 
 type NewClusterWorkloadTypeClientsInitParameters struct {
@@ -7086,6 +7200,9 @@ type RulesParameters struct {
 
 type RunAsInitParameters struct {
 
+	// An optional name for the job. The default value is Untitled.
+	GroupName *string `json:"groupName,omitempty" tf:"group_name,omitempty"`
+
 	// The application ID of an active service principal. Setting this field requires the servicePrincipal/user role.
 	ServicePrincipalName *string `json:"servicePrincipalName,omitempty" tf:"service_principal_name,omitempty"`
 
@@ -7095,6 +7212,9 @@ type RunAsInitParameters struct {
 
 type RunAsObservation struct {
 
+	// An optional name for the job. The default value is Untitled.
+	GroupName *string `json:"groupName,omitempty" tf:"group_name,omitempty"`
+
 	// The application ID of an active service principal. Setting this field requires the servicePrincipal/user role.
 	ServicePrincipalName *string `json:"servicePrincipalName,omitempty" tf:"service_principal_name,omitempty"`
 
@@ -7103,6 +7223,10 @@ type RunAsObservation struct {
 }
 
 type RunAsParameters struct {
+
+	// An optional name for the job. The default value is Untitled.
+	// +kubebuilder:validation:Optional
+	GroupName *string `json:"groupName,omitempty" tf:"group_name,omitempty"`
 
 	// The application ID of an active service principal. Setting this field requires the servicePrincipal/user role.
 	// +kubebuilder:validation:Optional
@@ -7912,6 +8036,20 @@ type TaskCleanRoomsNotebookTaskParameters struct {
 	NotebookName *string `json:"notebookName" tf:"notebook_name,omitempty"`
 }
 
+type TaskComputeInitParameters struct {
+	HardwareAccelerator *string `json:"hardwareAccelerator,omitempty" tf:"hardware_accelerator,omitempty"`
+}
+
+type TaskComputeObservation struct {
+	HardwareAccelerator *string `json:"hardwareAccelerator,omitempty" tf:"hardware_accelerator,omitempty"`
+}
+
+type TaskComputeParameters struct {
+
+	// +kubebuilder:validation:Optional
+	HardwareAccelerator *string `json:"hardwareAccelerator,omitempty" tf:"hardware_accelerator,omitempty"`
+}
+
 type TaskConditionTaskInitParameters struct {
 
 	// The left operand of the condition task. It could be a string value, job state, or a parameter reference.
@@ -8225,10 +8363,43 @@ type TaskEmailNotificationsParameters struct {
 	OnSuccess []*string `json:"onSuccess,omitempty" tf:"on_success,omitempty"`
 }
 
+type TaskGenAIComputeTaskComputeInitParameters struct {
+
+	// ID of the system notification that is notified when an event defined in webhook_notifications is triggered.
+	GpuNodePoolID *string `json:"gpuNodePoolId,omitempty" tf:"gpu_node_pool_id,omitempty"`
+
+	GpuType *string `json:"gpuType,omitempty" tf:"gpu_type,omitempty"`
+
+	NumGpus *float64 `json:"numGpus,omitempty" tf:"num_gpus,omitempty"`
+}
+
+type TaskGenAIComputeTaskComputeObservation struct {
+
+	// ID of the system notification that is notified when an event defined in webhook_notifications is triggered.
+	GpuNodePoolID *string `json:"gpuNodePoolId,omitempty" tf:"gpu_node_pool_id,omitempty"`
+
+	GpuType *string `json:"gpuType,omitempty" tf:"gpu_type,omitempty"`
+
+	NumGpus *float64 `json:"numGpus,omitempty" tf:"num_gpus,omitempty"`
+}
+
+type TaskGenAIComputeTaskComputeParameters struct {
+
+	// ID of the system notification that is notified when an event defined in webhook_notifications is triggered.
+	// +kubebuilder:validation:Optional
+	GpuNodePoolID *string `json:"gpuNodePoolId,omitempty" tf:"gpu_node_pool_id,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	GpuType *string `json:"gpuType,omitempty" tf:"gpu_type,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	NumGpus *float64 `json:"numGpus" tf:"num_gpus,omitempty"`
+}
+
 type TaskGenAIComputeTaskInitParameters struct {
 	Command *string `json:"command,omitempty" tf:"command,omitempty"`
 
-	Compute []GenAIComputeTaskComputeInitParameters `json:"compute,omitempty" tf:"compute,omitempty"`
+	Compute []TaskGenAIComputeTaskComputeInitParameters `json:"compute,omitempty" tf:"compute,omitempty"`
 
 	DlRuntimeImage *string `json:"dlRuntimeImage,omitempty" tf:"dl_runtime_image,omitempty"`
 
@@ -8251,7 +8422,7 @@ type TaskGenAIComputeTaskInitParameters struct {
 type TaskGenAIComputeTaskObservation struct {
 	Command *string `json:"command,omitempty" tf:"command,omitempty"`
 
-	Compute []GenAIComputeTaskComputeObservation `json:"compute,omitempty" tf:"compute,omitempty"`
+	Compute []TaskGenAIComputeTaskComputeObservation `json:"compute,omitempty" tf:"compute,omitempty"`
 
 	DlRuntimeImage *string `json:"dlRuntimeImage,omitempty" tf:"dl_runtime_image,omitempty"`
 
@@ -8277,7 +8448,7 @@ type TaskGenAIComputeTaskParameters struct {
 	Command *string `json:"command,omitempty" tf:"command,omitempty"`
 
 	// +kubebuilder:validation:Optional
-	Compute []GenAIComputeTaskComputeParameters `json:"compute,omitempty" tf:"compute,omitempty"`
+	Compute []TaskGenAIComputeTaskComputeParameters `json:"compute,omitempty" tf:"compute,omitempty"`
 
 	// +kubebuilder:validation:Optional
 	DlRuntimeImage *string `json:"dlRuntimeImage" tf:"dl_runtime_image,omitempty"`
@@ -8365,6 +8536,8 @@ type TaskInitParameters struct {
 
 	// A list of task specification that the job will execute. See task Configuration Block below.
 	CleanRoomsNotebookTask []CleanRoomsNotebookTaskInitParameters `json:"cleanRoomsNotebookTask,omitempty" tf:"clean_rooms_notebook_task,omitempty"`
+
+	Compute []ComputeInitParameters `json:"compute,omitempty" tf:"compute,omitempty"`
 
 	// A list of task specification that the job will execute. See task Configuration Block below.
 	ConditionTask []ConditionTaskInitParameters `json:"conditionTask,omitempty" tf:"condition_task,omitempty"`
@@ -9012,6 +9185,20 @@ type TaskNewClusterDockerImageParameters struct {
 	URL *string `json:"url" tf:"url,omitempty"`
 }
 
+type TaskNewClusterDriverNodeTypeFlexibilityInitParameters struct {
+	AlternateNodeTypeIds []*string `json:"alternateNodeTypeIds,omitempty" tf:"alternate_node_type_ids,omitempty"`
+}
+
+type TaskNewClusterDriverNodeTypeFlexibilityObservation struct {
+	AlternateNodeTypeIds []*string `json:"alternateNodeTypeIds,omitempty" tf:"alternate_node_type_ids,omitempty"`
+}
+
+type TaskNewClusterDriverNodeTypeFlexibilityParameters struct {
+
+	// +kubebuilder:validation:Optional
+	AlternateNodeTypeIds []*string `json:"alternateNodeTypeIds,omitempty" tf:"alternate_node_type_ids,omitempty"`
+}
+
 type TaskNewClusterGCPAttributesInitParameters struct {
 	Availability *string `json:"availability,omitempty" tf:"availability,omitempty"`
 
@@ -9101,6 +9288,8 @@ type TaskNewClusterInitParameters struct {
 	// ID of the system notification that is notified when an event defined in webhook_notifications is triggered.
 	DriverInstancePoolID *string `json:"driverInstancePoolId,omitempty" tf:"driver_instance_pool_id,omitempty"`
 
+	DriverNodeTypeFlexibility []TaskNewClusterDriverNodeTypeFlexibilityInitParameters `json:"driverNodeTypeFlexibility,omitempty" tf:"driver_node_type_flexibility,omitempty"`
+
 	// ID of the system notification that is notified when an event defined in webhook_notifications is triggered.
 	DriverNodeTypeID *string `json:"driverNodeTypeId,omitempty" tf:"driver_node_type_id,omitempty"`
 
@@ -9156,6 +9345,8 @@ type TaskNewClusterInitParameters struct {
 	TotalInitialRemoteDiskSize *float64 `json:"totalInitialRemoteDiskSize,omitempty" tf:"total_initial_remote_disk_size,omitempty"`
 
 	UseMLRuntime *bool `json:"useMlRuntime,omitempty" tf:"use_ml_runtime,omitempty"`
+
+	WorkerNodeTypeFlexibility []TaskNewClusterWorkerNodeTypeFlexibilityInitParameters `json:"workerNodeTypeFlexibility,omitempty" tf:"worker_node_type_flexibility,omitempty"`
 
 	// isn't supported
 	WorkloadType []TaskNewClusterWorkloadTypeInitParameters `json:"workloadType,omitempty" tf:"workload_type,omitempty"`
@@ -9545,6 +9736,8 @@ type TaskNewClusterObservation struct {
 	// ID of the system notification that is notified when an event defined in webhook_notifications is triggered.
 	DriverInstancePoolID *string `json:"driverInstancePoolId,omitempty" tf:"driver_instance_pool_id,omitempty"`
 
+	DriverNodeTypeFlexibility []TaskNewClusterDriverNodeTypeFlexibilityObservation `json:"driverNodeTypeFlexibility,omitempty" tf:"driver_node_type_flexibility,omitempty"`
+
 	// ID of the system notification that is notified when an event defined in webhook_notifications is triggered.
 	DriverNodeTypeID *string `json:"driverNodeTypeId,omitempty" tf:"driver_node_type_id,omitempty"`
 
@@ -9601,6 +9794,8 @@ type TaskNewClusterObservation struct {
 
 	UseMLRuntime *bool `json:"useMlRuntime,omitempty" tf:"use_ml_runtime,omitempty"`
 
+	WorkerNodeTypeFlexibility []TaskNewClusterWorkerNodeTypeFlexibilityObservation `json:"workerNodeTypeFlexibility,omitempty" tf:"worker_node_type_flexibility,omitempty"`
+
 	// isn't supported
 	WorkloadType []TaskNewClusterWorkloadTypeObservation `json:"workloadType,omitempty" tf:"workload_type,omitempty"`
 }
@@ -9647,6 +9842,9 @@ type TaskNewClusterParameters struct {
 	// ID of the system notification that is notified when an event defined in webhook_notifications is triggered.
 	// +kubebuilder:validation:Optional
 	DriverInstancePoolID *string `json:"driverInstancePoolId,omitempty" tf:"driver_instance_pool_id,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	DriverNodeTypeFlexibility []TaskNewClusterDriverNodeTypeFlexibilityParameters `json:"driverNodeTypeFlexibility,omitempty" tf:"driver_node_type_flexibility,omitempty"`
 
 	// ID of the system notification that is notified when an event defined in webhook_notifications is triggered.
 	// +kubebuilder:validation:Optional
@@ -9727,6 +9925,9 @@ type TaskNewClusterParameters struct {
 	// +kubebuilder:validation:Optional
 	UseMLRuntime *bool `json:"useMlRuntime,omitempty" tf:"use_ml_runtime,omitempty"`
 
+	// +kubebuilder:validation:Optional
+	WorkerNodeTypeFlexibility []TaskNewClusterWorkerNodeTypeFlexibilityParameters `json:"workerNodeTypeFlexibility,omitempty" tf:"worker_node_type_flexibility,omitempty"`
+
 	// isn't supported
 	// +kubebuilder:validation:Optional
 	WorkloadType []TaskNewClusterWorkloadTypeParameters `json:"workloadType,omitempty" tf:"workload_type,omitempty"`
@@ -9749,6 +9950,20 @@ type TaskNewClusterProviderConfigParameters struct {
 	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
 	// +kubebuilder:validation:Optional
 	WorkspaceID *string `json:"workspaceId" tf:"workspace_id,omitempty"`
+}
+
+type TaskNewClusterWorkerNodeTypeFlexibilityInitParameters struct {
+	AlternateNodeTypeIds []*string `json:"alternateNodeTypeIds,omitempty" tf:"alternate_node_type_ids,omitempty"`
+}
+
+type TaskNewClusterWorkerNodeTypeFlexibilityObservation struct {
+	AlternateNodeTypeIds []*string `json:"alternateNodeTypeIds,omitempty" tf:"alternate_node_type_ids,omitempty"`
+}
+
+type TaskNewClusterWorkerNodeTypeFlexibilityParameters struct {
+
+	// +kubebuilder:validation:Optional
+	AlternateNodeTypeIds []*string `json:"alternateNodeTypeIds,omitempty" tf:"alternate_node_type_ids,omitempty"`
 }
 
 type TaskNewClusterWorkloadTypeClientsInitParameters struct {
@@ -9882,6 +10097,8 @@ type TaskObservation struct {
 	// A list of task specification that the job will execute. See task Configuration Block below.
 	CleanRoomsNotebookTask []CleanRoomsNotebookTaskObservation `json:"cleanRoomsNotebookTask,omitempty" tf:"clean_rooms_notebook_task,omitempty"`
 
+	Compute []ComputeObservation `json:"compute,omitempty" tf:"compute,omitempty"`
+
 	// A list of task specification that the job will execute. See task Configuration Block below.
 	ConditionTask []ConditionTaskObservation `json:"conditionTask,omitempty" tf:"condition_task,omitempty"`
 
@@ -9992,6 +10209,9 @@ type TaskParameters struct {
 	// A list of task specification that the job will execute. See task Configuration Block below.
 	// +kubebuilder:validation:Optional
 	CleanRoomsNotebookTask []CleanRoomsNotebookTaskParameters `json:"cleanRoomsNotebookTask,omitempty" tf:"clean_rooms_notebook_task,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	Compute []ComputeParameters `json:"compute,omitempty" tf:"compute,omitempty"`
 
 	// A list of task specification that the job will execute. See task Configuration Block below.
 	// +kubebuilder:validation:Optional

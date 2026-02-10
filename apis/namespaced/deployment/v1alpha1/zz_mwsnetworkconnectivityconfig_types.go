@@ -34,6 +34,8 @@ type AwsPrivateEndpointRulesInitParameters struct {
 
 	EndpointService *string `json:"endpointService,omitempty" tf:"endpoint_service,omitempty"`
 
+	ErrorMessage *string `json:"errorMessage,omitempty" tf:"error_message,omitempty"`
+
 	// Canonical unique identifier of Network Connectivity Config in Databricks Account
 	NetworkConnectivityConfigID *string `json:"networkConnectivityConfigId,omitempty" tf:"network_connectivity_config_id,omitempty"`
 
@@ -68,6 +70,8 @@ type AwsPrivateEndpointRulesObservation struct {
 	Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
 
 	EndpointService *string `json:"endpointService,omitempty" tf:"endpoint_service,omitempty"`
+
+	ErrorMessage *string `json:"errorMessage,omitempty" tf:"error_message,omitempty"`
 
 	// Canonical unique identifier of Network Connectivity Config in Databricks Account
 	NetworkConnectivityConfigID *string `json:"networkConnectivityConfigId,omitempty" tf:"network_connectivity_config_id,omitempty"`
@@ -111,6 +115,9 @@ type AwsPrivateEndpointRulesParameters struct {
 
 	// +kubebuilder:validation:Optional
 	EndpointService *string `json:"endpointService,omitempty" tf:"endpoint_service,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	ErrorMessage *string `json:"errorMessage,omitempty" tf:"error_message,omitempty"`
 
 	// Canonical unique identifier of Network Connectivity Config in Databricks Account
 	// +kubebuilder:validation:Optional
@@ -166,6 +173,8 @@ type AzurePrivateEndpointRulesInitParameters struct {
 	// Name of the network connectivity configuration. The name can contain alphanumeric characters, hyphens, and underscores. The length must be between 3 and 30 characters. The name must match the regular expression ^[0-9a-zA-Z-_]{3,30}$. Change forces creation of a new resource.
 	EndpointName *string `json:"endpointName,omitempty" tf:"endpoint_name,omitempty"`
 
+	ErrorMessage *string `json:"errorMessage,omitempty" tf:"error_message,omitempty"`
+
 	// combination of account_id and network_connectivity_config_id separated by / character
 	GroupID *string `json:"groupId,omitempty" tf:"group_id,omitempty"`
 
@@ -196,6 +205,8 @@ type AzurePrivateEndpointRulesObservation struct {
 
 	// Name of the network connectivity configuration. The name can contain alphanumeric characters, hyphens, and underscores. The length must be between 3 and 30 characters. The name must match the regular expression ^[0-9a-zA-Z-_]{3,30}$. Change forces creation of a new resource.
 	EndpointName *string `json:"endpointName,omitempty" tf:"endpoint_name,omitempty"`
+
+	ErrorMessage *string `json:"errorMessage,omitempty" tf:"error_message,omitempty"`
 
 	// combination of account_id and network_connectivity_config_id separated by / character
 	GroupID *string `json:"groupId,omitempty" tf:"group_id,omitempty"`
@@ -234,6 +245,9 @@ type AzurePrivateEndpointRulesParameters struct {
 	// Name of the network connectivity configuration. The name can contain alphanumeric characters, hyphens, and underscores. The length must be between 3 and 30 characters. The name must match the regular expression ^[0-9a-zA-Z-_]{3,30}$. Change forces creation of a new resource.
 	// +kubebuilder:validation:Optional
 	EndpointName *string `json:"endpointName,omitempty" tf:"endpoint_name,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	ErrorMessage *string `json:"errorMessage,omitempty" tf:"error_message,omitempty"`
 
 	// combination of account_id and network_connectivity_config_id separated by / character
 	// +kubebuilder:validation:Optional

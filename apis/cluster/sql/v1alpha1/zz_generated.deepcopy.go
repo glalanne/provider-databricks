@@ -900,6 +900,16 @@ func (in *DashboardInitParameters) DeepCopyInto(out *DashboardInitParameters) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.DatasetCatalog != nil {
+		in, out := &in.DatasetCatalog, &out.DatasetCatalog
+		*out = new(string)
+		**out = **in
+	}
+	if in.DatasetSchema != nil {
+		in, out := &in.DatasetSchema, &out.DatasetSchema
+		*out = new(string)
+		**out = **in
+	}
 	if in.DisplayName != nil {
 		in, out := &in.DisplayName, &out.DisplayName
 		*out = new(string)
@@ -1017,6 +1027,16 @@ func (in *DashboardObservation) DeepCopyInto(out *DashboardObservation) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.DatasetCatalog != nil {
+		in, out := &in.DatasetCatalog, &out.DatasetCatalog
+		*out = new(string)
+		**out = **in
+	}
+	if in.DatasetSchema != nil {
+		in, out := &in.DatasetSchema, &out.DatasetSchema
+		*out = new(string)
+		**out = **in
+	}
 	if in.DisplayName != nil {
 		in, out := &in.DisplayName, &out.DisplayName
 		*out = new(string)
@@ -1104,6 +1124,16 @@ func (in *DashboardParameters) DeepCopyInto(out *DashboardParameters) {
 	}
 	if in.DashboardID != nil {
 		in, out := &in.DashboardID, &out.DashboardID
+		*out = new(string)
+		**out = **in
+	}
+	if in.DatasetCatalog != nil {
+		in, out := &in.DatasetCatalog, &out.DatasetCatalog
+		*out = new(string)
+		**out = **in
+	}
+	if in.DatasetSchema != nil {
+		in, out := &in.DatasetSchema, &out.DatasetSchema
 		*out = new(string)
 		**out = **in
 	}

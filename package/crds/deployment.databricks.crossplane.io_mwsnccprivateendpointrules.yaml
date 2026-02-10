@@ -111,6 +111,8 @@ spec:
                       destination resources of the private endpoint. Change forces
                       creation of a new resource.
                     type: string
+                  errorMessage:
+                    type: string
                   groupId:
                     description: (Azure only) Not used by customer-managed private
                       endpoint services. The sub-resource type (group ID) of the target
@@ -271,6 +273,8 @@ spec:
                       The full target AWS endpoint service name that connects to the
                       destination resources of the private endpoint. Change forces
                       creation of a new resource.
+                    type: string
+                  errorMessage:
                     type: string
                   groupId:
                     description: (Azure only) Not used by customer-managed private
@@ -511,6 +515,8 @@ spec:
                       The full target AWS endpoint service name that connects to the
                       destination resources of the private endpoint. Change forces
                       creation of a new resource.
+                    type: string
+                  errorMessage:
                     type: string
                   groupId:
                     description: (Azure only) Not used by customer-managed private

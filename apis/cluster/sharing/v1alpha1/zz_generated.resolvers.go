@@ -33,7 +33,7 @@ func (mg *Recipient) ResolveReferences( // ResolveReferences of this Recipient.
 
 		rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 			CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.DataRecipientGlobalMetastoreID),
-			Extract:      resource.ExtractParamPath("global_metastore_id", false),
+			Extract:      resource.ExtractParamPath("global_metastore_id", true),
 			Namespace:    mg.GetNamespace(),
 			Reference:    mg.Spec.ForProvider.DataRecipientGlobalMetastoreIDRef,
 			Selector:     mg.Spec.ForProvider.DataRecipientGlobalMetastoreIDSelector,
@@ -53,7 +53,7 @@ func (mg *Recipient) ResolveReferences( // ResolveReferences of this Recipient.
 
 		rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 			CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.DataRecipientGlobalMetastoreID),
-			Extract:      resource.ExtractParamPath("global_metastore_id", false),
+			Extract:      resource.ExtractParamPath("global_metastore_id", true),
 			Namespace:    mg.GetNamespace(),
 			Reference:    mg.Spec.InitProvider.DataRecipientGlobalMetastoreIDRef,
 			Selector:     mg.Spec.InitProvider.DataRecipientGlobalMetastoreIDSelector,
