@@ -11,7 +11,7 @@ jobs:
     permissions:
       contents: write
     steps:
-    - uses: actions/checkout@v5
+    - uses: actions/checkout@v6
     - run: ./hack/merge-crds.sh
     - uses: ncipollo/release-action@v1
       with:
