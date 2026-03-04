@@ -83,17 +83,15 @@ spec:
                       resource.'
                     type: string
                   effectivePredictiveOptimizationFlag:
-                    items:
-                      properties:
-                        inheritedFromName:
-                          description: Name of Catalog relative to parent metastore.
-                          type: string
-                        inheritedFromType:
-                          type: string
-                        value:
-                          type: string
-                      type: object
-                    type: array
+                    properties:
+                      inheritedFromName:
+                        description: Name of Catalog relative to parent metastore.
+                        type: string
+                      inheritedFromType:
+                        type: string
+                      value:
+                        type: string
+                    type: object
                   enablePredictiveOptimization:
                     description: Whether predictive optimization should be enabled
                       for this object and objects under it. Can be ENABLE, DISABLE
@@ -137,12 +135,10 @@ spec:
                       sharing provider. Change forces creation of a new resource.'
                     type: string
                   provisioningInfo:
-                    items:
-                      properties:
-                        state:
-                          type: string
-                      type: object
-                    type: array
+                    properties:
+                      state:
+                        type: string
+                    type: object
                   shareName:
                     description: 'For Delta Sharing Catalogs: the name of the share
                       under the share provider. Change forces creation of a new resource.'
@@ -180,17 +176,15 @@ spec:
                       resource.'
                     type: string
                   effectivePredictiveOptimizationFlag:
-                    items:
-                      properties:
-                        inheritedFromName:
-                          description: Name of Catalog relative to parent metastore.
-                          type: string
-                        inheritedFromType:
-                          type: string
-                        value:
-                          type: string
-                      type: object
-                    type: array
+                    properties:
+                      inheritedFromName:
+                        description: Name of Catalog relative to parent metastore.
+                        type: string
+                      inheritedFromType:
+                        type: string
+                      value:
+                        type: string
+                    type: object
                   enablePredictiveOptimization:
                     description: Whether predictive optimization should be enabled
                       for this object and objects under it. Can be ENABLE, DISABLE
@@ -234,12 +228,10 @@ spec:
                       sharing provider. Change forces creation of a new resource.'
                     type: string
                   provisioningInfo:
-                    items:
-                      properties:
-                        state:
-                          type: string
-                      type: object
-                    type: array
+                    properties:
+                      state:
+                        type: string
+                    type: object
                   shareName:
                     description: 'For Delta Sharing Catalogs: the name of the share
                       under the share provider. Change forces creation of a new resource.'
@@ -365,17 +357,15 @@ spec:
                     description: username of catalog creator.
                     type: string
                   effectivePredictiveOptimizationFlag:
-                    items:
-                      properties:
-                        inheritedFromName:
-                          description: Name of Catalog relative to parent metastore.
-                          type: string
-                        inheritedFromType:
-                          type: string
-                        value:
-                          type: string
-                      type: object
-                    type: array
+                    properties:
+                      inheritedFromName:
+                        description: Name of Catalog relative to parent metastore.
+                        type: string
+                      inheritedFromType:
+                        type: string
+                      value:
+                        type: string
+                    type: object
                   enablePredictiveOptimization:
                     description: Whether predictive optimization should be enabled
                       for this object and objects under it. Can be ENABLE, DISABLE
@@ -425,12 +415,10 @@ spec:
                       sharing provider. Change forces creation of a new resource.'
                     type: string
                   provisioningInfo:
-                    items:
-                      properties:
-                        state:
-                          type: string
-                      type: object
-                    type: array
+                    properties:
+                      state:
+                        type: string
+                    type: object
                   securableType:
                     description: the type of Unity Catalog securable.
                     type: string

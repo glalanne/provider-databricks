@@ -229,17 +229,17 @@ type StorageCredentialGCPServiceAccountKeyParameters struct {
 type StorageCredentialInitParameters struct {
 
 	// exposes two additional attributes:
-	AwsIAMRole []StorageCredentialAwsIAMRoleInitParameters `json:"awsIamRole,omitempty" tf:"aws_iam_role,omitempty"`
+	AwsIAMRole *StorageCredentialAwsIAMRoleInitParameters `json:"awsIamRole,omitempty" tf:"aws_iam_role,omitempty"`
 
-	AzureManagedIdentity []StorageCredentialAzureManagedIdentityInitParameters `json:"azureManagedIdentity,omitempty" tf:"azure_managed_identity,omitempty"`
+	AzureManagedIdentity *StorageCredentialAzureManagedIdentityInitParameters `json:"azureManagedIdentity,omitempty" tf:"azure_managed_identity,omitempty"`
 
-	AzureServicePrincipal []StorageCredentialAzureServicePrincipalInitParameters `json:"azureServicePrincipal,omitempty" tf:"azure_service_principal,omitempty"`
+	AzureServicePrincipal *StorageCredentialAzureServicePrincipalInitParameters `json:"azureServicePrincipal,omitempty" tf:"azure_service_principal,omitempty"`
 
-	CloudflareAPIToken []StorageCredentialCloudflareAPITokenInitParameters `json:"cloudflareApiToken,omitempty" tf:"cloudflare_api_token,omitempty"`
+	CloudflareAPIToken *StorageCredentialCloudflareAPITokenInitParameters `json:"cloudflareApiToken,omitempty" tf:"cloudflare_api_token,omitempty"`
 
 	Comment *string `json:"comment,omitempty" tf:"comment,omitempty"`
 
-	DatabricksGCPServiceAccount []StorageCredentialDatabricksGCPServiceAccountInitParameters `json:"databricksGcpServiceAccount,omitempty" tf:"databricks_gcp_service_account,omitempty"`
+	DatabricksGCPServiceAccount *StorageCredentialDatabricksGCPServiceAccountInitParameters `json:"databricksGcpServiceAccount,omitempty" tf:"databricks_gcp_service_account,omitempty"`
 
 	// Delete storage credential regardless of its dependencies.
 	ForceDestroy *bool `json:"forceDestroy,omitempty" tf:"force_destroy,omitempty"`
@@ -247,7 +247,7 @@ type StorageCredentialInitParameters struct {
 	// Update storage credential regardless of its dependents.
 	ForceUpdate *bool `json:"forceUpdate,omitempty" tf:"force_update,omitempty"`
 
-	GCPServiceAccountKey []StorageCredentialGCPServiceAccountKeyInitParameters `json:"gcpServiceAccountKey,omitempty" tf:"gcp_service_account_key,omitempty"`
+	GCPServiceAccountKey *StorageCredentialGCPServiceAccountKeyInitParameters `json:"gcpServiceAccountKey,omitempty" tf:"gcp_service_account_key,omitempty"`
 
 	// Whether the storage credential is accessible from all workspaces or a specific set of workspaces. Can be ISOLATION_MODE_ISOLATED or ISOLATION_MODE_OPEN. Setting the credential to ISOLATION_MODE_ISOLATED will automatically allow access from the current workspace.
 	IsolationMode *string `json:"isolationMode,omitempty" tf:"isolation_mode,omitempty"`
@@ -271,17 +271,17 @@ type StorageCredentialInitParameters struct {
 type StorageCredentialObservation struct {
 
 	// exposes two additional attributes:
-	AwsIAMRole []StorageCredentialAwsIAMRoleObservation `json:"awsIamRole,omitempty" tf:"aws_iam_role,omitempty"`
+	AwsIAMRole *StorageCredentialAwsIAMRoleObservation `json:"awsIamRole,omitempty" tf:"aws_iam_role,omitempty"`
 
-	AzureManagedIdentity []StorageCredentialAzureManagedIdentityObservation `json:"azureManagedIdentity,omitempty" tf:"azure_managed_identity,omitempty"`
+	AzureManagedIdentity *StorageCredentialAzureManagedIdentityObservation `json:"azureManagedIdentity,omitempty" tf:"azure_managed_identity,omitempty"`
 
-	AzureServicePrincipal []StorageCredentialAzureServicePrincipalObservation `json:"azureServicePrincipal,omitempty" tf:"azure_service_principal,omitempty"`
+	AzureServicePrincipal *StorageCredentialAzureServicePrincipalObservation `json:"azureServicePrincipal,omitempty" tf:"azure_service_principal,omitempty"`
 
-	CloudflareAPIToken []StorageCredentialCloudflareAPITokenObservation `json:"cloudflareApiToken,omitempty" tf:"cloudflare_api_token,omitempty"`
+	CloudflareAPIToken *StorageCredentialCloudflareAPITokenObservation `json:"cloudflareApiToken,omitempty" tf:"cloudflare_api_token,omitempty"`
 
 	Comment *string `json:"comment,omitempty" tf:"comment,omitempty"`
 
-	DatabricksGCPServiceAccount []StorageCredentialDatabricksGCPServiceAccountObservation `json:"databricksGcpServiceAccount,omitempty" tf:"databricks_gcp_service_account,omitempty"`
+	DatabricksGCPServiceAccount *StorageCredentialDatabricksGCPServiceAccountObservation `json:"databricksGcpServiceAccount,omitempty" tf:"databricks_gcp_service_account,omitempty"`
 
 	// Delete storage credential regardless of its dependencies.
 	ForceDestroy *bool `json:"forceDestroy,omitempty" tf:"force_destroy,omitempty"`
@@ -289,7 +289,7 @@ type StorageCredentialObservation struct {
 	// Update storage credential regardless of its dependents.
 	ForceUpdate *bool `json:"forceUpdate,omitempty" tf:"force_update,omitempty"`
 
-	GCPServiceAccountKey []StorageCredentialGCPServiceAccountKeyObservation `json:"gcpServiceAccountKey,omitempty" tf:"gcp_service_account_key,omitempty"`
+	GCPServiceAccountKey *StorageCredentialGCPServiceAccountKeyObservation `json:"gcpServiceAccountKey,omitempty" tf:"gcp_service_account_key,omitempty"`
 
 	// ID of this storage credential - same as the name.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
@@ -320,22 +320,22 @@ type StorageCredentialParameters struct {
 
 	// exposes two additional attributes:
 	// +kubebuilder:validation:Optional
-	AwsIAMRole []StorageCredentialAwsIAMRoleParameters `json:"awsIamRole,omitempty" tf:"aws_iam_role,omitempty"`
+	AwsIAMRole *StorageCredentialAwsIAMRoleParameters `json:"awsIamRole,omitempty" tf:"aws_iam_role,omitempty"`
 
 	// +kubebuilder:validation:Optional
-	AzureManagedIdentity []StorageCredentialAzureManagedIdentityParameters `json:"azureManagedIdentity,omitempty" tf:"azure_managed_identity,omitempty"`
+	AzureManagedIdentity *StorageCredentialAzureManagedIdentityParameters `json:"azureManagedIdentity,omitempty" tf:"azure_managed_identity,omitempty"`
 
 	// +kubebuilder:validation:Optional
-	AzureServicePrincipal []StorageCredentialAzureServicePrincipalParameters `json:"azureServicePrincipal,omitempty" tf:"azure_service_principal,omitempty"`
+	AzureServicePrincipal *StorageCredentialAzureServicePrincipalParameters `json:"azureServicePrincipal,omitempty" tf:"azure_service_principal,omitempty"`
 
 	// +kubebuilder:validation:Optional
-	CloudflareAPIToken []StorageCredentialCloudflareAPITokenParameters `json:"cloudflareApiToken,omitempty" tf:"cloudflare_api_token,omitempty"`
+	CloudflareAPIToken *StorageCredentialCloudflareAPITokenParameters `json:"cloudflareApiToken,omitempty" tf:"cloudflare_api_token,omitempty"`
 
 	// +kubebuilder:validation:Optional
 	Comment *string `json:"comment,omitempty" tf:"comment,omitempty"`
 
 	// +kubebuilder:validation:Optional
-	DatabricksGCPServiceAccount []StorageCredentialDatabricksGCPServiceAccountParameters `json:"databricksGcpServiceAccount,omitempty" tf:"databricks_gcp_service_account,omitempty"`
+	DatabricksGCPServiceAccount *StorageCredentialDatabricksGCPServiceAccountParameters `json:"databricksGcpServiceAccount,omitempty" tf:"databricks_gcp_service_account,omitempty"`
 
 	// Delete storage credential regardless of its dependencies.
 	// +kubebuilder:validation:Optional
@@ -346,7 +346,7 @@ type StorageCredentialParameters struct {
 	ForceUpdate *bool `json:"forceUpdate,omitempty" tf:"force_update,omitempty"`
 
 	// +kubebuilder:validation:Optional
-	GCPServiceAccountKey []StorageCredentialGCPServiceAccountKeyParameters `json:"gcpServiceAccountKey,omitempty" tf:"gcp_service_account_key,omitempty"`
+	GCPServiceAccountKey *StorageCredentialGCPServiceAccountKeyParameters `json:"gcpServiceAccountKey,omitempty" tf:"gcp_service_account_key,omitempty"`
 
 	// Whether the storage credential is accessible from all workspaces or a specific set of workspaces. Can be ISOLATION_MODE_ISOLATED or ISOLATION_MODE_OPEN. Setting the credential to ISOLATION_MODE_ISOLATED will automatically allow access from the current workspace.
 	// +kubebuilder:validation:Optional

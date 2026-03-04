@@ -58,7 +58,7 @@ type LibraryInitParameters_2 struct {
 	ClusterIDSelector *v1.Selector `json:"clusterIdSelector,omitempty" tf:"-"`
 
 	// Configuration block for a CRAN library. The block consists of the following fields:
-	Cran []LibraryCranInitParameters_2 `json:"cran,omitempty" tf:"cran,omitempty"`
+	Cran *LibraryCranInitParameters_2 `json:"cran,omitempty" tf:"cran,omitempty"`
 
 	// Path to the EGG library. Installing Python egg files is deprecated and is not supported in Databricks Runtime 14.0 and above. Use whl or pypi instead.
 	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/cluster/storage/v1alpha1.DbfsFile
@@ -87,13 +87,13 @@ type LibraryInitParameters_2 struct {
 	JarSelector *v1.Selector `json:"jarSelector,omitempty" tf:"-"`
 
 	// Configuration block for a Maven library. The block consists of the following fields:
-	Maven []LibraryMavenInitParameters_2 `json:"maven,omitempty" tf:"maven,omitempty"`
+	Maven *LibraryMavenInitParameters_2 `json:"maven,omitempty" tf:"maven,omitempty"`
 
 	// Configuration block for management through the account provider. This block consists of the following fields:
-	ProviderConfig []LibraryProviderConfigInitParameters_2 `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
+	ProviderConfig *LibraryProviderConfigInitParameters_2 `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
 
 	// Configuration block for a PyPI library. The block consists of the following fields:
-	Pypi []LibraryPypiInitParameters_2 `json:"pypi,omitempty" tf:"pypi,omitempty"`
+	Pypi *LibraryPypiInitParameters_2 `json:"pypi,omitempty" tf:"pypi,omitempty"`
 
 	// Path to the requirements.txt file. Only Workspace paths and Unity Catalog Volumes paths are supported. For example: /Workspace/path/to/requirements.txt or /Volumes/path/to/requirements.txt. Requires a cluster with DBR 15.0+.
 	Requirements *string `json:"requirements,omitempty" tf:"requirements,omitempty"`
@@ -157,7 +157,7 @@ type LibraryObservation_2 struct {
 	ClusterID *string `json:"clusterId,omitempty" tf:"cluster_id,omitempty"`
 
 	// Configuration block for a CRAN library. The block consists of the following fields:
-	Cran []LibraryCranObservation_2 `json:"cran,omitempty" tf:"cran,omitempty"`
+	Cran *LibraryCranObservation_2 `json:"cran,omitempty" tf:"cran,omitempty"`
 
 	// Path to the EGG library. Installing Python egg files is deprecated and is not supported in Databricks Runtime 14.0 and above. Use whl or pypi instead.
 	Egg *string `json:"egg,omitempty" tf:"egg,omitempty"`
@@ -168,13 +168,13 @@ type LibraryObservation_2 struct {
 	Jar *string `json:"jar,omitempty" tf:"jar,omitempty"`
 
 	// Configuration block for a Maven library. The block consists of the following fields:
-	Maven []LibraryMavenObservation_2 `json:"maven,omitempty" tf:"maven,omitempty"`
+	Maven *LibraryMavenObservation_2 `json:"maven,omitempty" tf:"maven,omitempty"`
 
 	// Configuration block for management through the account provider. This block consists of the following fields:
-	ProviderConfig []LibraryProviderConfigObservation_2 `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
+	ProviderConfig *LibraryProviderConfigObservation_2 `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
 
 	// Configuration block for a PyPI library. The block consists of the following fields:
-	Pypi []LibraryPypiObservation_2 `json:"pypi,omitempty" tf:"pypi,omitempty"`
+	Pypi *LibraryPypiObservation_2 `json:"pypi,omitempty" tf:"pypi,omitempty"`
 
 	// Path to the requirements.txt file. Only Workspace paths and Unity Catalog Volumes paths are supported. For example: /Workspace/path/to/requirements.txt or /Volumes/path/to/requirements.txt. Requires a cluster with DBR 15.0+.
 	Requirements *string `json:"requirements,omitempty" tf:"requirements,omitempty"`
@@ -201,7 +201,7 @@ type LibraryParameters_2 struct {
 
 	// Configuration block for a CRAN library. The block consists of the following fields:
 	// +kubebuilder:validation:Optional
-	Cran []LibraryCranParameters_2 `json:"cran,omitempty" tf:"cran,omitempty"`
+	Cran *LibraryCranParameters_2 `json:"cran,omitempty" tf:"cran,omitempty"`
 
 	// Path to the EGG library. Installing Python egg files is deprecated and is not supported in Databricks Runtime 14.0 and above. Use whl or pypi instead.
 	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/cluster/storage/v1alpha1.DbfsFile
@@ -233,15 +233,15 @@ type LibraryParameters_2 struct {
 
 	// Configuration block for a Maven library. The block consists of the following fields:
 	// +kubebuilder:validation:Optional
-	Maven []LibraryMavenParameters_2 `json:"maven,omitempty" tf:"maven,omitempty"`
+	Maven *LibraryMavenParameters_2 `json:"maven,omitempty" tf:"maven,omitempty"`
 
 	// Configuration block for management through the account provider. This block consists of the following fields:
 	// +kubebuilder:validation:Optional
-	ProviderConfig []LibraryProviderConfigParameters_2 `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
+	ProviderConfig *LibraryProviderConfigParameters_2 `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
 
 	// Configuration block for a PyPI library. The block consists of the following fields:
 	// +kubebuilder:validation:Optional
-	Pypi []LibraryPypiParameters_2 `json:"pypi,omitempty" tf:"pypi,omitempty"`
+	Pypi *LibraryPypiParameters_2 `json:"pypi,omitempty" tf:"pypi,omitempty"`
 
 	// Path to the requirements.txt file. Only Workspace paths and Unity Catalog Volumes paths are supported. For example: /Workspace/path/to/requirements.txt or /Volumes/path/to/requirements.txt. Requires a cluster with DBR 15.0+.
 	// +kubebuilder:validation:Optional

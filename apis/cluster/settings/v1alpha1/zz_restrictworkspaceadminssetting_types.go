@@ -36,7 +36,7 @@ type RestrictWorkspaceAdminsSettingInitParameters struct {
 	Etag *string `json:"etag,omitempty" tf:"etag,omitempty"`
 
 	// The configuration details.
-	RestrictWorkspaceAdmins []RestrictWorkspaceAdminsInitParameters `json:"restrictWorkspaceAdmins,omitempty" tf:"restrict_workspace_admins,omitempty"`
+	RestrictWorkspaceAdmins *RestrictWorkspaceAdminsInitParameters `json:"restrictWorkspaceAdmins,omitempty" tf:"restrict_workspace_admins,omitempty"`
 
 	SettingName *string `json:"settingName,omitempty" tf:"setting_name,omitempty"`
 }
@@ -47,7 +47,7 @@ type RestrictWorkspaceAdminsSettingObservation struct {
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
 	// The configuration details.
-	RestrictWorkspaceAdmins []RestrictWorkspaceAdminsObservation `json:"restrictWorkspaceAdmins,omitempty" tf:"restrict_workspace_admins,omitempty"`
+	RestrictWorkspaceAdmins *RestrictWorkspaceAdminsObservation `json:"restrictWorkspaceAdmins,omitempty" tf:"restrict_workspace_admins,omitempty"`
 
 	SettingName *string `json:"settingName,omitempty" tf:"setting_name,omitempty"`
 }
@@ -59,7 +59,7 @@ type RestrictWorkspaceAdminsSettingParameters struct {
 
 	// The configuration details.
 	// +kubebuilder:validation:Optional
-	RestrictWorkspaceAdmins []RestrictWorkspaceAdminsParameters `json:"restrictWorkspaceAdmins,omitempty" tf:"restrict_workspace_admins,omitempty"`
+	RestrictWorkspaceAdmins *RestrictWorkspaceAdminsParameters `json:"restrictWorkspaceAdmins,omitempty" tf:"restrict_workspace_admins,omitempty"`
 
 	// +kubebuilder:validation:Optional
 	SettingName *string `json:"settingName,omitempty" tf:"setting_name,omitempty"`

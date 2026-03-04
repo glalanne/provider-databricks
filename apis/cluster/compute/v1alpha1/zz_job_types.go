@@ -428,7 +428,7 @@ type DashboardTaskInitParameters struct {
 	DashboardID *string `json:"dashboardId,omitempty" tf:"dashboard_id,omitempty"`
 
 	// Represents a subscription configuration for scheduled dashboard snapshots.
-	Subscription []SubscriptionInitParameters `json:"subscription,omitempty" tf:"subscription,omitempty"`
+	Subscription *SubscriptionInitParameters `json:"subscription,omitempty" tf:"subscription,omitempty"`
 
 	// The warehouse id to execute the dashboard with for the schedule. If not specified, will use the default warehouse of dashboard
 	WarehouseID *string `json:"warehouseId,omitempty" tf:"warehouse_id,omitempty"`
@@ -440,7 +440,7 @@ type DashboardTaskObservation struct {
 	DashboardID *string `json:"dashboardId,omitempty" tf:"dashboard_id,omitempty"`
 
 	// Represents a subscription configuration for scheduled dashboard snapshots.
-	Subscription []SubscriptionObservation `json:"subscription,omitempty" tf:"subscription,omitempty"`
+	Subscription *SubscriptionObservation `json:"subscription,omitempty" tf:"subscription,omitempty"`
 
 	// The warehouse id to execute the dashboard with for the schedule. If not specified, will use the default warehouse of dashboard
 	WarehouseID *string `json:"warehouseId,omitempty" tf:"warehouse_id,omitempty"`
@@ -454,7 +454,7 @@ type DashboardTaskParameters struct {
 
 	// Represents a subscription configuration for scheduled dashboard snapshots.
 	// +kubebuilder:validation:Optional
-	Subscription []SubscriptionParameters `json:"subscription,omitempty" tf:"subscription,omitempty"`
+	Subscription *SubscriptionParameters `json:"subscription,omitempty" tf:"subscription,omitempty"`
 
 	// The warehouse id to execute the dashboard with for the schedule. If not specified, will use the default warehouse of dashboard
 	// +kubebuilder:validation:Optional
@@ -788,7 +788,7 @@ type EnvironmentInitParameters struct {
 	EnvironmentKey *string `json:"environmentKey,omitempty" tf:"environment_key,omitempty"`
 
 	// block describing the Environment. Consists of following attributes:
-	Spec []SpecInitParameters `json:"spec,omitempty" tf:"spec,omitempty"`
+	Spec *SpecInitParameters `json:"spec,omitempty" tf:"spec,omitempty"`
 }
 
 type EnvironmentObservation struct {
@@ -797,7 +797,7 @@ type EnvironmentObservation struct {
 	EnvironmentKey *string `json:"environmentKey,omitempty" tf:"environment_key,omitempty"`
 
 	// block describing the Environment. Consists of following attributes:
-	Spec []SpecObservation `json:"spec,omitempty" tf:"spec,omitempty"`
+	Spec *SpecObservation `json:"spec,omitempty" tf:"spec,omitempty"`
 }
 
 type EnvironmentParameters struct {
@@ -808,7 +808,7 @@ type EnvironmentParameters struct {
 
 	// block describing the Environment. Consists of following attributes:
 	// +kubebuilder:validation:Optional
-	Spec []SpecParameters `json:"spec,omitempty" tf:"spec,omitempty"`
+	Spec *SpecParameters `json:"spec,omitempty" tf:"spec,omitempty"`
 }
 
 type FileArrivalInitParameters struct {
@@ -859,7 +859,7 @@ type ForEachTaskInitParameters struct {
 	Inputs *string `json:"inputs,omitempty" tf:"inputs,omitempty"`
 
 	// A list of task specification that the job will execute. See task Configuration Block below.
-	Task []ForEachTaskTaskInitParameters `json:"task,omitempty" tf:"task,omitempty"`
+	Task *ForEachTaskTaskInitParameters `json:"task,omitempty" tf:"task,omitempty"`
 }
 
 type ForEachTaskObservation struct {
@@ -871,7 +871,7 @@ type ForEachTaskObservation struct {
 	Inputs *string `json:"inputs,omitempty" tf:"inputs,omitempty"`
 
 	// A list of task specification that the job will execute. See task Configuration Block below.
-	Task []ForEachTaskTaskObservation `json:"task,omitempty" tf:"task,omitempty"`
+	Task *ForEachTaskTaskObservation `json:"task,omitempty" tf:"task,omitempty"`
 }
 
 type ForEachTaskParameters struct {
@@ -886,7 +886,7 @@ type ForEachTaskParameters struct {
 
 	// A list of task specification that the job will execute. See task Configuration Block below.
 	// +kubebuilder:validation:Optional
-	Task []ForEachTaskTaskParameters `json:"task" tf:"task,omitempty"`
+	Task *ForEachTaskTaskParameters `json:"task" tf:"task,omitempty"`
 }
 
 type ForEachTaskTaskDbtTaskInitParameters struct {
@@ -1040,24 +1040,24 @@ type ForEachTaskTaskEmailNotificationsParameters struct {
 type ForEachTaskTaskInitParameters struct {
 
 	// A list of task specification that the job will execute. See task Configuration Block below.
-	CleanRoomsNotebookTask []TaskCleanRoomsNotebookTaskInitParameters `json:"cleanRoomsNotebookTask,omitempty" tf:"clean_rooms_notebook_task,omitempty"`
+	CleanRoomsNotebookTask *TaskCleanRoomsNotebookTaskInitParameters `json:"cleanRoomsNotebookTask,omitempty" tf:"clean_rooms_notebook_task,omitempty"`
 
-	Compute []TaskComputeInitParameters `json:"compute,omitempty" tf:"compute,omitempty"`
-
-	// A list of task specification that the job will execute. See task Configuration Block below.
-	ConditionTask []TaskConditionTaskInitParameters `json:"conditionTask,omitempty" tf:"condition_task,omitempty"`
+	Compute *TaskComputeInitParameters `json:"compute,omitempty" tf:"compute,omitempty"`
 
 	// A list of task specification that the job will execute. See task Configuration Block below.
-	DashboardTask []TaskDashboardTaskInitParameters `json:"dashboardTask,omitempty" tf:"dashboard_task,omitempty"`
+	ConditionTask *TaskConditionTaskInitParameters `json:"conditionTask,omitempty" tf:"condition_task,omitempty"`
 
 	// A list of task specification that the job will execute. See task Configuration Block below.
-	DbtCloudTask []TaskDbtCloudTaskInitParameters `json:"dbtCloudTask,omitempty" tf:"dbt_cloud_task,omitempty"`
+	DashboardTask *TaskDashboardTaskInitParameters `json:"dashboardTask,omitempty" tf:"dashboard_task,omitempty"`
 
 	// A list of task specification that the job will execute. See task Configuration Block below.
-	DbtPlatformTask []TaskDbtPlatformTaskInitParameters `json:"dbtPlatformTask,omitempty" tf:"dbt_platform_task,omitempty"`
+	DbtCloudTask *TaskDbtCloudTaskInitParameters `json:"dbtCloudTask,omitempty" tf:"dbt_cloud_task,omitempty"`
 
 	// A list of task specification that the job will execute. See task Configuration Block below.
-	DbtTask []ForEachTaskTaskDbtTaskInitParameters `json:"dbtTask,omitempty" tf:"dbt_task,omitempty"`
+	DbtPlatformTask *TaskDbtPlatformTaskInitParameters `json:"dbtPlatformTask,omitempty" tf:"dbt_platform_task,omitempty"`
+
+	// A list of task specification that the job will execute. See task Configuration Block below.
+	DbtTask *ForEachTaskTaskDbtTaskInitParameters `json:"dbtTask,omitempty" tf:"dbt_task,omitempty"`
 
 	// block specifying dependency(-ies) for a given task.
 	DependsOn []TaskDependsOnInitParameters `json:"dependsOn,omitempty" tf:"depends_on,omitempty"`
@@ -1071,7 +1071,7 @@ type ForEachTaskTaskInitParameters struct {
 	Disabled *bool `json:"disabled,omitempty" tf:"disabled,omitempty"`
 
 	// (List) An optional set of email addresses notified when runs of this job begins, completes or fails. The default behavior is to not send any emails. This field is a block and is documented below.
-	EmailNotifications []ForEachTaskTaskEmailNotificationsInitParameters `json:"emailNotifications,omitempty" tf:"email_notifications,omitempty"`
+	EmailNotifications *ForEachTaskTaskEmailNotificationsInitParameters `json:"emailNotifications,omitempty" tf:"email_notifications,omitempty"`
 
 	// identifier of an environment block that is used to specify libraries.  Required for some tasks (spark_python_task, python_wheel_task, ...) running on serverless compute.
 	EnvironmentKey *string `json:"environmentKey,omitempty" tf:"environment_key,omitempty"`
@@ -1080,10 +1080,10 @@ type ForEachTaskTaskInitParameters struct {
 	ExistingClusterID *string `json:"existingClusterId,omitempty" tf:"existing_cluster_id,omitempty"`
 
 	// A list of task specification that the job will execute. See task Configuration Block below.
-	GenAIComputeTask []GenAIComputeTaskInitParameters `json:"genAiComputeTask,omitempty" tf:"gen_ai_compute_task,omitempty"`
+	GenAIComputeTask *GenAIComputeTaskInitParameters `json:"genAiComputeTask,omitempty" tf:"gen_ai_compute_task,omitempty"`
 
 	// An optional block that specifies the health conditions for the job documented below.
-	Health []TaskHealthInitParameters `json:"health,omitempty" tf:"health,omitempty"`
+	Health *TaskHealthInitParameters `json:"health,omitempty" tf:"health,omitempty"`
 
 	// Identifier of the Job cluster specified in the job_cluster block.
 	JobClusterKey *string `json:"jobClusterKey,omitempty" tf:"job_cluster_key,omitempty"`
@@ -1098,22 +1098,22 @@ type ForEachTaskTaskInitParameters struct {
 	MinRetryIntervalMillis *float64 `json:"minRetryIntervalMillis,omitempty" tf:"min_retry_interval_millis,omitempty"`
 
 	// Task will run on a dedicated cluster.  See databricks_cluster documentation for specification. Some parameters, such as
-	NewCluster []TaskNewClusterInitParameters `json:"newCluster,omitempty" tf:"new_cluster,omitempty"`
+	NewCluster *TaskNewClusterInitParameters `json:"newCluster,omitempty" tf:"new_cluster,omitempty"`
 
 	// A list of task specification that the job will execute. See task Configuration Block below.
-	NotebookTask []TaskNotebookTaskInitParameters `json:"notebookTask,omitempty" tf:"notebook_task,omitempty"`
+	NotebookTask *TaskNotebookTaskInitParameters `json:"notebookTask,omitempty" tf:"notebook_task,omitempty"`
 
 	// An optional block controlling the notification settings on the job level documented below.
-	NotificationSettings []TaskNotificationSettingsInitParameters `json:"notificationSettings,omitempty" tf:"notification_settings,omitempty"`
+	NotificationSettings *TaskNotificationSettingsInitParameters `json:"notificationSettings,omitempty" tf:"notification_settings,omitempty"`
 
 	// A list of task specification that the job will execute. See task Configuration Block below.
-	PipelineTask []TaskPipelineTaskInitParameters `json:"pipelineTask,omitempty" tf:"pipeline_task,omitempty"`
+	PipelineTask *TaskPipelineTaskInitParameters `json:"pipelineTask,omitempty" tf:"pipeline_task,omitempty"`
 
 	// A list of task specification that the job will execute. See task Configuration Block below.
-	PowerBiTask []PowerBiTaskInitParameters `json:"powerBiTask,omitempty" tf:"power_bi_task,omitempty"`
+	PowerBiTask *PowerBiTaskInitParameters `json:"powerBiTask,omitempty" tf:"power_bi_task,omitempty"`
 
 	// A list of task specification that the job will execute. See task Configuration Block below.
-	PythonWheelTask []TaskPythonWheelTaskInitParameters `json:"pythonWheelTask,omitempty" tf:"python_wheel_task,omitempty"`
+	PythonWheelTask *TaskPythonWheelTaskInitParameters `json:"pythonWheelTask,omitempty" tf:"python_wheel_task,omitempty"`
 
 	// (Bool) An optional policy to specify whether to retry a job when it times out. The default behavior is to not retry on timeout.
 	RetryOnTimeout *bool `json:"retryOnTimeout,omitempty" tf:"retry_on_timeout,omitempty"`
@@ -1122,19 +1122,19 @@ type ForEachTaskTaskInitParameters struct {
 	RunIf *string `json:"runIf,omitempty" tf:"run_if,omitempty"`
 
 	// A list of task specification that the job will execute. See task Configuration Block below.
-	RunJobTask []TaskRunJobTaskInitParameters `json:"runJobTask,omitempty" tf:"run_job_task,omitempty"`
+	RunJobTask *TaskRunJobTaskInitParameters `json:"runJobTask,omitempty" tf:"run_job_task,omitempty"`
 
 	// A list of task specification that the job will execute. See task Configuration Block below.
-	SQLTask []SQLTaskInitParameters `json:"sqlTask,omitempty" tf:"sql_task,omitempty"`
+	SQLTask *SQLTaskInitParameters `json:"sqlTask,omitempty" tf:"sql_task,omitempty"`
 
 	// A list of task specification that the job will execute. See task Configuration Block below.
-	SparkJarTask []TaskSparkJarTaskInitParameters `json:"sparkJarTask,omitempty" tf:"spark_jar_task,omitempty"`
+	SparkJarTask *TaskSparkJarTaskInitParameters `json:"sparkJarTask,omitempty" tf:"spark_jar_task,omitempty"`
 
 	// A list of task specification that the job will execute. See task Configuration Block below.
-	SparkPythonTask []TaskSparkPythonTaskInitParameters `json:"sparkPythonTask,omitempty" tf:"spark_python_task,omitempty"`
+	SparkPythonTask *TaskSparkPythonTaskInitParameters `json:"sparkPythonTask,omitempty" tf:"spark_python_task,omitempty"`
 
 	// A list of task specification that the job will execute. See task Configuration Block below.
-	SparkSubmitTask []TaskSparkSubmitTaskInitParameters `json:"sparkSubmitTask,omitempty" tf:"spark_submit_task,omitempty"`
+	SparkSubmitTask *TaskSparkSubmitTaskInitParameters `json:"sparkSubmitTask,omitempty" tf:"spark_submit_task,omitempty"`
 
 	// string specifying an unique key for a given task.
 	TaskKey *string `json:"taskKey,omitempty" tf:"task_key,omitempty"`
@@ -1143,30 +1143,30 @@ type ForEachTaskTaskInitParameters struct {
 	TimeoutSeconds *float64 `json:"timeoutSeconds,omitempty" tf:"timeout_seconds,omitempty"`
 
 	// (List) An optional set of system destinations (for example, webhook destinations or Slack) to be notified when runs of this job begins, completes or fails. The default behavior is to not send any notifications. This field is a block and is documented below.
-	WebhookNotifications []WebhookNotificationsInitParameters `json:"webhookNotifications,omitempty" tf:"webhook_notifications,omitempty"`
+	WebhookNotifications *WebhookNotificationsInitParameters `json:"webhookNotifications,omitempty" tf:"webhook_notifications,omitempty"`
 }
 
 type ForEachTaskTaskObservation struct {
 
 	// A list of task specification that the job will execute. See task Configuration Block below.
-	CleanRoomsNotebookTask []TaskCleanRoomsNotebookTaskObservation `json:"cleanRoomsNotebookTask,omitempty" tf:"clean_rooms_notebook_task,omitempty"`
+	CleanRoomsNotebookTask *TaskCleanRoomsNotebookTaskObservation `json:"cleanRoomsNotebookTask,omitempty" tf:"clean_rooms_notebook_task,omitempty"`
 
-	Compute []TaskComputeObservation `json:"compute,omitempty" tf:"compute,omitempty"`
-
-	// A list of task specification that the job will execute. See task Configuration Block below.
-	ConditionTask []TaskConditionTaskObservation `json:"conditionTask,omitempty" tf:"condition_task,omitempty"`
+	Compute *TaskComputeObservation `json:"compute,omitempty" tf:"compute,omitempty"`
 
 	// A list of task specification that the job will execute. See task Configuration Block below.
-	DashboardTask []TaskDashboardTaskObservation `json:"dashboardTask,omitempty" tf:"dashboard_task,omitempty"`
+	ConditionTask *TaskConditionTaskObservation `json:"conditionTask,omitempty" tf:"condition_task,omitempty"`
 
 	// A list of task specification that the job will execute. See task Configuration Block below.
-	DbtCloudTask []TaskDbtCloudTaskObservation `json:"dbtCloudTask,omitempty" tf:"dbt_cloud_task,omitempty"`
+	DashboardTask *TaskDashboardTaskObservation `json:"dashboardTask,omitempty" tf:"dashboard_task,omitempty"`
 
 	// A list of task specification that the job will execute. See task Configuration Block below.
-	DbtPlatformTask []TaskDbtPlatformTaskObservation `json:"dbtPlatformTask,omitempty" tf:"dbt_platform_task,omitempty"`
+	DbtCloudTask *TaskDbtCloudTaskObservation `json:"dbtCloudTask,omitempty" tf:"dbt_cloud_task,omitempty"`
 
 	// A list of task specification that the job will execute. See task Configuration Block below.
-	DbtTask []ForEachTaskTaskDbtTaskObservation `json:"dbtTask,omitempty" tf:"dbt_task,omitempty"`
+	DbtPlatformTask *TaskDbtPlatformTaskObservation `json:"dbtPlatformTask,omitempty" tf:"dbt_platform_task,omitempty"`
+
+	// A list of task specification that the job will execute. See task Configuration Block below.
+	DbtTask *ForEachTaskTaskDbtTaskObservation `json:"dbtTask,omitempty" tf:"dbt_task,omitempty"`
 
 	// block specifying dependency(-ies) for a given task.
 	DependsOn []TaskDependsOnObservation `json:"dependsOn,omitempty" tf:"depends_on,omitempty"`
@@ -1180,7 +1180,7 @@ type ForEachTaskTaskObservation struct {
 	Disabled *bool `json:"disabled,omitempty" tf:"disabled,omitempty"`
 
 	// (List) An optional set of email addresses notified when runs of this job begins, completes or fails. The default behavior is to not send any emails. This field is a block and is documented below.
-	EmailNotifications []ForEachTaskTaskEmailNotificationsObservation `json:"emailNotifications,omitempty" tf:"email_notifications,omitempty"`
+	EmailNotifications *ForEachTaskTaskEmailNotificationsObservation `json:"emailNotifications,omitempty" tf:"email_notifications,omitempty"`
 
 	// identifier of an environment block that is used to specify libraries.  Required for some tasks (spark_python_task, python_wheel_task, ...) running on serverless compute.
 	EnvironmentKey *string `json:"environmentKey,omitempty" tf:"environment_key,omitempty"`
@@ -1189,10 +1189,10 @@ type ForEachTaskTaskObservation struct {
 	ExistingClusterID *string `json:"existingClusterId,omitempty" tf:"existing_cluster_id,omitempty"`
 
 	// A list of task specification that the job will execute. See task Configuration Block below.
-	GenAIComputeTask []GenAIComputeTaskObservation `json:"genAiComputeTask,omitempty" tf:"gen_ai_compute_task,omitempty"`
+	GenAIComputeTask *GenAIComputeTaskObservation `json:"genAiComputeTask,omitempty" tf:"gen_ai_compute_task,omitempty"`
 
 	// An optional block that specifies the health conditions for the job documented below.
-	Health []TaskHealthObservation `json:"health,omitempty" tf:"health,omitempty"`
+	Health *TaskHealthObservation `json:"health,omitempty" tf:"health,omitempty"`
 
 	// Identifier of the Job cluster specified in the job_cluster block.
 	JobClusterKey *string `json:"jobClusterKey,omitempty" tf:"job_cluster_key,omitempty"`
@@ -1207,22 +1207,22 @@ type ForEachTaskTaskObservation struct {
 	MinRetryIntervalMillis *float64 `json:"minRetryIntervalMillis,omitempty" tf:"min_retry_interval_millis,omitempty"`
 
 	// Task will run on a dedicated cluster.  See databricks_cluster documentation for specification. Some parameters, such as
-	NewCluster []TaskNewClusterObservation `json:"newCluster,omitempty" tf:"new_cluster,omitempty"`
+	NewCluster *TaskNewClusterObservation `json:"newCluster,omitempty" tf:"new_cluster,omitempty"`
 
 	// A list of task specification that the job will execute. See task Configuration Block below.
-	NotebookTask []TaskNotebookTaskObservation `json:"notebookTask,omitempty" tf:"notebook_task,omitempty"`
+	NotebookTask *TaskNotebookTaskObservation `json:"notebookTask,omitempty" tf:"notebook_task,omitempty"`
 
 	// An optional block controlling the notification settings on the job level documented below.
-	NotificationSettings []TaskNotificationSettingsObservation `json:"notificationSettings,omitempty" tf:"notification_settings,omitempty"`
+	NotificationSettings *TaskNotificationSettingsObservation `json:"notificationSettings,omitempty" tf:"notification_settings,omitempty"`
 
 	// A list of task specification that the job will execute. See task Configuration Block below.
-	PipelineTask []TaskPipelineTaskObservation `json:"pipelineTask,omitempty" tf:"pipeline_task,omitempty"`
+	PipelineTask *TaskPipelineTaskObservation `json:"pipelineTask,omitempty" tf:"pipeline_task,omitempty"`
 
 	// A list of task specification that the job will execute. See task Configuration Block below.
-	PowerBiTask []PowerBiTaskObservation `json:"powerBiTask,omitempty" tf:"power_bi_task,omitempty"`
+	PowerBiTask *PowerBiTaskObservation `json:"powerBiTask,omitempty" tf:"power_bi_task,omitempty"`
 
 	// A list of task specification that the job will execute. See task Configuration Block below.
-	PythonWheelTask []TaskPythonWheelTaskObservation `json:"pythonWheelTask,omitempty" tf:"python_wheel_task,omitempty"`
+	PythonWheelTask *TaskPythonWheelTaskObservation `json:"pythonWheelTask,omitempty" tf:"python_wheel_task,omitempty"`
 
 	// (Bool) An optional policy to specify whether to retry a job when it times out. The default behavior is to not retry on timeout.
 	RetryOnTimeout *bool `json:"retryOnTimeout,omitempty" tf:"retry_on_timeout,omitempty"`
@@ -1231,19 +1231,19 @@ type ForEachTaskTaskObservation struct {
 	RunIf *string `json:"runIf,omitempty" tf:"run_if,omitempty"`
 
 	// A list of task specification that the job will execute. See task Configuration Block below.
-	RunJobTask []TaskRunJobTaskObservation `json:"runJobTask,omitempty" tf:"run_job_task,omitempty"`
+	RunJobTask *TaskRunJobTaskObservation `json:"runJobTask,omitempty" tf:"run_job_task,omitempty"`
 
 	// A list of task specification that the job will execute. See task Configuration Block below.
-	SQLTask []SQLTaskObservation `json:"sqlTask,omitempty" tf:"sql_task,omitempty"`
+	SQLTask *SQLTaskObservation `json:"sqlTask,omitempty" tf:"sql_task,omitempty"`
 
 	// A list of task specification that the job will execute. See task Configuration Block below.
-	SparkJarTask []TaskSparkJarTaskObservation `json:"sparkJarTask,omitempty" tf:"spark_jar_task,omitempty"`
+	SparkJarTask *TaskSparkJarTaskObservation `json:"sparkJarTask,omitempty" tf:"spark_jar_task,omitempty"`
 
 	// A list of task specification that the job will execute. See task Configuration Block below.
-	SparkPythonTask []TaskSparkPythonTaskObservation `json:"sparkPythonTask,omitempty" tf:"spark_python_task,omitempty"`
+	SparkPythonTask *TaskSparkPythonTaskObservation `json:"sparkPythonTask,omitempty" tf:"spark_python_task,omitempty"`
 
 	// A list of task specification that the job will execute. See task Configuration Block below.
-	SparkSubmitTask []TaskSparkSubmitTaskObservation `json:"sparkSubmitTask,omitempty" tf:"spark_submit_task,omitempty"`
+	SparkSubmitTask *TaskSparkSubmitTaskObservation `json:"sparkSubmitTask,omitempty" tf:"spark_submit_task,omitempty"`
 
 	// string specifying an unique key for a given task.
 	TaskKey *string `json:"taskKey,omitempty" tf:"task_key,omitempty"`
@@ -1252,37 +1252,37 @@ type ForEachTaskTaskObservation struct {
 	TimeoutSeconds *float64 `json:"timeoutSeconds,omitempty" tf:"timeout_seconds,omitempty"`
 
 	// (List) An optional set of system destinations (for example, webhook destinations or Slack) to be notified when runs of this job begins, completes or fails. The default behavior is to not send any notifications. This field is a block and is documented below.
-	WebhookNotifications []WebhookNotificationsObservation `json:"webhookNotifications,omitempty" tf:"webhook_notifications,omitempty"`
+	WebhookNotifications *WebhookNotificationsObservation `json:"webhookNotifications,omitempty" tf:"webhook_notifications,omitempty"`
 }
 
 type ForEachTaskTaskParameters struct {
 
 	// A list of task specification that the job will execute. See task Configuration Block below.
 	// +kubebuilder:validation:Optional
-	CleanRoomsNotebookTask []TaskCleanRoomsNotebookTaskParameters `json:"cleanRoomsNotebookTask,omitempty" tf:"clean_rooms_notebook_task,omitempty"`
+	CleanRoomsNotebookTask *TaskCleanRoomsNotebookTaskParameters `json:"cleanRoomsNotebookTask,omitempty" tf:"clean_rooms_notebook_task,omitempty"`
 
 	// +kubebuilder:validation:Optional
-	Compute []TaskComputeParameters `json:"compute,omitempty" tf:"compute,omitempty"`
-
-	// A list of task specification that the job will execute. See task Configuration Block below.
-	// +kubebuilder:validation:Optional
-	ConditionTask []TaskConditionTaskParameters `json:"conditionTask,omitempty" tf:"condition_task,omitempty"`
+	Compute *TaskComputeParameters `json:"compute,omitempty" tf:"compute,omitempty"`
 
 	// A list of task specification that the job will execute. See task Configuration Block below.
 	// +kubebuilder:validation:Optional
-	DashboardTask []TaskDashboardTaskParameters `json:"dashboardTask,omitempty" tf:"dashboard_task,omitempty"`
+	ConditionTask *TaskConditionTaskParameters `json:"conditionTask,omitempty" tf:"condition_task,omitempty"`
 
 	// A list of task specification that the job will execute. See task Configuration Block below.
 	// +kubebuilder:validation:Optional
-	DbtCloudTask []TaskDbtCloudTaskParameters `json:"dbtCloudTask,omitempty" tf:"dbt_cloud_task,omitempty"`
+	DashboardTask *TaskDashboardTaskParameters `json:"dashboardTask,omitempty" tf:"dashboard_task,omitempty"`
 
 	// A list of task specification that the job will execute. See task Configuration Block below.
 	// +kubebuilder:validation:Optional
-	DbtPlatformTask []TaskDbtPlatformTaskParameters `json:"dbtPlatformTask,omitempty" tf:"dbt_platform_task,omitempty"`
+	DbtCloudTask *TaskDbtCloudTaskParameters `json:"dbtCloudTask,omitempty" tf:"dbt_cloud_task,omitempty"`
 
 	// A list of task specification that the job will execute. See task Configuration Block below.
 	// +kubebuilder:validation:Optional
-	DbtTask []ForEachTaskTaskDbtTaskParameters `json:"dbtTask,omitempty" tf:"dbt_task,omitempty"`
+	DbtPlatformTask *TaskDbtPlatformTaskParameters `json:"dbtPlatformTask,omitempty" tf:"dbt_platform_task,omitempty"`
+
+	// A list of task specification that the job will execute. See task Configuration Block below.
+	// +kubebuilder:validation:Optional
+	DbtTask *ForEachTaskTaskDbtTaskParameters `json:"dbtTask,omitempty" tf:"dbt_task,omitempty"`
 
 	// block specifying dependency(-ies) for a given task.
 	// +kubebuilder:validation:Optional
@@ -1301,7 +1301,7 @@ type ForEachTaskTaskParameters struct {
 
 	// (List) An optional set of email addresses notified when runs of this job begins, completes or fails. The default behavior is to not send any emails. This field is a block and is documented below.
 	// +kubebuilder:validation:Optional
-	EmailNotifications []ForEachTaskTaskEmailNotificationsParameters `json:"emailNotifications,omitempty" tf:"email_notifications,omitempty"`
+	EmailNotifications *ForEachTaskTaskEmailNotificationsParameters `json:"emailNotifications,omitempty" tf:"email_notifications,omitempty"`
 
 	// identifier of an environment block that is used to specify libraries.  Required for some tasks (spark_python_task, python_wheel_task, ...) running on serverless compute.
 	// +kubebuilder:validation:Optional
@@ -1313,11 +1313,11 @@ type ForEachTaskTaskParameters struct {
 
 	// A list of task specification that the job will execute. See task Configuration Block below.
 	// +kubebuilder:validation:Optional
-	GenAIComputeTask []GenAIComputeTaskParameters `json:"genAiComputeTask,omitempty" tf:"gen_ai_compute_task,omitempty"`
+	GenAIComputeTask *GenAIComputeTaskParameters `json:"genAiComputeTask,omitempty" tf:"gen_ai_compute_task,omitempty"`
 
 	// An optional block that specifies the health conditions for the job documented below.
 	// +kubebuilder:validation:Optional
-	Health []TaskHealthParameters `json:"health,omitempty" tf:"health,omitempty"`
+	Health *TaskHealthParameters `json:"health,omitempty" tf:"health,omitempty"`
 
 	// Identifier of the Job cluster specified in the job_cluster block.
 	// +kubebuilder:validation:Optional
@@ -1337,27 +1337,27 @@ type ForEachTaskTaskParameters struct {
 
 	// Task will run on a dedicated cluster.  See databricks_cluster documentation for specification. Some parameters, such as
 	// +kubebuilder:validation:Optional
-	NewCluster []TaskNewClusterParameters `json:"newCluster,omitempty" tf:"new_cluster,omitempty"`
+	NewCluster *TaskNewClusterParameters `json:"newCluster,omitempty" tf:"new_cluster,omitempty"`
 
 	// A list of task specification that the job will execute. See task Configuration Block below.
 	// +kubebuilder:validation:Optional
-	NotebookTask []TaskNotebookTaskParameters `json:"notebookTask,omitempty" tf:"notebook_task,omitempty"`
+	NotebookTask *TaskNotebookTaskParameters `json:"notebookTask,omitempty" tf:"notebook_task,omitempty"`
 
 	// An optional block controlling the notification settings on the job level documented below.
 	// +kubebuilder:validation:Optional
-	NotificationSettings []TaskNotificationSettingsParameters `json:"notificationSettings,omitempty" tf:"notification_settings,omitempty"`
+	NotificationSettings *TaskNotificationSettingsParameters `json:"notificationSettings,omitempty" tf:"notification_settings,omitempty"`
 
 	// A list of task specification that the job will execute. See task Configuration Block below.
 	// +kubebuilder:validation:Optional
-	PipelineTask []TaskPipelineTaskParameters `json:"pipelineTask,omitempty" tf:"pipeline_task,omitempty"`
+	PipelineTask *TaskPipelineTaskParameters `json:"pipelineTask,omitempty" tf:"pipeline_task,omitempty"`
 
 	// A list of task specification that the job will execute. See task Configuration Block below.
 	// +kubebuilder:validation:Optional
-	PowerBiTask []PowerBiTaskParameters `json:"powerBiTask,omitempty" tf:"power_bi_task,omitempty"`
+	PowerBiTask *PowerBiTaskParameters `json:"powerBiTask,omitempty" tf:"power_bi_task,omitempty"`
 
 	// A list of task specification that the job will execute. See task Configuration Block below.
 	// +kubebuilder:validation:Optional
-	PythonWheelTask []TaskPythonWheelTaskParameters `json:"pythonWheelTask,omitempty" tf:"python_wheel_task,omitempty"`
+	PythonWheelTask *TaskPythonWheelTaskParameters `json:"pythonWheelTask,omitempty" tf:"python_wheel_task,omitempty"`
 
 	// (Bool) An optional policy to specify whether to retry a job when it times out. The default behavior is to not retry on timeout.
 	// +kubebuilder:validation:Optional
@@ -1369,23 +1369,23 @@ type ForEachTaskTaskParameters struct {
 
 	// A list of task specification that the job will execute. See task Configuration Block below.
 	// +kubebuilder:validation:Optional
-	RunJobTask []TaskRunJobTaskParameters `json:"runJobTask,omitempty" tf:"run_job_task,omitempty"`
+	RunJobTask *TaskRunJobTaskParameters `json:"runJobTask,omitempty" tf:"run_job_task,omitempty"`
 
 	// A list of task specification that the job will execute. See task Configuration Block below.
 	// +kubebuilder:validation:Optional
-	SQLTask []SQLTaskParameters `json:"sqlTask,omitempty" tf:"sql_task,omitempty"`
+	SQLTask *SQLTaskParameters `json:"sqlTask,omitempty" tf:"sql_task,omitempty"`
 
 	// A list of task specification that the job will execute. See task Configuration Block below.
 	// +kubebuilder:validation:Optional
-	SparkJarTask []TaskSparkJarTaskParameters `json:"sparkJarTask,omitempty" tf:"spark_jar_task,omitempty"`
+	SparkJarTask *TaskSparkJarTaskParameters `json:"sparkJarTask,omitempty" tf:"spark_jar_task,omitempty"`
 
 	// A list of task specification that the job will execute. See task Configuration Block below.
 	// +kubebuilder:validation:Optional
-	SparkPythonTask []TaskSparkPythonTaskParameters `json:"sparkPythonTask,omitempty" tf:"spark_python_task,omitempty"`
+	SparkPythonTask *TaskSparkPythonTaskParameters `json:"sparkPythonTask,omitempty" tf:"spark_python_task,omitempty"`
 
 	// A list of task specification that the job will execute. See task Configuration Block below.
 	// +kubebuilder:validation:Optional
-	SparkSubmitTask []TaskSparkSubmitTaskParameters `json:"sparkSubmitTask,omitempty" tf:"spark_submit_task,omitempty"`
+	SparkSubmitTask *TaskSparkSubmitTaskParameters `json:"sparkSubmitTask,omitempty" tf:"spark_submit_task,omitempty"`
 
 	// string specifying an unique key for a given task.
 	// +kubebuilder:validation:Optional
@@ -1397,7 +1397,7 @@ type ForEachTaskTaskParameters struct {
 
 	// (List) An optional set of system destinations (for example, webhook destinations or Slack) to be notified when runs of this job begins, completes or fails. The default behavior is to not send any notifications. This field is a block and is documented below.
 	// +kubebuilder:validation:Optional
-	WebhookNotifications []WebhookNotificationsParameters `json:"webhookNotifications,omitempty" tf:"webhook_notifications,omitempty"`
+	WebhookNotifications *WebhookNotificationsParameters `json:"webhookNotifications,omitempty" tf:"webhook_notifications,omitempty"`
 }
 
 type GenAIComputeTaskComputeInitParameters struct {
@@ -1436,7 +1436,7 @@ type GenAIComputeTaskComputeParameters struct {
 type GenAIComputeTaskInitParameters struct {
 	Command *string `json:"command,omitempty" tf:"command,omitempty"`
 
-	Compute []GenAIComputeTaskComputeInitParameters `json:"compute,omitempty" tf:"compute,omitempty"`
+	Compute *GenAIComputeTaskComputeInitParameters `json:"compute,omitempty" tf:"compute,omitempty"`
 
 	DlRuntimeImage *string `json:"dlRuntimeImage,omitempty" tf:"dl_runtime_image,omitempty"`
 
@@ -1459,7 +1459,7 @@ type GenAIComputeTaskInitParameters struct {
 type GenAIComputeTaskObservation struct {
 	Command *string `json:"command,omitempty" tf:"command,omitempty"`
 
-	Compute []GenAIComputeTaskComputeObservation `json:"compute,omitempty" tf:"compute,omitempty"`
+	Compute *GenAIComputeTaskComputeObservation `json:"compute,omitempty" tf:"compute,omitempty"`
 
 	DlRuntimeImage *string `json:"dlRuntimeImage,omitempty" tf:"dl_runtime_image,omitempty"`
 
@@ -1485,7 +1485,7 @@ type GenAIComputeTaskParameters struct {
 	Command *string `json:"command,omitempty" tf:"command,omitempty"`
 
 	// +kubebuilder:validation:Optional
-	Compute []GenAIComputeTaskComputeParameters `json:"compute,omitempty" tf:"compute,omitempty"`
+	Compute *GenAIComputeTaskComputeParameters `json:"compute,omitempty" tf:"compute,omitempty"`
 
 	// +kubebuilder:validation:Optional
 	DlRuntimeImage *string `json:"dlRuntimeImage" tf:"dl_runtime_image,omitempty"`
@@ -1538,10 +1538,10 @@ type GitSourceInitParameters struct {
 	// hash of Git commit to use. Conflicts with branch and tag.
 	Commit *string `json:"commit,omitempty" tf:"commit,omitempty"`
 
-	GitSnapshot []GitSnapshotInitParameters `json:"gitSnapshot,omitempty" tf:"git_snapshot,omitempty"`
+	GitSnapshot *GitSnapshotInitParameters `json:"gitSnapshot,omitempty" tf:"git_snapshot,omitempty"`
 
 	// The source of the project. Possible values are WORKSPACE and GIT.  Defaults to GIT if a git_source block is present in the job definition.
-	JobSource []JobSourceInitParameters `json:"jobSource,omitempty" tf:"job_source,omitempty"`
+	JobSource *JobSourceInitParameters `json:"jobSource,omitempty" tf:"job_source,omitempty"`
 
 	// case insensitive name of the Git provider.  Following values are supported right now (could be a subject for change, consult Repos API documentation): gitHub, gitHubEnterprise, bitbucketCloud, bitbucketServer, azureDevOpsServices, gitLab, gitLabEnterpriseEdition.
 	Provider *string `json:"provider,omitempty" tf:"provider,omitempty"`
@@ -1561,10 +1561,10 @@ type GitSourceObservation struct {
 	// hash of Git commit to use. Conflicts with branch and tag.
 	Commit *string `json:"commit,omitempty" tf:"commit,omitempty"`
 
-	GitSnapshot []GitSnapshotObservation `json:"gitSnapshot,omitempty" tf:"git_snapshot,omitempty"`
+	GitSnapshot *GitSnapshotObservation `json:"gitSnapshot,omitempty" tf:"git_snapshot,omitempty"`
 
 	// The source of the project. Possible values are WORKSPACE and GIT.  Defaults to GIT if a git_source block is present in the job definition.
-	JobSource []JobSourceObservation `json:"jobSource,omitempty" tf:"job_source,omitempty"`
+	JobSource *JobSourceObservation `json:"jobSource,omitempty" tf:"job_source,omitempty"`
 
 	// case insensitive name of the Git provider.  Following values are supported right now (could be a subject for change, consult Repos API documentation): gitHub, gitHubEnterprise, bitbucketCloud, bitbucketServer, azureDevOpsServices, gitLab, gitLabEnterpriseEdition.
 	Provider *string `json:"provider,omitempty" tf:"provider,omitempty"`
@@ -1587,11 +1587,11 @@ type GitSourceParameters struct {
 	Commit *string `json:"commit,omitempty" tf:"commit,omitempty"`
 
 	// +kubebuilder:validation:Optional
-	GitSnapshot []GitSnapshotParameters `json:"gitSnapshot,omitempty" tf:"git_snapshot,omitempty"`
+	GitSnapshot *GitSnapshotParameters `json:"gitSnapshot,omitempty" tf:"git_snapshot,omitempty"`
 
 	// The source of the project. Possible values are WORKSPACE and GIT.  Defaults to GIT if a git_source block is present in the job definition.
 	// +kubebuilder:validation:Optional
-	JobSource []JobSourceParameters `json:"jobSource,omitempty" tf:"job_source,omitempty"`
+	JobSource *JobSourceParameters `json:"jobSource,omitempty" tf:"job_source,omitempty"`
 
 	// case insensitive name of the Git provider.  Following values are supported right now (could be a subject for change, consult Repos API documentation): gitHub, gitHubEnterprise, bitbucketCloud, bitbucketServer, azureDevOpsServices, gitLab, gitLabEnterpriseEdition.
 	// +kubebuilder:validation:Optional
@@ -1726,7 +1726,7 @@ type JobClusterInitParameters struct {
 	JobClusterKey *string `json:"jobClusterKey,omitempty" tf:"job_cluster_key,omitempty"`
 
 	// Block with almost the same set of parameters as for databricks_cluster resource, except following (check the REST API documentation for full list of supported parameters):
-	NewCluster []NewClusterInitParameters `json:"newCluster,omitempty" tf:"new_cluster,omitempty"`
+	NewCluster *NewClusterInitParameters `json:"newCluster,omitempty" tf:"new_cluster,omitempty"`
 }
 
 type JobClusterObservation struct {
@@ -1735,7 +1735,7 @@ type JobClusterObservation struct {
 	JobClusterKey *string `json:"jobClusterKey,omitempty" tf:"job_cluster_key,omitempty"`
 
 	// Block with almost the same set of parameters as for databricks_cluster resource, except following (check the REST API documentation for full list of supported parameters):
-	NewCluster []NewClusterObservation `json:"newCluster,omitempty" tf:"new_cluster,omitempty"`
+	NewCluster *NewClusterObservation `json:"newCluster,omitempty" tf:"new_cluster,omitempty"`
 }
 
 type JobClusterParameters struct {
@@ -1746,7 +1746,7 @@ type JobClusterParameters struct {
 
 	// Block with almost the same set of parameters as for databricks_cluster resource, except following (check the REST API documentation for full list of supported parameters):
 	// +kubebuilder:validation:Optional
-	NewCluster []NewClusterParameters `json:"newCluster" tf:"new_cluster,omitempty"`
+	NewCluster *NewClusterParameters `json:"newCluster" tf:"new_cluster,omitempty"`
 }
 
 type JobInitParameters struct {
@@ -1758,15 +1758,15 @@ type JobInitParameters struct {
 	BudgetPolicyID *string `json:"budgetPolicyId,omitempty" tf:"budget_policy_id,omitempty"`
 
 	// Configuration block to configure pause status. See continuous Configuration Block.
-	Continuous []ContinuousInitParameters `json:"continuous,omitempty" tf:"continuous,omitempty"`
+	Continuous *ContinuousInitParameters `json:"continuous,omitempty" tf:"continuous,omitempty"`
 
 	// (Bool) If true, the Databricks provider will stop and start the job as needed to ensure that the active run for the job reflects the deployed configuration. For continuous jobs, the provider respects the pause_status by stopping the current active run. This flag cannot be set for non-continuous jobs.
 	ControlRunState *bool `json:"controlRunState,omitempty" tf:"control_run_state,omitempty"`
 
 	// A list of task specification that the job will execute. See task Configuration Block below.
-	DbtTask []DbtTaskInitParameters `json:"dbtTask,omitempty" tf:"dbt_task,omitempty"`
+	DbtTask *DbtTaskInitParameters `json:"dbtTask,omitempty" tf:"dbt_task,omitempty"`
 
-	Deployment []DeploymentInitParameters `json:"deployment,omitempty" tf:"deployment,omitempty"`
+	Deployment *DeploymentInitParameters `json:"deployment,omitempty" tf:"deployment,omitempty"`
 
 	// An optional description for the job. The maximum length is 1024 characters in UTF-8 encoding.
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
@@ -1775,7 +1775,7 @@ type JobInitParameters struct {
 	EditMode *string `json:"editMode,omitempty" tf:"edit_mode,omitempty"`
 
 	// (List) An optional set of email addresses notified when runs of this job begins, completes or fails. The default behavior is to not send any emails. This field is a block and is documented below.
-	EmailNotifications []EmailNotificationsInitParameters `json:"emailNotifications,omitempty" tf:"email_notifications,omitempty"`
+	EmailNotifications *EmailNotificationsInitParameters `json:"emailNotifications,omitempty" tf:"email_notifications,omitempty"`
 
 	Environment []EnvironmentInitParameters `json:"environment,omitempty" tf:"environment,omitempty"`
 
@@ -1785,10 +1785,10 @@ type JobInitParameters struct {
 	Format *string `json:"format,omitempty" tf:"format,omitempty"`
 
 	// Specifies the a Git repository for task source code. See git_source Configuration Block below.
-	GitSource []GitSourceInitParameters `json:"gitSource,omitempty" tf:"git_source,omitempty"`
+	GitSource *GitSourceInitParameters `json:"gitSource,omitempty" tf:"git_source,omitempty"`
 
 	// An optional block that specifies the health conditions for the job documented below.
-	Health []HealthInitParameters `json:"health,omitempty" tf:"health,omitempty"`
+	Health *HealthInitParameters `json:"health,omitempty" tf:"health,omitempty"`
 
 	// A list of job databricks_cluster specifications that can be shared and reused by tasks of this job. Libraries cannot be declared in a shared job cluster. You must declare dependent libraries in task settings. Multi-task syntax
 	JobCluster []JobClusterInitParameters `json:"jobCluster,omitempty" tf:"job_cluster,omitempty"`
@@ -1809,13 +1809,13 @@ type JobInitParameters struct {
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// Task will run on a dedicated cluster.  See databricks_cluster documentation for specification. Some parameters, such as
-	NewCluster []JobNewClusterInitParameters `json:"newCluster,omitempty" tf:"new_cluster,omitempty"`
+	NewCluster *JobNewClusterInitParameters `json:"newCluster,omitempty" tf:"new_cluster,omitempty"`
 
 	// A list of task specification that the job will execute. See task Configuration Block below.
-	NotebookTask []NotebookTaskInitParameters `json:"notebookTask,omitempty" tf:"notebook_task,omitempty"`
+	NotebookTask *NotebookTaskInitParameters `json:"notebookTask,omitempty" tf:"notebook_task,omitempty"`
 
 	// An optional block controlling the notification settings on the job level documented below.
-	NotificationSettings []NotificationSettingsInitParameters `json:"notificationSettings,omitempty" tf:"notification_settings,omitempty"`
+	NotificationSettings *NotificationSettingsInitParameters `json:"notificationSettings,omitempty" tf:"notification_settings,omitempty"`
 
 	// Specifies job parameter for the job. See parameter Configuration Block
 	Parameter []ParameterInitParameters `json:"parameter,omitempty" tf:"parameter,omitempty"`
@@ -1824,37 +1824,37 @@ type JobInitParameters struct {
 	PerformanceTarget *string `json:"performanceTarget,omitempty" tf:"performance_target,omitempty"`
 
 	// A list of task specification that the job will execute. See task Configuration Block below.
-	PipelineTask []PipelineTaskInitParameters `json:"pipelineTask,omitempty" tf:"pipeline_task,omitempty"`
+	PipelineTask *PipelineTaskInitParameters `json:"pipelineTask,omitempty" tf:"pipeline_task,omitempty"`
 
 	// Configure the provider for management through account provider. This block consists of the following fields:
-	ProviderConfig []JobProviderConfigInitParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
+	ProviderConfig *JobProviderConfigInitParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
 
 	// A list of task specification that the job will execute. See task Configuration Block below.
-	PythonWheelTask []PythonWheelTaskInitParameters `json:"pythonWheelTask,omitempty" tf:"python_wheel_task,omitempty"`
+	PythonWheelTask *PythonWheelTaskInitParameters `json:"pythonWheelTask,omitempty" tf:"python_wheel_task,omitempty"`
 
 	// The queue status for the job. See queue Configuration Block below.
-	Queue []QueueInitParameters `json:"queue,omitempty" tf:"queue,omitempty"`
+	Queue *QueueInitParameters `json:"queue,omitempty" tf:"queue,omitempty"`
 
 	// (Bool) An optional policy to specify whether to retry a job when it times out. The default behavior is to not retry on timeout.
 	RetryOnTimeout *bool `json:"retryOnTimeout,omitempty" tf:"retry_on_timeout,omitempty"`
 
 	// The user or the service principal the job runs as. See run_as Configuration Block below.
-	RunAs []RunAsInitParameters `json:"runAs,omitempty" tf:"run_as,omitempty"`
+	RunAs *RunAsInitParameters `json:"runAs,omitempty" tf:"run_as,omitempty"`
 
 	// A list of task specification that the job will execute. See task Configuration Block below.
-	RunJobTask []RunJobTaskInitParameters `json:"runJobTask,omitempty" tf:"run_job_task,omitempty"`
+	RunJobTask *RunJobTaskInitParameters `json:"runJobTask,omitempty" tf:"run_job_task,omitempty"`
 
 	// An optional periodic schedule for this job. The default behavior is that the job runs when triggered by clicking Run Now in the Jobs UI or sending an API request to runNow. See schedule Configuration Block below.
-	Schedule []ScheduleInitParameters `json:"schedule,omitempty" tf:"schedule,omitempty"`
+	Schedule *ScheduleInitParameters `json:"schedule,omitempty" tf:"schedule,omitempty"`
 
 	// A list of task specification that the job will execute. See task Configuration Block below.
-	SparkJarTask []SparkJarTaskInitParameters `json:"sparkJarTask,omitempty" tf:"spark_jar_task,omitempty"`
+	SparkJarTask *SparkJarTaskInitParameters `json:"sparkJarTask,omitempty" tf:"spark_jar_task,omitempty"`
 
 	// A list of task specification that the job will execute. See task Configuration Block below.
-	SparkPythonTask []SparkPythonTaskInitParameters `json:"sparkPythonTask,omitempty" tf:"spark_python_task,omitempty"`
+	SparkPythonTask *SparkPythonTaskInitParameters `json:"sparkPythonTask,omitempty" tf:"spark_python_task,omitempty"`
 
 	// A list of task specification that the job will execute. See task Configuration Block below.
-	SparkSubmitTask []SparkSubmitTaskInitParameters `json:"sparkSubmitTask,omitempty" tf:"spark_submit_task,omitempty"`
+	SparkSubmitTask *SparkSubmitTaskInitParameters `json:"sparkSubmitTask,omitempty" tf:"spark_submit_task,omitempty"`
 
 	// An optional map of the tags associated with the job. See tags Configuration Map
 	// +mapType=granular
@@ -1867,13 +1867,13 @@ type JobInitParameters struct {
 	TimeoutSeconds *float64 `json:"timeoutSeconds,omitempty" tf:"timeout_seconds,omitempty"`
 
 	// The conditions that triggers the job to start. See trigger Configuration Block below.
-	Trigger []TriggerInitParameters `json:"trigger,omitempty" tf:"trigger,omitempty"`
+	Trigger *TriggerInitParameters `json:"trigger,omitempty" tf:"trigger,omitempty"`
 
 	// ID of the system notification that is notified when an event defined in webhook_notifications is triggered.
 	UsagePolicyID *string `json:"usagePolicyId,omitempty" tf:"usage_policy_id,omitempty"`
 
 	// (List) An optional set of system destinations (for example, webhook destinations or Slack) to be notified when runs of this job begins, completes or fails. The default behavior is to not send any notifications. This field is a block and is documented below.
-	WebhookNotifications []JobWebhookNotificationsInitParameters `json:"webhookNotifications,omitempty" tf:"webhook_notifications,omitempty"`
+	WebhookNotifications *JobWebhookNotificationsInitParameters `json:"webhookNotifications,omitempty" tf:"webhook_notifications,omitempty"`
 }
 
 type JobLibraryCranInitParameters struct {
@@ -1898,18 +1898,18 @@ type JobLibraryCranParameters struct {
 }
 
 type JobLibraryInitParameters struct {
-	Cran []JobLibraryCranInitParameters `json:"cran,omitempty" tf:"cran,omitempty"`
+	Cran *JobLibraryCranInitParameters `json:"cran,omitempty" tf:"cran,omitempty"`
 
 	Egg *string `json:"egg,omitempty" tf:"egg,omitempty"`
 
 	Jar *string `json:"jar,omitempty" tf:"jar,omitempty"`
 
-	Maven []JobLibraryMavenInitParameters `json:"maven,omitempty" tf:"maven,omitempty"`
+	Maven *JobLibraryMavenInitParameters `json:"maven,omitempty" tf:"maven,omitempty"`
 
 	// Configure the provider for management through account provider. This block consists of the following fields:
-	ProviderConfig []JobLibraryProviderConfigInitParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
+	ProviderConfig *JobLibraryProviderConfigInitParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
 
-	Pypi []JobLibraryPypiInitParameters `json:"pypi,omitempty" tf:"pypi,omitempty"`
+	Pypi *JobLibraryPypiInitParameters `json:"pypi,omitempty" tf:"pypi,omitempty"`
 
 	Requirements *string `json:"requirements,omitempty" tf:"requirements,omitempty"`
 
@@ -1945,18 +1945,18 @@ type JobLibraryMavenParameters struct {
 }
 
 type JobLibraryObservation struct {
-	Cran []JobLibraryCranObservation `json:"cran,omitempty" tf:"cran,omitempty"`
+	Cran *JobLibraryCranObservation `json:"cran,omitempty" tf:"cran,omitempty"`
 
 	Egg *string `json:"egg,omitempty" tf:"egg,omitempty"`
 
 	Jar *string `json:"jar,omitempty" tf:"jar,omitempty"`
 
-	Maven []JobLibraryMavenObservation `json:"maven,omitempty" tf:"maven,omitempty"`
+	Maven *JobLibraryMavenObservation `json:"maven,omitempty" tf:"maven,omitempty"`
 
 	// Configure the provider for management through account provider. This block consists of the following fields:
-	ProviderConfig []JobLibraryProviderConfigObservation `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
+	ProviderConfig *JobLibraryProviderConfigObservation `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
 
-	Pypi []JobLibraryPypiObservation `json:"pypi,omitempty" tf:"pypi,omitempty"`
+	Pypi *JobLibraryPypiObservation `json:"pypi,omitempty" tf:"pypi,omitempty"`
 
 	Requirements *string `json:"requirements,omitempty" tf:"requirements,omitempty"`
 
@@ -1966,7 +1966,7 @@ type JobLibraryObservation struct {
 type JobLibraryParameters struct {
 
 	// +kubebuilder:validation:Optional
-	Cran []JobLibraryCranParameters `json:"cran,omitempty" tf:"cran,omitempty"`
+	Cran *JobLibraryCranParameters `json:"cran,omitempty" tf:"cran,omitempty"`
 
 	// +kubebuilder:validation:Optional
 	Egg *string `json:"egg,omitempty" tf:"egg,omitempty"`
@@ -1975,14 +1975,14 @@ type JobLibraryParameters struct {
 	Jar *string `json:"jar,omitempty" tf:"jar,omitempty"`
 
 	// +kubebuilder:validation:Optional
-	Maven []JobLibraryMavenParameters `json:"maven,omitempty" tf:"maven,omitempty"`
+	Maven *JobLibraryMavenParameters `json:"maven,omitempty" tf:"maven,omitempty"`
 
 	// Configure the provider for management through account provider. This block consists of the following fields:
 	// +kubebuilder:validation:Optional
-	ProviderConfig []JobLibraryProviderConfigParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
+	ProviderConfig *JobLibraryProviderConfigParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
 
 	// +kubebuilder:validation:Optional
-	Pypi []JobLibraryPypiParameters `json:"pypi,omitempty" tf:"pypi,omitempty"`
+	Pypi *JobLibraryPypiParameters `json:"pypi,omitempty" tf:"pypi,omitempty"`
 
 	// +kubebuilder:validation:Optional
 	Requirements *string `json:"requirements,omitempty" tf:"requirements,omitempty"`
@@ -2137,7 +2137,7 @@ type JobNewClusterAzureAttributesInitParameters struct {
 
 	FirstOnDemand *float64 `json:"firstOnDemand,omitempty" tf:"first_on_demand,omitempty"`
 
-	LogAnalyticsInfo []NewClusterAzureAttributesLogAnalyticsInfoInitParameters `json:"logAnalyticsInfo,omitempty" tf:"log_analytics_info,omitempty"`
+	LogAnalyticsInfo *NewClusterAzureAttributesLogAnalyticsInfoInitParameters `json:"logAnalyticsInfo,omitempty" tf:"log_analytics_info,omitempty"`
 
 	SpotBidMaxPrice *float64 `json:"spotBidMaxPrice,omitempty" tf:"spot_bid_max_price,omitempty"`
 }
@@ -2147,7 +2147,7 @@ type JobNewClusterAzureAttributesObservation struct {
 
 	FirstOnDemand *float64 `json:"firstOnDemand,omitempty" tf:"first_on_demand,omitempty"`
 
-	LogAnalyticsInfo []NewClusterAzureAttributesLogAnalyticsInfoObservation `json:"logAnalyticsInfo,omitempty" tf:"log_analytics_info,omitempty"`
+	LogAnalyticsInfo *NewClusterAzureAttributesLogAnalyticsInfoObservation `json:"logAnalyticsInfo,omitempty" tf:"log_analytics_info,omitempty"`
 
 	SpotBidMaxPrice *float64 `json:"spotBidMaxPrice,omitempty" tf:"spot_bid_max_price,omitempty"`
 }
@@ -2161,38 +2161,38 @@ type JobNewClusterAzureAttributesParameters struct {
 	FirstOnDemand *float64 `json:"firstOnDemand,omitempty" tf:"first_on_demand,omitempty"`
 
 	// +kubebuilder:validation:Optional
-	LogAnalyticsInfo []NewClusterAzureAttributesLogAnalyticsInfoParameters `json:"logAnalyticsInfo,omitempty" tf:"log_analytics_info,omitempty"`
+	LogAnalyticsInfo *NewClusterAzureAttributesLogAnalyticsInfoParameters `json:"logAnalyticsInfo,omitempty" tf:"log_analytics_info,omitempty"`
 
 	// +kubebuilder:validation:Optional
 	SpotBidMaxPrice *float64 `json:"spotBidMaxPrice,omitempty" tf:"spot_bid_max_price,omitempty"`
 }
 
 type JobNewClusterClusterLogConfInitParameters struct {
-	Dbfs []NewClusterClusterLogConfDbfsInitParameters `json:"dbfs,omitempty" tf:"dbfs,omitempty"`
+	Dbfs *NewClusterClusterLogConfDbfsInitParameters `json:"dbfs,omitempty" tf:"dbfs,omitempty"`
 
-	S3 []NewClusterClusterLogConfS3InitParameters `json:"s3,omitempty" tf:"s3,omitempty"`
+	S3 *NewClusterClusterLogConfS3InitParameters `json:"s3,omitempty" tf:"s3,omitempty"`
 
-	Volumes []NewClusterClusterLogConfVolumesInitParameters `json:"volumes,omitempty" tf:"volumes,omitempty"`
+	Volumes *NewClusterClusterLogConfVolumesInitParameters `json:"volumes,omitempty" tf:"volumes,omitempty"`
 }
 
 type JobNewClusterClusterLogConfObservation struct {
-	Dbfs []NewClusterClusterLogConfDbfsObservation `json:"dbfs,omitempty" tf:"dbfs,omitempty"`
+	Dbfs *NewClusterClusterLogConfDbfsObservation `json:"dbfs,omitempty" tf:"dbfs,omitempty"`
 
-	S3 []NewClusterClusterLogConfS3Observation `json:"s3,omitempty" tf:"s3,omitempty"`
+	S3 *NewClusterClusterLogConfS3Observation `json:"s3,omitempty" tf:"s3,omitempty"`
 
-	Volumes []NewClusterClusterLogConfVolumesObservation `json:"volumes,omitempty" tf:"volumes,omitempty"`
+	Volumes *NewClusterClusterLogConfVolumesObservation `json:"volumes,omitempty" tf:"volumes,omitempty"`
 }
 
 type JobNewClusterClusterLogConfParameters struct {
 
 	// +kubebuilder:validation:Optional
-	Dbfs []NewClusterClusterLogConfDbfsParameters `json:"dbfs,omitempty" tf:"dbfs,omitempty"`
+	Dbfs *NewClusterClusterLogConfDbfsParameters `json:"dbfs,omitempty" tf:"dbfs,omitempty"`
 
 	// +kubebuilder:validation:Optional
-	S3 []NewClusterClusterLogConfS3Parameters `json:"s3,omitempty" tf:"s3,omitempty"`
+	S3 *NewClusterClusterLogConfS3Parameters `json:"s3,omitempty" tf:"s3,omitempty"`
 
 	// +kubebuilder:validation:Optional
-	Volumes []NewClusterClusterLogConfVolumesParameters `json:"volumes,omitempty" tf:"volumes,omitempty"`
+	Volumes *NewClusterClusterLogConfVolumesParameters `json:"volumes,omitempty" tf:"volumes,omitempty"`
 }
 
 type JobNewClusterClusterMountInfoInitParameters struct {
@@ -2200,7 +2200,7 @@ type JobNewClusterClusterMountInfoInitParameters struct {
 	// If source is GIT: Relative path to the file in the repository specified in the git_source block with SQL commands to execute. If source is WORKSPACE: Absolute path to the file in the workspace with SQL commands to execute.
 	LocalMountDirPath *string `json:"localMountDirPath,omitempty" tf:"local_mount_dir_path,omitempty"`
 
-	NetworkFilesystemInfo []NewClusterClusterMountInfoNetworkFilesystemInfoInitParameters `json:"networkFilesystemInfo,omitempty" tf:"network_filesystem_info,omitempty"`
+	NetworkFilesystemInfo *NewClusterClusterMountInfoNetworkFilesystemInfoInitParameters `json:"networkFilesystemInfo,omitempty" tf:"network_filesystem_info,omitempty"`
 
 	// If source is GIT: Relative path to the file in the repository specified in the git_source block with SQL commands to execute. If source is WORKSPACE: Absolute path to the file in the workspace with SQL commands to execute.
 	RemoteMountDirPath *string `json:"remoteMountDirPath,omitempty" tf:"remote_mount_dir_path,omitempty"`
@@ -2211,7 +2211,7 @@ type JobNewClusterClusterMountInfoObservation struct {
 	// If source is GIT: Relative path to the file in the repository specified in the git_source block with SQL commands to execute. If source is WORKSPACE: Absolute path to the file in the workspace with SQL commands to execute.
 	LocalMountDirPath *string `json:"localMountDirPath,omitempty" tf:"local_mount_dir_path,omitempty"`
 
-	NetworkFilesystemInfo []NewClusterClusterMountInfoNetworkFilesystemInfoObservation `json:"networkFilesystemInfo,omitempty" tf:"network_filesystem_info,omitempty"`
+	NetworkFilesystemInfo *NewClusterClusterMountInfoNetworkFilesystemInfoObservation `json:"networkFilesystemInfo,omitempty" tf:"network_filesystem_info,omitempty"`
 
 	// If source is GIT: Relative path to the file in the repository specified in the git_source block with SQL commands to execute. If source is WORKSPACE: Absolute path to the file in the workspace with SQL commands to execute.
 	RemoteMountDirPath *string `json:"remoteMountDirPath,omitempty" tf:"remote_mount_dir_path,omitempty"`
@@ -2224,7 +2224,7 @@ type JobNewClusterClusterMountInfoParameters struct {
 	LocalMountDirPath *string `json:"localMountDirPath" tf:"local_mount_dir_path,omitempty"`
 
 	// +kubebuilder:validation:Optional
-	NetworkFilesystemInfo []NewClusterClusterMountInfoNetworkFilesystemInfoParameters `json:"networkFilesystemInfo" tf:"network_filesystem_info,omitempty"`
+	NetworkFilesystemInfo *NewClusterClusterMountInfoNetworkFilesystemInfoParameters `json:"networkFilesystemInfo" tf:"network_filesystem_info,omitempty"`
 
 	// If source is GIT: Relative path to the file in the repository specified in the git_source block with SQL commands to execute. If source is WORKSPACE: Absolute path to the file in the workspace with SQL commands to execute.
 	// +kubebuilder:validation:Optional
@@ -2232,14 +2232,14 @@ type JobNewClusterClusterMountInfoParameters struct {
 }
 
 type JobNewClusterDockerImageInitParameters struct {
-	BasicAuth []NewClusterDockerImageBasicAuthInitParameters `json:"basicAuth,omitempty" tf:"basic_auth,omitempty"`
+	BasicAuth *NewClusterDockerImageBasicAuthInitParameters `json:"basicAuth,omitempty" tf:"basic_auth,omitempty"`
 
 	// URL to be monitored for file arrivals. The path must point to the root or a subpath of the external location. Please note that the URL must have a trailing slash character (/).
 	URL *string `json:"url,omitempty" tf:"url,omitempty"`
 }
 
 type JobNewClusterDockerImageObservation struct {
-	BasicAuth []NewClusterDockerImageBasicAuthObservation `json:"basicAuth,omitempty" tf:"basic_auth,omitempty"`
+	BasicAuth *NewClusterDockerImageBasicAuthObservation `json:"basicAuth,omitempty" tf:"basic_auth,omitempty"`
 
 	// URL to be monitored for file arrivals. The path must point to the root or a subpath of the external location. Please note that the URL must have a trailing slash character (/).
 	URL *string `json:"url,omitempty" tf:"url,omitempty"`
@@ -2248,7 +2248,7 @@ type JobNewClusterDockerImageObservation struct {
 type JobNewClusterDockerImageParameters struct {
 
 	// +kubebuilder:validation:Optional
-	BasicAuth []NewClusterDockerImageBasicAuthParameters `json:"basicAuth,omitempty" tf:"basic_auth,omitempty"`
+	BasicAuth *NewClusterDockerImageBasicAuthParameters `json:"basicAuth,omitempty" tf:"basic_auth,omitempty"`
 
 	// URL to be monitored for file arrivals. The path must point to the root or a subpath of the external location. Please note that the URL must have a trailing slash character (/).
 	// +kubebuilder:validation:Optional
@@ -2331,16 +2331,16 @@ type JobNewClusterGCPAttributesParameters struct {
 type JobNewClusterInitParameters struct {
 	ApplyPolicyDefaultValues *bool `json:"applyPolicyDefaultValues,omitempty" tf:"apply_policy_default_values,omitempty"`
 
-	Autoscale []JobNewClusterAutoscaleInitParameters `json:"autoscale,omitempty" tf:"autoscale,omitempty"`
+	Autoscale *JobNewClusterAutoscaleInitParameters `json:"autoscale,omitempty" tf:"autoscale,omitempty"`
 
-	AwsAttributes []JobNewClusterAwsAttributesInitParameters `json:"awsAttributes,omitempty" tf:"aws_attributes,omitempty"`
+	AwsAttributes *JobNewClusterAwsAttributesInitParameters `json:"awsAttributes,omitempty" tf:"aws_attributes,omitempty"`
 
-	AzureAttributes []JobNewClusterAzureAttributesInitParameters `json:"azureAttributes,omitempty" tf:"azure_attributes,omitempty"`
+	AzureAttributes *JobNewClusterAzureAttributesInitParameters `json:"azureAttributes,omitempty" tf:"azure_attributes,omitempty"`
 
 	// ID of the system notification that is notified when an event defined in webhook_notifications is triggered.
 	ClusterID *string `json:"clusterId,omitempty" tf:"cluster_id,omitempty"`
 
-	ClusterLogConf []JobNewClusterClusterLogConfInitParameters `json:"clusterLogConf,omitempty" tf:"cluster_log_conf,omitempty"`
+	ClusterLogConf *JobNewClusterClusterLogConfInitParameters `json:"clusterLogConf,omitempty" tf:"cluster_log_conf,omitempty"`
 
 	ClusterMountInfo []JobNewClusterClusterMountInfoInitParameters `json:"clusterMountInfo,omitempty" tf:"cluster_mount_info,omitempty"`
 
@@ -2353,12 +2353,12 @@ type JobNewClusterInitParameters struct {
 
 	DataSecurityMode *string `json:"dataSecurityMode,omitempty" tf:"data_security_mode,omitempty"`
 
-	DockerImage []JobNewClusterDockerImageInitParameters `json:"dockerImage,omitempty" tf:"docker_image,omitempty"`
+	DockerImage *JobNewClusterDockerImageInitParameters `json:"dockerImage,omitempty" tf:"docker_image,omitempty"`
 
 	// ID of the system notification that is notified when an event defined in webhook_notifications is triggered.
 	DriverInstancePoolID *string `json:"driverInstancePoolId,omitempty" tf:"driver_instance_pool_id,omitempty"`
 
-	DriverNodeTypeFlexibility []JobNewClusterDriverNodeTypeFlexibilityInitParameters `json:"driverNodeTypeFlexibility,omitempty" tf:"driver_node_type_flexibility,omitempty"`
+	DriverNodeTypeFlexibility *JobNewClusterDriverNodeTypeFlexibilityInitParameters `json:"driverNodeTypeFlexibility,omitempty" tf:"driver_node_type_flexibility,omitempty"`
 
 	// ID of the system notification that is notified when an event defined in webhook_notifications is triggered.
 	DriverNodeTypeID *string `json:"driverNodeTypeId,omitempty" tf:"driver_node_type_id,omitempty"`
@@ -2367,7 +2367,7 @@ type JobNewClusterInitParameters struct {
 
 	EnableLocalDiskEncryption *bool `json:"enableLocalDiskEncryption,omitempty" tf:"enable_local_disk_encryption,omitempty"`
 
-	GCPAttributes []JobNewClusterGCPAttributesInitParameters `json:"gcpAttributes,omitempty" tf:"gcp_attributes,omitempty"`
+	GCPAttributes *JobNewClusterGCPAttributesInitParameters `json:"gcpAttributes,omitempty" tf:"gcp_attributes,omitempty"`
 
 	IdempotencyToken *string `json:"idempotencyToken,omitempty" tf:"idempotency_token,omitempty"`
 
@@ -2392,7 +2392,7 @@ type JobNewClusterInitParameters struct {
 	PolicyID *string `json:"policyId,omitempty" tf:"policy_id,omitempty"`
 
 	// Configure the provider for management through account provider. This block consists of the following fields:
-	ProviderConfig []JobNewClusterProviderConfigInitParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
+	ProviderConfig *JobNewClusterProviderConfigInitParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
 
 	RemoteDiskThroughput *float64 `json:"remoteDiskThroughput,omitempty" tf:"remote_disk_throughput,omitempty"`
 
@@ -2416,10 +2416,10 @@ type JobNewClusterInitParameters struct {
 
 	UseMLRuntime *bool `json:"useMlRuntime,omitempty" tf:"use_ml_runtime,omitempty"`
 
-	WorkerNodeTypeFlexibility []JobNewClusterWorkerNodeTypeFlexibilityInitParameters `json:"workerNodeTypeFlexibility,omitempty" tf:"worker_node_type_flexibility,omitempty"`
+	WorkerNodeTypeFlexibility *JobNewClusterWorkerNodeTypeFlexibilityInitParameters `json:"workerNodeTypeFlexibility,omitempty" tf:"worker_node_type_flexibility,omitempty"`
 
 	// isn't supported
-	WorkloadType []JobNewClusterWorkloadTypeInitParameters `json:"workloadType,omitempty" tf:"workload_type,omitempty"`
+	WorkloadType *JobNewClusterWorkloadTypeInitParameters `json:"workloadType,omitempty" tf:"workload_type,omitempty"`
 }
 
 type JobNewClusterInitScriptsDbfsInitParameters struct {
@@ -2437,62 +2437,62 @@ type JobNewClusterInitScriptsDbfsParameters struct {
 }
 
 type JobNewClusterInitScriptsInitParameters struct {
-	Abfss []NewClusterInitScriptsAbfssInitParameters `json:"abfss,omitempty" tf:"abfss,omitempty"`
+	Abfss *NewClusterInitScriptsAbfssInitParameters `json:"abfss,omitempty" tf:"abfss,omitempty"`
 
-	Dbfs []JobNewClusterInitScriptsDbfsInitParameters `json:"dbfs,omitempty" tf:"dbfs,omitempty"`
+	Dbfs *JobNewClusterInitScriptsDbfsInitParameters `json:"dbfs,omitempty" tf:"dbfs,omitempty"`
 
 	// block consisting of single string fields:
-	File []NewClusterInitScriptsFileInitParameters `json:"file,omitempty" tf:"file,omitempty"`
+	File *NewClusterInitScriptsFileInitParameters `json:"file,omitempty" tf:"file,omitempty"`
 
-	Gcs []NewClusterInitScriptsGcsInitParameters `json:"gcs,omitempty" tf:"gcs,omitempty"`
+	Gcs *NewClusterInitScriptsGcsInitParameters `json:"gcs,omitempty" tf:"gcs,omitempty"`
 
-	S3 []JobNewClusterInitScriptsS3InitParameters `json:"s3,omitempty" tf:"s3,omitempty"`
+	S3 *JobNewClusterInitScriptsS3InitParameters `json:"s3,omitempty" tf:"s3,omitempty"`
 
-	Volumes []JobNewClusterInitScriptsVolumesInitParameters `json:"volumes,omitempty" tf:"volumes,omitempty"`
+	Volumes *JobNewClusterInitScriptsVolumesInitParameters `json:"volumes,omitempty" tf:"volumes,omitempty"`
 
-	Workspace []NewClusterInitScriptsWorkspaceInitParameters `json:"workspace,omitempty" tf:"workspace,omitempty"`
+	Workspace *NewClusterInitScriptsWorkspaceInitParameters `json:"workspace,omitempty" tf:"workspace,omitempty"`
 }
 
 type JobNewClusterInitScriptsObservation struct {
-	Abfss []NewClusterInitScriptsAbfssObservation `json:"abfss,omitempty" tf:"abfss,omitempty"`
+	Abfss *NewClusterInitScriptsAbfssObservation `json:"abfss,omitempty" tf:"abfss,omitempty"`
 
-	Dbfs []JobNewClusterInitScriptsDbfsObservation `json:"dbfs,omitempty" tf:"dbfs,omitempty"`
+	Dbfs *JobNewClusterInitScriptsDbfsObservation `json:"dbfs,omitempty" tf:"dbfs,omitempty"`
 
 	// block consisting of single string fields:
-	File []NewClusterInitScriptsFileObservation `json:"file,omitempty" tf:"file,omitempty"`
+	File *NewClusterInitScriptsFileObservation `json:"file,omitempty" tf:"file,omitempty"`
 
-	Gcs []NewClusterInitScriptsGcsObservation `json:"gcs,omitempty" tf:"gcs,omitempty"`
+	Gcs *NewClusterInitScriptsGcsObservation `json:"gcs,omitempty" tf:"gcs,omitempty"`
 
-	S3 []JobNewClusterInitScriptsS3Observation `json:"s3,omitempty" tf:"s3,omitempty"`
+	S3 *JobNewClusterInitScriptsS3Observation `json:"s3,omitempty" tf:"s3,omitempty"`
 
-	Volumes []JobNewClusterInitScriptsVolumesObservation `json:"volumes,omitempty" tf:"volumes,omitempty"`
+	Volumes *JobNewClusterInitScriptsVolumesObservation `json:"volumes,omitempty" tf:"volumes,omitempty"`
 
-	Workspace []NewClusterInitScriptsWorkspaceObservation `json:"workspace,omitempty" tf:"workspace,omitempty"`
+	Workspace *NewClusterInitScriptsWorkspaceObservation `json:"workspace,omitempty" tf:"workspace,omitempty"`
 }
 
 type JobNewClusterInitScriptsParameters struct {
 
 	// +kubebuilder:validation:Optional
-	Abfss []NewClusterInitScriptsAbfssParameters `json:"abfss,omitempty" tf:"abfss,omitempty"`
+	Abfss *NewClusterInitScriptsAbfssParameters `json:"abfss,omitempty" tf:"abfss,omitempty"`
 
 	// +kubebuilder:validation:Optional
-	Dbfs []JobNewClusterInitScriptsDbfsParameters `json:"dbfs,omitempty" tf:"dbfs,omitempty"`
+	Dbfs *JobNewClusterInitScriptsDbfsParameters `json:"dbfs,omitempty" tf:"dbfs,omitempty"`
 
 	// block consisting of single string fields:
 	// +kubebuilder:validation:Optional
-	File []NewClusterInitScriptsFileParameters `json:"file,omitempty" tf:"file,omitempty"`
+	File *NewClusterInitScriptsFileParameters `json:"file,omitempty" tf:"file,omitempty"`
 
 	// +kubebuilder:validation:Optional
-	Gcs []NewClusterInitScriptsGcsParameters `json:"gcs,omitempty" tf:"gcs,omitempty"`
+	Gcs *NewClusterInitScriptsGcsParameters `json:"gcs,omitempty" tf:"gcs,omitempty"`
 
 	// +kubebuilder:validation:Optional
-	S3 []JobNewClusterInitScriptsS3Parameters `json:"s3,omitempty" tf:"s3,omitempty"`
+	S3 *JobNewClusterInitScriptsS3Parameters `json:"s3,omitempty" tf:"s3,omitempty"`
 
 	// +kubebuilder:validation:Optional
-	Volumes []JobNewClusterInitScriptsVolumesParameters `json:"volumes,omitempty" tf:"volumes,omitempty"`
+	Volumes *JobNewClusterInitScriptsVolumesParameters `json:"volumes,omitempty" tf:"volumes,omitempty"`
 
 	// +kubebuilder:validation:Optional
-	Workspace []NewClusterInitScriptsWorkspaceParameters `json:"workspace,omitempty" tf:"workspace,omitempty"`
+	Workspace *NewClusterInitScriptsWorkspaceParameters `json:"workspace,omitempty" tf:"workspace,omitempty"`
 }
 
 type JobNewClusterInitScriptsS3InitParameters struct {
@@ -2566,18 +2566,18 @@ type JobNewClusterInitScriptsVolumesParameters struct {
 }
 
 type JobNewClusterLibraryInitParameters struct {
-	Cran []NewClusterLibraryCranInitParameters `json:"cran,omitempty" tf:"cran,omitempty"`
+	Cran *NewClusterLibraryCranInitParameters `json:"cran,omitempty" tf:"cran,omitempty"`
 
 	Egg *string `json:"egg,omitempty" tf:"egg,omitempty"`
 
 	Jar *string `json:"jar,omitempty" tf:"jar,omitempty"`
 
-	Maven []NewClusterLibraryMavenInitParameters `json:"maven,omitempty" tf:"maven,omitempty"`
+	Maven *NewClusterLibraryMavenInitParameters `json:"maven,omitempty" tf:"maven,omitempty"`
 
 	// Configure the provider for management through account provider. This block consists of the following fields:
-	ProviderConfig []NewClusterLibraryProviderConfigInitParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
+	ProviderConfig *NewClusterLibraryProviderConfigInitParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
 
-	Pypi []NewClusterLibraryPypiInitParameters `json:"pypi,omitempty" tf:"pypi,omitempty"`
+	Pypi *NewClusterLibraryPypiInitParameters `json:"pypi,omitempty" tf:"pypi,omitempty"`
 
 	Requirements *string `json:"requirements,omitempty" tf:"requirements,omitempty"`
 
@@ -2585,18 +2585,18 @@ type JobNewClusterLibraryInitParameters struct {
 }
 
 type JobNewClusterLibraryObservation struct {
-	Cran []NewClusterLibraryCranObservation `json:"cran,omitempty" tf:"cran,omitempty"`
+	Cran *NewClusterLibraryCranObservation `json:"cran,omitempty" tf:"cran,omitempty"`
 
 	Egg *string `json:"egg,omitempty" tf:"egg,omitempty"`
 
 	Jar *string `json:"jar,omitempty" tf:"jar,omitempty"`
 
-	Maven []NewClusterLibraryMavenObservation `json:"maven,omitempty" tf:"maven,omitempty"`
+	Maven *NewClusterLibraryMavenObservation `json:"maven,omitempty" tf:"maven,omitempty"`
 
 	// Configure the provider for management through account provider. This block consists of the following fields:
-	ProviderConfig []NewClusterLibraryProviderConfigObservation `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
+	ProviderConfig *NewClusterLibraryProviderConfigObservation `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
 
-	Pypi []NewClusterLibraryPypiObservation `json:"pypi,omitempty" tf:"pypi,omitempty"`
+	Pypi *NewClusterLibraryPypiObservation `json:"pypi,omitempty" tf:"pypi,omitempty"`
 
 	Requirements *string `json:"requirements,omitempty" tf:"requirements,omitempty"`
 
@@ -2606,7 +2606,7 @@ type JobNewClusterLibraryObservation struct {
 type JobNewClusterLibraryParameters struct {
 
 	// +kubebuilder:validation:Optional
-	Cran []NewClusterLibraryCranParameters `json:"cran,omitempty" tf:"cran,omitempty"`
+	Cran *NewClusterLibraryCranParameters `json:"cran,omitempty" tf:"cran,omitempty"`
 
 	// +kubebuilder:validation:Optional
 	Egg *string `json:"egg,omitempty" tf:"egg,omitempty"`
@@ -2615,14 +2615,14 @@ type JobNewClusterLibraryParameters struct {
 	Jar *string `json:"jar,omitempty" tf:"jar,omitempty"`
 
 	// +kubebuilder:validation:Optional
-	Maven []NewClusterLibraryMavenParameters `json:"maven,omitempty" tf:"maven,omitempty"`
+	Maven *NewClusterLibraryMavenParameters `json:"maven,omitempty" tf:"maven,omitempty"`
 
 	// Configure the provider for management through account provider. This block consists of the following fields:
 	// +kubebuilder:validation:Optional
-	ProviderConfig []NewClusterLibraryProviderConfigParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
+	ProviderConfig *NewClusterLibraryProviderConfigParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
 
 	// +kubebuilder:validation:Optional
-	Pypi []NewClusterLibraryPypiParameters `json:"pypi,omitempty" tf:"pypi,omitempty"`
+	Pypi *NewClusterLibraryPypiParameters `json:"pypi,omitempty" tf:"pypi,omitempty"`
 
 	// +kubebuilder:validation:Optional
 	Requirements *string `json:"requirements,omitempty" tf:"requirements,omitempty"`
@@ -2634,16 +2634,16 @@ type JobNewClusterLibraryParameters struct {
 type JobNewClusterObservation struct {
 	ApplyPolicyDefaultValues *bool `json:"applyPolicyDefaultValues,omitempty" tf:"apply_policy_default_values,omitempty"`
 
-	Autoscale []JobNewClusterAutoscaleObservation `json:"autoscale,omitempty" tf:"autoscale,omitempty"`
+	Autoscale *JobNewClusterAutoscaleObservation `json:"autoscale,omitempty" tf:"autoscale,omitempty"`
 
-	AwsAttributes []JobNewClusterAwsAttributesObservation `json:"awsAttributes,omitempty" tf:"aws_attributes,omitempty"`
+	AwsAttributes *JobNewClusterAwsAttributesObservation `json:"awsAttributes,omitempty" tf:"aws_attributes,omitempty"`
 
-	AzureAttributes []JobNewClusterAzureAttributesObservation `json:"azureAttributes,omitempty" tf:"azure_attributes,omitempty"`
+	AzureAttributes *JobNewClusterAzureAttributesObservation `json:"azureAttributes,omitempty" tf:"azure_attributes,omitempty"`
 
 	// ID of the system notification that is notified when an event defined in webhook_notifications is triggered.
 	ClusterID *string `json:"clusterId,omitempty" tf:"cluster_id,omitempty"`
 
-	ClusterLogConf []JobNewClusterClusterLogConfObservation `json:"clusterLogConf,omitempty" tf:"cluster_log_conf,omitempty"`
+	ClusterLogConf *JobNewClusterClusterLogConfObservation `json:"clusterLogConf,omitempty" tf:"cluster_log_conf,omitempty"`
 
 	ClusterMountInfo []JobNewClusterClusterMountInfoObservation `json:"clusterMountInfo,omitempty" tf:"cluster_mount_info,omitempty"`
 
@@ -2656,12 +2656,12 @@ type JobNewClusterObservation struct {
 
 	DataSecurityMode *string `json:"dataSecurityMode,omitempty" tf:"data_security_mode,omitempty"`
 
-	DockerImage []JobNewClusterDockerImageObservation `json:"dockerImage,omitempty" tf:"docker_image,omitempty"`
+	DockerImage *JobNewClusterDockerImageObservation `json:"dockerImage,omitempty" tf:"docker_image,omitempty"`
 
 	// ID of the system notification that is notified when an event defined in webhook_notifications is triggered.
 	DriverInstancePoolID *string `json:"driverInstancePoolId,omitempty" tf:"driver_instance_pool_id,omitempty"`
 
-	DriverNodeTypeFlexibility []JobNewClusterDriverNodeTypeFlexibilityObservation `json:"driverNodeTypeFlexibility,omitempty" tf:"driver_node_type_flexibility,omitempty"`
+	DriverNodeTypeFlexibility *JobNewClusterDriverNodeTypeFlexibilityObservation `json:"driverNodeTypeFlexibility,omitempty" tf:"driver_node_type_flexibility,omitempty"`
 
 	// ID of the system notification that is notified when an event defined in webhook_notifications is triggered.
 	DriverNodeTypeID *string `json:"driverNodeTypeId,omitempty" tf:"driver_node_type_id,omitempty"`
@@ -2670,7 +2670,7 @@ type JobNewClusterObservation struct {
 
 	EnableLocalDiskEncryption *bool `json:"enableLocalDiskEncryption,omitempty" tf:"enable_local_disk_encryption,omitempty"`
 
-	GCPAttributes []JobNewClusterGCPAttributesObservation `json:"gcpAttributes,omitempty" tf:"gcp_attributes,omitempty"`
+	GCPAttributes *JobNewClusterGCPAttributesObservation `json:"gcpAttributes,omitempty" tf:"gcp_attributes,omitempty"`
 
 	IdempotencyToken *string `json:"idempotencyToken,omitempty" tf:"idempotency_token,omitempty"`
 
@@ -2695,7 +2695,7 @@ type JobNewClusterObservation struct {
 	PolicyID *string `json:"policyId,omitempty" tf:"policy_id,omitempty"`
 
 	// Configure the provider for management through account provider. This block consists of the following fields:
-	ProviderConfig []JobNewClusterProviderConfigObservation `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
+	ProviderConfig *JobNewClusterProviderConfigObservation `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
 
 	RemoteDiskThroughput *float64 `json:"remoteDiskThroughput,omitempty" tf:"remote_disk_throughput,omitempty"`
 
@@ -2719,10 +2719,10 @@ type JobNewClusterObservation struct {
 
 	UseMLRuntime *bool `json:"useMlRuntime,omitempty" tf:"use_ml_runtime,omitempty"`
 
-	WorkerNodeTypeFlexibility []JobNewClusterWorkerNodeTypeFlexibilityObservation `json:"workerNodeTypeFlexibility,omitempty" tf:"worker_node_type_flexibility,omitempty"`
+	WorkerNodeTypeFlexibility *JobNewClusterWorkerNodeTypeFlexibilityObservation `json:"workerNodeTypeFlexibility,omitempty" tf:"worker_node_type_flexibility,omitempty"`
 
 	// isn't supported
-	WorkloadType []JobNewClusterWorkloadTypeObservation `json:"workloadType,omitempty" tf:"workload_type,omitempty"`
+	WorkloadType *JobNewClusterWorkloadTypeObservation `json:"workloadType,omitempty" tf:"workload_type,omitempty"`
 }
 
 type JobNewClusterParameters struct {
@@ -2731,20 +2731,20 @@ type JobNewClusterParameters struct {
 	ApplyPolicyDefaultValues *bool `json:"applyPolicyDefaultValues,omitempty" tf:"apply_policy_default_values,omitempty"`
 
 	// +kubebuilder:validation:Optional
-	Autoscale []JobNewClusterAutoscaleParameters `json:"autoscale,omitempty" tf:"autoscale,omitempty"`
+	Autoscale *JobNewClusterAutoscaleParameters `json:"autoscale,omitempty" tf:"autoscale,omitempty"`
 
 	// +kubebuilder:validation:Optional
-	AwsAttributes []JobNewClusterAwsAttributesParameters `json:"awsAttributes,omitempty" tf:"aws_attributes,omitempty"`
+	AwsAttributes *JobNewClusterAwsAttributesParameters `json:"awsAttributes,omitempty" tf:"aws_attributes,omitempty"`
 
 	// +kubebuilder:validation:Optional
-	AzureAttributes []JobNewClusterAzureAttributesParameters `json:"azureAttributes,omitempty" tf:"azure_attributes,omitempty"`
+	AzureAttributes *JobNewClusterAzureAttributesParameters `json:"azureAttributes,omitempty" tf:"azure_attributes,omitempty"`
 
 	// ID of the system notification that is notified when an event defined in webhook_notifications is triggered.
 	// +kubebuilder:validation:Optional
 	ClusterID *string `json:"clusterId,omitempty" tf:"cluster_id,omitempty"`
 
 	// +kubebuilder:validation:Optional
-	ClusterLogConf []JobNewClusterClusterLogConfParameters `json:"clusterLogConf,omitempty" tf:"cluster_log_conf,omitempty"`
+	ClusterLogConf *JobNewClusterClusterLogConfParameters `json:"clusterLogConf,omitempty" tf:"cluster_log_conf,omitempty"`
 
 	// +kubebuilder:validation:Optional
 	ClusterMountInfo []JobNewClusterClusterMountInfoParameters `json:"clusterMountInfo,omitempty" tf:"cluster_mount_info,omitempty"`
@@ -2762,14 +2762,14 @@ type JobNewClusterParameters struct {
 	DataSecurityMode *string `json:"dataSecurityMode,omitempty" tf:"data_security_mode,omitempty"`
 
 	// +kubebuilder:validation:Optional
-	DockerImage []JobNewClusterDockerImageParameters `json:"dockerImage,omitempty" tf:"docker_image,omitempty"`
+	DockerImage *JobNewClusterDockerImageParameters `json:"dockerImage,omitempty" tf:"docker_image,omitempty"`
 
 	// ID of the system notification that is notified when an event defined in webhook_notifications is triggered.
 	// +kubebuilder:validation:Optional
 	DriverInstancePoolID *string `json:"driverInstancePoolId,omitempty" tf:"driver_instance_pool_id,omitempty"`
 
 	// +kubebuilder:validation:Optional
-	DriverNodeTypeFlexibility []JobNewClusterDriverNodeTypeFlexibilityParameters `json:"driverNodeTypeFlexibility,omitempty" tf:"driver_node_type_flexibility,omitempty"`
+	DriverNodeTypeFlexibility *JobNewClusterDriverNodeTypeFlexibilityParameters `json:"driverNodeTypeFlexibility,omitempty" tf:"driver_node_type_flexibility,omitempty"`
 
 	// ID of the system notification that is notified when an event defined in webhook_notifications is triggered.
 	// +kubebuilder:validation:Optional
@@ -2782,7 +2782,7 @@ type JobNewClusterParameters struct {
 	EnableLocalDiskEncryption *bool `json:"enableLocalDiskEncryption,omitempty" tf:"enable_local_disk_encryption,omitempty"`
 
 	// +kubebuilder:validation:Optional
-	GCPAttributes []JobNewClusterGCPAttributesParameters `json:"gcpAttributes,omitempty" tf:"gcp_attributes,omitempty"`
+	GCPAttributes *JobNewClusterGCPAttributesParameters `json:"gcpAttributes,omitempty" tf:"gcp_attributes,omitempty"`
 
 	// +kubebuilder:validation:Optional
 	IdempotencyToken *string `json:"idempotencyToken,omitempty" tf:"idempotency_token,omitempty"`
@@ -2817,7 +2817,7 @@ type JobNewClusterParameters struct {
 
 	// Configure the provider for management through account provider. This block consists of the following fields:
 	// +kubebuilder:validation:Optional
-	ProviderConfig []JobNewClusterProviderConfigParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
+	ProviderConfig *JobNewClusterProviderConfigParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
 
 	// +kubebuilder:validation:Optional
 	RemoteDiskThroughput *float64 `json:"remoteDiskThroughput,omitempty" tf:"remote_disk_throughput,omitempty"`
@@ -2851,11 +2851,11 @@ type JobNewClusterParameters struct {
 	UseMLRuntime *bool `json:"useMlRuntime,omitempty" tf:"use_ml_runtime,omitempty"`
 
 	// +kubebuilder:validation:Optional
-	WorkerNodeTypeFlexibility []JobNewClusterWorkerNodeTypeFlexibilityParameters `json:"workerNodeTypeFlexibility,omitempty" tf:"worker_node_type_flexibility,omitempty"`
+	WorkerNodeTypeFlexibility *JobNewClusterWorkerNodeTypeFlexibilityParameters `json:"workerNodeTypeFlexibility,omitempty" tf:"worker_node_type_flexibility,omitempty"`
 
 	// isn't supported
 	// +kubebuilder:validation:Optional
-	WorkloadType []JobNewClusterWorkloadTypeParameters `json:"workloadType,omitempty" tf:"workload_type,omitempty"`
+	WorkloadType *JobNewClusterWorkloadTypeParameters `json:"workloadType,omitempty" tf:"workload_type,omitempty"`
 }
 
 type JobNewClusterProviderConfigInitParameters struct {
@@ -2892,17 +2892,17 @@ type JobNewClusterWorkerNodeTypeFlexibilityParameters struct {
 }
 
 type JobNewClusterWorkloadTypeInitParameters struct {
-	Clients []NewClusterWorkloadTypeClientsInitParameters `json:"clients,omitempty" tf:"clients,omitempty"`
+	Clients *NewClusterWorkloadTypeClientsInitParameters `json:"clients,omitempty" tf:"clients,omitempty"`
 }
 
 type JobNewClusterWorkloadTypeObservation struct {
-	Clients []NewClusterWorkloadTypeClientsObservation `json:"clients,omitempty" tf:"clients,omitempty"`
+	Clients *NewClusterWorkloadTypeClientsObservation `json:"clients,omitempty" tf:"clients,omitempty"`
 }
 
 type JobNewClusterWorkloadTypeParameters struct {
 
 	// +kubebuilder:validation:Optional
-	Clients []NewClusterWorkloadTypeClientsParameters `json:"clients" tf:"clients,omitempty"`
+	Clients *NewClusterWorkloadTypeClientsParameters `json:"clients" tf:"clients,omitempty"`
 }
 
 type JobObservation struct {
@@ -2914,15 +2914,15 @@ type JobObservation struct {
 	BudgetPolicyID *string `json:"budgetPolicyId,omitempty" tf:"budget_policy_id,omitempty"`
 
 	// Configuration block to configure pause status. See continuous Configuration Block.
-	Continuous []ContinuousObservation `json:"continuous,omitempty" tf:"continuous,omitempty"`
+	Continuous *ContinuousObservation `json:"continuous,omitempty" tf:"continuous,omitempty"`
 
 	// (Bool) If true, the Databricks provider will stop and start the job as needed to ensure that the active run for the job reflects the deployed configuration. For continuous jobs, the provider respects the pause_status by stopping the current active run. This flag cannot be set for non-continuous jobs.
 	ControlRunState *bool `json:"controlRunState,omitempty" tf:"control_run_state,omitempty"`
 
 	// A list of task specification that the job will execute. See task Configuration Block below.
-	DbtTask []DbtTaskObservation `json:"dbtTask,omitempty" tf:"dbt_task,omitempty"`
+	DbtTask *DbtTaskObservation `json:"dbtTask,omitempty" tf:"dbt_task,omitempty"`
 
-	Deployment []DeploymentObservation `json:"deployment,omitempty" tf:"deployment,omitempty"`
+	Deployment *DeploymentObservation `json:"deployment,omitempty" tf:"deployment,omitempty"`
 
 	// An optional description for the job. The maximum length is 1024 characters in UTF-8 encoding.
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
@@ -2931,7 +2931,7 @@ type JobObservation struct {
 	EditMode *string `json:"editMode,omitempty" tf:"edit_mode,omitempty"`
 
 	// (List) An optional set of email addresses notified when runs of this job begins, completes or fails. The default behavior is to not send any emails. This field is a block and is documented below.
-	EmailNotifications []EmailNotificationsObservation `json:"emailNotifications,omitempty" tf:"email_notifications,omitempty"`
+	EmailNotifications *EmailNotificationsObservation `json:"emailNotifications,omitempty" tf:"email_notifications,omitempty"`
 
 	Environment []EnvironmentObservation `json:"environment,omitempty" tf:"environment,omitempty"`
 
@@ -2941,10 +2941,10 @@ type JobObservation struct {
 	Format *string `json:"format,omitempty" tf:"format,omitempty"`
 
 	// Specifies the a Git repository for task source code. See git_source Configuration Block below.
-	GitSource []GitSourceObservation `json:"gitSource,omitempty" tf:"git_source,omitempty"`
+	GitSource *GitSourceObservation `json:"gitSource,omitempty" tf:"git_source,omitempty"`
 
 	// An optional block that specifies the health conditions for the job documented below.
-	Health []HealthObservation `json:"health,omitempty" tf:"health,omitempty"`
+	Health *HealthObservation `json:"health,omitempty" tf:"health,omitempty"`
 
 	// ID of the system notification that is notified when an event defined in webhook_notifications is triggered.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
@@ -2968,13 +2968,13 @@ type JobObservation struct {
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// Task will run on a dedicated cluster.  See databricks_cluster documentation for specification. Some parameters, such as
-	NewCluster []JobNewClusterObservation `json:"newCluster,omitempty" tf:"new_cluster,omitempty"`
+	NewCluster *JobNewClusterObservation `json:"newCluster,omitempty" tf:"new_cluster,omitempty"`
 
 	// A list of task specification that the job will execute. See task Configuration Block below.
-	NotebookTask []NotebookTaskObservation `json:"notebookTask,omitempty" tf:"notebook_task,omitempty"`
+	NotebookTask *NotebookTaskObservation `json:"notebookTask,omitempty" tf:"notebook_task,omitempty"`
 
 	// An optional block controlling the notification settings on the job level documented below.
-	NotificationSettings []NotificationSettingsObservation `json:"notificationSettings,omitempty" tf:"notification_settings,omitempty"`
+	NotificationSettings *NotificationSettingsObservation `json:"notificationSettings,omitempty" tf:"notification_settings,omitempty"`
 
 	// Specifies job parameter for the job. See parameter Configuration Block
 	Parameter []ParameterObservation `json:"parameter,omitempty" tf:"parameter,omitempty"`
@@ -2983,37 +2983,37 @@ type JobObservation struct {
 	PerformanceTarget *string `json:"performanceTarget,omitempty" tf:"performance_target,omitempty"`
 
 	// A list of task specification that the job will execute. See task Configuration Block below.
-	PipelineTask []PipelineTaskObservation `json:"pipelineTask,omitempty" tf:"pipeline_task,omitempty"`
+	PipelineTask *PipelineTaskObservation `json:"pipelineTask,omitempty" tf:"pipeline_task,omitempty"`
 
 	// Configure the provider for management through account provider. This block consists of the following fields:
-	ProviderConfig []JobProviderConfigObservation `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
+	ProviderConfig *JobProviderConfigObservation `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
 
 	// A list of task specification that the job will execute. See task Configuration Block below.
-	PythonWheelTask []PythonWheelTaskObservation `json:"pythonWheelTask,omitempty" tf:"python_wheel_task,omitempty"`
+	PythonWheelTask *PythonWheelTaskObservation `json:"pythonWheelTask,omitempty" tf:"python_wheel_task,omitempty"`
 
 	// The queue status for the job. See queue Configuration Block below.
-	Queue []QueueObservation `json:"queue,omitempty" tf:"queue,omitempty"`
+	Queue *QueueObservation `json:"queue,omitempty" tf:"queue,omitempty"`
 
 	// (Bool) An optional policy to specify whether to retry a job when it times out. The default behavior is to not retry on timeout.
 	RetryOnTimeout *bool `json:"retryOnTimeout,omitempty" tf:"retry_on_timeout,omitempty"`
 
 	// The user or the service principal the job runs as. See run_as Configuration Block below.
-	RunAs []RunAsObservation `json:"runAs,omitempty" tf:"run_as,omitempty"`
+	RunAs *RunAsObservation `json:"runAs,omitempty" tf:"run_as,omitempty"`
 
 	// A list of task specification that the job will execute. See task Configuration Block below.
-	RunJobTask []RunJobTaskObservation `json:"runJobTask,omitempty" tf:"run_job_task,omitempty"`
+	RunJobTask *RunJobTaskObservation `json:"runJobTask,omitempty" tf:"run_job_task,omitempty"`
 
 	// An optional periodic schedule for this job. The default behavior is that the job runs when triggered by clicking Run Now in the Jobs UI or sending an API request to runNow. See schedule Configuration Block below.
-	Schedule []ScheduleObservation `json:"schedule,omitempty" tf:"schedule,omitempty"`
+	Schedule *ScheduleObservation `json:"schedule,omitempty" tf:"schedule,omitempty"`
 
 	// A list of task specification that the job will execute. See task Configuration Block below.
-	SparkJarTask []SparkJarTaskObservation `json:"sparkJarTask,omitempty" tf:"spark_jar_task,omitempty"`
+	SparkJarTask *SparkJarTaskObservation `json:"sparkJarTask,omitempty" tf:"spark_jar_task,omitempty"`
 
 	// A list of task specification that the job will execute. See task Configuration Block below.
-	SparkPythonTask []SparkPythonTaskObservation `json:"sparkPythonTask,omitempty" tf:"spark_python_task,omitempty"`
+	SparkPythonTask *SparkPythonTaskObservation `json:"sparkPythonTask,omitempty" tf:"spark_python_task,omitempty"`
 
 	// A list of task specification that the job will execute. See task Configuration Block below.
-	SparkSubmitTask []SparkSubmitTaskObservation `json:"sparkSubmitTask,omitempty" tf:"spark_submit_task,omitempty"`
+	SparkSubmitTask *SparkSubmitTaskObservation `json:"sparkSubmitTask,omitempty" tf:"spark_submit_task,omitempty"`
 
 	// An optional map of the tags associated with the job. See tags Configuration Map
 	// +mapType=granular
@@ -3026,7 +3026,7 @@ type JobObservation struct {
 	TimeoutSeconds *float64 `json:"timeoutSeconds,omitempty" tf:"timeout_seconds,omitempty"`
 
 	// The conditions that triggers the job to start. See trigger Configuration Block below.
-	Trigger []TriggerObservation `json:"trigger,omitempty" tf:"trigger,omitempty"`
+	Trigger *TriggerObservation `json:"trigger,omitempty" tf:"trigger,omitempty"`
 
 	// URL to be monitored for file arrivals. The path must point to the root or a subpath of the external location. Please note that the URL must have a trailing slash character (/).
 	URL *string `json:"url,omitempty" tf:"url,omitempty"`
@@ -3035,7 +3035,7 @@ type JobObservation struct {
 	UsagePolicyID *string `json:"usagePolicyId,omitempty" tf:"usage_policy_id,omitempty"`
 
 	// (List) An optional set of system destinations (for example, webhook destinations or Slack) to be notified when runs of this job begins, completes or fails. The default behavior is to not send any notifications. This field is a block and is documented below.
-	WebhookNotifications []JobWebhookNotificationsObservation `json:"webhookNotifications,omitempty" tf:"webhook_notifications,omitempty"`
+	WebhookNotifications *JobWebhookNotificationsObservation `json:"webhookNotifications,omitempty" tf:"webhook_notifications,omitempty"`
 }
 
 type JobParameters struct {
@@ -3050,7 +3050,7 @@ type JobParameters struct {
 
 	// Configuration block to configure pause status. See continuous Configuration Block.
 	// +kubebuilder:validation:Optional
-	Continuous []ContinuousParameters `json:"continuous,omitempty" tf:"continuous,omitempty"`
+	Continuous *ContinuousParameters `json:"continuous,omitempty" tf:"continuous,omitempty"`
 
 	// (Bool) If true, the Databricks provider will stop and start the job as needed to ensure that the active run for the job reflects the deployed configuration. For continuous jobs, the provider respects the pause_status by stopping the current active run. This flag cannot be set for non-continuous jobs.
 	// +kubebuilder:validation:Optional
@@ -3058,10 +3058,10 @@ type JobParameters struct {
 
 	// A list of task specification that the job will execute. See task Configuration Block below.
 	// +kubebuilder:validation:Optional
-	DbtTask []DbtTaskParameters `json:"dbtTask,omitempty" tf:"dbt_task,omitempty"`
+	DbtTask *DbtTaskParameters `json:"dbtTask,omitempty" tf:"dbt_task,omitempty"`
 
 	// +kubebuilder:validation:Optional
-	Deployment []DeploymentParameters `json:"deployment,omitempty" tf:"deployment,omitempty"`
+	Deployment *DeploymentParameters `json:"deployment,omitempty" tf:"deployment,omitempty"`
 
 	// An optional description for the job. The maximum length is 1024 characters in UTF-8 encoding.
 	// +kubebuilder:validation:Optional
@@ -3073,7 +3073,7 @@ type JobParameters struct {
 
 	// (List) An optional set of email addresses notified when runs of this job begins, completes or fails. The default behavior is to not send any emails. This field is a block and is documented below.
 	// +kubebuilder:validation:Optional
-	EmailNotifications []EmailNotificationsParameters `json:"emailNotifications,omitempty" tf:"email_notifications,omitempty"`
+	EmailNotifications *EmailNotificationsParameters `json:"emailNotifications,omitempty" tf:"email_notifications,omitempty"`
 
 	// +kubebuilder:validation:Optional
 	Environment []EnvironmentParameters `json:"environment,omitempty" tf:"environment,omitempty"`
@@ -3087,11 +3087,11 @@ type JobParameters struct {
 
 	// Specifies the a Git repository for task source code. See git_source Configuration Block below.
 	// +kubebuilder:validation:Optional
-	GitSource []GitSourceParameters `json:"gitSource,omitempty" tf:"git_source,omitempty"`
+	GitSource *GitSourceParameters `json:"gitSource,omitempty" tf:"git_source,omitempty"`
 
 	// An optional block that specifies the health conditions for the job documented below.
 	// +kubebuilder:validation:Optional
-	Health []HealthParameters `json:"health,omitempty" tf:"health,omitempty"`
+	Health *HealthParameters `json:"health,omitempty" tf:"health,omitempty"`
 
 	// A list of job databricks_cluster specifications that can be shared and reused by tasks of this job. Libraries cannot be declared in a shared job cluster. You must declare dependent libraries in task settings. Multi-task syntax
 	// +kubebuilder:validation:Optional
@@ -3119,15 +3119,15 @@ type JobParameters struct {
 
 	// Task will run on a dedicated cluster.  See databricks_cluster documentation for specification. Some parameters, such as
 	// +kubebuilder:validation:Optional
-	NewCluster []JobNewClusterParameters `json:"newCluster,omitempty" tf:"new_cluster,omitempty"`
+	NewCluster *JobNewClusterParameters `json:"newCluster,omitempty" tf:"new_cluster,omitempty"`
 
 	// A list of task specification that the job will execute. See task Configuration Block below.
 	// +kubebuilder:validation:Optional
-	NotebookTask []NotebookTaskParameters `json:"notebookTask,omitempty" tf:"notebook_task,omitempty"`
+	NotebookTask *NotebookTaskParameters `json:"notebookTask,omitempty" tf:"notebook_task,omitempty"`
 
 	// An optional block controlling the notification settings on the job level documented below.
 	// +kubebuilder:validation:Optional
-	NotificationSettings []NotificationSettingsParameters `json:"notificationSettings,omitempty" tf:"notification_settings,omitempty"`
+	NotificationSettings *NotificationSettingsParameters `json:"notificationSettings,omitempty" tf:"notification_settings,omitempty"`
 
 	// Specifies job parameter for the job. See parameter Configuration Block
 	// +kubebuilder:validation:Optional
@@ -3139,19 +3139,19 @@ type JobParameters struct {
 
 	// A list of task specification that the job will execute. See task Configuration Block below.
 	// +kubebuilder:validation:Optional
-	PipelineTask []PipelineTaskParameters `json:"pipelineTask,omitempty" tf:"pipeline_task,omitempty"`
+	PipelineTask *PipelineTaskParameters `json:"pipelineTask,omitempty" tf:"pipeline_task,omitempty"`
 
 	// Configure the provider for management through account provider. This block consists of the following fields:
 	// +kubebuilder:validation:Optional
-	ProviderConfig []JobProviderConfigParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
+	ProviderConfig *JobProviderConfigParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
 
 	// A list of task specification that the job will execute. See task Configuration Block below.
 	// +kubebuilder:validation:Optional
-	PythonWheelTask []PythonWheelTaskParameters `json:"pythonWheelTask,omitempty" tf:"python_wheel_task,omitempty"`
+	PythonWheelTask *PythonWheelTaskParameters `json:"pythonWheelTask,omitempty" tf:"python_wheel_task,omitempty"`
 
 	// The queue status for the job. See queue Configuration Block below.
 	// +kubebuilder:validation:Optional
-	Queue []QueueParameters `json:"queue,omitempty" tf:"queue,omitempty"`
+	Queue *QueueParameters `json:"queue,omitempty" tf:"queue,omitempty"`
 
 	// (Bool) An optional policy to specify whether to retry a job when it times out. The default behavior is to not retry on timeout.
 	// +kubebuilder:validation:Optional
@@ -3159,27 +3159,27 @@ type JobParameters struct {
 
 	// The user or the service principal the job runs as. See run_as Configuration Block below.
 	// +kubebuilder:validation:Optional
-	RunAs []RunAsParameters `json:"runAs,omitempty" tf:"run_as,omitempty"`
+	RunAs *RunAsParameters `json:"runAs,omitempty" tf:"run_as,omitempty"`
 
 	// A list of task specification that the job will execute. See task Configuration Block below.
 	// +kubebuilder:validation:Optional
-	RunJobTask []RunJobTaskParameters `json:"runJobTask,omitempty" tf:"run_job_task,omitempty"`
+	RunJobTask *RunJobTaskParameters `json:"runJobTask,omitempty" tf:"run_job_task,omitempty"`
 
 	// An optional periodic schedule for this job. The default behavior is that the job runs when triggered by clicking Run Now in the Jobs UI or sending an API request to runNow. See schedule Configuration Block below.
 	// +kubebuilder:validation:Optional
-	Schedule []ScheduleParameters `json:"schedule,omitempty" tf:"schedule,omitempty"`
+	Schedule *ScheduleParameters `json:"schedule,omitempty" tf:"schedule,omitempty"`
 
 	// A list of task specification that the job will execute. See task Configuration Block below.
 	// +kubebuilder:validation:Optional
-	SparkJarTask []SparkJarTaskParameters `json:"sparkJarTask,omitempty" tf:"spark_jar_task,omitempty"`
+	SparkJarTask *SparkJarTaskParameters `json:"sparkJarTask,omitempty" tf:"spark_jar_task,omitempty"`
 
 	// A list of task specification that the job will execute. See task Configuration Block below.
 	// +kubebuilder:validation:Optional
-	SparkPythonTask []SparkPythonTaskParameters `json:"sparkPythonTask,omitempty" tf:"spark_python_task,omitempty"`
+	SparkPythonTask *SparkPythonTaskParameters `json:"sparkPythonTask,omitempty" tf:"spark_python_task,omitempty"`
 
 	// A list of task specification that the job will execute. See task Configuration Block below.
 	// +kubebuilder:validation:Optional
-	SparkSubmitTask []SparkSubmitTaskParameters `json:"sparkSubmitTask,omitempty" tf:"spark_submit_task,omitempty"`
+	SparkSubmitTask *SparkSubmitTaskParameters `json:"sparkSubmitTask,omitempty" tf:"spark_submit_task,omitempty"`
 
 	// An optional map of the tags associated with the job. See tags Configuration Map
 	// +kubebuilder:validation:Optional
@@ -3196,7 +3196,7 @@ type JobParameters struct {
 
 	// The conditions that triggers the job to start. See trigger Configuration Block below.
 	// +kubebuilder:validation:Optional
-	Trigger []TriggerParameters `json:"trigger,omitempty" tf:"trigger,omitempty"`
+	Trigger *TriggerParameters `json:"trigger,omitempty" tf:"trigger,omitempty"`
 
 	// ID of the system notification that is notified when an event defined in webhook_notifications is triggered.
 	// +kubebuilder:validation:Optional
@@ -3204,7 +3204,7 @@ type JobParameters struct {
 
 	// (List) An optional set of system destinations (for example, webhook destinations or Slack) to be notified when runs of this job begins, completes or fails. The default behavior is to not send any notifications. This field is a block and is documented below.
 	// +kubebuilder:validation:Optional
-	WebhookNotifications []JobWebhookNotificationsParameters `json:"webhookNotifications,omitempty" tf:"webhook_notifications,omitempty"`
+	WebhookNotifications *JobWebhookNotificationsParameters `json:"webhookNotifications,omitempty" tf:"webhook_notifications,omitempty"`
 }
 
 type JobProviderConfigInitParameters struct {
@@ -3301,18 +3301,18 @@ type JobTaskLibraryCranParameters struct {
 }
 
 type JobTaskLibraryInitParameters struct {
-	Cran []JobTaskLibraryCranInitParameters `json:"cran,omitempty" tf:"cran,omitempty"`
+	Cran *JobTaskLibraryCranInitParameters `json:"cran,omitempty" tf:"cran,omitempty"`
 
 	Egg *string `json:"egg,omitempty" tf:"egg,omitempty"`
 
 	Jar *string `json:"jar,omitempty" tf:"jar,omitempty"`
 
-	Maven []JobTaskLibraryMavenInitParameters `json:"maven,omitempty" tf:"maven,omitempty"`
+	Maven *JobTaskLibraryMavenInitParameters `json:"maven,omitempty" tf:"maven,omitempty"`
 
 	// Configure the provider for management through account provider. This block consists of the following fields:
-	ProviderConfig []JobTaskLibraryProviderConfigInitParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
+	ProviderConfig *JobTaskLibraryProviderConfigInitParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
 
-	Pypi []JobTaskLibraryPypiInitParameters `json:"pypi,omitempty" tf:"pypi,omitempty"`
+	Pypi *JobTaskLibraryPypiInitParameters `json:"pypi,omitempty" tf:"pypi,omitempty"`
 
 	Requirements *string `json:"requirements,omitempty" tf:"requirements,omitempty"`
 
@@ -3348,18 +3348,18 @@ type JobTaskLibraryMavenParameters struct {
 }
 
 type JobTaskLibraryObservation struct {
-	Cran []JobTaskLibraryCranObservation `json:"cran,omitempty" tf:"cran,omitempty"`
+	Cran *JobTaskLibraryCranObservation `json:"cran,omitempty" tf:"cran,omitempty"`
 
 	Egg *string `json:"egg,omitempty" tf:"egg,omitempty"`
 
 	Jar *string `json:"jar,omitempty" tf:"jar,omitempty"`
 
-	Maven []JobTaskLibraryMavenObservation `json:"maven,omitempty" tf:"maven,omitempty"`
+	Maven *JobTaskLibraryMavenObservation `json:"maven,omitempty" tf:"maven,omitempty"`
 
 	// Configure the provider for management through account provider. This block consists of the following fields:
-	ProviderConfig []JobTaskLibraryProviderConfigObservation `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
+	ProviderConfig *JobTaskLibraryProviderConfigObservation `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
 
-	Pypi []JobTaskLibraryPypiObservation `json:"pypi,omitempty" tf:"pypi,omitempty"`
+	Pypi *JobTaskLibraryPypiObservation `json:"pypi,omitempty" tf:"pypi,omitempty"`
 
 	Requirements *string `json:"requirements,omitempty" tf:"requirements,omitempty"`
 
@@ -3369,7 +3369,7 @@ type JobTaskLibraryObservation struct {
 type JobTaskLibraryParameters struct {
 
 	// +kubebuilder:validation:Optional
-	Cran []JobTaskLibraryCranParameters `json:"cran,omitempty" tf:"cran,omitempty"`
+	Cran *JobTaskLibraryCranParameters `json:"cran,omitempty" tf:"cran,omitempty"`
 
 	// +kubebuilder:validation:Optional
 	Egg *string `json:"egg,omitempty" tf:"egg,omitempty"`
@@ -3378,14 +3378,14 @@ type JobTaskLibraryParameters struct {
 	Jar *string `json:"jar,omitempty" tf:"jar,omitempty"`
 
 	// +kubebuilder:validation:Optional
-	Maven []JobTaskLibraryMavenParameters `json:"maven,omitempty" tf:"maven,omitempty"`
+	Maven *JobTaskLibraryMavenParameters `json:"maven,omitempty" tf:"maven,omitempty"`
 
 	// Configure the provider for management through account provider. This block consists of the following fields:
 	// +kubebuilder:validation:Optional
-	ProviderConfig []JobTaskLibraryProviderConfigParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
+	ProviderConfig *JobTaskLibraryProviderConfigParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
 
 	// +kubebuilder:validation:Optional
-	Pypi []JobTaskLibraryPypiParameters `json:"pypi,omitempty" tf:"pypi,omitempty"`
+	Pypi *JobTaskLibraryPypiParameters `json:"pypi,omitempty" tf:"pypi,omitempty"`
 
 	// +kubebuilder:validation:Optional
 	Requirements *string `json:"requirements,omitempty" tf:"requirements,omitempty"`
@@ -3540,7 +3540,7 @@ type JobTaskNewClusterAzureAttributesInitParameters struct {
 
 	FirstOnDemand *float64 `json:"firstOnDemand,omitempty" tf:"first_on_demand,omitempty"`
 
-	LogAnalyticsInfo []JobTaskNewClusterAzureAttributesLogAnalyticsInfoInitParameters `json:"logAnalyticsInfo,omitempty" tf:"log_analytics_info,omitempty"`
+	LogAnalyticsInfo *JobTaskNewClusterAzureAttributesLogAnalyticsInfoInitParameters `json:"logAnalyticsInfo,omitempty" tf:"log_analytics_info,omitempty"`
 
 	SpotBidMaxPrice *float64 `json:"spotBidMaxPrice,omitempty" tf:"spot_bid_max_price,omitempty"`
 }
@@ -3574,7 +3574,7 @@ type JobTaskNewClusterAzureAttributesObservation struct {
 
 	FirstOnDemand *float64 `json:"firstOnDemand,omitempty" tf:"first_on_demand,omitempty"`
 
-	LogAnalyticsInfo []JobTaskNewClusterAzureAttributesLogAnalyticsInfoObservation `json:"logAnalyticsInfo,omitempty" tf:"log_analytics_info,omitempty"`
+	LogAnalyticsInfo *JobTaskNewClusterAzureAttributesLogAnalyticsInfoObservation `json:"logAnalyticsInfo,omitempty" tf:"log_analytics_info,omitempty"`
 
 	SpotBidMaxPrice *float64 `json:"spotBidMaxPrice,omitempty" tf:"spot_bid_max_price,omitempty"`
 }
@@ -3588,7 +3588,7 @@ type JobTaskNewClusterAzureAttributesParameters struct {
 	FirstOnDemand *float64 `json:"firstOnDemand,omitempty" tf:"first_on_demand,omitempty"`
 
 	// +kubebuilder:validation:Optional
-	LogAnalyticsInfo []JobTaskNewClusterAzureAttributesLogAnalyticsInfoParameters `json:"logAnalyticsInfo,omitempty" tf:"log_analytics_info,omitempty"`
+	LogAnalyticsInfo *JobTaskNewClusterAzureAttributesLogAnalyticsInfoParameters `json:"logAnalyticsInfo,omitempty" tf:"log_analytics_info,omitempty"`
 
 	// +kubebuilder:validation:Optional
 	SpotBidMaxPrice *float64 `json:"spotBidMaxPrice,omitempty" tf:"spot_bid_max_price,omitempty"`
@@ -3609,31 +3609,31 @@ type JobTaskNewClusterClusterLogConfDbfsParameters struct {
 }
 
 type JobTaskNewClusterClusterLogConfInitParameters struct {
-	Dbfs []JobTaskNewClusterClusterLogConfDbfsInitParameters `json:"dbfs,omitempty" tf:"dbfs,omitempty"`
+	Dbfs *JobTaskNewClusterClusterLogConfDbfsInitParameters `json:"dbfs,omitempty" tf:"dbfs,omitempty"`
 
-	S3 []JobTaskNewClusterClusterLogConfS3InitParameters `json:"s3,omitempty" tf:"s3,omitempty"`
+	S3 *JobTaskNewClusterClusterLogConfS3InitParameters `json:"s3,omitempty" tf:"s3,omitempty"`
 
-	Volumes []JobTaskNewClusterClusterLogConfVolumesInitParameters `json:"volumes,omitempty" tf:"volumes,omitempty"`
+	Volumes *JobTaskNewClusterClusterLogConfVolumesInitParameters `json:"volumes,omitempty" tf:"volumes,omitempty"`
 }
 
 type JobTaskNewClusterClusterLogConfObservation struct {
-	Dbfs []JobTaskNewClusterClusterLogConfDbfsObservation `json:"dbfs,omitempty" tf:"dbfs,omitempty"`
+	Dbfs *JobTaskNewClusterClusterLogConfDbfsObservation `json:"dbfs,omitempty" tf:"dbfs,omitempty"`
 
-	S3 []JobTaskNewClusterClusterLogConfS3Observation `json:"s3,omitempty" tf:"s3,omitempty"`
+	S3 *JobTaskNewClusterClusterLogConfS3Observation `json:"s3,omitempty" tf:"s3,omitempty"`
 
-	Volumes []JobTaskNewClusterClusterLogConfVolumesObservation `json:"volumes,omitempty" tf:"volumes,omitempty"`
+	Volumes *JobTaskNewClusterClusterLogConfVolumesObservation `json:"volumes,omitempty" tf:"volumes,omitempty"`
 }
 
 type JobTaskNewClusterClusterLogConfParameters struct {
 
 	// +kubebuilder:validation:Optional
-	Dbfs []JobTaskNewClusterClusterLogConfDbfsParameters `json:"dbfs,omitempty" tf:"dbfs,omitempty"`
+	Dbfs *JobTaskNewClusterClusterLogConfDbfsParameters `json:"dbfs,omitempty" tf:"dbfs,omitempty"`
 
 	// +kubebuilder:validation:Optional
-	S3 []JobTaskNewClusterClusterLogConfS3Parameters `json:"s3,omitempty" tf:"s3,omitempty"`
+	S3 *JobTaskNewClusterClusterLogConfS3Parameters `json:"s3,omitempty" tf:"s3,omitempty"`
 
 	// +kubebuilder:validation:Optional
-	Volumes []JobTaskNewClusterClusterLogConfVolumesParameters `json:"volumes,omitempty" tf:"volumes,omitempty"`
+	Volumes *JobTaskNewClusterClusterLogConfVolumesParameters `json:"volumes,omitempty" tf:"volumes,omitempty"`
 }
 
 type JobTaskNewClusterClusterLogConfS3InitParameters struct {
@@ -3711,7 +3711,7 @@ type JobTaskNewClusterClusterMountInfoInitParameters struct {
 	// If source is GIT: Relative path to the file in the repository specified in the git_source block with SQL commands to execute. If source is WORKSPACE: Absolute path to the file in the workspace with SQL commands to execute.
 	LocalMountDirPath *string `json:"localMountDirPath,omitempty" tf:"local_mount_dir_path,omitempty"`
 
-	NetworkFilesystemInfo []JobTaskNewClusterClusterMountInfoNetworkFilesystemInfoInitParameters `json:"networkFilesystemInfo,omitempty" tf:"network_filesystem_info,omitempty"`
+	NetworkFilesystemInfo *JobTaskNewClusterClusterMountInfoNetworkFilesystemInfoInitParameters `json:"networkFilesystemInfo,omitempty" tf:"network_filesystem_info,omitempty"`
 
 	// If source is GIT: Relative path to the file in the repository specified in the git_source block with SQL commands to execute. If source is WORKSPACE: Absolute path to the file in the workspace with SQL commands to execute.
 	RemoteMountDirPath *string `json:"remoteMountDirPath,omitempty" tf:"remote_mount_dir_path,omitempty"`
@@ -3743,7 +3743,7 @@ type JobTaskNewClusterClusterMountInfoObservation struct {
 	// If source is GIT: Relative path to the file in the repository specified in the git_source block with SQL commands to execute. If source is WORKSPACE: Absolute path to the file in the workspace with SQL commands to execute.
 	LocalMountDirPath *string `json:"localMountDirPath,omitempty" tf:"local_mount_dir_path,omitempty"`
 
-	NetworkFilesystemInfo []JobTaskNewClusterClusterMountInfoNetworkFilesystemInfoObservation `json:"networkFilesystemInfo,omitempty" tf:"network_filesystem_info,omitempty"`
+	NetworkFilesystemInfo *JobTaskNewClusterClusterMountInfoNetworkFilesystemInfoObservation `json:"networkFilesystemInfo,omitempty" tf:"network_filesystem_info,omitempty"`
 
 	// If source is GIT: Relative path to the file in the repository specified in the git_source block with SQL commands to execute. If source is WORKSPACE: Absolute path to the file in the workspace with SQL commands to execute.
 	RemoteMountDirPath *string `json:"remoteMountDirPath,omitempty" tf:"remote_mount_dir_path,omitempty"`
@@ -3756,7 +3756,7 @@ type JobTaskNewClusterClusterMountInfoParameters struct {
 	LocalMountDirPath *string `json:"localMountDirPath" tf:"local_mount_dir_path,omitempty"`
 
 	// +kubebuilder:validation:Optional
-	NetworkFilesystemInfo []JobTaskNewClusterClusterMountInfoNetworkFilesystemInfoParameters `json:"networkFilesystemInfo" tf:"network_filesystem_info,omitempty"`
+	NetworkFilesystemInfo *JobTaskNewClusterClusterMountInfoNetworkFilesystemInfoParameters `json:"networkFilesystemInfo" tf:"network_filesystem_info,omitempty"`
 
 	// If source is GIT: Relative path to the file in the repository specified in the git_source block with SQL commands to execute. If source is WORKSPACE: Absolute path to the file in the workspace with SQL commands to execute.
 	// +kubebuilder:validation:Optional
@@ -3787,14 +3787,14 @@ type JobTaskNewClusterDockerImageBasicAuthParameters struct {
 }
 
 type JobTaskNewClusterDockerImageInitParameters struct {
-	BasicAuth []JobTaskNewClusterDockerImageBasicAuthInitParameters `json:"basicAuth,omitempty" tf:"basic_auth,omitempty"`
+	BasicAuth *JobTaskNewClusterDockerImageBasicAuthInitParameters `json:"basicAuth,omitempty" tf:"basic_auth,omitempty"`
 
 	// URL to be monitored for file arrivals. The path must point to the root or a subpath of the external location. Please note that the URL must have a trailing slash character (/).
 	URL *string `json:"url,omitempty" tf:"url,omitempty"`
 }
 
 type JobTaskNewClusterDockerImageObservation struct {
-	BasicAuth []JobTaskNewClusterDockerImageBasicAuthObservation `json:"basicAuth,omitempty" tf:"basic_auth,omitempty"`
+	BasicAuth *JobTaskNewClusterDockerImageBasicAuthObservation `json:"basicAuth,omitempty" tf:"basic_auth,omitempty"`
 
 	// URL to be monitored for file arrivals. The path must point to the root or a subpath of the external location. Please note that the URL must have a trailing slash character (/).
 	URL *string `json:"url,omitempty" tf:"url,omitempty"`
@@ -3803,7 +3803,7 @@ type JobTaskNewClusterDockerImageObservation struct {
 type JobTaskNewClusterDockerImageParameters struct {
 
 	// +kubebuilder:validation:Optional
-	BasicAuth []JobTaskNewClusterDockerImageBasicAuthParameters `json:"basicAuth,omitempty" tf:"basic_auth,omitempty"`
+	BasicAuth *JobTaskNewClusterDockerImageBasicAuthParameters `json:"basicAuth,omitempty" tf:"basic_auth,omitempty"`
 
 	// URL to be monitored for file arrivals. The path must point to the root or a subpath of the external location. Please note that the URL must have a trailing slash character (/).
 	// +kubebuilder:validation:Optional
@@ -3888,16 +3888,16 @@ type JobTaskNewClusterInitParameters struct {
 
 	ApplyPolicyDefaultValuesAllowList []*string `json:"ApplyPolicyDefaultValuesAllowList,omitempty" tf:"__apply_policy_default_values_allow_list,omitempty"`
 
-	Autoscale []JobTaskNewClusterAutoscaleInitParameters `json:"autoscale,omitempty" tf:"autoscale,omitempty"`
+	Autoscale *JobTaskNewClusterAutoscaleInitParameters `json:"autoscale,omitempty" tf:"autoscale,omitempty"`
 
-	AwsAttributes []JobTaskNewClusterAwsAttributesInitParameters `json:"awsAttributes,omitempty" tf:"aws_attributes,omitempty"`
+	AwsAttributes *JobTaskNewClusterAwsAttributesInitParameters `json:"awsAttributes,omitempty" tf:"aws_attributes,omitempty"`
 
-	AzureAttributes []JobTaskNewClusterAzureAttributesInitParameters `json:"azureAttributes,omitempty" tf:"azure_attributes,omitempty"`
+	AzureAttributes *JobTaskNewClusterAzureAttributesInitParameters `json:"azureAttributes,omitempty" tf:"azure_attributes,omitempty"`
 
 	// ID of the system notification that is notified when an event defined in webhook_notifications is triggered.
 	ClusterID *string `json:"clusterId,omitempty" tf:"cluster_id,omitempty"`
 
-	ClusterLogConf []JobTaskNewClusterClusterLogConfInitParameters `json:"clusterLogConf,omitempty" tf:"cluster_log_conf,omitempty"`
+	ClusterLogConf *JobTaskNewClusterClusterLogConfInitParameters `json:"clusterLogConf,omitempty" tf:"cluster_log_conf,omitempty"`
 
 	ClusterMountInfo []JobTaskNewClusterClusterMountInfoInitParameters `json:"clusterMountInfo,omitempty" tf:"cluster_mount_info,omitempty"`
 
@@ -3910,12 +3910,12 @@ type JobTaskNewClusterInitParameters struct {
 
 	DataSecurityMode *string `json:"dataSecurityMode,omitempty" tf:"data_security_mode,omitempty"`
 
-	DockerImage []JobTaskNewClusterDockerImageInitParameters `json:"dockerImage,omitempty" tf:"docker_image,omitempty"`
+	DockerImage *JobTaskNewClusterDockerImageInitParameters `json:"dockerImage,omitempty" tf:"docker_image,omitempty"`
 
 	// ID of the system notification that is notified when an event defined in webhook_notifications is triggered.
 	DriverInstancePoolID *string `json:"driverInstancePoolId,omitempty" tf:"driver_instance_pool_id,omitempty"`
 
-	DriverNodeTypeFlexibility []JobTaskNewClusterDriverNodeTypeFlexibilityInitParameters `json:"driverNodeTypeFlexibility,omitempty" tf:"driver_node_type_flexibility,omitempty"`
+	DriverNodeTypeFlexibility *JobTaskNewClusterDriverNodeTypeFlexibilityInitParameters `json:"driverNodeTypeFlexibility,omitempty" tf:"driver_node_type_flexibility,omitempty"`
 
 	// ID of the system notification that is notified when an event defined in webhook_notifications is triggered.
 	DriverNodeTypeID *string `json:"driverNodeTypeId,omitempty" tf:"driver_node_type_id,omitempty"`
@@ -3924,7 +3924,7 @@ type JobTaskNewClusterInitParameters struct {
 
 	EnableLocalDiskEncryption *bool `json:"enableLocalDiskEncryption,omitempty" tf:"enable_local_disk_encryption,omitempty"`
 
-	GCPAttributes []JobTaskNewClusterGCPAttributesInitParameters `json:"gcpAttributes,omitempty" tf:"gcp_attributes,omitempty"`
+	GCPAttributes *JobTaskNewClusterGCPAttributesInitParameters `json:"gcpAttributes,omitempty" tf:"gcp_attributes,omitempty"`
 
 	IdempotencyToken *string `json:"idempotencyToken,omitempty" tf:"idempotency_token,omitempty"`
 
@@ -3949,7 +3949,7 @@ type JobTaskNewClusterInitParameters struct {
 	PolicyID *string `json:"policyId,omitempty" tf:"policy_id,omitempty"`
 
 	// Configure the provider for management through account provider. This block consists of the following fields:
-	ProviderConfig []JobTaskNewClusterProviderConfigInitParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
+	ProviderConfig *JobTaskNewClusterProviderConfigInitParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
 
 	RemoteDiskThroughput *float64 `json:"remoteDiskThroughput,omitempty" tf:"remote_disk_throughput,omitempty"`
 
@@ -3973,10 +3973,10 @@ type JobTaskNewClusterInitParameters struct {
 
 	UseMLRuntime *bool `json:"useMlRuntime,omitempty" tf:"use_ml_runtime,omitempty"`
 
-	WorkerNodeTypeFlexibility []JobTaskNewClusterWorkerNodeTypeFlexibilityInitParameters `json:"workerNodeTypeFlexibility,omitempty" tf:"worker_node_type_flexibility,omitempty"`
+	WorkerNodeTypeFlexibility *JobTaskNewClusterWorkerNodeTypeFlexibilityInitParameters `json:"workerNodeTypeFlexibility,omitempty" tf:"worker_node_type_flexibility,omitempty"`
 
 	// isn't supported
-	WorkloadType []JobTaskNewClusterWorkloadTypeInitParameters `json:"workloadType,omitempty" tf:"workload_type,omitempty"`
+	WorkloadType *JobTaskNewClusterWorkloadTypeInitParameters `json:"workloadType,omitempty" tf:"workload_type,omitempty"`
 }
 
 type JobTaskNewClusterInitScriptsAbfssInitParameters struct {
@@ -4036,62 +4036,62 @@ type JobTaskNewClusterInitScriptsGcsParameters struct {
 }
 
 type JobTaskNewClusterInitScriptsInitParameters struct {
-	Abfss []JobTaskNewClusterInitScriptsAbfssInitParameters `json:"abfss,omitempty" tf:"abfss,omitempty"`
+	Abfss *JobTaskNewClusterInitScriptsAbfssInitParameters `json:"abfss,omitempty" tf:"abfss,omitempty"`
 
-	Dbfs []JobTaskNewClusterInitScriptsDbfsInitParameters `json:"dbfs,omitempty" tf:"dbfs,omitempty"`
+	Dbfs *JobTaskNewClusterInitScriptsDbfsInitParameters `json:"dbfs,omitempty" tf:"dbfs,omitempty"`
 
 	// block consisting of single string fields:
-	File []JobTaskNewClusterInitScriptsFileInitParameters `json:"file,omitempty" tf:"file,omitempty"`
+	File *JobTaskNewClusterInitScriptsFileInitParameters `json:"file,omitempty" tf:"file,omitempty"`
 
-	Gcs []JobTaskNewClusterInitScriptsGcsInitParameters `json:"gcs,omitempty" tf:"gcs,omitempty"`
+	Gcs *JobTaskNewClusterInitScriptsGcsInitParameters `json:"gcs,omitempty" tf:"gcs,omitempty"`
 
-	S3 []JobTaskNewClusterInitScriptsS3InitParameters `json:"s3,omitempty" tf:"s3,omitempty"`
+	S3 *JobTaskNewClusterInitScriptsS3InitParameters `json:"s3,omitempty" tf:"s3,omitempty"`
 
-	Volumes []JobTaskNewClusterInitScriptsVolumesInitParameters `json:"volumes,omitempty" tf:"volumes,omitempty"`
+	Volumes *JobTaskNewClusterInitScriptsVolumesInitParameters `json:"volumes,omitempty" tf:"volumes,omitempty"`
 
-	Workspace []JobTaskNewClusterInitScriptsWorkspaceInitParameters `json:"workspace,omitempty" tf:"workspace,omitempty"`
+	Workspace *JobTaskNewClusterInitScriptsWorkspaceInitParameters `json:"workspace,omitempty" tf:"workspace,omitempty"`
 }
 
 type JobTaskNewClusterInitScriptsObservation struct {
-	Abfss []JobTaskNewClusterInitScriptsAbfssObservation `json:"abfss,omitempty" tf:"abfss,omitempty"`
+	Abfss *JobTaskNewClusterInitScriptsAbfssObservation `json:"abfss,omitempty" tf:"abfss,omitempty"`
 
-	Dbfs []JobTaskNewClusterInitScriptsDbfsObservation `json:"dbfs,omitempty" tf:"dbfs,omitempty"`
+	Dbfs *JobTaskNewClusterInitScriptsDbfsObservation `json:"dbfs,omitempty" tf:"dbfs,omitempty"`
 
 	// block consisting of single string fields:
-	File []JobTaskNewClusterInitScriptsFileObservation `json:"file,omitempty" tf:"file,omitempty"`
+	File *JobTaskNewClusterInitScriptsFileObservation `json:"file,omitempty" tf:"file,omitempty"`
 
-	Gcs []JobTaskNewClusterInitScriptsGcsObservation `json:"gcs,omitempty" tf:"gcs,omitempty"`
+	Gcs *JobTaskNewClusterInitScriptsGcsObservation `json:"gcs,omitempty" tf:"gcs,omitempty"`
 
-	S3 []JobTaskNewClusterInitScriptsS3Observation `json:"s3,omitempty" tf:"s3,omitempty"`
+	S3 *JobTaskNewClusterInitScriptsS3Observation `json:"s3,omitempty" tf:"s3,omitempty"`
 
-	Volumes []JobTaskNewClusterInitScriptsVolumesObservation `json:"volumes,omitempty" tf:"volumes,omitempty"`
+	Volumes *JobTaskNewClusterInitScriptsVolumesObservation `json:"volumes,omitempty" tf:"volumes,omitempty"`
 
-	Workspace []JobTaskNewClusterInitScriptsWorkspaceObservation `json:"workspace,omitempty" tf:"workspace,omitempty"`
+	Workspace *JobTaskNewClusterInitScriptsWorkspaceObservation `json:"workspace,omitempty" tf:"workspace,omitempty"`
 }
 
 type JobTaskNewClusterInitScriptsParameters struct {
 
 	// +kubebuilder:validation:Optional
-	Abfss []JobTaskNewClusterInitScriptsAbfssParameters `json:"abfss,omitempty" tf:"abfss,omitempty"`
+	Abfss *JobTaskNewClusterInitScriptsAbfssParameters `json:"abfss,omitempty" tf:"abfss,omitempty"`
 
 	// +kubebuilder:validation:Optional
-	Dbfs []JobTaskNewClusterInitScriptsDbfsParameters `json:"dbfs,omitempty" tf:"dbfs,omitempty"`
+	Dbfs *JobTaskNewClusterInitScriptsDbfsParameters `json:"dbfs,omitempty" tf:"dbfs,omitempty"`
 
 	// block consisting of single string fields:
 	// +kubebuilder:validation:Optional
-	File []JobTaskNewClusterInitScriptsFileParameters `json:"file,omitempty" tf:"file,omitempty"`
+	File *JobTaskNewClusterInitScriptsFileParameters `json:"file,omitempty" tf:"file,omitempty"`
 
 	// +kubebuilder:validation:Optional
-	Gcs []JobTaskNewClusterInitScriptsGcsParameters `json:"gcs,omitempty" tf:"gcs,omitempty"`
+	Gcs *JobTaskNewClusterInitScriptsGcsParameters `json:"gcs,omitempty" tf:"gcs,omitempty"`
 
 	// +kubebuilder:validation:Optional
-	S3 []JobTaskNewClusterInitScriptsS3Parameters `json:"s3,omitempty" tf:"s3,omitempty"`
+	S3 *JobTaskNewClusterInitScriptsS3Parameters `json:"s3,omitempty" tf:"s3,omitempty"`
 
 	// +kubebuilder:validation:Optional
-	Volumes []JobTaskNewClusterInitScriptsVolumesParameters `json:"volumes,omitempty" tf:"volumes,omitempty"`
+	Volumes *JobTaskNewClusterInitScriptsVolumesParameters `json:"volumes,omitempty" tf:"volumes,omitempty"`
 
 	// +kubebuilder:validation:Optional
-	Workspace []JobTaskNewClusterInitScriptsWorkspaceParameters `json:"workspace,omitempty" tf:"workspace,omitempty"`
+	Workspace *JobTaskNewClusterInitScriptsWorkspaceParameters `json:"workspace,omitempty" tf:"workspace,omitempty"`
 }
 
 type JobTaskNewClusterInitScriptsS3InitParameters struct {
@@ -4200,18 +4200,18 @@ type JobTaskNewClusterLibraryCranParameters struct {
 }
 
 type JobTaskNewClusterLibraryInitParameters struct {
-	Cran []JobTaskNewClusterLibraryCranInitParameters `json:"cran,omitempty" tf:"cran,omitempty"`
+	Cran *JobTaskNewClusterLibraryCranInitParameters `json:"cran,omitempty" tf:"cran,omitempty"`
 
 	Egg *string `json:"egg,omitempty" tf:"egg,omitempty"`
 
 	Jar *string `json:"jar,omitempty" tf:"jar,omitempty"`
 
-	Maven []JobTaskNewClusterLibraryMavenInitParameters `json:"maven,omitempty" tf:"maven,omitempty"`
+	Maven *JobTaskNewClusterLibraryMavenInitParameters `json:"maven,omitempty" tf:"maven,omitempty"`
 
 	// Configure the provider for management through account provider. This block consists of the following fields:
-	ProviderConfig []JobTaskNewClusterLibraryProviderConfigInitParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
+	ProviderConfig *JobTaskNewClusterLibraryProviderConfigInitParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
 
-	Pypi []JobTaskNewClusterLibraryPypiInitParameters `json:"pypi,omitempty" tf:"pypi,omitempty"`
+	Pypi *JobTaskNewClusterLibraryPypiInitParameters `json:"pypi,omitempty" tf:"pypi,omitempty"`
 
 	Requirements *string `json:"requirements,omitempty" tf:"requirements,omitempty"`
 
@@ -4247,18 +4247,18 @@ type JobTaskNewClusterLibraryMavenParameters struct {
 }
 
 type JobTaskNewClusterLibraryObservation struct {
-	Cran []JobTaskNewClusterLibraryCranObservation `json:"cran,omitempty" tf:"cran,omitempty"`
+	Cran *JobTaskNewClusterLibraryCranObservation `json:"cran,omitempty" tf:"cran,omitempty"`
 
 	Egg *string `json:"egg,omitempty" tf:"egg,omitempty"`
 
 	Jar *string `json:"jar,omitempty" tf:"jar,omitempty"`
 
-	Maven []JobTaskNewClusterLibraryMavenObservation `json:"maven,omitempty" tf:"maven,omitempty"`
+	Maven *JobTaskNewClusterLibraryMavenObservation `json:"maven,omitempty" tf:"maven,omitempty"`
 
 	// Configure the provider for management through account provider. This block consists of the following fields:
-	ProviderConfig []JobTaskNewClusterLibraryProviderConfigObservation `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
+	ProviderConfig *JobTaskNewClusterLibraryProviderConfigObservation `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
 
-	Pypi []JobTaskNewClusterLibraryPypiObservation `json:"pypi,omitempty" tf:"pypi,omitempty"`
+	Pypi *JobTaskNewClusterLibraryPypiObservation `json:"pypi,omitempty" tf:"pypi,omitempty"`
 
 	Requirements *string `json:"requirements,omitempty" tf:"requirements,omitempty"`
 
@@ -4268,7 +4268,7 @@ type JobTaskNewClusterLibraryObservation struct {
 type JobTaskNewClusterLibraryParameters struct {
 
 	// +kubebuilder:validation:Optional
-	Cran []JobTaskNewClusterLibraryCranParameters `json:"cran,omitempty" tf:"cran,omitempty"`
+	Cran *JobTaskNewClusterLibraryCranParameters `json:"cran,omitempty" tf:"cran,omitempty"`
 
 	// +kubebuilder:validation:Optional
 	Egg *string `json:"egg,omitempty" tf:"egg,omitempty"`
@@ -4277,14 +4277,14 @@ type JobTaskNewClusterLibraryParameters struct {
 	Jar *string `json:"jar,omitempty" tf:"jar,omitempty"`
 
 	// +kubebuilder:validation:Optional
-	Maven []JobTaskNewClusterLibraryMavenParameters `json:"maven,omitempty" tf:"maven,omitempty"`
+	Maven *JobTaskNewClusterLibraryMavenParameters `json:"maven,omitempty" tf:"maven,omitempty"`
 
 	// Configure the provider for management through account provider. This block consists of the following fields:
 	// +kubebuilder:validation:Optional
-	ProviderConfig []JobTaskNewClusterLibraryProviderConfigParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
+	ProviderConfig *JobTaskNewClusterLibraryProviderConfigParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
 
 	// +kubebuilder:validation:Optional
-	Pypi []JobTaskNewClusterLibraryPypiParameters `json:"pypi,omitempty" tf:"pypi,omitempty"`
+	Pypi *JobTaskNewClusterLibraryPypiParameters `json:"pypi,omitempty" tf:"pypi,omitempty"`
 
 	// +kubebuilder:validation:Optional
 	Requirements *string `json:"requirements,omitempty" tf:"requirements,omitempty"`
@@ -4338,16 +4338,16 @@ type JobTaskNewClusterObservation struct {
 
 	ApplyPolicyDefaultValuesAllowList []*string `json:"ApplyPolicyDefaultValuesAllowList,omitempty" tf:"__apply_policy_default_values_allow_list,omitempty"`
 
-	Autoscale []JobTaskNewClusterAutoscaleObservation `json:"autoscale,omitempty" tf:"autoscale,omitempty"`
+	Autoscale *JobTaskNewClusterAutoscaleObservation `json:"autoscale,omitempty" tf:"autoscale,omitempty"`
 
-	AwsAttributes []JobTaskNewClusterAwsAttributesObservation `json:"awsAttributes,omitempty" tf:"aws_attributes,omitempty"`
+	AwsAttributes *JobTaskNewClusterAwsAttributesObservation `json:"awsAttributes,omitempty" tf:"aws_attributes,omitempty"`
 
-	AzureAttributes []JobTaskNewClusterAzureAttributesObservation `json:"azureAttributes,omitempty" tf:"azure_attributes,omitempty"`
+	AzureAttributes *JobTaskNewClusterAzureAttributesObservation `json:"azureAttributes,omitempty" tf:"azure_attributes,omitempty"`
 
 	// ID of the system notification that is notified when an event defined in webhook_notifications is triggered.
 	ClusterID *string `json:"clusterId,omitempty" tf:"cluster_id,omitempty"`
 
-	ClusterLogConf []JobTaskNewClusterClusterLogConfObservation `json:"clusterLogConf,omitempty" tf:"cluster_log_conf,omitempty"`
+	ClusterLogConf *JobTaskNewClusterClusterLogConfObservation `json:"clusterLogConf,omitempty" tf:"cluster_log_conf,omitempty"`
 
 	ClusterMountInfo []JobTaskNewClusterClusterMountInfoObservation `json:"clusterMountInfo,omitempty" tf:"cluster_mount_info,omitempty"`
 
@@ -4360,12 +4360,12 @@ type JobTaskNewClusterObservation struct {
 
 	DataSecurityMode *string `json:"dataSecurityMode,omitempty" tf:"data_security_mode,omitempty"`
 
-	DockerImage []JobTaskNewClusterDockerImageObservation `json:"dockerImage,omitempty" tf:"docker_image,omitempty"`
+	DockerImage *JobTaskNewClusterDockerImageObservation `json:"dockerImage,omitempty" tf:"docker_image,omitempty"`
 
 	// ID of the system notification that is notified when an event defined in webhook_notifications is triggered.
 	DriverInstancePoolID *string `json:"driverInstancePoolId,omitempty" tf:"driver_instance_pool_id,omitempty"`
 
-	DriverNodeTypeFlexibility []JobTaskNewClusterDriverNodeTypeFlexibilityObservation `json:"driverNodeTypeFlexibility,omitempty" tf:"driver_node_type_flexibility,omitempty"`
+	DriverNodeTypeFlexibility *JobTaskNewClusterDriverNodeTypeFlexibilityObservation `json:"driverNodeTypeFlexibility,omitempty" tf:"driver_node_type_flexibility,omitempty"`
 
 	// ID of the system notification that is notified when an event defined in webhook_notifications is triggered.
 	DriverNodeTypeID *string `json:"driverNodeTypeId,omitempty" tf:"driver_node_type_id,omitempty"`
@@ -4374,7 +4374,7 @@ type JobTaskNewClusterObservation struct {
 
 	EnableLocalDiskEncryption *bool `json:"enableLocalDiskEncryption,omitempty" tf:"enable_local_disk_encryption,omitempty"`
 
-	GCPAttributes []JobTaskNewClusterGCPAttributesObservation `json:"gcpAttributes,omitempty" tf:"gcp_attributes,omitempty"`
+	GCPAttributes *JobTaskNewClusterGCPAttributesObservation `json:"gcpAttributes,omitempty" tf:"gcp_attributes,omitempty"`
 
 	IdempotencyToken *string `json:"idempotencyToken,omitempty" tf:"idempotency_token,omitempty"`
 
@@ -4399,7 +4399,7 @@ type JobTaskNewClusterObservation struct {
 	PolicyID *string `json:"policyId,omitempty" tf:"policy_id,omitempty"`
 
 	// Configure the provider for management through account provider. This block consists of the following fields:
-	ProviderConfig []JobTaskNewClusterProviderConfigObservation `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
+	ProviderConfig *JobTaskNewClusterProviderConfigObservation `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
 
 	RemoteDiskThroughput *float64 `json:"remoteDiskThroughput,omitempty" tf:"remote_disk_throughput,omitempty"`
 
@@ -4423,10 +4423,10 @@ type JobTaskNewClusterObservation struct {
 
 	UseMLRuntime *bool `json:"useMlRuntime,omitempty" tf:"use_ml_runtime,omitempty"`
 
-	WorkerNodeTypeFlexibility []JobTaskNewClusterWorkerNodeTypeFlexibilityObservation `json:"workerNodeTypeFlexibility,omitempty" tf:"worker_node_type_flexibility,omitempty"`
+	WorkerNodeTypeFlexibility *JobTaskNewClusterWorkerNodeTypeFlexibilityObservation `json:"workerNodeTypeFlexibility,omitempty" tf:"worker_node_type_flexibility,omitempty"`
 
 	// isn't supported
-	WorkloadType []JobTaskNewClusterWorkloadTypeObservation `json:"workloadType,omitempty" tf:"workload_type,omitempty"`
+	WorkloadType *JobTaskNewClusterWorkloadTypeObservation `json:"workloadType,omitempty" tf:"workload_type,omitempty"`
 }
 
 type JobTaskNewClusterParameters struct {
@@ -4438,20 +4438,20 @@ type JobTaskNewClusterParameters struct {
 	ApplyPolicyDefaultValuesAllowList []*string `json:"ApplyPolicyDefaultValuesAllowList,omitempty" tf:"__apply_policy_default_values_allow_list,omitempty"`
 
 	// +kubebuilder:validation:Optional
-	Autoscale []JobTaskNewClusterAutoscaleParameters `json:"autoscale,omitempty" tf:"autoscale,omitempty"`
+	Autoscale *JobTaskNewClusterAutoscaleParameters `json:"autoscale,omitempty" tf:"autoscale,omitempty"`
 
 	// +kubebuilder:validation:Optional
-	AwsAttributes []JobTaskNewClusterAwsAttributesParameters `json:"awsAttributes,omitempty" tf:"aws_attributes,omitempty"`
+	AwsAttributes *JobTaskNewClusterAwsAttributesParameters `json:"awsAttributes,omitempty" tf:"aws_attributes,omitempty"`
 
 	// +kubebuilder:validation:Optional
-	AzureAttributes []JobTaskNewClusterAzureAttributesParameters `json:"azureAttributes,omitempty" tf:"azure_attributes,omitempty"`
+	AzureAttributes *JobTaskNewClusterAzureAttributesParameters `json:"azureAttributes,omitempty" tf:"azure_attributes,omitempty"`
 
 	// ID of the system notification that is notified when an event defined in webhook_notifications is triggered.
 	// +kubebuilder:validation:Optional
 	ClusterID *string `json:"clusterId,omitempty" tf:"cluster_id,omitempty"`
 
 	// +kubebuilder:validation:Optional
-	ClusterLogConf []JobTaskNewClusterClusterLogConfParameters `json:"clusterLogConf,omitempty" tf:"cluster_log_conf,omitempty"`
+	ClusterLogConf *JobTaskNewClusterClusterLogConfParameters `json:"clusterLogConf,omitempty" tf:"cluster_log_conf,omitempty"`
 
 	// +kubebuilder:validation:Optional
 	ClusterMountInfo []JobTaskNewClusterClusterMountInfoParameters `json:"clusterMountInfo,omitempty" tf:"cluster_mount_info,omitempty"`
@@ -4469,14 +4469,14 @@ type JobTaskNewClusterParameters struct {
 	DataSecurityMode *string `json:"dataSecurityMode,omitempty" tf:"data_security_mode,omitempty"`
 
 	// +kubebuilder:validation:Optional
-	DockerImage []JobTaskNewClusterDockerImageParameters `json:"dockerImage,omitempty" tf:"docker_image,omitempty"`
+	DockerImage *JobTaskNewClusterDockerImageParameters `json:"dockerImage,omitempty" tf:"docker_image,omitempty"`
 
 	// ID of the system notification that is notified when an event defined in webhook_notifications is triggered.
 	// +kubebuilder:validation:Optional
 	DriverInstancePoolID *string `json:"driverInstancePoolId,omitempty" tf:"driver_instance_pool_id,omitempty"`
 
 	// +kubebuilder:validation:Optional
-	DriverNodeTypeFlexibility []JobTaskNewClusterDriverNodeTypeFlexibilityParameters `json:"driverNodeTypeFlexibility,omitempty" tf:"driver_node_type_flexibility,omitempty"`
+	DriverNodeTypeFlexibility *JobTaskNewClusterDriverNodeTypeFlexibilityParameters `json:"driverNodeTypeFlexibility,omitempty" tf:"driver_node_type_flexibility,omitempty"`
 
 	// ID of the system notification that is notified when an event defined in webhook_notifications is triggered.
 	// +kubebuilder:validation:Optional
@@ -4489,7 +4489,7 @@ type JobTaskNewClusterParameters struct {
 	EnableLocalDiskEncryption *bool `json:"enableLocalDiskEncryption,omitempty" tf:"enable_local_disk_encryption,omitempty"`
 
 	// +kubebuilder:validation:Optional
-	GCPAttributes []JobTaskNewClusterGCPAttributesParameters `json:"gcpAttributes,omitempty" tf:"gcp_attributes,omitempty"`
+	GCPAttributes *JobTaskNewClusterGCPAttributesParameters `json:"gcpAttributes,omitempty" tf:"gcp_attributes,omitempty"`
 
 	// +kubebuilder:validation:Optional
 	IdempotencyToken *string `json:"idempotencyToken,omitempty" tf:"idempotency_token,omitempty"`
@@ -4524,7 +4524,7 @@ type JobTaskNewClusterParameters struct {
 
 	// Configure the provider for management through account provider. This block consists of the following fields:
 	// +kubebuilder:validation:Optional
-	ProviderConfig []JobTaskNewClusterProviderConfigParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
+	ProviderConfig *JobTaskNewClusterProviderConfigParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
 
 	// +kubebuilder:validation:Optional
 	RemoteDiskThroughput *float64 `json:"remoteDiskThroughput,omitempty" tf:"remote_disk_throughput,omitempty"`
@@ -4558,11 +4558,11 @@ type JobTaskNewClusterParameters struct {
 	UseMLRuntime *bool `json:"useMlRuntime,omitempty" tf:"use_ml_runtime,omitempty"`
 
 	// +kubebuilder:validation:Optional
-	WorkerNodeTypeFlexibility []JobTaskNewClusterWorkerNodeTypeFlexibilityParameters `json:"workerNodeTypeFlexibility,omitempty" tf:"worker_node_type_flexibility,omitempty"`
+	WorkerNodeTypeFlexibility *JobTaskNewClusterWorkerNodeTypeFlexibilityParameters `json:"workerNodeTypeFlexibility,omitempty" tf:"worker_node_type_flexibility,omitempty"`
 
 	// isn't supported
 	// +kubebuilder:validation:Optional
-	WorkloadType []JobTaskNewClusterWorkloadTypeParameters `json:"workloadType,omitempty" tf:"workload_type,omitempty"`
+	WorkloadType *JobTaskNewClusterWorkloadTypeParameters `json:"workloadType,omitempty" tf:"workload_type,omitempty"`
 }
 
 type JobTaskNewClusterProviderConfigInitParameters struct {
@@ -4620,17 +4620,17 @@ type JobTaskNewClusterWorkloadTypeClientsParameters struct {
 }
 
 type JobTaskNewClusterWorkloadTypeInitParameters struct {
-	Clients []JobTaskNewClusterWorkloadTypeClientsInitParameters `json:"clients,omitempty" tf:"clients,omitempty"`
+	Clients *JobTaskNewClusterWorkloadTypeClientsInitParameters `json:"clients,omitempty" tf:"clients,omitempty"`
 }
 
 type JobTaskNewClusterWorkloadTypeObservation struct {
-	Clients []JobTaskNewClusterWorkloadTypeClientsObservation `json:"clients,omitempty" tf:"clients,omitempty"`
+	Clients *JobTaskNewClusterWorkloadTypeClientsObservation `json:"clients,omitempty" tf:"clients,omitempty"`
 }
 
 type JobTaskNewClusterWorkloadTypeParameters struct {
 
 	// +kubebuilder:validation:Optional
-	Clients []JobTaskNewClusterWorkloadTypeClientsParameters `json:"clients" tf:"clients,omitempty"`
+	Clients *JobTaskNewClusterWorkloadTypeClientsParameters `json:"clients" tf:"clients,omitempty"`
 }
 
 type JobTaskNotebookTaskInitParameters struct {
@@ -4862,7 +4862,7 @@ type JobTaskRunJobTaskInitParameters struct {
 	// +mapType=granular
 	NotebookParams map[string]*string `json:"notebookParams,omitempty" tf:"notebook_params,omitempty"`
 
-	PipelineParams []RunJobTaskPipelineParamsInitParameters `json:"pipelineParams,omitempty" tf:"pipeline_params,omitempty"`
+	PipelineParams *RunJobTaskPipelineParamsInitParameters `json:"pipelineParams,omitempty" tf:"pipeline_params,omitempty"`
 
 	// +mapType=granular
 	PythonNamedParams map[string]*string `json:"pythonNamedParams,omitempty" tf:"python_named_params,omitempty"`
@@ -4892,7 +4892,7 @@ type JobTaskRunJobTaskObservation struct {
 	// +mapType=granular
 	NotebookParams map[string]*string `json:"notebookParams,omitempty" tf:"notebook_params,omitempty"`
 
-	PipelineParams []RunJobTaskPipelineParamsObservation `json:"pipelineParams,omitempty" tf:"pipeline_params,omitempty"`
+	PipelineParams *RunJobTaskPipelineParamsObservation `json:"pipelineParams,omitempty" tf:"pipeline_params,omitempty"`
 
 	// +mapType=granular
 	PythonNamedParams map[string]*string `json:"pythonNamedParams,omitempty" tf:"python_named_params,omitempty"`
@@ -4928,7 +4928,7 @@ type JobTaskRunJobTaskParameters struct {
 	NotebookParams map[string]*string `json:"notebookParams,omitempty" tf:"notebook_params,omitempty"`
 
 	// +kubebuilder:validation:Optional
-	PipelineParams []RunJobTaskPipelineParamsParameters `json:"pipelineParams,omitempty" tf:"pipeline_params,omitempty"`
+	PipelineParams *RunJobTaskPipelineParamsParameters `json:"pipelineParams,omitempty" tf:"pipeline_params,omitempty"`
 
 	// +kubebuilder:validation:Optional
 	// +mapType=granular
@@ -5447,7 +5447,7 @@ type NewClusterAzureAttributesInitParameters struct {
 
 	FirstOnDemand *float64 `json:"firstOnDemand,omitempty" tf:"first_on_demand,omitempty"`
 
-	LogAnalyticsInfo []AzureAttributesLogAnalyticsInfoInitParameters `json:"logAnalyticsInfo,omitempty" tf:"log_analytics_info,omitempty"`
+	LogAnalyticsInfo *AzureAttributesLogAnalyticsInfoInitParameters `json:"logAnalyticsInfo,omitempty" tf:"log_analytics_info,omitempty"`
 
 	SpotBidMaxPrice *float64 `json:"spotBidMaxPrice,omitempty" tf:"spot_bid_max_price,omitempty"`
 }
@@ -5481,7 +5481,7 @@ type NewClusterAzureAttributesObservation struct {
 
 	FirstOnDemand *float64 `json:"firstOnDemand,omitempty" tf:"first_on_demand,omitempty"`
 
-	LogAnalyticsInfo []AzureAttributesLogAnalyticsInfoObservation `json:"logAnalyticsInfo,omitempty" tf:"log_analytics_info,omitempty"`
+	LogAnalyticsInfo *AzureAttributesLogAnalyticsInfoObservation `json:"logAnalyticsInfo,omitempty" tf:"log_analytics_info,omitempty"`
 
 	SpotBidMaxPrice *float64 `json:"spotBidMaxPrice,omitempty" tf:"spot_bid_max_price,omitempty"`
 }
@@ -5495,7 +5495,7 @@ type NewClusterAzureAttributesParameters struct {
 	FirstOnDemand *float64 `json:"firstOnDemand,omitempty" tf:"first_on_demand,omitempty"`
 
 	// +kubebuilder:validation:Optional
-	LogAnalyticsInfo []AzureAttributesLogAnalyticsInfoParameters `json:"logAnalyticsInfo,omitempty" tf:"log_analytics_info,omitempty"`
+	LogAnalyticsInfo *AzureAttributesLogAnalyticsInfoParameters `json:"logAnalyticsInfo,omitempty" tf:"log_analytics_info,omitempty"`
 
 	// +kubebuilder:validation:Optional
 	SpotBidMaxPrice *float64 `json:"spotBidMaxPrice,omitempty" tf:"spot_bid_max_price,omitempty"`
@@ -5516,31 +5516,31 @@ type NewClusterClusterLogConfDbfsParameters struct {
 }
 
 type NewClusterClusterLogConfInitParameters struct {
-	Dbfs []ClusterLogConfDbfsInitParameters `json:"dbfs,omitempty" tf:"dbfs,omitempty"`
+	Dbfs *ClusterLogConfDbfsInitParameters `json:"dbfs,omitempty" tf:"dbfs,omitempty"`
 
-	S3 []ClusterLogConfS3InitParameters `json:"s3,omitempty" tf:"s3,omitempty"`
+	S3 *ClusterLogConfS3InitParameters `json:"s3,omitempty" tf:"s3,omitempty"`
 
-	Volumes []ClusterLogConfVolumesInitParameters `json:"volumes,omitempty" tf:"volumes,omitempty"`
+	Volumes *ClusterLogConfVolumesInitParameters `json:"volumes,omitempty" tf:"volumes,omitempty"`
 }
 
 type NewClusterClusterLogConfObservation struct {
-	Dbfs []ClusterLogConfDbfsObservation `json:"dbfs,omitempty" tf:"dbfs,omitempty"`
+	Dbfs *ClusterLogConfDbfsObservation `json:"dbfs,omitempty" tf:"dbfs,omitempty"`
 
-	S3 []ClusterLogConfS3Observation `json:"s3,omitempty" tf:"s3,omitempty"`
+	S3 *ClusterLogConfS3Observation `json:"s3,omitempty" tf:"s3,omitempty"`
 
-	Volumes []ClusterLogConfVolumesObservation `json:"volumes,omitempty" tf:"volumes,omitempty"`
+	Volumes *ClusterLogConfVolumesObservation `json:"volumes,omitempty" tf:"volumes,omitempty"`
 }
 
 type NewClusterClusterLogConfParameters struct {
 
 	// +kubebuilder:validation:Optional
-	Dbfs []ClusterLogConfDbfsParameters `json:"dbfs,omitempty" tf:"dbfs,omitempty"`
+	Dbfs *ClusterLogConfDbfsParameters `json:"dbfs,omitempty" tf:"dbfs,omitempty"`
 
 	// +kubebuilder:validation:Optional
-	S3 []ClusterLogConfS3Parameters `json:"s3,omitempty" tf:"s3,omitempty"`
+	S3 *ClusterLogConfS3Parameters `json:"s3,omitempty" tf:"s3,omitempty"`
 
 	// +kubebuilder:validation:Optional
-	Volumes []ClusterLogConfVolumesParameters `json:"volumes,omitempty" tf:"volumes,omitempty"`
+	Volumes *ClusterLogConfVolumesParameters `json:"volumes,omitempty" tf:"volumes,omitempty"`
 }
 
 type NewClusterClusterLogConfS3InitParameters struct {
@@ -5618,7 +5618,7 @@ type NewClusterClusterMountInfoInitParameters struct {
 	// If source is GIT: Relative path to the file in the repository specified in the git_source block with SQL commands to execute. If source is WORKSPACE: Absolute path to the file in the workspace with SQL commands to execute.
 	LocalMountDirPath *string `json:"localMountDirPath,omitempty" tf:"local_mount_dir_path,omitempty"`
 
-	NetworkFilesystemInfo []ClusterMountInfoNetworkFilesystemInfoInitParameters `json:"networkFilesystemInfo,omitempty" tf:"network_filesystem_info,omitempty"`
+	NetworkFilesystemInfo *ClusterMountInfoNetworkFilesystemInfoInitParameters `json:"networkFilesystemInfo,omitempty" tf:"network_filesystem_info,omitempty"`
 
 	// If source is GIT: Relative path to the file in the repository specified in the git_source block with SQL commands to execute. If source is WORKSPACE: Absolute path to the file in the workspace with SQL commands to execute.
 	RemoteMountDirPath *string `json:"remoteMountDirPath,omitempty" tf:"remote_mount_dir_path,omitempty"`
@@ -5650,7 +5650,7 @@ type NewClusterClusterMountInfoObservation struct {
 	// If source is GIT: Relative path to the file in the repository specified in the git_source block with SQL commands to execute. If source is WORKSPACE: Absolute path to the file in the workspace with SQL commands to execute.
 	LocalMountDirPath *string `json:"localMountDirPath,omitempty" tf:"local_mount_dir_path,omitempty"`
 
-	NetworkFilesystemInfo []ClusterMountInfoNetworkFilesystemInfoObservation `json:"networkFilesystemInfo,omitempty" tf:"network_filesystem_info,omitempty"`
+	NetworkFilesystemInfo *ClusterMountInfoNetworkFilesystemInfoObservation `json:"networkFilesystemInfo,omitempty" tf:"network_filesystem_info,omitempty"`
 
 	// If source is GIT: Relative path to the file in the repository specified in the git_source block with SQL commands to execute. If source is WORKSPACE: Absolute path to the file in the workspace with SQL commands to execute.
 	RemoteMountDirPath *string `json:"remoteMountDirPath,omitempty" tf:"remote_mount_dir_path,omitempty"`
@@ -5663,7 +5663,7 @@ type NewClusterClusterMountInfoParameters struct {
 	LocalMountDirPath *string `json:"localMountDirPath" tf:"local_mount_dir_path,omitempty"`
 
 	// +kubebuilder:validation:Optional
-	NetworkFilesystemInfo []ClusterMountInfoNetworkFilesystemInfoParameters `json:"networkFilesystemInfo" tf:"network_filesystem_info,omitempty"`
+	NetworkFilesystemInfo *ClusterMountInfoNetworkFilesystemInfoParameters `json:"networkFilesystemInfo" tf:"network_filesystem_info,omitempty"`
 
 	// If source is GIT: Relative path to the file in the repository specified in the git_source block with SQL commands to execute. If source is WORKSPACE: Absolute path to the file in the workspace with SQL commands to execute.
 	// +kubebuilder:validation:Optional
@@ -5694,14 +5694,14 @@ type NewClusterDockerImageBasicAuthParameters struct {
 }
 
 type NewClusterDockerImageInitParameters struct {
-	BasicAuth []DockerImageBasicAuthInitParameters `json:"basicAuth,omitempty" tf:"basic_auth,omitempty"`
+	BasicAuth *DockerImageBasicAuthInitParameters `json:"basicAuth,omitempty" tf:"basic_auth,omitempty"`
 
 	// URL to be monitored for file arrivals. The path must point to the root or a subpath of the external location. Please note that the URL must have a trailing slash character (/).
 	URL *string `json:"url,omitempty" tf:"url,omitempty"`
 }
 
 type NewClusterDockerImageObservation struct {
-	BasicAuth []DockerImageBasicAuthObservation `json:"basicAuth,omitempty" tf:"basic_auth,omitempty"`
+	BasicAuth *DockerImageBasicAuthObservation `json:"basicAuth,omitempty" tf:"basic_auth,omitempty"`
 
 	// URL to be monitored for file arrivals. The path must point to the root or a subpath of the external location. Please note that the URL must have a trailing slash character (/).
 	URL *string `json:"url,omitempty" tf:"url,omitempty"`
@@ -5710,7 +5710,7 @@ type NewClusterDockerImageObservation struct {
 type NewClusterDockerImageParameters struct {
 
 	// +kubebuilder:validation:Optional
-	BasicAuth []DockerImageBasicAuthParameters `json:"basicAuth,omitempty" tf:"basic_auth,omitempty"`
+	BasicAuth *DockerImageBasicAuthParameters `json:"basicAuth,omitempty" tf:"basic_auth,omitempty"`
 
 	// URL to be monitored for file arrivals. The path must point to the root or a subpath of the external location. Please note that the URL must have a trailing slash character (/).
 	// +kubebuilder:validation:Optional
@@ -5795,16 +5795,16 @@ type NewClusterInitParameters struct {
 
 	ApplyPolicyDefaultValuesAllowList []*string `json:"ApplyPolicyDefaultValuesAllowList,omitempty" tf:"__apply_policy_default_values_allow_list,omitempty"`
 
-	Autoscale []NewClusterAutoscaleInitParameters `json:"autoscale,omitempty" tf:"autoscale,omitempty"`
+	Autoscale *NewClusterAutoscaleInitParameters `json:"autoscale,omitempty" tf:"autoscale,omitempty"`
 
-	AwsAttributes []NewClusterAwsAttributesInitParameters `json:"awsAttributes,omitempty" tf:"aws_attributes,omitempty"`
+	AwsAttributes *NewClusterAwsAttributesInitParameters `json:"awsAttributes,omitempty" tf:"aws_attributes,omitempty"`
 
-	AzureAttributes []NewClusterAzureAttributesInitParameters `json:"azureAttributes,omitempty" tf:"azure_attributes,omitempty"`
+	AzureAttributes *NewClusterAzureAttributesInitParameters `json:"azureAttributes,omitempty" tf:"azure_attributes,omitempty"`
 
 	// ID of the system notification that is notified when an event defined in webhook_notifications is triggered.
 	ClusterID *string `json:"clusterId,omitempty" tf:"cluster_id,omitempty"`
 
-	ClusterLogConf []NewClusterClusterLogConfInitParameters `json:"clusterLogConf,omitempty" tf:"cluster_log_conf,omitempty"`
+	ClusterLogConf *NewClusterClusterLogConfInitParameters `json:"clusterLogConf,omitempty" tf:"cluster_log_conf,omitempty"`
 
 	ClusterMountInfo []NewClusterClusterMountInfoInitParameters `json:"clusterMountInfo,omitempty" tf:"cluster_mount_info,omitempty"`
 
@@ -5817,12 +5817,12 @@ type NewClusterInitParameters struct {
 
 	DataSecurityMode *string `json:"dataSecurityMode,omitempty" tf:"data_security_mode,omitempty"`
 
-	DockerImage []NewClusterDockerImageInitParameters `json:"dockerImage,omitempty" tf:"docker_image,omitempty"`
+	DockerImage *NewClusterDockerImageInitParameters `json:"dockerImage,omitempty" tf:"docker_image,omitempty"`
 
 	// ID of the system notification that is notified when an event defined in webhook_notifications is triggered.
 	DriverInstancePoolID *string `json:"driverInstancePoolId,omitempty" tf:"driver_instance_pool_id,omitempty"`
 
-	DriverNodeTypeFlexibility []NewClusterDriverNodeTypeFlexibilityInitParameters `json:"driverNodeTypeFlexibility,omitempty" tf:"driver_node_type_flexibility,omitempty"`
+	DriverNodeTypeFlexibility *NewClusterDriverNodeTypeFlexibilityInitParameters `json:"driverNodeTypeFlexibility,omitempty" tf:"driver_node_type_flexibility,omitempty"`
 
 	// ID of the system notification that is notified when an event defined in webhook_notifications is triggered.
 	DriverNodeTypeID *string `json:"driverNodeTypeId,omitempty" tf:"driver_node_type_id,omitempty"`
@@ -5831,7 +5831,7 @@ type NewClusterInitParameters struct {
 
 	EnableLocalDiskEncryption *bool `json:"enableLocalDiskEncryption,omitempty" tf:"enable_local_disk_encryption,omitempty"`
 
-	GCPAttributes []NewClusterGCPAttributesInitParameters `json:"gcpAttributes,omitempty" tf:"gcp_attributes,omitempty"`
+	GCPAttributes *NewClusterGCPAttributesInitParameters `json:"gcpAttributes,omitempty" tf:"gcp_attributes,omitempty"`
 
 	IdempotencyToken *string `json:"idempotencyToken,omitempty" tf:"idempotency_token,omitempty"`
 
@@ -5856,7 +5856,7 @@ type NewClusterInitParameters struct {
 	PolicyID *string `json:"policyId,omitempty" tf:"policy_id,omitempty"`
 
 	// Configure the provider for management through account provider. This block consists of the following fields:
-	ProviderConfig []NewClusterProviderConfigInitParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
+	ProviderConfig *NewClusterProviderConfigInitParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
 
 	RemoteDiskThroughput *float64 `json:"remoteDiskThroughput,omitempty" tf:"remote_disk_throughput,omitempty"`
 
@@ -5880,10 +5880,10 @@ type NewClusterInitParameters struct {
 
 	UseMLRuntime *bool `json:"useMlRuntime,omitempty" tf:"use_ml_runtime,omitempty"`
 
-	WorkerNodeTypeFlexibility []NewClusterWorkerNodeTypeFlexibilityInitParameters `json:"workerNodeTypeFlexibility,omitempty" tf:"worker_node_type_flexibility,omitempty"`
+	WorkerNodeTypeFlexibility *NewClusterWorkerNodeTypeFlexibilityInitParameters `json:"workerNodeTypeFlexibility,omitempty" tf:"worker_node_type_flexibility,omitempty"`
 
 	// isn't supported
-	WorkloadType []NewClusterWorkloadTypeInitParameters `json:"workloadType,omitempty" tf:"workload_type,omitempty"`
+	WorkloadType *NewClusterWorkloadTypeInitParameters `json:"workloadType,omitempty" tf:"workload_type,omitempty"`
 }
 
 type NewClusterInitScriptsAbfssInitParameters struct {
@@ -5943,62 +5943,62 @@ type NewClusterInitScriptsGcsParameters struct {
 }
 
 type NewClusterInitScriptsInitParameters struct {
-	Abfss []InitScriptsAbfssInitParameters `json:"abfss,omitempty" tf:"abfss,omitempty"`
+	Abfss *InitScriptsAbfssInitParameters `json:"abfss,omitempty" tf:"abfss,omitempty"`
 
-	Dbfs []NewClusterInitScriptsDbfsInitParameters `json:"dbfs,omitempty" tf:"dbfs,omitempty"`
+	Dbfs *NewClusterInitScriptsDbfsInitParameters `json:"dbfs,omitempty" tf:"dbfs,omitempty"`
 
 	// block consisting of single string fields:
-	File []InitScriptsFileInitParameters `json:"file,omitempty" tf:"file,omitempty"`
+	File *InitScriptsFileInitParameters `json:"file,omitempty" tf:"file,omitempty"`
 
-	Gcs []InitScriptsGcsInitParameters `json:"gcs,omitempty" tf:"gcs,omitempty"`
+	Gcs *InitScriptsGcsInitParameters `json:"gcs,omitempty" tf:"gcs,omitempty"`
 
-	S3 []NewClusterInitScriptsS3InitParameters `json:"s3,omitempty" tf:"s3,omitempty"`
+	S3 *NewClusterInitScriptsS3InitParameters `json:"s3,omitempty" tf:"s3,omitempty"`
 
-	Volumes []NewClusterInitScriptsVolumesInitParameters `json:"volumes,omitempty" tf:"volumes,omitempty"`
+	Volumes *NewClusterInitScriptsVolumesInitParameters `json:"volumes,omitempty" tf:"volumes,omitempty"`
 
-	Workspace []InitScriptsWorkspaceInitParameters `json:"workspace,omitempty" tf:"workspace,omitempty"`
+	Workspace *InitScriptsWorkspaceInitParameters `json:"workspace,omitempty" tf:"workspace,omitempty"`
 }
 
 type NewClusterInitScriptsObservation struct {
-	Abfss []InitScriptsAbfssObservation `json:"abfss,omitempty" tf:"abfss,omitempty"`
+	Abfss *InitScriptsAbfssObservation `json:"abfss,omitempty" tf:"abfss,omitempty"`
 
-	Dbfs []NewClusterInitScriptsDbfsObservation `json:"dbfs,omitempty" tf:"dbfs,omitempty"`
+	Dbfs *NewClusterInitScriptsDbfsObservation `json:"dbfs,omitempty" tf:"dbfs,omitempty"`
 
 	// block consisting of single string fields:
-	File []InitScriptsFileObservation `json:"file,omitempty" tf:"file,omitempty"`
+	File *InitScriptsFileObservation `json:"file,omitempty" tf:"file,omitempty"`
 
-	Gcs []InitScriptsGcsObservation `json:"gcs,omitempty" tf:"gcs,omitempty"`
+	Gcs *InitScriptsGcsObservation `json:"gcs,omitempty" tf:"gcs,omitempty"`
 
-	S3 []NewClusterInitScriptsS3Observation `json:"s3,omitempty" tf:"s3,omitempty"`
+	S3 *NewClusterInitScriptsS3Observation `json:"s3,omitempty" tf:"s3,omitempty"`
 
-	Volumes []NewClusterInitScriptsVolumesObservation `json:"volumes,omitempty" tf:"volumes,omitempty"`
+	Volumes *NewClusterInitScriptsVolumesObservation `json:"volumes,omitempty" tf:"volumes,omitempty"`
 
-	Workspace []InitScriptsWorkspaceObservation `json:"workspace,omitempty" tf:"workspace,omitempty"`
+	Workspace *InitScriptsWorkspaceObservation `json:"workspace,omitempty" tf:"workspace,omitempty"`
 }
 
 type NewClusterInitScriptsParameters struct {
 
 	// +kubebuilder:validation:Optional
-	Abfss []InitScriptsAbfssParameters `json:"abfss,omitempty" tf:"abfss,omitempty"`
+	Abfss *InitScriptsAbfssParameters `json:"abfss,omitempty" tf:"abfss,omitempty"`
 
 	// +kubebuilder:validation:Optional
-	Dbfs []NewClusterInitScriptsDbfsParameters `json:"dbfs,omitempty" tf:"dbfs,omitempty"`
+	Dbfs *NewClusterInitScriptsDbfsParameters `json:"dbfs,omitempty" tf:"dbfs,omitempty"`
 
 	// block consisting of single string fields:
 	// +kubebuilder:validation:Optional
-	File []InitScriptsFileParameters `json:"file,omitempty" tf:"file,omitempty"`
+	File *InitScriptsFileParameters `json:"file,omitempty" tf:"file,omitempty"`
 
 	// +kubebuilder:validation:Optional
-	Gcs []InitScriptsGcsParameters `json:"gcs,omitempty" tf:"gcs,omitempty"`
+	Gcs *InitScriptsGcsParameters `json:"gcs,omitempty" tf:"gcs,omitempty"`
 
 	// +kubebuilder:validation:Optional
-	S3 []NewClusterInitScriptsS3Parameters `json:"s3,omitempty" tf:"s3,omitempty"`
+	S3 *NewClusterInitScriptsS3Parameters `json:"s3,omitempty" tf:"s3,omitempty"`
 
 	// +kubebuilder:validation:Optional
-	Volumes []NewClusterInitScriptsVolumesParameters `json:"volumes,omitempty" tf:"volumes,omitempty"`
+	Volumes *NewClusterInitScriptsVolumesParameters `json:"volumes,omitempty" tf:"volumes,omitempty"`
 
 	// +kubebuilder:validation:Optional
-	Workspace []InitScriptsWorkspaceParameters `json:"workspace,omitempty" tf:"workspace,omitempty"`
+	Workspace *InitScriptsWorkspaceParameters `json:"workspace,omitempty" tf:"workspace,omitempty"`
 }
 
 type NewClusterInitScriptsS3InitParameters struct {
@@ -6107,18 +6107,18 @@ type NewClusterLibraryCranParameters struct {
 }
 
 type NewClusterLibraryInitParameters struct {
-	Cran []LibraryCranInitParameters `json:"cran,omitempty" tf:"cran,omitempty"`
+	Cran *LibraryCranInitParameters `json:"cran,omitempty" tf:"cran,omitempty"`
 
 	Egg *string `json:"egg,omitempty" tf:"egg,omitempty"`
 
 	Jar *string `json:"jar,omitempty" tf:"jar,omitempty"`
 
-	Maven []LibraryMavenInitParameters `json:"maven,omitempty" tf:"maven,omitempty"`
+	Maven *LibraryMavenInitParameters `json:"maven,omitempty" tf:"maven,omitempty"`
 
 	// Configure the provider for management through account provider. This block consists of the following fields:
-	ProviderConfig []LibraryProviderConfigInitParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
+	ProviderConfig *LibraryProviderConfigInitParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
 
-	Pypi []LibraryPypiInitParameters `json:"pypi,omitempty" tf:"pypi,omitempty"`
+	Pypi *LibraryPypiInitParameters `json:"pypi,omitempty" tf:"pypi,omitempty"`
 
 	Requirements *string `json:"requirements,omitempty" tf:"requirements,omitempty"`
 
@@ -6154,18 +6154,18 @@ type NewClusterLibraryMavenParameters struct {
 }
 
 type NewClusterLibraryObservation struct {
-	Cran []LibraryCranObservation `json:"cran,omitempty" tf:"cran,omitempty"`
+	Cran *LibraryCranObservation `json:"cran,omitempty" tf:"cran,omitempty"`
 
 	Egg *string `json:"egg,omitempty" tf:"egg,omitempty"`
 
 	Jar *string `json:"jar,omitempty" tf:"jar,omitempty"`
 
-	Maven []LibraryMavenObservation `json:"maven,omitempty" tf:"maven,omitempty"`
+	Maven *LibraryMavenObservation `json:"maven,omitempty" tf:"maven,omitempty"`
 
 	// Configure the provider for management through account provider. This block consists of the following fields:
-	ProviderConfig []LibraryProviderConfigObservation `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
+	ProviderConfig *LibraryProviderConfigObservation `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
 
-	Pypi []LibraryPypiObservation `json:"pypi,omitempty" tf:"pypi,omitempty"`
+	Pypi *LibraryPypiObservation `json:"pypi,omitempty" tf:"pypi,omitempty"`
 
 	Requirements *string `json:"requirements,omitempty" tf:"requirements,omitempty"`
 
@@ -6175,7 +6175,7 @@ type NewClusterLibraryObservation struct {
 type NewClusterLibraryParameters struct {
 
 	// +kubebuilder:validation:Optional
-	Cran []LibraryCranParameters `json:"cran,omitempty" tf:"cran,omitempty"`
+	Cran *LibraryCranParameters `json:"cran,omitempty" tf:"cran,omitempty"`
 
 	// +kubebuilder:validation:Optional
 	Egg *string `json:"egg,omitempty" tf:"egg,omitempty"`
@@ -6184,14 +6184,14 @@ type NewClusterLibraryParameters struct {
 	Jar *string `json:"jar,omitempty" tf:"jar,omitempty"`
 
 	// +kubebuilder:validation:Optional
-	Maven []LibraryMavenParameters `json:"maven,omitempty" tf:"maven,omitempty"`
+	Maven *LibraryMavenParameters `json:"maven,omitempty" tf:"maven,omitempty"`
 
 	// Configure the provider for management through account provider. This block consists of the following fields:
 	// +kubebuilder:validation:Optional
-	ProviderConfig []LibraryProviderConfigParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
+	ProviderConfig *LibraryProviderConfigParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
 
 	// +kubebuilder:validation:Optional
-	Pypi []LibraryPypiParameters `json:"pypi,omitempty" tf:"pypi,omitempty"`
+	Pypi *LibraryPypiParameters `json:"pypi,omitempty" tf:"pypi,omitempty"`
 
 	// +kubebuilder:validation:Optional
 	Requirements *string `json:"requirements,omitempty" tf:"requirements,omitempty"`
@@ -6245,16 +6245,16 @@ type NewClusterObservation struct {
 
 	ApplyPolicyDefaultValuesAllowList []*string `json:"ApplyPolicyDefaultValuesAllowList,omitempty" tf:"__apply_policy_default_values_allow_list,omitempty"`
 
-	Autoscale []NewClusterAutoscaleObservation `json:"autoscale,omitempty" tf:"autoscale,omitempty"`
+	Autoscale *NewClusterAutoscaleObservation `json:"autoscale,omitempty" tf:"autoscale,omitempty"`
 
-	AwsAttributes []NewClusterAwsAttributesObservation `json:"awsAttributes,omitempty" tf:"aws_attributes,omitempty"`
+	AwsAttributes *NewClusterAwsAttributesObservation `json:"awsAttributes,omitempty" tf:"aws_attributes,omitempty"`
 
-	AzureAttributes []NewClusterAzureAttributesObservation `json:"azureAttributes,omitempty" tf:"azure_attributes,omitempty"`
+	AzureAttributes *NewClusterAzureAttributesObservation `json:"azureAttributes,omitempty" tf:"azure_attributes,omitempty"`
 
 	// ID of the system notification that is notified when an event defined in webhook_notifications is triggered.
 	ClusterID *string `json:"clusterId,omitempty" tf:"cluster_id,omitempty"`
 
-	ClusterLogConf []NewClusterClusterLogConfObservation `json:"clusterLogConf,omitempty" tf:"cluster_log_conf,omitempty"`
+	ClusterLogConf *NewClusterClusterLogConfObservation `json:"clusterLogConf,omitempty" tf:"cluster_log_conf,omitempty"`
 
 	ClusterMountInfo []NewClusterClusterMountInfoObservation `json:"clusterMountInfo,omitempty" tf:"cluster_mount_info,omitempty"`
 
@@ -6267,12 +6267,12 @@ type NewClusterObservation struct {
 
 	DataSecurityMode *string `json:"dataSecurityMode,omitempty" tf:"data_security_mode,omitempty"`
 
-	DockerImage []NewClusterDockerImageObservation `json:"dockerImage,omitempty" tf:"docker_image,omitempty"`
+	DockerImage *NewClusterDockerImageObservation `json:"dockerImage,omitempty" tf:"docker_image,omitempty"`
 
 	// ID of the system notification that is notified when an event defined in webhook_notifications is triggered.
 	DriverInstancePoolID *string `json:"driverInstancePoolId,omitempty" tf:"driver_instance_pool_id,omitempty"`
 
-	DriverNodeTypeFlexibility []NewClusterDriverNodeTypeFlexibilityObservation `json:"driverNodeTypeFlexibility,omitempty" tf:"driver_node_type_flexibility,omitempty"`
+	DriverNodeTypeFlexibility *NewClusterDriverNodeTypeFlexibilityObservation `json:"driverNodeTypeFlexibility,omitempty" tf:"driver_node_type_flexibility,omitempty"`
 
 	// ID of the system notification that is notified when an event defined in webhook_notifications is triggered.
 	DriverNodeTypeID *string `json:"driverNodeTypeId,omitempty" tf:"driver_node_type_id,omitempty"`
@@ -6281,7 +6281,7 @@ type NewClusterObservation struct {
 
 	EnableLocalDiskEncryption *bool `json:"enableLocalDiskEncryption,omitempty" tf:"enable_local_disk_encryption,omitempty"`
 
-	GCPAttributes []NewClusterGCPAttributesObservation `json:"gcpAttributes,omitempty" tf:"gcp_attributes,omitempty"`
+	GCPAttributes *NewClusterGCPAttributesObservation `json:"gcpAttributes,omitempty" tf:"gcp_attributes,omitempty"`
 
 	IdempotencyToken *string `json:"idempotencyToken,omitempty" tf:"idempotency_token,omitempty"`
 
@@ -6306,7 +6306,7 @@ type NewClusterObservation struct {
 	PolicyID *string `json:"policyId,omitempty" tf:"policy_id,omitempty"`
 
 	// Configure the provider for management through account provider. This block consists of the following fields:
-	ProviderConfig []NewClusterProviderConfigObservation `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
+	ProviderConfig *NewClusterProviderConfigObservation `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
 
 	RemoteDiskThroughput *float64 `json:"remoteDiskThroughput,omitempty" tf:"remote_disk_throughput,omitempty"`
 
@@ -6330,10 +6330,10 @@ type NewClusterObservation struct {
 
 	UseMLRuntime *bool `json:"useMlRuntime,omitempty" tf:"use_ml_runtime,omitempty"`
 
-	WorkerNodeTypeFlexibility []NewClusterWorkerNodeTypeFlexibilityObservation `json:"workerNodeTypeFlexibility,omitempty" tf:"worker_node_type_flexibility,omitempty"`
+	WorkerNodeTypeFlexibility *NewClusterWorkerNodeTypeFlexibilityObservation `json:"workerNodeTypeFlexibility,omitempty" tf:"worker_node_type_flexibility,omitempty"`
 
 	// isn't supported
-	WorkloadType []NewClusterWorkloadTypeObservation `json:"workloadType,omitempty" tf:"workload_type,omitempty"`
+	WorkloadType *NewClusterWorkloadTypeObservation `json:"workloadType,omitempty" tf:"workload_type,omitempty"`
 }
 
 type NewClusterParameters struct {
@@ -6345,20 +6345,20 @@ type NewClusterParameters struct {
 	ApplyPolicyDefaultValuesAllowList []*string `json:"ApplyPolicyDefaultValuesAllowList,omitempty" tf:"__apply_policy_default_values_allow_list,omitempty"`
 
 	// +kubebuilder:validation:Optional
-	Autoscale []NewClusterAutoscaleParameters `json:"autoscale,omitempty" tf:"autoscale,omitempty"`
+	Autoscale *NewClusterAutoscaleParameters `json:"autoscale,omitempty" tf:"autoscale,omitempty"`
 
 	// +kubebuilder:validation:Optional
-	AwsAttributes []NewClusterAwsAttributesParameters `json:"awsAttributes,omitempty" tf:"aws_attributes,omitempty"`
+	AwsAttributes *NewClusterAwsAttributesParameters `json:"awsAttributes,omitempty" tf:"aws_attributes,omitempty"`
 
 	// +kubebuilder:validation:Optional
-	AzureAttributes []NewClusterAzureAttributesParameters `json:"azureAttributes,omitempty" tf:"azure_attributes,omitempty"`
+	AzureAttributes *NewClusterAzureAttributesParameters `json:"azureAttributes,omitempty" tf:"azure_attributes,omitempty"`
 
 	// ID of the system notification that is notified when an event defined in webhook_notifications is triggered.
 	// +kubebuilder:validation:Optional
 	ClusterID *string `json:"clusterId,omitempty" tf:"cluster_id,omitempty"`
 
 	// +kubebuilder:validation:Optional
-	ClusterLogConf []NewClusterClusterLogConfParameters `json:"clusterLogConf,omitempty" tf:"cluster_log_conf,omitempty"`
+	ClusterLogConf *NewClusterClusterLogConfParameters `json:"clusterLogConf,omitempty" tf:"cluster_log_conf,omitempty"`
 
 	// +kubebuilder:validation:Optional
 	ClusterMountInfo []NewClusterClusterMountInfoParameters `json:"clusterMountInfo,omitempty" tf:"cluster_mount_info,omitempty"`
@@ -6376,14 +6376,14 @@ type NewClusterParameters struct {
 	DataSecurityMode *string `json:"dataSecurityMode,omitempty" tf:"data_security_mode,omitempty"`
 
 	// +kubebuilder:validation:Optional
-	DockerImage []NewClusterDockerImageParameters `json:"dockerImage,omitempty" tf:"docker_image,omitempty"`
+	DockerImage *NewClusterDockerImageParameters `json:"dockerImage,omitempty" tf:"docker_image,omitempty"`
 
 	// ID of the system notification that is notified when an event defined in webhook_notifications is triggered.
 	// +kubebuilder:validation:Optional
 	DriverInstancePoolID *string `json:"driverInstancePoolId,omitempty" tf:"driver_instance_pool_id,omitempty"`
 
 	// +kubebuilder:validation:Optional
-	DriverNodeTypeFlexibility []NewClusterDriverNodeTypeFlexibilityParameters `json:"driverNodeTypeFlexibility,omitempty" tf:"driver_node_type_flexibility,omitempty"`
+	DriverNodeTypeFlexibility *NewClusterDriverNodeTypeFlexibilityParameters `json:"driverNodeTypeFlexibility,omitempty" tf:"driver_node_type_flexibility,omitempty"`
 
 	// ID of the system notification that is notified when an event defined in webhook_notifications is triggered.
 	// +kubebuilder:validation:Optional
@@ -6396,7 +6396,7 @@ type NewClusterParameters struct {
 	EnableLocalDiskEncryption *bool `json:"enableLocalDiskEncryption,omitempty" tf:"enable_local_disk_encryption,omitempty"`
 
 	// +kubebuilder:validation:Optional
-	GCPAttributes []NewClusterGCPAttributesParameters `json:"gcpAttributes,omitempty" tf:"gcp_attributes,omitempty"`
+	GCPAttributes *NewClusterGCPAttributesParameters `json:"gcpAttributes,omitempty" tf:"gcp_attributes,omitempty"`
 
 	// +kubebuilder:validation:Optional
 	IdempotencyToken *string `json:"idempotencyToken,omitempty" tf:"idempotency_token,omitempty"`
@@ -6431,7 +6431,7 @@ type NewClusterParameters struct {
 
 	// Configure the provider for management through account provider. This block consists of the following fields:
 	// +kubebuilder:validation:Optional
-	ProviderConfig []NewClusterProviderConfigParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
+	ProviderConfig *NewClusterProviderConfigParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
 
 	// +kubebuilder:validation:Optional
 	RemoteDiskThroughput *float64 `json:"remoteDiskThroughput,omitempty" tf:"remote_disk_throughput,omitempty"`
@@ -6465,11 +6465,11 @@ type NewClusterParameters struct {
 	UseMLRuntime *bool `json:"useMlRuntime,omitempty" tf:"use_ml_runtime,omitempty"`
 
 	// +kubebuilder:validation:Optional
-	WorkerNodeTypeFlexibility []NewClusterWorkerNodeTypeFlexibilityParameters `json:"workerNodeTypeFlexibility,omitempty" tf:"worker_node_type_flexibility,omitempty"`
+	WorkerNodeTypeFlexibility *NewClusterWorkerNodeTypeFlexibilityParameters `json:"workerNodeTypeFlexibility,omitempty" tf:"worker_node_type_flexibility,omitempty"`
 
 	// isn't supported
 	// +kubebuilder:validation:Optional
-	WorkloadType []NewClusterWorkloadTypeParameters `json:"workloadType,omitempty" tf:"workload_type,omitempty"`
+	WorkloadType *NewClusterWorkloadTypeParameters `json:"workloadType,omitempty" tf:"workload_type,omitempty"`
 }
 
 type NewClusterProviderConfigInitParameters struct {
@@ -6527,17 +6527,17 @@ type NewClusterWorkloadTypeClientsParameters struct {
 }
 
 type NewClusterWorkloadTypeInitParameters struct {
-	Clients []WorkloadTypeClientsInitParameters `json:"clients,omitempty" tf:"clients,omitempty"`
+	Clients *WorkloadTypeClientsInitParameters `json:"clients,omitempty" tf:"clients,omitempty"`
 }
 
 type NewClusterWorkloadTypeObservation struct {
-	Clients []WorkloadTypeClientsObservation `json:"clients,omitempty" tf:"clients,omitempty"`
+	Clients *WorkloadTypeClientsObservation `json:"clients,omitempty" tf:"clients,omitempty"`
 }
 
 type NewClusterWorkloadTypeParameters struct {
 
 	// +kubebuilder:validation:Optional
-	Clients []WorkloadTypeClientsParameters `json:"clients" tf:"clients,omitempty"`
+	Clients *WorkloadTypeClientsParameters `json:"clients" tf:"clients,omitempty"`
 }
 
 type NotebookTaskInitParameters struct {
@@ -6907,7 +6907,7 @@ type PowerBiTaskInitParameters struct {
 	ConnectionResourceName *string `json:"connectionResourceName,omitempty" tf:"connection_resource_name,omitempty"`
 
 	// The semantic model to update. Block consists of following fields:
-	PowerBiModel []PowerBiModelInitParameters `json:"powerBiModel,omitempty" tf:"power_bi_model,omitempty"`
+	PowerBiModel *PowerBiModelInitParameters `json:"powerBiModel,omitempty" tf:"power_bi_model,omitempty"`
 
 	// Whether the model should be refreshed after the update. Default is false
 	RefreshAfterUpdate *bool `json:"refreshAfterUpdate,omitempty" tf:"refresh_after_update,omitempty"`
@@ -6925,7 +6925,7 @@ type PowerBiTaskObservation struct {
 	ConnectionResourceName *string `json:"connectionResourceName,omitempty" tf:"connection_resource_name,omitempty"`
 
 	// The semantic model to update. Block consists of following fields:
-	PowerBiModel []PowerBiModelObservation `json:"powerBiModel,omitempty" tf:"power_bi_model,omitempty"`
+	PowerBiModel *PowerBiModelObservation `json:"powerBiModel,omitempty" tf:"power_bi_model,omitempty"`
 
 	// Whether the model should be refreshed after the update. Default is false
 	RefreshAfterUpdate *bool `json:"refreshAfterUpdate,omitempty" tf:"refresh_after_update,omitempty"`
@@ -6945,7 +6945,7 @@ type PowerBiTaskParameters struct {
 
 	// The semantic model to update. Block consists of following fields:
 	// +kubebuilder:validation:Optional
-	PowerBiModel []PowerBiModelParameters `json:"powerBiModel,omitempty" tf:"power_bi_model,omitempty"`
+	PowerBiModel *PowerBiModelParameters `json:"powerBiModel,omitempty" tf:"power_bi_model,omitempty"`
 
 	// Whether the model should be refreshed after the update. Default is false
 	// +kubebuilder:validation:Optional
@@ -7476,20 +7476,20 @@ type SQLTaskFileParameters struct {
 type SQLTaskInitParameters struct {
 
 	// block consisting of following fields:
-	Alert []AlertInitParameters `json:"alert,omitempty" tf:"alert,omitempty"`
+	Alert *AlertInitParameters `json:"alert,omitempty" tf:"alert,omitempty"`
 
 	// block consisting of following fields:
-	Dashboard []DashboardInitParameters `json:"dashboard,omitempty" tf:"dashboard,omitempty"`
+	Dashboard *DashboardInitParameters `json:"dashboard,omitempty" tf:"dashboard,omitempty"`
 
 	// block consisting of single string fields:
-	File []SQLTaskFileInitParameters `json:"file,omitempty" tf:"file,omitempty"`
+	File *SQLTaskFileInitParameters `json:"file,omitempty" tf:"file,omitempty"`
 
 	// Parameters for the task
 	// +mapType=granular
 	Parameters map[string]*string `json:"parameters,omitempty" tf:"parameters,omitempty"`
 
 	// block consisting of single string field: query_id - identifier of the Databricks Query (databricks_query).
-	Query []QueryInitParameters `json:"query,omitempty" tf:"query,omitempty"`
+	Query *QueryInitParameters `json:"query,omitempty" tf:"query,omitempty"`
 
 	// The warehouse id to execute the dashboard with for the schedule. If not specified, will use the default warehouse of dashboard
 	WarehouseID *string `json:"warehouseId,omitempty" tf:"warehouse_id,omitempty"`
@@ -7498,20 +7498,20 @@ type SQLTaskInitParameters struct {
 type SQLTaskObservation struct {
 
 	// block consisting of following fields:
-	Alert []AlertObservation `json:"alert,omitempty" tf:"alert,omitempty"`
+	Alert *AlertObservation `json:"alert,omitempty" tf:"alert,omitempty"`
 
 	// block consisting of following fields:
-	Dashboard []DashboardObservation `json:"dashboard,omitempty" tf:"dashboard,omitempty"`
+	Dashboard *DashboardObservation `json:"dashboard,omitempty" tf:"dashboard,omitempty"`
 
 	// block consisting of single string fields:
-	File []SQLTaskFileObservation `json:"file,omitempty" tf:"file,omitempty"`
+	File *SQLTaskFileObservation `json:"file,omitempty" tf:"file,omitempty"`
 
 	// Parameters for the task
 	// +mapType=granular
 	Parameters map[string]*string `json:"parameters,omitempty" tf:"parameters,omitempty"`
 
 	// block consisting of single string field: query_id - identifier of the Databricks Query (databricks_query).
-	Query []QueryObservation `json:"query,omitempty" tf:"query,omitempty"`
+	Query *QueryObservation `json:"query,omitempty" tf:"query,omitempty"`
 
 	// The warehouse id to execute the dashboard with for the schedule. If not specified, will use the default warehouse of dashboard
 	WarehouseID *string `json:"warehouseId,omitempty" tf:"warehouse_id,omitempty"`
@@ -7521,15 +7521,15 @@ type SQLTaskParameters struct {
 
 	// block consisting of following fields:
 	// +kubebuilder:validation:Optional
-	Alert []AlertParameters `json:"alert,omitempty" tf:"alert,omitempty"`
+	Alert *AlertParameters `json:"alert,omitempty" tf:"alert,omitempty"`
 
 	// block consisting of following fields:
 	// +kubebuilder:validation:Optional
-	Dashboard []DashboardParameters `json:"dashboard,omitempty" tf:"dashboard,omitempty"`
+	Dashboard *DashboardParameters `json:"dashboard,omitempty" tf:"dashboard,omitempty"`
 
 	// block consisting of single string fields:
 	// +kubebuilder:validation:Optional
-	File []SQLTaskFileParameters `json:"file,omitempty" tf:"file,omitempty"`
+	File *SQLTaskFileParameters `json:"file,omitempty" tf:"file,omitempty"`
 
 	// Parameters for the task
 	// +kubebuilder:validation:Optional
@@ -7538,7 +7538,7 @@ type SQLTaskParameters struct {
 
 	// block consisting of single string field: query_id - identifier of the Databricks Query (databricks_query).
 	// +kubebuilder:validation:Optional
-	Query []QueryParameters `json:"query,omitempty" tf:"query,omitempty"`
+	Query *QueryParameters `json:"query,omitempty" tf:"query,omitempty"`
 
 	// The warehouse id to execute the dashboard with for the schedule. If not specified, will use the default warehouse of dashboard
 	// +kubebuilder:validation:Optional
@@ -8094,7 +8094,7 @@ type TaskDashboardTaskInitParameters struct {
 	DashboardID *string `json:"dashboardId,omitempty" tf:"dashboard_id,omitempty"`
 
 	// Represents a subscription configuration for scheduled dashboard snapshots.
-	Subscription []DashboardTaskSubscriptionInitParameters `json:"subscription,omitempty" tf:"subscription,omitempty"`
+	Subscription *DashboardTaskSubscriptionInitParameters `json:"subscription,omitempty" tf:"subscription,omitempty"`
 
 	// The warehouse id to execute the dashboard with for the schedule. If not specified, will use the default warehouse of dashboard
 	WarehouseID *string `json:"warehouseId,omitempty" tf:"warehouse_id,omitempty"`
@@ -8106,7 +8106,7 @@ type TaskDashboardTaskObservation struct {
 	DashboardID *string `json:"dashboardId,omitempty" tf:"dashboard_id,omitempty"`
 
 	// Represents a subscription configuration for scheduled dashboard snapshots.
-	Subscription []DashboardTaskSubscriptionObservation `json:"subscription,omitempty" tf:"subscription,omitempty"`
+	Subscription *DashboardTaskSubscriptionObservation `json:"subscription,omitempty" tf:"subscription,omitempty"`
 
 	// The warehouse id to execute the dashboard with for the schedule. If not specified, will use the default warehouse of dashboard
 	WarehouseID *string `json:"warehouseId,omitempty" tf:"warehouse_id,omitempty"`
@@ -8120,7 +8120,7 @@ type TaskDashboardTaskParameters struct {
 
 	// Represents a subscription configuration for scheduled dashboard snapshots.
 	// +kubebuilder:validation:Optional
-	Subscription []DashboardTaskSubscriptionParameters `json:"subscription,omitempty" tf:"subscription,omitempty"`
+	Subscription *DashboardTaskSubscriptionParameters `json:"subscription,omitempty" tf:"subscription,omitempty"`
 
 	// The warehouse id to execute the dashboard with for the schedule. If not specified, will use the default warehouse of dashboard
 	// +kubebuilder:validation:Optional
@@ -8398,7 +8398,7 @@ type TaskGenAIComputeTaskComputeParameters struct {
 type TaskGenAIComputeTaskInitParameters struct {
 	Command *string `json:"command,omitempty" tf:"command,omitempty"`
 
-	Compute []TaskGenAIComputeTaskComputeInitParameters `json:"compute,omitempty" tf:"compute,omitempty"`
+	Compute *TaskGenAIComputeTaskComputeInitParameters `json:"compute,omitempty" tf:"compute,omitempty"`
 
 	DlRuntimeImage *string `json:"dlRuntimeImage,omitempty" tf:"dl_runtime_image,omitempty"`
 
@@ -8421,7 +8421,7 @@ type TaskGenAIComputeTaskInitParameters struct {
 type TaskGenAIComputeTaskObservation struct {
 	Command *string `json:"command,omitempty" tf:"command,omitempty"`
 
-	Compute []TaskGenAIComputeTaskComputeObservation `json:"compute,omitempty" tf:"compute,omitempty"`
+	Compute *TaskGenAIComputeTaskComputeObservation `json:"compute,omitempty" tf:"compute,omitempty"`
 
 	DlRuntimeImage *string `json:"dlRuntimeImage,omitempty" tf:"dl_runtime_image,omitempty"`
 
@@ -8447,7 +8447,7 @@ type TaskGenAIComputeTaskParameters struct {
 	Command *string `json:"command,omitempty" tf:"command,omitempty"`
 
 	// +kubebuilder:validation:Optional
-	Compute []TaskGenAIComputeTaskComputeParameters `json:"compute,omitempty" tf:"compute,omitempty"`
+	Compute *TaskGenAIComputeTaskComputeParameters `json:"compute,omitempty" tf:"compute,omitempty"`
 
 	// +kubebuilder:validation:Optional
 	DlRuntimeImage *string `json:"dlRuntimeImage" tf:"dl_runtime_image,omitempty"`
@@ -8534,24 +8534,24 @@ type TaskHealthRulesParameters struct {
 type TaskInitParameters struct {
 
 	// A list of task specification that the job will execute. See task Configuration Block below.
-	CleanRoomsNotebookTask []CleanRoomsNotebookTaskInitParameters `json:"cleanRoomsNotebookTask,omitempty" tf:"clean_rooms_notebook_task,omitempty"`
+	CleanRoomsNotebookTask *CleanRoomsNotebookTaskInitParameters `json:"cleanRoomsNotebookTask,omitempty" tf:"clean_rooms_notebook_task,omitempty"`
 
-	Compute []ComputeInitParameters `json:"compute,omitempty" tf:"compute,omitempty"`
-
-	// A list of task specification that the job will execute. See task Configuration Block below.
-	ConditionTask []ConditionTaskInitParameters `json:"conditionTask,omitempty" tf:"condition_task,omitempty"`
+	Compute *ComputeInitParameters `json:"compute,omitempty" tf:"compute,omitempty"`
 
 	// A list of task specification that the job will execute. See task Configuration Block below.
-	DashboardTask []DashboardTaskInitParameters `json:"dashboardTask,omitempty" tf:"dashboard_task,omitempty"`
+	ConditionTask *ConditionTaskInitParameters `json:"conditionTask,omitempty" tf:"condition_task,omitempty"`
 
 	// A list of task specification that the job will execute. See task Configuration Block below.
-	DbtCloudTask []DbtCloudTaskInitParameters `json:"dbtCloudTask,omitempty" tf:"dbt_cloud_task,omitempty"`
+	DashboardTask *DashboardTaskInitParameters `json:"dashboardTask,omitempty" tf:"dashboard_task,omitempty"`
 
 	// A list of task specification that the job will execute. See task Configuration Block below.
-	DbtPlatformTask []DbtPlatformTaskInitParameters `json:"dbtPlatformTask,omitempty" tf:"dbt_platform_task,omitempty"`
+	DbtCloudTask *DbtCloudTaskInitParameters `json:"dbtCloudTask,omitempty" tf:"dbt_cloud_task,omitempty"`
 
 	// A list of task specification that the job will execute. See task Configuration Block below.
-	DbtTask []TaskDbtTaskInitParameters `json:"dbtTask,omitempty" tf:"dbt_task,omitempty"`
+	DbtPlatformTask *DbtPlatformTaskInitParameters `json:"dbtPlatformTask,omitempty" tf:"dbt_platform_task,omitempty"`
+
+	// A list of task specification that the job will execute. See task Configuration Block below.
+	DbtTask *TaskDbtTaskInitParameters `json:"dbtTask,omitempty" tf:"dbt_task,omitempty"`
 
 	// block specifying dependency(-ies) for a given task.
 	DependsOn []DependsOnInitParameters `json:"dependsOn,omitempty" tf:"depends_on,omitempty"`
@@ -8565,7 +8565,7 @@ type TaskInitParameters struct {
 	Disabled *bool `json:"disabled,omitempty" tf:"disabled,omitempty"`
 
 	// (List) An optional set of email addresses notified when runs of this job begins, completes or fails. The default behavior is to not send any emails. This field is a block and is documented below.
-	EmailNotifications []TaskEmailNotificationsInitParameters `json:"emailNotifications,omitempty" tf:"email_notifications,omitempty"`
+	EmailNotifications *TaskEmailNotificationsInitParameters `json:"emailNotifications,omitempty" tf:"email_notifications,omitempty"`
 
 	// identifier of an environment block that is used to specify libraries.  Required for some tasks (spark_python_task, python_wheel_task, ...) running on serverless compute.
 	EnvironmentKey *string `json:"environmentKey,omitempty" tf:"environment_key,omitempty"`
@@ -8584,13 +8584,13 @@ type TaskInitParameters struct {
 	ExistingClusterIDSelector *v1.Selector `json:"existingClusterIdSelector,omitempty" tf:"-"`
 
 	// A list of task specification that the job will execute. See task Configuration Block below.
-	ForEachTask []ForEachTaskInitParameters `json:"forEachTask,omitempty" tf:"for_each_task,omitempty"`
+	ForEachTask *ForEachTaskInitParameters `json:"forEachTask,omitempty" tf:"for_each_task,omitempty"`
 
 	// A list of task specification that the job will execute. See task Configuration Block below.
-	GenAIComputeTask []TaskGenAIComputeTaskInitParameters `json:"genAiComputeTask,omitempty" tf:"gen_ai_compute_task,omitempty"`
+	GenAIComputeTask *TaskGenAIComputeTaskInitParameters `json:"genAiComputeTask,omitempty" tf:"gen_ai_compute_task,omitempty"`
 
 	// An optional block that specifies the health conditions for the job documented below.
-	Health []JobTaskHealthInitParameters `json:"health,omitempty" tf:"health,omitempty"`
+	Health *JobTaskHealthInitParameters `json:"health,omitempty" tf:"health,omitempty"`
 
 	// Identifier of the Job cluster specified in the job_cluster block.
 	JobClusterKey *string `json:"jobClusterKey,omitempty" tf:"job_cluster_key,omitempty"`
@@ -8605,22 +8605,22 @@ type TaskInitParameters struct {
 	MinRetryIntervalMillis *float64 `json:"minRetryIntervalMillis,omitempty" tf:"min_retry_interval_millis,omitempty"`
 
 	// Task will run on a dedicated cluster.  See databricks_cluster documentation for specification. Some parameters, such as
-	NewCluster []JobTaskNewClusterInitParameters `json:"newCluster,omitempty" tf:"new_cluster,omitempty"`
+	NewCluster *JobTaskNewClusterInitParameters `json:"newCluster,omitempty" tf:"new_cluster,omitempty"`
 
 	// A list of task specification that the job will execute. See task Configuration Block below.
-	NotebookTask []JobTaskNotebookTaskInitParameters `json:"notebookTask,omitempty" tf:"notebook_task,omitempty"`
+	NotebookTask *JobTaskNotebookTaskInitParameters `json:"notebookTask,omitempty" tf:"notebook_task,omitempty"`
 
 	// An optional block controlling the notification settings on the job level documented below.
-	NotificationSettings []JobTaskNotificationSettingsInitParameters `json:"notificationSettings,omitempty" tf:"notification_settings,omitempty"`
+	NotificationSettings *JobTaskNotificationSettingsInitParameters `json:"notificationSettings,omitempty" tf:"notification_settings,omitempty"`
 
 	// A list of task specification that the job will execute. See task Configuration Block below.
-	PipelineTask []JobTaskPipelineTaskInitParameters `json:"pipelineTask,omitempty" tf:"pipeline_task,omitempty"`
+	PipelineTask *JobTaskPipelineTaskInitParameters `json:"pipelineTask,omitempty" tf:"pipeline_task,omitempty"`
 
 	// A list of task specification that the job will execute. See task Configuration Block below.
-	PowerBiTask []TaskPowerBiTaskInitParameters `json:"powerBiTask,omitempty" tf:"power_bi_task,omitempty"`
+	PowerBiTask *TaskPowerBiTaskInitParameters `json:"powerBiTask,omitempty" tf:"power_bi_task,omitempty"`
 
 	// A list of task specification that the job will execute. See task Configuration Block below.
-	PythonWheelTask []JobTaskPythonWheelTaskInitParameters `json:"pythonWheelTask,omitempty" tf:"python_wheel_task,omitempty"`
+	PythonWheelTask *JobTaskPythonWheelTaskInitParameters `json:"pythonWheelTask,omitempty" tf:"python_wheel_task,omitempty"`
 
 	// (Bool) An optional policy to specify whether to retry a job when it times out. The default behavior is to not retry on timeout.
 	RetryOnTimeout *bool `json:"retryOnTimeout,omitempty" tf:"retry_on_timeout,omitempty"`
@@ -8629,19 +8629,19 @@ type TaskInitParameters struct {
 	RunIf *string `json:"runIf,omitempty" tf:"run_if,omitempty"`
 
 	// A list of task specification that the job will execute. See task Configuration Block below.
-	RunJobTask []JobTaskRunJobTaskInitParameters `json:"runJobTask,omitempty" tf:"run_job_task,omitempty"`
+	RunJobTask *JobTaskRunJobTaskInitParameters `json:"runJobTask,omitempty" tf:"run_job_task,omitempty"`
 
 	// A list of task specification that the job will execute. See task Configuration Block below.
-	SQLTask []TaskSQLTaskInitParameters `json:"sqlTask,omitempty" tf:"sql_task,omitempty"`
+	SQLTask *TaskSQLTaskInitParameters `json:"sqlTask,omitempty" tf:"sql_task,omitempty"`
 
 	// A list of task specification that the job will execute. See task Configuration Block below.
-	SparkJarTask []JobTaskSparkJarTaskInitParameters `json:"sparkJarTask,omitempty" tf:"spark_jar_task,omitempty"`
+	SparkJarTask *JobTaskSparkJarTaskInitParameters `json:"sparkJarTask,omitempty" tf:"spark_jar_task,omitempty"`
 
 	// A list of task specification that the job will execute. See task Configuration Block below.
-	SparkPythonTask []JobTaskSparkPythonTaskInitParameters `json:"sparkPythonTask,omitempty" tf:"spark_python_task,omitempty"`
+	SparkPythonTask *JobTaskSparkPythonTaskInitParameters `json:"sparkPythonTask,omitempty" tf:"spark_python_task,omitempty"`
 
 	// A list of task specification that the job will execute. See task Configuration Block below.
-	SparkSubmitTask []JobTaskSparkSubmitTaskInitParameters `json:"sparkSubmitTask,omitempty" tf:"spark_submit_task,omitempty"`
+	SparkSubmitTask *JobTaskSparkSubmitTaskInitParameters `json:"sparkSubmitTask,omitempty" tf:"spark_submit_task,omitempty"`
 
 	// string specifying an unique key for a given task.
 	TaskKey *string `json:"taskKey,omitempty" tf:"task_key,omitempty"`
@@ -8650,7 +8650,7 @@ type TaskInitParameters struct {
 	TimeoutSeconds *float64 `json:"timeoutSeconds,omitempty" tf:"timeout_seconds,omitempty"`
 
 	// (List) An optional set of system destinations (for example, webhook destinations or Slack) to be notified when runs of this job begins, completes or fails. The default behavior is to not send any notifications. This field is a block and is documented below.
-	WebhookNotifications []TaskWebhookNotificationsInitParameters `json:"webhookNotifications,omitempty" tf:"webhook_notifications,omitempty"`
+	WebhookNotifications *TaskWebhookNotificationsInitParameters `json:"webhookNotifications,omitempty" tf:"webhook_notifications,omitempty"`
 }
 
 type TaskLibraryCranInitParameters struct {
@@ -8675,18 +8675,18 @@ type TaskLibraryCranParameters struct {
 }
 
 type TaskLibraryInitParameters struct {
-	Cran []TaskLibraryCranInitParameters `json:"cran,omitempty" tf:"cran,omitempty"`
+	Cran *TaskLibraryCranInitParameters `json:"cran,omitempty" tf:"cran,omitempty"`
 
 	Egg *string `json:"egg,omitempty" tf:"egg,omitempty"`
 
 	Jar *string `json:"jar,omitempty" tf:"jar,omitempty"`
 
-	Maven []TaskLibraryMavenInitParameters `json:"maven,omitempty" tf:"maven,omitempty"`
+	Maven *TaskLibraryMavenInitParameters `json:"maven,omitempty" tf:"maven,omitempty"`
 
 	// Configure the provider for management through account provider. This block consists of the following fields:
-	ProviderConfig []TaskLibraryProviderConfigInitParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
+	ProviderConfig *TaskLibraryProviderConfigInitParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
 
-	Pypi []TaskLibraryPypiInitParameters `json:"pypi,omitempty" tf:"pypi,omitempty"`
+	Pypi *TaskLibraryPypiInitParameters `json:"pypi,omitempty" tf:"pypi,omitempty"`
 
 	Requirements *string `json:"requirements,omitempty" tf:"requirements,omitempty"`
 
@@ -8722,18 +8722,18 @@ type TaskLibraryMavenParameters struct {
 }
 
 type TaskLibraryObservation struct {
-	Cran []TaskLibraryCranObservation `json:"cran,omitempty" tf:"cran,omitempty"`
+	Cran *TaskLibraryCranObservation `json:"cran,omitempty" tf:"cran,omitempty"`
 
 	Egg *string `json:"egg,omitempty" tf:"egg,omitempty"`
 
 	Jar *string `json:"jar,omitempty" tf:"jar,omitempty"`
 
-	Maven []TaskLibraryMavenObservation `json:"maven,omitempty" tf:"maven,omitempty"`
+	Maven *TaskLibraryMavenObservation `json:"maven,omitempty" tf:"maven,omitempty"`
 
 	// Configure the provider for management through account provider. This block consists of the following fields:
-	ProviderConfig []TaskLibraryProviderConfigObservation `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
+	ProviderConfig *TaskLibraryProviderConfigObservation `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
 
-	Pypi []TaskLibraryPypiObservation `json:"pypi,omitempty" tf:"pypi,omitempty"`
+	Pypi *TaskLibraryPypiObservation `json:"pypi,omitempty" tf:"pypi,omitempty"`
 
 	Requirements *string `json:"requirements,omitempty" tf:"requirements,omitempty"`
 
@@ -8743,7 +8743,7 @@ type TaskLibraryObservation struct {
 type TaskLibraryParameters struct {
 
 	// +kubebuilder:validation:Optional
-	Cran []TaskLibraryCranParameters `json:"cran,omitempty" tf:"cran,omitempty"`
+	Cran *TaskLibraryCranParameters `json:"cran,omitempty" tf:"cran,omitempty"`
 
 	// +kubebuilder:validation:Optional
 	Egg *string `json:"egg,omitempty" tf:"egg,omitempty"`
@@ -8752,14 +8752,14 @@ type TaskLibraryParameters struct {
 	Jar *string `json:"jar,omitempty" tf:"jar,omitempty"`
 
 	// +kubebuilder:validation:Optional
-	Maven []TaskLibraryMavenParameters `json:"maven,omitempty" tf:"maven,omitempty"`
+	Maven *TaskLibraryMavenParameters `json:"maven,omitempty" tf:"maven,omitempty"`
 
 	// Configure the provider for management through account provider. This block consists of the following fields:
 	// +kubebuilder:validation:Optional
-	ProviderConfig []TaskLibraryProviderConfigParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
+	ProviderConfig *TaskLibraryProviderConfigParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
 
 	// +kubebuilder:validation:Optional
-	Pypi []TaskLibraryPypiParameters `json:"pypi,omitempty" tf:"pypi,omitempty"`
+	Pypi *TaskLibraryPypiParameters `json:"pypi,omitempty" tf:"pypi,omitempty"`
 
 	// +kubebuilder:validation:Optional
 	Requirements *string `json:"requirements,omitempty" tf:"requirements,omitempty"`
@@ -8914,7 +8914,7 @@ type TaskNewClusterAzureAttributesInitParameters struct {
 
 	FirstOnDemand *float64 `json:"firstOnDemand,omitempty" tf:"first_on_demand,omitempty"`
 
-	LogAnalyticsInfo []TaskNewClusterAzureAttributesLogAnalyticsInfoInitParameters `json:"logAnalyticsInfo,omitempty" tf:"log_analytics_info,omitempty"`
+	LogAnalyticsInfo *TaskNewClusterAzureAttributesLogAnalyticsInfoInitParameters `json:"logAnalyticsInfo,omitempty" tf:"log_analytics_info,omitempty"`
 
 	SpotBidMaxPrice *float64 `json:"spotBidMaxPrice,omitempty" tf:"spot_bid_max_price,omitempty"`
 }
@@ -8948,7 +8948,7 @@ type TaskNewClusterAzureAttributesObservation struct {
 
 	FirstOnDemand *float64 `json:"firstOnDemand,omitempty" tf:"first_on_demand,omitempty"`
 
-	LogAnalyticsInfo []TaskNewClusterAzureAttributesLogAnalyticsInfoObservation `json:"logAnalyticsInfo,omitempty" tf:"log_analytics_info,omitempty"`
+	LogAnalyticsInfo *TaskNewClusterAzureAttributesLogAnalyticsInfoObservation `json:"logAnalyticsInfo,omitempty" tf:"log_analytics_info,omitempty"`
 
 	SpotBidMaxPrice *float64 `json:"spotBidMaxPrice,omitempty" tf:"spot_bid_max_price,omitempty"`
 }
@@ -8962,7 +8962,7 @@ type TaskNewClusterAzureAttributesParameters struct {
 	FirstOnDemand *float64 `json:"firstOnDemand,omitempty" tf:"first_on_demand,omitempty"`
 
 	// +kubebuilder:validation:Optional
-	LogAnalyticsInfo []TaskNewClusterAzureAttributesLogAnalyticsInfoParameters `json:"logAnalyticsInfo,omitempty" tf:"log_analytics_info,omitempty"`
+	LogAnalyticsInfo *TaskNewClusterAzureAttributesLogAnalyticsInfoParameters `json:"logAnalyticsInfo,omitempty" tf:"log_analytics_info,omitempty"`
 
 	// +kubebuilder:validation:Optional
 	SpotBidMaxPrice *float64 `json:"spotBidMaxPrice,omitempty" tf:"spot_bid_max_price,omitempty"`
@@ -8983,31 +8983,31 @@ type TaskNewClusterClusterLogConfDbfsParameters struct {
 }
 
 type TaskNewClusterClusterLogConfInitParameters struct {
-	Dbfs []TaskNewClusterClusterLogConfDbfsInitParameters `json:"dbfs,omitempty" tf:"dbfs,omitempty"`
+	Dbfs *TaskNewClusterClusterLogConfDbfsInitParameters `json:"dbfs,omitempty" tf:"dbfs,omitempty"`
 
-	S3 []TaskNewClusterClusterLogConfS3InitParameters `json:"s3,omitempty" tf:"s3,omitempty"`
+	S3 *TaskNewClusterClusterLogConfS3InitParameters `json:"s3,omitempty" tf:"s3,omitempty"`
 
-	Volumes []TaskNewClusterClusterLogConfVolumesInitParameters `json:"volumes,omitempty" tf:"volumes,omitempty"`
+	Volumes *TaskNewClusterClusterLogConfVolumesInitParameters `json:"volumes,omitempty" tf:"volumes,omitempty"`
 }
 
 type TaskNewClusterClusterLogConfObservation struct {
-	Dbfs []TaskNewClusterClusterLogConfDbfsObservation `json:"dbfs,omitempty" tf:"dbfs,omitempty"`
+	Dbfs *TaskNewClusterClusterLogConfDbfsObservation `json:"dbfs,omitempty" tf:"dbfs,omitempty"`
 
-	S3 []TaskNewClusterClusterLogConfS3Observation `json:"s3,omitempty" tf:"s3,omitempty"`
+	S3 *TaskNewClusterClusterLogConfS3Observation `json:"s3,omitempty" tf:"s3,omitempty"`
 
-	Volumes []TaskNewClusterClusterLogConfVolumesObservation `json:"volumes,omitempty" tf:"volumes,omitempty"`
+	Volumes *TaskNewClusterClusterLogConfVolumesObservation `json:"volumes,omitempty" tf:"volumes,omitempty"`
 }
 
 type TaskNewClusterClusterLogConfParameters struct {
 
 	// +kubebuilder:validation:Optional
-	Dbfs []TaskNewClusterClusterLogConfDbfsParameters `json:"dbfs,omitempty" tf:"dbfs,omitempty"`
+	Dbfs *TaskNewClusterClusterLogConfDbfsParameters `json:"dbfs,omitempty" tf:"dbfs,omitempty"`
 
 	// +kubebuilder:validation:Optional
-	S3 []TaskNewClusterClusterLogConfS3Parameters `json:"s3,omitempty" tf:"s3,omitempty"`
+	S3 *TaskNewClusterClusterLogConfS3Parameters `json:"s3,omitempty" tf:"s3,omitempty"`
 
 	// +kubebuilder:validation:Optional
-	Volumes []TaskNewClusterClusterLogConfVolumesParameters `json:"volumes,omitempty" tf:"volumes,omitempty"`
+	Volumes *TaskNewClusterClusterLogConfVolumesParameters `json:"volumes,omitempty" tf:"volumes,omitempty"`
 }
 
 type TaskNewClusterClusterLogConfS3InitParameters struct {
@@ -9085,7 +9085,7 @@ type TaskNewClusterClusterMountInfoInitParameters struct {
 	// If source is GIT: Relative path to the file in the repository specified in the git_source block with SQL commands to execute. If source is WORKSPACE: Absolute path to the file in the workspace with SQL commands to execute.
 	LocalMountDirPath *string `json:"localMountDirPath,omitempty" tf:"local_mount_dir_path,omitempty"`
 
-	NetworkFilesystemInfo []TaskNewClusterClusterMountInfoNetworkFilesystemInfoInitParameters `json:"networkFilesystemInfo,omitempty" tf:"network_filesystem_info,omitempty"`
+	NetworkFilesystemInfo *TaskNewClusterClusterMountInfoNetworkFilesystemInfoInitParameters `json:"networkFilesystemInfo,omitempty" tf:"network_filesystem_info,omitempty"`
 
 	// If source is GIT: Relative path to the file in the repository specified in the git_source block with SQL commands to execute. If source is WORKSPACE: Absolute path to the file in the workspace with SQL commands to execute.
 	RemoteMountDirPath *string `json:"remoteMountDirPath,omitempty" tf:"remote_mount_dir_path,omitempty"`
@@ -9117,7 +9117,7 @@ type TaskNewClusterClusterMountInfoObservation struct {
 	// If source is GIT: Relative path to the file in the repository specified in the git_source block with SQL commands to execute. If source is WORKSPACE: Absolute path to the file in the workspace with SQL commands to execute.
 	LocalMountDirPath *string `json:"localMountDirPath,omitempty" tf:"local_mount_dir_path,omitempty"`
 
-	NetworkFilesystemInfo []TaskNewClusterClusterMountInfoNetworkFilesystemInfoObservation `json:"networkFilesystemInfo,omitempty" tf:"network_filesystem_info,omitempty"`
+	NetworkFilesystemInfo *TaskNewClusterClusterMountInfoNetworkFilesystemInfoObservation `json:"networkFilesystemInfo,omitempty" tf:"network_filesystem_info,omitempty"`
 
 	// If source is GIT: Relative path to the file in the repository specified in the git_source block with SQL commands to execute. If source is WORKSPACE: Absolute path to the file in the workspace with SQL commands to execute.
 	RemoteMountDirPath *string `json:"remoteMountDirPath,omitempty" tf:"remote_mount_dir_path,omitempty"`
@@ -9130,7 +9130,7 @@ type TaskNewClusterClusterMountInfoParameters struct {
 	LocalMountDirPath *string `json:"localMountDirPath" tf:"local_mount_dir_path,omitempty"`
 
 	// +kubebuilder:validation:Optional
-	NetworkFilesystemInfo []TaskNewClusterClusterMountInfoNetworkFilesystemInfoParameters `json:"networkFilesystemInfo" tf:"network_filesystem_info,omitempty"`
+	NetworkFilesystemInfo *TaskNewClusterClusterMountInfoNetworkFilesystemInfoParameters `json:"networkFilesystemInfo" tf:"network_filesystem_info,omitempty"`
 
 	// If source is GIT: Relative path to the file in the repository specified in the git_source block with SQL commands to execute. If source is WORKSPACE: Absolute path to the file in the workspace with SQL commands to execute.
 	// +kubebuilder:validation:Optional
@@ -9161,14 +9161,14 @@ type TaskNewClusterDockerImageBasicAuthParameters struct {
 }
 
 type TaskNewClusterDockerImageInitParameters struct {
-	BasicAuth []TaskNewClusterDockerImageBasicAuthInitParameters `json:"basicAuth,omitempty" tf:"basic_auth,omitempty"`
+	BasicAuth *TaskNewClusterDockerImageBasicAuthInitParameters `json:"basicAuth,omitempty" tf:"basic_auth,omitempty"`
 
 	// URL to be monitored for file arrivals. The path must point to the root or a subpath of the external location. Please note that the URL must have a trailing slash character (/).
 	URL *string `json:"url,omitempty" tf:"url,omitempty"`
 }
 
 type TaskNewClusterDockerImageObservation struct {
-	BasicAuth []TaskNewClusterDockerImageBasicAuthObservation `json:"basicAuth,omitempty" tf:"basic_auth,omitempty"`
+	BasicAuth *TaskNewClusterDockerImageBasicAuthObservation `json:"basicAuth,omitempty" tf:"basic_auth,omitempty"`
 
 	// URL to be monitored for file arrivals. The path must point to the root or a subpath of the external location. Please note that the URL must have a trailing slash character (/).
 	URL *string `json:"url,omitempty" tf:"url,omitempty"`
@@ -9177,7 +9177,7 @@ type TaskNewClusterDockerImageObservation struct {
 type TaskNewClusterDockerImageParameters struct {
 
 	// +kubebuilder:validation:Optional
-	BasicAuth []TaskNewClusterDockerImageBasicAuthParameters `json:"basicAuth,omitempty" tf:"basic_auth,omitempty"`
+	BasicAuth *TaskNewClusterDockerImageBasicAuthParameters `json:"basicAuth,omitempty" tf:"basic_auth,omitempty"`
 
 	// URL to be monitored for file arrivals. The path must point to the root or a subpath of the external location. Please note that the URL must have a trailing slash character (/).
 	// +kubebuilder:validation:Optional
@@ -9260,16 +9260,16 @@ type TaskNewClusterGCPAttributesParameters struct {
 type TaskNewClusterInitParameters struct {
 	ApplyPolicyDefaultValues *bool `json:"applyPolicyDefaultValues,omitempty" tf:"apply_policy_default_values,omitempty"`
 
-	Autoscale []TaskNewClusterAutoscaleInitParameters `json:"autoscale,omitempty" tf:"autoscale,omitempty"`
+	Autoscale *TaskNewClusterAutoscaleInitParameters `json:"autoscale,omitempty" tf:"autoscale,omitempty"`
 
-	AwsAttributes []TaskNewClusterAwsAttributesInitParameters `json:"awsAttributes,omitempty" tf:"aws_attributes,omitempty"`
+	AwsAttributes *TaskNewClusterAwsAttributesInitParameters `json:"awsAttributes,omitempty" tf:"aws_attributes,omitempty"`
 
-	AzureAttributes []TaskNewClusterAzureAttributesInitParameters `json:"azureAttributes,omitempty" tf:"azure_attributes,omitempty"`
+	AzureAttributes *TaskNewClusterAzureAttributesInitParameters `json:"azureAttributes,omitempty" tf:"azure_attributes,omitempty"`
 
 	// ID of the system notification that is notified when an event defined in webhook_notifications is triggered.
 	ClusterID *string `json:"clusterId,omitempty" tf:"cluster_id,omitempty"`
 
-	ClusterLogConf []TaskNewClusterClusterLogConfInitParameters `json:"clusterLogConf,omitempty" tf:"cluster_log_conf,omitempty"`
+	ClusterLogConf *TaskNewClusterClusterLogConfInitParameters `json:"clusterLogConf,omitempty" tf:"cluster_log_conf,omitempty"`
 
 	ClusterMountInfo []TaskNewClusterClusterMountInfoInitParameters `json:"clusterMountInfo,omitempty" tf:"cluster_mount_info,omitempty"`
 
@@ -9282,12 +9282,12 @@ type TaskNewClusterInitParameters struct {
 
 	DataSecurityMode *string `json:"dataSecurityMode,omitempty" tf:"data_security_mode,omitempty"`
 
-	DockerImage []TaskNewClusterDockerImageInitParameters `json:"dockerImage,omitempty" tf:"docker_image,omitempty"`
+	DockerImage *TaskNewClusterDockerImageInitParameters `json:"dockerImage,omitempty" tf:"docker_image,omitempty"`
 
 	// ID of the system notification that is notified when an event defined in webhook_notifications is triggered.
 	DriverInstancePoolID *string `json:"driverInstancePoolId,omitempty" tf:"driver_instance_pool_id,omitempty"`
 
-	DriverNodeTypeFlexibility []TaskNewClusterDriverNodeTypeFlexibilityInitParameters `json:"driverNodeTypeFlexibility,omitempty" tf:"driver_node_type_flexibility,omitempty"`
+	DriverNodeTypeFlexibility *TaskNewClusterDriverNodeTypeFlexibilityInitParameters `json:"driverNodeTypeFlexibility,omitempty" tf:"driver_node_type_flexibility,omitempty"`
 
 	// ID of the system notification that is notified when an event defined in webhook_notifications is triggered.
 	DriverNodeTypeID *string `json:"driverNodeTypeId,omitempty" tf:"driver_node_type_id,omitempty"`
@@ -9296,7 +9296,7 @@ type TaskNewClusterInitParameters struct {
 
 	EnableLocalDiskEncryption *bool `json:"enableLocalDiskEncryption,omitempty" tf:"enable_local_disk_encryption,omitempty"`
 
-	GCPAttributes []TaskNewClusterGCPAttributesInitParameters `json:"gcpAttributes,omitempty" tf:"gcp_attributes,omitempty"`
+	GCPAttributes *TaskNewClusterGCPAttributesInitParameters `json:"gcpAttributes,omitempty" tf:"gcp_attributes,omitempty"`
 
 	IdempotencyToken *string `json:"idempotencyToken,omitempty" tf:"idempotency_token,omitempty"`
 
@@ -9321,7 +9321,7 @@ type TaskNewClusterInitParameters struct {
 	PolicyID *string `json:"policyId,omitempty" tf:"policy_id,omitempty"`
 
 	// Configure the provider for management through account provider. This block consists of the following fields:
-	ProviderConfig []TaskNewClusterProviderConfigInitParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
+	ProviderConfig *TaskNewClusterProviderConfigInitParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
 
 	RemoteDiskThroughput *float64 `json:"remoteDiskThroughput,omitempty" tf:"remote_disk_throughput,omitempty"`
 
@@ -9345,10 +9345,10 @@ type TaskNewClusterInitParameters struct {
 
 	UseMLRuntime *bool `json:"useMlRuntime,omitempty" tf:"use_ml_runtime,omitempty"`
 
-	WorkerNodeTypeFlexibility []TaskNewClusterWorkerNodeTypeFlexibilityInitParameters `json:"workerNodeTypeFlexibility,omitempty" tf:"worker_node_type_flexibility,omitempty"`
+	WorkerNodeTypeFlexibility *TaskNewClusterWorkerNodeTypeFlexibilityInitParameters `json:"workerNodeTypeFlexibility,omitempty" tf:"worker_node_type_flexibility,omitempty"`
 
 	// isn't supported
-	WorkloadType []TaskNewClusterWorkloadTypeInitParameters `json:"workloadType,omitempty" tf:"workload_type,omitempty"`
+	WorkloadType *TaskNewClusterWorkloadTypeInitParameters `json:"workloadType,omitempty" tf:"workload_type,omitempty"`
 }
 
 type TaskNewClusterInitScriptsAbfssInitParameters struct {
@@ -9408,62 +9408,62 @@ type TaskNewClusterInitScriptsGcsParameters struct {
 }
 
 type TaskNewClusterInitScriptsInitParameters struct {
-	Abfss []TaskNewClusterInitScriptsAbfssInitParameters `json:"abfss,omitempty" tf:"abfss,omitempty"`
+	Abfss *TaskNewClusterInitScriptsAbfssInitParameters `json:"abfss,omitempty" tf:"abfss,omitempty"`
 
-	Dbfs []TaskNewClusterInitScriptsDbfsInitParameters `json:"dbfs,omitempty" tf:"dbfs,omitempty"`
+	Dbfs *TaskNewClusterInitScriptsDbfsInitParameters `json:"dbfs,omitempty" tf:"dbfs,omitempty"`
 
 	// block consisting of single string fields:
-	File []TaskNewClusterInitScriptsFileInitParameters `json:"file,omitempty" tf:"file,omitempty"`
+	File *TaskNewClusterInitScriptsFileInitParameters `json:"file,omitempty" tf:"file,omitempty"`
 
-	Gcs []TaskNewClusterInitScriptsGcsInitParameters `json:"gcs,omitempty" tf:"gcs,omitempty"`
+	Gcs *TaskNewClusterInitScriptsGcsInitParameters `json:"gcs,omitempty" tf:"gcs,omitempty"`
 
-	S3 []TaskNewClusterInitScriptsS3InitParameters `json:"s3,omitempty" tf:"s3,omitempty"`
+	S3 *TaskNewClusterInitScriptsS3InitParameters `json:"s3,omitempty" tf:"s3,omitempty"`
 
-	Volumes []TaskNewClusterInitScriptsVolumesInitParameters `json:"volumes,omitempty" tf:"volumes,omitempty"`
+	Volumes *TaskNewClusterInitScriptsVolumesInitParameters `json:"volumes,omitempty" tf:"volumes,omitempty"`
 
-	Workspace []TaskNewClusterInitScriptsWorkspaceInitParameters `json:"workspace,omitempty" tf:"workspace,omitempty"`
+	Workspace *TaskNewClusterInitScriptsWorkspaceInitParameters `json:"workspace,omitempty" tf:"workspace,omitempty"`
 }
 
 type TaskNewClusterInitScriptsObservation struct {
-	Abfss []TaskNewClusterInitScriptsAbfssObservation `json:"abfss,omitempty" tf:"abfss,omitempty"`
+	Abfss *TaskNewClusterInitScriptsAbfssObservation `json:"abfss,omitempty" tf:"abfss,omitempty"`
 
-	Dbfs []TaskNewClusterInitScriptsDbfsObservation `json:"dbfs,omitempty" tf:"dbfs,omitempty"`
+	Dbfs *TaskNewClusterInitScriptsDbfsObservation `json:"dbfs,omitempty" tf:"dbfs,omitempty"`
 
 	// block consisting of single string fields:
-	File []TaskNewClusterInitScriptsFileObservation `json:"file,omitempty" tf:"file,omitempty"`
+	File *TaskNewClusterInitScriptsFileObservation `json:"file,omitempty" tf:"file,omitempty"`
 
-	Gcs []TaskNewClusterInitScriptsGcsObservation `json:"gcs,omitempty" tf:"gcs,omitempty"`
+	Gcs *TaskNewClusterInitScriptsGcsObservation `json:"gcs,omitempty" tf:"gcs,omitempty"`
 
-	S3 []TaskNewClusterInitScriptsS3Observation `json:"s3,omitempty" tf:"s3,omitempty"`
+	S3 *TaskNewClusterInitScriptsS3Observation `json:"s3,omitempty" tf:"s3,omitempty"`
 
-	Volumes []TaskNewClusterInitScriptsVolumesObservation `json:"volumes,omitempty" tf:"volumes,omitempty"`
+	Volumes *TaskNewClusterInitScriptsVolumesObservation `json:"volumes,omitempty" tf:"volumes,omitempty"`
 
-	Workspace []TaskNewClusterInitScriptsWorkspaceObservation `json:"workspace,omitempty" tf:"workspace,omitempty"`
+	Workspace *TaskNewClusterInitScriptsWorkspaceObservation `json:"workspace,omitempty" tf:"workspace,omitempty"`
 }
 
 type TaskNewClusterInitScriptsParameters struct {
 
 	// +kubebuilder:validation:Optional
-	Abfss []TaskNewClusterInitScriptsAbfssParameters `json:"abfss,omitempty" tf:"abfss,omitempty"`
+	Abfss *TaskNewClusterInitScriptsAbfssParameters `json:"abfss,omitempty" tf:"abfss,omitempty"`
 
 	// +kubebuilder:validation:Optional
-	Dbfs []TaskNewClusterInitScriptsDbfsParameters `json:"dbfs,omitempty" tf:"dbfs,omitempty"`
+	Dbfs *TaskNewClusterInitScriptsDbfsParameters `json:"dbfs,omitempty" tf:"dbfs,omitempty"`
 
 	// block consisting of single string fields:
 	// +kubebuilder:validation:Optional
-	File []TaskNewClusterInitScriptsFileParameters `json:"file,omitempty" tf:"file,omitempty"`
+	File *TaskNewClusterInitScriptsFileParameters `json:"file,omitempty" tf:"file,omitempty"`
 
 	// +kubebuilder:validation:Optional
-	Gcs []TaskNewClusterInitScriptsGcsParameters `json:"gcs,omitempty" tf:"gcs,omitempty"`
+	Gcs *TaskNewClusterInitScriptsGcsParameters `json:"gcs,omitempty" tf:"gcs,omitempty"`
 
 	// +kubebuilder:validation:Optional
-	S3 []TaskNewClusterInitScriptsS3Parameters `json:"s3,omitempty" tf:"s3,omitempty"`
+	S3 *TaskNewClusterInitScriptsS3Parameters `json:"s3,omitempty" tf:"s3,omitempty"`
 
 	// +kubebuilder:validation:Optional
-	Volumes []TaskNewClusterInitScriptsVolumesParameters `json:"volumes,omitempty" tf:"volumes,omitempty"`
+	Volumes *TaskNewClusterInitScriptsVolumesParameters `json:"volumes,omitempty" tf:"volumes,omitempty"`
 
 	// +kubebuilder:validation:Optional
-	Workspace []TaskNewClusterInitScriptsWorkspaceParameters `json:"workspace,omitempty" tf:"workspace,omitempty"`
+	Workspace *TaskNewClusterInitScriptsWorkspaceParameters `json:"workspace,omitempty" tf:"workspace,omitempty"`
 }
 
 type TaskNewClusterInitScriptsS3InitParameters struct {
@@ -9572,18 +9572,18 @@ type TaskNewClusterLibraryCranParameters struct {
 }
 
 type TaskNewClusterLibraryInitParameters struct {
-	Cran []TaskNewClusterLibraryCranInitParameters `json:"cran,omitempty" tf:"cran,omitempty"`
+	Cran *TaskNewClusterLibraryCranInitParameters `json:"cran,omitempty" tf:"cran,omitempty"`
 
 	Egg *string `json:"egg,omitempty" tf:"egg,omitempty"`
 
 	Jar *string `json:"jar,omitempty" tf:"jar,omitempty"`
 
-	Maven []TaskNewClusterLibraryMavenInitParameters `json:"maven,omitempty" tf:"maven,omitempty"`
+	Maven *TaskNewClusterLibraryMavenInitParameters `json:"maven,omitempty" tf:"maven,omitempty"`
 
 	// Configure the provider for management through account provider. This block consists of the following fields:
-	ProviderConfig []TaskNewClusterLibraryProviderConfigInitParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
+	ProviderConfig *TaskNewClusterLibraryProviderConfigInitParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
 
-	Pypi []TaskNewClusterLibraryPypiInitParameters `json:"pypi,omitempty" tf:"pypi,omitempty"`
+	Pypi *TaskNewClusterLibraryPypiInitParameters `json:"pypi,omitempty" tf:"pypi,omitempty"`
 
 	Requirements *string `json:"requirements,omitempty" tf:"requirements,omitempty"`
 
@@ -9619,18 +9619,18 @@ type TaskNewClusterLibraryMavenParameters struct {
 }
 
 type TaskNewClusterLibraryObservation struct {
-	Cran []TaskNewClusterLibraryCranObservation `json:"cran,omitempty" tf:"cran,omitempty"`
+	Cran *TaskNewClusterLibraryCranObservation `json:"cran,omitempty" tf:"cran,omitempty"`
 
 	Egg *string `json:"egg,omitempty" tf:"egg,omitempty"`
 
 	Jar *string `json:"jar,omitempty" tf:"jar,omitempty"`
 
-	Maven []TaskNewClusterLibraryMavenObservation `json:"maven,omitempty" tf:"maven,omitempty"`
+	Maven *TaskNewClusterLibraryMavenObservation `json:"maven,omitempty" tf:"maven,omitempty"`
 
 	// Configure the provider for management through account provider. This block consists of the following fields:
-	ProviderConfig []TaskNewClusterLibraryProviderConfigObservation `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
+	ProviderConfig *TaskNewClusterLibraryProviderConfigObservation `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
 
-	Pypi []TaskNewClusterLibraryPypiObservation `json:"pypi,omitempty" tf:"pypi,omitempty"`
+	Pypi *TaskNewClusterLibraryPypiObservation `json:"pypi,omitempty" tf:"pypi,omitempty"`
 
 	Requirements *string `json:"requirements,omitempty" tf:"requirements,omitempty"`
 
@@ -9640,7 +9640,7 @@ type TaskNewClusterLibraryObservation struct {
 type TaskNewClusterLibraryParameters struct {
 
 	// +kubebuilder:validation:Optional
-	Cran []TaskNewClusterLibraryCranParameters `json:"cran,omitempty" tf:"cran,omitempty"`
+	Cran *TaskNewClusterLibraryCranParameters `json:"cran,omitempty" tf:"cran,omitempty"`
 
 	// +kubebuilder:validation:Optional
 	Egg *string `json:"egg,omitempty" tf:"egg,omitempty"`
@@ -9649,14 +9649,14 @@ type TaskNewClusterLibraryParameters struct {
 	Jar *string `json:"jar,omitempty" tf:"jar,omitempty"`
 
 	// +kubebuilder:validation:Optional
-	Maven []TaskNewClusterLibraryMavenParameters `json:"maven,omitempty" tf:"maven,omitempty"`
+	Maven *TaskNewClusterLibraryMavenParameters `json:"maven,omitempty" tf:"maven,omitempty"`
 
 	// Configure the provider for management through account provider. This block consists of the following fields:
 	// +kubebuilder:validation:Optional
-	ProviderConfig []TaskNewClusterLibraryProviderConfigParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
+	ProviderConfig *TaskNewClusterLibraryProviderConfigParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
 
 	// +kubebuilder:validation:Optional
-	Pypi []TaskNewClusterLibraryPypiParameters `json:"pypi,omitempty" tf:"pypi,omitempty"`
+	Pypi *TaskNewClusterLibraryPypiParameters `json:"pypi,omitempty" tf:"pypi,omitempty"`
 
 	// +kubebuilder:validation:Optional
 	Requirements *string `json:"requirements,omitempty" tf:"requirements,omitempty"`
@@ -9708,16 +9708,16 @@ type TaskNewClusterLibraryPypiParameters struct {
 type TaskNewClusterObservation struct {
 	ApplyPolicyDefaultValues *bool `json:"applyPolicyDefaultValues,omitempty" tf:"apply_policy_default_values,omitempty"`
 
-	Autoscale []TaskNewClusterAutoscaleObservation `json:"autoscale,omitempty" tf:"autoscale,omitempty"`
+	Autoscale *TaskNewClusterAutoscaleObservation `json:"autoscale,omitempty" tf:"autoscale,omitempty"`
 
-	AwsAttributes []TaskNewClusterAwsAttributesObservation `json:"awsAttributes,omitempty" tf:"aws_attributes,omitempty"`
+	AwsAttributes *TaskNewClusterAwsAttributesObservation `json:"awsAttributes,omitempty" tf:"aws_attributes,omitempty"`
 
-	AzureAttributes []TaskNewClusterAzureAttributesObservation `json:"azureAttributes,omitempty" tf:"azure_attributes,omitempty"`
+	AzureAttributes *TaskNewClusterAzureAttributesObservation `json:"azureAttributes,omitempty" tf:"azure_attributes,omitempty"`
 
 	// ID of the system notification that is notified when an event defined in webhook_notifications is triggered.
 	ClusterID *string `json:"clusterId,omitempty" tf:"cluster_id,omitempty"`
 
-	ClusterLogConf []TaskNewClusterClusterLogConfObservation `json:"clusterLogConf,omitempty" tf:"cluster_log_conf,omitempty"`
+	ClusterLogConf *TaskNewClusterClusterLogConfObservation `json:"clusterLogConf,omitempty" tf:"cluster_log_conf,omitempty"`
 
 	ClusterMountInfo []TaskNewClusterClusterMountInfoObservation `json:"clusterMountInfo,omitempty" tf:"cluster_mount_info,omitempty"`
 
@@ -9730,12 +9730,12 @@ type TaskNewClusterObservation struct {
 
 	DataSecurityMode *string `json:"dataSecurityMode,omitempty" tf:"data_security_mode,omitempty"`
 
-	DockerImage []TaskNewClusterDockerImageObservation `json:"dockerImage,omitempty" tf:"docker_image,omitempty"`
+	DockerImage *TaskNewClusterDockerImageObservation `json:"dockerImage,omitempty" tf:"docker_image,omitempty"`
 
 	// ID of the system notification that is notified when an event defined in webhook_notifications is triggered.
 	DriverInstancePoolID *string `json:"driverInstancePoolId,omitempty" tf:"driver_instance_pool_id,omitempty"`
 
-	DriverNodeTypeFlexibility []TaskNewClusterDriverNodeTypeFlexibilityObservation `json:"driverNodeTypeFlexibility,omitempty" tf:"driver_node_type_flexibility,omitempty"`
+	DriverNodeTypeFlexibility *TaskNewClusterDriverNodeTypeFlexibilityObservation `json:"driverNodeTypeFlexibility,omitempty" tf:"driver_node_type_flexibility,omitempty"`
 
 	// ID of the system notification that is notified when an event defined in webhook_notifications is triggered.
 	DriverNodeTypeID *string `json:"driverNodeTypeId,omitempty" tf:"driver_node_type_id,omitempty"`
@@ -9744,7 +9744,7 @@ type TaskNewClusterObservation struct {
 
 	EnableLocalDiskEncryption *bool `json:"enableLocalDiskEncryption,omitempty" tf:"enable_local_disk_encryption,omitempty"`
 
-	GCPAttributes []TaskNewClusterGCPAttributesObservation `json:"gcpAttributes,omitempty" tf:"gcp_attributes,omitempty"`
+	GCPAttributes *TaskNewClusterGCPAttributesObservation `json:"gcpAttributes,omitempty" tf:"gcp_attributes,omitempty"`
 
 	IdempotencyToken *string `json:"idempotencyToken,omitempty" tf:"idempotency_token,omitempty"`
 
@@ -9769,7 +9769,7 @@ type TaskNewClusterObservation struct {
 	PolicyID *string `json:"policyId,omitempty" tf:"policy_id,omitempty"`
 
 	// Configure the provider for management through account provider. This block consists of the following fields:
-	ProviderConfig []TaskNewClusterProviderConfigObservation `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
+	ProviderConfig *TaskNewClusterProviderConfigObservation `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
 
 	RemoteDiskThroughput *float64 `json:"remoteDiskThroughput,omitempty" tf:"remote_disk_throughput,omitempty"`
 
@@ -9793,10 +9793,10 @@ type TaskNewClusterObservation struct {
 
 	UseMLRuntime *bool `json:"useMlRuntime,omitempty" tf:"use_ml_runtime,omitempty"`
 
-	WorkerNodeTypeFlexibility []TaskNewClusterWorkerNodeTypeFlexibilityObservation `json:"workerNodeTypeFlexibility,omitempty" tf:"worker_node_type_flexibility,omitempty"`
+	WorkerNodeTypeFlexibility *TaskNewClusterWorkerNodeTypeFlexibilityObservation `json:"workerNodeTypeFlexibility,omitempty" tf:"worker_node_type_flexibility,omitempty"`
 
 	// isn't supported
-	WorkloadType []TaskNewClusterWorkloadTypeObservation `json:"workloadType,omitempty" tf:"workload_type,omitempty"`
+	WorkloadType *TaskNewClusterWorkloadTypeObservation `json:"workloadType,omitempty" tf:"workload_type,omitempty"`
 }
 
 type TaskNewClusterParameters struct {
@@ -9805,20 +9805,20 @@ type TaskNewClusterParameters struct {
 	ApplyPolicyDefaultValues *bool `json:"applyPolicyDefaultValues,omitempty" tf:"apply_policy_default_values,omitempty"`
 
 	// +kubebuilder:validation:Optional
-	Autoscale []TaskNewClusterAutoscaleParameters `json:"autoscale,omitempty" tf:"autoscale,omitempty"`
+	Autoscale *TaskNewClusterAutoscaleParameters `json:"autoscale,omitempty" tf:"autoscale,omitempty"`
 
 	// +kubebuilder:validation:Optional
-	AwsAttributes []TaskNewClusterAwsAttributesParameters `json:"awsAttributes,omitempty" tf:"aws_attributes,omitempty"`
+	AwsAttributes *TaskNewClusterAwsAttributesParameters `json:"awsAttributes,omitempty" tf:"aws_attributes,omitempty"`
 
 	// +kubebuilder:validation:Optional
-	AzureAttributes []TaskNewClusterAzureAttributesParameters `json:"azureAttributes,omitempty" tf:"azure_attributes,omitempty"`
+	AzureAttributes *TaskNewClusterAzureAttributesParameters `json:"azureAttributes,omitempty" tf:"azure_attributes,omitempty"`
 
 	// ID of the system notification that is notified when an event defined in webhook_notifications is triggered.
 	// +kubebuilder:validation:Optional
 	ClusterID *string `json:"clusterId,omitempty" tf:"cluster_id,omitempty"`
 
 	// +kubebuilder:validation:Optional
-	ClusterLogConf []TaskNewClusterClusterLogConfParameters `json:"clusterLogConf,omitempty" tf:"cluster_log_conf,omitempty"`
+	ClusterLogConf *TaskNewClusterClusterLogConfParameters `json:"clusterLogConf,omitempty" tf:"cluster_log_conf,omitempty"`
 
 	// +kubebuilder:validation:Optional
 	ClusterMountInfo []TaskNewClusterClusterMountInfoParameters `json:"clusterMountInfo,omitempty" tf:"cluster_mount_info,omitempty"`
@@ -9836,14 +9836,14 @@ type TaskNewClusterParameters struct {
 	DataSecurityMode *string `json:"dataSecurityMode,omitempty" tf:"data_security_mode,omitempty"`
 
 	// +kubebuilder:validation:Optional
-	DockerImage []TaskNewClusterDockerImageParameters `json:"dockerImage,omitempty" tf:"docker_image,omitempty"`
+	DockerImage *TaskNewClusterDockerImageParameters `json:"dockerImage,omitempty" tf:"docker_image,omitempty"`
 
 	// ID of the system notification that is notified when an event defined in webhook_notifications is triggered.
 	// +kubebuilder:validation:Optional
 	DriverInstancePoolID *string `json:"driverInstancePoolId,omitempty" tf:"driver_instance_pool_id,omitempty"`
 
 	// +kubebuilder:validation:Optional
-	DriverNodeTypeFlexibility []TaskNewClusterDriverNodeTypeFlexibilityParameters `json:"driverNodeTypeFlexibility,omitempty" tf:"driver_node_type_flexibility,omitempty"`
+	DriverNodeTypeFlexibility *TaskNewClusterDriverNodeTypeFlexibilityParameters `json:"driverNodeTypeFlexibility,omitempty" tf:"driver_node_type_flexibility,omitempty"`
 
 	// ID of the system notification that is notified when an event defined in webhook_notifications is triggered.
 	// +kubebuilder:validation:Optional
@@ -9856,7 +9856,7 @@ type TaskNewClusterParameters struct {
 	EnableLocalDiskEncryption *bool `json:"enableLocalDiskEncryption,omitempty" tf:"enable_local_disk_encryption,omitempty"`
 
 	// +kubebuilder:validation:Optional
-	GCPAttributes []TaskNewClusterGCPAttributesParameters `json:"gcpAttributes,omitempty" tf:"gcp_attributes,omitempty"`
+	GCPAttributes *TaskNewClusterGCPAttributesParameters `json:"gcpAttributes,omitempty" tf:"gcp_attributes,omitempty"`
 
 	// +kubebuilder:validation:Optional
 	IdempotencyToken *string `json:"idempotencyToken,omitempty" tf:"idempotency_token,omitempty"`
@@ -9891,7 +9891,7 @@ type TaskNewClusterParameters struct {
 
 	// Configure the provider for management through account provider. This block consists of the following fields:
 	// +kubebuilder:validation:Optional
-	ProviderConfig []TaskNewClusterProviderConfigParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
+	ProviderConfig *TaskNewClusterProviderConfigParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
 
 	// +kubebuilder:validation:Optional
 	RemoteDiskThroughput *float64 `json:"remoteDiskThroughput,omitempty" tf:"remote_disk_throughput,omitempty"`
@@ -9925,11 +9925,11 @@ type TaskNewClusterParameters struct {
 	UseMLRuntime *bool `json:"useMlRuntime,omitempty" tf:"use_ml_runtime,omitempty"`
 
 	// +kubebuilder:validation:Optional
-	WorkerNodeTypeFlexibility []TaskNewClusterWorkerNodeTypeFlexibilityParameters `json:"workerNodeTypeFlexibility,omitempty" tf:"worker_node_type_flexibility,omitempty"`
+	WorkerNodeTypeFlexibility *TaskNewClusterWorkerNodeTypeFlexibilityParameters `json:"workerNodeTypeFlexibility,omitempty" tf:"worker_node_type_flexibility,omitempty"`
 
 	// isn't supported
 	// +kubebuilder:validation:Optional
-	WorkloadType []TaskNewClusterWorkloadTypeParameters `json:"workloadType,omitempty" tf:"workload_type,omitempty"`
+	WorkloadType *TaskNewClusterWorkloadTypeParameters `json:"workloadType,omitempty" tf:"workload_type,omitempty"`
 }
 
 type TaskNewClusterProviderConfigInitParameters struct {
@@ -9987,17 +9987,17 @@ type TaskNewClusterWorkloadTypeClientsParameters struct {
 }
 
 type TaskNewClusterWorkloadTypeInitParameters struct {
-	Clients []TaskNewClusterWorkloadTypeClientsInitParameters `json:"clients,omitempty" tf:"clients,omitempty"`
+	Clients *TaskNewClusterWorkloadTypeClientsInitParameters `json:"clients,omitempty" tf:"clients,omitempty"`
 }
 
 type TaskNewClusterWorkloadTypeObservation struct {
-	Clients []TaskNewClusterWorkloadTypeClientsObservation `json:"clients,omitempty" tf:"clients,omitempty"`
+	Clients *TaskNewClusterWorkloadTypeClientsObservation `json:"clients,omitempty" tf:"clients,omitempty"`
 }
 
 type TaskNewClusterWorkloadTypeParameters struct {
 
 	// +kubebuilder:validation:Optional
-	Clients []TaskNewClusterWorkloadTypeClientsParameters `json:"clients" tf:"clients,omitempty"`
+	Clients *TaskNewClusterWorkloadTypeClientsParameters `json:"clients" tf:"clients,omitempty"`
 }
 
 type TaskNotebookTaskInitParameters struct {
@@ -10094,24 +10094,24 @@ type TaskNotificationSettingsParameters struct {
 type TaskObservation struct {
 
 	// A list of task specification that the job will execute. See task Configuration Block below.
-	CleanRoomsNotebookTask []CleanRoomsNotebookTaskObservation `json:"cleanRoomsNotebookTask,omitempty" tf:"clean_rooms_notebook_task,omitempty"`
+	CleanRoomsNotebookTask *CleanRoomsNotebookTaskObservation `json:"cleanRoomsNotebookTask,omitempty" tf:"clean_rooms_notebook_task,omitempty"`
 
-	Compute []ComputeObservation `json:"compute,omitempty" tf:"compute,omitempty"`
-
-	// A list of task specification that the job will execute. See task Configuration Block below.
-	ConditionTask []ConditionTaskObservation `json:"conditionTask,omitempty" tf:"condition_task,omitempty"`
+	Compute *ComputeObservation `json:"compute,omitempty" tf:"compute,omitempty"`
 
 	// A list of task specification that the job will execute. See task Configuration Block below.
-	DashboardTask []DashboardTaskObservation `json:"dashboardTask,omitempty" tf:"dashboard_task,omitempty"`
+	ConditionTask *ConditionTaskObservation `json:"conditionTask,omitempty" tf:"condition_task,omitempty"`
 
 	// A list of task specification that the job will execute. See task Configuration Block below.
-	DbtCloudTask []DbtCloudTaskObservation `json:"dbtCloudTask,omitempty" tf:"dbt_cloud_task,omitempty"`
+	DashboardTask *DashboardTaskObservation `json:"dashboardTask,omitempty" tf:"dashboard_task,omitempty"`
 
 	// A list of task specification that the job will execute. See task Configuration Block below.
-	DbtPlatformTask []DbtPlatformTaskObservation `json:"dbtPlatformTask,omitempty" tf:"dbt_platform_task,omitempty"`
+	DbtCloudTask *DbtCloudTaskObservation `json:"dbtCloudTask,omitempty" tf:"dbt_cloud_task,omitempty"`
 
 	// A list of task specification that the job will execute. See task Configuration Block below.
-	DbtTask []TaskDbtTaskObservation `json:"dbtTask,omitempty" tf:"dbt_task,omitempty"`
+	DbtPlatformTask *DbtPlatformTaskObservation `json:"dbtPlatformTask,omitempty" tf:"dbt_platform_task,omitempty"`
+
+	// A list of task specification that the job will execute. See task Configuration Block below.
+	DbtTask *TaskDbtTaskObservation `json:"dbtTask,omitempty" tf:"dbt_task,omitempty"`
 
 	// block specifying dependency(-ies) for a given task.
 	DependsOn []DependsOnObservation `json:"dependsOn,omitempty" tf:"depends_on,omitempty"`
@@ -10125,7 +10125,7 @@ type TaskObservation struct {
 	Disabled *bool `json:"disabled,omitempty" tf:"disabled,omitempty"`
 
 	// (List) An optional set of email addresses notified when runs of this job begins, completes or fails. The default behavior is to not send any emails. This field is a block and is documented below.
-	EmailNotifications []TaskEmailNotificationsObservation `json:"emailNotifications,omitempty" tf:"email_notifications,omitempty"`
+	EmailNotifications *TaskEmailNotificationsObservation `json:"emailNotifications,omitempty" tf:"email_notifications,omitempty"`
 
 	// identifier of an environment block that is used to specify libraries.  Required for some tasks (spark_python_task, python_wheel_task, ...) running on serverless compute.
 	EnvironmentKey *string `json:"environmentKey,omitempty" tf:"environment_key,omitempty"`
@@ -10134,13 +10134,13 @@ type TaskObservation struct {
 	ExistingClusterID *string `json:"existingClusterId,omitempty" tf:"existing_cluster_id,omitempty"`
 
 	// A list of task specification that the job will execute. See task Configuration Block below.
-	ForEachTask []ForEachTaskObservation `json:"forEachTask,omitempty" tf:"for_each_task,omitempty"`
+	ForEachTask *ForEachTaskObservation `json:"forEachTask,omitempty" tf:"for_each_task,omitempty"`
 
 	// A list of task specification that the job will execute. See task Configuration Block below.
-	GenAIComputeTask []TaskGenAIComputeTaskObservation `json:"genAiComputeTask,omitempty" tf:"gen_ai_compute_task,omitempty"`
+	GenAIComputeTask *TaskGenAIComputeTaskObservation `json:"genAiComputeTask,omitempty" tf:"gen_ai_compute_task,omitempty"`
 
 	// An optional block that specifies the health conditions for the job documented below.
-	Health []JobTaskHealthObservation `json:"health,omitempty" tf:"health,omitempty"`
+	Health *JobTaskHealthObservation `json:"health,omitempty" tf:"health,omitempty"`
 
 	// Identifier of the Job cluster specified in the job_cluster block.
 	JobClusterKey *string `json:"jobClusterKey,omitempty" tf:"job_cluster_key,omitempty"`
@@ -10155,22 +10155,22 @@ type TaskObservation struct {
 	MinRetryIntervalMillis *float64 `json:"minRetryIntervalMillis,omitempty" tf:"min_retry_interval_millis,omitempty"`
 
 	// Task will run on a dedicated cluster.  See databricks_cluster documentation for specification. Some parameters, such as
-	NewCluster []JobTaskNewClusterObservation `json:"newCluster,omitempty" tf:"new_cluster,omitempty"`
+	NewCluster *JobTaskNewClusterObservation `json:"newCluster,omitempty" tf:"new_cluster,omitempty"`
 
 	// A list of task specification that the job will execute. See task Configuration Block below.
-	NotebookTask []JobTaskNotebookTaskObservation `json:"notebookTask,omitempty" tf:"notebook_task,omitempty"`
+	NotebookTask *JobTaskNotebookTaskObservation `json:"notebookTask,omitempty" tf:"notebook_task,omitempty"`
 
 	// An optional block controlling the notification settings on the job level documented below.
-	NotificationSettings []JobTaskNotificationSettingsObservation `json:"notificationSettings,omitempty" tf:"notification_settings,omitempty"`
+	NotificationSettings *JobTaskNotificationSettingsObservation `json:"notificationSettings,omitempty" tf:"notification_settings,omitempty"`
 
 	// A list of task specification that the job will execute. See task Configuration Block below.
-	PipelineTask []JobTaskPipelineTaskObservation `json:"pipelineTask,omitempty" tf:"pipeline_task,omitempty"`
+	PipelineTask *JobTaskPipelineTaskObservation `json:"pipelineTask,omitempty" tf:"pipeline_task,omitempty"`
 
 	// A list of task specification that the job will execute. See task Configuration Block below.
-	PowerBiTask []TaskPowerBiTaskObservation `json:"powerBiTask,omitempty" tf:"power_bi_task,omitempty"`
+	PowerBiTask *TaskPowerBiTaskObservation `json:"powerBiTask,omitempty" tf:"power_bi_task,omitempty"`
 
 	// A list of task specification that the job will execute. See task Configuration Block below.
-	PythonWheelTask []JobTaskPythonWheelTaskObservation `json:"pythonWheelTask,omitempty" tf:"python_wheel_task,omitempty"`
+	PythonWheelTask *JobTaskPythonWheelTaskObservation `json:"pythonWheelTask,omitempty" tf:"python_wheel_task,omitempty"`
 
 	// (Bool) An optional policy to specify whether to retry a job when it times out. The default behavior is to not retry on timeout.
 	RetryOnTimeout *bool `json:"retryOnTimeout,omitempty" tf:"retry_on_timeout,omitempty"`
@@ -10179,19 +10179,19 @@ type TaskObservation struct {
 	RunIf *string `json:"runIf,omitempty" tf:"run_if,omitempty"`
 
 	// A list of task specification that the job will execute. See task Configuration Block below.
-	RunJobTask []JobTaskRunJobTaskObservation `json:"runJobTask,omitempty" tf:"run_job_task,omitempty"`
+	RunJobTask *JobTaskRunJobTaskObservation `json:"runJobTask,omitempty" tf:"run_job_task,omitempty"`
 
 	// A list of task specification that the job will execute. See task Configuration Block below.
-	SQLTask []TaskSQLTaskObservation `json:"sqlTask,omitempty" tf:"sql_task,omitempty"`
+	SQLTask *TaskSQLTaskObservation `json:"sqlTask,omitempty" tf:"sql_task,omitempty"`
 
 	// A list of task specification that the job will execute. See task Configuration Block below.
-	SparkJarTask []JobTaskSparkJarTaskObservation `json:"sparkJarTask,omitempty" tf:"spark_jar_task,omitempty"`
+	SparkJarTask *JobTaskSparkJarTaskObservation `json:"sparkJarTask,omitempty" tf:"spark_jar_task,omitempty"`
 
 	// A list of task specification that the job will execute. See task Configuration Block below.
-	SparkPythonTask []JobTaskSparkPythonTaskObservation `json:"sparkPythonTask,omitempty" tf:"spark_python_task,omitempty"`
+	SparkPythonTask *JobTaskSparkPythonTaskObservation `json:"sparkPythonTask,omitempty" tf:"spark_python_task,omitempty"`
 
 	// A list of task specification that the job will execute. See task Configuration Block below.
-	SparkSubmitTask []JobTaskSparkSubmitTaskObservation `json:"sparkSubmitTask,omitempty" tf:"spark_submit_task,omitempty"`
+	SparkSubmitTask *JobTaskSparkSubmitTaskObservation `json:"sparkSubmitTask,omitempty" tf:"spark_submit_task,omitempty"`
 
 	// string specifying an unique key for a given task.
 	TaskKey *string `json:"taskKey,omitempty" tf:"task_key,omitempty"`
@@ -10200,37 +10200,37 @@ type TaskObservation struct {
 	TimeoutSeconds *float64 `json:"timeoutSeconds,omitempty" tf:"timeout_seconds,omitempty"`
 
 	// (List) An optional set of system destinations (for example, webhook destinations or Slack) to be notified when runs of this job begins, completes or fails. The default behavior is to not send any notifications. This field is a block and is documented below.
-	WebhookNotifications []TaskWebhookNotificationsObservation `json:"webhookNotifications,omitempty" tf:"webhook_notifications,omitempty"`
+	WebhookNotifications *TaskWebhookNotificationsObservation `json:"webhookNotifications,omitempty" tf:"webhook_notifications,omitempty"`
 }
 
 type TaskParameters struct {
 
 	// A list of task specification that the job will execute. See task Configuration Block below.
 	// +kubebuilder:validation:Optional
-	CleanRoomsNotebookTask []CleanRoomsNotebookTaskParameters `json:"cleanRoomsNotebookTask,omitempty" tf:"clean_rooms_notebook_task,omitempty"`
+	CleanRoomsNotebookTask *CleanRoomsNotebookTaskParameters `json:"cleanRoomsNotebookTask,omitempty" tf:"clean_rooms_notebook_task,omitempty"`
 
 	// +kubebuilder:validation:Optional
-	Compute []ComputeParameters `json:"compute,omitempty" tf:"compute,omitempty"`
-
-	// A list of task specification that the job will execute. See task Configuration Block below.
-	// +kubebuilder:validation:Optional
-	ConditionTask []ConditionTaskParameters `json:"conditionTask,omitempty" tf:"condition_task,omitempty"`
+	Compute *ComputeParameters `json:"compute,omitempty" tf:"compute,omitempty"`
 
 	// A list of task specification that the job will execute. See task Configuration Block below.
 	// +kubebuilder:validation:Optional
-	DashboardTask []DashboardTaskParameters `json:"dashboardTask,omitempty" tf:"dashboard_task,omitempty"`
+	ConditionTask *ConditionTaskParameters `json:"conditionTask,omitempty" tf:"condition_task,omitempty"`
 
 	// A list of task specification that the job will execute. See task Configuration Block below.
 	// +kubebuilder:validation:Optional
-	DbtCloudTask []DbtCloudTaskParameters `json:"dbtCloudTask,omitempty" tf:"dbt_cloud_task,omitempty"`
+	DashboardTask *DashboardTaskParameters `json:"dashboardTask,omitempty" tf:"dashboard_task,omitempty"`
 
 	// A list of task specification that the job will execute. See task Configuration Block below.
 	// +kubebuilder:validation:Optional
-	DbtPlatformTask []DbtPlatformTaskParameters `json:"dbtPlatformTask,omitempty" tf:"dbt_platform_task,omitempty"`
+	DbtCloudTask *DbtCloudTaskParameters `json:"dbtCloudTask,omitempty" tf:"dbt_cloud_task,omitempty"`
 
 	// A list of task specification that the job will execute. See task Configuration Block below.
 	// +kubebuilder:validation:Optional
-	DbtTask []TaskDbtTaskParameters `json:"dbtTask,omitempty" tf:"dbt_task,omitempty"`
+	DbtPlatformTask *DbtPlatformTaskParameters `json:"dbtPlatformTask,omitempty" tf:"dbt_platform_task,omitempty"`
+
+	// A list of task specification that the job will execute. See task Configuration Block below.
+	// +kubebuilder:validation:Optional
+	DbtTask *TaskDbtTaskParameters `json:"dbtTask,omitempty" tf:"dbt_task,omitempty"`
 
 	// block specifying dependency(-ies) for a given task.
 	// +kubebuilder:validation:Optional
@@ -10249,7 +10249,7 @@ type TaskParameters struct {
 
 	// (List) An optional set of email addresses notified when runs of this job begins, completes or fails. The default behavior is to not send any emails. This field is a block and is documented below.
 	// +kubebuilder:validation:Optional
-	EmailNotifications []TaskEmailNotificationsParameters `json:"emailNotifications,omitempty" tf:"email_notifications,omitempty"`
+	EmailNotifications *TaskEmailNotificationsParameters `json:"emailNotifications,omitempty" tf:"email_notifications,omitempty"`
 
 	// identifier of an environment block that is used to specify libraries.  Required for some tasks (spark_python_task, python_wheel_task, ...) running on serverless compute.
 	// +kubebuilder:validation:Optional
@@ -10271,15 +10271,15 @@ type TaskParameters struct {
 
 	// A list of task specification that the job will execute. See task Configuration Block below.
 	// +kubebuilder:validation:Optional
-	ForEachTask []ForEachTaskParameters `json:"forEachTask,omitempty" tf:"for_each_task,omitempty"`
+	ForEachTask *ForEachTaskParameters `json:"forEachTask,omitempty" tf:"for_each_task,omitempty"`
 
 	// A list of task specification that the job will execute. See task Configuration Block below.
 	// +kubebuilder:validation:Optional
-	GenAIComputeTask []TaskGenAIComputeTaskParameters `json:"genAiComputeTask,omitempty" tf:"gen_ai_compute_task,omitempty"`
+	GenAIComputeTask *TaskGenAIComputeTaskParameters `json:"genAiComputeTask,omitempty" tf:"gen_ai_compute_task,omitempty"`
 
 	// An optional block that specifies the health conditions for the job documented below.
 	// +kubebuilder:validation:Optional
-	Health []JobTaskHealthParameters `json:"health,omitempty" tf:"health,omitempty"`
+	Health *JobTaskHealthParameters `json:"health,omitempty" tf:"health,omitempty"`
 
 	// Identifier of the Job cluster specified in the job_cluster block.
 	// +kubebuilder:validation:Optional
@@ -10299,27 +10299,27 @@ type TaskParameters struct {
 
 	// Task will run on a dedicated cluster.  See databricks_cluster documentation for specification. Some parameters, such as
 	// +kubebuilder:validation:Optional
-	NewCluster []JobTaskNewClusterParameters `json:"newCluster,omitempty" tf:"new_cluster,omitempty"`
+	NewCluster *JobTaskNewClusterParameters `json:"newCluster,omitempty" tf:"new_cluster,omitempty"`
 
 	// A list of task specification that the job will execute. See task Configuration Block below.
 	// +kubebuilder:validation:Optional
-	NotebookTask []JobTaskNotebookTaskParameters `json:"notebookTask,omitempty" tf:"notebook_task,omitempty"`
+	NotebookTask *JobTaskNotebookTaskParameters `json:"notebookTask,omitempty" tf:"notebook_task,omitempty"`
 
 	// An optional block controlling the notification settings on the job level documented below.
 	// +kubebuilder:validation:Optional
-	NotificationSettings []JobTaskNotificationSettingsParameters `json:"notificationSettings,omitempty" tf:"notification_settings,omitempty"`
+	NotificationSettings *JobTaskNotificationSettingsParameters `json:"notificationSettings,omitempty" tf:"notification_settings,omitempty"`
 
 	// A list of task specification that the job will execute. See task Configuration Block below.
 	// +kubebuilder:validation:Optional
-	PipelineTask []JobTaskPipelineTaskParameters `json:"pipelineTask,omitempty" tf:"pipeline_task,omitempty"`
+	PipelineTask *JobTaskPipelineTaskParameters `json:"pipelineTask,omitempty" tf:"pipeline_task,omitempty"`
 
 	// A list of task specification that the job will execute. See task Configuration Block below.
 	// +kubebuilder:validation:Optional
-	PowerBiTask []TaskPowerBiTaskParameters `json:"powerBiTask,omitempty" tf:"power_bi_task,omitempty"`
+	PowerBiTask *TaskPowerBiTaskParameters `json:"powerBiTask,omitempty" tf:"power_bi_task,omitempty"`
 
 	// A list of task specification that the job will execute. See task Configuration Block below.
 	// +kubebuilder:validation:Optional
-	PythonWheelTask []JobTaskPythonWheelTaskParameters `json:"pythonWheelTask,omitempty" tf:"python_wheel_task,omitempty"`
+	PythonWheelTask *JobTaskPythonWheelTaskParameters `json:"pythonWheelTask,omitempty" tf:"python_wheel_task,omitempty"`
 
 	// (Bool) An optional policy to specify whether to retry a job when it times out. The default behavior is to not retry on timeout.
 	// +kubebuilder:validation:Optional
@@ -10331,23 +10331,23 @@ type TaskParameters struct {
 
 	// A list of task specification that the job will execute. See task Configuration Block below.
 	// +kubebuilder:validation:Optional
-	RunJobTask []JobTaskRunJobTaskParameters `json:"runJobTask,omitempty" tf:"run_job_task,omitempty"`
+	RunJobTask *JobTaskRunJobTaskParameters `json:"runJobTask,omitempty" tf:"run_job_task,omitempty"`
 
 	// A list of task specification that the job will execute. See task Configuration Block below.
 	// +kubebuilder:validation:Optional
-	SQLTask []TaskSQLTaskParameters `json:"sqlTask,omitempty" tf:"sql_task,omitempty"`
+	SQLTask *TaskSQLTaskParameters `json:"sqlTask,omitempty" tf:"sql_task,omitempty"`
 
 	// A list of task specification that the job will execute. See task Configuration Block below.
 	// +kubebuilder:validation:Optional
-	SparkJarTask []JobTaskSparkJarTaskParameters `json:"sparkJarTask,omitempty" tf:"spark_jar_task,omitempty"`
+	SparkJarTask *JobTaskSparkJarTaskParameters `json:"sparkJarTask,omitempty" tf:"spark_jar_task,omitempty"`
 
 	// A list of task specification that the job will execute. See task Configuration Block below.
 	// +kubebuilder:validation:Optional
-	SparkPythonTask []JobTaskSparkPythonTaskParameters `json:"sparkPythonTask,omitempty" tf:"spark_python_task,omitempty"`
+	SparkPythonTask *JobTaskSparkPythonTaskParameters `json:"sparkPythonTask,omitempty" tf:"spark_python_task,omitempty"`
 
 	// A list of task specification that the job will execute. See task Configuration Block below.
 	// +kubebuilder:validation:Optional
-	SparkSubmitTask []JobTaskSparkSubmitTaskParameters `json:"sparkSubmitTask,omitempty" tf:"spark_submit_task,omitempty"`
+	SparkSubmitTask *JobTaskSparkSubmitTaskParameters `json:"sparkSubmitTask,omitempty" tf:"spark_submit_task,omitempty"`
 
 	// string specifying an unique key for a given task.
 	// +kubebuilder:validation:Optional
@@ -10359,7 +10359,7 @@ type TaskParameters struct {
 
 	// (List) An optional set of system destinations (for example, webhook destinations or Slack) to be notified when runs of this job begins, completes or fails. The default behavior is to not send any notifications. This field is a block and is documented below.
 	// +kubebuilder:validation:Optional
-	WebhookNotifications []TaskWebhookNotificationsParameters `json:"webhookNotifications,omitempty" tf:"webhook_notifications,omitempty"`
+	WebhookNotifications *TaskWebhookNotificationsParameters `json:"webhookNotifications,omitempty" tf:"webhook_notifications,omitempty"`
 }
 
 type TaskPipelineTaskInitParameters struct {
@@ -10397,7 +10397,7 @@ type TaskPowerBiTaskInitParameters struct {
 	ConnectionResourceName *string `json:"connectionResourceName,omitempty" tf:"connection_resource_name,omitempty"`
 
 	// The semantic model to update. Block consists of following fields:
-	PowerBiModel []PowerBiTaskPowerBiModelInitParameters `json:"powerBiModel,omitempty" tf:"power_bi_model,omitempty"`
+	PowerBiModel *PowerBiTaskPowerBiModelInitParameters `json:"powerBiModel,omitempty" tf:"power_bi_model,omitempty"`
 
 	// Whether the model should be refreshed after the update. Default is false
 	RefreshAfterUpdate *bool `json:"refreshAfterUpdate,omitempty" tf:"refresh_after_update,omitempty"`
@@ -10415,7 +10415,7 @@ type TaskPowerBiTaskObservation struct {
 	ConnectionResourceName *string `json:"connectionResourceName,omitempty" tf:"connection_resource_name,omitempty"`
 
 	// The semantic model to update. Block consists of following fields:
-	PowerBiModel []PowerBiTaskPowerBiModelObservation `json:"powerBiModel,omitempty" tf:"power_bi_model,omitempty"`
+	PowerBiModel *PowerBiTaskPowerBiModelObservation `json:"powerBiModel,omitempty" tf:"power_bi_model,omitempty"`
 
 	// Whether the model should be refreshed after the update. Default is false
 	RefreshAfterUpdate *bool `json:"refreshAfterUpdate,omitempty" tf:"refresh_after_update,omitempty"`
@@ -10435,7 +10435,7 @@ type TaskPowerBiTaskParameters struct {
 
 	// The semantic model to update. Block consists of following fields:
 	// +kubebuilder:validation:Optional
-	PowerBiModel []PowerBiTaskPowerBiModelParameters `json:"powerBiModel,omitempty" tf:"power_bi_model,omitempty"`
+	PowerBiModel *PowerBiTaskPowerBiModelParameters `json:"powerBiModel,omitempty" tf:"power_bi_model,omitempty"`
 
 	// Whether the model should be refreshed after the update. Default is false
 	// +kubebuilder:validation:Optional
@@ -10519,7 +10519,7 @@ type TaskRunJobTaskInitParameters struct {
 	// +mapType=granular
 	NotebookParams map[string]*string `json:"notebookParams,omitempty" tf:"notebook_params,omitempty"`
 
-	PipelineParams []PipelineParamsInitParameters `json:"pipelineParams,omitempty" tf:"pipeline_params,omitempty"`
+	PipelineParams *PipelineParamsInitParameters `json:"pipelineParams,omitempty" tf:"pipeline_params,omitempty"`
 
 	// +mapType=granular
 	PythonNamedParams map[string]*string `json:"pythonNamedParams,omitempty" tf:"python_named_params,omitempty"`
@@ -10549,7 +10549,7 @@ type TaskRunJobTaskObservation struct {
 	// +mapType=granular
 	NotebookParams map[string]*string `json:"notebookParams,omitempty" tf:"notebook_params,omitempty"`
 
-	PipelineParams []PipelineParamsObservation `json:"pipelineParams,omitempty" tf:"pipeline_params,omitempty"`
+	PipelineParams *PipelineParamsObservation `json:"pipelineParams,omitempty" tf:"pipeline_params,omitempty"`
 
 	// +mapType=granular
 	PythonNamedParams map[string]*string `json:"pythonNamedParams,omitempty" tf:"python_named_params,omitempty"`
@@ -10585,7 +10585,7 @@ type TaskRunJobTaskParameters struct {
 	NotebookParams map[string]*string `json:"notebookParams,omitempty" tf:"notebook_params,omitempty"`
 
 	// +kubebuilder:validation:Optional
-	PipelineParams []PipelineParamsParameters `json:"pipelineParams,omitempty" tf:"pipeline_params,omitempty"`
+	PipelineParams *PipelineParamsParameters `json:"pipelineParams,omitempty" tf:"pipeline_params,omitempty"`
 
 	// +kubebuilder:validation:Optional
 	// +mapType=granular
@@ -10634,20 +10634,20 @@ type TaskSQLTaskFileParameters struct {
 type TaskSQLTaskInitParameters struct {
 
 	// block consisting of following fields:
-	Alert []SQLTaskAlertInitParameters `json:"alert,omitempty" tf:"alert,omitempty"`
+	Alert *SQLTaskAlertInitParameters `json:"alert,omitempty" tf:"alert,omitempty"`
 
 	// block consisting of following fields:
-	Dashboard []SQLTaskDashboardInitParameters `json:"dashboard,omitempty" tf:"dashboard,omitempty"`
+	Dashboard *SQLTaskDashboardInitParameters `json:"dashboard,omitempty" tf:"dashboard,omitempty"`
 
 	// block consisting of single string fields:
-	File []TaskSQLTaskFileInitParameters `json:"file,omitempty" tf:"file,omitempty"`
+	File *TaskSQLTaskFileInitParameters `json:"file,omitempty" tf:"file,omitempty"`
 
 	// Parameters for the task
 	// +mapType=granular
 	Parameters map[string]*string `json:"parameters,omitempty" tf:"parameters,omitempty"`
 
 	// block consisting of single string field: query_id - identifier of the Databricks Query (databricks_query).
-	Query []SQLTaskQueryInitParameters `json:"query,omitempty" tf:"query,omitempty"`
+	Query *SQLTaskQueryInitParameters `json:"query,omitempty" tf:"query,omitempty"`
 
 	// The warehouse id to execute the dashboard with for the schedule. If not specified, will use the default warehouse of dashboard
 	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/cluster/sql/v1alpha1.SQLEndpoint
@@ -10666,20 +10666,20 @@ type TaskSQLTaskInitParameters struct {
 type TaskSQLTaskObservation struct {
 
 	// block consisting of following fields:
-	Alert []SQLTaskAlertObservation `json:"alert,omitempty" tf:"alert,omitempty"`
+	Alert *SQLTaskAlertObservation `json:"alert,omitempty" tf:"alert,omitempty"`
 
 	// block consisting of following fields:
-	Dashboard []SQLTaskDashboardObservation `json:"dashboard,omitempty" tf:"dashboard,omitempty"`
+	Dashboard *SQLTaskDashboardObservation `json:"dashboard,omitempty" tf:"dashboard,omitempty"`
 
 	// block consisting of single string fields:
-	File []TaskSQLTaskFileObservation `json:"file,omitempty" tf:"file,omitempty"`
+	File *TaskSQLTaskFileObservation `json:"file,omitempty" tf:"file,omitempty"`
 
 	// Parameters for the task
 	// +mapType=granular
 	Parameters map[string]*string `json:"parameters,omitempty" tf:"parameters,omitempty"`
 
 	// block consisting of single string field: query_id - identifier of the Databricks Query (databricks_query).
-	Query []SQLTaskQueryObservation `json:"query,omitempty" tf:"query,omitempty"`
+	Query *SQLTaskQueryObservation `json:"query,omitempty" tf:"query,omitempty"`
 
 	// The warehouse id to execute the dashboard with for the schedule. If not specified, will use the default warehouse of dashboard
 	WarehouseID *string `json:"warehouseId,omitempty" tf:"warehouse_id,omitempty"`
@@ -10689,15 +10689,15 @@ type TaskSQLTaskParameters struct {
 
 	// block consisting of following fields:
 	// +kubebuilder:validation:Optional
-	Alert []SQLTaskAlertParameters `json:"alert,omitempty" tf:"alert,omitempty"`
+	Alert *SQLTaskAlertParameters `json:"alert,omitempty" tf:"alert,omitempty"`
 
 	// block consisting of following fields:
 	// +kubebuilder:validation:Optional
-	Dashboard []SQLTaskDashboardParameters `json:"dashboard,omitempty" tf:"dashboard,omitempty"`
+	Dashboard *SQLTaskDashboardParameters `json:"dashboard,omitempty" tf:"dashboard,omitempty"`
 
 	// block consisting of single string fields:
 	// +kubebuilder:validation:Optional
-	File []TaskSQLTaskFileParameters `json:"file,omitempty" tf:"file,omitempty"`
+	File *TaskSQLTaskFileParameters `json:"file,omitempty" tf:"file,omitempty"`
 
 	// Parameters for the task
 	// +kubebuilder:validation:Optional
@@ -10706,7 +10706,7 @@ type TaskSQLTaskParameters struct {
 
 	// block consisting of single string field: query_id - identifier of the Databricks Query (databricks_query).
 	// +kubebuilder:validation:Optional
-	Query []SQLTaskQueryParameters `json:"query,omitempty" tf:"query,omitempty"`
+	Query *SQLTaskQueryParameters `json:"query,omitempty" tf:"query,omitempty"`
 
 	// The warehouse id to execute the dashboard with for the schedule. If not specified, will use the default warehouse of dashboard
 	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/cluster/sql/v1alpha1.SQLEndpoint
@@ -10884,45 +10884,45 @@ type TaskWebhookNotificationsParameters struct {
 type TriggerInitParameters struct {
 
 	// configuration block to define a trigger for File Arrival events consisting of following attributes:
-	FileArrival []FileArrivalInitParameters `json:"fileArrival,omitempty" tf:"file_arrival,omitempty"`
+	FileArrival *FileArrivalInitParameters `json:"fileArrival,omitempty" tf:"file_arrival,omitempty"`
 
-	Model []ModelInitParameters `json:"model,omitempty" tf:"model,omitempty"`
+	Model *ModelInitParameters `json:"model,omitempty" tf:"model,omitempty"`
 
 	// Indicate whether this trigger is paused or not. Either PAUSED or UNPAUSED. When the pause_status field is omitted in the block, the server will default to using UNPAUSED as a value for pause_status.
 	PauseStatus *string `json:"pauseStatus,omitempty" tf:"pause_status,omitempty"`
 
 	// configuration block to define a trigger for Periodic Triggers consisting of the following attributes:
-	Periodic []PeriodicInitParameters `json:"periodic,omitempty" tf:"periodic,omitempty"`
+	Periodic *PeriodicInitParameters `json:"periodic,omitempty" tf:"periodic,omitempty"`
 
 	// configuration block to define a trigger for Table Updates consisting of following attributes:
-	TableUpdate []TableUpdateInitParameters `json:"tableUpdate,omitempty" tf:"table_update,omitempty"`
+	TableUpdate *TableUpdateInitParameters `json:"tableUpdate,omitempty" tf:"table_update,omitempty"`
 }
 
 type TriggerObservation struct {
 
 	// configuration block to define a trigger for File Arrival events consisting of following attributes:
-	FileArrival []FileArrivalObservation `json:"fileArrival,omitempty" tf:"file_arrival,omitempty"`
+	FileArrival *FileArrivalObservation `json:"fileArrival,omitempty" tf:"file_arrival,omitempty"`
 
-	Model []ModelObservation `json:"model,omitempty" tf:"model,omitempty"`
+	Model *ModelObservation `json:"model,omitempty" tf:"model,omitempty"`
 
 	// Indicate whether this trigger is paused or not. Either PAUSED or UNPAUSED. When the pause_status field is omitted in the block, the server will default to using UNPAUSED as a value for pause_status.
 	PauseStatus *string `json:"pauseStatus,omitempty" tf:"pause_status,omitempty"`
 
 	// configuration block to define a trigger for Periodic Triggers consisting of the following attributes:
-	Periodic []PeriodicObservation `json:"periodic,omitempty" tf:"periodic,omitempty"`
+	Periodic *PeriodicObservation `json:"periodic,omitempty" tf:"periodic,omitempty"`
 
 	// configuration block to define a trigger for Table Updates consisting of following attributes:
-	TableUpdate []TableUpdateObservation `json:"tableUpdate,omitempty" tf:"table_update,omitempty"`
+	TableUpdate *TableUpdateObservation `json:"tableUpdate,omitempty" tf:"table_update,omitempty"`
 }
 
 type TriggerParameters struct {
 
 	// configuration block to define a trigger for File Arrival events consisting of following attributes:
 	// +kubebuilder:validation:Optional
-	FileArrival []FileArrivalParameters `json:"fileArrival,omitempty" tf:"file_arrival,omitempty"`
+	FileArrival *FileArrivalParameters `json:"fileArrival,omitempty" tf:"file_arrival,omitempty"`
 
 	// +kubebuilder:validation:Optional
-	Model []ModelParameters `json:"model,omitempty" tf:"model,omitempty"`
+	Model *ModelParameters `json:"model,omitempty" tf:"model,omitempty"`
 
 	// Indicate whether this trigger is paused or not. Either PAUSED or UNPAUSED. When the pause_status field is omitted in the block, the server will default to using UNPAUSED as a value for pause_status.
 	// +kubebuilder:validation:Optional
@@ -10930,11 +10930,11 @@ type TriggerParameters struct {
 
 	// configuration block to define a trigger for Periodic Triggers consisting of the following attributes:
 	// +kubebuilder:validation:Optional
-	Periodic []PeriodicParameters `json:"periodic,omitempty" tf:"periodic,omitempty"`
+	Periodic *PeriodicParameters `json:"periodic,omitempty" tf:"periodic,omitempty"`
 
 	// configuration block to define a trigger for Table Updates consisting of following attributes:
 	// +kubebuilder:validation:Optional
-	TableUpdate []TableUpdateParameters `json:"tableUpdate,omitempty" tf:"table_update,omitempty"`
+	TableUpdate *TableUpdateParameters `json:"tableUpdate,omitempty" tf:"table_update,omitempty"`
 }
 
 type WebhookNotificationsInitParameters struct {

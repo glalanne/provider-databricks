@@ -77,279 +77,267 @@ spec:
                   config:
                     description: 'The configuration of the Notification Destination.
                       It must contain exactly one of the following blocks:'
-                    items:
-                      properties:
-                        email:
-                          description: 'The email configuration of the Notification
-                            Destination. It must contain the following:'
-                          items:
+                    properties:
+                      email:
+                        description: 'The email configuration of the Notification
+                          Destination. It must contain the following:'
+                        properties:
+                          addresses:
+                            description: The list of email addresses to send notifications
+                              to.
+                            items:
+                              type: string
+                            type: array
+                        type: object
+                      genericWebhook:
+                        description: 'The Generic Webhook configuration of the Notification
+                          Destination. It must contain the following:'
+                        properties:
+                          passwordSecretRef:
+                            description: The password for basic authentication.
                             properties:
-                              addresses:
-                                description: The list of email addresses to send notifications
-                                  to.
-                                items:
-                                  type: string
-                                type: array
+                              key:
+                                description: The key to select.
+                                type: string
+                              name:
+                                description: Name of the secret.
+                                type: string
+                              namespace:
+                                description: Namespace of the secret.
+                                type: string
+                            required:
+                            - key
+                            - name
+                            - namespace
                             type: object
-                          type: array
-                        genericWebhook:
-                          description: 'The Generic Webhook configuration of the Notification
-                            Destination. It must contain the following:'
-                          items:
+                          passwordSet:
+                            type: boolean
+                          urlSecretRef:
+                            description: The Slack webhook URL.
                             properties:
-                              passwordSecretRef:
-                                description: The password for basic authentication.
-                                properties:
-                                  key:
-                                    description: The key to select.
-                                    type: string
-                                  name:
-                                    description: Name of the secret.
-                                    type: string
-                                  namespace:
-                                    description: Namespace of the secret.
-                                    type: string
-                                required:
-                                - key
-                                - name
-                                - namespace
-                                type: object
-                              passwordSet:
-                                type: boolean
-                              urlSecretRef:
-                                description: The Slack webhook URL.
-                                properties:
-                                  key:
-                                    description: The key to select.
-                                    type: string
-                                  name:
-                                    description: Name of the secret.
-                                    type: string
-                                  namespace:
-                                    description: Namespace of the secret.
-                                    type: string
-                                required:
-                                - key
-                                - name
-                                - namespace
-                                type: object
-                              urlSet:
-                                type: boolean
-                              usernameSecretRef:
-                                description: The username for basic authentication.
-                                properties:
-                                  key:
-                                    description: The key to select.
-                                    type: string
-                                  name:
-                                    description: Name of the secret.
-                                    type: string
-                                  namespace:
-                                    description: Namespace of the secret.
-                                    type: string
-                                required:
-                                - key
-                                - name
-                                - namespace
-                                type: object
-                              usernameSet:
-                                type: boolean
+                              key:
+                                description: The key to select.
+                                type: string
+                              name:
+                                description: Name of the secret.
+                                type: string
+                              namespace:
+                                description: Namespace of the secret.
+                                type: string
+                            required:
+                            - key
+                            - name
+                            - namespace
                             type: object
-                          type: array
-                        microsoftTeams:
-                          description: 'The Microsoft Teams configuration of the Notification
-                            Destination. It must contain the following:'
-                          items:
+                          urlSet:
+                            type: boolean
+                          usernameSecretRef:
+                            description: The username for basic authentication.
                             properties:
-                              appIdSecretRef:
-                                description: App ID for Microsoft Teams App.
-                                properties:
-                                  key:
-                                    description: The key to select.
-                                    type: string
-                                  name:
-                                    description: Name of the secret.
-                                    type: string
-                                  namespace:
-                                    description: Namespace of the secret.
-                                    type: string
-                                required:
-                                - key
-                                - name
-                                - namespace
-                                type: object
-                              appIdSet:
-                                type: boolean
-                              authSecretSecretRef:
-                                description: Secret for Microsoft Teams App authentication.
-                                properties:
-                                  key:
-                                    description: The key to select.
-                                    type: string
-                                  name:
-                                    description: Name of the secret.
-                                    type: string
-                                  namespace:
-                                    description: Namespace of the secret.
-                                    type: string
-                                required:
-                                - key
-                                - name
-                                - namespace
-                                type: object
-                              authSecretSet:
-                                type: boolean
-                              channelUrlSecretRef:
-                                description: Channel URL for Microsoft Teams App.
-                                properties:
-                                  key:
-                                    description: The key to select.
-                                    type: string
-                                  name:
-                                    description: Name of the secret.
-                                    type: string
-                                  namespace:
-                                    description: Namespace of the secret.
-                                    type: string
-                                required:
-                                - key
-                                - name
-                                - namespace
-                                type: object
-                              channelUrlSet:
-                                type: boolean
-                              tenantIdSecretRef:
-                                description: Tenant ID for Microsoft Teams App.
-                                properties:
-                                  key:
-                                    description: The key to select.
-                                    type: string
-                                  name:
-                                    description: Name of the secret.
-                                    type: string
-                                  namespace:
-                                    description: Namespace of the secret.
-                                    type: string
-                                required:
-                                - key
-                                - name
-                                - namespace
-                                type: object
-                              tenantIdSet:
-                                type: boolean
-                              urlSecretRef:
-                                description: The Slack webhook URL.
-                                properties:
-                                  key:
-                                    description: The key to select.
-                                    type: string
-                                  name:
-                                    description: Name of the secret.
-                                    type: string
-                                  namespace:
-                                    description: Namespace of the secret.
-                                    type: string
-                                required:
-                                - key
-                                - name
-                                - namespace
-                                type: object
-                              urlSet:
-                                type: boolean
+                              key:
+                                description: The key to select.
+                                type: string
+                              name:
+                                description: Name of the secret.
+                                type: string
+                              namespace:
+                                description: Namespace of the secret.
+                                type: string
+                            required:
+                            - key
+                            - name
+                            - namespace
                             type: object
-                          type: array
-                        pagerduty:
-                          description: 'The PagerDuty configuration of the Notification
-                            Destination. It must contain the following:'
-                          items:
+                          usernameSet:
+                            type: boolean
+                        type: object
+                      microsoftTeams:
+                        description: 'The Microsoft Teams configuration of the Notification
+                          Destination. It must contain the following:'
+                        properties:
+                          appIdSecretRef:
+                            description: App ID for Microsoft Teams App.
                             properties:
-                              integrationKeySecretRef:
-                                description: The PagerDuty integration key.
-                                properties:
-                                  key:
-                                    description: The key to select.
-                                    type: string
-                                  name:
-                                    description: Name of the secret.
-                                    type: string
-                                  namespace:
-                                    description: Namespace of the secret.
-                                    type: string
-                                required:
-                                - key
-                                - name
-                                - namespace
-                                type: object
-                              integrationKeySet:
-                                type: boolean
+                              key:
+                                description: The key to select.
+                                type: string
+                              name:
+                                description: Name of the secret.
+                                type: string
+                              namespace:
+                                description: Namespace of the secret.
+                                type: string
+                            required:
+                            - key
+                            - name
+                            - namespace
                             type: object
-                          type: array
-                        slack:
-                          description: 'The Slack configuration of the Notification
-                            Destination. It must contain the following:'
-                          items:
+                          appIdSet:
+                            type: boolean
+                          authSecretSecretRef:
+                            description: Secret for Microsoft Teams App authentication.
                             properties:
-                              channelIdSecretRef:
-                                description: Slack channel ID for notifications.
-                                properties:
-                                  key:
-                                    description: The key to select.
-                                    type: string
-                                  name:
-                                    description: Name of the secret.
-                                    type: string
-                                  namespace:
-                                    description: Namespace of the secret.
-                                    type: string
-                                required:
-                                - key
-                                - name
-                                - namespace
-                                type: object
-                              channelIdSet:
-                                type: boolean
-                              oauthTokenSecretRef:
-                                description: OAuth token for Slack authentication.
-                                properties:
-                                  key:
-                                    description: The key to select.
-                                    type: string
-                                  name:
-                                    description: Name of the secret.
-                                    type: string
-                                  namespace:
-                                    description: Namespace of the secret.
-                                    type: string
-                                required:
-                                - key
-                                - name
-                                - namespace
-                                type: object
-                              oauthTokenSet:
-                                type: boolean
-                              urlSecretRef:
-                                description: The Slack webhook URL.
-                                properties:
-                                  key:
-                                    description: The key to select.
-                                    type: string
-                                  name:
-                                    description: Name of the secret.
-                                    type: string
-                                  namespace:
-                                    description: Namespace of the secret.
-                                    type: string
-                                required:
-                                - key
-                                - name
-                                - namespace
-                                type: object
-                              urlSet:
-                                type: boolean
+                              key:
+                                description: The key to select.
+                                type: string
+                              name:
+                                description: Name of the secret.
+                                type: string
+                              namespace:
+                                description: Namespace of the secret.
+                                type: string
+                            required:
+                            - key
+                            - name
+                            - namespace
                             type: object
-                          type: array
-                      type: object
-                    type: array
+                          authSecretSet:
+                            type: boolean
+                          channelUrlSecretRef:
+                            description: Channel URL for Microsoft Teams App.
+                            properties:
+                              key:
+                                description: The key to select.
+                                type: string
+                              name:
+                                description: Name of the secret.
+                                type: string
+                              namespace:
+                                description: Namespace of the secret.
+                                type: string
+                            required:
+                            - key
+                            - name
+                            - namespace
+                            type: object
+                          channelUrlSet:
+                            type: boolean
+                          tenantIdSecretRef:
+                            description: Tenant ID for Microsoft Teams App.
+                            properties:
+                              key:
+                                description: The key to select.
+                                type: string
+                              name:
+                                description: Name of the secret.
+                                type: string
+                              namespace:
+                                description: Namespace of the secret.
+                                type: string
+                            required:
+                            - key
+                            - name
+                            - namespace
+                            type: object
+                          tenantIdSet:
+                            type: boolean
+                          urlSecretRef:
+                            description: The Slack webhook URL.
+                            properties:
+                              key:
+                                description: The key to select.
+                                type: string
+                              name:
+                                description: Name of the secret.
+                                type: string
+                              namespace:
+                                description: Namespace of the secret.
+                                type: string
+                            required:
+                            - key
+                            - name
+                            - namespace
+                            type: object
+                          urlSet:
+                            type: boolean
+                        type: object
+                      pagerduty:
+                        description: 'The PagerDuty configuration of the Notification
+                          Destination. It must contain the following:'
+                        properties:
+                          integrationKeySecretRef:
+                            description: The PagerDuty integration key.
+                            properties:
+                              key:
+                                description: The key to select.
+                                type: string
+                              name:
+                                description: Name of the secret.
+                                type: string
+                              namespace:
+                                description: Namespace of the secret.
+                                type: string
+                            required:
+                            - key
+                            - name
+                            - namespace
+                            type: object
+                          integrationKeySet:
+                            type: boolean
+                        type: object
+                      slack:
+                        description: 'The Slack configuration of the Notification
+                          Destination. It must contain the following:'
+                        properties:
+                          channelIdSecretRef:
+                            description: Slack channel ID for notifications.
+                            properties:
+                              key:
+                                description: The key to select.
+                                type: string
+                              name:
+                                description: Name of the secret.
+                                type: string
+                              namespace:
+                                description: Namespace of the secret.
+                                type: string
+                            required:
+                            - key
+                            - name
+                            - namespace
+                            type: object
+                          channelIdSet:
+                            type: boolean
+                          oauthTokenSecretRef:
+                            description: OAuth token for Slack authentication.
+                            properties:
+                              key:
+                                description: The key to select.
+                                type: string
+                              name:
+                                description: Name of the secret.
+                                type: string
+                              namespace:
+                                description: Namespace of the secret.
+                                type: string
+                            required:
+                            - key
+                            - name
+                            - namespace
+                            type: object
+                          oauthTokenSet:
+                            type: boolean
+                          urlSecretRef:
+                            description: The Slack webhook URL.
+                            properties:
+                              key:
+                                description: The key to select.
+                                type: string
+                              name:
+                                description: Name of the secret.
+                                type: string
+                              namespace:
+                                description: Namespace of the secret.
+                                type: string
+                            required:
+                            - key
+                            - name
+                            - namespace
+                            type: object
+                          urlSet:
+                            type: boolean
+                        type: object
+                    type: object
                   destinationType:
                     description: the type of Notification Destination.
                     type: string
@@ -373,279 +361,267 @@ spec:
                   config:
                     description: 'The configuration of the Notification Destination.
                       It must contain exactly one of the following blocks:'
-                    items:
-                      properties:
-                        email:
-                          description: 'The email configuration of the Notification
-                            Destination. It must contain the following:'
-                          items:
+                    properties:
+                      email:
+                        description: 'The email configuration of the Notification
+                          Destination. It must contain the following:'
+                        properties:
+                          addresses:
+                            description: The list of email addresses to send notifications
+                              to.
+                            items:
+                              type: string
+                            type: array
+                        type: object
+                      genericWebhook:
+                        description: 'The Generic Webhook configuration of the Notification
+                          Destination. It must contain the following:'
+                        properties:
+                          passwordSecretRef:
+                            description: The password for basic authentication.
                             properties:
-                              addresses:
-                                description: The list of email addresses to send notifications
-                                  to.
-                                items:
-                                  type: string
-                                type: array
+                              key:
+                                description: The key to select.
+                                type: string
+                              name:
+                                description: Name of the secret.
+                                type: string
+                              namespace:
+                                description: Namespace of the secret.
+                                type: string
+                            required:
+                            - key
+                            - name
+                            - namespace
                             type: object
-                          type: array
-                        genericWebhook:
-                          description: 'The Generic Webhook configuration of the Notification
-                            Destination. It must contain the following:'
-                          items:
+                          passwordSet:
+                            type: boolean
+                          urlSecretRef:
+                            description: The Slack webhook URL.
                             properties:
-                              passwordSecretRef:
-                                description: The password for basic authentication.
-                                properties:
-                                  key:
-                                    description: The key to select.
-                                    type: string
-                                  name:
-                                    description: Name of the secret.
-                                    type: string
-                                  namespace:
-                                    description: Namespace of the secret.
-                                    type: string
-                                required:
-                                - key
-                                - name
-                                - namespace
-                                type: object
-                              passwordSet:
-                                type: boolean
-                              urlSecretRef:
-                                description: The Slack webhook URL.
-                                properties:
-                                  key:
-                                    description: The key to select.
-                                    type: string
-                                  name:
-                                    description: Name of the secret.
-                                    type: string
-                                  namespace:
-                                    description: Namespace of the secret.
-                                    type: string
-                                required:
-                                - key
-                                - name
-                                - namespace
-                                type: object
-                              urlSet:
-                                type: boolean
-                              usernameSecretRef:
-                                description: The username for basic authentication.
-                                properties:
-                                  key:
-                                    description: The key to select.
-                                    type: string
-                                  name:
-                                    description: Name of the secret.
-                                    type: string
-                                  namespace:
-                                    description: Namespace of the secret.
-                                    type: string
-                                required:
-                                - key
-                                - name
-                                - namespace
-                                type: object
-                              usernameSet:
-                                type: boolean
+                              key:
+                                description: The key to select.
+                                type: string
+                              name:
+                                description: Name of the secret.
+                                type: string
+                              namespace:
+                                description: Namespace of the secret.
+                                type: string
+                            required:
+                            - key
+                            - name
+                            - namespace
                             type: object
-                          type: array
-                        microsoftTeams:
-                          description: 'The Microsoft Teams configuration of the Notification
-                            Destination. It must contain the following:'
-                          items:
+                          urlSet:
+                            type: boolean
+                          usernameSecretRef:
+                            description: The username for basic authentication.
                             properties:
-                              appIdSecretRef:
-                                description: App ID for Microsoft Teams App.
-                                properties:
-                                  key:
-                                    description: The key to select.
-                                    type: string
-                                  name:
-                                    description: Name of the secret.
-                                    type: string
-                                  namespace:
-                                    description: Namespace of the secret.
-                                    type: string
-                                required:
-                                - key
-                                - name
-                                - namespace
-                                type: object
-                              appIdSet:
-                                type: boolean
-                              authSecretSecretRef:
-                                description: Secret for Microsoft Teams App authentication.
-                                properties:
-                                  key:
-                                    description: The key to select.
-                                    type: string
-                                  name:
-                                    description: Name of the secret.
-                                    type: string
-                                  namespace:
-                                    description: Namespace of the secret.
-                                    type: string
-                                required:
-                                - key
-                                - name
-                                - namespace
-                                type: object
-                              authSecretSet:
-                                type: boolean
-                              channelUrlSecretRef:
-                                description: Channel URL for Microsoft Teams App.
-                                properties:
-                                  key:
-                                    description: The key to select.
-                                    type: string
-                                  name:
-                                    description: Name of the secret.
-                                    type: string
-                                  namespace:
-                                    description: Namespace of the secret.
-                                    type: string
-                                required:
-                                - key
-                                - name
-                                - namespace
-                                type: object
-                              channelUrlSet:
-                                type: boolean
-                              tenantIdSecretRef:
-                                description: Tenant ID for Microsoft Teams App.
-                                properties:
-                                  key:
-                                    description: The key to select.
-                                    type: string
-                                  name:
-                                    description: Name of the secret.
-                                    type: string
-                                  namespace:
-                                    description: Namespace of the secret.
-                                    type: string
-                                required:
-                                - key
-                                - name
-                                - namespace
-                                type: object
-                              tenantIdSet:
-                                type: boolean
-                              urlSecretRef:
-                                description: The Slack webhook URL.
-                                properties:
-                                  key:
-                                    description: The key to select.
-                                    type: string
-                                  name:
-                                    description: Name of the secret.
-                                    type: string
-                                  namespace:
-                                    description: Namespace of the secret.
-                                    type: string
-                                required:
-                                - key
-                                - name
-                                - namespace
-                                type: object
-                              urlSet:
-                                type: boolean
+                              key:
+                                description: The key to select.
+                                type: string
+                              name:
+                                description: Name of the secret.
+                                type: string
+                              namespace:
+                                description: Namespace of the secret.
+                                type: string
+                            required:
+                            - key
+                            - name
+                            - namespace
                             type: object
-                          type: array
-                        pagerduty:
-                          description: 'The PagerDuty configuration of the Notification
-                            Destination. It must contain the following:'
-                          items:
+                          usernameSet:
+                            type: boolean
+                        type: object
+                      microsoftTeams:
+                        description: 'The Microsoft Teams configuration of the Notification
+                          Destination. It must contain the following:'
+                        properties:
+                          appIdSecretRef:
+                            description: App ID for Microsoft Teams App.
                             properties:
-                              integrationKeySecretRef:
-                                description: The PagerDuty integration key.
-                                properties:
-                                  key:
-                                    description: The key to select.
-                                    type: string
-                                  name:
-                                    description: Name of the secret.
-                                    type: string
-                                  namespace:
-                                    description: Namespace of the secret.
-                                    type: string
-                                required:
-                                - key
-                                - name
-                                - namespace
-                                type: object
-                              integrationKeySet:
-                                type: boolean
+                              key:
+                                description: The key to select.
+                                type: string
+                              name:
+                                description: Name of the secret.
+                                type: string
+                              namespace:
+                                description: Namespace of the secret.
+                                type: string
+                            required:
+                            - key
+                            - name
+                            - namespace
                             type: object
-                          type: array
-                        slack:
-                          description: 'The Slack configuration of the Notification
-                            Destination. It must contain the following:'
-                          items:
+                          appIdSet:
+                            type: boolean
+                          authSecretSecretRef:
+                            description: Secret for Microsoft Teams App authentication.
                             properties:
-                              channelIdSecretRef:
-                                description: Slack channel ID for notifications.
-                                properties:
-                                  key:
-                                    description: The key to select.
-                                    type: string
-                                  name:
-                                    description: Name of the secret.
-                                    type: string
-                                  namespace:
-                                    description: Namespace of the secret.
-                                    type: string
-                                required:
-                                - key
-                                - name
-                                - namespace
-                                type: object
-                              channelIdSet:
-                                type: boolean
-                              oauthTokenSecretRef:
-                                description: OAuth token for Slack authentication.
-                                properties:
-                                  key:
-                                    description: The key to select.
-                                    type: string
-                                  name:
-                                    description: Name of the secret.
-                                    type: string
-                                  namespace:
-                                    description: Namespace of the secret.
-                                    type: string
-                                required:
-                                - key
-                                - name
-                                - namespace
-                                type: object
-                              oauthTokenSet:
-                                type: boolean
-                              urlSecretRef:
-                                description: The Slack webhook URL.
-                                properties:
-                                  key:
-                                    description: The key to select.
-                                    type: string
-                                  name:
-                                    description: Name of the secret.
-                                    type: string
-                                  namespace:
-                                    description: Namespace of the secret.
-                                    type: string
-                                required:
-                                - key
-                                - name
-                                - namespace
-                                type: object
-                              urlSet:
-                                type: boolean
+                              key:
+                                description: The key to select.
+                                type: string
+                              name:
+                                description: Name of the secret.
+                                type: string
+                              namespace:
+                                description: Namespace of the secret.
+                                type: string
+                            required:
+                            - key
+                            - name
+                            - namespace
                             type: object
-                          type: array
-                      type: object
-                    type: array
+                          authSecretSet:
+                            type: boolean
+                          channelUrlSecretRef:
+                            description: Channel URL for Microsoft Teams App.
+                            properties:
+                              key:
+                                description: The key to select.
+                                type: string
+                              name:
+                                description: Name of the secret.
+                                type: string
+                              namespace:
+                                description: Namespace of the secret.
+                                type: string
+                            required:
+                            - key
+                            - name
+                            - namespace
+                            type: object
+                          channelUrlSet:
+                            type: boolean
+                          tenantIdSecretRef:
+                            description: Tenant ID for Microsoft Teams App.
+                            properties:
+                              key:
+                                description: The key to select.
+                                type: string
+                              name:
+                                description: Name of the secret.
+                                type: string
+                              namespace:
+                                description: Namespace of the secret.
+                                type: string
+                            required:
+                            - key
+                            - name
+                            - namespace
+                            type: object
+                          tenantIdSet:
+                            type: boolean
+                          urlSecretRef:
+                            description: The Slack webhook URL.
+                            properties:
+                              key:
+                                description: The key to select.
+                                type: string
+                              name:
+                                description: Name of the secret.
+                                type: string
+                              namespace:
+                                description: Namespace of the secret.
+                                type: string
+                            required:
+                            - key
+                            - name
+                            - namespace
+                            type: object
+                          urlSet:
+                            type: boolean
+                        type: object
+                      pagerduty:
+                        description: 'The PagerDuty configuration of the Notification
+                          Destination. It must contain the following:'
+                        properties:
+                          integrationKeySecretRef:
+                            description: The PagerDuty integration key.
+                            properties:
+                              key:
+                                description: The key to select.
+                                type: string
+                              name:
+                                description: Name of the secret.
+                                type: string
+                              namespace:
+                                description: Namespace of the secret.
+                                type: string
+                            required:
+                            - key
+                            - name
+                            - namespace
+                            type: object
+                          integrationKeySet:
+                            type: boolean
+                        type: object
+                      slack:
+                        description: 'The Slack configuration of the Notification
+                          Destination. It must contain the following:'
+                        properties:
+                          channelIdSecretRef:
+                            description: Slack channel ID for notifications.
+                            properties:
+                              key:
+                                description: The key to select.
+                                type: string
+                              name:
+                                description: Name of the secret.
+                                type: string
+                              namespace:
+                                description: Namespace of the secret.
+                                type: string
+                            required:
+                            - key
+                            - name
+                            - namespace
+                            type: object
+                          channelIdSet:
+                            type: boolean
+                          oauthTokenSecretRef:
+                            description: OAuth token for Slack authentication.
+                            properties:
+                              key:
+                                description: The key to select.
+                                type: string
+                              name:
+                                description: Name of the secret.
+                                type: string
+                              namespace:
+                                description: Namespace of the secret.
+                                type: string
+                            required:
+                            - key
+                            - name
+                            - namespace
+                            type: object
+                          oauthTokenSet:
+                            type: boolean
+                          urlSecretRef:
+                            description: The Slack webhook URL.
+                            properties:
+                              key:
+                                description: The key to select.
+                                type: string
+                              name:
+                                description: Name of the secret.
+                                type: string
+                              namespace:
+                                description: Namespace of the secret.
+                                type: string
+                            required:
+                            - key
+                            - name
+                            - namespace
+                            type: object
+                          urlSet:
+                            type: boolean
+                        type: object
+                    type: object
                   destinationType:
                     description: the type of Notification Destination.
                     type: string
@@ -753,75 +729,63 @@ spec:
                   config:
                     description: 'The configuration of the Notification Destination.
                       It must contain exactly one of the following blocks:'
-                    items:
-                      properties:
-                        email:
-                          description: 'The email configuration of the Notification
-                            Destination. It must contain the following:'
-                          items:
-                            properties:
-                              addresses:
-                                description: The list of email addresses to send notifications
-                                  to.
-                                items:
-                                  type: string
-                                type: array
-                            type: object
-                          type: array
-                        genericWebhook:
-                          description: 'The Generic Webhook configuration of the Notification
-                            Destination. It must contain the following:'
-                          items:
-                            properties:
-                              passwordSet:
-                                type: boolean
-                              urlSet:
-                                type: boolean
-                              usernameSet:
-                                type: boolean
-                            type: object
-                          type: array
-                        microsoftTeams:
-                          description: 'The Microsoft Teams configuration of the Notification
-                            Destination. It must contain the following:'
-                          items:
-                            properties:
-                              appIdSet:
-                                type: boolean
-                              authSecretSet:
-                                type: boolean
-                              channelUrlSet:
-                                type: boolean
-                              tenantIdSet:
-                                type: boolean
-                              urlSet:
-                                type: boolean
-                            type: object
-                          type: array
-                        pagerduty:
-                          description: 'The PagerDuty configuration of the Notification
-                            Destination. It must contain the following:'
-                          items:
-                            properties:
-                              integrationKeySet:
-                                type: boolean
-                            type: object
-                          type: array
-                        slack:
-                          description: 'The Slack configuration of the Notification
-                            Destination. It must contain the following:'
-                          items:
-                            properties:
-                              channelIdSet:
-                                type: boolean
-                              oauthTokenSet:
-                                type: boolean
-                              urlSet:
-                                type: boolean
-                            type: object
-                          type: array
-                      type: object
-                    type: array
+                    properties:
+                      email:
+                        description: 'The email configuration of the Notification
+                          Destination. It must contain the following:'
+                        properties:
+                          addresses:
+                            description: The list of email addresses to send notifications
+                              to.
+                            items:
+                              type: string
+                            type: array
+                        type: object
+                      genericWebhook:
+                        description: 'The Generic Webhook configuration of the Notification
+                          Destination. It must contain the following:'
+                        properties:
+                          passwordSet:
+                            type: boolean
+                          urlSet:
+                            type: boolean
+                          usernameSet:
+                            type: boolean
+                        type: object
+                      microsoftTeams:
+                        description: 'The Microsoft Teams configuration of the Notification
+                          Destination. It must contain the following:'
+                        properties:
+                          appIdSet:
+                            type: boolean
+                          authSecretSet:
+                            type: boolean
+                          channelUrlSet:
+                            type: boolean
+                          tenantIdSet:
+                            type: boolean
+                          urlSet:
+                            type: boolean
+                        type: object
+                      pagerduty:
+                        description: 'The PagerDuty configuration of the Notification
+                          Destination. It must contain the following:'
+                        properties:
+                          integrationKeySet:
+                            type: boolean
+                        type: object
+                      slack:
+                        description: 'The Slack configuration of the Notification
+                          Destination. It must contain the following:'
+                        properties:
+                          channelIdSet:
+                            type: boolean
+                          oauthTokenSet:
+                            type: boolean
+                          urlSet:
+                            type: boolean
+                        type: object
+                    type: object
                   destinationType:
                     description: the type of Notification Destination.
                     type: string

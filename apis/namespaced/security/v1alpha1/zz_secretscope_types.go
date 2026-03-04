@@ -51,7 +51,7 @@ type SecretScopeInitParameters struct {
 	// The principal with the only possible value users that is initially granted MANAGE permission to the created scope.  If it's omitted, then the databricks_secret_acl with MANAGE permission applied to the scope is assigned to the API request issuer's user identity (see documentation). This part of the state cannot be imported.
 	InitialManagePrincipal *string `json:"initialManagePrincipal,omitempty" tf:"initial_manage_principal,omitempty"`
 
-	KeyvaultMetadata []KeyvaultMetadataInitParameters `json:"keyvaultMetadata,omitempty" tf:"keyvault_metadata,omitempty"`
+	KeyvaultMetadata *KeyvaultMetadataInitParameters `json:"keyvaultMetadata,omitempty" tf:"keyvault_metadata,omitempty"`
 
 	// Scope name requested by the user. Must be unique within a workspace. Must consist of alphanumeric characters, dashes, underscores, and periods, and may not exceed 128 characters.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
@@ -68,7 +68,7 @@ type SecretScopeObservation struct {
 	// The principal with the only possible value users that is initially granted MANAGE permission to the created scope.  If it's omitted, then the databricks_secret_acl with MANAGE permission applied to the scope is assigned to the API request issuer's user identity (see documentation). This part of the state cannot be imported.
 	InitialManagePrincipal *string `json:"initialManagePrincipal,omitempty" tf:"initial_manage_principal,omitempty"`
 
-	KeyvaultMetadata []KeyvaultMetadataObservation `json:"keyvaultMetadata,omitempty" tf:"keyvault_metadata,omitempty"`
+	KeyvaultMetadata *KeyvaultMetadataObservation `json:"keyvaultMetadata,omitempty" tf:"keyvault_metadata,omitempty"`
 
 	// Scope name requested by the user. Must be unique within a workspace. Must consist of alphanumeric characters, dashes, underscores, and periods, and may not exceed 128 characters.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
@@ -85,7 +85,7 @@ type SecretScopeParameters struct {
 	InitialManagePrincipal *string `json:"initialManagePrincipal,omitempty" tf:"initial_manage_principal,omitempty"`
 
 	// +kubebuilder:validation:Optional
-	KeyvaultMetadata []KeyvaultMetadataParameters `json:"keyvaultMetadata,omitempty" tf:"keyvault_metadata,omitempty"`
+	KeyvaultMetadata *KeyvaultMetadataParameters `json:"keyvaultMetadata,omitempty" tf:"keyvault_metadata,omitempty"`
 
 	// Scope name requested by the user. Must be unique within a workspace. Must consist of alphanumeric characters, dashes, underscores, and periods, and may not exceed 128 characters.
 	// +kubebuilder:validation:Optional

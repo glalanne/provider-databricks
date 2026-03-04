@@ -77,7 +77,7 @@ type MwsCustomerManagedKeysInitParameters struct {
 	AccountID *string `json:"accountId,omitempty" tf:"account_id,omitempty"`
 
 	// This field is a block and is documented below. This conflicts with gcp_key_info
-	AwsKeyInfo []AwsKeyInfoInitParameters `json:"awsKeyInfo,omitempty" tf:"aws_key_info,omitempty"`
+	AwsKeyInfo *AwsKeyInfoInitParameters `json:"awsKeyInfo,omitempty" tf:"aws_key_info,omitempty"`
 
 	// (Integer) Time in epoch milliseconds when the customer key was created.
 	CreationTime *float64 `json:"creationTime,omitempty" tf:"creation_time,omitempty"`
@@ -86,7 +86,7 @@ type MwsCustomerManagedKeysInitParameters struct {
 	CustomerManagedKeyID *string `json:"customerManagedKeyId,omitempty" tf:"customer_managed_key_id,omitempty"`
 
 	// This field is a block and is documented below. This conflicts with aws_key_info
-	GCPKeyInfo []GCPKeyInfoInitParameters `json:"gcpKeyInfo,omitempty" tf:"gcp_key_info,omitempty"`
+	GCPKeyInfo *GCPKeyInfoInitParameters `json:"gcpKeyInfo,omitempty" tf:"gcp_key_info,omitempty"`
 
 	// (since v0.3.4) List of use cases for which this key will be used. If you've used the resource before, please add  Possible values are:
 	UseCases []*string `json:"useCases,omitempty" tf:"use_cases,omitempty"`
@@ -98,7 +98,7 @@ type MwsCustomerManagedKeysObservation struct {
 	AccountID *string `json:"accountId,omitempty" tf:"account_id,omitempty"`
 
 	// This field is a block and is documented below. This conflicts with gcp_key_info
-	AwsKeyInfo []AwsKeyInfoObservation `json:"awsKeyInfo,omitempty" tf:"aws_key_info,omitempty"`
+	AwsKeyInfo *AwsKeyInfoObservation `json:"awsKeyInfo,omitempty" tf:"aws_key_info,omitempty"`
 
 	// (Integer) Time in epoch milliseconds when the customer key was created.
 	CreationTime *float64 `json:"creationTime,omitempty" tf:"creation_time,omitempty"`
@@ -107,7 +107,7 @@ type MwsCustomerManagedKeysObservation struct {
 	CustomerManagedKeyID *string `json:"customerManagedKeyId,omitempty" tf:"customer_managed_key_id,omitempty"`
 
 	// This field is a block and is documented below. This conflicts with aws_key_info
-	GCPKeyInfo []GCPKeyInfoObservation `json:"gcpKeyInfo,omitempty" tf:"gcp_key_info,omitempty"`
+	GCPKeyInfo *GCPKeyInfoObservation `json:"gcpKeyInfo,omitempty" tf:"gcp_key_info,omitempty"`
 
 	// Canonical unique identifier for the mws customer managed keys.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
@@ -124,7 +124,7 @@ type MwsCustomerManagedKeysParameters struct {
 
 	// This field is a block and is documented below. This conflicts with gcp_key_info
 	// +kubebuilder:validation:Optional
-	AwsKeyInfo []AwsKeyInfoParameters `json:"awsKeyInfo,omitempty" tf:"aws_key_info,omitempty"`
+	AwsKeyInfo *AwsKeyInfoParameters `json:"awsKeyInfo,omitempty" tf:"aws_key_info,omitempty"`
 
 	// (Integer) Time in epoch milliseconds when the customer key was created.
 	// +kubebuilder:validation:Optional
@@ -136,7 +136,7 @@ type MwsCustomerManagedKeysParameters struct {
 
 	// This field is a block and is documented below. This conflicts with aws_key_info
 	// +kubebuilder:validation:Optional
-	GCPKeyInfo []GCPKeyInfoParameters `json:"gcpKeyInfo,omitempty" tf:"gcp_key_info,omitempty"`
+	GCPKeyInfo *GCPKeyInfoParameters `json:"gcpKeyInfo,omitempty" tf:"gcp_key_info,omitempty"`
 
 	// (since v0.3.4) List of use cases for which this key will be used. If you've used the resource before, please add  Possible values are:
 	// +kubebuilder:validation:Optional

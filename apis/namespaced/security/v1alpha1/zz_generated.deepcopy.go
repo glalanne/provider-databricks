@@ -2466,10 +2466,8 @@ func (in *PermissionAssignmentInitParameters) DeepCopyInto(out *PermissionAssign
 	}
 	if in.ProviderConfig != nil {
 		in, out := &in.ProviderConfig, &out.ProviderConfig
-		*out = make([]ProviderConfigInitParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(ProviderConfigInitParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.ServicePrincipalName != nil {
 		in, out := &in.ServicePrincipalName, &out.ServicePrincipalName
@@ -2561,10 +2559,8 @@ func (in *PermissionAssignmentObservation) DeepCopyInto(out *PermissionAssignmen
 	}
 	if in.ProviderConfig != nil {
 		in, out := &in.ProviderConfig, &out.ProviderConfig
-		*out = make([]ProviderConfigObservation, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(ProviderConfigObservation)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.ServicePrincipalName != nil {
 		in, out := &in.ServicePrincipalName, &out.ServicePrincipalName
@@ -2614,10 +2610,8 @@ func (in *PermissionAssignmentParameters) DeepCopyInto(out *PermissionAssignment
 	}
 	if in.ProviderConfig != nil {
 		in, out := &in.ProviderConfig, &out.ProviderConfig
-		*out = make([]ProviderConfigParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(ProviderConfigParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.ServicePrincipalName != nil {
 		in, out := &in.ServicePrincipalName, &out.ServicePrincipalName
@@ -4551,10 +4545,8 @@ func (in *SecretScopeInitParameters) DeepCopyInto(out *SecretScopeInitParameters
 	}
 	if in.KeyvaultMetadata != nil {
 		in, out := &in.KeyvaultMetadata, &out.KeyvaultMetadata
-		*out = make([]KeyvaultMetadataInitParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(KeyvaultMetadataInitParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Name != nil {
 		in, out := &in.Name, &out.Name
@@ -4625,10 +4617,8 @@ func (in *SecretScopeObservation) DeepCopyInto(out *SecretScopeObservation) {
 	}
 	if in.KeyvaultMetadata != nil {
 		in, out := &in.KeyvaultMetadata, &out.KeyvaultMetadata
-		*out = make([]KeyvaultMetadataObservation, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(KeyvaultMetadataObservation)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Name != nil {
 		in, out := &in.Name, &out.Name
@@ -4662,10 +4652,8 @@ func (in *SecretScopeParameters) DeepCopyInto(out *SecretScopeParameters) {
 	}
 	if in.KeyvaultMetadata != nil {
 		in, out := &in.KeyvaultMetadata, &out.KeyvaultMetadata
-		*out = make([]KeyvaultMetadataParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(KeyvaultMetadataParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Name != nil {
 		in, out := &in.Name, &out.Name

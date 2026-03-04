@@ -153,17 +153,15 @@ spec:
                   cran:
                     description: 'Configuration block for a CRAN library. The block
                       consists of the following fields:'
-                    items:
-                      properties:
-                        package:
-                          description: The name of the CRAN package to install.
-                          type: string
-                        repo:
-                          description: The repository where the package can be found.
-                            If not specified, the default CRAN repo is used.
-                          type: string
-                      type: object
-                    type: array
+                    properties:
+                      package:
+                        description: The name of the CRAN package to install.
+                        type: string
+                      repo:
+                        description: The repository where the package can be found.
+                          If not specified, the default CRAN repo is used.
+                        type: string
+                    type: object
                   egg:
                     description: Path to the EGG library. Installing Python egg files
                       is deprecated and is not supported in Databricks Runtime 14.0
@@ -328,54 +326,48 @@ spec:
                   maven:
                     description: 'Configuration block for a Maven library. The block
                       consists of the following fields:'
-                    items:
-                      properties:
-                        coordinates:
-                          description: 'Gradle-style Maven coordinates. For example:
-                            org.jsoup:jsoup:1.7.2.'
+                    properties:
+                      coordinates:
+                        description: 'Gradle-style Maven coordinates. For example:
+                          org.jsoup:jsoup:1.7.2.'
+                        type: string
+                      exclusions:
+                        description: 'List of dependencies to exclude. For example:
+                          ["slf4j:slf4j", "*:hadoop-client"]. See Maven dependency
+                          exclusions for more information.'
+                        items:
                           type: string
-                        exclusions:
-                          description: 'List of dependencies to exclude. For example:
-                            ["slf4j:slf4j", "*:hadoop-client"]. See Maven dependency
-                            exclusions for more information.'
-                          items:
-                            type: string
-                          type: array
-                        repo:
-                          description: Maven repository to install the Maven package
-                            from. If omitted, both Maven Central Repository and Spark
-                            Packages are searched.
-                          type: string
-                      type: object
-                    type: array
+                        type: array
+                      repo:
+                        description: Maven repository to install the Maven package
+                          from. If omitted, both Maven Central Repository and Spark
+                          Packages are searched.
+                        type: string
+                    type: object
                   providerConfig:
                     description: 'Configuration block for management through the account
                       provider. This block consists of the following fields:'
-                    items:
-                      properties:
-                        workspaceId:
-                          description: Workspace ID that the resource belongs to.
-                            This workspace must be part of the account that the provider
-                            is configured with.
-                          type: string
-                      type: object
-                    type: array
+                    properties:
+                      workspaceId:
+                        description: Workspace ID that the resource belongs to. This
+                          workspace must be part of the account that the provider
+                          is configured with.
+                        type: string
+                    type: object
                   pypi:
                     description: 'Configuration block for a PyPI library. The block
                       consists of the following fields:'
-                    items:
-                      properties:
-                        package:
-                          description: 'The name of the PyPI package to install. An
-                            optional exact version specification is also supported.
-                            For example: simplejson or simplejson==3.8.0.'
-                          type: string
-                        repo:
-                          description: The repository where the package can be found.
-                            If not specified, the default pip index is used.
-                          type: string
-                      type: object
-                    type: array
+                    properties:
+                      package:
+                        description: 'The name of the PyPI package to install. An
+                          optional exact version specification is also supported.
+                          For example: simplejson or simplejson==3.8.0.'
+                        type: string
+                      repo:
+                        description: The repository where the package can be found.
+                          If not specified, the default pip index is used.
+                        type: string
+                    type: object
                   requirements:
                     description: 'Path to the requirements.txt file. Only Workspace
                       paths and Unity Catalog Volumes paths are supported. For example:
@@ -559,17 +551,15 @@ spec:
                   cran:
                     description: 'Configuration block for a CRAN library. The block
                       consists of the following fields:'
-                    items:
-                      properties:
-                        package:
-                          description: The name of the CRAN package to install.
-                          type: string
-                        repo:
-                          description: The repository where the package can be found.
-                            If not specified, the default CRAN repo is used.
-                          type: string
-                      type: object
-                    type: array
+                    properties:
+                      package:
+                        description: The name of the CRAN package to install.
+                        type: string
+                      repo:
+                        description: The repository where the package can be found.
+                          If not specified, the default CRAN repo is used.
+                        type: string
+                    type: object
                   egg:
                     description: Path to the EGG library. Installing Python egg files
                       is deprecated and is not supported in Databricks Runtime 14.0
@@ -734,54 +724,48 @@ spec:
                   maven:
                     description: 'Configuration block for a Maven library. The block
                       consists of the following fields:'
-                    items:
-                      properties:
-                        coordinates:
-                          description: 'Gradle-style Maven coordinates. For example:
-                            org.jsoup:jsoup:1.7.2.'
+                    properties:
+                      coordinates:
+                        description: 'Gradle-style Maven coordinates. For example:
+                          org.jsoup:jsoup:1.7.2.'
+                        type: string
+                      exclusions:
+                        description: 'List of dependencies to exclude. For example:
+                          ["slf4j:slf4j", "*:hadoop-client"]. See Maven dependency
+                          exclusions for more information.'
+                        items:
                           type: string
-                        exclusions:
-                          description: 'List of dependencies to exclude. For example:
-                            ["slf4j:slf4j", "*:hadoop-client"]. See Maven dependency
-                            exclusions for more information.'
-                          items:
-                            type: string
-                          type: array
-                        repo:
-                          description: Maven repository to install the Maven package
-                            from. If omitted, both Maven Central Repository and Spark
-                            Packages are searched.
-                          type: string
-                      type: object
-                    type: array
+                        type: array
+                      repo:
+                        description: Maven repository to install the Maven package
+                          from. If omitted, both Maven Central Repository and Spark
+                          Packages are searched.
+                        type: string
+                    type: object
                   providerConfig:
                     description: 'Configuration block for management through the account
                       provider. This block consists of the following fields:'
-                    items:
-                      properties:
-                        workspaceId:
-                          description: Workspace ID that the resource belongs to.
-                            This workspace must be part of the account that the provider
-                            is configured with.
-                          type: string
-                      type: object
-                    type: array
+                    properties:
+                      workspaceId:
+                        description: Workspace ID that the resource belongs to. This
+                          workspace must be part of the account that the provider
+                          is configured with.
+                        type: string
+                    type: object
                   pypi:
                     description: 'Configuration block for a PyPI library. The block
                       consists of the following fields:'
-                    items:
-                      properties:
-                        package:
-                          description: 'The name of the PyPI package to install. An
-                            optional exact version specification is also supported.
-                            For example: simplejson or simplejson==3.8.0.'
-                          type: string
-                        repo:
-                          description: The repository where the package can be found.
-                            If not specified, the default pip index is used.
-                          type: string
-                      type: object
-                    type: array
+                    properties:
+                      package:
+                        description: 'The name of the PyPI package to install. An
+                          optional exact version specification is also supported.
+                          For example: simplejson or simplejson==3.8.0.'
+                        type: string
+                      repo:
+                        description: The repository where the package can be found.
+                          If not specified, the default pip index is used.
+                        type: string
+                    type: object
                   requirements:
                     description: 'Path to the requirements.txt file. Only Workspace
                       paths and Unity Catalog Volumes paths are supported. For example:
@@ -969,17 +953,15 @@ spec:
                   cran:
                     description: 'Configuration block for a CRAN library. The block
                       consists of the following fields:'
-                    items:
-                      properties:
-                        package:
-                          description: The name of the CRAN package to install.
-                          type: string
-                        repo:
-                          description: The repository where the package can be found.
-                            If not specified, the default CRAN repo is used.
-                          type: string
-                      type: object
-                    type: array
+                    properties:
+                      package:
+                        description: The name of the CRAN package to install.
+                        type: string
+                      repo:
+                        description: The repository where the package can be found.
+                          If not specified, the default CRAN repo is used.
+                        type: string
+                    type: object
                   egg:
                     description: Path to the EGG library. Installing Python egg files
                       is deprecated and is not supported in Databricks Runtime 14.0
@@ -998,54 +980,48 @@ spec:
                   maven:
                     description: 'Configuration block for a Maven library. The block
                       consists of the following fields:'
-                    items:
-                      properties:
-                        coordinates:
-                          description: 'Gradle-style Maven coordinates. For example:
-                            org.jsoup:jsoup:1.7.2.'
+                    properties:
+                      coordinates:
+                        description: 'Gradle-style Maven coordinates. For example:
+                          org.jsoup:jsoup:1.7.2.'
+                        type: string
+                      exclusions:
+                        description: 'List of dependencies to exclude. For example:
+                          ["slf4j:slf4j", "*:hadoop-client"]. See Maven dependency
+                          exclusions for more information.'
+                        items:
                           type: string
-                        exclusions:
-                          description: 'List of dependencies to exclude. For example:
-                            ["slf4j:slf4j", "*:hadoop-client"]. See Maven dependency
-                            exclusions for more information.'
-                          items:
-                            type: string
-                          type: array
-                        repo:
-                          description: Maven repository to install the Maven package
-                            from. If omitted, both Maven Central Repository and Spark
-                            Packages are searched.
-                          type: string
-                      type: object
-                    type: array
+                        type: array
+                      repo:
+                        description: Maven repository to install the Maven package
+                          from. If omitted, both Maven Central Repository and Spark
+                          Packages are searched.
+                        type: string
+                    type: object
                   providerConfig:
                     description: 'Configuration block for management through the account
                       provider. This block consists of the following fields:'
-                    items:
-                      properties:
-                        workspaceId:
-                          description: Workspace ID that the resource belongs to.
-                            This workspace must be part of the account that the provider
-                            is configured with.
-                          type: string
-                      type: object
-                    type: array
+                    properties:
+                      workspaceId:
+                        description: Workspace ID that the resource belongs to. This
+                          workspace must be part of the account that the provider
+                          is configured with.
+                        type: string
+                    type: object
                   pypi:
                     description: 'Configuration block for a PyPI library. The block
                       consists of the following fields:'
-                    items:
-                      properties:
-                        package:
-                          description: 'The name of the PyPI package to install. An
-                            optional exact version specification is also supported.
-                            For example: simplejson or simplejson==3.8.0.'
-                          type: string
-                        repo:
-                          description: The repository where the package can be found.
-                            If not specified, the default pip index is used.
-                          type: string
-                      type: object
-                    type: array
+                    properties:
+                      package:
+                        description: 'The name of the PyPI package to install. An
+                          optional exact version specification is also supported.
+                          For example: simplejson or simplejson==3.8.0.'
+                        type: string
+                      repo:
+                        description: The repository where the package can be found.
+                          If not specified, the default pip index is used.
+                        type: string
+                    type: object
                   requirements:
                     description: 'Path to the requirements.txt file. Only Workspace
                       paths and Unity Catalog Volumes paths are supported. For example:

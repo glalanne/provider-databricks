@@ -880,10 +880,8 @@ func (in *CustomAppIntegrationInitParameters) DeepCopyInto(out *CustomAppIntegra
 	}
 	if in.TokenAccessPolicy != nil {
 		in, out := &in.TokenAccessPolicy, &out.TokenAccessPolicy
-		*out = make([]TokenAccessPolicyInitParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(TokenAccessPolicyInitParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.UserAuthorizedScopes != nil {
 		in, out := &in.UserAuthorizedScopes, &out.UserAuthorizedScopes
@@ -1007,10 +1005,8 @@ func (in *CustomAppIntegrationObservation) DeepCopyInto(out *CustomAppIntegratio
 	}
 	if in.TokenAccessPolicy != nil {
 		in, out := &in.TokenAccessPolicy, &out.TokenAccessPolicy
-		*out = make([]TokenAccessPolicyObservation, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(TokenAccessPolicyObservation)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.UserAuthorizedScopes != nil {
 		in, out := &in.UserAuthorizedScopes, &out.UserAuthorizedScopes
@@ -1102,10 +1098,8 @@ func (in *CustomAppIntegrationParameters) DeepCopyInto(out *CustomAppIntegration
 	}
 	if in.TokenAccessPolicy != nil {
 		in, out := &in.TokenAccessPolicy, &out.TokenAccessPolicy
-		*out = make([]TokenAccessPolicyParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(TokenAccessPolicyParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.UserAuthorizedScopes != nil {
 		in, out := &in.UserAuthorizedScopes, &out.UserAuthorizedScopes

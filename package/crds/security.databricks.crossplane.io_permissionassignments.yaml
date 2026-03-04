@@ -92,15 +92,13 @@ spec:
                   providerConfig:
                     description: 'Configure the provider for management through account
                       provider. This block consists of the following fields:'
-                    items:
-                      properties:
-                        workspaceId:
-                          description: Workspace ID which the resource belongs to.
-                            This workspace must be part of the account which the provider
-                            is configured with.
-                          type: string
-                      type: object
-                    type: array
+                    properties:
+                      workspaceId:
+                        description: Workspace ID which the resource belongs to. This
+                          workspace must be part of the account which the provider
+                          is configured with.
+                        type: string
+                    type: object
                   servicePrincipalName:
                     description: the application ID of service principal to assign
                       to a workspace.
@@ -141,15 +139,13 @@ spec:
                   providerConfig:
                     description: 'Configure the provider for management through account
                       provider. This block consists of the following fields:'
-                    items:
-                      properties:
-                        workspaceId:
-                          description: Workspace ID which the resource belongs to.
-                            This workspace must be part of the account which the provider
-                            is configured with.
-                          type: string
-                      type: object
-                    type: array
+                    properties:
+                      workspaceId:
+                        description: Workspace ID which the resource belongs to. This
+                          workspace must be part of the account which the provider
+                          is configured with.
+                        type: string
+                    type: object
                   servicePrincipalName:
                     description: the application ID of service principal to assign
                       to a workspace.
@@ -280,15 +276,13 @@ spec:
                   providerConfig:
                     description: 'Configure the provider for management through account
                       provider. This block consists of the following fields:'
-                    items:
-                      properties:
-                        workspaceId:
-                          description: Workspace ID which the resource belongs to.
-                            This workspace must be part of the account which the provider
-                            is configured with.
-                          type: string
-                      type: object
-                    type: array
+                    properties:
+                      workspaceId:
+                        description: Workspace ID which the resource belongs to. This
+                          workspace must be part of the account which the provider
+                          is configured with.
+                        type: string
+                    type: object
                   servicePrincipalName:
                     description: the application ID of service principal to assign
                       to a workspace.

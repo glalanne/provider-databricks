@@ -78,28 +78,26 @@ spec:
                   gcpVpcEndpointInfo:
                     description: '(GCP only) a block consists of Google Cloud specific
                       information for this PSC endpoint. It has the following fields:'
-                    items:
-                      properties:
-                        endpointRegion:
-                          description: Region of the PSC endpoint.
-                          type: string
-                        projectId:
-                          description: The Google Cloud project ID of the VPC network
-                            where the PSC connection resides.
-                          type: string
-                        pscConnectionId:
-                          description: The unique ID of this PSC connection.
-                          type: string
-                        pscEndpointName:
-                          description: The name of the PSC endpoint in the Google
-                            Cloud project.
-                          type: string
-                        serviceAttachmentId:
-                          description: The service attachment this PSC connection
-                            connects to.
-                          type: string
-                      type: object
-                    type: array
+                    properties:
+                      endpointRegion:
+                        description: Region of the PSC endpoint.
+                        type: string
+                      projectId:
+                        description: The Google Cloud project ID of the VPC network
+                          where the PSC connection resides.
+                        type: string
+                      pscConnectionId:
+                        description: The unique ID of this PSC connection.
+                        type: string
+                      pscEndpointName:
+                        description: The name of the PSC endpoint in the Google Cloud
+                          project.
+                        type: string
+                      serviceAttachmentId:
+                        description: The service attachment this PSC connection connects
+                          to.
+                        type: string
+                    type: object
                   region:
                     description: (AWS only) Region of AWS VPC
                     type: string
@@ -149,28 +147,26 @@ spec:
                   gcpVpcEndpointInfo:
                     description: '(GCP only) a block consists of Google Cloud specific
                       information for this PSC endpoint. It has the following fields:'
-                    items:
-                      properties:
-                        endpointRegion:
-                          description: Region of the PSC endpoint.
-                          type: string
-                        projectId:
-                          description: The Google Cloud project ID of the VPC network
-                            where the PSC connection resides.
-                          type: string
-                        pscConnectionId:
-                          description: The unique ID of this PSC connection.
-                          type: string
-                        pscEndpointName:
-                          description: The name of the PSC endpoint in the Google
-                            Cloud project.
-                          type: string
-                        serviceAttachmentId:
-                          description: The service attachment this PSC connection
-                            connects to.
-                          type: string
-                      type: object
-                    type: array
+                    properties:
+                      endpointRegion:
+                        description: Region of the PSC endpoint.
+                        type: string
+                      projectId:
+                        description: The Google Cloud project ID of the VPC network
+                          where the PSC connection resides.
+                        type: string
+                      pscConnectionId:
+                        description: The unique ID of this PSC connection.
+                        type: string
+                      pscEndpointName:
+                        description: The name of the PSC endpoint in the Google Cloud
+                          project.
+                        type: string
+                      serviceAttachmentId:
+                        description: The service attachment this PSC connection connects
+                          to.
+                        type: string
+                    type: object
                   region:
                     description: (AWS only) Region of AWS VPC
                     type: string
@@ -275,28 +271,26 @@ spec:
                   gcpVpcEndpointInfo:
                     description: '(GCP only) a block consists of Google Cloud specific
                       information for this PSC endpoint. It has the following fields:'
-                    items:
-                      properties:
-                        endpointRegion:
-                          description: Region of the PSC endpoint.
-                          type: string
-                        projectId:
-                          description: The Google Cloud project ID of the VPC network
-                            where the PSC connection resides.
-                          type: string
-                        pscConnectionId:
-                          description: The unique ID of this PSC connection.
-                          type: string
-                        pscEndpointName:
-                          description: The name of the PSC endpoint in the Google
-                            Cloud project.
-                          type: string
-                        serviceAttachmentId:
-                          description: The service attachment this PSC connection
-                            connects to.
-                          type: string
-                      type: object
-                    type: array
+                    properties:
+                      endpointRegion:
+                        description: Region of the PSC endpoint.
+                        type: string
+                      projectId:
+                        description: The Google Cloud project ID of the VPC network
+                          where the PSC connection resides.
+                        type: string
+                      pscConnectionId:
+                        description: The unique ID of this PSC connection.
+                        type: string
+                      pscEndpointName:
+                        description: The name of the PSC endpoint in the Google Cloud
+                          project.
+                        type: string
+                      serviceAttachmentId:
+                        description: The service attachment this PSC connection connects
+                          to.
+                        type: string
+                    type: object
                   id:
                     description: the ID of VPC Endpoint in form of account_id/vpc_endpoint_id
                     type: string

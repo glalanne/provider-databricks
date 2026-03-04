@@ -117,17 +117,17 @@ type LibrariesCranParameters struct {
 }
 
 type LibrariesInitParameters struct {
-	Cran []LibrariesCranInitParameters `json:"cran,omitempty" tf:"cran,omitempty"`
+	Cran *LibrariesCranInitParameters `json:"cran,omitempty" tf:"cran,omitempty"`
 
 	Egg *string `json:"egg,omitempty" tf:"egg,omitempty"`
 
 	Jar *string `json:"jar,omitempty" tf:"jar,omitempty"`
 
-	Maven []LibrariesMavenInitParameters `json:"maven,omitempty" tf:"maven,omitempty"`
+	Maven *LibrariesMavenInitParameters `json:"maven,omitempty" tf:"maven,omitempty"`
 
-	ProviderConfig []LibrariesProviderConfigInitParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
+	ProviderConfig *LibrariesProviderConfigInitParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
 
-	Pypi []LibrariesPypiInitParameters `json:"pypi,omitempty" tf:"pypi,omitempty"`
+	Pypi *LibrariesPypiInitParameters `json:"pypi,omitempty" tf:"pypi,omitempty"`
 
 	Requirements *string `json:"requirements,omitempty" tf:"requirements,omitempty"`
 
@@ -163,17 +163,17 @@ type LibrariesMavenParameters struct {
 }
 
 type LibrariesObservation struct {
-	Cran []LibrariesCranObservation `json:"cran,omitempty" tf:"cran,omitempty"`
+	Cran *LibrariesCranObservation `json:"cran,omitempty" tf:"cran,omitempty"`
 
 	Egg *string `json:"egg,omitempty" tf:"egg,omitempty"`
 
 	Jar *string `json:"jar,omitempty" tf:"jar,omitempty"`
 
-	Maven []LibrariesMavenObservation `json:"maven,omitempty" tf:"maven,omitempty"`
+	Maven *LibrariesMavenObservation `json:"maven,omitempty" tf:"maven,omitempty"`
 
-	ProviderConfig []LibrariesProviderConfigObservation `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
+	ProviderConfig *LibrariesProviderConfigObservation `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
 
-	Pypi []LibrariesPypiObservation `json:"pypi,omitempty" tf:"pypi,omitempty"`
+	Pypi *LibrariesPypiObservation `json:"pypi,omitempty" tf:"pypi,omitempty"`
 
 	Requirements *string `json:"requirements,omitempty" tf:"requirements,omitempty"`
 
@@ -183,7 +183,7 @@ type LibrariesObservation struct {
 type LibrariesParameters struct {
 
 	// +kubebuilder:validation:Optional
-	Cran []LibrariesCranParameters `json:"cran,omitempty" tf:"cran,omitempty"`
+	Cran *LibrariesCranParameters `json:"cran,omitempty" tf:"cran,omitempty"`
 
 	// +kubebuilder:validation:Optional
 	Egg *string `json:"egg,omitempty" tf:"egg,omitempty"`
@@ -192,13 +192,13 @@ type LibrariesParameters struct {
 	Jar *string `json:"jar,omitempty" tf:"jar,omitempty"`
 
 	// +kubebuilder:validation:Optional
-	Maven []LibrariesMavenParameters `json:"maven,omitempty" tf:"maven,omitempty"`
+	Maven *LibrariesMavenParameters `json:"maven,omitempty" tf:"maven,omitempty"`
 
 	// +kubebuilder:validation:Optional
-	ProviderConfig []LibrariesProviderConfigParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
+	ProviderConfig *LibrariesProviderConfigParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
 
 	// +kubebuilder:validation:Optional
-	Pypi []LibrariesPypiParameters `json:"pypi,omitempty" tf:"pypi,omitempty"`
+	Pypi *LibrariesPypiParameters `json:"pypi,omitempty" tf:"pypi,omitempty"`
 
 	// +kubebuilder:validation:Optional
 	Requirements *string `json:"requirements,omitempty" tf:"requirements,omitempty"`

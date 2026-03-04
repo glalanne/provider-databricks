@@ -170,20 +170,18 @@ spec:
                       type: object
                     type: array
                   position:
-                    items:
-                      properties:
-                        autoHeight:
-                          type: boolean
-                        posX:
-                          type: number
-                        posY:
-                          type: number
-                        sizeX:
-                          type: number
-                        sizeY:
-                          type: number
-                      type: object
-                    type: array
+                    properties:
+                      autoHeight:
+                        type: boolean
+                      posX:
+                        type: number
+                      posY:
+                        type: number
+                      sizeX:
+                        type: number
+                      sizeY:
+                        type: number
+                    type: object
                   text:
                     type: string
                   title:
@@ -380,20 +378,18 @@ spec:
                       type: object
                     type: array
                   position:
-                    items:
-                      properties:
-                        autoHeight:
-                          type: boolean
-                        posX:
-                          type: number
-                        posY:
-                          type: number
-                        sizeX:
-                          type: number
-                        sizeY:
-                          type: number
-                      type: object
-                    type: array
+                    properties:
+                      autoHeight:
+                        type: boolean
+                      posX:
+                        type: number
+                      posY:
+                        type: number
+                      sizeX:
+                        type: number
+                      sizeY:
+                        type: number
+                    type: object
                   text:
                     type: string
                   title:
@@ -596,20 +592,18 @@ spec:
                       type: object
                     type: array
                   position:
-                    items:
-                      properties:
-                        autoHeight:
-                          type: boolean
-                        posX:
-                          type: number
-                        posY:
-                          type: number
-                        sizeX:
-                          type: number
-                        sizeY:
-                          type: number
-                      type: object
-                    type: array
+                    properties:
+                      autoHeight:
+                        type: boolean
+                      posX:
+                        type: number
+                      posY:
+                        type: number
+                      sizeX:
+                        type: number
+                      sizeY:
+                        type: number
+                    type: object
                   text:
                     type: string
                   title:

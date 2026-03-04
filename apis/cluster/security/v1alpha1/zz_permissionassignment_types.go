@@ -25,7 +25,7 @@ type PermissionAssignmentInitParameters struct {
 	PrincipalID *float64 `json:"principalId,omitempty" tf:"principal_id,omitempty"`
 
 	// Configure the provider for management through account provider. This block consists of the following fields:
-	ProviderConfig []ProviderConfigInitParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
+	ProviderConfig *ProviderConfigInitParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
 
 	// the application ID of service principal to assign to a workspace.
 	ServicePrincipalName *string `json:"servicePrincipalName,omitempty" tf:"service_principal_name,omitempty"`
@@ -52,7 +52,7 @@ type PermissionAssignmentObservation struct {
 	PrincipalID *float64 `json:"principalId,omitempty" tf:"principal_id,omitempty"`
 
 	// Configure the provider for management through account provider. This block consists of the following fields:
-	ProviderConfig []ProviderConfigObservation `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
+	ProviderConfig *ProviderConfigObservation `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
 
 	// the application ID of service principal to assign to a workspace.
 	ServicePrincipalName *string `json:"servicePrincipalName,omitempty" tf:"service_principal_name,omitempty"`
@@ -77,7 +77,7 @@ type PermissionAssignmentParameters struct {
 
 	// Configure the provider for management through account provider. This block consists of the following fields:
 	// +kubebuilder:validation:Optional
-	ProviderConfig []ProviderConfigParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
+	ProviderConfig *ProviderConfigParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
 
 	// the application ID of service principal to assign to a workspace.
 	// +kubebuilder:validation:Optional

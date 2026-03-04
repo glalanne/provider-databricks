@@ -35,7 +35,7 @@ type NotebookInitParameters struct {
 	Path *string `json:"path,omitempty" tf:"path,omitempty"`
 
 	// Configure the provider for management through account provider. This block consists of the following fields:
-	ProviderConfig []ProviderConfigInitParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
+	ProviderConfig *ProviderConfigInitParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
 
 	// Path to notebook in source code format on local filesystem. Conflicts with content_base64.
 	Source *string `json:"source,omitempty" tf:"source,omitempty"`
@@ -65,7 +65,7 @@ type NotebookObservation struct {
 	Path *string `json:"path,omitempty" tf:"path,omitempty"`
 
 	// Configure the provider for management through account provider. This block consists of the following fields:
-	ProviderConfig []ProviderConfigObservation `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
+	ProviderConfig *ProviderConfigObservation `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
 
 	// Path to notebook in source code format on local filesystem. Conflicts with content_base64.
 	Source *string `json:"source,omitempty" tf:"source,omitempty"`
@@ -106,7 +106,7 @@ type NotebookParameters struct {
 
 	// Configure the provider for management through account provider. This block consists of the following fields:
 	// +kubebuilder:validation:Optional
-	ProviderConfig []ProviderConfigParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
+	ProviderConfig *ProviderConfigParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
 
 	// Path to notebook in source code format on local filesystem. Conflicts with content_base64.
 	// +kubebuilder:validation:Optional

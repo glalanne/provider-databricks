@@ -22,7 +22,7 @@ type CatalogInitParameters struct {
 	// For Foreign Catalogs: the name of the connection to an external data source. Changes forces creation of a new resource.
 	ConnectionName *string `json:"connectionName,omitempty" tf:"connection_name,omitempty"`
 
-	EffectivePredictiveOptimizationFlag []EffectivePredictiveOptimizationFlagInitParameters `json:"effectivePredictiveOptimizationFlag,omitempty" tf:"effective_predictive_optimization_flag,omitempty"`
+	EffectivePredictiveOptimizationFlag *EffectivePredictiveOptimizationFlagInitParameters `json:"effectivePredictiveOptimizationFlag,omitempty" tf:"effective_predictive_optimization_flag,omitempty"`
 
 	// Whether predictive optimization should be enabled for this object and objects under it. Can be ENABLE, DISABLE or INHERIT
 	EnablePredictiveOptimization *string `json:"enablePredictiveOptimization,omitempty" tf:"enable_predictive_optimization,omitempty"`
@@ -53,7 +53,7 @@ type CatalogInitParameters struct {
 	// For Delta Sharing Catalogs: the name of the delta sharing provider. Change forces creation of a new resource.
 	ProviderName *string `json:"providerName,omitempty" tf:"provider_name,omitempty"`
 
-	ProvisioningInfo []ProvisioningInfoInitParameters `json:"provisioningInfo,omitempty" tf:"provisioning_info,omitempty"`
+	ProvisioningInfo *ProvisioningInfoInitParameters `json:"provisioningInfo,omitempty" tf:"provisioning_info,omitempty"`
 
 	// For Delta Sharing Catalogs: the name of the share under the share provider. Change forces creation of a new resource.
 	ShareName *string `json:"shareName,omitempty" tf:"share_name,omitempty"`
@@ -80,7 +80,7 @@ type CatalogObservation struct {
 	// username of catalog creator.
 	CreatedBy *string `json:"createdBy,omitempty" tf:"created_by,omitempty"`
 
-	EffectivePredictiveOptimizationFlag []EffectivePredictiveOptimizationFlagObservation `json:"effectivePredictiveOptimizationFlag,omitempty" tf:"effective_predictive_optimization_flag,omitempty"`
+	EffectivePredictiveOptimizationFlag *EffectivePredictiveOptimizationFlagObservation `json:"effectivePredictiveOptimizationFlag,omitempty" tf:"effective_predictive_optimization_flag,omitempty"`
 
 	// Whether predictive optimization should be enabled for this object and objects under it. Can be ENABLE, DISABLE or INHERIT
 	EnablePredictiveOptimization *string `json:"enablePredictiveOptimization,omitempty" tf:"enable_predictive_optimization,omitempty"`
@@ -117,7 +117,7 @@ type CatalogObservation struct {
 	// For Delta Sharing Catalogs: the name of the delta sharing provider. Change forces creation of a new resource.
 	ProviderName *string `json:"providerName,omitempty" tf:"provider_name,omitempty"`
 
-	ProvisioningInfo []ProvisioningInfoObservation `json:"provisioningInfo,omitempty" tf:"provisioning_info,omitempty"`
+	ProvisioningInfo *ProvisioningInfoObservation `json:"provisioningInfo,omitempty" tf:"provisioning_info,omitempty"`
 
 	// the type of Unity Catalog securable.
 	SecurableType *string `json:"securableType,omitempty" tf:"securable_type,omitempty"`
@@ -152,7 +152,7 @@ type CatalogParameters struct {
 	ConnectionName *string `json:"connectionName,omitempty" tf:"connection_name,omitempty"`
 
 	// +kubebuilder:validation:Optional
-	EffectivePredictiveOptimizationFlag []EffectivePredictiveOptimizationFlagParameters `json:"effectivePredictiveOptimizationFlag,omitempty" tf:"effective_predictive_optimization_flag,omitempty"`
+	EffectivePredictiveOptimizationFlag *EffectivePredictiveOptimizationFlagParameters `json:"effectivePredictiveOptimizationFlag,omitempty" tf:"effective_predictive_optimization_flag,omitempty"`
 
 	// Whether predictive optimization should be enabled for this object and objects under it. Can be ENABLE, DISABLE or INHERIT
 	// +kubebuilder:validation:Optional
@@ -193,7 +193,7 @@ type CatalogParameters struct {
 	ProviderName *string `json:"providerName,omitempty" tf:"provider_name,omitempty"`
 
 	// +kubebuilder:validation:Optional
-	ProvisioningInfo []ProvisioningInfoParameters `json:"provisioningInfo,omitempty" tf:"provisioning_info,omitempty"`
+	ProvisioningInfo *ProvisioningInfoParameters `json:"provisioningInfo,omitempty" tf:"provisioning_info,omitempty"`
 
 	// For Delta Sharing Catalogs: the name of the share under the share provider. Change forces creation of a new resource.
 	// +kubebuilder:validation:Optional
