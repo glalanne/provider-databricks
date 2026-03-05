@@ -1061,8 +1061,6 @@ type ForEachTaskTaskInitParameters struct {
 	// Task level compute configuration. This block is documented below.
 	Compute *TaskComputeInitParameters `json:"compute,omitempty" tf:"compute,omitempty"`
 
-	Compute []TaskComputeInitParameters `json:"compute,omitempty" tf:"compute,omitempty"`
-
 	// A list of task specification that the job will execute. See task Configuration Block below.
 	ConditionTask *TaskConditionTaskInitParameters `json:"conditionTask,omitempty" tf:"condition_task,omitempty"`
 
@@ -1172,8 +1170,6 @@ type ForEachTaskTaskObservation struct {
 
 	// Task level compute configuration. This block is documented below.
 	Compute *TaskComputeObservation `json:"compute,omitempty" tf:"compute,omitempty"`
-
-	Compute []TaskComputeObservation `json:"compute,omitempty" tf:"compute,omitempty"`
 
 	// A list of task specification that the job will execute. See task Configuration Block below.
 	ConditionTask *TaskConditionTaskObservation `json:"conditionTask,omitempty" tf:"condition_task,omitempty"`
@@ -1286,9 +1282,6 @@ type ForEachTaskTaskParameters struct {
 	// Task level compute configuration. This block is documented below.
 	// +kubebuilder:validation:Optional
 	Compute *TaskComputeParameters `json:"compute,omitempty" tf:"compute,omitempty"`
-
-	// +kubebuilder:validation:Optional
-	Compute []TaskComputeParameters `json:"compute,omitempty" tf:"compute,omitempty"`
 
 	// A list of task specification that the job will execute. See task Configuration Block below.
 	// +kubebuilder:validation:Optional
@@ -8614,8 +8607,6 @@ type TaskInitParameters struct {
 	// Task level compute configuration. This block is documented below.
 	Compute *ComputeInitParameters `json:"compute,omitempty" tf:"compute,omitempty"`
 
-	Compute []ComputeInitParameters `json:"compute,omitempty" tf:"compute,omitempty"`
-
 	// A list of task specification that the job will execute. See task Configuration Block below.
 	ConditionTask *ConditionTaskInitParameters `json:"conditionTask,omitempty" tf:"condition_task,omitempty"`
 
@@ -10177,8 +10168,6 @@ type TaskObservation struct {
 	// Task level compute configuration. This block is documented below.
 	Compute *ComputeObservation `json:"compute,omitempty" tf:"compute,omitempty"`
 
-	Compute []ComputeObservation `json:"compute,omitempty" tf:"compute,omitempty"`
-
 	// A list of task specification that the job will execute. See task Configuration Block below.
 	ConditionTask *ConditionTaskObservation `json:"conditionTask,omitempty" tf:"condition_task,omitempty"`
 
@@ -10293,9 +10282,6 @@ type TaskParameters struct {
 	// Task level compute configuration. This block is documented below.
 	// +kubebuilder:validation:Optional
 	Compute *ComputeParameters `json:"compute,omitempty" tf:"compute,omitempty"`
-
-	// +kubebuilder:validation:Optional
-	Compute []ComputeParameters `json:"compute,omitempty" tf:"compute,omitempty"`
 
 	// A list of task specification that the job will execute. See task Configuration Block below.
 	// +kubebuilder:validation:Optional

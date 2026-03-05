@@ -920,27 +920,6 @@ type IngestionDefinitionTableConfigurationAutoFullRefreshPolicyParameters struct
 	MinIntervalHours *float64 `json:"minIntervalHours,omitempty" tf:"min_interval_hours,omitempty"`
 }
 
-type IngestionDefinitionTableConfigurationAutoFullRefreshPolicyInitParameters struct {
-	Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
-
-	MinIntervalHours *float64 `json:"minIntervalHours,omitempty" tf:"min_interval_hours,omitempty"`
-}
-
-type IngestionDefinitionTableConfigurationAutoFullRefreshPolicyObservation struct {
-	Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
-
-	MinIntervalHours *float64 `json:"minIntervalHours,omitempty" tf:"min_interval_hours,omitempty"`
-}
-
-type IngestionDefinitionTableConfigurationAutoFullRefreshPolicyParameters struct {
-
-	// +kubebuilder:validation:Optional
-	Enabled *bool `json:"enabled" tf:"enabled,omitempty"`
-
-	// +kubebuilder:validation:Optional
-	MinIntervalHours *float64 `json:"minIntervalHours,omitempty" tf:"min_interval_hours,omitempty"`
-}
-
 type IngestionDefinitionTableConfigurationInitParameters struct {
 	AutoFullRefreshPolicy *IngestionDefinitionTableConfigurationAutoFullRefreshPolicyInitParameters `json:"autoFullRefreshPolicy,omitempty" tf:"auto_full_refresh_policy,omitempty"`
 
@@ -951,8 +930,6 @@ type IngestionDefinitionTableConfigurationInitParameters struct {
 	PrimaryKeys []*string `json:"primaryKeys,omitempty" tf:"primary_keys,omitempty"`
 
 	QueryBasedConnectorConfig *IngestionDefinitionTableConfigurationQueryBasedConnectorConfigInitParameters `json:"queryBasedConnectorConfig,omitempty" tf:"query_based_connector_config,omitempty"`
-
-	RowFilter *string `json:"rowFilter,omitempty" tf:"row_filter,omitempty"`
 
 	RowFilter *string `json:"rowFilter,omitempty" tf:"row_filter,omitempty"`
 
@@ -975,8 +952,6 @@ type IngestionDefinitionTableConfigurationObservation struct {
 	PrimaryKeys []*string `json:"primaryKeys,omitempty" tf:"primary_keys,omitempty"`
 
 	QueryBasedConnectorConfig *IngestionDefinitionTableConfigurationQueryBasedConnectorConfigObservation `json:"queryBasedConnectorConfig,omitempty" tf:"query_based_connector_config,omitempty"`
-
-	RowFilter *string `json:"rowFilter,omitempty" tf:"row_filter,omitempty"`
 
 	RowFilter *string `json:"rowFilter,omitempty" tf:"row_filter,omitempty"`
 
@@ -1005,9 +980,6 @@ type IngestionDefinitionTableConfigurationParameters struct {
 
 	// +kubebuilder:validation:Optional
 	QueryBasedConnectorConfig *IngestionDefinitionTableConfigurationQueryBasedConnectorConfigParameters `json:"queryBasedConnectorConfig,omitempty" tf:"query_based_connector_config,omitempty"`
-
-	// +kubebuilder:validation:Optional
-	RowFilter *string `json:"rowFilter,omitempty" tf:"row_filter,omitempty"`
 
 	// +kubebuilder:validation:Optional
 	RowFilter *string `json:"rowFilter,omitempty" tf:"row_filter,omitempty"`
@@ -2233,8 +2205,6 @@ type SchemaTableConfigurationInitParameters struct {
 
 	RowFilter *string `json:"rowFilter,omitempty" tf:"row_filter,omitempty"`
 
-	RowFilter *string `json:"rowFilter,omitempty" tf:"row_filter,omitempty"`
-
 	SalesforceIncludeFormulaFields *bool `json:"salesforceIncludeFormulaFields,omitempty" tf:"salesforce_include_formula_fields,omitempty"`
 
 	ScdType *string `json:"scdType,omitempty" tf:"scd_type,omitempty"`
@@ -2254,8 +2224,6 @@ type SchemaTableConfigurationObservation struct {
 	PrimaryKeys []*string `json:"primaryKeys,omitempty" tf:"primary_keys,omitempty"`
 
 	QueryBasedConnectorConfig *TableConfigurationQueryBasedConnectorConfigObservation `json:"queryBasedConnectorConfig,omitempty" tf:"query_based_connector_config,omitempty"`
-
-	RowFilter *string `json:"rowFilter,omitempty" tf:"row_filter,omitempty"`
 
 	RowFilter *string `json:"rowFilter,omitempty" tf:"row_filter,omitempty"`
 
@@ -2284,9 +2252,6 @@ type SchemaTableConfigurationParameters struct {
 
 	// +kubebuilder:validation:Optional
 	QueryBasedConnectorConfig *TableConfigurationQueryBasedConnectorConfigParameters `json:"queryBasedConnectorConfig,omitempty" tf:"query_based_connector_config,omitempty"`
-
-	// +kubebuilder:validation:Optional
-	RowFilter *string `json:"rowFilter,omitempty" tf:"row_filter,omitempty"`
 
 	// +kubebuilder:validation:Optional
 	RowFilter *string `json:"rowFilter,omitempty" tf:"row_filter,omitempty"`
@@ -2373,27 +2338,6 @@ type TableConfigurationAutoFullRefreshPolicyParameters struct {
 	MinIntervalHours *float64 `json:"minIntervalHours,omitempty" tf:"min_interval_hours,omitempty"`
 }
 
-type TableConfigurationAutoFullRefreshPolicyInitParameters struct {
-	Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
-
-	MinIntervalHours *float64 `json:"minIntervalHours,omitempty" tf:"min_interval_hours,omitempty"`
-}
-
-type TableConfigurationAutoFullRefreshPolicyObservation struct {
-	Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
-
-	MinIntervalHours *float64 `json:"minIntervalHours,omitempty" tf:"min_interval_hours,omitempty"`
-}
-
-type TableConfigurationAutoFullRefreshPolicyParameters struct {
-
-	// +kubebuilder:validation:Optional
-	Enabled *bool `json:"enabled" tf:"enabled,omitempty"`
-
-	// +kubebuilder:validation:Optional
-	MinIntervalHours *float64 `json:"minIntervalHours,omitempty" tf:"min_interval_hours,omitempty"`
-}
-
 type TableConfigurationInitParameters struct {
 	AutoFullRefreshPolicy *AutoFullRefreshPolicyInitParameters `json:"autoFullRefreshPolicy,omitempty" tf:"auto_full_refresh_policy,omitempty"`
 
@@ -2404,8 +2348,6 @@ type TableConfigurationInitParameters struct {
 	PrimaryKeys []*string `json:"primaryKeys,omitempty" tf:"primary_keys,omitempty"`
 
 	QueryBasedConnectorConfig *QueryBasedConnectorConfigInitParameters `json:"queryBasedConnectorConfig,omitempty" tf:"query_based_connector_config,omitempty"`
-
-	RowFilter *string `json:"rowFilter,omitempty" tf:"row_filter,omitempty"`
 
 	RowFilter *string `json:"rowFilter,omitempty" tf:"row_filter,omitempty"`
 
@@ -2428,8 +2370,6 @@ type TableConfigurationObservation struct {
 	PrimaryKeys []*string `json:"primaryKeys,omitempty" tf:"primary_keys,omitempty"`
 
 	QueryBasedConnectorConfig *QueryBasedConnectorConfigObservation `json:"queryBasedConnectorConfig,omitempty" tf:"query_based_connector_config,omitempty"`
-
-	RowFilter *string `json:"rowFilter,omitempty" tf:"row_filter,omitempty"`
 
 	RowFilter *string `json:"rowFilter,omitempty" tf:"row_filter,omitempty"`
 
@@ -2458,9 +2398,6 @@ type TableConfigurationParameters struct {
 
 	// +kubebuilder:validation:Optional
 	QueryBasedConnectorConfig *QueryBasedConnectorConfigParameters `json:"queryBasedConnectorConfig,omitempty" tf:"query_based_connector_config,omitempty"`
-
-	// +kubebuilder:validation:Optional
-	RowFilter *string `json:"rowFilter,omitempty" tf:"row_filter,omitempty"`
 
 	// +kubebuilder:validation:Optional
 	RowFilter *string `json:"rowFilter,omitempty" tf:"row_filter,omitempty"`
@@ -2652,27 +2589,6 @@ type TableTableConfigurationAutoFullRefreshPolicyParameters struct {
 	MinIntervalHours *float64 `json:"minIntervalHours,omitempty" tf:"min_interval_hours,omitempty"`
 }
 
-type TableTableConfigurationAutoFullRefreshPolicyInitParameters struct {
-	Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
-
-	MinIntervalHours *float64 `json:"minIntervalHours,omitempty" tf:"min_interval_hours,omitempty"`
-}
-
-type TableTableConfigurationAutoFullRefreshPolicyObservation struct {
-	Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
-
-	MinIntervalHours *float64 `json:"minIntervalHours,omitempty" tf:"min_interval_hours,omitempty"`
-}
-
-type TableTableConfigurationAutoFullRefreshPolicyParameters struct {
-
-	// +kubebuilder:validation:Optional
-	Enabled *bool `json:"enabled" tf:"enabled,omitempty"`
-
-	// +kubebuilder:validation:Optional
-	MinIntervalHours *float64 `json:"minIntervalHours,omitempty" tf:"min_interval_hours,omitempty"`
-}
-
 type TableTableConfigurationInitParameters struct {
 	AutoFullRefreshPolicy *TableTableConfigurationAutoFullRefreshPolicyInitParameters `json:"autoFullRefreshPolicy,omitempty" tf:"auto_full_refresh_policy,omitempty"`
 
@@ -2683,8 +2599,6 @@ type TableTableConfigurationInitParameters struct {
 	PrimaryKeys []*string `json:"primaryKeys,omitempty" tf:"primary_keys,omitempty"`
 
 	QueryBasedConnectorConfig *TableTableConfigurationQueryBasedConnectorConfigInitParameters `json:"queryBasedConnectorConfig,omitempty" tf:"query_based_connector_config,omitempty"`
-
-	RowFilter *string `json:"rowFilter,omitempty" tf:"row_filter,omitempty"`
 
 	RowFilter *string `json:"rowFilter,omitempty" tf:"row_filter,omitempty"`
 
@@ -2707,8 +2621,6 @@ type TableTableConfigurationObservation struct {
 	PrimaryKeys []*string `json:"primaryKeys,omitempty" tf:"primary_keys,omitempty"`
 
 	QueryBasedConnectorConfig *TableTableConfigurationQueryBasedConnectorConfigObservation `json:"queryBasedConnectorConfig,omitempty" tf:"query_based_connector_config,omitempty"`
-
-	RowFilter *string `json:"rowFilter,omitempty" tf:"row_filter,omitempty"`
 
 	RowFilter *string `json:"rowFilter,omitempty" tf:"row_filter,omitempty"`
 
@@ -2737,9 +2649,6 @@ type TableTableConfigurationParameters struct {
 
 	// +kubebuilder:validation:Optional
 	QueryBasedConnectorConfig *TableTableConfigurationQueryBasedConnectorConfigParameters `json:"queryBasedConnectorConfig,omitempty" tf:"query_based_connector_config,omitempty"`
-
-	// +kubebuilder:validation:Optional
-	RowFilter *string `json:"rowFilter,omitempty" tf:"row_filter,omitempty"`
 
 	// +kubebuilder:validation:Optional
 	RowFilter *string `json:"rowFilter,omitempty" tf:"row_filter,omitempty"`
