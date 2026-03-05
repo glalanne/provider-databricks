@@ -18,6 +18,9 @@ type WorkspaceConfInitParameters struct {
 	// Key-value map of strings that represent workspace configuration. Upon resource deletion, properties that start with enable or enforce will be reset to false value, regardless of initial default one.
 	// +mapType=granular
 	CustomConfig map[string]*string `json:"customConfig,omitempty" tf:"custom_config,omitempty"`
+
+	// Configure the provider for management through account provider. This block consists of the following fields:
+	ProviderConfig *WorkspaceConfProviderConfigInitParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
 }
 
 type WorkspaceConfObservation struct {
@@ -27,6 +30,9 @@ type WorkspaceConfObservation struct {
 	CustomConfig map[string]*string `json:"customConfig,omitempty" tf:"custom_config,omitempty"`
 
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
+	// Configure the provider for management through account provider. This block consists of the following fields:
+	ProviderConfig *WorkspaceConfProviderConfigObservation `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
 }
 
 type WorkspaceConfParameters struct {
@@ -35,6 +41,29 @@ type WorkspaceConfParameters struct {
 	// +kubebuilder:validation:Optional
 	// +mapType=granular
 	CustomConfig map[string]*string `json:"customConfig,omitempty" tf:"custom_config,omitempty"`
+
+	// Configure the provider for management through account provider. This block consists of the following fields:
+	// +kubebuilder:validation:Optional
+	ProviderConfig *WorkspaceConfProviderConfigParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
+}
+
+type WorkspaceConfProviderConfigInitParameters struct {
+
+	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
+}
+
+type WorkspaceConfProviderConfigObservation struct {
+
+	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
+}
+
+type WorkspaceConfProviderConfigParameters struct {
+
+	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
+	// +kubebuilder:validation:Optional
+	WorkspaceID *string `json:"workspaceId" tf:"workspace_id,omitempty"`
 }
 
 // WorkspaceConfSpec defines the desired state of WorkspaceConf

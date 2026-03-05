@@ -563,6 +563,16 @@ spec:
                       If not specified, provider will try to infer it from depending
                       on the resource type:'
                     type: string
+                  providerConfig:
+                    description: 'Configure the provider for management through account
+                      provider. This block consists of the following fields:'
+                    properties:
+                      workspaceId:
+                        description: Workspace ID which the resource belongs to. This
+                          workspace must be part of the account which the provider
+                          is configured with.
+                        type: string
+                    type: object
                   resourceId:
                     description: resource ID for a given storage account. Could be
                       used to fill defaults, such as storage account & container names
@@ -1351,6 +1361,16 @@ spec:
                       If not specified, provider will try to infer it from depending
                       on the resource type:'
                     type: string
+                  providerConfig:
+                    description: 'Configure the provider for management through account
+                      provider. This block consists of the following fields:'
+                    properties:
+                      workspaceId:
+                        description: Workspace ID which the resource belongs to. This
+                          workspace must be part of the account which the provider
+                          is configured with.
+                        type: string
+                    type: object
                   resourceId:
                     description: resource ID for a given storage account. Could be
                       used to fill defaults, such as storage account & container names
@@ -1842,6 +1862,16 @@ spec:
                       If not specified, provider will try to infer it from depending
                       on the resource type:'
                     type: string
+                  providerConfig:
+                    description: 'Configure the provider for management through account
+                      provider. This block consists of the following fields:'
+                    properties:
+                      workspaceId:
+                        description: Workspace ID which the resource belongs to. This
+                          workspace must be part of the account which the provider
+                          is configured with.
+                        type: string
+                    type: object
                   resourceId:
                     description: resource ID for a given storage account. Could be
                       used to fill defaults, such as storage account & container names

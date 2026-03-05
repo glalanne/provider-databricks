@@ -59,7 +59,7 @@ spec:
               forProvider:
                 properties:
                   comment:
-                    description: (String) Comment that will appear on the user’s settings
+                    description: (String) Comment that will appear on the user's settings
                       page for this token.
                     type: string
                   creationTime:
@@ -71,6 +71,16 @@ spec:
                       If no lifetime is specified, then expire time will be set to
                       maximum allowed by the workspace configuration or platform.
                     type: number
+                  providerConfig:
+                    description: 'Configure the provider for management through account
+                      provider. This block consists of the following fields:'
+                    properties:
+                      workspaceId:
+                        description: Workspace ID which the resource belongs to. This
+                          workspace must be part of the account which the provider
+                          is configured with.
+                        type: string
+                    type: object
                   tokenId:
                     description: Canonical unique identifier for the token.
                     type: string
@@ -89,7 +99,7 @@ spec:
                   autoscaler.
                 properties:
                   comment:
-                    description: (String) Comment that will appear on the user’s settings
+                    description: (String) Comment that will appear on the user's settings
                       page for this token.
                     type: string
                   creationTime:
@@ -101,6 +111,16 @@ spec:
                       If no lifetime is specified, then expire time will be set to
                       maximum allowed by the workspace configuration or platform.
                     type: number
+                  providerConfig:
+                    description: 'Configure the provider for management through account
+                      provider. This block consists of the following fields:'
+                    properties:
+                      workspaceId:
+                        description: Workspace ID which the resource belongs to. This
+                          workspace must be part of the account which the provider
+                          is configured with.
+                        type: string
+                    type: object
                   tokenId:
                     description: Canonical unique identifier for the token.
                     type: string
@@ -169,7 +189,7 @@ spec:
               atProvider:
                 properties:
                   comment:
-                    description: (String) Comment that will appear on the user’s settings
+                    description: (String) Comment that will appear on the user's settings
                       page for this token.
                     type: string
                   creationTime:
@@ -184,6 +204,16 @@ spec:
                       If no lifetime is specified, then expire time will be set to
                       maximum allowed by the workspace configuration or platform.
                     type: number
+                  providerConfig:
+                    description: 'Configure the provider for management through account
+                      provider. This block consists of the following fields:'
+                    properties:
+                      workspaceId:
+                        description: Workspace ID which the resource belongs to. This
+                          workspace must be part of the account which the provider
+                          is configured with.
+                        type: string
+                    type: object
                   tokenId:
                     description: Canonical unique identifier for the token.
                     type: string

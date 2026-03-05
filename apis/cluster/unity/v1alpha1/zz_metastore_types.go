@@ -21,7 +21,7 @@ type MetastoreInitParameters struct {
 	// The organization name of a Delta Sharing entity. This field is used for Databricks to Databricks sharing. Once this is set it cannot be removed and can only be modified to another valid value. To delete this value please taint and recreate the resource.
 	DeltaSharingOrganizationName *string `json:"deltaSharingOrganizationName,omitempty" tf:"delta_sharing_organization_name,omitempty"`
 
-	// Required along with delta_sharing_scope. Used to set expiration duration in seconds on recipient data access tokens. Set to 0 for unlimited duration.
+	// Required along with delta_sharing_scope. Used to set expiration duration in seconds on recipient data access tokens. Defaults to 31536000 (1 year).
 	DeltaSharingRecipientTokenLifetimeInSeconds *float64 `json:"deltaSharingRecipientTokenLifetimeInSeconds,omitempty" tf:"delta_sharing_recipient_token_lifetime_in_seconds,omitempty"`
 
 	// Required along with delta_sharing_recipient_token_lifetime_in_seconds. Used to enable delta sharing on the metastore. Valid values: INTERNAL, INTERNAL_AND_EXTERNAL.  INTERNAL only allows sharing within the same account, and INTERNAL_AND_EXTERNAL allows cross account sharing and token based sharing.
@@ -72,7 +72,7 @@ type MetastoreObservation struct {
 	// The organization name of a Delta Sharing entity. This field is used for Databricks to Databricks sharing. Once this is set it cannot be removed and can only be modified to another valid value. To delete this value please taint and recreate the resource.
 	DeltaSharingOrganizationName *string `json:"deltaSharingOrganizationName,omitempty" tf:"delta_sharing_organization_name,omitempty"`
 
-	// Required along with delta_sharing_scope. Used to set expiration duration in seconds on recipient data access tokens. Set to 0 for unlimited duration.
+	// Required along with delta_sharing_scope. Used to set expiration duration in seconds on recipient data access tokens. Defaults to 31536000 (1 year).
 	DeltaSharingRecipientTokenLifetimeInSeconds *float64 `json:"deltaSharingRecipientTokenLifetimeInSeconds,omitempty" tf:"delta_sharing_recipient_token_lifetime_in_seconds,omitempty"`
 
 	// Required along with delta_sharing_recipient_token_lifetime_in_seconds. Used to enable delta sharing on the metastore. Valid values: INTERNAL, INTERNAL_AND_EXTERNAL.  INTERNAL only allows sharing within the same account, and INTERNAL_AND_EXTERNAL allows cross account sharing and token based sharing.
@@ -131,7 +131,7 @@ type MetastoreParameters struct {
 	// +kubebuilder:validation:Optional
 	DeltaSharingOrganizationName *string `json:"deltaSharingOrganizationName,omitempty" tf:"delta_sharing_organization_name,omitempty"`
 
-	// Required along with delta_sharing_scope. Used to set expiration duration in seconds on recipient data access tokens. Set to 0 for unlimited duration.
+	// Required along with delta_sharing_scope. Used to set expiration duration in seconds on recipient data access tokens. Defaults to 31536000 (1 year).
 	// +kubebuilder:validation:Optional
 	DeltaSharingRecipientTokenLifetimeInSeconds *float64 `json:"deltaSharingRecipientTokenLifetimeInSeconds,omitempty" tf:"delta_sharing_recipient_token_lifetime_in_seconds,omitempty"`
 

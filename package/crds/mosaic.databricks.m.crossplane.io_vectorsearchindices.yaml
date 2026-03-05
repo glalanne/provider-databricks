@@ -331,6 +331,16 @@ spec:
                   primaryKey:
                     description: The column name that will be used as a primary key.
                     type: string
+                  providerConfig:
+                    description: 'Configure the provider for management through account
+                      provider. This block consists of the following fields:'
+                    properties:
+                      workspaceId:
+                        description: Workspace ID which the resource belongs to. This
+                          workspace must be part of the account which the provider
+                          is configured with.
+                        type: string
+                    type: object
                 type: object
               initProvider:
                 description: |-
@@ -618,6 +628,16 @@ spec:
                   primaryKey:
                     description: The column name that will be used as a primary key.
                     type: string
+                  providerConfig:
+                    description: 'Configure the provider for management through account
+                      provider. This block consists of the following fields:'
+                    properties:
+                      workspaceId:
+                        description: Workspace ID which the resource belongs to. This
+                          workspace must be part of the account which the provider
+                          is configured with.
+                        type: string
+                    type: object
                 type: object
               managementPolicies:
                 default:
@@ -813,6 +833,16 @@ spec:
                   primaryKey:
                     description: The column name that will be used as a primary key.
                     type: string
+                  providerConfig:
+                    description: 'Configure the provider for management through account
+                      provider. This block consists of the following fields:'
+                    properties:
+                      workspaceId:
+                        description: Workspace ID which the resource belongs to. This
+                          workspace must be part of the account which the provider
+                          is configured with.
+                        type: string
+                    type: object
                   status:
                     description: 'Object describing the current status of the index
                       consisting of the following fields:'

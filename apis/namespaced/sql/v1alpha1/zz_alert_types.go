@@ -47,6 +47,9 @@ type AlertInitParameters struct {
 	// +kubebuilder:validation:Optional
 	ParentPathSelector *v1.NamespacedSelector `json:"parentPathSelector,omitempty" tf:"-"`
 
+	// Configure the provider for management through account provider. This block consists of the following fields:
+	ProviderConfig *ProviderConfigInitParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
+
 	// ID of the query evaluated by the alert.
 	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/namespaced/sql/v1alpha1.Query
 	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/v2/pkg/resource.ExtractResourceID()
@@ -95,6 +98,9 @@ type AlertObservation struct {
 
 	// The path to a workspace folder containing the alert. The default is the user's home folder.  If changed, the alert will be recreated.
 	ParentPath *string `json:"parentPath,omitempty" tf:"parent_path,omitempty"`
+
+	// Configure the provider for management through account provider. This block consists of the following fields:
+	ProviderConfig *ProviderConfigObservation `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
 
 	// ID of the query evaluated by the alert.
 	QueryID *string `json:"queryId,omitempty" tf:"query_id,omitempty"`
@@ -151,6 +157,10 @@ type AlertParameters struct {
 	// Selector for a Directory in workspace to populate parentPath.
 	// +kubebuilder:validation:Optional
 	ParentPathSelector *v1.NamespacedSelector `json:"parentPathSelector,omitempty" tf:"-"`
+
+	// Configure the provider for management through account provider. This block consists of the following fields:
+	// +kubebuilder:validation:Optional
+	ProviderConfig *ProviderConfigParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
 
 	// ID of the query evaluated by the alert.
 	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/namespaced/sql/v1alpha1.Query
@@ -256,6 +266,25 @@ type OperandParameters struct {
 	// Block describing the column from the query result to use for comparison in alert evaluation:
 	// +kubebuilder:validation:Optional
 	Column *ColumnParameters `json:"column" tf:"column,omitempty"`
+}
+
+type ProviderConfigInitParameters struct {
+
+	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
+}
+
+type ProviderConfigObservation struct {
+
+	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
+}
+
+type ProviderConfigParameters struct {
+
+	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
+	// +kubebuilder:validation:Optional
+	WorkspaceID *string `json:"workspaceId" tf:"workspace_id,omitempty"`
 }
 
 type ThresholdInitParameters struct {

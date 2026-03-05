@@ -11,3 +11,6 @@ func (tr *MlflowExperiment) Hub() {}
 
 // Hub marks this type as a conversion hub.
 func (tr *MlflowModel) Hub() {}
+
+// Hub marks this type as a conversion hub.
+func (tr *MlflowWebhook) Hub() {}

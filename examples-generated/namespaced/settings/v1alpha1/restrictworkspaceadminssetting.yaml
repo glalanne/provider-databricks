@@ -1,3 +1,7 @@
+# SPDX-FileCopyrightText: 2025 The Crossplane Authors <https://crossplane.io>
+#
+# SPDX-License-Identifier: CC0-1.0
+
 apiVersion: settings.databricks.m.crossplane.io/v1alpha1
 kind: RestrictWorkspaceAdminsSetting
 metadata:
@@ -10,4 +14,4 @@ metadata:
 spec:
   forProvider:
     restrictWorkspaceAdmins:
-    - status: RESTRICT_TOKENS_AND_JOB_RUN_AS
+      status: RESTRICT_TOKENS_AND_JOB_RUN_AS

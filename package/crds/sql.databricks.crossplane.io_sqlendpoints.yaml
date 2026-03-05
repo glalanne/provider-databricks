@@ -127,6 +127,16 @@ spec:
                       Whether to skip waiting for the SQL warehouse to start after creation. Default is false.
                       If true, skip waiting for the warehouse to start after creation.
                     type: boolean
+                  providerConfig:
+                    description: 'Configure the provider for management through account
+                      provider. This block consists of the following fields:'
+                    properties:
+                      workspaceId:
+                        description: Workspace ID which the resource belongs to. This
+                          workspace must be part of the account which the provider
+                          is configured with.
+                        type: string
+                    type: object
                   spotInstancePolicy:
                     description: 'The spot policy to use for allocating instances
                       to clusters: COST_OPTIMIZED or RELIABILITY_OPTIMIZED. This field
@@ -225,6 +235,16 @@ spec:
                       Whether to skip waiting for the SQL warehouse to start after creation. Default is false.
                       If true, skip waiting for the warehouse to start after creation.
                     type: boolean
+                  providerConfig:
+                    description: 'Configure the provider for management through account
+                      provider. This block consists of the following fields:'
+                    properties:
+                      workspaceId:
+                        description: Workspace ID which the resource belongs to. This
+                          workspace must be part of the account which the provider
+                          is configured with.
+                        type: string
+                    type: object
                   spotInstancePolicy:
                     description: 'The spot policy to use for allocating instances
                       to clusters: COST_OPTIMIZED or RELIABILITY_OPTIMIZED. This field
@@ -467,6 +487,16 @@ spec:
                           type: string
                       type: object
                     type: array
+                  providerConfig:
+                    description: 'Configure the provider for management through account
+                      provider. This block consists of the following fields:'
+                    properties:
+                      workspaceId:
+                        description: Workspace ID which the resource belongs to. This
+                          workspace must be part of the account which the provider
+                          is configured with.
+                        type: string
+                    type: object
                   spotInstancePolicy:
                     description: 'The spot policy to use for allocating instances
                       to clusters: COST_OPTIMIZED or RELIABILITY_OPTIMIZED. This field

@@ -189,6 +189,16 @@ spec:
                         type: object
                         x-kubernetes-map-type: granular
                     type: object
+                  providerConfig:
+                    description: 'Configure the provider for management through account
+                      provider. This block consists of the following fields:'
+                    properties:
+                      workspaceId:
+                        description: Workspace ID which the resource belongs to. This
+                          workspace must be part of the account which the provider
+                          is configured with.
+                        type: string
+                    type: object
                   sharingCodeSecretRef:
                     description: The one-time sharing code provided by the data recipient.
                     properties:
@@ -343,6 +353,16 @@ spec:
                           with name starting with databricks. are reserved.
                         type: object
                         x-kubernetes-map-type: granular
+                    type: object
+                  providerConfig:
+                    description: 'Configure the provider for management through account
+                      provider. This block consists of the following fields:'
+                    properties:
+                      workspaceId:
+                        description: Workspace ID which the resource belongs to. This
+                          workspace must be part of the account which the provider
+                          is configured with.
+                        type: string
                     type: object
                   sharingCodeSecretRef:
                     description: The one-time sharing code provided by the data recipient.
@@ -535,6 +555,16 @@ spec:
                           with name starting with databricks. are reserved.
                         type: object
                         x-kubernetes-map-type: granular
+                    type: object
+                  providerConfig:
+                    description: 'Configure the provider for management through account
+                      provider. This block consists of the following fields:'
+                    properties:
+                      workspaceId:
+                        description: Workspace ID which the resource belongs to. This
+                          workspace must be part of the account which the provider
+                          is configured with.
+                        type: string
                     type: object
                   region:
                     description: Cloud region of the recipient's Unity Catalog Metstore.

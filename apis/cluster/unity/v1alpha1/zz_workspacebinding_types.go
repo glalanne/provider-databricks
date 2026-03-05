@@ -20,6 +20,9 @@ type WorkspaceBindingInitParameters struct {
 
 	CatalogName *string `json:"catalogName,omitempty" tf:"catalog_name,omitempty"`
 
+	// Configure the provider for management through account provider. This block consists of the following fields:
+	ProviderConfig *WorkspaceBindingProviderConfigInitParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
+
 	// Name of securable. Change forces creation of a new resource.
 	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/cluster/unity/v1alpha1.Catalog
 	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/v2/pkg/resource.ExtractParamPath("name",false)
@@ -59,6 +62,9 @@ type WorkspaceBindingObservation struct {
 
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
+	// Configure the provider for management through account provider. This block consists of the following fields:
+	ProviderConfig *WorkspaceBindingProviderConfigObservation `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
+
 	// Name of securable. Change forces creation of a new resource.
 	SecurableName *string `json:"securableName,omitempty" tf:"securable_name,omitempty"`
 
@@ -77,6 +83,10 @@ type WorkspaceBindingParameters struct {
 
 	// +kubebuilder:validation:Optional
 	CatalogName *string `json:"catalogName,omitempty" tf:"catalog_name,omitempty"`
+
+	// Configure the provider for management through account provider. This block consists of the following fields:
+	// +kubebuilder:validation:Optional
+	ProviderConfig *WorkspaceBindingProviderConfigParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
 
 	// Name of securable. Change forces creation of a new resource.
 	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/cluster/unity/v1alpha1.Catalog
@@ -109,6 +119,25 @@ type WorkspaceBindingParameters struct {
 	// Selector for a MwsWorkspaces in deployment to populate workspaceId.
 	// +kubebuilder:validation:Optional
 	WorkspaceIDSelector *v1.Selector `json:"workspaceIdSelector,omitempty" tf:"-"`
+}
+
+type WorkspaceBindingProviderConfigInitParameters struct {
+
+	// ID of the workspace. Change forces creation of a new resource.
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
+}
+
+type WorkspaceBindingProviderConfigObservation struct {
+
+	// ID of the workspace. Change forces creation of a new resource.
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
+}
+
+type WorkspaceBindingProviderConfigParameters struct {
+
+	// ID of the workspace. Change forces creation of a new resource.
+	// +kubebuilder:validation:Optional
+	WorkspaceID *string `json:"workspaceId" tf:"workspace_id,omitempty"`
 }
 
 // WorkspaceBindingSpec defines the desired state of WorkspaceBinding

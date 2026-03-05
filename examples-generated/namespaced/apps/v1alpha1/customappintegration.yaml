@@ -1,3 +1,7 @@
+# SPDX-FileCopyrightText: 2025 The Crossplane Authors <https://crossplane.io>
+#
+# SPDX-License-Identifier: CC0-1.0
+
 apiVersion: apps.databricks.m.crossplane.io/v1alpha1
 kind: CustomAppIntegration
 metadata:
@@ -15,5 +19,5 @@ spec:
     scopes:
     - all-apis
     tokenAccessPolicy:
-    - accessTokenTtlInMinutes: 15
+      accessTokenTtlInMinutes: 15
       refreshTokenTtlInMinutes: 30

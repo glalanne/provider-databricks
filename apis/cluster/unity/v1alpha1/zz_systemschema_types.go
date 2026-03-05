@@ -15,6 +15,9 @@ import (
 
 type SystemSchemaInitParameters struct {
 
+	// Configure the provider for management through account provider. This block consists of the following fields:
+	ProviderConfig *SystemSchemaProviderConfigInitParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
+
 	// name of the system schema.
 	Schema *string `json:"schema,omitempty" tf:"schema,omitempty"`
 }
@@ -31,6 +34,9 @@ type SystemSchemaObservation struct {
 	// the ID of system schema in form of metastore_id|schema_name.
 	MetastoreID *string `json:"metastoreId,omitempty" tf:"metastore_id,omitempty"`
 
+	// Configure the provider for management through account provider. This block consists of the following fields:
+	ProviderConfig *SystemSchemaProviderConfigObservation `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
+
 	// name of the system schema.
 	Schema *string `json:"schema,omitempty" tf:"schema,omitempty"`
 
@@ -40,9 +46,32 @@ type SystemSchemaObservation struct {
 
 type SystemSchemaParameters struct {
 
+	// Configure the provider for management through account provider. This block consists of the following fields:
+	// +kubebuilder:validation:Optional
+	ProviderConfig *SystemSchemaProviderConfigParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
+
 	// name of the system schema.
 	// +kubebuilder:validation:Optional
 	Schema *string `json:"schema,omitempty" tf:"schema,omitempty"`
+}
+
+type SystemSchemaProviderConfigInitParameters struct {
+
+	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
+}
+
+type SystemSchemaProviderConfigObservation struct {
+
+	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
+}
+
+type SystemSchemaProviderConfigParameters struct {
+
+	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
+	// +kubebuilder:validation:Optional
+	WorkspaceID *string `json:"workspaceId" tf:"workspace_id,omitempty"`
 }
 
 // SystemSchemaSpec defines the desired state of SystemSchema

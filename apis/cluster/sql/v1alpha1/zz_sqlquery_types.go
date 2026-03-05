@@ -435,6 +435,9 @@ type SQLQueryInitParameters struct {
 	// The identifier of the workspace folder containing the object.
 	Parent *string `json:"parent,omitempty" tf:"parent,omitempty"`
 
+	// Configure the provider for management through account provider. This block consists of the following fields:
+	ProviderConfig *SQLQueryProviderConfigInitParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
+
 	// The text of the query to be run.
 	Query *string `json:"query,omitempty" tf:"query,omitempty"`
 
@@ -467,6 +470,9 @@ type SQLQueryObservation struct {
 
 	// The identifier of the workspace folder containing the object.
 	Parent *string `json:"parent,omitempty" tf:"parent,omitempty"`
+
+	// Configure the provider for management through account provider. This block consists of the following fields:
+	ProviderConfig *SQLQueryProviderConfigObservation `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
 
 	// The text of the query to be run.
 	Query *string `json:"query,omitempty" tf:"query,omitempty"`
@@ -615,6 +621,10 @@ type SQLQueryParameters struct {
 	// +kubebuilder:validation:Optional
 	Parent *string `json:"parent,omitempty" tf:"parent,omitempty"`
 
+	// Configure the provider for management through account provider. This block consists of the following fields:
+	// +kubebuilder:validation:Optional
+	ProviderConfig *SQLQueryProviderConfigParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
+
 	// The text of the query to be run.
 	// +kubebuilder:validation:Optional
 	Query *string `json:"query,omitempty" tf:"query,omitempty"`
@@ -631,6 +641,25 @@ type SQLQueryParameters struct {
 
 	// +kubebuilder:validation:Optional
 	UpdatedAt *string `json:"updatedAt,omitempty" tf:"updated_at,omitempty"`
+}
+
+type SQLQueryProviderConfigInitParameters struct {
+
+	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
+}
+
+type SQLQueryProviderConfigObservation struct {
+
+	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
+}
+
+type SQLQueryProviderConfigParameters struct {
+
+	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
+	// +kubebuilder:validation:Optional
+	WorkspaceID *string `json:"workspaceId" tf:"workspace_id,omitempty"`
 }
 
 type ScheduleInitParameters struct {

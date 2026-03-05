@@ -17,6 +17,7 @@ import (
 	job "github.com/glalanne/provider-databricks/internal/controller/namespaced/compute/job"
 	library "github.com/glalanne/provider-databricks/internal/controller/namespaced/compute/library"
 	pipeline "github.com/glalanne/provider-databricks/internal/controller/namespaced/compute/pipeline"
+	databaseinstance "github.com/glalanne/provider-databricks/internal/controller/namespaced/databases/databaseinstance"
 	instanceprofile "github.com/glalanne/provider-databricks/internal/controller/namespaced/deployment/instanceprofile"
 	mwscredentials "github.com/glalanne/provider-databricks/internal/controller/namespaced/deployment/mwscredentials"
 	mwscustomermanagedkeys "github.com/glalanne/provider-databricks/internal/controller/namespaced/deployment/mwscustomermanagedkeys"
@@ -32,6 +33,7 @@ import (
 	mwslogdelivery "github.com/glalanne/provider-databricks/internal/controller/namespaced/log/mwslogdelivery"
 	mlflowexperiment "github.com/glalanne/provider-databricks/internal/controller/namespaced/mlflow/mlflowexperiment"
 	mlflowmodel "github.com/glalanne/provider-databricks/internal/controller/namespaced/mlflow/mlflowmodel"
+	mlflowwebhook "github.com/glalanne/provider-databricks/internal/controller/namespaced/mlflow/mlflowwebhook"
 	vectorsearchendpoint "github.com/glalanne/provider-databricks/internal/controller/namespaced/mosaic/vectorsearchendpoint"
 	vectorsearchindex "github.com/glalanne/provider-databricks/internal/controller/namespaced/mosaic/vectorsearchindex"
 	accountfederationpolicy "github.com/glalanne/provider-databricks/internal/controller/namespaced/oauth/accountfederationpolicy"
@@ -93,6 +95,7 @@ import (
 	metastoreassignment "github.com/glalanne/provider-databricks/internal/controller/namespaced/unity/metastoreassignment"
 	metastoredataaccess "github.com/glalanne/provider-databricks/internal/controller/namespaced/unity/metastoredataaccess"
 	onlinetable "github.com/glalanne/provider-databricks/internal/controller/namespaced/unity/onlinetable"
+	policyinfo "github.com/glalanne/provider-databricks/internal/controller/namespaced/unity/policyinfo"
 	qualitymonitor "github.com/glalanne/provider-databricks/internal/controller/namespaced/unity/qualitymonitor"
 	registeredmodel "github.com/glalanne/provider-databricks/internal/controller/namespaced/unity/registeredmodel"
 	schema "github.com/glalanne/provider-databricks/internal/controller/namespaced/unity/schema"
@@ -123,6 +126,7 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 		job.Setup,
 		library.Setup,
 		pipeline.Setup,
+		databaseinstance.Setup,
 		instanceprofile.Setup,
 		mwscredentials.Setup,
 		mwscustomermanagedkeys.Setup,
@@ -138,6 +142,7 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 		mwslogdelivery.Setup,
 		mlflowexperiment.Setup,
 		mlflowmodel.Setup,
+		mlflowwebhook.Setup,
 		vectorsearchendpoint.Setup,
 		vectorsearchindex.Setup,
 		accountfederationpolicy.Setup,
@@ -199,6 +204,7 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 		metastoreassignment.Setup,
 		metastoredataaccess.Setup,
 		onlinetable.Setup,
+		policyinfo.Setup,
 		qualitymonitor.Setup,
 		registeredmodel.Setup,
 		schema.Setup,
@@ -235,6 +241,7 @@ func SetupGated(mgr ctrl.Manager, o controller.Options) error {
 		job.SetupGated,
 		library.SetupGated,
 		pipeline.SetupGated,
+		databaseinstance.SetupGated,
 		instanceprofile.SetupGated,
 		mwscredentials.SetupGated,
 		mwscustomermanagedkeys.SetupGated,
@@ -250,6 +257,7 @@ func SetupGated(mgr ctrl.Manager, o controller.Options) error {
 		mwslogdelivery.SetupGated,
 		mlflowexperiment.SetupGated,
 		mlflowmodel.SetupGated,
+		mlflowwebhook.SetupGated,
 		vectorsearchendpoint.SetupGated,
 		vectorsearchindex.SetupGated,
 		accountfederationpolicy.SetupGated,
@@ -311,6 +319,7 @@ func SetupGated(mgr ctrl.Manager, o controller.Options) error {
 		metastoreassignment.SetupGated,
 		metastoredataaccess.SetupGated,
 		onlinetable.SetupGated,
+		policyinfo.SetupGated,
 		qualitymonitor.SetupGated,
 		registeredmodel.SetupGated,
 		schema.SetupGated,

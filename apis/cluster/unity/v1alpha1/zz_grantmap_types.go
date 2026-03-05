@@ -123,6 +123,9 @@ type GrantMapInitParameters struct {
 
 	Pipeline *string `json:"pipeline,omitempty" tf:"pipeline,omitempty"`
 
+	// Configure the provider for management through account provider. This block consists of the following fields:
+	ProviderConfig *GrantMapProviderConfigInitParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
+
 	Recipient *string `json:"recipient,omitempty" tf:"recipient,omitempty"`
 
 	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/cluster/unity/v1alpha1.Schema
@@ -195,6 +198,9 @@ type GrantMapObservation struct {
 	Model *string `json:"model,omitempty" tf:"model,omitempty"`
 
 	Pipeline *string `json:"pipeline,omitempty" tf:"pipeline,omitempty"`
+
+	// Configure the provider for management through account provider. This block consists of the following fields:
+	ProviderConfig *GrantMapProviderConfigObservation `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
 
 	Recipient *string `json:"recipient,omitempty" tf:"recipient,omitempty"`
 
@@ -278,6 +284,10 @@ type GrantMapParameters struct {
 	// +kubebuilder:validation:Optional
 	Pipeline *string `json:"pipeline,omitempty" tf:"pipeline,omitempty"`
 
+	// Configure the provider for management through account provider. This block consists of the following fields:
+	// +kubebuilder:validation:Optional
+	ProviderConfig *GrantMapProviderConfigParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
+
 	// +kubebuilder:validation:Optional
 	Recipient *string `json:"recipient,omitempty" tf:"recipient,omitempty"`
 
@@ -334,6 +344,25 @@ type GrantMapParameters struct {
 	// Selector for a Volume in unity to populate volume.
 	// +kubebuilder:validation:Optional
 	VolumeSelector *v1.Selector `json:"volumeSelector,omitempty" tf:"-"`
+}
+
+type GrantMapProviderConfigInitParameters struct {
+
+	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
+}
+
+type GrantMapProviderConfigObservation struct {
+
+	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
+}
+
+type GrantMapProviderConfigParameters struct {
+
+	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
+	// +kubebuilder:validation:Optional
+	WorkspaceID *string `json:"workspaceId" tf:"workspace_id,omitempty"`
 }
 
 // GrantMapSpec defines the desired state of GrantMap

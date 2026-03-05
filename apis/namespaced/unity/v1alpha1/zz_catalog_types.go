@@ -51,6 +51,9 @@ type CatalogInitParameters struct {
 	// +mapType=granular
 	Properties map[string]*string `json:"properties,omitempty" tf:"properties,omitempty"`
 
+	// Configure the provider for management through account provider. This block consists of the following fields:
+	ProviderConfig *CatalogProviderConfigInitParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
+
 	// For Delta Sharing Catalogs: the name of the delta sharing provider. Change forces creation of a new resource.
 	ProviderName *string `json:"providerName,omitempty" tf:"provider_name,omitempty"`
 
@@ -114,6 +117,9 @@ type CatalogObservation struct {
 	// Extensible Catalog properties.
 	// +mapType=granular
 	Properties map[string]*string `json:"properties,omitempty" tf:"properties,omitempty"`
+
+	// Configure the provider for management through account provider. This block consists of the following fields:
+	ProviderConfig *CatalogProviderConfigObservation `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
 
 	// For Delta Sharing Catalogs: the name of the delta sharing provider. Change forces creation of a new resource.
 	ProviderName *string `json:"providerName,omitempty" tf:"provider_name,omitempty"`
@@ -189,6 +195,10 @@ type CatalogParameters struct {
 	// +mapType=granular
 	Properties map[string]*string `json:"properties,omitempty" tf:"properties,omitempty"`
 
+	// Configure the provider for management through account provider. This block consists of the following fields:
+	// +kubebuilder:validation:Optional
+	ProviderConfig *CatalogProviderConfigParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
+
 	// For Delta Sharing Catalogs: the name of the delta sharing provider. Change forces creation of a new resource.
 	// +kubebuilder:validation:Optional
 	ProviderName *string `json:"providerName,omitempty" tf:"provider_name,omitempty"`
@@ -203,6 +213,25 @@ type CatalogParameters struct {
 	// Managed location of the catalog. Location in cloud storage where data for managed tables will be stored.  If the URL contains special characters, such as space, &, etc., they should be percent-encoded (space -> %20, etc.). If not specified, the location will default to the metastore root location. Change forces creation of a new resource.
 	// +kubebuilder:validation:Optional
 	StorageRoot *string `json:"storageRoot,omitempty" tf:"storage_root,omitempty"`
+}
+
+type CatalogProviderConfigInitParameters struct {
+
+	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
+}
+
+type CatalogProviderConfigObservation struct {
+
+	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
+}
+
+type CatalogProviderConfigParameters struct {
+
+	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
+	// +kubebuilder:validation:Optional
+	WorkspaceID *string `json:"workspaceId" tf:"workspace_id,omitempty"`
 }
 
 type EffectivePredictiveOptimizationFlagInitParameters struct {

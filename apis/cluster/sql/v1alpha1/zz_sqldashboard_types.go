@@ -22,6 +22,9 @@ type SQLDashboardInitParameters struct {
 
 	Parent *string `json:"parent,omitempty" tf:"parent,omitempty"`
 
+	// Configure the provider for management through account provider. This block consists of the following fields:
+	ProviderConfig *SQLDashboardProviderConfigInitParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
+
 	RunAsRole *string `json:"runAsRole,omitempty" tf:"run_as_role,omitempty"`
 
 	Tags []*string `json:"tags,omitempty" tf:"tags,omitempty"`
@@ -40,6 +43,9 @@ type SQLDashboardObservation struct {
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	Parent *string `json:"parent,omitempty" tf:"parent,omitempty"`
+
+	// Configure the provider for management through account provider. This block consists of the following fields:
+	ProviderConfig *SQLDashboardProviderConfigObservation `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
 
 	RunAsRole *string `json:"runAsRole,omitempty" tf:"run_as_role,omitempty"`
 
@@ -62,6 +68,10 @@ type SQLDashboardParameters struct {
 	// +kubebuilder:validation:Optional
 	Parent *string `json:"parent,omitempty" tf:"parent,omitempty"`
 
+	// Configure the provider for management through account provider. This block consists of the following fields:
+	// +kubebuilder:validation:Optional
+	ProviderConfig *SQLDashboardProviderConfigParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
+
 	// +kubebuilder:validation:Optional
 	RunAsRole *string `json:"runAsRole,omitempty" tf:"run_as_role,omitempty"`
 
@@ -70,6 +80,25 @@ type SQLDashboardParameters struct {
 
 	// +kubebuilder:validation:Optional
 	UpdatedAt *string `json:"updatedAt,omitempty" tf:"updated_at,omitempty"`
+}
+
+type SQLDashboardProviderConfigInitParameters struct {
+
+	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
+}
+
+type SQLDashboardProviderConfigObservation struct {
+
+	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
+}
+
+type SQLDashboardProviderConfigParameters struct {
+
+	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
+	// +kubebuilder:validation:Optional
+	WorkspaceID *string `json:"workspaceId" tf:"workspace_id,omitempty"`
 }
 
 // SQLDashboardSpec defines the desired state of SQLDashboard

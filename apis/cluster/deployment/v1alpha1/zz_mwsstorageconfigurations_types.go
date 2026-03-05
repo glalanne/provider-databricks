@@ -21,6 +21,9 @@ type MwsStorageConfigurationsInitParameters struct {
 	// name of AWS S3 bucket
 	BucketName *string `json:"bucketName,omitempty" tf:"bucket_name,omitempty"`
 
+	// The ARN of the IAM role that Databricks will assume to access the S3 bucket. This allows sharing an S3 bucket between root storage and the default catalog for a workspace. See the Databricks API documentation for more details.
+	RoleArn *string `json:"roleArn,omitempty" tf:"role_arn,omitempty"`
+
 	// name under which this storage configuration is stored
 	StorageConfigurationName *string `json:"storageConfigurationName,omitempty" tf:"storage_configuration_name,omitempty"`
 }
@@ -34,6 +37,9 @@ type MwsStorageConfigurationsObservation struct {
 
 	// Canonical unique identifier for the mws storage configurations.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
+	// The ARN of the IAM role that Databricks will assume to access the S3 bucket. This allows sharing an S3 bucket between root storage and the default catalog for a workspace. See the Databricks API documentation for more details.
+	RoleArn *string `json:"roleArn,omitempty" tf:"role_arn,omitempty"`
 
 	// (String) id of storage config to be used for databricks_mws_workspace resource.
 	StorageConfigurationID *string `json:"storageConfigurationId,omitempty" tf:"storage_configuration_id,omitempty"`
@@ -51,6 +57,10 @@ type MwsStorageConfigurationsParameters struct {
 	// name of AWS S3 bucket
 	// +kubebuilder:validation:Optional
 	BucketName *string `json:"bucketName,omitempty" tf:"bucket_name,omitempty"`
+
+	// The ARN of the IAM role that Databricks will assume to access the S3 bucket. This allows sharing an S3 bucket between root storage and the default catalog for a workspace. See the Databricks API documentation for more details.
+	// +kubebuilder:validation:Optional
+	RoleArn *string `json:"roleArn,omitempty" tf:"role_arn,omitempty"`
 
 	// name under which this storage configuration is stored
 	// +kubebuilder:validation:Optional

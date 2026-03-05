@@ -1,0 +1,579 @@
+---
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  annotations:
+    controller-gen.kubebuilder.io/version: v0.19.0
+  name: databaseinstances.databases.databricks.m.crossplane.io
+spec:
+  group: databases.databricks.m.crossplane.io
+  names:
+    categories:
+    - crossplane
+    - managed
+    - databricks
+    kind: DatabaseInstance
+    listKind: DatabaseInstanceList
+    plural: databaseinstances
+    singular: databaseinstance
+  scope: Namespaced
+  versions:
+  - additionalPrinterColumns:
+    - jsonPath: .status.conditions[?(@.type=='Synced')].status
+      name: SYNCED
+      type: string
+    - jsonPath: .status.conditions[?(@.type=='Ready')].status
+      name: READY
+      type: string
+    - jsonPath: .metadata.annotations.crossplane\.io/external-name
+      name: EXTERNAL-NAME
+      type: string
+    - jsonPath: .metadata.creationTimestamp
+      name: AGE
+      type: date
+    name: v1alpha1
+    schema:
+      openAPIV3Schema:
+        description: DatabaseInstance is the Schema for the DatabaseInstances API.
+        properties:
+          apiVersion:
+            description: |-
+              APIVersion defines the versioned schema of this representation of an object.
+              Servers should convert recognized schemas to the latest internal value, and
+              may reject unrecognized values.
+              More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+            type: string
+          kind:
+            description: |-
+              Kind is a string value representing the REST resource this object represents.
+              Servers may infer this from the endpoint the client submits requests to.
+              Cannot be updated.
+              In CamelCase.
+              More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+            type: string
+          metadata:
+            type: object
+          spec:
+            description: DatabaseInstanceSpec defines the desired state of DatabaseInstance
+            properties:
+              forProvider:
+                properties:
+                  capacity:
+                    description: The sku of the instance. Valid values are "CU_1",
+                      "CU_2", "CU_4", "CU_8"
+                    type: string
+                  customTags:
+                    description: Custom tags associated with the instance. This field
+                      is only included on create and update responses
+                    items:
+                      properties:
+                        key:
+                          description: The key of the custom tag
+                          type: string
+                        value:
+                          description: The value of the custom tag
+                          type: string
+                      type: object
+                    type: array
+                  enablePgNativeLogin:
+                    description: Whether to enable PG native password login on the
+                      instance. Defaults to false
+                    type: boolean
+                  enableReadableSecondaries:
+                    description: Whether to enable secondaries to serve read-only
+                      traffic. Defaults to false
+                    type: boolean
+                  nodeCount:
+                    description: |-
+                      The number of nodes in the instance, composed of 1 primary and 0 or more secondaries. Defaults to
+                      1 primary and 0 secondaries. This field is input only, see effective_node_count for the output
+                    type: number
+                  parentInstanceRef:
+                    description: |-
+                      The ref of the parent instance. This is only available if the instance is
+                      child instance.
+                      Input: For specifying the parent instance to create a child instance. Optional.
+                      Output: Only populated if provided as input to create a child instance
+                    properties:
+                      branchTime:
+                        description: |-
+                          Branch time of the ref database instance.
+                          For a parent ref instance, this is the point in time on the parent instance from which the
+                          instance was created.
+                          For a child ref instance, this is the point in time on the instance from which the child
+                          instance was created.
+                          Input: For specifying the point in time to create a child instance. Optional.
+                          Output: Only populated if provided as input to create a child instance
+                        type: string
+                      lsn:
+                        description: User-specified WAL LSN of the ref database instance.
+                        type: string
+                      name:
+                        description: The name of the instance. This is the unique
+                          identifier for the instance
+                        type: string
+                    type: object
+                  providerConfig:
+                    description: Configure the provider for management through account
+                      provider.
+                    properties:
+                      workspaceId:
+                        description: Workspace ID which the resource belongs to. This
+                          workspace must be part of the account which the provider
+                          is configured with.
+                        type: string
+                    type: object
+                  purgeOnDelete:
+                    description: Purge the resource on delete
+                    type: boolean
+                  retentionWindowInDays:
+                    description: |-
+                      The retention window for the instance. This is the time window in days
+                      for which the historical data is retained. The default value is 7 days.
+                      Valid values are 2 to 35 days
+                    type: number
+                  stopped:
+                    description: Whether to stop the instance. An input only param,
+                      see effective_stopped for the output
+                    type: boolean
+                  usagePolicyId:
+                    description: The desired usage policy to associate with the instance
+                    type: string
+                type: object
+              initProvider:
+                description: |-
+                  THIS IS A BETA FIELD. It will be honored
+                  unless the Management Policies feature flag is disabled.
+                  InitProvider holds the same fields as ForProvider, with the exception
+                  of Identifier and other resource reference fields. The fields that are
+                  in InitProvider are merged into ForProvider when the resource is created.
+                  The same fields are also added to the terraform ignore_changes hook, to
+                  avoid updating them after creation. This is useful for fields that are
+                  required on creation, but we do not desire to update them after creation,
+                  for example because of an external controller is managing them, like an
+                  autoscaler.
+                properties:
+                  capacity:
+                    description: The sku of the instance. Valid values are "CU_1",
+                      "CU_2", "CU_4", "CU_8"
+                    type: string
+                  customTags:
+                    description: Custom tags associated with the instance. This field
+                      is only included on create and update responses
+                    items:
+                      properties:
+                        key:
+                          description: The key of the custom tag
+                          type: string
+                        value:
+                          description: The value of the custom tag
+                          type: string
+                      type: object
+                    type: array
+                  enablePgNativeLogin:
+                    description: Whether to enable PG native password login on the
+                      instance. Defaults to false
+                    type: boolean
+                  enableReadableSecondaries:
+                    description: Whether to enable secondaries to serve read-only
+                      traffic. Defaults to false
+                    type: boolean
+                  nodeCount:
+                    description: |-
+                      The number of nodes in the instance, composed of 1 primary and 0 or more secondaries. Defaults to
+                      1 primary and 0 secondaries. This field is input only, see effective_node_count for the output
+                    type: number
+                  parentInstanceRef:
+                    description: |-
+                      The ref of the parent instance. This is only available if the instance is
+                      child instance.
+                      Input: For specifying the parent instance to create a child instance. Optional.
+                      Output: Only populated if provided as input to create a child instance
+                    properties:
+                      branchTime:
+                        description: |-
+                          Branch time of the ref database instance.
+                          For a parent ref instance, this is the point in time on the parent instance from which the
+                          instance was created.
+                          For a child ref instance, this is the point in time on the instance from which the child
+                          instance was created.
+                          Input: For specifying the point in time to create a child instance. Optional.
+                          Output: Only populated if provided as input to create a child instance
+                        type: string
+                      lsn:
+                        description: User-specified WAL LSN of the ref database instance.
+                        type: string
+                      name:
+                        description: The name of the instance. This is the unique
+                          identifier for the instance
+                        type: string
+                    type: object
+                  providerConfig:
+                    description: Configure the provider for management through account
+                      provider.
+                    properties:
+                      workspaceId:
+                        description: Workspace ID which the resource belongs to. This
+                          workspace must be part of the account which the provider
+                          is configured with.
+                        type: string
+                    type: object
+                  purgeOnDelete:
+                    description: Purge the resource on delete
+                    type: boolean
+                  retentionWindowInDays:
+                    description: |-
+                      The retention window for the instance. This is the time window in days
+                      for which the historical data is retained. The default value is 7 days.
+                      Valid values are 2 to 35 days
+                    type: number
+                  stopped:
+                    description: Whether to stop the instance. An input only param,
+                      see effective_stopped for the output
+                    type: boolean
+                  usagePolicyId:
+                    description: The desired usage policy to associate with the instance
+                    type: string
+                type: object
+              managementPolicies:
+                default:
+                - '*'
+                description: |-
+                  THIS IS A BETA FIELD. It is on by default but can be opted out
+                  through a Crossplane feature flag.
+                  ManagementPolicies specify the array of actions Crossplane is allowed to
+                  take on the managed and external resources.
+                  See the design doc for more information: https://github.com/crossplane/crossplane/blob/499895a25d1a1a0ba1604944ef98ac7a1a71f197/design/design-doc-observe-only-resources.md?plain=1#L223
+                  and this one: https://github.com/crossplane/crossplane/blob/444267e84783136daa93568b364a5f01228cacbe/design/one-pager-ignore-changes.md
+                items:
+                  description: |-
+                    A ManagementAction represents an action that the Crossplane controllers
+                    can take on an external resource.
+                  enum:
+                  - Observe
+                  - Create
+                  - Update
+                  - Delete
+                  - LateInitialize
+                  - '*'
+                  type: string
+                type: array
+              providerConfigRef:
+                default:
+                  kind: ClusterProviderConfig
+                  name: default
+                description: |-
+                  ProviderConfigReference specifies how the provider that will be used to
+                  create, observe, update, and delete this managed resource should be
+                  configured.
+                properties:
+                  kind:
+                    description: Kind of the referenced object.
+                    type: string
+                  name:
+                    description: Name of the referenced object.
+                    type: string
+                required:
+                - kind
+                - name
+                type: object
+              writeConnectionSecretToRef:
+                description: |-
+                  WriteConnectionSecretToReference specifies the namespace and name of a
+                  Secret to which any connection details for this managed resource should
+                  be written. Connection details frequently include the endpoint, username,
+                  and password required to connect to the managed resource.
+                properties:
+                  name:
+                    description: Name of the secret.
+                    type: string
+                required:
+                - name
+                type: object
+            required:
+            - forProvider
+            type: object
+          status:
+            description: DatabaseInstanceStatus defines the observed state of DatabaseInstance.
+            properties:
+              atProvider:
+                properties:
+                  capacity:
+                    description: The sku of the instance. Valid values are "CU_1",
+                      "CU_2", "CU_4", "CU_8"
+                    type: string
+                  childInstanceRefs:
+                    description: |-
+                      The refs of the child instances. This is only available if the instance is
+                      parent instance
+                    items:
+                      properties:
+                        branchTime:
+                          description: |-
+                            Branch time of the ref database instance.
+                            For a parent ref instance, this is the point in time on the parent instance from which the
+                            instance was created.
+                            For a child ref instance, this is the point in time on the instance from which the child
+                            instance was created.
+                            Input: For specifying the point in time to create a child instance. Optional.
+                            Output: Only populated if provided as input to create a child instance
+                          type: string
+                        effectiveLsn:
+                          description: |-
+                            For a parent ref instance, this is the LSN on the parent instance from which the
+                            instance was created.
+                            For a child ref instance, this is the LSN on the instance from which the child instance
+                            was created.
+                            This is an output only field that contains the value computed from the input field combined with
+                            server side defaults. Use the field without the effective_ prefix to set the value
+                          type: string
+                        lsn:
+                          description: User-specified WAL LSN of the ref database
+                            instance.
+                          type: string
+                        name:
+                          description: The name of the instance. This is the unique
+                            identifier for the instance
+                          type: string
+                        uid:
+                          description: An immutable UUID identifier for the instance
+                          type: string
+                      type: object
+                    type: array
+                  creationTime:
+                    description: The timestamp when the instance was created
+                    type: string
+                  creator:
+                    description: The email of the creator of the instance
+                    type: string
+                  customTags:
+                    description: Custom tags associated with the instance. This field
+                      is only included on create and update responses
+                    items:
+                      properties:
+                        key:
+                          description: The key of the custom tag
+                          type: string
+                        value:
+                          description: The value of the custom tag
+                          type: string
+                      type: object
+                    type: array
+                  effectiveCapacity:
+                    description: |-
+                      Deprecated. The sku of the instance; this field will always match the value of capacity.
+                      This is an output only field that contains the value computed from the input field combined with
+                      server side defaults. Use the field without the effective_ prefix to set the value
+                    type: string
+                  effectiveCustomTags:
+                    description: |-
+                      The recorded custom tags associated with the instance.
+                      This is an output only field that contains the value computed from the input field combined with
+                      server side defaults. Use the field without the effective_ prefix to set the value
+                    items:
+                      properties:
+                        key:
+                          description: The key of the custom tag
+                          type: string
+                        value:
+                          description: The value of the custom tag
+                          type: string
+                      type: object
+                    type: array
+                  effectiveEnablePgNativeLogin:
+                    description: |-
+                      Whether the instance has PG native password login enabled.
+                      This is an output only field that contains the value computed from the input field combined with
+                      server side defaults. Use the field without the effective_ prefix to set the value
+                    type: boolean
+                  effectiveEnableReadableSecondaries:
+                    description: |-
+                      Whether secondaries serving read-only traffic are enabled. Defaults to false.
+                      This is an output only field that contains the value computed from the input field combined with
+                      server side defaults. Use the field without the effective_ prefix to set the value
+                    type: boolean
+                  effectiveNodeCount:
+                    description: |-
+                      The number of nodes in the instance, composed of 1 primary and 0 or more secondaries. Defaults to
+                      1 primary and 0 secondaries.
+                      This is an output only field that contains the value computed from the input field combined with
+                      server side defaults. Use the field without the effective_ prefix to set the value
+                    type: number
+                  effectiveRetentionWindowInDays:
+                    description: |-
+                      The retention window for the instance. This is the time window in days
+                      for which the historical data is retained.
+                      This is an output only field that contains the value computed from the input field combined with
+                      server side defaults. Use the field without the effective_ prefix to set the value
+                    type: number
+                  effectiveStopped:
+                    description: |-
+                      Whether the instance is stopped.
+                      This is an output only field that contains the value computed from the input field combined with
+                      server side defaults. Use the field without the effective_ prefix to set the value
+                    type: boolean
+                  effectiveUsagePolicyId:
+                    description: |-
+                      The policy that is applied to the instance.
+                      This is an output only field that contains the value computed from the input field combined with
+                      server side defaults. Use the field without the effective_ prefix to set the value
+                    type: string
+                  enablePgNativeLogin:
+                    description: Whether to enable PG native password login on the
+                      instance. Defaults to false
+                    type: boolean
+                  enableReadableSecondaries:
+                    description: Whether to enable secondaries to serve read-only
+                      traffic. Defaults to false
+                    type: boolean
+                  id:
+                    type: string
+                  nodeCount:
+                    description: |-
+                      The number of nodes in the instance, composed of 1 primary and 0 or more secondaries. Defaults to
+                      1 primary and 0 secondaries. This field is input only, see effective_node_count for the output
+                    type: number
+                  parentInstanceRef:
+                    description: |-
+                      The ref of the parent instance. This is only available if the instance is
+                      child instance.
+                      Input: For specifying the parent instance to create a child instance. Optional.
+                      Output: Only populated if provided as input to create a child instance
+                    properties:
+                      branchTime:
+                        description: |-
+                          Branch time of the ref database instance.
+                          For a parent ref instance, this is the point in time on the parent instance from which the
+                          instance was created.
+                          For a child ref instance, this is the point in time on the instance from which the child
+                          instance was created.
+                          Input: For specifying the point in time to create a child instance. Optional.
+                          Output: Only populated if provided as input to create a child instance
+                        type: string
+                      effectiveLsn:
+                        description: |-
+                          For a parent ref instance, this is the LSN on the parent instance from which the
+                          instance was created.
+                          For a child ref instance, this is the LSN on the instance from which the child instance
+                          was created.
+                          This is an output only field that contains the value computed from the input field combined with
+                          server side defaults. Use the field without the effective_ prefix to set the value
+                        type: string
+                      lsn:
+                        description: User-specified WAL LSN of the ref database instance.
+                        type: string
+                      name:
+                        description: The name of the instance. This is the unique
+                          identifier for the instance
+                        type: string
+                      uid:
+                        description: An immutable UUID identifier for the instance
+                        type: string
+                    type: object
+                  pgVersion:
+                    description: The version of Postgres running on the instance
+                    type: string
+                  providerConfig:
+                    description: Configure the provider for management through account
+                      provider.
+                    properties:
+                      workspaceId:
+                        description: Workspace ID which the resource belongs to. This
+                          workspace must be part of the account which the provider
+                          is configured with.
+                        type: string
+                    type: object
+                  purgeOnDelete:
+                    description: Purge the resource on delete
+                    type: boolean
+                  readOnlyDns:
+                    description: |-
+                      The DNS endpoint to connect to the instance for read only access. This is only available if
+                      enable_readable_secondaries is true
+                    type: string
+                  readWriteDns:
+                    description: The DNS endpoint to connect to the instance for read+write
+                      access
+                    type: string
+                  retentionWindowInDays:
+                    description: |-
+                      The retention window for the instance. This is the time window in days
+                      for which the historical data is retained. The default value is 7 days.
+                      Valid values are 2 to 35 days
+                    type: number
+                  state:
+                    description: 'The current state of the instance. Possible values
+                      are: AVAILABLE, DELETING, FAILING_OVER, STARTING, STOPPED, UPDATING'
+                    type: string
+                  stopped:
+                    description: Whether to stop the instance. An input only param,
+                      see effective_stopped for the output
+                    type: boolean
+                  uid:
+                    description: An immutable UUID identifier for the instance
+                    type: string
+                  usagePolicyId:
+                    description: The desired usage policy to associate with the instance
+                    type: string
+                type: object
+              conditions:
+                description: Conditions of the resource.
+                items:
+                  description: A Condition that may apply to a resource.
+                  properties:
+                    lastTransitionTime:
+                      description: |-
+                        LastTransitionTime is the last time this condition transitioned from one
+                        status to another.
+                      format: date-time
+                      type: string
+                    message:
+                      description: |-
+                        A Message containing details about this condition's last transition from
+                        one status to another, if any.
+                      type: string
+                    observedGeneration:
+                      description: |-
+                        ObservedGeneration represents the .metadata.generation that the condition was set based upon.
+                        For instance, if .metadata.generation is currently 12, but the .status.conditions[x].observedGeneration is 9, the condition is out of date
+                        with respect to the current state of the instance.
+                      format: int64
+                      type: integer
+                    reason:
+                      description: A Reason for this condition's last transition from
+                        one status to another.
+                      type: string
+                    status:
+                      description: Status of this condition; is it currently True,
+                        False, or Unknown?
+                      type: string
+                    type:
+                      description: |-
+                        Type of this condition. At most one of each condition type may apply to
+                        a resource at any point in time.
+                      type: string
+                  required:
+                  - lastTransitionTime
+                  - reason
+                  - status
+                  - type
+                  type: object
+                type: array
+                x-kubernetes-list-map-keys:
+                - type
+                x-kubernetes-list-type: map
+              observedGeneration:
+                description: |-
+                  ObservedGeneration is the latest metadata.generation
+                  which resulted in either a ready state, or stalled due to error
+                  it can not recover from without human intervention.
+                format: int64
+                type: integer
+            type: object
+        required:
+        - spec
+        type: object
+    served: true
+    storage: true
+    subresources:
+      status: {}

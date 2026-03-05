@@ -267,6 +267,16 @@ spec:
                     description: Username/groupname/sp application_id of the external
                       location owner.
                     type: string
+                  providerConfig:
+                    description: 'Configure the provider for management through account
+                      provider. This block consists of the following fields:'
+                    properties:
+                      workspaceId:
+                        description: Workspace ID which the resource belongs to. This
+                          workspace must be part of the account which the provider
+                          is configured with.
+                        type: string
+                    type: object
                   readOnly:
                     description: Indicates whether the external location is read-only.
                     type: boolean
@@ -489,6 +499,16 @@ spec:
                     description: Username/groupname/sp application_id of the external
                       location owner.
                     type: string
+                  providerConfig:
+                    description: 'Configure the provider for management through account
+                      provider. This block consists of the following fields:'
+                    properties:
+                      workspaceId:
+                        description: Workspace ID which the resource belongs to. This
+                          workspace must be part of the account which the provider
+                          is configured with.
+                        type: string
+                    type: object
                   readOnly:
                     description: Indicates whether the external location is read-only.
                     type: boolean
@@ -622,6 +642,10 @@ spec:
                     description: Name of the databricks_storage_credential to use
                       with this external location.
                     type: string
+                  effectiveEnableFileEvents:
+                    description: indicates if managed file events are enabled for
+                      this external location.  Requires file_event_queue block.
+                    type: boolean
                   enableFileEvents:
                     description: indicates if managed file events are enabled for
                       this external location.  Requires file_event_queue block.
@@ -755,6 +779,16 @@ spec:
                     description: Username/groupname/sp application_id of the external
                       location owner.
                     type: string
+                  providerConfig:
+                    description: 'Configure the provider for management through account
+                      provider. This block consists of the following fields:'
+                    properties:
+                      workspaceId:
+                        description: Workspace ID which the resource belongs to. This
+                          workspace must be part of the account which the provider
+                          is configured with.
+                        type: string
+                    type: object
                   readOnly:
                     description: Indicates whether the external location is read-only.
                     type: boolean

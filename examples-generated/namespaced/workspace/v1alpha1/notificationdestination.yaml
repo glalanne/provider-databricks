@@ -1,3 +1,7 @@
+# SPDX-FileCopyrightText: 2025 The Crossplane Authors <https://crossplane.io>
+#
+# SPDX-License-Identifier: CC0-1.0
+
 apiVersion: workspace.databricks.m.crossplane.io/v1alpha1
 kind: NotificationDestination
 metadata:
@@ -10,7 +14,7 @@ metadata:
 spec:
   forProvider:
     config:
-    - email:
-      - addresses:
+      email:
+        addresses:
         - abc@gmail.com
     displayName: Notification Destination

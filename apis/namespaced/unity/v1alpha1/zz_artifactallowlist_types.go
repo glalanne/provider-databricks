@@ -28,6 +28,9 @@ type ArtifactAllowlistInitParameters struct {
 
 	// ID of the parent metastore.
 	MetastoreID *string `json:"metastoreId,omitempty" tf:"metastore_id,omitempty"`
+
+	// Configure the provider for management through account provider. This block consists of the following fields:
+	ProviderConfig *ProviderConfigInitParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
 }
 
 type ArtifactAllowlistObservation struct {
@@ -47,6 +50,9 @@ type ArtifactAllowlistObservation struct {
 
 	// ID of the parent metastore.
 	MetastoreID *string `json:"metastoreId,omitempty" tf:"metastore_id,omitempty"`
+
+	// Configure the provider for management through account provider. This block consists of the following fields:
+	ProviderConfig *ProviderConfigObservation `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
 }
 
 type ArtifactAllowlistParameters struct {
@@ -69,6 +75,10 @@ type ArtifactAllowlistParameters struct {
 	// ID of the parent metastore.
 	// +kubebuilder:validation:Optional
 	MetastoreID *string `json:"metastoreId,omitempty" tf:"metastore_id,omitempty"`
+
+	// Configure the provider for management through account provider. This block consists of the following fields:
+	// +kubebuilder:validation:Optional
+	ProviderConfig *ProviderConfigParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
 }
 
 type ArtifactMatcherInitParameters struct {
@@ -98,6 +108,25 @@ type ArtifactMatcherParameters struct {
 	// The pattern matching type of the artifact. Only PREFIX_MATCH is supported.
 	// +kubebuilder:validation:Optional
 	MatchType *string `json:"matchType" tf:"match_type,omitempty"`
+}
+
+type ProviderConfigInitParameters struct {
+
+	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
+}
+
+type ProviderConfigObservation struct {
+
+	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
+}
+
+type ProviderConfigParameters struct {
+
+	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
+	// +kubebuilder:validation:Optional
+	WorkspaceID *string `json:"workspaceId" tf:"workspace_id,omitempty"`
 }
 
 // ArtifactAllowlistSpec defines the desired state of ArtifactAllowlist

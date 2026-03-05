@@ -221,6 +221,16 @@ spec:
                             type: string
                         type: object
                     type: object
+                  providerConfig:
+                    description: 'Configure the provider for management through account
+                      provider. This block consists of the following fields:'
+                    properties:
+                      workspaceId:
+                        description: Workspace ID which the resource belongs to. This
+                          workspace must be part of the account which the provider
+                          is configured with.
+                        type: string
+                    type: object
                   queryId:
                     description: ID of the query evaluated by the alert.
                     type: string
@@ -466,6 +476,16 @@ spec:
                             - IfNotPresent
                             type: string
                         type: object
+                    type: object
+                  providerConfig:
+                    description: 'Configure the provider for management through account
+                      provider. This block consists of the following fields:'
+                    properties:
+                      workspaceId:
+                        description: Workspace ID which the resource belongs to. This
+                          workspace must be part of the account which the provider
+                          is configured with.
+                        type: string
                     type: object
                   queryId:
                     description: ID of the query evaluated by the alert.
@@ -735,6 +755,16 @@ spec:
                       The default is the user's home folder.  If changed, the alert
                       will be recreated.
                     type: string
+                  providerConfig:
+                    description: 'Configure the provider for management through account
+                      provider. This block consists of the following fields:'
+                    properties:
+                      workspaceId:
+                        description: Workspace ID which the resource belongs to. This
+                          workspace must be part of the account which the provider
+                          is configured with.
+                        type: string
+                    type: object
                   queryId:
                     description: ID of the query evaluated by the alert.
                     type: string

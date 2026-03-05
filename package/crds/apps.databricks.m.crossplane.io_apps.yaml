@@ -88,6 +88,8 @@ spec:
                     description: A list of resources that the app have access to.
                     items:
                       properties:
+                        app:
+                          type: object
                         database:
                           description: attribute
                           properties:
@@ -214,6 +216,8 @@ spec:
                           type: object
                       type: object
                     type: array
+                  space:
+                    type: string
                   usagePolicyId:
                     description: Id of the SQL warehouse to grant permission on.
                     type: string
@@ -266,6 +270,8 @@ spec:
                     description: A list of resources that the app have access to.
                     items:
                       properties:
+                        app:
+                          type: object
                         database:
                           description: attribute
                           properties:
@@ -392,6 +398,8 @@ spec:
                           type: object
                       type: object
                     type: array
+                  space:
+                    type: string
                   usagePolicyId:
                     description: Id of the SQL warehouse to grant permission on.
                     type: string
@@ -692,6 +700,8 @@ spec:
                     description: A list of resources that the app have access to.
                     items:
                       properties:
+                        app:
+                          type: object
                         database:
                           description: attribute
                           properties:
@@ -812,6 +822,8 @@ spec:
                             securableFullName:
                               description: the full name of UC securable, i.e. my-catalog.my-schema.my-volume.
                               type: string
+                            securableKind:
+                              type: string
                             securableType:
                               description: the type of UC securable, i.e. VOLUME.
                               type: string
@@ -826,6 +838,8 @@ spec:
                     type: number
                   servicePrincipalName:
                     description: name of the app service principal
+                    type: string
+                  space:
                     type: string
                   updateTime:
                     description: The update time of the app.

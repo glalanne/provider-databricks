@@ -1,3 +1,7 @@
+# SPDX-FileCopyrightText: 2025 The Crossplane Authors <https://crossplane.io>
+#
+# SPDX-License-Identifier: CC0-1.0
+
 apiVersion: sql.databricks.m.crossplane.io/v1alpha1
 kind: Alert
 metadata:
@@ -10,13 +14,13 @@ metadata:
 spec:
   forProvider:
     condition:
-    - op: GREATER_THAN
+      op: GREATER_THAN
       operand:
-      - column:
-        - name: value
+        column:
+          name: value
       threshold:
-      - value:
-        - doubleValue: 42
+        value:
+          doubleValue: 42
     displayName: TF new alert
     parentPathSelector:
       matchLabels:

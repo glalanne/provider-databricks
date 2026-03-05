@@ -1,3 +1,7 @@
+# SPDX-FileCopyrightText: 2025 The Crossplane Authors <https://crossplane.io>
+#
+# SPDX-License-Identifier: CC0-1.0
+
 apiVersion: compute.databricks.m.crossplane.io/v1alpha1
 kind: Job
 metadata:
@@ -14,17 +18,17 @@ spec:
     jobCluster:
     - jobClusterKey: j
       newCluster:
-      - nodeTypeId: ${data.databricks_node_type.smallest.id}
+        nodeTypeId: ${data.databricks_node_type.smallest.id}
         numWorkers: 2
         sparkVersion: ${data.databricks_spark_version.latest.id}
     name: Job with multiple tasks
     task:
     - newCluster:
-      - nodeTypeId: ${data.databricks_node_type.smallest.id}
+        nodeTypeId: ${data.databricks_node_type.smallest.id}
         numWorkers: 1
         sparkVersion: ${data.databricks_spark_version.latest.id}
       notebookTask:
-      - notebookPathSelector:
+        notebookPathSelector:
           matchLabels:
             testing.upbound.io/example-name: this
       taskKey: a
@@ -34,16 +38,16 @@ spec:
         matchLabels:
           testing.upbound.io/example-name: shared
       sparkJarTask:
-      - mainClassName: com.acme.data.Main
+        mainClassName: com.acme.data.Main
       taskKey: b
     - jobClusterKey: j
       notebookTask:
-      - notebookPathSelector:
+        notebookPathSelector:
           matchLabels:
             testing.upbound.io/example-name: this
       taskKey: c
     - pipelineTask:
-      - pipelineIdSelector:
+        pipelineIdSelector:
           matchLabels:
             testing.upbound.io/example-name: this
       taskKey: d

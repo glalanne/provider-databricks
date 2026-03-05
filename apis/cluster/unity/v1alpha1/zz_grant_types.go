@@ -88,6 +88,9 @@ type GrantInitParameters struct {
 	// +listType=set
 	Privileges []*string `json:"privileges,omitempty" tf:"privileges,omitempty"`
 
+	// Configure the provider for management through account provider. This block consists of the following fields:
+	ProviderConfig *GrantProviderConfigInitParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
+
 	Recipient *string `json:"recipient,omitempty" tf:"recipient,omitempty"`
 
 	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/cluster/unity/v1alpha1.Schema
@@ -165,6 +168,9 @@ type GrantObservation struct {
 	// One or more privileges that are specific to a securable type.
 	// +listType=set
 	Privileges []*string `json:"privileges,omitempty" tf:"privileges,omitempty"`
+
+	// Configure the provider for management through account provider. This block consists of the following fields:
+	ProviderConfig *GrantProviderConfigObservation `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
 
 	Recipient *string `json:"recipient,omitempty" tf:"recipient,omitempty"`
 
@@ -264,6 +270,10 @@ type GrantParameters struct {
 	// +listType=set
 	Privileges []*string `json:"privileges,omitempty" tf:"privileges,omitempty"`
 
+	// Configure the provider for management through account provider. This block consists of the following fields:
+	// +kubebuilder:validation:Optional
+	ProviderConfig *GrantProviderConfigParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
+
 	// +kubebuilder:validation:Optional
 	Recipient *string `json:"recipient,omitempty" tf:"recipient,omitempty"`
 
@@ -320,6 +330,25 @@ type GrantParameters struct {
 	// Selector for a Volume in unity to populate volume.
 	// +kubebuilder:validation:Optional
 	VolumeSelector *v1.Selector `json:"volumeSelector,omitempty" tf:"-"`
+}
+
+type GrantProviderConfigInitParameters struct {
+
+	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
+}
+
+type GrantProviderConfigObservation struct {
+
+	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
+}
+
+type GrantProviderConfigParameters struct {
+
+	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
+	// +kubebuilder:validation:Optional
+	WorkspaceID *string `json:"workspaceId" tf:"workspace_id,omitempty"`
 }
 
 // GrantSpec defines the desired state of Grant

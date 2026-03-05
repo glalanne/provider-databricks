@@ -80,6 +80,13 @@ spec:
                     type: string
                   catalogName:
                     type: string
+                  providerConfig:
+                    properties:
+                      workspaceId:
+                        description: ID of the workspace. Change forces creation of
+                          a new resource.
+                        type: string
+                    type: object
                   securableName:
                     description: Name of securable. Change forces creation of a new
                       resource.
@@ -262,6 +269,13 @@ spec:
                     type: string
                   catalogName:
                     type: string
+                  providerConfig:
+                    properties:
+                      workspaceId:
+                        description: ID of the workspace. Change forces creation of
+                          a new resource.
+                        type: string
+                    type: object
                   securableName:
                     description: Name of securable. Change forces creation of a new
                       resource.
@@ -525,6 +539,13 @@ spec:
                     type: string
                   id:
                     type: string
+                  providerConfig:
+                    properties:
+                      workspaceId:
+                        description: ID of the workspace. Change forces creation of
+                          a new resource.
+                        type: string
+                    type: object
                   securableName:
                     description: Name of securable. Change forces creation of a new
                       resource.

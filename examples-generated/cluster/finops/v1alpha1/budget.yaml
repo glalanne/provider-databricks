@@ -1,3 +1,7 @@
+# SPDX-FileCopyrightText: 2025 The Crossplane Authors <https://crossplane.io>
+#
+# SPDX-License-Identifier: CC0-1.0
+
 apiVersion: finops.databricks.crossplane.io/v1alpha1
 kind: Budget
 metadata:
@@ -18,18 +22,18 @@ spec:
       triggerType: CUMULATIVE_SPENDING_EXCEEDED
     displayName: databricks-workspace-budget
     filter:
-    - tags:
+      tags:
       - key: Team
         value:
-        - operator: IN
+          operator: IN
           values:
           - Data Science
       - key: Environment
         value:
-        - operator: IN
+          operator: IN
           values:
           - Development
       workspaceId:
-      - operator: IN
+        operator: IN
         values:
         - 1234567890098765

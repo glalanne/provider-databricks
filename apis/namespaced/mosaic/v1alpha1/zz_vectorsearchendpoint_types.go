@@ -29,6 +29,49 @@ type EndpointStatusObservation struct {
 type EndpointStatusParameters struct {
 }
 
+type ProviderConfigInitParameters struct {
+
+	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
+}
+
+type ProviderConfigObservation struct {
+
+	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
+}
+
+type ProviderConfigParameters struct {
+
+	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
+	// +kubebuilder:validation:Optional
+	WorkspaceID *string `json:"workspaceId" tf:"workspace_id,omitempty"`
+}
+
+type ScalingInfoInitParameters struct {
+	RequestedMinQPS *float64 `json:"requestedMinQps,omitempty" tf:"requested_min_qps,omitempty"`
+
+	// Current state of the endpoint. Currently following values are supported: PROVISIONING, ONLINE, and OFFLINE.
+	State *string `json:"state,omitempty" tf:"state,omitempty"`
+}
+
+type ScalingInfoObservation struct {
+	RequestedMinQPS *float64 `json:"requestedMinQps,omitempty" tf:"requested_min_qps,omitempty"`
+
+	// Current state of the endpoint. Currently following values are supported: PROVISIONING, ONLINE, and OFFLINE.
+	State *string `json:"state,omitempty" tf:"state,omitempty"`
+}
+
+type ScalingInfoParameters struct {
+
+	// +kubebuilder:validation:Optional
+	RequestedMinQPS *float64 `json:"requestedMinQps,omitempty" tf:"requested_min_qps,omitempty"`
+
+	// Current state of the endpoint. Currently following values are supported: PROVISIONING, ONLINE, and OFFLINE.
+	// +kubebuilder:validation:Optional
+	State *string `json:"state,omitempty" tf:"state,omitempty"`
+}
+
 type VectorSearchEndpointInitParameters struct {
 
 	// The Budget Policy ID set for this resource.
@@ -39,6 +82,11 @@ type VectorSearchEndpointInitParameters struct {
 
 	// Name of the Mosaic AI Vector Search Endpoint to create. (Change leads to recreation of the resource).
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// Configure the provider for management through account provider. This block consists of the following fields:
+	ProviderConfig *ProviderConfigInitParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
+
+	ScalingInfo *ScalingInfoInitParameters `json:"scalingInfo,omitempty" tf:"scaling_info,omitempty"`
 }
 
 type VectorSearchEndpointObservation struct {
@@ -78,6 +126,11 @@ type VectorSearchEndpointObservation struct {
 
 	// Number of indexes on the endpoint.
 	NumIndexes *float64 `json:"numIndexes,omitempty" tf:"num_indexes,omitempty"`
+
+	// Configure the provider for management through account provider. This block consists of the following fields:
+	ProviderConfig *ProviderConfigObservation `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
+
+	ScalingInfo *ScalingInfoObservation `json:"scalingInfo,omitempty" tf:"scaling_info,omitempty"`
 }
 
 type VectorSearchEndpointParameters struct {
@@ -93,6 +146,13 @@ type VectorSearchEndpointParameters struct {
 	// Name of the Mosaic AI Vector Search Endpoint to create. (Change leads to recreation of the resource).
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// Configure the provider for management through account provider. This block consists of the following fields:
+	// +kubebuilder:validation:Optional
+	ProviderConfig *ProviderConfigParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	ScalingInfo *ScalingInfoParameters `json:"scalingInfo,omitempty" tf:"scaling_info,omitempty"`
 }
 
 // VectorSearchEndpointSpec defines the desired state of VectorSearchEndpoint

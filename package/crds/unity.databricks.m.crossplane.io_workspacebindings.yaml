@@ -64,6 +64,15 @@ spec:
                     type: string
                   catalogName:
                     type: string
+                  providerConfig:
+                    description: 'Configure the provider for management through account
+                      provider. This block consists of the following fields:'
+                    properties:
+                      workspaceId:
+                        description: ID of the workspace. Change forces creation of
+                          a new resource.
+                        type: string
+                    type: object
                   securableName:
                     description: Name of securable. Change forces creation of a new
                       resource.
@@ -259,6 +268,15 @@ spec:
                     type: string
                   catalogName:
                     type: string
+                  providerConfig:
+                    description: 'Configure the provider for management through account
+                      provider. This block consists of the following fields:'
+                    properties:
+                      workspaceId:
+                        description: ID of the workspace. Change forces creation of
+                          a new resource.
+                        type: string
+                    type: object
                   securableName:
                     description: Name of securable. Change forces creation of a new
                       resource.
@@ -506,6 +524,15 @@ spec:
                     type: string
                   id:
                     type: string
+                  providerConfig:
+                    description: 'Configure the provider for management through account
+                      provider. This block consists of the following fields:'
+                    properties:
+                      workspaceId:
+                        description: ID of the workspace. Change forces creation of
+                          a new resource.
+                        type: string
+                    type: object
                   securableName:
                     description: Name of securable. Change forces creation of a new
                       resource.

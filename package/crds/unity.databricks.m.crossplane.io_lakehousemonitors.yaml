@@ -158,6 +158,13 @@ spec:
                   outputSchemaName:
                     description: '- Schema where output metric tables are created'
                     type: string
+                  providerConfig:
+                    properties:
+                      workspaceId:
+                        description: ID of this monitor is the same as the full table
+                          name of the format {catalog}.{schema_name}.{table_name}
+                        type: string
+                    type: object
                   schedule:
                     description: 'The schedule for automatically updating and refreshing
                       metric tables.  This block consists of following fields:'
@@ -323,6 +330,13 @@ spec:
                   outputSchemaName:
                     description: '- Schema where output metric tables are created'
                     type: string
+                  providerConfig:
+                    properties:
+                      workspaceId:
+                        description: ID of this monitor is the same as the full table
+                          name of the format {catalog}.{schema_name}.{table_name}
+                        type: string
+                    type: object
                   schedule:
                     description: 'The schedule for automatically updating and refreshing
                       metric tables.  This block consists of following fields:'
@@ -570,6 +584,13 @@ spec:
                     description: 'The full name of the profile metrics table. Format:
                       catalog_name.schema_name.table_name.'
                     type: string
+                  providerConfig:
+                    properties:
+                      workspaceId:
+                        description: ID of this monitor is the same as the full table
+                          name of the format {catalog}.{schema_name}.{table_name}
+                        type: string
+                    type: object
                   schedule:
                     description: 'The schedule for automatically updating and refreshing
                       metric tables.  This block consists of following fields:'

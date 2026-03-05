@@ -223,6 +223,8 @@ spec:
                           description: 'block describing the Environment. Consists
                             of following attributes:'
                           properties:
+                            baseEnvironment:
+                              type: string
                             client:
                               type: string
                             dependencies:
@@ -301,6 +303,13 @@ spec:
                           bitbucketCloud, bitbucketServer, azureDevOpsServices, gitLab,
                           gitLabEnterpriseEdition.'
                         type: string
+                      sparseCheckout:
+                        properties:
+                          patterns:
+                            items:
+                              type: string
+                            type: array
+                        type: object
                       tag:
                         description: name of the Git branch to use. Conflicts with
                           branch and commit.
@@ -1559,8 +1568,12 @@ spec:
                               type: string
                           type: object
                         compute:
+                          description: Task level compute configuration. This block
+                            is documented below.
                           properties:
                             hardwareAccelerator:
+                              description: 'Hardware accelerator configuration for
+                                Serverless GPU workloads. Supported values are:'
                               type: string
                           type: object
                         conditionTask:
@@ -1592,6 +1605,11 @@ spec:
                             dashboardId:
                               description: The identifier of the dashboard to refresh
                               type: string
+                            filters:
+                              additionalProperties:
+                                type: string
+                              type: object
+                              x-kubernetes-map-type: granular
                             subscription:
                               description: Represents a subscription configuration
                                 for scheduled dashboard snapshots.
@@ -1896,8 +1914,13 @@ spec:
                                       type: string
                                   type: object
                                 compute:
+                                  description: Task level compute configuration. This
+                                    block is documented below.
                                   properties:
                                     hardwareAccelerator:
+                                      description: 'Hardware accelerator configuration
+                                        for Serverless GPU workloads. Supported values
+                                        are:'
                                       type: string
                                   type: object
                                 conditionTask:
@@ -1933,6 +1956,11 @@ spec:
                                       description: The identifier of the dashboard
                                         to refresh
                                       type: string
+                                    filters:
+                                      additionalProperties:
+                                        type: string
+                                      type: object
+                                      x-kubernetes-map-type: granular
                                     subscription:
                                       description: Represents a subscription configuration
                                         for scheduled dashboard snapshots.
@@ -2141,6 +2169,8 @@ spec:
                                     command:
                                       type: string
                                     compute:
+                                      description: Task level compute configuration.
+                                        This block is documented below.
                                       properties:
                                         gpuNodePoolId:
                                           description: ID of the system notification
@@ -3203,6 +3233,8 @@ spec:
                             command:
                               type: string
                             compute:
+                              description: Task level compute configuration. This
+                                block is documented below.
                               properties:
                                 gpuNodePoolId:
                                   description: ID of the system notification that
@@ -5017,6 +5049,8 @@ spec:
                           description: 'block describing the Environment. Consists
                             of following attributes:'
                           properties:
+                            baseEnvironment:
+                              type: string
                             client:
                               type: string
                             dependencies:
@@ -5095,6 +5129,13 @@ spec:
                           bitbucketCloud, bitbucketServer, azureDevOpsServices, gitLab,
                           gitLabEnterpriseEdition.'
                         type: string
+                      sparseCheckout:
+                        properties:
+                          patterns:
+                            items:
+                              type: string
+                            type: array
+                        type: object
                       tag:
                         description: name of the Git branch to use. Conflicts with
                           branch and commit.
@@ -6357,8 +6398,12 @@ spec:
                               type: string
                           type: object
                         compute:
+                          description: Task level compute configuration. This block
+                            is documented below.
                           properties:
                             hardwareAccelerator:
+                              description: 'Hardware accelerator configuration for
+                                Serverless GPU workloads. Supported values are:'
                               type: string
                           type: object
                         conditionTask:
@@ -6390,6 +6435,11 @@ spec:
                             dashboardId:
                               description: The identifier of the dashboard to refresh
                               type: string
+                            filters:
+                              additionalProperties:
+                                type: string
+                              type: object
+                              x-kubernetes-map-type: granular
                             subscription:
                               description: Represents a subscription configuration
                                 for scheduled dashboard snapshots.
@@ -6694,8 +6744,13 @@ spec:
                                       type: string
                                   type: object
                                 compute:
+                                  description: Task level compute configuration. This
+                                    block is documented below.
                                   properties:
                                     hardwareAccelerator:
+                                      description: 'Hardware accelerator configuration
+                                        for Serverless GPU workloads. Supported values
+                                        are:'
                                       type: string
                                   type: object
                                 conditionTask:
@@ -6731,6 +6786,11 @@ spec:
                                       description: The identifier of the dashboard
                                         to refresh
                                       type: string
+                                    filters:
+                                      additionalProperties:
+                                        type: string
+                                      type: object
+                                      x-kubernetes-map-type: granular
                                     subscription:
                                       description: Represents a subscription configuration
                                         for scheduled dashboard snapshots.
@@ -6939,6 +6999,8 @@ spec:
                                     command:
                                       type: string
                                     compute:
+                                      description: Task level compute configuration.
+                                        This block is documented below.
                                       properties:
                                         gpuNodePoolId:
                                           description: ID of the system notification
@@ -8003,6 +8065,8 @@ spec:
                             command:
                               type: string
                             compute:
+                              description: Task level compute configuration. This
+                                block is documented below.
                               properties:
                                 gpuNodePoolId:
                                   description: ID of the system notification that
@@ -9897,6 +9961,8 @@ spec:
                           description: 'block describing the Environment. Consists
                             of following attributes:'
                           properties:
+                            baseEnvironment:
+                              type: string
                             client:
                               type: string
                             dependencies:
@@ -9975,6 +10041,13 @@ spec:
                           bitbucketCloud, bitbucketServer, azureDevOpsServices, gitLab,
                           gitLabEnterpriseEdition.'
                         type: string
+                      sparseCheckout:
+                        properties:
+                          patterns:
+                            items:
+                              type: string
+                            type: array
+                        type: object
                       tag:
                         description: name of the Git branch to use. Conflicts with
                           branch and commit.
@@ -11125,8 +11198,12 @@ spec:
                               type: string
                           type: object
                         compute:
+                          description: Task level compute configuration. This block
+                            is documented below.
                           properties:
                             hardwareAccelerator:
+                              description: 'Hardware accelerator configuration for
+                                Serverless GPU workloads. Supported values are:'
                               type: string
                           type: object
                         conditionTask:
@@ -11158,6 +11235,11 @@ spec:
                             dashboardId:
                               description: The identifier of the dashboard to refresh
                               type: string
+                            filters:
+                              additionalProperties:
+                                type: string
+                              type: object
+                              x-kubernetes-map-type: granular
                             subscription:
                               description: Represents a subscription configuration
                                 for scheduled dashboard snapshots.
@@ -11386,8 +11468,13 @@ spec:
                                       type: string
                                   type: object
                                 compute:
+                                  description: Task level compute configuration. This
+                                    block is documented below.
                                   properties:
                                     hardwareAccelerator:
+                                      description: 'Hardware accelerator configuration
+                                        for Serverless GPU workloads. Supported values
+                                        are:'
                                       type: string
                                   type: object
                                 conditionTask:
@@ -11423,6 +11510,11 @@ spec:
                                       description: The identifier of the dashboard
                                         to refresh
                                       type: string
+                                    filters:
+                                      additionalProperties:
+                                        type: string
+                                      type: object
+                                      x-kubernetes-map-type: granular
                                     subscription:
                                       description: Represents a subscription configuration
                                         for scheduled dashboard snapshots.
@@ -11631,6 +11723,8 @@ spec:
                                     command:
                                       type: string
                                     compute:
+                                      description: Task level compute configuration.
+                                        This block is documented below.
                                       properties:
                                         gpuNodePoolId:
                                           description: ID of the system notification
@@ -12674,6 +12768,8 @@ spec:
                             command:
                               type: string
                             compute:
+                              description: Task level compute configuration. This
+                                block is documented below.
                               properties:
                                 gpuNodePoolId:
                                   description: ID of the system notification that

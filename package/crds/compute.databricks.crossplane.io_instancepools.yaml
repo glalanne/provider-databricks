@@ -235,6 +235,18 @@ spec:
                       by the pool. This is in addition to any instances in use by
                       active clusters.
                     type: number
+                  nodeTypeFlexibility:
+                    description: a block describing the alternative driver node types
+                      if node_type_id isn't available.
+                    properties:
+                      alternateNodeTypeIds:
+                        description: list of alternative node types that will be used
+                          if main node type isn't available.  Follow the documentation
+                          for requirements on selection of alternative node types.
+                        items:
+                          type: string
+                        type: array
+                    type: object
                   nodeTypeId:
                     description: (String) The node type for the instances in the pool.
                       All clusters attached to the pool inherit this node type and
@@ -291,6 +303,16 @@ spec:
                     items:
                       type: string
                     type: array
+                  providerConfig:
+                    description: 'Configure the provider for management through account
+                      provider. This block consists of the following fields:'
+                    properties:
+                      workspaceId:
+                        description: Workspace ID which the resource belongs to. This
+                          workspace must be part of the account which the provider
+                          is configured with.
+                        type: string
+                    type: object
                 type: object
               initProvider:
                 description: |-
@@ -468,6 +490,18 @@ spec:
                       by the pool. This is in addition to any instances in use by
                       active clusters.
                     type: number
+                  nodeTypeFlexibility:
+                    description: a block describing the alternative driver node types
+                      if node_type_id isn't available.
+                    properties:
+                      alternateNodeTypeIds:
+                        description: list of alternative node types that will be used
+                          if main node type isn't available.  Follow the documentation
+                          for requirements on selection of alternative node types.
+                        items:
+                          type: string
+                        type: array
+                    type: object
                   nodeTypeId:
                     description: (String) The node type for the instances in the pool.
                       All clusters attached to the pool inherit this node type and
@@ -526,6 +560,16 @@ spec:
                     items:
                       type: string
                     type: array
+                  providerConfig:
+                    description: 'Configure the provider for management through account
+                      provider. This block consists of the following fields:'
+                    properties:
+                      workspaceId:
+                        description: Workspace ID which the resource belongs to. This
+                          workspace must be part of the account which the provider
+                          is configured with.
+                        type: string
+                    type: object
                 type: object
               managementPolicies:
                 default:
@@ -794,6 +838,18 @@ spec:
                       by the pool. This is in addition to any instances in use by
                       active clusters.
                     type: number
+                  nodeTypeFlexibility:
+                    description: a block describing the alternative driver node types
+                      if node_type_id isn't available.
+                    properties:
+                      alternateNodeTypeIds:
+                        description: list of alternative node types that will be used
+                          if main node type isn't available.  Follow the documentation
+                          for requirements on selection of alternative node types.
+                        items:
+                          type: string
+                        type: array
+                    type: object
                   nodeTypeId:
                     description: (String) The node type for the instances in the pool.
                       All clusters attached to the pool inherit this node type and
@@ -832,6 +888,16 @@ spec:
                     items:
                       type: string
                     type: array
+                  providerConfig:
+                    description: 'Configure the provider for management through account
+                      provider. This block consists of the following fields:'
+                    properties:
+                      workspaceId:
+                        description: Workspace ID which the resource belongs to. This
+                          workspace must be part of the account which the provider
+                          is configured with.
+                        type: string
+                    type: object
                 type: object
               conditions:
                 description: Conditions of the resource.

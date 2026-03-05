@@ -178,6 +178,16 @@ spec:
                     description: Extensible Schema properties.
                     type: object
                     x-kubernetes-map-type: granular
+                  providerConfig:
+                    description: 'Configure the provider for management through account
+                      provider. This block consists of the following fields:'
+                    properties:
+                      workspaceId:
+                        description: Workspace ID which the resource belongs to. This
+                          workspace must be part of the account which the provider
+                          is configured with.
+                        type: string
+                    type: object
                   storageRoot:
                     description: Managed location of the schema. Location in cloud
                       storage where data for managed tables will be stored.  If the
@@ -306,6 +316,16 @@ spec:
                     description: Extensible Schema properties.
                     type: object
                     x-kubernetes-map-type: granular
+                  providerConfig:
+                    description: 'Configure the provider for management through account
+                      provider. This block consists of the following fields:'
+                    properties:
+                      workspaceId:
+                        description: Workspace ID which the resource belongs to. This
+                          workspace must be part of the account which the provider
+                          is configured with.
+                        type: string
+                    type: object
                   storageRoot:
                     description: Managed location of the schema. Location in cloud
                       storage where data for managed tables will be stored.  If the
@@ -446,6 +466,16 @@ spec:
                     description: Extensible Schema properties.
                     type: object
                     x-kubernetes-map-type: granular
+                  providerConfig:
+                    description: 'Configure the provider for management through account
+                      provider. This block consists of the following fields:'
+                    properties:
+                      workspaceId:
+                        description: Workspace ID which the resource belongs to. This
+                          workspace must be part of the account which the provider
+                          is configured with.
+                        type: string
+                    type: object
                   schemaId:
                     description: The unique identifier of the schema.
                     type: string

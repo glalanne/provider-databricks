@@ -79,6 +79,9 @@ type ExternalLocationInitParameters struct {
 	// Username/groupname/sp application_id of the external location owner.
 	Owner *string `json:"owner,omitempty" tf:"owner,omitempty"`
 
+	// Configure the provider for management through account provider. This block consists of the following fields:
+	ProviderConfig *ExternalLocationProviderConfigInitParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
+
 	// Indicates whether the external location is read-only.
 	ReadOnly *bool `json:"readOnly,omitempty" tf:"read_only,omitempty"`
 
@@ -106,6 +109,9 @@ type ExternalLocationObservation struct {
 
 	// Name of the databricks_storage_credential to use with this external location.
 	CredentialName *string `json:"credentialName,omitempty" tf:"credential_name,omitempty"`
+
+	// indicates if managed file events are enabled for this external location.  Requires file_event_queue block.
+	EffectiveEnableFileEvents *bool `json:"effectiveEnableFileEvents,omitempty" tf:"effective_enable_file_events,omitempty"`
 
 	// indicates if managed file events are enabled for this external location.  Requires file_event_queue block.
 	EnableFileEvents *bool `json:"enableFileEvents,omitempty" tf:"enable_file_events,omitempty"`
@@ -137,6 +143,9 @@ type ExternalLocationObservation struct {
 
 	// Username/groupname/sp application_id of the external location owner.
 	Owner *string `json:"owner,omitempty" tf:"owner,omitempty"`
+
+	// Configure the provider for management through account provider. This block consists of the following fields:
+	ProviderConfig *ExternalLocationProviderConfigObservation `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
 
 	// Indicates whether the external location is read-only.
 	ReadOnly *bool `json:"readOnly,omitempty" tf:"read_only,omitempty"`
@@ -212,6 +221,10 @@ type ExternalLocationParameters struct {
 	// +kubebuilder:validation:Optional
 	Owner *string `json:"owner,omitempty" tf:"owner,omitempty"`
 
+	// Configure the provider for management through account provider. This block consists of the following fields:
+	// +kubebuilder:validation:Optional
+	ProviderConfig *ExternalLocationProviderConfigParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
+
 	// Indicates whether the external location is read-only.
 	// +kubebuilder:validation:Optional
 	ReadOnly *bool `json:"readOnly,omitempty" tf:"read_only,omitempty"`
@@ -223,6 +236,25 @@ type ExternalLocationParameters struct {
 	// Path URL in cloud storage, of the form: s3://[bucket-host]/[bucket-dir] (AWS), abfss://[user]@[host]/[path] (Azure), gs://[bucket-host]/[bucket-dir] (GCP).   If the URL contains special characters, such as space, &, etc., they should be percent-encoded (space -> %20, etc.).
 	// +kubebuilder:validation:Optional
 	URL *string `json:"url,omitempty" tf:"url,omitempty"`
+}
+
+type ExternalLocationProviderConfigInitParameters struct {
+
+	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
+}
+
+type ExternalLocationProviderConfigObservation struct {
+
+	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
+}
+
+type ExternalLocationProviderConfigParameters struct {
+
+	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
+	// +kubebuilder:validation:Optional
+	WorkspaceID *string `json:"workspaceId" tf:"workspace_id,omitempty"`
 }
 
 type FileEventQueueInitParameters struct {

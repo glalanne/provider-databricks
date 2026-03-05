@@ -75,6 +75,9 @@ type SQLWidgetInitParameters struct {
 
 	Position *PositionInitParameters `json:"position,omitempty" tf:"position,omitempty"`
 
+	// Configure the provider for management through account provider. This block consists of the following fields:
+	ProviderConfig *SQLWidgetProviderConfigInitParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
+
 	Text *string `json:"text,omitempty" tf:"text,omitempty"`
 
 	Title *string `json:"title,omitempty" tf:"title,omitempty"`
@@ -104,6 +107,9 @@ type SQLWidgetObservation struct {
 	Parameter []SQLWidgetParameterObservation `json:"parameter,omitempty" tf:"parameter,omitempty"`
 
 	Position *PositionObservation `json:"position,omitempty" tf:"position,omitempty"`
+
+	// Configure the provider for management through account provider. This block consists of the following fields:
+	ProviderConfig *SQLWidgetProviderConfigObservation `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
 
 	Text *string `json:"text,omitempty" tf:"text,omitempty"`
 
@@ -187,6 +193,10 @@ type SQLWidgetParameters struct {
 	// +kubebuilder:validation:Optional
 	Position *PositionParameters `json:"position,omitempty" tf:"position,omitempty"`
 
+	// Configure the provider for management through account provider. This block consists of the following fields:
+	// +kubebuilder:validation:Optional
+	ProviderConfig *SQLWidgetProviderConfigParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
+
 	// +kubebuilder:validation:Optional
 	Text *string `json:"text,omitempty" tf:"text,omitempty"`
 
@@ -208,6 +218,25 @@ type SQLWidgetParameters struct {
 
 	// +kubebuilder:validation:Optional
 	WidgetID *string `json:"widgetId,omitempty" tf:"widget_id,omitempty"`
+}
+
+type SQLWidgetProviderConfigInitParameters struct {
+
+	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
+}
+
+type SQLWidgetProviderConfigObservation struct {
+
+	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
+}
+
+type SQLWidgetProviderConfigParameters struct {
+
+	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
+	// +kubebuilder:validation:Optional
+	WorkspaceID *string `json:"workspaceId" tf:"workspace_id,omitempty"`
 }
 
 // SQLWidgetSpec defines the desired state of SQLWidget

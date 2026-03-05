@@ -1,3 +1,7 @@
+# SPDX-FileCopyrightText: 2025 The Crossplane Authors <https://crossplane.io>
+#
+# SPDX-License-Identifier: CC0-1.0
+
 apiVersion: compute.databricks.crossplane.io/v1alpha1
 kind: Cluster
 metadata:
@@ -9,7 +13,7 @@ metadata:
 spec:
   forProvider:
     autoscale:
-    - maxWorkers: 50
+      maxWorkers: 50
       minWorkers: 1
     autoterminationMinutes: 20
     clusterName: Shared Autoscaling

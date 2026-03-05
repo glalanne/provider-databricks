@@ -489,6 +489,10 @@ spec:
                         type: object
                     type: object
                   databaseInstanceName:
+                    description: Lakebase database instance name
+                    type: string
+                  databaseProjectName:
+                    description: Lakebase database project name
                     type: string
                   directoryId:
                     description: directory id
@@ -1120,6 +1124,16 @@ spec:
                             - IfNotPresent
                             type: string
                         type: object
+                    type: object
+                  providerConfig:
+                    description: 'Configure the provider for management through account
+                      provider. This block consists of the following fields:'
+                    properties:
+                      workspaceId:
+                        description: Workspace ID which the resource belongs to. This
+                          workspace must be part of the account which the provider
+                          is configured with.
+                        type: string
                     type: object
                   registeredModelId:
                     description: MLflow registered model id
@@ -2335,6 +2349,10 @@ spec:
                         type: object
                     type: object
                   databaseInstanceName:
+                    description: Lakebase database instance name
+                    type: string
+                  databaseProjectName:
+                    description: Lakebase database project name
                     type: string
                   directoryId:
                     description: directory id
@@ -2966,6 +2984,16 @@ spec:
                             - IfNotPresent
                             type: string
                         type: object
+                    type: object
+                  providerConfig:
+                    description: 'Configure the provider for management through account
+                      provider. This block consists of the following fields:'
+                    properties:
+                      workspaceId:
+                        description: Workspace ID which the resource belongs to. This
+                          workspace must be part of the account which the provider
+                          is configured with.
+                        type: string
                     type: object
                   registeredModelId:
                     description: MLflow registered model id
@@ -3888,6 +3916,10 @@ spec:
                       form of /<object type>/<object id>.
                     type: string
                   databaseInstanceName:
+                    description: Lakebase database instance name
+                    type: string
+                  databaseProjectName:
+                    description: Lakebase database project name
                     type: string
                   directoryId:
                     description: directory id
@@ -3920,6 +3952,16 @@ spec:
                   pipelineId:
                     description: pipeline id
                     type: string
+                  providerConfig:
+                    description: 'Configure the provider for management through account
+                      provider. This block consists of the following fields:'
+                    properties:
+                      workspaceId:
+                        description: Workspace ID which the resource belongs to. This
+                          workspace must be part of the account which the provider
+                          is configured with.
+                        type: string
+                    type: object
                   registeredModelId:
                     description: MLflow registered model id
                     type: string

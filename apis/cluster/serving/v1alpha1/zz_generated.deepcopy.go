@@ -9,6 +9,7 @@
 package v1alpha1
 
 import (
+	"github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
 	runtime "k8s.io/apimachinery/pkg/runtime"
 )
 
@@ -151,9 +152,9 @@ func (in *APIKeyAuthInitParameters) DeepCopyInto(out *APIKeyAuthInitParameters) 
 		*out = new(string)
 		**out = **in
 	}
-	if in.ValuePlaintext != nil {
-		in, out := &in.ValuePlaintext, &out.ValuePlaintext
-		*out = new(string)
+	if in.ValuePlaintextSecretRef != nil {
+		in, out := &in.ValuePlaintextSecretRef, &out.ValuePlaintextSecretRef
+		*out = new(v1.SecretKeySelector)
 		**out = **in
 	}
 }
@@ -178,11 +179,6 @@ func (in *APIKeyAuthObservation) DeepCopyInto(out *APIKeyAuthObservation) {
 	}
 	if in.Value != nil {
 		in, out := &in.Value, &out.Value
-		*out = new(string)
-		**out = **in
-	}
-	if in.ValuePlaintext != nil {
-		in, out := &in.ValuePlaintext, &out.ValuePlaintext
 		*out = new(string)
 		**out = **in
 	}
@@ -211,9 +207,9 @@ func (in *APIKeyAuthParameters) DeepCopyInto(out *APIKeyAuthParameters) {
 		*out = new(string)
 		**out = **in
 	}
-	if in.ValuePlaintext != nil {
-		in, out := &in.ValuePlaintext, &out.ValuePlaintext
-		*out = new(string)
+	if in.ValuePlaintextSecretRef != nil {
+		in, out := &in.ValuePlaintextSecretRef, &out.ValuePlaintextSecretRef
+		*out = new(v1.SecretKeySelector)
 		**out = **in
 	}
 }
@@ -236,9 +232,9 @@ func (in *Ai21LabsConfigInitParameters) DeepCopyInto(out *Ai21LabsConfigInitPara
 		*out = new(string)
 		**out = **in
 	}
-	if in.Ai21LabsAPIKeyPlaintext != nil {
-		in, out := &in.Ai21LabsAPIKeyPlaintext, &out.Ai21LabsAPIKeyPlaintext
-		*out = new(string)
+	if in.Ai21LabsAPIKeyPlaintextSecretRef != nil {
+		in, out := &in.Ai21LabsAPIKeyPlaintextSecretRef, &out.Ai21LabsAPIKeyPlaintextSecretRef
+		*out = new(v1.SecretKeySelector)
 		**out = **in
 	}
 }
@@ -258,11 +254,6 @@ func (in *Ai21LabsConfigObservation) DeepCopyInto(out *Ai21LabsConfigObservation
 	*out = *in
 	if in.Ai21LabsAPIKey != nil {
 		in, out := &in.Ai21LabsAPIKey, &out.Ai21LabsAPIKey
-		*out = new(string)
-		**out = **in
-	}
-	if in.Ai21LabsAPIKeyPlaintext != nil {
-		in, out := &in.Ai21LabsAPIKeyPlaintext, &out.Ai21LabsAPIKeyPlaintext
 		*out = new(string)
 		**out = **in
 	}
@@ -286,9 +277,9 @@ func (in *Ai21LabsConfigParameters) DeepCopyInto(out *Ai21LabsConfigParameters) 
 		*out = new(string)
 		**out = **in
 	}
-	if in.Ai21LabsAPIKeyPlaintext != nil {
-		in, out := &in.Ai21LabsAPIKeyPlaintext, &out.Ai21LabsAPIKeyPlaintext
-		*out = new(string)
+	if in.Ai21LabsAPIKeyPlaintextSecretRef != nil {
+		in, out := &in.Ai21LabsAPIKeyPlaintextSecretRef, &out.Ai21LabsAPIKeyPlaintextSecretRef
+		*out = new(v1.SecretKeySelector)
 		**out = **in
 	}
 }
@@ -311,9 +302,9 @@ func (in *AmazonBedrockConfigInitParameters) DeepCopyInto(out *AmazonBedrockConf
 		*out = new(string)
 		**out = **in
 	}
-	if in.AwsAccessKeyIDPlaintext != nil {
-		in, out := &in.AwsAccessKeyIDPlaintext, &out.AwsAccessKeyIDPlaintext
-		*out = new(string)
+	if in.AwsAccessKeyIDPlaintextSecretRef != nil {
+		in, out := &in.AwsAccessKeyIDPlaintextSecretRef, &out.AwsAccessKeyIDPlaintextSecretRef
+		*out = new(v1.SecretKeySelector)
 		**out = **in
 	}
 	if in.AwsRegion != nil {
@@ -326,9 +317,9 @@ func (in *AmazonBedrockConfigInitParameters) DeepCopyInto(out *AmazonBedrockConf
 		*out = new(string)
 		**out = **in
 	}
-	if in.AwsSecretAccessKeyPlaintext != nil {
-		in, out := &in.AwsSecretAccessKeyPlaintext, &out.AwsSecretAccessKeyPlaintext
-		*out = new(string)
+	if in.AwsSecretAccessKeyPlaintextSecretRef != nil {
+		in, out := &in.AwsSecretAccessKeyPlaintextSecretRef, &out.AwsSecretAccessKeyPlaintextSecretRef
+		*out = new(v1.SecretKeySelector)
 		**out = **in
 	}
 	if in.BedrockProvider != nil {
@@ -361,11 +352,6 @@ func (in *AmazonBedrockConfigObservation) DeepCopyInto(out *AmazonBedrockConfigO
 		*out = new(string)
 		**out = **in
 	}
-	if in.AwsAccessKeyIDPlaintext != nil {
-		in, out := &in.AwsAccessKeyIDPlaintext, &out.AwsAccessKeyIDPlaintext
-		*out = new(string)
-		**out = **in
-	}
 	if in.AwsRegion != nil {
 		in, out := &in.AwsRegion, &out.AwsRegion
 		*out = new(string)
@@ -373,11 +359,6 @@ func (in *AmazonBedrockConfigObservation) DeepCopyInto(out *AmazonBedrockConfigO
 	}
 	if in.AwsSecretAccessKey != nil {
 		in, out := &in.AwsSecretAccessKey, &out.AwsSecretAccessKey
-		*out = new(string)
-		**out = **in
-	}
-	if in.AwsSecretAccessKeyPlaintext != nil {
-		in, out := &in.AwsSecretAccessKeyPlaintext, &out.AwsSecretAccessKeyPlaintext
 		*out = new(string)
 		**out = **in
 	}
@@ -411,9 +392,9 @@ func (in *AmazonBedrockConfigParameters) DeepCopyInto(out *AmazonBedrockConfigPa
 		*out = new(string)
 		**out = **in
 	}
-	if in.AwsAccessKeyIDPlaintext != nil {
-		in, out := &in.AwsAccessKeyIDPlaintext, &out.AwsAccessKeyIDPlaintext
-		*out = new(string)
+	if in.AwsAccessKeyIDPlaintextSecretRef != nil {
+		in, out := &in.AwsAccessKeyIDPlaintextSecretRef, &out.AwsAccessKeyIDPlaintextSecretRef
+		*out = new(v1.SecretKeySelector)
 		**out = **in
 	}
 	if in.AwsRegion != nil {
@@ -426,9 +407,9 @@ func (in *AmazonBedrockConfigParameters) DeepCopyInto(out *AmazonBedrockConfigPa
 		*out = new(string)
 		**out = **in
 	}
-	if in.AwsSecretAccessKeyPlaintext != nil {
-		in, out := &in.AwsSecretAccessKeyPlaintext, &out.AwsSecretAccessKeyPlaintext
-		*out = new(string)
+	if in.AwsSecretAccessKeyPlaintextSecretRef != nil {
+		in, out := &in.AwsSecretAccessKeyPlaintextSecretRef, &out.AwsSecretAccessKeyPlaintextSecretRef
+		*out = new(v1.SecretKeySelector)
 		**out = **in
 	}
 	if in.BedrockProvider != nil {
@@ -461,9 +442,9 @@ func (in *AnthropicConfigInitParameters) DeepCopyInto(out *AnthropicConfigInitPa
 		*out = new(string)
 		**out = **in
 	}
-	if in.AnthropicAPIKeyPlaintext != nil {
-		in, out := &in.AnthropicAPIKeyPlaintext, &out.AnthropicAPIKeyPlaintext
-		*out = new(string)
+	if in.AnthropicAPIKeyPlaintextSecretRef != nil {
+		in, out := &in.AnthropicAPIKeyPlaintextSecretRef, &out.AnthropicAPIKeyPlaintextSecretRef
+		*out = new(v1.SecretKeySelector)
 		**out = **in
 	}
 }
@@ -483,11 +464,6 @@ func (in *AnthropicConfigObservation) DeepCopyInto(out *AnthropicConfigObservati
 	*out = *in
 	if in.AnthropicAPIKey != nil {
 		in, out := &in.AnthropicAPIKey, &out.AnthropicAPIKey
-		*out = new(string)
-		**out = **in
-	}
-	if in.AnthropicAPIKeyPlaintext != nil {
-		in, out := &in.AnthropicAPIKeyPlaintext, &out.AnthropicAPIKeyPlaintext
 		*out = new(string)
 		**out = **in
 	}
@@ -511,9 +487,9 @@ func (in *AnthropicConfigParameters) DeepCopyInto(out *AnthropicConfigParameters
 		*out = new(string)
 		**out = **in
 	}
-	if in.AnthropicAPIKeyPlaintext != nil {
-		in, out := &in.AnthropicAPIKeyPlaintext, &out.AnthropicAPIKeyPlaintext
-		*out = new(string)
+	if in.AnthropicAPIKeyPlaintextSecretRef != nil {
+		in, out := &in.AnthropicAPIKeyPlaintextSecretRef, &out.AnthropicAPIKeyPlaintextSecretRef
+		*out = new(v1.SecretKeySelector)
 		**out = **in
 	}
 }
@@ -641,9 +617,9 @@ func (in *BearerTokenAuthInitParameters) DeepCopyInto(out *BearerTokenAuthInitPa
 		*out = new(string)
 		**out = **in
 	}
-	if in.TokenPlaintext != nil {
-		in, out := &in.TokenPlaintext, &out.TokenPlaintext
-		*out = new(string)
+	if in.TokenPlaintextSecretRef != nil {
+		in, out := &in.TokenPlaintextSecretRef, &out.TokenPlaintextSecretRef
+		*out = new(v1.SecretKeySelector)
 		**out = **in
 	}
 }
@@ -663,11 +639,6 @@ func (in *BearerTokenAuthObservation) DeepCopyInto(out *BearerTokenAuthObservati
 	*out = *in
 	if in.Token != nil {
 		in, out := &in.Token, &out.Token
-		*out = new(string)
-		**out = **in
-	}
-	if in.TokenPlaintext != nil {
-		in, out := &in.TokenPlaintext, &out.TokenPlaintext
 		*out = new(string)
 		**out = **in
 	}
@@ -691,9 +662,9 @@ func (in *BearerTokenAuthParameters) DeepCopyInto(out *BearerTokenAuthParameters
 		*out = new(string)
 		**out = **in
 	}
-	if in.TokenPlaintext != nil {
-		in, out := &in.TokenPlaintext, &out.TokenPlaintext
-		*out = new(string)
+	if in.TokenPlaintextSecretRef != nil {
+		in, out := &in.TokenPlaintextSecretRef, &out.TokenPlaintextSecretRef
+		*out = new(v1.SecretKeySelector)
 		**out = **in
 	}
 }
@@ -721,9 +692,9 @@ func (in *CohereConfigInitParameters) DeepCopyInto(out *CohereConfigInitParamete
 		*out = new(string)
 		**out = **in
 	}
-	if in.CohereAPIKeyPlaintext != nil {
-		in, out := &in.CohereAPIKeyPlaintext, &out.CohereAPIKeyPlaintext
-		*out = new(string)
+	if in.CohereAPIKeyPlaintextSecretRef != nil {
+		in, out := &in.CohereAPIKeyPlaintextSecretRef, &out.CohereAPIKeyPlaintextSecretRef
+		*out = new(v1.SecretKeySelector)
 		**out = **in
 	}
 }
@@ -748,11 +719,6 @@ func (in *CohereConfigObservation) DeepCopyInto(out *CohereConfigObservation) {
 	}
 	if in.CohereAPIKey != nil {
 		in, out := &in.CohereAPIKey, &out.CohereAPIKey
-		*out = new(string)
-		**out = **in
-	}
-	if in.CohereAPIKeyPlaintext != nil {
-		in, out := &in.CohereAPIKeyPlaintext, &out.CohereAPIKeyPlaintext
 		*out = new(string)
 		**out = **in
 	}
@@ -781,9 +747,9 @@ func (in *CohereConfigParameters) DeepCopyInto(out *CohereConfigParameters) {
 		*out = new(string)
 		**out = **in
 	}
-	if in.CohereAPIKeyPlaintext != nil {
-		in, out := &in.CohereAPIKeyPlaintext, &out.CohereAPIKeyPlaintext
-		*out = new(string)
+	if in.CohereAPIKeyPlaintextSecretRef != nil {
+		in, out := &in.CohereAPIKeyPlaintextSecretRef, &out.CohereAPIKeyPlaintextSecretRef
+		*out = new(v1.SecretKeySelector)
 		**out = **in
 	}
 }
@@ -1013,9 +979,9 @@ func (in *DatabricksModelServingConfigInitParameters) DeepCopyInto(out *Databric
 		*out = new(string)
 		**out = **in
 	}
-	if in.DatabricksAPITokenPlaintext != nil {
-		in, out := &in.DatabricksAPITokenPlaintext, &out.DatabricksAPITokenPlaintext
-		*out = new(string)
+	if in.DatabricksAPITokenPlaintextSecretRef != nil {
+		in, out := &in.DatabricksAPITokenPlaintextSecretRef, &out.DatabricksAPITokenPlaintextSecretRef
+		*out = new(v1.SecretKeySelector)
 		**out = **in
 	}
 	if in.DatabricksWorkspaceURL != nil {
@@ -1040,11 +1006,6 @@ func (in *DatabricksModelServingConfigObservation) DeepCopyInto(out *DatabricksM
 	*out = *in
 	if in.DatabricksAPIToken != nil {
 		in, out := &in.DatabricksAPIToken, &out.DatabricksAPIToken
-		*out = new(string)
-		**out = **in
-	}
-	if in.DatabricksAPITokenPlaintext != nil {
-		in, out := &in.DatabricksAPITokenPlaintext, &out.DatabricksAPITokenPlaintext
 		*out = new(string)
 		**out = **in
 	}
@@ -1073,9 +1034,9 @@ func (in *DatabricksModelServingConfigParameters) DeepCopyInto(out *DatabricksMo
 		*out = new(string)
 		**out = **in
 	}
-	if in.DatabricksAPITokenPlaintext != nil {
-		in, out := &in.DatabricksAPITokenPlaintext, &out.DatabricksAPITokenPlaintext
-		*out = new(string)
+	if in.DatabricksAPITokenPlaintextSecretRef != nil {
+		in, out := &in.DatabricksAPITokenPlaintextSecretRef, &out.DatabricksAPITokenPlaintextSecretRef
+		*out = new(v1.SecretKeySelector)
 		**out = **in
 	}
 	if in.DatabricksWorkspaceURL != nil {
@@ -1499,9 +1460,9 @@ func (in *GoogleCloudVertexAIConfigInitParameters) DeepCopyInto(out *GoogleCloud
 		*out = new(string)
 		**out = **in
 	}
-	if in.PrivateKeyPlaintext != nil {
-		in, out := &in.PrivateKeyPlaintext, &out.PrivateKeyPlaintext
-		*out = new(string)
+	if in.PrivateKeyPlaintextSecretRef != nil {
+		in, out := &in.PrivateKeyPlaintextSecretRef, &out.PrivateKeyPlaintextSecretRef
+		*out = new(v1.SecretKeySelector)
 		**out = **in
 	}
 	if in.ProjectID != nil {
@@ -1531,11 +1492,6 @@ func (in *GoogleCloudVertexAIConfigObservation) DeepCopyInto(out *GoogleCloudVer
 	*out = *in
 	if in.PrivateKey != nil {
 		in, out := &in.PrivateKey, &out.PrivateKey
-		*out = new(string)
-		**out = **in
-	}
-	if in.PrivateKeyPlaintext != nil {
-		in, out := &in.PrivateKeyPlaintext, &out.PrivateKeyPlaintext
 		*out = new(string)
 		**out = **in
 	}
@@ -1569,9 +1525,9 @@ func (in *GoogleCloudVertexAIConfigParameters) DeepCopyInto(out *GoogleCloudVert
 		*out = new(string)
 		**out = **in
 	}
-	if in.PrivateKeyPlaintext != nil {
-		in, out := &in.PrivateKeyPlaintext, &out.PrivateKeyPlaintext
-		*out = new(string)
+	if in.PrivateKeyPlaintextSecretRef != nil {
+		in, out := &in.PrivateKeyPlaintextSecretRef, &out.PrivateKeyPlaintextSecretRef
+		*out = new(v1.SecretKeySelector)
 		**out = **in
 	}
 	if in.ProjectID != nil {
@@ -1977,6 +1933,11 @@ func (in *ModelServingInitParameters) DeepCopyInto(out *ModelServingInitParamete
 		*out = new(string)
 		**out = **in
 	}
+	if in.ProviderConfig != nil {
+		in, out := &in.ProviderConfig, &out.ProviderConfig
+		*out = new(ProviderConfigInitParameters)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.RateLimits != nil {
 		in, out := &in.RateLimits, &out.RateLimits
 		*out = make([]ModelServingRateLimitsInitParameters, len(*in))
@@ -2083,6 +2044,11 @@ func (in *ModelServingObservation) DeepCopyInto(out *ModelServingObservation) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.ProviderConfig != nil {
+		in, out := &in.ProviderConfig, &out.ProviderConfig
+		*out = new(ProviderConfigObservation)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.RateLimits != nil {
 		in, out := &in.RateLimits, &out.RateLimits
 		*out = make([]ModelServingRateLimitsObservation, len(*in))
@@ -2151,6 +2117,11 @@ func (in *ModelServingParameters) DeepCopyInto(out *ModelServingParameters) {
 		in, out := &in.Name, &out.Name
 		*out = new(string)
 		**out = **in
+	}
+	if in.ProviderConfig != nil {
+		in, out := &in.ProviderConfig, &out.ProviderConfig
+		*out = new(ProviderConfigParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.RateLimits != nil {
 		in, out := &in.RateLimits, &out.RateLimits
@@ -2321,9 +2292,9 @@ func (in *OpenaiConfigInitParameters) DeepCopyInto(out *OpenaiConfigInitParamete
 		*out = new(string)
 		**out = **in
 	}
-	if in.MicrosoftEntraClientSecretPlaintext != nil {
-		in, out := &in.MicrosoftEntraClientSecretPlaintext, &out.MicrosoftEntraClientSecretPlaintext
-		*out = new(string)
+	if in.MicrosoftEntraClientSecretPlaintextSecretRef != nil {
+		in, out := &in.MicrosoftEntraClientSecretPlaintextSecretRef, &out.MicrosoftEntraClientSecretPlaintextSecretRef
+		*out = new(v1.SecretKeySelector)
 		**out = **in
 	}
 	if in.MicrosoftEntraTenantID != nil {
@@ -2341,9 +2312,9 @@ func (in *OpenaiConfigInitParameters) DeepCopyInto(out *OpenaiConfigInitParamete
 		*out = new(string)
 		**out = **in
 	}
-	if in.OpenaiAPIKeyPlaintext != nil {
-		in, out := &in.OpenaiAPIKeyPlaintext, &out.OpenaiAPIKeyPlaintext
-		*out = new(string)
+	if in.OpenaiAPIKeyPlaintextSecretRef != nil {
+		in, out := &in.OpenaiAPIKeyPlaintextSecretRef, &out.OpenaiAPIKeyPlaintextSecretRef
+		*out = new(v1.SecretKeySelector)
 		**out = **in
 	}
 	if in.OpenaiAPIType != nil {
@@ -2391,11 +2362,6 @@ func (in *OpenaiConfigObservation) DeepCopyInto(out *OpenaiConfigObservation) {
 		*out = new(string)
 		**out = **in
 	}
-	if in.MicrosoftEntraClientSecretPlaintext != nil {
-		in, out := &in.MicrosoftEntraClientSecretPlaintext, &out.MicrosoftEntraClientSecretPlaintext
-		*out = new(string)
-		**out = **in
-	}
 	if in.MicrosoftEntraTenantID != nil {
 		in, out := &in.MicrosoftEntraTenantID, &out.MicrosoftEntraTenantID
 		*out = new(string)
@@ -2408,11 +2374,6 @@ func (in *OpenaiConfigObservation) DeepCopyInto(out *OpenaiConfigObservation) {
 	}
 	if in.OpenaiAPIKey != nil {
 		in, out := &in.OpenaiAPIKey, &out.OpenaiAPIKey
-		*out = new(string)
-		**out = **in
-	}
-	if in.OpenaiAPIKeyPlaintext != nil {
-		in, out := &in.OpenaiAPIKeyPlaintext, &out.OpenaiAPIKeyPlaintext
 		*out = new(string)
 		**out = **in
 	}
@@ -2461,9 +2422,9 @@ func (in *OpenaiConfigParameters) DeepCopyInto(out *OpenaiConfigParameters) {
 		*out = new(string)
 		**out = **in
 	}
-	if in.MicrosoftEntraClientSecretPlaintext != nil {
-		in, out := &in.MicrosoftEntraClientSecretPlaintext, &out.MicrosoftEntraClientSecretPlaintext
-		*out = new(string)
+	if in.MicrosoftEntraClientSecretPlaintextSecretRef != nil {
+		in, out := &in.MicrosoftEntraClientSecretPlaintextSecretRef, &out.MicrosoftEntraClientSecretPlaintextSecretRef
+		*out = new(v1.SecretKeySelector)
 		**out = **in
 	}
 	if in.MicrosoftEntraTenantID != nil {
@@ -2481,9 +2442,9 @@ func (in *OpenaiConfigParameters) DeepCopyInto(out *OpenaiConfigParameters) {
 		*out = new(string)
 		**out = **in
 	}
-	if in.OpenaiAPIKeyPlaintext != nil {
-		in, out := &in.OpenaiAPIKeyPlaintext, &out.OpenaiAPIKeyPlaintext
-		*out = new(string)
+	if in.OpenaiAPIKeyPlaintextSecretRef != nil {
+		in, out := &in.OpenaiAPIKeyPlaintextSecretRef, &out.OpenaiAPIKeyPlaintextSecretRef
+		*out = new(v1.SecretKeySelector)
 		**out = **in
 	}
 	if in.OpenaiAPIType != nil {
@@ -2727,9 +2688,9 @@ func (in *PalmConfigInitParameters) DeepCopyInto(out *PalmConfigInitParameters) 
 		*out = new(string)
 		**out = **in
 	}
-	if in.PalmAPIKeyPlaintext != nil {
-		in, out := &in.PalmAPIKeyPlaintext, &out.PalmAPIKeyPlaintext
-		*out = new(string)
+	if in.PalmAPIKeyPlaintextSecretRef != nil {
+		in, out := &in.PalmAPIKeyPlaintextSecretRef, &out.PalmAPIKeyPlaintextSecretRef
+		*out = new(v1.SecretKeySelector)
 		**out = **in
 	}
 }
@@ -2749,11 +2710,6 @@ func (in *PalmConfigObservation) DeepCopyInto(out *PalmConfigObservation) {
 	*out = *in
 	if in.PalmAPIKey != nil {
 		in, out := &in.PalmAPIKey, &out.PalmAPIKey
-		*out = new(string)
-		**out = **in
-	}
-	if in.PalmAPIKeyPlaintext != nil {
-		in, out := &in.PalmAPIKeyPlaintext, &out.PalmAPIKeyPlaintext
 		*out = new(string)
 		**out = **in
 	}
@@ -2777,9 +2733,9 @@ func (in *PalmConfigParameters) DeepCopyInto(out *PalmConfigParameters) {
 		*out = new(string)
 		**out = **in
 	}
-	if in.PalmAPIKeyPlaintext != nil {
-		in, out := &in.PalmAPIKeyPlaintext, &out.PalmAPIKeyPlaintext
-		*out = new(string)
+	if in.PalmAPIKeyPlaintextSecretRef != nil {
+		in, out := &in.PalmAPIKeyPlaintextSecretRef, &out.PalmAPIKeyPlaintextSecretRef
+		*out = new(v1.SecretKeySelector)
 		**out = **in
 	}
 }
@@ -2850,6 +2806,66 @@ func (in *PiiParameters) DeepCopy() *PiiParameters {
 		return nil
 	}
 	out := new(PiiParameters)
+	in.DeepCopyInto(out)
+	return out
+}
+
+// DeepCopyInto is an autogenerated deepcopy function, copying the receiver, writing into out. in must be non-nil.
+func (in *ProviderConfigInitParameters) DeepCopyInto(out *ProviderConfigInitParameters) {
+	*out = *in
+	if in.WorkspaceID != nil {
+		in, out := &in.WorkspaceID, &out.WorkspaceID
+		*out = new(string)
+		**out = **in
+	}
+}
+
+// DeepCopy is an autogenerated deepcopy function, copying the receiver, creating a new ProviderConfigInitParameters.
+func (in *ProviderConfigInitParameters) DeepCopy() *ProviderConfigInitParameters {
+	if in == nil {
+		return nil
+	}
+	out := new(ProviderConfigInitParameters)
+	in.DeepCopyInto(out)
+	return out
+}
+
+// DeepCopyInto is an autogenerated deepcopy function, copying the receiver, writing into out. in must be non-nil.
+func (in *ProviderConfigObservation) DeepCopyInto(out *ProviderConfigObservation) {
+	*out = *in
+	if in.WorkspaceID != nil {
+		in, out := &in.WorkspaceID, &out.WorkspaceID
+		*out = new(string)
+		**out = **in
+	}
+}
+
+// DeepCopy is an autogenerated deepcopy function, copying the receiver, creating a new ProviderConfigObservation.
+func (in *ProviderConfigObservation) DeepCopy() *ProviderConfigObservation {
+	if in == nil {
+		return nil
+	}
+	out := new(ProviderConfigObservation)
+	in.DeepCopyInto(out)
+	return out
+}
+
+// DeepCopyInto is an autogenerated deepcopy function, copying the receiver, writing into out. in must be non-nil.
+func (in *ProviderConfigParameters) DeepCopyInto(out *ProviderConfigParameters) {
+	*out = *in
+	if in.WorkspaceID != nil {
+		in, out := &in.WorkspaceID, &out.WorkspaceID
+		*out = new(string)
+		**out = **in
+	}
+}
+
+// DeepCopy is an autogenerated deepcopy function, copying the receiver, creating a new ProviderConfigParameters.
+func (in *ProviderConfigParameters) DeepCopy() *ProviderConfigParameters {
+	if in == nil {
+		return nil
+	}
+	out := new(ProviderConfigParameters)
 	in.DeepCopyInto(out)
 	return out
 }

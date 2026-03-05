@@ -1019,6 +1019,16 @@ spec:
                     description: A flag indicating whether to use Photon engine. The
                       default value is false.
                     type: boolean
+                  providerConfig:
+                    description: 'Configure the provider for management through account
+                      provider. This block consists of the following fields:'
+                    properties:
+                      workspaceId:
+                        description: Workspace ID which the resource belongs to. This
+                          workspace must be part of the account which the provider
+                          is configured with.
+                        type: string
+                    type: object
                   restartWindow:
                     properties:
                       daysOfWeek:
@@ -1039,14 +1049,16 @@ spec:
                       sys.path when executing Python sources during pipeline execution.
                     type: string
                   runAs:
+                    description: The user or the service principal the pipeline runs
+                      as. See run_as Configuration Block below.
                     properties:
                       servicePrincipalName:
-                        description: A user-friendly name for this pipeline. The name
-                          can be used to identify pipeline jobs in the UI.
+                        description: The application ID of an active service principal.
+                          Setting this field requires the servicePrincipal/user role.
                         type: string
                       userName:
-                        description: A user-friendly name for this pipeline. The name
-                          can be used to identify pipeline jobs in the UI.
+                        description: The email of an active workspace user. Non-admin
+                          users can only set this field to their own email.
                         type: string
                     type: object
                   runAsUserName:
@@ -2067,6 +2079,16 @@ spec:
                     description: A flag indicating whether to use Photon engine. The
                       default value is false.
                     type: boolean
+                  providerConfig:
+                    description: 'Configure the provider for management through account
+                      provider. This block consists of the following fields:'
+                    properties:
+                      workspaceId:
+                        description: Workspace ID which the resource belongs to. This
+                          workspace must be part of the account which the provider
+                          is configured with.
+                        type: string
+                    type: object
                   restartWindow:
                     properties:
                       daysOfWeek:
@@ -2087,14 +2109,16 @@ spec:
                       sys.path when executing Python sources during pipeline execution.
                     type: string
                   runAs:
+                    description: The user or the service principal the pipeline runs
+                      as. See run_as Configuration Block below.
                     properties:
                       servicePrincipalName:
-                        description: A user-friendly name for this pipeline. The name
-                          can be used to identify pipeline jobs in the UI.
+                        description: The application ID of an active service principal.
+                          Setting this field requires the servicePrincipal/user role.
                         type: string
                       userName:
-                        description: A user-friendly name for this pipeline. The name
-                          can be used to identify pipeline jobs in the UI.
+                        description: The email of an active workspace user. Non-admin
+                          users can only set this field to their own email.
                         type: string
                     type: object
                   runAsUserName:
@@ -3121,6 +3145,16 @@ spec:
                     description: A flag indicating whether to use Photon engine. The
                       default value is false.
                     type: boolean
+                  providerConfig:
+                    description: 'Configure the provider for management through account
+                      provider. This block consists of the following fields:'
+                    properties:
+                      workspaceId:
+                        description: Workspace ID which the resource belongs to. This
+                          workspace must be part of the account which the provider
+                          is configured with.
+                        type: string
+                    type: object
                   restartWindow:
                     properties:
                       daysOfWeek:
@@ -3141,14 +3175,16 @@ spec:
                       sys.path when executing Python sources during pipeline execution.
                     type: string
                   runAs:
+                    description: The user or the service principal the pipeline runs
+                      as. See run_as Configuration Block below.
                     properties:
                       servicePrincipalName:
-                        description: A user-friendly name for this pipeline. The name
-                          can be used to identify pipeline jobs in the UI.
+                        description: The application ID of an active service principal.
+                          Setting this field requires the servicePrincipal/user role.
                         type: string
                       userName:
-                        description: A user-friendly name for this pipeline. The name
-                          can be used to identify pipeline jobs in the UI.
+                        description: The email of an active workspace user. Non-admin
+                          users can only set this field to their own email.
                         type: string
                     type: object
                   runAsUserName:

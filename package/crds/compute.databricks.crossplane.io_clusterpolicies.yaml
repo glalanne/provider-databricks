@@ -106,10 +106,14 @@ spec:
                               type: string
                           type: object
                         providerConfig:
+                          description: 'Configure the provider for management through
+                            account provider. This block consists of the following
+                            fields:'
                           properties:
                             workspaceId:
-                              description: Canonical unique identifier for the cluster
-                                policy. This is equal to policy_id.
+                              description: Workspace ID which the resource belongs
+                                to. This workspace must be part of the account which
+                                the provider is configured with.
                               type: string
                           type: object
                         pypi:
@@ -140,6 +144,16 @@ spec:
                     description: the ID of the cluster policy family used for built-in
                       cluster policy.
                     type: string
+                  providerConfig:
+                    description: 'Configure the provider for management through account
+                      provider. This block consists of the following fields:'
+                    properties:
+                      workspaceId:
+                        description: Workspace ID which the resource belongs to. This
+                          workspace must be part of the account which the provider
+                          is configured with.
+                        type: string
+                    type: object
                 type: object
               initProvider:
                 description: |-
@@ -188,10 +202,14 @@ spec:
                               type: string
                           type: object
                         providerConfig:
+                          description: 'Configure the provider for management through
+                            account provider. This block consists of the following
+                            fields:'
                           properties:
                             workspaceId:
-                              description: Canonical unique identifier for the cluster
-                                policy. This is equal to policy_id.
+                              description: Workspace ID which the resource belongs
+                                to. This workspace must be part of the account which
+                                the provider is configured with.
                               type: string
                           type: object
                         pypi:
@@ -222,6 +240,16 @@ spec:
                     description: the ID of the cluster policy family used for built-in
                       cluster policy.
                     type: string
+                  providerConfig:
+                    description: 'Configure the provider for management through account
+                      provider. This block consists of the following fields:'
+                    properties:
+                      workspaceId:
+                        description: Workspace ID which the resource belongs to. This
+                          workspace must be part of the account which the provider
+                          is configured with.
+                        type: string
+                    type: object
                 type: object
               managementPolicies:
                 default:
@@ -352,10 +380,14 @@ spec:
                               type: string
                           type: object
                         providerConfig:
+                          description: 'Configure the provider for management through
+                            account provider. This block consists of the following
+                            fields:'
                           properties:
                             workspaceId:
-                              description: Canonical unique identifier for the cluster
-                                policy. This is equal to policy_id.
+                              description: Workspace ID which the resource belongs
+                                to. This workspace must be part of the account which
+                                the provider is configured with.
                               type: string
                           type: object
                         pypi:
@@ -389,6 +421,16 @@ spec:
                   policyId:
                     description: Canonical unique identifier for the cluster policy.
                     type: string
+                  providerConfig:
+                    description: 'Configure the provider for management through account
+                      provider. This block consists of the following fields:'
+                    properties:
+                      workspaceId:
+                        description: Workspace ID which the resource belongs to. This
+                          workspace must be part of the account which the provider
+                          is configured with.
+                        type: string
+                    type: object
                 type: object
               conditions:
                 description: Conditions of the resource.

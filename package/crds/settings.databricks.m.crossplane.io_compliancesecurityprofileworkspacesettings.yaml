@@ -71,6 +71,11 @@ spec:
                     type: object
                   etag:
                     type: string
+                  providerConfig:
+                    properties:
+                      workspaceId:
+                        type: string
+                    type: object
                   settingName:
                     type: string
                 type: object
@@ -98,6 +103,11 @@ spec:
                     type: object
                   etag:
                     type: string
+                  providerConfig:
+                    properties:
+                      workspaceId:
+                        type: string
+                    type: object
                   settingName:
                     type: string
                 type: object
@@ -184,6 +194,11 @@ spec:
                     type: string
                   id:
                     type: string
+                  providerConfig:
+                    properties:
+                      workspaceId:
+                        type: string
+                    type: object
                   settingName:
                     type: string
                 type: object

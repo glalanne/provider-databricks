@@ -1514,11 +1514,15 @@ type PipelineInitParameters struct {
 	// A flag indicating whether to use Photon engine. The default value is false.
 	Photon *bool `json:"photon,omitempty" tf:"photon,omitempty"`
 
+	// Configure the provider for management through account provider. This block consists of the following fields:
+	ProviderConfig *PipelineProviderConfigInitParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
+
 	RestartWindow *RestartWindowInitParameters `json:"restartWindow,omitempty" tf:"restart_window,omitempty"`
 
 	// An optional string specifying the root path for this pipeline. This is used as the root directory when editing the pipeline in the Databricks user interface and it is added to sys.path when executing Python sources during pipeline execution.
 	RootPath *string `json:"rootPath,omitempty" tf:"root_path,omitempty"`
 
+	// The user or the service principal the pipeline runs as. See run_as Configuration Block below.
 	RunAs *PipelineRunAsInitParameters `json:"runAs,omitempty" tf:"run_as,omitempty"`
 
 	// A user-friendly name for this pipeline. The name can be used to identify pipeline jobs in the UI.
@@ -1715,11 +1719,15 @@ type PipelineObservation struct {
 	// A flag indicating whether to use Photon engine. The default value is false.
 	Photon *bool `json:"photon,omitempty" tf:"photon,omitempty"`
 
+	// Configure the provider for management through account provider. This block consists of the following fields:
+	ProviderConfig *PipelineProviderConfigObservation `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
+
 	RestartWindow *RestartWindowObservation `json:"restartWindow,omitempty" tf:"restart_window,omitempty"`
 
 	// An optional string specifying the root path for this pipeline. This is used as the root directory when editing the pipeline in the Databricks user interface and it is added to sys.path when executing Python sources during pipeline execution.
 	RootPath *string `json:"rootPath,omitempty" tf:"root_path,omitempty"`
 
+	// The user or the service principal the pipeline runs as. See run_as Configuration Block below.
 	RunAs *PipelineRunAsObservation `json:"runAs,omitempty" tf:"run_as,omitempty"`
 
 	// A user-friendly name for this pipeline. The name can be used to identify pipeline jobs in the UI.
@@ -1851,6 +1859,10 @@ type PipelineParameters struct {
 	// +kubebuilder:validation:Optional
 	Photon *bool `json:"photon,omitempty" tf:"photon,omitempty"`
 
+	// Configure the provider for management through account provider. This block consists of the following fields:
+	// +kubebuilder:validation:Optional
+	ProviderConfig *PipelineProviderConfigParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
+
 	// +kubebuilder:validation:Optional
 	RestartWindow *RestartWindowParameters `json:"restartWindow,omitempty" tf:"restart_window,omitempty"`
 
@@ -1858,6 +1870,7 @@ type PipelineParameters struct {
 	// +kubebuilder:validation:Optional
 	RootPath *string `json:"rootPath,omitempty" tf:"root_path,omitempty"`
 
+	// The user or the service principal the pipeline runs as. See run_as Configuration Block below.
 	// +kubebuilder:validation:Optional
 	RunAs *PipelineRunAsParameters `json:"runAs,omitempty" tf:"run_as,omitempty"`
 
@@ -1901,31 +1914,50 @@ type PipelineParameters struct {
 	UsagePolicyID *string `json:"usagePolicyId,omitempty" tf:"usage_policy_id,omitempty"`
 }
 
+type PipelineProviderConfigInitParameters struct {
+
+	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
+}
+
+type PipelineProviderConfigObservation struct {
+
+	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
+}
+
+type PipelineProviderConfigParameters struct {
+
+	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
+	// +kubebuilder:validation:Optional
+	WorkspaceID *string `json:"workspaceId" tf:"workspace_id,omitempty"`
+}
+
 type PipelineRunAsInitParameters struct {
 
-	// A user-friendly name for this pipeline. The name can be used to identify pipeline jobs in the UI.
+	// The application ID of an active service principal. Setting this field requires the servicePrincipal/user role.
 	ServicePrincipalName *string `json:"servicePrincipalName,omitempty" tf:"service_principal_name,omitempty"`
 
-	// A user-friendly name for this pipeline. The name can be used to identify pipeline jobs in the UI.
+	// The email of an active workspace user. Non-admin users can only set this field to their own email.
 	UserName *string `json:"userName,omitempty" tf:"user_name,omitempty"`
 }
 
 type PipelineRunAsObservation struct {
 
-	// A user-friendly name for this pipeline. The name can be used to identify pipeline jobs in the UI.
+	// The application ID of an active service principal. Setting this field requires the servicePrincipal/user role.
 	ServicePrincipalName *string `json:"servicePrincipalName,omitempty" tf:"service_principal_name,omitempty"`
 
-	// A user-friendly name for this pipeline. The name can be used to identify pipeline jobs in the UI.
+	// The email of an active workspace user. Non-admin users can only set this field to their own email.
 	UserName *string `json:"userName,omitempty" tf:"user_name,omitempty"`
 }
 
 type PipelineRunAsParameters struct {
 
-	// A user-friendly name for this pipeline. The name can be used to identify pipeline jobs in the UI.
+	// The application ID of an active service principal. Setting this field requires the servicePrincipal/user role.
 	// +kubebuilder:validation:Optional
 	ServicePrincipalName *string `json:"servicePrincipalName,omitempty" tf:"service_principal_name,omitempty"`
 
-	// A user-friendly name for this pipeline. The name can be used to identify pipeline jobs in the UI.
+	// The email of an active workspace user. Non-admin users can only set this field to their own email.
 	// +kubebuilder:validation:Optional
 	UserName *string `json:"userName,omitempty" tf:"user_name,omitempty"`
 }

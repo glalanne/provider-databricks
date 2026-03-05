@@ -24,6 +24,9 @@ type ServicePrincipalSecretInitParameters struct {
 	// The lifetime of the secret in seconds formatted as NNNNs. If this parameter is not provided, the secret will have a default lifetime of 730 days (63072000s).  Expiration of secret will lead to generation of new secret.
 	Lifetime *string `json:"lifetime,omitempty" tf:"lifetime,omitempty"`
 
+	// Configure the provider for management through account provider. This block consists of the following fields:
+	ProviderConfig *ServicePrincipalSecretProviderConfigInitParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
+
 	// Secret Hash.
 	SecretHash *string `json:"secretHash,omitempty" tf:"secret_hash,omitempty"`
 
@@ -67,6 +70,9 @@ type ServicePrincipalSecretObservation struct {
 	// The lifetime of the secret in seconds formatted as NNNNs. If this parameter is not provided, the secret will have a default lifetime of 730 days (63072000s).  Expiration of secret will lead to generation of new secret.
 	Lifetime *string `json:"lifetime,omitempty" tf:"lifetime,omitempty"`
 
+	// Configure the provider for management through account provider. This block consists of the following fields:
+	ProviderConfig *ServicePrincipalSecretProviderConfigObservation `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
+
 	// Secret Hash.
 	SecretHash *string `json:"secretHash,omitempty" tf:"secret_hash,omitempty"`
 
@@ -96,6 +102,10 @@ type ServicePrincipalSecretParameters struct {
 	// The lifetime of the secret in seconds formatted as NNNNs. If this parameter is not provided, the secret will have a default lifetime of 730 days (63072000s).  Expiration of secret will lead to generation of new secret.
 	// +kubebuilder:validation:Optional
 	Lifetime *string `json:"lifetime,omitempty" tf:"lifetime,omitempty"`
+
+	// Configure the provider for management through account provider. This block consists of the following fields:
+	// +kubebuilder:validation:Optional
+	ProviderConfig *ServicePrincipalSecretProviderConfigParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
 
 	// Secret Hash.
 	// +kubebuilder:validation:Optional
@@ -130,6 +140,25 @@ type ServicePrincipalSecretParameters struct {
 	// UTC time when the secret was updated.
 	// +kubebuilder:validation:Optional
 	UpdateTime *string `json:"updateTime,omitempty" tf:"update_time,omitempty"`
+}
+
+type ServicePrincipalSecretProviderConfigInitParameters struct {
+
+	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
+}
+
+type ServicePrincipalSecretProviderConfigObservation struct {
+
+	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
+}
+
+type ServicePrincipalSecretProviderConfigParameters struct {
+
+	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
+	// +kubebuilder:validation:Optional
+	WorkspaceID *string `json:"workspaceId" tf:"workspace_id,omitempty"`
 }
 
 // ServicePrincipalSecretSpec defines the desired state of ServicePrincipalSecret

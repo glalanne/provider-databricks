@@ -382,8 +382,13 @@ spec:
                       will be allocated from that pool.
                     type: string
                   driverNodeTypeFlexibility:
+                    description: a block describing the alternative driver node types
+                      if driver_node_type_id isn't available.
                     properties:
                       alternateNodeTypeIds:
+                        description: list of alternative node types that will be used
+                          if main node type isn't available.  Follow the documentation
+                          for requirements on selection of alternative node types.
                         items:
                           type: string
                         type: array
@@ -727,8 +732,13 @@ spec:
                       use_ml_runtime, and whether node_type_id is GPU node or not.
                     type: boolean
                   workerNodeTypeFlexibility:
+                    description: a block describing the alternative driver node types
+                      if node_type_id isn't available.
                     properties:
                       alternateNodeTypeIds:
+                        description: list of alternative node types that will be used
+                          if main node type isn't available.  Follow the documentation
+                          for requirements on selection of alternative node types.
                         items:
                           type: string
                         type: array
@@ -1073,8 +1083,13 @@ spec:
                       will be allocated from that pool.
                     type: string
                   driverNodeTypeFlexibility:
+                    description: a block describing the alternative driver node types
+                      if driver_node_type_id isn't available.
                     properties:
                       alternateNodeTypeIds:
+                        description: list of alternative node types that will be used
+                          if main node type isn't available.  Follow the documentation
+                          for requirements on selection of alternative node types.
                         items:
                           type: string
                         type: array
@@ -1418,8 +1433,13 @@ spec:
                       use_ml_runtime, and whether node_type_id is GPU node or not.
                     type: boolean
                   workerNodeTypeFlexibility:
+                    description: a block describing the alternative driver node types
+                      if node_type_id isn't available.
                     properties:
                       alternateNodeTypeIds:
+                        description: list of alternative node types that will be used
+                          if main node type isn't available.  Follow the documentation
+                          for requirements on selection of alternative node types.
                         items:
                           type: string
                         type: array
@@ -1840,8 +1860,13 @@ spec:
                       will be allocated from that pool.
                     type: string
                   driverNodeTypeFlexibility:
+                    description: a block describing the alternative driver node types
+                      if driver_node_type_id isn't available.
                     properties:
                       alternateNodeTypeIds:
+                        description: list of alternative node types that will be used
+                          if main node type isn't available.  Follow the documentation
+                          for requirements on selection of alternative node types.
                         items:
                           type: string
                         type: array
@@ -2194,8 +2219,13 @@ spec:
                       use_ml_runtime, and whether node_type_id is GPU node or not.
                     type: boolean
                   workerNodeTypeFlexibility:
+                    description: a block describing the alternative driver node types
+                      if node_type_id isn't available.
                     properties:
                       alternateNodeTypeIds:
+                        description: list of alternative node types that will be used
+                          if main node type isn't available.  Follow the documentation
+                          for requirements on selection of alternative node types.
                         items:
                           type: string
                         type: array

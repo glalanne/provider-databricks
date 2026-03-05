@@ -424,6 +424,8 @@ resources:
         argumentDocs:
             access_policy_type: '- (Required) Configured embedding policy. Possible values are ALLOW_ALL_DOMAINS, ALLOW_APPROVED_DOMAINS, DENY_ALL_DOMAINS.'
             aibi_dashboard_embedding_access_policy: 'block with following attributes:'
+            provider_config: '- (Optional) Configure the provider for management through account provider. This block consists of the following fields:'
+            workspace_id: '- (Required) Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.'
         importStatements: []
     databricks_aibi_dashboard_embedding_approved_domains_setting:
         subCategory: ""
@@ -456,6 +458,8 @@ resources:
         argumentDocs:
             aibi_dashboard_embedding_approved_domains: 'block with following attributes:'
             approved_domains: '- (Required) the list of approved domains. To allow all subdomains for a given domain, use a wildcard symbol (*) before the domain name, i.e., *.databricks.com will allow to embed into any site under the databricks.com.'
+            provider_config: '- (Optional) Configure the provider for management through account provider. This block consists of the following fields:'
+            workspace_id: '- (Required) Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.'
         importStatements: []
     databricks_alert:
         subCategory: ""
@@ -562,6 +566,7 @@ resources:
             owner_user_name: '- (Optional, String) Alert owner''s username.'
             parent: (if exists) is renamed to parent_path attribute and should be converted from folders/object_id to the actual path.
             parent_path: '- (Optional, String) The path to a workspace folder containing the alert. The default is the user''s home folder.  If changed, the alert will be recreated.'
+            provider_config: '- (Optional) Configure the provider for management through account provider. This block consists of the following fields:'
             query_id: '- (Required, String) ID of the query evaluated by the alert.'
             rearm: attribute is renamed to seconds_to_retrigger.
             seconds_to_retrigger: '- (Optional, Integer) Number of seconds an alert must wait after being triggered to rearm itself. After rearming, it can be triggered again. If 0 or not specified, the alert will not be triggered again.'
@@ -578,6 +583,7 @@ resources:
             trigger_time: '- The timestamp string when the alert was last triggered if the alert has been triggered before.'
             update_time: '- The timestamp string indicating when the alert was updated.'
             value: '- (Required, Block) actual value used in comparison (one of the attributes is required):'
+            workspace_id: '- (Required) Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.'
         importStatements: []
     databricks_alert_v2:
         subCategory: ""
@@ -646,6 +652,7 @@ resources:
             owner_user_name: (string) - The owner's username. This field is set to "Unavailable" if the user has been deleted
             parent_path: (string, optional) - The workspace path of the folder containing the alert. Can only be set on create, and cannot be updated
             pause_status: '(string, optional) - Indicate whether this schedule is paused or not. Possible values are: PAUSED, UNPAUSED'
+            provider_config: (ProviderConfig, optional) - Configure the provider for management through account provider.
             purge_on_delete: (boolean, optional) - Purge the resource on delete
             quartz_cron_schedule: |-
                 (string, required) - A cron expression using quartz syntax that specifies the schedule for this pipeline.
@@ -680,6 +687,7 @@ resources:
             user_name: to the email of an active workspace user. Users can only set this to their own email.
             value: (AlertV2OperandValue, optional)
             warehouse_id: (string, required) - ID of the SQL warehouse attached to the alert
+            workspace_id: (string,required) - Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
         importStatements: []
     databricks_app:
         subCategory: ""
@@ -833,6 +841,7 @@ resources:
                 It must be unique within the workspace
             path: (string, required) - The path to the template within the Git repository
             permission: '(string, required) - Possible values are: CAN_EDIT, CAN_MANAGE, CAN_READ'
+            provider_config: (ProviderConfig, optional) - Configure the provider for management through account provider.
             resource_specs: (list of AppManifestAppResourceSpec, optional)
             secret_spec: (AppManifestAppResourceSecretSpec, optional)
             securable_type: '(string, required) - Possible values are: CONNECTION, FUNCTION, TABLE, VOLUME'
@@ -840,6 +849,56 @@ resources:
             sql_warehouse_spec: (AppManifestAppResourceSqlWarehouseSpec, optional)
             uc_securable_spec: (AppManifestAppResourceUcSecurableSpec, optional)
             version: (integer, required) - The manifest schema version, for now only 1 is allowed
+            workspace_id: (string,required) - Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
+        importStatements: []
+    databricks_apps_space Resource:
+        subCategory: ""
+        name: databricks_apps_space Resource
+        title: databricks_apps_space Resource
+        argumentDocs:
+            app: (AppResourceApp, optional)
+            create_time: (string) - The creation time of the app space. Formatted timestamp in ISO 6801
+            creator: (string) - The email of the user that created the app space
+            database: (AppResourceDatabase, optional)
+            database_name: (string, required)
+            description: (string, optional) - The description of the app space
+            effective_usage_policy_id: (string) - The effective usage policy ID used by apps in the space
+            effective_user_api_scopes: (list of string) - The effective api scopes granted to the user access token
+            experiment: (AppResourceExperiment, optional)
+            experiment_id: (string, required)
+            genie_space: (AppResourceGenieSpace, optional)
+            id: (string, required) - Id of the job to grant permission on
+            instance_name: (string, required)
+            job: (AppResourceJob, optional)
+            key: (string, required) - Key of the secret to grant permission on
+            message: (string) - Message providing context about the current state
+            name: (string, required) - Name of the App Resource
+            oauth2_app_client_id: (string) - The OAuth2 app client ID for the app space
+            oauth2_app_integration_id: (string) - The OAuth2 app integration ID for the app space
+            permission: '(string, required) - Possible values are: CAN_CONNECT_AND_CREATE'
+            provider_config: (ProviderConfig, optional) - Configure the provider for management through account provider.
+            resources: (list of AppResource, optional) - Resources for the app space. Resources configured at the space level are available to all apps in the space
+            scope: (string, required) - Scope of the secret to grant permission on
+            secret: (AppResourceSecret, optional)
+            securable_full_name: (string, required)
+            securable_kind: |-
+                (string) - The securable kind from Unity Catalog.
+                See https://docs.databricks.com/api/workspace/tables/get#securable_kind_manifest-securable_kind
+            securable_type: '(string, required) - Possible values are: CONNECTION, FUNCTION, TABLE, VOLUME'
+            service_principal_client_id: (string) - The service principal client ID for the app space
+            service_principal_id: (integer) - The service principal ID for the app space
+            service_principal_name: (string) - The service principal name for the app space
+            serving_endpoint: (AppResourceServingEndpoint, optional)
+            space_id: (string, required)
+            sql_warehouse: (AppResourceSqlWarehouse, optional)
+            state: '(string) - The state of the app space. Possible values are: SPACE_ACTIVE, SPACE_CREATING, SPACE_DELETED, SPACE_DELETING, SPACE_ERROR, SPACE_UPDATING'
+            status: (SpaceStatus) - The status of the app space
+            uc_securable: (AppResourceUcSecurable, optional)
+            update_time: (string) - The update time of the app space. Formatted timestamp in ISO 6801
+            updater: (string) - The email of the user that last updated the app space
+            usage_policy_id: (string, optional) - The usage policy ID for managing cost at the space level
+            user_api_scopes: (list of string, optional) - OAuth scopes for apps in the space
+            workspace_id: (string,required) - Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
         importStatements: []
     databricks_artifact_allowlist:
         subCategory: ""
@@ -860,11 +919,13 @@ resources:
         argumentDocs:
             artifact_matcher.artifact: '- The artifact path or maven coordinate.'
             artifact_matcher.match_type: '- The pattern matching type of the artifact. Only PREFIX_MATCH is supported.'
+            artifact_matcher.provider_config: '- (Optional) Configure the provider for management through account provider. This block consists of the following fields:'
             artifact_type: '- The artifact type of the allowlist. Can be INIT_SCRIPT, LIBRARY_JAR or LIBRARY_MAVEN. Change forces creation of a new resource.'
             created_at: '-  Time at which this artifact allowlist was set.'
             created_by: '-  Identity that set the artifact allowlist.'
             id: '- ID of the artifact allow list in form of metastore_id|artifact_type.'
             metastore_id: '- ID of the parent metastore.'
+            workspace_id: '- (Required) Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.'
         importStatements: []
     databricks_automatic_cluster_update_setting Resource:
         subCategory: ""
@@ -878,9 +939,11 @@ resources:
             hours: '- hour to perform update: 0-23'
             maintenance_window: block that defines the maintenance frequency with the following arguments
             minutes: '- minute to perform update: 0-59'
+            provider_config: '- (Optional) Configure the provider for management through account provider. This block consists of the following fields:'
             restart_even_if_no_updates_available: '- (Optional) To force clusters and other compute resources to restart during the maintenance window regardless of the availability of a new update.'
             week_day_based_schedule: block with the following arguments
             window_start_time: block that defines the time of your maintenance window. The default timezone is UTC and cannot be changed.
+            workspace_id: '- (Required) Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.'
         importStatements: []
     databricks_budget:
         subCategory: ""
@@ -1015,6 +1078,7 @@ resources:
             options: '- (Optional) For Foreign Catalogs: the name of the entity from an external data source that maps to a catalog. For example, the database name in a PostgreSQL server.'
             owner: '- (Optional) Username/groupname/sp application_id of the catalog owner.'
             properties: '- (Optional) Extensible Catalog properties.'
+            provider_config: '- (Optional) Configure the provider for management through account provider. This block consists of the following fields:'
             provider_name: '- (Optional) For Delta Sharing Catalogs: the name of the delta sharing provider. Change forces creation of a new resource.'
             securable_type: '- the type of Unity Catalog securable.'
             share_name: '- (Optional) For Delta Sharing Catalogs: the name of the share under the share provider. Change forces creation of a new resource.'
@@ -1022,6 +1086,7 @@ resources:
             storage_root: '- (Optional if storage_root is specified for the metastore) Managed location of the catalog. Location in cloud storage where data for managed tables will be stored.  If the URL contains special characters, such as space, &, etc., they should be percent-encoded (space -> %20, etc.). If not specified, the location will default to the metastore root location. Change forces creation of a new resource.'
             updated_at: '- time at which this catalog was last modified, in epoch milliseconds..'
             updated_by: '- username of user who last modified catalog.'
+            workspace_id: '- (Required) Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.'
         importStatements: []
     databricks_catalog_workspace_binding:
         subCategory: ""
@@ -1289,6 +1354,8 @@ resources:
             docker_image.basic_auth: '- (Optional) basic_auth.username and basic_auth.password for Docker repository. Docker registry credentials are encrypted when they are stored in Databricks internal storage and when they are passed to a registry upon fetching Docker images at cluster launch.  For better security, these credentials should be stored in the secret scope and referred using secret path syntax: {{secrets/scope/key}}, otherwise other users of the workspace may access them via UI/API.'
             docker_image.url: '- URL for the Docker image'
             driver_instance_pool_id: (Optional) - similar to instance_pool_id, but for driver node. If omitted, and instance_pool_id is specified, then the driver will be allocated from that pool.
+            driver_node_type_flexibility: '- (Optional) a block describing the alternative driver node types if driver_node_type_id isn''t available.'
+            driver_node_type_flexibility.alternate_node_type_ids: '- (Required) list of alternative node types that will be used if main node type isn''t available.  Follow the documentation for requirements on selection of alternative node types.'
             driver_node_type_id: '- (Optional) The node type of the Spark driver. This field is optional; if unset, API will set the driver node type to the same value as node_type_id defined above.'
             enable_elastic_disk: '- (Optional) If you don''t want to allocate a fixed number of EBS volumes at cluster creation time, use autoscaling local storage. With autoscaling local storage, Databricks monitors the amount of free disk space available on your cluster''s Spark workers. If a worker begins to run too low on disk, Databricks automatically attaches a new EBS volume to the worker before it runs out of disk space. EBS volumes are attached up to a limit of 5 TB of total disk space per instance (including the instance''s local storage). To scale down EBS usage, make sure you have autotermination_minutes and autoscale attributes set. More documentation available at cluster configuration page.'
             enable_encryption: '- (Optional) Enable server-side encryption, false by default.'
@@ -1328,6 +1395,7 @@ resources:
             ssh_public_keys: '- (Optional) SSH public key contents that will be added to each Spark node in this cluster. The corresponding private keys can be used to login with the user name ubuntu on port 2200. You can specify up to 10 keys.'
             state: '- (string) State of the cluster.'
             use_ml_runtime: '- (Optional, Boolean, only with kind) Whenever ML runtime should be selected or not.  Actual runtime is determined by spark_version (DBR release), this field use_ml_runtime, and whether node_type_id is GPU node or not.'
+            worker_node_type_flexibility: '- (Optional) a block describing the alternative driver node types if node_type_id isn''t available.'
             workload_type.jobs: '- (Optional) boolean flag defining if it''s possible to run Databricks Jobs on this cluster. Default: true.'
             workload_type.notebooks: '- (Optional) boolean flag defining if it''s possible to run notebooks on this cluster. Default: true.'
             workspace_id: '- (Required) Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.'
@@ -1387,7 +1455,9 @@ resources:
             policy_family_definition_overrides: '- settings to override in the built-in cluster policy.'
             policy_family_id: '- the ID of the cluster policy family used for built-in cluster policy.'
             policy_id: '- Canonical unique identifier for the cluster policy.'
+            provider_config: '- (Optional) Configure the provider for management through account provider. This block consists of the following fields:'
             spark_version: parameter in databricks_cluster and other resources.
+            workspace_id: '- (Required) Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.'
         importStatements: []
     databricks_compliance_security_profile_setting Resource:
         subCategory: ""
@@ -1397,6 +1467,8 @@ resources:
             compliance_security_profile_workspace: 'block with following attributes:'
             compliance_standards: '- (Required, list of strings) Enable one or more compliance standards on the workspace, e.g. HIPAA, PCI_DSS, FEDRAMP_MODERATE, etc. (See Go SDK documentation for the full list of supported values).'
             is_enabled: '- (Required) Enable the Compliance Security Profile on the workspace'
+            provider_config: '- (Optional) Configure the provider for management through account provider. This block consists of the following fields:'
+            workspace_id: '- (Required) Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.'
         importStatements: []
     databricks_connection:
         subCategory: ""
@@ -1496,11 +1568,13 @@ resources:
             options: '- The key value of options required by the connection, e.g. host, port, user, password, authorization_endpoint, client_id, client_secret or GoogleServiceAccountKeyJson. Please consult the documentation for the required option.'
             owner: '- (Optional) Name of the connection owner.'
             properties: '-  (Optional) Free-form connection properties. Change forces creation of a new resource.'
+            provider_config: '- (Optional) Configure the provider for management through account provider. This block consists of the following fields:'
             provisioning_info: '- Object with the status of an asynchronously provisioned resource.'
             read_only: '- (Optional) Indicates whether the connection is read-only. Change forces creation of a new resource.'
             updated_at: '- Time at which connection this was last modified, in epoch milliseconds.'
             updated_by: '- Username of user who last modified the connection.'
             url: '- URL of the remote data source, extracted from options.'
+            workspace_id: '- (Required) Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.'
         importStatements: []
     databricks_credential:
         subCategory: ""
@@ -1672,8 +1746,10 @@ resources:
             file_path: '- (Optional) The path to the dashboard JSON file. Conflicts with serialized_dashboard.'
             id: '- The unique ID of the dashboard.'
             parent_path: '- (Required) The workspace path of the folder containing the dashboard. Includes leading slash and no trailing slash.  If folder doesn''t exist, it will be created.'
+            provider_config: '- (Optional) Configure the provider for management through account provider. This block consists of the following fields:'
             serialized_dashboard: '- (Optional) The contents of the dashboard in serialized string form. Conflicts with file_path.'
             warehouse_id: '- (Required) The warehouse ID used to run the dashboard.'
+            workspace_id: '- (Required) Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.'
         importStatements: []
     databricks_data_quality_monitor:
         subCategory: ""
@@ -1729,6 +1805,7 @@ resources:
             output_schema_id: (string, required) - ID of the schema where output tables are created
             prediction_column: (string, required) - Column for the prediction
             problem_type: '(string, required) - Problem type the model aims to solve. Possible values are: INFERENCE_PROBLEM_TYPE_CLASSIFICATION, INFERENCE_PROBLEM_TYPE_REGRESSION'
+            provider_config: (ProviderConfig, optional) - Configure the provider for management through account provider.
             quartz_cron_expression: (string, required) - The expression that determines when to run the monitor. See examples
             schedule: (CronSchedule, optional) - The cron schedule
             schema: '> go to the Details tab > the Schema ID field.'
@@ -1754,6 +1831,7 @@ resources:
             warehouse_id: |-
                 (string, optional) - Optional argument to specify the warehouse for dashboard creation. If not specified, the first running
                 warehouse will be used
+            workspace_id: (string,required) - Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
         importStatements: []
     databricks_data_quality_refresh:
         subCategory: ""
@@ -1815,6 +1893,7 @@ resources:
             message: (string) - An optional message to give insight into the current state of the refresh (e.g. FAILURE messages)
             object_id: (string, required) - The UUID of the request object. It is schema_id for schema, and table_id for table.
             object_type: '(string, required) - The type of the monitored object. Can be one of the following: schemaor table'
+            provider_config: (ProviderConfig, optional) - Configure the provider for management through account provider.
             refresh_id: (integer) - Unique id of the refresh operation
             schema: '> go to the Details tab > the Schema ID field.'
             schema_id: 'from either:'
@@ -1823,6 +1902,7 @@ resources:
             table: '> go to the Details tab > the Table ID field'
             table_id: 'from either:'
             trigger: '(string) - What triggered the refresh. Possible values are: MONITOR_REFRESH_TRIGGER_DATA_CHANGE, MONITOR_REFRESH_TRIGGER_MANUAL, MONITOR_REFRESH_TRIGGER_SCHEDULE, MONITOR_REFRESH_TRIGGER_UNKNOWN'
+            workspace_id: (string,required) - Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
         importStatements: []
     databricks_database_database_catalog:
         subCategory: ""
@@ -1865,7 +1945,9 @@ resources:
             database_instance_name: (string, required) - The name of the DatabaseInstance housing the database
             database_name: (string, required) - The name of the database (in a instance) associated with the catalog
             name: (string, required) - The name of the catalog in UC
+            provider_config: (ProviderConfig, optional) - Configure the provider for management through account provider.
             uid: (string)
+            workspace_id: (string,required) - Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
         importStatements: []
     databricks_database_instance:
         subCategory: ""
@@ -1983,6 +2065,7 @@ resources:
                 Input: For specifying the parent instance to create a child instance. Optional.
                 Output: Only populated if provided as input to create a child instance
             pg_version: (string) - The version of Postgres running on the instance
+            provider_config: (ProviderConfig, optional) - Configure the provider for management through account provider.
             purge_on_delete: (boolean, optional) - Purge the resource on delete
             read_only_dns: |-
                 (string) - The DNS endpoint to connect to the instance for read only access. This is only available if
@@ -1997,6 +2080,7 @@ resources:
             uid: (string) - An immutable UUID identifier for the instance
             usage_policy_id: (string, optional) - The desired usage policy to associate with the instance
             value: (string, optional) - The value of the custom tag
+            workspace_id: (string,required) - Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
         importStatements: []
     databricks_database_synced_database_table:
         subCategory: ""
@@ -2178,6 +2262,7 @@ resources:
                 (string) - ID of the associated pipeline. The pipeline ID may have been provided by the client
                 (in the case of bin packing), or generated by the server (when creating a new pipeline)
             primary_key_columns: (list of string, optional) - Primary Key columns to be used for data insert/update in the destination
+            provider_config: (ProviderConfig, optional) - Configure the provider for management through account provider.
             provisioning_phase: '(string) - The current phase of the data synchronization pipeline. Possible values are: PROVISIONING_PHASE_INDEX_SCAN, PROVISIONING_PHASE_INDEX_SORT, PROVISIONING_PHASE_MAIN'
             provisioning_status: (SyncedTableProvisioningStatus, optional)
             scheduling_policy: '(string, optional) - Scheduling policy of the underlying pipeline. Possible values are: CONTINUOUS, SNAPSHOT, TRIGGERED'
@@ -2206,6 +2291,7 @@ resources:
                 (string) - The provisioning state of the synced table entity in Unity Catalog. This is distinct from the
                 state of the data synchronization pipeline (i.e. the table may be in "ACTIVE" but the pipeline
                 may be in "PROVISIONING" as it runs asynchronously). Possible values are: ACTIVE, DEGRADED, DELETING, FAILED, PROVISIONING, UPDATING
+            workspace_id: (string,required) - Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
         importStatements: []
     databricks_dbfs_file:
         subCategory: ""
@@ -2244,7 +2330,9 @@ resources:
             file_size: '- The file size of the file that is being tracked by this resource in bytes.'
             id: '- Same as path.'
             path: '- (Required) The path of the file in which you wish to save.'
+            provider_config: '- (Optional) Configure the provider for management through account provider. This block consists of the following fields:'
             source: '- The full absolute path to the file. Conflicts with content_base64.'
+            workspace_id: '- (Required) Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.'
         importStatements: []
     databricks_default_namespace_setting:
         subCategory: ""
@@ -2262,7 +2350,9 @@ resources:
                 }
         argumentDocs:
             namespace: '- (Required) The configuration details.'
+            provider_config: '- (Optional) Configure the provider for management through account provider. This block consists of the following fields:'
             value: '- (Required) The value for the setting.'
+            workspace_id: '- (Required) Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.'
         importStatements: []
     databricks_directory:
         subCategory: ""
@@ -2279,7 +2369,9 @@ resources:
             id: '- Path of directory on workspace'
             object_id: '- Unique identifier for a DIRECTORY'
             path: '- (Required) The absolute path of the directory, beginning with "/", e.g. "/Demo".'
+            provider_config: '- (Optional) Configure the provider for management through account provider. This block consists of the following fields:'
             spark_version: parameter in databricks_cluster and other resources.
+            workspace_id: '- (Required) Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.'
             workspace_path: '- path on Workspace File System (WSFS) in form of /Workspace + path'
         importStatements: []
     databricks_disable_legacy_access_setting:
@@ -2298,7 +2390,9 @@ resources:
                 }
         argumentDocs:
             disable_legacy_access: '- (Required) The configuration details.'
+            provider_config: '- (Optional) Configure the provider for management through account provider. This block consists of the following fields:'
             value: '- (Required) The boolean value for the setting.'
+            workspace_id: '- (Required) Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.'
         importStatements: []
     databricks_disable_legacy_dbfs_setting:
         subCategory: ""
@@ -2316,7 +2410,9 @@ resources:
                 }
         argumentDocs:
             disable_legacy_dbfs: 'block with following attributes:'
+            provider_config: '- (Optional) Configure the provider for management through account provider. This block consists of the following fields:'
             value: '- (Required) The boolean value for the setting.'
+            workspace_id: '- (Required) Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.'
         importStatements: []
     databricks_disable_legacy_features_setting:
         subCategory: ""
@@ -2345,6 +2441,47 @@ resources:
             disable_legacy_features: 'block with following attributes:'
             value: '- (Required) The boolean value for the setting.'
         importStatements: []
+    databricks_endpoint:
+        subCategory: ""
+        name: databricks_endpoint
+        title: databricks_endpoint Resource
+        examples:
+            - name: this
+              manifest: |-
+                {
+                  "account_id": "eae3abf6-1496-494e-9983-4660a5ad5aab",
+                  "azure_private_endpoint_info": [
+                    {
+                      "private_endpoint_name": "my-pe",
+                      "private_endpoint_resource_guid": "12345678-1234-1234-1234-123456789abc"
+                    }
+                  ],
+                  "endpoint_name": "my-private-endpoint",
+                  "region": "westus"
+                }
+        argumentDocs:
+            account_id: (string) - The Databricks Account in which the endpoint object exists
+            azure_private_endpoint_info: (AzurePrivateEndpointInfo, optional) - Info for an Azure private endpoint
+            create_time: (string) - The timestamp when the endpoint was created. The timestamp is in RFC 3339 format in UTC timezone
+            display_name: |-
+                (string, required) - The human-readable display name of this endpoint.
+                The input should conform to RFC-1034, which restricts to letters, numbers, and hyphens,
+                with the first character a letter, the last a letter or a number, and a 63 character maximum
+            endpoint_id: (string) - The unique identifier for this endpoint under the account. This field is a UUID generated by Databricks
+            name: (string) - The resource name of the endpoint, which uniquely identifies the endpoint
+            parent: (string, required)
+            private_endpoint_name: (string, required) - The name of the Private Endpoint in the Azure subscription
+            private_endpoint_resource_guid: |-
+                (string, required) - The GUID of the Private Endpoint resource in the Azure subscription.
+                This is assigned by Azure when the user sets up the Private Endpoint
+            private_endpoint_resource_id: (string) - The full resource ID of the Private Endpoint
+            private_link_service_id: (string) - The resource ID of the Databricks Private Link Service that this Private Endpoint connects to
+            region: (string, required) - The cloud provider region where this endpoint is located
+            state: '(string) - The state of the endpoint. The endpoint can only be used if the state is APPROVED. Possible values are: APPROVED, DISCONNECTED, FAILED, PENDING'
+            use_case: |-
+                (string) - The use case that determines the type of network connectivity this endpoint provides.
+                This field is automatically determined based on the endpoint configuration and cloud-specific settings. Possible values are: SERVICE_DIRECT
+        importStatements: []
     databricks_enhanced_security_monitoring_setting Resource:
         subCategory: ""
         name: databricks_enhanced_security_monitoring_setting Resource
@@ -2352,6 +2489,8 @@ resources:
         argumentDocs:
             enhanced_security_monitoring_workspace: 'block with following attributes:'
             is_enabled: '- (Required) Enable the Enhanced Security Monitoring on the workspace'
+            provider_config: '- (Optional) Configure the provider for management through account provider. This block consists of the following fields:'
+            workspace_id: '- (Required) Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.'
         importStatements: []
     databricks_entitlements:
         subCategory: ""
@@ -2391,12 +2530,14 @@ resources:
             databricks_sql_access: '- (Optional) This is a field to allow the principal to have access to Databricks SQL  UI, Databricks One and through databricks_sql_endpoint.'
             group/group_id: '- group group_id.'
             group_id: '- Canonical unique identifier for the group.'
+            provider_config: '- (Optional) Configure the provider for management through account provider. This block consists of the following fields:'
             service_principal_id: '- Canonical unique identifier for the service principal.'
             spn/spn_id: '- service principal spn_id.'
             user/user_id: '- user user_id.'
             user_id: '-  Canonical unique identifier for the user.'
             workspace_access: '- (Optional) This is a field to allow the principal to have access to a Databricks Workspace UI and Databricks One.'
             workspace_consume: '- (Optional) This is a field to allow the principal to have access only to Databricks One.  Couldn''t be used with workspace_access or databricks_sql_access.'
+            workspace_id: '- (Required) Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.'
         importStatements: []
     databricks_entity_tag_assignment:
         subCategory: ""
@@ -2446,8 +2587,13 @@ resources:
         argumentDocs:
             entity_name: (string, required) - The fully qualified name of the entity to which the tag is assigned
             entity_type: '(string, required) - The type of the entity to which the tag is assigned. Allowed values are: catalogs, schemas, tables, columns, volumes'
+            provider_config: (ProviderConfig, optional) - Configure the provider for management through account provider.
+            source_type: '(string) - The source type of the tag assignment, e.g., user-assigned or system-assigned. Possible values are: TAG_ASSIGNMENT_SOURCE_TYPE_SYSTEM_DATA_CLASSIFICATION'
             tag_key: (string, required) - The key of the tag
             tag_value: (string, optional) - The value of the tag
+            update_time: (string) - The timestamp when the tag assignment was last updated
+            updated_by: (string) - The user or principal who updated the tag assignment
+            workspace_id: (string,required) - Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
         importStatements: []
     databricks_external_location:
         subCategory: ""
@@ -2579,6 +2725,7 @@ resources:
             file_event_queue.provided_aqs: '- (Optional) Configuration for provided Azure Storage Queue.'
             file_event_queue.provided_pubsub: '- (Optional) Configuration for provided Google Cloud Pub/Sub queue.'
             file_event_queue.provided_sqs: '- (Optional) Configuration for provided Amazon SQS queue.'
+            file_event_queue.provider_config: '- (Optional) Configure the provider for management through account provider. This block consists of the following fields:'
             force_destroy: '- (Optional) Destroy external location regardless of its dependents.'
             force_update: '- (Optional) Update external location regardless of its dependents.'
             id: '- ID of this external location - same as name.'
@@ -2596,6 +2743,7 @@ resources:
             updated_at: '- Time at which external location this was last modified, in epoch milliseconds.'
             updated_by: '- Username of user who last modified the external location.'
             url: '- Path URL in cloud storage, of the form: s3://[bucket-host]/[bucket-dir] (AWS), abfss://[user]@[host]/[path] (Azure), gs://[bucket-host]/[bucket-dir] (GCP).   If the URL contains special characters, such as space, &, etc., they should be percent-encoded (space -> %20, etc.).'
+            workspace_id: '- (Required) Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.'
         importStatements: []
     databricks_external_metadata:
         subCategory: ""
@@ -2634,10 +2782,12 @@ resources:
             name: (string, required) - Name of the external metadata object
             owner: (string, optional) - Owner of the external metadata object
             properties: (object, optional) - A map of key-value properties attached to the external metadata object
+            provider_config: (ProviderConfig, optional) - Configure the provider for management through account provider.
             system_type: '(string, required) - Type of external system. Possible values are: AMAZON_REDSHIFT, AZURE_SYNAPSE, CONFLUENT, DATABRICKS, GOOGLE_BIGQUERY, KAFKA, LOOKER, MICROSOFT_FABRIC, MICROSOFT_SQL_SERVER, MONGODB, MYSQL, ORACLE, OTHER, POSTGRESQL, POWER_BI, SALESFORCE, SAP, SERVICENOW, SNOWFLAKE, STREAM_NATIVE, TABLEAU, TERADATA, WORKDAY'
             update_time: (string) - Time at which this external metadata object was last modified
             updated_by: (string) - Username of user who last modified external metadata object
             url: (string, optional) - URL associated with the external metadata object
+            workspace_id: (string,required) - Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
         importStatements: []
     databricks_feature_engineering_feature Resource:
         subCategory: ""
@@ -2668,6 +2818,7 @@ resources:
             name: (string, required) - Name of the Kafka source, used to identify it. This is used to look up the corresponding KafkaConfig object. Can be distinct from topic name
             notebook_id: (integer, optional) - The notebook ID where this API was invoked
             offset: (string, optional) - The offset of the continuous window (must be non-positive)
+            provider_config: (ProviderConfig, optional) - Configure the provider for management through account provider.
             slide_duration: (string, required) - The slide duration (interval by which windows advance, must be positive and less than duration)
             sliding: (SlidingWindow, optional)
             source: (DataSource, required) - The data source of the feature
@@ -2680,6 +2831,7 @@ resources:
                 (string, required) - String representation of the column name or variant expression path. For nested fields, the leaf value is what will be present in materialized tables
                 and expected to match at query time. For example, the leaf node of value:trip_details.location_details.pickup_zip is pickup_zip
             window_duration: (string, required) - The duration of the continuous window (must be positive)
+            workspace_id: (string,required) - Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
         importStatements: []
     databricks_feature_engineering_kafka_config Resource:
         subCategory: ""
@@ -2706,12 +2858,14 @@ resources:
             name: |-
                 (string) - Name that uniquely identifies this Kafka config within the metastore. This will be the identifier used from the Feature object to reference these configs for a feature.
                 Can be distinct from topic name
+            provider_config: (ProviderConfig, optional) - Configure the provider for management through account provider.
             subscribe: (string, optional) - A comma-separated list of Kafka topics to read from. For example, 'topicA,topicB,topicC'
             subscribe_pattern: (string, optional) - A regular expression matching topics to subscribe to. For example, 'topic.*' will subscribe to all topics starting with 'topic'
             subscription_mode: (SubscriptionMode, required) - Options to configure which Kafka topics to pull data from
             timeseries_column: (string, required) - The timeseries column of the Delta table
             uc_service_credential_name: (string, optional) - Name of the Unity Catalog service credential. This value will be set under the option databricks.serviceCredential
             value_schema: (SchemaConfig, optional) - Schema configuration for extracting message values from topics. At least one of key_schema and value_schema must be provided
+            workspace_id: (string,required) - Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
         importStatements: []
     databricks_feature_engineering_materialized_feature Resource:
         subCategory: ""
@@ -2729,11 +2883,13 @@ resources:
             online_store_config: (OnlineStoreConfig, optional)
             online_store_name: (string, required) - The name of the target online store
             pipeline_schedule_state: '(string, optional) - The schedule state of the materialization pipeline. Possible values are: ACTIVE, PAUSED, SNAPSHOT'
+            provider_config: (ProviderConfig, optional) - Configure the provider for management through account provider.
             schema_name: (string, required) - The Unity Catalog schema name
             table_name: (string) - The fully qualified Unity Catalog path to the table containing the materialized feature (Delta table or Lakebase table). Output only
             table_name_prefix: |-
                 (string, required) - Prefix for Unity Catalog table name.
                 The materialized feature will be stored in a table with this prefix and a generated postfix
+            workspace_id: (string,required) - Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
         importStatements: []
     databricks_file:
         subCategory: ""
@@ -2785,7 +2941,9 @@ resources:
             id: '- Same as path.'
             modification_time: '- The last time stamp when the file was modified'
             path: '- The path of the file in which you wish to save. For example, /Volumes/main/default/volume1/file.txt.'
+            provider_config: '- (Optional) Configure the provider for management through account provider. This block consists of the following fields:'
             source: '- The full absolute path to the file. Conflicts with content_base64.'
+            workspace_id: '- (Required) Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.'
         importStatements: []
     databricks_git_credential:
         subCategory: ""
@@ -2813,6 +2971,8 @@ resources:
             is_default_for_provider: '- (Optional) boolean flag specifying if the credential is the default for the given provider type.'
             name: '- (Optional) the name of the git credential, used for identification and ease of lookup.'
             personal_access_token: '- (Optional, required for some Git providers) The personal access token used to authenticate to the corresponding Git provider. If value is not provided, it''s sourced from the first environment variable of GITHUB_TOKEN, GITLAB_TOKEN, or AZDO_PERSONAL_ACCESS_TOKEN, that has a non-empty value.'
+            provider_config: '- (Optional) Configure the provider for management through account provider. This block consists of the following fields:'
+            workspace_id: '- (Required) Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.'
         importStatements: []
     databricks_global_init_script:
         subCategory: ""
@@ -2837,7 +2997,9 @@ resources:
             id: '- ID assigned to a global init script by API'
             name: (string, required) - the name of the script.  It should be unique
             position: '(integer, optional default: null) - the position of a global init script, where 0 represents the first global init script to run, 1 is the second global init script to run, and so on. When omitted, the script gets the last position.'
+            provider_config: '- (Optional) Configure the provider for management through account provider. This block consists of the following fields:'
             source: '- Path to script''s source code on local filesystem. Conflicts with content_base64'
+            workspace_id: '- (Required) Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.'
         importStatements: []
     databricks_grant:
         subCategory: ""
@@ -3249,6 +3411,8 @@ resources:
         argumentDocs:
             principal: '- User name, group name or service principal application ID.'
             privileges: '- One or more privileges that are specific to a securable type.'
+            provider_config: '- (Optional) Configure the provider for management through account provider. This block consists of the following fields:'
+            workspace_id: '- (Required) Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.'
         importStatements: []
     databricks_grants:
         subCategory: ""
@@ -3639,6 +3803,8 @@ resources:
         argumentDocs:
             databricks_grants.principal: '- User name, group name or service principal application ID.'
             databricks_grants.privileges: '- One or more privileges that are specific to a securable type.'
+            databricks_grants.provider_config: '- (Optional) Configure the provider for management through account provider. This block consists of the following fields:'
+            workspace_id: '- (Required) Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.'
         importStatements: []
     databricks_group:
         subCategory: ""
@@ -3902,11 +4068,15 @@ resources:
             instance_profile_arn: '- (Optional) Nodes belonging to the pool will only be placed on AWS instances with this instance profile. Please see databricks_instance_profile resource documentation for extended examples on adding a valid instance profile using Terraform.'
             max_capacity: '- (Optional) (Integer) The maximum number of instances the pool can contain, including both idle instances and ones in use by clusters. Once the maximum capacity is reached, you cannot create new clusters from the pool and existing clusters cannot autoscale up until some instances are made idle in the pool via cluster termination or down-scaling. There is no default limit, but as a best practice, this should be set based on anticipated usage.'
             min_idle_instances: '- (Optional) (Integer) The minimum number of idle instances maintained by the pool. This is in addition to any instances in use by active clusters.'
+            node_type_flexibility: '- (Optional) a block describing the alternative driver node types if node_type_id isn''t available.'
+            node_type_flexibility.alternate_node_type_ids: '- (Required) list of alternative node types that will be used if main node type isn''t available.  Follow the documentation for requirements on selection of alternative node types.'
             node_type_id: '- (Required) (String) The node type for the instances in the pool. All clusters attached to the pool inherit this node type and the pool''s idle instances are allocated based on this type. You can retrieve a list of available node types by using the List Node Types API call.'
             preloaded_docker_image.basic_auth: '- (Optional) basic_auth.username and basic_auth.password for Docker repository. Docker registry credentials are encrypted when they are stored in Databricks internal storage and when they are passed to a registry upon fetching Docker images at cluster launch.  For better security, these credentials should be stored in the secret scope and referred using secret path syntax: {{secrets/scope/key}}, otherwise other users of the workspace may access them via UI/API.'
             preloaded_docker_image.url: '- URL for the Docker image'
             preloaded_spark_versions: '- (Optional) (List) A list with at most one runtime version the pool installs on each instance. Pool clusters that use a preloaded runtime version start faster as they do not have to wait for the image to download. You can retrieve them via databricks_spark_version data source or via  Runtime Versions API call.'
+            provider_config: '- (Optional) Configure the provider for management through account provider. This block consists of the following fields:'
             spot_bid_price_percent: '- (Optional) (Integer) The max price for AWS spot instances, as a percentage of the corresponding instance type''s on-demand price. For example, if this field is set to 50, and the instance pool needs a new i3.xlarge spot instance, then the max price is half of the price of on-demand i3.xlarge instances. Similarly, if this field is set to 200, the max price is twice the price of on-demand i3.xlarge instances. If not specified, the default value is 100. When spot instances are requested for this instance pool, only spot instances whose max price percentage matches this field are considered. For safety, this field cannot be greater than 10000.'
+            workspace_id: '- (Required) Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.'
             zone_id: '- (Optional) (String) Identifier for the availability zone/datacenter in which the instance pool resides. This string is of the form like "us-west-2a". The provided availability zone must be in the same region as the Databricks deployment. For example, "us-west-2a" is not a valid zone ID if the Databricks deployment resides in the "us-east-1" region. If not specified, a default zone is used. You can find the list of available zones as well as the default value by using the List Zones API.'
         importStatements: []
     databricks_instance_profile:
@@ -4004,7 +4174,9 @@ resources:
             id: '- ARN for EC2 Instance Profile, that is registered with Databricks.'
             instance_profile_arn: '- (Required) ARN attribute of aws_iam_instance_profile output, the EC2 instance profile association to AWS IAM role. This ARN would be validated upon resource creation.'
             is_meta_instance_profile: '- (Optional) Whether the instance profile is a meta instance profile. Used only in IAM credential passthrough.'
+            provider_config: '- (Optional) Configure the provider for management through account provider. This block consists of the following fields:'
             skip_validation: '- (Optional) For advanced usage only. If validation fails with an error message that does not indicate an IAM related permission issue, (e.g. "Your requested instance type is not supported in your requested availability zone"), you can pass this flag to skip the validation and forcibly add the instance profile.'
+            workspace_id: '- (Required) Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.'
         importStatements: []
     databricks_ip_access_list:
         subCategory: ""
@@ -4039,6 +4211,8 @@ resources:
             label: '-  This is the display name for the given IP ACL List.'
             list_id: '- Canonical unique identifier for the IP Access List.'
             list_type: '-  Can only be "ALLOW" or "BLOCK".'
+            provider_config: '- (Optional) Configure the provider for management through account provider. This block consists of the following fields:'
+            workspace_id: '- (Required) Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.'
         importStatements: []
     databricks_job:
         subCategory: ""
@@ -4246,6 +4420,8 @@ resources:
         argumentDocs:
             '*_task': '- (Required) one of the specific task blocks described below:'
             GIT: ': The Python file is located in a remote Git repository.'
+            GPU_1xA10: ': GPU_1xA10: Single A10 GPU configuration.'
+            GPU_8xH100: ': GPU_8xH100: 8x H100 GPU configuration.'
             NEVER: '(default): The failed task will not be retried.'
             ON_FAILURE: ': Retry a failed task if at least one other task in the job is still running its first attempt. When this condition is no longer met or the retry limit is reached, the job run is cancelled and a new run is started.'
             PERFORMANCE_OPTIMIZED: ': (default value) Prioritizes fast startup and execution times through rapid scaling and optimized cluster performance.'
@@ -4264,6 +4440,7 @@ resources:
             clean_room_name: (Required) The clean room that the notebook belongs to.
             commands: '- (Required) (Array) Series of dbt commands to execute in sequence. Every command must start with "dbt".'
             commit: '- hash of Git commit to use. Conflicts with branch and tag.'
+            compute: '- (Optional) Task level compute configuration. This block is documented below.'
             concurrency: '- (Optional) Controls the number of active iteration task runs. Default is 20, maximum allowed is 100.'
             condition: '- (Required, string) The table(s) condition based on which to trigger a job run.  Possible values are ANY_UPDATED, ALL_UPDATED.'
             connection_resource_name: (Required) The resource name of the UC connection to authenticate from Databricks to Power BI
@@ -4291,6 +4468,7 @@ resources:
             file: '- (Optional) block consisting of single string fields:'
             full_refresh: '- (Optional) (Bool) Specifies if there should be full refresh of the pipeline.'
             git_source: '- (Optional) Specifies the a Git repository for task source code. See git_source Configuration Block below.'
+            hardware_accelerator: '- (Optional) Hardware accelerator configuration for Serverless GPU workloads. Supported values are:'
             health: '- (Optional) An optional block that specifies the health conditions for the job documented below.'
             id: '- ID of the system notification that is notified when an event defined in webhook_notifications is triggered.'
             inputs: '- (Required) (String) Array for task to iterate on. This can be a JSON string or a reference to an array parameter.'
@@ -4651,7 +4829,9 @@ resources:
         title: databricks_materialized_features_feature_tag Resource
         argumentDocs:
             key: (string, required)
+            provider_config: (ProviderConfig, optional) - Configure the provider for management through account provider.
             value: (string, optional)
+            workspace_id: (string,required) - Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
         importStatements: []
     databricks_metastore:
         subCategory: ""
@@ -4711,7 +4891,7 @@ resources:
             created_by: '- Username of metastore creator.'
             default_data_access_config_id: '- (Optional) Unique identifier of the metastore''s default data access configuration.'
             delta_sharing_organization_name: '- (Optional) The organization name of a Delta Sharing entity. This field is used for Databricks to Databricks sharing. Once this is set it cannot be removed and can only be modified to another valid value. To delete this value please taint and recreate the resource.'
-            delta_sharing_recipient_token_lifetime_in_seconds: '- (Optional) Required along with delta_sharing_scope. Used to set expiration duration in seconds on recipient data access tokens. Set to 0 for unlimited duration.'
+            delta_sharing_recipient_token_lifetime_in_seconds: '- (Optional) Required along with delta_sharing_scope. Used to set expiration duration in seconds on recipient data access tokens. Defaults to 31536000 (1 year).'
             delta_sharing_scope: '- (Optional) Required along with delta_sharing_recipient_token_lifetime_in_seconds. Used to enable delta sharing on the metastore. Valid values: INTERNAL, INTERNAL_AND_EXTERNAL.  INTERNAL only allows sharing within the same account, and INTERNAL_AND_EXTERNAL allows cross account sharing and token based sharing.'
             external_access_enabled: '- (Optional) Whether to allow non-DBR clients to directly access entities under the metastore.'
             force_destroy: '- (Optional) Destroy metastore regardless of its contents.'
@@ -4840,7 +5020,9 @@ resources:
             artifact_location: '- Path to artifact location of the MLflow experiment.'
             id: '- ID of the MLflow experiment.'
             name: '- (Required) Name of MLflow experiment. It must be an absolute path within the Databricks workspace, e.g. /Users/<some-username>/my-experiment. For more information about changes to experiment naming conventions, see mlflow docs.'
+            provider_config: '- (Optional) Configure the provider for management through account provider. This block consists of the following fields:'
             tags: '- Tags for the MLflow experiment.'
+            workspace_id: '- (Required) Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.'
         importStatements: []
     databricks_mlflow_model:
         subCategory: ""
@@ -4867,7 +5049,9 @@ resources:
             description: '- The description of the MLflow model.'
             id: '- ID of the MLflow model, the same as name.'
             name: '- (Required) Name of MLflow model. Change of name triggers new resource.'
+            provider_config: '- (Optional) Configure the provider for management through account provider. This block consists of the following fields:'
             tags: '- Tags for the MLflow model.'
+            workspace_id: '- (Required) Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.'
         importStatements: []
     databricks_mlflow_webhook:
         subCategory: ""
@@ -4949,9 +5133,11 @@ resources:
             id: '- Unique ID of the MLflow Webhook.'
             job_id: '- (Required) ID of the Databricks job that the webhook runs.'
             model_name: '- (Optional) Name of MLflow model for which webhook will be created. If the model name is not specified, a registry-wide webhook is created that listens for the specified events across all versions of all registered models.'
+            provider_config: '- (Optional) Configure the provider for management through account provider. This block consists of the following fields:'
             secret: '- (Optional, Sensitive) Shared secret required for HMAC encoding payload. The HMAC-encoded payload will be sent in the header as X-Databricks-Signature: encoded_payload.'
             status: '- Optional status of webhook. Possible values are ACTIVE, TEST_MODE, DISABLED. Default is ACTIVE.'
             url: '- (Required) External HTTPS URL called on event trigger (by using a POST request). Structure of payload depends on the event type, refer to documentation for more details.'
+            workspace_id: '- (Required) Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.'
             workspace_url: '- (Optional) URL of the workspace containing the job that this webhook runs. If not specified, the job’s workspace URL is assumed to be the same as the workspace where the webhook is created.'
         importStatements: []
     databricks_model_serving:
@@ -5174,6 +5360,7 @@ resources:
             private_key_plaintext: '- The private key for the service account that has access to the Google Cloud Vertex AI Service is provided as a plaintext secret.'
             project_id: '- This is the Google Cloud project id that the service account is associated with.'
             provider: '- (Required) The name of the provider for the external model. Currently, the supported providers are ai21labs, anthropic, amazon-bedrock, cohere, databricks-model-serving, google-cloud-vertex-ai, openai, and palm.'
+            provider_config: '- (Optional) Configure the provider for management through account provider. This block consists of the following fields:'
             rate_limits: '- (Deprecated, use ai_gateway to manage rate limits) A list of rate limit blocks to be applied to the serving endpoint. Note: only external and foundation model endpoints are supported as of now.'
             rate_limits.calls: '- (Required) Used to specify how many calls are allowed for a key within the renewal_period.'
             rate_limits.key: '- (Optional) Key field for a serving endpoint rate limit. Currently, user, user_group, service_principal, and endpoint are supported, with endpoint being the default if not specified.'
@@ -5220,6 +5407,7 @@ resources:
             valid_topics: '- (Deprecated) The list of allowed topics. Given a chat request, this guardrail flags the request if its topic is not in the allowed topics.'
             value: (Optional) - The Databricks secret key reference for an API Key.
             value_plaintext: (Optional) - The API Key provided as a plaintext string.
+            workspace_id: '- (Required) Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.'
         importStatements: []
     databricks_model_serving_provisioned_throughput:
         subCategory: ""
@@ -5269,6 +5457,7 @@ resources:
             name: '- (Required) The name of the model serving endpoint. This field is required and must be unique across a workspace. An endpoint name can consist of alphanumeric characters, dashes, and underscores. NOTE: Changing this name will delete the existing endpoint and create a new endpoint with the updated name.'
             output: '- A block with configuration for output guardrail filters.  Has the same structure as input block.'
             pii: '- Block with configuration for guardrail PII filter:'
+            provider_config: '- (Optional) Configure the provider for management through account provider. This block consists of the following fields:'
             safety: '- the boolean flag that indicates whether the safety filter is enabled.'
             served_entities: '- A list of served entities for the endpoint to serve.'
             served_entities.entity_name: '- The full path of the UC model to be served, given in the form of catalog_name.schema_name.model_name.'
@@ -5284,6 +5473,7 @@ resources:
             traffic_config.routes: '- (Required) Each block represents a route that defines traffic to each served entity. Each served_entity block needs to have a corresponding routes block.'
             traffic_percentage: '- (Required) The percentage of endpoint traffic to send to this route. It must be an integer between 0 and 100 inclusive.'
             valid_topics: '- The list of allowed topics. Given a chat request, this guardrail flags the request if its topic is not in the allowed topics.'
+            workspace_id: '- (Required) Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.'
         importStatements: []
     databricks_mount:
         subCategory: ""
@@ -5508,6 +5698,7 @@ resources:
             id: '- mount name'
             mount_name: to name
             name: '- (Optional, String) Name, under which mount will be accessible in dbfs:/mnt/<MOUNT_NAME>. If not specified, provider will try to infer it from depending on the resource type:'
+            provider_config: '- (Optional) Configure the provider for management through account provider. This block consists of the following fields:'
             resource_id: '- (Optional, String) resource ID for a given storage account. Could be used to fill defaults, such as storage account & container names on Azure.'
             s3: '- to mount AWS S3'
             s3.bucket_name: '- (Required) (String) S3 bucket name to be mounted.'
@@ -5523,6 +5714,7 @@ resources:
             wasb.storage_account_name: '- (Required) (String) The name of the storage resource in which the data is. (Could be omitted if resource_id is provided)'
             wasb.token_secret_key: '- (Required) (String) This is the secret key in which your auth type token is stored.'
             wasb.token_secret_scope: '- (Required) (String) This is the secret scope in which your auth type token is stored.'
+            workspace_id: '- (Required) Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.'
         importStatements: []
     databricks_mws_credentials:
         subCategory: ""
@@ -6313,10 +6505,25 @@ resources:
                         }
                       ]
                     }
+            - name: this
+              manifest: |-
+                {
+                  "account_id": "${var.databricks_account_id}",
+                  "bucket_name": "${aws_s3_bucket.root_storage_bucket.bucket}",
+                  "provider": "${databricks.mws}",
+                  "role_arn": "${aws_iam_role.unity_catalog_role.arn}",
+                  "storage_configuration_name": "${var.prefix}-storage"
+                }
+              references:
+                account_id: var.databricks_account_id
+                bucket_name: aws_s3_bucket.root_storage_bucket.bucket
+                provider: databricks.mws
+                role_arn: aws_iam_role.unity_catalog_role.arn
         argumentDocs:
             account_id: '- Account Id that could be found in the top right corner of Accounts Console'
             bucket_name: '- name of AWS S3 bucket'
             id: '- Canonical unique identifier for the mws storage configurations.'
+            role_arn: '- (Optional) The ARN of the IAM role that Databricks will assume to access the S3 bucket. This allows sharing an S3 bucket between root storage and the default catalog for a workspace. See the Databricks API documentation for more details.'
             storage_configuration_id: '- (String) id of storage config to be used for databricks_mws_workspace resource.'
             storage_configuration_name: '- name under which this storage configuration is stored'
         importStatements: []
@@ -6793,17 +7000,19 @@ resources:
             channel_id: '- (Optional) Slack channel ID for notifications.'
             channel_url: '- (Optional) Channel URL for Microsoft Teams App.'
             config: '- (Required) The configuration of the Notification Destination. It must contain exactly one of the following blocks:'
+            config.email: '- The email configuration of the Notification Destination. It must contain the following:'
+            config.generic_webhook: '- The Generic Webhook configuration of the Notification Destination. It must contain the following:'
+            config.microsoft_teams: '- The Microsoft Teams configuration of the Notification Destination. It must contain the following:'
+            config.pagerduty: '- The PagerDuty configuration of the Notification Destination. It must contain the following:'
+            config.slack: '- The Slack configuration of the Notification Destination. It must contain the following:'
             destination_type: '- the type of Notification Destination.'
             display_name: '- (Required) The display name of the Notification Destination.'
-            email: '- The email configuration of the Notification Destination. It must contain the following:'
-            generic_webhook: '- The Generic Webhook configuration of the Notification Destination. It must contain the following:'
             id: '- The unique ID of the Notification Destination.'
             integration_key: '- (Required) The PagerDuty integration key.'
-            microsoft_teams: '- The Microsoft Teams configuration of the Notification Destination. It must contain the following:'
             oauth_token: '- (Optional) OAuth token for Slack authentication.'
-            pagerduty: '- The PagerDuty configuration of the Notification Destination. It must contain the following:'
             password: '- (Optional) The password for basic authentication.'
-            slack: '- The Slack configuration of the Notification Destination. It must contain the following:'
+            provider_config: '- (Optional) Configure the provider for management through account provider. This block consists of the following fields:'
+            provider_config.workspace_id: '- (Required) Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.'
             tenant_id: '- (Optional) Tenant ID for Microsoft Teams App.'
             url: '- (Optional) The Slack webhook URL.'
             username: '- (Optional) The username for basic authentication.'
@@ -6867,7 +7076,9 @@ resources:
             comment: '- (String, Optional) Comment that describes the purpose of the token.'
             id: '- Canonical unique identifier for the token.'
             lifetime_seconds: '- (Integer, Optional) The number of seconds before the token expires. Token resource is re-created when it expires. If no lifetime is specified, the token remains valid indefinitely.'
+            provider_config: '- (Optional) Configure the provider for management through account provider. This block consists of the following fields:'
             token_value: '- Sensitive value of the newly-created token.'
+            workspace_id: '- (Required) Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.'
         importStatements: []
     databricks_online_store Resource:
         subCategory: ""
@@ -6878,9 +7089,11 @@ resources:
             creation_time: (string) - The timestamp when the online store was created
             creator: (string) - The email of the creator of the online store
             name: (string, required) - The name of the online store. This is the unique identifier for the online store
+            provider_config: (ProviderConfig, optional) - Configure the provider for management through account provider.
             read_replica_count: (integer, optional) - The number of read replicas for the online store. Defaults to 0
             state: '(string) - The current state of the online store. Possible values are: AVAILABLE, DELETING, FAILING_OVER, STARTING, STOPPED, UPDATING'
             usage_policy_id: (string, optional) - The usage policy applied to the online store to track billing
+            workspace_id: (string,required) - Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
         importStatements: []
     databricks_online_table:
         subCategory: ""
@@ -6911,6 +7124,7 @@ resources:
             perform_full_copy: '- (Optional) Whether to create a full-copy pipeline -- a pipeline that stops after creates a full copy of the source table upon initialization and does not process any change data feeds (CDFs) afterwards. The pipeline can still be manually triggered afterwards, but it always perform a full copy of the source table and there are no incremental updates. This mode is useful for syncing views or tables without CDFs to online tables. Note that the full-copy pipeline only supports "triggered" scheduling policy.'
             pipeline_id: '- ID of the associated Delta Live Table pipeline.'
             primary_key_columns: '- (Required) list of the columns comprising the primary key.'
+            provider_config: '- (Optional) Configure the provider for management through account provider. This block consists of the following fields:'
             run_continuously: '- empty block that specifies that pipeline runs continuously after generating the initial data.  Conflicts with run_triggered.'
             run_triggered: '- empty block that specifies that pipeline stops after generating the initial data and can be triggered later (manually, through a cron job or through data triggers).'
             source_table_full_name: '- (Required) full name of the source table.'
@@ -6919,6 +7133,7 @@ resources:
             table_serving_url: '- Data serving REST API URL for this table.'
             timeseries_key: '- (Optional) Time series key to deduplicate (tie-break) rows with the same primary key.'
             unity_catalog_provisioning_state: '- The provisioning state of the online table entity in Unity Catalog. This is distinct from the state of the data synchronization pipeline (i.e. the table may be in "ACTIVE" but the pipeline may be in "PROVISIONING" as it runs asynchronously).'
+            workspace_id: '- (Required) Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.'
         importStatements: []
     databricks_permission_assignment:
         subCategory: ""
@@ -7912,6 +8127,28 @@ resources:
                     {
                       "display_name": "Engineering"
                     }
+            - name: db_project_usage
+              manifest: |-
+                {
+                  "access_control": [
+                    {
+                      "group_name": "users",
+                      "permission_level": "CAN_USE"
+                    },
+                    {
+                      "group_name": "${databricks_group.eng.display_name}",
+                      "permission_level": "CAN_MANAGE"
+                    }
+                  ],
+                  "database_project_name": "my_project"
+                }
+              references:
+                access_control.group_name: databricks_group.eng.display_name
+              dependencies:
+                databricks_group.eng: |-
+                    {
+                      "display_name": "Engineering"
+                    }
             - name: model_usage
               manifest: |-
                 {
@@ -7936,12 +8173,15 @@ resources:
             IS_OWNER: permission. Destroying databricks_permissions resource for a job would revert ownership to the creator.
             admins.group_name: '- (Optional) name of the group. We recommend setting permissions on groups.'
             admins.permission_level: '- (Required) permission level according to specific resource. See examples above for the reference.'
+            admins.provider_config: '- (Optional) Configure the provider for management through account provider. This block consists of the following fields:'
             admins.service_principal_name: '- (Optional) Application ID (not service principal name!) of the service_principal.'
             admins.user_name: '- (Optional) name of the user.'
             app_name: '- app name'
             authorization: '- either tokens or passwords.'
             cluster_id: '- cluster id'
             cluster_policy_id: '- cluster policy id'
+            database_instance_name: '- Lakebase database instance name'
+            database_project_name: '- Lakebase database project name'
             directory_id: '- directory id'
             directory_path: '- path of directory'
             experiment_id: '- MLflow experiment id'
@@ -7961,6 +8201,7 @@ resources:
             sql_endpoint_id: '- SQL warehouse id'
             sql_query_id: '- SQL query id'
             vector_search_endpoint_id: '- Vector Search endpoint id.'
+            workspace_id: '- (Required) Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.'
         importStatements: []
     databricks_pipeline:
         subCategory: ""
@@ -8040,6 +8281,15 @@ resources:
             - name: this
               manifest: |-
                 {
+                  "run_as": [
+                    {
+                      "service_principal_name": "8d23ae77-912e-4a19-81e4-b9c3f5cc9349"
+                    }
+                  ]
+                }
+            - name: this
+              manifest: |-
+                {
                   "catalog": "main",
                   "environment": [
                     {
@@ -8086,6 +8336,7 @@ resources:
             library.connection_name: '- Immutable. The Unity Catalog connection this ingestion pipeline uses to communicate with the source. Specify either ingestion_gateway_id or connection_name.'
             library.ingestion_gateway_id: '- Immutable. Identifier for the ingestion gateway used by this ingestion pipeline to communicate with the source. Specify either ingestion_gateway_id or connection_name.'
             library.objects: '- Required. Settings specifying tables to replicate and the destination for the replicated tables.'
+            library.provider_config: '- (Optional) Configure the provider for management through account provider. This block consists of the following fields:'
             library.source_configurations: '- Array of objects describing top-level source configurations. See the REST API docs for reference.'
             library.table_configuration: '- Configuration settings to control the ingestion of tables. These settings are applied to all tables in the pipeline.'
             metadata_file_path: '- The path to the file containing metadata about the deployment.'
@@ -8096,7 +8347,11 @@ resources:
             on-update-fatal-failure: '- a pipeline update fails with a non-retryable (fatal) error.'
             on-update-success: '- a pipeline update completes successfully.'
             photon: '- A flag indicating whether to use Photon engine. The default value is false.'
+            provider_config.workspace_id: '- (Required) Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.'
             root_path: '- An optional string specifying the root path for this pipeline. This is used as the root directory when editing the pipeline in the Databricks user interface and it is added to sys.path when executing Python sources during pipeline execution.'
+            run_as: '- (Optional) The user or the service principal the pipeline runs as. See run_as Configuration Block below.'
+            run_as.service_principal_name: '- (Optional) The application ID of an active service principal. Setting this field requires the servicePrincipal/user role.'
+            run_as.user_name: '- (Optional) The email of an active workspace user. Non-admin users can only set this field to their own email.'
             schema: '- (Optional, String, Conflicts with target) The default schema (database) where tables are read from or published to. The presence of this attribute implies that the pipeline is in direct publishing mode.'
             serverless: '- An optional flag indicating if serverless compute should be used for this Lakeflow Declarative Pipeline.  Requires catalog to be set, as it could be used only with Unity Catalog.'
             storage: to catalog or vice versa.  If pipeline was already created with catalog set, the value could be changed.
@@ -8112,7 +8367,7 @@ resources:
             - name: pii_row_filter
               manifest: |-
                 {
-                  "for_securable_type": "table",
+                  "for_securable_type": "TABLE",
                   "match_columns": [
                     {
                       "alias": "pii_col",
@@ -8121,7 +8376,7 @@ resources:
                   ],
                   "name": "pii_data_policy",
                   "on_securable_fullname": "main",
-                  "on_securable_type": "catalog",
+                  "on_securable_type": "CATALOG",
                   "policy_type": "POLICY_TYPE_ROW_FILTER",
                   "row_filter": {
                     "function_name": "main.filters.mask_pii_rows",
@@ -8151,7 +8406,7 @@ resources:
                   "except_principals": [
                     "finance_admins"
                   ],
-                  "for_securable_type": "table",
+                  "for_securable_type": "TABLE",
                   "match_columns": [
                     {
                       "alias": "sensitive_col",
@@ -8160,7 +8415,7 @@ resources:
                   ],
                   "name": "sensitive_data_mask",
                   "on_securable_fullname": "main.finance",
-                  "on_securable_type": "schema",
+                  "on_securable_type": "SCHEMA",
                   "policy_type": "POLICY_TYPE_COLUMN_MASK",
                   "to_principals": [
                     "account users"
@@ -8202,12 +8457,13 @@ resources:
                 Required on create and update
             on_securable_fullname: |-
                 (string, optional) - Full name of the securable on which the policy is defined.
-                Required on create and ignored on update
+                Required on create
             on_securable_type: |-
                 (string, optional) - Type of the securable on which the policy is defined.
                 Only CATALOG, SCHEMA and TABLE are supported at this moment.
-                Required on create and ignored on update. Possible values are: CATALOG, CLEAN_ROOM, CONNECTION, CREDENTIAL, EXTERNAL_LOCATION, EXTERNAL_METADATA, FUNCTION, METASTORE, PIPELINE, PROVIDER, RECIPIENT, SCHEMA, SHARE, STAGING_TABLE, STORAGE_CREDENTIAL, TABLE, VOLUME
-            policy_type: '(string, required) - Type of the policy. Required on create and ignored on update. Possible values are: POLICY_TYPE_COLUMN_MASK, POLICY_TYPE_ROW_FILTER'
+                Required on create. Possible values are: CATALOG, CLEAN_ROOM, CONNECTION, CREDENTIAL, EXTERNAL_LOCATION, EXTERNAL_METADATA, FUNCTION, METASTORE, PIPELINE, PROVIDER, RECIPIENT, SCHEMA, SHARE, STAGING_TABLE, STORAGE_CREDENTIAL, TABLE, VOLUME
+            policy_type: '(string, required) - Type of the policy. Required on create. Possible values are: POLICY_TYPE_COLUMN_MASK, POLICY_TYPE_ROW_FILTER'
+            provider_config: (ProviderConfig, optional) - Configure the provider for management through account provider.
             row_filter: |-
                 (RowFilterOptions, optional) - Options for row filter policies. Valid only if policy_type is POLICY_TYPE_ROW_FILTER.
                 Required on create and optional on update. When specified on update,
@@ -8221,6 +8477,7 @@ resources:
                 (list of FunctionArgument, optional) - Optional list of column aliases or constant literals to be passed as additional arguments to the column mask function.
                 The type of each column should match the positional argument of the column mask function
             when_condition: (string, optional) - Optional condition when the policy should take effect
+            workspace_id: (string,required) - Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
         importStatements: []
     databricks_postgres_branch:
         subCategory: ""
@@ -8291,6 +8548,7 @@ resources:
                 (string, required) - The project containing this branch (API resource hierarchy).
                 Format: projects/{project_id}
             pending_state: '(string) - The pending state of the branch, if a state transition is in progress. Possible values are: ARCHIVED, IMPORTING, INIT, READY, RESETTING'
+            provider_config: (ProviderConfig, optional) - Configure the provider for management through account provider.
             source_branch: |-
                 (string, optional) - The name of the source branch from which this branch was created (data lineage for point-in-time recovery).
                 If not specified, defaults to the project's default branch.
@@ -8303,6 +8561,7 @@ resources:
             ttl: (string, optional) - Relative time-to-live duration. When set, the branch will expire at creation_time + ttl
             uid: (string) - System-generated unique ID for the branch
             update_time: (string) - A timestamp indicating when the branch was last updated
+            workspace_id: (string,required) - Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
         importStatements: []
     databricks_postgres_endpoint:
         subCategory: ""
@@ -8466,21 +8725,35 @@ resources:
             autoscaling_limit_max_cu: (number, optional) - The maximum number of Compute Units. Minimum value is 0.5
             autoscaling_limit_min_cu: (number, optional) - The minimum number of Compute Units. Minimum value is 0.5
             create_time: (string) - A timestamp indicating when the compute endpoint was created
-            current_state: '(string) - Possible values are: ACTIVE, IDLE, INIT'
+            current_state: '(string) - Possible values are: ACTIVE, DEGRADED, IDLE, INIT'
             disabled: |-
                 (boolean, optional) - Whether to restrict connections to the compute endpoint.
                 Enabling this option schedules a suspend compute operation.
                 A disabled compute endpoint cannot be enabled by a connection or
                 console action
+            enable_readable_secondaries: |-
+                (boolean, optional) - Whether to allow read-only connections to read-write endpoints. Only relevant for read-write endpoints where
+                size.max > 1
             endpoint_id: |-
                 (string, required) - The ID to use for the Endpoint. This becomes the final component of the endpoint's resource name.
                 The ID is required and must be 1-63 characters long, start with a lowercase letter, and contain only lowercase letters, numbers, and hyphens.
                 For example, primary becomes projects/my-app/branches/development/endpoints/primary
             endpoint_type: '(string, required) - The endpoint type. A branch can only have one READ_WRITE endpoint. Possible values are: ENDPOINT_TYPE_READ_ONLY, ENDPOINT_TYPE_READ_WRITE'
+            group: |-
+                (EndpointGroupSpec, optional) - Settings for optional HA configuration of the endpoint. If unspecified, the endpoint defaults
+                to non HA settings, with a single compute backing the endpoint (and no readable secondaries
+                for Read/Write endpoints)
             host: |-
                 (string) - The hostname to connect to this endpoint. For read-write endpoints, this is a read-write hostname which connects
                 to the primary compute. For read-only endpoints, this is a read-only hostname which allows read-only operations
             hosts: (EndpointHosts) - Contains host information for connecting to the endpoint
+            max: |-
+                (integer, required) - The maximum number of computes in the endpoint group. Currently, this must be equal to min. Set to 1 for single
+                compute endpoints, to disable HA. To manually suspend all computes in an endpoint group, set disabled to
+                true on the EndpointSpec
+            min: |-
+                (integer, required) - The minimum number of computes in the endpoint group. Currently, this must be equal to max. This must be greater
+                than or equal to 1
             name: |-
                 (string) - Output only. The full resource path of the endpoint.
                 Format: projects/{project_id}/branches/{branch_id}/endpoints/{endpoint_id}
@@ -8490,8 +8763,13 @@ resources:
             parent: |-
                 (string, required) - The branch containing this endpoint (API resource hierarchy).
                 Format: projects/{project_id}/branches/{branch_id}
-            pending_state: '(string) - Possible values are: ACTIVE, IDLE, INIT'
+            pending_state: '(string) - Possible values are: ACTIVE, DEGRADED, IDLE, INIT'
             pg_settings: (object, optional) - A raw representation of Postgres settings
+            provider_config: (ProviderConfig, optional) - Configure the provider for management through account provider.
+            read_only_host: |-
+                (string) - An optionally defined read-only host for the endpoint, without pooling. For read-only endpoints,
+                this attribute is always defined and is equivalent to host. For read-write endpoints, this attribute is defined
+                if the enclosing endpoint is a group with greater than 1 computes configured, and has readable secondaries enabled
             settings: (EndpointSettings, optional)
             spec: (EndpointSpec, optional) - The spec contains the compute endpoint configuration, including autoscaling limits, suspend timeout, and disabled state
             status: (EndpointStatus) - Current operational status of the compute endpoint
@@ -8500,6 +8778,7 @@ resources:
                 If specified should be between 60s and 604800s (1 minute to 1 week)
             uid: (string) - System-generated unique ID for the endpoint
             update_time: (string) - A timestamp indicating when the compute endpoint was last updated
+            workspace_id: (string,required) - Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
         importStatements: []
     databricks_postgres_project:
         subCategory: ""
@@ -8552,10 +8831,35 @@ resources:
             autoscaling_limit_max_cu: (number, optional) - The maximum number of Compute Units. Minimum value is 0.5
             autoscaling_limit_min_cu: (number, optional) - The minimum number of Compute Units. Minimum value is 0.5
             branch_logical_size_limit_bytes: (integer) - The logical size limit for a branch
+            budget_policy_id: |-
+                (string, optional) - The desired budget policy to associate with the project.
+                See status.budget_policy_id for the policy that is actually applied to the project
             create_time: (string) - A timestamp indicating when the project was created
+            custom_tags: |-
+                (list of ProjectCustomTag, optional) - Custom tags to associate with the project. Forwarded to LBM for billing and cost tracking.
+                To update tags, provide the new tag list and include "spec.custom_tags" in the update_mask.
+                To clear all tags, provide an empty list and include "spec.custom_tags" in the update_mask.
+                To preserve existing tags, omit this field from the update_mask (or use wildcard "*" which auto-excludes empty tags)
             default_endpoint_settings: (ProjectDefaultEndpointSettings, optional)
             display_name: (string, optional) - Human-readable project name. Length should be between 1 and 256 characters
+            enable_readable_secondaries: |-
+                (boolean, optional) - Whether to allow read-only connections to read-write endpoints. Only relevant for read-write endpoints where
+                size.max > 1
+            group: (EndpointGroupSpec, optional) - Settings for HA configuration of the endpoint
             history_retention_duration: (string, optional) - The number of seconds to retain the shared history for point in time recovery for all branches in this project. Value should be between 0s and 2592000s (up to 30 days)
+            initial_endpoint_spec: |-
+                (InitialEndpointSpec, optional) - Configuration settings for the initial Read/Write endpoint created inside the default branch for a newly
+                created project. If omitted, the initial endpoint created will have default settings, without high availability
+                configured. This field does not apply to any endpoints created after project creation. Use
+                spec.default_endpoint_settings to configure default settings for endpoints created after project creation
+            key: (string, optional) - The key of the custom tag
+            max: |-
+                (integer, required) - The maximum number of computes in the endpoint group. Currently, this must be equal to min. Set to 1 for single
+                compute endpoints, to disable HA. To manually suspend all computes in an endpoint group, set disabled to
+                true on the EndpointSpec
+            min: |-
+                (integer, required) - The minimum number of computes in the endpoint group. Currently, this must be equal to max. This must be greater
+                than or equal to 1
             name: |-
                 (string) - Output only. The full resource path of the project.
                 Format: projects/{project_id}
@@ -8569,6 +8873,7 @@ resources:
                 (string, required) - The ID to use for the Project. This becomes the final component of the project's resource name.
                 The ID is required and must be 1-63 characters long, start with a lowercase letter, and contain only lowercase letters, numbers, and hyphens.
                 For example, my-app becomes projects/my-app
+            provider_config: (ProviderConfig, optional) - Configure the provider for management through account provider.
             spec: field represents your intended resource configuration - what you want the resource to be.
             status: field represents the current system state - what the resource actually is.
             suspend_timeout_duration: |-
@@ -8578,6 +8883,8 @@ resources:
             terraform apply: will not surface those differences. It only applies updates based on the Terraform configuration.
             uid: (string) - System-generated unique ID for the project
             update_time: (string) - A timestamp indicating when the project was last updated
+            value: (string, optional) - The value of the custom tag
+            workspace_id: (string,required) - Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
         importStatements: []
     databricks_provider:
         subCategory: ""
@@ -8597,7 +8904,9 @@ resources:
             comment: '- (Optional) Description about the provider.'
             id: '- ID of this provider - same as the name.'
             name: '- Name of provider. Change forces creation of a new resource.'
+            provider_config: '- (Optional) Configure the provider for management through account provider. This block consists of the following fields:'
             recipient_profile_str: '- (Optional) This is the json file that is created from a recipient url.'
+            workspace_id: '- (Required) Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.'
         importStatements: []
     databricks_quality_monitor:
         subCategory: ""
@@ -8752,10 +9061,12 @@ resources:
             object_id: (string, required) - The uuid of the request object. For example, schema id
             object_type: '(string, required) - The type of the monitored object. Can be one of the following: schema'
             percent_null_validity_check: (PercentNullValidityCheck, optional)
+            provider_config: (ProviderConfig, optional) - Configure the provider for management through account provider.
             range_validity_check: (RangeValidityCheck, optional)
             uniqueness_validity_check: (UniquenessValidityCheck, optional)
             upper_bound: (number, optional) - Optional upper bound; we should use auto determined bounds for now
             validity_check_configurations: (list of ValidityCheckConfiguration, optional) - Validity check configurations for anomaly detection
+            workspace_id: (string,required) - Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
         importStatements: []
     databricks_query:
         subCategory: ""
@@ -8827,6 +9138,7 @@ resources:
             parent_path: '- (Optional, String) The path to a workspace folder containing the query. The default is the user''s home folder.  If changed, the query will be recreated.'
             precision: '- (Optional, String) Date-time precision to format the value into when the query is run.  Possible values are DAY_PRECISION, MINUTE_PRECISION, SECOND_PRECISION.  Defaults to DAY_PRECISION (YYYY-MM-DD).'
             prefix: '- (Optional, String) Character that prefixes each selected parameter value.'
+            provider_config: '- (Optional) Configure the provider for management through account provider. This block consists of the following fields:'
             query_backed_value: '- (Block) Query-based dropdown parameter value. Consists of following attributes:'
             query_id: '- (Required, String) ID of the query that provides the parameter values.'
             query_text: '- (Required, String) Text of SQL query.'
@@ -8850,6 +9162,7 @@ resources:
             value: '- (Required, String) - actual text value.'
             values: '- (Array of strings) List of selected query parameter values.'
             warehouse_id: '- (Required, String) ID of a SQL warehouse which will be used to execute this query.'
+            workspace_id: '- (Required) Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.'
         importStatements: []
     databricks_recipient:
         subCategory: ""
@@ -8913,11 +9226,13 @@ resources:
             owner: '- (Optional) Username/groupname/sp application_id of the recipient owner.'
             properties: (Required) a map of string key-value pairs with recipient's properties.  Properties with name starting with databricks. are reserved.
             properties_kvpairs: '- (Optional) Recipient properties - object consisting of following fields:'
+            provider_config: '- (Optional) Configure the provider for management through account provider. This block consists of the following fields:'
             region: '- Cloud region of the recipient''s Unity Catalog Metstore. This field is only present when the authentication_type is DATABRICKS.'
             sharing_code: '- (Optional) The one-time sharing code provided by the data recipient.'
             tokens: '- List of Recipient Tokens. This field is only present when the authentication_type is TOKEN. Each list element is an object with following attributes:'
             updated_at: '- Time at which this recipient Token was updated, in epoch milliseconds.'
             updated_by: '- Username of recipient Token updater.'
+            workspace_id: '- (Required) Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.'
         importStatements: []
     databricks_registered_model:
         subCategory: ""
@@ -8938,8 +9253,10 @@ resources:
             id: '- Equal to the full name of the model (catalog_name.schema_name.name) and used to identify the model uniquely across the metastore.'
             name: '- (Required) The name of the registered model.  Change of this parameter forces recreation of the resource.'
             owner: '- (Optional) Name of the registered model owner.'
+            provider_config: '- (Optional) Configure the provider for management through account provider. This block consists of the following fields:'
             schema_name: '- (Required) The name of the schema where the registered model resides. Change of this parameter forces recreation of the resource.'
             storage_location: '- (Optional) The storage location under which model version data files are stored.  If the URL contains special characters, such as space, &, etc., they should be percent-encoded (space -> %20, etc.). Change of this parameter forces recreation of the resource.'
+            workspace_id: '- (Required) Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.'
         importStatements: []
     databricks_repo:
         subCategory: ""
@@ -8958,8 +9275,10 @@ resources:
             id: '-  Git folder identifier'
             path: '- (Optional) path to put the checked out Git folder. If not specified, , then the Git folder will be created in the default location.  If the value changes, Git folder is re-created.'
             sparse_checkout.patterns: '- array of paths (directories) that will be used for sparse checkout.  List of patterns could be updated in-place.'
+            sparse_checkout.provider_config: '- (Optional) Configure the provider for management through account provider. This block consists of the following fields:'
             tag: '- (Optional) name of the tag for initial checkout.  Conflicts with branch.'
             url: '-  (Required) The URL of the Git Repository to clone from. If the value changes, Git folder is re-created.'
+            workspace_id: '- (Required) Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.'
             workspace_path: '- path on Workspace File System (WSFS) in form of /Workspace + path'
         importStatements: []
     databricks_restrict_workspace_admins_setting:
@@ -8977,8 +9296,10 @@ resources:
                   ]
                 }
         argumentDocs:
+            provider_config: '- (Optional) Configure the provider for management through account provider. This block consists of the following fields:'
             restrict_workspace_admins: '- (Required) The configuration details.'
             status: '- (Required) The restrict workspace admins status for the workspace.'
+            workspace_id: '- (Required) Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.'
         importStatements: []
     databricks_rfa_access_request_destinations:
         subCategory: ""
@@ -9031,6 +9352,7 @@ resources:
             full_name: |-
                 (string, optional) - Required. The full name of the catalog/schema/table.
                 Optional if resource_name is present
+            provider_config: (ProviderConfig, optional) - Configure the provider for management through account provider.
             provider_share: |-
                 (string, optional) - Optional. The name of the Share object that contains the securable when the securable is
                 getting shared in D2D Delta Sharing
@@ -9044,6 +9366,7 @@ resources:
             type: |-
                 (string, optional) - Required. The type of securable (catalog/schema/table).
                 Optional if resource_name is present. Possible values are: CATALOG, CLEAN_ROOM, CONNECTION, CREDENTIAL, EXTERNAL_LOCATION, EXTERNAL_METADATA, FUNCTION, METASTORE, PIPELINE, PROVIDER, RECIPIENT, SCHEMA, SHARE, STAGING_TABLE, STORAGE_CREDENTIAL, TABLE, VOLUME
+            workspace_id: (string,required) - Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
         importStatements: []
     databricks_schema:
         subCategory: ""
@@ -9080,8 +9403,10 @@ resources:
             name: '- Name of Schema relative to parent catalog. Change forces creation of a new resource.'
             owner: '- (Optional) Username/groupname/sp application_id of the schema owner.'
             properties: '- (Optional) Extensible Schema properties.'
+            provider_config: '- (Optional) Configure the provider for management through account provider. This block consists of the following fields:'
             schema_id: '- The unique identifier of the schema.'
             storage_root: '- (Optional) Managed location of the schema. Location in cloud storage where data for managed tables will be stored.  If the URL contains special characters, such as space, &, etc., they should be percent-encoded (space -> %20, etc.). If not specified, the location will default to the catalog root location. Change forces creation of a new resource.'
+            workspace_id: '- (Required) Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.'
         importStatements: []
     databricks_secret:
         subCategory: ""
@@ -9114,8 +9439,10 @@ resources:
             id: '- Canonical unique identifier for the secret.'
             key: '- (Required) (String) key within secret scope. Must consist of alphanumeric characters, dashes, underscores, and periods, and may not exceed 128 characters.'
             last_updated_timestamp: '- (Integer) time secret was updated'
+            provider_config: '- (Optional) Configure the provider for management through account provider. This block consists of the following fields:'
             scope: '- (Required) (String) name of databricks secret scope. Must consist of alphanumeric characters, dashes, underscores, and periods, and may not exceed 128 characters.'
             string_value: '- (Required) (String) super secret sensitive value.'
+            workspace_id: '- (Required) Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.'
         importStatements: []
     databricks_secret_acl:
         subCategory: ""
@@ -9152,8 +9479,10 @@ resources:
             display_name: attribute of databricks_group.  Use users to allow access for all workspace users.
             permission: '- (Required) READ, WRITE or MANAGE.'
             principal: '- (Required) principal''s identifier. It can be:'
+            provider_config: '- (Optional) Configure the provider for management through account provider. This block consists of the following fields:'
             scope: '- (Required) name of the scope'
             user_name: attribute of databricks_user.
+            workspace_id: '- (Required) Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.'
         importStatements: []
     databricks_secret_scope:
         subCategory: ""
@@ -9208,6 +9537,8 @@ resources:
             id: '- The id for the secret scope object.'
             initial_manage_principal: '- (Optional) The principal with the only possible value users that is initially granted MANAGE permission to the created scope.  If it''s omitted, then the databricks_secret_acl with MANAGE permission applied to the scope is assigned to the API request issuer''s user identity (see documentation). This part of the state cannot be imported.'
             name: '- (Required) Scope name requested by the user. Must be unique within a workspace. Must consist of alphanumeric characters, dashes, underscores, and periods, and may not exceed 128 characters.'
+            provider_config: '- (Optional) Configure the provider for management through account provider. This block consists of the following fields:'
+            workspace_id: '- (Required) Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.'
         importStatements: []
     databricks_service_principal:
         subCategory: ""
@@ -9402,12 +9733,14 @@ resources:
             expire_time: '- UTC time when the secret will expire. If the field is not present, the secret does not expire.'
             id: '- ID of the secret'
             lifetime: (Optional, string) - The lifetime of the secret in seconds formatted as NNNNs. If this parameter is not provided, the secret will have a default lifetime of 730 days (63072000s).  Expiration of secret will lead to generation of new secret.
+            provider_config: '- (Optional) Configure the provider for management through account provider. This block consists of the following fields:'
             secret: '- Sensitive Generated secret for the service principal.'
             secret_hash: '- Secret Hash.'
             service_principal_id: (Required, string) - SCIM ID of the databricks_service_principal (not application ID).
             status: '- Status of the secret (i.e., ACTIVE - see REST API docs for full list).'
             time_rotating: '- (Optional, string) - Changing this argument forces recreation of the secret.'
             update_time: '- UTC time when the secret was updated.'
+            workspace_id: '- (Required) Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.'
         importStatements: []
     databricks_share:
         subCategory: ""
@@ -9600,6 +9933,8 @@ resources:
                     }
         argumentDocs:
             id: '- the unique ID of the SQL Dashboard.'
+            provider_config: '- (Optional) Configure the provider for management through account provider. This block consists of the following fields:'
+            workspace_id: '- (Required) Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.'
         importStatements: []
     databricks_sql_endpoint:
         subCategory: ""
@@ -9644,6 +9979,8 @@ resources:
             num_active_sessions: '- The current number of clusters used by the endpoint.'
             num_clusters: '- The current number of clusters used by the endpoint.'
             odbc_params: '- ODBC connection params: odbc_params.hostname, odbc_params.path, odbc_params.protocol, and odbc_params.port.'
+            provider_config: '- (Optional) Configure the provider for management through account provider. This block consists of the following fields:'
+            provider_config.workspace_id: '- (Required) Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.'
             spot_instance_policy: '- The spot policy to use for allocating instances to clusters: COST_OPTIMIZED or RELIABILITY_OPTIMIZED. This field is optional. Default is COST_OPTIMIZED.'
             state: '- The current state of the endpoint.'
             tags: '- Databricks tags all endpoint resources with these tags.'
@@ -9682,8 +10019,10 @@ resources:
             data_access_config: (Optional, Map) - Data access configuration for databricks_sql_endpoint, such as configuration for an external Hive metastore, Hadoop Filesystem configuration, etc.  Please note that the list of supported configuration properties is limited, so refer to the documentation for a full list.  Apply will fail if you're specifying not permitted configuration.
             google_service_account: (Optional, String) - used to access GCP services, such as Cloud Storage, from databricks_sql_endpoint. Please note that this parameter is only for GCP, and will generate an error if used on other clouds.
             instance_profile_arn: (Optional, String) - databricks_instance_profile used to access storage from databricks_sql_endpoint. Please note that this parameter is only for AWS, and will generate an error if used on other clouds.
+            provider_config: '- (Optional) Configure the provider for management through account provider. This block consists of the following fields:'
             security_policy: '(Optional, String) - The policy for controlling access to datasets. Default value: DATA_ACCESS_CONTROL, consult documentation for list of possible values'
             sql_config_params: (Optional, Map) - SQL Configuration Parameters let you override the default behavior for all sessions with all endpoints.
+            workspace_id: '- (Required) Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.'
         importStatements: []
     databricks_sql_permissions:
         subCategory: ""
@@ -9813,8 +10152,10 @@ resources:
             id: '- the unique ID of the SQL Query.'
             name: '- The title of this query that appears in list views, widget headings, and on the query page.'
             parent: '- The identifier of the workspace folder containing the object.'
+            provider_config.workspace_id: '- (Required) Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.'
             query: '- The text of the query to be run.'
             run_as_role: '- Run as role. Possible values are viewer, owner.'
+            text.provider_config: '- (Optional) Configure the provider for management through account provider. This block consists of the following fields:'
             text.value: '- The default value for this parameter.'
             title: '- The text displayed in a parameter picking widget.'
         importStatements: []
@@ -10064,6 +10405,7 @@ resources:
             owner: '- (Optional) User name/group name/sp application_id of the table owner.'
             partitions: '- (Optional) a subset of columns to partition the table by. Change forces the creation of a new resource. Conflicts with cluster_keys.'
             properties: '- (Optional) A map of table properties.'
+            provider_config: '- (Optional) Configure the provider for management through account provider. This block consists of the following fields:'
             schema_name: '- Name of parent Schema relative to parent Catalog. Change forces the creation of a new resource.'
             storage_credential_name: '- (Optional) For EXTERNAL Tables only: the name of storage credential to use. Change forces the creation of a new resource.'
             storage_location: '- (Optional) URL of storage location for Table data (required for EXTERNAL Tables).  If the URL contains special characters, such as space, &, etc., they should be percent-encoded (space -> %20, etc.).  Not supported for VIEW or MANAGED table_type.'
@@ -10072,6 +10414,7 @@ resources:
             type: '- Column type spec (with metadata) as SQL text. Not supported for VIEW table_type.'
             view_definition: '- (Optional) SQL text defining the view (for table_type == "VIEW"). Not supported for MANAGED or EXTERNAL table_type.'
             warehouse_id: '- (Optional) All table CRUD operations must be executed on a running cluster or SQL warehouse. If a warehouse_id is specified, that SQL warehouse will be used to execute SQL commands to manage this table. Conflicts with cluster_id.'
+            workspace_id: '- (Required) Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.'
         importStatements: []
     databricks_sql_visualization:
         subCategory: ""
@@ -10111,7 +10454,9 @@ resources:
                 }
               references:
                 query_id: databricks_sql_query.q1.id
-        argumentDocs: {}
+        argumentDocs:
+            provider_config: '- (Optional) Configure the provider for management through account provider. This block consists of the following fields:'
+            workspace_id: '- (Required) Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.'
         importStatements: []
     databricks_sql_widget:
         subCategory: ""
@@ -10151,7 +10496,9 @@ resources:
               references:
                 dashboard_id: databricks_sql_dashboard.d1.id
                 visualization_id: databricks_sql_visualization.q1v1.id
-        argumentDocs: {}
+        argumentDocs:
+            provider_config: '- (Optional) Configure the provider for management through account provider. This block consists of the following fields:'
+            workspace_id: '- (Required) Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.'
         importStatements: []
     databricks_storage_credential:
         subCategory: ""
@@ -10271,8 +10618,10 @@ resources:
         argumentDocs:
             full_name: '- the full name of the system schema, in form of system.<schema>.'
             id: '- the ID of system schema in form of metastore_id|schema_name.'
+            provider_config: '- (Optional) Configure the provider for management through account provider. This block consists of the following fields:'
             schema: '- (Required) name of the system schema.'
             state: '- The current state of enablement for the system schema.'
+            workspace_id: '- (Required) Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.'
         importStatements: []
     databricks_tag_policy:
         subCategory: ""
@@ -10301,9 +10650,11 @@ resources:
             description: (string, optional)
             id: (string)
             name: (string, required)
+            provider_config: (ProviderConfig, optional) - Configure the provider for management through account provider.
             tag_key: (string, required)
             update_time: (string) - Timestamp when the tag policy was last updated
             values: (list of Value, optional)
+            workspace_id: (string,required) - Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
         importStatements: []
     databricks_token:
         subCategory: ""
@@ -10331,10 +10682,12 @@ resources:
                       "rotation_days": 30
                     }
         argumentDocs:
-            comment: '- (Optional) (String) Comment that will appear on the user’s settings page for this token.'
+            comment: '- (Optional) (String) Comment that will appear on the user''s settings page for this token.'
             id: '- Canonical unique identifier for the token.'
             lifetime_seconds: '- (Optional) (Integer) The lifetime of the token, in seconds. If no lifetime is specified, then expire time will be set to maximum allowed by the workspace configuration or platform.'
+            provider_config: '- (Optional) Configure the provider for management through account provider. This block consists of the following fields:'
             token_value: '- Sensitive value of the newly-created token.'
+            workspace_id: '- (Required) Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.'
         importStatements: []
     databricks_user:
         subCategory: ""
@@ -10495,7 +10848,9 @@ resources:
             message: '- Additional status message.'
             name: '- (Required) Name of the Mosaic AI Vector Search Endpoint to create. (Change leads to recreation of the resource).'
             num_indexes: '- Number of indexes on the endpoint.'
+            provider_config: '- (Optional) Configure the provider for management through account provider. This block consists of the following fields:'
             state: '- Current state of the endpoint. Currently following values are supported: PROVISIONING, ONLINE, and OFFLINE.'
+            workspace_id: '- (Required) Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.'
         importStatements: []
     databricks_vector_search_index:
         subCategory: ""
@@ -10541,6 +10896,7 @@ resources:
             direct_access_index_spec: '- (object) Specification for Direct Vector Access Index. Required if index_type is DIRECT_ACCESS. This field is a block and is documented below.'
             direct_access_index_spec.embedding_source_columns: '- (required if embedding_vector_columns isn''t provided) array of objects representing columns that contain the embedding source.  Each entry consists of:'
             direct_access_index_spec.embedding_vector_columns: '- (required if embedding_source_columns isn''t provided)  array of objects representing columns that contain the embedding vectors. Each entry consists of:'
+            direct_access_index_spec.provider_config: '- (Optional) Configure the provider for management through account provider. This block consists of the following fields:'
             direct_access_index_spec.schema_json: '- The schema of the index in JSON format.  Check the API documentation for a list of supported data types.'
             embedding_dimension: '- Dimension of the embedding vector.'
             embedding_model_endpoint_name: '- The name of the embedding model endpoint, used by default for both ingestion and querying.'
@@ -10556,6 +10912,7 @@ resources:
             primary_key: '- (required) The column name that will be used as a primary key.'
             ready: '- Whether the index is ready for search'
             status: '- Object describing the current status of the index consisting of the following fields:'
+            workspace_id: '- (Required) Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.'
         importStatements: []
     databricks_volume:
         subCategory: ""
@@ -10618,10 +10975,12 @@ resources:
             id: '- ID of this Unity Catalog Volume in form of <catalog>.<schema>.<name>.'
             name: '- Name of the Volume'
             owner: '- (Optional) Name of the volume owner.'
+            provider_config: '- (Optional) Configure the provider for management through account provider. This block consists of the following fields:'
             schema_name: '- Name of parent Schema relative to parent Catalog. Change forces creation of a new resource.'
             storage_location: '- (Optional) URL for the volume (should be inside of an existing External Location). Only used for EXTERNAL Volumes.  If the URL contains special characters, such as space, &, etc., they should be percent-encoded (space -> %20, etc.). Change forces creation of a new resource.'
             volume_path: '- base file path for this Unity Catalog Volume in form of /Volumes/<catalog>/<schema>/<name>.'
             volume_type: '- Volume type. EXTERNAL or MANAGED. Change forces creation of a new resource.'
+            workspace_id: '- (Required) Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.'
         importStatements: []
     databricks_warehouses_default_warehouse_override Resource:
         subCategory: ""
@@ -10634,10 +10993,12 @@ resources:
             name: |-
                 (string) - The resource name of the default warehouse override.
                 Format: default-warehouse-overrides/{default_warehouse_override_id}
+            provider_config: (ProviderConfig, optional) - Configure the provider for management through account provider.
             type: '(string, required) - The type of override behavior. Possible values are: CUSTOM, LAST_SELECTED'
             warehouse_id: |-
                 (string, optional) - The specific warehouse ID when type is CUSTOM.
                 Not set for LAST_SELECTED type
+            workspace_id: (string,required) - Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
         importStatements: []
     databricks_workspace_binding:
         subCategory: ""
@@ -10671,6 +11032,7 @@ resources:
         argumentDocs:
             binding_type: '- (Optional) Binding mode. Default to BINDING_TYPE_READ_WRITE. Possible values are BINDING_TYPE_READ_ONLY, BINDING_TYPE_READ_WRITE.'
             databricks_catalog_workspace_binding: resource and and replace it with the databricks_workspace_binding.
+            provider_config: '- (Optional) Configure the provider for management through account provider. This block consists of the following fields:'
             securable_name: '- Name of securable. Change forces creation of a new resource.'
             securable_type: '- Type of securable. Can be catalog, external_location, storage_credential or credential. Default to catalog. Change forces creation of a new resource.'
             terraform import databricks_workspace_binding.sandbox "<workspace_id>|<securable_type>|<securable_name>": command.
@@ -10701,6 +11063,8 @@ resources:
             enableIpAccessLists: '- enables the use of databricks_ip_access_list resources'
             enableTokensConfig: '- (boolean) Enable or disable personal access tokens for this workspace.'
             maxTokenLifetimeDays: '- (string) Maximum token lifetime of new tokens in days, as an integer. This value can range from 1 day to 730 days (2 years). If not specified, the maximum lifetime of new tokens is 730 days. WARNING: This limit only applies to new tokens, so there may be tokens with lifetimes longer than this value, including unlimited lifetime. Such tokens may have been created before the current maximum token lifetime was set.'
+            provider_config: '- (Optional) Configure the provider for management through account provider. This block consists of the following fields:'
+            workspace_id: '- (Required) Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.'
         importStatements: []
     databricks_workspace_entity_tag_assignment:
         subCategory: ""
@@ -10710,7 +11074,7 @@ resources:
             - name: app_tag
               manifest: |-
                 {
-                  "entity_id": "2807324866692453",
+                  "entity_id": "myapp",
                   "entity_type": "apps",
                   "tag_key": "sensitivity_level",
                   "tag_value": "high"
@@ -10732,10 +11096,12 @@ resources:
                   "tag_value": "high"
                 }
         argumentDocs:
-            entity_id: (string, required) - The identifier of the entity to which the tag is assigned
+            entity_id: (string, required) - The identifier of the entity to which the tag is assigned. For apps, the entity_id is the app name
             entity_type: (string, required) - The type of entity to which the tag is assigned. Allowed values are apps, dashboards, geniespaces
+            provider_config: (ProviderConfig, optional) - Configure the provider for management through account provider.
             tag_key: '(string, required) - The key of the tag. The characters , . : / - = and leading/trailing spaces are not allowed'
             tag_value: (string, optional) - The value of the tag
+            workspace_id: (string,required) - Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
         importStatements: []
     databricks_workspace_file:
         subCategory: ""
@@ -10759,8 +11125,10 @@ resources:
             id: '-  Path of workspace file'
             object_id: '-  Unique identifier for a workspace file'
             path: '-  (Required) The absolute path of the workspace file, beginning with "/", e.g. "/Demo".'
+            provider_config: '- (Optional) Configure the provider for management through account provider. This block consists of the following fields:'
             source: '- Path to file on local filesystem. Conflicts with content_base64.'
             url: '- Routable URL of the workspace file'
+            workspace_id: '- (Required) Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.'
             workspace_path: '- path on Workspace File System (WSFS) in form of /Workspace + path'
         importStatements: []
     databricks_workspace_network_option:
@@ -10822,6 +11190,7 @@ resources:
             minutes: (integer, optional)
             name: (string, optional) - Name of the setting
             personal_compute: (PersonalComputeMessage, optional) - Setting value for personal_compute setting. This is the setting value set by consumers, check effective_personal_compute for final setting value
+            provider_config: (ProviderConfig, optional) - Configure the provider for management through account provider.
             restart_even_if_no_updates_available: (boolean, optional)
             restrict_workspace_admins: (RestrictWorkspaceAdminsMessage, optional) - Setting value for restrict_workspace_admins setting. This is the setting value set by consumers, check effective_restrict_workspace_admins for final setting value
             status: '(string, required) - Possible values are: ALLOW_ALL, RESTRICT_TOKENS_AND_JOB_RUN_AS'
@@ -10831,4 +11200,5 @@ resources:
             value: (boolean, optional)
             week_day_based_schedule: (ClusterAutoRestartMessageMaintenanceWindowWeekDayBasedSchedule, optional)
             window_start_time: (ClusterAutoRestartMessageMaintenanceWindowWindowStartTime, optional)
+            workspace_id: (string,required) - Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
         importStatements: []

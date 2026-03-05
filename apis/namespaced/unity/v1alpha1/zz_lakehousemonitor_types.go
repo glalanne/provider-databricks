@@ -192,6 +192,8 @@ type LakehouseMonitorInitParameters struct {
 	// - Schema where output metric tables are created
 	OutputSchemaName *string `json:"outputSchemaName,omitempty" tf:"output_schema_name,omitempty"`
 
+	ProviderConfig *LakehouseMonitorProviderConfigInitParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
+
 	// The schedule for automatically updating and refreshing metric tables.  This block consists of following fields:
 	Schedule *ScheduleInitParameters `json:"schedule,omitempty" tf:"schedule,omitempty"`
 
@@ -255,6 +257,8 @@ type LakehouseMonitorObservation struct {
 	// The full name of the profile metrics table. Format: catalog_name.schema_name.table_name.
 	ProfileMetricsTableName *string `json:"profileMetricsTableName,omitempty" tf:"profile_metrics_table_name,omitempty"`
 
+	ProviderConfig *LakehouseMonitorProviderConfigObservation `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
+
 	// The schedule for automatically updating and refreshing metric tables.  This block consists of following fields:
 	Schedule *ScheduleObservation `json:"schedule,omitempty" tf:"schedule,omitempty"`
 
@@ -314,6 +318,9 @@ type LakehouseMonitorParameters struct {
 	// +kubebuilder:validation:Optional
 	OutputSchemaName *string `json:"outputSchemaName,omitempty" tf:"output_schema_name,omitempty"`
 
+	// +kubebuilder:validation:Optional
+	ProviderConfig *LakehouseMonitorProviderConfigParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
+
 	// The schedule for automatically updating and refreshing metric tables.  This block consists of following fields:
 	// +kubebuilder:validation:Optional
 	Schedule *ScheduleParameters `json:"schedule,omitempty" tf:"schedule,omitempty"`
@@ -341,6 +348,25 @@ type LakehouseMonitorParameters struct {
 	// Optional argument to specify the warehouse for dashboard creation. If not specified, the first running warehouse will be used.
 	// +kubebuilder:validation:Optional
 	WarehouseID *string `json:"warehouseId,omitempty" tf:"warehouse_id,omitempty"`
+}
+
+type LakehouseMonitorProviderConfigInitParameters struct {
+
+	// ID of this monitor is the same as the full table name of the format {catalog}.{schema_name}.{table_name}
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
+}
+
+type LakehouseMonitorProviderConfigObservation struct {
+
+	// ID of this monitor is the same as the full table name of the format {catalog}.{schema_name}.{table_name}
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
+}
+
+type LakehouseMonitorProviderConfigParameters struct {
+
+	// ID of this monitor is the same as the full table name of the format {catalog}.{schema_name}.{table_name}
+	// +kubebuilder:validation:Optional
+	WorkspaceID *string `json:"workspaceId" tf:"workspace_id,omitempty"`
 }
 
 type NotificationsInitParameters struct {

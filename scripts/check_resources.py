@@ -25,6 +25,17 @@ if __name__ == "__main__":
             print(f"Namespaced config found: {base_name} - ✅")
         else:
             print(f"Namespaced config not found: {base_name} - ❌")
+
+    print("------------------------------")
+
+    external_names = ""
+    with open("config/external_name.go", 'r') as file:
+        external_names = file.read()
+
+    for file_path in files:
+        base_name=Path(file_path).stem
+        if os.path.exists(f"config/namespaced/{base_name}") and external_names.find(f'databricks_{base_name}') == -1:
+            print(f"External name not found: databricks_{base_name} - ❌")
     
     for resource in resources:
         print(f"{resource}")

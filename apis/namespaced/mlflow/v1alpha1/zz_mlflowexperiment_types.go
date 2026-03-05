@@ -33,6 +33,9 @@ type MlflowExperimentInitParameters struct {
 	// Name of MLflow experiment. It must be an absolute path within the Databricks workspace, e.g. /Users/<some-username>/my-experiment. For more information about changes to experiment naming conventions, see mlflow docs.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
+	// Configure the provider for management through account provider. This block consists of the following fields:
+	ProviderConfig *ProviderConfigInitParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
+
 	// Tags for the MLflow experiment.
 	Tags []TagsInitParameters `json:"tags,omitempty" tf:"tags,omitempty"`
 }
@@ -58,6 +61,9 @@ type MlflowExperimentObservation struct {
 
 	// Name of MLflow experiment. It must be an absolute path within the Databricks workspace, e.g. /Users/<some-username>/my-experiment. For more information about changes to experiment naming conventions, see mlflow docs.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// Configure the provider for management through account provider. This block consists of the following fields:
+	ProviderConfig *ProviderConfigObservation `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
 
 	// Tags for the MLflow experiment.
 	Tags []TagsObservation `json:"tags,omitempty" tf:"tags,omitempty"`
@@ -89,9 +95,32 @@ type MlflowExperimentParameters struct {
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
+	// Configure the provider for management through account provider. This block consists of the following fields:
+	// +kubebuilder:validation:Optional
+	ProviderConfig *ProviderConfigParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
+
 	// Tags for the MLflow experiment.
 	// +kubebuilder:validation:Optional
 	Tags []TagsParameters `json:"tags,omitempty" tf:"tags,omitempty"`
+}
+
+type ProviderConfigInitParameters struct {
+
+	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
+}
+
+type ProviderConfigObservation struct {
+
+	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
+}
+
+type ProviderConfigParameters struct {
+
+	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
+	// +kubebuilder:validation:Optional
+	WorkspaceID *string `json:"workspaceId" tf:"workspace_id,omitempty"`
 }
 
 type TagsInitParameters struct {

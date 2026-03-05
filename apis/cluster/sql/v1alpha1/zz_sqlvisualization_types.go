@@ -20,6 +20,9 @@ type SQLVisualizationInitParameters struct {
 
 	Options *string `json:"options,omitempty" tf:"options,omitempty"`
 
+	// Configure the provider for management through account provider. This block consists of the following fields:
+	ProviderConfig *SQLVisualizationProviderConfigInitParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
+
 	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/cluster/sql/v1alpha1.SQLQuery
 	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/v2/pkg/resource.ExtractResourceID()
 	QueryID *string `json:"queryId,omitempty" tf:"query_id,omitempty"`
@@ -48,6 +51,9 @@ type SQLVisualizationObservation struct {
 
 	Options *string `json:"options,omitempty" tf:"options,omitempty"`
 
+	// Configure the provider for management through account provider. This block consists of the following fields:
+	ProviderConfig *SQLVisualizationProviderConfigObservation `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
+
 	QueryID *string `json:"queryId,omitempty" tf:"query_id,omitempty"`
 
 	QueryPlan *string `json:"queryPlan,omitempty" tf:"query_plan,omitempty"`
@@ -67,6 +73,10 @@ type SQLVisualizationParameters struct {
 
 	// +kubebuilder:validation:Optional
 	Options *string `json:"options,omitempty" tf:"options,omitempty"`
+
+	// Configure the provider for management through account provider. This block consists of the following fields:
+	// +kubebuilder:validation:Optional
+	ProviderConfig *SQLVisualizationProviderConfigParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
 
 	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/cluster/sql/v1alpha1.SQLQuery
 	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/v2/pkg/resource.ExtractResourceID()
@@ -89,6 +99,25 @@ type SQLVisualizationParameters struct {
 
 	// +kubebuilder:validation:Optional
 	VisualizationID *string `json:"visualizationId,omitempty" tf:"visualization_id,omitempty"`
+}
+
+type SQLVisualizationProviderConfigInitParameters struct {
+
+	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
+}
+
+type SQLVisualizationProviderConfigObservation struct {
+
+	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
+}
+
+type SQLVisualizationProviderConfigParameters struct {
+
+	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
+	// +kubebuilder:validation:Optional
+	WorkspaceID *string `json:"workspaceId" tf:"workspace_id,omitempty"`
 }
 
 // SQLVisualizationSpec defines the desired state of SQLVisualization

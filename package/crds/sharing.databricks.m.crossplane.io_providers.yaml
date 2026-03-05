@@ -69,6 +69,16 @@ spec:
                     description: Name of provider. Change forces creation of a new
                       resource.
                     type: string
+                  providerConfig:
+                    description: 'Configure the provider for management through account
+                      provider. This block consists of the following fields:'
+                    properties:
+                      workspaceId:
+                        description: Workspace ID which the resource belongs to. This
+                          workspace must be part of the account which the provider
+                          is configured with.
+                        type: string
+                    type: object
                   recipientProfileStrSecretRef:
                     description: This is the json file that is created from a recipient
                       url.
@@ -107,6 +117,16 @@ spec:
                     description: Name of provider. Change forces creation of a new
                       resource.
                     type: string
+                  providerConfig:
+                    description: 'Configure the provider for management through account
+                      provider. This block consists of the following fields:'
+                    properties:
+                      workspaceId:
+                        description: Workspace ID which the resource belongs to. This
+                          workspace must be part of the account which the provider
+                          is configured with.
+                        type: string
+                    type: object
                   recipientProfileStrSecretRef:
                     description: This is the json file that is created from a recipient
                       url.
@@ -213,6 +233,16 @@ spec:
                     description: Name of provider. Change forces creation of a new
                       resource.
                     type: string
+                  providerConfig:
+                    description: 'Configure the provider for management through account
+                      provider. This block consists of the following fields:'
+                    properties:
+                      workspaceId:
+                        description: Workspace ID which the resource belongs to. This
+                          workspace must be part of the account which the provider
+                          is configured with.
+                        type: string
+                    type: object
                 type: object
               conditions:
                 description: Conditions of the resource.

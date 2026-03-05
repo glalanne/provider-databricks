@@ -328,13 +328,27 @@ spec:
                                 ai21labsConfig:
                                   description: AI21Labs Config
                                   properties:
+                                    ai21LabsApiKeyPlaintextSecretRef:
+                                      description: An AI21 Labs API key provided as
+                                        a plaintext string.
+                                      properties:
+                                        key:
+                                          description: The key to select.
+                                          type: string
+                                        name:
+                                          description: Name of the secret.
+                                          type: string
+                                        namespace:
+                                          description: Namespace of the secret.
+                                          type: string
+                                      required:
+                                      - key
+                                      - name
+                                      - namespace
+                                      type: object
                                     ai21labsApiKey:
                                       description: The Databricks secret key reference
                                         for an AI21Labs API key.
-                                      type: string
-                                    ai21labsApiKeyPlaintext:
-                                      description: An AI21 Labs API key provided as
-                                        a plaintext string.
                                       type: string
                                   type: object
                                 amazonBedrockConfig:
@@ -345,11 +359,25 @@ spec:
                                         for an AWS Access Key ID with permissions
                                         to interact with Bedrock services.
                                       type: string
-                                    awsAccessKeyIdPlaintext:
+                                    awsAccessKeyIdPlaintextSecretRef:
                                       description: An AWS access key ID with permissions
                                         to interact with Bedrock services provided
                                         as a plaintext string.
-                                      type: string
+                                      properties:
+                                        key:
+                                          description: The key to select.
+                                          type: string
+                                        name:
+                                          description: Name of the secret.
+                                          type: string
+                                        namespace:
+                                          description: Namespace of the secret.
+                                          type: string
+                                      required:
+                                      - key
+                                      - name
+                                      - namespace
+                                      type: object
                                     awsRegion:
                                       description: The AWS region to use. Bedrock
                                         has to be enabled there.
@@ -360,12 +388,26 @@ spec:
                                         access key ID, with permissions to interact
                                         with Bedrock services.
                                       type: string
-                                    awsSecretAccessKeyPlaintext:
+                                    awsSecretAccessKeyPlaintextSecretRef:
                                       description: An AWS secret access key paired
                                         with the access key ID, with permissions to
                                         interact with Bedrock services provided as
                                         a plaintext string.
-                                      type: string
+                                      properties:
+                                        key:
+                                          description: The key to select.
+                                          type: string
+                                        name:
+                                          description: Name of the secret.
+                                          type: string
+                                        namespace:
+                                          description: Namespace of the secret.
+                                          type: string
+                                      required:
+                                      - key
+                                      - name
+                                      - namespace
+                                      type: object
                                     bedrockProvider:
                                       description: 'The underlying provider in Amazon
                                         Bedrock. Supported values (case insensitive)
@@ -383,10 +425,24 @@ spec:
                                       description: The Databricks secret key reference
                                         for an Anthropic API key.
                                       type: string
-                                    anthropicApiKeyPlaintext:
+                                    anthropicApiKeyPlaintextSecretRef:
                                       description: The Anthropic API key provided
                                         as a plaintext string.
-                                      type: string
+                                      properties:
+                                        key:
+                                          description: The key to select.
+                                          type: string
+                                        name:
+                                          description: Name of the secret.
+                                          type: string
+                                        namespace:
+                                          description: Namespace of the secret.
+                                          type: string
+                                      required:
+                                      - key
+                                      - name
+                                      - namespace
+                                      type: object
                                   type: object
                                 cohereConfig:
                                   description: Cohere Config
@@ -397,10 +453,24 @@ spec:
                                       description: The Databricks secret key reference
                                         for a Cohere API key.
                                       type: string
-                                    cohereApiKeyPlaintext:
+                                    cohereApiKeyPlaintextSecretRef:
                                       description: The Cohere API key provided as
                                         a plaintext string.
-                                      type: string
+                                      properties:
+                                        key:
+                                          description: The key to select.
+                                          type: string
+                                        name:
+                                          description: Name of the secret.
+                                          type: string
+                                        namespace:
+                                          description: Namespace of the secret.
+                                          type: string
+                                      required:
+                                      - key
+                                      - name
+                                      - namespace
+                                      type: object
                                   type: object
                                 customProviderConfig:
                                   description: Custom Provider Config. Only required
@@ -417,10 +487,24 @@ spec:
                                           description: The Databricks secret key reference
                                             for an API Key.
                                           type: string
-                                        valuePlaintext:
+                                        valuePlaintextSecretRef:
                                           description: The API Key provided as a plaintext
                                             string.
-                                          type: string
+                                          properties:
+                                            key:
+                                              description: The key to select.
+                                              type: string
+                                            name:
+                                              description: Name of the secret.
+                                              type: string
+                                            namespace:
+                                              description: Namespace of the secret.
+                                              type: string
+                                          required:
+                                          - key
+                                          - name
+                                          - namespace
+                                          type: object
                                       type: object
                                     bearerTokenAuth:
                                       description: bearer token authentication for
@@ -430,10 +514,24 @@ spec:
                                           description: The Databricks secret key reference
                                             for a token.
                                           type: string
-                                        tokenPlaintext:
+                                        tokenPlaintextSecretRef:
                                           description: The token provided as a plaintext
                                             string.
-                                          type: string
+                                          properties:
+                                            key:
+                                              description: The key to select.
+                                              type: string
+                                            name:
+                                              description: Name of the secret.
+                                              type: string
+                                            namespace:
+                                              description: Namespace of the secret.
+                                              type: string
+                                          required:
+                                          - key
+                                          - name
+                                          - namespace
+                                          type: object
                                       type: object
                                     customProviderUrl:
                                       description: URL of the custom provider API.
@@ -449,13 +547,27 @@ spec:
                                         access to the model serving endpoint pointed
                                         to by this external model.
                                       type: string
-                                    databricksApiTokenPlaintext:
+                                    databricksApiTokenPlaintextSecretRef:
                                       description: The Databricks API token that corresponds
                                         to a user or service principal with Can Query
                                         access to the model serving endpoint pointed
                                         to by this external model provided as a plaintext
                                         string.
-                                      type: string
+                                      properties:
+                                        key:
+                                          description: The key to select.
+                                          type: string
+                                        name:
+                                          description: Name of the secret.
+                                          type: string
+                                        namespace:
+                                          description: Namespace of the secret.
+                                          type: string
+                                      required:
+                                      - key
+                                      - name
+                                      - namespace
+                                      type: object
                                     databricksWorkspaceUrl:
                                       description: The URL of the Databricks workspace
                                         containing the model serving endpoint pointed
@@ -471,12 +583,26 @@ spec:
                                         that has access to the Google Cloud Vertex
                                         AI Service.
                                       type: string
-                                    privateKeyPlaintext:
+                                    privateKeyPlaintextSecretRef:
                                       description: The private key for the service
                                         account that has access to the Google Cloud
                                         Vertex AI Service is provided as a plaintext
                                         secret.
-                                      type: string
+                                      properties:
+                                        key:
+                                          description: The key to select.
+                                          type: string
+                                        name:
+                                          description: Name of the secret.
+                                          type: string
+                                        namespace:
+                                          description: Namespace of the secret.
+                                          type: string
+                                      required:
+                                      - key
+                                      - name
+                                      - namespace
+                                      type: object
                                     projectId:
                                       description: This is the Google Cloud project
                                         id that the service account is associated
@@ -507,11 +633,25 @@ spec:
                                         for a client secret used for Microsoft Entra
                                         ID authentication.
                                       type: string
-                                    microsoftEntraClientSecretPlaintext:
+                                    microsoftEntraClientSecretPlaintextSecretRef:
                                       description: The client secret used for Microsoft
                                         Entra ID authentication provided as a plaintext
                                         string.
-                                      type: string
+                                      properties:
+                                        key:
+                                          description: The key to select.
+                                          type: string
+                                        name:
+                                          description: Name of the secret.
+                                          type: string
+                                        namespace:
+                                          description: Namespace of the secret.
+                                          type: string
+                                      required:
+                                      - key
+                                      - name
+                                      - namespace
+                                      type: object
                                     microsoftEntraTenantId:
                                       description: This field is only required for
                                         Azure AD OpenAI and is the Microsoft Entra
@@ -528,10 +668,24 @@ spec:
                                       description: The Databricks secret key reference
                                         for an OpenAI or Azure OpenAI API key.
                                       type: string
-                                    openaiApiKeyPlaintext:
+                                    openaiApiKeyPlaintextSecretRef:
                                       description: The OpenAI API key using the OpenAI
                                         or Azure service provided as a plaintext string.
-                                      type: string
+                                      properties:
+                                        key:
+                                          description: The key to select.
+                                          type: string
+                                        name:
+                                          description: Name of the secret.
+                                          type: string
+                                        namespace:
+                                          description: Namespace of the secret.
+                                          type: string
+                                      required:
+                                      - key
+                                      - name
+                                      - namespace
+                                      type: object
                                     openaiApiType:
                                       description: This is an optional field to specify
                                         the type of OpenAI API to use. For Azure OpenAI,
@@ -565,10 +719,24 @@ spec:
                                       description: The Databricks secret key reference
                                         for a PaLM API key.
                                       type: string
-                                    palmApiKeyPlaintext:
+                                    palmApiKeyPlaintextSecretRef:
                                       description: The PaLM API key provided as a
                                         plaintext string.
-                                      type: string
+                                      properties:
+                                        key:
+                                          description: The key to select.
+                                          type: string
+                                        name:
+                                          description: Name of the secret.
+                                          type: string
+                                        namespace:
+                                          description: Namespace of the secret.
+                                          type: string
+                                      required:
+                                      - key
+                                      - name
+                                      - namespace
+                                      type: object
                                   type: object
                                 provider:
                                   description: The name of the provider for the external
@@ -779,6 +947,16 @@ spec:
                       NOTE: Changing this name will delete the existing endpoint and
                       create a new endpoint with the updated name.'
                     type: string
+                  providerConfig:
+                    description: 'Configure the provider for management through account
+                      provider. This block consists of the following fields:'
+                    properties:
+                      workspaceId:
+                        description: Workspace ID which the resource belongs to. This
+                          workspace must be part of the account which the provider
+                          is configured with.
+                        type: string
+                    type: object
                   rateLimits:
                     description: '(Deprecated, use ai_gateway to manage rate limits)
                       A list of rate limit blocks to be applied to the serving endpoint.
@@ -1089,13 +1267,27 @@ spec:
                                 ai21labsConfig:
                                   description: AI21Labs Config
                                   properties:
+                                    ai21LabsApiKeyPlaintextSecretRef:
+                                      description: An AI21 Labs API key provided as
+                                        a plaintext string.
+                                      properties:
+                                        key:
+                                          description: The key to select.
+                                          type: string
+                                        name:
+                                          description: Name of the secret.
+                                          type: string
+                                        namespace:
+                                          description: Namespace of the secret.
+                                          type: string
+                                      required:
+                                      - key
+                                      - name
+                                      - namespace
+                                      type: object
                                     ai21labsApiKey:
                                       description: The Databricks secret key reference
                                         for an AI21Labs API key.
-                                      type: string
-                                    ai21labsApiKeyPlaintext:
-                                      description: An AI21 Labs API key provided as
-                                        a plaintext string.
                                       type: string
                                   type: object
                                 amazonBedrockConfig:
@@ -1106,11 +1298,25 @@ spec:
                                         for an AWS Access Key ID with permissions
                                         to interact with Bedrock services.
                                       type: string
-                                    awsAccessKeyIdPlaintext:
+                                    awsAccessKeyIdPlaintextSecretRef:
                                       description: An AWS access key ID with permissions
                                         to interact with Bedrock services provided
                                         as a plaintext string.
-                                      type: string
+                                      properties:
+                                        key:
+                                          description: The key to select.
+                                          type: string
+                                        name:
+                                          description: Name of the secret.
+                                          type: string
+                                        namespace:
+                                          description: Namespace of the secret.
+                                          type: string
+                                      required:
+                                      - key
+                                      - name
+                                      - namespace
+                                      type: object
                                     awsRegion:
                                       description: The AWS region to use. Bedrock
                                         has to be enabled there.
@@ -1121,12 +1327,26 @@ spec:
                                         access key ID, with permissions to interact
                                         with Bedrock services.
                                       type: string
-                                    awsSecretAccessKeyPlaintext:
+                                    awsSecretAccessKeyPlaintextSecretRef:
                                       description: An AWS secret access key paired
                                         with the access key ID, with permissions to
                                         interact with Bedrock services provided as
                                         a plaintext string.
-                                      type: string
+                                      properties:
+                                        key:
+                                          description: The key to select.
+                                          type: string
+                                        name:
+                                          description: Name of the secret.
+                                          type: string
+                                        namespace:
+                                          description: Namespace of the secret.
+                                          type: string
+                                      required:
+                                      - key
+                                      - name
+                                      - namespace
+                                      type: object
                                     bedrockProvider:
                                       description: 'The underlying provider in Amazon
                                         Bedrock. Supported values (case insensitive)
@@ -1144,10 +1364,24 @@ spec:
                                       description: The Databricks secret key reference
                                         for an Anthropic API key.
                                       type: string
-                                    anthropicApiKeyPlaintext:
+                                    anthropicApiKeyPlaintextSecretRef:
                                       description: The Anthropic API key provided
                                         as a plaintext string.
-                                      type: string
+                                      properties:
+                                        key:
+                                          description: The key to select.
+                                          type: string
+                                        name:
+                                          description: Name of the secret.
+                                          type: string
+                                        namespace:
+                                          description: Namespace of the secret.
+                                          type: string
+                                      required:
+                                      - key
+                                      - name
+                                      - namespace
+                                      type: object
                                   type: object
                                 cohereConfig:
                                   description: Cohere Config
@@ -1158,10 +1392,24 @@ spec:
                                       description: The Databricks secret key reference
                                         for a Cohere API key.
                                       type: string
-                                    cohereApiKeyPlaintext:
+                                    cohereApiKeyPlaintextSecretRef:
                                       description: The Cohere API key provided as
                                         a plaintext string.
-                                      type: string
+                                      properties:
+                                        key:
+                                          description: The key to select.
+                                          type: string
+                                        name:
+                                          description: Name of the secret.
+                                          type: string
+                                        namespace:
+                                          description: Namespace of the secret.
+                                          type: string
+                                      required:
+                                      - key
+                                      - name
+                                      - namespace
+                                      type: object
                                   type: object
                                 customProviderConfig:
                                   description: Custom Provider Config. Only required
@@ -1178,10 +1426,24 @@ spec:
                                           description: The Databricks secret key reference
                                             for an API Key.
                                           type: string
-                                        valuePlaintext:
+                                        valuePlaintextSecretRef:
                                           description: The API Key provided as a plaintext
                                             string.
-                                          type: string
+                                          properties:
+                                            key:
+                                              description: The key to select.
+                                              type: string
+                                            name:
+                                              description: Name of the secret.
+                                              type: string
+                                            namespace:
+                                              description: Namespace of the secret.
+                                              type: string
+                                          required:
+                                          - key
+                                          - name
+                                          - namespace
+                                          type: object
                                       type: object
                                     bearerTokenAuth:
                                       description: bearer token authentication for
@@ -1191,10 +1453,24 @@ spec:
                                           description: The Databricks secret key reference
                                             for a token.
                                           type: string
-                                        tokenPlaintext:
+                                        tokenPlaintextSecretRef:
                                           description: The token provided as a plaintext
                                             string.
-                                          type: string
+                                          properties:
+                                            key:
+                                              description: The key to select.
+                                              type: string
+                                            name:
+                                              description: Name of the secret.
+                                              type: string
+                                            namespace:
+                                              description: Namespace of the secret.
+                                              type: string
+                                          required:
+                                          - key
+                                          - name
+                                          - namespace
+                                          type: object
                                       type: object
                                     customProviderUrl:
                                       description: URL of the custom provider API.
@@ -1210,13 +1486,27 @@ spec:
                                         access to the model serving endpoint pointed
                                         to by this external model.
                                       type: string
-                                    databricksApiTokenPlaintext:
+                                    databricksApiTokenPlaintextSecretRef:
                                       description: The Databricks API token that corresponds
                                         to a user or service principal with Can Query
                                         access to the model serving endpoint pointed
                                         to by this external model provided as a plaintext
                                         string.
-                                      type: string
+                                      properties:
+                                        key:
+                                          description: The key to select.
+                                          type: string
+                                        name:
+                                          description: Name of the secret.
+                                          type: string
+                                        namespace:
+                                          description: Namespace of the secret.
+                                          type: string
+                                      required:
+                                      - key
+                                      - name
+                                      - namespace
+                                      type: object
                                     databricksWorkspaceUrl:
                                       description: The URL of the Databricks workspace
                                         containing the model serving endpoint pointed
@@ -1232,12 +1522,26 @@ spec:
                                         that has access to the Google Cloud Vertex
                                         AI Service.
                                       type: string
-                                    privateKeyPlaintext:
+                                    privateKeyPlaintextSecretRef:
                                       description: The private key for the service
                                         account that has access to the Google Cloud
                                         Vertex AI Service is provided as a plaintext
                                         secret.
-                                      type: string
+                                      properties:
+                                        key:
+                                          description: The key to select.
+                                          type: string
+                                        name:
+                                          description: Name of the secret.
+                                          type: string
+                                        namespace:
+                                          description: Namespace of the secret.
+                                          type: string
+                                      required:
+                                      - key
+                                      - name
+                                      - namespace
+                                      type: object
                                     projectId:
                                       description: This is the Google Cloud project
                                         id that the service account is associated
@@ -1268,11 +1572,25 @@ spec:
                                         for a client secret used for Microsoft Entra
                                         ID authentication.
                                       type: string
-                                    microsoftEntraClientSecretPlaintext:
+                                    microsoftEntraClientSecretPlaintextSecretRef:
                                       description: The client secret used for Microsoft
                                         Entra ID authentication provided as a plaintext
                                         string.
-                                      type: string
+                                      properties:
+                                        key:
+                                          description: The key to select.
+                                          type: string
+                                        name:
+                                          description: Name of the secret.
+                                          type: string
+                                        namespace:
+                                          description: Namespace of the secret.
+                                          type: string
+                                      required:
+                                      - key
+                                      - name
+                                      - namespace
+                                      type: object
                                     microsoftEntraTenantId:
                                       description: This field is only required for
                                         Azure AD OpenAI and is the Microsoft Entra
@@ -1289,10 +1607,24 @@ spec:
                                       description: The Databricks secret key reference
                                         for an OpenAI or Azure OpenAI API key.
                                       type: string
-                                    openaiApiKeyPlaintext:
+                                    openaiApiKeyPlaintextSecretRef:
                                       description: The OpenAI API key using the OpenAI
                                         or Azure service provided as a plaintext string.
-                                      type: string
+                                      properties:
+                                        key:
+                                          description: The key to select.
+                                          type: string
+                                        name:
+                                          description: Name of the secret.
+                                          type: string
+                                        namespace:
+                                          description: Namespace of the secret.
+                                          type: string
+                                      required:
+                                      - key
+                                      - name
+                                      - namespace
+                                      type: object
                                     openaiApiType:
                                       description: This is an optional field to specify
                                         the type of OpenAI API to use. For Azure OpenAI,
@@ -1326,10 +1658,24 @@ spec:
                                       description: The Databricks secret key reference
                                         for a PaLM API key.
                                       type: string
-                                    palmApiKeyPlaintext:
+                                    palmApiKeyPlaintextSecretRef:
                                       description: The PaLM API key provided as a
                                         plaintext string.
-                                      type: string
+                                      properties:
+                                        key:
+                                          description: The key to select.
+                                          type: string
+                                        name:
+                                          description: Name of the secret.
+                                          type: string
+                                        namespace:
+                                          description: Namespace of the secret.
+                                          type: string
+                                      required:
+                                      - key
+                                      - name
+                                      - namespace
+                                      type: object
                                   type: object
                                 provider:
                                   description: The name of the provider for the external
@@ -1540,6 +1886,16 @@ spec:
                       NOTE: Changing this name will delete the existing endpoint and
                       create a new endpoint with the updated name.'
                     type: string
+                  providerConfig:
+                    description: 'Configure the provider for management through account
+                      provider. This block consists of the following fields:'
+                    properties:
+                      workspaceId:
+                        description: Workspace ID which the resource belongs to. This
+                          workspace must be part of the account which the provider
+                          is configured with.
+                        type: string
+                    type: object
                   rateLimits:
                     description: '(Deprecated, use ai_gateway to manage rate limits)
                       A list of rate limit blocks to be applied to the serving endpoint.
@@ -1937,10 +2293,6 @@ spec:
                                       description: The Databricks secret key reference
                                         for an AI21Labs API key.
                                       type: string
-                                    ai21labsApiKeyPlaintext:
-                                      description: An AI21 Labs API key provided as
-                                        a plaintext string.
-                                      type: string
                                   type: object
                                 amazonBedrockConfig:
                                   description: Amazon Bedrock Config
@@ -1949,11 +2301,6 @@ spec:
                                       description: The Databricks secret key reference
                                         for an AWS Access Key ID with permissions
                                         to interact with Bedrock services.
-                                      type: string
-                                    awsAccessKeyIdPlaintext:
-                                      description: An AWS access key ID with permissions
-                                        to interact with Bedrock services provided
-                                        as a plaintext string.
                                       type: string
                                     awsRegion:
                                       description: The AWS region to use. Bedrock
@@ -1964,12 +2311,6 @@ spec:
                                         for an AWS Secret Access Key paired with the
                                         access key ID, with permissions to interact
                                         with Bedrock services.
-                                      type: string
-                                    awsSecretAccessKeyPlaintext:
-                                      description: An AWS secret access key paired
-                                        with the access key ID, with permissions to
-                                        interact with Bedrock services provided as
-                                        a plaintext string.
                                       type: string
                                     bedrockProvider:
                                       description: 'The underlying provider in Amazon
@@ -1988,10 +2329,6 @@ spec:
                                       description: The Databricks secret key reference
                                         for an Anthropic API key.
                                       type: string
-                                    anthropicApiKeyPlaintext:
-                                      description: The Anthropic API key provided
-                                        as a plaintext string.
-                                      type: string
                                   type: object
                                 cohereConfig:
                                   description: Cohere Config
@@ -2001,10 +2338,6 @@ spec:
                                     cohereApiKey:
                                       description: The Databricks secret key reference
                                         for a Cohere API key.
-                                      type: string
-                                    cohereApiKeyPlaintext:
-                                      description: The Cohere API key provided as
-                                        a plaintext string.
                                       type: string
                                   type: object
                                 customProviderConfig:
@@ -2022,10 +2355,6 @@ spec:
                                           description: The Databricks secret key reference
                                             for an API Key.
                                           type: string
-                                        valuePlaintext:
-                                          description: The API Key provided as a plaintext
-                                            string.
-                                          type: string
                                       type: object
                                     bearerTokenAuth:
                                       description: bearer token authentication for
@@ -2034,10 +2363,6 @@ spec:
                                         token:
                                           description: The Databricks secret key reference
                                             for a token.
-                                          type: string
-                                        tokenPlaintext:
-                                          description: The token provided as a plaintext
-                                            string.
                                           type: string
                                       type: object
                                     customProviderUrl:
@@ -2054,13 +2379,6 @@ spec:
                                         access to the model serving endpoint pointed
                                         to by this external model.
                                       type: string
-                                    databricksApiTokenPlaintext:
-                                      description: The Databricks API token that corresponds
-                                        to a user or service principal with Can Query
-                                        access to the model serving endpoint pointed
-                                        to by this external model provided as a plaintext
-                                        string.
-                                      type: string
                                     databricksWorkspaceUrl:
                                       description: The URL of the Databricks workspace
                                         containing the model serving endpoint pointed
@@ -2075,12 +2393,6 @@ spec:
                                         for a private key for the service account
                                         that has access to the Google Cloud Vertex
                                         AI Service.
-                                      type: string
-                                    privateKeyPlaintext:
-                                      description: The private key for the service
-                                        account that has access to the Google Cloud
-                                        Vertex AI Service is provided as a plaintext
-                                        secret.
                                       type: string
                                     projectId:
                                       description: This is the Google Cloud project
@@ -2112,11 +2424,6 @@ spec:
                                         for a client secret used for Microsoft Entra
                                         ID authentication.
                                       type: string
-                                    microsoftEntraClientSecretPlaintext:
-                                      description: The client secret used for Microsoft
-                                        Entra ID authentication provided as a plaintext
-                                        string.
-                                      type: string
                                     microsoftEntraTenantId:
                                       description: This field is only required for
                                         Azure AD OpenAI and is the Microsoft Entra
@@ -2132,10 +2439,6 @@ spec:
                                     openaiApiKey:
                                       description: The Databricks secret key reference
                                         for an OpenAI or Azure OpenAI API key.
-                                      type: string
-                                    openaiApiKeyPlaintext:
-                                      description: The OpenAI API key using the OpenAI
-                                        or Azure service provided as a plaintext string.
                                       type: string
                                     openaiApiType:
                                       description: This is an optional field to specify
@@ -2169,10 +2472,6 @@ spec:
                                     palmApiKey:
                                       description: The Databricks secret key reference
                                         for a PaLM API key.
-                                      type: string
-                                    palmApiKeyPlaintext:
-                                      description: The PaLM API key provided as a
-                                        plaintext string.
                                       type: string
                                   type: object
                                 provider:
@@ -2391,6 +2690,16 @@ spec:
                       NOTE: Changing this name will delete the existing endpoint and
                       create a new endpoint with the updated name.'
                     type: string
+                  providerConfig:
+                    description: 'Configure the provider for management through account
+                      provider. This block consists of the following fields:'
+                    properties:
+                      workspaceId:
+                        description: Workspace ID which the resource belongs to. This
+                          workspace must be part of the account which the provider
+                          is configured with.
+                        type: string
+                    type: object
                   rateLimits:
                     description: '(Deprecated, use ai_gateway to manage rate limits)
                       A list of rate limit blocks to be applied to the serving endpoint.
