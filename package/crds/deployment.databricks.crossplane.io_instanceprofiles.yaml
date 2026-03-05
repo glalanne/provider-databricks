@@ -88,6 +88,16 @@ spec:
                     description: Whether the instance profile is a meta instance profile.
                       Used only in IAM credential passthrough.
                     type: boolean
+                  providerConfig:
+                    description: 'Configure the provider for management through account
+                      provider. This block consists of the following fields:'
+                    properties:
+                      workspaceId:
+                        description: Workspace ID which the resource belongs to. This
+                          workspace must be part of the account which the provider
+                          is configured with.
+                        type: string
+                    type: object
                   skipValidation:
                     description: For advanced usage only. If validation fails with
                       an error message that does not indicate an IAM related permission
@@ -125,6 +135,16 @@ spec:
                     description: Whether the instance profile is a meta instance profile.
                       Used only in IAM credential passthrough.
                     type: boolean
+                  providerConfig:
+                    description: 'Configure the provider for management through account
+                      provider. This block consists of the following fields:'
+                    properties:
+                      workspaceId:
+                        description: Workspace ID which the resource belongs to. This
+                          workspace must be part of the account which the provider
+                          is configured with.
+                        type: string
+                    type: object
                   skipValidation:
                     description: For advanced usage only. If validation fails with
                       an error message that does not indicate an IAM related permission
@@ -249,6 +269,16 @@ spec:
                     description: Whether the instance profile is a meta instance profile.
                       Used only in IAM credential passthrough.
                     type: boolean
+                  providerConfig:
+                    description: 'Configure the provider for management through account
+                      provider. This block consists of the following fields:'
+                    properties:
+                      workspaceId:
+                        description: Workspace ID which the resource belongs to. This
+                          workspace must be part of the account which the provider
+                          is configured with.
+                        type: string
+                    type: object
                   skipValidation:
                     description: For advanced usage only. If validation fails with
                       an error message that does not indicate an IAM related permission

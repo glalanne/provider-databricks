@@ -35,8 +35,11 @@ type RestrictWorkspaceAdminsParameters struct {
 type RestrictWorkspaceAdminsSettingInitParameters struct {
 	Etag *string `json:"etag,omitempty" tf:"etag,omitempty"`
 
+	// Configure the provider for management through account provider. This block consists of the following fields:
+	ProviderConfig *RestrictWorkspaceAdminsSettingProviderConfigInitParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
+
 	// The configuration details.
-	RestrictWorkspaceAdmins []RestrictWorkspaceAdminsInitParameters `json:"restrictWorkspaceAdmins,omitempty" tf:"restrict_workspace_admins,omitempty"`
+	RestrictWorkspaceAdmins *RestrictWorkspaceAdminsInitParameters `json:"restrictWorkspaceAdmins,omitempty" tf:"restrict_workspace_admins,omitempty"`
 
 	SettingName *string `json:"settingName,omitempty" tf:"setting_name,omitempty"`
 }
@@ -46,8 +49,11 @@ type RestrictWorkspaceAdminsSettingObservation struct {
 
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
+	// Configure the provider for management through account provider. This block consists of the following fields:
+	ProviderConfig *RestrictWorkspaceAdminsSettingProviderConfigObservation `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
+
 	// The configuration details.
-	RestrictWorkspaceAdmins []RestrictWorkspaceAdminsObservation `json:"restrictWorkspaceAdmins,omitempty" tf:"restrict_workspace_admins,omitempty"`
+	RestrictWorkspaceAdmins *RestrictWorkspaceAdminsObservation `json:"restrictWorkspaceAdmins,omitempty" tf:"restrict_workspace_admins,omitempty"`
 
 	SettingName *string `json:"settingName,omitempty" tf:"setting_name,omitempty"`
 }
@@ -57,12 +63,35 @@ type RestrictWorkspaceAdminsSettingParameters struct {
 	// +kubebuilder:validation:Optional
 	Etag *string `json:"etag,omitempty" tf:"etag,omitempty"`
 
+	// Configure the provider for management through account provider. This block consists of the following fields:
+	// +kubebuilder:validation:Optional
+	ProviderConfig *RestrictWorkspaceAdminsSettingProviderConfigParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
+
 	// The configuration details.
 	// +kubebuilder:validation:Optional
-	RestrictWorkspaceAdmins []RestrictWorkspaceAdminsParameters `json:"restrictWorkspaceAdmins,omitempty" tf:"restrict_workspace_admins,omitempty"`
+	RestrictWorkspaceAdmins *RestrictWorkspaceAdminsParameters `json:"restrictWorkspaceAdmins,omitempty" tf:"restrict_workspace_admins,omitempty"`
 
 	// +kubebuilder:validation:Optional
 	SettingName *string `json:"settingName,omitempty" tf:"setting_name,omitempty"`
+}
+
+type RestrictWorkspaceAdminsSettingProviderConfigInitParameters struct {
+
+	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
+}
+
+type RestrictWorkspaceAdminsSettingProviderConfigObservation struct {
+
+	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
+}
+
+type RestrictWorkspaceAdminsSettingProviderConfigParameters struct {
+
+	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
+	// +kubebuilder:validation:Optional
+	WorkspaceID *string `json:"workspaceId" tf:"workspace_id,omitempty"`
 }
 
 // RestrictWorkspaceAdminsSettingSpec defines the desired state of RestrictWorkspaceAdminsSetting

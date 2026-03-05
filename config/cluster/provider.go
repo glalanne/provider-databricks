@@ -20,6 +20,7 @@ import (
 	"github.com/glalanne/provider-databricks/config/cluster/credential"
 	"github.com/glalanne/provider-databricks/config/cluster/custom_app_integration"
 	"github.com/glalanne/provider-databricks/config/cluster/dashboard"
+	"github.com/glalanne/provider-databricks/config/cluster/database_instance"
 	"github.com/glalanne/provider-databricks/config/cluster/dbfs_file"
 	"github.com/glalanne/provider-databricks/config/cluster/default_namespace_setting"
 	"github.com/glalanne/provider-databricks/config/cluster/directory"
@@ -68,6 +69,7 @@ import (
 	"github.com/glalanne/provider-databricks/config/cluster/permission_assignment"
 	"github.com/glalanne/provider-databricks/config/cluster/permissions"
 	"github.com/glalanne/provider-databricks/config/cluster/pipeline"
+	"github.com/glalanne/provider-databricks/config/cluster/policy_info"
 	"github.com/glalanne/provider-databricks/config/cluster/provider"
 	"github.com/glalanne/provider-databricks/config/cluster/quality_monitor"
 	"github.com/glalanne/provider-databricks/config/cluster/query"
@@ -208,4 +210,6 @@ func init() {
 	ProviderConfiguration.AddConfig(account_federation_policy.Configure)
 	ProviderConfiguration.AddConfig(service_principal_federation_policy.Configure)
 	ProviderConfiguration.AddConfig(app.Configure)
+	ProviderConfiguration.AddConfig(policy_info.Configure)
+	ProviderConfiguration.AddConfig(database_instance.Configure)
 }

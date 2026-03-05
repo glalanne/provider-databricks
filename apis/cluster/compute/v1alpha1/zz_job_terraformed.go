@@ -21,7 +21,7 @@ func (mg *Job) GetTerraformResourceType() string {
 
 // GetConnectionDetailsMapping for this Job
 func (tr *Job) GetConnectionDetailsMapping() map[string]string {
-	return map[string]string{"job_cluster[*].new_cluster[*].docker_image[*].basic_auth[*].password": "jobCluster[*].newCluster[*].dockerImage[*].basicAuth[*].passwordSecretRef", "new_cluster[*].docker_image[*].basic_auth[*].password": "newCluster[*].dockerImage[*].basicAuth[*].passwordSecretRef", "task[*].for_each_task[*].task[*].new_cluster[*].docker_image[*].basic_auth[*].password": "task[*].forEachTask[*].task[*].newCluster[*].dockerImage[*].basicAuth[*].passwordSecretRef", "task[*].new_cluster[*].docker_image[*].basic_auth[*].password": "task[*].newCluster[*].dockerImage[*].basicAuth[*].passwordSecretRef"}
+	return map[string]string{"job_cluster[*].new_cluster[*].docker_image[*].basic_auth[*].password": "jobCluster[*].newCluster.dockerImage.basicAuth.passwordSecretRef", "new_cluster[*].docker_image[*].basic_auth[*].password": "newCluster.dockerImage.basicAuth.passwordSecretRef", "task[*].for_each_task[*].task[*].new_cluster[*].docker_image[*].basic_auth[*].password": "task[*].forEachTask.task.newCluster.dockerImage.basicAuth.passwordSecretRef", "task[*].new_cluster[*].docker_image[*].basic_auth[*].password": "task[*].newCluster.dockerImage.basicAuth.passwordSecretRef"}
 }
 
 // GetObservation of this Job

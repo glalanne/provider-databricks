@@ -16,7 +16,7 @@ import (
 type AlertInitParameters struct {
 
 	// Trigger conditions of the alert. Block consists of the following attributes:
-	Condition []ConditionInitParameters `json:"condition,omitempty" tf:"condition,omitempty"`
+	Condition *ConditionInitParameters `json:"condition,omitempty" tf:"condition,omitempty"`
 
 	// Custom body of alert notification, if it exists. See Alerts API reference for custom templating instructions.
 	CustomBody *string `json:"customBody,omitempty" tf:"custom_body,omitempty"`
@@ -46,6 +46,9 @@ type AlertInitParameters struct {
 	// +kubebuilder:validation:Optional
 	ParentPathSelector *v1.Selector `json:"parentPathSelector,omitempty" tf:"-"`
 
+	// Configure the provider for management through account provider. This block consists of the following fields:
+	ProviderConfig *ProviderConfigInitParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
+
 	// ID of the query evaluated by the alert.
 	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/cluster/sql/v1alpha1.Query
 	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/v2/pkg/resource.ExtractResourceID()
@@ -66,7 +69,7 @@ type AlertInitParameters struct {
 type AlertObservation struct {
 
 	// Trigger conditions of the alert. Block consists of the following attributes:
-	Condition []ConditionObservation `json:"condition,omitempty" tf:"condition,omitempty"`
+	Condition *ConditionObservation `json:"condition,omitempty" tf:"condition,omitempty"`
 
 	// The timestamp string indicating when the alert was created.
 	CreateTime *string `json:"createTime,omitempty" tf:"create_time,omitempty"`
@@ -95,6 +98,9 @@ type AlertObservation struct {
 	// The path to a workspace folder containing the alert. The default is the user's home folder.  If changed, the alert will be recreated.
 	ParentPath *string `json:"parentPath,omitempty" tf:"parent_path,omitempty"`
 
+	// Configure the provider for management through account provider. This block consists of the following fields:
+	ProviderConfig *ProviderConfigObservation `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
+
 	// ID of the query evaluated by the alert.
 	QueryID *string `json:"queryId,omitempty" tf:"query_id,omitempty"`
 
@@ -115,7 +121,7 @@ type AlertParameters struct {
 
 	// Trigger conditions of the alert. Block consists of the following attributes:
 	// +kubebuilder:validation:Optional
-	Condition []ConditionParameters `json:"condition,omitempty" tf:"condition,omitempty"`
+	Condition *ConditionParameters `json:"condition,omitempty" tf:"condition,omitempty"`
 
 	// Custom body of alert notification, if it exists. See Alerts API reference for custom templating instructions.
 	// +kubebuilder:validation:Optional
@@ -150,6 +156,10 @@ type AlertParameters struct {
 	// Selector for a Directory in workspace to populate parentPath.
 	// +kubebuilder:validation:Optional
 	ParentPathSelector *v1.Selector `json:"parentPathSelector,omitempty" tf:"-"`
+
+	// Configure the provider for management through account provider. This block consists of the following fields:
+	// +kubebuilder:validation:Optional
+	ProviderConfig *ProviderConfigParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
 
 	// ID of the query evaluated by the alert.
 	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/cluster/sql/v1alpha1.Query
@@ -198,10 +208,10 @@ type ConditionInitParameters struct {
 	Op *string `json:"op,omitempty" tf:"op,omitempty"`
 
 	// Name of the column from the query result to use for comparison in alert evaluation:
-	Operand []OperandInitParameters `json:"operand,omitempty" tf:"operand,omitempty"`
+	Operand *OperandInitParameters `json:"operand,omitempty" tf:"operand,omitempty"`
 
 	// Threshold value used for comparison in alert evaluation:
-	Threshold []ThresholdInitParameters `json:"threshold,omitempty" tf:"threshold,omitempty"`
+	Threshold *ThresholdInitParameters `json:"threshold,omitempty" tf:"threshold,omitempty"`
 }
 
 type ConditionObservation struct {
@@ -213,10 +223,10 @@ type ConditionObservation struct {
 	Op *string `json:"op,omitempty" tf:"op,omitempty"`
 
 	// Name of the column from the query result to use for comparison in alert evaluation:
-	Operand []OperandObservation `json:"operand,omitempty" tf:"operand,omitempty"`
+	Operand *OperandObservation `json:"operand,omitempty" tf:"operand,omitempty"`
 
 	// Threshold value used for comparison in alert evaluation:
-	Threshold []ThresholdObservation `json:"threshold,omitempty" tf:"threshold,omitempty"`
+	Threshold *ThresholdObservation `json:"threshold,omitempty" tf:"threshold,omitempty"`
 }
 
 type ConditionParameters struct {
@@ -231,49 +241,68 @@ type ConditionParameters struct {
 
 	// Name of the column from the query result to use for comparison in alert evaluation:
 	// +kubebuilder:validation:Optional
-	Operand []OperandParameters `json:"operand" tf:"operand,omitempty"`
+	Operand *OperandParameters `json:"operand" tf:"operand,omitempty"`
 
 	// Threshold value used for comparison in alert evaluation:
 	// +kubebuilder:validation:Optional
-	Threshold []ThresholdParameters `json:"threshold,omitempty" tf:"threshold,omitempty"`
+	Threshold *ThresholdParameters `json:"threshold,omitempty" tf:"threshold,omitempty"`
 }
 
 type OperandInitParameters struct {
 
 	// Block describing the column from the query result to use for comparison in alert evaluation:
-	Column []ColumnInitParameters `json:"column,omitempty" tf:"column,omitempty"`
+	Column *ColumnInitParameters `json:"column,omitempty" tf:"column,omitempty"`
 }
 
 type OperandObservation struct {
 
 	// Block describing the column from the query result to use for comparison in alert evaluation:
-	Column []ColumnObservation `json:"column,omitempty" tf:"column,omitempty"`
+	Column *ColumnObservation `json:"column,omitempty" tf:"column,omitempty"`
 }
 
 type OperandParameters struct {
 
 	// Block describing the column from the query result to use for comparison in alert evaluation:
 	// +kubebuilder:validation:Optional
-	Column []ColumnParameters `json:"column" tf:"column,omitempty"`
+	Column *ColumnParameters `json:"column" tf:"column,omitempty"`
+}
+
+type ProviderConfigInitParameters struct {
+
+	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
+}
+
+type ProviderConfigObservation struct {
+
+	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
+}
+
+type ProviderConfigParameters struct {
+
+	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
+	// +kubebuilder:validation:Optional
+	WorkspaceID *string `json:"workspaceId" tf:"workspace_id,omitempty"`
 }
 
 type ThresholdInitParameters struct {
 
 	// actual value used in comparison (one of the attributes is required):
-	Value []ValueInitParameters `json:"value,omitempty" tf:"value,omitempty"`
+	Value *ValueInitParameters `json:"value,omitempty" tf:"value,omitempty"`
 }
 
 type ThresholdObservation struct {
 
 	// actual value used in comparison (one of the attributes is required):
-	Value []ValueObservation `json:"value,omitempty" tf:"value,omitempty"`
+	Value *ValueObservation `json:"value,omitempty" tf:"value,omitempty"`
 }
 
 type ThresholdParameters struct {
 
 	// actual value used in comparison (one of the attributes is required):
 	// +kubebuilder:validation:Optional
-	Value []ValueParameters `json:"value" tf:"value,omitempty"`
+	Value *ValueParameters `json:"value" tf:"value,omitempty"`
 }
 
 type ValueInitParameters struct {

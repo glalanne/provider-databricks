@@ -178,21 +178,23 @@ type LakehouseMonitorInitParameters struct {
 	CustomMetrics []CustomMetricsInitParameters `json:"customMetrics,omitempty" tf:"custom_metrics,omitempty"`
 
 	// The data classification config for the monitor
-	DataClassificationConfig []DataClassificationConfigInitParameters `json:"dataClassificationConfig,omitempty" tf:"data_classification_config,omitempty"`
+	DataClassificationConfig *DataClassificationConfigInitParameters `json:"dataClassificationConfig,omitempty" tf:"data_classification_config,omitempty"`
 
 	// Configuration for the inference log monitor
-	InferenceLog []InferenceLogInitParameters `json:"inferenceLog,omitempty" tf:"inference_log,omitempty"`
+	InferenceLog *InferenceLogInitParameters `json:"inferenceLog,omitempty" tf:"inference_log,omitempty"`
 
 	LatestMonitorFailureMsg *string `json:"latestMonitorFailureMsg,omitempty" tf:"latest_monitor_failure_msg,omitempty"`
 
 	// The notification settings for the monitor.  The following optional blocks are supported, each consisting of the single string array field with name email_addresses containing a list of emails to notify:
-	Notifications []NotificationsInitParameters `json:"notifications,omitempty" tf:"notifications,omitempty"`
+	Notifications *NotificationsInitParameters `json:"notifications,omitempty" tf:"notifications,omitempty"`
 
 	// - Schema where output metric tables are created
 	OutputSchemaName *string `json:"outputSchemaName,omitempty" tf:"output_schema_name,omitempty"`
 
+	ProviderConfig *LakehouseMonitorProviderConfigInitParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
+
 	// The schedule for automatically updating and refreshing metric tables.  This block consists of following fields:
-	Schedule []ScheduleInitParameters `json:"schedule,omitempty" tf:"schedule,omitempty"`
+	Schedule *ScheduleInitParameters `json:"schedule,omitempty" tf:"schedule,omitempty"`
 
 	// Whether to skip creating a default dashboard summarizing data quality metrics.
 	SkipBuiltinDashboard *bool `json:"skipBuiltinDashboard,omitempty" tf:"skip_builtin_dashboard,omitempty"`
@@ -201,13 +203,13 @@ type LakehouseMonitorInitParameters struct {
 	SlicingExprs []*string `json:"slicingExprs,omitempty" tf:"slicing_exprs,omitempty"`
 
 	// Configuration for monitoring snapshot tables.
-	Snapshot []SnapshotInitParameters `json:"snapshot,omitempty" tf:"snapshot,omitempty"`
+	Snapshot *SnapshotInitParameters `json:"snapshot,omitempty" tf:"snapshot,omitempty"`
 
 	// - The full name of the table to attach the monitor too. Its of the format {catalog}.{schema}.{tableName}
 	TableName *string `json:"tableName,omitempty" tf:"table_name,omitempty"`
 
 	// Configuration for monitoring timeseries tables.
-	TimeSeries []TimeSeriesInitParameters `json:"timeSeries,omitempty" tf:"time_series,omitempty"`
+	TimeSeries *TimeSeriesInitParameters `json:"timeSeries,omitempty" tf:"time_series,omitempty"`
 
 	// Optional argument to specify the warehouse for dashboard creation. If not specified, the first running warehouse will be used.
 	WarehouseID *string `json:"warehouseId,omitempty" tf:"warehouse_id,omitempty"`
@@ -229,7 +231,7 @@ type LakehouseMonitorObservation struct {
 	DashboardID *string `json:"dashboardId,omitempty" tf:"dashboard_id,omitempty"`
 
 	// The data classification config for the monitor
-	DataClassificationConfig []DataClassificationConfigObservation `json:"dataClassificationConfig,omitempty" tf:"data_classification_config,omitempty"`
+	DataClassificationConfig *DataClassificationConfigObservation `json:"dataClassificationConfig,omitempty" tf:"data_classification_config,omitempty"`
 
 	// The full name of the drift metrics table. Format: catalog_name.schema_name.table_name.
 	DriftMetricsTableName *string `json:"driftMetricsTableName,omitempty" tf:"drift_metrics_table_name,omitempty"`
@@ -238,7 +240,7 @@ type LakehouseMonitorObservation struct {
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
 	// Configuration for the inference log monitor
-	InferenceLog []InferenceLogObservation `json:"inferenceLog,omitempty" tf:"inference_log,omitempty"`
+	InferenceLog *InferenceLogObservation `json:"inferenceLog,omitempty" tf:"inference_log,omitempty"`
 
 	LatestMonitorFailureMsg *string `json:"latestMonitorFailureMsg,omitempty" tf:"latest_monitor_failure_msg,omitempty"`
 
@@ -246,7 +248,7 @@ type LakehouseMonitorObservation struct {
 	MonitorVersion *float64 `json:"monitorVersion,omitempty" tf:"monitor_version,omitempty"`
 
 	// The notification settings for the monitor.  The following optional blocks are supported, each consisting of the single string array field with name email_addresses containing a list of emails to notify:
-	Notifications []NotificationsObservation `json:"notifications,omitempty" tf:"notifications,omitempty"`
+	Notifications *NotificationsObservation `json:"notifications,omitempty" tf:"notifications,omitempty"`
 
 	// - Schema where output metric tables are created
 	OutputSchemaName *string `json:"outputSchemaName,omitempty" tf:"output_schema_name,omitempty"`
@@ -254,8 +256,10 @@ type LakehouseMonitorObservation struct {
 	// The full name of the profile metrics table. Format: catalog_name.schema_name.table_name.
 	ProfileMetricsTableName *string `json:"profileMetricsTableName,omitempty" tf:"profile_metrics_table_name,omitempty"`
 
+	ProviderConfig *LakehouseMonitorProviderConfigObservation `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
+
 	// The schedule for automatically updating and refreshing metric tables.  This block consists of following fields:
-	Schedule []ScheduleObservation `json:"schedule,omitempty" tf:"schedule,omitempty"`
+	Schedule *ScheduleObservation `json:"schedule,omitempty" tf:"schedule,omitempty"`
 
 	// Whether to skip creating a default dashboard summarizing data quality metrics.
 	SkipBuiltinDashboard *bool `json:"skipBuiltinDashboard,omitempty" tf:"skip_builtin_dashboard,omitempty"`
@@ -264,7 +268,7 @@ type LakehouseMonitorObservation struct {
 	SlicingExprs []*string `json:"slicingExprs,omitempty" tf:"slicing_exprs,omitempty"`
 
 	// Configuration for monitoring snapshot tables.
-	Snapshot []SnapshotParameters `json:"snapshot,omitempty" tf:"snapshot,omitempty"`
+	Snapshot *SnapshotParameters `json:"snapshot,omitempty" tf:"snapshot,omitempty"`
 
 	// Status of the Monitor
 	Status *string `json:"status,omitempty" tf:"status,omitempty"`
@@ -273,7 +277,7 @@ type LakehouseMonitorObservation struct {
 	TableName *string `json:"tableName,omitempty" tf:"table_name,omitempty"`
 
 	// Configuration for monitoring timeseries tables.
-	TimeSeries []TimeSeriesObservation `json:"timeSeries,omitempty" tf:"time_series,omitempty"`
+	TimeSeries *TimeSeriesObservation `json:"timeSeries,omitempty" tf:"time_series,omitempty"`
 
 	// Optional argument to specify the warehouse for dashboard creation. If not specified, the first running warehouse will be used.
 	WarehouseID *string `json:"warehouseId,omitempty" tf:"warehouse_id,omitempty"`
@@ -296,26 +300,29 @@ type LakehouseMonitorParameters struct {
 
 	// The data classification config for the monitor
 	// +kubebuilder:validation:Optional
-	DataClassificationConfig []DataClassificationConfigParameters `json:"dataClassificationConfig,omitempty" tf:"data_classification_config,omitempty"`
+	DataClassificationConfig *DataClassificationConfigParameters `json:"dataClassificationConfig,omitempty" tf:"data_classification_config,omitempty"`
 
 	// Configuration for the inference log monitor
 	// +kubebuilder:validation:Optional
-	InferenceLog []InferenceLogParameters `json:"inferenceLog,omitempty" tf:"inference_log,omitempty"`
+	InferenceLog *InferenceLogParameters `json:"inferenceLog,omitempty" tf:"inference_log,omitempty"`
 
 	// +kubebuilder:validation:Optional
 	LatestMonitorFailureMsg *string `json:"latestMonitorFailureMsg,omitempty" tf:"latest_monitor_failure_msg,omitempty"`
 
 	// The notification settings for the monitor.  The following optional blocks are supported, each consisting of the single string array field with name email_addresses containing a list of emails to notify:
 	// +kubebuilder:validation:Optional
-	Notifications []NotificationsParameters `json:"notifications,omitempty" tf:"notifications,omitempty"`
+	Notifications *NotificationsParameters `json:"notifications,omitempty" tf:"notifications,omitempty"`
 
 	// - Schema where output metric tables are created
 	// +kubebuilder:validation:Optional
 	OutputSchemaName *string `json:"outputSchemaName,omitempty" tf:"output_schema_name,omitempty"`
 
+	// +kubebuilder:validation:Optional
+	ProviderConfig *LakehouseMonitorProviderConfigParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
+
 	// The schedule for automatically updating and refreshing metric tables.  This block consists of following fields:
 	// +kubebuilder:validation:Optional
-	Schedule []ScheduleParameters `json:"schedule,omitempty" tf:"schedule,omitempty"`
+	Schedule *ScheduleParameters `json:"schedule,omitempty" tf:"schedule,omitempty"`
 
 	// Whether to skip creating a default dashboard summarizing data quality metrics.
 	// +kubebuilder:validation:Optional
@@ -327,7 +334,7 @@ type LakehouseMonitorParameters struct {
 
 	// Configuration for monitoring snapshot tables.
 	// +kubebuilder:validation:Optional
-	Snapshot []SnapshotParameters `json:"snapshot,omitempty" tf:"snapshot,omitempty"`
+	Snapshot *SnapshotParameters `json:"snapshot,omitempty" tf:"snapshot,omitempty"`
 
 	// - The full name of the table to attach the monitor too. Its of the format {catalog}.{schema}.{tableName}
 	// +kubebuilder:validation:Optional
@@ -335,40 +342,59 @@ type LakehouseMonitorParameters struct {
 
 	// Configuration for monitoring timeseries tables.
 	// +kubebuilder:validation:Optional
-	TimeSeries []TimeSeriesParameters `json:"timeSeries,omitempty" tf:"time_series,omitempty"`
+	TimeSeries *TimeSeriesParameters `json:"timeSeries,omitempty" tf:"time_series,omitempty"`
 
 	// Optional argument to specify the warehouse for dashboard creation. If not specified, the first running warehouse will be used.
 	// +kubebuilder:validation:Optional
 	WarehouseID *string `json:"warehouseId,omitempty" tf:"warehouse_id,omitempty"`
 }
 
+type LakehouseMonitorProviderConfigInitParameters struct {
+
+	// ID of this monitor is the same as the full table name of the format {catalog}.{schema_name}.{table_name}
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
+}
+
+type LakehouseMonitorProviderConfigObservation struct {
+
+	// ID of this monitor is the same as the full table name of the format {catalog}.{schema_name}.{table_name}
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
+}
+
+type LakehouseMonitorProviderConfigParameters struct {
+
+	// ID of this monitor is the same as the full table name of the format {catalog}.{schema_name}.{table_name}
+	// +kubebuilder:validation:Optional
+	WorkspaceID *string `json:"workspaceId" tf:"workspace_id,omitempty"`
+}
+
 type NotificationsInitParameters struct {
 
 	// who to send notifications to on monitor failure.
-	OnFailure []OnFailureInitParameters `json:"onFailure,omitempty" tf:"on_failure,omitempty"`
+	OnFailure *OnFailureInitParameters `json:"onFailure,omitempty" tf:"on_failure,omitempty"`
 
 	// Who to send notifications to when new data classification tags are detected.
-	OnNewClassificationTagDetected []OnNewClassificationTagDetectedInitParameters `json:"onNewClassificationTagDetected,omitempty" tf:"on_new_classification_tag_detected,omitempty"`
+	OnNewClassificationTagDetected *OnNewClassificationTagDetectedInitParameters `json:"onNewClassificationTagDetected,omitempty" tf:"on_new_classification_tag_detected,omitempty"`
 }
 
 type NotificationsObservation struct {
 
 	// who to send notifications to on monitor failure.
-	OnFailure []OnFailureObservation `json:"onFailure,omitempty" tf:"on_failure,omitempty"`
+	OnFailure *OnFailureObservation `json:"onFailure,omitempty" tf:"on_failure,omitempty"`
 
 	// Who to send notifications to when new data classification tags are detected.
-	OnNewClassificationTagDetected []OnNewClassificationTagDetectedObservation `json:"onNewClassificationTagDetected,omitempty" tf:"on_new_classification_tag_detected,omitempty"`
+	OnNewClassificationTagDetected *OnNewClassificationTagDetectedObservation `json:"onNewClassificationTagDetected,omitempty" tf:"on_new_classification_tag_detected,omitempty"`
 }
 
 type NotificationsParameters struct {
 
 	// who to send notifications to on monitor failure.
 	// +kubebuilder:validation:Optional
-	OnFailure []OnFailureParameters `json:"onFailure,omitempty" tf:"on_failure,omitempty"`
+	OnFailure *OnFailureParameters `json:"onFailure,omitempty" tf:"on_failure,omitempty"`
 
 	// Who to send notifications to when new data classification tags are detected.
 	// +kubebuilder:validation:Optional
-	OnNewClassificationTagDetected []OnNewClassificationTagDetectedParameters `json:"onNewClassificationTagDetected,omitempty" tf:"on_new_classification_tag_detected,omitempty"`
+	OnNewClassificationTagDetected *OnNewClassificationTagDetectedParameters `json:"onNewClassificationTagDetected,omitempty" tf:"on_new_classification_tag_detected,omitempty"`
 }
 
 type OnFailureInitParameters struct {

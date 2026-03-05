@@ -80,7 +80,7 @@ type RecipientInitParameters struct {
 	ExpirationTime *float64 `json:"expirationTime,omitempty" tf:"expiration_time,omitempty"`
 
 	// Recipient IP access list.
-	IPAccessList []IPAccessListInitParameters `json:"ipAccessList,omitempty" tf:"ip_access_list,omitempty"`
+	IPAccessList *IPAccessListInitParameters `json:"ipAccessList,omitempty" tf:"ip_access_list,omitempty"`
 
 	// Name of recipient. Change forces creation of a new resource.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
@@ -89,7 +89,10 @@ type RecipientInitParameters struct {
 	Owner *string `json:"owner,omitempty" tf:"owner,omitempty"`
 
 	// Recipient properties - object consisting of following fields:
-	PropertiesKvpairs []PropertiesKvpairsInitParameters `json:"propertiesKvpairs,omitempty" tf:"properties_kvpairs,omitempty"`
+	PropertiesKvpairs *PropertiesKvpairsInitParameters `json:"propertiesKvpairs,omitempty" tf:"properties_kvpairs,omitempty"`
+
+	// Configure the provider for management through account provider. This block consists of the following fields:
+	ProviderConfig *RecipientProviderConfigInitParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
 
 	// The one-time sharing code provided by the data recipient.
 	SharingCodeSecretRef *v1.LocalSecretKeySelector `json:"sharingCodeSecretRef,omitempty" tf:"-"`
@@ -129,7 +132,7 @@ type RecipientObservation struct {
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
 	// Recipient IP access list.
-	IPAccessList []IPAccessListObservation `json:"ipAccessList,omitempty" tf:"ip_access_list,omitempty"`
+	IPAccessList *IPAccessListObservation `json:"ipAccessList,omitempty" tf:"ip_access_list,omitempty"`
 
 	// Unique identifier of recipient's Unity Catalog metastore. This field is only present when the authentication_type is DATABRICKS.
 	MetastoreID *string `json:"metastoreId,omitempty" tf:"metastore_id,omitempty"`
@@ -141,7 +144,10 @@ type RecipientObservation struct {
 	Owner *string `json:"owner,omitempty" tf:"owner,omitempty"`
 
 	// Recipient properties - object consisting of following fields:
-	PropertiesKvpairs []PropertiesKvpairsObservation `json:"propertiesKvpairs,omitempty" tf:"properties_kvpairs,omitempty"`
+	PropertiesKvpairs *PropertiesKvpairsObservation `json:"propertiesKvpairs,omitempty" tf:"properties_kvpairs,omitempty"`
+
+	// Configure the provider for management through account provider. This block consists of the following fields:
+	ProviderConfig *RecipientProviderConfigObservation `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
 
 	// Cloud region of the recipient's Unity Catalog Metstore. This field is only present when the authentication_type is DATABRICKS.
 	Region *string `json:"region,omitempty" tf:"region,omitempty"`
@@ -186,7 +192,7 @@ type RecipientParameters struct {
 
 	// Recipient IP access list.
 	// +kubebuilder:validation:Optional
-	IPAccessList []IPAccessListParameters `json:"ipAccessList,omitempty" tf:"ip_access_list,omitempty"`
+	IPAccessList *IPAccessListParameters `json:"ipAccessList,omitempty" tf:"ip_access_list,omitempty"`
 
 	// Name of recipient. Change forces creation of a new resource.
 	// +kubebuilder:validation:Optional
@@ -198,7 +204,11 @@ type RecipientParameters struct {
 
 	// Recipient properties - object consisting of following fields:
 	// +kubebuilder:validation:Optional
-	PropertiesKvpairs []PropertiesKvpairsParameters `json:"propertiesKvpairs,omitempty" tf:"properties_kvpairs,omitempty"`
+	PropertiesKvpairs *PropertiesKvpairsParameters `json:"propertiesKvpairs,omitempty" tf:"properties_kvpairs,omitempty"`
+
+	// Configure the provider for management through account provider. This block consists of the following fields:
+	// +kubebuilder:validation:Optional
+	ProviderConfig *RecipientProviderConfigParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
 
 	// The one-time sharing code provided by the data recipient.
 	// +kubebuilder:validation:Optional
@@ -207,6 +217,25 @@ type RecipientParameters struct {
 	// List of Recipient Tokens. This field is only present when the authentication_type is TOKEN. Each list element is an object with following attributes:
 	// +kubebuilder:validation:Optional
 	Tokens []TokensParameters `json:"tokens,omitempty" tf:"tokens,omitempty"`
+}
+
+type RecipientProviderConfigInitParameters struct {
+
+	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
+}
+
+type RecipientProviderConfigObservation struct {
+
+	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
+}
+
+type RecipientProviderConfigParameters struct {
+
+	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
+	// +kubebuilder:validation:Optional
+	WorkspaceID *string `json:"workspaceId" tf:"workspace_id,omitempty"`
 }
 
 type TokensInitParameters struct {

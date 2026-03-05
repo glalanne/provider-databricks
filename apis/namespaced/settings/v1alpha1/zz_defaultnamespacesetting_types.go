@@ -18,7 +18,10 @@ type DefaultNamespaceSettingInitParameters struct {
 	Etag *string `json:"etag,omitempty" tf:"etag,omitempty"`
 
 	// The configuration details.
-	Namespace []NamespaceInitParameters `json:"namespace,omitempty" tf:"namespace,omitempty"`
+	Namespace *NamespaceInitParameters `json:"namespace,omitempty" tf:"namespace,omitempty"`
+
+	// Configure the provider for management through account provider. This block consists of the following fields:
+	ProviderConfig *DefaultNamespaceSettingProviderConfigInitParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
 
 	SettingName *string `json:"settingName,omitempty" tf:"setting_name,omitempty"`
 }
@@ -29,7 +32,10 @@ type DefaultNamespaceSettingObservation struct {
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
 	// The configuration details.
-	Namespace []NamespaceObservation `json:"namespace,omitempty" tf:"namespace,omitempty"`
+	Namespace *NamespaceObservation `json:"namespace,omitempty" tf:"namespace,omitempty"`
+
+	// Configure the provider for management through account provider. This block consists of the following fields:
+	ProviderConfig *DefaultNamespaceSettingProviderConfigObservation `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
 
 	SettingName *string `json:"settingName,omitempty" tf:"setting_name,omitempty"`
 }
@@ -41,10 +47,33 @@ type DefaultNamespaceSettingParameters struct {
 
 	// The configuration details.
 	// +kubebuilder:validation:Optional
-	Namespace []NamespaceParameters `json:"namespace,omitempty" tf:"namespace,omitempty"`
+	Namespace *NamespaceParameters `json:"namespace,omitempty" tf:"namespace,omitempty"`
+
+	// Configure the provider for management through account provider. This block consists of the following fields:
+	// +kubebuilder:validation:Optional
+	ProviderConfig *DefaultNamespaceSettingProviderConfigParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
 
 	// +kubebuilder:validation:Optional
 	SettingName *string `json:"settingName,omitempty" tf:"setting_name,omitempty"`
+}
+
+type DefaultNamespaceSettingProviderConfigInitParameters struct {
+
+	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
+}
+
+type DefaultNamespaceSettingProviderConfigObservation struct {
+
+	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
+}
+
+type DefaultNamespaceSettingProviderConfigParameters struct {
+
+	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
+	// +kubebuilder:validation:Optional
+	WorkspaceID *string `json:"workspaceId" tf:"workspace_id,omitempty"`
 }
 
 type NamespaceInitParameters struct {

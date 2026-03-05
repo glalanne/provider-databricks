@@ -70,6 +70,16 @@ spec:
                     description: The absolute path of the workspace file, beginning
                       with "/", e.g. "/Demo".
                     type: string
+                  providerConfig:
+                    description: 'Configure the provider for management through account
+                      provider. This block consists of the following fields:'
+                    properties:
+                      workspaceId:
+                        description: Workspace ID which the resource belongs to. This
+                          workspace must be part of the account which the provider
+                          is configured with.
+                        type: string
+                    type: object
                   source:
                     description: Path to file on local filesystem. Conflicts with
                       content_base64.
@@ -100,6 +110,16 @@ spec:
                     description: The absolute path of the workspace file, beginning
                       with "/", e.g. "/Demo".
                     type: string
+                  providerConfig:
+                    description: 'Configure the provider for management through account
+                      provider. This block consists of the following fields:'
+                    properties:
+                      workspaceId:
+                        description: Workspace ID which the resource belongs to. This
+                          workspace must be part of the account which the provider
+                          is configured with.
+                        type: string
+                    type: object
                   source:
                     description: Path to file on local filesystem. Conflicts with
                       content_base64.
@@ -188,6 +208,16 @@ spec:
                     description: The absolute path of the workspace file, beginning
                       with "/", e.g. "/Demo".
                     type: string
+                  providerConfig:
+                    description: 'Configure the provider for management through account
+                      provider. This block consists of the following fields:'
+                    properties:
+                      workspaceId:
+                        description: Workspace ID which the resource belongs to. This
+                          workspace must be part of the account which the provider
+                          is configured with.
+                        type: string
+                    type: object
                   source:
                     description: Path to file on local filesystem. Conflicts with
                       content_base64.

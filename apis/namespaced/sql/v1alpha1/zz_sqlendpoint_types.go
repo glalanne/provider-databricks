@@ -80,7 +80,7 @@ type HealthInitParameters struct {
 type HealthObservation struct {
 	Details *string `json:"details,omitempty" tf:"details,omitempty"`
 
-	FailureReason []FailureReasonObservation `json:"failureReason,omitempty" tf:"failure_reason,omitempty"`
+	FailureReason *FailureReasonObservation `json:"failureReason,omitempty" tf:"failure_reason,omitempty"`
 
 	Message *string `json:"message,omitempty" tf:"message,omitempty"`
 
@@ -116,7 +116,7 @@ type SQLEndpointInitParameters struct {
 	AutoStopMins *float64 `json:"autoStopMins,omitempty" tf:"auto_stop_mins,omitempty"`
 
 	// block, consisting of following fields:
-	Channel []ChannelInitParameters `json:"channel,omitempty" tf:"channel,omitempty"`
+	Channel *ChannelInitParameters `json:"channel,omitempty" tf:"channel,omitempty"`
 
 	// The size of the clusters allocated to the endpoint: "2X-Small", "X-Small", "Small", "Medium", "Large", "X-Large", "2X-Large", "3X-Large", "4X-Large", "5X-Large".
 	ClusterSize *string `json:"clusterSize,omitempty" tf:"cluster_size,omitempty"`
@@ -145,11 +145,14 @@ type SQLEndpointInitParameters struct {
 	// If true, skip waiting for the warehouse to start after creation.
 	NoWait *bool `json:"noWait,omitempty" tf:"no_wait,omitempty"`
 
+	// Configure the provider for management through account provider. This block consists of the following fields:
+	ProviderConfig *SQLEndpointProviderConfigInitParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
+
 	// The spot policy to use for allocating instances to clusters: COST_OPTIMIZED or RELIABILITY_OPTIMIZED. This field is optional. Default is COST_OPTIMIZED.
 	SpotInstancePolicy *string `json:"spotInstancePolicy,omitempty" tf:"spot_instance_policy,omitempty"`
 
 	// Databricks tags all endpoint resources with these tags.
-	Tags []TagsInitParameters `json:"tags,omitempty" tf:"tags,omitempty"`
+	Tags *TagsInitParameters `json:"tags,omitempty" tf:"tags,omitempty"`
 
 	// SQL warehouse type. See for AWS or Azure. Set to PRO or CLASSIC. If the field enable_serverless_compute has the value true either explicitly or through the default logic (see that field above for details), the default is PRO, which is required for serverless SQL warehouses. Otherwise, the default is CLASSIC.
 	WarehouseType *string `json:"warehouseType,omitempty" tf:"warehouse_type,omitempty"`
@@ -161,7 +164,7 @@ type SQLEndpointObservation struct {
 	AutoStopMins *float64 `json:"autoStopMins,omitempty" tf:"auto_stop_mins,omitempty"`
 
 	// block, consisting of following fields:
-	Channel []ChannelObservation `json:"channel,omitempty" tf:"channel,omitempty"`
+	Channel *ChannelObservation `json:"channel,omitempty" tf:"channel,omitempty"`
 
 	// The size of the clusters allocated to the endpoint: "2X-Small", "X-Small", "Small", "Medium", "Large", "X-Large", "2X-Large", "3X-Large", "4X-Large", "5X-Large".
 	ClusterSize *string `json:"clusterSize,omitempty" tf:"cluster_size,omitempty"`
@@ -211,6 +214,9 @@ type SQLEndpointObservation struct {
 	// ODBC connection params: odbc_params.hostname, odbc_params.path, odbc_params.protocol, and odbc_params.port.
 	OdbcParams []OdbcParamsObservation `json:"odbcParams,omitempty" tf:"odbc_params,omitempty"`
 
+	// Configure the provider for management through account provider. This block consists of the following fields:
+	ProviderConfig *SQLEndpointProviderConfigObservation `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
+
 	// The spot policy to use for allocating instances to clusters: COST_OPTIMIZED or RELIABILITY_OPTIMIZED. This field is optional. Default is COST_OPTIMIZED.
 	SpotInstancePolicy *string `json:"spotInstancePolicy,omitempty" tf:"spot_instance_policy,omitempty"`
 
@@ -218,7 +224,7 @@ type SQLEndpointObservation struct {
 	State *string `json:"state,omitempty" tf:"state,omitempty"`
 
 	// Databricks tags all endpoint resources with these tags.
-	Tags []TagsObservation `json:"tags,omitempty" tf:"tags,omitempty"`
+	Tags *TagsObservation `json:"tags,omitempty" tf:"tags,omitempty"`
 
 	// SQL warehouse type. See for AWS or Azure. Set to PRO or CLASSIC. If the field enable_serverless_compute has the value true either explicitly or through the default logic (see that field above for details), the default is PRO, which is required for serverless SQL warehouses. Otherwise, the default is CLASSIC.
 	WarehouseType *string `json:"warehouseType,omitempty" tf:"warehouse_type,omitempty"`
@@ -232,7 +238,7 @@ type SQLEndpointParameters struct {
 
 	// block, consisting of following fields:
 	// +kubebuilder:validation:Optional
-	Channel []ChannelParameters `json:"channel,omitempty" tf:"channel,omitempty"`
+	Channel *ChannelParameters `json:"channel,omitempty" tf:"channel,omitempty"`
 
 	// The size of the clusters allocated to the endpoint: "2X-Small", "X-Small", "Small", "Medium", "Large", "X-Large", "2X-Large", "3X-Large", "4X-Large", "5X-Large".
 	// +kubebuilder:validation:Optional
@@ -270,17 +276,40 @@ type SQLEndpointParameters struct {
 	// +kubebuilder:validation:Optional
 	NoWait *bool `json:"noWait,omitempty" tf:"no_wait,omitempty"`
 
+	// Configure the provider for management through account provider. This block consists of the following fields:
+	// +kubebuilder:validation:Optional
+	ProviderConfig *SQLEndpointProviderConfigParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
+
 	// The spot policy to use for allocating instances to clusters: COST_OPTIMIZED or RELIABILITY_OPTIMIZED. This field is optional. Default is COST_OPTIMIZED.
 	// +kubebuilder:validation:Optional
 	SpotInstancePolicy *string `json:"spotInstancePolicy,omitempty" tf:"spot_instance_policy,omitempty"`
 
 	// Databricks tags all endpoint resources with these tags.
 	// +kubebuilder:validation:Optional
-	Tags []TagsParameters `json:"tags,omitempty" tf:"tags,omitempty"`
+	Tags *TagsParameters `json:"tags,omitempty" tf:"tags,omitempty"`
 
 	// SQL warehouse type. See for AWS or Azure. Set to PRO or CLASSIC. If the field enable_serverless_compute has the value true either explicitly or through the default logic (see that field above for details), the default is PRO, which is required for serverless SQL warehouses. Otherwise, the default is CLASSIC.
 	// +kubebuilder:validation:Optional
 	WarehouseType *string `json:"warehouseType,omitempty" tf:"warehouse_type,omitempty"`
+}
+
+type SQLEndpointProviderConfigInitParameters struct {
+
+	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
+}
+
+type SQLEndpointProviderConfigObservation struct {
+
+	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
+}
+
+type SQLEndpointProviderConfigParameters struct {
+
+	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
+	// +kubebuilder:validation:Optional
+	WorkspaceID *string `json:"workspaceId" tf:"workspace_id,omitempty"`
 }
 
 type TagsInitParameters struct {

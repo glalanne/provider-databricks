@@ -33,6 +33,9 @@ type OboTokenInitParameters struct {
 
 	// (Integer, Optional) The number of seconds before the token expires. Token resource is re-created when it expires. If no lifetime is specified, the token remains valid indefinitely.
 	LifetimeSeconds *float64 `json:"lifetimeSeconds,omitempty" tf:"lifetime_seconds,omitempty"`
+
+	// Configure the provider for management through account provider. This block consists of the following fields:
+	ProviderConfig *OboTokenProviderConfigInitParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
 }
 
 type OboTokenObservation struct {
@@ -48,6 +51,9 @@ type OboTokenObservation struct {
 
 	// (Integer, Optional) The number of seconds before the token expires. Token resource is re-created when it expires. If no lifetime is specified, the token remains valid indefinitely.
 	LifetimeSeconds *float64 `json:"lifetimeSeconds,omitempty" tf:"lifetime_seconds,omitempty"`
+
+	// Configure the provider for management through account provider. This block consists of the following fields:
+	ProviderConfig *OboTokenProviderConfigObservation `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
 }
 
 type OboTokenParameters struct {
@@ -73,6 +79,29 @@ type OboTokenParameters struct {
 	// (Integer, Optional) The number of seconds before the token expires. Token resource is re-created when it expires. If no lifetime is specified, the token remains valid indefinitely.
 	// +kubebuilder:validation:Optional
 	LifetimeSeconds *float64 `json:"lifetimeSeconds,omitempty" tf:"lifetime_seconds,omitempty"`
+
+	// Configure the provider for management through account provider. This block consists of the following fields:
+	// +kubebuilder:validation:Optional
+	ProviderConfig *OboTokenProviderConfigParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
+}
+
+type OboTokenProviderConfigInitParameters struct {
+
+	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
+}
+
+type OboTokenProviderConfigObservation struct {
+
+	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
+}
+
+type OboTokenProviderConfigParameters struct {
+
+	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
+	// +kubebuilder:validation:Optional
+	WorkspaceID *string `json:"workspaceId" tf:"workspace_id,omitempty"`
 }
 
 // OboTokenSpec defines the desired state of OboToken

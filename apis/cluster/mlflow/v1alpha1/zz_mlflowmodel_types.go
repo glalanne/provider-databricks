@@ -21,6 +21,9 @@ type MlflowModelInitParameters struct {
 	// Name of MLflow model. Change of name triggers new resource.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
+	// Configure the provider for management through account provider. This block consists of the following fields:
+	ProviderConfig *MlflowModelProviderConfigInitParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
+
 	// Tags for the MLflow model.
 	Tags []MlflowModelTagsInitParameters `json:"tags,omitempty" tf:"tags,omitempty"`
 }
@@ -35,6 +38,9 @@ type MlflowModelObservation struct {
 
 	// Name of MLflow model. Change of name triggers new resource.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// Configure the provider for management through account provider. This block consists of the following fields:
+	ProviderConfig *MlflowModelProviderConfigObservation `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
 
 	// ID of the MLflow model, the same as name.
 	RegisteredModelID *string `json:"registeredModelId,omitempty" tf:"registered_model_id,omitempty"`
@@ -53,9 +59,32 @@ type MlflowModelParameters struct {
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
+	// Configure the provider for management through account provider. This block consists of the following fields:
+	// +kubebuilder:validation:Optional
+	ProviderConfig *MlflowModelProviderConfigParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
+
 	// Tags for the MLflow model.
 	// +kubebuilder:validation:Optional
 	Tags []MlflowModelTagsParameters `json:"tags,omitempty" tf:"tags,omitempty"`
+}
+
+type MlflowModelProviderConfigInitParameters struct {
+
+	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
+}
+
+type MlflowModelProviderConfigObservation struct {
+
+	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
+}
+
+type MlflowModelProviderConfigParameters struct {
+
+	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
+	// +kubebuilder:validation:Optional
+	WorkspaceID *string `json:"workspaceId" tf:"workspace_id,omitempty"`
 }
 
 type MlflowModelTagsInitParameters struct {

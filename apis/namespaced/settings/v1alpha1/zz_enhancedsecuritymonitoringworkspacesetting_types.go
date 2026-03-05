@@ -29,19 +29,23 @@ type EnhancedSecurityMonitoringWorkspaceParameters struct {
 }
 
 type EnhancedSecurityMonitoringWorkspaceSettingInitParameters struct {
-	EnhancedSecurityMonitoringWorkspace []EnhancedSecurityMonitoringWorkspaceInitParameters `json:"enhancedSecurityMonitoringWorkspace,omitempty" tf:"enhanced_security_monitoring_workspace,omitempty"`
+	EnhancedSecurityMonitoringWorkspace *EnhancedSecurityMonitoringWorkspaceInitParameters `json:"enhancedSecurityMonitoringWorkspace,omitempty" tf:"enhanced_security_monitoring_workspace,omitempty"`
 
 	Etag *string `json:"etag,omitempty" tf:"etag,omitempty"`
+
+	ProviderConfig *EnhancedSecurityMonitoringWorkspaceSettingProviderConfigInitParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
 
 	SettingName *string `json:"settingName,omitempty" tf:"setting_name,omitempty"`
 }
 
 type EnhancedSecurityMonitoringWorkspaceSettingObservation struct {
-	EnhancedSecurityMonitoringWorkspace []EnhancedSecurityMonitoringWorkspaceObservation `json:"enhancedSecurityMonitoringWorkspace,omitempty" tf:"enhanced_security_monitoring_workspace,omitempty"`
+	EnhancedSecurityMonitoringWorkspace *EnhancedSecurityMonitoringWorkspaceObservation `json:"enhancedSecurityMonitoringWorkspace,omitempty" tf:"enhanced_security_monitoring_workspace,omitempty"`
 
 	Etag *string `json:"etag,omitempty" tf:"etag,omitempty"`
 
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
+	ProviderConfig *EnhancedSecurityMonitoringWorkspaceSettingProviderConfigObservation `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
 
 	SettingName *string `json:"settingName,omitempty" tf:"setting_name,omitempty"`
 }
@@ -49,13 +53,30 @@ type EnhancedSecurityMonitoringWorkspaceSettingObservation struct {
 type EnhancedSecurityMonitoringWorkspaceSettingParameters struct {
 
 	// +kubebuilder:validation:Optional
-	EnhancedSecurityMonitoringWorkspace []EnhancedSecurityMonitoringWorkspaceParameters `json:"enhancedSecurityMonitoringWorkspace,omitempty" tf:"enhanced_security_monitoring_workspace,omitempty"`
+	EnhancedSecurityMonitoringWorkspace *EnhancedSecurityMonitoringWorkspaceParameters `json:"enhancedSecurityMonitoringWorkspace,omitempty" tf:"enhanced_security_monitoring_workspace,omitempty"`
 
 	// +kubebuilder:validation:Optional
 	Etag *string `json:"etag,omitempty" tf:"etag,omitempty"`
 
 	// +kubebuilder:validation:Optional
+	ProviderConfig *EnhancedSecurityMonitoringWorkspaceSettingProviderConfigParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
+
+	// +kubebuilder:validation:Optional
 	SettingName *string `json:"settingName,omitempty" tf:"setting_name,omitempty"`
+}
+
+type EnhancedSecurityMonitoringWorkspaceSettingProviderConfigInitParameters struct {
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
+}
+
+type EnhancedSecurityMonitoringWorkspaceSettingProviderConfigObservation struct {
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
+}
+
+type EnhancedSecurityMonitoringWorkspaceSettingProviderConfigParameters struct {
+
+	// +kubebuilder:validation:Optional
+	WorkspaceID *string `json:"workspaceId" tf:"workspace_id,omitempty"`
 }
 
 // EnhancedSecurityMonitoringWorkspaceSettingSpec defines the desired state of EnhancedSecurityMonitoringWorkspaceSetting

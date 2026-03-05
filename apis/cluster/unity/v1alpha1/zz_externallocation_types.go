@@ -16,20 +16,20 @@ import (
 type EncryptionDetailsInitParameters struct {
 
 	// a block describing server-Side Encryption properties for clients communicating with AWS S3. Consists of the following attributes:
-	SseEncryptionDetails []SseEncryptionDetailsInitParameters `json:"sseEncryptionDetails,omitempty" tf:"sse_encryption_details,omitempty"`
+	SseEncryptionDetails *SseEncryptionDetailsInitParameters `json:"sseEncryptionDetails,omitempty" tf:"sse_encryption_details,omitempty"`
 }
 
 type EncryptionDetailsObservation struct {
 
 	// a block describing server-Side Encryption properties for clients communicating with AWS S3. Consists of the following attributes:
-	SseEncryptionDetails []SseEncryptionDetailsObservation `json:"sseEncryptionDetails,omitempty" tf:"sse_encryption_details,omitempty"`
+	SseEncryptionDetails *SseEncryptionDetailsObservation `json:"sseEncryptionDetails,omitempty" tf:"sse_encryption_details,omitempty"`
 }
 
 type EncryptionDetailsParameters struct {
 
 	// a block describing server-Side Encryption properties for clients communicating with AWS S3. Consists of the following attributes:
 	// +kubebuilder:validation:Optional
-	SseEncryptionDetails []SseEncryptionDetailsParameters `json:"sseEncryptionDetails,omitempty" tf:"sse_encryption_details,omitempty"`
+	SseEncryptionDetails *SseEncryptionDetailsParameters `json:"sseEncryptionDetails,omitempty" tf:"sse_encryption_details,omitempty"`
 }
 
 type ExternalLocationInitParameters struct {
@@ -53,12 +53,12 @@ type ExternalLocationInitParameters struct {
 	// indicates if managed file events are enabled for this external location.  Requires file_event_queue block.
 	EnableFileEvents *bool `json:"enableFileEvents,omitempty" tf:"enable_file_events,omitempty"`
 
-	EncryptionDetails []EncryptionDetailsInitParameters `json:"encryptionDetails,omitempty" tf:"encryption_details,omitempty"`
+	EncryptionDetails *EncryptionDetailsInitParameters `json:"encryptionDetails,omitempty" tf:"encryption_details,omitempty"`
 
 	// Indicates whether fallback mode is enabled for this external location. When fallback mode is enabled (disabled by default), the access to the location falls back to cluster credentials if UC credentials are not sufficient.
 	Fallback *bool `json:"fallback,omitempty" tf:"fallback,omitempty"`
 
-	FileEventQueue []FileEventQueueInitParameters `json:"fileEventQueue,omitempty" tf:"file_event_queue,omitempty"`
+	FileEventQueue *FileEventQueueInitParameters `json:"fileEventQueue,omitempty" tf:"file_event_queue,omitempty"`
 
 	// Destroy external location regardless of its dependents.
 	ForceDestroy *bool `json:"forceDestroy,omitempty" tf:"force_destroy,omitempty"`
@@ -77,6 +77,9 @@ type ExternalLocationInitParameters struct {
 
 	// Username/groupname/sp application_id of the external location owner.
 	Owner *string `json:"owner,omitempty" tf:"owner,omitempty"`
+
+	// Configure the provider for management through account provider. This block consists of the following fields:
+	ProviderConfig *ExternalLocationProviderConfigInitParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
 
 	// Indicates whether the external location is read-only.
 	ReadOnly *bool `json:"readOnly,omitempty" tf:"read_only,omitempty"`
@@ -107,14 +110,17 @@ type ExternalLocationObservation struct {
 	CredentialName *string `json:"credentialName,omitempty" tf:"credential_name,omitempty"`
 
 	// indicates if managed file events are enabled for this external location.  Requires file_event_queue block.
+	EffectiveEnableFileEvents *bool `json:"effectiveEnableFileEvents,omitempty" tf:"effective_enable_file_events,omitempty"`
+
+	// indicates if managed file events are enabled for this external location.  Requires file_event_queue block.
 	EnableFileEvents *bool `json:"enableFileEvents,omitempty" tf:"enable_file_events,omitempty"`
 
-	EncryptionDetails []EncryptionDetailsObservation `json:"encryptionDetails,omitempty" tf:"encryption_details,omitempty"`
+	EncryptionDetails *EncryptionDetailsObservation `json:"encryptionDetails,omitempty" tf:"encryption_details,omitempty"`
 
 	// Indicates whether fallback mode is enabled for this external location. When fallback mode is enabled (disabled by default), the access to the location falls back to cluster credentials if UC credentials are not sufficient.
 	Fallback *bool `json:"fallback,omitempty" tf:"fallback,omitempty"`
 
-	FileEventQueue []FileEventQueueObservation `json:"fileEventQueue,omitempty" tf:"file_event_queue,omitempty"`
+	FileEventQueue *FileEventQueueObservation `json:"fileEventQueue,omitempty" tf:"file_event_queue,omitempty"`
 
 	// Destroy external location regardless of its dependents.
 	ForceDestroy *bool `json:"forceDestroy,omitempty" tf:"force_destroy,omitempty"`
@@ -136,6 +142,9 @@ type ExternalLocationObservation struct {
 
 	// Username/groupname/sp application_id of the external location owner.
 	Owner *string `json:"owner,omitempty" tf:"owner,omitempty"`
+
+	// Configure the provider for management through account provider. This block consists of the following fields:
+	ProviderConfig *ExternalLocationProviderConfigObservation `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
 
 	// Indicates whether the external location is read-only.
 	ReadOnly *bool `json:"readOnly,omitempty" tf:"read_only,omitempty"`
@@ -178,14 +187,14 @@ type ExternalLocationParameters struct {
 	EnableFileEvents *bool `json:"enableFileEvents,omitempty" tf:"enable_file_events,omitempty"`
 
 	// +kubebuilder:validation:Optional
-	EncryptionDetails []EncryptionDetailsParameters `json:"encryptionDetails,omitempty" tf:"encryption_details,omitempty"`
+	EncryptionDetails *EncryptionDetailsParameters `json:"encryptionDetails,omitempty" tf:"encryption_details,omitempty"`
 
 	// Indicates whether fallback mode is enabled for this external location. When fallback mode is enabled (disabled by default), the access to the location falls back to cluster credentials if UC credentials are not sufficient.
 	// +kubebuilder:validation:Optional
 	Fallback *bool `json:"fallback,omitempty" tf:"fallback,omitempty"`
 
 	// +kubebuilder:validation:Optional
-	FileEventQueue []FileEventQueueParameters `json:"fileEventQueue,omitempty" tf:"file_event_queue,omitempty"`
+	FileEventQueue *FileEventQueueParameters `json:"fileEventQueue,omitempty" tf:"file_event_queue,omitempty"`
 
 	// Destroy external location regardless of its dependents.
 	// +kubebuilder:validation:Optional
@@ -211,6 +220,10 @@ type ExternalLocationParameters struct {
 	// +kubebuilder:validation:Optional
 	Owner *string `json:"owner,omitempty" tf:"owner,omitempty"`
 
+	// Configure the provider for management through account provider. This block consists of the following fields:
+	// +kubebuilder:validation:Optional
+	ProviderConfig *ExternalLocationProviderConfigParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
+
 	// Indicates whether the external location is read-only.
 	// +kubebuilder:validation:Optional
 	ReadOnly *bool `json:"readOnly,omitempty" tf:"read_only,omitempty"`
@@ -224,73 +237,92 @@ type ExternalLocationParameters struct {
 	URL *string `json:"url,omitempty" tf:"url,omitempty"`
 }
 
+type ExternalLocationProviderConfigInitParameters struct {
+
+	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
+}
+
+type ExternalLocationProviderConfigObservation struct {
+
+	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
+}
+
+type ExternalLocationProviderConfigParameters struct {
+
+	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
+	// +kubebuilder:validation:Optional
+	WorkspaceID *string `json:"workspaceId" tf:"workspace_id,omitempty"`
+}
+
 type FileEventQueueInitParameters struct {
 
 	// Configuration for managed Azure Queue Storage queue.
-	ManagedAqs []ManagedAqsInitParameters `json:"managedAqs,omitempty" tf:"managed_aqs,omitempty"`
+	ManagedAqs *ManagedAqsInitParameters `json:"managedAqs,omitempty" tf:"managed_aqs,omitempty"`
 
 	// Configuration for managed Google Cloud Pub/Sub queue.
-	ManagedPubsub []ManagedPubsubInitParameters `json:"managedPubsub,omitempty" tf:"managed_pubsub,omitempty"`
+	ManagedPubsub *ManagedPubsubInitParameters `json:"managedPubsub,omitempty" tf:"managed_pubsub,omitempty"`
 
 	// Configuration for managed Amazon SQS queue.
-	ManagedSqs []ManagedSqsInitParameters `json:"managedSqs,omitempty" tf:"managed_sqs,omitempty"`
+	ManagedSqs *ManagedSqsInitParameters `json:"managedSqs,omitempty" tf:"managed_sqs,omitempty"`
 
 	// Configuration for provided Azure Storage Queue.
-	ProvidedAqs []ProvidedAqsInitParameters `json:"providedAqs,omitempty" tf:"provided_aqs,omitempty"`
+	ProvidedAqs *ProvidedAqsInitParameters `json:"providedAqs,omitempty" tf:"provided_aqs,omitempty"`
 
 	// Configuration for provided Google Cloud Pub/Sub queue.
-	ProvidedPubsub []ProvidedPubsubInitParameters `json:"providedPubsub,omitempty" tf:"provided_pubsub,omitempty"`
+	ProvidedPubsub *ProvidedPubsubInitParameters `json:"providedPubsub,omitempty" tf:"provided_pubsub,omitempty"`
 
 	// Configuration for provided Amazon SQS queue.
-	ProvidedSqs []ProvidedSqsInitParameters `json:"providedSqs,omitempty" tf:"provided_sqs,omitempty"`
+	ProvidedSqs *ProvidedSqsInitParameters `json:"providedSqs,omitempty" tf:"provided_sqs,omitempty"`
 }
 
 type FileEventQueueObservation struct {
 
 	// Configuration for managed Azure Queue Storage queue.
-	ManagedAqs []ManagedAqsObservation `json:"managedAqs,omitempty" tf:"managed_aqs,omitempty"`
+	ManagedAqs *ManagedAqsObservation `json:"managedAqs,omitempty" tf:"managed_aqs,omitempty"`
 
 	// Configuration for managed Google Cloud Pub/Sub queue.
-	ManagedPubsub []ManagedPubsubObservation `json:"managedPubsub,omitempty" tf:"managed_pubsub,omitempty"`
+	ManagedPubsub *ManagedPubsubObservation `json:"managedPubsub,omitempty" tf:"managed_pubsub,omitempty"`
 
 	// Configuration for managed Amazon SQS queue.
-	ManagedSqs []ManagedSqsObservation `json:"managedSqs,omitempty" tf:"managed_sqs,omitempty"`
+	ManagedSqs *ManagedSqsObservation `json:"managedSqs,omitempty" tf:"managed_sqs,omitempty"`
 
 	// Configuration for provided Azure Storage Queue.
-	ProvidedAqs []ProvidedAqsObservation `json:"providedAqs,omitempty" tf:"provided_aqs,omitempty"`
+	ProvidedAqs *ProvidedAqsObservation `json:"providedAqs,omitempty" tf:"provided_aqs,omitempty"`
 
 	// Configuration for provided Google Cloud Pub/Sub queue.
-	ProvidedPubsub []ProvidedPubsubObservation `json:"providedPubsub,omitempty" tf:"provided_pubsub,omitempty"`
+	ProvidedPubsub *ProvidedPubsubObservation `json:"providedPubsub,omitempty" tf:"provided_pubsub,omitempty"`
 
 	// Configuration for provided Amazon SQS queue.
-	ProvidedSqs []ProvidedSqsObservation `json:"providedSqs,omitempty" tf:"provided_sqs,omitempty"`
+	ProvidedSqs *ProvidedSqsObservation `json:"providedSqs,omitempty" tf:"provided_sqs,omitempty"`
 }
 
 type FileEventQueueParameters struct {
 
 	// Configuration for managed Azure Queue Storage queue.
 	// +kubebuilder:validation:Optional
-	ManagedAqs []ManagedAqsParameters `json:"managedAqs,omitempty" tf:"managed_aqs,omitempty"`
+	ManagedAqs *ManagedAqsParameters `json:"managedAqs,omitempty" tf:"managed_aqs,omitempty"`
 
 	// Configuration for managed Google Cloud Pub/Sub queue.
 	// +kubebuilder:validation:Optional
-	ManagedPubsub []ManagedPubsubParameters `json:"managedPubsub,omitempty" tf:"managed_pubsub,omitempty"`
+	ManagedPubsub *ManagedPubsubParameters `json:"managedPubsub,omitempty" tf:"managed_pubsub,omitempty"`
 
 	// Configuration for managed Amazon SQS queue.
 	// +kubebuilder:validation:Optional
-	ManagedSqs []ManagedSqsParameters `json:"managedSqs,omitempty" tf:"managed_sqs,omitempty"`
+	ManagedSqs *ManagedSqsParameters `json:"managedSqs,omitempty" tf:"managed_sqs,omitempty"`
 
 	// Configuration for provided Azure Storage Queue.
 	// +kubebuilder:validation:Optional
-	ProvidedAqs []ProvidedAqsParameters `json:"providedAqs,omitempty" tf:"provided_aqs,omitempty"`
+	ProvidedAqs *ProvidedAqsParameters `json:"providedAqs,omitempty" tf:"provided_aqs,omitempty"`
 
 	// Configuration for provided Google Cloud Pub/Sub queue.
 	// +kubebuilder:validation:Optional
-	ProvidedPubsub []ProvidedPubsubParameters `json:"providedPubsub,omitempty" tf:"provided_pubsub,omitempty"`
+	ProvidedPubsub *ProvidedPubsubParameters `json:"providedPubsub,omitempty" tf:"provided_pubsub,omitempty"`
 
 	// Configuration for provided Amazon SQS queue.
 	// +kubebuilder:validation:Optional
-	ProvidedSqs []ProvidedSqsParameters `json:"providedSqs,omitempty" tf:"provided_sqs,omitempty"`
+	ProvidedSqs *ProvidedSqsParameters `json:"providedSqs,omitempty" tf:"provided_sqs,omitempty"`
 }
 
 type ManagedAqsInitParameters struct {

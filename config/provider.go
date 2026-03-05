@@ -83,6 +83,7 @@ func GetProvider(_ context.Context, fwProvider fwprovider.Provider, sdkProvider 
 		config.WithFeaturesPackage("internal/features"),
 		config.WithTerraformProvider(sdkProvider),
 		config.WithTerraformPluginFrameworkProvider(fwProvider),
+		config.WithSchemaTraversers(&config.SingletonListEmbedder{}),
 	)
 
 	// Rename resources to make it more pleasing to the eye
@@ -133,6 +134,7 @@ func GetProviderNamespaced(_ context.Context, fwProvider fwprovider.Provider, sd
 		config.WithFeaturesPackage("internal/features"),
 		config.WithTerraformProvider(sdkProvider),
 		config.WithTerraformPluginFrameworkProvider(fwProvider),
+		config.WithSchemaTraversers(&config.SingletonListEmbedder{}),
 	)
 
 	registerTerraformConversions(pc)

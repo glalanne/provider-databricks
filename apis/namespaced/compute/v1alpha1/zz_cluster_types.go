@@ -179,7 +179,7 @@ type AzureAttributesInitParameters struct {
 	// The first first_on_demand nodes of the cluster will be placed on on-demand instances. If this value is greater than 0, the cluster driver node will be placed on an on-demand instance. If this value is greater than or equal to the current cluster size, all nodes will be placed on on-demand instances. If this value is less than the current cluster size, first_on_demand nodes will be placed on on-demand instances, and the remainder will be placed on availability instances. This value does not affect cluster size and cannot be mutated over the lifetime of a cluster.
 	FirstOnDemand *float64 `json:"firstOnDemand,omitempty" tf:"first_on_demand,omitempty"`
 
-	LogAnalyticsInfo []LogAnalyticsInfoInitParameters `json:"logAnalyticsInfo,omitempty" tf:"log_analytics_info,omitempty"`
+	LogAnalyticsInfo *LogAnalyticsInfoInitParameters `json:"logAnalyticsInfo,omitempty" tf:"log_analytics_info,omitempty"`
 
 	// The max bid price used for Azure spot instances. You can set this to greater than or equal to the current spot price. You can also set this to -1, which specifies that the instance cannot be evicted on the basis of price. The price for the instance will be the current price for spot instances or the price for a standard instance.
 	SpotBidMaxPrice *float64 `json:"spotBidMaxPrice,omitempty" tf:"spot_bid_max_price,omitempty"`
@@ -193,7 +193,7 @@ type AzureAttributesObservation struct {
 	// The first first_on_demand nodes of the cluster will be placed on on-demand instances. If this value is greater than 0, the cluster driver node will be placed on an on-demand instance. If this value is greater than or equal to the current cluster size, all nodes will be placed on on-demand instances. If this value is less than the current cluster size, first_on_demand nodes will be placed on on-demand instances, and the remainder will be placed on availability instances. This value does not affect cluster size and cannot be mutated over the lifetime of a cluster.
 	FirstOnDemand *float64 `json:"firstOnDemand,omitempty" tf:"first_on_demand,omitempty"`
 
-	LogAnalyticsInfo []LogAnalyticsInfoObservation `json:"logAnalyticsInfo,omitempty" tf:"log_analytics_info,omitempty"`
+	LogAnalyticsInfo *LogAnalyticsInfoObservation `json:"logAnalyticsInfo,omitempty" tf:"log_analytics_info,omitempty"`
 
 	// The max bid price used for Azure spot instances. You can set this to greater than or equal to the current spot price. You can also set this to -1, which specifies that the instance cannot be evicted on the basis of price. The price for the instance will be the current price for spot instances or the price for a standard instance.
 	SpotBidMaxPrice *float64 `json:"spotBidMaxPrice,omitempty" tf:"spot_bid_max_price,omitempty"`
@@ -210,7 +210,7 @@ type AzureAttributesParameters struct {
 	FirstOnDemand *float64 `json:"firstOnDemand,omitempty" tf:"first_on_demand,omitempty"`
 
 	// +kubebuilder:validation:Optional
-	LogAnalyticsInfo []LogAnalyticsInfoParameters `json:"logAnalyticsInfo,omitempty" tf:"log_analytics_info,omitempty"`
+	LogAnalyticsInfo *LogAnalyticsInfoParameters `json:"logAnalyticsInfo,omitempty" tf:"log_analytics_info,omitempty"`
 
 	// The max bid price used for Azure spot instances. You can set this to greater than or equal to the current spot price. You can also set this to -1, which specifies that the instance cannot be evicted on the basis of price. The price for the instance will be the current price for spot instances or the price for a standard instance.
 	// +kubebuilder:validation:Optional
@@ -270,16 +270,16 @@ type ClusterInitParameters struct {
 	// Whether to use policy default values for missing cluster attributes.
 	ApplyPolicyDefaultValues *bool `json:"applyPolicyDefaultValues,omitempty" tf:"apply_policy_default_values,omitempty"`
 
-	Autoscale []AutoscaleInitParameters `json:"autoscale,omitempty" tf:"autoscale,omitempty"`
+	Autoscale *AutoscaleInitParameters `json:"autoscale,omitempty" tf:"autoscale,omitempty"`
 
 	// Automatically terminate the cluster after being inactive for this time in minutes. If specified, the threshold must be between 10 and 10000 minutes. You can also set this value to 0 to explicitly disable automatic termination. Defaults to 60.  We highly recommend having this setting present for Interactive/BI clusters.
 	AutoterminationMinutes *float64 `json:"autoterminationMinutes,omitempty" tf:"autotermination_minutes,omitempty"`
 
-	AwsAttributes []AwsAttributesInitParameters `json:"awsAttributes,omitempty" tf:"aws_attributes,omitempty"`
+	AwsAttributes *AwsAttributesInitParameters `json:"awsAttributes,omitempty" tf:"aws_attributes,omitempty"`
 
-	AzureAttributes []AzureAttributesInitParameters `json:"azureAttributes,omitempty" tf:"azure_attributes,omitempty"`
+	AzureAttributes *AzureAttributesInitParameters `json:"azureAttributes,omitempty" tf:"azure_attributes,omitempty"`
 
-	ClusterLogConf []ClusterLogConfInitParameters `json:"clusterLogConf,omitempty" tf:"cluster_log_conf,omitempty"`
+	ClusterLogConf *ClusterLogConfInitParameters `json:"clusterLogConf,omitempty" tf:"cluster_log_conf,omitempty"`
 
 	ClusterMountInfo []ClusterMountInfoInitParameters `json:"clusterMountInfo,omitempty" tf:"cluster_mount_info,omitempty"`
 
@@ -293,12 +293,13 @@ type ClusterInitParameters struct {
 	// Select the security features of the cluster (see API docs for full list of values). Unity Catalog requires SINGLE_USER or USER_ISOLATION mode. LEGACY_PASSTHROUGH for passthrough cluster and LEGACY_TABLE_ACL for Table ACL cluster. If omitted, default security features are enabled. To disable security features use NONE or legacy mode NO_ISOLATION.  If kind is specified, then the following options are available:
 	DataSecurityMode *string `json:"dataSecurityMode,omitempty" tf:"data_security_mode,omitempty"`
 
-	DockerImage []DockerImageInitParameters `json:"dockerImage,omitempty" tf:"docker_image,omitempty"`
+	DockerImage *DockerImageInitParameters `json:"dockerImage,omitempty" tf:"docker_image,omitempty"`
 
 	// similar to instance_pool_id, but for driver node. If omitted, and instance_pool_id is specified, then the driver will be allocated from that pool.
 	DriverInstancePoolID *string `json:"driverInstancePoolId,omitempty" tf:"driver_instance_pool_id,omitempty"`
 
-	DriverNodeTypeFlexibility []DriverNodeTypeFlexibilityInitParameters `json:"driverNodeTypeFlexibility,omitempty" tf:"driver_node_type_flexibility,omitempty"`
+	// a block describing the alternative driver node types if driver_node_type_id isn't available.
+	DriverNodeTypeFlexibility *DriverNodeTypeFlexibilityInitParameters `json:"driverNodeTypeFlexibility,omitempty" tf:"driver_node_type_flexibility,omitempty"`
 
 	// The node type of the Spark driver. This field is optional; if unset, API will set the driver node type to the same value as node_type_id defined above.
 	DriverNodeTypeID *string `json:"driverNodeTypeId,omitempty" tf:"driver_node_type_id,omitempty"`
@@ -309,7 +310,7 @@ type ClusterInitParameters struct {
 	// Some instance types you use to run clusters may have locally attached disks. Databricks may store shuffle data or temporary data on these locally attached disks. To ensure that all data at rest is encrypted for all storage types, including shuffle data stored temporarily on your cluster's local disks, you can enable local disk encryption. When local disk encryption is enabled, Databricks generates an encryption key locally unique to each cluster node and uses it to encrypt all data stored on local disks. The scope of the key is local to each cluster node and is destroyed along with the cluster node itself. During its lifetime, the key resides in memory for encryption and decryption and is stored encrypted on the disk. Your workloads may run more slowly because of the performance impact of reading and writing encrypted data to and from local volumes. This feature is not available for all Azure Databricks subscriptions. Contact your Microsoft or Databricks account representative to request access.
 	EnableLocalDiskEncryption *bool `json:"enableLocalDiskEncryption,omitempty" tf:"enable_local_disk_encryption,omitempty"`
 
-	GCPAttributes []GCPAttributesInitParameters `json:"gcpAttributes,omitempty" tf:"gcp_attributes,omitempty"`
+	GCPAttributes *GCPAttributesInitParameters `json:"gcpAttributes,omitempty" tf:"gcp_attributes,omitempty"`
 
 	// An optional token to guarantee the idempotency of cluster creation requests. If an active cluster with the provided token already exists, the request will not create a new cluster, but it will return the existing running cluster's ID instead. If you specify the idempotency token, upon failure, you can retry until the request succeeds. Databricks platform guarantees to launch exactly one cluster with that idempotency token. This token should have at most 64 characters.
 	IdempotencyToken *string `json:"idempotencyToken,omitempty" tf:"idempotency_token,omitempty"`
@@ -343,7 +344,7 @@ type ClusterInitParameters struct {
 	PolicyID *string `json:"policyId,omitempty" tf:"policy_id,omitempty"`
 
 	// Configure the provider for management through account provider. This block consists of the following fields:
-	ProviderConfig []ProviderConfigInitParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
+	ProviderConfig *ProviderConfigInitParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
 
 	RemoteDiskThroughput *float64 `json:"remoteDiskThroughput,omitempty" tf:"remote_disk_throughput,omitempty"`
 
@@ -372,37 +373,38 @@ type ClusterInitParameters struct {
 	// Whenever ML runtime should be selected or not.  Actual runtime is determined by spark_version (DBR release), this field use_ml_runtime, and whether node_type_id is GPU node or not.
 	UseMLRuntime *bool `json:"useMlRuntime,omitempty" tf:"use_ml_runtime,omitempty"`
 
-	WorkerNodeTypeFlexibility []WorkerNodeTypeFlexibilityInitParameters `json:"workerNodeTypeFlexibility,omitempty" tf:"worker_node_type_flexibility,omitempty"`
+	// a block describing the alternative driver node types if node_type_id isn't available.
+	WorkerNodeTypeFlexibility *WorkerNodeTypeFlexibilityInitParameters `json:"workerNodeTypeFlexibility,omitempty" tf:"worker_node_type_flexibility,omitempty"`
 
-	WorkloadType []WorkloadTypeInitParameters `json:"workloadType,omitempty" tf:"workload_type,omitempty"`
+	WorkloadType *WorkloadTypeInitParameters `json:"workloadType,omitempty" tf:"workload_type,omitempty"`
 }
 
 type ClusterLogConfInitParameters struct {
-	Dbfs []DbfsInitParameters `json:"dbfs,omitempty" tf:"dbfs,omitempty"`
+	Dbfs *DbfsInitParameters `json:"dbfs,omitempty" tf:"dbfs,omitempty"`
 
-	S3 []S3InitParameters `json:"s3,omitempty" tf:"s3,omitempty"`
+	S3 *S3InitParameters `json:"s3,omitempty" tf:"s3,omitempty"`
 
-	Volumes []VolumesInitParameters `json:"volumes,omitempty" tf:"volumes,omitempty"`
+	Volumes *VolumesInitParameters `json:"volumes,omitempty" tf:"volumes,omitempty"`
 }
 
 type ClusterLogConfObservation struct {
-	Dbfs []DbfsObservation `json:"dbfs,omitempty" tf:"dbfs,omitempty"`
+	Dbfs *DbfsObservation `json:"dbfs,omitempty" tf:"dbfs,omitempty"`
 
-	S3 []S3Observation `json:"s3,omitempty" tf:"s3,omitempty"`
+	S3 *S3Observation `json:"s3,omitempty" tf:"s3,omitempty"`
 
-	Volumes []VolumesObservation `json:"volumes,omitempty" tf:"volumes,omitempty"`
+	Volumes *VolumesObservation `json:"volumes,omitempty" tf:"volumes,omitempty"`
 }
 
 type ClusterLogConfParameters struct {
 
 	// +kubebuilder:validation:Optional
-	Dbfs []DbfsParameters `json:"dbfs,omitempty" tf:"dbfs,omitempty"`
+	Dbfs *DbfsParameters `json:"dbfs,omitempty" tf:"dbfs,omitempty"`
 
 	// +kubebuilder:validation:Optional
-	S3 []S3Parameters `json:"s3,omitempty" tf:"s3,omitempty"`
+	S3 *S3Parameters `json:"s3,omitempty" tf:"s3,omitempty"`
 
 	// +kubebuilder:validation:Optional
-	Volumes []VolumesParameters `json:"volumes,omitempty" tf:"volumes,omitempty"`
+	Volumes *VolumesParameters `json:"volumes,omitempty" tf:"volumes,omitempty"`
 }
 
 type ClusterMountInfoInitParameters struct {
@@ -411,7 +413,7 @@ type ClusterMountInfoInitParameters struct {
 	LocalMountDirPath *string `json:"localMountDirPath,omitempty" tf:"local_mount_dir_path,omitempty"`
 
 	// block specifying connection. It consists of:
-	NetworkFilesystemInfo []NetworkFilesystemInfoInitParameters `json:"networkFilesystemInfo,omitempty" tf:"network_filesystem_info,omitempty"`
+	NetworkFilesystemInfo *NetworkFilesystemInfoInitParameters `json:"networkFilesystemInfo,omitempty" tf:"network_filesystem_info,omitempty"`
 
 	// string specifying path to mount on the remote service.
 	RemoteMountDirPath *string `json:"remoteMountDirPath,omitempty" tf:"remote_mount_dir_path,omitempty"`
@@ -423,7 +425,7 @@ type ClusterMountInfoObservation struct {
 	LocalMountDirPath *string `json:"localMountDirPath,omitempty" tf:"local_mount_dir_path,omitempty"`
 
 	// block specifying connection. It consists of:
-	NetworkFilesystemInfo []NetworkFilesystemInfoObservation `json:"networkFilesystemInfo,omitempty" tf:"network_filesystem_info,omitempty"`
+	NetworkFilesystemInfo *NetworkFilesystemInfoObservation `json:"networkFilesystemInfo,omitempty" tf:"network_filesystem_info,omitempty"`
 
 	// string specifying path to mount on the remote service.
 	RemoteMountDirPath *string `json:"remoteMountDirPath,omitempty" tf:"remote_mount_dir_path,omitempty"`
@@ -437,7 +439,7 @@ type ClusterMountInfoParameters struct {
 
 	// block specifying connection. It consists of:
 	// +kubebuilder:validation:Optional
-	NetworkFilesystemInfo []NetworkFilesystemInfoParameters `json:"networkFilesystemInfo" tf:"network_filesystem_info,omitempty"`
+	NetworkFilesystemInfo *NetworkFilesystemInfoParameters `json:"networkFilesystemInfo" tf:"network_filesystem_info,omitempty"`
 
 	// string specifying path to mount on the remote service.
 	// +kubebuilder:validation:Optional
@@ -449,19 +451,19 @@ type ClusterObservation struct {
 	// Whether to use policy default values for missing cluster attributes.
 	ApplyPolicyDefaultValues *bool `json:"applyPolicyDefaultValues,omitempty" tf:"apply_policy_default_values,omitempty"`
 
-	Autoscale []AutoscaleObservation `json:"autoscale,omitempty" tf:"autoscale,omitempty"`
+	Autoscale *AutoscaleObservation `json:"autoscale,omitempty" tf:"autoscale,omitempty"`
 
 	// Automatically terminate the cluster after being inactive for this time in minutes. If specified, the threshold must be between 10 and 10000 minutes. You can also set this value to 0 to explicitly disable automatic termination. Defaults to 60.  We highly recommend having this setting present for Interactive/BI clusters.
 	AutoterminationMinutes *float64 `json:"autoterminationMinutes,omitempty" tf:"autotermination_minutes,omitempty"`
 
-	AwsAttributes []AwsAttributesObservation `json:"awsAttributes,omitempty" tf:"aws_attributes,omitempty"`
+	AwsAttributes *AwsAttributesObservation `json:"awsAttributes,omitempty" tf:"aws_attributes,omitempty"`
 
-	AzureAttributes []AzureAttributesObservation `json:"azureAttributes,omitempty" tf:"azure_attributes,omitempty"`
+	AzureAttributes *AzureAttributesObservation `json:"azureAttributes,omitempty" tf:"azure_attributes,omitempty"`
 
 	// Canonical unique identifier for the cluster.
 	ClusterID *string `json:"clusterId,omitempty" tf:"cluster_id,omitempty"`
 
-	ClusterLogConf []ClusterLogConfObservation `json:"clusterLogConf,omitempty" tf:"cluster_log_conf,omitempty"`
+	ClusterLogConf *ClusterLogConfObservation `json:"clusterLogConf,omitempty" tf:"cluster_log_conf,omitempty"`
 
 	ClusterMountInfo []ClusterMountInfoObservation `json:"clusterMountInfo,omitempty" tf:"cluster_mount_info,omitempty"`
 
@@ -479,12 +481,13 @@ type ClusterObservation struct {
 	// +mapType=granular
 	DefaultTags map[string]*string `json:"defaultTags,omitempty" tf:"default_tags,omitempty"`
 
-	DockerImage []DockerImageObservation `json:"dockerImage,omitempty" tf:"docker_image,omitempty"`
+	DockerImage *DockerImageObservation `json:"dockerImage,omitempty" tf:"docker_image,omitempty"`
 
 	// similar to instance_pool_id, but for driver node. If omitted, and instance_pool_id is specified, then the driver will be allocated from that pool.
 	DriverInstancePoolID *string `json:"driverInstancePoolId,omitempty" tf:"driver_instance_pool_id,omitempty"`
 
-	DriverNodeTypeFlexibility []DriverNodeTypeFlexibilityObservation `json:"driverNodeTypeFlexibility,omitempty" tf:"driver_node_type_flexibility,omitempty"`
+	// a block describing the alternative driver node types if driver_node_type_id isn't available.
+	DriverNodeTypeFlexibility *DriverNodeTypeFlexibilityObservation `json:"driverNodeTypeFlexibility,omitempty" tf:"driver_node_type_flexibility,omitempty"`
 
 	// The node type of the Spark driver. This field is optional; if unset, API will set the driver node type to the same value as node_type_id defined above.
 	DriverNodeTypeID *string `json:"driverNodeTypeId,omitempty" tf:"driver_node_type_id,omitempty"`
@@ -495,7 +498,7 @@ type ClusterObservation struct {
 	// Some instance types you use to run clusters may have locally attached disks. Databricks may store shuffle data or temporary data on these locally attached disks. To ensure that all data at rest is encrypted for all storage types, including shuffle data stored temporarily on your cluster's local disks, you can enable local disk encryption. When local disk encryption is enabled, Databricks generates an encryption key locally unique to each cluster node and uses it to encrypt all data stored on local disks. The scope of the key is local to each cluster node and is destroyed along with the cluster node itself. During its lifetime, the key resides in memory for encryption and decryption and is stored encrypted on the disk. Your workloads may run more slowly because of the performance impact of reading and writing encrypted data to and from local volumes. This feature is not available for all Azure Databricks subscriptions. Contact your Microsoft or Databricks account representative to request access.
 	EnableLocalDiskEncryption *bool `json:"enableLocalDiskEncryption,omitempty" tf:"enable_local_disk_encryption,omitempty"`
 
-	GCPAttributes []GCPAttributesObservation `json:"gcpAttributes,omitempty" tf:"gcp_attributes,omitempty"`
+	GCPAttributes *GCPAttributesObservation `json:"gcpAttributes,omitempty" tf:"gcp_attributes,omitempty"`
 
 	// Canonical unique identifier for the cluster.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
@@ -532,7 +535,7 @@ type ClusterObservation struct {
 	PolicyID *string `json:"policyId,omitempty" tf:"policy_id,omitempty"`
 
 	// Configure the provider for management through account provider. This block consists of the following fields:
-	ProviderConfig []ProviderConfigObservation `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
+	ProviderConfig *ProviderConfigObservation `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
 
 	RemoteDiskThroughput *float64 `json:"remoteDiskThroughput,omitempty" tf:"remote_disk_throughput,omitempty"`
 
@@ -567,9 +570,10 @@ type ClusterObservation struct {
 	// Whenever ML runtime should be selected or not.  Actual runtime is determined by spark_version (DBR release), this field use_ml_runtime, and whether node_type_id is GPU node or not.
 	UseMLRuntime *bool `json:"useMlRuntime,omitempty" tf:"use_ml_runtime,omitempty"`
 
-	WorkerNodeTypeFlexibility []WorkerNodeTypeFlexibilityObservation `json:"workerNodeTypeFlexibility,omitempty" tf:"worker_node_type_flexibility,omitempty"`
+	// a block describing the alternative driver node types if node_type_id isn't available.
+	WorkerNodeTypeFlexibility *WorkerNodeTypeFlexibilityObservation `json:"workerNodeTypeFlexibility,omitempty" tf:"worker_node_type_flexibility,omitempty"`
 
-	WorkloadType []WorkloadTypeObservation `json:"workloadType,omitempty" tf:"workload_type,omitempty"`
+	WorkloadType *WorkloadTypeObservation `json:"workloadType,omitempty" tf:"workload_type,omitempty"`
 }
 
 type ClusterParameters struct {
@@ -579,20 +583,20 @@ type ClusterParameters struct {
 	ApplyPolicyDefaultValues *bool `json:"applyPolicyDefaultValues,omitempty" tf:"apply_policy_default_values,omitempty"`
 
 	// +kubebuilder:validation:Optional
-	Autoscale []AutoscaleParameters `json:"autoscale,omitempty" tf:"autoscale,omitempty"`
+	Autoscale *AutoscaleParameters `json:"autoscale,omitempty" tf:"autoscale,omitempty"`
 
 	// Automatically terminate the cluster after being inactive for this time in minutes. If specified, the threshold must be between 10 and 10000 minutes. You can also set this value to 0 to explicitly disable automatic termination. Defaults to 60.  We highly recommend having this setting present for Interactive/BI clusters.
 	// +kubebuilder:validation:Optional
 	AutoterminationMinutes *float64 `json:"autoterminationMinutes,omitempty" tf:"autotermination_minutes,omitempty"`
 
 	// +kubebuilder:validation:Optional
-	AwsAttributes []AwsAttributesParameters `json:"awsAttributes,omitempty" tf:"aws_attributes,omitempty"`
+	AwsAttributes *AwsAttributesParameters `json:"awsAttributes,omitempty" tf:"aws_attributes,omitempty"`
 
 	// +kubebuilder:validation:Optional
-	AzureAttributes []AzureAttributesParameters `json:"azureAttributes,omitempty" tf:"azure_attributes,omitempty"`
+	AzureAttributes *AzureAttributesParameters `json:"azureAttributes,omitempty" tf:"azure_attributes,omitempty"`
 
 	// +kubebuilder:validation:Optional
-	ClusterLogConf []ClusterLogConfParameters `json:"clusterLogConf,omitempty" tf:"cluster_log_conf,omitempty"`
+	ClusterLogConf *ClusterLogConfParameters `json:"clusterLogConf,omitempty" tf:"cluster_log_conf,omitempty"`
 
 	// +kubebuilder:validation:Optional
 	ClusterMountInfo []ClusterMountInfoParameters `json:"clusterMountInfo,omitempty" tf:"cluster_mount_info,omitempty"`
@@ -611,14 +615,15 @@ type ClusterParameters struct {
 	DataSecurityMode *string `json:"dataSecurityMode,omitempty" tf:"data_security_mode,omitempty"`
 
 	// +kubebuilder:validation:Optional
-	DockerImage []DockerImageParameters `json:"dockerImage,omitempty" tf:"docker_image,omitempty"`
+	DockerImage *DockerImageParameters `json:"dockerImage,omitempty" tf:"docker_image,omitempty"`
 
 	// similar to instance_pool_id, but for driver node. If omitted, and instance_pool_id is specified, then the driver will be allocated from that pool.
 	// +kubebuilder:validation:Optional
 	DriverInstancePoolID *string `json:"driverInstancePoolId,omitempty" tf:"driver_instance_pool_id,omitempty"`
 
+	// a block describing the alternative driver node types if driver_node_type_id isn't available.
 	// +kubebuilder:validation:Optional
-	DriverNodeTypeFlexibility []DriverNodeTypeFlexibilityParameters `json:"driverNodeTypeFlexibility,omitempty" tf:"driver_node_type_flexibility,omitempty"`
+	DriverNodeTypeFlexibility *DriverNodeTypeFlexibilityParameters `json:"driverNodeTypeFlexibility,omitempty" tf:"driver_node_type_flexibility,omitempty"`
 
 	// The node type of the Spark driver. This field is optional; if unset, API will set the driver node type to the same value as node_type_id defined above.
 	// +kubebuilder:validation:Optional
@@ -633,7 +638,7 @@ type ClusterParameters struct {
 	EnableLocalDiskEncryption *bool `json:"enableLocalDiskEncryption,omitempty" tf:"enable_local_disk_encryption,omitempty"`
 
 	// +kubebuilder:validation:Optional
-	GCPAttributes []GCPAttributesParameters `json:"gcpAttributes,omitempty" tf:"gcp_attributes,omitempty"`
+	GCPAttributes *GCPAttributesParameters `json:"gcpAttributes,omitempty" tf:"gcp_attributes,omitempty"`
 
 	// An optional token to guarantee the idempotency of cluster creation requests. If an active cluster with the provided token already exists, the request will not create a new cluster, but it will return the existing running cluster's ID instead. If you specify the idempotency token, upon failure, you can retry until the request succeeds. Databricks platform guarantees to launch exactly one cluster with that idempotency token. This token should have at most 64 characters.
 	// +kubebuilder:validation:Optional
@@ -679,7 +684,7 @@ type ClusterParameters struct {
 
 	// Configure the provider for management through account provider. This block consists of the following fields:
 	// +kubebuilder:validation:Optional
-	ProviderConfig []ProviderConfigParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
+	ProviderConfig *ProviderConfigParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
 
 	// +kubebuilder:validation:Optional
 	RemoteDiskThroughput *float64 `json:"remoteDiskThroughput,omitempty" tf:"remote_disk_throughput,omitempty"`
@@ -717,11 +722,12 @@ type ClusterParameters struct {
 	// +kubebuilder:validation:Optional
 	UseMLRuntime *bool `json:"useMlRuntime,omitempty" tf:"use_ml_runtime,omitempty"`
 
+	// a block describing the alternative driver node types if node_type_id isn't available.
 	// +kubebuilder:validation:Optional
-	WorkerNodeTypeFlexibility []WorkerNodeTypeFlexibilityParameters `json:"workerNodeTypeFlexibility,omitempty" tf:"worker_node_type_flexibility,omitempty"`
+	WorkerNodeTypeFlexibility *WorkerNodeTypeFlexibilityParameters `json:"workerNodeTypeFlexibility,omitempty" tf:"worker_node_type_flexibility,omitempty"`
 
 	// +kubebuilder:validation:Optional
-	WorkloadType []WorkloadTypeParameters `json:"workloadType,omitempty" tf:"workload_type,omitempty"`
+	WorkloadType *WorkloadTypeParameters `json:"workloadType,omitempty" tf:"workload_type,omitempty"`
 }
 
 type CranInitParameters struct {
@@ -767,7 +773,7 @@ type DbfsParameters struct {
 type DockerImageInitParameters struct {
 
 	// basic_auth.username and basic_auth.password for Docker repository. Docker registry credentials are encrypted when they are stored in Databricks internal storage and when they are passed to a registry upon fetching Docker images at cluster launch.  For better security, these credentials should be stored in the secret scope and referred using secret path syntax: {{secrets/scope/key}}, otherwise other users of the workspace may access them via UI/API.
-	BasicAuth []BasicAuthInitParameters `json:"basicAuth,omitempty" tf:"basic_auth,omitempty"`
+	BasicAuth *BasicAuthInitParameters `json:"basicAuth,omitempty" tf:"basic_auth,omitempty"`
 
 	// URL for the Docker image
 	URL *string `json:"url,omitempty" tf:"url,omitempty"`
@@ -776,7 +782,7 @@ type DockerImageInitParameters struct {
 type DockerImageObservation struct {
 
 	// basic_auth.username and basic_auth.password for Docker repository. Docker registry credentials are encrypted when they are stored in Databricks internal storage and when they are passed to a registry upon fetching Docker images at cluster launch.  For better security, these credentials should be stored in the secret scope and referred using secret path syntax: {{secrets/scope/key}}, otherwise other users of the workspace may access them via UI/API.
-	BasicAuth []BasicAuthObservation `json:"basicAuth,omitempty" tf:"basic_auth,omitempty"`
+	BasicAuth *BasicAuthObservation `json:"basicAuth,omitempty" tf:"basic_auth,omitempty"`
 
 	// URL for the Docker image
 	URL *string `json:"url,omitempty" tf:"url,omitempty"`
@@ -786,7 +792,7 @@ type DockerImageParameters struct {
 
 	// basic_auth.username and basic_auth.password for Docker repository. Docker registry credentials are encrypted when they are stored in Databricks internal storage and when they are passed to a registry upon fetching Docker images at cluster launch.  For better security, these credentials should be stored in the secret scope and referred using secret path syntax: {{secrets/scope/key}}, otherwise other users of the workspace may access them via UI/API.
 	// +kubebuilder:validation:Optional
-	BasicAuth []BasicAuthParameters `json:"basicAuth,omitempty" tf:"basic_auth,omitempty"`
+	BasicAuth *BasicAuthParameters `json:"basicAuth,omitempty" tf:"basic_auth,omitempty"`
 
 	// URL for the Docker image
 	// +kubebuilder:validation:Optional
@@ -794,15 +800,20 @@ type DockerImageParameters struct {
 }
 
 type DriverNodeTypeFlexibilityInitParameters struct {
+
+	// list of alternative node types that will be used if main node type isn't available.  Follow the documentation for requirements on selection of alternative node types.
 	AlternateNodeTypeIds []*string `json:"alternateNodeTypeIds,omitempty" tf:"alternate_node_type_ids,omitempty"`
 }
 
 type DriverNodeTypeFlexibilityObservation struct {
+
+	// list of alternative node types that will be used if main node type isn't available.  Follow the documentation for requirements on selection of alternative node types.
 	AlternateNodeTypeIds []*string `json:"alternateNodeTypeIds,omitempty" tf:"alternate_node_type_ids,omitempty"`
 }
 
 type DriverNodeTypeFlexibilityParameters struct {
 
+	// list of alternative node types that will be used if main node type isn't available.  Follow the documentation for requirements on selection of alternative node types.
 	// +kubebuilder:validation:Optional
 	AlternateNodeTypeIds []*string `json:"alternateNodeTypeIds,omitempty" tf:"alternate_node_type_ids,omitempty"`
 }
@@ -944,59 +955,59 @@ type InitScriptsDbfsParameters struct {
 }
 
 type InitScriptsInitParameters struct {
-	Abfss []AbfssInitParameters `json:"abfss,omitempty" tf:"abfss,omitempty"`
+	Abfss *AbfssInitParameters `json:"abfss,omitempty" tf:"abfss,omitempty"`
 
-	Dbfs []InitScriptsDbfsInitParameters `json:"dbfs,omitempty" tf:"dbfs,omitempty"`
+	Dbfs *InitScriptsDbfsInitParameters `json:"dbfs,omitempty" tf:"dbfs,omitempty"`
 
-	File []FileInitParameters `json:"file,omitempty" tf:"file,omitempty"`
+	File *FileInitParameters `json:"file,omitempty" tf:"file,omitempty"`
 
-	Gcs []GcsInitParameters `json:"gcs,omitempty" tf:"gcs,omitempty"`
+	Gcs *GcsInitParameters `json:"gcs,omitempty" tf:"gcs,omitempty"`
 
-	S3 []InitScriptsS3InitParameters `json:"s3,omitempty" tf:"s3,omitempty"`
+	S3 *InitScriptsS3InitParameters `json:"s3,omitempty" tf:"s3,omitempty"`
 
-	Volumes []InitScriptsVolumesInitParameters `json:"volumes,omitempty" tf:"volumes,omitempty"`
+	Volumes *InitScriptsVolumesInitParameters `json:"volumes,omitempty" tf:"volumes,omitempty"`
 
-	Workspace []WorkspaceInitParameters `json:"workspace,omitempty" tf:"workspace,omitempty"`
+	Workspace *WorkspaceInitParameters `json:"workspace,omitempty" tf:"workspace,omitempty"`
 }
 
 type InitScriptsObservation struct {
-	Abfss []AbfssObservation `json:"abfss,omitempty" tf:"abfss,omitempty"`
+	Abfss *AbfssObservation `json:"abfss,omitempty" tf:"abfss,omitempty"`
 
-	Dbfs []InitScriptsDbfsObservation `json:"dbfs,omitempty" tf:"dbfs,omitempty"`
+	Dbfs *InitScriptsDbfsObservation `json:"dbfs,omitempty" tf:"dbfs,omitempty"`
 
-	File []FileObservation `json:"file,omitempty" tf:"file,omitempty"`
+	File *FileObservation `json:"file,omitempty" tf:"file,omitempty"`
 
-	Gcs []GcsObservation `json:"gcs,omitempty" tf:"gcs,omitempty"`
+	Gcs *GcsObservation `json:"gcs,omitempty" tf:"gcs,omitempty"`
 
-	S3 []InitScriptsS3Observation `json:"s3,omitempty" tf:"s3,omitempty"`
+	S3 *InitScriptsS3Observation `json:"s3,omitempty" tf:"s3,omitempty"`
 
-	Volumes []InitScriptsVolumesObservation `json:"volumes,omitempty" tf:"volumes,omitempty"`
+	Volumes *InitScriptsVolumesObservation `json:"volumes,omitempty" tf:"volumes,omitempty"`
 
-	Workspace []WorkspaceObservation `json:"workspace,omitempty" tf:"workspace,omitempty"`
+	Workspace *WorkspaceObservation `json:"workspace,omitempty" tf:"workspace,omitempty"`
 }
 
 type InitScriptsParameters struct {
 
 	// +kubebuilder:validation:Optional
-	Abfss []AbfssParameters `json:"abfss,omitempty" tf:"abfss,omitempty"`
+	Abfss *AbfssParameters `json:"abfss,omitempty" tf:"abfss,omitempty"`
 
 	// +kubebuilder:validation:Optional
-	Dbfs []InitScriptsDbfsParameters `json:"dbfs,omitempty" tf:"dbfs,omitempty"`
+	Dbfs *InitScriptsDbfsParameters `json:"dbfs,omitempty" tf:"dbfs,omitempty"`
 
 	// +kubebuilder:validation:Optional
-	File []FileParameters `json:"file,omitempty" tf:"file,omitempty"`
+	File *FileParameters `json:"file,omitempty" tf:"file,omitempty"`
 
 	// +kubebuilder:validation:Optional
-	Gcs []GcsParameters `json:"gcs,omitempty" tf:"gcs,omitempty"`
+	Gcs *GcsParameters `json:"gcs,omitempty" tf:"gcs,omitempty"`
 
 	// +kubebuilder:validation:Optional
-	S3 []InitScriptsS3Parameters `json:"s3,omitempty" tf:"s3,omitempty"`
+	S3 *InitScriptsS3Parameters `json:"s3,omitempty" tf:"s3,omitempty"`
 
 	// +kubebuilder:validation:Optional
-	Volumes []InitScriptsVolumesParameters `json:"volumes,omitempty" tf:"volumes,omitempty"`
+	Volumes *InitScriptsVolumesParameters `json:"volumes,omitempty" tf:"volumes,omitempty"`
 
 	// +kubebuilder:validation:Optional
-	Workspace []WorkspaceParameters `json:"workspace,omitempty" tf:"workspace,omitempty"`
+	Workspace *WorkspaceParameters `json:"workspace,omitempty" tf:"workspace,omitempty"`
 }
 
 type InitScriptsS3InitParameters struct {
@@ -1098,15 +1109,15 @@ type InitScriptsVolumesParameters struct {
 }
 
 type LibraryInitParameters struct {
-	Cran []CranInitParameters `json:"cran,omitempty" tf:"cran,omitempty"`
+	Cran *CranInitParameters `json:"cran,omitempty" tf:"cran,omitempty"`
 
 	Egg *string `json:"egg,omitempty" tf:"egg,omitempty"`
 
 	Jar *string `json:"jar,omitempty" tf:"jar,omitempty"`
 
-	Maven []MavenInitParameters `json:"maven,omitempty" tf:"maven,omitempty"`
+	Maven *MavenInitParameters `json:"maven,omitempty" tf:"maven,omitempty"`
 
-	Pypi []PypiInitParameters `json:"pypi,omitempty" tf:"pypi,omitempty"`
+	Pypi *PypiInitParameters `json:"pypi,omitempty" tf:"pypi,omitempty"`
 
 	Requirements *string `json:"requirements,omitempty" tf:"requirements,omitempty"`
 
@@ -1114,15 +1125,15 @@ type LibraryInitParameters struct {
 }
 
 type LibraryObservation struct {
-	Cran []CranObservation `json:"cran,omitempty" tf:"cran,omitempty"`
+	Cran *CranObservation `json:"cran,omitempty" tf:"cran,omitempty"`
 
 	Egg *string `json:"egg,omitempty" tf:"egg,omitempty"`
 
 	Jar *string `json:"jar,omitempty" tf:"jar,omitempty"`
 
-	Maven []MavenObservation `json:"maven,omitempty" tf:"maven,omitempty"`
+	Maven *MavenObservation `json:"maven,omitempty" tf:"maven,omitempty"`
 
-	Pypi []PypiObservation `json:"pypi,omitempty" tf:"pypi,omitempty"`
+	Pypi *PypiObservation `json:"pypi,omitempty" tf:"pypi,omitempty"`
 
 	Requirements *string `json:"requirements,omitempty" tf:"requirements,omitempty"`
 
@@ -1132,7 +1143,7 @@ type LibraryObservation struct {
 type LibraryParameters struct {
 
 	// +kubebuilder:validation:Optional
-	Cran []CranParameters `json:"cran,omitempty" tf:"cran,omitempty"`
+	Cran *CranParameters `json:"cran,omitempty" tf:"cran,omitempty"`
 
 	// +kubebuilder:validation:Optional
 	Egg *string `json:"egg,omitempty" tf:"egg,omitempty"`
@@ -1141,10 +1152,10 @@ type LibraryParameters struct {
 	Jar *string `json:"jar,omitempty" tf:"jar,omitempty"`
 
 	// +kubebuilder:validation:Optional
-	Maven []MavenParameters `json:"maven,omitempty" tf:"maven,omitempty"`
+	Maven *MavenParameters `json:"maven,omitempty" tf:"maven,omitempty"`
 
 	// +kubebuilder:validation:Optional
-	Pypi []PypiParameters `json:"pypi,omitempty" tf:"pypi,omitempty"`
+	Pypi *PypiParameters `json:"pypi,omitempty" tf:"pypi,omitempty"`
 
 	// +kubebuilder:validation:Optional
 	Requirements *string `json:"requirements,omitempty" tf:"requirements,omitempty"`
@@ -1373,31 +1384,36 @@ type VolumesParameters struct {
 }
 
 type WorkerNodeTypeFlexibilityInitParameters struct {
+
+	// list of alternative node types that will be used if main node type isn't available.  Follow the documentation for requirements on selection of alternative node types.
 	AlternateNodeTypeIds []*string `json:"alternateNodeTypeIds,omitempty" tf:"alternate_node_type_ids,omitempty"`
 }
 
 type WorkerNodeTypeFlexibilityObservation struct {
+
+	// list of alternative node types that will be used if main node type isn't available.  Follow the documentation for requirements on selection of alternative node types.
 	AlternateNodeTypeIds []*string `json:"alternateNodeTypeIds,omitempty" tf:"alternate_node_type_ids,omitempty"`
 }
 
 type WorkerNodeTypeFlexibilityParameters struct {
 
+	// list of alternative node types that will be used if main node type isn't available.  Follow the documentation for requirements on selection of alternative node types.
 	// +kubebuilder:validation:Optional
 	AlternateNodeTypeIds []*string `json:"alternateNodeTypeIds,omitempty" tf:"alternate_node_type_ids,omitempty"`
 }
 
 type WorkloadTypeInitParameters struct {
-	Clients []ClientsInitParameters `json:"clients,omitempty" tf:"clients,omitempty"`
+	Clients *ClientsInitParameters `json:"clients,omitempty" tf:"clients,omitempty"`
 }
 
 type WorkloadTypeObservation struct {
-	Clients []ClientsObservation `json:"clients,omitempty" tf:"clients,omitempty"`
+	Clients *ClientsObservation `json:"clients,omitempty" tf:"clients,omitempty"`
 }
 
 type WorkloadTypeParameters struct {
 
 	// +kubebuilder:validation:Optional
-	Clients []ClientsParameters `json:"clients" tf:"clients,omitempty"`
+	Clients *ClientsParameters `json:"clients" tf:"clients,omitempty"`
 }
 
 type WorkspaceInitParameters struct {

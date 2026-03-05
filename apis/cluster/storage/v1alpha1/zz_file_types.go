@@ -23,6 +23,9 @@ type FileInitParameters struct {
 	// The path of the file in which you wish to save. For example, /Volumes/main/default/volume1/file.txt.
 	Path *string `json:"path,omitempty" tf:"path,omitempty"`
 
+	// Configure the provider for management through account provider. This block consists of the following fields:
+	ProviderConfig *FileProviderConfigInitParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
+
 	RemoteFileModified *bool `json:"remoteFileModified,omitempty" tf:"remote_file_modified,omitempty"`
 
 	// The full absolute path to the file. Conflicts with content_base64.
@@ -48,6 +51,9 @@ type FileObservation struct {
 	// The path of the file in which you wish to save. For example, /Volumes/main/default/volume1/file.txt.
 	Path *string `json:"path,omitempty" tf:"path,omitempty"`
 
+	// Configure the provider for management through account provider. This block consists of the following fields:
+	ProviderConfig *FileProviderConfigObservation `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
+
 	RemoteFileModified *bool `json:"remoteFileModified,omitempty" tf:"remote_file_modified,omitempty"`
 
 	// The full absolute path to the file. Conflicts with content_base64.
@@ -67,12 +73,35 @@ type FileParameters struct {
 	// +kubebuilder:validation:Optional
 	Path *string `json:"path,omitempty" tf:"path,omitempty"`
 
+	// Configure the provider for management through account provider. This block consists of the following fields:
+	// +kubebuilder:validation:Optional
+	ProviderConfig *FileProviderConfigParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
+
 	// +kubebuilder:validation:Optional
 	RemoteFileModified *bool `json:"remoteFileModified,omitempty" tf:"remote_file_modified,omitempty"`
 
 	// The full absolute path to the file. Conflicts with content_base64.
 	// +kubebuilder:validation:Optional
 	Source *string `json:"source,omitempty" tf:"source,omitempty"`
+}
+
+type FileProviderConfigInitParameters struct {
+
+	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
+}
+
+type FileProviderConfigObservation struct {
+
+	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
+}
+
+type FileProviderConfigParameters struct {
+
+	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
+	// +kubebuilder:validation:Optional
+	WorkspaceID *string `json:"workspaceId" tf:"workspace_id,omitempty"`
 }
 
 // FileSpec defines the desired state of File

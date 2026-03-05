@@ -21,7 +21,7 @@ func (mg *GitCredential) GetTerraformResourceType() string {
 
 // GetConnectionDetailsMapping for this GitCredential
 func (tr *GitCredential) GetConnectionDetailsMapping() map[string]string {
-	return nil
+	return map[string]string{"personal_access_token": "personalAccessTokenSecretRef"}
 }
 
 // GetObservation of this GitCredential

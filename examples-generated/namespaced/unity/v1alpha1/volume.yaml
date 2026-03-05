@@ -1,3 +1,7 @@
+# SPDX-FileCopyrightText: 2025 The Crossplane Authors <https://crossplane.io>
+#
+# SPDX-License-Identifier: CC0-1.0
+
 apiVersion: unity.databricks.m.crossplane.io/v1alpha1
 kind: Volume
 metadata:
@@ -94,5 +98,5 @@ metadata:
 spec:
   forProvider:
     awsIamRole:
-    - roleArn: ${aws_iam_role.external_data_access.arn}
+      roleArn: ${aws_iam_role.external_data_access.arn}
     name: creds

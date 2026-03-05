@@ -18,38 +18,28 @@ func (in *ConfigInitParameters) DeepCopyInto(out *ConfigInitParameters) {
 	*out = *in
 	if in.Email != nil {
 		in, out := &in.Email, &out.Email
-		*out = make([]EmailInitParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(EmailInitParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.GenericWebhook != nil {
 		in, out := &in.GenericWebhook, &out.GenericWebhook
-		*out = make([]GenericWebhookInitParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(GenericWebhookInitParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.MicrosoftTeams != nil {
 		in, out := &in.MicrosoftTeams, &out.MicrosoftTeams
-		*out = make([]MicrosoftTeamsInitParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(MicrosoftTeamsInitParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Pagerduty != nil {
 		in, out := &in.Pagerduty, &out.Pagerduty
-		*out = make([]PagerdutyInitParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(PagerdutyInitParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Slack != nil {
 		in, out := &in.Slack, &out.Slack
-		*out = make([]SlackInitParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(SlackInitParameters)
+		(*in).DeepCopyInto(*out)
 	}
 }
 
@@ -68,38 +58,28 @@ func (in *ConfigObservation) DeepCopyInto(out *ConfigObservation) {
 	*out = *in
 	if in.Email != nil {
 		in, out := &in.Email, &out.Email
-		*out = make([]EmailObservation, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(EmailObservation)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.GenericWebhook != nil {
 		in, out := &in.GenericWebhook, &out.GenericWebhook
-		*out = make([]GenericWebhookObservation, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(GenericWebhookObservation)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.MicrosoftTeams != nil {
 		in, out := &in.MicrosoftTeams, &out.MicrosoftTeams
-		*out = make([]MicrosoftTeamsObservation, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(MicrosoftTeamsObservation)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Pagerduty != nil {
 		in, out := &in.Pagerduty, &out.Pagerduty
-		*out = make([]PagerdutyObservation, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(PagerdutyObservation)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Slack != nil {
 		in, out := &in.Slack, &out.Slack
-		*out = make([]SlackObservation, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(SlackObservation)
+		(*in).DeepCopyInto(*out)
 	}
 }
 
@@ -118,38 +98,28 @@ func (in *ConfigParameters) DeepCopyInto(out *ConfigParameters) {
 	*out = *in
 	if in.Email != nil {
 		in, out := &in.Email, &out.Email
-		*out = make([]EmailParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(EmailParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.GenericWebhook != nil {
 		in, out := &in.GenericWebhook, &out.GenericWebhook
-		*out = make([]GenericWebhookParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(GenericWebhookParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.MicrosoftTeams != nil {
 		in, out := &in.MicrosoftTeams, &out.MicrosoftTeams
-		*out = make([]MicrosoftTeamsParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(MicrosoftTeamsParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Pagerduty != nil {
 		in, out := &in.Pagerduty, &out.Pagerduty
-		*out = make([]PagerdutyParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(PagerdutyParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Slack != nil {
 		in, out := &in.Slack, &out.Slack
-		*out = make([]SlackParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(SlackParameters)
+		(*in).DeepCopyInto(*out)
 	}
 }
 
@@ -207,6 +177,11 @@ func (in *DirectoryInitParameters) DeepCopyInto(out *DirectoryInitParameters) {
 		in, out := &in.Path, &out.Path
 		*out = new(string)
 		**out = **in
+	}
+	if in.ProviderConfig != nil {
+		in, out := &in.ProviderConfig, &out.ProviderConfig
+		*out = new(ProviderConfigInitParameters)
+		(*in).DeepCopyInto(*out)
 	}
 }
 
@@ -275,6 +250,11 @@ func (in *DirectoryObservation) DeepCopyInto(out *DirectoryObservation) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.ProviderConfig != nil {
+		in, out := &in.ProviderConfig, &out.ProviderConfig
+		*out = new(ProviderConfigObservation)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.WorkspacePath != nil {
 		in, out := &in.WorkspacePath, &out.WorkspacePath
 		*out = new(string)
@@ -309,6 +289,11 @@ func (in *DirectoryParameters) DeepCopyInto(out *DirectoryParameters) {
 		in, out := &in.Path, &out.Path
 		*out = new(string)
 		**out = **in
+	}
+	if in.ProviderConfig != nil {
+		in, out := &in.ProviderConfig, &out.ProviderConfig
+		*out = new(ProviderConfigParameters)
+		(*in).DeepCopyInto(*out)
 	}
 }
 
@@ -615,15 +600,20 @@ func (in *GitCredentialInitParameters) DeepCopyInto(out *GitCredentialInitParame
 		*out = new(string)
 		**out = **in
 	}
-	if in.PersonalAccessToken != nil {
-		in, out := &in.PersonalAccessToken, &out.PersonalAccessToken
-		*out = new(string)
+	if in.PersonalAccessTokenSecretRef != nil {
+		in, out := &in.PersonalAccessTokenSecretRef, &out.PersonalAccessTokenSecretRef
+		*out = new(v1.LocalSecretKeySelector)
 		**out = **in
 	}
 	if in.PrincipalID != nil {
 		in, out := &in.PrincipalID, &out.PrincipalID
 		*out = new(float64)
 		**out = **in
+	}
+	if in.ProviderConfig != nil {
+		in, out := &in.ProviderConfig, &out.ProviderConfig
+		*out = new(GitCredentialProviderConfigInitParameters)
+		(*in).DeepCopyInto(*out)
 	}
 }
 
@@ -707,15 +697,15 @@ func (in *GitCredentialObservation) DeepCopyInto(out *GitCredentialObservation) 
 		*out = new(string)
 		**out = **in
 	}
-	if in.PersonalAccessToken != nil {
-		in, out := &in.PersonalAccessToken, &out.PersonalAccessToken
-		*out = new(string)
-		**out = **in
-	}
 	if in.PrincipalID != nil {
 		in, out := &in.PrincipalID, &out.PrincipalID
 		*out = new(float64)
 		**out = **in
+	}
+	if in.ProviderConfig != nil {
+		in, out := &in.ProviderConfig, &out.ProviderConfig
+		*out = new(GitCredentialProviderConfigObservation)
+		(*in).DeepCopyInto(*out)
 	}
 }
 
@@ -762,15 +752,20 @@ func (in *GitCredentialParameters) DeepCopyInto(out *GitCredentialParameters) {
 		*out = new(string)
 		**out = **in
 	}
-	if in.PersonalAccessToken != nil {
-		in, out := &in.PersonalAccessToken, &out.PersonalAccessToken
-		*out = new(string)
+	if in.PersonalAccessTokenSecretRef != nil {
+		in, out := &in.PersonalAccessTokenSecretRef, &out.PersonalAccessTokenSecretRef
+		*out = new(v1.LocalSecretKeySelector)
 		**out = **in
 	}
 	if in.PrincipalID != nil {
 		in, out := &in.PrincipalID, &out.PrincipalID
 		*out = new(float64)
 		**out = **in
+	}
+	if in.ProviderConfig != nil {
+		in, out := &in.ProviderConfig, &out.ProviderConfig
+		*out = new(GitCredentialProviderConfigParameters)
+		(*in).DeepCopyInto(*out)
 	}
 }
 
@@ -780,6 +775,66 @@ func (in *GitCredentialParameters) DeepCopy() *GitCredentialParameters {
 		return nil
 	}
 	out := new(GitCredentialParameters)
+	in.DeepCopyInto(out)
+	return out
+}
+
+// DeepCopyInto is an autogenerated deepcopy function, copying the receiver, writing into out. in must be non-nil.
+func (in *GitCredentialProviderConfigInitParameters) DeepCopyInto(out *GitCredentialProviderConfigInitParameters) {
+	*out = *in
+	if in.WorkspaceID != nil {
+		in, out := &in.WorkspaceID, &out.WorkspaceID
+		*out = new(string)
+		**out = **in
+	}
+}
+
+// DeepCopy is an autogenerated deepcopy function, copying the receiver, creating a new GitCredentialProviderConfigInitParameters.
+func (in *GitCredentialProviderConfigInitParameters) DeepCopy() *GitCredentialProviderConfigInitParameters {
+	if in == nil {
+		return nil
+	}
+	out := new(GitCredentialProviderConfigInitParameters)
+	in.DeepCopyInto(out)
+	return out
+}
+
+// DeepCopyInto is an autogenerated deepcopy function, copying the receiver, writing into out. in must be non-nil.
+func (in *GitCredentialProviderConfigObservation) DeepCopyInto(out *GitCredentialProviderConfigObservation) {
+	*out = *in
+	if in.WorkspaceID != nil {
+		in, out := &in.WorkspaceID, &out.WorkspaceID
+		*out = new(string)
+		**out = **in
+	}
+}
+
+// DeepCopy is an autogenerated deepcopy function, copying the receiver, creating a new GitCredentialProviderConfigObservation.
+func (in *GitCredentialProviderConfigObservation) DeepCopy() *GitCredentialProviderConfigObservation {
+	if in == nil {
+		return nil
+	}
+	out := new(GitCredentialProviderConfigObservation)
+	in.DeepCopyInto(out)
+	return out
+}
+
+// DeepCopyInto is an autogenerated deepcopy function, copying the receiver, writing into out. in must be non-nil.
+func (in *GitCredentialProviderConfigParameters) DeepCopyInto(out *GitCredentialProviderConfigParameters) {
+	*out = *in
+	if in.WorkspaceID != nil {
+		in, out := &in.WorkspaceID, &out.WorkspaceID
+		*out = new(string)
+		**out = **in
+	}
+}
+
+// DeepCopy is an autogenerated deepcopy function, copying the receiver, creating a new GitCredentialProviderConfigParameters.
+func (in *GitCredentialProviderConfigParameters) DeepCopy() *GitCredentialProviderConfigParameters {
+	if in == nil {
+		return nil
+	}
+	out := new(GitCredentialProviderConfigParameters)
 	in.DeepCopyInto(out)
 	return out
 }
@@ -874,6 +929,11 @@ func (in *GlobalInitScriptInitParameters) DeepCopyInto(out *GlobalInitScriptInit
 		*out = new(float64)
 		**out = **in
 	}
+	if in.ProviderConfig != nil {
+		in, out := &in.ProviderConfig, &out.ProviderConfig
+		*out = new(GlobalInitScriptProviderConfigInitParameters)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.Source != nil {
 		in, out := &in.Source, &out.Source
 		*out = new(string)
@@ -956,6 +1016,11 @@ func (in *GlobalInitScriptObservation) DeepCopyInto(out *GlobalInitScriptObserva
 		*out = new(float64)
 		**out = **in
 	}
+	if in.ProviderConfig != nil {
+		in, out := &in.ProviderConfig, &out.ProviderConfig
+		*out = new(GlobalInitScriptProviderConfigObservation)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.Source != nil {
 		in, out := &in.Source, &out.Source
 		*out = new(string)
@@ -1001,6 +1066,11 @@ func (in *GlobalInitScriptParameters) DeepCopyInto(out *GlobalInitScriptParamete
 		*out = new(float64)
 		**out = **in
 	}
+	if in.ProviderConfig != nil {
+		in, out := &in.ProviderConfig, &out.ProviderConfig
+		*out = new(GlobalInitScriptProviderConfigParameters)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.Source != nil {
 		in, out := &in.Source, &out.Source
 		*out = new(string)
@@ -1014,6 +1084,66 @@ func (in *GlobalInitScriptParameters) DeepCopy() *GlobalInitScriptParameters {
 		return nil
 	}
 	out := new(GlobalInitScriptParameters)
+	in.DeepCopyInto(out)
+	return out
+}
+
+// DeepCopyInto is an autogenerated deepcopy function, copying the receiver, writing into out. in must be non-nil.
+func (in *GlobalInitScriptProviderConfigInitParameters) DeepCopyInto(out *GlobalInitScriptProviderConfigInitParameters) {
+	*out = *in
+	if in.WorkspaceID != nil {
+		in, out := &in.WorkspaceID, &out.WorkspaceID
+		*out = new(string)
+		**out = **in
+	}
+}
+
+// DeepCopy is an autogenerated deepcopy function, copying the receiver, creating a new GlobalInitScriptProviderConfigInitParameters.
+func (in *GlobalInitScriptProviderConfigInitParameters) DeepCopy() *GlobalInitScriptProviderConfigInitParameters {
+	if in == nil {
+		return nil
+	}
+	out := new(GlobalInitScriptProviderConfigInitParameters)
+	in.DeepCopyInto(out)
+	return out
+}
+
+// DeepCopyInto is an autogenerated deepcopy function, copying the receiver, writing into out. in must be non-nil.
+func (in *GlobalInitScriptProviderConfigObservation) DeepCopyInto(out *GlobalInitScriptProviderConfigObservation) {
+	*out = *in
+	if in.WorkspaceID != nil {
+		in, out := &in.WorkspaceID, &out.WorkspaceID
+		*out = new(string)
+		**out = **in
+	}
+}
+
+// DeepCopy is an autogenerated deepcopy function, copying the receiver, creating a new GlobalInitScriptProviderConfigObservation.
+func (in *GlobalInitScriptProviderConfigObservation) DeepCopy() *GlobalInitScriptProviderConfigObservation {
+	if in == nil {
+		return nil
+	}
+	out := new(GlobalInitScriptProviderConfigObservation)
+	in.DeepCopyInto(out)
+	return out
+}
+
+// DeepCopyInto is an autogenerated deepcopy function, copying the receiver, writing into out. in must be non-nil.
+func (in *GlobalInitScriptProviderConfigParameters) DeepCopyInto(out *GlobalInitScriptProviderConfigParameters) {
+	*out = *in
+	if in.WorkspaceID != nil {
+		in, out := &in.WorkspaceID, &out.WorkspaceID
+		*out = new(string)
+		**out = **in
+	}
+}
+
+// DeepCopy is an autogenerated deepcopy function, copying the receiver, creating a new GlobalInitScriptProviderConfigParameters.
+func (in *GlobalInitScriptProviderConfigParameters) DeepCopy() *GlobalInitScriptProviderConfigParameters {
+	if in == nil {
+		return nil
+	}
+	out := new(GlobalInitScriptProviderConfigParameters)
 	in.DeepCopyInto(out)
 	return out
 }
@@ -1290,10 +1420,8 @@ func (in *NotebookInitParameters) DeepCopyInto(out *NotebookInitParameters) {
 	}
 	if in.ProviderConfig != nil {
 		in, out := &in.ProviderConfig, &out.ProviderConfig
-		*out = make([]ProviderConfigInitParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(NotebookProviderConfigInitParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Source != nil {
 		in, out := &in.Source, &out.Source
@@ -1389,10 +1517,8 @@ func (in *NotebookObservation) DeepCopyInto(out *NotebookObservation) {
 	}
 	if in.ProviderConfig != nil {
 		in, out := &in.ProviderConfig, &out.ProviderConfig
-		*out = make([]ProviderConfigObservation, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(NotebookProviderConfigObservation)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Source != nil {
 		in, out := &in.Source, &out.Source
@@ -1461,10 +1587,8 @@ func (in *NotebookParameters) DeepCopyInto(out *NotebookParameters) {
 	}
 	if in.ProviderConfig != nil {
 		in, out := &in.ProviderConfig, &out.ProviderConfig
-		*out = make([]ProviderConfigParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(NotebookProviderConfigParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Source != nil {
 		in, out := &in.Source, &out.Source
@@ -1479,6 +1603,66 @@ func (in *NotebookParameters) DeepCopy() *NotebookParameters {
 		return nil
 	}
 	out := new(NotebookParameters)
+	in.DeepCopyInto(out)
+	return out
+}
+
+// DeepCopyInto is an autogenerated deepcopy function, copying the receiver, writing into out. in must be non-nil.
+func (in *NotebookProviderConfigInitParameters) DeepCopyInto(out *NotebookProviderConfigInitParameters) {
+	*out = *in
+	if in.WorkspaceID != nil {
+		in, out := &in.WorkspaceID, &out.WorkspaceID
+		*out = new(string)
+		**out = **in
+	}
+}
+
+// DeepCopy is an autogenerated deepcopy function, copying the receiver, creating a new NotebookProviderConfigInitParameters.
+func (in *NotebookProviderConfigInitParameters) DeepCopy() *NotebookProviderConfigInitParameters {
+	if in == nil {
+		return nil
+	}
+	out := new(NotebookProviderConfigInitParameters)
+	in.DeepCopyInto(out)
+	return out
+}
+
+// DeepCopyInto is an autogenerated deepcopy function, copying the receiver, writing into out. in must be non-nil.
+func (in *NotebookProviderConfigObservation) DeepCopyInto(out *NotebookProviderConfigObservation) {
+	*out = *in
+	if in.WorkspaceID != nil {
+		in, out := &in.WorkspaceID, &out.WorkspaceID
+		*out = new(string)
+		**out = **in
+	}
+}
+
+// DeepCopy is an autogenerated deepcopy function, copying the receiver, creating a new NotebookProviderConfigObservation.
+func (in *NotebookProviderConfigObservation) DeepCopy() *NotebookProviderConfigObservation {
+	if in == nil {
+		return nil
+	}
+	out := new(NotebookProviderConfigObservation)
+	in.DeepCopyInto(out)
+	return out
+}
+
+// DeepCopyInto is an autogenerated deepcopy function, copying the receiver, writing into out. in must be non-nil.
+func (in *NotebookProviderConfigParameters) DeepCopyInto(out *NotebookProviderConfigParameters) {
+	*out = *in
+	if in.WorkspaceID != nil {
+		in, out := &in.WorkspaceID, &out.WorkspaceID
+		*out = new(string)
+		**out = **in
+	}
+}
+
+// DeepCopy is an autogenerated deepcopy function, copying the receiver, creating a new NotebookProviderConfigParameters.
+func (in *NotebookProviderConfigParameters) DeepCopy() *NotebookProviderConfigParameters {
+	if in == nil {
+		return nil
+	}
+	out := new(NotebookProviderConfigParameters)
 	in.DeepCopyInto(out)
 	return out
 }
@@ -1550,10 +1734,8 @@ func (in *NotificationDestinationInitParameters) DeepCopyInto(out *NotificationD
 	*out = *in
 	if in.Config != nil {
 		in, out := &in.Config, &out.Config
-		*out = make([]ConfigInitParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(ConfigInitParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.DestinationType != nil {
 		in, out := &in.DestinationType, &out.DestinationType
@@ -1564,6 +1746,11 @@ func (in *NotificationDestinationInitParameters) DeepCopyInto(out *NotificationD
 		in, out := &in.DisplayName, &out.DisplayName
 		*out = new(string)
 		**out = **in
+	}
+	if in.ProviderConfig != nil {
+		in, out := &in.ProviderConfig, &out.ProviderConfig
+		*out = new(NotificationDestinationProviderConfigInitParameters)
+		(*in).DeepCopyInto(*out)
 	}
 }
 
@@ -1614,10 +1801,8 @@ func (in *NotificationDestinationObservation) DeepCopyInto(out *NotificationDest
 	*out = *in
 	if in.Config != nil {
 		in, out := &in.Config, &out.Config
-		*out = make([]ConfigObservation, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(ConfigObservation)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.DestinationType != nil {
 		in, out := &in.DestinationType, &out.DestinationType
@@ -1633,6 +1818,11 @@ func (in *NotificationDestinationObservation) DeepCopyInto(out *NotificationDest
 		in, out := &in.ID, &out.ID
 		*out = new(string)
 		**out = **in
+	}
+	if in.ProviderConfig != nil {
+		in, out := &in.ProviderConfig, &out.ProviderConfig
+		*out = new(NotificationDestinationProviderConfigObservation)
+		(*in).DeepCopyInto(*out)
 	}
 }
 
@@ -1651,10 +1841,8 @@ func (in *NotificationDestinationParameters) DeepCopyInto(out *NotificationDesti
 	*out = *in
 	if in.Config != nil {
 		in, out := &in.Config, &out.Config
-		*out = make([]ConfigParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(ConfigParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.DestinationType != nil {
 		in, out := &in.DestinationType, &out.DestinationType
@@ -1666,6 +1854,11 @@ func (in *NotificationDestinationParameters) DeepCopyInto(out *NotificationDesti
 		*out = new(string)
 		**out = **in
 	}
+	if in.ProviderConfig != nil {
+		in, out := &in.ProviderConfig, &out.ProviderConfig
+		*out = new(NotificationDestinationProviderConfigParameters)
+		(*in).DeepCopyInto(*out)
+	}
 }
 
 // DeepCopy is an autogenerated deepcopy function, copying the receiver, creating a new NotificationDestinationParameters.
@@ -1674,6 +1867,66 @@ func (in *NotificationDestinationParameters) DeepCopy() *NotificationDestination
 		return nil
 	}
 	out := new(NotificationDestinationParameters)
+	in.DeepCopyInto(out)
+	return out
+}
+
+// DeepCopyInto is an autogenerated deepcopy function, copying the receiver, writing into out. in must be non-nil.
+func (in *NotificationDestinationProviderConfigInitParameters) DeepCopyInto(out *NotificationDestinationProviderConfigInitParameters) {
+	*out = *in
+	if in.WorkspaceID != nil {
+		in, out := &in.WorkspaceID, &out.WorkspaceID
+		*out = new(string)
+		**out = **in
+	}
+}
+
+// DeepCopy is an autogenerated deepcopy function, copying the receiver, creating a new NotificationDestinationProviderConfigInitParameters.
+func (in *NotificationDestinationProviderConfigInitParameters) DeepCopy() *NotificationDestinationProviderConfigInitParameters {
+	if in == nil {
+		return nil
+	}
+	out := new(NotificationDestinationProviderConfigInitParameters)
+	in.DeepCopyInto(out)
+	return out
+}
+
+// DeepCopyInto is an autogenerated deepcopy function, copying the receiver, writing into out. in must be non-nil.
+func (in *NotificationDestinationProviderConfigObservation) DeepCopyInto(out *NotificationDestinationProviderConfigObservation) {
+	*out = *in
+	if in.WorkspaceID != nil {
+		in, out := &in.WorkspaceID, &out.WorkspaceID
+		*out = new(string)
+		**out = **in
+	}
+}
+
+// DeepCopy is an autogenerated deepcopy function, copying the receiver, creating a new NotificationDestinationProviderConfigObservation.
+func (in *NotificationDestinationProviderConfigObservation) DeepCopy() *NotificationDestinationProviderConfigObservation {
+	if in == nil {
+		return nil
+	}
+	out := new(NotificationDestinationProviderConfigObservation)
+	in.DeepCopyInto(out)
+	return out
+}
+
+// DeepCopyInto is an autogenerated deepcopy function, copying the receiver, writing into out. in must be non-nil.
+func (in *NotificationDestinationProviderConfigParameters) DeepCopyInto(out *NotificationDestinationProviderConfigParameters) {
+	*out = *in
+	if in.WorkspaceID != nil {
+		in, out := &in.WorkspaceID, &out.WorkspaceID
+		*out = new(string)
+		**out = **in
+	}
+}
+
+// DeepCopy is an autogenerated deepcopy function, copying the receiver, creating a new NotificationDestinationProviderConfigParameters.
+func (in *NotificationDestinationProviderConfigParameters) DeepCopy() *NotificationDestinationProviderConfigParameters {
+	if in == nil {
+		return nil
+	}
+	out := new(NotificationDestinationProviderConfigParameters)
 	in.DeepCopyInto(out)
 	return out
 }
@@ -1893,12 +2146,15 @@ func (in *RepoInitParameters) DeepCopyInto(out *RepoInitParameters) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.ProviderConfig != nil {
+		in, out := &in.ProviderConfig, &out.ProviderConfig
+		*out = new(RepoProviderConfigInitParameters)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.SparseCheckout != nil {
 		in, out := &in.SparseCheckout, &out.SparseCheckout
-		*out = make([]SparseCheckoutInitParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(SparseCheckoutInitParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Tag != nil {
 		in, out := &in.Tag, &out.Tag
@@ -1982,12 +2238,15 @@ func (in *RepoObservation) DeepCopyInto(out *RepoObservation) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.ProviderConfig != nil {
+		in, out := &in.ProviderConfig, &out.ProviderConfig
+		*out = new(RepoProviderConfigObservation)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.SparseCheckout != nil {
 		in, out := &in.SparseCheckout, &out.SparseCheckout
-		*out = make([]SparseCheckoutObservation, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(SparseCheckoutObservation)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Tag != nil {
 		in, out := &in.Tag, &out.Tag
@@ -2039,12 +2298,15 @@ func (in *RepoParameters) DeepCopyInto(out *RepoParameters) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.ProviderConfig != nil {
+		in, out := &in.ProviderConfig, &out.ProviderConfig
+		*out = new(RepoProviderConfigParameters)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.SparseCheckout != nil {
 		in, out := &in.SparseCheckout, &out.SparseCheckout
-		*out = make([]SparseCheckoutParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(SparseCheckoutParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Tag != nil {
 		in, out := &in.Tag, &out.Tag
@@ -2064,6 +2326,66 @@ func (in *RepoParameters) DeepCopy() *RepoParameters {
 		return nil
 	}
 	out := new(RepoParameters)
+	in.DeepCopyInto(out)
+	return out
+}
+
+// DeepCopyInto is an autogenerated deepcopy function, copying the receiver, writing into out. in must be non-nil.
+func (in *RepoProviderConfigInitParameters) DeepCopyInto(out *RepoProviderConfigInitParameters) {
+	*out = *in
+	if in.WorkspaceID != nil {
+		in, out := &in.WorkspaceID, &out.WorkspaceID
+		*out = new(string)
+		**out = **in
+	}
+}
+
+// DeepCopy is an autogenerated deepcopy function, copying the receiver, creating a new RepoProviderConfigInitParameters.
+func (in *RepoProviderConfigInitParameters) DeepCopy() *RepoProviderConfigInitParameters {
+	if in == nil {
+		return nil
+	}
+	out := new(RepoProviderConfigInitParameters)
+	in.DeepCopyInto(out)
+	return out
+}
+
+// DeepCopyInto is an autogenerated deepcopy function, copying the receiver, writing into out. in must be non-nil.
+func (in *RepoProviderConfigObservation) DeepCopyInto(out *RepoProviderConfigObservation) {
+	*out = *in
+	if in.WorkspaceID != nil {
+		in, out := &in.WorkspaceID, &out.WorkspaceID
+		*out = new(string)
+		**out = **in
+	}
+}
+
+// DeepCopy is an autogenerated deepcopy function, copying the receiver, creating a new RepoProviderConfigObservation.
+func (in *RepoProviderConfigObservation) DeepCopy() *RepoProviderConfigObservation {
+	if in == nil {
+		return nil
+	}
+	out := new(RepoProviderConfigObservation)
+	in.DeepCopyInto(out)
+	return out
+}
+
+// DeepCopyInto is an autogenerated deepcopy function, copying the receiver, writing into out. in must be non-nil.
+func (in *RepoProviderConfigParameters) DeepCopyInto(out *RepoProviderConfigParameters) {
+	*out = *in
+	if in.WorkspaceID != nil {
+		in, out := &in.WorkspaceID, &out.WorkspaceID
+		*out = new(string)
+		**out = **in
+	}
+}
+
+// DeepCopy is an autogenerated deepcopy function, copying the receiver, creating a new RepoProviderConfigParameters.
+func (in *RepoProviderConfigParameters) DeepCopy() *RepoProviderConfigParameters {
+	if in == nil {
+		return nil
+	}
+	out := new(RepoProviderConfigParameters)
 	in.DeepCopyInto(out)
 	return out
 }
@@ -2347,6 +2669,11 @@ func (in *WorkspaceConfInitParameters) DeepCopyInto(out *WorkspaceConfInitParame
 			(*out)[key] = outVal
 		}
 	}
+	if in.ProviderConfig != nil {
+		in, out := &in.ProviderConfig, &out.ProviderConfig
+		*out = new(WorkspaceConfProviderConfigInitParameters)
+		(*in).DeepCopyInto(*out)
+	}
 }
 
 // DeepCopy is an autogenerated deepcopy function, copying the receiver, creating a new WorkspaceConfInitParameters.
@@ -2415,6 +2742,11 @@ func (in *WorkspaceConfObservation) DeepCopyInto(out *WorkspaceConfObservation) 
 		*out = new(string)
 		**out = **in
 	}
+	if in.ProviderConfig != nil {
+		in, out := &in.ProviderConfig, &out.ProviderConfig
+		*out = new(WorkspaceConfProviderConfigObservation)
+		(*in).DeepCopyInto(*out)
+	}
 }
 
 // DeepCopy is an autogenerated deepcopy function, copying the receiver, creating a new WorkspaceConfObservation.
@@ -2446,6 +2778,11 @@ func (in *WorkspaceConfParameters) DeepCopyInto(out *WorkspaceConfParameters) {
 			(*out)[key] = outVal
 		}
 	}
+	if in.ProviderConfig != nil {
+		in, out := &in.ProviderConfig, &out.ProviderConfig
+		*out = new(WorkspaceConfProviderConfigParameters)
+		(*in).DeepCopyInto(*out)
+	}
 }
 
 // DeepCopy is an autogenerated deepcopy function, copying the receiver, creating a new WorkspaceConfParameters.
@@ -2454,6 +2791,66 @@ func (in *WorkspaceConfParameters) DeepCopy() *WorkspaceConfParameters {
 		return nil
 	}
 	out := new(WorkspaceConfParameters)
+	in.DeepCopyInto(out)
+	return out
+}
+
+// DeepCopyInto is an autogenerated deepcopy function, copying the receiver, writing into out. in must be non-nil.
+func (in *WorkspaceConfProviderConfigInitParameters) DeepCopyInto(out *WorkspaceConfProviderConfigInitParameters) {
+	*out = *in
+	if in.WorkspaceID != nil {
+		in, out := &in.WorkspaceID, &out.WorkspaceID
+		*out = new(string)
+		**out = **in
+	}
+}
+
+// DeepCopy is an autogenerated deepcopy function, copying the receiver, creating a new WorkspaceConfProviderConfigInitParameters.
+func (in *WorkspaceConfProviderConfigInitParameters) DeepCopy() *WorkspaceConfProviderConfigInitParameters {
+	if in == nil {
+		return nil
+	}
+	out := new(WorkspaceConfProviderConfigInitParameters)
+	in.DeepCopyInto(out)
+	return out
+}
+
+// DeepCopyInto is an autogenerated deepcopy function, copying the receiver, writing into out. in must be non-nil.
+func (in *WorkspaceConfProviderConfigObservation) DeepCopyInto(out *WorkspaceConfProviderConfigObservation) {
+	*out = *in
+	if in.WorkspaceID != nil {
+		in, out := &in.WorkspaceID, &out.WorkspaceID
+		*out = new(string)
+		**out = **in
+	}
+}
+
+// DeepCopy is an autogenerated deepcopy function, copying the receiver, creating a new WorkspaceConfProviderConfigObservation.
+func (in *WorkspaceConfProviderConfigObservation) DeepCopy() *WorkspaceConfProviderConfigObservation {
+	if in == nil {
+		return nil
+	}
+	out := new(WorkspaceConfProviderConfigObservation)
+	in.DeepCopyInto(out)
+	return out
+}
+
+// DeepCopyInto is an autogenerated deepcopy function, copying the receiver, writing into out. in must be non-nil.
+func (in *WorkspaceConfProviderConfigParameters) DeepCopyInto(out *WorkspaceConfProviderConfigParameters) {
+	*out = *in
+	if in.WorkspaceID != nil {
+		in, out := &in.WorkspaceID, &out.WorkspaceID
+		*out = new(string)
+		**out = **in
+	}
+}
+
+// DeepCopy is an autogenerated deepcopy function, copying the receiver, creating a new WorkspaceConfProviderConfigParameters.
+func (in *WorkspaceConfProviderConfigParameters) DeepCopy() *WorkspaceConfProviderConfigParameters {
+	if in == nil {
+		return nil
+	}
+	out := new(WorkspaceConfProviderConfigParameters)
 	in.DeepCopyInto(out)
 	return out
 }
@@ -2543,6 +2940,11 @@ func (in *WorkspaceFileInitParameters) DeepCopyInto(out *WorkspaceFileInitParame
 		*out = new(string)
 		**out = **in
 	}
+	if in.ProviderConfig != nil {
+		in, out := &in.ProviderConfig, &out.ProviderConfig
+		*out = new(WorkspaceFileProviderConfigInitParameters)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.Source != nil {
 		in, out := &in.Source, &out.Source
 		*out = new(string)
@@ -2620,6 +3022,11 @@ func (in *WorkspaceFileObservation) DeepCopyInto(out *WorkspaceFileObservation) 
 		*out = new(string)
 		**out = **in
 	}
+	if in.ProviderConfig != nil {
+		in, out := &in.ProviderConfig, &out.ProviderConfig
+		*out = new(WorkspaceFileProviderConfigObservation)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.Source != nil {
 		in, out := &in.Source, &out.Source
 		*out = new(string)
@@ -2670,6 +3077,11 @@ func (in *WorkspaceFileParameters) DeepCopyInto(out *WorkspaceFileParameters) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.ProviderConfig != nil {
+		in, out := &in.ProviderConfig, &out.ProviderConfig
+		*out = new(WorkspaceFileProviderConfigParameters)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.Source != nil {
 		in, out := &in.Source, &out.Source
 		*out = new(string)
@@ -2683,6 +3095,66 @@ func (in *WorkspaceFileParameters) DeepCopy() *WorkspaceFileParameters {
 		return nil
 	}
 	out := new(WorkspaceFileParameters)
+	in.DeepCopyInto(out)
+	return out
+}
+
+// DeepCopyInto is an autogenerated deepcopy function, copying the receiver, writing into out. in must be non-nil.
+func (in *WorkspaceFileProviderConfigInitParameters) DeepCopyInto(out *WorkspaceFileProviderConfigInitParameters) {
+	*out = *in
+	if in.WorkspaceID != nil {
+		in, out := &in.WorkspaceID, &out.WorkspaceID
+		*out = new(string)
+		**out = **in
+	}
+}
+
+// DeepCopy is an autogenerated deepcopy function, copying the receiver, creating a new WorkspaceFileProviderConfigInitParameters.
+func (in *WorkspaceFileProviderConfigInitParameters) DeepCopy() *WorkspaceFileProviderConfigInitParameters {
+	if in == nil {
+		return nil
+	}
+	out := new(WorkspaceFileProviderConfigInitParameters)
+	in.DeepCopyInto(out)
+	return out
+}
+
+// DeepCopyInto is an autogenerated deepcopy function, copying the receiver, writing into out. in must be non-nil.
+func (in *WorkspaceFileProviderConfigObservation) DeepCopyInto(out *WorkspaceFileProviderConfigObservation) {
+	*out = *in
+	if in.WorkspaceID != nil {
+		in, out := &in.WorkspaceID, &out.WorkspaceID
+		*out = new(string)
+		**out = **in
+	}
+}
+
+// DeepCopy is an autogenerated deepcopy function, copying the receiver, creating a new WorkspaceFileProviderConfigObservation.
+func (in *WorkspaceFileProviderConfigObservation) DeepCopy() *WorkspaceFileProviderConfigObservation {
+	if in == nil {
+		return nil
+	}
+	out := new(WorkspaceFileProviderConfigObservation)
+	in.DeepCopyInto(out)
+	return out
+}
+
+// DeepCopyInto is an autogenerated deepcopy function, copying the receiver, writing into out. in must be non-nil.
+func (in *WorkspaceFileProviderConfigParameters) DeepCopyInto(out *WorkspaceFileProviderConfigParameters) {
+	*out = *in
+	if in.WorkspaceID != nil {
+		in, out := &in.WorkspaceID, &out.WorkspaceID
+		*out = new(string)
+		**out = **in
+	}
+}
+
+// DeepCopy is an autogenerated deepcopy function, copying the receiver, creating a new WorkspaceFileProviderConfigParameters.
+func (in *WorkspaceFileProviderConfigParameters) DeepCopy() *WorkspaceFileProviderConfigParameters {
+	if in == nil {
+		return nil
+	}
+	out := new(WorkspaceFileProviderConfigParameters)
 	in.DeepCopyInto(out)
 	return out
 }

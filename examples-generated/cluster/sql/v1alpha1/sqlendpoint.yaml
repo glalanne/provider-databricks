@@ -1,3 +1,7 @@
+# SPDX-FileCopyrightText: 2025 The Crossplane Authors <https://crossplane.io>
+#
+# SPDX-License-Identifier: CC0-1.0
+
 apiVersion: sql.databricks.crossplane.io/v1alpha1
 kind: SQLEndpoint
 metadata:
@@ -12,6 +16,6 @@ spec:
     maxNumClusters: 1
     name: Endpoint of ${data.databricks_current_user.me.alphanumeric}
     tags:
-    - customTags:
+      customTags:
       - key: City
         value: Amsterdam

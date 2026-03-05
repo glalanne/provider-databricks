@@ -37,6 +37,9 @@ type VolumeInitParameters struct {
 	// Name of the volume owner.
 	Owner *string `json:"owner,omitempty" tf:"owner,omitempty"`
 
+	// Configure the provider for management through account provider. This block consists of the following fields:
+	ProviderConfig *VolumeProviderConfigInitParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
+
 	// Name of parent Schema relative to parent Catalog. Change forces creation of a new resource.
 	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/cluster/unity/v1alpha1.Schema
 	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/v2/pkg/resource.ExtractParamPath("name",false)
@@ -84,6 +87,9 @@ type VolumeObservation struct {
 	// Name of the volume owner.
 	Owner *string `json:"owner,omitempty" tf:"owner,omitempty"`
 
+	// Configure the provider for management through account provider. This block consists of the following fields:
+	ProviderConfig *VolumeProviderConfigObservation `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
+
 	// Name of parent Schema relative to parent Catalog. Change forces creation of a new resource.
 	SchemaName *string `json:"schemaName,omitempty" tf:"schema_name,omitempty"`
 
@@ -125,6 +131,10 @@ type VolumeParameters struct {
 	// +kubebuilder:validation:Optional
 	Owner *string `json:"owner,omitempty" tf:"owner,omitempty"`
 
+	// Configure the provider for management through account provider. This block consists of the following fields:
+	// +kubebuilder:validation:Optional
+	ProviderConfig *VolumeProviderConfigParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
+
 	// Name of parent Schema relative to parent Catalog. Change forces creation of a new resource.
 	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/cluster/unity/v1alpha1.Schema
 	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/v2/pkg/resource.ExtractParamPath("name",false)
@@ -156,6 +166,25 @@ type VolumeParameters struct {
 	// Volume type. EXTERNAL or MANAGED. Change forces creation of a new resource.
 	// +kubebuilder:validation:Optional
 	VolumeType *string `json:"volumeType,omitempty" tf:"volume_type,omitempty"`
+}
+
+type VolumeProviderConfigInitParameters struct {
+
+	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
+}
+
+type VolumeProviderConfigObservation struct {
+
+	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
+}
+
+type VolumeProviderConfigParameters struct {
+
+	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
+	// +kubebuilder:validation:Optional
+	WorkspaceID *string `json:"workspaceId" tf:"workspace_id,omitempty"`
 }
 
 // VolumeSpec defines the desired state of Volume

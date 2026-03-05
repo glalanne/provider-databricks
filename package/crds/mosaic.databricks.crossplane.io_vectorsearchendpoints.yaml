@@ -86,6 +86,25 @@ spec:
                     description: Name of the Mosaic AI Vector Search Endpoint to create.
                       (Change leads to recreation of the resource).
                     type: string
+                  providerConfig:
+                    description: 'Configure the provider for management through account
+                      provider. This block consists of the following fields:'
+                    properties:
+                      workspaceId:
+                        description: Workspace ID which the resource belongs to. This
+                          workspace must be part of the account which the provider
+                          is configured with.
+                        type: string
+                    type: object
+                  scalingInfo:
+                    properties:
+                      requestedMinQps:
+                        type: number
+                      state:
+                        description: 'Current state of the endpoint. Currently following
+                          values are supported: PROVISIONING, ONLINE, and OFFLINE.'
+                        type: string
+                    type: object
                 type: object
               initProvider:
                 description: |-
@@ -113,6 +132,25 @@ spec:
                     description: Name of the Mosaic AI Vector Search Endpoint to create.
                       (Change leads to recreation of the resource).
                     type: string
+                  providerConfig:
+                    description: 'Configure the provider for management through account
+                      provider. This block consists of the following fields:'
+                    properties:
+                      workspaceId:
+                        description: Workspace ID which the resource belongs to. This
+                          workspace must be part of the account which the provider
+                          is configured with.
+                        type: string
+                    type: object
+                  scalingInfo:
+                    properties:
+                      requestedMinQps:
+                        type: number
+                      state:
+                        description: 'Current state of the endpoint. Currently following
+                          values are supported: PROVISIONING, ONLINE, and OFFLINE.'
+                        type: string
+                    type: object
                 type: object
               managementPolicies:
                 default:
@@ -266,6 +304,25 @@ spec:
                   numIndexes:
                     description: Number of indexes on the endpoint.
                     type: number
+                  providerConfig:
+                    description: 'Configure the provider for management through account
+                      provider. This block consists of the following fields:'
+                    properties:
+                      workspaceId:
+                        description: Workspace ID which the resource belongs to. This
+                          workspace must be part of the account which the provider
+                          is configured with.
+                        type: string
+                    type: object
+                  scalingInfo:
+                    properties:
+                      requestedMinQps:
+                        type: number
+                      state:
+                        description: 'Current state of the endpoint. Currently following
+                          values are supported: PROVISIONING, ONLINE, and OFFLINE.'
+                        type: string
+                    type: object
                 type: object
               conditions:
                 description: Conditions of the resource.

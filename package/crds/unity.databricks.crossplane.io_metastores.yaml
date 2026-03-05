@@ -86,7 +86,7 @@ spec:
                   deltaSharingRecipientTokenLifetimeInSeconds:
                     description: Required along with delta_sharing_scope. Used to
                       set expiration duration in seconds on recipient data access
-                      tokens. Set to 0 for unlimited duration.
+                      tokens. Defaults to 31536000 (1 year).
                     type: number
                   deltaSharingScope:
                     description: 'Required along with delta_sharing_recipient_token_lifetime_in_seconds.
@@ -161,7 +161,7 @@ spec:
                   deltaSharingRecipientTokenLifetimeInSeconds:
                     description: Required along with delta_sharing_scope. Used to
                       set expiration duration in seconds on recipient data access
-                      tokens. Set to 0 for unlimited duration.
+                      tokens. Defaults to 31536000 (1 year).
                     type: number
                   deltaSharingScope:
                     description: 'Required along with delta_sharing_recipient_token_lifetime_in_seconds.
@@ -325,7 +325,7 @@ spec:
                   deltaSharingRecipientTokenLifetimeInSeconds:
                     description: Required along with delta_sharing_scope. Used to
                       set expiration duration in seconds on recipient data access
-                      tokens. Set to 0 for unlimited duration.
+                      tokens. Defaults to 31536000 (1 year).
                     type: number
                   deltaSharingScope:
                     description: 'Required along with delta_sharing_recipient_token_lifetime_in_seconds.

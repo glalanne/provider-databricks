@@ -18,7 +18,7 @@ type ContinuousUpdateStatusInitParameters struct {
 }
 
 type ContinuousUpdateStatusObservation struct {
-	InitialPipelineSyncProgress []InitialPipelineSyncProgressObservation `json:"initialPipelineSyncProgress,omitempty" tf:"initial_pipeline_sync_progress,omitempty"`
+	InitialPipelineSyncProgress *InitialPipelineSyncProgressObservation `json:"initialPipelineSyncProgress,omitempty" tf:"initial_pipeline_sync_progress,omitempty"`
 
 	LastProcessedCommitVersion *float64 `json:"lastProcessedCommitVersion,omitempty" tf:"last_processed_commit_version,omitempty"`
 
@@ -63,8 +63,11 @@ type OnlineTableInitParameters struct {
 	// 3-level name of the Online Table to create.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
+	// Configure the provider for management through account provider. This block consists of the following fields:
+	ProviderConfig *OnlineTableProviderConfigInitParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
+
 	// object containing specification of the online table:
-	Spec []SpecInitParameters `json:"spec,omitempty" tf:"spec,omitempty"`
+	Spec *SpecInitParameters `json:"spec,omitempty" tf:"spec,omitempty"`
 }
 
 type OnlineTableObservation struct {
@@ -75,8 +78,11 @@ type OnlineTableObservation struct {
 	// 3-level name of the Online Table to create.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
+	// Configure the provider for management through account provider. This block consists of the following fields:
+	ProviderConfig *OnlineTableProviderConfigObservation `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
+
 	// object containing specification of the online table:
-	Spec []SpecObservation `json:"spec,omitempty" tf:"spec,omitempty"`
+	Spec *SpecObservation `json:"spec,omitempty" tf:"spec,omitempty"`
 
 	// object describing status of the online table:
 	Status []StatusObservation `json:"status,omitempty" tf:"status,omitempty"`
@@ -94,9 +100,32 @@ type OnlineTableParameters struct {
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
+	// Configure the provider for management through account provider. This block consists of the following fields:
+	// +kubebuilder:validation:Optional
+	ProviderConfig *OnlineTableProviderConfigParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
+
 	// object containing specification of the online table:
 	// +kubebuilder:validation:Optional
-	Spec []SpecParameters `json:"spec,omitempty" tf:"spec,omitempty"`
+	Spec *SpecParameters `json:"spec,omitempty" tf:"spec,omitempty"`
+}
+
+type OnlineTableProviderConfigInitParameters struct {
+
+	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
+}
+
+type OnlineTableProviderConfigObservation struct {
+
+	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
+}
+
+type OnlineTableProviderConfigParameters struct {
+
+	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
+	// +kubebuilder:validation:Optional
+	WorkspaceID *string `json:"workspaceId" tf:"workspace_id,omitempty"`
 }
 
 type ProvisioningStatusInitParameters struct {
@@ -121,7 +150,7 @@ type ProvisioningStatusInitialPipelineSyncProgressParameters struct {
 }
 
 type ProvisioningStatusObservation struct {
-	InitialPipelineSyncProgress []ProvisioningStatusInitialPipelineSyncProgressObservation `json:"initialPipelineSyncProgress,omitempty" tf:"initial_pipeline_sync_progress,omitempty"`
+	InitialPipelineSyncProgress *ProvisioningStatusInitialPipelineSyncProgressObservation `json:"initialPipelineSyncProgress,omitempty" tf:"initial_pipeline_sync_progress,omitempty"`
 }
 
 type ProvisioningStatusParameters struct {
@@ -154,10 +183,10 @@ type SpecInitParameters struct {
 	PrimaryKeyColumns []*string `json:"primaryKeyColumns,omitempty" tf:"primary_key_columns,omitempty"`
 
 	// empty block that specifies that pipeline runs continuously after generating the initial data.  Conflicts with run_triggered.
-	RunContinuously []RunContinuouslyInitParameters `json:"runContinuously,omitempty" tf:"run_continuously,omitempty"`
+	RunContinuously *RunContinuouslyInitParameters `json:"runContinuously,omitempty" tf:"run_continuously,omitempty"`
 
 	// empty block that specifies that pipeline stops after generating the initial data and can be triggered later (manually, through a cron job or through data triggers).
-	RunTriggered []RunTriggeredInitParameters `json:"runTriggered,omitempty" tf:"run_triggered,omitempty"`
+	RunTriggered *RunTriggeredInitParameters `json:"runTriggered,omitempty" tf:"run_triggered,omitempty"`
 
 	// full name of the source table.
 	SourceTableFullName *string `json:"sourceTableFullName,omitempty" tf:"source_table_full_name,omitempty"`
@@ -178,10 +207,10 @@ type SpecObservation struct {
 	PrimaryKeyColumns []*string `json:"primaryKeyColumns,omitempty" tf:"primary_key_columns,omitempty"`
 
 	// empty block that specifies that pipeline runs continuously after generating the initial data.  Conflicts with run_triggered.
-	RunContinuously []RunContinuouslyParameters `json:"runContinuously,omitempty" tf:"run_continuously,omitempty"`
+	RunContinuously *RunContinuouslyParameters `json:"runContinuously,omitempty" tf:"run_continuously,omitempty"`
 
 	// empty block that specifies that pipeline stops after generating the initial data and can be triggered later (manually, through a cron job or through data triggers).
-	RunTriggered []RunTriggeredParameters `json:"runTriggered,omitempty" tf:"run_triggered,omitempty"`
+	RunTriggered *RunTriggeredParameters `json:"runTriggered,omitempty" tf:"run_triggered,omitempty"`
 
 	// full name of the source table.
 	SourceTableFullName *string `json:"sourceTableFullName,omitempty" tf:"source_table_full_name,omitempty"`
@@ -202,11 +231,11 @@ type SpecParameters struct {
 
 	// empty block that specifies that pipeline runs continuously after generating the initial data.  Conflicts with run_triggered.
 	// +kubebuilder:validation:Optional
-	RunContinuously []RunContinuouslyParameters `json:"runContinuously,omitempty" tf:"run_continuously,omitempty"`
+	RunContinuously *RunContinuouslyParameters `json:"runContinuously,omitempty" tf:"run_continuously,omitempty"`
 
 	// empty block that specifies that pipeline stops after generating the initial data and can be triggered later (manually, through a cron job or through data triggers).
 	// +kubebuilder:validation:Optional
-	RunTriggered []RunTriggeredParameters `json:"runTriggered,omitempty" tf:"run_triggered,omitempty"`
+	RunTriggered *RunTriggeredParameters `json:"runTriggered,omitempty" tf:"run_triggered,omitempty"`
 
 	// full name of the source table.
 	// +kubebuilder:validation:Optional
@@ -223,22 +252,22 @@ type StatusInitParameters struct {
 type StatusObservation struct {
 
 	// object describing status of the online table:
-	ContinuousUpdateStatus []ContinuousUpdateStatusObservation `json:"continuousUpdateStatus,omitempty" tf:"continuous_update_status,omitempty"`
+	ContinuousUpdateStatus *ContinuousUpdateStatusObservation `json:"continuousUpdateStatus,omitempty" tf:"continuous_update_status,omitempty"`
 
 	// The state of the online table.
 	DetailedState *string `json:"detailedState,omitempty" tf:"detailed_state,omitempty"`
 
 	// object describing status of the online table:
-	FailedStatus []FailedStatusObservation `json:"failedStatus,omitempty" tf:"failed_status,omitempty"`
+	FailedStatus *FailedStatusObservation `json:"failedStatus,omitempty" tf:"failed_status,omitempty"`
 
 	// A text description of the current state of the online table.
 	Message *string `json:"message,omitempty" tf:"message,omitempty"`
 
 	// object describing status of the online table:
-	ProvisioningStatus []ProvisioningStatusObservation `json:"provisioningStatus,omitempty" tf:"provisioning_status,omitempty"`
+	ProvisioningStatus *ProvisioningStatusObservation `json:"provisioningStatus,omitempty" tf:"provisioning_status,omitempty"`
 
 	// object describing status of the online table:
-	TriggeredUpdateStatus []TriggeredUpdateStatusObservation `json:"triggeredUpdateStatus,omitempty" tf:"triggered_update_status,omitempty"`
+	TriggeredUpdateStatus *TriggeredUpdateStatusObservation `json:"triggeredUpdateStatus,omitempty" tf:"triggered_update_status,omitempty"`
 }
 
 type StatusParameters struct {
@@ -270,7 +299,7 @@ type TriggeredUpdateStatusObservation struct {
 
 	Timestamp *string `json:"timestamp,omitempty" tf:"timestamp,omitempty"`
 
-	TriggeredUpdateProgress []TriggeredUpdateProgressObservation `json:"triggeredUpdateProgress,omitempty" tf:"triggered_update_progress,omitempty"`
+	TriggeredUpdateProgress *TriggeredUpdateProgressObservation `json:"triggeredUpdateProgress,omitempty" tf:"triggered_update_progress,omitempty"`
 }
 
 type TriggeredUpdateStatusParameters struct {

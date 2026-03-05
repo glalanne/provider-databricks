@@ -161,6 +161,16 @@ spec:
                       the token expires. Token resource is re-created when it expires.
                       If no lifetime is specified, the token remains valid indefinitely.
                     type: number
+                  providerConfig:
+                    description: 'Configure the provider for management through account
+                      provider. This block consists of the following fields:'
+                    properties:
+                      workspaceId:
+                        description: Workspace ID which the resource belongs to. This
+                          workspace must be part of the account which the provider
+                          is configured with.
+                        type: string
+                    type: object
                 type: object
               initProvider:
                 description: |-
@@ -264,6 +274,16 @@ spec:
                       the token expires. Token resource is re-created when it expires.
                       If no lifetime is specified, the token remains valid indefinitely.
                     type: number
+                  providerConfig:
+                    description: 'Configure the provider for management through account
+                      provider. This block consists of the following fields:'
+                    properties:
+                      workspaceId:
+                        description: Workspace ID which the resource belongs to. This
+                          workspace must be part of the account which the provider
+                          is configured with.
+                        type: string
+                    type: object
                 type: object
               managementPolicies:
                 default:
@@ -372,6 +392,16 @@ spec:
                       the token expires. Token resource is re-created when it expires.
                       If no lifetime is specified, the token remains valid indefinitely.
                     type: number
+                  providerConfig:
+                    description: 'Configure the provider for management through account
+                      provider. This block consists of the following fields:'
+                    properties:
+                      workspaceId:
+                        description: Workspace ID which the resource belongs to. This
+                          workspace must be part of the account which the provider
+                          is configured with.
+                        type: string
+                    type: object
                 type: object
               conditions:
                 description: Conditions of the resource.

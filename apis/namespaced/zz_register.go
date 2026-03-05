@@ -12,6 +12,7 @@ import (
 
 	v1alpha1 "github.com/glalanne/provider-databricks/apis/namespaced/apps/v1alpha1"
 	v1alpha1compute "github.com/glalanne/provider-databricks/apis/namespaced/compute/v1alpha1"
+	v1alpha1databases "github.com/glalanne/provider-databricks/apis/namespaced/databases/v1alpha1"
 	v1alpha1deployment "github.com/glalanne/provider-databricks/apis/namespaced/deployment/v1alpha1"
 	v1alpha1finops "github.com/glalanne/provider-databricks/apis/namespaced/finops/v1alpha1"
 	v1alpha1log "github.com/glalanne/provider-databricks/apis/namespaced/log/v1alpha1"
@@ -35,6 +36,7 @@ func init() {
 	AddToSchemes = append(AddToSchemes,
 		v1alpha1.SchemeBuilder.AddToScheme,
 		v1alpha1compute.SchemeBuilder.AddToScheme,
+		v1alpha1databases.SchemeBuilder.AddToScheme,
 		v1alpha1deployment.SchemeBuilder.AddToScheme,
 		v1alpha1finops.SchemeBuilder.AddToScheme,
 		v1alpha1log.SchemeBuilder.AddToScheme,

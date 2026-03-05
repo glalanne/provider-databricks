@@ -51,10 +51,13 @@ type SecretScopeInitParameters struct {
 	// The principal with the only possible value users that is initially granted MANAGE permission to the created scope.  If it's omitted, then the databricks_secret_acl with MANAGE permission applied to the scope is assigned to the API request issuer's user identity (see documentation). This part of the state cannot be imported.
 	InitialManagePrincipal *string `json:"initialManagePrincipal,omitempty" tf:"initial_manage_principal,omitempty"`
 
-	KeyvaultMetadata []KeyvaultMetadataInitParameters `json:"keyvaultMetadata,omitempty" tf:"keyvault_metadata,omitempty"`
+	KeyvaultMetadata *KeyvaultMetadataInitParameters `json:"keyvaultMetadata,omitempty" tf:"keyvault_metadata,omitempty"`
 
 	// Scope name requested by the user. Must be unique within a workspace. Must consist of alphanumeric characters, dashes, underscores, and periods, and may not exceed 128 characters.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// Configure the provider for management through account provider. This block consists of the following fields:
+	ProviderConfig *SecretScopeProviderConfigInitParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
 }
 
 type SecretScopeObservation struct {
@@ -68,10 +71,13 @@ type SecretScopeObservation struct {
 	// The principal with the only possible value users that is initially granted MANAGE permission to the created scope.  If it's omitted, then the databricks_secret_acl with MANAGE permission applied to the scope is assigned to the API request issuer's user identity (see documentation). This part of the state cannot be imported.
 	InitialManagePrincipal *string `json:"initialManagePrincipal,omitempty" tf:"initial_manage_principal,omitempty"`
 
-	KeyvaultMetadata []KeyvaultMetadataObservation `json:"keyvaultMetadata,omitempty" tf:"keyvault_metadata,omitempty"`
+	KeyvaultMetadata *KeyvaultMetadataObservation `json:"keyvaultMetadata,omitempty" tf:"keyvault_metadata,omitempty"`
 
 	// Scope name requested by the user. Must be unique within a workspace. Must consist of alphanumeric characters, dashes, underscores, and periods, and may not exceed 128 characters.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// Configure the provider for management through account provider. This block consists of the following fields:
+	ProviderConfig *SecretScopeProviderConfigObservation `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
 }
 
 type SecretScopeParameters struct {
@@ -85,11 +91,34 @@ type SecretScopeParameters struct {
 	InitialManagePrincipal *string `json:"initialManagePrincipal,omitempty" tf:"initial_manage_principal,omitempty"`
 
 	// +kubebuilder:validation:Optional
-	KeyvaultMetadata []KeyvaultMetadataParameters `json:"keyvaultMetadata,omitempty" tf:"keyvault_metadata,omitempty"`
+	KeyvaultMetadata *KeyvaultMetadataParameters `json:"keyvaultMetadata,omitempty" tf:"keyvault_metadata,omitempty"`
 
 	// Scope name requested by the user. Must be unique within a workspace. Must consist of alphanumeric characters, dashes, underscores, and periods, and may not exceed 128 characters.
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// Configure the provider for management through account provider. This block consists of the following fields:
+	// +kubebuilder:validation:Optional
+	ProviderConfig *SecretScopeProviderConfigParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
+}
+
+type SecretScopeProviderConfigInitParameters struct {
+
+	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
+}
+
+type SecretScopeProviderConfigObservation struct {
+
+	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
+}
+
+type SecretScopeProviderConfigParameters struct {
+
+	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
+	// +kubebuilder:validation:Optional
+	WorkspaceID *string `json:"workspaceId" tf:"workspace_id,omitempty"`
 }
 
 // SecretScopeSpec defines the desired state of SecretScope

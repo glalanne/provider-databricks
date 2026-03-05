@@ -23,6 +23,9 @@ type DirectoryInitParameters struct {
 
 	// The absolute path of the directory, beginning with "/", e.g. "/Demo".
 	Path *string `json:"path,omitempty" tf:"path,omitempty"`
+
+	// Configure the provider for management through account provider. This block consists of the following fields:
+	ProviderConfig *ProviderConfigInitParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
 }
 
 type DirectoryObservation struct {
@@ -38,6 +41,9 @@ type DirectoryObservation struct {
 
 	// The absolute path of the directory, beginning with "/", e.g. "/Demo".
 	Path *string `json:"path,omitempty" tf:"path,omitempty"`
+
+	// Configure the provider for management through account provider. This block consists of the following fields:
+	ProviderConfig *ProviderConfigObservation `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
 
 	// path on Workspace File System (WSFS) in form of /Workspace + path
 	WorkspacePath *string `json:"workspacePath,omitempty" tf:"workspace_path,omitempty"`
@@ -56,6 +62,29 @@ type DirectoryParameters struct {
 	// The absolute path of the directory, beginning with "/", e.g. "/Demo".
 	// +kubebuilder:validation:Optional
 	Path *string `json:"path,omitempty" tf:"path,omitempty"`
+
+	// Configure the provider for management through account provider. This block consists of the following fields:
+	// +kubebuilder:validation:Optional
+	ProviderConfig *ProviderConfigParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
+}
+
+type ProviderConfigInitParameters struct {
+
+	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
+}
+
+type ProviderConfigObservation struct {
+
+	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
+}
+
+type ProviderConfigParameters struct {
+
+	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
+	// +kubebuilder:validation:Optional
+	WorkspaceID *string `json:"workspaceId" tf:"workspace_id,omitempty"`
 }
 
 // DirectorySpec defines the desired state of Directory

@@ -161,16 +161,14 @@ spec:
                     type: number
                   ipAccessList:
                     description: Recipient IP access list.
-                    items:
-                      properties:
-                        allowedIpAddresses:
-                          description: Allowed IP Addresses in CIDR notation. Limit
-                            of 100.
-                          items:
-                            type: string
-                          type: array
-                      type: object
-                    type: array
+                    properties:
+                      allowedIpAddresses:
+                        description: Allowed IP Addresses in CIDR notation. Limit
+                          of 100.
+                        items:
+                          type: string
+                        type: array
+                    type: object
                   name:
                     description: Name of recipient. Change forces creation of a new
                       resource.
@@ -182,17 +180,25 @@ spec:
                   propertiesKvpairs:
                     description: 'Recipient properties - object consisting of following
                       fields:'
-                    items:
+                    properties:
                       properties:
-                        properties:
-                          additionalProperties:
-                            type: string
-                          description: value pairs with recipient's properties.  Properties
-                            with name starting with databricks. are reserved.
-                          type: object
-                          x-kubernetes-map-type: granular
-                      type: object
-                    type: array
+                        additionalProperties:
+                          type: string
+                        description: value pairs with recipient's properties.  Properties
+                          with name starting with databricks. are reserved.
+                        type: object
+                        x-kubernetes-map-type: granular
+                    type: object
+                  providerConfig:
+                    description: 'Configure the provider for management through account
+                      provider. This block consists of the following fields:'
+                    properties:
+                      workspaceId:
+                        description: Workspace ID which the resource belongs to. This
+                          workspace must be part of the account which the provider
+                          is configured with.
+                        type: string
+                    type: object
                   sharingCodeSecretRef:
                     description: The one-time sharing code provided by the data recipient.
                     properties:
@@ -320,16 +326,14 @@ spec:
                     type: number
                   ipAccessList:
                     description: Recipient IP access list.
-                    items:
-                      properties:
-                        allowedIpAddresses:
-                          description: Allowed IP Addresses in CIDR notation. Limit
-                            of 100.
-                          items:
-                            type: string
-                          type: array
-                      type: object
-                    type: array
+                    properties:
+                      allowedIpAddresses:
+                        description: Allowed IP Addresses in CIDR notation. Limit
+                          of 100.
+                        items:
+                          type: string
+                        type: array
+                    type: object
                   name:
                     description: Name of recipient. Change forces creation of a new
                       resource.
@@ -341,17 +345,25 @@ spec:
                   propertiesKvpairs:
                     description: 'Recipient properties - object consisting of following
                       fields:'
-                    items:
+                    properties:
                       properties:
-                        properties:
-                          additionalProperties:
-                            type: string
-                          description: value pairs with recipient's properties.  Properties
-                            with name starting with databricks. are reserved.
-                          type: object
-                          x-kubernetes-map-type: granular
-                      type: object
-                    type: array
+                        additionalProperties:
+                          type: string
+                        description: value pairs with recipient's properties.  Properties
+                          with name starting with databricks. are reserved.
+                        type: object
+                        x-kubernetes-map-type: granular
+                    type: object
+                  providerConfig:
+                    description: 'Configure the provider for management through account
+                      provider. This block consists of the following fields:'
+                    properties:
+                      workspaceId:
+                        description: Workspace ID which the resource belongs to. This
+                          workspace must be part of the account which the provider
+                          is configured with.
+                        type: string
+                    type: object
                   sharingCodeSecretRef:
                     description: The one-time sharing code provided by the data recipient.
                     properties:
@@ -512,16 +524,14 @@ spec:
                     type: string
                   ipAccessList:
                     description: Recipient IP access list.
-                    items:
-                      properties:
-                        allowedIpAddresses:
-                          description: Allowed IP Addresses in CIDR notation. Limit
-                            of 100.
-                          items:
-                            type: string
-                          type: array
-                      type: object
-                    type: array
+                    properties:
+                      allowedIpAddresses:
+                        description: Allowed IP Addresses in CIDR notation. Limit
+                          of 100.
+                        items:
+                          type: string
+                        type: array
+                    type: object
                   metastoreId:
                     description: Unique identifier of recipient's Unity Catalog metastore.
                       This field is only present when the authentication_type is DATABRICKS.
@@ -537,17 +547,25 @@ spec:
                   propertiesKvpairs:
                     description: 'Recipient properties - object consisting of following
                       fields:'
-                    items:
+                    properties:
                       properties:
-                        properties:
-                          additionalProperties:
-                            type: string
-                          description: value pairs with recipient's properties.  Properties
-                            with name starting with databricks. are reserved.
-                          type: object
-                          x-kubernetes-map-type: granular
-                      type: object
-                    type: array
+                        additionalProperties:
+                          type: string
+                        description: value pairs with recipient's properties.  Properties
+                          with name starting with databricks. are reserved.
+                        type: object
+                        x-kubernetes-map-type: granular
+                    type: object
+                  providerConfig:
+                    description: 'Configure the provider for management through account
+                      provider. This block consists of the following fields:'
+                    properties:
+                      workspaceId:
+                        description: Workspace ID which the resource belongs to. This
+                          workspace must be part of the account which the provider
+                          is configured with.
+                        type: string
+                    type: object
                   region:
                     description: Cloud region of the recipient's Unity Catalog Metstore.
                       This field is only present when the authentication_type is DATABRICKS.

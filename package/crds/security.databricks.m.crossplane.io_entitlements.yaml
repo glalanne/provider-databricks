@@ -79,6 +79,16 @@ spec:
                   groupId:
                     description: Canonical unique identifier for the group.
                     type: string
+                  providerConfig:
+                    description: 'Configure the provider for management through account
+                      provider. This block consists of the following fields:'
+                    properties:
+                      workspaceId:
+                        description: Workspace ID which the resource belongs to. This
+                          workspace must be part of the account which the provider
+                          is configured with.
+                        type: string
+                    type: object
                   servicePrincipalId:
                     description: Canonical unique identifier for the service principal.
                     type: string
@@ -129,6 +139,16 @@ spec:
                   groupId:
                     description: Canonical unique identifier for the group.
                     type: string
+                  providerConfig:
+                    description: 'Configure the provider for management through account
+                      provider. This block consists of the following fields:'
+                    properties:
+                      workspaceId:
+                        description: Workspace ID which the resource belongs to. This
+                          workspace must be part of the account which the provider
+                          is configured with.
+                        type: string
+                    type: object
                   servicePrincipalId:
                     description: Canonical unique identifier for the service principal.
                     type: string
@@ -231,6 +251,16 @@ spec:
                     type: string
                   id:
                     type: string
+                  providerConfig:
+                    description: 'Configure the provider for management through account
+                      provider. This block consists of the following fields:'
+                    properties:
+                      workspaceId:
+                        description: Workspace ID which the resource belongs to. This
+                          workspace must be part of the account which the provider
+                          is configured with.
+                        type: string
+                    type: object
                   servicePrincipalId:
                     description: Canonical unique identifier for the service principal.
                     type: string

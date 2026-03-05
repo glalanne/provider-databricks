@@ -17,52 +17,52 @@ import (
 type AIGatewayInitParameters struct {
 
 	// block with configuration for traffic fallback which auto fallbacks to other served entities if the request to a served entity fails with certain error codes, to increase availability.
-	FallbackConfig []FallbackConfigInitParameters `json:"fallbackConfig,omitempty" tf:"fallback_config,omitempty"`
+	FallbackConfig *FallbackConfigInitParameters `json:"fallbackConfig,omitempty" tf:"fallback_config,omitempty"`
 
 	// Block with configuration for AI Guardrails to prevent unwanted data and unsafe data in requests and responses. Consists of the following attributes:
-	Guardrails []GuardrailsInitParameters `json:"guardrails,omitempty" tf:"guardrails,omitempty"`
+	Guardrails *GuardrailsInitParameters `json:"guardrails,omitempty" tf:"guardrails,omitempty"`
 
 	// Block describing the configuration of usage tracking. Consists of the following attributes:
-	InferenceTableConfig []InferenceTableConfigInitParameters `json:"inferenceTableConfig,omitempty" tf:"inference_table_config,omitempty"`
+	InferenceTableConfig *InferenceTableConfigInitParameters `json:"inferenceTableConfig,omitempty" tf:"inference_table_config,omitempty"`
 
 	// Block describing rate limits for AI gateway. For details see the description of rate_limits block above.
 	RateLimits []RateLimitsInitParameters `json:"rateLimits,omitempty" tf:"rate_limits,omitempty"`
 
 	// Block with configuration for payload logging using inference tables. For details see the description of auto_capture_config block above.
-	UsageTrackingConfig []UsageTrackingConfigInitParameters `json:"usageTrackingConfig,omitempty" tf:"usage_tracking_config,omitempty"`
+	UsageTrackingConfig *UsageTrackingConfigInitParameters `json:"usageTrackingConfig,omitempty" tf:"usage_tracking_config,omitempty"`
 }
 
 type AIGatewayObservation struct {
 
 	// block with configuration for traffic fallback which auto fallbacks to other served entities if the request to a served entity fails with certain error codes, to increase availability.
-	FallbackConfig []FallbackConfigObservation `json:"fallbackConfig,omitempty" tf:"fallback_config,omitempty"`
+	FallbackConfig *FallbackConfigObservation `json:"fallbackConfig,omitempty" tf:"fallback_config,omitempty"`
 
 	// Block with configuration for AI Guardrails to prevent unwanted data and unsafe data in requests and responses. Consists of the following attributes:
-	Guardrails []GuardrailsObservation `json:"guardrails,omitempty" tf:"guardrails,omitempty"`
+	Guardrails *GuardrailsObservation `json:"guardrails,omitempty" tf:"guardrails,omitempty"`
 
 	// Block describing the configuration of usage tracking. Consists of the following attributes:
-	InferenceTableConfig []InferenceTableConfigObservation `json:"inferenceTableConfig,omitempty" tf:"inference_table_config,omitempty"`
+	InferenceTableConfig *InferenceTableConfigObservation `json:"inferenceTableConfig,omitempty" tf:"inference_table_config,omitempty"`
 
 	// Block describing rate limits for AI gateway. For details see the description of rate_limits block above.
 	RateLimits []RateLimitsObservation `json:"rateLimits,omitempty" tf:"rate_limits,omitempty"`
 
 	// Block with configuration for payload logging using inference tables. For details see the description of auto_capture_config block above.
-	UsageTrackingConfig []UsageTrackingConfigObservation `json:"usageTrackingConfig,omitempty" tf:"usage_tracking_config,omitempty"`
+	UsageTrackingConfig *UsageTrackingConfigObservation `json:"usageTrackingConfig,omitempty" tf:"usage_tracking_config,omitempty"`
 }
 
 type AIGatewayParameters struct {
 
 	// block with configuration for traffic fallback which auto fallbacks to other served entities if the request to a served entity fails with certain error codes, to increase availability.
 	// +kubebuilder:validation:Optional
-	FallbackConfig []FallbackConfigParameters `json:"fallbackConfig,omitempty" tf:"fallback_config,omitempty"`
+	FallbackConfig *FallbackConfigParameters `json:"fallbackConfig,omitempty" tf:"fallback_config,omitempty"`
 
 	// Block with configuration for AI Guardrails to prevent unwanted data and unsafe data in requests and responses. Consists of the following attributes:
 	// +kubebuilder:validation:Optional
-	Guardrails []GuardrailsParameters `json:"guardrails,omitempty" tf:"guardrails,omitempty"`
+	Guardrails *GuardrailsParameters `json:"guardrails,omitempty" tf:"guardrails,omitempty"`
 
 	// Block describing the configuration of usage tracking. Consists of the following attributes:
 	// +kubebuilder:validation:Optional
-	InferenceTableConfig []InferenceTableConfigParameters `json:"inferenceTableConfig,omitempty" tf:"inference_table_config,omitempty"`
+	InferenceTableConfig *InferenceTableConfigParameters `json:"inferenceTableConfig,omitempty" tf:"inference_table_config,omitempty"`
 
 	// Block describing rate limits for AI gateway. For details see the description of rate_limits block above.
 	// +kubebuilder:validation:Optional
@@ -70,7 +70,7 @@ type AIGatewayParameters struct {
 
 	// Block with configuration for payload logging using inference tables. For details see the description of auto_capture_config block above.
 	// +kubebuilder:validation:Optional
-	UsageTrackingConfig []UsageTrackingConfigParameters `json:"usageTrackingConfig,omitempty" tf:"usage_tracking_config,omitempty"`
+	UsageTrackingConfig *UsageTrackingConfigParameters `json:"usageTrackingConfig,omitempty" tf:"usage_tracking_config,omitempty"`
 }
 
 type APIKeyAuthInitParameters struct {
@@ -82,7 +82,7 @@ type APIKeyAuthInitParameters struct {
 	Value *string `json:"value,omitempty" tf:"value,omitempty"`
 
 	// The API Key provided as a plaintext string.
-	ValuePlaintext *string `json:"valuePlaintext,omitempty" tf:"value_plaintext,omitempty"`
+	ValuePlaintextSecretRef *v1.LocalSecretKeySelector `json:"valuePlaintextSecretRef,omitempty" tf:"-"`
 }
 
 type APIKeyAuthObservation struct {
@@ -92,9 +92,6 @@ type APIKeyAuthObservation struct {
 
 	// The Databricks secret key reference for an API Key.
 	Value *string `json:"value,omitempty" tf:"value,omitempty"`
-
-	// The API Key provided as a plaintext string.
-	ValuePlaintext *string `json:"valuePlaintext,omitempty" tf:"value_plaintext,omitempty"`
 }
 
 type APIKeyAuthParameters struct {
@@ -109,7 +106,7 @@ type APIKeyAuthParameters struct {
 
 	// The API Key provided as a plaintext string.
 	// +kubebuilder:validation:Optional
-	ValuePlaintext *string `json:"valuePlaintext,omitempty" tf:"value_plaintext,omitempty"`
+	ValuePlaintextSecretRef *v1.LocalSecretKeySelector `json:"valuePlaintextSecretRef,omitempty" tf:"-"`
 }
 
 type Ai21LabsConfigInitParameters struct {
@@ -118,16 +115,13 @@ type Ai21LabsConfigInitParameters struct {
 	Ai21LabsAPIKey *string `json:"ai21labsApiKey,omitempty" tf:"ai21labs_api_key,omitempty"`
 
 	// An AI21 Labs API key provided as a plaintext string.
-	Ai21LabsAPIKeyPlaintext *string `json:"ai21labsApiKeyPlaintext,omitempty" tf:"ai21labs_api_key_plaintext,omitempty"`
+	Ai21LabsAPIKeyPlaintextSecretRef *v1.LocalSecretKeySelector `json:"ai21LabsApiKeyPlaintextSecretRef,omitempty" tf:"-"`
 }
 
 type Ai21LabsConfigObservation struct {
 
 	// The Databricks secret key reference for an AI21Labs API key.
 	Ai21LabsAPIKey *string `json:"ai21labsApiKey,omitempty" tf:"ai21labs_api_key,omitempty"`
-
-	// An AI21 Labs API key provided as a plaintext string.
-	Ai21LabsAPIKeyPlaintext *string `json:"ai21labsApiKeyPlaintext,omitempty" tf:"ai21labs_api_key_plaintext,omitempty"`
 }
 
 type Ai21LabsConfigParameters struct {
@@ -138,7 +132,7 @@ type Ai21LabsConfigParameters struct {
 
 	// An AI21 Labs API key provided as a plaintext string.
 	// +kubebuilder:validation:Optional
-	Ai21LabsAPIKeyPlaintext *string `json:"ai21labsApiKeyPlaintext,omitempty" tf:"ai21labs_api_key_plaintext,omitempty"`
+	Ai21LabsAPIKeyPlaintextSecretRef *v1.LocalSecretKeySelector `json:"ai21LabsApiKeyPlaintextSecretRef,omitempty" tf:"-"`
 }
 
 type AmazonBedrockConfigInitParameters struct {
@@ -147,7 +141,7 @@ type AmazonBedrockConfigInitParameters struct {
 	AwsAccessKeyID *string `json:"awsAccessKeyId,omitempty" tf:"aws_access_key_id,omitempty"`
 
 	// An AWS access key ID with permissions to interact with Bedrock services provided as a plaintext string.
-	AwsAccessKeyIDPlaintext *string `json:"awsAccessKeyIdPlaintext,omitempty" tf:"aws_access_key_id_plaintext,omitempty"`
+	AwsAccessKeyIDPlaintextSecretRef *v1.LocalSecretKeySelector `json:"awsAccessKeyIdPlaintextSecretRef,omitempty" tf:"-"`
 
 	// The AWS region to use. Bedrock has to be enabled there.
 	AwsRegion *string `json:"awsRegion,omitempty" tf:"aws_region,omitempty"`
@@ -156,7 +150,7 @@ type AmazonBedrockConfigInitParameters struct {
 	AwsSecretAccessKey *string `json:"awsSecretAccessKey,omitempty" tf:"aws_secret_access_key,omitempty"`
 
 	// An AWS secret access key paired with the access key ID, with permissions to interact with Bedrock services provided as a plaintext string.
-	AwsSecretAccessKeyPlaintext *string `json:"awsSecretAccessKeyPlaintext,omitempty" tf:"aws_secret_access_key_plaintext,omitempty"`
+	AwsSecretAccessKeyPlaintextSecretRef *v1.LocalSecretKeySelector `json:"awsSecretAccessKeyPlaintextSecretRef,omitempty" tf:"-"`
 
 	// The underlying provider in Amazon Bedrock. Supported values (case insensitive) include: Anthropic, Cohere, AI21Labs, Amazon.
 	BedrockProvider *string `json:"bedrockProvider,omitempty" tf:"bedrock_provider,omitempty"`
@@ -170,17 +164,11 @@ type AmazonBedrockConfigObservation struct {
 	// The Databricks secret key reference for an AWS Access Key ID with permissions to interact with Bedrock services.
 	AwsAccessKeyID *string `json:"awsAccessKeyId,omitempty" tf:"aws_access_key_id,omitempty"`
 
-	// An AWS access key ID with permissions to interact with Bedrock services provided as a plaintext string.
-	AwsAccessKeyIDPlaintext *string `json:"awsAccessKeyIdPlaintext,omitempty" tf:"aws_access_key_id_plaintext,omitempty"`
-
 	// The AWS region to use. Bedrock has to be enabled there.
 	AwsRegion *string `json:"awsRegion,omitempty" tf:"aws_region,omitempty"`
 
 	// The Databricks secret key reference for an AWS Secret Access Key paired with the access key ID, with permissions to interact with Bedrock services.
 	AwsSecretAccessKey *string `json:"awsSecretAccessKey,omitempty" tf:"aws_secret_access_key,omitempty"`
-
-	// An AWS secret access key paired with the access key ID, with permissions to interact with Bedrock services provided as a plaintext string.
-	AwsSecretAccessKeyPlaintext *string `json:"awsSecretAccessKeyPlaintext,omitempty" tf:"aws_secret_access_key_plaintext,omitempty"`
 
 	// The underlying provider in Amazon Bedrock. Supported values (case insensitive) include: Anthropic, Cohere, AI21Labs, Amazon.
 	BedrockProvider *string `json:"bedrockProvider,omitempty" tf:"bedrock_provider,omitempty"`
@@ -197,7 +185,7 @@ type AmazonBedrockConfigParameters struct {
 
 	// An AWS access key ID with permissions to interact with Bedrock services provided as a plaintext string.
 	// +kubebuilder:validation:Optional
-	AwsAccessKeyIDPlaintext *string `json:"awsAccessKeyIdPlaintext,omitempty" tf:"aws_access_key_id_plaintext,omitempty"`
+	AwsAccessKeyIDPlaintextSecretRef *v1.LocalSecretKeySelector `json:"awsAccessKeyIdPlaintextSecretRef,omitempty" tf:"-"`
 
 	// The AWS region to use. Bedrock has to be enabled there.
 	// +kubebuilder:validation:Optional
@@ -209,7 +197,7 @@ type AmazonBedrockConfigParameters struct {
 
 	// An AWS secret access key paired with the access key ID, with permissions to interact with Bedrock services provided as a plaintext string.
 	// +kubebuilder:validation:Optional
-	AwsSecretAccessKeyPlaintext *string `json:"awsSecretAccessKeyPlaintext,omitempty" tf:"aws_secret_access_key_plaintext,omitempty"`
+	AwsSecretAccessKeyPlaintextSecretRef *v1.LocalSecretKeySelector `json:"awsSecretAccessKeyPlaintextSecretRef,omitempty" tf:"-"`
 
 	// The underlying provider in Amazon Bedrock. Supported values (case insensitive) include: Anthropic, Cohere, AI21Labs, Amazon.
 	// +kubebuilder:validation:Optional
@@ -226,16 +214,13 @@ type AnthropicConfigInitParameters struct {
 	AnthropicAPIKey *string `json:"anthropicApiKey,omitempty" tf:"anthropic_api_key,omitempty"`
 
 	// The Anthropic API key provided as a plaintext string.
-	AnthropicAPIKeyPlaintext *string `json:"anthropicApiKeyPlaintext,omitempty" tf:"anthropic_api_key_plaintext,omitempty"`
+	AnthropicAPIKeyPlaintextSecretRef *v1.LocalSecretKeySelector `json:"anthropicApiKeyPlaintextSecretRef,omitempty" tf:"-"`
 }
 
 type AnthropicConfigObservation struct {
 
 	// The Databricks secret key reference for an Anthropic API key.
 	AnthropicAPIKey *string `json:"anthropicApiKey,omitempty" tf:"anthropic_api_key,omitempty"`
-
-	// The Anthropic API key provided as a plaintext string.
-	AnthropicAPIKeyPlaintext *string `json:"anthropicApiKeyPlaintext,omitempty" tf:"anthropic_api_key_plaintext,omitempty"`
 }
 
 type AnthropicConfigParameters struct {
@@ -246,7 +231,7 @@ type AnthropicConfigParameters struct {
 
 	// The Anthropic API key provided as a plaintext string.
 	// +kubebuilder:validation:Optional
-	AnthropicAPIKeyPlaintext *string `json:"anthropicApiKeyPlaintext,omitempty" tf:"anthropic_api_key_plaintext,omitempty"`
+	AnthropicAPIKeyPlaintextSecretRef *v1.LocalSecretKeySelector `json:"anthropicApiKeyPlaintextSecretRef,omitempty" tf:"-"`
 }
 
 type AutoCaptureConfigInitParameters struct {
@@ -304,16 +289,13 @@ type BearerTokenAuthInitParameters struct {
 	Token *string `json:"token,omitempty" tf:"token,omitempty"`
 
 	// The token provided as a plaintext string.
-	TokenPlaintext *string `json:"tokenPlaintext,omitempty" tf:"token_plaintext,omitempty"`
+	TokenPlaintextSecretRef *v1.LocalSecretKeySelector `json:"tokenPlaintextSecretRef,omitempty" tf:"-"`
 }
 
 type BearerTokenAuthObservation struct {
 
 	// The Databricks secret key reference for a token.
 	Token *string `json:"token,omitempty" tf:"token,omitempty"`
-
-	// The token provided as a plaintext string.
-	TokenPlaintext *string `json:"tokenPlaintext,omitempty" tf:"token_plaintext,omitempty"`
 }
 
 type BearerTokenAuthParameters struct {
@@ -324,7 +306,7 @@ type BearerTokenAuthParameters struct {
 
 	// The token provided as a plaintext string.
 	// +kubebuilder:validation:Optional
-	TokenPlaintext *string `json:"tokenPlaintext,omitempty" tf:"token_plaintext,omitempty"`
+	TokenPlaintextSecretRef *v1.LocalSecretKeySelector `json:"tokenPlaintextSecretRef,omitempty" tf:"-"`
 }
 
 type CohereConfigInitParameters struct {
@@ -334,7 +316,7 @@ type CohereConfigInitParameters struct {
 	CohereAPIKey *string `json:"cohereApiKey,omitempty" tf:"cohere_api_key,omitempty"`
 
 	// The Cohere API key provided as a plaintext string.
-	CohereAPIKeyPlaintext *string `json:"cohereApiKeyPlaintext,omitempty" tf:"cohere_api_key_plaintext,omitempty"`
+	CohereAPIKeyPlaintextSecretRef *v1.LocalSecretKeySelector `json:"cohereApiKeyPlaintextSecretRef,omitempty" tf:"-"`
 }
 
 type CohereConfigObservation struct {
@@ -342,9 +324,6 @@ type CohereConfigObservation struct {
 
 	// The Databricks secret key reference for a Cohere API key.
 	CohereAPIKey *string `json:"cohereApiKey,omitempty" tf:"cohere_api_key,omitempty"`
-
-	// The Cohere API key provided as a plaintext string.
-	CohereAPIKeyPlaintext *string `json:"cohereApiKeyPlaintext,omitempty" tf:"cohere_api_key_plaintext,omitempty"`
 }
 
 type CohereConfigParameters struct {
@@ -358,13 +337,13 @@ type CohereConfigParameters struct {
 
 	// The Cohere API key provided as a plaintext string.
 	// +kubebuilder:validation:Optional
-	CohereAPIKeyPlaintext *string `json:"cohereApiKeyPlaintext,omitempty" tf:"cohere_api_key_plaintext,omitempty"`
+	CohereAPIKeyPlaintextSecretRef *v1.LocalSecretKeySelector `json:"cohereApiKeyPlaintextSecretRef,omitempty" tf:"-"`
 }
 
 type ConfigInitParameters struct {
 
 	// Configuration for Inference Tables which automatically logs requests and responses to Unity Catalog.
-	AutoCaptureConfig []AutoCaptureConfigInitParameters `json:"autoCaptureConfig,omitempty" tf:"auto_capture_config,omitempty"`
+	AutoCaptureConfig *AutoCaptureConfigInitParameters `json:"autoCaptureConfig,omitempty" tf:"auto_capture_config,omitempty"`
 
 	// A list of served entities for the endpoint to serve. A serving endpoint can have up to 10 served entities.
 	ServedEntities []ServedEntitiesInitParameters `json:"servedEntities,omitempty" tf:"served_entities,omitempty"`
@@ -373,13 +352,13 @@ type ConfigInitParameters struct {
 	ServedModels []ServedModelsInitParameters `json:"servedModels,omitempty" tf:"served_models,omitempty"`
 
 	// A single block represents the traffic split configuration amongst the served models.
-	TrafficConfig []TrafficConfigInitParameters `json:"trafficConfig,omitempty" tf:"traffic_config,omitempty"`
+	TrafficConfig *TrafficConfigInitParameters `json:"trafficConfig,omitempty" tf:"traffic_config,omitempty"`
 }
 
 type ConfigObservation struct {
 
 	// Configuration for Inference Tables which automatically logs requests and responses to Unity Catalog.
-	AutoCaptureConfig []AutoCaptureConfigObservation `json:"autoCaptureConfig,omitempty" tf:"auto_capture_config,omitempty"`
+	AutoCaptureConfig *AutoCaptureConfigObservation `json:"autoCaptureConfig,omitempty" tf:"auto_capture_config,omitempty"`
 
 	// A list of served entities for the endpoint to serve. A serving endpoint can have up to 10 served entities.
 	ServedEntities []ServedEntitiesObservation `json:"servedEntities,omitempty" tf:"served_entities,omitempty"`
@@ -388,14 +367,14 @@ type ConfigObservation struct {
 	ServedModels []ServedModelsObservation `json:"servedModels,omitempty" tf:"served_models,omitempty"`
 
 	// A single block represents the traffic split configuration amongst the served models.
-	TrafficConfig []TrafficConfigObservation `json:"trafficConfig,omitempty" tf:"traffic_config,omitempty"`
+	TrafficConfig *TrafficConfigObservation `json:"trafficConfig,omitempty" tf:"traffic_config,omitempty"`
 }
 
 type ConfigParameters struct {
 
 	// Configuration for Inference Tables which automatically logs requests and responses to Unity Catalog.
 	// +kubebuilder:validation:Optional
-	AutoCaptureConfig []AutoCaptureConfigParameters `json:"autoCaptureConfig,omitempty" tf:"auto_capture_config,omitempty"`
+	AutoCaptureConfig *AutoCaptureConfigParameters `json:"autoCaptureConfig,omitempty" tf:"auto_capture_config,omitempty"`
 
 	// A list of served entities for the endpoint to serve. A serving endpoint can have up to 10 served entities.
 	// +kubebuilder:validation:Optional
@@ -407,16 +386,16 @@ type ConfigParameters struct {
 
 	// A single block represents the traffic split configuration amongst the served models.
 	// +kubebuilder:validation:Optional
-	TrafficConfig []TrafficConfigParameters `json:"trafficConfig,omitempty" tf:"traffic_config,omitempty"`
+	TrafficConfig *TrafficConfigParameters `json:"trafficConfig,omitempty" tf:"traffic_config,omitempty"`
 }
 
 type CustomProviderConfigInitParameters struct {
 
 	// API key authentication for the custom provider API. Conflicts with bearer_token_auth.
-	APIKeyAuth []APIKeyAuthInitParameters `json:"apiKeyAuth,omitempty" tf:"api_key_auth,omitempty"`
+	APIKeyAuth *APIKeyAuthInitParameters `json:"apiKeyAuth,omitempty" tf:"api_key_auth,omitempty"`
 
 	// bearer token authentication for the custom provider API.  Conflicts with api_key_auth.
-	BearerTokenAuth []BearerTokenAuthInitParameters `json:"bearerTokenAuth,omitempty" tf:"bearer_token_auth,omitempty"`
+	BearerTokenAuth *BearerTokenAuthInitParameters `json:"bearerTokenAuth,omitempty" tf:"bearer_token_auth,omitempty"`
 
 	// URL of the custom provider API.
 	CustomProviderURL *string `json:"customProviderUrl,omitempty" tf:"custom_provider_url,omitempty"`
@@ -425,10 +404,10 @@ type CustomProviderConfigInitParameters struct {
 type CustomProviderConfigObservation struct {
 
 	// API key authentication for the custom provider API. Conflicts with bearer_token_auth.
-	APIKeyAuth []APIKeyAuthObservation `json:"apiKeyAuth,omitempty" tf:"api_key_auth,omitempty"`
+	APIKeyAuth *APIKeyAuthObservation `json:"apiKeyAuth,omitempty" tf:"api_key_auth,omitempty"`
 
 	// bearer token authentication for the custom provider API.  Conflicts with api_key_auth.
-	BearerTokenAuth []BearerTokenAuthObservation `json:"bearerTokenAuth,omitempty" tf:"bearer_token_auth,omitempty"`
+	BearerTokenAuth *BearerTokenAuthObservation `json:"bearerTokenAuth,omitempty" tf:"bearer_token_auth,omitempty"`
 
 	// URL of the custom provider API.
 	CustomProviderURL *string `json:"customProviderUrl,omitempty" tf:"custom_provider_url,omitempty"`
@@ -438,11 +417,11 @@ type CustomProviderConfigParameters struct {
 
 	// API key authentication for the custom provider API. Conflicts with bearer_token_auth.
 	// +kubebuilder:validation:Optional
-	APIKeyAuth []APIKeyAuthParameters `json:"apiKeyAuth,omitempty" tf:"api_key_auth,omitempty"`
+	APIKeyAuth *APIKeyAuthParameters `json:"apiKeyAuth,omitempty" tf:"api_key_auth,omitempty"`
 
 	// bearer token authentication for the custom provider API.  Conflicts with api_key_auth.
 	// +kubebuilder:validation:Optional
-	BearerTokenAuth []BearerTokenAuthParameters `json:"bearerTokenAuth,omitempty" tf:"bearer_token_auth,omitempty"`
+	BearerTokenAuth *BearerTokenAuthParameters `json:"bearerTokenAuth,omitempty" tf:"bearer_token_auth,omitempty"`
 
 	// URL of the custom provider API.
 	// +kubebuilder:validation:Optional
@@ -455,7 +434,7 @@ type DatabricksModelServingConfigInitParameters struct {
 	DatabricksAPIToken *string `json:"databricksApiToken,omitempty" tf:"databricks_api_token,omitempty"`
 
 	// The Databricks API token that corresponds to a user or service principal with Can Query access to the model serving endpoint pointed to by this external model provided as a plaintext string.
-	DatabricksAPITokenPlaintext *string `json:"databricksApiTokenPlaintext,omitempty" tf:"databricks_api_token_plaintext,omitempty"`
+	DatabricksAPITokenPlaintextSecretRef *v1.LocalSecretKeySelector `json:"databricksApiTokenPlaintextSecretRef,omitempty" tf:"-"`
 
 	// The URL of the Databricks workspace containing the model serving endpoint pointed to by this external model.
 	DatabricksWorkspaceURL *string `json:"databricksWorkspaceUrl,omitempty" tf:"databricks_workspace_url,omitempty"`
@@ -465,9 +444,6 @@ type DatabricksModelServingConfigObservation struct {
 
 	// The Databricks secret key reference for a Databricks API token that corresponds to a user or service principal with Can Query access to the model serving endpoint pointed to by this external model.
 	DatabricksAPIToken *string `json:"databricksApiToken,omitempty" tf:"databricks_api_token,omitempty"`
-
-	// The Databricks API token that corresponds to a user or service principal with Can Query access to the model serving endpoint pointed to by this external model provided as a plaintext string.
-	DatabricksAPITokenPlaintext *string `json:"databricksApiTokenPlaintext,omitempty" tf:"databricks_api_token_plaintext,omitempty"`
 
 	// The URL of the Databricks workspace containing the model serving endpoint pointed to by this external model.
 	DatabricksWorkspaceURL *string `json:"databricksWorkspaceUrl,omitempty" tf:"databricks_workspace_url,omitempty"`
@@ -481,7 +457,7 @@ type DatabricksModelServingConfigParameters struct {
 
 	// The Databricks API token that corresponds to a user or service principal with Can Query access to the model serving endpoint pointed to by this external model provided as a plaintext string.
 	// +kubebuilder:validation:Optional
-	DatabricksAPITokenPlaintext *string `json:"databricksApiTokenPlaintext,omitempty" tf:"databricks_api_token_plaintext,omitempty"`
+	DatabricksAPITokenPlaintextSecretRef *v1.LocalSecretKeySelector `json:"databricksApiTokenPlaintextSecretRef,omitempty" tf:"-"`
 
 	// The URL of the Databricks workspace containing the model serving endpoint pointed to by this external model.
 	// +kubebuilder:validation:Optional
@@ -520,34 +496,34 @@ type EmailNotificationsParameters struct {
 type ExternalModelInitParameters struct {
 
 	// AI21Labs Config
-	Ai21LabsConfig []Ai21LabsConfigInitParameters `json:"ai21labsConfig,omitempty" tf:"ai21labs_config,omitempty"`
+	Ai21LabsConfig *Ai21LabsConfigInitParameters `json:"ai21labsConfig,omitempty" tf:"ai21labs_config,omitempty"`
 
 	// Amazon Bedrock Config
-	AmazonBedrockConfig []AmazonBedrockConfigInitParameters `json:"amazonBedrockConfig,omitempty" tf:"amazon_bedrock_config,omitempty"`
+	AmazonBedrockConfig *AmazonBedrockConfigInitParameters `json:"amazonBedrockConfig,omitempty" tf:"amazon_bedrock_config,omitempty"`
 
 	// Anthropic Config
-	AnthropicConfig []AnthropicConfigInitParameters `json:"anthropicConfig,omitempty" tf:"anthropic_config,omitempty"`
+	AnthropicConfig *AnthropicConfigInitParameters `json:"anthropicConfig,omitempty" tf:"anthropic_config,omitempty"`
 
 	// Cohere Config
-	CohereConfig []CohereConfigInitParameters `json:"cohereConfig,omitempty" tf:"cohere_config,omitempty"`
+	CohereConfig *CohereConfigInitParameters `json:"cohereConfig,omitempty" tf:"cohere_config,omitempty"`
 
 	// Custom Provider Config. Only required if the provider is 'custom'.
-	CustomProviderConfig []CustomProviderConfigInitParameters `json:"customProviderConfig,omitempty" tf:"custom_provider_config,omitempty"`
+	CustomProviderConfig *CustomProviderConfigInitParameters `json:"customProviderConfig,omitempty" tf:"custom_provider_config,omitempty"`
 
 	// Databricks Model Serving Config
-	DatabricksModelServingConfig []DatabricksModelServingConfigInitParameters `json:"databricksModelServingConfig,omitempty" tf:"databricks_model_serving_config,omitempty"`
+	DatabricksModelServingConfig *DatabricksModelServingConfigInitParameters `json:"databricksModelServingConfig,omitempty" tf:"databricks_model_serving_config,omitempty"`
 
 	// Google Cloud Vertex AI Config.
-	GoogleCloudVertexAIConfig []GoogleCloudVertexAIConfigInitParameters `json:"googleCloudVertexAiConfig,omitempty" tf:"google_cloud_vertex_ai_config,omitempty"`
+	GoogleCloudVertexAIConfig *GoogleCloudVertexAIConfigInitParameters `json:"googleCloudVertexAiConfig,omitempty" tf:"google_cloud_vertex_ai_config,omitempty"`
 
 	// The name of a served model. It must be unique across an endpoint. If not specified, this field will default to modelname-modelversion. A served model name can consist of alphanumeric characters, dashes, and underscores.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// OpenAI Config
-	OpenaiConfig []OpenaiConfigInitParameters `json:"openaiConfig,omitempty" tf:"openai_config,omitempty"`
+	OpenaiConfig *OpenaiConfigInitParameters `json:"openaiConfig,omitempty" tf:"openai_config,omitempty"`
 
 	// PaLM Config
-	PalmConfig []PalmConfigInitParameters `json:"palmConfig,omitempty" tf:"palm_config,omitempty"`
+	PalmConfig *PalmConfigInitParameters `json:"palmConfig,omitempty" tf:"palm_config,omitempty"`
 
 	// The name of the provider for the external model. Currently, the supported providers are ai21labs, anthropic, amazon-bedrock, cohere, databricks-model-serving, google-cloud-vertex-ai, openai, and palm.
 	Provider *string `json:"provider,omitempty" tf:"provider,omitempty"`
@@ -559,34 +535,34 @@ type ExternalModelInitParameters struct {
 type ExternalModelObservation struct {
 
 	// AI21Labs Config
-	Ai21LabsConfig []Ai21LabsConfigObservation `json:"ai21labsConfig,omitempty" tf:"ai21labs_config,omitempty"`
+	Ai21LabsConfig *Ai21LabsConfigObservation `json:"ai21labsConfig,omitempty" tf:"ai21labs_config,omitempty"`
 
 	// Amazon Bedrock Config
-	AmazonBedrockConfig []AmazonBedrockConfigObservation `json:"amazonBedrockConfig,omitempty" tf:"amazon_bedrock_config,omitempty"`
+	AmazonBedrockConfig *AmazonBedrockConfigObservation `json:"amazonBedrockConfig,omitempty" tf:"amazon_bedrock_config,omitempty"`
 
 	// Anthropic Config
-	AnthropicConfig []AnthropicConfigObservation `json:"anthropicConfig,omitempty" tf:"anthropic_config,omitempty"`
+	AnthropicConfig *AnthropicConfigObservation `json:"anthropicConfig,omitempty" tf:"anthropic_config,omitempty"`
 
 	// Cohere Config
-	CohereConfig []CohereConfigObservation `json:"cohereConfig,omitempty" tf:"cohere_config,omitempty"`
+	CohereConfig *CohereConfigObservation `json:"cohereConfig,omitempty" tf:"cohere_config,omitempty"`
 
 	// Custom Provider Config. Only required if the provider is 'custom'.
-	CustomProviderConfig []CustomProviderConfigObservation `json:"customProviderConfig,omitempty" tf:"custom_provider_config,omitempty"`
+	CustomProviderConfig *CustomProviderConfigObservation `json:"customProviderConfig,omitempty" tf:"custom_provider_config,omitempty"`
 
 	// Databricks Model Serving Config
-	DatabricksModelServingConfig []DatabricksModelServingConfigObservation `json:"databricksModelServingConfig,omitempty" tf:"databricks_model_serving_config,omitempty"`
+	DatabricksModelServingConfig *DatabricksModelServingConfigObservation `json:"databricksModelServingConfig,omitempty" tf:"databricks_model_serving_config,omitempty"`
 
 	// Google Cloud Vertex AI Config.
-	GoogleCloudVertexAIConfig []GoogleCloudVertexAIConfigObservation `json:"googleCloudVertexAiConfig,omitempty" tf:"google_cloud_vertex_ai_config,omitempty"`
+	GoogleCloudVertexAIConfig *GoogleCloudVertexAIConfigObservation `json:"googleCloudVertexAiConfig,omitempty" tf:"google_cloud_vertex_ai_config,omitempty"`
 
 	// The name of a served model. It must be unique across an endpoint. If not specified, this field will default to modelname-modelversion. A served model name can consist of alphanumeric characters, dashes, and underscores.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// OpenAI Config
-	OpenaiConfig []OpenaiConfigObservation `json:"openaiConfig,omitempty" tf:"openai_config,omitempty"`
+	OpenaiConfig *OpenaiConfigObservation `json:"openaiConfig,omitempty" tf:"openai_config,omitempty"`
 
 	// PaLM Config
-	PalmConfig []PalmConfigObservation `json:"palmConfig,omitempty" tf:"palm_config,omitempty"`
+	PalmConfig *PalmConfigObservation `json:"palmConfig,omitempty" tf:"palm_config,omitempty"`
 
 	// The name of the provider for the external model. Currently, the supported providers are ai21labs, anthropic, amazon-bedrock, cohere, databricks-model-serving, google-cloud-vertex-ai, openai, and palm.
 	Provider *string `json:"provider,omitempty" tf:"provider,omitempty"`
@@ -599,31 +575,31 @@ type ExternalModelParameters struct {
 
 	// AI21Labs Config
 	// +kubebuilder:validation:Optional
-	Ai21LabsConfig []Ai21LabsConfigParameters `json:"ai21labsConfig,omitempty" tf:"ai21labs_config,omitempty"`
+	Ai21LabsConfig *Ai21LabsConfigParameters `json:"ai21labsConfig,omitempty" tf:"ai21labs_config,omitempty"`
 
 	// Amazon Bedrock Config
 	// +kubebuilder:validation:Optional
-	AmazonBedrockConfig []AmazonBedrockConfigParameters `json:"amazonBedrockConfig,omitempty" tf:"amazon_bedrock_config,omitempty"`
+	AmazonBedrockConfig *AmazonBedrockConfigParameters `json:"amazonBedrockConfig,omitempty" tf:"amazon_bedrock_config,omitempty"`
 
 	// Anthropic Config
 	// +kubebuilder:validation:Optional
-	AnthropicConfig []AnthropicConfigParameters `json:"anthropicConfig,omitempty" tf:"anthropic_config,omitempty"`
+	AnthropicConfig *AnthropicConfigParameters `json:"anthropicConfig,omitempty" tf:"anthropic_config,omitempty"`
 
 	// Cohere Config
 	// +kubebuilder:validation:Optional
-	CohereConfig []CohereConfigParameters `json:"cohereConfig,omitempty" tf:"cohere_config,omitempty"`
+	CohereConfig *CohereConfigParameters `json:"cohereConfig,omitempty" tf:"cohere_config,omitempty"`
 
 	// Custom Provider Config. Only required if the provider is 'custom'.
 	// +kubebuilder:validation:Optional
-	CustomProviderConfig []CustomProviderConfigParameters `json:"customProviderConfig,omitempty" tf:"custom_provider_config,omitempty"`
+	CustomProviderConfig *CustomProviderConfigParameters `json:"customProviderConfig,omitempty" tf:"custom_provider_config,omitempty"`
 
 	// Databricks Model Serving Config
 	// +kubebuilder:validation:Optional
-	DatabricksModelServingConfig []DatabricksModelServingConfigParameters `json:"databricksModelServingConfig,omitempty" tf:"databricks_model_serving_config,omitempty"`
+	DatabricksModelServingConfig *DatabricksModelServingConfigParameters `json:"databricksModelServingConfig,omitempty" tf:"databricks_model_serving_config,omitempty"`
 
 	// Google Cloud Vertex AI Config.
 	// +kubebuilder:validation:Optional
-	GoogleCloudVertexAIConfig []GoogleCloudVertexAIConfigParameters `json:"googleCloudVertexAiConfig,omitempty" tf:"google_cloud_vertex_ai_config,omitempty"`
+	GoogleCloudVertexAIConfig *GoogleCloudVertexAIConfigParameters `json:"googleCloudVertexAiConfig,omitempty" tf:"google_cloud_vertex_ai_config,omitempty"`
 
 	// The name of a served model. It must be unique across an endpoint. If not specified, this field will default to modelname-modelversion. A served model name can consist of alphanumeric characters, dashes, and underscores.
 	// +kubebuilder:validation:Optional
@@ -631,11 +607,11 @@ type ExternalModelParameters struct {
 
 	// OpenAI Config
 	// +kubebuilder:validation:Optional
-	OpenaiConfig []OpenaiConfigParameters `json:"openaiConfig,omitempty" tf:"openai_config,omitempty"`
+	OpenaiConfig *OpenaiConfigParameters `json:"openaiConfig,omitempty" tf:"openai_config,omitempty"`
 
 	// PaLM Config
 	// +kubebuilder:validation:Optional
-	PalmConfig []PalmConfigParameters `json:"palmConfig,omitempty" tf:"palm_config,omitempty"`
+	PalmConfig *PalmConfigParameters `json:"palmConfig,omitempty" tf:"palm_config,omitempty"`
 
 	// The name of the provider for the external model. Currently, the supported providers are ai21labs, anthropic, amazon-bedrock, cohere, databricks-model-serving, google-cloud-vertex-ai, openai, and palm.
 	// +kubebuilder:validation:Optional
@@ -671,7 +647,7 @@ type GoogleCloudVertexAIConfigInitParameters struct {
 	PrivateKey *string `json:"privateKey,omitempty" tf:"private_key,omitempty"`
 
 	// The private key for the service account that has access to the Google Cloud Vertex AI Service is provided as a plaintext secret.
-	PrivateKeyPlaintext *string `json:"privateKeyPlaintext,omitempty" tf:"private_key_plaintext,omitempty"`
+	PrivateKeyPlaintextSecretRef *v1.LocalSecretKeySelector `json:"privateKeyPlaintextSecretRef,omitempty" tf:"-"`
 
 	// This is the Google Cloud project id that the service account is associated with.
 	ProjectID *string `json:"projectId,omitempty" tf:"project_id,omitempty"`
@@ -684,9 +660,6 @@ type GoogleCloudVertexAIConfigObservation struct {
 
 	// The Databricks secret key reference for a private key for the service account that has access to the Google Cloud Vertex AI Service.
 	PrivateKey *string `json:"privateKey,omitempty" tf:"private_key,omitempty"`
-
-	// The private key for the service account that has access to the Google Cloud Vertex AI Service is provided as a plaintext secret.
-	PrivateKeyPlaintext *string `json:"privateKeyPlaintext,omitempty" tf:"private_key_plaintext,omitempty"`
 
 	// This is the Google Cloud project id that the service account is associated with.
 	ProjectID *string `json:"projectId,omitempty" tf:"project_id,omitempty"`
@@ -703,7 +676,7 @@ type GoogleCloudVertexAIConfigParameters struct {
 
 	// The private key for the service account that has access to the Google Cloud Vertex AI Service is provided as a plaintext secret.
 	// +kubebuilder:validation:Optional
-	PrivateKeyPlaintext *string `json:"privateKeyPlaintext,omitempty" tf:"private_key_plaintext,omitempty"`
+	PrivateKeyPlaintextSecretRef *v1.LocalSecretKeySelector `json:"privateKeyPlaintextSecretRef,omitempty" tf:"-"`
 
 	// This is the Google Cloud project id that the service account is associated with.
 	// +kubebuilder:validation:Optional
@@ -717,30 +690,30 @@ type GoogleCloudVertexAIConfigParameters struct {
 type GuardrailsInitParameters struct {
 
 	// A block with configuration for input guardrail filters:
-	Input []InputInitParameters `json:"input,omitempty" tf:"input,omitempty"`
+	Input *InputInitParameters `json:"input,omitempty" tf:"input,omitempty"`
 
 	// A block with configuration for output guardrail filters.  Has the same structure as input block.
-	Output []OutputInitParameters `json:"output,omitempty" tf:"output,omitempty"`
+	Output *OutputInitParameters `json:"output,omitempty" tf:"output,omitempty"`
 }
 
 type GuardrailsObservation struct {
 
 	// A block with configuration for input guardrail filters:
-	Input []InputObservation `json:"input,omitempty" tf:"input,omitempty"`
+	Input *InputObservation `json:"input,omitempty" tf:"input,omitempty"`
 
 	// A block with configuration for output guardrail filters.  Has the same structure as input block.
-	Output []OutputObservation `json:"output,omitempty" tf:"output,omitempty"`
+	Output *OutputObservation `json:"output,omitempty" tf:"output,omitempty"`
 }
 
 type GuardrailsParameters struct {
 
 	// A block with configuration for input guardrail filters:
 	// +kubebuilder:validation:Optional
-	Input []InputParameters `json:"input,omitempty" tf:"input,omitempty"`
+	Input *InputParameters `json:"input,omitempty" tf:"input,omitempty"`
 
 	// A block with configuration for output guardrail filters.  Has the same structure as input block.
 	// +kubebuilder:validation:Optional
-	Output []OutputParameters `json:"output,omitempty" tf:"output,omitempty"`
+	Output *OutputParameters `json:"output,omitempty" tf:"output,omitempty"`
 }
 
 type InferenceTableConfigInitParameters struct {
@@ -798,7 +771,7 @@ type InputInitParameters struct {
 	InvalidKeywords []*string `json:"invalidKeywords,omitempty" tf:"invalid_keywords,omitempty"`
 
 	// Block with configuration for guardrail PII filter:
-	Pii []PiiInitParameters `json:"pii,omitempty" tf:"pii,omitempty"`
+	Pii *PiiInitParameters `json:"pii,omitempty" tf:"pii,omitempty"`
 
 	// the boolean flag that indicates whether the safety filter is enabled.
 	Safety *bool `json:"safety,omitempty" tf:"safety,omitempty"`
@@ -813,7 +786,7 @@ type InputObservation struct {
 	InvalidKeywords []*string `json:"invalidKeywords,omitempty" tf:"invalid_keywords,omitempty"`
 
 	// Block with configuration for guardrail PII filter:
-	Pii []PiiObservation `json:"pii,omitempty" tf:"pii,omitempty"`
+	Pii *PiiObservation `json:"pii,omitempty" tf:"pii,omitempty"`
 
 	// the boolean flag that indicates whether the safety filter is enabled.
 	Safety *bool `json:"safety,omitempty" tf:"safety,omitempty"`
@@ -830,7 +803,7 @@ type InputParameters struct {
 
 	// Block with configuration for guardrail PII filter:
 	// +kubebuilder:validation:Optional
-	Pii []PiiParameters `json:"pii,omitempty" tf:"pii,omitempty"`
+	Pii *PiiParameters `json:"pii,omitempty" tf:"pii,omitempty"`
 
 	// the boolean flag that indicates whether the safety filter is enabled.
 	// +kubebuilder:validation:Optional
@@ -844,22 +817,25 @@ type InputParameters struct {
 type ModelServingInitParameters struct {
 
 	// A block with AI Gateway configuration for the serving endpoint. Note: only external model endpoints are supported as of now.
-	AIGateway []AIGatewayInitParameters `json:"aiGateway,omitempty" tf:"ai_gateway,omitempty"`
+	AIGateway *AIGatewayInitParameters `json:"aiGateway,omitempty" tf:"ai_gateway,omitempty"`
 
 	// (Optiona) The Budget Policy ID set for this serving endpoint.
 	BudgetPolicyID *string `json:"budgetPolicyId,omitempty" tf:"budget_policy_id,omitempty"`
 
 	// The model serving endpoint configuration. This is optional and can be added and modified after creation. If config was provided in a previous apply but is not provided in the current apply, no change to the model serving endpoint will occur. To recreate the model serving endpoint without the config block, the model serving endpoint must be destroyed and recreated.
-	Config []ConfigInitParameters `json:"config,omitempty" tf:"config,omitempty"`
+	Config *ConfigInitParameters `json:"config,omitempty" tf:"config,omitempty"`
 
 	// The description of the model serving endpoint.
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
 
 	// A block with Email notification setting.
-	EmailNotifications []EmailNotificationsInitParameters `json:"emailNotifications,omitempty" tf:"email_notifications,omitempty"`
+	EmailNotifications *EmailNotificationsInitParameters `json:"emailNotifications,omitempty" tf:"email_notifications,omitempty"`
 
 	// The name of the model serving endpoint. This field is required and must be unique across a workspace. An endpoint name can consist of alphanumeric characters, dashes, and underscores. NOTE: Changing this name will delete the existing endpoint and create a new endpoint with the updated name.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// Configure the provider for management through account provider. This block consists of the following fields:
+	ProviderConfig *ProviderConfigInitParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
 
 	// (Deprecated, use ai_gateway to manage rate limits) A list of rate limit blocks to be applied to the serving endpoint. Note: only external and foundation model endpoints are supported as of now.
 	RateLimits []ModelServingRateLimitsInitParameters `json:"rateLimits,omitempty" tf:"rate_limits,omitempty"`
@@ -874,19 +850,19 @@ type ModelServingInitParameters struct {
 type ModelServingObservation struct {
 
 	// A block with AI Gateway configuration for the serving endpoint. Note: only external model endpoints are supported as of now.
-	AIGateway []AIGatewayObservation `json:"aiGateway,omitempty" tf:"ai_gateway,omitempty"`
+	AIGateway *AIGatewayObservation `json:"aiGateway,omitempty" tf:"ai_gateway,omitempty"`
 
 	// (Optiona) The Budget Policy ID set for this serving endpoint.
 	BudgetPolicyID *string `json:"budgetPolicyId,omitempty" tf:"budget_policy_id,omitempty"`
 
 	// The model serving endpoint configuration. This is optional and can be added and modified after creation. If config was provided in a previous apply but is not provided in the current apply, no change to the model serving endpoint will occur. To recreate the model serving endpoint without the config block, the model serving endpoint must be destroyed and recreated.
-	Config []ConfigObservation `json:"config,omitempty" tf:"config,omitempty"`
+	Config *ConfigObservation `json:"config,omitempty" tf:"config,omitempty"`
 
 	// The description of the model serving endpoint.
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
 
 	// A block with Email notification setting.
-	EmailNotifications []EmailNotificationsObservation `json:"emailNotifications,omitempty" tf:"email_notifications,omitempty"`
+	EmailNotifications *EmailNotificationsObservation `json:"emailNotifications,omitempty" tf:"email_notifications,omitempty"`
 
 	// Invocation url of the endpoint.
 	EndpointURL *string `json:"endpointUrl,omitempty" tf:"endpoint_url,omitempty"`
@@ -896,6 +872,9 @@ type ModelServingObservation struct {
 
 	// The name of the model serving endpoint. This field is required and must be unique across a workspace. An endpoint name can consist of alphanumeric characters, dashes, and underscores. NOTE: Changing this name will delete the existing endpoint and create a new endpoint with the updated name.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// Configure the provider for management through account provider. This block consists of the following fields:
+	ProviderConfig *ProviderConfigObservation `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
 
 	// (Deprecated, use ai_gateway to manage rate limits) A list of rate limit blocks to be applied to the serving endpoint. Note: only external and foundation model endpoints are supported as of now.
 	RateLimits []ModelServingRateLimitsObservation `json:"rateLimits,omitempty" tf:"rate_limits,omitempty"`
@@ -914,7 +893,7 @@ type ModelServingParameters struct {
 
 	// A block with AI Gateway configuration for the serving endpoint. Note: only external model endpoints are supported as of now.
 	// +kubebuilder:validation:Optional
-	AIGateway []AIGatewayParameters `json:"aiGateway,omitempty" tf:"ai_gateway,omitempty"`
+	AIGateway *AIGatewayParameters `json:"aiGateway,omitempty" tf:"ai_gateway,omitempty"`
 
 	// (Optiona) The Budget Policy ID set for this serving endpoint.
 	// +kubebuilder:validation:Optional
@@ -922,7 +901,7 @@ type ModelServingParameters struct {
 
 	// The model serving endpoint configuration. This is optional and can be added and modified after creation. If config was provided in a previous apply but is not provided in the current apply, no change to the model serving endpoint will occur. To recreate the model serving endpoint without the config block, the model serving endpoint must be destroyed and recreated.
 	// +kubebuilder:validation:Optional
-	Config []ConfigParameters `json:"config,omitempty" tf:"config,omitempty"`
+	Config *ConfigParameters `json:"config,omitempty" tf:"config,omitempty"`
 
 	// The description of the model serving endpoint.
 	// +kubebuilder:validation:Optional
@@ -930,11 +909,15 @@ type ModelServingParameters struct {
 
 	// A block with Email notification setting.
 	// +kubebuilder:validation:Optional
-	EmailNotifications []EmailNotificationsParameters `json:"emailNotifications,omitempty" tf:"email_notifications,omitempty"`
+	EmailNotifications *EmailNotificationsParameters `json:"emailNotifications,omitempty" tf:"email_notifications,omitempty"`
 
 	// The name of the model serving endpoint. This field is required and must be unique across a workspace. An endpoint name can consist of alphanumeric characters, dashes, and underscores. NOTE: Changing this name will delete the existing endpoint and create a new endpoint with the updated name.
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// Configure the provider for management through account provider. This block consists of the following fields:
+	// +kubebuilder:validation:Optional
+	ProviderConfig *ProviderConfigParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
 
 	// (Deprecated, use ai_gateway to manage rate limits) A list of rate limit blocks to be applied to the serving endpoint. Note: only external and foundation model endpoints are supported as of now.
 	// +kubebuilder:validation:Optional
@@ -997,7 +980,7 @@ type OpenaiConfigInitParameters struct {
 	MicrosoftEntraClientSecret *string `json:"microsoftEntraClientSecret,omitempty" tf:"microsoft_entra_client_secret,omitempty"`
 
 	// The client secret used for Microsoft Entra ID authentication provided as a plaintext string.
-	MicrosoftEntraClientSecretPlaintext *string `json:"microsoftEntraClientSecretPlaintext,omitempty" tf:"microsoft_entra_client_secret_plaintext,omitempty"`
+	MicrosoftEntraClientSecretPlaintextSecretRef *v1.LocalSecretKeySelector `json:"microsoftEntraClientSecretPlaintextSecretRef,omitempty" tf:"-"`
 
 	// This field is only required for Azure AD OpenAI and is the Microsoft Entra Tenant ID.
 	MicrosoftEntraTenantID *string `json:"microsoftEntraTenantId,omitempty" tf:"microsoft_entra_tenant_id,omitempty"`
@@ -1009,7 +992,7 @@ type OpenaiConfigInitParameters struct {
 	OpenaiAPIKey *string `json:"openaiApiKey,omitempty" tf:"openai_api_key,omitempty"`
 
 	// The OpenAI API key using the OpenAI or Azure service provided as a plaintext string.
-	OpenaiAPIKeyPlaintext *string `json:"openaiApiKeyPlaintext,omitempty" tf:"openai_api_key_plaintext,omitempty"`
+	OpenaiAPIKeyPlaintextSecretRef *v1.LocalSecretKeySelector `json:"openaiApiKeyPlaintextSecretRef,omitempty" tf:"-"`
 
 	// This is an optional field to specify the type of OpenAI API to use. For Azure OpenAI, this field is required, and this parameter represents the preferred security access validation protocol. For access token validation, use azure. For authentication using Azure Active Directory (Azure AD) use, azuread.
 	OpenaiAPIType *string `json:"openaiApiType,omitempty" tf:"openai_api_type,omitempty"`
@@ -1032,9 +1015,6 @@ type OpenaiConfigObservation struct {
 	// The Databricks secret key reference for a client secret used for Microsoft Entra ID authentication.
 	MicrosoftEntraClientSecret *string `json:"microsoftEntraClientSecret,omitempty" tf:"microsoft_entra_client_secret,omitempty"`
 
-	// The client secret used for Microsoft Entra ID authentication provided as a plaintext string.
-	MicrosoftEntraClientSecretPlaintext *string `json:"microsoftEntraClientSecretPlaintext,omitempty" tf:"microsoft_entra_client_secret_plaintext,omitempty"`
-
 	// This field is only required for Azure AD OpenAI and is the Microsoft Entra Tenant ID.
 	MicrosoftEntraTenantID *string `json:"microsoftEntraTenantId,omitempty" tf:"microsoft_entra_tenant_id,omitempty"`
 
@@ -1043,9 +1023,6 @@ type OpenaiConfigObservation struct {
 
 	// The Databricks secret key reference for an OpenAI or Azure OpenAI API key.
 	OpenaiAPIKey *string `json:"openaiApiKey,omitempty" tf:"openai_api_key,omitempty"`
-
-	// The OpenAI API key using the OpenAI or Azure service provided as a plaintext string.
-	OpenaiAPIKeyPlaintext *string `json:"openaiApiKeyPlaintext,omitempty" tf:"openai_api_key_plaintext,omitempty"`
 
 	// This is an optional field to specify the type of OpenAI API to use. For Azure OpenAI, this field is required, and this parameter represents the preferred security access validation protocol. For access token validation, use azure. For authentication using Azure Active Directory (Azure AD) use, azuread.
 	OpenaiAPIType *string `json:"openaiApiType,omitempty" tf:"openai_api_type,omitempty"`
@@ -1072,7 +1049,7 @@ type OpenaiConfigParameters struct {
 
 	// The client secret used for Microsoft Entra ID authentication provided as a plaintext string.
 	// +kubebuilder:validation:Optional
-	MicrosoftEntraClientSecretPlaintext *string `json:"microsoftEntraClientSecretPlaintext,omitempty" tf:"microsoft_entra_client_secret_plaintext,omitempty"`
+	MicrosoftEntraClientSecretPlaintextSecretRef *v1.LocalSecretKeySelector `json:"microsoftEntraClientSecretPlaintextSecretRef,omitempty" tf:"-"`
 
 	// This field is only required for Azure AD OpenAI and is the Microsoft Entra Tenant ID.
 	// +kubebuilder:validation:Optional
@@ -1088,7 +1065,7 @@ type OpenaiConfigParameters struct {
 
 	// The OpenAI API key using the OpenAI or Azure service provided as a plaintext string.
 	// +kubebuilder:validation:Optional
-	OpenaiAPIKeyPlaintext *string `json:"openaiApiKeyPlaintext,omitempty" tf:"openai_api_key_plaintext,omitempty"`
+	OpenaiAPIKeyPlaintextSecretRef *v1.LocalSecretKeySelector `json:"openaiApiKeyPlaintextSecretRef,omitempty" tf:"-"`
 
 	// This is an optional field to specify the type of OpenAI API to use. For Azure OpenAI, this field is required, and this parameter represents the preferred security access validation protocol. For access token validation, use azure. For authentication using Azure Active Directory (Azure AD) use, azuread.
 	// +kubebuilder:validation:Optional
@@ -1113,7 +1090,7 @@ type OutputInitParameters struct {
 	InvalidKeywords []*string `json:"invalidKeywords,omitempty" tf:"invalid_keywords,omitempty"`
 
 	// Block with configuration for guardrail PII filter:
-	Pii []OutputPiiInitParameters `json:"pii,omitempty" tf:"pii,omitempty"`
+	Pii *OutputPiiInitParameters `json:"pii,omitempty" tf:"pii,omitempty"`
 
 	// the boolean flag that indicates whether the safety filter is enabled.
 	Safety *bool `json:"safety,omitempty" tf:"safety,omitempty"`
@@ -1128,7 +1105,7 @@ type OutputObservation struct {
 	InvalidKeywords []*string `json:"invalidKeywords,omitempty" tf:"invalid_keywords,omitempty"`
 
 	// Block with configuration for guardrail PII filter:
-	Pii []OutputPiiObservation `json:"pii,omitempty" tf:"pii,omitempty"`
+	Pii *OutputPiiObservation `json:"pii,omitempty" tf:"pii,omitempty"`
 
 	// the boolean flag that indicates whether the safety filter is enabled.
 	Safety *bool `json:"safety,omitempty" tf:"safety,omitempty"`
@@ -1145,7 +1122,7 @@ type OutputParameters struct {
 
 	// Block with configuration for guardrail PII filter:
 	// +kubebuilder:validation:Optional
-	Pii []OutputPiiParameters `json:"pii,omitempty" tf:"pii,omitempty"`
+	Pii *OutputPiiParameters `json:"pii,omitempty" tf:"pii,omitempty"`
 
 	// the boolean flag that indicates whether the safety filter is enabled.
 	// +kubebuilder:validation:Optional
@@ -1181,16 +1158,13 @@ type PalmConfigInitParameters struct {
 	PalmAPIKey *string `json:"palmApiKey,omitempty" tf:"palm_api_key,omitempty"`
 
 	// The PaLM API key provided as a plaintext string.
-	PalmAPIKeyPlaintext *string `json:"palmApiKeyPlaintext,omitempty" tf:"palm_api_key_plaintext,omitempty"`
+	PalmAPIKeyPlaintextSecretRef *v1.LocalSecretKeySelector `json:"palmApiKeyPlaintextSecretRef,omitempty" tf:"-"`
 }
 
 type PalmConfigObservation struct {
 
 	// The Databricks secret key reference for a PaLM API key.
 	PalmAPIKey *string `json:"palmApiKey,omitempty" tf:"palm_api_key,omitempty"`
-
-	// The PaLM API key provided as a plaintext string.
-	PalmAPIKeyPlaintext *string `json:"palmApiKeyPlaintext,omitempty" tf:"palm_api_key_plaintext,omitempty"`
 }
 
 type PalmConfigParameters struct {
@@ -1201,7 +1175,7 @@ type PalmConfigParameters struct {
 
 	// The PaLM API key provided as a plaintext string.
 	// +kubebuilder:validation:Optional
-	PalmAPIKeyPlaintext *string `json:"palmApiKeyPlaintext,omitempty" tf:"palm_api_key_plaintext,omitempty"`
+	PalmAPIKeyPlaintextSecretRef *v1.LocalSecretKeySelector `json:"palmApiKeyPlaintextSecretRef,omitempty" tf:"-"`
 }
 
 type PiiInitParameters struct {
@@ -1221,6 +1195,25 @@ type PiiParameters struct {
 	// a string that describes the behavior for PII filter. Currently only BLOCK value is supported.
 	// +kubebuilder:validation:Optional
 	Behavior *string `json:"behavior,omitempty" tf:"behavior,omitempty"`
+}
+
+type ProviderConfigInitParameters struct {
+
+	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
+}
+
+type ProviderConfigObservation struct {
+
+	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
+}
+
+type ProviderConfigParameters struct {
+
+	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
+	// +kubebuilder:validation:Optional
+	WorkspaceID *string `json:"workspaceId" tf:"workspace_id,omitempty"`
 }
 
 type RateLimitsInitParameters struct {
@@ -1337,7 +1330,7 @@ type ServedEntitiesInitParameters struct {
 	EnvironmentVars map[string]*string `json:"environmentVars,omitempty" tf:"environment_vars,omitempty"`
 
 	// The external model to be served. NOTE: Only one of external_model and (entity_name, entity_version, workload_size, workload_type, and scale_to_zero_enabled) can be specified with the latter set being used for custom model serving for a Databricks registered model. When an external_model is present, the served entities list can only have one served_entity object. An existing endpoint with external_model can not be updated to an endpoint without external_model. If the endpoint is created without external_model, users cannot update it to add external_model later.
-	ExternalModel []ExternalModelInitParameters `json:"externalModel,omitempty" tf:"external_model,omitempty"`
+	ExternalModel *ExternalModelInitParameters `json:"externalModel,omitempty" tf:"external_model,omitempty"`
 
 	// ARN of the instance profile that the served model will use to access AWS resources.
 	InstanceProfileArn *string `json:"instanceProfileArn,omitempty" tf:"instance_profile_arn,omitempty"`
@@ -1385,7 +1378,7 @@ type ServedEntitiesObservation struct {
 	EnvironmentVars map[string]*string `json:"environmentVars,omitempty" tf:"environment_vars,omitempty"`
 
 	// The external model to be served. NOTE: Only one of external_model and (entity_name, entity_version, workload_size, workload_type, and scale_to_zero_enabled) can be specified with the latter set being used for custom model serving for a Databricks registered model. When an external_model is present, the served entities list can only have one served_entity object. An existing endpoint with external_model can not be updated to an endpoint without external_model. If the endpoint is created without external_model, users cannot update it to add external_model later.
-	ExternalModel []ExternalModelObservation `json:"externalModel,omitempty" tf:"external_model,omitempty"`
+	ExternalModel *ExternalModelObservation `json:"externalModel,omitempty" tf:"external_model,omitempty"`
 
 	// ARN of the instance profile that the served model will use to access AWS resources.
 	InstanceProfileArn *string `json:"instanceProfileArn,omitempty" tf:"instance_profile_arn,omitempty"`
@@ -1438,7 +1431,7 @@ type ServedEntitiesParameters struct {
 
 	// The external model to be served. NOTE: Only one of external_model and (entity_name, entity_version, workload_size, workload_type, and scale_to_zero_enabled) can be specified with the latter set being used for custom model serving for a Databricks registered model. When an external_model is present, the served entities list can only have one served_entity object. An existing endpoint with external_model can not be updated to an endpoint without external_model. If the endpoint is created without external_model, users cannot update it to add external_model later.
 	// +kubebuilder:validation:Optional
-	ExternalModel []ExternalModelParameters `json:"externalModel,omitempty" tf:"external_model,omitempty"`
+	ExternalModel *ExternalModelParameters `json:"externalModel,omitempty" tf:"external_model,omitempty"`
 
 	// ARN of the instance profile that the served model will use to access AWS resources.
 	// +kubebuilder:validation:Optional

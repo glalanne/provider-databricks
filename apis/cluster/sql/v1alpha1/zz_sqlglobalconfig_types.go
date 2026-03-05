@@ -27,6 +27,9 @@ type SQLGlobalConfigInitParameters struct {
 	// databricks_instance_profile used to access storage from databricks_sql_endpoint. Please note that this parameter is only for AWS, and will generate an error if used on other clouds.
 	InstanceProfileArn *string `json:"instanceProfileArn,omitempty" tf:"instance_profile_arn,omitempty"`
 
+	// Configure the provider for management through account provider. This block consists of the following fields:
+	ProviderConfig *SQLGlobalConfigProviderConfigInitParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
+
 	// SQL Configuration Parameters let you override the default behavior for all sessions with all endpoints.
 	// +mapType=granular
 	SQLConfigParams map[string]*string `json:"sqlConfigParams,omitempty" tf:"sql_config_params,omitempty"`
@@ -50,6 +53,9 @@ type SQLGlobalConfigObservation struct {
 
 	// databricks_instance_profile used to access storage from databricks_sql_endpoint. Please note that this parameter is only for AWS, and will generate an error if used on other clouds.
 	InstanceProfileArn *string `json:"instanceProfileArn,omitempty" tf:"instance_profile_arn,omitempty"`
+
+	// Configure the provider for management through account provider. This block consists of the following fields:
+	ProviderConfig *SQLGlobalConfigProviderConfigObservation `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
 
 	// SQL Configuration Parameters let you override the default behavior for all sessions with all endpoints.
 	// +mapType=granular
@@ -77,6 +83,10 @@ type SQLGlobalConfigParameters struct {
 	// +kubebuilder:validation:Optional
 	InstanceProfileArn *string `json:"instanceProfileArn,omitempty" tf:"instance_profile_arn,omitempty"`
 
+	// Configure the provider for management through account provider. This block consists of the following fields:
+	// +kubebuilder:validation:Optional
+	ProviderConfig *SQLGlobalConfigProviderConfigParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
+
 	// SQL Configuration Parameters let you override the default behavior for all sessions with all endpoints.
 	// +kubebuilder:validation:Optional
 	// +mapType=granular
@@ -85,6 +95,25 @@ type SQLGlobalConfigParameters struct {
 	// The policy for controlling access to datasets. Default value: DATA_ACCESS_CONTROL, consult documentation for list of possible values
 	// +kubebuilder:validation:Optional
 	SecurityPolicy *string `json:"securityPolicy,omitempty" tf:"security_policy,omitempty"`
+}
+
+type SQLGlobalConfigProviderConfigInitParameters struct {
+
+	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
+}
+
+type SQLGlobalConfigProviderConfigObservation struct {
+
+	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
+}
+
+type SQLGlobalConfigProviderConfigParameters struct {
+
+	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
+	// +kubebuilder:validation:Optional
+	WorkspaceID *string `json:"workspaceId" tf:"workspace_id,omitempty"`
 }
 
 // SQLGlobalConfigSpec defines the desired state of SQLGlobalConfig

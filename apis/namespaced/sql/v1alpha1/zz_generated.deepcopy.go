@@ -45,10 +45,8 @@ func (in *AlertInitParameters) DeepCopyInto(out *AlertInitParameters) {
 	*out = *in
 	if in.Condition != nil {
 		in, out := &in.Condition, &out.Condition
-		*out = make([]ConditionInitParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(ConditionInitParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.CustomBody != nil {
 		in, out := &in.CustomBody, &out.CustomBody
@@ -88,6 +86,11 @@ func (in *AlertInitParameters) DeepCopyInto(out *AlertInitParameters) {
 	if in.ParentPathSelector != nil {
 		in, out := &in.ParentPathSelector, &out.ParentPathSelector
 		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.ProviderConfig != nil {
+		in, out := &in.ProviderConfig, &out.ProviderConfig
+		*out = new(ProviderConfigInitParameters)
 		(*in).DeepCopyInto(*out)
 	}
 	if in.QueryID != nil {
@@ -159,10 +162,8 @@ func (in *AlertObservation) DeepCopyInto(out *AlertObservation) {
 	*out = *in
 	if in.Condition != nil {
 		in, out := &in.Condition, &out.Condition
-		*out = make([]ConditionObservation, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(ConditionObservation)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.CreateTime != nil {
 		in, out := &in.CreateTime, &out.CreateTime
@@ -209,6 +210,11 @@ func (in *AlertObservation) DeepCopyInto(out *AlertObservation) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.ProviderConfig != nil {
+		in, out := &in.ProviderConfig, &out.ProviderConfig
+		*out = new(ProviderConfigObservation)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.QueryID != nil {
 		in, out := &in.QueryID, &out.QueryID
 		*out = new(string)
@@ -251,10 +257,8 @@ func (in *AlertParameters) DeepCopyInto(out *AlertParameters) {
 	*out = *in
 	if in.Condition != nil {
 		in, out := &in.Condition, &out.Condition
-		*out = make([]ConditionParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(ConditionParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.CustomBody != nil {
 		in, out := &in.CustomBody, &out.CustomBody
@@ -294,6 +298,11 @@ func (in *AlertParameters) DeepCopyInto(out *AlertParameters) {
 	if in.ParentPathSelector != nil {
 		in, out := &in.ParentPathSelector, &out.ParentPathSelector
 		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.ProviderConfig != nil {
+		in, out := &in.ProviderConfig, &out.ProviderConfig
+		*out = new(ProviderConfigParameters)
 		(*in).DeepCopyInto(*out)
 	}
 	if in.QueryID != nil {
@@ -513,17 +522,13 @@ func (in *ConditionInitParameters) DeepCopyInto(out *ConditionInitParameters) {
 	}
 	if in.Operand != nil {
 		in, out := &in.Operand, &out.Operand
-		*out = make([]OperandInitParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(OperandInitParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Threshold != nil {
 		in, out := &in.Threshold, &out.Threshold
-		*out = make([]ThresholdInitParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(ThresholdInitParameters)
+		(*in).DeepCopyInto(*out)
 	}
 }
 
@@ -552,17 +557,13 @@ func (in *ConditionObservation) DeepCopyInto(out *ConditionObservation) {
 	}
 	if in.Operand != nil {
 		in, out := &in.Operand, &out.Operand
-		*out = make([]OperandObservation, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(OperandObservation)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Threshold != nil {
 		in, out := &in.Threshold, &out.Threshold
-		*out = make([]ThresholdObservation, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(ThresholdObservation)
+		(*in).DeepCopyInto(*out)
 	}
 }
 
@@ -591,17 +592,13 @@ func (in *ConditionParameters) DeepCopyInto(out *ConditionParameters) {
 	}
 	if in.Operand != nil {
 		in, out := &in.Operand, &out.Operand
-		*out = make([]OperandParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(OperandParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Threshold != nil {
 		in, out := &in.Threshold, &out.Threshold
-		*out = make([]ThresholdParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(ThresholdParameters)
+		(*in).DeepCopyInto(*out)
 	}
 }
 
@@ -950,6 +947,11 @@ func (in *DashboardInitParameters) DeepCopyInto(out *DashboardInitParameters) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.ProviderConfig != nil {
+		in, out := &in.ProviderConfig, &out.ProviderConfig
+		*out = new(DashboardProviderConfigInitParameters)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.SerializedDashboard != nil {
 		in, out := &in.SerializedDashboard, &out.SerializedDashboard
 		*out = new(string)
@@ -1082,6 +1084,11 @@ func (in *DashboardObservation) DeepCopyInto(out *DashboardObservation) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.ProviderConfig != nil {
+		in, out := &in.ProviderConfig, &out.ProviderConfig
+		*out = new(DashboardProviderConfigObservation)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.SerializedDashboard != nil {
 		in, out := &in.SerializedDashboard, &out.SerializedDashboard
 		*out = new(string)
@@ -1177,6 +1184,11 @@ func (in *DashboardParameters) DeepCopyInto(out *DashboardParameters) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.ProviderConfig != nil {
+		in, out := &in.ProviderConfig, &out.ProviderConfig
+		*out = new(DashboardProviderConfigParameters)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.SerializedDashboard != nil {
 		in, out := &in.SerializedDashboard, &out.SerializedDashboard
 		*out = new(string)
@@ -1200,6 +1212,66 @@ func (in *DashboardParameters) DeepCopy() *DashboardParameters {
 		return nil
 	}
 	out := new(DashboardParameters)
+	in.DeepCopyInto(out)
+	return out
+}
+
+// DeepCopyInto is an autogenerated deepcopy function, copying the receiver, writing into out. in must be non-nil.
+func (in *DashboardProviderConfigInitParameters) DeepCopyInto(out *DashboardProviderConfigInitParameters) {
+	*out = *in
+	if in.WorkspaceID != nil {
+		in, out := &in.WorkspaceID, &out.WorkspaceID
+		*out = new(string)
+		**out = **in
+	}
+}
+
+// DeepCopy is an autogenerated deepcopy function, copying the receiver, creating a new DashboardProviderConfigInitParameters.
+func (in *DashboardProviderConfigInitParameters) DeepCopy() *DashboardProviderConfigInitParameters {
+	if in == nil {
+		return nil
+	}
+	out := new(DashboardProviderConfigInitParameters)
+	in.DeepCopyInto(out)
+	return out
+}
+
+// DeepCopyInto is an autogenerated deepcopy function, copying the receiver, writing into out. in must be non-nil.
+func (in *DashboardProviderConfigObservation) DeepCopyInto(out *DashboardProviderConfigObservation) {
+	*out = *in
+	if in.WorkspaceID != nil {
+		in, out := &in.WorkspaceID, &out.WorkspaceID
+		*out = new(string)
+		**out = **in
+	}
+}
+
+// DeepCopy is an autogenerated deepcopy function, copying the receiver, creating a new DashboardProviderConfigObservation.
+func (in *DashboardProviderConfigObservation) DeepCopy() *DashboardProviderConfigObservation {
+	if in == nil {
+		return nil
+	}
+	out := new(DashboardProviderConfigObservation)
+	in.DeepCopyInto(out)
+	return out
+}
+
+// DeepCopyInto is an autogenerated deepcopy function, copying the receiver, writing into out. in must be non-nil.
+func (in *DashboardProviderConfigParameters) DeepCopyInto(out *DashboardProviderConfigParameters) {
+	*out = *in
+	if in.WorkspaceID != nil {
+		in, out := &in.WorkspaceID, &out.WorkspaceID
+		*out = new(string)
+		**out = **in
+	}
+}
+
+// DeepCopy is an autogenerated deepcopy function, copying the receiver, creating a new DashboardProviderConfigParameters.
+func (in *DashboardProviderConfigParameters) DeepCopy() *DashboardProviderConfigParameters {
+	if in == nil {
+		return nil
+	}
+	out := new(DashboardProviderConfigParameters)
 	in.DeepCopyInto(out)
 	return out
 }
@@ -1304,10 +1376,8 @@ func (in *DateRangeInitParameters) DeepCopyInto(out *DateRangeInitParameters) {
 	*out = *in
 	if in.Range != nil {
 		in, out := &in.Range, &out.Range
-		*out = make([]RangeInitParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(RangeInitParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Value != nil {
 		in, out := &in.Value, &out.Value
@@ -1331,10 +1401,8 @@ func (in *DateRangeObservation) DeepCopyInto(out *DateRangeObservation) {
 	*out = *in
 	if in.Range != nil {
 		in, out := &in.Range, &out.Range
-		*out = make([]RangeObservation, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(RangeObservation)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Value != nil {
 		in, out := &in.Value, &out.Value
@@ -1358,10 +1426,8 @@ func (in *DateRangeParameters) DeepCopyInto(out *DateRangeParameters) {
 	*out = *in
 	if in.Range != nil {
 		in, out := &in.Range, &out.Range
-		*out = make([]RangeParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(RangeParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Value != nil {
 		in, out := &in.Value, &out.Value
@@ -1460,10 +1526,8 @@ func (in *DateRangeValueInitParameters) DeepCopyInto(out *DateRangeValueInitPara
 	*out = *in
 	if in.DateRangeValue != nil {
 		in, out := &in.DateRangeValue, &out.DateRangeValue
-		*out = make([]DateRangeValueDateRangeValueInitParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(DateRangeValueDateRangeValueInitParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.DynamicDateRangeValue != nil {
 		in, out := &in.DynamicDateRangeValue, &out.DynamicDateRangeValue
@@ -1497,10 +1561,8 @@ func (in *DateRangeValueObservation) DeepCopyInto(out *DateRangeValueObservation
 	*out = *in
 	if in.DateRangeValue != nil {
 		in, out := &in.DateRangeValue, &out.DateRangeValue
-		*out = make([]DateRangeValueDateRangeValueObservation, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(DateRangeValueDateRangeValueObservation)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.DynamicDateRangeValue != nil {
 		in, out := &in.DynamicDateRangeValue, &out.DynamicDateRangeValue
@@ -1534,10 +1596,8 @@ func (in *DateRangeValueParameters) DeepCopyInto(out *DateRangeValueParameters) 
 	*out = *in
 	if in.DateRangeValue != nil {
 		in, out := &in.DateRangeValue, &out.DateRangeValue
-		*out = make([]DateRangeValueDateRangeValueParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(DateRangeValueDateRangeValueParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.DynamicDateRangeValue != nil {
 		in, out := &in.DynamicDateRangeValue, &out.DynamicDateRangeValue
@@ -1721,10 +1781,8 @@ func (in *DatetimeRangeInitParameters) DeepCopyInto(out *DatetimeRangeInitParame
 	*out = *in
 	if in.Range != nil {
 		in, out := &in.Range, &out.Range
-		*out = make([]DatetimeRangeRangeInitParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(DatetimeRangeRangeInitParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Value != nil {
 		in, out := &in.Value, &out.Value
@@ -1748,10 +1806,8 @@ func (in *DatetimeRangeObservation) DeepCopyInto(out *DatetimeRangeObservation) 
 	*out = *in
 	if in.Range != nil {
 		in, out := &in.Range, &out.Range
-		*out = make([]DatetimeRangeRangeObservation, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(DatetimeRangeRangeObservation)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Value != nil {
 		in, out := &in.Value, &out.Value
@@ -1775,10 +1831,8 @@ func (in *DatetimeRangeParameters) DeepCopyInto(out *DatetimeRangeParameters) {
 	*out = *in
 	if in.Range != nil {
 		in, out := &in.Range, &out.Range
-		*out = make([]DatetimeRangeRangeParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(DatetimeRangeRangeParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Value != nil {
 		in, out := &in.Value, &out.Value
@@ -1937,10 +1991,8 @@ func (in *DatetimesecRangeInitParameters) DeepCopyInto(out *DatetimesecRangeInit
 	*out = *in
 	if in.Range != nil {
 		in, out := &in.Range, &out.Range
-		*out = make([]DatetimesecRangeRangeInitParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(DatetimesecRangeRangeInitParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Value != nil {
 		in, out := &in.Value, &out.Value
@@ -1964,10 +2016,8 @@ func (in *DatetimesecRangeObservation) DeepCopyInto(out *DatetimesecRangeObserva
 	*out = *in
 	if in.Range != nil {
 		in, out := &in.Range, &out.Range
-		*out = make([]DatetimesecRangeRangeObservation, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(DatetimesecRangeRangeObservation)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Value != nil {
 		in, out := &in.Value, &out.Value
@@ -1991,10 +2041,8 @@ func (in *DatetimesecRangeParameters) DeepCopyInto(out *DatetimesecRangeParamete
 	*out = *in
 	if in.Range != nil {
 		in, out := &in.Range, &out.Range
-		*out = make([]DatetimesecRangeRangeParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(DatetimesecRangeRangeParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Value != nil {
 		in, out := &in.Value, &out.Value
@@ -2093,10 +2141,8 @@ func (in *EnumInitParameters) DeepCopyInto(out *EnumInitParameters) {
 	*out = *in
 	if in.Multiple != nil {
 		in, out := &in.Multiple, &out.Multiple
-		*out = make([]MultipleInitParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(MultipleInitParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Options != nil {
 		in, out := &in.Options, &out.Options
@@ -2142,10 +2188,8 @@ func (in *EnumObservation) DeepCopyInto(out *EnumObservation) {
 	*out = *in
 	if in.Multiple != nil {
 		in, out := &in.Multiple, &out.Multiple
-		*out = make([]MultipleObservation, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(MultipleObservation)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Options != nil {
 		in, out := &in.Options, &out.Options
@@ -2191,10 +2235,8 @@ func (in *EnumParameters) DeepCopyInto(out *EnumParameters) {
 	*out = *in
 	if in.Multiple != nil {
 		in, out := &in.Multiple, &out.Multiple
-		*out = make([]MultipleParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(MultipleParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Options != nil {
 		in, out := &in.Options, &out.Options
@@ -2245,10 +2287,8 @@ func (in *EnumValueInitParameters) DeepCopyInto(out *EnumValueInitParameters) {
 	}
 	if in.MultiValuesOptions != nil {
 		in, out := &in.MultiValuesOptions, &out.MultiValuesOptions
-		*out = make([]MultiValuesOptionsInitParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(MultiValuesOptionsInitParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Values != nil {
 		in, out := &in.Values, &out.Values
@@ -2283,10 +2323,8 @@ func (in *EnumValueObservation) DeepCopyInto(out *EnumValueObservation) {
 	}
 	if in.MultiValuesOptions != nil {
 		in, out := &in.MultiValuesOptions, &out.MultiValuesOptions
-		*out = make([]MultiValuesOptionsObservation, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(MultiValuesOptionsObservation)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Values != nil {
 		in, out := &in.Values, &out.Values
@@ -2321,10 +2359,8 @@ func (in *EnumValueParameters) DeepCopyInto(out *EnumValueParameters) {
 	}
 	if in.MultiValuesOptions != nil {
 		in, out := &in.MultiValuesOptions, &out.MultiValuesOptions
-		*out = make([]MultiValuesOptionsParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(MultiValuesOptionsParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Values != nil {
 		in, out := &in.Values, &out.Values
@@ -2445,10 +2481,8 @@ func (in *HealthObservation) DeepCopyInto(out *HealthObservation) {
 	}
 	if in.FailureReason != nil {
 		in, out := &in.FailureReason, &out.FailureReason
-		*out = make([]FailureReasonObservation, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(FailureReasonObservation)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Message != nil {
 		in, out := &in.Message, &out.Message
@@ -2862,10 +2896,8 @@ func (in *OperandInitParameters) DeepCopyInto(out *OperandInitParameters) {
 	*out = *in
 	if in.Column != nil {
 		in, out := &in.Column, &out.Column
-		*out = make([]ColumnInitParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(ColumnInitParameters)
+		(*in).DeepCopyInto(*out)
 	}
 }
 
@@ -2884,10 +2916,8 @@ func (in *OperandObservation) DeepCopyInto(out *OperandObservation) {
 	*out = *in
 	if in.Column != nil {
 		in, out := &in.Column, &out.Column
-		*out = make([]ColumnObservation, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(ColumnObservation)
+		(*in).DeepCopyInto(*out)
 	}
 }
 
@@ -2906,10 +2936,8 @@ func (in *OperandParameters) DeepCopyInto(out *OperandParameters) {
 	*out = *in
 	if in.Column != nil {
 		in, out := &in.Column, &out.Column
-		*out = make([]ColumnParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(ColumnParameters)
+		(*in).DeepCopyInto(*out)
 	}
 }
 
@@ -3078,24 +3106,18 @@ func (in *ParameterInitParameters) DeepCopyInto(out *ParameterInitParameters) {
 	*out = *in
 	if in.DateRangeValue != nil {
 		in, out := &in.DateRangeValue, &out.DateRangeValue
-		*out = make([]DateRangeValueInitParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(DateRangeValueInitParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.DateValue != nil {
 		in, out := &in.DateValue, &out.DateValue
-		*out = make([]DateValueInitParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(DateValueInitParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.EnumValue != nil {
 		in, out := &in.EnumValue, &out.EnumValue
-		*out = make([]EnumValueInitParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(EnumValueInitParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Name != nil {
 		in, out := &in.Name, &out.Name
@@ -3104,24 +3126,18 @@ func (in *ParameterInitParameters) DeepCopyInto(out *ParameterInitParameters) {
 	}
 	if in.NumericValue != nil {
 		in, out := &in.NumericValue, &out.NumericValue
-		*out = make([]NumericValueInitParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(NumericValueInitParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.QueryBackedValue != nil {
 		in, out := &in.QueryBackedValue, &out.QueryBackedValue
-		*out = make([]QueryBackedValueInitParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(QueryBackedValueInitParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.TextValue != nil {
 		in, out := &in.TextValue, &out.TextValue
-		*out = make([]TextValueInitParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(TextValueInitParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Title != nil {
 		in, out := &in.Title, &out.Title
@@ -3145,24 +3161,18 @@ func (in *ParameterObservation) DeepCopyInto(out *ParameterObservation) {
 	*out = *in
 	if in.DateRangeValue != nil {
 		in, out := &in.DateRangeValue, &out.DateRangeValue
-		*out = make([]DateRangeValueObservation, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(DateRangeValueObservation)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.DateValue != nil {
 		in, out := &in.DateValue, &out.DateValue
-		*out = make([]DateValueObservation, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(DateValueObservation)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.EnumValue != nil {
 		in, out := &in.EnumValue, &out.EnumValue
-		*out = make([]EnumValueObservation, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(EnumValueObservation)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Name != nil {
 		in, out := &in.Name, &out.Name
@@ -3171,24 +3181,18 @@ func (in *ParameterObservation) DeepCopyInto(out *ParameterObservation) {
 	}
 	if in.NumericValue != nil {
 		in, out := &in.NumericValue, &out.NumericValue
-		*out = make([]NumericValueObservation, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(NumericValueObservation)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.QueryBackedValue != nil {
 		in, out := &in.QueryBackedValue, &out.QueryBackedValue
-		*out = make([]QueryBackedValueObservation, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(QueryBackedValueObservation)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.TextValue != nil {
 		in, out := &in.TextValue, &out.TextValue
-		*out = make([]TextValueObservation, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(TextValueObservation)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Title != nil {
 		in, out := &in.Title, &out.Title
@@ -3212,24 +3216,18 @@ func (in *ParameterParameters) DeepCopyInto(out *ParameterParameters) {
 	*out = *in
 	if in.DateRangeValue != nil {
 		in, out := &in.DateRangeValue, &out.DateRangeValue
-		*out = make([]DateRangeValueParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(DateRangeValueParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.DateValue != nil {
 		in, out := &in.DateValue, &out.DateValue
-		*out = make([]DateValueParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(DateValueParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.EnumValue != nil {
 		in, out := &in.EnumValue, &out.EnumValue
-		*out = make([]EnumValueParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(EnumValueParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Name != nil {
 		in, out := &in.Name, &out.Name
@@ -3238,24 +3236,18 @@ func (in *ParameterParameters) DeepCopyInto(out *ParameterParameters) {
 	}
 	if in.NumericValue != nil {
 		in, out := &in.NumericValue, &out.NumericValue
-		*out = make([]NumericValueParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(NumericValueParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.QueryBackedValue != nil {
 		in, out := &in.QueryBackedValue, &out.QueryBackedValue
-		*out = make([]QueryBackedValueParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(QueryBackedValueParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.TextValue != nil {
 		in, out := &in.TextValue, &out.TextValue
-		*out = make([]TextValueParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(TextValueParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Title != nil {
 		in, out := &in.Title, &out.Title
@@ -3279,10 +3271,8 @@ func (in *ParameterQueryInitParameters) DeepCopyInto(out *ParameterQueryInitPara
 	*out = *in
 	if in.Multiple != nil {
 		in, out := &in.Multiple, &out.Multiple
-		*out = make([]QueryMultipleInitParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(QueryMultipleInitParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.QueryID != nil {
 		in, out := &in.QueryID, &out.QueryID
@@ -3322,10 +3312,8 @@ func (in *ParameterQueryObservation) DeepCopyInto(out *ParameterQueryObservation
 	*out = *in
 	if in.Multiple != nil {
 		in, out := &in.Multiple, &out.Multiple
-		*out = make([]QueryMultipleObservation, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(QueryMultipleObservation)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.QueryID != nil {
 		in, out := &in.QueryID, &out.QueryID
@@ -3365,10 +3353,8 @@ func (in *ParameterQueryParameters) DeepCopyInto(out *ParameterQueryParameters) 
 	*out = *in
 	if in.Multiple != nil {
 		in, out := &in.Multiple, &out.Multiple
-		*out = make([]QueryMultipleParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(QueryMultipleParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.QueryID != nil {
 		in, out := &in.QueryID, &out.QueryID
@@ -3524,6 +3510,66 @@ func (in *PositionParameters) DeepCopy() *PositionParameters {
 }
 
 // DeepCopyInto is an autogenerated deepcopy function, copying the receiver, writing into out. in must be non-nil.
+func (in *ProviderConfigInitParameters) DeepCopyInto(out *ProviderConfigInitParameters) {
+	*out = *in
+	if in.WorkspaceID != nil {
+		in, out := &in.WorkspaceID, &out.WorkspaceID
+		*out = new(string)
+		**out = **in
+	}
+}
+
+// DeepCopy is an autogenerated deepcopy function, copying the receiver, creating a new ProviderConfigInitParameters.
+func (in *ProviderConfigInitParameters) DeepCopy() *ProviderConfigInitParameters {
+	if in == nil {
+		return nil
+	}
+	out := new(ProviderConfigInitParameters)
+	in.DeepCopyInto(out)
+	return out
+}
+
+// DeepCopyInto is an autogenerated deepcopy function, copying the receiver, writing into out. in must be non-nil.
+func (in *ProviderConfigObservation) DeepCopyInto(out *ProviderConfigObservation) {
+	*out = *in
+	if in.WorkspaceID != nil {
+		in, out := &in.WorkspaceID, &out.WorkspaceID
+		*out = new(string)
+		**out = **in
+	}
+}
+
+// DeepCopy is an autogenerated deepcopy function, copying the receiver, creating a new ProviderConfigObservation.
+func (in *ProviderConfigObservation) DeepCopy() *ProviderConfigObservation {
+	if in == nil {
+		return nil
+	}
+	out := new(ProviderConfigObservation)
+	in.DeepCopyInto(out)
+	return out
+}
+
+// DeepCopyInto is an autogenerated deepcopy function, copying the receiver, writing into out. in must be non-nil.
+func (in *ProviderConfigParameters) DeepCopyInto(out *ProviderConfigParameters) {
+	*out = *in
+	if in.WorkspaceID != nil {
+		in, out := &in.WorkspaceID, &out.WorkspaceID
+		*out = new(string)
+		**out = **in
+	}
+}
+
+// DeepCopy is an autogenerated deepcopy function, copying the receiver, creating a new ProviderConfigParameters.
+func (in *ProviderConfigParameters) DeepCopy() *ProviderConfigParameters {
+	if in == nil {
+		return nil
+	}
+	out := new(ProviderConfigParameters)
+	in.DeepCopyInto(out)
+	return out
+}
+
+// DeepCopyInto is an autogenerated deepcopy function, copying the receiver, writing into out. in must be non-nil.
 func (in *Query) DeepCopyInto(out *Query) {
 	*out = *in
 	out.TypeMeta = in.TypeMeta
@@ -3555,10 +3601,8 @@ func (in *QueryBackedValueInitParameters) DeepCopyInto(out *QueryBackedValueInit
 	*out = *in
 	if in.MultiValuesOptions != nil {
 		in, out := &in.MultiValuesOptions, &out.MultiValuesOptions
-		*out = make([]QueryBackedValueMultiValuesOptionsInitParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(QueryBackedValueMultiValuesOptionsInitParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.QueryID != nil {
 		in, out := &in.QueryID, &out.QueryID
@@ -3683,10 +3727,8 @@ func (in *QueryBackedValueObservation) DeepCopyInto(out *QueryBackedValueObserva
 	*out = *in
 	if in.MultiValuesOptions != nil {
 		in, out := &in.MultiValuesOptions, &out.MultiValuesOptions
-		*out = make([]QueryBackedValueMultiValuesOptionsObservation, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(QueryBackedValueMultiValuesOptionsObservation)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.QueryID != nil {
 		in, out := &in.QueryID, &out.QueryID
@@ -3721,10 +3763,8 @@ func (in *QueryBackedValueParameters) DeepCopyInto(out *QueryBackedValueParamete
 	*out = *in
 	if in.MultiValuesOptions != nil {
 		in, out := &in.MultiValuesOptions, &out.MultiValuesOptions
-		*out = make([]QueryBackedValueMultiValuesOptionsParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(QueryBackedValueMultiValuesOptionsParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.QueryID != nil {
 		in, out := &in.QueryID, &out.QueryID
@@ -3802,6 +3842,11 @@ func (in *QueryInitParameters) DeepCopyInto(out *QueryInitParameters) {
 	if in.ParentPathSelector != nil {
 		in, out := &in.ParentPathSelector, &out.ParentPathSelector
 		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.ProviderConfig != nil {
+		in, out := &in.ProviderConfig, &out.ProviderConfig
+		*out = new(QueryProviderConfigInitParameters)
 		(*in).DeepCopyInto(*out)
 	}
 	if in.QueryText != nil {
@@ -4039,6 +4084,11 @@ func (in *QueryObservation) DeepCopyInto(out *QueryObservation) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.ProviderConfig != nil {
+		in, out := &in.ProviderConfig, &out.ProviderConfig
+		*out = new(QueryProviderConfigObservation)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.QueryText != nil {
 		in, out := &in.QueryText, &out.QueryText
 		*out = new(string)
@@ -4137,6 +4187,11 @@ func (in *QueryParameters) DeepCopyInto(out *QueryParameters) {
 		*out = new(v1.NamespacedSelector)
 		(*in).DeepCopyInto(*out)
 	}
+	if in.ProviderConfig != nil {
+		in, out := &in.ProviderConfig, &out.ProviderConfig
+		*out = new(QueryProviderConfigParameters)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.QueryText != nil {
 		in, out := &in.QueryText, &out.QueryText
 		*out = new(string)
@@ -4186,6 +4241,66 @@ func (in *QueryParameters) DeepCopy() *QueryParameters {
 		return nil
 	}
 	out := new(QueryParameters)
+	in.DeepCopyInto(out)
+	return out
+}
+
+// DeepCopyInto is an autogenerated deepcopy function, copying the receiver, writing into out. in must be non-nil.
+func (in *QueryProviderConfigInitParameters) DeepCopyInto(out *QueryProviderConfigInitParameters) {
+	*out = *in
+	if in.WorkspaceID != nil {
+		in, out := &in.WorkspaceID, &out.WorkspaceID
+		*out = new(string)
+		**out = **in
+	}
+}
+
+// DeepCopy is an autogenerated deepcopy function, copying the receiver, creating a new QueryProviderConfigInitParameters.
+func (in *QueryProviderConfigInitParameters) DeepCopy() *QueryProviderConfigInitParameters {
+	if in == nil {
+		return nil
+	}
+	out := new(QueryProviderConfigInitParameters)
+	in.DeepCopyInto(out)
+	return out
+}
+
+// DeepCopyInto is an autogenerated deepcopy function, copying the receiver, writing into out. in must be non-nil.
+func (in *QueryProviderConfigObservation) DeepCopyInto(out *QueryProviderConfigObservation) {
+	*out = *in
+	if in.WorkspaceID != nil {
+		in, out := &in.WorkspaceID, &out.WorkspaceID
+		*out = new(string)
+		**out = **in
+	}
+}
+
+// DeepCopy is an autogenerated deepcopy function, copying the receiver, creating a new QueryProviderConfigObservation.
+func (in *QueryProviderConfigObservation) DeepCopy() *QueryProviderConfigObservation {
+	if in == nil {
+		return nil
+	}
+	out := new(QueryProviderConfigObservation)
+	in.DeepCopyInto(out)
+	return out
+}
+
+// DeepCopyInto is an autogenerated deepcopy function, copying the receiver, writing into out. in must be non-nil.
+func (in *QueryProviderConfigParameters) DeepCopyInto(out *QueryProviderConfigParameters) {
+	*out = *in
+	if in.WorkspaceID != nil {
+		in, out := &in.WorkspaceID, &out.WorkspaceID
+		*out = new(string)
+		**out = **in
+	}
+}
+
+// DeepCopy is an autogenerated deepcopy function, copying the receiver, creating a new QueryProviderConfigParameters.
+func (in *QueryProviderConfigParameters) DeepCopy() *QueryProviderConfigParameters {
+	if in == nil {
+		return nil
+	}
+	out := new(QueryProviderConfigParameters)
 	in.DeepCopyInto(out)
 	return out
 }
@@ -4342,15 +4457,18 @@ func (in *SQLAlertInitParameters) DeepCopyInto(out *SQLAlertInitParameters) {
 	}
 	if in.Options != nil {
 		in, out := &in.Options, &out.Options
-		*out = make([]OptionsInitParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(OptionsInitParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Parent != nil {
 		in, out := &in.Parent, &out.Parent
 		*out = new(string)
 		**out = **in
+	}
+	if in.ProviderConfig != nil {
+		in, out := &in.ProviderConfig, &out.ProviderConfig
+		*out = new(SQLAlertProviderConfigInitParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.QueryID != nil {
 		in, out := &in.QueryID, &out.QueryID
@@ -4441,15 +4559,18 @@ func (in *SQLAlertObservation) DeepCopyInto(out *SQLAlertObservation) {
 	}
 	if in.Options != nil {
 		in, out := &in.Options, &out.Options
-		*out = make([]OptionsObservation, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(OptionsObservation)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Parent != nil {
 		in, out := &in.Parent, &out.Parent
 		*out = new(string)
 		**out = **in
+	}
+	if in.ProviderConfig != nil {
+		in, out := &in.ProviderConfig, &out.ProviderConfig
+		*out = new(SQLAlertProviderConfigObservation)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.QueryID != nil {
 		in, out := &in.QueryID, &out.QueryID
@@ -4493,15 +4614,18 @@ func (in *SQLAlertParameters) DeepCopyInto(out *SQLAlertParameters) {
 	}
 	if in.Options != nil {
 		in, out := &in.Options, &out.Options
-		*out = make([]OptionsParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(OptionsParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Parent != nil {
 		in, out := &in.Parent, &out.Parent
 		*out = new(string)
 		**out = **in
+	}
+	if in.ProviderConfig != nil {
+		in, out := &in.ProviderConfig, &out.ProviderConfig
+		*out = new(SQLAlertProviderConfigParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.QueryID != nil {
 		in, out := &in.QueryID, &out.QueryID
@@ -4536,6 +4660,66 @@ func (in *SQLAlertParameters) DeepCopy() *SQLAlertParameters {
 		return nil
 	}
 	out := new(SQLAlertParameters)
+	in.DeepCopyInto(out)
+	return out
+}
+
+// DeepCopyInto is an autogenerated deepcopy function, copying the receiver, writing into out. in must be non-nil.
+func (in *SQLAlertProviderConfigInitParameters) DeepCopyInto(out *SQLAlertProviderConfigInitParameters) {
+	*out = *in
+	if in.WorkspaceID != nil {
+		in, out := &in.WorkspaceID, &out.WorkspaceID
+		*out = new(string)
+		**out = **in
+	}
+}
+
+// DeepCopy is an autogenerated deepcopy function, copying the receiver, creating a new SQLAlertProviderConfigInitParameters.
+func (in *SQLAlertProviderConfigInitParameters) DeepCopy() *SQLAlertProviderConfigInitParameters {
+	if in == nil {
+		return nil
+	}
+	out := new(SQLAlertProviderConfigInitParameters)
+	in.DeepCopyInto(out)
+	return out
+}
+
+// DeepCopyInto is an autogenerated deepcopy function, copying the receiver, writing into out. in must be non-nil.
+func (in *SQLAlertProviderConfigObservation) DeepCopyInto(out *SQLAlertProviderConfigObservation) {
+	*out = *in
+	if in.WorkspaceID != nil {
+		in, out := &in.WorkspaceID, &out.WorkspaceID
+		*out = new(string)
+		**out = **in
+	}
+}
+
+// DeepCopy is an autogenerated deepcopy function, copying the receiver, creating a new SQLAlertProviderConfigObservation.
+func (in *SQLAlertProviderConfigObservation) DeepCopy() *SQLAlertProviderConfigObservation {
+	if in == nil {
+		return nil
+	}
+	out := new(SQLAlertProviderConfigObservation)
+	in.DeepCopyInto(out)
+	return out
+}
+
+// DeepCopyInto is an autogenerated deepcopy function, copying the receiver, writing into out. in must be non-nil.
+func (in *SQLAlertProviderConfigParameters) DeepCopyInto(out *SQLAlertProviderConfigParameters) {
+	*out = *in
+	if in.WorkspaceID != nil {
+		in, out := &in.WorkspaceID, &out.WorkspaceID
+		*out = new(string)
+		**out = **in
+	}
+}
+
+// DeepCopy is an autogenerated deepcopy function, copying the receiver, creating a new SQLAlertProviderConfigParameters.
+func (in *SQLAlertProviderConfigParameters) DeepCopy() *SQLAlertProviderConfigParameters {
+	if in == nil {
+		return nil
+	}
+	out := new(SQLAlertProviderConfigParameters)
 	in.DeepCopyInto(out)
 	return out
 }
@@ -4624,6 +4808,11 @@ func (in *SQLDashboardInitParameters) DeepCopyInto(out *SQLDashboardInitParamete
 		in, out := &in.Parent, &out.Parent
 		*out = new(string)
 		**out = **in
+	}
+	if in.ProviderConfig != nil {
+		in, out := &in.ProviderConfig, &out.ProviderConfig
+		*out = new(SQLDashboardProviderConfigInitParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.RunAsRole != nil {
 		in, out := &in.RunAsRole, &out.RunAsRole
@@ -4718,6 +4907,11 @@ func (in *SQLDashboardObservation) DeepCopyInto(out *SQLDashboardObservation) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.ProviderConfig != nil {
+		in, out := &in.ProviderConfig, &out.ProviderConfig
+		*out = new(SQLDashboardProviderConfigObservation)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.RunAsRole != nil {
 		in, out := &in.RunAsRole, &out.RunAsRole
 		*out = new(string)
@@ -4774,6 +4968,11 @@ func (in *SQLDashboardParameters) DeepCopyInto(out *SQLDashboardParameters) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.ProviderConfig != nil {
+		in, out := &in.ProviderConfig, &out.ProviderConfig
+		*out = new(SQLDashboardProviderConfigParameters)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.RunAsRole != nil {
 		in, out := &in.RunAsRole, &out.RunAsRole
 		*out = new(string)
@@ -4803,6 +5002,66 @@ func (in *SQLDashboardParameters) DeepCopy() *SQLDashboardParameters {
 		return nil
 	}
 	out := new(SQLDashboardParameters)
+	in.DeepCopyInto(out)
+	return out
+}
+
+// DeepCopyInto is an autogenerated deepcopy function, copying the receiver, writing into out. in must be non-nil.
+func (in *SQLDashboardProviderConfigInitParameters) DeepCopyInto(out *SQLDashboardProviderConfigInitParameters) {
+	*out = *in
+	if in.WorkspaceID != nil {
+		in, out := &in.WorkspaceID, &out.WorkspaceID
+		*out = new(string)
+		**out = **in
+	}
+}
+
+// DeepCopy is an autogenerated deepcopy function, copying the receiver, creating a new SQLDashboardProviderConfigInitParameters.
+func (in *SQLDashboardProviderConfigInitParameters) DeepCopy() *SQLDashboardProviderConfigInitParameters {
+	if in == nil {
+		return nil
+	}
+	out := new(SQLDashboardProviderConfigInitParameters)
+	in.DeepCopyInto(out)
+	return out
+}
+
+// DeepCopyInto is an autogenerated deepcopy function, copying the receiver, writing into out. in must be non-nil.
+func (in *SQLDashboardProviderConfigObservation) DeepCopyInto(out *SQLDashboardProviderConfigObservation) {
+	*out = *in
+	if in.WorkspaceID != nil {
+		in, out := &in.WorkspaceID, &out.WorkspaceID
+		*out = new(string)
+		**out = **in
+	}
+}
+
+// DeepCopy is an autogenerated deepcopy function, copying the receiver, creating a new SQLDashboardProviderConfigObservation.
+func (in *SQLDashboardProviderConfigObservation) DeepCopy() *SQLDashboardProviderConfigObservation {
+	if in == nil {
+		return nil
+	}
+	out := new(SQLDashboardProviderConfigObservation)
+	in.DeepCopyInto(out)
+	return out
+}
+
+// DeepCopyInto is an autogenerated deepcopy function, copying the receiver, writing into out. in must be non-nil.
+func (in *SQLDashboardProviderConfigParameters) DeepCopyInto(out *SQLDashboardProviderConfigParameters) {
+	*out = *in
+	if in.WorkspaceID != nil {
+		in, out := &in.WorkspaceID, &out.WorkspaceID
+		*out = new(string)
+		**out = **in
+	}
+}
+
+// DeepCopy is an autogenerated deepcopy function, copying the receiver, creating a new SQLDashboardProviderConfigParameters.
+func (in *SQLDashboardProviderConfigParameters) DeepCopy() *SQLDashboardProviderConfigParameters {
+	if in == nil {
+		return nil
+	}
+	out := new(SQLDashboardProviderConfigParameters)
 	in.DeepCopyInto(out)
 	return out
 }
@@ -4879,10 +5138,8 @@ func (in *SQLEndpointInitParameters) DeepCopyInto(out *SQLEndpointInitParameters
 	}
 	if in.Channel != nil {
 		in, out := &in.Channel, &out.Channel
-		*out = make([]ChannelInitParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(ChannelInitParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.ClusterSize != nil {
 		in, out := &in.ClusterSize, &out.ClusterSize
@@ -4929,6 +5186,11 @@ func (in *SQLEndpointInitParameters) DeepCopyInto(out *SQLEndpointInitParameters
 		*out = new(bool)
 		**out = **in
 	}
+	if in.ProviderConfig != nil {
+		in, out := &in.ProviderConfig, &out.ProviderConfig
+		*out = new(SQLEndpointProviderConfigInitParameters)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.SpotInstancePolicy != nil {
 		in, out := &in.SpotInstancePolicy, &out.SpotInstancePolicy
 		*out = new(string)
@@ -4936,10 +5198,8 @@ func (in *SQLEndpointInitParameters) DeepCopyInto(out *SQLEndpointInitParameters
 	}
 	if in.Tags != nil {
 		in, out := &in.Tags, &out.Tags
-		*out = make([]TagsInitParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(TagsInitParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.WarehouseType != nil {
 		in, out := &in.WarehouseType, &out.WarehouseType
@@ -5000,10 +5260,8 @@ func (in *SQLEndpointObservation) DeepCopyInto(out *SQLEndpointObservation) {
 	}
 	if in.Channel != nil {
 		in, out := &in.Channel, &out.Channel
-		*out = make([]ChannelObservation, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(ChannelObservation)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.ClusterSize != nil {
 		in, out := &in.ClusterSize, &out.ClusterSize
@@ -5089,6 +5347,11 @@ func (in *SQLEndpointObservation) DeepCopyInto(out *SQLEndpointObservation) {
 			(*in)[i].DeepCopyInto(&(*out)[i])
 		}
 	}
+	if in.ProviderConfig != nil {
+		in, out := &in.ProviderConfig, &out.ProviderConfig
+		*out = new(SQLEndpointProviderConfigObservation)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.SpotInstancePolicy != nil {
 		in, out := &in.SpotInstancePolicy, &out.SpotInstancePolicy
 		*out = new(string)
@@ -5101,10 +5364,8 @@ func (in *SQLEndpointObservation) DeepCopyInto(out *SQLEndpointObservation) {
 	}
 	if in.Tags != nil {
 		in, out := &in.Tags, &out.Tags
-		*out = make([]TagsObservation, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(TagsObservation)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.WarehouseType != nil {
 		in, out := &in.WarehouseType, &out.WarehouseType
@@ -5133,10 +5394,8 @@ func (in *SQLEndpointParameters) DeepCopyInto(out *SQLEndpointParameters) {
 	}
 	if in.Channel != nil {
 		in, out := &in.Channel, &out.Channel
-		*out = make([]ChannelParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(ChannelParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.ClusterSize != nil {
 		in, out := &in.ClusterSize, &out.ClusterSize
@@ -5183,6 +5442,11 @@ func (in *SQLEndpointParameters) DeepCopyInto(out *SQLEndpointParameters) {
 		*out = new(bool)
 		**out = **in
 	}
+	if in.ProviderConfig != nil {
+		in, out := &in.ProviderConfig, &out.ProviderConfig
+		*out = new(SQLEndpointProviderConfigParameters)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.SpotInstancePolicy != nil {
 		in, out := &in.SpotInstancePolicy, &out.SpotInstancePolicy
 		*out = new(string)
@@ -5190,10 +5454,8 @@ func (in *SQLEndpointParameters) DeepCopyInto(out *SQLEndpointParameters) {
 	}
 	if in.Tags != nil {
 		in, out := &in.Tags, &out.Tags
-		*out = make([]TagsParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(TagsParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.WarehouseType != nil {
 		in, out := &in.WarehouseType, &out.WarehouseType
@@ -5208,6 +5470,66 @@ func (in *SQLEndpointParameters) DeepCopy() *SQLEndpointParameters {
 		return nil
 	}
 	out := new(SQLEndpointParameters)
+	in.DeepCopyInto(out)
+	return out
+}
+
+// DeepCopyInto is an autogenerated deepcopy function, copying the receiver, writing into out. in must be non-nil.
+func (in *SQLEndpointProviderConfigInitParameters) DeepCopyInto(out *SQLEndpointProviderConfigInitParameters) {
+	*out = *in
+	if in.WorkspaceID != nil {
+		in, out := &in.WorkspaceID, &out.WorkspaceID
+		*out = new(string)
+		**out = **in
+	}
+}
+
+// DeepCopy is an autogenerated deepcopy function, copying the receiver, creating a new SQLEndpointProviderConfigInitParameters.
+func (in *SQLEndpointProviderConfigInitParameters) DeepCopy() *SQLEndpointProviderConfigInitParameters {
+	if in == nil {
+		return nil
+	}
+	out := new(SQLEndpointProviderConfigInitParameters)
+	in.DeepCopyInto(out)
+	return out
+}
+
+// DeepCopyInto is an autogenerated deepcopy function, copying the receiver, writing into out. in must be non-nil.
+func (in *SQLEndpointProviderConfigObservation) DeepCopyInto(out *SQLEndpointProviderConfigObservation) {
+	*out = *in
+	if in.WorkspaceID != nil {
+		in, out := &in.WorkspaceID, &out.WorkspaceID
+		*out = new(string)
+		**out = **in
+	}
+}
+
+// DeepCopy is an autogenerated deepcopy function, copying the receiver, creating a new SQLEndpointProviderConfigObservation.
+func (in *SQLEndpointProviderConfigObservation) DeepCopy() *SQLEndpointProviderConfigObservation {
+	if in == nil {
+		return nil
+	}
+	out := new(SQLEndpointProviderConfigObservation)
+	in.DeepCopyInto(out)
+	return out
+}
+
+// DeepCopyInto is an autogenerated deepcopy function, copying the receiver, writing into out. in must be non-nil.
+func (in *SQLEndpointProviderConfigParameters) DeepCopyInto(out *SQLEndpointProviderConfigParameters) {
+	*out = *in
+	if in.WorkspaceID != nil {
+		in, out := &in.WorkspaceID, &out.WorkspaceID
+		*out = new(string)
+		**out = **in
+	}
+}
+
+// DeepCopy is an autogenerated deepcopy function, copying the receiver, creating a new SQLEndpointProviderConfigParameters.
+func (in *SQLEndpointProviderConfigParameters) DeepCopy() *SQLEndpointProviderConfigParameters {
+	if in == nil {
+		return nil
+	}
+	out := new(SQLEndpointProviderConfigParameters)
 	in.DeepCopyInto(out)
 	return out
 }
@@ -5307,6 +5629,11 @@ func (in *SQLGlobalConfigInitParameters) DeepCopyInto(out *SQLGlobalConfigInitPa
 		in, out := &in.InstanceProfileArn, &out.InstanceProfileArn
 		*out = new(string)
 		**out = **in
+	}
+	if in.ProviderConfig != nil {
+		in, out := &in.ProviderConfig, &out.ProviderConfig
+		*out = new(SQLGlobalConfigProviderConfigInitParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.SQLConfigParams != nil {
 		in, out := &in.SQLConfigParams, &out.SQLConfigParams
@@ -5412,6 +5739,11 @@ func (in *SQLGlobalConfigObservation) DeepCopyInto(out *SQLGlobalConfigObservati
 		*out = new(string)
 		**out = **in
 	}
+	if in.ProviderConfig != nil {
+		in, out := &in.ProviderConfig, &out.ProviderConfig
+		*out = new(SQLGlobalConfigProviderConfigObservation)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.SQLConfigParams != nil {
 		in, out := &in.SQLConfigParams, &out.SQLConfigParams
 		*out = make(map[string]*string, len(*in))
@@ -5479,6 +5811,11 @@ func (in *SQLGlobalConfigParameters) DeepCopyInto(out *SQLGlobalConfigParameters
 		*out = new(string)
 		**out = **in
 	}
+	if in.ProviderConfig != nil {
+		in, out := &in.ProviderConfig, &out.ProviderConfig
+		*out = new(SQLGlobalConfigProviderConfigParameters)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.SQLConfigParams != nil {
 		in, out := &in.SQLConfigParams, &out.SQLConfigParams
 		*out = make(map[string]*string, len(*in))
@@ -5508,6 +5845,66 @@ func (in *SQLGlobalConfigParameters) DeepCopy() *SQLGlobalConfigParameters {
 		return nil
 	}
 	out := new(SQLGlobalConfigParameters)
+	in.DeepCopyInto(out)
+	return out
+}
+
+// DeepCopyInto is an autogenerated deepcopy function, copying the receiver, writing into out. in must be non-nil.
+func (in *SQLGlobalConfigProviderConfigInitParameters) DeepCopyInto(out *SQLGlobalConfigProviderConfigInitParameters) {
+	*out = *in
+	if in.WorkspaceID != nil {
+		in, out := &in.WorkspaceID, &out.WorkspaceID
+		*out = new(string)
+		**out = **in
+	}
+}
+
+// DeepCopy is an autogenerated deepcopy function, copying the receiver, creating a new SQLGlobalConfigProviderConfigInitParameters.
+func (in *SQLGlobalConfigProviderConfigInitParameters) DeepCopy() *SQLGlobalConfigProviderConfigInitParameters {
+	if in == nil {
+		return nil
+	}
+	out := new(SQLGlobalConfigProviderConfigInitParameters)
+	in.DeepCopyInto(out)
+	return out
+}
+
+// DeepCopyInto is an autogenerated deepcopy function, copying the receiver, writing into out. in must be non-nil.
+func (in *SQLGlobalConfigProviderConfigObservation) DeepCopyInto(out *SQLGlobalConfigProviderConfigObservation) {
+	*out = *in
+	if in.WorkspaceID != nil {
+		in, out := &in.WorkspaceID, &out.WorkspaceID
+		*out = new(string)
+		**out = **in
+	}
+}
+
+// DeepCopy is an autogenerated deepcopy function, copying the receiver, creating a new SQLGlobalConfigProviderConfigObservation.
+func (in *SQLGlobalConfigProviderConfigObservation) DeepCopy() *SQLGlobalConfigProviderConfigObservation {
+	if in == nil {
+		return nil
+	}
+	out := new(SQLGlobalConfigProviderConfigObservation)
+	in.DeepCopyInto(out)
+	return out
+}
+
+// DeepCopyInto is an autogenerated deepcopy function, copying the receiver, writing into out. in must be non-nil.
+func (in *SQLGlobalConfigProviderConfigParameters) DeepCopyInto(out *SQLGlobalConfigProviderConfigParameters) {
+	*out = *in
+	if in.WorkspaceID != nil {
+		in, out := &in.WorkspaceID, &out.WorkspaceID
+		*out = new(string)
+		**out = **in
+	}
+}
+
+// DeepCopy is an autogenerated deepcopy function, copying the receiver, creating a new SQLGlobalConfigProviderConfigParameters.
+func (in *SQLGlobalConfigProviderConfigParameters) DeepCopy() *SQLGlobalConfigProviderConfigParameters {
+	if in == nil {
+		return nil
+	}
+	out := new(SQLGlobalConfigProviderConfigParameters)
 	in.DeepCopyInto(out)
 	return out
 }
@@ -5619,6 +6016,11 @@ func (in *SQLQueryInitParameters) DeepCopyInto(out *SQLQueryInitParameters) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.ProviderConfig != nil {
+		in, out := &in.ProviderConfig, &out.ProviderConfig
+		*out = new(SQLQueryProviderConfigInitParameters)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.Query != nil {
 		in, out := &in.Query, &out.Query
 		*out = new(string)
@@ -5631,10 +6033,8 @@ func (in *SQLQueryInitParameters) DeepCopyInto(out *SQLQueryInitParameters) {
 	}
 	if in.Schedule != nil {
 		in, out := &in.Schedule, &out.Schedule
-		*out = make([]ScheduleInitParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(ScheduleInitParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Tags != nil {
 		in, out := &in.Tags, &out.Tags
@@ -5736,6 +6136,11 @@ func (in *SQLQueryObservation) DeepCopyInto(out *SQLQueryObservation) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.ProviderConfig != nil {
+		in, out := &in.ProviderConfig, &out.ProviderConfig
+		*out = new(SQLQueryProviderConfigObservation)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.Query != nil {
 		in, out := &in.Query, &out.Query
 		*out = new(string)
@@ -5748,10 +6153,8 @@ func (in *SQLQueryObservation) DeepCopyInto(out *SQLQueryObservation) {
 	}
 	if in.Schedule != nil {
 		in, out := &in.Schedule, &out.Schedule
-		*out = make([]ScheduleObservation, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(ScheduleObservation)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Tags != nil {
 		in, out := &in.Tags, &out.Tags
@@ -5786,52 +6189,38 @@ func (in *SQLQueryParameterInitParameters) DeepCopyInto(out *SQLQueryParameterIn
 	*out = *in
 	if in.Date != nil {
 		in, out := &in.Date, &out.Date
-		*out = make([]DateInitParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(DateInitParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.DateRange != nil {
 		in, out := &in.DateRange, &out.DateRange
-		*out = make([]DateRangeInitParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(DateRangeInitParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Datetime != nil {
 		in, out := &in.Datetime, &out.Datetime
-		*out = make([]DatetimeInitParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(DatetimeInitParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.DatetimeRange != nil {
 		in, out := &in.DatetimeRange, &out.DatetimeRange
-		*out = make([]DatetimeRangeInitParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(DatetimeRangeInitParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Datetimesec != nil {
 		in, out := &in.Datetimesec, &out.Datetimesec
-		*out = make([]DatetimesecInitParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(DatetimesecInitParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.DatetimesecRange != nil {
 		in, out := &in.DatetimesecRange, &out.DatetimesecRange
-		*out = make([]DatetimesecRangeInitParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(DatetimesecRangeInitParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Enum != nil {
 		in, out := &in.Enum, &out.Enum
-		*out = make([]EnumInitParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(EnumInitParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Name != nil {
 		in, out := &in.Name, &out.Name
@@ -5840,24 +6229,18 @@ func (in *SQLQueryParameterInitParameters) DeepCopyInto(out *SQLQueryParameterIn
 	}
 	if in.Number != nil {
 		in, out := &in.Number, &out.Number
-		*out = make([]NumberInitParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(NumberInitParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Query != nil {
 		in, out := &in.Query, &out.Query
-		*out = make([]ParameterQueryInitParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(ParameterQueryInitParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Text != nil {
 		in, out := &in.Text, &out.Text
-		*out = make([]TextInitParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(TextInitParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Title != nil {
 		in, out := &in.Title, &out.Title
@@ -5881,52 +6264,38 @@ func (in *SQLQueryParameterObservation) DeepCopyInto(out *SQLQueryParameterObser
 	*out = *in
 	if in.Date != nil {
 		in, out := &in.Date, &out.Date
-		*out = make([]DateObservation, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(DateObservation)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.DateRange != nil {
 		in, out := &in.DateRange, &out.DateRange
-		*out = make([]DateRangeObservation, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(DateRangeObservation)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Datetime != nil {
 		in, out := &in.Datetime, &out.Datetime
-		*out = make([]DatetimeObservation, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(DatetimeObservation)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.DatetimeRange != nil {
 		in, out := &in.DatetimeRange, &out.DatetimeRange
-		*out = make([]DatetimeRangeObservation, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(DatetimeRangeObservation)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Datetimesec != nil {
 		in, out := &in.Datetimesec, &out.Datetimesec
-		*out = make([]DatetimesecObservation, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(DatetimesecObservation)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.DatetimesecRange != nil {
 		in, out := &in.DatetimesecRange, &out.DatetimesecRange
-		*out = make([]DatetimesecRangeObservation, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(DatetimesecRangeObservation)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Enum != nil {
 		in, out := &in.Enum, &out.Enum
-		*out = make([]EnumObservation, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(EnumObservation)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Name != nil {
 		in, out := &in.Name, &out.Name
@@ -5935,24 +6304,18 @@ func (in *SQLQueryParameterObservation) DeepCopyInto(out *SQLQueryParameterObser
 	}
 	if in.Number != nil {
 		in, out := &in.Number, &out.Number
-		*out = make([]NumberObservation, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(NumberObservation)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Query != nil {
 		in, out := &in.Query, &out.Query
-		*out = make([]ParameterQueryObservation, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(ParameterQueryObservation)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Text != nil {
 		in, out := &in.Text, &out.Text
-		*out = make([]TextObservation, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(TextObservation)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Title != nil {
 		in, out := &in.Title, &out.Title
@@ -5976,52 +6339,38 @@ func (in *SQLQueryParameterParameters) DeepCopyInto(out *SQLQueryParameterParame
 	*out = *in
 	if in.Date != nil {
 		in, out := &in.Date, &out.Date
-		*out = make([]DateParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(DateParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.DateRange != nil {
 		in, out := &in.DateRange, &out.DateRange
-		*out = make([]DateRangeParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(DateRangeParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Datetime != nil {
 		in, out := &in.Datetime, &out.Datetime
-		*out = make([]DatetimeParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(DatetimeParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.DatetimeRange != nil {
 		in, out := &in.DatetimeRange, &out.DatetimeRange
-		*out = make([]DatetimeRangeParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(DatetimeRangeParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Datetimesec != nil {
 		in, out := &in.Datetimesec, &out.Datetimesec
-		*out = make([]DatetimesecParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(DatetimesecParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.DatetimesecRange != nil {
 		in, out := &in.DatetimesecRange, &out.DatetimesecRange
-		*out = make([]DatetimesecRangeParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(DatetimesecRangeParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Enum != nil {
 		in, out := &in.Enum, &out.Enum
-		*out = make([]EnumParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(EnumParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Name != nil {
 		in, out := &in.Name, &out.Name
@@ -6030,24 +6379,18 @@ func (in *SQLQueryParameterParameters) DeepCopyInto(out *SQLQueryParameterParame
 	}
 	if in.Number != nil {
 		in, out := &in.Number, &out.Number
-		*out = make([]NumberParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(NumberParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Query != nil {
 		in, out := &in.Query, &out.Query
-		*out = make([]ParameterQueryParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(ParameterQueryParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Text != nil {
 		in, out := &in.Text, &out.Text
-		*out = make([]TextParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(TextParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Title != nil {
 		in, out := &in.Title, &out.Title
@@ -6111,6 +6454,11 @@ func (in *SQLQueryParameters) DeepCopyInto(out *SQLQueryParameters) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.ProviderConfig != nil {
+		in, out := &in.ProviderConfig, &out.ProviderConfig
+		*out = new(SQLQueryProviderConfigParameters)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.Query != nil {
 		in, out := &in.Query, &out.Query
 		*out = new(string)
@@ -6123,10 +6471,8 @@ func (in *SQLQueryParameters) DeepCopyInto(out *SQLQueryParameters) {
 	}
 	if in.Schedule != nil {
 		in, out := &in.Schedule, &out.Schedule
-		*out = make([]ScheduleParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(ScheduleParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Tags != nil {
 		in, out := &in.Tags, &out.Tags
@@ -6152,6 +6498,66 @@ func (in *SQLQueryParameters) DeepCopy() *SQLQueryParameters {
 		return nil
 	}
 	out := new(SQLQueryParameters)
+	in.DeepCopyInto(out)
+	return out
+}
+
+// DeepCopyInto is an autogenerated deepcopy function, copying the receiver, writing into out. in must be non-nil.
+func (in *SQLQueryProviderConfigInitParameters) DeepCopyInto(out *SQLQueryProviderConfigInitParameters) {
+	*out = *in
+	if in.WorkspaceID != nil {
+		in, out := &in.WorkspaceID, &out.WorkspaceID
+		*out = new(string)
+		**out = **in
+	}
+}
+
+// DeepCopy is an autogenerated deepcopy function, copying the receiver, creating a new SQLQueryProviderConfigInitParameters.
+func (in *SQLQueryProviderConfigInitParameters) DeepCopy() *SQLQueryProviderConfigInitParameters {
+	if in == nil {
+		return nil
+	}
+	out := new(SQLQueryProviderConfigInitParameters)
+	in.DeepCopyInto(out)
+	return out
+}
+
+// DeepCopyInto is an autogenerated deepcopy function, copying the receiver, writing into out. in must be non-nil.
+func (in *SQLQueryProviderConfigObservation) DeepCopyInto(out *SQLQueryProviderConfigObservation) {
+	*out = *in
+	if in.WorkspaceID != nil {
+		in, out := &in.WorkspaceID, &out.WorkspaceID
+		*out = new(string)
+		**out = **in
+	}
+}
+
+// DeepCopy is an autogenerated deepcopy function, copying the receiver, creating a new SQLQueryProviderConfigObservation.
+func (in *SQLQueryProviderConfigObservation) DeepCopy() *SQLQueryProviderConfigObservation {
+	if in == nil {
+		return nil
+	}
+	out := new(SQLQueryProviderConfigObservation)
+	in.DeepCopyInto(out)
+	return out
+}
+
+// DeepCopyInto is an autogenerated deepcopy function, copying the receiver, writing into out. in must be non-nil.
+func (in *SQLQueryProviderConfigParameters) DeepCopyInto(out *SQLQueryProviderConfigParameters) {
+	*out = *in
+	if in.WorkspaceID != nil {
+		in, out := &in.WorkspaceID, &out.WorkspaceID
+		*out = new(string)
+		**out = **in
+	}
+}
+
+// DeepCopy is an autogenerated deepcopy function, copying the receiver, creating a new SQLQueryProviderConfigParameters.
+func (in *SQLQueryProviderConfigParameters) DeepCopy() *SQLQueryProviderConfigParameters {
+	if in == nil {
+		return nil
+	}
+	out := new(SQLQueryProviderConfigParameters)
 	in.DeepCopyInto(out)
 	return out
 }
@@ -6235,6 +6641,11 @@ func (in *SQLVisualizationInitParameters) DeepCopyInto(out *SQLVisualizationInit
 		in, out := &in.Options, &out.Options
 		*out = new(string)
 		**out = **in
+	}
+	if in.ProviderConfig != nil {
+		in, out := &in.ProviderConfig, &out.ProviderConfig
+		*out = new(SQLVisualizationProviderConfigInitParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.QueryID != nil {
 		in, out := &in.QueryID, &out.QueryID
@@ -6333,6 +6744,11 @@ func (in *SQLVisualizationObservation) DeepCopyInto(out *SQLVisualizationObserva
 		*out = new(string)
 		**out = **in
 	}
+	if in.ProviderConfig != nil {
+		in, out := &in.ProviderConfig, &out.ProviderConfig
+		*out = new(SQLVisualizationProviderConfigObservation)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.QueryID != nil {
 		in, out := &in.QueryID, &out.QueryID
 		*out = new(string)
@@ -6383,6 +6799,11 @@ func (in *SQLVisualizationParameters) DeepCopyInto(out *SQLVisualizationParamete
 		*out = new(string)
 		**out = **in
 	}
+	if in.ProviderConfig != nil {
+		in, out := &in.ProviderConfig, &out.ProviderConfig
+		*out = new(SQLVisualizationProviderConfigParameters)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.QueryID != nil {
 		in, out := &in.QueryID, &out.QueryID
 		*out = new(string)
@@ -6421,6 +6842,66 @@ func (in *SQLVisualizationParameters) DeepCopy() *SQLVisualizationParameters {
 		return nil
 	}
 	out := new(SQLVisualizationParameters)
+	in.DeepCopyInto(out)
+	return out
+}
+
+// DeepCopyInto is an autogenerated deepcopy function, copying the receiver, writing into out. in must be non-nil.
+func (in *SQLVisualizationProviderConfigInitParameters) DeepCopyInto(out *SQLVisualizationProviderConfigInitParameters) {
+	*out = *in
+	if in.WorkspaceID != nil {
+		in, out := &in.WorkspaceID, &out.WorkspaceID
+		*out = new(string)
+		**out = **in
+	}
+}
+
+// DeepCopy is an autogenerated deepcopy function, copying the receiver, creating a new SQLVisualizationProviderConfigInitParameters.
+func (in *SQLVisualizationProviderConfigInitParameters) DeepCopy() *SQLVisualizationProviderConfigInitParameters {
+	if in == nil {
+		return nil
+	}
+	out := new(SQLVisualizationProviderConfigInitParameters)
+	in.DeepCopyInto(out)
+	return out
+}
+
+// DeepCopyInto is an autogenerated deepcopy function, copying the receiver, writing into out. in must be non-nil.
+func (in *SQLVisualizationProviderConfigObservation) DeepCopyInto(out *SQLVisualizationProviderConfigObservation) {
+	*out = *in
+	if in.WorkspaceID != nil {
+		in, out := &in.WorkspaceID, &out.WorkspaceID
+		*out = new(string)
+		**out = **in
+	}
+}
+
+// DeepCopy is an autogenerated deepcopy function, copying the receiver, creating a new SQLVisualizationProviderConfigObservation.
+func (in *SQLVisualizationProviderConfigObservation) DeepCopy() *SQLVisualizationProviderConfigObservation {
+	if in == nil {
+		return nil
+	}
+	out := new(SQLVisualizationProviderConfigObservation)
+	in.DeepCopyInto(out)
+	return out
+}
+
+// DeepCopyInto is an autogenerated deepcopy function, copying the receiver, writing into out. in must be non-nil.
+func (in *SQLVisualizationProviderConfigParameters) DeepCopyInto(out *SQLVisualizationProviderConfigParameters) {
+	*out = *in
+	if in.WorkspaceID != nil {
+		in, out := &in.WorkspaceID, &out.WorkspaceID
+		*out = new(string)
+		**out = **in
+	}
+}
+
+// DeepCopy is an autogenerated deepcopy function, copying the receiver, creating a new SQLVisualizationProviderConfigParameters.
+func (in *SQLVisualizationProviderConfigParameters) DeepCopy() *SQLVisualizationProviderConfigParameters {
+	if in == nil {
+		return nil
+	}
+	out := new(SQLVisualizationProviderConfigParameters)
 	in.DeepCopyInto(out)
 	return out
 }
@@ -6519,10 +7000,13 @@ func (in *SQLWidgetInitParameters) DeepCopyInto(out *SQLWidgetInitParameters) {
 	}
 	if in.Position != nil {
 		in, out := &in.Position, &out.Position
-		*out = make([]PositionInitParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(PositionInitParameters)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.ProviderConfig != nil {
+		in, out := &in.ProviderConfig, &out.ProviderConfig
+		*out = new(SQLWidgetProviderConfigInitParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Text != nil {
 		in, out := &in.Text, &out.Text
@@ -6625,10 +7109,13 @@ func (in *SQLWidgetObservation) DeepCopyInto(out *SQLWidgetObservation) {
 	}
 	if in.Position != nil {
 		in, out := &in.Position, &out.Position
-		*out = make([]PositionObservation, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(PositionObservation)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.ProviderConfig != nil {
+		in, out := &in.ProviderConfig, &out.ProviderConfig
+		*out = new(SQLWidgetProviderConfigObservation)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Text != nil {
 		in, out := &in.Text, &out.Text
@@ -6847,10 +7334,13 @@ func (in *SQLWidgetParameters) DeepCopyInto(out *SQLWidgetParameters) {
 	}
 	if in.Position != nil {
 		in, out := &in.Position, &out.Position
-		*out = make([]PositionParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(PositionParameters)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.ProviderConfig != nil {
+		in, out := &in.ProviderConfig, &out.ProviderConfig
+		*out = new(SQLWidgetProviderConfigParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Text != nil {
 		in, out := &in.Text, &out.Text
@@ -6895,6 +7385,66 @@ func (in *SQLWidgetParameters) DeepCopy() *SQLWidgetParameters {
 }
 
 // DeepCopyInto is an autogenerated deepcopy function, copying the receiver, writing into out. in must be non-nil.
+func (in *SQLWidgetProviderConfigInitParameters) DeepCopyInto(out *SQLWidgetProviderConfigInitParameters) {
+	*out = *in
+	if in.WorkspaceID != nil {
+		in, out := &in.WorkspaceID, &out.WorkspaceID
+		*out = new(string)
+		**out = **in
+	}
+}
+
+// DeepCopy is an autogenerated deepcopy function, copying the receiver, creating a new SQLWidgetProviderConfigInitParameters.
+func (in *SQLWidgetProviderConfigInitParameters) DeepCopy() *SQLWidgetProviderConfigInitParameters {
+	if in == nil {
+		return nil
+	}
+	out := new(SQLWidgetProviderConfigInitParameters)
+	in.DeepCopyInto(out)
+	return out
+}
+
+// DeepCopyInto is an autogenerated deepcopy function, copying the receiver, writing into out. in must be non-nil.
+func (in *SQLWidgetProviderConfigObservation) DeepCopyInto(out *SQLWidgetProviderConfigObservation) {
+	*out = *in
+	if in.WorkspaceID != nil {
+		in, out := &in.WorkspaceID, &out.WorkspaceID
+		*out = new(string)
+		**out = **in
+	}
+}
+
+// DeepCopy is an autogenerated deepcopy function, copying the receiver, creating a new SQLWidgetProviderConfigObservation.
+func (in *SQLWidgetProviderConfigObservation) DeepCopy() *SQLWidgetProviderConfigObservation {
+	if in == nil {
+		return nil
+	}
+	out := new(SQLWidgetProviderConfigObservation)
+	in.DeepCopyInto(out)
+	return out
+}
+
+// DeepCopyInto is an autogenerated deepcopy function, copying the receiver, writing into out. in must be non-nil.
+func (in *SQLWidgetProviderConfigParameters) DeepCopyInto(out *SQLWidgetProviderConfigParameters) {
+	*out = *in
+	if in.WorkspaceID != nil {
+		in, out := &in.WorkspaceID, &out.WorkspaceID
+		*out = new(string)
+		**out = **in
+	}
+}
+
+// DeepCopy is an autogenerated deepcopy function, copying the receiver, creating a new SQLWidgetProviderConfigParameters.
+func (in *SQLWidgetProviderConfigParameters) DeepCopy() *SQLWidgetProviderConfigParameters {
+	if in == nil {
+		return nil
+	}
+	out := new(SQLWidgetProviderConfigParameters)
+	in.DeepCopyInto(out)
+	return out
+}
+
+// DeepCopyInto is an autogenerated deepcopy function, copying the receiver, writing into out. in must be non-nil.
 func (in *SQLWidgetSpec) DeepCopyInto(out *SQLWidgetSpec) {
 	*out = *in
 	in.ManagedResourceSpec.DeepCopyInto(&out.ManagedResourceSpec)
@@ -6934,24 +7484,18 @@ func (in *ScheduleInitParameters) DeepCopyInto(out *ScheduleInitParameters) {
 	*out = *in
 	if in.Continuous != nil {
 		in, out := &in.Continuous, &out.Continuous
-		*out = make([]ContinuousInitParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(ContinuousInitParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Daily != nil {
 		in, out := &in.Daily, &out.Daily
-		*out = make([]DailyInitParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(DailyInitParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Weekly != nil {
 		in, out := &in.Weekly, &out.Weekly
-		*out = make([]WeeklyInitParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(WeeklyInitParameters)
+		(*in).DeepCopyInto(*out)
 	}
 }
 
@@ -6970,24 +7514,18 @@ func (in *ScheduleObservation) DeepCopyInto(out *ScheduleObservation) {
 	*out = *in
 	if in.Continuous != nil {
 		in, out := &in.Continuous, &out.Continuous
-		*out = make([]ContinuousObservation, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(ContinuousObservation)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Daily != nil {
 		in, out := &in.Daily, &out.Daily
-		*out = make([]DailyObservation, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(DailyObservation)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Weekly != nil {
 		in, out := &in.Weekly, &out.Weekly
-		*out = make([]WeeklyObservation, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(WeeklyObservation)
+		(*in).DeepCopyInto(*out)
 	}
 }
 
@@ -7006,24 +7544,18 @@ func (in *ScheduleParameters) DeepCopyInto(out *ScheduleParameters) {
 	*out = *in
 	if in.Continuous != nil {
 		in, out := &in.Continuous, &out.Continuous
-		*out = make([]ContinuousParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(ContinuousParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Daily != nil {
 		in, out := &in.Daily, &out.Daily
-		*out = make([]DailyParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(DailyParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Weekly != nil {
 		in, out := &in.Weekly, &out.Weekly
-		*out = make([]WeeklyParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(WeeklyParameters)
+		(*in).DeepCopyInto(*out)
 	}
 }
 
@@ -7228,10 +7760,8 @@ func (in *ThresholdInitParameters) DeepCopyInto(out *ThresholdInitParameters) {
 	*out = *in
 	if in.Value != nil {
 		in, out := &in.Value, &out.Value
-		*out = make([]ValueInitParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(ValueInitParameters)
+		(*in).DeepCopyInto(*out)
 	}
 }
 
@@ -7250,10 +7780,8 @@ func (in *ThresholdObservation) DeepCopyInto(out *ThresholdObservation) {
 	*out = *in
 	if in.Value != nil {
 		in, out := &in.Value, &out.Value
-		*out = make([]ValueObservation, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(ValueObservation)
+		(*in).DeepCopyInto(*out)
 	}
 }
 
@@ -7272,10 +7800,8 @@ func (in *ThresholdParameters) DeepCopyInto(out *ThresholdParameters) {
 	*out = *in
 	if in.Value != nil {
 		in, out := &in.Value, &out.Value
-		*out = make([]ValueParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(ValueParameters)
+		(*in).DeepCopyInto(*out)
 	}
 }
 

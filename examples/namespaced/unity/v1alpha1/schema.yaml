@@ -1,3 +1,7 @@
+# SPDX-FileCopyrightText: 2025 The Crossplane Authors <https://crossplane.io>
+#
+# SPDX-License-Identifier: CC0-1.0
+
 apiVersion: unity.databricks.m.crossplane.io/v1alpha1
 kind: Schema
 metadata:
@@ -9,7 +13,9 @@ metadata:
   namespace: upbound-system
 spec:
   forProvider:
-    catalogName: ${databricks_catalog.sandbox.id}
+    catalogNameSelector:
+      matchLabels:
+        testing.upbound.io/example-name: sandbox
     comment: this database is managed by terraform
     name: things
     properties:

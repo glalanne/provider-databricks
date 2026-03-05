@@ -95,6 +95,12 @@ spec:
                   bucketName:
                     description: name of AWS S3 bucket
                     type: string
+                  roleArn:
+                    description: The ARN of the IAM role that Databricks will assume
+                      to access the S3 bucket. This allows sharing an S3 bucket between
+                      root storage and the default catalog for a workspace. See the
+                      Databricks API documentation for more details.
+                    type: string
                   storageConfigurationName:
                     description: name under which this storage configuration is stored
                     type: string
@@ -132,6 +138,12 @@ spec:
                     type: object
                   bucketName:
                     description: name of AWS S3 bucket
+                    type: string
+                  roleArn:
+                    description: The ARN of the IAM role that Databricks will assume
+                      to access the S3 bucket. This allows sharing an S3 bucket between
+                      root storage and the default catalog for a workspace. See the
+                      Databricks API documentation for more details.
                     type: string
                   storageConfigurationName:
                     description: name under which this storage configuration is stored
@@ -250,6 +262,12 @@ spec:
                     type: number
                   id:
                     description: Canonical unique identifier for the mws storage configurations.
+                    type: string
+                  roleArn:
+                    description: The ARN of the IAM role that Databricks will assume
+                      to access the S3 bucket. This allows sharing an S3 bucket between
+                      root storage and the default catalog for a workspace. See the
+                      Databricks API documentation for more details.
                     type: string
                   storageConfigurationId:
                     description: (String) id of storage config to be used for databricks_mws_workspace

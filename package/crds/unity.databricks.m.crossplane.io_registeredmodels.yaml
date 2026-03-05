@@ -116,6 +116,16 @@ spec:
                   owner:
                     description: Name of the registered model owner.
                     type: string
+                  providerConfig:
+                    description: 'Configure the provider for management through account
+                      provider. This block consists of the following fields:'
+                    properties:
+                      workspaceId:
+                        description: Workspace ID which the resource belongs to. This
+                          workspace must be part of the account which the provider
+                          is configured with.
+                        type: string
+                    type: object
                   schemaName:
                     description: The name of the schema where the registered model
                       resides. Change of this parameter forces recreation of the resource.
@@ -203,6 +213,16 @@ spec:
                   owner:
                     description: Name of the registered model owner.
                     type: string
+                  providerConfig:
+                    description: 'Configure the provider for management through account
+                      provider. This block consists of the following fields:'
+                    properties:
+                      workspaceId:
+                        description: Workspace ID which the resource belongs to. This
+                          workspace must be part of the account which the provider
+                          is configured with.
+                        type: string
+                    type: object
                   schemaName:
                     description: The name of the schema where the registered model
                       resides. Change of this parameter forces recreation of the resource.
@@ -344,6 +364,16 @@ spec:
                   owner:
                     description: Name of the registered model owner.
                     type: string
+                  providerConfig:
+                    description: 'Configure the provider for management through account
+                      provider. This block consists of the following fields:'
+                    properties:
+                      workspaceId:
+                        description: Workspace ID which the resource belongs to. This
+                          workspace must be part of the account which the provider
+                          is configured with.
+                        type: string
+                    type: object
                   schemaName:
                     description: The name of the schema where the registered model
                       resides. Change of this parameter forces recreation of the resource.

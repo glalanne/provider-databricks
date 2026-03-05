@@ -36,19 +36,23 @@ type ComplianceSecurityProfileWorkspaceParameters struct {
 }
 
 type ComplianceSecurityProfileWorkspaceSettingInitParameters struct {
-	ComplianceSecurityProfileWorkspace []ComplianceSecurityProfileWorkspaceInitParameters `json:"complianceSecurityProfileWorkspace,omitempty" tf:"compliance_security_profile_workspace,omitempty"`
+	ComplianceSecurityProfileWorkspace *ComplianceSecurityProfileWorkspaceInitParameters `json:"complianceSecurityProfileWorkspace,omitempty" tf:"compliance_security_profile_workspace,omitempty"`
 
 	Etag *string `json:"etag,omitempty" tf:"etag,omitempty"`
+
+	ProviderConfig *ProviderConfigInitParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
 
 	SettingName *string `json:"settingName,omitempty" tf:"setting_name,omitempty"`
 }
 
 type ComplianceSecurityProfileWorkspaceSettingObservation struct {
-	ComplianceSecurityProfileWorkspace []ComplianceSecurityProfileWorkspaceObservation `json:"complianceSecurityProfileWorkspace,omitempty" tf:"compliance_security_profile_workspace,omitempty"`
+	ComplianceSecurityProfileWorkspace *ComplianceSecurityProfileWorkspaceObservation `json:"complianceSecurityProfileWorkspace,omitempty" tf:"compliance_security_profile_workspace,omitempty"`
 
 	Etag *string `json:"etag,omitempty" tf:"etag,omitempty"`
 
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
+	ProviderConfig *ProviderConfigObservation `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
 
 	SettingName *string `json:"settingName,omitempty" tf:"setting_name,omitempty"`
 }
@@ -56,13 +60,30 @@ type ComplianceSecurityProfileWorkspaceSettingObservation struct {
 type ComplianceSecurityProfileWorkspaceSettingParameters struct {
 
 	// +kubebuilder:validation:Optional
-	ComplianceSecurityProfileWorkspace []ComplianceSecurityProfileWorkspaceParameters `json:"complianceSecurityProfileWorkspace,omitempty" tf:"compliance_security_profile_workspace,omitempty"`
+	ComplianceSecurityProfileWorkspace *ComplianceSecurityProfileWorkspaceParameters `json:"complianceSecurityProfileWorkspace,omitempty" tf:"compliance_security_profile_workspace,omitempty"`
 
 	// +kubebuilder:validation:Optional
 	Etag *string `json:"etag,omitempty" tf:"etag,omitempty"`
 
 	// +kubebuilder:validation:Optional
+	ProviderConfig *ProviderConfigParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
+
+	// +kubebuilder:validation:Optional
 	SettingName *string `json:"settingName,omitempty" tf:"setting_name,omitempty"`
+}
+
+type ProviderConfigInitParameters struct {
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
+}
+
+type ProviderConfigObservation struct {
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
+}
+
+type ProviderConfigParameters struct {
+
+	// +kubebuilder:validation:Optional
+	WorkspaceID *string `json:"workspaceId" tf:"workspace_id,omitempty"`
 }
 
 // ComplianceSecurityProfileWorkspaceSettingSpec defines the desired state of ComplianceSecurityProfileWorkspaceSetting

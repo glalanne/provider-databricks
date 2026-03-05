@@ -128,7 +128,7 @@ type BudgetInitParameters struct {
 	// Name of the budget in Databricks Account.
 	DisplayName *string `json:"displayName,omitempty" tf:"display_name,omitempty"`
 
-	Filter []FilterInitParameters `json:"filter,omitempty" tf:"filter,omitempty"`
+	Filter *FilterInitParameters `json:"filter,omitempty" tf:"filter,omitempty"`
 
 	UpdateTime *float64 `json:"updateTime,omitempty" tf:"update_time,omitempty"`
 }
@@ -148,7 +148,7 @@ type BudgetObservation struct {
 	// Name of the budget in Databricks Account.
 	DisplayName *string `json:"displayName,omitempty" tf:"display_name,omitempty"`
 
-	Filter []FilterObservation `json:"filter,omitempty" tf:"filter,omitempty"`
+	Filter *FilterObservation `json:"filter,omitempty" tf:"filter,omitempty"`
 
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
@@ -176,7 +176,7 @@ type BudgetParameters struct {
 	DisplayName *string `json:"displayName,omitempty" tf:"display_name,omitempty"`
 
 	// +kubebuilder:validation:Optional
-	Filter []FilterParameters `json:"filter,omitempty" tf:"filter,omitempty"`
+	Filter *FilterParameters `json:"filter,omitempty" tf:"filter,omitempty"`
 
 	// +kubebuilder:validation:Optional
 	UpdateTime *float64 `json:"updateTime,omitempty" tf:"update_time,omitempty"`
@@ -188,7 +188,7 @@ type FilterInitParameters struct {
 	Tags []TagsInitParameters `json:"tags,omitempty" tf:"tags,omitempty"`
 
 	// Filter by workspace ID (if empty, include usage all usage for this account). Consists of the following fields:
-	WorkspaceID []WorkspaceIDInitParameters `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
+	WorkspaceID *WorkspaceIDInitParameters `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
 }
 
 type FilterObservation struct {
@@ -197,7 +197,7 @@ type FilterObservation struct {
 	Tags []TagsObservation `json:"tags,omitempty" tf:"tags,omitempty"`
 
 	// Filter by workspace ID (if empty, include usage all usage for this account). Consists of the following fields:
-	WorkspaceID []WorkspaceIDObservation `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
+	WorkspaceID *WorkspaceIDObservation `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
 }
 
 type FilterParameters struct {
@@ -208,7 +208,7 @@ type FilterParameters struct {
 
 	// Filter by workspace ID (if empty, include usage all usage for this account). Consists of the following fields:
 	// +kubebuilder:validation:Optional
-	WorkspaceID []WorkspaceIDParameters `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
+	WorkspaceID *WorkspaceIDParameters `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
 }
 
 type TagsInitParameters struct {
@@ -217,7 +217,7 @@ type TagsInitParameters struct {
 	Key *string `json:"key,omitempty" tf:"key,omitempty"`
 
 	// Consists of the following fields:
-	Value []ValueInitParameters `json:"value,omitempty" tf:"value,omitempty"`
+	Value *ValueInitParameters `json:"value,omitempty" tf:"value,omitempty"`
 }
 
 type TagsObservation struct {
@@ -226,7 +226,7 @@ type TagsObservation struct {
 	Key *string `json:"key,omitempty" tf:"key,omitempty"`
 
 	// Consists of the following fields:
-	Value []ValueObservation `json:"value,omitempty" tf:"value,omitempty"`
+	Value *ValueObservation `json:"value,omitempty" tf:"value,omitempty"`
 }
 
 type TagsParameters struct {
@@ -237,7 +237,7 @@ type TagsParameters struct {
 
 	// Consists of the following fields:
 	// +kubebuilder:validation:Optional
-	Value []ValueParameters `json:"value,omitempty" tf:"value,omitempty"`
+	Value *ValueParameters `json:"value,omitempty" tf:"value,omitempty"`
 }
 
 type ValueInitParameters struct {

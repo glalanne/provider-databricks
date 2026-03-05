@@ -1,3 +1,7 @@
+# SPDX-FileCopyrightText: 2025 The Crossplane Authors <https://crossplane.io>
+#
+# SPDX-License-Identifier: CC0-1.0
+
 apiVersion: sql.databricks.crossplane.io/v1alpha1
 kind: Query
 metadata:
@@ -9,9 +13,13 @@ metadata:
 spec:
   forProvider:
     displayName: My Query Name
-    parentPath: /my_custom_directory
+    parentPathSelector:
+      matchLabels:
+        testing.upbound.io/example-name: shared_dir
     queryText: SELECT 42 as value
-    warehouseId: ${databricks_sql_endpoint.example.id}
+    warehouseIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
 
 ---
 

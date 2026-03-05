@@ -1,3 +1,7 @@
+# SPDX-FileCopyrightText: 2025 The Crossplane Authors <https://crossplane.io>
+#
+# SPDX-License-Identifier: CC0-1.0
+
 apiVersion: sql.databricks.m.crossplane.io/v1alpha1
 kind: SQLQuery
 metadata:
@@ -16,11 +20,11 @@ spec:
     parameter:
     - name: p1
       text:
-      - value: default
+        value: default
       title: Title for p1
     - enum:
-      - multiple:
-        - prefix: '"'
+        multiple:
+          prefix: '"'
           separator: ','
           suffix: '"'
         options:
@@ -31,7 +35,7 @@ spec:
       name: p2
       title: Title for p2
     - date:
-      - value: "2022-01-01"
+        value: "2022-01-01"
       name: p3
       title: Title for p3
     parent: folders/${databricks_directory.shared_dir.object_id}

@@ -17,20 +17,20 @@ import (
 type CloudResourceContainerInitParameters struct {
 
 	// A block that consists of the following field:
-	GCP []GCPInitParameters `json:"gcp,omitempty" tf:"gcp,omitempty"`
+	GCP *GCPInitParameters `json:"gcp,omitempty" tf:"gcp,omitempty"`
 }
 
 type CloudResourceContainerObservation struct {
 
 	// A block that consists of the following field:
-	GCP []GCPObservation `json:"gcp,omitempty" tf:"gcp,omitempty"`
+	GCP *GCPObservation `json:"gcp,omitempty" tf:"gcp,omitempty"`
 }
 
 type CloudResourceContainerParameters struct {
 
 	// A block that consists of the following field:
 	// +kubebuilder:validation:Optional
-	GCP []GCPParameters `json:"gcp" tf:"gcp,omitempty"`
+	GCP *GCPParameters `json:"gcp" tf:"gcp,omitempty"`
 }
 
 type ExternalCustomerInfoInitParameters struct {
@@ -140,7 +140,7 @@ type MwsWorkspacesInitParameters struct {
 	Cloud *string `json:"cloud,omitempty" tf:"cloud,omitempty"`
 
 	// (GCP only) A block that specifies GCP workspace configurations, consisting of following blocks:
-	CloudResourceContainer []CloudResourceContainerInitParameters `json:"cloudResourceContainer,omitempty" tf:"cloud_resource_container,omitempty"`
+	CloudResourceContainer *CloudResourceContainerInitParameters `json:"cloudResourceContainer,omitempty" tf:"cloud_resource_container,omitempty"`
 
 	// - The compute mode for the workspace. When unset, a classic workspace is created, and both credentials_id and storage_configuration_id must be specified. When set to SERVERLESS, the resulting workspace is a serverless workspace, and credentials_id and storage_configuration_id must not be set. The only allowed value for this is SERVERLESS. Changing this field requires recreation of the workspace.
 	ComputeMode *string `json:"computeMode,omitempty" tf:"compute_mode,omitempty"`
@@ -174,11 +174,11 @@ type MwsWorkspacesInitParameters struct {
 	// - The expected status of the workspace. When unset, it defaults to RUNNING. When set to PROVISIONING, workspace provisioning will pause and not enter RUNNING status. The only allowed values for this is RUNNING and PROVISIONING.
 	ExpectedWorkspaceStatus *string `json:"expectedWorkspaceStatus,omitempty" tf:"expected_workspace_status,omitempty"`
 
-	ExternalCustomerInfo []ExternalCustomerInfoInitParameters `json:"externalCustomerInfo,omitempty" tf:"external_customer_info,omitempty"`
+	ExternalCustomerInfo *ExternalCustomerInfoInitParameters `json:"externalCustomerInfo,omitempty" tf:"external_customer_info,omitempty"`
 
-	GCPManagedNetworkConfig []GCPManagedNetworkConfigInitParameters `json:"gcpManagedNetworkConfig,omitempty" tf:"gcp_managed_network_config,omitempty"`
+	GCPManagedNetworkConfig *GCPManagedNetworkConfigInitParameters `json:"gcpManagedNetworkConfig,omitempty" tf:"gcp_managed_network_config,omitempty"`
 
-	GkeConfig []GkeConfigInitParameters `json:"gkeConfig,omitempty" tf:"gke_config,omitempty"`
+	GkeConfig *GkeConfigInitParameters `json:"gkeConfig,omitempty" tf:"gke_config,omitempty"`
 
 	IsNoPublicIPEnabled *bool `json:"isNoPublicIpEnabled,omitempty" tf:"is_no_public_ip_enabled,omitempty"`
 
@@ -226,7 +226,7 @@ type MwsWorkspacesInitParameters struct {
 	// customer_managed_key_id from customer managed keys with use_cases set to STORAGE. This is used to encrypt the DBFS Storage & Cluster Volumes.
 	StorageCustomerManagedKeyID *string `json:"storageCustomerManagedKeyId,omitempty" tf:"storage_customer_managed_key_id,omitempty"`
 
-	Token []TokenInitParameters `json:"token,omitempty" tf:"token,omitempty"`
+	Token *TokenInitParameters `json:"token,omitempty" tf:"token,omitempty"`
 
 	// (String) workspace id
 	WorkspaceID *float64 `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
@@ -252,7 +252,7 @@ type MwsWorkspacesObservation struct {
 	Cloud *string `json:"cloud,omitempty" tf:"cloud,omitempty"`
 
 	// (GCP only) A block that specifies GCP workspace configurations, consisting of following blocks:
-	CloudResourceContainer []CloudResourceContainerObservation `json:"cloudResourceContainer,omitempty" tf:"cloud_resource_container,omitempty"`
+	CloudResourceContainer *CloudResourceContainerObservation `json:"cloudResourceContainer,omitempty" tf:"cloud_resource_container,omitempty"`
 
 	// - The compute mode for the workspace. When unset, a classic workspace is created, and both credentials_id and storage_configuration_id must be specified. When set to SERVERLESS, the resulting workspace is a serverless workspace, and credentials_id and storage_configuration_id must not be set. The only allowed value for this is SERVERLESS. Changing this field requires recreation of the workspace.
 	ComputeMode *string `json:"computeMode,omitempty" tf:"compute_mode,omitempty"`
@@ -279,14 +279,14 @@ type MwsWorkspacesObservation struct {
 	// - The expected status of the workspace. When unset, it defaults to RUNNING. When set to PROVISIONING, workspace provisioning will pause and not enter RUNNING status. The only allowed values for this is RUNNING and PROVISIONING.
 	ExpectedWorkspaceStatus *string `json:"expectedWorkspaceStatus,omitempty" tf:"expected_workspace_status,omitempty"`
 
-	ExternalCustomerInfo []ExternalCustomerInfoObservation `json:"externalCustomerInfo,omitempty" tf:"external_customer_info,omitempty"`
+	ExternalCustomerInfo *ExternalCustomerInfoObservation `json:"externalCustomerInfo,omitempty" tf:"external_customer_info,omitempty"`
 
-	GCPManagedNetworkConfig []GCPManagedNetworkConfigObservation `json:"gcpManagedNetworkConfig,omitempty" tf:"gcp_managed_network_config,omitempty"`
+	GCPManagedNetworkConfig *GCPManagedNetworkConfigObservation `json:"gcpManagedNetworkConfig,omitempty" tf:"gcp_managed_network_config,omitempty"`
 
 	// (String, GCP only) identifier of a service account created for the workspace in form of db-<workspace-id>@prod-gcp-<region>.iam.gserviceaccount.com
 	GCPWorkspaceSa *string `json:"gcpWorkspaceSa,omitempty" tf:"gcp_workspace_sa,omitempty"`
 
-	GkeConfig []GkeConfigObservation `json:"gkeConfig,omitempty" tf:"gke_config,omitempty"`
+	GkeConfig *GkeConfigObservation `json:"gkeConfig,omitempty" tf:"gke_config,omitempty"`
 
 	// (String) Canonical unique identifier for the workspace, of the format <account-id>/<workspace-id>
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
@@ -317,7 +317,7 @@ type MwsWorkspacesObservation struct {
 	// customer_managed_key_id from customer managed keys with use_cases set to STORAGE. This is used to encrypt the DBFS Storage & Cluster Volumes.
 	StorageCustomerManagedKeyID *string `json:"storageCustomerManagedKeyId,omitempty" tf:"storage_customer_managed_key_id,omitempty"`
 
-	Token []TokenObservation `json:"token,omitempty" tf:"token,omitempty"`
+	Token *TokenObservation `json:"token,omitempty" tf:"token,omitempty"`
 
 	// (String) workspace id
 	WorkspaceID *float64 `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
@@ -350,7 +350,7 @@ type MwsWorkspacesParameters struct {
 
 	// (GCP only) A block that specifies GCP workspace configurations, consisting of following blocks:
 	// +kubebuilder:validation:Optional
-	CloudResourceContainer []CloudResourceContainerParameters `json:"cloudResourceContainer,omitempty" tf:"cloud_resource_container,omitempty"`
+	CloudResourceContainer *CloudResourceContainerParameters `json:"cloudResourceContainer,omitempty" tf:"cloud_resource_container,omitempty"`
 
 	// - The compute mode for the workspace. When unset, a classic workspace is created, and both credentials_id and storage_configuration_id must be specified. When set to SERVERLESS, the resulting workspace is a serverless workspace, and credentials_id and storage_configuration_id must not be set. The only allowed value for this is SERVERLESS. Changing this field requires recreation of the workspace.
 	// +kubebuilder:validation:Optional
@@ -392,13 +392,13 @@ type MwsWorkspacesParameters struct {
 	ExpectedWorkspaceStatus *string `json:"expectedWorkspaceStatus,omitempty" tf:"expected_workspace_status,omitempty"`
 
 	// +kubebuilder:validation:Optional
-	ExternalCustomerInfo []ExternalCustomerInfoParameters `json:"externalCustomerInfo,omitempty" tf:"external_customer_info,omitempty"`
+	ExternalCustomerInfo *ExternalCustomerInfoParameters `json:"externalCustomerInfo,omitempty" tf:"external_customer_info,omitempty"`
 
 	// +kubebuilder:validation:Optional
-	GCPManagedNetworkConfig []GCPManagedNetworkConfigParameters `json:"gcpManagedNetworkConfig,omitempty" tf:"gcp_managed_network_config,omitempty"`
+	GCPManagedNetworkConfig *GCPManagedNetworkConfigParameters `json:"gcpManagedNetworkConfig,omitempty" tf:"gcp_managed_network_config,omitempty"`
 
 	// +kubebuilder:validation:Optional
-	GkeConfig []GkeConfigParameters `json:"gkeConfig,omitempty" tf:"gke_config,omitempty"`
+	GkeConfig *GkeConfigParameters `json:"gkeConfig,omitempty" tf:"gke_config,omitempty"`
 
 	// +kubebuilder:validation:Optional
 	IsNoPublicIPEnabled *bool `json:"isNoPublicIpEnabled,omitempty" tf:"is_no_public_ip_enabled,omitempty"`
@@ -456,7 +456,7 @@ type MwsWorkspacesParameters struct {
 	StorageCustomerManagedKeyID *string `json:"storageCustomerManagedKeyId,omitempty" tf:"storage_customer_managed_key_id,omitempty"`
 
 	// +kubebuilder:validation:Optional
-	Token []TokenParameters `json:"token,omitempty" tf:"token,omitempty"`
+	Token *TokenParameters `json:"token,omitempty" tf:"token,omitempty"`
 
 	// (String) workspace id
 	// +kubebuilder:validation:Optional

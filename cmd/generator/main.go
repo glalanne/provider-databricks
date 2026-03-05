@@ -11,6 +11,7 @@ import (
 	"path/filepath"
 
 	"github.com/alecthomas/kingpin/v2"
+	"github.com/crossplane/upjet/v2/pkg/examples/conversion"
 	"github.com/crossplane/upjet/v2/pkg/pipeline"
 	"github.com/databricks/terraform-provider-databricks/xpprovider"
 
@@ -38,4 +39,7 @@ func main() {
 	kingpin.FatalIfError(err, "Cannot initialize the namespaced provider configuration")
 
 	pipeline.Run(pc, pns, absRootDir)
+
+	kingpin.FatalIfError(conversion.ApplyAPIConverters(pc, "../examples-generated/cluster", "../hack/boilerplate.yaml.txt"), "Cannot convert singleton lists to embedded objects in example cluster-scoped resource manifests.")
+	kingpin.FatalIfError(conversion.ApplyAPIConverters(pns, "../examples-generated/namespaced", "../hack/boilerplate.yaml.txt"), "Cannot convert singleton lists to embedded objects in example namespace-scoped resource manifests.")
 }

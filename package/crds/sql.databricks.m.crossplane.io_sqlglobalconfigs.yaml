@@ -83,6 +83,16 @@ spec:
                       is only for AWS, and will generate an error if used on other
                       clouds.
                     type: string
+                  providerConfig:
+                    description: 'Configure the provider for management through account
+                      provider. This block consists of the following fields:'
+                    properties:
+                      workspaceId:
+                        description: Workspace ID which the resource belongs to. This
+                          workspace must be part of the account which the provider
+                          is configured with.
+                        type: string
+                    type: object
                   securityPolicy:
                     description: 'The policy for controlling access to datasets. Default
                       value: DATA_ACCESS_CONTROL, consult documentation for list of
@@ -134,6 +144,16 @@ spec:
                       is only for AWS, and will generate an error if used on other
                       clouds.
                     type: string
+                  providerConfig:
+                    description: 'Configure the provider for management through account
+                      provider. This block consists of the following fields:'
+                    properties:
+                      workspaceId:
+                        description: Workspace ID which the resource belongs to. This
+                          workspace must be part of the account which the provider
+                          is configured with.
+                        type: string
+                    type: object
                   securityPolicy:
                     description: 'The policy for controlling access to datasets. Default
                       value: DATA_ACCESS_CONTROL, consult documentation for list of
@@ -237,6 +257,16 @@ spec:
                       is only for AWS, and will generate an error if used on other
                       clouds.
                     type: string
+                  providerConfig:
+                    description: 'Configure the provider for management through account
+                      provider. This block consists of the following fields:'
+                    properties:
+                      workspaceId:
+                        description: Workspace ID which the resource belongs to. This
+                          workspace must be part of the account which the provider
+                          is configured with.
+                        type: string
+                    type: object
                   securityPolicy:
                     description: 'The policy for controlling access to datasets. Default
                       value: DATA_ACCESS_CONTROL, consult documentation for list of

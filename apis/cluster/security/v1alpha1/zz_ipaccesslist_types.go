@@ -26,6 +26,9 @@ type IPAccessListInitParameters struct {
 
 	// Can only be "ALLOW" or "BLOCK".
 	ListType *string `json:"listType,omitempty" tf:"list_type,omitempty"`
+
+	// Configure the provider for management through account provider. This block consists of the following fields:
+	ProviderConfig *IPAccessListProviderConfigInitParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
 }
 
 type IPAccessListObservation struct {
@@ -44,6 +47,9 @@ type IPAccessListObservation struct {
 
 	// Can only be "ALLOW" or "BLOCK".
 	ListType *string `json:"listType,omitempty" tf:"list_type,omitempty"`
+
+	// Configure the provider for management through account provider. This block consists of the following fields:
+	ProviderConfig *IPAccessListProviderConfigObservation `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
 }
 
 type IPAccessListParameters struct {
@@ -63,6 +69,29 @@ type IPAccessListParameters struct {
 	// Can only be "ALLOW" or "BLOCK".
 	// +kubebuilder:validation:Optional
 	ListType *string `json:"listType,omitempty" tf:"list_type,omitempty"`
+
+	// Configure the provider for management through account provider. This block consists of the following fields:
+	// +kubebuilder:validation:Optional
+	ProviderConfig *IPAccessListProviderConfigParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
+}
+
+type IPAccessListProviderConfigInitParameters struct {
+
+	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
+}
+
+type IPAccessListProviderConfigObservation struct {
+
+	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
+}
+
+type IPAccessListProviderConfigParameters struct {
+
+	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
+	// +kubebuilder:validation:Optional
+	WorkspaceID *string `json:"workspaceId" tf:"workspace_id,omitempty"`
 }
 
 // IPAccessListSpec defines the desired state of IPAccessList

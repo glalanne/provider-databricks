@@ -15,7 +15,7 @@ TERRAFORM_VERSION_VALID := $(shell [ "$(TERRAFORM_VERSION)" = "`printf "$(TERRAF
 
 export TERRAFORM_PROVIDER_SOURCE ?= databricks/databricks
 export TERRAFORM_PROVIDER_REPO ?= https://github.com/databricks/terraform-provider-databricks
-export TERRAFORM_PROVIDER_VERSION ?= 1.105.0
+export TERRAFORM_PROVIDER_VERSION ?= 1.110.0
 export TERRAFORM_PROVIDER_DOWNLOAD_NAME ?= terraform-provider-databricks
 export TERRAFORM_PROVIDER_DOWNLOAD_URL_PREFIX ?= https://github.com/databricks/$(TERRAFORM_PROVIDER_DOWNLOAD_NAME)/releases/download/v$(TERRAFORM_PROVIDER_VERSION)
 export TERRAFORM_NATIVE_PROVIDER_BINARY ?= $(TERRAFORM_PROVIDER_DOWNLOAD_NAME)_v$(TERRAFORM_PROVIDER_VERSION)
@@ -47,8 +47,8 @@ NPROCS ?= 1
 # to half the number of CPU cores.
 GO_TEST_PARALLEL := $(shell echo $$(( $(NPROCS) / 2 )))
 
-GO_REQUIRED_VERSION ?= 1.24.7
-GOLANGCILINT_VERSION = 2.1.2
+GO_REQUIRED_VERSION ?= 1.25.7
+GOLANGCILINT_VERSION = 2.10.1
 
 GO111MODULE = on
 GO_STATIC_PACKAGES = $(GO_PROJECT)/cmd/provider $(GO_PROJECT)/cmd/generator

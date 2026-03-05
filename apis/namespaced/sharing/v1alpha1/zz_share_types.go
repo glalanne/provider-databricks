@@ -163,25 +163,6 @@ type PartitionParameters struct {
 	Value []ValueParameters `json:"value,omitempty" tf:"value,omitempty"`
 }
 
-type ProviderConfigInitParameters struct {
-
-	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
-	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
-}
-
-type ProviderConfigObservation struct {
-
-	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
-	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
-}
-
-type ProviderConfigParameters struct {
-
-	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
-	// +kubebuilder:validation:Optional
-	WorkspaceID *string `json:"workspaceId" tf:"workspace_id,omitempty"`
-}
-
 type ShareInitParameters struct {
 
 	// User-supplied free-form text.
@@ -193,7 +174,7 @@ type ShareInitParameters struct {
 	Owner *string `json:"owner,omitempty" tf:"owner,omitempty"`
 
 	// Configure the provider for management through account provider. This block consists of the following fields:
-	ProviderConfig []ProviderConfigInitParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
+	ProviderConfig []ShareProviderConfigInitParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
 
 	StorageRoot *string `json:"storageRoot,omitempty" tf:"storage_root,omitempty"`
 }
@@ -221,7 +202,7 @@ type ShareObservation struct {
 	Owner *string `json:"owner,omitempty" tf:"owner,omitempty"`
 
 	// Configure the provider for management through account provider. This block consists of the following fields:
-	ProviderConfig []ProviderConfigObservation `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
+	ProviderConfig []ShareProviderConfigObservation `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
 
 	StorageLocation *string `json:"storageLocation,omitempty" tf:"storage_location,omitempty"`
 
@@ -247,10 +228,29 @@ type ShareParameters struct {
 
 	// Configure the provider for management through account provider. This block consists of the following fields:
 	// +kubebuilder:validation:Optional
-	ProviderConfig []ProviderConfigParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
+	ProviderConfig []ShareProviderConfigParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
 
 	// +kubebuilder:validation:Optional
 	StorageRoot *string `json:"storageRoot,omitempty" tf:"storage_root,omitempty"`
+}
+
+type ShareProviderConfigInitParameters struct {
+
+	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
+}
+
+type ShareProviderConfigObservation struct {
+
+	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
+}
+
+type ShareProviderConfigParameters struct {
+
+	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
+	// +kubebuilder:validation:Optional
+	WorkspaceID *string `json:"workspaceId" tf:"workspace_id,omitempty"`
 }
 
 type ValueInitParameters struct {

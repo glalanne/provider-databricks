@@ -125,6 +125,15 @@ func (l *OnlineTableList) GetItems() []resource.Managed {
 	return items
 }
 
+// GetItems of this PolicyInfoList.
+func (l *PolicyInfoList) GetItems() []resource.Managed {
+	items := make([]resource.Managed, len(l.Items))
+	for i := range l.Items {
+		items[i] = &l.Items[i]
+	}
+	return items
+}
+
 // GetItems of this QualityMonitorList.
 func (l *QualityMonitorList) GetItems() []resource.Managed {
 	items := make([]resource.Managed, len(l.Items))

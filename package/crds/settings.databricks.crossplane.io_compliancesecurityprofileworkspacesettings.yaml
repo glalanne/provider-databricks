@@ -75,18 +75,21 @@ spec:
               forProvider:
                 properties:
                   complianceSecurityProfileWorkspace:
-                    items:
-                      properties:
-                        complianceStandards:
-                          items:
-                            type: string
-                          type: array
-                        isEnabled:
-                          type: boolean
-                      type: object
-                    type: array
+                    properties:
+                      complianceStandards:
+                        items:
+                          type: string
+                        type: array
+                      isEnabled:
+                        type: boolean
+                    type: object
                   etag:
                     type: string
+                  providerConfig:
+                    properties:
+                      workspaceId:
+                        type: string
+                    type: object
                   settingName:
                     type: string
                 type: object
@@ -104,18 +107,21 @@ spec:
                   autoscaler.
                 properties:
                   complianceSecurityProfileWorkspace:
-                    items:
-                      properties:
-                        complianceStandards:
-                          items:
-                            type: string
-                          type: array
-                        isEnabled:
-                          type: boolean
-                      type: object
-                    type: array
+                    properties:
+                      complianceStandards:
+                        items:
+                          type: string
+                        type: array
+                      isEnabled:
+                        type: boolean
+                    type: object
                   etag:
                     type: string
+                  providerConfig:
+                    properties:
+                      workspaceId:
+                        type: string
+                    type: object
                   settingName:
                     type: string
                 type: object
@@ -218,20 +224,23 @@ spec:
               atProvider:
                 properties:
                   complianceSecurityProfileWorkspace:
-                    items:
-                      properties:
-                        complianceStandards:
-                          items:
-                            type: string
-                          type: array
-                        isEnabled:
-                          type: boolean
-                      type: object
-                    type: array
+                    properties:
+                      complianceStandards:
+                        items:
+                          type: string
+                        type: array
+                      isEnabled:
+                        type: boolean
+                    type: object
                   etag:
                     type: string
                   id:
                     type: string
+                  providerConfig:
+                    properties:
+                      workspaceId:
+                        type: string
+                    type: object
                   settingName:
                     type: string
                 type: object

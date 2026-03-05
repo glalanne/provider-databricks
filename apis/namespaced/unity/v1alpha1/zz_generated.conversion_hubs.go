@@ -46,6 +46,9 @@ func (tr *MetastoreDataAccess) Hub() {}
 func (tr *OnlineTable) Hub() {}
 
 // Hub marks this type as a conversion hub.
+func (tr *PolicyInfo) Hub() {}
+
+// Hub marks this type as a conversion hub.
 func (tr *QualityMonitor) Hub() {}
 
 // Hub marks this type as a conversion hub.

@@ -22,7 +22,7 @@ type CatalogInitParameters struct {
 	// For Foreign Catalogs: the name of the connection to an external data source. Changes forces creation of a new resource.
 	ConnectionName *string `json:"connectionName,omitempty" tf:"connection_name,omitempty"`
 
-	EffectivePredictiveOptimizationFlag []EffectivePredictiveOptimizationFlagInitParameters `json:"effectivePredictiveOptimizationFlag,omitempty" tf:"effective_predictive_optimization_flag,omitempty"`
+	EffectivePredictiveOptimizationFlag *EffectivePredictiveOptimizationFlagInitParameters `json:"effectivePredictiveOptimizationFlag,omitempty" tf:"effective_predictive_optimization_flag,omitempty"`
 
 	// Whether predictive optimization should be enabled for this object and objects under it. Can be ENABLE, DISABLE or INHERIT
 	EnablePredictiveOptimization *string `json:"enablePredictiveOptimization,omitempty" tf:"enable_predictive_optimization,omitempty"`
@@ -50,10 +50,13 @@ type CatalogInitParameters struct {
 	// +mapType=granular
 	Properties map[string]*string `json:"properties,omitempty" tf:"properties,omitempty"`
 
+	// Configure the provider for management through account provider. This block consists of the following fields:
+	ProviderConfig *CatalogProviderConfigInitParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
+
 	// For Delta Sharing Catalogs: the name of the delta sharing provider. Change forces creation of a new resource.
 	ProviderName *string `json:"providerName,omitempty" tf:"provider_name,omitempty"`
 
-	ProvisioningInfo []ProvisioningInfoInitParameters `json:"provisioningInfo,omitempty" tf:"provisioning_info,omitempty"`
+	ProvisioningInfo *ProvisioningInfoInitParameters `json:"provisioningInfo,omitempty" tf:"provisioning_info,omitempty"`
 
 	// For Delta Sharing Catalogs: the name of the share under the share provider. Change forces creation of a new resource.
 	ShareName *string `json:"shareName,omitempty" tf:"share_name,omitempty"`
@@ -80,7 +83,7 @@ type CatalogObservation struct {
 	// username of catalog creator.
 	CreatedBy *string `json:"createdBy,omitempty" tf:"created_by,omitempty"`
 
-	EffectivePredictiveOptimizationFlag []EffectivePredictiveOptimizationFlagObservation `json:"effectivePredictiveOptimizationFlag,omitempty" tf:"effective_predictive_optimization_flag,omitempty"`
+	EffectivePredictiveOptimizationFlag *EffectivePredictiveOptimizationFlagObservation `json:"effectivePredictiveOptimizationFlag,omitempty" tf:"effective_predictive_optimization_flag,omitempty"`
 
 	// Whether predictive optimization should be enabled for this object and objects under it. Can be ENABLE, DISABLE or INHERIT
 	EnablePredictiveOptimization *string `json:"enablePredictiveOptimization,omitempty" tf:"enable_predictive_optimization,omitempty"`
@@ -114,10 +117,13 @@ type CatalogObservation struct {
 	// +mapType=granular
 	Properties map[string]*string `json:"properties,omitempty" tf:"properties,omitempty"`
 
+	// Configure the provider for management through account provider. This block consists of the following fields:
+	ProviderConfig *CatalogProviderConfigObservation `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
+
 	// For Delta Sharing Catalogs: the name of the delta sharing provider. Change forces creation of a new resource.
 	ProviderName *string `json:"providerName,omitempty" tf:"provider_name,omitempty"`
 
-	ProvisioningInfo []ProvisioningInfoObservation `json:"provisioningInfo,omitempty" tf:"provisioning_info,omitempty"`
+	ProvisioningInfo *ProvisioningInfoObservation `json:"provisioningInfo,omitempty" tf:"provisioning_info,omitempty"`
 
 	// the type of Unity Catalog securable.
 	SecurableType *string `json:"securableType,omitempty" tf:"securable_type,omitempty"`
@@ -152,7 +158,7 @@ type CatalogParameters struct {
 	ConnectionName *string `json:"connectionName,omitempty" tf:"connection_name,omitempty"`
 
 	// +kubebuilder:validation:Optional
-	EffectivePredictiveOptimizationFlag []EffectivePredictiveOptimizationFlagParameters `json:"effectivePredictiveOptimizationFlag,omitempty" tf:"effective_predictive_optimization_flag,omitempty"`
+	EffectivePredictiveOptimizationFlag *EffectivePredictiveOptimizationFlagParameters `json:"effectivePredictiveOptimizationFlag,omitempty" tf:"effective_predictive_optimization_flag,omitempty"`
 
 	// Whether predictive optimization should be enabled for this object and objects under it. Can be ENABLE, DISABLE or INHERIT
 	// +kubebuilder:validation:Optional
@@ -188,12 +194,16 @@ type CatalogParameters struct {
 	// +mapType=granular
 	Properties map[string]*string `json:"properties,omitempty" tf:"properties,omitempty"`
 
+	// Configure the provider for management through account provider. This block consists of the following fields:
+	// +kubebuilder:validation:Optional
+	ProviderConfig *CatalogProviderConfigParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
+
 	// For Delta Sharing Catalogs: the name of the delta sharing provider. Change forces creation of a new resource.
 	// +kubebuilder:validation:Optional
 	ProviderName *string `json:"providerName,omitempty" tf:"provider_name,omitempty"`
 
 	// +kubebuilder:validation:Optional
-	ProvisioningInfo []ProvisioningInfoParameters `json:"provisioningInfo,omitempty" tf:"provisioning_info,omitempty"`
+	ProvisioningInfo *ProvisioningInfoParameters `json:"provisioningInfo,omitempty" tf:"provisioning_info,omitempty"`
 
 	// For Delta Sharing Catalogs: the name of the share under the share provider. Change forces creation of a new resource.
 	// +kubebuilder:validation:Optional
@@ -202,6 +212,25 @@ type CatalogParameters struct {
 	// Managed location of the catalog. Location in cloud storage where data for managed tables will be stored.  If the URL contains special characters, such as space, &, etc., they should be percent-encoded (space -> %20, etc.). If not specified, the location will default to the metastore root location. Change forces creation of a new resource.
 	// +kubebuilder:validation:Optional
 	StorageRoot *string `json:"storageRoot,omitempty" tf:"storage_root,omitempty"`
+}
+
+type CatalogProviderConfigInitParameters struct {
+
+	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
+}
+
+type CatalogProviderConfigObservation struct {
+
+	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
+}
+
+type CatalogProviderConfigParameters struct {
+
+	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
+	// +kubebuilder:validation:Optional
+	WorkspaceID *string `json:"workspaceId" tf:"workspace_id,omitempty"`
 }
 
 type EffectivePredictiveOptimizationFlagInitParameters struct {

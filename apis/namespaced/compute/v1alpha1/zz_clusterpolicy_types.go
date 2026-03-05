@@ -35,6 +35,9 @@ type ClusterPolicyInitParameters struct {
 
 	// the ID of the cluster policy family used for built-in cluster policy.
 	PolicyFamilyID *string `json:"policyFamilyId,omitempty" tf:"policy_family_id,omitempty"`
+
+	// Configure the provider for management through account provider. This block consists of the following fields:
+	ProviderConfig *ClusterPolicyProviderConfigInitParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
 }
 
 type ClusterPolicyObservation struct {
@@ -64,6 +67,9 @@ type ClusterPolicyObservation struct {
 
 	// Canonical unique identifier for the cluster policy.
 	PolicyID *string `json:"policyId,omitempty" tf:"policy_id,omitempty"`
+
+	// Configure the provider for management through account provider. This block consists of the following fields:
+	ProviderConfig *ClusterPolicyProviderConfigObservation `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
 }
 
 type ClusterPolicyParameters struct {
@@ -94,6 +100,29 @@ type ClusterPolicyParameters struct {
 	// the ID of the cluster policy family used for built-in cluster policy.
 	// +kubebuilder:validation:Optional
 	PolicyFamilyID *string `json:"policyFamilyId,omitempty" tf:"policy_family_id,omitempty"`
+
+	// Configure the provider for management through account provider. This block consists of the following fields:
+	// +kubebuilder:validation:Optional
+	ProviderConfig *ClusterPolicyProviderConfigParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
+}
+
+type ClusterPolicyProviderConfigInitParameters struct {
+
+	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
+}
+
+type ClusterPolicyProviderConfigObservation struct {
+
+	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
+}
+
+type ClusterPolicyProviderConfigParameters struct {
+
+	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
+	// +kubebuilder:validation:Optional
+	WorkspaceID *string `json:"workspaceId" tf:"workspace_id,omitempty"`
 }
 
 type LibrariesCranInitParameters struct {
@@ -118,17 +147,18 @@ type LibrariesCranParameters struct {
 }
 
 type LibrariesInitParameters struct {
-	Cran []LibrariesCranInitParameters `json:"cran,omitempty" tf:"cran,omitempty"`
+	Cran *LibrariesCranInitParameters `json:"cran,omitempty" tf:"cran,omitempty"`
 
 	Egg *string `json:"egg,omitempty" tf:"egg,omitempty"`
 
 	Jar *string `json:"jar,omitempty" tf:"jar,omitempty"`
 
-	Maven []LibrariesMavenInitParameters `json:"maven,omitempty" tf:"maven,omitempty"`
+	Maven *LibrariesMavenInitParameters `json:"maven,omitempty" tf:"maven,omitempty"`
 
-	ProviderConfig []LibrariesProviderConfigInitParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
+	// Configure the provider for management through account provider. This block consists of the following fields:
+	ProviderConfig *LibrariesProviderConfigInitParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
 
-	Pypi []LibrariesPypiInitParameters `json:"pypi,omitempty" tf:"pypi,omitempty"`
+	Pypi *LibrariesPypiInitParameters `json:"pypi,omitempty" tf:"pypi,omitempty"`
 
 	Requirements *string `json:"requirements,omitempty" tf:"requirements,omitempty"`
 
@@ -164,17 +194,18 @@ type LibrariesMavenParameters struct {
 }
 
 type LibrariesObservation struct {
-	Cran []LibrariesCranObservation `json:"cran,omitempty" tf:"cran,omitempty"`
+	Cran *LibrariesCranObservation `json:"cran,omitempty" tf:"cran,omitempty"`
 
 	Egg *string `json:"egg,omitempty" tf:"egg,omitempty"`
 
 	Jar *string `json:"jar,omitempty" tf:"jar,omitempty"`
 
-	Maven []LibrariesMavenObservation `json:"maven,omitempty" tf:"maven,omitempty"`
+	Maven *LibrariesMavenObservation `json:"maven,omitempty" tf:"maven,omitempty"`
 
-	ProviderConfig []LibrariesProviderConfigObservation `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
+	// Configure the provider for management through account provider. This block consists of the following fields:
+	ProviderConfig *LibrariesProviderConfigObservation `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
 
-	Pypi []LibrariesPypiObservation `json:"pypi,omitempty" tf:"pypi,omitempty"`
+	Pypi *LibrariesPypiObservation `json:"pypi,omitempty" tf:"pypi,omitempty"`
 
 	Requirements *string `json:"requirements,omitempty" tf:"requirements,omitempty"`
 
@@ -184,7 +215,7 @@ type LibrariesObservation struct {
 type LibrariesParameters struct {
 
 	// +kubebuilder:validation:Optional
-	Cran []LibrariesCranParameters `json:"cran,omitempty" tf:"cran,omitempty"`
+	Cran *LibrariesCranParameters `json:"cran,omitempty" tf:"cran,omitempty"`
 
 	// +kubebuilder:validation:Optional
 	Egg *string `json:"egg,omitempty" tf:"egg,omitempty"`
@@ -193,13 +224,14 @@ type LibrariesParameters struct {
 	Jar *string `json:"jar,omitempty" tf:"jar,omitempty"`
 
 	// +kubebuilder:validation:Optional
-	Maven []LibrariesMavenParameters `json:"maven,omitempty" tf:"maven,omitempty"`
+	Maven *LibrariesMavenParameters `json:"maven,omitempty" tf:"maven,omitempty"`
+
+	// Configure the provider for management through account provider. This block consists of the following fields:
+	// +kubebuilder:validation:Optional
+	ProviderConfig *LibrariesProviderConfigParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
 
 	// +kubebuilder:validation:Optional
-	ProviderConfig []LibrariesProviderConfigParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
-
-	// +kubebuilder:validation:Optional
-	Pypi []LibrariesPypiParameters `json:"pypi,omitempty" tf:"pypi,omitempty"`
+	Pypi *LibrariesPypiParameters `json:"pypi,omitempty" tf:"pypi,omitempty"`
 
 	// +kubebuilder:validation:Optional
 	Requirements *string `json:"requirements,omitempty" tf:"requirements,omitempty"`
@@ -210,19 +242,19 @@ type LibrariesParameters struct {
 
 type LibrariesProviderConfigInitParameters struct {
 
-	// Canonical unique identifier for the cluster policy. This is equal to policy_id.
+	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
 	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
 }
 
 type LibrariesProviderConfigObservation struct {
 
-	// Canonical unique identifier for the cluster policy. This is equal to policy_id.
+	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
 	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
 }
 
 type LibrariesProviderConfigParameters struct {
 
-	// Canonical unique identifier for the cluster policy. This is equal to policy_id.
+	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
 	// +kubebuilder:validation:Optional
 	WorkspaceID *string `json:"workspaceId" tf:"workspace_id,omitempty"`
 }

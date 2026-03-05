@@ -73,60 +73,55 @@ spec:
               forProvider:
                 properties:
                   awsAttributes:
-                    items:
-                      properties:
-                        availability:
-                          description: Availability type used for all nodes. Valid
-                            values are SPOT_AZURE and ON_DEMAND_AZURE.
-                          type: string
-                        instanceProfileArn:
-                          description: Nodes belonging to the pool will only be placed
-                            on AWS instances with this instance profile.
-                          type: string
-                        spotBidPricePercent:
-                          description: (Integer) The max price for AWS spot instances,
-                            as a percentage of the corresponding instance type's on-demand
-                            price. For example, if this field is set to 50, and the
-                            instance pool needs a new i3.xlarge spot instance, then
-                            the max price is half of the price of on-demand i3.xlarge
-                            instances. Similarly, if this field is set to 200, the
-                            max price is twice the price of on-demand i3.xlarge instances.
-                            If not specified, the default value is 100. When spot
-                            instances are requested for this instance pool, only spot
-                            instances whose max price percentage matches this field
-                            are considered. For safety, this field cannot be greater
-                            than 10000.
-                          type: number
-                        zoneId:
-                          description: (String) Identifier for the availability zone/datacenter
-                            in which the instance pool resides. This string is of
-                            the form like "us-west-2a". The provided availability
-                            zone must be in the same region as the Databricks deployment.
-                            For example, "us-west-2a" is not a valid zone ID if the
-                            Databricks deployment resides in the "us-east-1" region.
-                            If not specified, a default zone is used. You can find
-                            the list of available zones as well as the default value
-                            by using the List Zones API.
-                          type: string
-                      type: object
-                    type: array
+                    properties:
+                      availability:
+                        description: Availability type used for all nodes. Valid values
+                          are SPOT_AZURE and ON_DEMAND_AZURE.
+                        type: string
+                      instanceProfileArn:
+                        description: Nodes belonging to the pool will only be placed
+                          on AWS instances with this instance profile.
+                        type: string
+                      spotBidPricePercent:
+                        description: (Integer) The max price for AWS spot instances,
+                          as a percentage of the corresponding instance type's on-demand
+                          price. For example, if this field is set to 50, and the
+                          instance pool needs a new i3.xlarge spot instance, then
+                          the max price is half of the price of on-demand i3.xlarge
+                          instances. Similarly, if this field is set to 200, the max
+                          price is twice the price of on-demand i3.xlarge instances.
+                          If not specified, the default value is 100. When spot instances
+                          are requested for this instance pool, only spot instances
+                          whose max price percentage matches this field are considered.
+                          For safety, this field cannot be greater than 10000.
+                        type: number
+                      zoneId:
+                        description: (String) Identifier for the availability zone/datacenter
+                          in which the instance pool resides. This string is of the
+                          form like "us-west-2a". The provided availability zone must
+                          be in the same region as the Databricks deployment. For
+                          example, "us-west-2a" is not a valid zone ID if the Databricks
+                          deployment resides in the "us-east-1" region. If not specified,
+                          a default zone is used. You can find the list of available
+                          zones as well as the default value by using the List Zones
+                          API.
+                        type: string
+                    type: object
                   azureAttributes:
-                    items:
-                      properties:
-                        availability:
-                          description: Availability type used for all nodes. Valid
-                            values are SPOT_AZURE and ON_DEMAND_AZURE.
-                          type: string
-                        spotBidMaxPrice:
-                          description: The max bid price used for Azure spot instances.
-                            You can set this to greater than or equal to the current
-                            spot price. You can also set this to -1, which specifies
-                            that the instance cannot be evicted on the basis of price.
-                            The price for the instance will be the current price for
-                            spot instances or the price for a standard instance.
-                          type: number
-                      type: object
-                    type: array
+                    properties:
+                      availability:
+                        description: Availability type used for all nodes. Valid values
+                          are SPOT_AZURE and ON_DEMAND_AZURE.
+                        type: string
+                      spotBidMaxPrice:
+                        description: The max bid price used for Azure spot instances.
+                          You can set this to greater than or equal to the current
+                          spot price. You can also set this to -1, which specifies
+                          that the instance cannot be evicted on the basis of price.
+                          The price for the instance will be the current price for
+                          spot instances or the price for a standard instance.
+                        type: number
+                    type: object
                   customTags:
                     additionalProperties:
                       type: string
@@ -140,55 +135,48 @@ spec:
                     type: object
                     x-kubernetes-map-type: granular
                   diskSpec:
-                    items:
-                      properties:
-                        diskCount:
-                          description: (Integer) The number of disks to attach to
-                            each instance. This feature is only enabled for supported
-                            node types. Users can choose up to the limit of the disks
-                            supported by the node type. For node types with no local
-                            disk, at least one disk needs to be specified.
-                          type: number
-                        diskSize:
-                          description: (Integer) The size of each disk (in GiB) to
-                            attach.
-                          type: number
-                        diskType:
-                          items:
-                            properties:
-                              azureDiskVolumeType:
-                                type: string
-                              ebsVolumeType:
-                                type: string
-                            type: object
-                          type: array
-                      type: object
-                    type: array
+                    properties:
+                      diskCount:
+                        description: (Integer) The number of disks to attach to each
+                          instance. This feature is only enabled for supported node
+                          types. Users can choose up to the limit of the disks supported
+                          by the node type. For node types with no local disk, at
+                          least one disk needs to be specified.
+                        type: number
+                      diskSize:
+                        description: (Integer) The size of each disk (in GiB) to attach.
+                        type: number
+                      diskType:
+                        properties:
+                          azureDiskVolumeType:
+                            type: string
+                          ebsVolumeType:
+                            type: string
+                        type: object
+                    type: object
                   enableElasticDisk:
                     description: '(Bool) Autoscaling Local Storage: when enabled,
                       the instances in the pool dynamically acquire additional disk
                       space when they are running low on disk space.'
                     type: boolean
                   gcpAttributes:
-                    items:
-                      properties:
-                        gcpAvailability:
-                          description: 'Availability type used for all nodes. Valid
-                            values are PREEMPTIBLE_GCP, PREEMPTIBLE_WITH_FALLBACK_GCP
-                            and ON_DEMAND_GCP, default: ON_DEMAND_GCP.'
-                          type: string
-                        localSsdCount:
-                          description: Number of local SSD disks (each is 375GB in
-                            size) that will be attached to each node of the cluster.
-                          type: number
-                        zoneId:
-                          description: Identifier for the availability zone/datacenter
-                            in which the cluster resides. This string will be of a
-                            form like us-central1-a. The provided availability zone
-                            must be in the same region as the Databricks workspace.
-                          type: string
-                      type: object
-                    type: array
+                    properties:
+                      gcpAvailability:
+                        description: 'Availability type used for all nodes. Valid
+                          values are PREEMPTIBLE_GCP, PREEMPTIBLE_WITH_FALLBACK_GCP
+                          and ON_DEMAND_GCP, default: ON_DEMAND_GCP.'
+                        type: string
+                      localSsdCount:
+                        description: Number of local SSD disks (each is 375GB in size)
+                          that will be attached to each node of the cluster.
+                        type: number
+                      zoneId:
+                        description: Identifier for the availability zone/datacenter
+                          in which the cluster resides. This string will be of a form
+                          like us-central1-a. The provided availability zone must
+                          be in the same region as the Databricks workspace.
+                        type: string
+                    type: object
                   idleInstanceAutoterminationMinutes:
                     description: (Integer) The number of minutes that idle instances
                       in excess of the min_idle_instances are maintained by the pool
@@ -199,37 +187,31 @@ spec:
                       as possible.
                     type: number
                   instancePoolFleetAttributes:
-                    items:
-                      properties:
-                        fleetOnDemandOption:
-                          items:
-                            properties:
-                              allocationStrategy:
-                                type: string
-                              instancePoolsToUseCount:
-                                type: number
-                            type: object
-                          type: array
-                        fleetSpotOption:
-                          items:
-                            properties:
-                              allocationStrategy:
-                                type: string
-                              instancePoolsToUseCount:
-                                type: number
-                            type: object
-                          type: array
-                        launchTemplateOverride:
-                          items:
-                            properties:
-                              availabilityZone:
-                                type: string
-                              instanceType:
-                                type: string
-                            type: object
-                          type: array
-                      type: object
-                    type: array
+                    properties:
+                      fleetOnDemandOption:
+                        properties:
+                          allocationStrategy:
+                            type: string
+                          instancePoolsToUseCount:
+                            type: number
+                        type: object
+                      fleetSpotOption:
+                        properties:
+                          allocationStrategy:
+                            type: string
+                          instancePoolsToUseCount:
+                            type: number
+                        type: object
+                      launchTemplateOverride:
+                        items:
+                          properties:
+                            availabilityZone:
+                              type: string
+                            instanceType:
+                              type: string
+                          type: object
+                        type: array
+                    type: object
                   instancePoolId:
                     description: Canonical unique identifier for the instance pool.
                     type: string
@@ -253,6 +235,18 @@ spec:
                       by the pool. This is in addition to any instances in use by
                       active clusters.
                     type: number
+                  nodeTypeFlexibility:
+                    description: a block describing the alternative driver node types
+                      if node_type_id isn't available.
+                    properties:
+                      alternateNodeTypeIds:
+                        description: list of alternative node types that will be used
+                          if main node type isn't available.  Follow the documentation
+                          for requirements on selection of alternative node types.
+                        items:
+                          type: string
+                        type: array
+                    type: object
                   nodeTypeId:
                     description: (String) The node type for the instances in the pool.
                       All clusters attached to the pool inherit this node type and
@@ -273,30 +267,28 @@ spec:
                             and referred using secret path syntax: {{secrets/scope/key}},
                             otherwise other users of the workspace may access them
                             via UI/API.'
-                          items:
-                            properties:
-                              passwordSecretRef:
-                                description: A SecretKeySelector is a reference to
-                                  a secret key in an arbitrary namespace.
-                                properties:
-                                  key:
-                                    description: The key to select.
-                                    type: string
-                                  name:
-                                    description: Name of the secret.
-                                    type: string
-                                  namespace:
-                                    description: Namespace of the secret.
-                                    type: string
-                                required:
-                                - key
-                                - name
-                                - namespace
-                                type: object
-                              username:
-                                type: string
-                            type: object
-                          type: array
+                          properties:
+                            passwordSecretRef:
+                              description: A SecretKeySelector is a reference to a
+                                secret key in an arbitrary namespace.
+                              properties:
+                                key:
+                                  description: The key to select.
+                                  type: string
+                                name:
+                                  description: Name of the secret.
+                                  type: string
+                                namespace:
+                                  description: Namespace of the secret.
+                                  type: string
+                              required:
+                              - key
+                              - name
+                              - namespace
+                              type: object
+                            username:
+                              type: string
+                          type: object
                         url:
                           description: URL for the Docker image
                           type: string
@@ -311,6 +303,16 @@ spec:
                     items:
                       type: string
                     type: array
+                  providerConfig:
+                    description: 'Configure the provider for management through account
+                      provider. This block consists of the following fields:'
+                    properties:
+                      workspaceId:
+                        description: Workspace ID which the resource belongs to. This
+                          workspace must be part of the account which the provider
+                          is configured with.
+                        type: string
+                    type: object
                 type: object
               initProvider:
                 description: |-
@@ -326,60 +328,55 @@ spec:
                   autoscaler.
                 properties:
                   awsAttributes:
-                    items:
-                      properties:
-                        availability:
-                          description: Availability type used for all nodes. Valid
-                            values are SPOT_AZURE and ON_DEMAND_AZURE.
-                          type: string
-                        instanceProfileArn:
-                          description: Nodes belonging to the pool will only be placed
-                            on AWS instances with this instance profile.
-                          type: string
-                        spotBidPricePercent:
-                          description: (Integer) The max price for AWS spot instances,
-                            as a percentage of the corresponding instance type's on-demand
-                            price. For example, if this field is set to 50, and the
-                            instance pool needs a new i3.xlarge spot instance, then
-                            the max price is half of the price of on-demand i3.xlarge
-                            instances. Similarly, if this field is set to 200, the
-                            max price is twice the price of on-demand i3.xlarge instances.
-                            If not specified, the default value is 100. When spot
-                            instances are requested for this instance pool, only spot
-                            instances whose max price percentage matches this field
-                            are considered. For safety, this field cannot be greater
-                            than 10000.
-                          type: number
-                        zoneId:
-                          description: (String) Identifier for the availability zone/datacenter
-                            in which the instance pool resides. This string is of
-                            the form like "us-west-2a". The provided availability
-                            zone must be in the same region as the Databricks deployment.
-                            For example, "us-west-2a" is not a valid zone ID if the
-                            Databricks deployment resides in the "us-east-1" region.
-                            If not specified, a default zone is used. You can find
-                            the list of available zones as well as the default value
-                            by using the List Zones API.
-                          type: string
-                      type: object
-                    type: array
+                    properties:
+                      availability:
+                        description: Availability type used for all nodes. Valid values
+                          are SPOT_AZURE and ON_DEMAND_AZURE.
+                        type: string
+                      instanceProfileArn:
+                        description: Nodes belonging to the pool will only be placed
+                          on AWS instances with this instance profile.
+                        type: string
+                      spotBidPricePercent:
+                        description: (Integer) The max price for AWS spot instances,
+                          as a percentage of the corresponding instance type's on-demand
+                          price. For example, if this field is set to 50, and the
+                          instance pool needs a new i3.xlarge spot instance, then
+                          the max price is half of the price of on-demand i3.xlarge
+                          instances. Similarly, if this field is set to 200, the max
+                          price is twice the price of on-demand i3.xlarge instances.
+                          If not specified, the default value is 100. When spot instances
+                          are requested for this instance pool, only spot instances
+                          whose max price percentage matches this field are considered.
+                          For safety, this field cannot be greater than 10000.
+                        type: number
+                      zoneId:
+                        description: (String) Identifier for the availability zone/datacenter
+                          in which the instance pool resides. This string is of the
+                          form like "us-west-2a". The provided availability zone must
+                          be in the same region as the Databricks deployment. For
+                          example, "us-west-2a" is not a valid zone ID if the Databricks
+                          deployment resides in the "us-east-1" region. If not specified,
+                          a default zone is used. You can find the list of available
+                          zones as well as the default value by using the List Zones
+                          API.
+                        type: string
+                    type: object
                   azureAttributes:
-                    items:
-                      properties:
-                        availability:
-                          description: Availability type used for all nodes. Valid
-                            values are SPOT_AZURE and ON_DEMAND_AZURE.
-                          type: string
-                        spotBidMaxPrice:
-                          description: The max bid price used for Azure spot instances.
-                            You can set this to greater than or equal to the current
-                            spot price. You can also set this to -1, which specifies
-                            that the instance cannot be evicted on the basis of price.
-                            The price for the instance will be the current price for
-                            spot instances or the price for a standard instance.
-                          type: number
-                      type: object
-                    type: array
+                    properties:
+                      availability:
+                        description: Availability type used for all nodes. Valid values
+                          are SPOT_AZURE and ON_DEMAND_AZURE.
+                        type: string
+                      spotBidMaxPrice:
+                        description: The max bid price used for Azure spot instances.
+                          You can set this to greater than or equal to the current
+                          spot price. You can also set this to -1, which specifies
+                          that the instance cannot be evicted on the basis of price.
+                          The price for the instance will be the current price for
+                          spot instances or the price for a standard instance.
+                        type: number
+                    type: object
                   customTags:
                     additionalProperties:
                       type: string
@@ -393,55 +390,48 @@ spec:
                     type: object
                     x-kubernetes-map-type: granular
                   diskSpec:
-                    items:
-                      properties:
-                        diskCount:
-                          description: (Integer) The number of disks to attach to
-                            each instance. This feature is only enabled for supported
-                            node types. Users can choose up to the limit of the disks
-                            supported by the node type. For node types with no local
-                            disk, at least one disk needs to be specified.
-                          type: number
-                        diskSize:
-                          description: (Integer) The size of each disk (in GiB) to
-                            attach.
-                          type: number
-                        diskType:
-                          items:
-                            properties:
-                              azureDiskVolumeType:
-                                type: string
-                              ebsVolumeType:
-                                type: string
-                            type: object
-                          type: array
-                      type: object
-                    type: array
+                    properties:
+                      diskCount:
+                        description: (Integer) The number of disks to attach to each
+                          instance. This feature is only enabled for supported node
+                          types. Users can choose up to the limit of the disks supported
+                          by the node type. For node types with no local disk, at
+                          least one disk needs to be specified.
+                        type: number
+                      diskSize:
+                        description: (Integer) The size of each disk (in GiB) to attach.
+                        type: number
+                      diskType:
+                        properties:
+                          azureDiskVolumeType:
+                            type: string
+                          ebsVolumeType:
+                            type: string
+                        type: object
+                    type: object
                   enableElasticDisk:
                     description: '(Bool) Autoscaling Local Storage: when enabled,
                       the instances in the pool dynamically acquire additional disk
                       space when they are running low on disk space.'
                     type: boolean
                   gcpAttributes:
-                    items:
-                      properties:
-                        gcpAvailability:
-                          description: 'Availability type used for all nodes. Valid
-                            values are PREEMPTIBLE_GCP, PREEMPTIBLE_WITH_FALLBACK_GCP
-                            and ON_DEMAND_GCP, default: ON_DEMAND_GCP.'
-                          type: string
-                        localSsdCount:
-                          description: Number of local SSD disks (each is 375GB in
-                            size) that will be attached to each node of the cluster.
-                          type: number
-                        zoneId:
-                          description: Identifier for the availability zone/datacenter
-                            in which the cluster resides. This string will be of a
-                            form like us-central1-a. The provided availability zone
-                            must be in the same region as the Databricks workspace.
-                          type: string
-                      type: object
-                    type: array
+                    properties:
+                      gcpAvailability:
+                        description: 'Availability type used for all nodes. Valid
+                          values are PREEMPTIBLE_GCP, PREEMPTIBLE_WITH_FALLBACK_GCP
+                          and ON_DEMAND_GCP, default: ON_DEMAND_GCP.'
+                        type: string
+                      localSsdCount:
+                        description: Number of local SSD disks (each is 375GB in size)
+                          that will be attached to each node of the cluster.
+                        type: number
+                      zoneId:
+                        description: Identifier for the availability zone/datacenter
+                          in which the cluster resides. This string will be of a form
+                          like us-central1-a. The provided availability zone must
+                          be in the same region as the Databricks workspace.
+                        type: string
+                    type: object
                   idleInstanceAutoterminationMinutes:
                     description: (Integer) The number of minutes that idle instances
                       in excess of the min_idle_instances are maintained by the pool
@@ -452,37 +442,31 @@ spec:
                       as possible.
                     type: number
                   instancePoolFleetAttributes:
-                    items:
-                      properties:
-                        fleetOnDemandOption:
-                          items:
-                            properties:
-                              allocationStrategy:
-                                type: string
-                              instancePoolsToUseCount:
-                                type: number
-                            type: object
-                          type: array
-                        fleetSpotOption:
-                          items:
-                            properties:
-                              allocationStrategy:
-                                type: string
-                              instancePoolsToUseCount:
-                                type: number
-                            type: object
-                          type: array
-                        launchTemplateOverride:
-                          items:
-                            properties:
-                              availabilityZone:
-                                type: string
-                              instanceType:
-                                type: string
-                            type: object
-                          type: array
-                      type: object
-                    type: array
+                    properties:
+                      fleetOnDemandOption:
+                        properties:
+                          allocationStrategy:
+                            type: string
+                          instancePoolsToUseCount:
+                            type: number
+                        type: object
+                      fleetSpotOption:
+                        properties:
+                          allocationStrategy:
+                            type: string
+                          instancePoolsToUseCount:
+                            type: number
+                        type: object
+                      launchTemplateOverride:
+                        items:
+                          properties:
+                            availabilityZone:
+                              type: string
+                            instanceType:
+                              type: string
+                          type: object
+                        type: array
+                    type: object
                   instancePoolId:
                     description: Canonical unique identifier for the instance pool.
                     type: string
@@ -506,6 +490,18 @@ spec:
                       by the pool. This is in addition to any instances in use by
                       active clusters.
                     type: number
+                  nodeTypeFlexibility:
+                    description: a block describing the alternative driver node types
+                      if node_type_id isn't available.
+                    properties:
+                      alternateNodeTypeIds:
+                        description: list of alternative node types that will be used
+                          if main node type isn't available.  Follow the documentation
+                          for requirements on selection of alternative node types.
+                        items:
+                          type: string
+                        type: array
+                    type: object
                   nodeTypeId:
                     description: (String) The node type for the instances in the pool.
                       All clusters attached to the pool inherit this node type and
@@ -526,32 +522,30 @@ spec:
                             and referred using secret path syntax: {{secrets/scope/key}},
                             otherwise other users of the workspace may access them
                             via UI/API.'
-                          items:
-                            properties:
-                              passwordSecretRef:
-                                description: A SecretKeySelector is a reference to
-                                  a secret key in an arbitrary namespace.
-                                properties:
-                                  key:
-                                    description: The key to select.
-                                    type: string
-                                  name:
-                                    description: Name of the secret.
-                                    type: string
-                                  namespace:
-                                    description: Namespace of the secret.
-                                    type: string
-                                required:
-                                - key
-                                - name
-                                - namespace
-                                type: object
-                              username:
-                                type: string
-                            required:
-                            - passwordSecretRef
-                            type: object
-                          type: array
+                          properties:
+                            passwordSecretRef:
+                              description: A SecretKeySelector is a reference to a
+                                secret key in an arbitrary namespace.
+                              properties:
+                                key:
+                                  description: The key to select.
+                                  type: string
+                                name:
+                                  description: Name of the secret.
+                                  type: string
+                                namespace:
+                                  description: Namespace of the secret.
+                                  type: string
+                              required:
+                              - key
+                              - name
+                              - namespace
+                              type: object
+                            username:
+                              type: string
+                          required:
+                          - passwordSecretRef
+                          type: object
                         url:
                           description: URL for the Docker image
                           type: string
@@ -566,6 +560,16 @@ spec:
                     items:
                       type: string
                     type: array
+                  providerConfig:
+                    description: 'Configure the provider for management through account
+                      provider. This block consists of the following fields:'
+                    properties:
+                      workspaceId:
+                        description: Workspace ID which the resource belongs to. This
+                          workspace must be part of the account which the provider
+                          is configured with.
+                        type: string
+                    type: object
                 type: object
               managementPolicies:
                 default:
@@ -669,60 +673,55 @@ spec:
               atProvider:
                 properties:
                   awsAttributes:
-                    items:
-                      properties:
-                        availability:
-                          description: Availability type used for all nodes. Valid
-                            values are SPOT_AZURE and ON_DEMAND_AZURE.
-                          type: string
-                        instanceProfileArn:
-                          description: Nodes belonging to the pool will only be placed
-                            on AWS instances with this instance profile.
-                          type: string
-                        spotBidPricePercent:
-                          description: (Integer) The max price for AWS spot instances,
-                            as a percentage of the corresponding instance type's on-demand
-                            price. For example, if this field is set to 50, and the
-                            instance pool needs a new i3.xlarge spot instance, then
-                            the max price is half of the price of on-demand i3.xlarge
-                            instances. Similarly, if this field is set to 200, the
-                            max price is twice the price of on-demand i3.xlarge instances.
-                            If not specified, the default value is 100. When spot
-                            instances are requested for this instance pool, only spot
-                            instances whose max price percentage matches this field
-                            are considered. For safety, this field cannot be greater
-                            than 10000.
-                          type: number
-                        zoneId:
-                          description: (String) Identifier for the availability zone/datacenter
-                            in which the instance pool resides. This string is of
-                            the form like "us-west-2a". The provided availability
-                            zone must be in the same region as the Databricks deployment.
-                            For example, "us-west-2a" is not a valid zone ID if the
-                            Databricks deployment resides in the "us-east-1" region.
-                            If not specified, a default zone is used. You can find
-                            the list of available zones as well as the default value
-                            by using the List Zones API.
-                          type: string
-                      type: object
-                    type: array
+                    properties:
+                      availability:
+                        description: Availability type used for all nodes. Valid values
+                          are SPOT_AZURE and ON_DEMAND_AZURE.
+                        type: string
+                      instanceProfileArn:
+                        description: Nodes belonging to the pool will only be placed
+                          on AWS instances with this instance profile.
+                        type: string
+                      spotBidPricePercent:
+                        description: (Integer) The max price for AWS spot instances,
+                          as a percentage of the corresponding instance type's on-demand
+                          price. For example, if this field is set to 50, and the
+                          instance pool needs a new i3.xlarge spot instance, then
+                          the max price is half of the price of on-demand i3.xlarge
+                          instances. Similarly, if this field is set to 200, the max
+                          price is twice the price of on-demand i3.xlarge instances.
+                          If not specified, the default value is 100. When spot instances
+                          are requested for this instance pool, only spot instances
+                          whose max price percentage matches this field are considered.
+                          For safety, this field cannot be greater than 10000.
+                        type: number
+                      zoneId:
+                        description: (String) Identifier for the availability zone/datacenter
+                          in which the instance pool resides. This string is of the
+                          form like "us-west-2a". The provided availability zone must
+                          be in the same region as the Databricks deployment. For
+                          example, "us-west-2a" is not a valid zone ID if the Databricks
+                          deployment resides in the "us-east-1" region. If not specified,
+                          a default zone is used. You can find the list of available
+                          zones as well as the default value by using the List Zones
+                          API.
+                        type: string
+                    type: object
                   azureAttributes:
-                    items:
-                      properties:
-                        availability:
-                          description: Availability type used for all nodes. Valid
-                            values are SPOT_AZURE and ON_DEMAND_AZURE.
-                          type: string
-                        spotBidMaxPrice:
-                          description: The max bid price used for Azure spot instances.
-                            You can set this to greater than or equal to the current
-                            spot price. You can also set this to -1, which specifies
-                            that the instance cannot be evicted on the basis of price.
-                            The price for the instance will be the current price for
-                            spot instances or the price for a standard instance.
-                          type: number
-                      type: object
-                    type: array
+                    properties:
+                      availability:
+                        description: Availability type used for all nodes. Valid values
+                          are SPOT_AZURE and ON_DEMAND_AZURE.
+                        type: string
+                      spotBidMaxPrice:
+                        description: The max bid price used for Azure spot instances.
+                          You can set this to greater than or equal to the current
+                          spot price. You can also set this to -1, which specifies
+                          that the instance cannot be evicted on the basis of price.
+                          The price for the instance will be the current price for
+                          spot instances or the price for a standard instance.
+                        type: number
+                    type: object
                   customTags:
                     additionalProperties:
                       type: string
@@ -736,55 +735,48 @@ spec:
                     type: object
                     x-kubernetes-map-type: granular
                   diskSpec:
-                    items:
-                      properties:
-                        diskCount:
-                          description: (Integer) The number of disks to attach to
-                            each instance. This feature is only enabled for supported
-                            node types. Users can choose up to the limit of the disks
-                            supported by the node type. For node types with no local
-                            disk, at least one disk needs to be specified.
-                          type: number
-                        diskSize:
-                          description: (Integer) The size of each disk (in GiB) to
-                            attach.
-                          type: number
-                        diskType:
-                          items:
-                            properties:
-                              azureDiskVolumeType:
-                                type: string
-                              ebsVolumeType:
-                                type: string
-                            type: object
-                          type: array
-                      type: object
-                    type: array
+                    properties:
+                      diskCount:
+                        description: (Integer) The number of disks to attach to each
+                          instance. This feature is only enabled for supported node
+                          types. Users can choose up to the limit of the disks supported
+                          by the node type. For node types with no local disk, at
+                          least one disk needs to be specified.
+                        type: number
+                      diskSize:
+                        description: (Integer) The size of each disk (in GiB) to attach.
+                        type: number
+                      diskType:
+                        properties:
+                          azureDiskVolumeType:
+                            type: string
+                          ebsVolumeType:
+                            type: string
+                        type: object
+                    type: object
                   enableElasticDisk:
                     description: '(Bool) Autoscaling Local Storage: when enabled,
                       the instances in the pool dynamically acquire additional disk
                       space when they are running low on disk space.'
                     type: boolean
                   gcpAttributes:
-                    items:
-                      properties:
-                        gcpAvailability:
-                          description: 'Availability type used for all nodes. Valid
-                            values are PREEMPTIBLE_GCP, PREEMPTIBLE_WITH_FALLBACK_GCP
-                            and ON_DEMAND_GCP, default: ON_DEMAND_GCP.'
-                          type: string
-                        localSsdCount:
-                          description: Number of local SSD disks (each is 375GB in
-                            size) that will be attached to each node of the cluster.
-                          type: number
-                        zoneId:
-                          description: Identifier for the availability zone/datacenter
-                            in which the cluster resides. This string will be of a
-                            form like us-central1-a. The provided availability zone
-                            must be in the same region as the Databricks workspace.
-                          type: string
-                      type: object
-                    type: array
+                    properties:
+                      gcpAvailability:
+                        description: 'Availability type used for all nodes. Valid
+                          values are PREEMPTIBLE_GCP, PREEMPTIBLE_WITH_FALLBACK_GCP
+                          and ON_DEMAND_GCP, default: ON_DEMAND_GCP.'
+                        type: string
+                      localSsdCount:
+                        description: Number of local SSD disks (each is 375GB in size)
+                          that will be attached to each node of the cluster.
+                        type: number
+                      zoneId:
+                        description: Identifier for the availability zone/datacenter
+                          in which the cluster resides. This string will be of a form
+                          like us-central1-a. The provided availability zone must
+                          be in the same region as the Databricks workspace.
+                        type: string
+                    type: object
                   id:
                     description: Canonical unique identifier for the instance pool.
                     type: string
@@ -798,37 +790,31 @@ spec:
                       as possible.
                     type: number
                   instancePoolFleetAttributes:
-                    items:
-                      properties:
-                        fleetOnDemandOption:
-                          items:
-                            properties:
-                              allocationStrategy:
-                                type: string
-                              instancePoolsToUseCount:
-                                type: number
-                            type: object
-                          type: array
-                        fleetSpotOption:
-                          items:
-                            properties:
-                              allocationStrategy:
-                                type: string
-                              instancePoolsToUseCount:
-                                type: number
-                            type: object
-                          type: array
-                        launchTemplateOverride:
-                          items:
-                            properties:
-                              availabilityZone:
-                                type: string
-                              instanceType:
-                                type: string
-                            type: object
-                          type: array
-                      type: object
-                    type: array
+                    properties:
+                      fleetOnDemandOption:
+                        properties:
+                          allocationStrategy:
+                            type: string
+                          instancePoolsToUseCount:
+                            type: number
+                        type: object
+                      fleetSpotOption:
+                        properties:
+                          allocationStrategy:
+                            type: string
+                          instancePoolsToUseCount:
+                            type: number
+                        type: object
+                      launchTemplateOverride:
+                        items:
+                          properties:
+                            availabilityZone:
+                              type: string
+                            instanceType:
+                              type: string
+                          type: object
+                        type: array
+                    type: object
                   instancePoolId:
                     description: Canonical unique identifier for the instance pool.
                     type: string
@@ -852,6 +838,18 @@ spec:
                       by the pool. This is in addition to any instances in use by
                       active clusters.
                     type: number
+                  nodeTypeFlexibility:
+                    description: a block describing the alternative driver node types
+                      if node_type_id isn't available.
+                    properties:
+                      alternateNodeTypeIds:
+                        description: list of alternative node types that will be used
+                          if main node type isn't available.  Follow the documentation
+                          for requirements on selection of alternative node types.
+                        items:
+                          type: string
+                        type: array
+                    type: object
                   nodeTypeId:
                     description: (String) The node type for the instances in the pool.
                       All clusters attached to the pool inherit this node type and
@@ -872,12 +870,10 @@ spec:
                             and referred using secret path syntax: {{secrets/scope/key}},
                             otherwise other users of the workspace may access them
                             via UI/API.'
-                          items:
-                            properties:
-                              username:
-                                type: string
-                            type: object
-                          type: array
+                          properties:
+                            username:
+                              type: string
+                          type: object
                         url:
                           description: URL for the Docker image
                           type: string
@@ -892,6 +888,16 @@ spec:
                     items:
                       type: string
                     type: array
+                  providerConfig:
+                    description: 'Configure the provider for management through account
+                      provider. This block consists of the following fields:'
+                    properties:
+                      workspaceId:
+                        description: Workspace ID which the resource belongs to. This
+                          workspace must be part of the account which the provider
+                          is configured with.
+                        type: string
+                    type: object
                 type: object
               conditions:
                 description: Conditions of the resource.

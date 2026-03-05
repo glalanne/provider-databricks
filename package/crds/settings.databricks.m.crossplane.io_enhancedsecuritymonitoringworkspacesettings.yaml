@@ -61,14 +61,17 @@ spec:
               forProvider:
                 properties:
                   enhancedSecurityMonitoringWorkspace:
-                    items:
-                      properties:
-                        isEnabled:
-                          type: boolean
-                      type: object
-                    type: array
+                    properties:
+                      isEnabled:
+                        type: boolean
+                    type: object
                   etag:
                     type: string
+                  providerConfig:
+                    properties:
+                      workspaceId:
+                        type: string
+                    type: object
                   settingName:
                     type: string
                 type: object
@@ -86,14 +89,17 @@ spec:
                   autoscaler.
                 properties:
                   enhancedSecurityMonitoringWorkspace:
-                    items:
-                      properties:
-                        isEnabled:
-                          type: boolean
-                      type: object
-                    type: array
+                    properties:
+                      isEnabled:
+                        type: boolean
+                    type: object
                   etag:
                     type: string
+                  providerConfig:
+                    properties:
+                      workspaceId:
+                        type: string
+                    type: object
                   settingName:
                     type: string
                 type: object
@@ -168,16 +174,19 @@ spec:
               atProvider:
                 properties:
                   enhancedSecurityMonitoringWorkspace:
-                    items:
-                      properties:
-                        isEnabled:
-                          type: boolean
-                      type: object
-                    type: array
+                    properties:
+                      isEnabled:
+                        type: boolean
+                    type: object
                   etag:
                     type: string
                   id:
                     type: string
+                  providerConfig:
+                    properties:
+                      workspaceId:
+                        type: string
+                    type: object
                   settingName:
                     type: string
                 type: object

@@ -1,3 +1,7 @@
+# SPDX-FileCopyrightText: 2025 The Crossplane Authors <https://crossplane.io>
+#
+# SPDX-License-Identifier: CC0-1.0
+
 apiVersion: unity.databricks.m.crossplane.io/v1alpha1
 kind: Volume
 metadata:
@@ -9,11 +13,17 @@ metadata:
   namespace: upbound-system
 spec:
   forProvider:
-    catalogName: sandbox
+    catalogNameSelector:
+      matchLabels:
+        testing.upbound.io/example-name: sandbox
     comment: this volume is managed by terraform
     name: quickstart_volume
-    schemaName: things
-    storageLocation: s3://${aws_s3_bucket.external.id}/some
+    schemaNameSelector:
+      matchLabels:
+        testing.upbound.io/example-name: things
+    storageLocationSelector:
+      matchLabels:
+        testing.upbound.io/example-name: some
     volumeType: EXTERNAL
 
 ---
@@ -47,7 +57,9 @@ metadata:
   namespace: upbound-system
 spec:
   forProvider:
-    credentialName: creds
+    credentialNameSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
     name: external_location
     url: s3://${aws_s3_bucket.external.id}/some
 
@@ -64,7 +76,9 @@ metadata:
   namespace: upbound-system
 spec:
   forProvider:
-    catalogName: sandbox
+    catalogNameSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
     comment: this schema is managed by terraform
     name: things
     properties:
@@ -84,5 +98,5 @@ metadata:
 spec:
   forProvider:
     awsIamRole:
-    - roleArn: ${aws_iam_role.external_data_access.arn}
+      roleArn: ${aws_iam_role.external_data_access.arn}
     name: creds
