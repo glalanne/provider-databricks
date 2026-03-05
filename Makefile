@@ -47,8 +47,8 @@ NPROCS ?= 1
 # to half the number of CPU cores.
 GO_TEST_PARALLEL := $(shell echo $$(( $(NPROCS) / 2 )))
 
-GO_REQUIRED_VERSION ?= 1.24.7
-GOLANGCILINT_VERSION = 2.1.2
+GO_REQUIRED_VERSION ?= 1.25.7
+GOLANGCILINT_VERSION = 2.10.1
 
 GO111MODULE = on
 GO_STATIC_PACKAGES = $(GO_PROJECT)/cmd/provider $(GO_PROJECT)/cmd/generator

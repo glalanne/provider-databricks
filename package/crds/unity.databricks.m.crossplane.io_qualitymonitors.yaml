@@ -162,15 +162,13 @@ spec:
                   providerConfig:
                     description: 'Configure the provider for management through account
                       provider. This block consists of the following fields:'
-                    items:
-                      properties:
-                        workspaceId:
-                          description: Workspace ID which the resource belongs to.
-                            This workspace must be part of the account which the provider
-                            is configured with.
-                          type: string
-                      type: object
-                    type: array
+                    properties:
+                      workspaceId:
+                        description: Workspace ID which the resource belongs to. This
+                          workspace must be part of the account which the provider
+                          is configured with.
+                        type: string
+                    type: object
                   schedule:
                     description: 'The schedule for automatically updating and refreshing
                       metric tables.  This block consists of following fields:'
@@ -340,15 +338,13 @@ spec:
                   providerConfig:
                     description: 'Configure the provider for management through account
                       provider. This block consists of the following fields:'
-                    items:
-                      properties:
-                        workspaceId:
-                          description: Workspace ID which the resource belongs to.
-                            This workspace must be part of the account which the provider
-                            is configured with.
-                          type: string
-                      type: object
-                    type: array
+                    properties:
+                      workspaceId:
+                        description: Workspace ID which the resource belongs to. This
+                          workspace must be part of the account which the provider
+                          is configured with.
+                        type: string
+                    type: object
                   schedule:
                     description: 'The schedule for automatically updating and refreshing
                       metric tables.  This block consists of following fields:'
@@ -600,15 +596,13 @@ spec:
                   providerConfig:
                     description: 'Configure the provider for management through account
                       provider. This block consists of the following fields:'
-                    items:
-                      properties:
-                        workspaceId:
-                          description: Workspace ID which the resource belongs to.
-                            This workspace must be part of the account which the provider
-                            is configured with.
-                          type: string
-                      type: object
-                    type: array
+                    properties:
+                      workspaceId:
+                        description: Workspace ID which the resource belongs to. This
+                          workspace must be part of the account which the provider
+                          is configured with.
+                        type: string
+                    type: object
                   schedule:
                     description: 'The schedule for automatically updating and refreshing
                       metric tables.  This block consists of following fields:'

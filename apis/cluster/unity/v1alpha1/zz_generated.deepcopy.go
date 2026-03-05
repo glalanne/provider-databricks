@@ -9844,10 +9844,8 @@ func (in *QualityMonitorInitParameters) DeepCopyInto(out *QualityMonitorInitPara
 	}
 	if in.ProviderConfig != nil {
 		in, out := &in.ProviderConfig, &out.ProviderConfig
-		*out = make([]QualityMonitorProviderConfigInitParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(QualityMonitorProviderConfigInitParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Schedule != nil {
 		in, out := &in.Schedule, &out.Schedule
@@ -10081,10 +10079,8 @@ func (in *QualityMonitorObservation) DeepCopyInto(out *QualityMonitorObservation
 	}
 	if in.ProviderConfig != nil {
 		in, out := &in.ProviderConfig, &out.ProviderConfig
-		*out = make([]QualityMonitorProviderConfigObservation, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(QualityMonitorProviderConfigObservation)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Schedule != nil {
 		in, out := &in.Schedule, &out.Schedule
@@ -10191,10 +10187,8 @@ func (in *QualityMonitorParameters) DeepCopyInto(out *QualityMonitorParameters) 
 	}
 	if in.ProviderConfig != nil {
 		in, out := &in.ProviderConfig, &out.ProviderConfig
-		*out = make([]QualityMonitorProviderConfigParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(QualityMonitorProviderConfigParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Schedule != nil {
 		in, out := &in.Schedule, &out.Schedule

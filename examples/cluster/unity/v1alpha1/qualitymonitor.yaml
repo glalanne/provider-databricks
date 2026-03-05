@@ -1,3 +1,7 @@
+# SPDX-FileCopyrightText: 2025 The Crossplane Authors <https://crossplane.io>
+#
+# SPDX-License-Identifier: CC0-1.0
+
 apiVersion: unity.databricks.crossplane.io/v1alpha1
 kind: QualityMonitor
 metadata:
@@ -12,7 +16,7 @@ spec:
     outputSchemaName: ${databricks_catalog.sandbox.name}.${databricks_schema.things.name}
     tableName: ${databricks_catalog.sandbox.name}.${databricks_schema.things.name}.${databricks_sql_table.myTestTable.name}
     timeSeries:
-    - granularities:
+      granularities:
       - 1 hour
       timestampCol: timestamp
 
@@ -45,7 +49,9 @@ metadata:
   name: things
 spec:
   forProvider:
-    catalogName: ${databricks_catalog.sandbox.id}
+    catalogNameSelector:
+      matchLabels:
+        testing.upbound.io/example-name: sandbox
     comment: this database is managed by terraform
     name: things
     properties:
@@ -63,11 +69,15 @@ metadata:
   name: mytesttable
 spec:
   forProvider:
-    catalogName: main
+    catalogNameSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
     column:
     - name: timestamp
       type: int
     dataSourceFormat: DELTA
     name: bar
-    schemaName: things
+    schemaNameSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
     tableType: MANAGED

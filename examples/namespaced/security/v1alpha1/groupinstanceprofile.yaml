@@ -1,3 +1,7 @@
+# SPDX-FileCopyrightText: 2025 The Crossplane Authors <https://crossplane.io>
+#
+# SPDX-License-Identifier: CC0-1.0
+
 apiVersion: security.databricks.m.crossplane.io/v1alpha1
 kind: GroupInstanceProfile
 metadata:
@@ -9,8 +13,12 @@ metadata:
   namespace: upbound-system
 spec:
   forProvider:
-    groupId: ${databricks_group.my_group.id}
-    instanceProfileId: ${databricks_instance_profile.instance_profile.id}
+    groupIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: my_group
+    instanceProfileIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: instance_profile
 
 ---
 

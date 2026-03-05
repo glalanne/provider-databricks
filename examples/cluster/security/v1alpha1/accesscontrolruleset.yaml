@@ -1,3 +1,7 @@
+# SPDX-FileCopyrightText: 2025 The Crossplane Authors <https://crossplane.io>
+#
+# SPDX-License-Identifier: CC0-1.0
+
 apiVersion: security.databricks.crossplane.io/v1alpha1
 kind: AccessControlRuleSet
 metadata:
@@ -9,8 +13,8 @@ metadata:
 spec:
   forProvider:
     grantRules:
-    - principals:
-      - ${data.databricks_group.ds.acl_principal_id}
+    - principalsRefs:
+      - name: databricks_group
       role: roles/servicePrincipal.user
     name: accounts/${local.account_id}/servicePrincipals/${databricks_service_principal.automation_sp.application_id}/ruleSets/default
 

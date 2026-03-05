@@ -1,3 +1,7 @@
+# SPDX-FileCopyrightText: 2025 The Crossplane Authors <https://crossplane.io>
+#
+# SPDX-License-Identifier: CC0-1.0
+
 apiVersion: security.databricks.m.crossplane.io/v1alpha1
 kind: MwsPermissionAssignment
 metadata:
@@ -11,8 +15,12 @@ spec:
   forProvider:
     permissions:
     - ADMIN
-    principalId: ${databricks_group.data_eng.id}
-    workspaceId: ${databricks_mws_workspaces.this.workspace_id}
+    principalIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: data_eng
+    workspaceIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: this
 
 ---
 

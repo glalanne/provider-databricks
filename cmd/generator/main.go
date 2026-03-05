@@ -14,6 +14,7 @@ import (
 	"github.com/crossplane/upjet/v2/pkg/examples/conversion"
 	"github.com/crossplane/upjet/v2/pkg/pipeline"
 	"github.com/databricks/terraform-provider-databricks/xpprovider"
+
 	"github.com/glalanne/provider-databricks/config"
 )
 

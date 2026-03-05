@@ -1,3 +1,7 @@
+# SPDX-FileCopyrightText: 2025 The Crossplane Authors <https://crossplane.io>
+#
+# SPDX-License-Identifier: CC0-1.0
+
 apiVersion: sql.databricks.crossplane.io/v1alpha1
 kind: SQLWidget
 metadata:
@@ -8,9 +12,11 @@ metadata:
   name: d1w1
 spec:
   forProvider:
-    dashboardId: ${databricks_sql_dashboard.d1.id}
+    dashboardIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: d1
     position:
-    - posX: 0
+      posX: 0
       posY: 0
       sizeX: 3
       sizeY: 4

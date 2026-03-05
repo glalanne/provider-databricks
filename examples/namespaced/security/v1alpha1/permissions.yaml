@@ -1,3 +1,7 @@
+# SPDX-FileCopyrightText: 2025 The Crossplane Authors <https://crossplane.io>
+#
+# SPDX-License-Identifier: CC0-1.0
+
 apiVersion: security.databricks.m.crossplane.io/v1alpha1
 kind: Permissions
 metadata:
@@ -10,11 +14,17 @@ metadata:
 spec:
   forProvider:
     accessControl:
-    - groupName: ${databricks_group.auto.display_name}
+    - groupNameSelector:
+        matchLabels:
+          testing.upbound.io/example-name: auto
       permissionLevel: CAN_ATTACH_TO
-    - groupName: ${databricks_group.eng.display_name}
+    - groupNameSelector:
+        matchLabels:
+          testing.upbound.io/example-name: eng
       permissionLevel: CAN_RESTART
-    - groupName: ${databricks_group.ds.display_name}
+    - groupNameSelector:
+        matchLabels:
+          testing.upbound.io/example-name: ds
       permissionLevel: CAN_MANAGE
     clusterIdSelector:
       matchLabels:
@@ -34,7 +44,7 @@ metadata:
 spec:
   forProvider:
     autoscale:
-    - maxWorkers: 10
+      maxWorkers: 10
       minWorkers: 1
     autoterminationMinutes: 60
     clusterName: Shared Autoscaling

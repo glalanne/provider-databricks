@@ -1,3 +1,7 @@
+# SPDX-FileCopyrightText: 2025 The Crossplane Authors <https://crossplane.io>
+#
+# SPDX-License-Identifier: CC0-1.0
+
 apiVersion: compute.databricks.crossplane.io/v1alpha1
 kind: ClusterPolicy
 metadata:
@@ -11,9 +15,9 @@ spec:
     definition: ${jsonencode(merge(local.default_policy, var.policy_overrides))}
     libraries:
     - pypi:
-      - package: databricks-sdk==0.12.0
+        package: databricks-sdk==0.12.0
     - maven:
-      - coordinates: com.oracle.database.jdbc:ojdbc8:XXXX
+        coordinates: com.oracle.database.jdbc:ojdbc8:XXXX
     name: ${var.team} cluster policy
 
 ---
@@ -29,7 +33,9 @@ metadata:
 spec:
   forProvider:
     accessControl:
-    - groupName: ${var.team}
+    - groupNameSelector:
+        matchLabels:
+          testing.upbound.io/example-name: example
       permissionLevel: CAN_USE
     clusterPolicyIdSelector:
       matchLabels:

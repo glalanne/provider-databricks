@@ -1,3 +1,7 @@
+# SPDX-FileCopyrightText: 2025 The Crossplane Authors <https://crossplane.io>
+#
+# SPDX-License-Identifier: CC0-1.0
+
 apiVersion: sharing.databricks.crossplane.io/v1alpha1
 kind: Recipient
 metadata:
@@ -11,7 +15,7 @@ spec:
     authenticationType: TOKEN
     comment: made by terraform
     ipAccessList:
-    - allowedIpAddresses: []
+      allowedIpAddresses: []
     name: ${data.databricks_current_user.current.alphanumeric}-recipient
     sharingCodeSecretRef:
       key: attribute.result

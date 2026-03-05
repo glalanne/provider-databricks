@@ -1,3 +1,7 @@
+# SPDX-FileCopyrightText: 2025 The Crossplane Authors <https://crossplane.io>
+#
+# SPDX-License-Identifier: CC0-1.0
+
 apiVersion: serving.databricks.m.crossplane.io/v1alpha1
 kind: ModelServing
 metadata:
@@ -10,7 +14,7 @@ metadata:
 spec:
   forProvider:
     config:
-    - servedEntities:
+      servedEntities:
       - entityName: ads-model
         entityVersion: "2"
         name: prod_model
@@ -22,7 +26,7 @@ spec:
         scaleToZeroEnabled: false
         workloadSize: Small
       trafficConfig:
-      - routes:
+        routes:
         - servedModelName: prod_model
           trafficPercentage: 90
         - servedModelName: candidate_model

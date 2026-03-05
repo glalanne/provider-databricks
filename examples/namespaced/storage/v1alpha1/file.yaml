@@ -1,3 +1,7 @@
+# SPDX-FileCopyrightText: 2025 The Crossplane Authors <https://crossplane.io>
+#
+# SPDX-License-Identifier: CC0-1.0
+
 apiVersion: storage.databricks.m.crossplane.io/v1alpha1
 kind: File
 metadata:
@@ -44,7 +48,9 @@ metadata:
   namespace: upbound-system
 spec:
   forProvider:
-    catalogName: sandbox
+    catalogNameSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
     comment: this schema is managed by terraform
     name: things
     properties:
@@ -63,8 +69,12 @@ metadata:
   namespace: upbound-system
 spec:
   forProvider:
-    catalogName: sandbox
+    catalogNameSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
     comment: this volume is managed by terraform
     name: quickstart_volume
-    schemaName: things
+    schemaNameSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
     volumeType: MANAGED

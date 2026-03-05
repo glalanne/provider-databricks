@@ -1,3 +1,7 @@
+# SPDX-FileCopyrightText: 2025 The Crossplane Authors <https://crossplane.io>
+#
+# SPDX-License-Identifier: CC0-1.0
+
 apiVersion: apps.databricks.crossplane.io/v1alpha1
 kind: App
 metadata:
@@ -9,7 +13,6 @@ metadata:
 spec:
   forProvider:
     description: My app
-    name: my-custom-app
     resources:
     - name: sql-warehouse
       sqlWarehouse:

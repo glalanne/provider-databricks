@@ -226,7 +226,7 @@ type QualityMonitorInitParameters struct {
 	OutputSchemaName *string `json:"outputSchemaName,omitempty" tf:"output_schema_name,omitempty"`
 
 	// Configure the provider for management through account provider. This block consists of the following fields:
-	ProviderConfig []QualityMonitorProviderConfigInitParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
+	ProviderConfig *QualityMonitorProviderConfigInitParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
 
 	// The schedule for automatically updating and refreshing metric tables.  This block consists of following fields:
 	Schedule *QualityMonitorScheduleInitParameters `json:"schedule,omitempty" tf:"schedule,omitempty"`
@@ -321,7 +321,7 @@ type QualityMonitorObservation struct {
 	ProfileMetricsTableName *string `json:"profileMetricsTableName,omitempty" tf:"profile_metrics_table_name,omitempty"`
 
 	// Configure the provider for management through account provider. This block consists of the following fields:
-	ProviderConfig []QualityMonitorProviderConfigObservation `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
+	ProviderConfig *QualityMonitorProviderConfigObservation `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
 
 	// The schedule for automatically updating and refreshing metric tables.  This block consists of following fields:
 	Schedule *QualityMonitorScheduleObservation `json:"schedule,omitempty" tf:"schedule,omitempty"`
@@ -384,7 +384,7 @@ type QualityMonitorParameters struct {
 
 	// Configure the provider for management through account provider. This block consists of the following fields:
 	// +kubebuilder:validation:Optional
-	ProviderConfig []QualityMonitorProviderConfigParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
+	ProviderConfig *QualityMonitorProviderConfigParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
 
 	// The schedule for automatically updating and refreshing metric tables.  This block consists of following fields:
 	// +kubebuilder:validation:Optional

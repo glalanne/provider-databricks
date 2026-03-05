@@ -1,3 +1,7 @@
+# SPDX-FileCopyrightText: 2025 The Crossplane Authors <https://crossplane.io>
+#
+# SPDX-License-Identifier: CC0-1.0
+
 apiVersion: sharing.databricks.m.crossplane.io/v1alpha1
 kind: Share
 metadata:
@@ -15,4 +19,3 @@ spec:
         - data_object_type: TABLE
           name: ${object.value}
         for_each: ${data.databricks_tables.things.ids}
-    name: my_share
