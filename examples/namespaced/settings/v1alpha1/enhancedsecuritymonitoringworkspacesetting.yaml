@@ -1,0 +1,13 @@
+apiVersion: settings.databricks.m.crossplane.io/v1alpha1
+kind: EnhancedSecurityMonitoringWorkspaceSetting
+metadata:
+  annotations:
+    meta.upbound.io/example-id: settings/v1alpha1/enhancedsecuritymonitoringworkspacesetting
+  labels:
+    testing.upbound.io/example-name: this
+  name: this
+  namespace: upbound-system
+spec:
+  forProvider:
+    enhancedSecurityMonitoringWorkspace:
+      enabled: true
