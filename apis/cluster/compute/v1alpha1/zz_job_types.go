@@ -594,7 +594,16 @@ type DbtTaskInitParameters struct {
 	Source *string `json:"source,omitempty" tf:"source,omitempty"`
 
 	// The warehouse id to execute the dashboard with for the schedule. If not specified, will use the default warehouse of dashboard
+	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/cluster/sql/v1alpha1.SQLEndpoint
 	WarehouseID *string `json:"warehouseId,omitempty" tf:"warehouse_id,omitempty"`
+
+	// Reference to a SQLEndpoint in sql to populate warehouseId.
+	// +kubebuilder:validation:Optional
+	WarehouseIDRef *v1.Reference `json:"warehouseIdRef,omitempty" tf:"-"`
+
+	// Selector for a SQLEndpoint in sql to populate warehouseId.
+	// +kubebuilder:validation:Optional
+	WarehouseIDSelector *v1.Selector `json:"warehouseIdSelector,omitempty" tf:"-"`
 }
 
 type DbtTaskObservation struct {
@@ -648,8 +657,17 @@ type DbtTaskParameters struct {
 	Source *string `json:"source,omitempty" tf:"source,omitempty"`
 
 	// The warehouse id to execute the dashboard with for the schedule. If not specified, will use the default warehouse of dashboard
+	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/cluster/sql/v1alpha1.SQLEndpoint
 	// +kubebuilder:validation:Optional
 	WarehouseID *string `json:"warehouseId,omitempty" tf:"warehouse_id,omitempty"`
+
+	// Reference to a SQLEndpoint in sql to populate warehouseId.
+	// +kubebuilder:validation:Optional
+	WarehouseIDRef *v1.Reference `json:"warehouseIdRef,omitempty" tf:"-"`
+
+	// Selector for a SQLEndpoint in sql to populate warehouseId.
+	// +kubebuilder:validation:Optional
+	WarehouseIDSelector *v1.Selector `json:"warehouseIdSelector,omitempty" tf:"-"`
 }
 
 type DependsOnInitParameters struct {
@@ -6591,7 +6609,16 @@ type NotebookTaskInitParameters struct {
 	Source *string `json:"source,omitempty" tf:"source,omitempty"`
 
 	// The warehouse id to execute the dashboard with for the schedule. If not specified, will use the default warehouse of dashboard
+	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/cluster/sql/v1alpha1.SQLEndpoint
 	WarehouseID *string `json:"warehouseId,omitempty" tf:"warehouse_id,omitempty"`
+
+	// Reference to a SQLEndpoint in sql to populate warehouseId.
+	// +kubebuilder:validation:Optional
+	WarehouseIDRef *v1.Reference `json:"warehouseIdRef,omitempty" tf:"-"`
+
+	// Selector for a SQLEndpoint in sql to populate warehouseId.
+	// +kubebuilder:validation:Optional
+	WarehouseIDSelector *v1.Selector `json:"warehouseIdSelector,omitempty" tf:"-"`
 }
 
 type NotebookTaskObservation struct {
@@ -6636,8 +6663,17 @@ type NotebookTaskParameters struct {
 	Source *string `json:"source,omitempty" tf:"source,omitempty"`
 
 	// The warehouse id to execute the dashboard with for the schedule. If not specified, will use the default warehouse of dashboard
+	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/cluster/sql/v1alpha1.SQLEndpoint
 	// +kubebuilder:validation:Optional
 	WarehouseID *string `json:"warehouseId,omitempty" tf:"warehouse_id,omitempty"`
+
+	// Reference to a SQLEndpoint in sql to populate warehouseId.
+	// +kubebuilder:validation:Optional
+	WarehouseIDRef *v1.Reference `json:"warehouseIdRef,omitempty" tf:"-"`
+
+	// Selector for a SQLEndpoint in sql to populate warehouseId.
+	// +kubebuilder:validation:Optional
+	WarehouseIDSelector *v1.Selector `json:"warehouseIdSelector,omitempty" tf:"-"`
 }
 
 type NotificationSettingsInitParameters struct {
