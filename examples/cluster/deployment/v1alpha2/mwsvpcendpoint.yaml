@@ -1,0 +1,19 @@
+# SPDX-FileCopyrightText: 2026 The Crossplane Authors <https://crossplane.io>
+#
+# SPDX-License-Identifier: CC0-1.0
+
+apiVersion: deployment.databricks.crossplane.io/v1alpha2
+kind: MwsVPCEndpoint
+metadata:
+  annotations:
+    meta.upbound.io/example-id: deployment/v1alpha2/mwsvpcendpoint
+  labels:
+    testing.upbound.io/example-name: workspace
+  name: workspace
+spec:
+  forProvider:
+    accountId: ${var.databricks_account_id}
+    awsVpcEndpointId: ${aws_vpc_endpoint.workspace.id}
+    provider: ${databricks.mws}
+    region: ${var.region}
+    vpcEndpointName: VPC Relay for ${module.vpc.vpc_id}

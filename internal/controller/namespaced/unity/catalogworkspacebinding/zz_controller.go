@@ -21,7 +21,7 @@ import (
 	"github.com/pkg/errors"
 	ctrl "sigs.k8s.io/controller-runtime"
 
-	v1alpha1 "github.com/glalanne/provider-databricks/apis/namespaced/unity/v1alpha1"
+	v1alpha2 "github.com/glalanne/provider-databricks/apis/namespaced/unity/v1alpha2"
 	features "github.com/glalanne/provider-databricks/internal/features"
 )
 
@@ -29,25 +29,25 @@ import (
 func SetupGated(mgr ctrl.Manager, o tjcontroller.Options) error {
 	o.Options.Gate.Register(func() {
 		if err := Setup(mgr, o); err != nil {
-			mgr.GetLogger().Error(err, "unable to setup reconciler", "gvk", v1alpha1.CatalogWorkspaceBinding_GroupVersionKind.String())
+			mgr.GetLogger().Error(err, "unable to setup reconciler", "gvk", v1alpha2.CatalogWorkspaceBinding_GroupVersionKind.String())
 		}
-	}, v1alpha1.CatalogWorkspaceBinding_GroupVersionKind)
+	}, v1alpha2.CatalogWorkspaceBinding_GroupVersionKind)
 	return nil
 }
 
 // Setup adds a controller that reconciles CatalogWorkspaceBinding managed resources.
 func Setup(mgr ctrl.Manager, o tjcontroller.Options) error {
-	name := managed.ControllerName(v1alpha1.CatalogWorkspaceBinding_GroupVersionKind.String())
+	name := managed.ControllerName(v1alpha2.CatalogWorkspaceBinding_GroupVersionKind.String())
 	var initializers managed.InitializerChain
-	eventHandler := handler.NewEventHandler(handler.WithLogger(o.Logger.WithValues("gvk", v1alpha1.CatalogWorkspaceBinding_GroupVersionKind)))
-	ac := tjcontroller.NewAPICallbacks(mgr, xpresource.ManagedKind(v1alpha1.CatalogWorkspaceBinding_GroupVersionKind), tjcontroller.WithEventHandler(eventHandler), tjcontroller.WithStatusUpdates(false))
+	eventHandler := handler.NewEventHandler(handler.WithLogger(o.Logger.WithValues("gvk", v1alpha2.CatalogWorkspaceBinding_GroupVersionKind)))
+	ac := tjcontroller.NewAPICallbacks(mgr, xpresource.ManagedKind(v1alpha2.CatalogWorkspaceBinding_GroupVersionKind), tjcontroller.WithEventHandler(eventHandler), tjcontroller.WithStatusUpdates(false))
 	opts := []managed.ReconcilerOption{
 		managed.WithExternalConnecter(
 			tjcontroller.NewTerraformPluginSDKAsyncConnector(mgr.GetClient(), o.OperationTrackerStore, o.SetupFn, o.Provider.Resources["databricks_catalog_workspace_binding"],
 				tjcontroller.WithTerraformPluginSDKAsyncLogger(o.Logger),
 				tjcontroller.WithTerraformPluginSDKAsyncConnectorEventHandler(eventHandler),
 				tjcontroller.WithTerraformPluginSDKAsyncCallbackProvider(ac),
-				tjcontroller.WithTerraformPluginSDKAsyncMetricRecorder(metrics.NewMetricRecorder(v1alpha1.CatalogWorkspaceBinding_GroupVersionKind, mgr, o.PollInterval)),
+				tjcontroller.WithTerraformPluginSDKAsyncMetricRecorder(metrics.NewMetricRecorder(v1alpha2.CatalogWorkspaceBinding_GroupVersionKind, mgr, o.PollInterval)),
 				tjcontroller.WithTerraformPluginSDKAsyncManagementPolicies(o.Features.Enabled(features.EnableBetaManagementPolicies)))),
 		managed.WithLogger(o.Logger.WithValues("controller", name)),
 		managed.WithRecorder(event.NewAPIRecorder(mgr.GetEventRecorderFor(name))),
@@ -66,22 +66,22 @@ func Setup(mgr ctrl.Manager, o tjcontroller.Options) error {
 		opts = append(opts, managed.WithMetricRecorder(o.MetricOptions.MRMetrics))
 	}
 
-	// register webhooks for the kind v1alpha1.CatalogWorkspaceBinding
+	// register webhooks for the kind v1alpha2.CatalogWorkspaceBinding
 	// if they're enabled.
 	if o.StartWebhooks {
 		if err := ctrl.NewWebhookManagedBy(mgr).
-			For(&v1alpha1.CatalogWorkspaceBinding{}).
+			For(&v1alpha2.CatalogWorkspaceBinding{}).
 			Complete(); err != nil {
-			return errors.Wrap(err, "cannot register webhook for the kind v1alpha1.CatalogWorkspaceBinding")
+			return errors.Wrap(err, "cannot register webhook for the kind v1alpha2.CatalogWorkspaceBinding")
 		}
 	}
 
 	if o.MetricOptions != nil && o.MetricOptions.MRStateMetrics != nil {
 		stateMetricsRecorder := statemetrics.NewMRStateRecorder(
-			mgr.GetClient(), o.Logger, o.MetricOptions.MRStateMetrics, &v1alpha1.CatalogWorkspaceBindingList{}, o.MetricOptions.PollStateMetricInterval,
+			mgr.GetClient(), o.Logger, o.MetricOptions.MRStateMetrics, &v1alpha2.CatalogWorkspaceBindingList{}, o.MetricOptions.PollStateMetricInterval,
 		)
 		if err := mgr.Add(stateMetricsRecorder); err != nil {
-			return errors.Wrap(err, "cannot register MR state metrics recorder for kind v1alpha1.CatalogWorkspaceBindingList")
+			return errors.Wrap(err, "cannot register MR state metrics recorder for kind v1alpha2.CatalogWorkspaceBindingList")
 		}
 	}
 
@@ -89,12 +89,12 @@ func Setup(mgr ctrl.Manager, o tjcontroller.Options) error {
 		opts = append(opts, managed.WithChangeLogger(o.ChangeLogOptions.ChangeLogger))
 	}
 
-	r := managed.NewReconciler(mgr, xpresource.ManagedKind(v1alpha1.CatalogWorkspaceBinding_GroupVersionKind), opts...)
+	r := managed.NewReconciler(mgr, xpresource.ManagedKind(v1alpha2.CatalogWorkspaceBinding_GroupVersionKind), opts...)
 
 	return ctrl.NewControllerManagedBy(mgr).
 		Named(name).
 		WithOptions(o.ForControllerRuntime()).
 		WithEventFilter(xpresource.DesiredStateChanged()).
-		Watches(&v1alpha1.CatalogWorkspaceBinding{}, eventHandler).
+		Watches(&v1alpha2.CatalogWorkspaceBinding{}, eventHandler).
 		Complete(ratelimiter.NewReconciler(name, r, o.GlobalRateLimiter))
 }

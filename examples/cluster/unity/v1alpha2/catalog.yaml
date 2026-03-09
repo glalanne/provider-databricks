@@ -1,0 +1,18 @@
+# SPDX-FileCopyrightText: 2026 The Crossplane Authors <https://crossplane.io>
+#
+# SPDX-License-Identifier: CC0-1.0
+
+apiVersion: unity.databricks.crossplane.io/v1alpha2
+kind: Catalog
+metadata:
+  annotations:
+    meta.upbound.io/example-id: unity/v1alpha2/catalog
+  labels:
+    testing.upbound.io/example-name: sandbox
+  name: sandbox
+spec:
+  forProvider:
+    comment: this catalog is managed by terraform
+    name: sandbox
+    properties:
+      purpose: testing
