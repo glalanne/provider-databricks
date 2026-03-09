@@ -1,0 +1,15 @@
+# SPDX-FileCopyrightText: 2026 The Crossplane Authors <https://crossplane.io>
+#
+# SPDX-License-Identifier: CC0-1.0
+
+apiVersion: security.databricks.crossplane.io/v1alpha2
+kind: ServicePrincipal
+metadata:
+  annotations:
+    meta.upbound.io/example-id: security/v1alpha2/serviceprincipal
+  labels:
+    testing.upbound.io/example-name: sp
+  name: sp
+spec:
+  forProvider:
+    displayName: Admin SP

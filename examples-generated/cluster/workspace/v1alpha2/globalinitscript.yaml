@@ -1,0 +1,16 @@
+# SPDX-FileCopyrightText: 2026 The Crossplane Authors <https://crossplane.io>
+#
+# SPDX-License-Identifier: CC0-1.0
+
+apiVersion: workspace.databricks.crossplane.io/v1alpha2
+kind: GlobalInitScript
+metadata:
+  annotations:
+    meta.upbound.io/example-id: workspace/v1alpha2/globalinitscript
+  labels:
+    testing.upbound.io/example-name: init1
+  name: init1
+spec:
+  forProvider:
+    name: my init script
+    source: ${path.module}/init.sh

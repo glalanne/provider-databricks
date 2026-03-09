@@ -1,0 +1,17 @@
+# SPDX-FileCopyrightText: 2026 The Crossplane Authors <https://crossplane.io>
+#
+# SPDX-License-Identifier: CC0-1.0
+
+apiVersion: security.databricks.crossplane.io/v1alpha2
+kind: Token
+metadata:
+  annotations:
+    meta.upbound.io/example-id: security/v1alpha2/token
+  labels:
+    testing.upbound.io/example-name: pat
+  name: pat
+spec:
+  forProvider:
+    comment: Terraform Provisioning
+    lifetimeSeconds: 8640000
+    provider: ${databricks.created_workspace}

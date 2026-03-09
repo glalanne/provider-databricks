@@ -165,7 +165,7 @@ func ResourceConfigurator() config.ResourceOption {
 		if !configured {
 			return
 		}
-		// r.Version = "v1alpha1"
+
 		r.ExternalName = e
 	}
 }

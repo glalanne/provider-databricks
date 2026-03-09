@@ -1,0 +1,17 @@
+# SPDX-FileCopyrightText: 2026 The Crossplane Authors <https://crossplane.io>
+#
+# SPDX-License-Identifier: CC0-1.0
+
+apiVersion: mosaic.databricks.m.crossplane.io/v1alpha2
+kind: VectorSearchEndpoint
+metadata:
+  annotations:
+    meta.upbound.io/example-id: mosaic/v1alpha2/vectorsearchendpoint
+  labels:
+    testing.upbound.io/example-name: this
+  name: this
+  namespace: upbound-system
+spec:
+  forProvider:
+    endpointType: STANDARD
+    name: vector-search-test

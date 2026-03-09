@@ -1,0 +1,16 @@
+# SPDX-FileCopyrightText: 2026 The Crossplane Authors <https://crossplane.io>
+#
+# SPDX-License-Identifier: CC0-1.0
+
+apiVersion: workspace.databricks.m.crossplane.io/v1alpha2
+kind: Repo
+metadata:
+  annotations:
+    meta.upbound.io/example-id: workspace/v1alpha2/repo
+  labels:
+    testing.upbound.io/example-name: nutter_in_home
+  name: nutter-in-home
+  namespace: upbound-system
+spec:
+  forProvider:
+    url: https://github.com/user/demo.git

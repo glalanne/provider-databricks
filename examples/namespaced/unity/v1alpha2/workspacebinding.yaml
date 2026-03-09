@@ -1,0 +1,37 @@
+# SPDX-FileCopyrightText: 2026 The Crossplane Authors <https://crossplane.io>
+#
+# SPDX-License-Identifier: CC0-1.0
+
+apiVersion: unity.databricks.m.crossplane.io/v1alpha2
+kind: WorkspaceBinding
+metadata:
+  annotations:
+    meta.upbound.io/example-id: unity/v1alpha2/workspacebinding
+  labels:
+    testing.upbound.io/example-name: sandbox
+  name: sandbox
+  namespace: upbound-system
+spec:
+  forProvider:
+    securableNameSelector:
+      matchLabels:
+        testing.upbound.io/example-name: sandbox
+    workspaceIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: other
+
+---
+
+apiVersion: unity.databricks.m.crossplane.io/v1alpha2
+kind: Catalog
+metadata:
+  annotations:
+    meta.upbound.io/example-id: unity/v1alpha2/workspacebinding
+  labels:
+    testing.upbound.io/example-name: sandbox
+  name: sandbox
+  namespace: upbound-system
+spec:
+  forProvider:
+    isolationMode: ISOLATED
+    name: sandbox

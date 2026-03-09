@@ -10,49 +10,49 @@ package namespaced
 import (
 	"k8s.io/apimachinery/pkg/runtime"
 
-	v1alpha1 "github.com/glalanne/provider-databricks/apis/namespaced/apps/v1alpha1"
-	v1alpha1compute "github.com/glalanne/provider-databricks/apis/namespaced/compute/v1alpha1"
-	v1alpha1databases "github.com/glalanne/provider-databricks/apis/namespaced/databases/v1alpha1"
-	v1alpha1deployment "github.com/glalanne/provider-databricks/apis/namespaced/deployment/v1alpha1"
-	v1alpha1finops "github.com/glalanne/provider-databricks/apis/namespaced/finops/v1alpha1"
-	v1alpha1log "github.com/glalanne/provider-databricks/apis/namespaced/log/v1alpha1"
-	v1alpha1mlflow "github.com/glalanne/provider-databricks/apis/namespaced/mlflow/v1alpha1"
-	v1alpha1mosaic "github.com/glalanne/provider-databricks/apis/namespaced/mosaic/v1alpha1"
-	v1alpha1oauth "github.com/glalanne/provider-databricks/apis/namespaced/oauth/v1alpha1"
-	v1alpha1security "github.com/glalanne/provider-databricks/apis/namespaced/security/v1alpha1"
-	v1alpha1serving "github.com/glalanne/provider-databricks/apis/namespaced/serving/v1alpha1"
-	v1alpha1settings "github.com/glalanne/provider-databricks/apis/namespaced/settings/v1alpha1"
-	v1alpha1sharing "github.com/glalanne/provider-databricks/apis/namespaced/sharing/v1alpha1"
-	v1alpha1sql "github.com/glalanne/provider-databricks/apis/namespaced/sql/v1alpha1"
-	v1alpha1storage "github.com/glalanne/provider-databricks/apis/namespaced/storage/v1alpha1"
-	v1alpha1unity "github.com/glalanne/provider-databricks/apis/namespaced/unity/v1alpha1"
-	v1alpha1namespaced "github.com/glalanne/provider-databricks/apis/namespaced/v1alpha1"
+	v1alpha2 "github.com/glalanne/provider-databricks/apis/namespaced/apps/v1alpha2"
+	v1alpha2compute "github.com/glalanne/provider-databricks/apis/namespaced/compute/v1alpha2"
+	v1alpha2databases "github.com/glalanne/provider-databricks/apis/namespaced/databases/v1alpha2"
+	v1alpha2deployment "github.com/glalanne/provider-databricks/apis/namespaced/deployment/v1alpha2"
+	v1alpha2finops "github.com/glalanne/provider-databricks/apis/namespaced/finops/v1alpha2"
+	v1alpha2log "github.com/glalanne/provider-databricks/apis/namespaced/log/v1alpha2"
+	v1alpha2mlflow "github.com/glalanne/provider-databricks/apis/namespaced/mlflow/v1alpha2"
+	v1alpha2mosaic "github.com/glalanne/provider-databricks/apis/namespaced/mosaic/v1alpha2"
+	v1alpha2oauth "github.com/glalanne/provider-databricks/apis/namespaced/oauth/v1alpha2"
+	v1alpha2security "github.com/glalanne/provider-databricks/apis/namespaced/security/v1alpha2"
+	v1alpha2serving "github.com/glalanne/provider-databricks/apis/namespaced/serving/v1alpha2"
+	v1alpha2settings "github.com/glalanne/provider-databricks/apis/namespaced/settings/v1alpha2"
+	v1alpha2sharing "github.com/glalanne/provider-databricks/apis/namespaced/sharing/v1alpha2"
+	v1alpha2sql "github.com/glalanne/provider-databricks/apis/namespaced/sql/v1alpha2"
+	v1alpha2storage "github.com/glalanne/provider-databricks/apis/namespaced/storage/v1alpha2"
+	v1alpha2unity "github.com/glalanne/provider-databricks/apis/namespaced/unity/v1alpha2"
+	v1alpha1 "github.com/glalanne/provider-databricks/apis/namespaced/v1alpha1"
 	v1beta1 "github.com/glalanne/provider-databricks/apis/namespaced/v1beta1"
-	v1alpha1workspace "github.com/glalanne/provider-databricks/apis/namespaced/workspace/v1alpha1"
+	v1alpha2workspace "github.com/glalanne/provider-databricks/apis/namespaced/workspace/v1alpha2"
 )
 
 func init() {
 	// Register the types with the Scheme so the components can map objects to GroupVersionKinds and back
 	AddToSchemes = append(AddToSchemes,
+		v1alpha2.SchemeBuilder.AddToScheme,
+		v1alpha2compute.SchemeBuilder.AddToScheme,
+		v1alpha2databases.SchemeBuilder.AddToScheme,
+		v1alpha2deployment.SchemeBuilder.AddToScheme,
+		v1alpha2finops.SchemeBuilder.AddToScheme,
+		v1alpha2log.SchemeBuilder.AddToScheme,
+		v1alpha2mlflow.SchemeBuilder.AddToScheme,
+		v1alpha2mosaic.SchemeBuilder.AddToScheme,
+		v1alpha2oauth.SchemeBuilder.AddToScheme,
+		v1alpha2security.SchemeBuilder.AddToScheme,
+		v1alpha2serving.SchemeBuilder.AddToScheme,
+		v1alpha2settings.SchemeBuilder.AddToScheme,
+		v1alpha2sharing.SchemeBuilder.AddToScheme,
+		v1alpha2sql.SchemeBuilder.AddToScheme,
+		v1alpha2storage.SchemeBuilder.AddToScheme,
+		v1alpha2unity.SchemeBuilder.AddToScheme,
 		v1alpha1.SchemeBuilder.AddToScheme,
-		v1alpha1compute.SchemeBuilder.AddToScheme,
-		v1alpha1databases.SchemeBuilder.AddToScheme,
-		v1alpha1deployment.SchemeBuilder.AddToScheme,
-		v1alpha1finops.SchemeBuilder.AddToScheme,
-		v1alpha1log.SchemeBuilder.AddToScheme,
-		v1alpha1mlflow.SchemeBuilder.AddToScheme,
-		v1alpha1mosaic.SchemeBuilder.AddToScheme,
-		v1alpha1oauth.SchemeBuilder.AddToScheme,
-		v1alpha1security.SchemeBuilder.AddToScheme,
-		v1alpha1serving.SchemeBuilder.AddToScheme,
-		v1alpha1settings.SchemeBuilder.AddToScheme,
-		v1alpha1sharing.SchemeBuilder.AddToScheme,
-		v1alpha1sql.SchemeBuilder.AddToScheme,
-		v1alpha1storage.SchemeBuilder.AddToScheme,
-		v1alpha1unity.SchemeBuilder.AddToScheme,
-		v1alpha1namespaced.SchemeBuilder.AddToScheme,
 		v1beta1.SchemeBuilder.AddToScheme,
-		v1alpha1workspace.SchemeBuilder.AddToScheme,
+		v1alpha2workspace.SchemeBuilder.AddToScheme,
 	)
 }
 
