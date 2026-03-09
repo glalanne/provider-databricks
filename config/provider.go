@@ -263,7 +263,7 @@ func bumpVersionsWithEmbeddedLists(pc *config.Provider) {
 			r.Conversions = []conversion.Conversion{
 				conversion.NewIdentityConversionExpandPaths(conversion.AllVersions, conversion.AllVersions, conversion.DefaultPathPrefixes(), r.CRDListConversionPaths()...),
 				conversion.NewSingletonListConversion("v1alpha1", "v1alpha2", conversion.DefaultPathPrefixes(), r.CRDListConversionPaths(), conversion.ToEmbeddedObject),
-				conversion.NewSingletonListConversion("v1alpha2", "v1beta1", conversion.DefaultPathPrefixes(), r.CRDListConversionPaths(), conversion.ToSingletonList)}
+				conversion.NewSingletonListConversion("v1alpha2", "v1alpha1", conversion.DefaultPathPrefixes(), r.CRDListConversionPaths(), conversion.ToSingletonList)}
 		} else {
 			// the controller will be reconciling on the CRD API version
 			// with the converted API (with embedded objects in place of
