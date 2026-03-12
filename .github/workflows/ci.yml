@@ -252,10 +252,11 @@ jobs:
     runs-on: ubuntu-24.04
     permissions:
       contents: write
-      packages: write
-      attestations: write
-      id-token: write
+      actions: write
+      checks: write
       issues: write
+      packages: write
+      pull-requests: write
     needs:
       - detect-noop
       - report-breaking-changes
@@ -291,7 +292,7 @@ jobs:
           persist-credentials: false
 
       - name: Semantic Release
-        uses: cycjimmy/semantic-release-action@v5
+        uses: cycjimmy/semantic-release-action@v6
         id: semantic
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -348,10 +349,11 @@ jobs:
     runs-on: ubuntu-24.04
     permissions:
       contents: write
-      packages: write
-      attestations: write
-      id-token: write
+      actions: write
+      checks: write
       issues: write
+      packages: write
+      pull-requests: write
     needs:
       - detect-noop
       - report-breaking-changes
@@ -386,7 +388,7 @@ jobs:
           persist-credentials: false
 
       - name: Semantic Release
-        uses: cycjimmy/semantic-release-action@v5
+        uses: cycjimmy/semantic-release-action@v6
         id: semantic
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
