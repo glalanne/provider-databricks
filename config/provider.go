@@ -228,30 +228,37 @@ func bumpVersionsWithEmbeddedLists(pc *config.Provider) {
 	l := strings.Split(strings.TrimSpace(oldSingletonListAPIs), "\n")
 	oldSLAPIs := make(map[string]struct{}, len(l))
 	for _, n := range l {
+		n = strings.TrimSpace(n)
+		if n == "" || strings.HasPrefix(n, "#") {
+			continue
+		}
 		oldSLAPIs[n] = struct{}{}
 	}
 
 	for name, r := range pc.Resources {
 		r := r
-		// nothing to do if no singleton list has been converted to
-		// an embedded object
-		if len(r.CRDListConversionPaths()) == 0 {
-			continue
-		}
+		paths := r.CRDListConversionPaths()
 		if _, ok := oldSLAPIs[name]; ok {
 			r.Version = "v1alpha2"
 			r.PreviousVersions = []string{"v1alpha1"}
-			// we would like to set the storage version to v1alpha1 to facilitate
-			// downgrades.
-			// r.SetCRDStorageVersion("v1alpha1")
-			// because the controller reconciles on the API version with the singleton list API,
-			// no need for a Terraform conversion.
-			// r.ControllerReconcileVersion = "v1alpha1" //nolint:staticcheck
-			r.Conversions = []conversion.Conversion{
-				conversion.NewIdentityConversionExpandPaths(conversion.AllVersions, conversion.AllVersions, conversion.DefaultPathPrefixes(), r.CRDListConversionPaths()...),
-				conversion.NewSingletonListConversion("v1alpha1", "v1alpha2", conversion.DefaultPathPrefixes(), r.CRDListConversionPaths(), conversion.ToEmbeddedObject),
-				conversion.NewSingletonListConversion("v1alpha2", "v1alpha1", conversion.DefaultPathPrefixes(), r.CRDListConversionPaths(), conversion.ToSingletonList)}
+			if len(paths) != 0 {
+				// we would like to set the storage version to v1alpha1 to facilitate
+				// downgrades.
+				// r.SetCRDStorageVersion("v1alpha1")
+				// because the controller reconciles on the API version with the singleton list API,
+				// no need for a Terraform conversion.
+				// r.ControllerReconcileVersion = "v1alpha1" //nolint:staticcheck
+				r.Conversions = []conversion.Conversion{
+					conversion.NewIdentityConversionExpandPaths(conversion.AllVersions, conversion.AllVersions, conversion.DefaultPathPrefixes(), paths...),
+					conversion.NewSingletonListConversion("v1alpha1", "v1alpha2", conversion.DefaultPathPrefixes(), paths, conversion.ToEmbeddedObject),
+					conversion.NewSingletonListConversion("v1alpha2", "v1alpha1", conversion.DefaultPathPrefixes(), paths, conversion.ToSingletonList)}
+			}
 		} else {
+			// nothing to do if no singleton list has been converted to
+			// an embedded object
+			if len(paths) == 0 {
+				continue
+			}
 			// the controller will be reconciling on the CRD API version
 			// with the converted API (with embedded objects in place of
 			// singleton lists), so we need the appropriate Terraform
