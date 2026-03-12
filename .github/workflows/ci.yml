@@ -388,8 +388,6 @@ jobs:
       - name: Semantic Release
         uses: cycjimmy/semantic-release-action@v5
         id: semantic
-        with:
-          dry_run: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
