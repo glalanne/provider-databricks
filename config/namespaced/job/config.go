@@ -6,6 +6,7 @@ import "github.com/crossplane/upjet/v2/pkg/config"
 func Configure(p *config.Provider) {
 	p.AddResourceConfigurator("databricks_job", func(r *config.Resource) {
 		r.ShortGroup = "compute"
+		r.LateInitializer.IgnoredFields = append(r.LateInitializer.IgnoredFields, "format")
 
 		r.References["notebook_task.warehouse_id"] = config.Reference{
 			TerraformName: "databricks_sql_endpoint",
