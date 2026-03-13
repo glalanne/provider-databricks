@@ -168,9 +168,9 @@ cobertura:
 
 examples.sync:
 	@$(INFO) syncing examples from examples-generated
-	@rm -rf ./examples/cluster ./examples/namespaced
-	@cp -R ./examples-generated/cluster ./examples/cluster
-	@cp -R ./examples-generated/namespaced ./examples/namespaced
+	@mkdir -p ./examples/cluster ./examples/namespaced
+	@cp -a ./examples-generated/cluster/. ./examples/cluster/
+	@cp -a ./examples-generated/namespaced/. ./examples/namespaced/
 	@$(OK) synced examples from examples-generated
 
 # Update the submodules, such as the common build scripts.
