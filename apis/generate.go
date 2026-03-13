@@ -26,6 +26,11 @@ Copyright 2021 Upbound Inc.
 // Run Upjet generator
 //go:generate go run ../cmd/generator/main.go ..
 
+// Run upjet's transformer for the generated resolvers to get rid of the cross
+// API-group imports before controller-gen type-checks API packages.
+//go:generate go run github.com/crossplane/upjet/v2/cmd/resolver -g databricks.crossplane.io -a github.com/glalanne/provider-databricks/internal/apis -s -p ../apis/cluster/...
+//go:generate go run github.com/crossplane/upjet/v2/cmd/resolver -g databricks.m.crossplane.io -a github.com/glalanne/provider-databricks/internal/apis -s -p ../apis/namespaced/...
+
 // Generate deepcopy methodsets and CRD manifests
 //go:generate go run -tags generate sigs.k8s.io/controller-tools/cmd/controller-gen object:headerFile=../hack/boilerplate.go.txt paths=./... crd:allowDangerousTypes=true,crdVersions=v1 output:artifacts:config=../package/crds
 
@@ -33,10 +38,9 @@ Copyright 2021 Upbound Inc.
 //go:generate go run -tags generate github.com/crossplane/crossplane-tools/cmd/angryjet generate-methodsets --header-file=../hack/boilerplate.go.txt ./...
 
 // Run upjet's transformer for the generated resolvers to get rid of the cross
-// API-group imports and to prevent import cycles. This must run after angryjet
-// so transformed resolvers are not overwritten.
-//go:generate go run github.com/crossplane/upjet/v2/cmd/resolver -g databricks.crossplane.io -a github.com/glalanne/provider-databricks/internal/apis -s -p ../apis/cluster
-//go:generate go run github.com/crossplane/upjet/v2/cmd/resolver -g databricks.m.crossplane.io -a github.com/glalanne/provider-databricks/internal/apis -s -p ../apis/namespaced
+// API-group imports and to prevent import cycles after angryjet regeneration.
+//go:generate go run github.com/crossplane/upjet/v2/cmd/resolver -g databricks.crossplane.io -a github.com/glalanne/provider-databricks/internal/apis -s -p ../apis/cluster/...
+//go:generate go run github.com/crossplane/upjet/v2/cmd/resolver -g databricks.m.crossplane.io -a github.com/glalanne/provider-databricks/internal/apis -s -p ../apis/namespaced/...
 
 package apis
 
