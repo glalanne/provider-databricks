@@ -840,8 +840,7 @@ resources:
                 (string, required) - The name of the template. It must contain only alphanumeric characters, hyphens, underscores, and whitespaces.
                 It must be unique within the workspace
             path: (string, required) - The path to the template within the Git repository
-            permission: '(string, required) - Possible values are: CAN_EDIT, CAN_MANAGE, CAN_READ'
-            provider_config: (ProviderConfig, optional) - Configure the provider for management through account provider.
+            permission: '(string, required) - Permissions to grant on the Job. Supported permissions are: "CAN_MANAGE", "IS_OWNER", "CAN_MANAGE_RUN", "CAN_VIEW". Possible values are: CAN_MANAGE, CAN_MANAGE_RUN, CAN_VIEW, IS_OWNER'
             resource_specs: (list of AppManifestAppResourceSpec, optional)
             secret_spec: (AppManifestAppResourceSecretSpec, optional)
             securable_type: '(string, required) - Possible values are: CONNECTION, FUNCTION, TABLE, VOLUME'
@@ -7092,8 +7091,6 @@ resources:
             provider_config: (ProviderConfig, optional) - Configure the provider for management through account provider.
             read_replica_count: (integer, optional) - The number of read replicas for the online store. Defaults to 0
             state: '(string) - The current state of the online store. Possible values are: AVAILABLE, DELETING, FAILING_OVER, STARTING, STOPPED, UPDATING'
-            usage_policy_id: (string, optional) - The usage policy applied to the online store to track billing
-            workspace_id: (string,required) - Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
         importStatements: []
     databricks_online_table:
         subCategory: ""
@@ -8336,8 +8333,6 @@ resources:
             library.connection_name: '- Immutable. The Unity Catalog connection this ingestion pipeline uses to communicate with the source. Specify either ingestion_gateway_id or connection_name.'
             library.ingestion_gateway_id: '- Immutable. Identifier for the ingestion gateway used by this ingestion pipeline to communicate with the source. Specify either ingestion_gateway_id or connection_name.'
             library.objects: '- Required. Settings specifying tables to replicate and the destination for the replicated tables.'
-            library.provider_config: '- (Optional) Configure the provider for management through account provider. This block consists of the following fields:'
-            library.source_configurations: '- Array of objects describing top-level source configurations. See the REST API docs for reference.'
             library.table_configuration: '- Configuration settings to control the ingestion of tables. These settings are applied to all tables in the pipeline.'
             metadata_file_path: '- The path to the file containing metadata about the deployment.'
             name: '- A user-friendly name for this pipeline. The name can be used to identify pipeline jobs in the UI.'
@@ -9417,13 +9412,6 @@ resources:
             name: (string, optional) - Can be set by system. Does not need to be user facing
             object_id: (string, required) - The uuid of the request object. For example, schema id
             object_type: '(string, required) - The type of the monitored object. Can be one of the following: schema'
-            percent_null_validity_check: (PercentNullValidityCheck, optional)
-            provider_config: (ProviderConfig, optional) - Configure the provider for management through account provider.
-            range_validity_check: (RangeValidityCheck, optional)
-            uniqueness_validity_check: (UniquenessValidityCheck, optional)
-            upper_bound: (number, optional) - Optional upper bound; we should use auto determined bounds for now
-            validity_check_configurations: (list of ValidityCheckConfiguration, optional) - Validity check configurations for anomaly detection
-            workspace_id: (string,required) - Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
         importStatements: []
     databricks_query:
         subCategory: ""
@@ -11443,35 +11431,9 @@ resources:
         subCategory: ""
         name: databricks_workspace_entity_tag_assignment
         title: databricks_workspace_entity_tag_assignment Resource
-        examples:
-            - name: app_tag
-              manifest: |-
-                {
-                  "entity_id": "myapp",
-                  "entity_type": "apps",
-                  "tag_key": "sensitivity_level",
-                  "tag_value": "high"
-                }
-            - name: dashboard_tag
-              manifest: |-
-                {
-                  "entity_id": "2807324866692453",
-                  "entity_type": "dashboards",
-                  "tag_key": "sensitivity_level",
-                  "tag_value": "high"
-                }
-            - name: geniespace_tag
-              manifest: |-
-                {
-                  "entity_id": "2807324866692453",
-                  "entity_type": "geniespaces",
-                  "tag_key": "sensitivity_level",
-                  "tag_value": "high"
-                }
         argumentDocs:
-            entity_id: (string, required) - The identifier of the entity to which the tag is assigned. For apps, the entity_id is the app name
-            entity_type: (string, required) - The type of entity to which the tag is assigned. Allowed values are apps, dashboards, geniespaces
-            provider_config: (ProviderConfig, optional) - Configure the provider for management through account provider.
+            entity_id: (string, required) - The identifier of the entity to which the tag is assigned
+            entity_type: (string, required) - The type of entity to which the tag is assigned. Allowed values are dashboards, geniespaces
             tag_key: '(string, required) - The key of the tag. The characters , . : / - = and leading/trailing spaces are not allowed'
             tag_value: (string, optional) - The value of the tag
             workspace_id: (string,required) - Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.

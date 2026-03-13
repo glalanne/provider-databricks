@@ -25,7 +25,7 @@ if __name__ == "__main__":
             print(f"Namespaced config found: {base_name} - ✅")
         else:
             print(f"Namespaced config not found: {base_name} - ❌")
-
+    
     print("------------------------------")
 
     external_names = ""
