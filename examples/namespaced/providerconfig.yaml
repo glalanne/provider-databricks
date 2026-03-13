@@ -9,4 +9,7 @@ metadata:
   namespace: upbound-system
 spec:
   credentials:
-    source: None
+    secretRef:
+      key: credentials
+      name: provider-secret
+    source: Secret

@@ -8,4 +8,8 @@ metadata:
   name: default
 spec:
   credentials:
-    source: None
+    secretRef:
+      key: credentials
+      name: provider-secret
+      namespace: upbound-system
+    source: Secret
