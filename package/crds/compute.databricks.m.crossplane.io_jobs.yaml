@@ -2278,18 +2278,6 @@ spec:
                                             type: string
                                         type: object
                                       type: array
-                                    compute:
-                                      description: Task level compute configuration.
-                                        This block is documented below.
-                                      items:
-                                        properties:
-                                          hardwareAccelerator:
-                                            description: 'Hardware accelerator configuration
-                                              for Serverless GPU workloads. Supported
-                                              values are:'
-                                            type: string
-                                        type: object
-                                      type: array
                                     conditionTask:
                                       description: A list of task specification that
                                         the job will execute. See task Configuration
@@ -7472,17 +7460,6 @@ spec:
                                 type: string
                             type: object
                           type: array
-                        compute:
-                          description: Task level compute configuration. This block
-                            is documented below.
-                          items:
-                            properties:
-                              hardwareAccelerator:
-                                description: 'Hardware accelerator configuration for
-                                  Serverless GPU workloads. Supported values are:'
-                                type: string
-                            type: object
-                          type: array
                         conditionTask:
                           description: A list of task specification that the job will
                             execute. See task Configuration Block below.
@@ -7844,18 +7821,6 @@ spec:
                                           notebookName:
                                             description: Name of the notebook being
                                               run.
-                                            type: string
-                                        type: object
-                                      type: array
-                                    compute:
-                                      description: Task level compute configuration.
-                                        This block is documented below.
-                                      items:
-                                        properties:
-                                          hardwareAccelerator:
-                                            description: 'Hardware accelerator configuration
-                                              for Serverless GPU workloads. Supported
-                                              values are:'
                                             type: string
                                         type: object
                                       type: array
@@ -12821,17 +12786,6 @@ spec:
                                 type: string
                             type: object
                           type: array
-                        compute:
-                          description: Task level compute configuration. This block
-                            is documented below.
-                          items:
-                            properties:
-                              hardwareAccelerator:
-                                description: 'Hardware accelerator configuration for
-                                  Serverless GPU workloads. Supported values are:'
-                                type: string
-                            type: object
-                          type: array
                         conditionTask:
                           description: A list of task specification that the job will
                             execute. See task Configuration Block below.
@@ -13111,18 +13065,6 @@ spec:
                                           notebookName:
                                             description: Name of the notebook being
                                               run.
-                                            type: string
-                                        type: object
-                                      type: array
-                                    compute:
-                                      description: Task level compute configuration.
-                                        This block is documented below.
-                                      items:
-                                        properties:
-                                          hardwareAccelerator:
-                                            description: 'Hardware accelerator configuration
-                                              for Serverless GPU workloads. Supported
-                                              values are:'
                                             type: string
                                         type: object
                                       type: array

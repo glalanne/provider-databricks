@@ -840,8 +840,7 @@ resources:
                 (string, required) - The name of the template. It must contain only alphanumeric characters, hyphens, underscores, and whitespaces.
                 It must be unique within the workspace
             path: (string, required) - The path to the template within the Git repository
-            permission: '(string, required) - Possible values are: CAN_EDIT, CAN_MANAGE, CAN_READ'
-            provider_config: (ProviderConfig, optional) - Configure the provider for management through account provider.
+            permission: '(string, required) - Permissions to grant on the Job. Supported permissions are: "CAN_MANAGE", "IS_OWNER", "CAN_MANAGE_RUN", "CAN_VIEW". Possible values are: CAN_MANAGE, CAN_MANAGE_RUN, CAN_VIEW, IS_OWNER'
             resource_specs: (list of AppManifestAppResourceSpec, optional)
             secret_spec: (AppManifestAppResourceSecretSpec, optional)
             securable_type: '(string, required) - Possible values are: CONNECTION, FUNCTION, TABLE, VOLUME'
@@ -7092,8 +7091,6 @@ resources:
             provider_config: (ProviderConfig, optional) - Configure the provider for management through account provider.
             read_replica_count: (integer, optional) - The number of read replicas for the online store. Defaults to 0
             state: '(string) - The current state of the online store. Possible values are: AVAILABLE, DELETING, FAILING_OVER, STARTING, STOPPED, UPDATING'
-            usage_policy_id: (string, optional) - The usage policy applied to the online store to track billing
-            workspace_id: (string,required) - Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
         importStatements: []
     databricks_online_table:
         subCategory: ""
@@ -8336,8 +8333,6 @@ resources:
             library.connection_name: '- Immutable. The Unity Catalog connection this ingestion pipeline uses to communicate with the source. Specify either ingestion_gateway_id or connection_name.'
             library.ingestion_gateway_id: '- Immutable. Identifier for the ingestion gateway used by this ingestion pipeline to communicate with the source. Specify either ingestion_gateway_id or connection_name.'
             library.objects: '- Required. Settings specifying tables to replicate and the destination for the replicated tables.'
-            library.provider_config: '- (Optional) Configure the provider for management through account provider. This block consists of the following fields:'
-            library.source_configurations: '- Array of objects describing top-level source configurations. See the REST API docs for reference.'
             library.table_configuration: '- Configuration settings to control the ingestion of tables. These settings are applied to all tables in the pipeline.'
             metadata_file_path: '- The path to the file containing metadata about the deployment.'
             name: '- A user-friendly name for this pipeline. The name can be used to identify pipeline jobs in the UI.'
@@ -8563,329 +8558,6 @@ resources:
             update_time: (string) - A timestamp indicating when the branch was last updated
             workspace_id: (string,required) - Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
         importStatements: []
-    databricks_postgres_endpoint:
-        subCategory: ""
-        name: databricks_postgres_endpoint
-        title: databricks_postgres_endpoint Resource
-        examples:
-            - name: primary
-              manifest: |-
-                {
-                  "endpoint_id": "primary",
-                  "parent": "${databricks_postgres_branch.dev.name}",
-                  "spec": {
-                    "endpoint_type": "ENDPOINT_TYPE_READ_WRITE"
-                  }
-                }
-              references:
-                parent: databricks_postgres_branch.dev.name
-              dependencies:
-                databricks_postgres_branch.dev: |-
-                    {
-                      "branch_id": "dev-branch",
-                      "parent": "${databricks_postgres_project.this.name}",
-                      "spec": {
-                        "no_expiry": true
-                      }
-                    }
-                databricks_postgres_project.this: |-
-                    {
-                      "project_id": "my-project",
-                      "spec": {
-                        "display_name": "My Project",
-                        "pg_version": 17
-                      }
-                    }
-            - name: read_replica
-              manifest: |-
-                {
-                  "endpoint_id": "read-replica-1",
-                  "parent": "${databricks_postgres_branch.dev.name}",
-                  "spec": {
-                    "autoscaling_limit_max_cu": 4,
-                    "autoscaling_limit_min_cu": 0.5,
-                    "endpoint_type": "ENDPOINT_TYPE_READ_ONLY"
-                  }
-                }
-              references:
-                parent: databricks_postgres_branch.dev.name
-            - name: analytics
-              manifest: |-
-                {
-                  "endpoint_id": "analytics",
-                  "parent": "${databricks_postgres_branch.dev.name}",
-                  "spec": {
-                    "autoscaling_limit_max_cu": 8,
-                    "autoscaling_limit_min_cu": 1,
-                    "endpoint_type": "ENDPOINT_TYPE_READ_ONLY",
-                    "suspend_timeout_duration": "600s"
-                  }
-                }
-              references:
-                parent: databricks_postgres_branch.dev.name
-            - name: maintenance
-              manifest: |-
-                {
-                  "endpoint_id": "primary",
-                  "parent": "${databricks_postgres_branch.dev.name}",
-                  "spec": {
-                    "disabled": true,
-                    "endpoint_type": "ENDPOINT_TYPE_READ_WRITE"
-                  }
-                }
-              references:
-                parent: databricks_postgres_branch.dev.name
-            - name: always_on
-              manifest: |-
-                {
-                  "endpoint_id": "always-on",
-                  "parent": "${databricks_postgres_branch.dev.name}",
-                  "spec": {
-                    "endpoint_type": "ENDPOINT_TYPE_READ_WRITE",
-                    "no_suspension": true
-                  }
-                }
-              references:
-                parent: databricks_postgres_branch.dev.name
-            - name: primary
-              manifest: |-
-                {
-                  "endpoint_id": "primary",
-                  "parent": "${databricks_postgres_branch.main.name}",
-                  "spec": {
-                    "autoscaling_limit_max_cu": 9,
-                    "autoscaling_limit_min_cu": 1,
-                    "endpoint_type": "ENDPOINT_TYPE_READ_WRITE",
-                    "no_suspension": true
-                  }
-                }
-              references:
-                parent: databricks_postgres_branch.main.name
-              dependencies:
-                databricks_postgres_branch.main: |-
-                    {
-                      "branch_id": "main",
-                      "parent": "${databricks_postgres_project.prod.name}",
-                      "spec": {
-                        "no_expiry": true
-                      }
-                    }
-                databricks_postgres_project.prod: |-
-                    {
-                      "project_id": "production",
-                      "spec": {
-                        "default_endpoint_settings": {
-                          "autoscaling_limit_max_cu": 8,
-                          "autoscaling_limit_min_cu": 1,
-                          "suspend_timeout_duration": "300s"
-                        },
-                        "display_name": "Production Workloads",
-                        "history_retention_duration": "2592000s",
-                        "pg_version": 17
-                      }
-                    }
-            - name: read_replica
-              manifest: |-
-                {
-                  "endpoint_id": "read-replica",
-                  "parent": "${databricks_postgres_branch.main.name}",
-                  "spec": {
-                    "autoscaling_limit_max_cu": 8,
-                    "autoscaling_limit_min_cu": 0.5,
-                    "endpoint_type": "ENDPOINT_TYPE_READ_ONLY",
-                    "suspend_timeout_duration": "600s"
-                  }
-                }
-              references:
-                parent: databricks_postgres_branch.main.name
-              dependencies:
-                databricks_postgres_branch.main: |-
-                    {
-                      "branch_id": "main",
-                      "parent": "${databricks_postgres_project.prod.name}",
-                      "spec": {
-                        "no_expiry": true
-                      }
-                    }
-                databricks_postgres_project.prod: |-
-                    {
-                      "project_id": "production",
-                      "spec": {
-                        "default_endpoint_settings": {
-                          "autoscaling_limit_max_cu": 8,
-                          "autoscaling_limit_min_cu": 1,
-                          "suspend_timeout_duration": "300s"
-                        },
-                        "display_name": "Production Workloads",
-                        "history_retention_duration": "2592000s",
-                        "pg_version": 17
-                      }
-                    }
-        argumentDocs:
-            autoscaling_limit_max_cu: (number, optional) - The maximum number of Compute Units. Minimum value is 0.5
-            autoscaling_limit_min_cu: (number, optional) - The minimum number of Compute Units. Minimum value is 0.5
-            create_time: (string) - A timestamp indicating when the compute endpoint was created
-            current_state: '(string) - Possible values are: ACTIVE, DEGRADED, IDLE, INIT'
-            disabled: |-
-                (boolean, optional) - Whether to restrict connections to the compute endpoint.
-                Enabling this option schedules a suspend compute operation.
-                A disabled compute endpoint cannot be enabled by a connection or
-                console action
-            enable_readable_secondaries: |-
-                (boolean, optional) - Whether to allow read-only connections to read-write endpoints. Only relevant for read-write endpoints where
-                size.max > 1
-            endpoint_id: |-
-                (string, required) - The ID to use for the Endpoint. This becomes the final component of the endpoint's resource name.
-                The ID is required and must be 1-63 characters long, start with a lowercase letter, and contain only lowercase letters, numbers, and hyphens.
-                For example, primary becomes projects/my-app/branches/development/endpoints/primary
-            endpoint_type: '(string, required) - The endpoint type. A branch can only have one READ_WRITE endpoint. Possible values are: ENDPOINT_TYPE_READ_ONLY, ENDPOINT_TYPE_READ_WRITE'
-            group: |-
-                (EndpointGroupSpec, optional) - Settings for optional HA configuration of the endpoint. If unspecified, the endpoint defaults
-                to non HA settings, with a single compute backing the endpoint (and no readable secondaries
-                for Read/Write endpoints)
-            host: |-
-                (string) - The hostname to connect to this endpoint. For read-write endpoints, this is a read-write hostname which connects
-                to the primary compute. For read-only endpoints, this is a read-only hostname which allows read-only operations
-            hosts: (EndpointHosts) - Contains host information for connecting to the endpoint
-            max: |-
-                (integer, required) - The maximum number of computes in the endpoint group. Currently, this must be equal to min. Set to 1 for single
-                compute endpoints, to disable HA. To manually suspend all computes in an endpoint group, set disabled to
-                true on the EndpointSpec
-            min: |-
-                (integer, required) - The minimum number of computes in the endpoint group. Currently, this must be equal to max. This must be greater
-                than or equal to 1
-            name: |-
-                (string) - Output only. The full resource path of the endpoint.
-                Format: projects/{project_id}/branches/{branch_id}/endpoints/{endpoint_id}
-            no_suspension: |-
-                (boolean, optional) - When set to true, explicitly disables automatic suspension (never suspend).
-                Should be set to true when provided
-            parent: |-
-                (string, required) - The branch containing this endpoint (API resource hierarchy).
-                Format: projects/{project_id}/branches/{branch_id}
-            pending_state: '(string) - Possible values are: ACTIVE, DEGRADED, IDLE, INIT'
-            pg_settings: (object, optional) - A raw representation of Postgres settings
-            provider_config: (ProviderConfig, optional) - Configure the provider for management through account provider.
-            read_only_host: |-
-                (string) - An optionally defined read-only host for the endpoint, without pooling. For read-only endpoints,
-                this attribute is always defined and is equivalent to host. For read-write endpoints, this attribute is defined
-                if the enclosing endpoint is a group with greater than 1 computes configured, and has readable secondaries enabled
-            settings: (EndpointSettings, optional)
-            spec: (EndpointSpec, optional) - The spec contains the compute endpoint configuration, including autoscaling limits, suspend timeout, and disabled state
-            status: (EndpointStatus) - Current operational status of the compute endpoint
-            suspend_timeout_duration: |-
-                (string, optional) - Duration of inactivity after which the compute endpoint is automatically suspended.
-                If specified should be between 60s and 604800s (1 minute to 1 week)
-            uid: (string) - System-generated unique ID for the endpoint
-            update_time: (string) - A timestamp indicating when the compute endpoint was last updated
-            workspace_id: (string,required) - Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
-        importStatements: []
-    databricks_postgres_project:
-        subCategory: ""
-        name: databricks_postgres_project
-        title: databricks_postgres_project Resource
-        examples:
-            - name: this
-              manifest: |-
-                {
-                  "project_id": "my-project",
-                  "spec": {
-                    "display_name": "My Application Project",
-                    "pg_version": 17
-                  }
-                }
-            - name: this
-              manifest: |-
-                {
-                  "project_id": "analytics-project",
-                  "spec": {
-                    "default_endpoint_settings": {
-                      "autoscaling_limit_max_cu": 8,
-                      "autoscaling_limit_min_cu": 1,
-                      "suspend_timeout_duration": "300s"
-                    },
-                    "display_name": "Analytics Workloads",
-                    "history_retention_duration": "1209600s",
-                    "pg_version": 16
-                  }
-                }
-            - name: this
-              manifest: |-
-                {
-                  "project_id": "my-project",
-                  "spec": {
-                    "display_name": "My Project",
-                    "pg_version": 17
-                  }
-                }
-              dependencies:
-                databricks_postgres_branch.dev: |-
-                    {
-                      "branch_id": "dev-branch",
-                      "parent": "${databricks_postgres_project.this.name}",
-                      "spec": {
-                        "no_expiry": true
-                      }
-                    }
-        argumentDocs:
-            autoscaling_limit_max_cu: (number, optional) - The maximum number of Compute Units. Minimum value is 0.5
-            autoscaling_limit_min_cu: (number, optional) - The minimum number of Compute Units. Minimum value is 0.5
-            branch_logical_size_limit_bytes: (integer) - The logical size limit for a branch
-            budget_policy_id: |-
-                (string, optional) - The desired budget policy to associate with the project.
-                See status.budget_policy_id for the policy that is actually applied to the project
-            create_time: (string) - A timestamp indicating when the project was created
-            custom_tags: |-
-                (list of ProjectCustomTag, optional) - Custom tags to associate with the project. Forwarded to LBM for billing and cost tracking.
-                To update tags, provide the new tag list and include "spec.custom_tags" in the update_mask.
-                To clear all tags, provide an empty list and include "spec.custom_tags" in the update_mask.
-                To preserve existing tags, omit this field from the update_mask (or use wildcard "*" which auto-excludes empty tags)
-            default_endpoint_settings: (ProjectDefaultEndpointSettings, optional)
-            display_name: (string, optional) - Human-readable project name. Length should be between 1 and 256 characters
-            enable_readable_secondaries: |-
-                (boolean, optional) - Whether to allow read-only connections to read-write endpoints. Only relevant for read-write endpoints where
-                size.max > 1
-            group: (EndpointGroupSpec, optional) - Settings for HA configuration of the endpoint
-            history_retention_duration: (string, optional) - The number of seconds to retain the shared history for point in time recovery for all branches in this project. Value should be between 0s and 2592000s (up to 30 days)
-            initial_endpoint_spec: |-
-                (InitialEndpointSpec, optional) - Configuration settings for the initial Read/Write endpoint created inside the default branch for a newly
-                created project. If omitted, the initial endpoint created will have default settings, without high availability
-                configured. This field does not apply to any endpoints created after project creation. Use
-                spec.default_endpoint_settings to configure default settings for endpoints created after project creation
-            key: (string, optional) - The key of the custom tag
-            max: |-
-                (integer, required) - The maximum number of computes in the endpoint group. Currently, this must be equal to min. Set to 1 for single
-                compute endpoints, to disable HA. To manually suspend all computes in an endpoint group, set disabled to
-                true on the EndpointSpec
-            min: |-
-                (integer, required) - The minimum number of computes in the endpoint group. Currently, this must be equal to max. This must be greater
-                than or equal to 1
-            name: |-
-                (string) - Output only. The full resource path of the project.
-                Format: projects/{project_id}
-            no_suspension: |-
-                (boolean, optional) - When set to true, explicitly disables automatic suspension (never suspend).
-                Should be set to true when provided
-            owner: (string) - The email of the project owner
-            pg_settings: (object, optional) - A raw representation of Postgres settings
-            pg_version: (integer, optional) - The major Postgres version number. Supported versions are 16 and 17
-            project_id: |-
-                (string, required) - The ID to use for the Project. This becomes the final component of the project's resource name.
-                The ID is required and must be 1-63 characters long, start with a lowercase letter, and contain only lowercase letters, numbers, and hyphens.
-                For example, my-app becomes projects/my-app
-            provider_config: (ProviderConfig, optional) - Configure the provider for management through account provider.
-            spec: field represents your intended resource configuration - what you want the resource to be.
-            status: field represents the current system state - what the resource actually is.
-            suspend_timeout_duration: |-
-                (string, optional) - Duration of inactivity after which the compute endpoint is automatically suspended.
-                If specified should be between 60s and 604800s (1 minute to 1 week)
-            synthetic_storage_size_bytes: (integer) - The current space occupied by the project in storage
-            terraform apply: will not surface those differences. It only applies updates based on the Terraform configuration.
-            uid: (string) - System-generated unique ID for the project
-            update_time: (string) - A timestamp indicating when the project was last updated
-            value: (string, optional) - The value of the custom tag
-            workspace_id: (string,required) - Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
-        importStatements: []
     databricks_provider:
         subCategory: ""
         name: databricks_provider
@@ -9060,13 +8732,6 @@ resources:
             name: (string, optional) - Can be set by system. Does not need to be user facing
             object_id: (string, required) - The uuid of the request object. For example, schema id
             object_type: '(string, required) - The type of the monitored object. Can be one of the following: schema'
-            percent_null_validity_check: (PercentNullValidityCheck, optional)
-            provider_config: (ProviderConfig, optional) - Configure the provider for management through account provider.
-            range_validity_check: (RangeValidityCheck, optional)
-            uniqueness_validity_check: (UniquenessValidityCheck, optional)
-            upper_bound: (number, optional) - Optional upper bound; we should use auto determined bounds for now
-            validity_check_configurations: (list of ValidityCheckConfiguration, optional) - Validity check configurations for anomaly detection
-            workspace_id: (string,required) - Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
         importStatements: []
     databricks_query:
         subCategory: ""
@@ -11000,6 +10665,22 @@ resources:
                 Not set for LAST_SELECTED type
             workspace_id: (string,required) - Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
         importStatements: []
+    databricks_warehouses_default_warehouse_override Resource:
+        subCategory: ""
+        name: databricks_warehouses_default_warehouse_override Resource
+        title: databricks_warehouses_default_warehouse_override Resource
+        argumentDocs:
+            CUSTOM: type with a warehouse ID)
+            LAST_SELECTED: type)
+            default_warehouse_override_id: (string, required) - The ID component of the resource name (user ID)
+            name: |-
+                (string) - The resource name of the default warehouse override.
+                Format: default-warehouse-overrides/{default_warehouse_override_id}
+            type: '(string, required) - The type of override behavior. Possible values are: CUSTOM, LAST_SELECTED'
+            warehouse_id: |-
+                (string, optional) - The specific warehouse ID when type is CUSTOM.
+                Not set for LAST_SELECTED type
+        importStatements: []
     databricks_workspace_binding:
         subCategory: ""
         name: databricks_workspace_binding
@@ -11070,35 +10751,9 @@ resources:
         subCategory: ""
         name: databricks_workspace_entity_tag_assignment
         title: databricks_workspace_entity_tag_assignment Resource
-        examples:
-            - name: app_tag
-              manifest: |-
-                {
-                  "entity_id": "myapp",
-                  "entity_type": "apps",
-                  "tag_key": "sensitivity_level",
-                  "tag_value": "high"
-                }
-            - name: dashboard_tag
-              manifest: |-
-                {
-                  "entity_id": "2807324866692453",
-                  "entity_type": "dashboards",
-                  "tag_key": "sensitivity_level",
-                  "tag_value": "high"
-                }
-            - name: geniespace_tag
-              manifest: |-
-                {
-                  "entity_id": "2807324866692453",
-                  "entity_type": "geniespaces",
-                  "tag_key": "sensitivity_level",
-                  "tag_value": "high"
-                }
         argumentDocs:
-            entity_id: (string, required) - The identifier of the entity to which the tag is assigned. For apps, the entity_id is the app name
-            entity_type: (string, required) - The type of entity to which the tag is assigned. Allowed values are apps, dashboards, geniespaces
-            provider_config: (ProviderConfig, optional) - Configure the provider for management through account provider.
+            entity_id: (string, required) - The identifier of the entity to which the tag is assigned
+            entity_type: (string, required) - The type of entity to which the tag is assigned. Allowed values are dashboards, geniespaces
             tag_key: '(string, required) - The key of the tag. The characters , . : / - = and leading/trailing spaces are not allowed'
             tag_value: (string, optional) - The value of the tag
             workspace_id: (string,required) - Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
