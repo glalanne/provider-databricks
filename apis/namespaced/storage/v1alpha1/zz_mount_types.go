@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2024 The Crossplane Authors <https://crossplane.io>
+// SPDX-FileCopyrightText: 2026 The Crossplane Authors <https://crossplane.io>
 //
 // SPDX-License-Identifier: Apache-2.0
 
@@ -325,6 +325,9 @@ type MountInitParameters struct {
 	// Name, under which mount will be accessible in dbfs:/mnt/<MOUNT_NAME>. If not specified, provider will try to infer it from depending on the resource type:
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
+	// Configure the provider for management through account provider. This block consists of the following fields:
+	ProviderConfig []MountProviderConfigInitParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
+
 	// resource ID for a given storage account. Could be used to fill defaults, such as storage account & container names on Azure.
 	ResourceID *string `json:"resourceId,omitempty" tf:"resource_id,omitempty"`
 
@@ -364,6 +367,9 @@ type MountObservation struct {
 
 	// Name, under which mount will be accessible in dbfs:/mnt/<MOUNT_NAME>. If not specified, provider will try to infer it from depending on the resource type:
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// Configure the provider for management through account provider. This block consists of the following fields:
+	ProviderConfig []MountProviderConfigObservation `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
 
 	// resource ID for a given storage account. Could be used to fill defaults, such as storage account & container names on Azure.
 	ResourceID *string `json:"resourceId,omitempty" tf:"resource_id,omitempty"`
@@ -422,6 +428,10 @@ type MountParameters struct {
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
+	// Configure the provider for management through account provider. This block consists of the following fields:
+	// +kubebuilder:validation:Optional
+	ProviderConfig []MountProviderConfigParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
+
 	// resource ID for a given storage account. Could be used to fill defaults, such as storage account & container names on Azure.
 	// +kubebuilder:validation:Optional
 	ResourceID *string `json:"resourceId,omitempty" tf:"resource_id,omitempty"`
@@ -437,6 +447,25 @@ type MountParameters struct {
 	// to mount Azure Blob Storage using Windows Azure Storage Blob (WASB) driver
 	// +kubebuilder:validation:Optional
 	Wasb []WasbParameters `json:"wasb,omitempty" tf:"wasb,omitempty"`
+}
+
+type MountProviderConfigInitParameters struct {
+
+	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
+}
+
+type MountProviderConfigObservation struct {
+
+	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
+}
+
+type MountProviderConfigParameters struct {
+
+	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
+	// +kubebuilder:validation:Optional
+	WorkspaceID *string `json:"workspaceId" tf:"workspace_id,omitempty"`
 }
 
 type S3InitParameters struct {
@@ -622,9 +651,10 @@ type MountStatus struct {
 
 // +kubebuilder:object:root=true
 // +kubebuilder:subresource:status
-// +kubebuilder:storageversion
+// +kubebuilder:deprecatedversion:warning="This API version is deprecated. Please migrate to v1beta1."
 
 // Mount is the Schema for the Mounts API.
+// Deprecated: This API version (v1alpha1) has been deprecated.
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"

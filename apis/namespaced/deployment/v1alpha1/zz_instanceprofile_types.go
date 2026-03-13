@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2024 The Crossplane Authors <https://crossplane.io>
+// SPDX-FileCopyrightText: 2026 The Crossplane Authors <https://crossplane.io>
 //
 // SPDX-License-Identifier: Apache-2.0
 
@@ -25,6 +25,9 @@ type InstanceProfileInitParameters struct {
 	// Whether the instance profile is a meta instance profile. Used only in IAM credential passthrough.
 	IsMetaInstanceProfile *bool `json:"isMetaInstanceProfile,omitempty" tf:"is_meta_instance_profile,omitempty"`
 
+	// Configure the provider for management through account provider. This block consists of the following fields:
+	ProviderConfig []ProviderConfigInitParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
+
 	// For advanced usage only. If validation fails with an error message that does not indicate an IAM related permission issue, (e.g. "Your requested instance type is not supported in your requested availability zone"), you can pass this flag to skip the validation and forcibly add the instance profile.
 	SkipValidation *bool `json:"skipValidation,omitempty" tf:"skip_validation,omitempty"`
 }
@@ -42,6 +45,9 @@ type InstanceProfileObservation struct {
 
 	// Whether the instance profile is a meta instance profile. Used only in IAM credential passthrough.
 	IsMetaInstanceProfile *bool `json:"isMetaInstanceProfile,omitempty" tf:"is_meta_instance_profile,omitempty"`
+
+	// Configure the provider for management through account provider. This block consists of the following fields:
+	ProviderConfig []ProviderConfigObservation `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
 
 	// For advanced usage only. If validation fails with an error message that does not indicate an IAM related permission issue, (e.g. "Your requested instance type is not supported in your requested availability zone"), you can pass this flag to skip the validation and forcibly add the instance profile.
 	SkipValidation *bool `json:"skipValidation,omitempty" tf:"skip_validation,omitempty"`
@@ -61,9 +67,32 @@ type InstanceProfileParameters struct {
 	// +kubebuilder:validation:Optional
 	IsMetaInstanceProfile *bool `json:"isMetaInstanceProfile,omitempty" tf:"is_meta_instance_profile,omitempty"`
 
+	// Configure the provider for management through account provider. This block consists of the following fields:
+	// +kubebuilder:validation:Optional
+	ProviderConfig []ProviderConfigParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
+
 	// For advanced usage only. If validation fails with an error message that does not indicate an IAM related permission issue, (e.g. "Your requested instance type is not supported in your requested availability zone"), you can pass this flag to skip the validation and forcibly add the instance profile.
 	// +kubebuilder:validation:Optional
 	SkipValidation *bool `json:"skipValidation,omitempty" tf:"skip_validation,omitempty"`
+}
+
+type ProviderConfigInitParameters struct {
+
+	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
+}
+
+type ProviderConfigObservation struct {
+
+	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
+}
+
+type ProviderConfigParameters struct {
+
+	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
+	// +kubebuilder:validation:Optional
+	WorkspaceID *string `json:"workspaceId" tf:"workspace_id,omitempty"`
 }
 
 // InstanceProfileSpec defines the desired state of InstanceProfile
@@ -91,9 +120,10 @@ type InstanceProfileStatus struct {
 
 // +kubebuilder:object:root=true
 // +kubebuilder:subresource:status
-// +kubebuilder:storageversion
+// +kubebuilder:deprecatedversion:warning="This API version is deprecated. Please migrate to v1beta1."
 
 // InstanceProfile is the Schema for the InstanceProfiles API.
+// Deprecated: This API version (v1alpha1) has been deprecated.
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"

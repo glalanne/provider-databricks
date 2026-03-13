@@ -1,8 +1,12 @@
+# SPDX-FileCopyrightText: 2026 The Crossplane Authors <https://crossplane.io>
+#
+# SPDX-License-Identifier: CC0-1.0
+
 apiVersion: unity.databricks.m.crossplane.io/v1alpha1
 kind: ExternalLocation
 metadata:
   annotations:
-    meta.upbound.io/example-id: unity/v1alpha1/externallocation
+    meta.upbound.io/example-id: unity/v1beta1/externallocation
   labels:
     testing.upbound.io/example-name: some
   name: some
@@ -22,7 +26,7 @@ apiVersion: unity.databricks.m.crossplane.io/v1alpha1
 kind: GrantMap
 metadata:
   annotations:
-    meta.upbound.io/example-id: unity/v1alpha1/externallocation
+    meta.upbound.io/example-id: unity/v1beta1/externallocation
   labels:
     testing.upbound.io/example-name: some
   name: some
@@ -46,7 +50,7 @@ apiVersion: unity.databricks.m.crossplane.io/v1alpha1
 kind: StorageCredential
 metadata:
   annotations:
-    meta.upbound.io/example-id: unity/v1alpha1/externallocation
+    meta.upbound.io/example-id: unity/v1beta1/externallocation
   labels:
     testing.upbound.io/example-name: external
   name: external

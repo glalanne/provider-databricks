@@ -1,8 +1,12 @@
+# SPDX-FileCopyrightText: 2026 The Crossplane Authors <https://crossplane.io>
+#
+# SPDX-License-Identifier: CC0-1.0
+
 apiVersion: deployment.databricks.crossplane.io/v1alpha1
 kind: MwsWorkspaces
 metadata:
   annotations:
-    meta.upbound.io/example-id: deployment/v1alpha1/mwsworkspaces
+    meta.upbound.io/example-id: deployment/v1beta1/mwsworkspaces
   labels:
     testing.upbound.io/example-name: serverless_workspace
   name: serverless-workspace

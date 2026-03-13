@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2024 The Crossplane Authors <https://crossplane.io>
+// SPDX-FileCopyrightText: 2026 The Crossplane Authors <https://crossplane.io>
 //
 // SPDX-License-Identifier: Apache-2.0
 
@@ -23,6 +23,9 @@ type ServicePrincipalSecretInitParameters struct {
 
 	// The lifetime of the secret in seconds formatted as NNNNs. If this parameter is not provided, the secret will have a default lifetime of 730 days (63072000s).  Expiration of secret will lead to generation of new secret.
 	Lifetime *string `json:"lifetime,omitempty" tf:"lifetime,omitempty"`
+
+	// Configure the provider for management through account provider. This block consists of the following fields:
+	ProviderConfig []ServicePrincipalSecretProviderConfigInitParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
 
 	// Secret Hash.
 	SecretHash *string `json:"secretHash,omitempty" tf:"secret_hash,omitempty"`
@@ -67,6 +70,9 @@ type ServicePrincipalSecretObservation struct {
 	// The lifetime of the secret in seconds formatted as NNNNs. If this parameter is not provided, the secret will have a default lifetime of 730 days (63072000s).  Expiration of secret will lead to generation of new secret.
 	Lifetime *string `json:"lifetime,omitempty" tf:"lifetime,omitempty"`
 
+	// Configure the provider for management through account provider. This block consists of the following fields:
+	ProviderConfig []ServicePrincipalSecretProviderConfigObservation `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
+
 	// Secret Hash.
 	SecretHash *string `json:"secretHash,omitempty" tf:"secret_hash,omitempty"`
 
@@ -96,6 +102,10 @@ type ServicePrincipalSecretParameters struct {
 	// The lifetime of the secret in seconds formatted as NNNNs. If this parameter is not provided, the secret will have a default lifetime of 730 days (63072000s).  Expiration of secret will lead to generation of new secret.
 	// +kubebuilder:validation:Optional
 	Lifetime *string `json:"lifetime,omitempty" tf:"lifetime,omitempty"`
+
+	// Configure the provider for management through account provider. This block consists of the following fields:
+	// +kubebuilder:validation:Optional
+	ProviderConfig []ServicePrincipalSecretProviderConfigParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
 
 	// Secret Hash.
 	// +kubebuilder:validation:Optional
@@ -132,6 +142,25 @@ type ServicePrincipalSecretParameters struct {
 	UpdateTime *string `json:"updateTime,omitempty" tf:"update_time,omitempty"`
 }
 
+type ServicePrincipalSecretProviderConfigInitParameters struct {
+
+	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
+}
+
+type ServicePrincipalSecretProviderConfigObservation struct {
+
+	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
+}
+
+type ServicePrincipalSecretProviderConfigParameters struct {
+
+	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
+	// +kubebuilder:validation:Optional
+	WorkspaceID *string `json:"workspaceId" tf:"workspace_id,omitempty"`
+}
+
 // ServicePrincipalSecretSpec defines the desired state of ServicePrincipalSecret
 type ServicePrincipalSecretSpec struct {
 	v1.ResourceSpec `json:",inline"`
@@ -157,9 +186,10 @@ type ServicePrincipalSecretStatus struct {
 
 // +kubebuilder:object:root=true
 // +kubebuilder:subresource:status
-// +kubebuilder:storageversion
+// +kubebuilder:deprecatedversion:warning="This API version is deprecated. Please migrate to v1beta1."
 
 // ServicePrincipalSecret is the Schema for the ServicePrincipalSecrets API.
+// Deprecated: This API version (v1alpha1) has been deprecated.
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"

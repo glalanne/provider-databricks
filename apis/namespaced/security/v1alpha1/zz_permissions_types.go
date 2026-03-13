@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2024 The Crossplane Authors <https://crossplane.io>
+// SPDX-FileCopyrightText: 2026 The Crossplane Authors <https://crossplane.io>
 //
 // SPDX-License-Identifier: Apache-2.0
 
@@ -152,7 +152,11 @@ type PermissionsInitParameters struct {
 	// +kubebuilder:validation:Optional
 	DashboardIDSelector *v1.NamespacedSelector `json:"dashboardIdSelector,omitempty" tf:"-"`
 
+	// Lakebase database instance name
 	DatabaseInstanceName *string `json:"databaseInstanceName,omitempty" tf:"database_instance_name,omitempty"`
+
+	// Lakebase database project name
+	DatabaseProjectName *string `json:"databaseProjectName,omitempty" tf:"database_project_name,omitempty"`
 
 	// directory id
 	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/namespaced/workspace/v1alpha1.Directory
@@ -256,6 +260,9 @@ type PermissionsInitParameters struct {
 	// Selector for a Pipeline in compute to populate pipelineId.
 	// +kubebuilder:validation:Optional
 	PipelineIDSelector *v1.NamespacedSelector `json:"pipelineIdSelector,omitempty" tf:"-"`
+
+	// Configure the provider for management through account provider. This block consists of the following fields:
+	ProviderConfig []PermissionsProviderConfigInitParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
 
 	// MLflow registered model id
 	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/namespaced/mlflow/v1alpha1.MlflowModel
@@ -407,7 +414,11 @@ type PermissionsObservation struct {
 	// Canonical unique identifier for the permissions in form of /<object type>/<object id>.
 	DashboardID *string `json:"dashboardId,omitempty" tf:"dashboard_id,omitempty"`
 
+	// Lakebase database instance name
 	DatabaseInstanceName *string `json:"databaseInstanceName,omitempty" tf:"database_instance_name,omitempty"`
+
+	// Lakebase database project name
+	DatabaseProjectName *string `json:"databaseProjectName,omitempty" tf:"database_project_name,omitempty"`
 
 	// directory id
 	DirectoryID *string `json:"directoryId,omitempty" tf:"directory_id,omitempty"`
@@ -438,6 +449,9 @@ type PermissionsObservation struct {
 
 	// pipeline id
 	PipelineID *string `json:"pipelineId,omitempty" tf:"pipeline_id,omitempty"`
+
+	// Configure the provider for management through account provider. This block consists of the following fields:
+	ProviderConfig []PermissionsProviderConfigObservation `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
 
 	// MLflow registered model id
 	RegisteredModelID *string `json:"registeredModelId,omitempty" tf:"registered_model_id,omitempty"`
@@ -529,8 +543,13 @@ type PermissionsParameters struct {
 	// +kubebuilder:validation:Optional
 	DashboardIDSelector *v1.NamespacedSelector `json:"dashboardIdSelector,omitempty" tf:"-"`
 
+	// Lakebase database instance name
 	// +kubebuilder:validation:Optional
 	DatabaseInstanceName *string `json:"databaseInstanceName,omitempty" tf:"database_instance_name,omitempty"`
+
+	// Lakebase database project name
+	// +kubebuilder:validation:Optional
+	DatabaseProjectName *string `json:"databaseProjectName,omitempty" tf:"database_project_name,omitempty"`
 
 	// directory id
 	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/namespaced/workspace/v1alpha1.Directory
@@ -643,6 +662,10 @@ type PermissionsParameters struct {
 	// Selector for a Pipeline in compute to populate pipelineId.
 	// +kubebuilder:validation:Optional
 	PipelineIDSelector *v1.NamespacedSelector `json:"pipelineIdSelector,omitempty" tf:"-"`
+
+	// Configure the provider for management through account provider. This block consists of the following fields:
+	// +kubebuilder:validation:Optional
+	ProviderConfig []PermissionsProviderConfigParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
 
 	// MLflow registered model id
 	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/namespaced/mlflow/v1alpha1.MlflowModel
@@ -784,6 +807,25 @@ type PermissionsParameters struct {
 	WorkspaceFilePathSelector *v1.NamespacedSelector `json:"workspaceFilePathSelector,omitempty" tf:"-"`
 }
 
+type PermissionsProviderConfigInitParameters struct {
+
+	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
+}
+
+type PermissionsProviderConfigObservation struct {
+
+	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
+}
+
+type PermissionsProviderConfigParameters struct {
+
+	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
+	// +kubebuilder:validation:Optional
+	WorkspaceID *string `json:"workspaceId" tf:"workspace_id,omitempty"`
+}
+
 // PermissionsSpec defines the desired state of Permissions
 type PermissionsSpec struct {
 	v2.ManagedResourceSpec `json:",inline"`
@@ -809,9 +851,10 @@ type PermissionsStatus struct {
 
 // +kubebuilder:object:root=true
 // +kubebuilder:subresource:status
-// +kubebuilder:storageversion
+// +kubebuilder:deprecatedversion:warning="This API version is deprecated. Please migrate to v1beta1."
 
 // Permissions is the Schema for the Permissionss API.
+// Deprecated: This API version (v1alpha1) has been deprecated.
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"

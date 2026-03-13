@@ -1,8 +1,12 @@
+# SPDX-FileCopyrightText: 2026 The Crossplane Authors <https://crossplane.io>
+#
+# SPDX-License-Identifier: CC0-1.0
+
 apiVersion: security.databricks.m.crossplane.io/v1alpha1
 kind: GroupMember
 metadata:
   annotations:
-    meta.upbound.io/example-id: security/v1alpha1/groupmember
+    meta.upbound.io/example-id: security/v1beta1/groupmember
   labels:
     testing.upbound.io/example-name: ab
   name: ab
@@ -12,7 +16,9 @@ spec:
     groupIdSelector:
       matchLabels:
         testing.upbound.io/example-name: a
-    memberId: ${databricks_group.b.id}
+    memberIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: b
 
 ---
 
@@ -20,7 +26,7 @@ apiVersion: security.databricks.m.crossplane.io/v1alpha1
 kind: Group
 metadata:
   annotations:
-    meta.upbound.io/example-id: security/v1alpha1/groupmember
+    meta.upbound.io/example-id: security/v1beta1/groupmember
   labels:
     testing.upbound.io/example-name: a
   name: a
@@ -35,7 +41,7 @@ apiVersion: security.databricks.m.crossplane.io/v1alpha1
 kind: Group
 metadata:
   annotations:
-    meta.upbound.io/example-id: security/v1alpha1/groupmember
+    meta.upbound.io/example-id: security/v1beta1/groupmember
   labels:
     testing.upbound.io/example-name: b
   name: b
@@ -50,7 +56,7 @@ apiVersion: security.databricks.m.crossplane.io/v1alpha1
 kind: User
 metadata:
   annotations:
-    meta.upbound.io/example-id: security/v1alpha1/groupmember
+    meta.upbound.io/example-id: security/v1beta1/groupmember
   labels:
     testing.upbound.io/example-name: bradley
   name: bradley

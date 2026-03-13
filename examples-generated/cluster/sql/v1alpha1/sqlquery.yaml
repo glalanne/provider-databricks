@@ -1,8 +1,12 @@
+# SPDX-FileCopyrightText: 2026 The Crossplane Authors <https://crossplane.io>
+#
+# SPDX-License-Identifier: CC0-1.0
+
 apiVersion: sql.databricks.crossplane.io/v1alpha1
 kind: SQLQuery
 metadata:
   annotations:
-    meta.upbound.io/example-id: sql/v1alpha1/sqlquery
+    meta.upbound.io/example-id: sql/v1beta1/sqlquery
   labels:
     testing.upbound.io/example-name: q1
   name: q1
@@ -50,7 +54,7 @@ apiVersion: workspace.databricks.crossplane.io/v1alpha1
 kind: Directory
 metadata:
   annotations:
-    meta.upbound.io/example-id: sql/v1alpha1/sqlquery
+    meta.upbound.io/example-id: sql/v1beta1/sqlquery
   labels:
     testing.upbound.io/example-name: shared_dir
   name: shared-dir

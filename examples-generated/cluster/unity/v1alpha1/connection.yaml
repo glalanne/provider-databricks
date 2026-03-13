@@ -1,8 +1,12 @@
+# SPDX-FileCopyrightText: 2026 The Crossplane Authors <https://crossplane.io>
+#
+# SPDX-License-Identifier: CC0-1.0
+
 apiVersion: unity.databricks.crossplane.io/v1alpha1
 kind: Connection
 metadata:
   annotations:
-    meta.upbound.io/example-id: unity/v1alpha1/connection
+    meta.upbound.io/example-id: unity/v1beta1/connection
   labels:
     testing.upbound.io/example-name: mysql
   name: mysql

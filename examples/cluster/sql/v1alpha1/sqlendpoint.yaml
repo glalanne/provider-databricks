@@ -1,20 +1,21 @@
+# SPDX-FileCopyrightText: 2026 The Crossplane Authors <https://crossplane.io>
+#
+# SPDX-License-Identifier: CC0-1.0
+
 apiVersion: sql.databricks.crossplane.io/v1alpha1
 kind: SQLEndpoint
 metadata:
   annotations:
-    meta.upbound.io/example-id: sql/v1alpha1/sqlendpoint
+    meta.upbound.io/example-id: sql/v1beta1/sqlendpoint
   labels:
-    testing.upbound.io/example-name: sql-endpoint-test
-  name: sql-endpoint-test
+    testing.upbound.io/example-name: this
+  name: this
 spec:
   forProvider:
-    clusterSize: 2X-Small # "2X-Small", "X-Small", "Small", "Medium", "Large", "X-Large", "2X-Large", "3X-Large", "4X-Large".
-    autoStopMins: 20
-    enableServerlessCompute: true
-    spotInstancePolicy: COST_OPTIMIZED #Optional
+    clusterSize: Small
     maxNumClusters: 1
-    name: sql-endpoint-test-1
+    name: Endpoint of ${data.databricks_current_user.me.alphanumeric}
     tags:
     - customTags:
       - key: City
-        value: Vancouver
+        value: Amsterdam

@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2024 The Crossplane Authors <https://crossplane.io>
+// SPDX-FileCopyrightText: 2026 The Crossplane Authors <https://crossplane.io>
 //
 // SPDX-License-Identifier: Apache-2.0
 
@@ -107,6 +107,9 @@ type RegisteredModelInitParameters struct {
 	// Name of the registered model owner.
 	Owner *string `json:"owner,omitempty" tf:"owner,omitempty"`
 
+	// Configure the provider for management through account provider. This block consists of the following fields:
+	ProviderConfig []RegisteredModelProviderConfigInitParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
+
 	// The name of the schema where the registered model resides. Change of this parameter forces recreation of the resource.
 	SchemaName *string `json:"schemaName,omitempty" tf:"schema_name,omitempty"`
 
@@ -147,6 +150,9 @@ type RegisteredModelObservation struct {
 
 	// Name of the registered model owner.
 	Owner *string `json:"owner,omitempty" tf:"owner,omitempty"`
+
+	// Configure the provider for management through account provider. This block consists of the following fields:
+	ProviderConfig []RegisteredModelProviderConfigObservation `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
 
 	// The name of the schema where the registered model resides. Change of this parameter forces recreation of the resource.
 	SchemaName *string `json:"schemaName,omitempty" tf:"schema_name,omitempty"`
@@ -197,6 +203,10 @@ type RegisteredModelParameters struct {
 	// +kubebuilder:validation:Optional
 	Owner *string `json:"owner,omitempty" tf:"owner,omitempty"`
 
+	// Configure the provider for management through account provider. This block consists of the following fields:
+	// +kubebuilder:validation:Optional
+	ProviderConfig []RegisteredModelProviderConfigParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
+
 	// The name of the schema where the registered model resides. Change of this parameter forces recreation of the resource.
 	// +kubebuilder:validation:Optional
 	SchemaName *string `json:"schemaName,omitempty" tf:"schema_name,omitempty"`
@@ -210,6 +220,25 @@ type RegisteredModelParameters struct {
 
 	// +kubebuilder:validation:Optional
 	UpdatedBy *string `json:"updatedBy,omitempty" tf:"updated_by,omitempty"`
+}
+
+type RegisteredModelProviderConfigInitParameters struct {
+
+	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
+}
+
+type RegisteredModelProviderConfigObservation struct {
+
+	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
+}
+
+type RegisteredModelProviderConfigParameters struct {
+
+	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
+	// +kubebuilder:validation:Optional
+	WorkspaceID *string `json:"workspaceId" tf:"workspace_id,omitempty"`
 }
 
 // RegisteredModelSpec defines the desired state of RegisteredModel
@@ -237,9 +266,10 @@ type RegisteredModelStatus struct {
 
 // +kubebuilder:object:root=true
 // +kubebuilder:subresource:status
-// +kubebuilder:storageversion
+// +kubebuilder:deprecatedversion:warning="This API version is deprecated. Please migrate to v1beta1."
 
 // RegisteredModel is the Schema for the RegisteredModels API.
+// Deprecated: This API version (v1alpha1) has been deprecated.
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"

@@ -1,8 +1,12 @@
+# SPDX-FileCopyrightText: 2026 The Crossplane Authors <https://crossplane.io>
+#
+# SPDX-License-Identifier: CC0-1.0
+
 apiVersion: sql.databricks.crossplane.io/v1alpha1
 kind: SQLWidget
 metadata:
   annotations:
-    meta.upbound.io/example-id: sql/v1alpha1/sqlwidget
+    meta.upbound.io/example-id: sql/v1beta1/sqlwidget
   labels:
     testing.upbound.io/example-name: d1w1
   name: d1w1

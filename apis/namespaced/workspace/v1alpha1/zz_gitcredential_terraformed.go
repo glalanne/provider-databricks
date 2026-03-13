@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2024 The Crossplane Authors <https://crossplane.io>
+// SPDX-FileCopyrightText: 2026 The Crossplane Authors <https://crossplane.io>
 //
 // SPDX-License-Identifier: Apache-2.0
 
@@ -21,7 +21,7 @@ func (mg *GitCredential) GetTerraformResourceType() string {
 
 // GetConnectionDetailsMapping for this GitCredential
 func (tr *GitCredential) GetConnectionDetailsMapping() map[string]string {
-	return nil
+	return map[string]string{"personal_access_token": "personalAccessTokenSecretRef"}
 }
 
 // GetObservation of this GitCredential

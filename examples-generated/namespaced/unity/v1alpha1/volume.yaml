@@ -1,8 +1,12 @@
+# SPDX-FileCopyrightText: 2026 The Crossplane Authors <https://crossplane.io>
+#
+# SPDX-License-Identifier: CC0-1.0
+
 apiVersion: unity.databricks.m.crossplane.io/v1alpha1
 kind: Volume
 metadata:
   annotations:
-    meta.upbound.io/example-id: unity/v1alpha1/volume
+    meta.upbound.io/example-id: unity/v1beta1/volume
   labels:
     testing.upbound.io/example-name: this
   name: this
@@ -28,7 +32,7 @@ apiVersion: unity.databricks.m.crossplane.io/v1alpha1
 kind: Catalog
 metadata:
   annotations:
-    meta.upbound.io/example-id: unity/v1alpha1/volume
+    meta.upbound.io/example-id: unity/v1beta1/volume
   labels:
     testing.upbound.io/example-name: sandbox
   name: sandbox
@@ -46,7 +50,7 @@ apiVersion: unity.databricks.m.crossplane.io/v1alpha1
 kind: ExternalLocation
 metadata:
   annotations:
-    meta.upbound.io/example-id: unity/v1alpha1/volume
+    meta.upbound.io/example-id: unity/v1beta1/volume
   labels:
     testing.upbound.io/example-name: some
   name: some
@@ -65,7 +69,7 @@ apiVersion: unity.databricks.m.crossplane.io/v1alpha1
 kind: Schema
 metadata:
   annotations:
-    meta.upbound.io/example-id: unity/v1alpha1/volume
+    meta.upbound.io/example-id: unity/v1beta1/volume
   labels:
     testing.upbound.io/example-name: things
   name: things
@@ -86,7 +90,7 @@ apiVersion: unity.databricks.m.crossplane.io/v1alpha1
 kind: StorageCredential
 metadata:
   annotations:
-    meta.upbound.io/example-id: unity/v1alpha1/volume
+    meta.upbound.io/example-id: unity/v1beta1/volume
   labels:
     testing.upbound.io/example-name: external
   name: external

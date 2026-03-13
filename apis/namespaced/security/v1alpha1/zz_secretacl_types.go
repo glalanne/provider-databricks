@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2024 The Crossplane Authors <https://crossplane.io>
+// SPDX-FileCopyrightText: 2026 The Crossplane Authors <https://crossplane.io>
 //
 // SPDX-License-Identifier: Apache-2.0
 
@@ -32,6 +32,9 @@ type SecretACLInitParameters struct {
 	// +kubebuilder:validation:Optional
 	PrincipalSelector *v1.NamespacedSelector `json:"principalSelector,omitempty" tf:"-"`
 
+	// Configure the provider for management through account provider. This block consists of the following fields:
+	ProviderConfig []SecretACLProviderConfigInitParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
+
 	// name of the scope
 	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/namespaced/security/v1alpha1.SecretScope
 	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/v2/pkg/resource.ExtractParamPath("name",false)
@@ -54,6 +57,9 @@ type SecretACLObservation struct {
 
 	// principal's identifier. It can be:
 	Principal *string `json:"principal,omitempty" tf:"principal,omitempty"`
+
+	// Configure the provider for management through account provider. This block consists of the following fields:
+	ProviderConfig []SecretACLProviderConfigObservation `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
 
 	// name of the scope
 	Scope *string `json:"scope,omitempty" tf:"scope,omitempty"`
@@ -79,6 +85,10 @@ type SecretACLParameters struct {
 	// +kubebuilder:validation:Optional
 	PrincipalSelector *v1.NamespacedSelector `json:"principalSelector,omitempty" tf:"-"`
 
+	// Configure the provider for management through account provider. This block consists of the following fields:
+	// +kubebuilder:validation:Optional
+	ProviderConfig []SecretACLProviderConfigParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
+
 	// name of the scope
 	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/namespaced/security/v1alpha1.SecretScope
 	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/v2/pkg/resource.ExtractParamPath("name",false)
@@ -92,6 +102,25 @@ type SecretACLParameters struct {
 	// Selector for a SecretScope in security to populate scope.
 	// +kubebuilder:validation:Optional
 	ScopeSelector *v1.NamespacedSelector `json:"scopeSelector,omitempty" tf:"-"`
+}
+
+type SecretACLProviderConfigInitParameters struct {
+
+	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
+}
+
+type SecretACLProviderConfigObservation struct {
+
+	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
+}
+
+type SecretACLProviderConfigParameters struct {
+
+	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
+	// +kubebuilder:validation:Optional
+	WorkspaceID *string `json:"workspaceId" tf:"workspace_id,omitempty"`
 }
 
 // SecretACLSpec defines the desired state of SecretACL
@@ -119,9 +148,10 @@ type SecretACLStatus struct {
 
 // +kubebuilder:object:root=true
 // +kubebuilder:subresource:status
-// +kubebuilder:storageversion
+// +kubebuilder:deprecatedversion:warning="This API version is deprecated. Please migrate to v1beta1."
 
 // SecretACL is the Schema for the SecretACLs API.
+// Deprecated: This API version (v1alpha1) has been deprecated.
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"

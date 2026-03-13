@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2024 The Crossplane Authors <https://crossplane.io>
+// SPDX-FileCopyrightText: 2026 The Crossplane Authors <https://crossplane.io>
 //
 // SPDX-License-Identifier: Apache-2.0
 
@@ -321,6 +321,9 @@ type VectorSearchIndexInitParameters struct {
 
 	// The column name that will be used as a primary key.
 	PrimaryKey *string `json:"primaryKey,omitempty" tf:"primary_key,omitempty"`
+
+	// Configure the provider for management through account provider. This block consists of the following fields:
+	ProviderConfig []VectorSearchIndexProviderConfigInitParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
 }
 
 type VectorSearchIndexObservation struct {
@@ -348,6 +351,9 @@ type VectorSearchIndexObservation struct {
 
 	// The column name that will be used as a primary key.
 	PrimaryKey *string `json:"primaryKey,omitempty" tf:"primary_key,omitempty"`
+
+	// Configure the provider for management through account provider. This block consists of the following fields:
+	ProviderConfig []VectorSearchIndexProviderConfigObservation `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
 
 	// Object describing the current status of the index consisting of the following fields:
 	Status []StatusObservation `json:"status,omitempty" tf:"status,omitempty"`
@@ -388,6 +394,29 @@ type VectorSearchIndexParameters struct {
 	// The column name that will be used as a primary key.
 	// +kubebuilder:validation:Optional
 	PrimaryKey *string `json:"primaryKey,omitempty" tf:"primary_key,omitempty"`
+
+	// Configure the provider for management through account provider. This block consists of the following fields:
+	// +kubebuilder:validation:Optional
+	ProviderConfig []VectorSearchIndexProviderConfigParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
+}
+
+type VectorSearchIndexProviderConfigInitParameters struct {
+
+	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
+}
+
+type VectorSearchIndexProviderConfigObservation struct {
+
+	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
+}
+
+type VectorSearchIndexProviderConfigParameters struct {
+
+	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
+	// +kubebuilder:validation:Optional
+	WorkspaceID *string `json:"workspaceId" tf:"workspace_id,omitempty"`
 }
 
 // VectorSearchIndexSpec defines the desired state of VectorSearchIndex
@@ -415,9 +444,10 @@ type VectorSearchIndexStatus struct {
 
 // +kubebuilder:object:root=true
 // +kubebuilder:subresource:status
-// +kubebuilder:storageversion
+// +kubebuilder:deprecatedversion:warning="This API version is deprecated. Please migrate to v1beta1."
 
 // VectorSearchIndex is the Schema for the VectorSearchIndexs API.
+// Deprecated: This API version (v1alpha1) has been deprecated.
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"

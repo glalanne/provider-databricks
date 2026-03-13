@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2024 The Crossplane Authors <https://crossplane.io>
+// SPDX-FileCopyrightText: 2026 The Crossplane Authors <https://crossplane.io>
 //
 // SPDX-License-Identifier: Apache-2.0
 
@@ -298,6 +298,7 @@ type ClusterInitParameters struct {
 	// similar to instance_pool_id, but for driver node. If omitted, and instance_pool_id is specified, then the driver will be allocated from that pool.
 	DriverInstancePoolID *string `json:"driverInstancePoolId,omitempty" tf:"driver_instance_pool_id,omitempty"`
 
+	// a block describing the alternative driver node types if driver_node_type_id isn't available.
 	DriverNodeTypeFlexibility []DriverNodeTypeFlexibilityInitParameters `json:"driverNodeTypeFlexibility,omitempty" tf:"driver_node_type_flexibility,omitempty"`
 
 	// The node type of the Spark driver. This field is optional; if unset, API will set the driver node type to the same value as node_type_id defined above.
@@ -372,6 +373,7 @@ type ClusterInitParameters struct {
 	// Whenever ML runtime should be selected or not.  Actual runtime is determined by spark_version (DBR release), this field use_ml_runtime, and whether node_type_id is GPU node or not.
 	UseMLRuntime *bool `json:"useMlRuntime,omitempty" tf:"use_ml_runtime,omitempty"`
 
+	// a block describing the alternative driver node types if node_type_id isn't available.
 	WorkerNodeTypeFlexibility []WorkerNodeTypeFlexibilityInitParameters `json:"workerNodeTypeFlexibility,omitempty" tf:"worker_node_type_flexibility,omitempty"`
 
 	WorkloadType []WorkloadTypeInitParameters `json:"workloadType,omitempty" tf:"workload_type,omitempty"`
@@ -484,6 +486,7 @@ type ClusterObservation struct {
 	// similar to instance_pool_id, but for driver node. If omitted, and instance_pool_id is specified, then the driver will be allocated from that pool.
 	DriverInstancePoolID *string `json:"driverInstancePoolId,omitempty" tf:"driver_instance_pool_id,omitempty"`
 
+	// a block describing the alternative driver node types if driver_node_type_id isn't available.
 	DriverNodeTypeFlexibility []DriverNodeTypeFlexibilityObservation `json:"driverNodeTypeFlexibility,omitempty" tf:"driver_node_type_flexibility,omitempty"`
 
 	// The node type of the Spark driver. This field is optional; if unset, API will set the driver node type to the same value as node_type_id defined above.
@@ -567,6 +570,7 @@ type ClusterObservation struct {
 	// Whenever ML runtime should be selected or not.  Actual runtime is determined by spark_version (DBR release), this field use_ml_runtime, and whether node_type_id is GPU node or not.
 	UseMLRuntime *bool `json:"useMlRuntime,omitempty" tf:"use_ml_runtime,omitempty"`
 
+	// a block describing the alternative driver node types if node_type_id isn't available.
 	WorkerNodeTypeFlexibility []WorkerNodeTypeFlexibilityObservation `json:"workerNodeTypeFlexibility,omitempty" tf:"worker_node_type_flexibility,omitempty"`
 
 	WorkloadType []WorkloadTypeObservation `json:"workloadType,omitempty" tf:"workload_type,omitempty"`
@@ -617,6 +621,7 @@ type ClusterParameters struct {
 	// +kubebuilder:validation:Optional
 	DriverInstancePoolID *string `json:"driverInstancePoolId,omitempty" tf:"driver_instance_pool_id,omitempty"`
 
+	// a block describing the alternative driver node types if driver_node_type_id isn't available.
 	// +kubebuilder:validation:Optional
 	DriverNodeTypeFlexibility []DriverNodeTypeFlexibilityParameters `json:"driverNodeTypeFlexibility,omitempty" tf:"driver_node_type_flexibility,omitempty"`
 
@@ -717,6 +722,7 @@ type ClusterParameters struct {
 	// +kubebuilder:validation:Optional
 	UseMLRuntime *bool `json:"useMlRuntime,omitempty" tf:"use_ml_runtime,omitempty"`
 
+	// a block describing the alternative driver node types if node_type_id isn't available.
 	// +kubebuilder:validation:Optional
 	WorkerNodeTypeFlexibility []WorkerNodeTypeFlexibilityParameters `json:"workerNodeTypeFlexibility,omitempty" tf:"worker_node_type_flexibility,omitempty"`
 
@@ -794,15 +800,20 @@ type DockerImageParameters struct {
 }
 
 type DriverNodeTypeFlexibilityInitParameters struct {
+
+	// list of alternative node types that will be used if main node type isn't available.  Follow the documentation for requirements on selection of alternative node types.
 	AlternateNodeTypeIds []*string `json:"alternateNodeTypeIds,omitempty" tf:"alternate_node_type_ids,omitempty"`
 }
 
 type DriverNodeTypeFlexibilityObservation struct {
+
+	// list of alternative node types that will be used if main node type isn't available.  Follow the documentation for requirements on selection of alternative node types.
 	AlternateNodeTypeIds []*string `json:"alternateNodeTypeIds,omitempty" tf:"alternate_node_type_ids,omitempty"`
 }
 
 type DriverNodeTypeFlexibilityParameters struct {
 
+	// list of alternative node types that will be used if main node type isn't available.  Follow the documentation for requirements on selection of alternative node types.
 	// +kubebuilder:validation:Optional
 	AlternateNodeTypeIds []*string `json:"alternateNodeTypeIds,omitempty" tf:"alternate_node_type_ids,omitempty"`
 }
@@ -1373,15 +1384,20 @@ type VolumesParameters struct {
 }
 
 type WorkerNodeTypeFlexibilityInitParameters struct {
+
+	// list of alternative node types that will be used if main node type isn't available.  Follow the documentation for requirements on selection of alternative node types.
 	AlternateNodeTypeIds []*string `json:"alternateNodeTypeIds,omitempty" tf:"alternate_node_type_ids,omitempty"`
 }
 
 type WorkerNodeTypeFlexibilityObservation struct {
+
+	// list of alternative node types that will be used if main node type isn't available.  Follow the documentation for requirements on selection of alternative node types.
 	AlternateNodeTypeIds []*string `json:"alternateNodeTypeIds,omitempty" tf:"alternate_node_type_ids,omitempty"`
 }
 
 type WorkerNodeTypeFlexibilityParameters struct {
 
+	// list of alternative node types that will be used if main node type isn't available.  Follow the documentation for requirements on selection of alternative node types.
 	// +kubebuilder:validation:Optional
 	AlternateNodeTypeIds []*string `json:"alternateNodeTypeIds,omitempty" tf:"alternate_node_type_ids,omitempty"`
 }
@@ -1444,9 +1460,10 @@ type ClusterStatus struct {
 
 // +kubebuilder:object:root=true
 // +kubebuilder:subresource:status
-// +kubebuilder:storageversion
+// +kubebuilder:deprecatedversion:warning="This API version is deprecated. Please migrate to v1beta1."
 
 // Cluster is the Schema for the Clusters API.
+// Deprecated: This API version (v1alpha1) has been deprecated.
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"

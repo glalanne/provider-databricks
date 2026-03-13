@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2024 The Crossplane Authors <https://crossplane.io>
+// SPDX-FileCopyrightText: 2026 The Crossplane Authors <https://crossplane.io>
 //
 // SPDX-License-Identifier: Apache-2.0
 
@@ -264,15 +264,20 @@ type ClusterMountInfoNetworkFilesystemInfoParameters struct {
 }
 
 type ComputeInitParameters struct {
+
+	// Hardware accelerator configuration for Serverless GPU workloads. Supported values are:
 	HardwareAccelerator *string `json:"hardwareAccelerator,omitempty" tf:"hardware_accelerator,omitempty"`
 }
 
 type ComputeObservation struct {
+
+	// Hardware accelerator configuration for Serverless GPU workloads. Supported values are:
 	HardwareAccelerator *string `json:"hardwareAccelerator,omitempty" tf:"hardware_accelerator,omitempty"`
 }
 
 type ComputeParameters struct {
 
+	// Hardware accelerator configuration for Serverless GPU workloads. Supported values are:
 	// +kubebuilder:validation:Optional
 	HardwareAccelerator *string `json:"hardwareAccelerator,omitempty" tf:"hardware_accelerator,omitempty"`
 }
@@ -428,6 +433,9 @@ type DashboardTaskInitParameters struct {
 	// The identifier of the dashboard to refresh
 	DashboardID *string `json:"dashboardId,omitempty" tf:"dashboard_id,omitempty"`
 
+	// +mapType=granular
+	Filters map[string]*string `json:"filters,omitempty" tf:"filters,omitempty"`
+
 	// Represents a subscription configuration for scheduled dashboard snapshots.
 	Subscription []SubscriptionInitParameters `json:"subscription,omitempty" tf:"subscription,omitempty"`
 
@@ -439,6 +447,9 @@ type DashboardTaskObservation struct {
 
 	// The identifier of the dashboard to refresh
 	DashboardID *string `json:"dashboardId,omitempty" tf:"dashboard_id,omitempty"`
+
+	// +mapType=granular
+	Filters map[string]*string `json:"filters,omitempty" tf:"filters,omitempty"`
 
 	// Represents a subscription configuration for scheduled dashboard snapshots.
 	Subscription []SubscriptionObservation `json:"subscription,omitempty" tf:"subscription,omitempty"`
@@ -452,6 +463,10 @@ type DashboardTaskParameters struct {
 	// The identifier of the dashboard to refresh
 	// +kubebuilder:validation:Optional
 	DashboardID *string `json:"dashboardId,omitempty" tf:"dashboard_id,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	// +mapType=granular
+	Filters map[string]*string `json:"filters,omitempty" tf:"filters,omitempty"`
 
 	// Represents a subscription configuration for scheduled dashboard snapshots.
 	// +kubebuilder:validation:Optional
@@ -580,7 +595,16 @@ type DbtTaskInitParameters struct {
 	Source *string `json:"source,omitempty" tf:"source,omitempty"`
 
 	// The warehouse id to execute the dashboard with for the schedule. If not specified, will use the default warehouse of dashboard
+	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/namespaced/sql/v1alpha1.SQLEndpoint
 	WarehouseID *string `json:"warehouseId,omitempty" tf:"warehouse_id,omitempty"`
+
+	// Reference to a SQLEndpoint in sql to populate warehouseId.
+	// +kubebuilder:validation:Optional
+	WarehouseIDRef *v1.NamespacedReference `json:"warehouseIdRef,omitempty" tf:"-"`
+
+	// Selector for a SQLEndpoint in sql to populate warehouseId.
+	// +kubebuilder:validation:Optional
+	WarehouseIDSelector *v1.NamespacedSelector `json:"warehouseIdSelector,omitempty" tf:"-"`
 }
 
 type DbtTaskObservation struct {
@@ -634,8 +658,17 @@ type DbtTaskParameters struct {
 	Source *string `json:"source,omitempty" tf:"source,omitempty"`
 
 	// The warehouse id to execute the dashboard with for the schedule. If not specified, will use the default warehouse of dashboard
+	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/namespaced/sql/v1alpha1.SQLEndpoint
 	// +kubebuilder:validation:Optional
 	WarehouseID *string `json:"warehouseId,omitempty" tf:"warehouse_id,omitempty"`
+
+	// Reference to a SQLEndpoint in sql to populate warehouseId.
+	// +kubebuilder:validation:Optional
+	WarehouseIDRef *v1.NamespacedReference `json:"warehouseIdRef,omitempty" tf:"-"`
+
+	// Selector for a SQLEndpoint in sql to populate warehouseId.
+	// +kubebuilder:validation:Optional
+	WarehouseIDSelector *v1.NamespacedSelector `json:"warehouseIdSelector,omitempty" tf:"-"`
 }
 
 type DependsOnInitParameters struct {
@@ -1043,6 +1076,7 @@ type ForEachTaskTaskInitParameters struct {
 	// A list of task specification that the job will execute. See task Configuration Block below.
 	CleanRoomsNotebookTask []TaskCleanRoomsNotebookTaskInitParameters `json:"cleanRoomsNotebookTask,omitempty" tf:"clean_rooms_notebook_task,omitempty"`
 
+	// Task level compute configuration. This block is documented below.
 	Compute []TaskComputeInitParameters `json:"compute,omitempty" tf:"compute,omitempty"`
 
 	// A list of task specification that the job will execute. See task Configuration Block below.
@@ -1152,6 +1186,7 @@ type ForEachTaskTaskObservation struct {
 	// A list of task specification that the job will execute. See task Configuration Block below.
 	CleanRoomsNotebookTask []TaskCleanRoomsNotebookTaskObservation `json:"cleanRoomsNotebookTask,omitempty" tf:"clean_rooms_notebook_task,omitempty"`
 
+	// Task level compute configuration. This block is documented below.
 	Compute []TaskComputeObservation `json:"compute,omitempty" tf:"compute,omitempty"`
 
 	// A list of task specification that the job will execute. See task Configuration Block below.
@@ -1262,6 +1297,7 @@ type ForEachTaskTaskParameters struct {
 	// +kubebuilder:validation:Optional
 	CleanRoomsNotebookTask []TaskCleanRoomsNotebookTaskParameters `json:"cleanRoomsNotebookTask,omitempty" tf:"clean_rooms_notebook_task,omitempty"`
 
+	// Task level compute configuration. This block is documented below.
 	// +kubebuilder:validation:Optional
 	Compute []TaskComputeParameters `json:"compute,omitempty" tf:"compute,omitempty"`
 
@@ -1437,6 +1473,7 @@ type GenAIComputeTaskComputeParameters struct {
 type GenAIComputeTaskInitParameters struct {
 	Command *string `json:"command,omitempty" tf:"command,omitempty"`
 
+	// Task level compute configuration. This block is documented below.
 	Compute []GenAIComputeTaskComputeInitParameters `json:"compute,omitempty" tf:"compute,omitempty"`
 
 	DlRuntimeImage *string `json:"dlRuntimeImage,omitempty" tf:"dl_runtime_image,omitempty"`
@@ -1460,6 +1497,7 @@ type GenAIComputeTaskInitParameters struct {
 type GenAIComputeTaskObservation struct {
 	Command *string `json:"command,omitempty" tf:"command,omitempty"`
 
+	// Task level compute configuration. This block is documented below.
 	Compute []GenAIComputeTaskComputeObservation `json:"compute,omitempty" tf:"compute,omitempty"`
 
 	DlRuntimeImage *string `json:"dlRuntimeImage,omitempty" tf:"dl_runtime_image,omitempty"`
@@ -1485,6 +1523,7 @@ type GenAIComputeTaskParameters struct {
 	// +kubebuilder:validation:Optional
 	Command *string `json:"command,omitempty" tf:"command,omitempty"`
 
+	// Task level compute configuration. This block is documented below.
 	// +kubebuilder:validation:Optional
 	Compute []GenAIComputeTaskComputeParameters `json:"compute,omitempty" tf:"compute,omitempty"`
 
@@ -1547,6 +1586,8 @@ type GitSourceInitParameters struct {
 	// case insensitive name of the Git provider.  Following values are supported right now (could be a subject for change, consult Repos API documentation): gitHub, gitHubEnterprise, bitbucketCloud, bitbucketServer, azureDevOpsServices, gitLab, gitLabEnterpriseEdition.
 	Provider *string `json:"provider,omitempty" tf:"provider,omitempty"`
 
+	SparseCheckout []SparseCheckoutInitParameters `json:"sparseCheckout,omitempty" tf:"sparse_checkout,omitempty"`
+
 	// name of the Git branch to use. Conflicts with branch and commit.
 	Tag *string `json:"tag,omitempty" tf:"tag,omitempty"`
 
@@ -1569,6 +1610,8 @@ type GitSourceObservation struct {
 
 	// case insensitive name of the Git provider.  Following values are supported right now (could be a subject for change, consult Repos API documentation): gitHub, gitHubEnterprise, bitbucketCloud, bitbucketServer, azureDevOpsServices, gitLab, gitLabEnterpriseEdition.
 	Provider *string `json:"provider,omitempty" tf:"provider,omitempty"`
+
+	SparseCheckout []SparseCheckoutObservation `json:"sparseCheckout,omitempty" tf:"sparse_checkout,omitempty"`
 
 	// name of the Git branch to use. Conflicts with branch and commit.
 	Tag *string `json:"tag,omitempty" tf:"tag,omitempty"`
@@ -1597,6 +1640,9 @@ type GitSourceParameters struct {
 	// case insensitive name of the Git provider.  Following values are supported right now (could be a subject for change, consult Repos API documentation): gitHub, gitHubEnterprise, bitbucketCloud, bitbucketServer, azureDevOpsServices, gitLab, gitLabEnterpriseEdition.
 	// +kubebuilder:validation:Optional
 	Provider *string `json:"provider,omitempty" tf:"provider,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	SparseCheckout []SparseCheckoutParameters `json:"sparseCheckout,omitempty" tf:"sparse_checkout,omitempty"`
 
 	// name of the Git branch to use. Conflicts with branch and commit.
 	// +kubebuilder:validation:Optional
@@ -6564,7 +6610,16 @@ type NotebookTaskInitParameters struct {
 	Source *string `json:"source,omitempty" tf:"source,omitempty"`
 
 	// The warehouse id to execute the dashboard with for the schedule. If not specified, will use the default warehouse of dashboard
+	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/namespaced/sql/v1alpha1.SQLEndpoint
 	WarehouseID *string `json:"warehouseId,omitempty" tf:"warehouse_id,omitempty"`
+
+	// Reference to a SQLEndpoint in sql to populate warehouseId.
+	// +kubebuilder:validation:Optional
+	WarehouseIDRef *v1.NamespacedReference `json:"warehouseIdRef,omitempty" tf:"-"`
+
+	// Selector for a SQLEndpoint in sql to populate warehouseId.
+	// +kubebuilder:validation:Optional
+	WarehouseIDSelector *v1.NamespacedSelector `json:"warehouseIdSelector,omitempty" tf:"-"`
 }
 
 type NotebookTaskObservation struct {
@@ -6609,8 +6664,17 @@ type NotebookTaskParameters struct {
 	Source *string `json:"source,omitempty" tf:"source,omitempty"`
 
 	// The warehouse id to execute the dashboard with for the schedule. If not specified, will use the default warehouse of dashboard
+	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/namespaced/sql/v1alpha1.SQLEndpoint
 	// +kubebuilder:validation:Optional
 	WarehouseID *string `json:"warehouseId,omitempty" tf:"warehouse_id,omitempty"`
+
+	// Reference to a SQLEndpoint in sql to populate warehouseId.
+	// +kubebuilder:validation:Optional
+	WarehouseIDRef *v1.NamespacedReference `json:"warehouseIdRef,omitempty" tf:"-"`
+
+	// Selector for a SQLEndpoint in sql to populate warehouseId.
+	// +kubebuilder:validation:Optional
+	WarehouseIDSelector *v1.NamespacedSelector `json:"warehouseIdSelector,omitempty" tf:"-"`
 }
 
 type NotificationSettingsInitParameters struct {
@@ -7716,7 +7780,23 @@ type SparkSubmitTaskParameters struct {
 	Parameters []*string `json:"parameters,omitempty" tf:"parameters,omitempty"`
 }
 
+type SparseCheckoutInitParameters struct {
+	Patterns []*string `json:"patterns,omitempty" tf:"patterns,omitempty"`
+}
+
+type SparseCheckoutObservation struct {
+	Patterns []*string `json:"patterns,omitempty" tf:"patterns,omitempty"`
+}
+
+type SparseCheckoutParameters struct {
+
+	// +kubebuilder:validation:Optional
+	Patterns []*string `json:"patterns,omitempty" tf:"patterns,omitempty"`
+}
+
 type SpecInitParameters struct {
+	BaseEnvironment *string `json:"baseEnvironment,omitempty" tf:"base_environment,omitempty"`
+
 	Client *string `json:"client,omitempty" tf:"client,omitempty"`
 
 	// (list of strings) List of pip dependencies, as supported by the version of pip in this environment. Each dependency is a pip requirement file line.  See API docs for more information.
@@ -7730,6 +7810,8 @@ type SpecInitParameters struct {
 }
 
 type SpecObservation struct {
+	BaseEnvironment *string `json:"baseEnvironment,omitempty" tf:"base_environment,omitempty"`
+
 	Client *string `json:"client,omitempty" tf:"client,omitempty"`
 
 	// (list of strings) List of pip dependencies, as supported by the version of pip in this environment. Each dependency is a pip requirement file line.  See API docs for more information.
@@ -7743,6 +7825,9 @@ type SpecObservation struct {
 }
 
 type SpecParameters struct {
+
+	// +kubebuilder:validation:Optional
+	BaseEnvironment *string `json:"baseEnvironment,omitempty" tf:"base_environment,omitempty"`
 
 	// +kubebuilder:validation:Optional
 	Client *string `json:"client,omitempty" tf:"client,omitempty"`
@@ -8037,15 +8122,20 @@ type TaskCleanRoomsNotebookTaskParameters struct {
 }
 
 type TaskComputeInitParameters struct {
+
+	// Hardware accelerator configuration for Serverless GPU workloads. Supported values are:
 	HardwareAccelerator *string `json:"hardwareAccelerator,omitempty" tf:"hardware_accelerator,omitempty"`
 }
 
 type TaskComputeObservation struct {
+
+	// Hardware accelerator configuration for Serverless GPU workloads. Supported values are:
 	HardwareAccelerator *string `json:"hardwareAccelerator,omitempty" tf:"hardware_accelerator,omitempty"`
 }
 
 type TaskComputeParameters struct {
 
+	// Hardware accelerator configuration for Serverless GPU workloads. Supported values are:
 	// +kubebuilder:validation:Optional
 	HardwareAccelerator *string `json:"hardwareAccelerator,omitempty" tf:"hardware_accelerator,omitempty"`
 }
@@ -8094,6 +8184,9 @@ type TaskDashboardTaskInitParameters struct {
 	// The identifier of the dashboard to refresh
 	DashboardID *string `json:"dashboardId,omitempty" tf:"dashboard_id,omitempty"`
 
+	// +mapType=granular
+	Filters map[string]*string `json:"filters,omitempty" tf:"filters,omitempty"`
+
 	// Represents a subscription configuration for scheduled dashboard snapshots.
 	Subscription []DashboardTaskSubscriptionInitParameters `json:"subscription,omitempty" tf:"subscription,omitempty"`
 
@@ -8105,6 +8198,9 @@ type TaskDashboardTaskObservation struct {
 
 	// The identifier of the dashboard to refresh
 	DashboardID *string `json:"dashboardId,omitempty" tf:"dashboard_id,omitempty"`
+
+	// +mapType=granular
+	Filters map[string]*string `json:"filters,omitempty" tf:"filters,omitempty"`
 
 	// Represents a subscription configuration for scheduled dashboard snapshots.
 	Subscription []DashboardTaskSubscriptionObservation `json:"subscription,omitempty" tf:"subscription,omitempty"`
@@ -8118,6 +8214,10 @@ type TaskDashboardTaskParameters struct {
 	// The identifier of the dashboard to refresh
 	// +kubebuilder:validation:Optional
 	DashboardID *string `json:"dashboardId,omitempty" tf:"dashboard_id,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	// +mapType=granular
+	Filters map[string]*string `json:"filters,omitempty" tf:"filters,omitempty"`
 
 	// Represents a subscription configuration for scheduled dashboard snapshots.
 	// +kubebuilder:validation:Optional
@@ -8399,6 +8499,7 @@ type TaskGenAIComputeTaskComputeParameters struct {
 type TaskGenAIComputeTaskInitParameters struct {
 	Command *string `json:"command,omitempty" tf:"command,omitempty"`
 
+	// Task level compute configuration. This block is documented below.
 	Compute []TaskGenAIComputeTaskComputeInitParameters `json:"compute,omitempty" tf:"compute,omitempty"`
 
 	DlRuntimeImage *string `json:"dlRuntimeImage,omitempty" tf:"dl_runtime_image,omitempty"`
@@ -8422,6 +8523,7 @@ type TaskGenAIComputeTaskInitParameters struct {
 type TaskGenAIComputeTaskObservation struct {
 	Command *string `json:"command,omitempty" tf:"command,omitempty"`
 
+	// Task level compute configuration. This block is documented below.
 	Compute []TaskGenAIComputeTaskComputeObservation `json:"compute,omitempty" tf:"compute,omitempty"`
 
 	DlRuntimeImage *string `json:"dlRuntimeImage,omitempty" tf:"dl_runtime_image,omitempty"`
@@ -8447,6 +8549,7 @@ type TaskGenAIComputeTaskParameters struct {
 	// +kubebuilder:validation:Optional
 	Command *string `json:"command,omitempty" tf:"command,omitempty"`
 
+	// Task level compute configuration. This block is documented below.
 	// +kubebuilder:validation:Optional
 	Compute []TaskGenAIComputeTaskComputeParameters `json:"compute,omitempty" tf:"compute,omitempty"`
 
@@ -8537,6 +8640,7 @@ type TaskInitParameters struct {
 	// A list of task specification that the job will execute. See task Configuration Block below.
 	CleanRoomsNotebookTask []CleanRoomsNotebookTaskInitParameters `json:"cleanRoomsNotebookTask,omitempty" tf:"clean_rooms_notebook_task,omitempty"`
 
+	// Task level compute configuration. This block is documented below.
 	Compute []ComputeInitParameters `json:"compute,omitempty" tf:"compute,omitempty"`
 
 	// A list of task specification that the job will execute. See task Configuration Block below.
@@ -10097,6 +10201,7 @@ type TaskObservation struct {
 	// A list of task specification that the job will execute. See task Configuration Block below.
 	CleanRoomsNotebookTask []CleanRoomsNotebookTaskObservation `json:"cleanRoomsNotebookTask,omitempty" tf:"clean_rooms_notebook_task,omitempty"`
 
+	// Task level compute configuration. This block is documented below.
 	Compute []ComputeObservation `json:"compute,omitempty" tf:"compute,omitempty"`
 
 	// A list of task specification that the job will execute. See task Configuration Block below.
@@ -10210,6 +10315,7 @@ type TaskParameters struct {
 	// +kubebuilder:validation:Optional
 	CleanRoomsNotebookTask []CleanRoomsNotebookTaskParameters `json:"cleanRoomsNotebookTask,omitempty" tf:"clean_rooms_notebook_task,omitempty"`
 
+	// Task level compute configuration. This block is documented below.
 	// +kubebuilder:validation:Optional
 	Compute []ComputeParameters `json:"compute,omitempty" tf:"compute,omitempty"`
 
@@ -11138,9 +11244,10 @@ type JobStatus struct {
 
 // +kubebuilder:object:root=true
 // +kubebuilder:subresource:status
-// +kubebuilder:storageversion
+// +kubebuilder:deprecatedversion:warning="This API version is deprecated. Please migrate to v1beta1."
 
 // Job is the Schema for the Jobs API.
+// Deprecated: This API version (v1alpha1) has been deprecated.
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"

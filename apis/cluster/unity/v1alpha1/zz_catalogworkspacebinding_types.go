@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2024 The Crossplane Authors <https://crossplane.io>
+// SPDX-FileCopyrightText: 2026 The Crossplane Authors <https://crossplane.io>
 //
 // SPDX-License-Identifier: Apache-2.0
 
@@ -19,6 +19,8 @@ type CatalogWorkspaceBindingInitParameters struct {
 	BindingType *string `json:"bindingType,omitempty" tf:"binding_type,omitempty"`
 
 	CatalogName *string `json:"catalogName,omitempty" tf:"catalog_name,omitempty"`
+
+	ProviderConfig []CatalogWorkspaceBindingProviderConfigInitParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
 
 	// Name of securable. Change forces creation of a new resource.
 	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/cluster/unity/v1alpha1.Catalog
@@ -59,6 +61,8 @@ type CatalogWorkspaceBindingObservation struct {
 
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
+	ProviderConfig []CatalogWorkspaceBindingProviderConfigObservation `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
+
 	// Name of securable. Change forces creation of a new resource.
 	SecurableName *string `json:"securableName,omitempty" tf:"securable_name,omitempty"`
 
@@ -77,6 +81,9 @@ type CatalogWorkspaceBindingParameters struct {
 
 	// +kubebuilder:validation:Optional
 	CatalogName *string `json:"catalogName,omitempty" tf:"catalog_name,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	ProviderConfig []CatalogWorkspaceBindingProviderConfigParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
 
 	// Name of securable. Change forces creation of a new resource.
 	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/cluster/unity/v1alpha1.Catalog
@@ -111,6 +118,25 @@ type CatalogWorkspaceBindingParameters struct {
 	WorkspaceIDSelector *v1.Selector `json:"workspaceIdSelector,omitempty" tf:"-"`
 }
 
+type CatalogWorkspaceBindingProviderConfigInitParameters struct {
+
+	// ID of the workspace. Change forces creation of a new resource.
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
+}
+
+type CatalogWorkspaceBindingProviderConfigObservation struct {
+
+	// ID of the workspace. Change forces creation of a new resource.
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
+}
+
+type CatalogWorkspaceBindingProviderConfigParameters struct {
+
+	// ID of the workspace. Change forces creation of a new resource.
+	// +kubebuilder:validation:Optional
+	WorkspaceID *string `json:"workspaceId" tf:"workspace_id,omitempty"`
+}
+
 // CatalogWorkspaceBindingSpec defines the desired state of CatalogWorkspaceBinding
 type CatalogWorkspaceBindingSpec struct {
 	v1.ResourceSpec `json:",inline"`
@@ -136,9 +162,10 @@ type CatalogWorkspaceBindingStatus struct {
 
 // +kubebuilder:object:root=true
 // +kubebuilder:subresource:status
-// +kubebuilder:storageversion
+// +kubebuilder:deprecatedversion:warning="This API version is deprecated. Please migrate to v1beta1."
 
 // CatalogWorkspaceBinding is the Schema for the CatalogWorkspaceBindings API.
+// Deprecated: This API version (v1alpha1) has been deprecated.
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"

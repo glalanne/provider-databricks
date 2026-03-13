@@ -1,8 +1,12 @@
+# SPDX-FileCopyrightText: 2026 The Crossplane Authors <https://crossplane.io>
+#
+# SPDX-License-Identifier: CC0-1.0
+
 apiVersion: compute.databricks.crossplane.io/v1alpha1
 kind: Pipeline
 metadata:
   annotations:
-    meta.upbound.io/example-id: compute/v1alpha1/pipeline
+    meta.upbound.io/example-id: compute/v1beta1/pipeline
   labels:
     testing.upbound.io/example-name: this
   name: this
@@ -24,7 +28,9 @@ spec:
     continuous: false
     library:
     - notebook:
-      - path: ${databricks_notebook.ldp_demo.id}
+      - pathSelector:
+          matchLabels:
+            testing.upbound.io/example-name: ldp_demo
     - file:
       - path: ${databricks_repo.ldp_demo.path}/pipeline.sql
     - glob:
@@ -47,7 +53,7 @@ apiVersion: workspace.databricks.crossplane.io/v1alpha1
 kind: Notebook
 metadata:
   annotations:
-    meta.upbound.io/example-id: compute/v1alpha1/pipeline
+    meta.upbound.io/example-id: compute/v1beta1/pipeline
   labels:
     testing.upbound.io/example-name: ldp_demo
   name: ldp-demo
@@ -60,7 +66,7 @@ apiVersion: workspace.databricks.crossplane.io/v1alpha1
 kind: Repo
 metadata:
   annotations:
-    meta.upbound.io/example-id: compute/v1alpha1/pipeline
+    meta.upbound.io/example-id: compute/v1beta1/pipeline
   labels:
     testing.upbound.io/example-name: ldp_demo
   name: ldp-demo

@@ -1,21 +1,22 @@
+# SPDX-FileCopyrightText: 2026 The Crossplane Authors <https://crossplane.io>
+#
+# SPDX-License-Identifier: CC0-1.0
+
 apiVersion: compute.databricks.m.crossplane.io/v1alpha1
 kind: Cluster
 metadata:
   annotations:
-    meta.upbound.io/example-id: compute/v1alpha1/cluster
-    uptest.upbound.io/timeout: "120"
+    meta.upbound.io/example-id: compute/v1beta1/cluster
   labels:
     testing.upbound.io/example-name: shared_autoscaling
-  name: clu-crossplane-shared-autoscaling
-  namespace: default
+  name: shared-autoscaling
+  namespace: upbound-system
 spec:
   forProvider:
     autoscale:
-      - maxWorkers: 2
-        minWorkers: 1
+    - maxWorkers: 50
+      minWorkers: 1
     autoterminationMinutes: 20
-    clusterName: clu-crossplane-shared-autoscaling-ns
-    nodeTypeId: "Standard_DS3_v2" # Azure
-    # nodeTypeId: "i3.xlarge" # AWS
-    # nodeTypeId: "n2-standard-4" # GCP
-    sparkVersion: "16.2.x-scala2.12"
+    clusterName: Shared Autoscaling
+    nodeTypeId: ${data.databricks_node_type.smallest.id}
+    sparkVersion: ${data.databricks_spark_version.latest_lts.id}

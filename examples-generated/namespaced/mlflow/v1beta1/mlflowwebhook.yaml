@@ -1,0 +1,87 @@
+# SPDX-FileCopyrightText: 2026 The Crossplane Authors <https://crossplane.io>
+#
+# SPDX-License-Identifier: CC0-1.0
+
+apiVersion: mlflow.databricks.m.crossplane.io/v1beta1
+kind: MlflowWebhook
+metadata:
+  annotations:
+    meta.upbound.io/example-id: mlflow/v1beta1/mlflowwebhook
+  labels:
+    testing.upbound.io/example-name: job
+  name: job
+  namespace: upbound-system
+spec:
+  forProvider:
+    description: Databricks Job webhook trigger
+    events:
+    - TRANSITION_REQUEST_CREATED
+    jobSpec:
+      accessTokenSecretRef:
+        key: attribute.token_value
+        name: example-token
+      jobIdSelector:
+        matchLabels:
+          testing.upbound.io/example-name: this
+      workspaceUrl: ${data.databricks_current_user.me.workspace_url}
+    status: ACTIVE
+
+---
+
+apiVersion: compute.databricks.m.crossplane.io/v1beta1
+kind: Job
+metadata:
+  annotations:
+    meta.upbound.io/example-id: mlflow/v1beta1/mlflowwebhook
+  labels:
+    testing.upbound.io/example-name: this
+  name: this
+  namespace: upbound-system
+spec:
+  forProvider:
+    name: Terraform MLflowWebhook Demo (${data.databricks_current_user.me.alphanumeric})
+    task:
+    - newCluster:
+        nodeTypeId: ${data.databricks_node_type.smallest.id}
+        numWorkers: 1
+        sparkVersion: ${data.databricks_spark_version.latest.id}
+      notebookTask:
+        notebookPathSelector:
+          matchLabels:
+            testing.upbound.io/example-name: databricks_current_user
+      taskKey: task1
+
+---
+
+apiVersion: workspace.databricks.m.crossplane.io/v1beta1
+kind: Notebook
+metadata:
+  annotations:
+    meta.upbound.io/example-id: mlflow/v1beta1/mlflowwebhook
+  labels:
+    testing.upbound.io/example-name: this
+  name: this
+  namespace: upbound-system
+spec:
+  forProvider:
+    contentBase64: "${base64encode(<<-EOT\n    import json\n \n    event_message =
+      dbutils.widgets.get(\"event_message\")\n    event_message_dict = json.loads(event_message)\n
+      \   print(f\"event data={event_message_dict}\")\n    EOT\n  )}"
+    language: PYTHON
+    path: ${data.databricks_current_user.me.home}/MLFlowWebhook
+
+---
+
+apiVersion: security.databricks.m.crossplane.io/v1beta1
+kind: Token
+metadata:
+  annotations:
+    meta.upbound.io/example-id: mlflow/v1beta1/mlflowwebhook
+  labels:
+    testing.upbound.io/example-name: pat_for_webhook
+  name: pat-for-webhook
+  namespace: upbound-system
+spec:
+  forProvider:
+    comment: MLflow Webhook
+    lifetimeSeconds: 86400000

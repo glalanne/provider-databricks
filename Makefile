@@ -3,9 +3,6 @@
 
 PROJECT_NAME ?= provider-databricks
 PROJECT_REPO ?= github.com/glalanne/$(PROJECT_NAME)
-UPTEST_EXAMPLE_LIST ?= "examples/cluster/compute/v1alpha1/cluster.yaml,examples/namespaced/compute/v1alpha1/cluster.yaml,examples/cluster/sql/v1alpha1/sqlendpoint.yaml,examples/cluster/unity/v1alpha1/schema.yaml"
-UPTEST_DATASOURCE_PATH?= 
-CROSSPLANE_CLI_VERSION ?= v2.0.2
 
 export TERRAFORM_VERSION ?= 1.5.7
 
@@ -15,7 +12,7 @@ TERRAFORM_VERSION_VALID := $(shell [ "$(TERRAFORM_VERSION)" = "`printf "$(TERRAF
 
 export TERRAFORM_PROVIDER_SOURCE ?= databricks/databricks
 export TERRAFORM_PROVIDER_REPO ?= https://github.com/databricks/terraform-provider-databricks
-export TERRAFORM_PROVIDER_VERSION ?= 1.105.0
+export TERRAFORM_PROVIDER_VERSION ?= 1.110.0
 export TERRAFORM_PROVIDER_DOWNLOAD_NAME ?= terraform-provider-databricks
 export TERRAFORM_PROVIDER_DOWNLOAD_URL_PREFIX ?= https://github.com/databricks/$(TERRAFORM_PROVIDER_DOWNLOAD_NAME)/releases/download/v$(TERRAFORM_PROVIDER_VERSION)
 export TERRAFORM_NATIVE_PROVIDER_BINARY ?= $(TERRAFORM_PROVIDER_DOWNLOAD_NAME)_v$(TERRAFORM_PROVIDER_VERSION)
@@ -47,43 +44,23 @@ NPROCS ?= 1
 # to half the number of CPU cores.
 GO_TEST_PARALLEL := $(shell echo $$(( $(NPROCS) / 2 )))
 
-GO_REQUIRED_VERSION ?= 1.24.7
-GOLANGCILINT_VERSION = 2.1.2
-
-GO111MODULE = on
+GO_REQUIRED_VERSION ?= 1.25
+GOLANGCILINT_VERSION ?= 2.8.0
 GO_STATIC_PACKAGES = $(GO_PROJECT)/cmd/provider $(GO_PROJECT)/cmd/generator
 GO_LDFLAGS += -X $(GO_PROJECT)/internal/version.Version=$(VERSION)
 GO_SUBDIRS += cmd internal apis
-
 -include build/makelib/golang.mk
 
 # ====================================================================================
 # Setup Kubernetes tools
 
-KIND_VERSION = v0.29.0
-UP_VERSION = v0.40.0-0.rc.3
-UP_CHANNEL = alpha
+KIND_VERSION = v0.31.0
 UPTEST_VERSION = v2.2.0
-UPTEST_LOCAL_VERSION = v2.2.0
-UPTEST_LOCAL_CHANNEL = stable
-KUSTOMIZE_VERSION = v5.3.0
-YQ_VERSION = v4.40.5
 CRDDIFF_VERSION = v0.12.1
-
-export UP_VERSION := $(UP_VERSION)
-export UP_CHANNEL := $(UP_CHANNEL)
-
+CROSSPLANE_CLI_VERSION = v2.1.3
+# for e2e testing
+CROSSPLANE_VERSION = 2.1.3
 -include build/makelib/k8s_tools.mk
-
-# # uptest download and install
-# UPTEST_LOCAL := $(TOOLS_HOST_DIR)/uptest-$(UPTEST_LOCAL_VERSION)
-
-# $(UPTEST_LOCAL):
-# 	@$(INFO) installing uptest $(UPTEST_LOCAL)
-# 	@mkdir -p $(TOOLS_HOST_DIR)
-# 	@curl -fsSLo $(UPTEST_LOCAL) https://s3.us-west-2.amazonaws.com/crossplane.uptest.releases/$(UPTEST_LOCAL_CHANNEL)/$(UPTEST_LOCAL_VERSION)/bin/$(SAFEHOST_PLATFORM)/uptest || $(FAIL)
-# 	@chmod +x $(UPTEST_LOCAL)
-# 	@$(OK) installing uptest $(UPTEST_LOCAL)
 
 # ====================================================================================
 # Setup Images
@@ -96,7 +73,7 @@ IMAGES = $(PROJECT_NAME)
 # Setup XPKG
 
 XPKG_REG_ORGS ?= xpkg.upbound.io/lalanne
-# NOTE(hasheddan): skip promoting on xpkg.upbound.io as channel tags are
+# NOTE(hasheddan): skip promoting on xpkg.crossplane.io as channel tags are
 # inferred.
 XPKG_REG_ORGS_NO_PROMOTE ?= xpkg.upbound.io/lalanne
 XPKGS = $(PROJECT_NAME)
@@ -122,7 +99,7 @@ xpkg.build.provider-databricks: do.build.images
 
 # NOTE(hasheddan): we ensure up is installed prior to running platform-specific
 # build steps in parallel to avoid encountering an installation race condition.
-build.init: $(CROSSPLANE_CLI) check-terraform-version
+build.init: $(UP) $(CROSSPLANE_CLI) check-terraform-version
 
 # ====================================================================================
 # Setup Terraform for fetching provider schema
@@ -162,7 +139,11 @@ pull-docs:
 generate.init: $(TERRAFORM_PROVIDER_SCHEMA) pull-docs
 	python ./scripts/docs_fix.py
 
-.PHONY: $(TERRAFORM_PROVIDER_SCHEMA) pull-docs check-terraform-version
+generate.clean-apis:
+	@find ./apis -type f -name 'zz_*' -delete
+	@find ./apis -type d -empty -delete
+
+.PHONY: $(TERRAFORM_PROVIDER_SCHEMA) pull-docs check-terraform-version generate.clean-apis
 # ====================================================================================
 # Targets
 
@@ -175,12 +156,22 @@ generate.init: $(TERRAFORM_PROVIDER_SCHEMA) pull-docs
 go.cachedir:
 	@go env GOCACHE
 
+go.mod.cachedir:
+	@go env GOMODCACHE
+
 # Generate a coverage report for cobertura applying exclusions on
 # - generated file
 cobertura:
 	@cat $(GO_TEST_OUTPUT)/coverage.txt | \
 		grep -v zz_ | \
 		$(GOCOVER_COBERTURA) > $(GO_TEST_OUTPUT)/cobertura-coverage.xml
+
+examples.sync:
+	@$(INFO) syncing examples from examples-generated
+	@mkdir -p ./examples/cluster ./examples/namespaced
+	@cp -a ./examples-generated/cluster/. ./examples/cluster/
+	@cp -a ./examples-generated/namespaced/. ./examples/namespaced/
+	@$(OK) synced examples from examples-generated
 
 # Update the submodules, such as the common build scripts.
 submodules:
@@ -193,19 +184,18 @@ submodules:
 run: go.build
 	@$(INFO) Running Crossplane locally out-of-cluster . . .
 	@# To see other arguments that can be provided, run the command with --help instead
-	UPBOUND_CONTEXT="local" $(GO_OUT_DIR)/provider --debug
+	$(GO_OUT_DIR)/provider --debug
 
 # ====================================================================================
 # End to End Testing
-CROSSPLANE_VERSION = 1.16.0
-CROSSPLANE_NAMESPACE = upbound-system
+CROSSPLANE_NAMESPACE = crossplane-system
 -include build/makelib/local.xpkg.mk
 -include build/makelib/controlplane.mk
 
 # This target requires the following environment variables to be set:
 # - UPTEST_EXAMPLE_LIST, a comma-separated list of examples to test
-#   To ensure the proper functioning of the end-to-end test resource pre-deletion hook, it is crucial to arrange your resources appropriately. 
-#   You can check the basic implementation here: https://github.com/crossplane/uptest/blob/main/internal/-n databrickss/03-delete.yaml.tmpl.
+#   To ensure the proper functioning of the end-to-end test resource pre-deletion hook, it is crucial to arrange your resources appropriately.
+#   You can check the basic implementation here: https://github.com/crossplane/uptest/blob/main/internal/templates/03-delete.yaml.tmpl.
 # - UPTEST_CLOUD_CREDENTIALS (optional), multiple sets of AWS IAM User credentials specified as key=value pairs.
 #   The support keys are currently `DEFAULT` and `PEER`. So, an example for the value of this env. variable is:
 #   DEFAULT='[default]
@@ -216,15 +206,15 @@ CROSSPLANE_NAMESPACE = upbound-system
 #   aws_secret_access_key = REDACTED'
 #   The associated `ProviderConfig`s will be named as `default` and `peer`.
 # - UPTEST_DATASOURCE_PATH (optional), please see https://github.com/crossplane/uptest#injecting-dynamic-values-and-datasource
-uptest: $(UPTEST) $(KUBECTL) $(CHAINSAW)
+uptest: $(UPTEST) $(KUBECTL) $(CHAINSAW) $(CROSSPLANE_CLI)
 	@$(INFO) running automated tests
-	@KUBECTL=$(KUBECTL) CHAINSAW=$(CHAINSAW) $(UPTEST) e2e "${UPTEST_EXAMPLE_LIST}" --data-source="${UPTEST_DATASOURCE_PATH}" --setup-script=cluster/test/setup.sh --default-conditions="Test" || $(FAIL)
+	@KUBECTL=$(KUBECTL) CHAINSAW=$(CHAINSAW) CROSSPLANE_CLI=$(CROSSPLANE_CLI) CROSSPLANE_NAMESPACE=$(CROSSPLANE_NAMESPACE) $(UPTEST) e2e "${UPTEST_EXAMPLE_LIST}" --data-source="${UPTEST_DATASOURCE_PATH}" --setup-script=cluster/test/setup.sh --default-conditions="Test" || $(FAIL)
 	@$(OK) running automated tests
 
 local-deploy: build controlplane.up local.xpkg.deploy.provider.$(PROJECT_NAME)
 	@$(INFO) running locally built provider
-	@$(KUBECTL) wait provider.pkg $(PROJECT_NAME) --for condition=Healthy --timeout 8m
-	@$(KUBECTL) -n upbound-system wait --for=condition=Available deployment --all --timeout=8m
+	@$(KUBECTL) wait provider.pkg $(PROJECT_NAME) --for condition=Healthy --timeout 5m
+	@$(KUBECTL) -n crossplane-system wait --for=condition=Available deployment --all --timeout=5m
 	@$(OK) running locally built provider
 
 e2e: local-deploy uptest
@@ -237,7 +227,7 @@ crddiff: $(UPTEST)
 			continue ; \
 		fi ; \
 		echo "Checking $${crd} for breaking API changes..." ; \
-		changes_detected=$$($(UPTEST) crddiff revision <(git cat-file -p "$${GITHUB_BASE_REF}:$${crd}") "$${crd}" 2>&1) ; \
+		changes_detected=$$(go run github.com/crossplane/uptest/cmd/crddiff@$(CRDDIFF_VERSION) revision --enable-upjet-extensions <(git cat-file -p "$${GITHUB_BASE_REF}:$${crd}") "$${crd}" 2>&1) ; \
 		if [[ $$? != 0 ]] ; then \
 			printf "\033[31m"; echo "Breaking change detected!"; printf "\033[0m" ; \
 			echo "$${changes_detected}" ; \
@@ -256,7 +246,7 @@ schema-version-diff:
 	./scripts/version_diff.py config/generated.lst "$(WORK_DIR)/schema.json.$${PREV_PROVIDER_VERSION}" config/schema.json
 	@$(OK) Checking for native state schema version changes
 
-.PHONY: cobertura submodules fallthrough run crds.clean
+.PHONY: cobertura examples.sync submodules fallthrough run crds.clean
 
 # ====================================================================================
 # Special Targets
@@ -282,5 +272,3 @@ help-special: crossplane.help
 # TODO(negz): Update CI to use these targets.
 vendor: modules.download
 vendor.check: modules.check
-
-

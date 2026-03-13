@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2024 The Crossplane Authors <https://crossplane.io>
+// SPDX-FileCopyrightText: 2026 The Crossplane Authors <https://crossplane.io>
 //
 // SPDX-License-Identifier: Apache-2.0
 
@@ -45,6 +45,9 @@ type AlertInitParameters struct {
 	// Selector for a Directory in workspace to populate parentPath.
 	// +kubebuilder:validation:Optional
 	ParentPathSelector *v1.Selector `json:"parentPathSelector,omitempty" tf:"-"`
+
+	// Configure the provider for management through account provider. This block consists of the following fields:
+	ProviderConfig []ProviderConfigInitParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
 
 	// ID of the query evaluated by the alert.
 	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/cluster/sql/v1alpha1.Query
@@ -94,6 +97,9 @@ type AlertObservation struct {
 
 	// The path to a workspace folder containing the alert. The default is the user's home folder.  If changed, the alert will be recreated.
 	ParentPath *string `json:"parentPath,omitempty" tf:"parent_path,omitempty"`
+
+	// Configure the provider for management through account provider. This block consists of the following fields:
+	ProviderConfig []ProviderConfigObservation `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
 
 	// ID of the query evaluated by the alert.
 	QueryID *string `json:"queryId,omitempty" tf:"query_id,omitempty"`
@@ -150,6 +156,10 @@ type AlertParameters struct {
 	// Selector for a Directory in workspace to populate parentPath.
 	// +kubebuilder:validation:Optional
 	ParentPathSelector *v1.Selector `json:"parentPathSelector,omitempty" tf:"-"`
+
+	// Configure the provider for management through account provider. This block consists of the following fields:
+	// +kubebuilder:validation:Optional
+	ProviderConfig []ProviderConfigParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
 
 	// ID of the query evaluated by the alert.
 	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/cluster/sql/v1alpha1.Query
@@ -257,6 +267,25 @@ type OperandParameters struct {
 	Column []ColumnParameters `json:"column" tf:"column,omitempty"`
 }
 
+type ProviderConfigInitParameters struct {
+
+	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
+}
+
+type ProviderConfigObservation struct {
+
+	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
+}
+
+type ProviderConfigParameters struct {
+
+	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
+	// +kubebuilder:validation:Optional
+	WorkspaceID *string `json:"workspaceId" tf:"workspace_id,omitempty"`
+}
+
 type ThresholdInitParameters struct {
 
 	// actual value used in comparison (one of the attributes is required):
@@ -340,9 +369,10 @@ type AlertStatus struct {
 
 // +kubebuilder:object:root=true
 // +kubebuilder:subresource:status
-// +kubebuilder:storageversion
+// +kubebuilder:deprecatedversion:warning="This API version is deprecated. Please migrate to v1beta1."
 
 // Alert is the Schema for the Alerts API.
+// Deprecated: This API version (v1alpha1) has been deprecated.
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"

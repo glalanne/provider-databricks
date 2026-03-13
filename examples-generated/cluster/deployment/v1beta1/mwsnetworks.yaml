@@ -1,0 +1,24 @@
+# SPDX-FileCopyrightText: 2026 The Crossplane Authors <https://crossplane.io>
+#
+# SPDX-License-Identifier: CC0-1.0
+
+apiVersion: deployment.databricks.crossplane.io/v1beta1
+kind: MwsNetworks
+metadata:
+  annotations:
+    meta.upbound.io/example-id: deployment/v1beta1/mwsnetworks
+  labels:
+    testing.upbound.io/example-name: this
+  name: this
+spec:
+  forProvider:
+    accountIdSecretRef:
+      key: example-key
+      name: example-secret
+      namespace: upbound-system
+    networkName: ${local.prefix}-network
+    provider: ${databricks.mws}
+    securityGroupIds:
+    - ${module.vpc.default_security_group_id}
+    subnetIds: ${module.vpc.private_subnets}
+    vpcId: ${module.vpc.vpc_id}

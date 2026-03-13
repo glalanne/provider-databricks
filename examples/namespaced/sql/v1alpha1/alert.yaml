@@ -1,8 +1,12 @@
+# SPDX-FileCopyrightText: 2026 The Crossplane Authors <https://crossplane.io>
+#
+# SPDX-License-Identifier: CC0-1.0
+
 apiVersion: sql.databricks.m.crossplane.io/v1alpha1
 kind: Alert
 metadata:
   annotations:
-    meta.upbound.io/example-id: sql/v1alpha1/alert
+    meta.upbound.io/example-id: sql/v1beta1/alert
   labels:
     testing.upbound.io/example-name: alert
   name: alert
@@ -18,8 +22,12 @@ spec:
       - value:
         - doubleValue: 42
     displayName: TF new alert
-    parentPath: /my_custom_directory
-    queryId: ${databricks_query.this.id}
+    parentPathSelector:
+      matchLabels:
+        testing.upbound.io/example-name: shared_dir
+    queryIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: this
 
 ---
 
@@ -27,7 +35,7 @@ apiVersion: workspace.databricks.m.crossplane.io/v1alpha1
 kind: Directory
 metadata:
   annotations:
-    meta.upbound.io/example-id: sql/v1alpha1/alert
+    meta.upbound.io/example-id: sql/v1beta1/alert
   labels:
     testing.upbound.io/example-name: shared_dir
   name: shared-dir
@@ -42,7 +50,7 @@ apiVersion: sql.databricks.m.crossplane.io/v1alpha1
 kind: Query
 metadata:
   annotations:
-    meta.upbound.io/example-id: sql/v1alpha1/alert
+    meta.upbound.io/example-id: sql/v1beta1/alert
   labels:
     testing.upbound.io/example-name: this
   name: this
@@ -50,6 +58,10 @@ metadata:
 spec:
   forProvider:
     displayName: My Query Name
-    parentPath: /Shared/Queries
+    parentPathSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
     queryText: SELECT 42 as value
-    warehouseId: ${databricks_sql_endpoint.example.id}
+    warehouseIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example

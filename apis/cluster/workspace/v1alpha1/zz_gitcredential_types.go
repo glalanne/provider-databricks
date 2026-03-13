@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2024 The Crossplane Authors <https://crossplane.io>
+// SPDX-FileCopyrightText: 2026 The Crossplane Authors <https://crossplane.io>
 //
 // SPDX-License-Identifier: Apache-2.0
 
@@ -34,10 +34,13 @@ type GitCredentialInitParameters struct {
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// The personal access token used to authenticate to the corresponding Git provider. If value is not provided, it's sourced from the first environment variable of GITHUB_TOKEN, GITLAB_TOKEN, or AZDO_PERSONAL_ACCESS_TOKEN, that has a non-empty value.
-	PersonalAccessToken *string `json:"personalAccessToken,omitempty" tf:"personal_access_token,omitempty"`
+	PersonalAccessTokenSecretRef *v1.SecretKeySelector `json:"personalAccessTokenSecretRef,omitempty" tf:"-"`
 
 	// identifier of specific Git credential
 	PrincipalID *float64 `json:"principalId,omitempty" tf:"principal_id,omitempty"`
+
+	// Configure the provider for management through account provider. This block consists of the following fields:
+	ProviderConfig []GitCredentialProviderConfigInitParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
 }
 
 type GitCredentialObservation struct {
@@ -63,11 +66,11 @@ type GitCredentialObservation struct {
 	// the name of the git credential, used for identification and ease of lookup.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
-	// The personal access token used to authenticate to the corresponding Git provider. If value is not provided, it's sourced from the first environment variable of GITHUB_TOKEN, GITLAB_TOKEN, or AZDO_PERSONAL_ACCESS_TOKEN, that has a non-empty value.
-	PersonalAccessToken *string `json:"personalAccessToken,omitempty" tf:"personal_access_token,omitempty"`
-
 	// identifier of specific Git credential
 	PrincipalID *float64 `json:"principalId,omitempty" tf:"principal_id,omitempty"`
+
+	// Configure the provider for management through account provider. This block consists of the following fields:
+	ProviderConfig []GitCredentialProviderConfigObservation `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
 }
 
 type GitCredentialParameters struct {
@@ -98,11 +101,34 @@ type GitCredentialParameters struct {
 
 	// The personal access token used to authenticate to the corresponding Git provider. If value is not provided, it's sourced from the first environment variable of GITHUB_TOKEN, GITLAB_TOKEN, or AZDO_PERSONAL_ACCESS_TOKEN, that has a non-empty value.
 	// +kubebuilder:validation:Optional
-	PersonalAccessToken *string `json:"personalAccessToken,omitempty" tf:"personal_access_token,omitempty"`
+	PersonalAccessTokenSecretRef *v1.SecretKeySelector `json:"personalAccessTokenSecretRef,omitempty" tf:"-"`
 
 	// identifier of specific Git credential
 	// +kubebuilder:validation:Optional
 	PrincipalID *float64 `json:"principalId,omitempty" tf:"principal_id,omitempty"`
+
+	// Configure the provider for management through account provider. This block consists of the following fields:
+	// +kubebuilder:validation:Optional
+	ProviderConfig []GitCredentialProviderConfigParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
+}
+
+type GitCredentialProviderConfigInitParameters struct {
+
+	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
+}
+
+type GitCredentialProviderConfigObservation struct {
+
+	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
+}
+
+type GitCredentialProviderConfigParameters struct {
+
+	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
+	// +kubebuilder:validation:Optional
+	WorkspaceID *string `json:"workspaceId" tf:"workspace_id,omitempty"`
 }
 
 // GitCredentialSpec defines the desired state of GitCredential
@@ -130,9 +156,10 @@ type GitCredentialStatus struct {
 
 // +kubebuilder:object:root=true
 // +kubebuilder:subresource:status
-// +kubebuilder:storageversion
+// +kubebuilder:deprecatedversion:warning="This API version is deprecated. Please migrate to v1beta1."
 
 // GitCredential is the Schema for the GitCredentials API.
+// Deprecated: This API version (v1alpha1) has been deprecated.
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"

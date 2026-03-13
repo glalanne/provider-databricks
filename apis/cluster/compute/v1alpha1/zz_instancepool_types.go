@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2024 The Crossplane Authors <https://crossplane.io>
+// SPDX-FileCopyrightText: 2026 The Crossplane Authors <https://crossplane.io>
 //
 // SPDX-License-Identifier: Apache-2.0
 
@@ -290,6 +290,9 @@ type InstancePoolInitParameters struct {
 	// (Integer) The minimum number of idle instances maintained by the pool. This is in addition to any instances in use by active clusters.
 	MinIdleInstances *float64 `json:"minIdleInstances,omitempty" tf:"min_idle_instances,omitempty"`
 
+	// a block describing the alternative driver node types if node_type_id isn't available.
+	NodeTypeFlexibility []NodeTypeFlexibilityInitParameters `json:"nodeTypeFlexibility,omitempty" tf:"node_type_flexibility,omitempty"`
+
 	// (String) The node type for the instances in the pool. All clusters attached to the pool inherit this node type and the pool's idle instances are allocated based on this type. You can retrieve a list of available node types by using the List Node Types API call.
 	NodeTypeID *string `json:"nodeTypeId,omitempty" tf:"node_type_id,omitempty"`
 
@@ -297,6 +300,9 @@ type InstancePoolInitParameters struct {
 
 	// (List) A list with at most one runtime version the pool installs on each instance. Pool clusters that use a preloaded runtime version start faster as they do not have to wait for the image to download. You can retrieve them via databricks_spark_version data source or via  Runtime Versions API call.
 	PreloadedSparkVersions []*string `json:"preloadedSparkVersions,omitempty" tf:"preloaded_spark_versions,omitempty"`
+
+	// Configure the provider for management through account provider. This block consists of the following fields:
+	ProviderConfig []InstancePoolProviderConfigInitParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
 }
 
 type InstancePoolObservation struct {
@@ -335,6 +341,9 @@ type InstancePoolObservation struct {
 	// (Integer) The minimum number of idle instances maintained by the pool. This is in addition to any instances in use by active clusters.
 	MinIdleInstances *float64 `json:"minIdleInstances,omitempty" tf:"min_idle_instances,omitempty"`
 
+	// a block describing the alternative driver node types if node_type_id isn't available.
+	NodeTypeFlexibility []NodeTypeFlexibilityObservation `json:"nodeTypeFlexibility,omitempty" tf:"node_type_flexibility,omitempty"`
+
 	// (String) The node type for the instances in the pool. All clusters attached to the pool inherit this node type and the pool's idle instances are allocated based on this type. You can retrieve a list of available node types by using the List Node Types API call.
 	NodeTypeID *string `json:"nodeTypeId,omitempty" tf:"node_type_id,omitempty"`
 
@@ -342,6 +351,9 @@ type InstancePoolObservation struct {
 
 	// (List) A list with at most one runtime version the pool installs on each instance. Pool clusters that use a preloaded runtime version start faster as they do not have to wait for the image to download. You can retrieve them via databricks_spark_version data source or via  Runtime Versions API call.
 	PreloadedSparkVersions []*string `json:"preloadedSparkVersions,omitempty" tf:"preloaded_spark_versions,omitempty"`
+
+	// Configure the provider for management through account provider. This block consists of the following fields:
+	ProviderConfig []InstancePoolProviderConfigObservation `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
 }
 
 type InstancePoolParameters struct {
@@ -390,6 +402,10 @@ type InstancePoolParameters struct {
 	// +kubebuilder:validation:Optional
 	MinIdleInstances *float64 `json:"minIdleInstances,omitempty" tf:"min_idle_instances,omitempty"`
 
+	// a block describing the alternative driver node types if node_type_id isn't available.
+	// +kubebuilder:validation:Optional
+	NodeTypeFlexibility []NodeTypeFlexibilityParameters `json:"nodeTypeFlexibility,omitempty" tf:"node_type_flexibility,omitempty"`
+
 	// (String) The node type for the instances in the pool. All clusters attached to the pool inherit this node type and the pool's idle instances are allocated based on this type. You can retrieve a list of available node types by using the List Node Types API call.
 	// +kubebuilder:validation:Optional
 	NodeTypeID *string `json:"nodeTypeId,omitempty" tf:"node_type_id,omitempty"`
@@ -400,6 +416,29 @@ type InstancePoolParameters struct {
 	// (List) A list with at most one runtime version the pool installs on each instance. Pool clusters that use a preloaded runtime version start faster as they do not have to wait for the image to download. You can retrieve them via databricks_spark_version data source or via  Runtime Versions API call.
 	// +kubebuilder:validation:Optional
 	PreloadedSparkVersions []*string `json:"preloadedSparkVersions,omitempty" tf:"preloaded_spark_versions,omitempty"`
+
+	// Configure the provider for management through account provider. This block consists of the following fields:
+	// +kubebuilder:validation:Optional
+	ProviderConfig []InstancePoolProviderConfigParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
+}
+
+type InstancePoolProviderConfigInitParameters struct {
+
+	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
+}
+
+type InstancePoolProviderConfigObservation struct {
+
+	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
+}
+
+type InstancePoolProviderConfigParameters struct {
+
+	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
+	// +kubebuilder:validation:Optional
+	WorkspaceID *string `json:"workspaceId" tf:"workspace_id,omitempty"`
 }
 
 type LaunchTemplateOverrideInitParameters struct {
@@ -421,6 +460,25 @@ type LaunchTemplateOverrideParameters struct {
 
 	// +kubebuilder:validation:Optional
 	InstanceType *string `json:"instanceType" tf:"instance_type,omitempty"`
+}
+
+type NodeTypeFlexibilityInitParameters struct {
+
+	// list of alternative node types that will be used if main node type isn't available.  Follow the documentation for requirements on selection of alternative node types.
+	AlternateNodeTypeIds []*string `json:"alternateNodeTypeIds,omitempty" tf:"alternate_node_type_ids,omitempty"`
+}
+
+type NodeTypeFlexibilityObservation struct {
+
+	// list of alternative node types that will be used if main node type isn't available.  Follow the documentation for requirements on selection of alternative node types.
+	AlternateNodeTypeIds []*string `json:"alternateNodeTypeIds,omitempty" tf:"alternate_node_type_ids,omitempty"`
+}
+
+type NodeTypeFlexibilityParameters struct {
+
+	// list of alternative node types that will be used if main node type isn't available.  Follow the documentation for requirements on selection of alternative node types.
+	// +kubebuilder:validation:Optional
+	AlternateNodeTypeIds []*string `json:"alternateNodeTypeIds" tf:"alternate_node_type_ids,omitempty"`
 }
 
 type PreloadedDockerImageBasicAuthInitParameters struct {
@@ -496,9 +554,10 @@ type InstancePoolStatus struct {
 
 // +kubebuilder:object:root=true
 // +kubebuilder:subresource:status
-// +kubebuilder:storageversion
+// +kubebuilder:deprecatedversion:warning="This API version is deprecated. Please migrate to v1beta1."
 
 // InstancePool is the Schema for the InstancePools API.
+// Deprecated: This API version (v1alpha1) has been deprecated.
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"

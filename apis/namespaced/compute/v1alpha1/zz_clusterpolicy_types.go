@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2024 The Crossplane Authors <https://crossplane.io>
+// SPDX-FileCopyrightText: 2026 The Crossplane Authors <https://crossplane.io>
 //
 // SPDX-License-Identifier: Apache-2.0
 
@@ -35,6 +35,9 @@ type ClusterPolicyInitParameters struct {
 
 	// the ID of the cluster policy family used for built-in cluster policy.
 	PolicyFamilyID *string `json:"policyFamilyId,omitempty" tf:"policy_family_id,omitempty"`
+
+	// Configure the provider for management through account provider. This block consists of the following fields:
+	ProviderConfig []ClusterPolicyProviderConfigInitParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
 }
 
 type ClusterPolicyObservation struct {
@@ -64,6 +67,9 @@ type ClusterPolicyObservation struct {
 
 	// Canonical unique identifier for the cluster policy.
 	PolicyID *string `json:"policyId,omitempty" tf:"policy_id,omitempty"`
+
+	// Configure the provider for management through account provider. This block consists of the following fields:
+	ProviderConfig []ClusterPolicyProviderConfigObservation `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
 }
 
 type ClusterPolicyParameters struct {
@@ -94,6 +100,29 @@ type ClusterPolicyParameters struct {
 	// the ID of the cluster policy family used for built-in cluster policy.
 	// +kubebuilder:validation:Optional
 	PolicyFamilyID *string `json:"policyFamilyId,omitempty" tf:"policy_family_id,omitempty"`
+
+	// Configure the provider for management through account provider. This block consists of the following fields:
+	// +kubebuilder:validation:Optional
+	ProviderConfig []ClusterPolicyProviderConfigParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
+}
+
+type ClusterPolicyProviderConfigInitParameters struct {
+
+	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
+}
+
+type ClusterPolicyProviderConfigObservation struct {
+
+	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
+}
+
+type ClusterPolicyProviderConfigParameters struct {
+
+	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
+	// +kubebuilder:validation:Optional
+	WorkspaceID *string `json:"workspaceId" tf:"workspace_id,omitempty"`
 }
 
 type LibrariesCranInitParameters struct {
@@ -126,6 +155,7 @@ type LibrariesInitParameters struct {
 
 	Maven []LibrariesMavenInitParameters `json:"maven,omitempty" tf:"maven,omitempty"`
 
+	// Configure the provider for management through account provider. This block consists of the following fields:
 	ProviderConfig []LibrariesProviderConfigInitParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
 
 	Pypi []LibrariesPypiInitParameters `json:"pypi,omitempty" tf:"pypi,omitempty"`
@@ -172,6 +202,7 @@ type LibrariesObservation struct {
 
 	Maven []LibrariesMavenObservation `json:"maven,omitempty" tf:"maven,omitempty"`
 
+	// Configure the provider for management through account provider. This block consists of the following fields:
 	ProviderConfig []LibrariesProviderConfigObservation `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
 
 	Pypi []LibrariesPypiObservation `json:"pypi,omitempty" tf:"pypi,omitempty"`
@@ -195,6 +226,7 @@ type LibrariesParameters struct {
 	// +kubebuilder:validation:Optional
 	Maven []LibrariesMavenParameters `json:"maven,omitempty" tf:"maven,omitempty"`
 
+	// Configure the provider for management through account provider. This block consists of the following fields:
 	// +kubebuilder:validation:Optional
 	ProviderConfig []LibrariesProviderConfigParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
 
@@ -210,19 +242,19 @@ type LibrariesParameters struct {
 
 type LibrariesProviderConfigInitParameters struct {
 
-	// Canonical unique identifier for the cluster policy. This is equal to policy_id.
+	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
 	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
 }
 
 type LibrariesProviderConfigObservation struct {
 
-	// Canonical unique identifier for the cluster policy. This is equal to policy_id.
+	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
 	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
 }
 
 type LibrariesProviderConfigParameters struct {
 
-	// Canonical unique identifier for the cluster policy. This is equal to policy_id.
+	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
 	// +kubebuilder:validation:Optional
 	WorkspaceID *string `json:"workspaceId" tf:"workspace_id,omitempty"`
 }
@@ -273,9 +305,10 @@ type ClusterPolicyStatus struct {
 
 // +kubebuilder:object:root=true
 // +kubebuilder:subresource:status
-// +kubebuilder:storageversion
+// +kubebuilder:deprecatedversion:warning="This API version is deprecated. Please migrate to v1beta1."
 
 // ClusterPolicy is the Schema for the ClusterPolicys API.
+// Deprecated: This API version (v1alpha1) has been deprecated.
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"

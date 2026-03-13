@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2024 The Crossplane Authors <https://crossplane.io>
+// SPDX-FileCopyrightText: 2026 The Crossplane Authors <https://crossplane.io>
 //
 // SPDX-License-Identifier: Apache-2.0
 
@@ -122,6 +122,8 @@ type AppInitParameters struct {
 	// A list of resources that the app have access to.
 	Resources []ResourcesInitParameters `json:"resources,omitempty" tf:"resources,omitempty"`
 
+	Space *string `json:"space,omitempty" tf:"space,omitempty"`
+
 	// Id of the SQL warehouse to grant permission on.
 	UsagePolicyID *string `json:"usagePolicyId,omitempty" tf:"usage_policy_id,omitempty"`
 
@@ -194,6 +196,8 @@ type AppObservation struct {
 	// name of the app service principal
 	ServicePrincipalName *string `json:"servicePrincipalName,omitempty" tf:"service_principal_name,omitempty"`
 
+	Space *string `json:"space,omitempty" tf:"space,omitempty"`
+
 	// The URL of the app once it is deployed.
 	URL *string `json:"url,omitempty" tf:"url,omitempty"`
 
@@ -236,6 +240,9 @@ type AppParameters struct {
 	// A list of resources that the app have access to.
 	// +kubebuilder:validation:Optional
 	Resources []ResourcesParameters `json:"resources,omitempty" tf:"resources,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	Space *string `json:"space,omitempty" tf:"space,omitempty"`
 
 	// Id of the SQL warehouse to grant permission on.
 	// +kubebuilder:validation:Optional
@@ -732,7 +739,17 @@ type ProviderConfigParameters struct {
 	WorkspaceID *string `json:"workspaceId" tf:"workspace_id,omitempty"`
 }
 
+type ResourcesAppInitParameters struct {
+}
+
+type ResourcesAppObservation struct {
+}
+
+type ResourcesAppParameters struct {
+}
+
 type ResourcesInitParameters struct {
+	App *ResourcesAppInitParameters `json:"app,omitempty" tf:"app,omitempty"`
 
 	// attribute
 	Database *DatabaseInitParameters `json:"database,omitempty" tf:"database,omitempty"`
@@ -765,6 +782,7 @@ type ResourcesInitParameters struct {
 }
 
 type ResourcesObservation struct {
+	App *ResourcesAppParameters `json:"app,omitempty" tf:"app,omitempty"`
 
 	// attribute
 	Database *DatabaseObservation `json:"database,omitempty" tf:"database,omitempty"`
@@ -797,6 +815,9 @@ type ResourcesObservation struct {
 }
 
 type ResourcesParameters struct {
+
+	// +kubebuilder:validation:Optional
+	App *ResourcesAppParameters `json:"app,omitempty" tf:"app,omitempty"`
 
 	// attribute
 	// +kubebuilder:validation:Optional
@@ -970,6 +991,8 @@ type UcSecurableObservation struct {
 	// the full name of UC securable, i.e. my-catalog.my-schema.my-volume.
 	SecurableFullName *string `json:"securableFullName,omitempty" tf:"securable_full_name,omitempty"`
 
+	SecurableKind *string `json:"securableKind,omitempty" tf:"securable_kind,omitempty"`
+
 	// the type of UC securable, i.e. VOLUME.
 	SecurableType *string `json:"securableType,omitempty" tf:"securable_type,omitempty"`
 }
@@ -1014,9 +1037,10 @@ type AppStatus struct {
 
 // +kubebuilder:object:root=true
 // +kubebuilder:subresource:status
-// +kubebuilder:storageversion
+// +kubebuilder:deprecatedversion:warning="This API version is deprecated. Please migrate to v1beta1."
 
 // App is the Schema for the Apps API.
+// Deprecated: This API version (v1alpha1) has been deprecated.
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"

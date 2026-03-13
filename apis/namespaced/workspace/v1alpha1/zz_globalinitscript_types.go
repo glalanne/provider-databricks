@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2024 The Crossplane Authors <https://crossplane.io>
+// SPDX-FileCopyrightText: 2026 The Crossplane Authors <https://crossplane.io>
 //
 // SPDX-License-Identifier: Apache-2.0
 
@@ -30,6 +30,9 @@ type GlobalInitScriptInitParameters struct {
 	// the position of a global init script, where 0 represents the first global init script to run, 1 is the second global init script to run, and so on. When omitted, the script gets the last position.
 	Position *float64 `json:"position,omitempty" tf:"position,omitempty"`
 
+	// Configure the provider for management through account provider. This block consists of the following fields:
+	ProviderConfig []GlobalInitScriptProviderConfigInitParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
+
 	// Path to script's source code on local filesystem. Conflicts with content_base64
 	Source *string `json:"source,omitempty" tf:"source,omitempty"`
 }
@@ -52,6 +55,9 @@ type GlobalInitScriptObservation struct {
 
 	// the position of a global init script, where 0 represents the first global init script to run, 1 is the second global init script to run, and so on. When omitted, the script gets the last position.
 	Position *float64 `json:"position,omitempty" tf:"position,omitempty"`
+
+	// Configure the provider for management through account provider. This block consists of the following fields:
+	ProviderConfig []GlobalInitScriptProviderConfigObservation `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
 
 	// Path to script's source code on local filesystem. Conflicts with content_base64
 	Source *string `json:"source,omitempty" tf:"source,omitempty"`
@@ -78,9 +84,32 @@ type GlobalInitScriptParameters struct {
 	// +kubebuilder:validation:Optional
 	Position *float64 `json:"position,omitempty" tf:"position,omitempty"`
 
+	// Configure the provider for management through account provider. This block consists of the following fields:
+	// +kubebuilder:validation:Optional
+	ProviderConfig []GlobalInitScriptProviderConfigParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
+
 	// Path to script's source code on local filesystem. Conflicts with content_base64
 	// +kubebuilder:validation:Optional
 	Source *string `json:"source,omitempty" tf:"source,omitempty"`
+}
+
+type GlobalInitScriptProviderConfigInitParameters struct {
+
+	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
+}
+
+type GlobalInitScriptProviderConfigObservation struct {
+
+	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
+}
+
+type GlobalInitScriptProviderConfigParameters struct {
+
+	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
+	// +kubebuilder:validation:Optional
+	WorkspaceID *string `json:"workspaceId" tf:"workspace_id,omitempty"`
 }
 
 // GlobalInitScriptSpec defines the desired state of GlobalInitScript
@@ -108,9 +137,10 @@ type GlobalInitScriptStatus struct {
 
 // +kubebuilder:object:root=true
 // +kubebuilder:subresource:status
-// +kubebuilder:storageversion
+// +kubebuilder:deprecatedversion:warning="This API version is deprecated. Please migrate to v1beta1."
 
 // GlobalInitScript is the Schema for the GlobalInitScripts API.
+// Deprecated: This API version (v1alpha1) has been deprecated.
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"

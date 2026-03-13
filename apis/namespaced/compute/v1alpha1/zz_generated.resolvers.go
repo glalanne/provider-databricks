@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2024 The Crossplane Authors <https://crossplane.io>
+// SPDX-FileCopyrightText: 2026 The Crossplane Authors <https://crossplane.io>
 //
 // SPDX-License-Identifier: Apache-2.0
 // Code transformed by upjet. DO NOT EDIT.
@@ -26,6 +26,28 @@ func (mg *Job) ResolveReferences( // ResolveReferences of this Job.
 	var rsp reference.NamespacedResolutionResponse
 	var err error
 
+	for i3 := 0; i3 < len(mg.Spec.ForProvider.DbtTask); i3++ {
+		{
+			m, l, err = apisresolver.GetManagedResource("sql.databricks.m.crossplane.io", "v1alpha1", "SQLEndpoint", "SQLEndpointList")
+			if err != nil {
+				return errors.Wrap(err, "failed to get the reference target managed resource and its list for reference resolution")
+			}
+			rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+				CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.DbtTask[i3].WarehouseID),
+				Extract:      reference.ExternalName(),
+				Namespace:    mg.GetNamespace(),
+				Reference:    mg.Spec.ForProvider.DbtTask[i3].WarehouseIDRef,
+				Selector:     mg.Spec.ForProvider.DbtTask[i3].WarehouseIDSelector,
+				To:           reference.To{List: l, Managed: m},
+			})
+		}
+		if err != nil {
+			return errors.Wrap(err, "mg.Spec.ForProvider.DbtTask[i3].WarehouseID")
+		}
+		mg.Spec.ForProvider.DbtTask[i3].WarehouseID = reference.ToPtrValue(rsp.ResolvedValue)
+		mg.Spec.ForProvider.DbtTask[i3].WarehouseIDRef = rsp.ResolvedReference
+
+	}
 	for i3 := 0; i3 < len(mg.Spec.ForProvider.NotebookTask); i3++ {
 		{
 			m, l, err = apisresolver.GetManagedResource("workspace.databricks.m.crossplane.io", "v1alpha1", "Notebook", "NotebookList")
@@ -46,6 +68,28 @@ func (mg *Job) ResolveReferences( // ResolveReferences of this Job.
 		}
 		mg.Spec.ForProvider.NotebookTask[i3].NotebookPath = reference.ToPtrValue(rsp.ResolvedValue)
 		mg.Spec.ForProvider.NotebookTask[i3].NotebookPathRef = rsp.ResolvedReference
+
+	}
+	for i3 := 0; i3 < len(mg.Spec.ForProvider.NotebookTask); i3++ {
+		{
+			m, l, err = apisresolver.GetManagedResource("sql.databricks.m.crossplane.io", "v1alpha1", "SQLEndpoint", "SQLEndpointList")
+			if err != nil {
+				return errors.Wrap(err, "failed to get the reference target managed resource and its list for reference resolution")
+			}
+			rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+				CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.NotebookTask[i3].WarehouseID),
+				Extract:      reference.ExternalName(),
+				Namespace:    mg.GetNamespace(),
+				Reference:    mg.Spec.ForProvider.NotebookTask[i3].WarehouseIDRef,
+				Selector:     mg.Spec.ForProvider.NotebookTask[i3].WarehouseIDSelector,
+				To:           reference.To{List: l, Managed: m},
+			})
+		}
+		if err != nil {
+			return errors.Wrap(err, "mg.Spec.ForProvider.NotebookTask[i3].WarehouseID")
+		}
+		mg.Spec.ForProvider.NotebookTask[i3].WarehouseID = reference.ToPtrValue(rsp.ResolvedValue)
+		mg.Spec.ForProvider.NotebookTask[i3].WarehouseIDRef = rsp.ResolvedReference
 
 	}
 	for i3 := 0; i3 < len(mg.Spec.ForProvider.Task); i3++ {
@@ -220,6 +264,28 @@ func (mg *Job) ResolveReferences( // ResolveReferences of this Job.
 
 		}
 	}
+	for i3 := 0; i3 < len(mg.Spec.InitProvider.DbtTask); i3++ {
+		{
+			m, l, err = apisresolver.GetManagedResource("sql.databricks.m.crossplane.io", "v1alpha1", "SQLEndpoint", "SQLEndpointList")
+			if err != nil {
+				return errors.Wrap(err, "failed to get the reference target managed resource and its list for reference resolution")
+			}
+			rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+				CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.DbtTask[i3].WarehouseID),
+				Extract:      reference.ExternalName(),
+				Namespace:    mg.GetNamespace(),
+				Reference:    mg.Spec.InitProvider.DbtTask[i3].WarehouseIDRef,
+				Selector:     mg.Spec.InitProvider.DbtTask[i3].WarehouseIDSelector,
+				To:           reference.To{List: l, Managed: m},
+			})
+		}
+		if err != nil {
+			return errors.Wrap(err, "mg.Spec.InitProvider.DbtTask[i3].WarehouseID")
+		}
+		mg.Spec.InitProvider.DbtTask[i3].WarehouseID = reference.ToPtrValue(rsp.ResolvedValue)
+		mg.Spec.InitProvider.DbtTask[i3].WarehouseIDRef = rsp.ResolvedReference
+
+	}
 	for i3 := 0; i3 < len(mg.Spec.InitProvider.NotebookTask); i3++ {
 		{
 			m, l, err = apisresolver.GetManagedResource("workspace.databricks.m.crossplane.io", "v1alpha1", "Notebook", "NotebookList")
@@ -240,6 +306,28 @@ func (mg *Job) ResolveReferences( // ResolveReferences of this Job.
 		}
 		mg.Spec.InitProvider.NotebookTask[i3].NotebookPath = reference.ToPtrValue(rsp.ResolvedValue)
 		mg.Spec.InitProvider.NotebookTask[i3].NotebookPathRef = rsp.ResolvedReference
+
+	}
+	for i3 := 0; i3 < len(mg.Spec.InitProvider.NotebookTask); i3++ {
+		{
+			m, l, err = apisresolver.GetManagedResource("sql.databricks.m.crossplane.io", "v1alpha1", "SQLEndpoint", "SQLEndpointList")
+			if err != nil {
+				return errors.Wrap(err, "failed to get the reference target managed resource and its list for reference resolution")
+			}
+			rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+				CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.NotebookTask[i3].WarehouseID),
+				Extract:      reference.ExternalName(),
+				Namespace:    mg.GetNamespace(),
+				Reference:    mg.Spec.InitProvider.NotebookTask[i3].WarehouseIDRef,
+				Selector:     mg.Spec.InitProvider.NotebookTask[i3].WarehouseIDSelector,
+				To:           reference.To{List: l, Managed: m},
+			})
+		}
+		if err != nil {
+			return errors.Wrap(err, "mg.Spec.InitProvider.NotebookTask[i3].WarehouseID")
+		}
+		mg.Spec.InitProvider.NotebookTask[i3].WarehouseID = reference.ToPtrValue(rsp.ResolvedValue)
+		mg.Spec.InitProvider.NotebookTask[i3].WarehouseIDRef = rsp.ResolvedReference
 
 	}
 	for i3 := 0; i3 < len(mg.Spec.InitProvider.Task); i3++ {

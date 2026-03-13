@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2024 The Crossplane Authors <https://crossplane.io>
+// SPDX-FileCopyrightText: 2026 The Crossplane Authors <https://crossplane.io>
 //
 // SPDX-License-Identifier: Apache-2.0
 
@@ -105,6 +105,8 @@ type SQLAlertInitParameters struct {
 	// The identifier of the workspace folder containing the alert. The default is ther user's home folder. The folder identifier is formatted as folder/<folder_id>.
 	Parent *string `json:"parent,omitempty" tf:"parent,omitempty"`
 
+	ProviderConfig []SQLAlertProviderConfigInitParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
+
 	// ID of the query evaluated by the alert.
 	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/namespaced/sql/v1alpha1.SQLQuery
 	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/v2/pkg/resource.ExtractResourceID()
@@ -139,6 +141,8 @@ type SQLAlertObservation struct {
 	// The identifier of the workspace folder containing the alert. The default is ther user's home folder. The folder identifier is formatted as folder/<folder_id>.
 	Parent *string `json:"parent,omitempty" tf:"parent,omitempty"`
 
+	ProviderConfig []SQLAlertProviderConfigObservation `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
+
 	// ID of the query evaluated by the alert.
 	QueryID *string `json:"queryId,omitempty" tf:"query_id,omitempty"`
 
@@ -165,6 +169,9 @@ type SQLAlertParameters struct {
 	// +kubebuilder:validation:Optional
 	Parent *string `json:"parent,omitempty" tf:"parent,omitempty"`
 
+	// +kubebuilder:validation:Optional
+	ProviderConfig []SQLAlertProviderConfigParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
+
 	// ID of the query evaluated by the alert.
 	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/namespaced/sql/v1alpha1.SQLQuery
 	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/v2/pkg/resource.ExtractResourceID()
@@ -185,6 +192,25 @@ type SQLAlertParameters struct {
 
 	// +kubebuilder:validation:Optional
 	UpdatedAt *string `json:"updatedAt,omitempty" tf:"updated_at,omitempty"`
+}
+
+type SQLAlertProviderConfigInitParameters struct {
+
+	// unique ID of the SQL Alert.
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
+}
+
+type SQLAlertProviderConfigObservation struct {
+
+	// unique ID of the SQL Alert.
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
+}
+
+type SQLAlertProviderConfigParameters struct {
+
+	// unique ID of the SQL Alert.
+	// +kubebuilder:validation:Optional
+	WorkspaceID *string `json:"workspaceId" tf:"workspace_id,omitempty"`
 }
 
 // SQLAlertSpec defines the desired state of SQLAlert
@@ -212,9 +238,10 @@ type SQLAlertStatus struct {
 
 // +kubebuilder:object:root=true
 // +kubebuilder:subresource:status
-// +kubebuilder:storageversion
+// +kubebuilder:deprecatedversion:warning="This API version is deprecated. Please migrate to v1beta1."
 
 // SQLAlert is the Schema for the SQLAlerts API.
+// Deprecated: This API version (v1alpha1) has been deprecated.
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"

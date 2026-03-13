@@ -24,7 +24,7 @@ Most of the testing have been done on [Azure Databricks](https://azure.microsoft
 Install the provider by using the following command after changing the image tag
 to the [latest release](https://marketplace.upbound.io/providers/glalanne/provider-databricks):
 ```
-up ctp provider install glalanne/provider-databricks:v0.3.0
+up ctp provider install glalanne/provider-databricks:v2.3.0
 ```
 
 Alternatively, you can use declarative installation:
@@ -35,7 +35,7 @@ kind: Provider
 metadata:
   name: provider-databricks
 spec:
-  package: glalanne/provider-databricks:v0.2.0
+  package: glalanne/provider-databricks:v2.3.0
 EOF
 ```
 

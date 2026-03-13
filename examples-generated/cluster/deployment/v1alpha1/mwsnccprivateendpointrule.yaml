@@ -1,8 +1,12 @@
+# SPDX-FileCopyrightText: 2026 The Crossplane Authors <https://crossplane.io>
+#
+# SPDX-License-Identifier: CC0-1.0
+
 apiVersion: deployment.databricks.crossplane.io/v1alpha1
 kind: MwsNccPrivateEndpointRule
 metadata:
   annotations:
-    meta.upbound.io/example-id: deployment/v1alpha1/mwsnccprivateendpointrule
+    meta.upbound.io/example-id: deployment/v1beta1/mwsnccprivateendpointrule
   labels:
     testing.upbound.io/example-name: storage
   name: storage
@@ -21,7 +25,7 @@ apiVersion: deployment.databricks.crossplane.io/v1alpha1
 kind: MwsNetworkConnectivityConfig
 metadata:
   annotations:
-    meta.upbound.io/example-id: deployment/v1alpha1/mwsnccprivateendpointrule
+    meta.upbound.io/example-id: deployment/v1beta1/mwsnccprivateendpointrule
   labels:
     testing.upbound.io/example-name: ncc
   name: ncc

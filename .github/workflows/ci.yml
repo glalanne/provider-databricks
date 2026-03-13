@@ -13,8 +13,8 @@ on:
 
 env:
   # Common versions
-  GO_VERSION: "1.24"
-  GOLANGCI_VERSION: "v2.1.2"
+  GO_VERSION: "1.25.7"
+  GOLANGCI_VERSION: "v2.10.1"
   DOCKER_BUILDX_VERSION: "v0.23.0"
 
   CROSSPLANE_REGORG: "ghcr.io/glalanne" # xpkg.crossplane.io/crossplane-contrib
@@ -252,10 +252,11 @@ jobs:
     runs-on: ubuntu-24.04
     permissions:
       contents: write
-      packages: write
-      attestations: write
-      id-token: write
+      actions: write
+      checks: write
       issues: write
+      packages: write
+      pull-requests: write
     needs:
       - detect-noop
       - report-breaking-changes
@@ -291,7 +292,7 @@ jobs:
           persist-credentials: false
 
       - name: Semantic Release
-        uses: cycjimmy/semantic-release-action@v5
+        uses: cycjimmy/semantic-release-action@v6
         id: semantic
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -348,10 +349,11 @@ jobs:
     runs-on: ubuntu-24.04
     permissions:
       contents: write
-      packages: write
-      attestations: write
-      id-token: write
+      actions: write
+      checks: write
       issues: write
+      packages: write
+      pull-requests: write
     needs:
       - detect-noop
       - report-breaking-changes
@@ -386,10 +388,8 @@ jobs:
           persist-credentials: false
 
       - name: Semantic Release
-        uses: cycjimmy/semantic-release-action@v5
+        uses: cycjimmy/semantic-release-action@v6
         id: semantic
-        with:
-          dry_run: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 

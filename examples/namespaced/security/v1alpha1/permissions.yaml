@@ -1,8 +1,12 @@
+# SPDX-FileCopyrightText: 2026 The Crossplane Authors <https://crossplane.io>
+#
+# SPDX-License-Identifier: CC0-1.0
+
 apiVersion: security.databricks.m.crossplane.io/v1alpha1
 kind: Permissions
 metadata:
   annotations:
-    meta.upbound.io/example-id: security/v1alpha1/permissions
+    meta.upbound.io/example-id: security/v1beta1/permissions
   labels:
     testing.upbound.io/example-name: cluster_usage
   name: cluster-usage
@@ -10,11 +14,17 @@ metadata:
 spec:
   forProvider:
     accessControl:
-    - groupName: ${databricks_group.auto.display_name}
+    - groupNameSelector:
+        matchLabels:
+          testing.upbound.io/example-name: auto
       permissionLevel: CAN_ATTACH_TO
-    - groupName: ${databricks_group.eng.display_name}
+    - groupNameSelector:
+        matchLabels:
+          testing.upbound.io/example-name: eng
       permissionLevel: CAN_RESTART
-    - groupName: ${databricks_group.ds.display_name}
+    - groupNameSelector:
+        matchLabels:
+          testing.upbound.io/example-name: ds
       permissionLevel: CAN_MANAGE
     clusterIdSelector:
       matchLabels:
@@ -26,7 +36,7 @@ apiVersion: compute.databricks.m.crossplane.io/v1alpha1
 kind: Cluster
 metadata:
   annotations:
-    meta.upbound.io/example-id: security/v1alpha1/permissions
+    meta.upbound.io/example-id: security/v1beta1/permissions
   labels:
     testing.upbound.io/example-name: shared_autoscaling
   name: shared-autoscaling
@@ -47,7 +57,7 @@ apiVersion: security.databricks.m.crossplane.io/v1alpha1
 kind: Group
 metadata:
   annotations:
-    meta.upbound.io/example-id: security/v1alpha1/permissions
+    meta.upbound.io/example-id: security/v1beta1/permissions
   labels:
     testing.upbound.io/example-name: auto
   name: auto
@@ -62,7 +72,7 @@ apiVersion: security.databricks.m.crossplane.io/v1alpha1
 kind: Group
 metadata:
   annotations:
-    meta.upbound.io/example-id: security/v1alpha1/permissions
+    meta.upbound.io/example-id: security/v1beta1/permissions
   labels:
     testing.upbound.io/example-name: ds
   name: ds
@@ -77,7 +87,7 @@ apiVersion: security.databricks.m.crossplane.io/v1alpha1
 kind: Group
 metadata:
   annotations:
-    meta.upbound.io/example-id: security/v1alpha1/permissions
+    meta.upbound.io/example-id: security/v1beta1/permissions
   labels:
     testing.upbound.io/example-name: eng
   name: eng

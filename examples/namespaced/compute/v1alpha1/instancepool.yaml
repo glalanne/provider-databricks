@@ -1,8 +1,12 @@
+# SPDX-FileCopyrightText: 2026 The Crossplane Authors <https://crossplane.io>
+#
+# SPDX-License-Identifier: CC0-1.0
+
 apiVersion: compute.databricks.m.crossplane.io/v1alpha1
 kind: InstancePool
 metadata:
   annotations:
-    meta.upbound.io/example-id: compute/v1alpha1/instancepool
+    meta.upbound.io/example-id: compute/v1beta1/instancepool
   labels:
     testing.upbound.io/example-name: smallest_nodes
   name: smallest-nodes

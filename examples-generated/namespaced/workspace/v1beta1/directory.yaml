@@ -1,0 +1,16 @@
+# SPDX-FileCopyrightText: 2026 The Crossplane Authors <https://crossplane.io>
+#
+# SPDX-License-Identifier: CC0-1.0
+
+apiVersion: workspace.databricks.m.crossplane.io/v1beta1
+kind: Directory
+metadata:
+  annotations:
+    meta.upbound.io/example-id: workspace/v1beta1/directory
+  labels:
+    testing.upbound.io/example-name: my_custom_directory
+  name: my-custom-directory
+  namespace: upbound-system
+spec:
+  forProvider:
+    path: /my_custom_directory

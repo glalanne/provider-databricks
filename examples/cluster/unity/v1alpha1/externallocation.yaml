@@ -1,15 +1,21 @@
+# SPDX-FileCopyrightText: 2026 The Crossplane Authors <https://crossplane.io>
+#
+# SPDX-License-Identifier: CC0-1.0
+
 apiVersion: unity.databricks.crossplane.io/v1alpha1
 kind: ExternalLocation
 metadata:
   annotations:
-    meta.upbound.io/example-id: unity/v1alpha1/externallocation
+    meta.upbound.io/example-id: unity/v1beta1/externallocation
   labels:
     testing.upbound.io/example-name: some
   name: some
 spec:
   forProvider:
     comment: Managed by TF
-    credentialName: ${databricks_storage_credential.external.id}
+    credentialNameSelector:
+      matchLabels:
+        testing.upbound.io/example-name: external
     name: external
     url: s3://${aws_s3_bucket.external.id}/some
 
@@ -19,15 +25,19 @@ apiVersion: unity.databricks.crossplane.io/v1alpha1
 kind: GrantMap
 metadata:
   annotations:
-    meta.upbound.io/example-id: unity/v1alpha1/externallocation
+    meta.upbound.io/example-id: unity/v1beta1/externallocation
   labels:
     testing.upbound.io/example-name: some
   name: some
 spec:
   forProvider:
-    externalLocation: ${databricks_external_location.some.id}
+    externalLocationSelector:
+      matchLabels:
+        testing.upbound.io/example-name: some
     grant:
-    - principal: Data Engineers
+    - principalSelector:
+        matchLabels:
+          testing.upbound.io/example-name: example
       privileges:
       - CREATE_EXTERNAL_TABLE
       - READ_FILES
@@ -38,7 +48,7 @@ apiVersion: unity.databricks.crossplane.io/v1alpha1
 kind: StorageCredential
 metadata:
   annotations:
-    meta.upbound.io/example-id: unity/v1alpha1/externallocation
+    meta.upbound.io/example-id: unity/v1beta1/externallocation
   labels:
     testing.upbound.io/example-name: external
   name: external

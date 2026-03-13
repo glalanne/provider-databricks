@@ -5,9 +5,8 @@
 package namespaced
 
 import (
-	"github.com/glalanne/provider-databricks/config/cluster/account_federation_policy"
-	"github.com/glalanne/provider-databricks/config/cluster/service_principal_federation_policy"
 	"github.com/glalanne/provider-databricks/config/namespaced/access_control_rule_set"
+	"github.com/glalanne/provider-databricks/config/namespaced/account_federation_policy"
 	"github.com/glalanne/provider-databricks/config/namespaced/alert"
 	"github.com/glalanne/provider-databricks/config/namespaced/app"
 	"github.com/glalanne/provider-databricks/config/namespaced/artifact_allowlist"
@@ -21,6 +20,7 @@ import (
 	"github.com/glalanne/provider-databricks/config/namespaced/credential"
 	"github.com/glalanne/provider-databricks/config/namespaced/custom_app_integration"
 	"github.com/glalanne/provider-databricks/config/namespaced/dashboard"
+	"github.com/glalanne/provider-databricks/config/namespaced/database_instance"
 	"github.com/glalanne/provider-databricks/config/namespaced/dbfs_file"
 	"github.com/glalanne/provider-databricks/config/namespaced/default_namespace_setting"
 	"github.com/glalanne/provider-databricks/config/namespaced/directory"
@@ -69,6 +69,7 @@ import (
 	"github.com/glalanne/provider-databricks/config/namespaced/permission_assignment"
 	"github.com/glalanne/provider-databricks/config/namespaced/permissions"
 	"github.com/glalanne/provider-databricks/config/namespaced/pipeline"
+	"github.com/glalanne/provider-databricks/config/namespaced/policy_info"
 	"github.com/glalanne/provider-databricks/config/namespaced/provider"
 	"github.com/glalanne/provider-databricks/config/namespaced/quality_monitor"
 	"github.com/glalanne/provider-databricks/config/namespaced/query"
@@ -81,6 +82,7 @@ import (
 	"github.com/glalanne/provider-databricks/config/namespaced/secret_acl"
 	"github.com/glalanne/provider-databricks/config/namespaced/secret_scope"
 	"github.com/glalanne/provider-databricks/config/namespaced/service_principal"
+	"github.com/glalanne/provider-databricks/config/namespaced/service_principal_federation_policy"
 	"github.com/glalanne/provider-databricks/config/namespaced/service_principal_role"
 	"github.com/glalanne/provider-databricks/config/namespaced/service_principal_secret"
 	"github.com/glalanne/provider-databricks/config/namespaced/share"
@@ -208,4 +210,6 @@ func init() {
 	ProviderConfiguration.AddConfig(workspace_file.Configure)
 	ProviderConfiguration.AddConfig(account_federation_policy.Configure)
 	ProviderConfiguration.AddConfig(service_principal_federation_policy.Configure)
+	ProviderConfiguration.AddConfig(policy_info.Configure)
+	ProviderConfiguration.AddConfig(database_instance.Configure)
 }

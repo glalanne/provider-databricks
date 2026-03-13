@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2024 The Crossplane Authors <https://crossplane.io>
+// SPDX-FileCopyrightText: 2026 The Crossplane Authors <https://crossplane.io>
 //
 // SPDX-License-Identifier: Apache-2.0
 
@@ -36,6 +36,9 @@ type RestrictWorkspaceAdminsParameters struct {
 type RestrictWorkspaceAdminsSettingInitParameters struct {
 	Etag *string `json:"etag,omitempty" tf:"etag,omitempty"`
 
+	// Configure the provider for management through account provider. This block consists of the following fields:
+	ProviderConfig []RestrictWorkspaceAdminsSettingProviderConfigInitParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
+
 	// The configuration details.
 	RestrictWorkspaceAdmins []RestrictWorkspaceAdminsInitParameters `json:"restrictWorkspaceAdmins,omitempty" tf:"restrict_workspace_admins,omitempty"`
 
@@ -46,6 +49,9 @@ type RestrictWorkspaceAdminsSettingObservation struct {
 	Etag *string `json:"etag,omitempty" tf:"etag,omitempty"`
 
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
+	// Configure the provider for management through account provider. This block consists of the following fields:
+	ProviderConfig []RestrictWorkspaceAdminsSettingProviderConfigObservation `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
 
 	// The configuration details.
 	RestrictWorkspaceAdmins []RestrictWorkspaceAdminsObservation `json:"restrictWorkspaceAdmins,omitempty" tf:"restrict_workspace_admins,omitempty"`
@@ -58,12 +64,35 @@ type RestrictWorkspaceAdminsSettingParameters struct {
 	// +kubebuilder:validation:Optional
 	Etag *string `json:"etag,omitempty" tf:"etag,omitempty"`
 
+	// Configure the provider for management through account provider. This block consists of the following fields:
+	// +kubebuilder:validation:Optional
+	ProviderConfig []RestrictWorkspaceAdminsSettingProviderConfigParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
+
 	// The configuration details.
 	// +kubebuilder:validation:Optional
 	RestrictWorkspaceAdmins []RestrictWorkspaceAdminsParameters `json:"restrictWorkspaceAdmins,omitempty" tf:"restrict_workspace_admins,omitempty"`
 
 	// +kubebuilder:validation:Optional
 	SettingName *string `json:"settingName,omitempty" tf:"setting_name,omitempty"`
+}
+
+type RestrictWorkspaceAdminsSettingProviderConfigInitParameters struct {
+
+	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
+}
+
+type RestrictWorkspaceAdminsSettingProviderConfigObservation struct {
+
+	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
+}
+
+type RestrictWorkspaceAdminsSettingProviderConfigParameters struct {
+
+	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
+	// +kubebuilder:validation:Optional
+	WorkspaceID *string `json:"workspaceId" tf:"workspace_id,omitempty"`
 }
 
 // RestrictWorkspaceAdminsSettingSpec defines the desired state of RestrictWorkspaceAdminsSetting
@@ -91,9 +120,10 @@ type RestrictWorkspaceAdminsSettingStatus struct {
 
 // +kubebuilder:object:root=true
 // +kubebuilder:subresource:status
-// +kubebuilder:storageversion
+// +kubebuilder:deprecatedversion:warning="This API version is deprecated. Please migrate to v1beta1."
 
 // RestrictWorkspaceAdminsSetting is the Schema for the RestrictWorkspaceAdminsSettings API.
+// Deprecated: This API version (v1alpha1) has been deprecated.
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"

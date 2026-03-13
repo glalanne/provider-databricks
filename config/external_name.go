@@ -75,6 +75,7 @@ var TerraformPluginSDKExternalNameConfigs = map[string]config.ExternalName{
 	"databricks_metastore_assignment":                           config.IdentifierFromProvider,
 	"databricks_metastore_data_access":                          config.IdentifierFromProvider,
 	"databricks_mount":                                          config.IdentifierFromProvider,
+	"databricks_mlflow_webhook":                                 config.IdentifierFromProvider,
 	"databricks_mws_credentials":                                config.IdentifierFromProvider,
 	"databricks_mws_customer_managed_keys":                      config.IdentifierFromProvider,
 	"databricks_mws_log_delivery":                               config.IdentifierFromProvider,
@@ -115,6 +116,8 @@ var TerraformPluginFrameworkExternalNameConfigs = map[string]config.ExternalName
 	"databricks_share": config.IdentifierFromProvider,
 	"databricks_service_principal_federation_policy": config.IdentifierFromProvider,
 	"databricks_account_federation_policy":           config.IdentifierFromProvider,
+	"databricks_database_instance":                   config.IdentifierFromProvider,
+	"databricks_policy_info":                         config.IdentifierFromProvider,
 }
 
 var CLIReconciledExternalNameConfigs = map[string]config.ExternalName{}
@@ -162,7 +165,7 @@ func ResourceConfigurator() config.ResourceOption {
 		if !configured {
 			return
 		}
-		// r.Version = "v1alpha1"
+
 		r.ExternalName = e
 	}
 }

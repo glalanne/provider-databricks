@@ -1,8 +1,12 @@
+# SPDX-FileCopyrightText: 2026 The Crossplane Authors <https://crossplane.io>
+#
+# SPDX-License-Identifier: CC0-1.0
+
 apiVersion: mosaic.databricks.m.crossplane.io/v1alpha1
 kind: VectorSearchIndex
 metadata:
   annotations:
-    meta.upbound.io/example-id: mosaic/v1alpha1/vectorsearchindex
+    meta.upbound.io/example-id: mosaic/v1beta1/vectorsearchindex
   labels:
     testing.upbound.io/example-name: sync
   name: sync

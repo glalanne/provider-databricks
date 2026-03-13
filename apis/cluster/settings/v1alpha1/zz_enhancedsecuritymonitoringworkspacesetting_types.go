@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2024 The Crossplane Authors <https://crossplane.io>
+// SPDX-FileCopyrightText: 2026 The Crossplane Authors <https://crossplane.io>
 //
 // SPDX-License-Identifier: Apache-2.0
 
@@ -32,6 +32,8 @@ type EnhancedSecurityMonitoringWorkspaceSettingInitParameters struct {
 
 	Etag *string `json:"etag,omitempty" tf:"etag,omitempty"`
 
+	ProviderConfig []EnhancedSecurityMonitoringWorkspaceSettingProviderConfigInitParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
+
 	SettingName *string `json:"settingName,omitempty" tf:"setting_name,omitempty"`
 }
 
@@ -41,6 +43,8 @@ type EnhancedSecurityMonitoringWorkspaceSettingObservation struct {
 	Etag *string `json:"etag,omitempty" tf:"etag,omitempty"`
 
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
+	ProviderConfig []EnhancedSecurityMonitoringWorkspaceSettingProviderConfigObservation `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
 
 	SettingName *string `json:"settingName,omitempty" tf:"setting_name,omitempty"`
 }
@@ -54,7 +58,24 @@ type EnhancedSecurityMonitoringWorkspaceSettingParameters struct {
 	Etag *string `json:"etag,omitempty" tf:"etag,omitempty"`
 
 	// +kubebuilder:validation:Optional
+	ProviderConfig []EnhancedSecurityMonitoringWorkspaceSettingProviderConfigParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
+
+	// +kubebuilder:validation:Optional
 	SettingName *string `json:"settingName,omitempty" tf:"setting_name,omitempty"`
+}
+
+type EnhancedSecurityMonitoringWorkspaceSettingProviderConfigInitParameters struct {
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
+}
+
+type EnhancedSecurityMonitoringWorkspaceSettingProviderConfigObservation struct {
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
+}
+
+type EnhancedSecurityMonitoringWorkspaceSettingProviderConfigParameters struct {
+
+	// +kubebuilder:validation:Optional
+	WorkspaceID *string `json:"workspaceId" tf:"workspace_id,omitempty"`
 }
 
 // EnhancedSecurityMonitoringWorkspaceSettingSpec defines the desired state of EnhancedSecurityMonitoringWorkspaceSetting
@@ -82,9 +103,10 @@ type EnhancedSecurityMonitoringWorkspaceSettingStatus struct {
 
 // +kubebuilder:object:root=true
 // +kubebuilder:subresource:status
-// +kubebuilder:storageversion
+// +kubebuilder:deprecatedversion:warning="This API version is deprecated. Please migrate to v1beta1."
 
 // EnhancedSecurityMonitoringWorkspaceSetting is the Schema for the EnhancedSecurityMonitoringWorkspaceSettings API. <no value>
+// Deprecated: This API version (v1alpha1) has been deprecated.
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"

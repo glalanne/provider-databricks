@@ -1,8 +1,12 @@
+# SPDX-FileCopyrightText: 2026 The Crossplane Authors <https://crossplane.io>
+#
+# SPDX-License-Identifier: CC0-1.0
+
 apiVersion: unity.databricks.crossplane.io/v1alpha1
 kind: QualityMonitor
 metadata:
   annotations:
-    meta.upbound.io/example-id: unity/v1alpha1/qualitymonitor
+    meta.upbound.io/example-id: unity/v1beta1/qualitymonitor
   labels:
     testing.upbound.io/example-name: testTimeseriesMonitor
   name: testtimeseriesmonitor
@@ -22,7 +26,7 @@ apiVersion: unity.databricks.crossplane.io/v1alpha1
 kind: Catalog
 metadata:
   annotations:
-    meta.upbound.io/example-id: unity/v1alpha1/qualitymonitor
+    meta.upbound.io/example-id: unity/v1beta1/qualitymonitor
   labels:
     testing.upbound.io/example-name: sandbox
   name: sandbox
@@ -39,13 +43,15 @@ apiVersion: unity.databricks.crossplane.io/v1alpha1
 kind: Schema
 metadata:
   annotations:
-    meta.upbound.io/example-id: unity/v1alpha1/qualitymonitor
+    meta.upbound.io/example-id: unity/v1beta1/qualitymonitor
   labels:
     testing.upbound.io/example-name: things
   name: things
 spec:
   forProvider:
-    catalogName: ${databricks_catalog.sandbox.id}
+    catalogNameSelector:
+      matchLabels:
+        testing.upbound.io/example-name: sandbox
     comment: this database is managed by terraform
     name: things
     properties:
@@ -57,17 +63,21 @@ apiVersion: unity.databricks.crossplane.io/v1alpha1
 kind: SQLTable
 metadata:
   annotations:
-    meta.upbound.io/example-id: unity/v1alpha1/qualitymonitor
+    meta.upbound.io/example-id: unity/v1beta1/qualitymonitor
   labels:
     testing.upbound.io/example-name: myTestTable
   name: mytesttable
 spec:
   forProvider:
-    catalogName: main
+    catalogNameSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
     column:
     - name: timestamp
       type: int
     dataSourceFormat: DELTA
     name: bar
-    schemaName: things
+    schemaNameSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
     tableType: MANAGED

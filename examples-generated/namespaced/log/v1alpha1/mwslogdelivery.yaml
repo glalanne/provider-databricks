@@ -1,8 +1,12 @@
+# SPDX-FileCopyrightText: 2026 The Crossplane Authors <https://crossplane.io>
+#
+# SPDX-License-Identifier: CC0-1.0
+
 apiVersion: log.databricks.m.crossplane.io/v1alpha1
 kind: MwsLogDelivery
 metadata:
   annotations:
-    meta.upbound.io/example-id: log/v1alpha1/mwslogdelivery
+    meta.upbound.io/example-id: log/v1beta1/mwslogdelivery
   labels:
     testing.upbound.io/example-name: usage_logs
   name: usage-logs
@@ -27,7 +31,7 @@ apiVersion: deployment.databricks.m.crossplane.io/v1alpha1
 kind: MwsCredentials
 metadata:
   annotations:
-    meta.upbound.io/example-id: log/v1alpha1/mwslogdelivery
+    meta.upbound.io/example-id: log/v1beta1/mwslogdelivery
   labels:
     testing.upbound.io/example-name: log_writer
   name: log-writer
@@ -44,7 +48,7 @@ apiVersion: deployment.databricks.m.crossplane.io/v1alpha1
 kind: MwsStorageConfigurations
 metadata:
   annotations:
-    meta.upbound.io/example-id: log/v1alpha1/mwslogdelivery
+    meta.upbound.io/example-id: log/v1beta1/mwslogdelivery
   labels:
     testing.upbound.io/example-name: log_bucket
   name: log-bucket

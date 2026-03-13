@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2024 The Crossplane Authors <https://crossplane.io>
+// SPDX-FileCopyrightText: 2026 The Crossplane Authors <https://crossplane.io>
 //
 // SPDX-License-Identifier: Apache-2.0
 
@@ -44,6 +44,9 @@ func (tr *MetastoreDataAccess) Hub() {}
 
 // Hub marks this type as a conversion hub.
 func (tr *OnlineTable) Hub() {}
+
+// Hub marks this type as a conversion hub.
+func (tr *PolicyInfo) Hub() {}
 
 // Hub marks this type as a conversion hub.
 func (tr *QualityMonitor) Hub() {}

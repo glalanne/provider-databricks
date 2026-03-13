@@ -1,0 +1,28 @@
+{
+  "name": "provider-databricks",
+  "build": {
+    "dockerfile": "Dockerfile"
+  },
+  "features": {
+    // "ghcr.io/devcontainers/features/docker-in-docker:2": {
+    //   "version": "latest"
+    // }
+  },
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "go.toolsManagement.autoUpdate": true,
+        "editor.formatOnSave": true
+      },
+      "extensions": [
+        "golang.Go",
+        "github.copilot",
+        "ms-kubernetes-tools.vscode-kubernetes-tools",
+        "ms-vscode.makefile-tools"
+      ]
+    }
+  },
+  "postCreateCommand": "go mod download",
+  "postStartCommand": "make help",
+  "remoteUser": "vscode"
+}

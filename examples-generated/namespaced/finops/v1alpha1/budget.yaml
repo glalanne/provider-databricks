@@ -1,8 +1,12 @@
+# SPDX-FileCopyrightText: 2026 The Crossplane Authors <https://crossplane.io>
+#
+# SPDX-License-Identifier: CC0-1.0
+
 apiVersion: finops.databricks.m.crossplane.io/v1alpha1
 kind: Budget
 metadata:
   annotations:
-    meta.upbound.io/example-id: finops/v1alpha1/budget
+    meta.upbound.io/example-id: finops/v1beta1/budget
   labels:
     testing.upbound.io/example-name: this
   name: this

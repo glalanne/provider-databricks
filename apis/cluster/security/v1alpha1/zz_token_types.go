@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2024 The Crossplane Authors <https://crossplane.io>
+// SPDX-FileCopyrightText: 2026 The Crossplane Authors <https://crossplane.io>
 //
 // SPDX-License-Identifier: Apache-2.0
 
@@ -15,7 +15,7 @@ import (
 
 type TokenInitParameters struct {
 
-	// (String) Comment that will appear on the user’s settings page for this token.
+	// (String) Comment that will appear on the user's settings page for this token.
 	Comment *string `json:"comment,omitempty" tf:"comment,omitempty"`
 
 	CreationTime *float64 `json:"creationTime,omitempty" tf:"creation_time,omitempty"`
@@ -25,13 +25,16 @@ type TokenInitParameters struct {
 	// (Integer) The lifetime of the token, in seconds. If no lifetime is specified, then expire time will be set to maximum allowed by the workspace configuration or platform.
 	LifetimeSeconds *float64 `json:"lifetimeSeconds,omitempty" tf:"lifetime_seconds,omitempty"`
 
+	// Configure the provider for management through account provider. This block consists of the following fields:
+	ProviderConfig []TokenProviderConfigInitParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
+
 	// Canonical unique identifier for the token.
 	TokenID *string `json:"tokenId,omitempty" tf:"token_id,omitempty"`
 }
 
 type TokenObservation struct {
 
-	// (String) Comment that will appear on the user’s settings page for this token.
+	// (String) Comment that will appear on the user's settings page for this token.
 	Comment *string `json:"comment,omitempty" tf:"comment,omitempty"`
 
 	CreationTime *float64 `json:"creationTime,omitempty" tf:"creation_time,omitempty"`
@@ -44,13 +47,16 @@ type TokenObservation struct {
 	// (Integer) The lifetime of the token, in seconds. If no lifetime is specified, then expire time will be set to maximum allowed by the workspace configuration or platform.
 	LifetimeSeconds *float64 `json:"lifetimeSeconds,omitempty" tf:"lifetime_seconds,omitempty"`
 
+	// Configure the provider for management through account provider. This block consists of the following fields:
+	ProviderConfig []TokenProviderConfigObservation `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
+
 	// Canonical unique identifier for the token.
 	TokenID *string `json:"tokenId,omitempty" tf:"token_id,omitempty"`
 }
 
 type TokenParameters struct {
 
-	// (String) Comment that will appear on the user’s settings page for this token.
+	// (String) Comment that will appear on the user's settings page for this token.
 	// +kubebuilder:validation:Optional
 	Comment *string `json:"comment,omitempty" tf:"comment,omitempty"`
 
@@ -64,9 +70,32 @@ type TokenParameters struct {
 	// +kubebuilder:validation:Optional
 	LifetimeSeconds *float64 `json:"lifetimeSeconds,omitempty" tf:"lifetime_seconds,omitempty"`
 
+	// Configure the provider for management through account provider. This block consists of the following fields:
+	// +kubebuilder:validation:Optional
+	ProviderConfig []TokenProviderConfigParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
+
 	// Canonical unique identifier for the token.
 	// +kubebuilder:validation:Optional
 	TokenID *string `json:"tokenId,omitempty" tf:"token_id,omitempty"`
+}
+
+type TokenProviderConfigInitParameters struct {
+
+	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
+}
+
+type TokenProviderConfigObservation struct {
+
+	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
+}
+
+type TokenProviderConfigParameters struct {
+
+	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
+	// +kubebuilder:validation:Optional
+	WorkspaceID *string `json:"workspaceId" tf:"workspace_id,omitempty"`
 }
 
 // TokenSpec defines the desired state of Token
@@ -94,9 +123,10 @@ type TokenStatus struct {
 
 // +kubebuilder:object:root=true
 // +kubebuilder:subresource:status
-// +kubebuilder:storageversion
+// +kubebuilder:deprecatedversion:warning="This API version is deprecated. Please migrate to v1beta1."
 
 // Token is the Schema for the Tokens API.
+// Deprecated: This API version (v1alpha1) has been deprecated.
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"

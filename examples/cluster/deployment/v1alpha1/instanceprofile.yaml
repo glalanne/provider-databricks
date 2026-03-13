@@ -1,8 +1,12 @@
+# SPDX-FileCopyrightText: 2026 The Crossplane Authors <https://crossplane.io>
+#
+# SPDX-License-Identifier: CC0-1.0
+
 apiVersion: deployment.databricks.crossplane.io/v1alpha1
 kind: InstanceProfile
 metadata:
   annotations:
-    meta.upbound.io/example-id: deployment/v1alpha1/instanceprofile
+    meta.upbound.io/example-id: deployment/v1beta1/instanceprofile
   labels:
     testing.upbound.io/example-name: shared
   name: shared
@@ -16,7 +20,7 @@ apiVersion: compute.databricks.crossplane.io/v1alpha1
 kind: Cluster
 metadata:
   annotations:
-    meta.upbound.io/example-id: deployment/v1alpha1/instanceprofile
+    meta.upbound.io/example-id: deployment/v1beta1/instanceprofile
   labels:
     testing.upbound.io/example-name: this
   name: this

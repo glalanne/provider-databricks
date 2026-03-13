@@ -1,8 +1,12 @@
+# SPDX-FileCopyrightText: 2026 The Crossplane Authors <https://crossplane.io>
+#
+# SPDX-License-Identifier: CC0-1.0
+
 apiVersion: mosaic.databricks.m.crossplane.io/v1alpha1
 kind: VectorSearchIndex
 metadata:
   annotations:
-    meta.upbound.io/example-id: mosaic/v1alpha1/vectorsearchindex
+    meta.upbound.io/example-id: mosaic/v1beta1/vectorsearchindex
   labels:
     testing.upbound.io/example-name: sync
   name: sync
@@ -11,11 +15,15 @@ spec:
   forProvider:
     deltaSyncIndexSpec:
     - embeddingSourceColumns:
-      - embeddingModelEndpointName: ads-serving-endpoint
+      - embeddingModelEndpointNameSelector:
+          matchLabels:
+            testing.upbound.io/example-name: this
         name: text
       pipelineType: TRIGGERED
       sourceTable: main.default.source_table
-    endpointName: vector-search-test
+    endpointNameSelector:
+      matchLabels:
+        testing.upbound.io/example-name: this
     indexType: DELTA_SYNC
     name: main.default.vector_search_index
     primaryKey: id

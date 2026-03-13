@@ -1,14 +1,20 @@
+# SPDX-FileCopyrightText: 2026 The Crossplane Authors <https://crossplane.io>
+#
+# SPDX-License-Identifier: CC0-1.0
+
 apiVersion: security.databricks.crossplane.io/v1alpha1
 kind: OboToken
 metadata:
   annotations:
-    meta.upbound.io/example-id: security/v1alpha1/obotoken
+    meta.upbound.io/example-id: security/v1beta1/obotoken
   labels:
     testing.upbound.io/example-name: this
   name: this
 spec:
   forProvider:
-    applicationId: ${databricks_service_principal.this.application_id}
+    applicationIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: this
     comment: PAT on behalf of ${databricks_service_principal.this.display_name}
     lifetimeSeconds: 3600
 
@@ -18,7 +24,7 @@ apiVersion: security.databricks.crossplane.io/v1alpha1
 kind: Permissions
 metadata:
   annotations:
-    meta.upbound.io/example-id: security/v1alpha1/obotoken
+    meta.upbound.io/example-id: security/v1beta1/obotoken
   labels:
     testing.upbound.io/example-name: token_usage
   name: token-usage
@@ -37,7 +43,7 @@ apiVersion: security.databricks.crossplane.io/v1alpha1
 kind: ServicePrincipal
 metadata:
   annotations:
-    meta.upbound.io/example-id: security/v1alpha1/obotoken
+    meta.upbound.io/example-id: security/v1beta1/obotoken
   labels:
     testing.upbound.io/example-name: this
   name: this

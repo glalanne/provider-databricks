@@ -1,8 +1,12 @@
+# SPDX-FileCopyrightText: 2026 The Crossplane Authors <https://crossplane.io>
+#
+# SPDX-License-Identifier: CC0-1.0
+
 apiVersion: security.databricks.crossplane.io/v1alpha1
 kind: GroupInstanceProfile
 metadata:
   annotations:
-    meta.upbound.io/example-id: security/v1alpha1/groupinstanceprofile
+    meta.upbound.io/example-id: security/v1beta1/groupinstanceprofile
   labels:
     testing.upbound.io/example-name: my_group_instance_profile
   name: my-group-instance-profile
@@ -21,7 +25,7 @@ apiVersion: security.databricks.crossplane.io/v1alpha1
 kind: Group
 metadata:
   annotations:
-    meta.upbound.io/example-id: security/v1alpha1/groupinstanceprofile
+    meta.upbound.io/example-id: security/v1beta1/groupinstanceprofile
   labels:
     testing.upbound.io/example-name: my_group
   name: my-group
@@ -35,7 +39,7 @@ apiVersion: deployment.databricks.crossplane.io/v1alpha1
 kind: InstanceProfile
 metadata:
   annotations:
-    meta.upbound.io/example-id: security/v1alpha1/groupinstanceprofile
+    meta.upbound.io/example-id: security/v1beta1/groupinstanceprofile
   labels:
     testing.upbound.io/example-name: instance_profile
   name: instance-profile
