@@ -1360,6 +1360,11 @@ spec:
                           type: object
                       type: object
                     type: array
+                  space:
+                    type: string
+                  usagePolicyId:
+                    description: Id of the SQL warehouse to grant permission on.
+                    type: string
                   userApiScopes:
                     description: A list of api scopes granted to the user access token.
                     items:

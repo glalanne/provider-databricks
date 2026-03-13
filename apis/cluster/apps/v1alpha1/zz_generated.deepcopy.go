@@ -9,7 +9,7 @@
 package v1alpha1
 
 import (
-	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
+	"github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
 	runtime "k8s.io/apimachinery/pkg/runtime"
 )
 
@@ -349,11 +349,6 @@ func (in *AppInitParameters) DeepCopyInto(out *AppInitParameters) {
 		*out = new(string)
 		**out = **in
 	}
-	if in.UsagePolicyID != nil {
-		in, out := &in.UsagePolicyID, &out.UsagePolicyID
-		*out = new(string)
-		**out = **in
-	}
 	if in.UserAPIScopes != nil {
 		in, out := &in.UserAPIScopes, &out.UserAPIScopes
 		*out = make([]*string, len(*in))
@@ -477,11 +472,6 @@ func (in *AppObservation) DeepCopyInto(out *AppObservation) {
 				**out = **in
 			}
 		}
-	}
-	if in.GitRepository != nil {
-		in, out := &in.GitRepository, &out.GitRepository
-		*out = new(AppGitRepositoryObservation)
-		(*in).DeepCopyInto(*out)
 	}
 	if in.GitRepository != nil {
 		in, out := &in.GitRepository, &out.GitRepository
@@ -627,6 +617,16 @@ func (in *AppParameters) DeepCopyInto(out *AppParameters) {
 		for i := range *in {
 			(*in)[i].DeepCopyInto(&(*out)[i])
 		}
+	}
+	if in.Space != nil {
+		in, out := &in.Space, &out.Space
+		*out = new(string)
+		**out = **in
+	}
+	if in.UsagePolicyID != nil {
+		in, out := &in.UsagePolicyID, &out.UsagePolicyID
+		*out = new(string)
+		**out = **in
 	}
 	if in.UserAPIScopes != nil {
 		in, out := &in.UserAPIScopes, &out.UserAPIScopes
