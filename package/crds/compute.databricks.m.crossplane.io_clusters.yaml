@@ -774,6 +774,20 @@ spec:
                       runtime is determined by spark_version (DBR release), this field
                       use_ml_runtime, and whether node_type_id is GPU node or not.
                     type: boolean
+                  workerNodeTypeFlexibility:
+                    description: a block describing the alternative driver node types
+                      if node_type_id isn't available.
+                    items:
+                      properties:
+                        alternateNodeTypeIds:
+                          description: list of alternative node types that will be
+                            used if main node type isn't available.  Follow the documentation
+                            for requirements on selection of alternative node types.
+                          items:
+                            type: string
+                          type: array
+                      type: object
+                    type: array
                   workloadType:
                     items:
                       properties:
@@ -1143,6 +1157,20 @@ spec:
                       If omitted, and instance_pool_id is specified, then the driver
                       will be allocated from that pool.
                     type: string
+                  driverNodeTypeFlexibility:
+                    description: a block describing the alternative driver node types
+                      if driver_node_type_id isn't available.
+                    items:
+                      properties:
+                        alternateNodeTypeIds:
+                          description: list of alternative node types that will be
+                            used if main node type isn't available.  Follow the documentation
+                            for requirements on selection of alternative node types.
+                          items:
+                            type: string
+                          type: array
+                      type: object
+                    type: array
                   driverNodeTypeId:
                     description: The node type of the Spark driver. This field is
                       optional; if unset, API will set the driver node type to the
@@ -1507,6 +1535,20 @@ spec:
                       runtime is determined by spark_version (DBR release), this field
                       use_ml_runtime, and whether node_type_id is GPU node or not.
                     type: boolean
+                  workerNodeTypeFlexibility:
+                    description: a block describing the alternative driver node types
+                      if node_type_id isn't available.
+                    items:
+                      properties:
+                        alternateNodeTypeIds:
+                          description: list of alternative node types that will be
+                            used if main node type isn't available.  Follow the documentation
+                            for requirements on selection of alternative node types.
+                          items:
+                            type: string
+                          type: array
+                      type: object
+                    type: array
                   workloadType:
                     items:
                       properties:
@@ -1928,6 +1970,20 @@ spec:
                       If omitted, and instance_pool_id is specified, then the driver
                       will be allocated from that pool.
                     type: string
+                  driverNodeTypeFlexibility:
+                    description: a block describing the alternative driver node types
+                      if driver_node_type_id isn't available.
+                    items:
+                      properties:
+                        alternateNodeTypeIds:
+                          description: list of alternative node types that will be
+                            used if main node type isn't available.  Follow the documentation
+                            for requirements on selection of alternative node types.
+                          items:
+                            type: string
+                          type: array
+                      type: object
+                    type: array
                   driverNodeTypeId:
                     description: The node type of the Spark driver. This field is
                       optional; if unset, API will set the driver node type to the
@@ -2301,6 +2357,20 @@ spec:
                       runtime is determined by spark_version (DBR release), this field
                       use_ml_runtime, and whether node_type_id is GPU node or not.
                     type: boolean
+                  workerNodeTypeFlexibility:
+                    description: a block describing the alternative driver node types
+                      if node_type_id isn't available.
+                    items:
+                      properties:
+                        alternateNodeTypeIds:
+                          description: list of alternative node types that will be
+                            used if main node type isn't available.  Follow the documentation
+                            for requirements on selection of alternative node types.
+                          items:
+                            type: string
+                          type: array
+                      type: object
+                    type: array
                   workloadType:
                     items:
                       properties:

@@ -242,6 +242,13 @@ type AppParameters struct {
 	// +kubebuilder:validation:Optional
 	Resources []ResourcesParameters `json:"resources,omitempty" tf:"resources,omitempty"`
 
+	// +kubebuilder:validation:Optional
+	Space *string `json:"space,omitempty" tf:"space,omitempty"`
+
+	// Id of the SQL warehouse to grant permission on.
+	// +kubebuilder:validation:Optional
+	UsagePolicyID *string `json:"usagePolicyId,omitempty" tf:"usage_policy_id,omitempty"`
+
 	// A list of api scopes granted to the user access token.
 	// +kubebuilder:validation:Optional
 	UserAPIScopes []*string `json:"userApiScopes,omitempty" tf:"user_api_scopes,omitempty"`
@@ -437,6 +444,86 @@ type GitRepositoryInitParameters struct {
 
 	// The URL of the app once it is deployed.
 	URL *string `json:"url,omitempty" tf:"url,omitempty"`
+}
+
+type GitRepositoryObservation struct {
+	Provider *string `json:"provider,omitempty" tf:"provider,omitempty"`
+
+	// The URL of the app once it is deployed.
+	URL *string `json:"url,omitempty" tf:"url,omitempty"`
+}
+
+type GitRepositoryParameters struct {
+
+	// +kubebuilder:validation:Optional
+	Provider *string `json:"provider" tf:"provider,omitempty"`
+
+	// The URL of the app once it is deployed.
+	// +kubebuilder:validation:Optional
+	URL *string `json:"url" tf:"url,omitempty"`
+}
+
+type GitSourceGitRepositoryInitParameters struct {
+	Provider *string `json:"provider,omitempty" tf:"provider,omitempty"`
+
+	// The URL of the app once it is deployed.
+	URL *string `json:"url,omitempty" tf:"url,omitempty"`
+}
+
+type GitSourceGitRepositoryObservation struct {
+	Provider *string `json:"provider,omitempty" tf:"provider,omitempty"`
+
+	// The URL of the app once it is deployed.
+	URL *string `json:"url,omitempty" tf:"url,omitempty"`
+}
+
+type GitSourceGitRepositoryParameters struct {
+
+	// +kubebuilder:validation:Optional
+	Provider *string `json:"provider" tf:"provider,omitempty"`
+
+	// The URL of the app once it is deployed.
+	// +kubebuilder:validation:Optional
+	URL *string `json:"url" tf:"url,omitempty"`
+}
+
+type GitSourceInitParameters struct {
+	Branch *string `json:"branch,omitempty" tf:"branch,omitempty"`
+
+	Commit *string `json:"commit,omitempty" tf:"commit,omitempty"`
+
+	SourceCodePath *string `json:"sourceCodePath,omitempty" tf:"source_code_path,omitempty"`
+
+	Tag *string `json:"tag,omitempty" tf:"tag,omitempty"`
+}
+
+type GitSourceObservation struct {
+	Branch *string `json:"branch,omitempty" tf:"branch,omitempty"`
+
+	Commit *string `json:"commit,omitempty" tf:"commit,omitempty"`
+
+	GitRepository *GitRepositoryObservation `json:"gitRepository,omitempty" tf:"git_repository,omitempty"`
+
+	ResolvedCommit *string `json:"resolvedCommit,omitempty" tf:"resolved_commit,omitempty"`
+
+	SourceCodePath *string `json:"sourceCodePath,omitempty" tf:"source_code_path,omitempty"`
+
+	Tag *string `json:"tag,omitempty" tf:"tag,omitempty"`
+}
+
+type GitSourceParameters struct {
+
+	// +kubebuilder:validation:Optional
+	Branch *string `json:"branch,omitempty" tf:"branch,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	Commit *string `json:"commit,omitempty" tf:"commit,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	SourceCodePath *string `json:"sourceCodePath,omitempty" tf:"source_code_path,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	Tag *string `json:"tag,omitempty" tf:"tag,omitempty"`
 }
 
 type JobInitParameters struct {
