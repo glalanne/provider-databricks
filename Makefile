@@ -139,7 +139,11 @@ pull-docs:
 generate.init: $(TERRAFORM_PROVIDER_SCHEMA) pull-docs
 	python ./scripts/docs_fix.py
 
-.PHONY: $(TERRAFORM_PROVIDER_SCHEMA) pull-docs check-terraform-version
+generate.clean-apis:
+	@find ./apis -type f -name 'zz_*' -delete
+	@find ./apis -type d -empty -delete
+
+.PHONY: $(TERRAFORM_PROVIDER_SCHEMA) pull-docs check-terraform-version generate.clean-apis
 # ====================================================================================
 # Targets
 

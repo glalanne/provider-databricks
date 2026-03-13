@@ -1,0 +1,17 @@
+# SPDX-FileCopyrightText: 2026 The Crossplane Authors <https://crossplane.io>
+#
+# SPDX-License-Identifier: CC0-1.0
+
+apiVersion: settings.databricks.m.crossplane.io/v1beta1
+kind: RestrictWorkspaceAdminsSetting
+metadata:
+  annotations:
+    meta.upbound.io/example-id: settings/v1beta1/restrictworkspaceadminssetting
+  labels:
+    testing.upbound.io/example-name: this
+  name: this
+  namespace: upbound-system
+spec:
+  forProvider:
+    restrictWorkspaceAdmins:
+      status: RESTRICT_TOKENS_AND_JOB_RUN_AS
