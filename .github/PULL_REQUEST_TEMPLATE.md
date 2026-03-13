@@ -14,7 +14,6 @@ attention to anything that needs special consideration.
 
 We love pull requests that resolve an open Crossplane issue. If yours does, you
 can uncomment the below line to indicate which issue your PR fixes, for example
-"Fixes  (Pound)500":
 
 -->
 Fixes #

@@ -726,6 +726,9 @@ type ClusterParameters struct {
 	WorkerNodeTypeFlexibility []WorkerNodeTypeFlexibilityParameters `json:"workerNodeTypeFlexibility,omitempty" tf:"worker_node_type_flexibility,omitempty"`
 
 	// +kubebuilder:validation:Optional
+	WorkerNodeTypeFlexibility []WorkerNodeTypeFlexibilityParameters `json:"workerNodeTypeFlexibility,omitempty" tf:"worker_node_type_flexibility,omitempty"`
+
+	// +kubebuilder:validation:Optional
 	WorkloadType []WorkloadTypeParameters `json:"workloadType,omitempty" tf:"workload_type,omitempty"`
 }
 
