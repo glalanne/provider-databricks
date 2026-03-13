@@ -1,0 +1,21 @@
+# SPDX-FileCopyrightText: 2026 The Crossplane Authors <https://crossplane.io>
+#
+# SPDX-License-Identifier: CC0-1.0
+
+apiVersion: sharing.databricks.m.crossplane.io/v1alpha1
+kind: Provider
+metadata:
+  annotations:
+    meta.upbound.io/example-id: sharing/v1beta1/provider
+  labels:
+    testing.upbound.io/example-name: dbprovider
+  name: dbprovider
+  namespace: upbound-system
+spec:
+  forProvider:
+    authenticationType: TOKEN
+    comment: made by terraform 2
+    name: terraform-test-provider
+    recipientProfileStrSecretRef:
+      key: example-key
+      name: example-secret
