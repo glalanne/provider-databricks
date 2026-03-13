@@ -213,6 +213,11 @@ func bumpVersionsWithEmbeddedLists(pc *config.Provider) {
 			conversion.NewSingletonListConversion("v1alpha1", "v1beta1", conversion.DefaultPathPrefixes(), paths, conversion.ToEmbeddedObject),
 			conversion.NewSingletonListConversion("v1beta1", "v1alpha1", conversion.DefaultPathPrefixes(), paths, conversion.ToSingletonList),
 		}
+		if err := r.SetDeprecatedVersion("v1alpha1", config.VersionDeprecation{
+			Warning: "This API version is deprecated. Please migrate to v1beta1.",
+		}); err != nil {
+			panic(err)
+		}
 		r.TerraformConversions = []config.TerraformConversion{
 			config.NewTFSingletonConversion(),
 		}
