@@ -1,0 +1,22 @@
+# SPDX-FileCopyrightText: 2026 The Crossplane Authors <https://crossplane.io>
+#
+# SPDX-License-Identifier: CC0-1.0
+
+apiVersion: mlflow.databricks.m.crossplane.io/v1beta1
+kind: MlflowExperiment
+metadata:
+  annotations:
+    meta.upbound.io/example-id: mlflow/v1beta1/mlflowexperiment
+  labels:
+    testing.upbound.io/example-name: this
+  name: this
+  namespace: upbound-system
+spec:
+  forProvider:
+    artifactLocation: s3://bucket/my-experiment
+    name: ${data.databricks_current_user.me.home}/Sample
+    tags:
+    - key: key1
+      value: value1
+    - key: key2
+      value: value2

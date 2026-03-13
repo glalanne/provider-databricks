@@ -166,6 +166,13 @@ cobertura:
 		grep -v zz_ | \
 		$(GOCOVER_COBERTURA) > $(GO_TEST_OUTPUT)/cobertura-coverage.xml
 
+examples.sync:
+	@$(INFO) syncing examples from examples-generated
+	@rm -rf ./examples/cluster ./examples/namespaced
+	@cp -R ./examples-generated/cluster ./examples/cluster
+	@cp -R ./examples-generated/namespaced ./examples/namespaced
+	@$(OK) synced examples from examples-generated
+
 # Update the submodules, such as the common build scripts.
 submodules:
 	@git submodule sync
@@ -239,7 +246,7 @@ schema-version-diff:
 	./scripts/version_diff.py config/generated.lst "$(WORK_DIR)/schema.json.$${PREV_PROVIDER_VERSION}" config/schema.json
 	@$(OK) Checking for native state schema version changes
 
-.PHONY: cobertura submodules fallthrough run crds.clean
+.PHONY: cobertura examples.sync submodules fallthrough run crds.clean
 
 # ====================================================================================
 # Special Targets
