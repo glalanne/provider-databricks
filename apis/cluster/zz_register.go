@@ -10,49 +10,49 @@ package cluster
 import (
 	"k8s.io/apimachinery/pkg/runtime"
 
-	v1alpha2 "github.com/glalanne/provider-databricks/apis/cluster/apps/v1alpha2"
-	v1alpha2compute "github.com/glalanne/provider-databricks/apis/cluster/compute/v1alpha2"
-	v1alpha2databases "github.com/glalanne/provider-databricks/apis/cluster/databases/v1alpha2"
-	v1alpha2deployment "github.com/glalanne/provider-databricks/apis/cluster/deployment/v1alpha2"
-	v1alpha2finops "github.com/glalanne/provider-databricks/apis/cluster/finops/v1alpha2"
-	v1alpha2log "github.com/glalanne/provider-databricks/apis/cluster/log/v1alpha2"
-	v1alpha2mlflow "github.com/glalanne/provider-databricks/apis/cluster/mlflow/v1alpha2"
-	v1alpha2mosaic "github.com/glalanne/provider-databricks/apis/cluster/mosaic/v1alpha2"
-	v1alpha2oauth "github.com/glalanne/provider-databricks/apis/cluster/oauth/v1alpha2"
-	v1alpha2security "github.com/glalanne/provider-databricks/apis/cluster/security/v1alpha2"
-	v1alpha2serving "github.com/glalanne/provider-databricks/apis/cluster/serving/v1alpha2"
-	v1alpha2settings "github.com/glalanne/provider-databricks/apis/cluster/settings/v1alpha2"
-	v1alpha2sharing "github.com/glalanne/provider-databricks/apis/cluster/sharing/v1alpha2"
-	v1alpha2sql "github.com/glalanne/provider-databricks/apis/cluster/sql/v1alpha2"
-	v1alpha2storage "github.com/glalanne/provider-databricks/apis/cluster/storage/v1alpha2"
-	v1alpha2unity "github.com/glalanne/provider-databricks/apis/cluster/unity/v1alpha2"
+	v1beta1 "github.com/glalanne/provider-databricks/apis/cluster/apps/v1beta1"
+	v1beta1compute "github.com/glalanne/provider-databricks/apis/cluster/compute/v1beta1"
+	v1beta1databases "github.com/glalanne/provider-databricks/apis/cluster/databases/v1beta1"
+	v1beta1deployment "github.com/glalanne/provider-databricks/apis/cluster/deployment/v1beta1"
+	v1beta1finops "github.com/glalanne/provider-databricks/apis/cluster/finops/v1beta1"
+	v1beta1log "github.com/glalanne/provider-databricks/apis/cluster/log/v1beta1"
+	v1beta1mlflow "github.com/glalanne/provider-databricks/apis/cluster/mlflow/v1beta1"
+	v1beta1mosaic "github.com/glalanne/provider-databricks/apis/cluster/mosaic/v1beta1"
+	v1beta1oauth "github.com/glalanne/provider-databricks/apis/cluster/oauth/v1beta1"
+	v1beta1security "github.com/glalanne/provider-databricks/apis/cluster/security/v1beta1"
+	v1beta1serving "github.com/glalanne/provider-databricks/apis/cluster/serving/v1beta1"
+	v1beta1settings "github.com/glalanne/provider-databricks/apis/cluster/settings/v1beta1"
+	v1beta1sharing "github.com/glalanne/provider-databricks/apis/cluster/sharing/v1beta1"
+	v1beta1sql "github.com/glalanne/provider-databricks/apis/cluster/sql/v1beta1"
+	v1beta1storage "github.com/glalanne/provider-databricks/apis/cluster/storage/v1beta1"
+	v1beta1unity "github.com/glalanne/provider-databricks/apis/cluster/unity/v1beta1"
 	v1alpha1 "github.com/glalanne/provider-databricks/apis/cluster/v1alpha1"
-	v1beta1 "github.com/glalanne/provider-databricks/apis/cluster/v1beta1"
-	v1alpha2workspace "github.com/glalanne/provider-databricks/apis/cluster/workspace/v1alpha2"
+	v1beta1cluster "github.com/glalanne/provider-databricks/apis/cluster/v1beta1"
+	v1beta1workspace "github.com/glalanne/provider-databricks/apis/cluster/workspace/v1beta1"
 )
 
 func init() {
 	// Register the types with the Scheme so the components can map objects to GroupVersionKinds and back
 	AddToSchemes = append(AddToSchemes,
-		v1alpha2.SchemeBuilder.AddToScheme,
-		v1alpha2compute.SchemeBuilder.AddToScheme,
-		v1alpha2databases.SchemeBuilder.AddToScheme,
-		v1alpha2deployment.SchemeBuilder.AddToScheme,
-		v1alpha2finops.SchemeBuilder.AddToScheme,
-		v1alpha2log.SchemeBuilder.AddToScheme,
-		v1alpha2mlflow.SchemeBuilder.AddToScheme,
-		v1alpha2mosaic.SchemeBuilder.AddToScheme,
-		v1alpha2oauth.SchemeBuilder.AddToScheme,
-		v1alpha2security.SchemeBuilder.AddToScheme,
-		v1alpha2serving.SchemeBuilder.AddToScheme,
-		v1alpha2settings.SchemeBuilder.AddToScheme,
-		v1alpha2sharing.SchemeBuilder.AddToScheme,
-		v1alpha2sql.SchemeBuilder.AddToScheme,
-		v1alpha2storage.SchemeBuilder.AddToScheme,
-		v1alpha2unity.SchemeBuilder.AddToScheme,
-		v1alpha1.SchemeBuilder.AddToScheme,
 		v1beta1.SchemeBuilder.AddToScheme,
-		v1alpha2workspace.SchemeBuilder.AddToScheme,
+		v1beta1compute.SchemeBuilder.AddToScheme,
+		v1beta1databases.SchemeBuilder.AddToScheme,
+		v1beta1deployment.SchemeBuilder.AddToScheme,
+		v1beta1finops.SchemeBuilder.AddToScheme,
+		v1beta1log.SchemeBuilder.AddToScheme,
+		v1beta1mlflow.SchemeBuilder.AddToScheme,
+		v1beta1mosaic.SchemeBuilder.AddToScheme,
+		v1beta1oauth.SchemeBuilder.AddToScheme,
+		v1beta1security.SchemeBuilder.AddToScheme,
+		v1beta1serving.SchemeBuilder.AddToScheme,
+		v1beta1settings.SchemeBuilder.AddToScheme,
+		v1beta1sharing.SchemeBuilder.AddToScheme,
+		v1beta1sql.SchemeBuilder.AddToScheme,
+		v1beta1storage.SchemeBuilder.AddToScheme,
+		v1beta1unity.SchemeBuilder.AddToScheme,
+		v1alpha1.SchemeBuilder.AddToScheme,
+		v1beta1cluster.SchemeBuilder.AddToScheme,
+		v1beta1workspace.SchemeBuilder.AddToScheme,
 	)
 }
 
