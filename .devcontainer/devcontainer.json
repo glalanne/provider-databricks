@@ -22,7 +22,7 @@
       ]
     }
   },
-  "postCreateCommand": "git lfs install && git submodule update --init --recursive && go mod download",
+  "postCreateCommand": "go mod download",
   "postStartCommand": "make help",
   "remoteUser": "vscode"
 }

@@ -9,7 +9,6 @@ package v1beta1
 
 import (
 	"context"
-
 	reference "github.com/crossplane/crossplane-runtime/v2/pkg/reference"
 	xpresource "github.com/crossplane/crossplane-runtime/v2/pkg/resource"
 	resource "github.com/crossplane/upjet/v2/pkg/resource"
