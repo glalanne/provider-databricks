@@ -32,6 +32,17 @@ func main() {
 	fwProvider, sdkProvider, err := xpprovider.GetProvider(ctx)
 	kingpin.FatalIfError(err, "Cannot get the Terraform provider")
 
+	// Pass 1: generate legacy APIs so v1alpha1 keeps the original
+	// singleton-list (array) schema shape.
+	pcAlpha, err := config.GetProviderV1Alpha1Legacy(context.Background(), fwProvider, sdkProvider, true)
+	kingpin.FatalIfError(err, "Cannot initialize the cluster-scoped legacy v1alpha1 provider configuration")
+
+	pnsAlpha, err := config.GetProviderNamespacedV1Alpha1Legacy(context.Background(), fwProvider, sdkProvider, true)
+	kingpin.FatalIfError(err, "Cannot initialize the namespaced legacy v1alpha1 provider configuration")
+
+	pipeline.Run(pcAlpha, pnsAlpha, absRootDir)
+
+	// Pass 2: generate latest APIs with embedded-object singleton conversion.
 	pc, err := config.GetProvider(context.Background(), fwProvider, sdkProvider, true)
 	kingpin.FatalIfError(err, "Cannot initialize the cluster-scoped provider configuration")
 

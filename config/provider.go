@@ -31,6 +31,13 @@ const (
 	modulePath     = "github.com/glalanne/provider-databricks"
 )
 
+type generationMode int
+
+const (
+	generationModeV1Beta1 generationMode = iota
+	generationModeV1Alpha1Legacy
+)
+
 //go:embed schema.json
 var providerSchema string
 
@@ -57,58 +64,59 @@ func getProviderSchema(s string) (*tfschema.Provider, error) {
 
 // GetProvider returns provider configuration
 func GetProvider(_ context.Context, fwProvider fwprovider.Provider, sdkProvider *tfschema.Provider, generationProvider bool) (*config.Provider, error) {
-
-	if generationProvider {
-		p, err := getProviderSchema(providerSchema)
-		if err != nil {
-			return nil, errors.Wrap(err, "cannot read the Terraform SDK provider from the JSON schema for code generation")
-		}
-		if err := traverser.TFResourceSchema(sdkProvider.ResourcesMap).Traverse(traverser.NewMaxItemsSync(p.ResourcesMap)); err != nil {
-			return nil, errors.Wrap(err, "cannot sync the MaxItems constraints between the Go schema and the JSON schema")
-		}
-		// use the JSON schema to temporarily prevent float64->int64
-		// conversions in the CRD APIs.
-		// We would like to convert to int64s with the next major release of
-		// the provider.
-		sdkProvider = p
+	pc, err := getProviderWithMode(fwProvider, sdkProvider, generationProvider, "databricks.crossplane.io", generationModeV1Beta1)
+	if err != nil {
+		return nil, err
 	}
-
-	pc := config.NewProvider([]byte(providerSchema), resourcePrefix, modulePath, []byte(providerMetadata),
-		// ujconfig.WithShortName("databricks"),
-		config.WithRootGroup("databricks.crossplane.io"),
-		config.WithIncludeList(CLIReconciledResourceList()),
-		config.WithTerraformPluginSDKIncludeList(TerraformPluginSDKResourceList()),
-		config.WithTerraformPluginFrameworkIncludeList(TerraformPluginFrameworkResourceList()),
-		config.WithDefaultResourceOptions(ResourceConfigurator()),
-		config.WithReferenceInjectors([]config.ReferenceInjector{reference.NewInjector(modulePath)}),
-		config.WithFeaturesPackage("internal/features"),
-		config.WithTerraformProvider(sdkProvider),
-		config.WithTerraformPluginFrameworkProvider(fwProvider),
-		config.WithSchemaTraversers(&config.SingletonListEmbedder{}),
-	)
-
-	// Rename resources to make it more pleasing to the eye
-	for _, r := range pc.Resources {
-		parts := strings.Split(r.Name, "_")
-		if len(parts) > 1 {
-			r.ShortGroup = resourcePrefix
-			r.Kind = uname.NewFromSnake(strings.Join(parts[1:], "_")).Camel
-		}
-	}
-
-	bumpVersionsWithEmbeddedLists(pc)
-
-	// add custom config functions
 	for _, configure := range cluster.ProviderConfiguration {
 		configure(pc)
 	}
+	pc.ConfigureResources()
+	return pc, nil
+}
 
+// GetProviderV1Alpha1Legacy returns provider configuration for generating
+// the legacy v1alpha1 APIs (array/singleton-list shape).
+func GetProviderV1Alpha1Legacy(_ context.Context, fwProvider fwprovider.Provider, sdkProvider *tfschema.Provider, generationProvider bool) (*config.Provider, error) {
+	pc, err := getProviderWithMode(fwProvider, sdkProvider, generationProvider, "databricks.crossplane.io", generationModeV1Alpha1Legacy)
+	if err != nil {
+		return nil, err
+	}
+	for _, configure := range cluster.ProviderConfiguration {
+		configure(pc)
+	}
 	pc.ConfigureResources()
 	return pc, nil
 }
 
 // GetProviderNamespaced returns provider configuration for namespace-scoped resources
 func GetProviderNamespaced(_ context.Context, fwProvider fwprovider.Provider, sdkProvider *tfschema.Provider, generationProvider bool) (*config.Provider, error) {
+	pc, err := getProviderWithMode(fwProvider, sdkProvider, generationProvider, "databricks.m.crossplane.io", generationModeV1Beta1)
+	if err != nil {
+		return nil, err
+	}
+	for _, configure := range namespaced.ProviderConfiguration {
+		configure(pc)
+	}
+	pc.ConfigureResources()
+	return pc, nil
+}
+
+// GetProviderNamespacedV1Alpha1Legacy returns namespaced provider
+// configuration for generating the legacy v1alpha1 APIs.
+func GetProviderNamespacedV1Alpha1Legacy(_ context.Context, fwProvider fwprovider.Provider, sdkProvider *tfschema.Provider, generationProvider bool) (*config.Provider, error) {
+	pc, err := getProviderWithMode(fwProvider, sdkProvider, generationProvider, "databricks.m.crossplane.io", generationModeV1Alpha1Legacy)
+	if err != nil {
+		return nil, err
+	}
+	for _, configure := range namespaced.ProviderConfiguration {
+		configure(pc)
+	}
+	pc.ConfigureResources()
+	return pc, nil
+}
+
+func getProviderWithMode(fwProvider fwprovider.Provider, sdkProvider *tfschema.Provider, generationProvider bool, rootGroup string, mode generationMode) (*config.Provider, error) {
 	if generationProvider {
 		p, err := getProviderSchema(providerSchema)
 		if err != nil {
@@ -124,9 +132,8 @@ func GetProviderNamespaced(_ context.Context, fwProvider fwprovider.Provider, sd
 		sdkProvider = p
 	}
 
-	pc := config.NewProvider([]byte(providerSchema), resourcePrefix, modulePath, []byte(providerMetadata),
-		// config.WithShortName("databricks"),
-		config.WithRootGroup("databricks.m.crossplane.io"),
+	providerOpts := []config.ProviderOption{
+		config.WithRootGroup(rootGroup),
 		config.WithIncludeList(CLIReconciledResourceList()),
 		config.WithTerraformPluginSDKIncludeList(TerraformPluginSDKResourceList()),
 		config.WithTerraformPluginFrameworkIncludeList(TerraformPluginFrameworkResourceList()),
@@ -135,8 +142,11 @@ func GetProviderNamespaced(_ context.Context, fwProvider fwprovider.Provider, sd
 		config.WithFeaturesPackage("internal/features"),
 		config.WithTerraformProvider(sdkProvider),
 		config.WithTerraformPluginFrameworkProvider(fwProvider),
-		config.WithSchemaTraversers(&config.SingletonListEmbedder{}),
-	)
+	}
+	if mode == generationModeV1Beta1 {
+		providerOpts = append(providerOpts, config.WithSchemaTraversers(&config.SingletonListEmbedder{}))
+	}
+	pc := config.NewProvider([]byte(providerSchema), resourcePrefix, modulePath, []byte(providerMetadata), providerOpts...)
 
 	// Rename resources to make it more pleasing to the eye
 	for _, r := range pc.Resources {
@@ -147,14 +157,12 @@ func GetProviderNamespaced(_ context.Context, fwProvider fwprovider.Provider, sd
 		}
 	}
 
-	bumpVersionsWithEmbeddedLists(pc)
-
-	// add custom config functions
-	for _, configure := range namespaced.ProviderConfiguration {
-		configure(pc)
+	if mode == generationModeV1Alpha1Legacy {
+		setLegacyV1Alpha1(pc)
+	} else {
+		bumpVersionsWithEmbeddedLists(pc)
 	}
 
-	pc.ConfigureResources()
 	return pc, nil
 }
 
@@ -206,8 +214,8 @@ func bumpVersionsWithEmbeddedLists(pc *config.Provider) {
 		// Keep storage on the singleton API version so v1alpha1 can be
 		// deprecated in a later release.
 		r.SetCRDStorageVersion(r.Version)
-		// Reconcile using the storage API version.
-		r.ControllerReconcileVersion = r.Version //nolint:staticcheck
+		// Use v1alpha1 as conversion hub for legacy array-shaped APIs.
+		r.SetCRDHubVersion("v1alpha1")
 		r.Conversions = []conversion.Conversion{
 			conversion.NewIdentityConversionExpandPaths(conversion.AllVersions, conversion.AllVersions, conversion.DefaultPathPrefixes(), paths...),
 			conversion.NewSingletonListConversion("v1alpha1", "v1beta1", conversion.DefaultPathPrefixes(), paths, conversion.ToEmbeddedObject),
@@ -221,6 +229,18 @@ func bumpVersionsWithEmbeddedLists(pc *config.Provider) {
 		r.TerraformConversions = []config.TerraformConversion{
 			config.NewTFSingletonConversion(),
 		}
+		pc.Resources[name] = r
+	}
+}
+
+func setLegacyV1Alpha1(pc *config.Provider) {
+	for name, r := range pc.Resources {
+		r := r
+		r.Version = "v1alpha1"
+		r.PreviousVersions = nil
+		r.SetCRDStorageVersion(r.Version)
+		r.Conversions = nil
+		r.TerraformConversions = nil
 		pc.Resources[name] = r
 	}
 }
