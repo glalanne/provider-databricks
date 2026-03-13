@@ -219,18 +219,3 @@ func bumpVersionsWithEmbeddedLists(pc *config.Provider) {
 		pc.Resources[name] = r
 	}
 }
-
-func registerTerraformConversions(pc *config.Provider) {
-	for name, r := range pc.Resources {
-		r := r
-		// nothing to do if no singleton list has been converted to
-		// an embedded object
-		if len(r.CRDListConversionPaths()) == 0 {
-			continue
-		}
-		r.TerraformConversions = []config.TerraformConversion{
-			config.NewTFSingletonConversion(),
-		}
-		pc.Resources[name] = r
-	}
-}
