@@ -8,7 +8,6 @@ import (
 	// Note(turkenh): we are importing this to embed provider schema document
 	"context"
 	_ "embed"
-	"os"
 	"strings"
 
 	"github.com/crossplane/upjet/v2/pkg/config"
@@ -37,13 +36,6 @@ var providerSchema string
 
 //go:embed provider-metadata.yaml
 var providerMetadata string
-
-func singletonListEmbedderOption() config.ProviderOption {
-	if strings.EqualFold(os.Getenv("UPJET_DISABLE_SINGLETON_EMBEDDER"), "true") {
-		return config.WithSchemaTraversers()
-	}
-	return config.WithSchemaTraversers(&config.SingletonListEmbedder{})
-}
 
 func getProviderSchema(s string) (*tfschema.Provider, error) {
 	ps := tfjson.ProviderSchemas{}
@@ -92,7 +84,7 @@ func GetProvider(_ context.Context, fwProvider fwprovider.Provider, sdkProvider 
 		config.WithFeaturesPackage("internal/features"),
 		config.WithTerraformProvider(sdkProvider),
 		config.WithTerraformPluginFrameworkProvider(fwProvider),
-		singletonListEmbedderOption(),
+		config.WithSchemaTraversers(&config.SingletonListEmbedder{}),
 	)
 
 	// Rename resources to make it more pleasing to the eye
@@ -143,12 +135,11 @@ func GetProviderNamespaced(_ context.Context, fwProvider fwprovider.Provider, sd
 		config.WithFeaturesPackage("internal/features"),
 		config.WithTerraformProvider(sdkProvider),
 		config.WithTerraformPluginFrameworkProvider(fwProvider),
-		singletonListEmbedderOption(),
+		config.WithSchemaTraversers(&config.SingletonListEmbedder{}),
 	)
 
 	// Rename resources to make it more pleasing to the eye
 	for _, r := range pc.Resources {
-
 		parts := strings.Split(r.Name, "_")
 		if len(parts) > 1 {
 			r.ShortGroup = resourcePrefix
