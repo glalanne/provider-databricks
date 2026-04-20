@@ -439,7 +439,16 @@ type DashboardTaskInitParameters struct {
 	Subscription []SubscriptionInitParameters `json:"subscription,omitempty" tf:"subscription,omitempty"`
 
 	// The warehouse id to execute the dashboard with for the schedule. If not specified, will use the default warehouse of dashboard
+	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/cluster/sql/v1alpha1.SQLEndpoint
 	WarehouseID *string `json:"warehouseId,omitempty" tf:"warehouse_id,omitempty"`
+
+	// Reference to a SQLEndpoint in sql to populate warehouseId.
+	// +kubebuilder:validation:Optional
+	WarehouseIDRef *v1.Reference `json:"warehouseIdRef,omitempty" tf:"-"`
+
+	// Selector for a SQLEndpoint in sql to populate warehouseId.
+	// +kubebuilder:validation:Optional
+	WarehouseIDSelector *v1.Selector `json:"warehouseIdSelector,omitempty" tf:"-"`
 }
 
 type DashboardTaskObservation struct {
@@ -472,8 +481,17 @@ type DashboardTaskParameters struct {
 	Subscription []SubscriptionParameters `json:"subscription,omitempty" tf:"subscription,omitempty"`
 
 	// The warehouse id to execute the dashboard with for the schedule. If not specified, will use the default warehouse of dashboard
+	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/cluster/sql/v1alpha1.SQLEndpoint
 	// +kubebuilder:validation:Optional
 	WarehouseID *string `json:"warehouseId,omitempty" tf:"warehouse_id,omitempty"`
+
+	// Reference to a SQLEndpoint in sql to populate warehouseId.
+	// +kubebuilder:validation:Optional
+	WarehouseIDRef *v1.Reference `json:"warehouseIdRef,omitempty" tf:"-"`
+
+	// Selector for a SQLEndpoint in sql to populate warehouseId.
+	// +kubebuilder:validation:Optional
+	WarehouseIDSelector *v1.Selector `json:"warehouseIdSelector,omitempty" tf:"-"`
 }
 
 type DashboardTaskSubscriptionInitParameters struct {
@@ -4702,7 +4720,16 @@ type JobTaskNotebookTaskInitParameters struct {
 	Source *string `json:"source,omitempty" tf:"source,omitempty"`
 
 	// The warehouse id to execute the dashboard with for the schedule. If not specified, will use the default warehouse of dashboard
+	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/cluster/sql/v1alpha1.SQLEndpoint
 	WarehouseID *string `json:"warehouseId,omitempty" tf:"warehouse_id,omitempty"`
+
+	// Reference to a SQLEndpoint in sql to populate warehouseId.
+	// +kubebuilder:validation:Optional
+	WarehouseIDRef *v1.Reference `json:"warehouseIdRef,omitempty" tf:"-"`
+
+	// Selector for a SQLEndpoint in sql to populate warehouseId.
+	// +kubebuilder:validation:Optional
+	WarehouseIDSelector *v1.Selector `json:"warehouseIdSelector,omitempty" tf:"-"`
 }
 
 type JobTaskNotebookTaskObservation struct {
@@ -4747,8 +4774,17 @@ type JobTaskNotebookTaskParameters struct {
 	Source *string `json:"source,omitempty" tf:"source,omitempty"`
 
 	// The warehouse id to execute the dashboard with for the schedule. If not specified, will use the default warehouse of dashboard
+	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/cluster/sql/v1alpha1.SQLEndpoint
 	// +kubebuilder:validation:Optional
 	WarehouseID *string `json:"warehouseId,omitempty" tf:"warehouse_id,omitempty"`
+
+	// Reference to a SQLEndpoint in sql to populate warehouseId.
+	// +kubebuilder:validation:Optional
+	WarehouseIDRef *v1.Reference `json:"warehouseIdRef,omitempty" tf:"-"`
+
+	// Selector for a SQLEndpoint in sql to populate warehouseId.
+	// +kubebuilder:validation:Optional
+	WarehouseIDSelector *v1.Selector `json:"warehouseIdSelector,omitempty" tf:"-"`
 }
 
 type JobTaskNotificationSettingsInitParameters struct {
@@ -8306,7 +8342,16 @@ type TaskDbtTaskInitParameters struct {
 	Source *string `json:"source,omitempty" tf:"source,omitempty"`
 
 	// The warehouse id to execute the dashboard with for the schedule. If not specified, will use the default warehouse of dashboard
+	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/cluster/sql/v1alpha1.SQLEndpoint
 	WarehouseID *string `json:"warehouseId,omitempty" tf:"warehouse_id,omitempty"`
+
+	// Reference to a SQLEndpoint in sql to populate warehouseId.
+	// +kubebuilder:validation:Optional
+	WarehouseIDRef *v1.Reference `json:"warehouseIdRef,omitempty" tf:"-"`
+
+	// Selector for a SQLEndpoint in sql to populate warehouseId.
+	// +kubebuilder:validation:Optional
+	WarehouseIDSelector *v1.Selector `json:"warehouseIdSelector,omitempty" tf:"-"`
 }
 
 type TaskDbtTaskObservation struct {
@@ -8360,8 +8405,17 @@ type TaskDbtTaskParameters struct {
 	Source *string `json:"source,omitempty" tf:"source,omitempty"`
 
 	// The warehouse id to execute the dashboard with for the schedule. If not specified, will use the default warehouse of dashboard
+	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/cluster/sql/v1alpha1.SQLEndpoint
 	// +kubebuilder:validation:Optional
 	WarehouseID *string `json:"warehouseId,omitempty" tf:"warehouse_id,omitempty"`
+
+	// Reference to a SQLEndpoint in sql to populate warehouseId.
+	// +kubebuilder:validation:Optional
+	WarehouseIDRef *v1.Reference `json:"warehouseIdRef,omitempty" tf:"-"`
+
+	// Selector for a SQLEndpoint in sql to populate warehouseId.
+	// +kubebuilder:validation:Optional
+	WarehouseIDSelector *v1.Selector `json:"warehouseIdSelector,omitempty" tf:"-"`
 }
 
 type TaskDependsOnInitParameters struct {
@@ -10512,7 +10566,16 @@ type TaskPowerBiTaskInitParameters struct {
 	Tables []PowerBiTaskTablesInitParameters `json:"tables,omitempty" tf:"tables,omitempty"`
 
 	// The warehouse id to execute the dashboard with for the schedule. If not specified, will use the default warehouse of dashboard
+	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/cluster/sql/v1alpha1.SQLEndpoint
 	WarehouseID *string `json:"warehouseId,omitempty" tf:"warehouse_id,omitempty"`
+
+	// Reference to a SQLEndpoint in sql to populate warehouseId.
+	// +kubebuilder:validation:Optional
+	WarehouseIDRef *v1.Reference `json:"warehouseIdRef,omitempty" tf:"-"`
+
+	// Selector for a SQLEndpoint in sql to populate warehouseId.
+	// +kubebuilder:validation:Optional
+	WarehouseIDSelector *v1.Selector `json:"warehouseIdSelector,omitempty" tf:"-"`
 }
 
 type TaskPowerBiTaskObservation struct {
@@ -10552,8 +10615,17 @@ type TaskPowerBiTaskParameters struct {
 	Tables []PowerBiTaskTablesParameters `json:"tables,omitempty" tf:"tables,omitempty"`
 
 	// The warehouse id to execute the dashboard with for the schedule. If not specified, will use the default warehouse of dashboard
+	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/cluster/sql/v1alpha1.SQLEndpoint
 	// +kubebuilder:validation:Optional
 	WarehouseID *string `json:"warehouseId,omitempty" tf:"warehouse_id,omitempty"`
+
+	// Reference to a SQLEndpoint in sql to populate warehouseId.
+	// +kubebuilder:validation:Optional
+	WarehouseIDRef *v1.Reference `json:"warehouseIdRef,omitempty" tf:"-"`
+
+	// Selector for a SQLEndpoint in sql to populate warehouseId.
+	// +kubebuilder:validation:Optional
+	WarehouseIDSelector *v1.Selector `json:"warehouseIdSelector,omitempty" tf:"-"`
 }
 
 type TaskPythonWheelTaskInitParameters struct {
@@ -10757,7 +10829,6 @@ type TaskSQLTaskInitParameters struct {
 
 	// The warehouse id to execute the dashboard with for the schedule. If not specified, will use the default warehouse of dashboard
 	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/cluster/sql/v1alpha1.SQLEndpoint
-	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/v2/pkg/resource.ExtractResourceID()
 	WarehouseID *string `json:"warehouseId,omitempty" tf:"warehouse_id,omitempty"`
 
 	// Reference to a SQLEndpoint in sql to populate warehouseId.
@@ -10816,7 +10887,6 @@ type TaskSQLTaskParameters struct {
 
 	// The warehouse id to execute the dashboard with for the schedule. If not specified, will use the default warehouse of dashboard
 	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/cluster/sql/v1alpha1.SQLEndpoint
-	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/v2/pkg/resource.ExtractResourceID()
 	// +kubebuilder:validation:Optional
 	WarehouseID *string `json:"warehouseId,omitempty" tf:"warehouse_id,omitempty"`
 
