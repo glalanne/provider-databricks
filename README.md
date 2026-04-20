@@ -41,7 +41,7 @@ EOF
 
 Notice that in this example Provider resource is referencing ControllerConfig with debug enabled.
 
-You can see the API reference [here](https://doc.crds.dev/github.com/lalanne/provider-databricks).
+You can see the API reference [here](https://doc.crds.dev/github.com/glalanne/provider-databricks).
 
 ## Exemples
 
