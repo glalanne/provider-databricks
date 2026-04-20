@@ -56,8 +56,6 @@ type CatalogInitParameters struct {
 	// For Delta Sharing Catalogs: the name of the delta sharing provider. Change forces creation of a new resource.
 	ProviderName *string `json:"providerName,omitempty" tf:"provider_name,omitempty"`
 
-	ProvisioningInfo []ProvisioningInfoInitParameters `json:"provisioningInfo,omitempty" tf:"provisioning_info,omitempty"`
-
 	// For Delta Sharing Catalogs: the name of the share under the share provider. Change forces creation of a new resource.
 	ShareName *string `json:"shareName,omitempty" tf:"share_name,omitempty"`
 
@@ -201,9 +199,6 @@ type CatalogParameters struct {
 	// For Delta Sharing Catalogs: the name of the delta sharing provider. Change forces creation of a new resource.
 	// +kubebuilder:validation:Optional
 	ProviderName *string `json:"providerName,omitempty" tf:"provider_name,omitempty"`
-
-	// +kubebuilder:validation:Optional
-	ProvisioningInfo []ProvisioningInfoParameters `json:"provisioningInfo,omitempty" tf:"provisioning_info,omitempty"`
 
 	// For Delta Sharing Catalogs: the name of the share under the share provider. Change forces creation of a new resource.
 	// +kubebuilder:validation:Optional
