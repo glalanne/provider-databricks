@@ -842,6 +842,11 @@ func (in *CatalogInitParameters) DeepCopyInto(out *CatalogInitParameters) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.ProvisioningInfo != nil {
+		in, out := &in.ProvisioningInfo, &out.ProvisioningInfo
+		*out = new(ProvisioningInfoInitParameters)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.ShareName != nil {
 		in, out := &in.ShareName, &out.ShareName
 		*out = new(string)
@@ -1157,6 +1162,11 @@ func (in *CatalogParameters) DeepCopyInto(out *CatalogParameters) {
 		in, out := &in.ProviderName, &out.ProviderName
 		*out = new(string)
 		**out = **in
+	}
+	if in.ProvisioningInfo != nil {
+		in, out := &in.ProvisioningInfo, &out.ProvisioningInfo
+		*out = new(ProvisioningInfoParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.ShareName != nil {
 		in, out := &in.ShareName, &out.ShareName
