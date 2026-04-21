@@ -152,6 +152,13 @@ spec:
                     description: 'For Delta Sharing Catalogs: the name of the delta
                       sharing provider. Change forces creation of a new resource.'
                     type: string
+                  provisioningInfo:
+                    items:
+                      properties:
+                        state:
+                          type: string
+                      type: object
+                    type: array
                   shareName:
                     description: 'For Delta Sharing Catalogs: the name of the share
                       under the share provider. Change forces creation of a new resource.'
@@ -254,6 +261,13 @@ spec:
                     description: 'For Delta Sharing Catalogs: the name of the delta
                       sharing provider. Change forces creation of a new resource.'
                     type: string
+                  provisioningInfo:
+                    items:
+                      properties:
+                        state:
+                          type: string
+                      type: object
+                    type: array
                   shareName:
                     description: 'For Delta Sharing Catalogs: the name of the share
                       under the share provider. Change forces creation of a new resource.'
@@ -671,6 +685,11 @@ spec:
                     description: 'For Delta Sharing Catalogs: the name of the delta
                       sharing provider. Change forces creation of a new resource.'
                     type: string
+                  provisioningInfo:
+                    properties:
+                      state:
+                        type: string
+                    type: object
                   shareName:
                     description: 'For Delta Sharing Catalogs: the name of the share
                       under the share provider. Change forces creation of a new resource.'
@@ -769,6 +788,11 @@ spec:
                     description: 'For Delta Sharing Catalogs: the name of the delta
                       sharing provider. Change forces creation of a new resource.'
                     type: string
+                  provisioningInfo:
+                    properties:
+                      state:
+                        type: string
+                    type: object
                   shareName:
                     description: 'For Delta Sharing Catalogs: the name of the share
                       under the share provider. Change forces creation of a new resource.'
