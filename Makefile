@@ -44,11 +44,11 @@ NPROCS ?= 1
 # to half the number of CPU cores.
 GO_TEST_PARALLEL := $(shell echo $$(( $(NPROCS) / 2 )))
 
-GO_REQUIRED_VERSION ?= 1.25
+GO_REQUIRED_VERSION ?= 1.25.8
 GOLANGCILINT_VERSION ?= 2.8.0
 GO_STATIC_PACKAGES = $(GO_PROJECT)/cmd/provider $(GO_PROJECT)/cmd/generator
 GO_LDFLAGS += -X $(GO_PROJECT)/internal/version.Version=$(VERSION)
-GO_SUBDIRS += cmd internal apis
+GO_SUBDIRS += cmd internal apis config
 -include build/makelib/golang.mk
 
 # ====================================================================================
@@ -77,7 +77,19 @@ XPKG_REG_ORGS ?= xpkg.upbound.io/lalanne
 # inferred.
 XPKG_REG_ORGS_NO_PROMOTE ?= xpkg.upbound.io/lalanne
 XPKGS = $(PROJECT_NAME)
+XPKG_DIR = $(OUTPUT_DIR)/package
+XPKG_IGNORE = kustomize/*,crds/kustomization.yaml
 -include build/makelib/xpkg.mk
+
+package.prepare: $(YQ)
+	@$(INFO) preparing package manifests
+	@rm -rf $(XPKG_DIR)
+	@mkdir -p $(XPKG_DIR)
+	@cp -a package/. $(XPKG_DIR)/
+	@for crd in $(XPKG_DIR)/crds/*.yaml; do \
+		$(YQ) eval -i '.spec.conversion = {"strategy":"Webhook","webhook":{"clientConfig":{"service":{"path":"/convert"}},"conversionReviewVersions":["v1"]}}' "$${crd}" || exit 1; \
+	done
+	@$(OK) preparing package manifests
 
 # ====================================================================================
 # Fallthrough
@@ -95,7 +107,7 @@ fallthrough: submodules
 
 # NOTE(hasheddan): we force image building to happen prior to xpkg build so that
 # we ensure image is present in daemon.
-xpkg.build.provider-databricks: do.build.images
+xpkg.build.provider-databricks: package.prepare do.build.images
 
 # NOTE(hasheddan): we ensure up is installed prior to running platform-specific
 # build steps in parallel to avoid encountering an installation race condition.
@@ -143,7 +155,7 @@ generate.clean-apis:
 	@find ./apis -type f -name 'zz_*' -delete
 	@find ./apis -type d -empty -delete
 
-.PHONY: $(TERRAFORM_PROVIDER_SCHEMA) pull-docs check-terraform-version generate.clean-apis
+.PHONY: $(TERRAFORM_PROVIDER_SCHEMA) pull-docs check-terraform-version generate.clean-apis package.prepare
 # ====================================================================================
 # Targets
 
