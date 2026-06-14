@@ -109,9 +109,10 @@ fallthrough: submodules
 # we ensure image is present in daemon.
 xpkg.build.provider-databricks: package.prepare do.build.images
 
-# NOTE(hasheddan): we ensure up is installed prior to running platform-specific
-# build steps in parallel to avoid encountering an installation race condition.
-build.init: $(UP) $(CROSSPLANE_CLI) check-terraform-version
+# NOTE(hasheddan): we ensure host tools are installed prior to running
+# platform-specific build steps in parallel to avoid encountering installation
+# race conditions.
+build.init: $(UP) $(CROSSPLANE_CLI) $(YQ) check-terraform-version
 
 # ====================================================================================
 # Setup Terraform for fetching provider schema
