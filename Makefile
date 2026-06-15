@@ -77,7 +77,7 @@ XPKG_REG_ORGS ?= xpkg.upbound.io/lalanne
 # inferred.
 XPKG_REG_ORGS_NO_PROMOTE ?= xpkg.upbound.io/lalanne
 XPKGS = $(PROJECT_NAME)
-XPKG_DIR = $(OUTPUT_DIR)/package
+XPKG_DIR = $(OUTPUT_DIR)/package/$(PLATFORM)
 XPKG_IGNORE = kustomize/*,crds/kustomization.yaml
 -include build/makelib/xpkg.mk
 
