@@ -72,10 +72,6 @@ func Configure(p *config.Provider) {
 			TerraformName: "databricks_sql_endpoint",
 		}
 
-		if r.ServerSideApplyMergeStrategies == nil {
-			r.ServerSideApplyMergeStrategies = config.ServerSideApplyMergeStrategies{}
-		}
-
 		r.ServerSideApplyMergeStrategies["task"] = config.MergeStrategy{
 			ListMergeStrategy: config.ListMergeStrategy{
 				MergeStrategy: config.ListTypeMap,
