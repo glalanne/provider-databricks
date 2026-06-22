@@ -1842,6 +1842,8 @@ type JobInitParameters struct {
 	// (List) An optional set of email addresses notified when runs of this job begins, completes or fails. The default behavior is to not send any emails. This field is a block and is documented below.
 	EmailNotifications []EmailNotificationsInitParameters `json:"emailNotifications,omitempty" tf:"email_notifications,omitempty"`
 
+	// +listType=map
+	// +listMapKey=environmentKey
 	Environment []EnvironmentInitParameters `json:"environment,omitempty" tf:"environment,omitempty"`
 
 	// Identifier of the interactive cluster to run job on.  Note: running tasks on interactive clusters may lead to increased costs!
@@ -1856,6 +1858,8 @@ type JobInitParameters struct {
 	Health []HealthInitParameters `json:"health,omitempty" tf:"health,omitempty"`
 
 	// A list of job databricks_cluster specifications that can be shared and reused by tasks of this job. Libraries cannot be declared in a shared job cluster. You must declare dependent libraries in task settings. Multi-task syntax
+	// +listType=map
+	// +listMapKey=jobClusterKey
 	JobCluster []JobClusterInitParameters `json:"jobCluster,omitempty" tf:"job_cluster,omitempty"`
 
 	// (List) An optional list of libraries to be installed on the cluster that will execute the job. See library Configuration Block below.
@@ -1926,6 +1930,8 @@ type JobInitParameters struct {
 	Tags map[string]*string `json:"tags,omitempty" tf:"tags,omitempty"`
 
 	// A list of task specification that the job will execute. See task Configuration Block below.
+	// +listType=map
+	// +listMapKey=taskKey
 	Task []TaskInitParameters `json:"task,omitempty" tf:"task,omitempty"`
 
 	// (Integer) An optional timeout applied to each run of this job. The default behavior is to have no timeout.
@@ -2998,6 +3004,8 @@ type JobObservation struct {
 	// (List) An optional set of email addresses notified when runs of this job begins, completes or fails. The default behavior is to not send any emails. This field is a block and is documented below.
 	EmailNotifications []EmailNotificationsObservation `json:"emailNotifications,omitempty" tf:"email_notifications,omitempty"`
 
+	// +listType=map
+	// +listMapKey=environmentKey
 	Environment []EnvironmentObservation `json:"environment,omitempty" tf:"environment,omitempty"`
 
 	// Identifier of the interactive cluster to run job on.  Note: running tasks on interactive clusters may lead to increased costs!
@@ -3015,6 +3023,8 @@ type JobObservation struct {
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
 	// A list of job databricks_cluster specifications that can be shared and reused by tasks of this job. Libraries cannot be declared in a shared job cluster. You must declare dependent libraries in task settings. Multi-task syntax
+	// +listType=map
+	// +listMapKey=jobClusterKey
 	JobCluster []JobClusterObservation `json:"jobCluster,omitempty" tf:"job_cluster,omitempty"`
 
 	// (List) An optional list of libraries to be installed on the cluster that will execute the job. See library Configuration Block below.
@@ -3085,6 +3095,8 @@ type JobObservation struct {
 	Tags map[string]*string `json:"tags,omitempty" tf:"tags,omitempty"`
 
 	// A list of task specification that the job will execute. See task Configuration Block below.
+	// +listType=map
+	// +listMapKey=taskKey
 	Task []TaskObservation `json:"task,omitempty" tf:"task,omitempty"`
 
 	// (Integer) An optional timeout applied to each run of this job. The default behavior is to have no timeout.
@@ -3141,6 +3153,8 @@ type JobParameters struct {
 	EmailNotifications []EmailNotificationsParameters `json:"emailNotifications,omitempty" tf:"email_notifications,omitempty"`
 
 	// +kubebuilder:validation:Optional
+	// +listType=map
+	// +listMapKey=environmentKey
 	Environment []EnvironmentParameters `json:"environment,omitempty" tf:"environment,omitempty"`
 
 	// Identifier of the interactive cluster to run job on.  Note: running tasks on interactive clusters may lead to increased costs!
@@ -3160,6 +3174,8 @@ type JobParameters struct {
 
 	// A list of job databricks_cluster specifications that can be shared and reused by tasks of this job. Libraries cannot be declared in a shared job cluster. You must declare dependent libraries in task settings. Multi-task syntax
 	// +kubebuilder:validation:Optional
+	// +listType=map
+	// +listMapKey=jobClusterKey
 	JobCluster []JobClusterParameters `json:"jobCluster,omitempty" tf:"job_cluster,omitempty"`
 
 	// (List) An optional list of libraries to be installed on the cluster that will execute the job. See library Configuration Block below.
@@ -3253,6 +3269,8 @@ type JobParameters struct {
 
 	// A list of task specification that the job will execute. See task Configuration Block below.
 	// +kubebuilder:validation:Optional
+	// +listType=map
+	// +listMapKey=taskKey
 	Task []TaskParameters `json:"task,omitempty" tf:"task,omitempty"`
 
 	// (Integer) An optional timeout applied to each run of this job. The default behavior is to have no timeout.
@@ -8713,6 +8731,8 @@ type TaskInitParameters struct {
 	DbtTask []TaskDbtTaskInitParameters `json:"dbtTask,omitempty" tf:"dbt_task,omitempty"`
 
 	// block specifying dependency(-ies) for a given task.
+	// +listType=map
+	// +listMapKey=taskKey
 	DependsOn []DependsOnInitParameters `json:"dependsOn,omitempty" tf:"depends_on,omitempty"`
 
 	// An optional description for the job. The maximum length is 1024 characters in UTF-8 encoding.
@@ -10274,6 +10294,8 @@ type TaskObservation struct {
 	DbtTask []TaskDbtTaskObservation `json:"dbtTask,omitempty" tf:"dbt_task,omitempty"`
 
 	// block specifying dependency(-ies) for a given task.
+	// +listType=map
+	// +listMapKey=taskKey
 	DependsOn []DependsOnObservation `json:"dependsOn,omitempty" tf:"depends_on,omitempty"`
 
 	// An optional description for the job. The maximum length is 1024 characters in UTF-8 encoding.
@@ -10395,6 +10417,8 @@ type TaskParameters struct {
 
 	// block specifying dependency(-ies) for a given task.
 	// +kubebuilder:validation:Optional
+	// +listType=map
+	// +listMapKey=taskKey
 	DependsOn []DependsOnParameters `json:"dependsOn,omitempty" tf:"depends_on,omitempty"`
 
 	// An optional description for the job. The maximum length is 1024 characters in UTF-8 encoding.
