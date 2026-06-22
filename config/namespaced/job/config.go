@@ -71,5 +71,45 @@ func Configure(p *config.Provider) {
 		r.References["for_each_task.task.power_bi_task.warehouse_id"] = config.Reference{
 			TerraformName: "databricks_sql_endpoint",
 		}
+
+		if r.ServerSideApplyMergeStrategies == nil {
+			r.ServerSideApplyMergeStrategies = config.ServerSideApplyMergeStrategies{}
+		}
+
+		r.ServerSideApplyMergeStrategies["task"] = config.MergeStrategy{
+			ListMergeStrategy: config.ListMergeStrategy{
+				MergeStrategy: config.ListTypeMap,
+				ListMapKeys: config.ListMapKeys{
+					Keys: []string{"taskKey"},
+				},
+			},
+		}
+
+		r.ServerSideApplyMergeStrategies["environment"] = config.MergeStrategy{
+			ListMergeStrategy: config.ListMergeStrategy{
+				MergeStrategy: config.ListTypeMap,
+				ListMapKeys: config.ListMapKeys{
+					Keys: []string{"environmentKey"},
+				},
+			},
+		}
+
+		r.ServerSideApplyMergeStrategies["job_cluster"] = config.MergeStrategy{
+			ListMergeStrategy: config.ListMergeStrategy{
+				MergeStrategy: config.ListTypeMap,
+				ListMapKeys: config.ListMapKeys{
+					Keys: []string{"jobClusterKey"},
+				},
+			},
+		}
+
+		r.ServerSideApplyMergeStrategies["task.depends_on"] = config.MergeStrategy{
+			ListMergeStrategy: config.ListMergeStrategy{
+				MergeStrategy: config.ListTypeMap,
+				ListMapKeys: config.ListMapKeys{
+					Keys: []string{"taskKey"},
+				},
+			},
+		}
 	})
 }
