@@ -344,9 +344,6 @@ spec:
                           type: array
                       type: object
                     type: array
-                    x-kubernetes-list-map-keys:
-                    - environmentKey
-                    x-kubernetes-list-type: map
                   existingClusterId:
                     description: 'Identifier of the interactive cluster to run job
                       on.  Note: running tasks on interactive clusters may lead to
@@ -936,9 +933,6 @@ spec:
                           type: array
                       type: object
                     type: array
-                    x-kubernetes-list-map-keys:
-                    - jobClusterKey
-                    x-kubernetes-list-type: map
                   library:
                     description: (List) An optional list of libraries to be installed
                       on the cluster that will execute the job. See library Configuration
@@ -2240,9 +2234,6 @@ spec:
                                 type: string
                             type: object
                           type: array
-                          x-kubernetes-list-map-keys:
-                          - taskKey
-                          x-kubernetes-list-type: map
                         description:
                           description: An optional description for the job. The maximum
                             length is 1024 characters in UTF-8 encoding.
@@ -4037,6 +4028,11 @@ spec:
                                 type: array
                             type: object
                           type: array
+                        index:
+                          default: default
+                          description: This is an injected field with a default value
+                            for being able to merge items of the parent object list.
+                          type: string
                         jobClusterKey:
                           description: Identifier of the Job cluster specified in
                             the job_cluster block.
@@ -5701,7 +5697,7 @@ spec:
                       type: object
                     type: array
                     x-kubernetes-list-map-keys:
-                    - taskKey
+                    - index
                     x-kubernetes-list-type: map
                   timeoutSeconds:
                     description: (Integer) An optional timeout applied to each run
@@ -6183,9 +6179,6 @@ spec:
                           type: array
                       type: object
                     type: array
-                    x-kubernetes-list-map-keys:
-                    - environmentKey
-                    x-kubernetes-list-type: map
                   existingClusterId:
                     description: 'Identifier of the interactive cluster to run job
                       on.  Note: running tasks on interactive clusters may lead to
@@ -6777,9 +6770,6 @@ spec:
                           type: array
                       type: object
                     type: array
-                    x-kubernetes-list-map-keys:
-                    - jobClusterKey
-                    x-kubernetes-list-type: map
                   library:
                     description: (List) An optional list of libraries to be installed
                       on the cluster that will execute the job. See library Configuration
@@ -8083,9 +8073,6 @@ spec:
                                 type: string
                             type: object
                           type: array
-                          x-kubernetes-list-map-keys:
-                          - taskKey
-                          x-kubernetes-list-type: map
                         description:
                           description: An optional description for the job. The maximum
                             length is 1024 characters in UTF-8 encoding.
@@ -9882,6 +9869,11 @@ spec:
                                 type: array
                             type: object
                           type: array
+                        index:
+                          default: default
+                          description: This is an injected field with a default value
+                            for being able to merge items of the parent object list.
+                          type: string
                         jobClusterKey:
                           description: Identifier of the Job cluster specified in
                             the job_cluster block.
@@ -11548,7 +11540,7 @@ spec:
                       type: object
                     type: array
                     x-kubernetes-list-map-keys:
-                    - taskKey
+                    - index
                     x-kubernetes-list-type: map
                   timeoutSeconds:
                     description: (Integer) An optional timeout applied to each run
@@ -12032,9 +12024,6 @@ spec:
                           type: array
                       type: object
                     type: array
-                    x-kubernetes-list-map-keys:
-                    - environmentKey
-                    x-kubernetes-list-type: map
                   existingClusterId:
                     description: 'Identifier of the interactive cluster to run job
                       on.  Note: running tasks on interactive clusters may lead to
@@ -12609,9 +12598,6 @@ spec:
                           type: array
                       type: object
                     type: array
-                    x-kubernetes-list-map-keys:
-                    - jobClusterKey
-                    x-kubernetes-list-type: map
                   library:
                     description: (List) An optional list of libraries to be installed
                       on the cluster that will execute the job. See library Configuration
@@ -13591,9 +13577,6 @@ spec:
                                 type: string
                             type: object
                           type: array
-                          x-kubernetes-list-map-keys:
-                          - taskKey
-                          x-kubernetes-list-type: map
                         description:
                           description: An optional description for the job. The maximum
                             length is 1024 characters in UTF-8 encoding.
@@ -15290,6 +15273,11 @@ spec:
                                 type: array
                             type: object
                           type: array
+                        index:
+                          default: default
+                          description: This is an injected field with a default value
+                            for being able to merge items of the parent object list.
+                          type: string
                         jobClusterKey:
                           description: Identifier of the Job cluster specified in
                             the job_cluster block.
@@ -16327,7 +16315,7 @@ spec:
                       type: object
                     type: array
                     x-kubernetes-list-map-keys:
-                    - taskKey
+                    - index
                     x-kubernetes-list-type: map
                   timeoutSeconds:
                     description: (Integer) An optional timeout applied to each run
@@ -16903,9 +16891,6 @@ spec:
                           type: object
                       type: object
                     type: array
-                    x-kubernetes-list-map-keys:
-                    - environmentKey
-                    x-kubernetes-list-type: map
                   existingClusterId:
                     description: 'Identifier of the interactive cluster to run job
                       on.  Note: running tasks on interactive clusters may lead to
@@ -17421,9 +17406,6 @@ spec:
                           type: object
                       type: object
                     type: array
-                    x-kubernetes-list-map-keys:
-                    - jobClusterKey
-                    x-kubernetes-list-type: map
                   library:
                     description: (List) An optional list of libraries to be installed
                       on the cluster that will execute the job. See library Configuration
@@ -18613,9 +18595,6 @@ spec:
                                 type: string
                             type: object
                           type: array
-                          x-kubernetes-list-map-keys:
-                          - taskKey
-                          x-kubernetes-list-type: map
                         description:
                           description: An optional description for the job. The maximum
                             length is 1024 characters in UTF-8 encoding.
@@ -20194,6 +20173,11 @@ spec:
                                 type: object
                               type: array
                           type: object
+                        index:
+                          default: default
+                          description: This is an injected field with a default value
+                            for being able to merge items of the parent object list.
+                          type: string
                         jobClusterKey:
                           description: Identifier of the Job cluster specified in
                             the job_cluster block.
@@ -21745,7 +21729,7 @@ spec:
                       type: object
                     type: array
                     x-kubernetes-list-map-keys:
-                    - taskKey
+                    - index
                     x-kubernetes-list-type: map
                   timeoutSeconds:
                     description: (Integer) An optional timeout applied to each run
@@ -22197,9 +22181,6 @@ spec:
                           type: object
                       type: object
                     type: array
-                    x-kubernetes-list-map-keys:
-                    - environmentKey
-                    x-kubernetes-list-type: map
                   existingClusterId:
                     description: 'Identifier of the interactive cluster to run job
                       on.  Note: running tasks on interactive clusters may lead to
@@ -22717,9 +22698,6 @@ spec:
                           type: object
                       type: object
                     type: array
-                    x-kubernetes-list-map-keys:
-                    - jobClusterKey
-                    x-kubernetes-list-type: map
                   library:
                     description: (List) An optional list of libraries to be installed
                       on the cluster that will execute the job. See library Configuration
@@ -23911,9 +23889,6 @@ spec:
                                 type: string
                             type: object
                           type: array
-                          x-kubernetes-list-map-keys:
-                          - taskKey
-                          x-kubernetes-list-type: map
                         description:
                           description: An optional description for the job. The maximum
                             length is 1024 characters in UTF-8 encoding.
@@ -25494,6 +25469,11 @@ spec:
                                 type: object
                               type: array
                           type: object
+                        index:
+                          default: default
+                          description: This is an injected field with a default value
+                            for being able to merge items of the parent object list.
+                          type: string
                         jobClusterKey:
                           description: Identifier of the Job cluster specified in
                             the job_cluster block.
@@ -27047,7 +27027,7 @@ spec:
                       type: object
                     type: array
                     x-kubernetes-list-map-keys:
-                    - taskKey
+                    - index
                     x-kubernetes-list-type: map
                   timeoutSeconds:
                     description: (Integer) An optional timeout applied to each run
@@ -27501,9 +27481,6 @@ spec:
                           type: object
                       type: object
                     type: array
-                    x-kubernetes-list-map-keys:
-                    - environmentKey
-                    x-kubernetes-list-type: map
                   existingClusterId:
                     description: 'Identifier of the interactive cluster to run job
                       on.  Note: running tasks on interactive clusters may lead to
@@ -28005,9 +27982,6 @@ spec:
                           type: object
                       type: object
                     type: array
-                    x-kubernetes-list-map-keys:
-                    - jobClusterKey
-                    x-kubernetes-list-type: map
                   library:
                     description: (List) An optional list of libraries to be installed
                       on the cluster that will execute the job. See library Configuration
@@ -28875,9 +28849,6 @@ spec:
                                 type: string
                             type: object
                           type: array
-                          x-kubernetes-list-map-keys:
-                          - taskKey
-                          x-kubernetes-list-type: map
                         description:
                           description: An optional description for the job. The maximum
                             length is 1024 characters in UTF-8 encoding.
@@ -30361,6 +30332,11 @@ spec:
                                 type: object
                               type: array
                           type: object
+                        index:
+                          default: default
+                          description: This is an injected field with a default value
+                            for being able to merge items of the parent object list.
+                          type: string
                         jobClusterKey:
                           description: Identifier of the Job cluster specified in
                             the job_cluster block.
@@ -31286,7 +31262,7 @@ spec:
                       type: object
                     type: array
                     x-kubernetes-list-map-keys:
-                    - taskKey
+                    - index
                     x-kubernetes-list-type: map
                   timeoutSeconds:
                     description: (Integer) An optional timeout applied to each run

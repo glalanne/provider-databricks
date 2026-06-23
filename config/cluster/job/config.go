@@ -74,37 +74,13 @@ func Configure(p *config.Provider) {
 
 		r.ServerSideApplyMergeStrategies["task"] = config.MergeStrategy{
 			ListMergeStrategy: config.ListMergeStrategy{
-				MergeStrategy: config.ListTypeMap,
 				ListMapKeys: config.ListMapKeys{
-					Keys: []string{"taskKey"},
+					InjectedKey: config.InjectedKey{
+						Key:          "index",
+						DefaultValue: "default",
+					},
 				},
-			},
-		}
-
-		r.ServerSideApplyMergeStrategies["environment"] = config.MergeStrategy{
-			ListMergeStrategy: config.ListMergeStrategy{
 				MergeStrategy: config.ListTypeMap,
-				ListMapKeys: config.ListMapKeys{
-					Keys: []string{"environmentKey"},
-				},
-			},
-		}
-
-		r.ServerSideApplyMergeStrategies["job_cluster"] = config.MergeStrategy{
-			ListMergeStrategy: config.ListMergeStrategy{
-				MergeStrategy: config.ListTypeMap,
-				ListMapKeys: config.ListMapKeys{
-					Keys: []string{"jobClusterKey"},
-				},
-			},
-		}
-
-		r.ServerSideApplyMergeStrategies["task.depends_on"] = config.MergeStrategy{
-			ListMergeStrategy: config.ListMergeStrategy{
-				MergeStrategy: config.ListTypeMap,
-				ListMapKeys: config.ListMapKeys{
-					Keys: []string{"taskKey"},
-				},
 			},
 		}
 	})
