@@ -229,6 +229,10 @@ type StorageCredentialGCPServiceAccountKeyParameters struct {
 
 type StorageCredentialInitParameters struct {
 
+	// Specifies whether to use account-level or workspace-level API. Valid values are account and workspace. When not set, the API level is inferred from the provider host.
+	// Specifies whether to use account-level or workspace-level API. Valid values are `account` and `workspace`. When not set, the API level is inferred from the provider host.
+	API *string `json:"api,omitempty" tf:"api,omitempty"`
+
 	// exposes two additional attributes:
 	AwsIAMRole *StorageCredentialAwsIAMRoleInitParameters `json:"awsIamRole,omitempty" tf:"aws_iam_role,omitempty"`
 
@@ -262,6 +266,9 @@ type StorageCredentialInitParameters struct {
 	// Username/groupname/sp application_id of the storage credential owner.
 	Owner *string `json:"owner,omitempty" tf:"owner,omitempty"`
 
+	// Configure the provider for management through account provider. This block consists of the following fields:
+	ProviderConfig *StorageCredentialProviderConfigInitParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
+
 	// Indicates whether the storage credential is only usable for read operations.
 	ReadOnly *bool `json:"readOnly,omitempty" tf:"read_only,omitempty"`
 
@@ -270,6 +277,10 @@ type StorageCredentialInitParameters struct {
 }
 
 type StorageCredentialObservation struct {
+
+	// Specifies whether to use account-level or workspace-level API. Valid values are account and workspace. When not set, the API level is inferred from the provider host.
+	// Specifies whether to use account-level or workspace-level API. Valid values are `account` and `workspace`. When not set, the API level is inferred from the provider host.
+	API *string `json:"api,omitempty" tf:"api,omitempty"`
 
 	// exposes two additional attributes:
 	AwsIAMRole *StorageCredentialAwsIAMRoleObservation `json:"awsIamRole,omitempty" tf:"aws_iam_role,omitempty"`
@@ -307,6 +318,9 @@ type StorageCredentialObservation struct {
 	// Username/groupname/sp application_id of the storage credential owner.
 	Owner *string `json:"owner,omitempty" tf:"owner,omitempty"`
 
+	// Configure the provider for management through account provider. This block consists of the following fields:
+	ProviderConfig *StorageCredentialProviderConfigObservation `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
+
 	// Indicates whether the storage credential is only usable for read operations.
 	ReadOnly *bool `json:"readOnly,omitempty" tf:"read_only,omitempty"`
 
@@ -318,6 +332,11 @@ type StorageCredentialObservation struct {
 }
 
 type StorageCredentialParameters struct {
+
+	// Specifies whether to use account-level or workspace-level API. Valid values are account and workspace. When not set, the API level is inferred from the provider host.
+	// Specifies whether to use account-level or workspace-level API. Valid values are `account` and `workspace`. When not set, the API level is inferred from the provider host.
+	// +kubebuilder:validation:Optional
+	API *string `json:"api,omitempty" tf:"api,omitempty"`
 
 	// exposes two additional attributes:
 	// +kubebuilder:validation:Optional
@@ -365,6 +384,10 @@ type StorageCredentialParameters struct {
 	// +kubebuilder:validation:Optional
 	Owner *string `json:"owner,omitempty" tf:"owner,omitempty"`
 
+	// Configure the provider for management through account provider. This block consists of the following fields:
+	// +kubebuilder:validation:Optional
+	ProviderConfig *StorageCredentialProviderConfigParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
+
 	// Indicates whether the storage credential is only usable for read operations.
 	// +kubebuilder:validation:Optional
 	ReadOnly *bool `json:"readOnly,omitempty" tf:"read_only,omitempty"`
@@ -372,6 +395,25 @@ type StorageCredentialParameters struct {
 	// Suppress validation errors if any & force save the storage credential.
 	// +kubebuilder:validation:Optional
 	SkipValidation *bool `json:"skipValidation,omitempty" tf:"skip_validation,omitempty"`
+}
+
+type StorageCredentialProviderConfigInitParameters struct {
+
+	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
+}
+
+type StorageCredentialProviderConfigObservation struct {
+
+	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
+}
+
+type StorageCredentialProviderConfigParameters struct {
+
+	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
+	// +kubebuilder:validation:Optional
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
 }
 
 // StorageCredentialSpec defines the desired state of StorageCredential

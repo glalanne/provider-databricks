@@ -16,6 +16,12 @@ import (
 
 type ServicePrincipalRoleInitParameters struct {
 
+	// Specifies whether to use account-level or workspace-level API. Valid values are account and workspace. When not set, the API level is inferred from the provider host.
+	// Specifies whether to use account-level or workspace-level API. Valid values are `account` and `workspace`. When not set, the API level is inferred from the provider host.
+	API *string `json:"api,omitempty" tf:"api,omitempty"`
+
+	ProviderConfig *ServicePrincipalRoleProviderConfigInitParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
+
 	// This is the role name, role id, or instance profile resource.
 	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/namespaced/deployment/v1beta1.InstanceProfile
 	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/v2/pkg/resource.ExtractResourceID()
@@ -45,8 +51,14 @@ type ServicePrincipalRoleInitParameters struct {
 
 type ServicePrincipalRoleObservation struct {
 
+	// Specifies whether to use account-level or workspace-level API. Valid values are account and workspace. When not set, the API level is inferred from the provider host.
+	// Specifies whether to use account-level or workspace-level API. Valid values are `account` and `workspace`. When not set, the API level is inferred from the provider host.
+	API *string `json:"api,omitempty" tf:"api,omitempty"`
+
 	// The id in the format <service_principal_id>|<role>.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
+	ProviderConfig *ServicePrincipalRoleProviderConfigObservation `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
 
 	// This is the role name, role id, or instance profile resource.
 	Role *string `json:"role,omitempty" tf:"role,omitempty"`
@@ -56,6 +68,14 @@ type ServicePrincipalRoleObservation struct {
 }
 
 type ServicePrincipalRoleParameters struct {
+
+	// Specifies whether to use account-level or workspace-level API. Valid values are account and workspace. When not set, the API level is inferred from the provider host.
+	// Specifies whether to use account-level or workspace-level API. Valid values are `account` and `workspace`. When not set, the API level is inferred from the provider host.
+	// +kubebuilder:validation:Optional
+	API *string `json:"api,omitempty" tf:"api,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	ProviderConfig *ServicePrincipalRoleProviderConfigParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
 
 	// This is the role name, role id, or instance profile resource.
 	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/namespaced/deployment/v1beta1.InstanceProfile
@@ -84,6 +104,25 @@ type ServicePrincipalRoleParameters struct {
 	// Selector for a ServicePrincipal in security to populate servicePrincipalId.
 	// +kubebuilder:validation:Optional
 	ServicePrincipalIDSelector *v1.NamespacedSelector `json:"servicePrincipalIdSelector,omitempty" tf:"-"`
+}
+
+type ServicePrincipalRoleProviderConfigInitParameters struct {
+
+	// The id in the format <service_principal_id>|<role>.
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
+}
+
+type ServicePrincipalRoleProviderConfigObservation struct {
+
+	// The id in the format <service_principal_id>|<role>.
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
+}
+
+type ServicePrincipalRoleProviderConfigParameters struct {
+
+	// The id in the format <service_principal_id>|<role>.
+	// +kubebuilder:validation:Optional
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
 }
 
 // ServicePrincipalRoleSpec defines the desired state of ServicePrincipalRole

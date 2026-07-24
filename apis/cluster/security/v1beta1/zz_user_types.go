@@ -18,6 +18,10 @@ type UserInitParameters struct {
 	// identifier for use in databricks_access_control_rule_set, e.g. users/mr.foo@example.com.
 	ACLPrincipalID *string `json:"aclPrincipalId,omitempty" tf:"acl_principal_id,omitempty"`
 
+	// Specifies whether to use account-level or workspace-level API. Valid values are account and workspace. When not set, the API level is inferred from the provider host.
+	// Specifies whether to use account-level or workspace-level API. Valid values are `account` and `workspace`. When not set, the API level is inferred from the provider host.
+	API *string `json:"api,omitempty" tf:"api,omitempty"`
+
 	// Either user is active or not. True by default, but can be set to false in case of user deactivation with preserving user assets.
 	Active *bool `json:"active,omitempty" tf:"active,omitempty"`
 
@@ -51,6 +55,8 @@ type UserInitParameters struct {
 	// Home folder of the user, e.g. /Users/mr.foo@example.com.
 	Home *string `json:"home,omitempty" tf:"home,omitempty"`
 
+	ProviderConfig *UserProviderConfigInitParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
+
 	// Personal Repos location of the user, e.g. /Repos/mr.foo@example.com.
 	Repos *string `json:"repos,omitempty" tf:"repos,omitempty"`
 
@@ -68,6 +74,10 @@ type UserObservation struct {
 
 	// identifier for use in databricks_access_control_rule_set, e.g. users/mr.foo@example.com.
 	ACLPrincipalID *string `json:"aclPrincipalId,omitempty" tf:"acl_principal_id,omitempty"`
+
+	// Specifies whether to use account-level or workspace-level API. Valid values are account and workspace. When not set, the API level is inferred from the provider host.
+	// Specifies whether to use account-level or workspace-level API. Valid values are `account` and `workspace`. When not set, the API level is inferred from the provider host.
+	API *string `json:"api,omitempty" tf:"api,omitempty"`
 
 	// Either user is active or not. True by default, but can be set to false in case of user deactivation with preserving user assets.
 	Active *bool `json:"active,omitempty" tf:"active,omitempty"`
@@ -105,6 +115,8 @@ type UserObservation struct {
 	// Canonical unique identifier for the user (SCIM ID).
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
+	ProviderConfig *UserProviderConfigObservation `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
+
 	// Personal Repos location of the user, e.g. /Repos/mr.foo@example.com.
 	Repos *string `json:"repos,omitempty" tf:"repos,omitempty"`
 
@@ -123,6 +135,11 @@ type UserParameters struct {
 	// identifier for use in databricks_access_control_rule_set, e.g. users/mr.foo@example.com.
 	// +kubebuilder:validation:Optional
 	ACLPrincipalID *string `json:"aclPrincipalId,omitempty" tf:"acl_principal_id,omitempty"`
+
+	// Specifies whether to use account-level or workspace-level API. Valid values are account and workspace. When not set, the API level is inferred from the provider host.
+	// Specifies whether to use account-level or workspace-level API. Valid values are `account` and `workspace`. When not set, the API level is inferred from the provider host.
+	// +kubebuilder:validation:Optional
+	API *string `json:"api,omitempty" tf:"api,omitempty"`
 
 	// Either user is active or not. True by default, but can be set to false in case of user deactivation with preserving user assets.
 	// +kubebuilder:validation:Optional
@@ -168,6 +185,9 @@ type UserParameters struct {
 	// +kubebuilder:validation:Optional
 	Home *string `json:"home,omitempty" tf:"home,omitempty"`
 
+	// +kubebuilder:validation:Optional
+	ProviderConfig *UserProviderConfigParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
+
 	// Personal Repos location of the user, e.g. /Repos/mr.foo@example.com.
 	// +kubebuilder:validation:Optional
 	Repos *string `json:"repos,omitempty" tf:"repos,omitempty"`
@@ -183,6 +203,25 @@ type UserParameters struct {
 	// This is a field to allow the user to have access only to Databricks One.  Couldn't be used with workspace_access or databricks_sql_access.
 	// +kubebuilder:validation:Optional
 	WorkspaceConsume *bool `json:"workspaceConsume,omitempty" tf:"workspace_consume,omitempty"`
+}
+
+type UserProviderConfigInitParameters struct {
+
+	// Canonical unique identifier for the user (SCIM ID).
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
+}
+
+type UserProviderConfigObservation struct {
+
+	// Canonical unique identifier for the user (SCIM ID).
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
+}
+
+type UserProviderConfigParameters struct {
+
+	// Canonical unique identifier for the user (SCIM ID).
+	// +kubebuilder:validation:Optional
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
 }
 
 // UserSpec defines the desired state of User

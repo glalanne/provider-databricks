@@ -118,6 +118,22 @@ spec:
                           type: string
                       type: object
                     type: array
+                  traceLocation:
+                    items:
+                      properties:
+                        ucTraceLocation:
+                          items:
+                            properties:
+                              catalog:
+                                type: string
+                              schema:
+                                type: string
+                              tablePrefix:
+                                type: string
+                            type: object
+                          type: array
+                      type: object
+                    type: array
                 type: object
               initProvider:
                 description: |-
@@ -172,6 +188,22 @@ spec:
                           type: string
                         value:
                           type: string
+                      type: object
+                    type: array
+                  traceLocation:
+                    items:
+                      properties:
+                        ucTraceLocation:
+                          items:
+                            properties:
+                              catalog:
+                                type: string
+                              schema:
+                                type: string
+                              tablePrefix:
+                                type: string
+                            type: object
+                          type: array
                       type: object
                     type: array
                 type: object
@@ -314,6 +346,22 @@ spec:
                           type: string
                         value:
                           type: string
+                      type: object
+                    type: array
+                  traceLocation:
+                    items:
+                      properties:
+                        ucTraceLocation:
+                          items:
+                            properties:
+                              catalog:
+                                type: string
+                              schema:
+                                type: string
+                              tablePrefix:
+                                type: string
+                            type: object
+                          type: array
                       type: object
                     type: array
                 type: object
@@ -472,6 +520,18 @@ spec:
                           type: string
                       type: object
                     type: array
+                  traceLocation:
+                    properties:
+                      ucTraceLocation:
+                        properties:
+                          catalog:
+                            type: string
+                          schema:
+                            type: string
+                          tablePrefix:
+                            type: string
+                        type: object
+                    type: object
                 type: object
               initProvider:
                 description: |-
@@ -526,6 +586,18 @@ spec:
                           type: string
                       type: object
                     type: array
+                  traceLocation:
+                    properties:
+                      ucTraceLocation:
+                        properties:
+                          catalog:
+                            type: string
+                          schema:
+                            type: string
+                          tablePrefix:
+                            type: string
+                        type: object
+                    type: object
                 type: object
               managementPolicies:
                 default:
@@ -666,6 +738,18 @@ spec:
                           type: string
                       type: object
                     type: array
+                  traceLocation:
+                    properties:
+                      ucTraceLocation:
+                        properties:
+                          catalog:
+                            type: string
+                          schema:
+                            type: string
+                          tablePrefix:
+                            type: string
+                        type: object
+                    type: object
                 type: object
               conditions:
                 description: Conditions of the resource.

@@ -15,6 +15,10 @@ import (
 
 type UserInstanceProfileInitParameters struct {
 
+	// Specifies whether to use account-level or workspace-level API. Valid values are account and workspace. When not set, the API level is inferred from the provider host.
+	// Specifies whether to use account-level or workspace-level API. Valid values are `account` and `workspace`. When not set, the API level is inferred from the provider host.
+	API *string `json:"api,omitempty" tf:"api,omitempty"`
+
 	// This is the id of the instance profile resource.
 	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/cluster/deployment/v1alpha1.InstanceProfile
 	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/v2/pkg/resource.ExtractResourceID()
@@ -27,6 +31,8 @@ type UserInstanceProfileInitParameters struct {
 	// Selector for a InstanceProfile in deployment to populate instanceProfileId.
 	// +kubebuilder:validation:Optional
 	InstanceProfileIDSelector *v1.Selector `json:"instanceProfileIdSelector,omitempty" tf:"-"`
+
+	ProviderConfig []UserInstanceProfileProviderConfigInitParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
 
 	// This is the id of the user resource.
 	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/cluster/security/v1alpha1.User
@@ -44,17 +50,28 @@ type UserInstanceProfileInitParameters struct {
 
 type UserInstanceProfileObservation struct {
 
+	// Specifies whether to use account-level or workspace-level API. Valid values are account and workspace. When not set, the API level is inferred from the provider host.
+	// Specifies whether to use account-level or workspace-level API. Valid values are `account` and `workspace`. When not set, the API level is inferred from the provider host.
+	API *string `json:"api,omitempty" tf:"api,omitempty"`
+
 	// The id in the format <user_id>|<instance_profile_id>.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
 	// This is the id of the instance profile resource.
 	InstanceProfileID *string `json:"instanceProfileId,omitempty" tf:"instance_profile_id,omitempty"`
 
+	ProviderConfig []UserInstanceProfileProviderConfigObservation `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
+
 	// This is the id of the user resource.
 	UserID *string `json:"userId,omitempty" tf:"user_id,omitempty"`
 }
 
 type UserInstanceProfileParameters struct {
+
+	// Specifies whether to use account-level or workspace-level API. Valid values are account and workspace. When not set, the API level is inferred from the provider host.
+	// Specifies whether to use account-level or workspace-level API. Valid values are `account` and `workspace`. When not set, the API level is inferred from the provider host.
+	// +kubebuilder:validation:Optional
+	API *string `json:"api,omitempty" tf:"api,omitempty"`
 
 	// This is the id of the instance profile resource.
 	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/cluster/deployment/v1alpha1.InstanceProfile
@@ -70,6 +87,9 @@ type UserInstanceProfileParameters struct {
 	// +kubebuilder:validation:Optional
 	InstanceProfileIDSelector *v1.Selector `json:"instanceProfileIdSelector,omitempty" tf:"-"`
 
+	// +kubebuilder:validation:Optional
+	ProviderConfig []UserInstanceProfileProviderConfigParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
+
 	// This is the id of the user resource.
 	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/cluster/security/v1alpha1.User
 	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/v2/pkg/resource.ExtractResourceID()
@@ -83,6 +103,25 @@ type UserInstanceProfileParameters struct {
 	// Selector for a User in security to populate userId.
 	// +kubebuilder:validation:Optional
 	UserIDSelector *v1.Selector `json:"userIdSelector,omitempty" tf:"-"`
+}
+
+type UserInstanceProfileProviderConfigInitParameters struct {
+
+	// The id in the format <user_id>|<instance_profile_id>.
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
+}
+
+type UserInstanceProfileProviderConfigObservation struct {
+
+	// The id in the format <user_id>|<instance_profile_id>.
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
+}
+
+type UserInstanceProfileProviderConfigParameters struct {
+
+	// The id in the format <user_id>|<instance_profile_id>.
+	// +kubebuilder:validation:Optional
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
 }
 
 // UserInstanceProfileSpec defines the desired state of UserInstanceProfile

@@ -142,7 +142,9 @@ spec:
                         type: string
                     type: object
                   purgeOnDelete:
-                    description: Purge the resource on delete
+                    description: |-
+                      Deprecated. Omitting the field or setting it to true will result in the field being hard deleted. Setting a value
+                      of false will throw a bad request
                     type: boolean
                   retentionWindowInDays:
                     description: |-
@@ -237,7 +239,9 @@ spec:
                         type: string
                     type: object
                   purgeOnDelete:
-                    description: Purge the resource on delete
+                    description: |-
+                      Deprecated. Omitting the field or setting it to true will result in the field being hard deleted. Setting a value
+                      of false will throw a bad request
                     type: boolean
                   retentionWindowInDays:
                     description: |-
@@ -530,7 +534,9 @@ spec:
                         type: string
                     type: object
                   purgeOnDelete:
-                    description: Purge the resource on delete
+                    description: |-
+                      Deprecated. Omitting the field or setting it to true will result in the field being hard deleted. Setting a value
+                      of false will throw a bad request
                     type: boolean
                   readOnlyDns:
                     description: |-
@@ -743,7 +749,9 @@ spec:
                         type: string
                     type: object
                   purgeOnDelete:
-                    description: Purge the resource on delete
+                    description: |-
+                      Deprecated. Omitting the field or setting it to true will result in the field being hard deleted. Setting a value
+                      of false will throw a bad request
                     type: boolean
                   retentionWindowInDays:
                     description: |-
@@ -838,7 +846,9 @@ spec:
                         type: string
                     type: object
                   purgeOnDelete:
-                    description: Purge the resource on delete
+                    description: |-
+                      Deprecated. Omitting the field or setting it to true will result in the field being hard deleted. Setting a value
+                      of false will throw a bad request
                     type: boolean
                   retentionWindowInDays:
                     description: |-
@@ -1131,7 +1141,9 @@ spec:
                         type: string
                     type: object
                   purgeOnDelete:
-                    description: Purge the resource on delete
+                    description: |-
+                      Deprecated. Omitting the field or setting it to true will result in the field being hard deleted. Setting a value
+                      of false will throw a bad request
                     type: boolean
                   readOnlyDns:
                     description: |-

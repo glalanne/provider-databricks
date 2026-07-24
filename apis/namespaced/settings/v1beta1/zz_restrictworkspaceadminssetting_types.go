@@ -15,18 +15,23 @@ import (
 )
 
 type RestrictWorkspaceAdminsInitParameters struct {
+	DisableGovTagCreation *bool `json:"disableGovTagCreation,omitempty" tf:"disable_gov_tag_creation,omitempty"`
 
 	// The restrict workspace admins status for the workspace.
 	Status *string `json:"status,omitempty" tf:"status,omitempty"`
 }
 
 type RestrictWorkspaceAdminsObservation struct {
+	DisableGovTagCreation *bool `json:"disableGovTagCreation,omitempty" tf:"disable_gov_tag_creation,omitempty"`
 
 	// The restrict workspace admins status for the workspace.
 	Status *string `json:"status,omitempty" tf:"status,omitempty"`
 }
 
 type RestrictWorkspaceAdminsParameters struct {
+
+	// +kubebuilder:validation:Optional
+	DisableGovTagCreation *bool `json:"disableGovTagCreation,omitempty" tf:"disable_gov_tag_creation,omitempty"`
 
 	// The restrict workspace admins status for the workspace.
 	// +kubebuilder:validation:Optional
@@ -92,7 +97,7 @@ type RestrictWorkspaceAdminsSettingProviderConfigParameters struct {
 
 	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
 	// +kubebuilder:validation:Optional
-	WorkspaceID *string `json:"workspaceId" tf:"workspace_id,omitempty"`
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
 }
 
 // RestrictWorkspaceAdminsSettingSpec defines the desired state of RestrictWorkspaceAdminsSetting

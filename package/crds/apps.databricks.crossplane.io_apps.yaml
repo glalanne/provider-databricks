@@ -79,6 +79,10 @@ spec:
                   budgetPolicyId:
                     description: The Budget Policy ID set for this resource.
                     type: string
+                  computeMaxInstances:
+                    type: number
+                  computeMinInstances:
+                    type: number
                   computeSize:
                     description: A string specifying compute size for the App. Possible
                       values are MEDIUM, LARGE.
@@ -87,11 +91,18 @@ spec:
                     description: The description of the app.
                     type: string
                   gitRepository:
+                    description: Git repository configuration for app deployments
+                      (see below). When specified, deployments can reference code
+                      from this repository by providing only the git reference (branch,
+                      tag, or commit).
                     properties:
                       provider:
+                        description: 'Git provider. Case insensitive. Supported values:
+                          gitHub, gitHubEnterprise, bitbucketCloud, bitbucketServer,
+                          azureDevOpsServices, gitLab, gitLabEnterpriseEdition, awsCodeCommit.'
                         type: string
                       url:
-                        description: The URL of the app once it is deployed.
+                        description: URL of the Git repository.
                         type: string
                     type: object
                   noCompute:
@@ -107,6 +118,18 @@ spec:
                     items:
                       properties:
                         app:
+                          description: reference to another Databricks App.
+                          properties:
+                            name:
+                              description: The name of the app. The name must contain
+                                only lowercase alphanumeric characters and hyphens.
+                                It must be unique within the workspace.
+                              type: string
+                            permission:
+                              description: 'Permission to grant on the secret scope.
+                                For secrets, only one permission is allowed. Permission
+                                must be one of: READ, WRITE, MANAGE.'
+                              type: string
                           type: object
                         database:
                           description: attribute
@@ -127,10 +150,11 @@ spec:
                           description: The description of the app.
                           type: string
                         experiment:
+                          description: attribute
                           properties:
                             experimentId:
-                              description: Id of the SQL warehouse to grant permission
-                                on.
+                              description: The ID of the MLflow experiment to grant
+                                permission on.
                               type: string
                             permission:
                               description: 'Permission to grant on the secret scope.
@@ -173,6 +197,22 @@ spec:
                             only lowercase alphanumeric characters and hyphens. It
                             must be unique within the workspace.
                           type: string
+                        postgres:
+                          description: attribute
+                          properties:
+                            branch:
+                              description: The resource path of the Lakebase Autoscaling
+                                branch to grant permission on (e.g. projects/proj-abc123/branches/branch-xyz789).
+                              type: string
+                            database:
+                              description: attribute
+                              type: string
+                            permission:
+                              description: 'Permission to grant on the secret scope.
+                                For secrets, only one permission is allowed. Permission
+                                must be one of: READ, WRITE, MANAGE.'
+                              type: string
+                          type: object
                         secret:
                           description: attribute
                           properties:
@@ -226,21 +266,47 @@ spec:
                                 must be one of: READ, WRITE, MANAGE.'
                               type: string
                             securableFullName:
-                              description: the full name of UC securable, i.e. my-catalog.my-schema.my-volume.
+                              description: The full name of UC securable, i.e. my-catalog.my-schema.my-volume.
                               type: string
                             securableType:
-                              description: the type of UC securable, i.e. VOLUME.
+                              description: The type of UC securable. Supported values
+                                are CONNECTION, FUNCTION, TABLE, VOLUME.
                               type: string
                           type: object
                       type: object
                     type: array
                   space:
                     type: string
+                  telemetryExportDestinations:
+                    description: A list of destinations to which the app's telemetry
+                      (logs, metrics, traces) is exported (see below).
+                    items:
+                      properties:
+                        unityCatalog:
+                          description: export telemetry to Unity Catalog tables (must
+                            already exist and be writable by the app's service principal).
+                          properties:
+                            logsTable:
+                              description: Full name of the Unity Catalog table for
+                                OpenTelemetry logs.
+                              type: string
+                            metricsTable:
+                              description: Full name of the Unity Catalog table for
+                                OpenTelemetry metrics.
+                              type: string
+                            tracesTable:
+                              description: Full name of the Unity Catalog table for
+                                OpenTelemetry traces (spans).
+                              type: string
+                          type: object
+                      type: object
+                    type: array
                   usagePolicyId:
-                    description: Id of the SQL warehouse to grant permission on.
+                    description: The Usage Policy ID set for this resource.
                     type: string
                   userApiScopes:
-                    description: A list of api scopes granted to the user access token.
+                    description: A list of api scopes granted to the user access token.  See
+                      REST API docs for full list of supported scopes.
                     items:
                       type: string
                     type: array
@@ -261,6 +327,10 @@ spec:
                   budgetPolicyId:
                     description: The Budget Policy ID set for this resource.
                     type: string
+                  computeMaxInstances:
+                    type: number
+                  computeMinInstances:
+                    type: number
                   computeSize:
                     description: A string specifying compute size for the App. Possible
                       values are MEDIUM, LARGE.
@@ -269,11 +339,18 @@ spec:
                     description: The description of the app.
                     type: string
                   gitRepository:
+                    description: Git repository configuration for app deployments
+                      (see below). When specified, deployments can reference code
+                      from this repository by providing only the git reference (branch,
+                      tag, or commit).
                     properties:
                       provider:
+                        description: 'Git provider. Case insensitive. Supported values:
+                          gitHub, gitHubEnterprise, bitbucketCloud, bitbucketServer,
+                          azureDevOpsServices, gitLab, gitLabEnterpriseEdition, awsCodeCommit.'
                         type: string
                       url:
-                        description: The URL of the app once it is deployed.
+                        description: URL of the Git repository.
                         type: string
                     type: object
                   noCompute:
@@ -289,6 +366,18 @@ spec:
                     items:
                       properties:
                         app:
+                          description: reference to another Databricks App.
+                          properties:
+                            name:
+                              description: The name of the app. The name must contain
+                                only lowercase alphanumeric characters and hyphens.
+                                It must be unique within the workspace.
+                              type: string
+                            permission:
+                              description: 'Permission to grant on the secret scope.
+                                For secrets, only one permission is allowed. Permission
+                                must be one of: READ, WRITE, MANAGE.'
+                              type: string
                           type: object
                         database:
                           description: attribute
@@ -309,10 +398,11 @@ spec:
                           description: The description of the app.
                           type: string
                         experiment:
+                          description: attribute
                           properties:
                             experimentId:
-                              description: Id of the SQL warehouse to grant permission
-                                on.
+                              description: The ID of the MLflow experiment to grant
+                                permission on.
                               type: string
                             permission:
                               description: 'Permission to grant on the secret scope.
@@ -355,6 +445,22 @@ spec:
                             only lowercase alphanumeric characters and hyphens. It
                             must be unique within the workspace.
                           type: string
+                        postgres:
+                          description: attribute
+                          properties:
+                            branch:
+                              description: The resource path of the Lakebase Autoscaling
+                                branch to grant permission on (e.g. projects/proj-abc123/branches/branch-xyz789).
+                              type: string
+                            database:
+                              description: attribute
+                              type: string
+                            permission:
+                              description: 'Permission to grant on the secret scope.
+                                For secrets, only one permission is allowed. Permission
+                                must be one of: READ, WRITE, MANAGE.'
+                              type: string
+                          type: object
                         secret:
                           description: attribute
                           properties:
@@ -408,21 +514,47 @@ spec:
                                 must be one of: READ, WRITE, MANAGE.'
                               type: string
                             securableFullName:
-                              description: the full name of UC securable, i.e. my-catalog.my-schema.my-volume.
+                              description: The full name of UC securable, i.e. my-catalog.my-schema.my-volume.
                               type: string
                             securableType:
-                              description: the type of UC securable, i.e. VOLUME.
+                              description: The type of UC securable. Supported values
+                                are CONNECTION, FUNCTION, TABLE, VOLUME.
                               type: string
                           type: object
                       type: object
                     type: array
                   space:
                     type: string
+                  telemetryExportDestinations:
+                    description: A list of destinations to which the app's telemetry
+                      (logs, metrics, traces) is exported (see below).
+                    items:
+                      properties:
+                        unityCatalog:
+                          description: export telemetry to Unity Catalog tables (must
+                            already exist and be writable by the app's service principal).
+                          properties:
+                            logsTable:
+                              description: Full name of the Unity Catalog table for
+                                OpenTelemetry logs.
+                              type: string
+                            metricsTable:
+                              description: Full name of the Unity Catalog table for
+                                OpenTelemetry metrics.
+                              type: string
+                            tracesTable:
+                              description: Full name of the Unity Catalog table for
+                                OpenTelemetry traces (spans).
+                              type: string
+                          type: object
+                      type: object
+                    type: array
                   usagePolicyId:
-                    description: Id of the SQL warehouse to grant permission on.
+                    description: The Usage Policy ID set for this resource.
                     type: string
                   userApiScopes:
-                    description: A list of api scopes granted to the user access token.
+                    description: A list of api scopes granted to the user access token.  See
+                      REST API docs for full list of supported scopes.
                     items:
                       type: string
                     type: array
@@ -519,6 +651,8 @@ spec:
               atProvider:
                 properties:
                   activeDeployment:
+                    description: the active deployment of the app. A deployment is
+                      considered active when it has been deployed to the app compute.
                     properties:
                       command:
                         items:
@@ -531,12 +665,15 @@ spec:
                         description: The email of the user that created the app.
                         type: string
                       deploymentArtifacts:
+                        description: attribute
                         properties:
                           sourceCodePath:
+                            description: The workspace file system path of the source
+                              code used to create the deployment.
                             type: string
                         type: object
                       deploymentId:
-                        description: Id of the SQL warehouse to grant permission on.
+                        description: The unique ID of the deployment.
                         type: string
                       envVars:
                         items:
@@ -555,29 +692,45 @@ spec:
                       gitSource:
                         properties:
                           branch:
+                            description: The resource path of the Lakebase Autoscaling
+                              branch to grant permission on (e.g. projects/proj-abc123/branches/branch-xyz789).
                             type: string
                           commit:
                             type: string
                           gitRepository:
+                            description: Git repository configuration for app deployments
+                              (see below). When specified, deployments can reference
+                              code from this repository by providing only the git
+                              reference (branch, tag, or commit).
                             properties:
                               provider:
+                                description: 'Git provider. Case insensitive. Supported
+                                  values: gitHub, gitHubEnterprise, bitbucketCloud,
+                                  bitbucketServer, azureDevOpsServices, gitLab, gitLabEnterpriseEdition,
+                                  awsCodeCommit.'
                                 type: string
                               url:
-                                description: The URL of the app once it is deployed.
+                                description: URL of the Git repository.
                                 type: string
                             type: object
                           resolvedCommit:
                             type: string
                           sourceCodePath:
+                            description: The workspace file system path of the source
+                              code used to create the deployment.
                             type: string
                           tag:
                             type: string
                         type: object
                       mode:
+                        description: The deployment mode (AUTO_SYNC or SNAPSHOT).
                         type: string
                       sourceCodePath:
+                        description: The workspace file system path of the source
+                          code used to create the deployment.
                         type: string
                       status:
+                        description: attribute
                         properties:
                           message:
                             description: Compute status message
@@ -596,6 +749,8 @@ spec:
                       message:
                         description: Compute status message
                         type: string
+                      runningInstances:
+                        type: number
                       state:
                         description: State of the app compute.
                         type: string
@@ -603,6 +758,10 @@ spec:
                   budgetPolicyId:
                     description: The Budget Policy ID set for this resource.
                     type: string
+                  computeMaxInstances:
+                    type: number
+                  computeMinInstances:
+                    type: number
                   computeSize:
                     description: A string specifying compute size for the App. Possible
                       values are MEDIUM, LARGE.
@@ -637,7 +796,7 @@ spec:
                     description: The effective budget policy ID.
                     type: string
                   effectiveUsagePolicyId:
-                    description: Id of the SQL warehouse to grant permission on.
+                    description: The effective usage policy ID.
                     type: string
                   effectiveUserApiScopes:
                     description: A list of effective api scopes granted to the user
@@ -646,11 +805,18 @@ spec:
                       type: string
                     type: array
                   gitRepository:
+                    description: Git repository configuration for app deployments
+                      (see below). When specified, deployments can reference code
+                      from this repository by providing only the git reference (branch,
+                      tag, or commit).
                     properties:
                       provider:
+                        description: 'Git provider. Case insensitive. Supported values:
+                          gitHub, gitHubEnterprise, bitbucketCloud, bitbucketServer,
+                          azureDevOpsServices, gitLab, gitLabEnterpriseEdition, awsCodeCommit.'
                         type: string
                       url:
-                        description: The URL of the app once it is deployed.
+                        description: URL of the Git repository.
                         type: string
                     type: object
                   id:
@@ -659,12 +825,17 @@ spec:
                   noCompute:
                     type: boolean
                   oauth2AppClientId:
-                    description: Id of the SQL warehouse to grant permission on.
+                    description: The OAuth2 client ID of the app's integration, set
+                      when the app uses user authorization.
                     type: string
                   oauth2AppIntegrationId:
-                    description: Id of the SQL warehouse to grant permission on.
+                    description: The unique ID of the OAuth2 integration associated
+                      with the app.
                     type: string
                   pendingDeployment:
+                    description: the pending deployment of the app. A deployment is
+                      considered pending when it is being prepared for deployment
+                      to the app compute. Schema is identical to active_deployment.
                     properties:
                       command:
                         items:
@@ -677,12 +848,15 @@ spec:
                         description: The email of the user that created the app.
                         type: string
                       deploymentArtifacts:
+                        description: attribute
                         properties:
                           sourceCodePath:
+                            description: The workspace file system path of the source
+                              code used to create the deployment.
                             type: string
                         type: object
                       deploymentId:
-                        description: Id of the SQL warehouse to grant permission on.
+                        description: The unique ID of the deployment.
                         type: string
                       envVars:
                         items:
@@ -701,29 +875,45 @@ spec:
                       gitSource:
                         properties:
                           branch:
+                            description: The resource path of the Lakebase Autoscaling
+                              branch to grant permission on (e.g. projects/proj-abc123/branches/branch-xyz789).
                             type: string
                           commit:
                             type: string
                           gitRepository:
+                            description: Git repository configuration for app deployments
+                              (see below). When specified, deployments can reference
+                              code from this repository by providing only the git
+                              reference (branch, tag, or commit).
                             properties:
                               provider:
+                                description: 'Git provider. Case insensitive. Supported
+                                  values: gitHub, gitHubEnterprise, bitbucketCloud,
+                                  bitbucketServer, azureDevOpsServices, gitLab, gitLabEnterpriseEdition,
+                                  awsCodeCommit.'
                                 type: string
                               url:
-                                description: The URL of the app once it is deployed.
+                                description: URL of the Git repository.
                                 type: string
                             type: object
                           resolvedCommit:
                             type: string
                           sourceCodePath:
+                            description: The workspace file system path of the source
+                              code used to create the deployment.
                             type: string
                           tag:
                             type: string
                         type: object
                       mode:
+                        description: The deployment mode (AUTO_SYNC or SNAPSHOT).
                         type: string
                       sourceCodePath:
+                        description: The workspace file system path of the source
+                          code used to create the deployment.
                         type: string
                       status:
+                        description: attribute
                         properties:
                           message:
                             description: Compute status message
@@ -747,6 +937,18 @@ spec:
                     items:
                       properties:
                         app:
+                          description: reference to another Databricks App.
+                          properties:
+                            name:
+                              description: The name of the app. The name must contain
+                                only lowercase alphanumeric characters and hyphens.
+                                It must be unique within the workspace.
+                              type: string
+                            permission:
+                              description: 'Permission to grant on the secret scope.
+                                For secrets, only one permission is allowed. Permission
+                                must be one of: READ, WRITE, MANAGE.'
+                              type: string
                           type: object
                         database:
                           description: attribute
@@ -767,10 +969,11 @@ spec:
                           description: The description of the app.
                           type: string
                         experiment:
+                          description: attribute
                           properties:
                             experimentId:
-                              description: Id of the SQL warehouse to grant permission
-                                on.
+                              description: The ID of the MLflow experiment to grant
+                                permission on.
                               type: string
                             permission:
                               description: 'Permission to grant on the secret scope.
@@ -813,6 +1016,22 @@ spec:
                             only lowercase alphanumeric characters and hyphens. It
                             must be unique within the workspace.
                           type: string
+                        postgres:
+                          description: attribute
+                          properties:
+                            branch:
+                              description: The resource path of the Lakebase Autoscaling
+                                branch to grant permission on (e.g. projects/proj-abc123/branches/branch-xyz789).
+                              type: string
+                            database:
+                              description: attribute
+                              type: string
+                            permission:
+                              description: 'Permission to grant on the secret scope.
+                                For secrets, only one permission is allowed. Permission
+                                must be one of: READ, WRITE, MANAGE.'
+                              type: string
+                          type: object
                         secret:
                           description: attribute
                           properties:
@@ -866,12 +1085,13 @@ spec:
                                 must be one of: READ, WRITE, MANAGE.'
                               type: string
                             securableFullName:
-                              description: the full name of UC securable, i.e. my-catalog.my-schema.my-volume.
+                              description: The full name of UC securable, i.e. my-catalog.my-schema.my-volume.
                               type: string
                             securableKind:
                               type: string
                             securableType:
-                              description: the type of UC securable, i.e. VOLUME.
+                              description: The type of UC securable. Supported values
+                                are CONNECTION, FUNCTION, TABLE, VOLUME.
                               type: string
                           type: object
                       type: object
@@ -887,6 +1107,33 @@ spec:
                     type: string
                   space:
                     type: string
+                  telemetryExportDestinations:
+                    description: A list of destinations to which the app's telemetry
+                      (logs, metrics, traces) is exported (see below).
+                    items:
+                      properties:
+                        unityCatalog:
+                          description: export telemetry to Unity Catalog tables (must
+                            already exist and be writable by the app's service principal).
+                          properties:
+                            logsTable:
+                              description: Full name of the Unity Catalog table for
+                                OpenTelemetry logs.
+                              type: string
+                            metricsTable:
+                              description: Full name of the Unity Catalog table for
+                                OpenTelemetry metrics.
+                              type: string
+                            tracesTable:
+                              description: Full name of the Unity Catalog table for
+                                OpenTelemetry traces (spans).
+                              type: string
+                          type: object
+                      type: object
+                    type: array
+                  thumbnailUrl:
+                    description: The URL of the thumbnail image for the app.
+                    type: string
                   updateTime:
                     description: The update time of the app.
                     type: string
@@ -894,13 +1141,14 @@ spec:
                     description: The email of the user that last updated the app.
                     type: string
                   url:
-                    description: The URL of the app once it is deployed.
+                    description: URL of the Git repository.
                     type: string
                   usagePolicyId:
-                    description: Id of the SQL warehouse to grant permission on.
+                    description: The Usage Policy ID set for this resource.
                     type: string
                   userApiScopes:
-                    description: A list of api scopes granted to the user access token.
+                    description: A list of api scopes granted to the user access token.  See
+                      REST API docs for full list of supported scopes.
                     items:
                       type: string
                     type: array
@@ -1023,6 +1271,10 @@ spec:
                   budgetPolicyId:
                     description: The Budget Policy ID set for this resource.
                     type: string
+                  computeMaxInstances:
+                    type: number
+                  computeMinInstances:
+                    type: number
                   computeSize:
                     description: A string specifying compute size for the App. Possible
                       values are MEDIUM, LARGE.
@@ -1031,11 +1283,18 @@ spec:
                     description: The description of the app.
                     type: string
                   gitRepository:
+                    description: Git repository configuration for app deployments
+                      (see below). When specified, deployments can reference code
+                      from this repository by providing only the git reference (branch,
+                      tag, or commit).
                     properties:
                       provider:
+                        description: 'Git provider. Case insensitive. Supported values:
+                          gitHub, gitHubEnterprise, bitbucketCloud, bitbucketServer,
+                          azureDevOpsServices, gitLab, gitLabEnterpriseEdition, awsCodeCommit.'
                         type: string
                       url:
-                        description: The URL of the app once it is deployed.
+                        description: URL of the Git repository.
                         type: string
                     type: object
                   noCompute:
@@ -1051,6 +1310,18 @@ spec:
                     items:
                       properties:
                         app:
+                          description: reference to another Databricks App.
+                          properties:
+                            name:
+                              description: The name of the app. The name must contain
+                                only lowercase alphanumeric characters and hyphens.
+                                It must be unique within the workspace.
+                              type: string
+                            permission:
+                              description: 'Permission to grant on the secret scope.
+                                For secrets, only one permission is allowed. Permission
+                                must be one of: READ, WRITE, MANAGE.'
+                              type: string
                           type: object
                         database:
                           description: attribute
@@ -1071,10 +1342,11 @@ spec:
                           description: The description of the app.
                           type: string
                         experiment:
+                          description: attribute
                           properties:
                             experimentId:
-                              description: Id of the SQL warehouse to grant permission
-                                on.
+                              description: The ID of the MLflow experiment to grant
+                                permission on.
                               type: string
                             permission:
                               description: 'Permission to grant on the secret scope.
@@ -1117,6 +1389,22 @@ spec:
                             only lowercase alphanumeric characters and hyphens. It
                             must be unique within the workspace.
                           type: string
+                        postgres:
+                          description: attribute
+                          properties:
+                            branch:
+                              description: The resource path of the Lakebase Autoscaling
+                                branch to grant permission on (e.g. projects/proj-abc123/branches/branch-xyz789).
+                              type: string
+                            database:
+                              description: attribute
+                              type: string
+                            permission:
+                              description: 'Permission to grant on the secret scope.
+                                For secrets, only one permission is allowed. Permission
+                                must be one of: READ, WRITE, MANAGE.'
+                              type: string
+                          type: object
                         secret:
                           description: attribute
                           properties:
@@ -1170,21 +1458,47 @@ spec:
                                 must be one of: READ, WRITE, MANAGE.'
                               type: string
                             securableFullName:
-                              description: the full name of UC securable, i.e. my-catalog.my-schema.my-volume.
+                              description: The full name of UC securable, i.e. my-catalog.my-schema.my-volume.
                               type: string
                             securableType:
-                              description: the type of UC securable, i.e. VOLUME.
+                              description: The type of UC securable. Supported values
+                                are CONNECTION, FUNCTION, TABLE, VOLUME.
                               type: string
                           type: object
                       type: object
                     type: array
                   space:
                     type: string
+                  telemetryExportDestinations:
+                    description: A list of destinations to which the app's telemetry
+                      (logs, metrics, traces) is exported (see below).
+                    items:
+                      properties:
+                        unityCatalog:
+                          description: export telemetry to Unity Catalog tables (must
+                            already exist and be writable by the app's service principal).
+                          properties:
+                            logsTable:
+                              description: Full name of the Unity Catalog table for
+                                OpenTelemetry logs.
+                              type: string
+                            metricsTable:
+                              description: Full name of the Unity Catalog table for
+                                OpenTelemetry metrics.
+                              type: string
+                            tracesTable:
+                              description: Full name of the Unity Catalog table for
+                                OpenTelemetry traces (spans).
+                              type: string
+                          type: object
+                      type: object
+                    type: array
                   usagePolicyId:
-                    description: Id of the SQL warehouse to grant permission on.
+                    description: The Usage Policy ID set for this resource.
                     type: string
                   userApiScopes:
-                    description: A list of api scopes granted to the user access token.
+                    description: A list of api scopes granted to the user access token.  See
+                      REST API docs for full list of supported scopes.
                     items:
                       type: string
                     type: array
@@ -1205,6 +1519,10 @@ spec:
                   budgetPolicyId:
                     description: The Budget Policy ID set for this resource.
                     type: string
+                  computeMaxInstances:
+                    type: number
+                  computeMinInstances:
+                    type: number
                   computeSize:
                     description: A string specifying compute size for the App. Possible
                       values are MEDIUM, LARGE.
@@ -1213,11 +1531,18 @@ spec:
                     description: The description of the app.
                     type: string
                   gitRepository:
+                    description: Git repository configuration for app deployments
+                      (see below). When specified, deployments can reference code
+                      from this repository by providing only the git reference (branch,
+                      tag, or commit).
                     properties:
                       provider:
+                        description: 'Git provider. Case insensitive. Supported values:
+                          gitHub, gitHubEnterprise, bitbucketCloud, bitbucketServer,
+                          azureDevOpsServices, gitLab, gitLabEnterpriseEdition, awsCodeCommit.'
                         type: string
                       url:
-                        description: The URL of the app once it is deployed.
+                        description: URL of the Git repository.
                         type: string
                     type: object
                   noCompute:
@@ -1233,6 +1558,18 @@ spec:
                     items:
                       properties:
                         app:
+                          description: reference to another Databricks App.
+                          properties:
+                            name:
+                              description: The name of the app. The name must contain
+                                only lowercase alphanumeric characters and hyphens.
+                                It must be unique within the workspace.
+                              type: string
+                            permission:
+                              description: 'Permission to grant on the secret scope.
+                                For secrets, only one permission is allowed. Permission
+                                must be one of: READ, WRITE, MANAGE.'
+                              type: string
                           type: object
                         database:
                           description: attribute
@@ -1253,10 +1590,11 @@ spec:
                           description: The description of the app.
                           type: string
                         experiment:
+                          description: attribute
                           properties:
                             experimentId:
-                              description: Id of the SQL warehouse to grant permission
-                                on.
+                              description: The ID of the MLflow experiment to grant
+                                permission on.
                               type: string
                             permission:
                               description: 'Permission to grant on the secret scope.
@@ -1299,6 +1637,22 @@ spec:
                             only lowercase alphanumeric characters and hyphens. It
                             must be unique within the workspace.
                           type: string
+                        postgres:
+                          description: attribute
+                          properties:
+                            branch:
+                              description: The resource path of the Lakebase Autoscaling
+                                branch to grant permission on (e.g. projects/proj-abc123/branches/branch-xyz789).
+                              type: string
+                            database:
+                              description: attribute
+                              type: string
+                            permission:
+                              description: 'Permission to grant on the secret scope.
+                                For secrets, only one permission is allowed. Permission
+                                must be one of: READ, WRITE, MANAGE.'
+                              type: string
+                          type: object
                         secret:
                           description: attribute
                           properties:
@@ -1352,21 +1706,47 @@ spec:
                                 must be one of: READ, WRITE, MANAGE.'
                               type: string
                             securableFullName:
-                              description: the full name of UC securable, i.e. my-catalog.my-schema.my-volume.
+                              description: The full name of UC securable, i.e. my-catalog.my-schema.my-volume.
                               type: string
                             securableType:
-                              description: the type of UC securable, i.e. VOLUME.
+                              description: The type of UC securable. Supported values
+                                are CONNECTION, FUNCTION, TABLE, VOLUME.
                               type: string
                           type: object
                       type: object
                     type: array
                   space:
                     type: string
+                  telemetryExportDestinations:
+                    description: A list of destinations to which the app's telemetry
+                      (logs, metrics, traces) is exported (see below).
+                    items:
+                      properties:
+                        unityCatalog:
+                          description: export telemetry to Unity Catalog tables (must
+                            already exist and be writable by the app's service principal).
+                          properties:
+                            logsTable:
+                              description: Full name of the Unity Catalog table for
+                                OpenTelemetry logs.
+                              type: string
+                            metricsTable:
+                              description: Full name of the Unity Catalog table for
+                                OpenTelemetry metrics.
+                              type: string
+                            tracesTable:
+                              description: Full name of the Unity Catalog table for
+                                OpenTelemetry traces (spans).
+                              type: string
+                          type: object
+                      type: object
+                    type: array
                   usagePolicyId:
-                    description: Id of the SQL warehouse to grant permission on.
+                    description: The Usage Policy ID set for this resource.
                     type: string
                   userApiScopes:
-                    description: A list of api scopes granted to the user access token.
+                    description: A list of api scopes granted to the user access token.  See
+                      REST API docs for full list of supported scopes.
                     items:
                       type: string
                     type: array
@@ -1463,6 +1843,8 @@ spec:
               atProvider:
                 properties:
                   activeDeployment:
+                    description: the active deployment of the app. A deployment is
+                      considered active when it has been deployed to the app compute.
                     properties:
                       command:
                         items:
@@ -1475,12 +1857,15 @@ spec:
                         description: The email of the user that created the app.
                         type: string
                       deploymentArtifacts:
+                        description: attribute
                         properties:
                           sourceCodePath:
+                            description: The workspace file system path of the source
+                              code used to create the deployment.
                             type: string
                         type: object
                       deploymentId:
-                        description: Id of the SQL warehouse to grant permission on.
+                        description: The unique ID of the deployment.
                         type: string
                       envVars:
                         items:
@@ -1499,29 +1884,45 @@ spec:
                       gitSource:
                         properties:
                           branch:
+                            description: The resource path of the Lakebase Autoscaling
+                              branch to grant permission on (e.g. projects/proj-abc123/branches/branch-xyz789).
                             type: string
                           commit:
                             type: string
                           gitRepository:
+                            description: Git repository configuration for app deployments
+                              (see below). When specified, deployments can reference
+                              code from this repository by providing only the git
+                              reference (branch, tag, or commit).
                             properties:
                               provider:
+                                description: 'Git provider. Case insensitive. Supported
+                                  values: gitHub, gitHubEnterprise, bitbucketCloud,
+                                  bitbucketServer, azureDevOpsServices, gitLab, gitLabEnterpriseEdition,
+                                  awsCodeCommit.'
                                 type: string
                               url:
-                                description: The URL of the app once it is deployed.
+                                description: URL of the Git repository.
                                 type: string
                             type: object
                           resolvedCommit:
                             type: string
                           sourceCodePath:
+                            description: The workspace file system path of the source
+                              code used to create the deployment.
                             type: string
                           tag:
                             type: string
                         type: object
                       mode:
+                        description: The deployment mode (AUTO_SYNC or SNAPSHOT).
                         type: string
                       sourceCodePath:
+                        description: The workspace file system path of the source
+                          code used to create the deployment.
                         type: string
                       status:
+                        description: attribute
                         properties:
                           message:
                             description: Compute status message
@@ -1540,6 +1941,8 @@ spec:
                       message:
                         description: Compute status message
                         type: string
+                      runningInstances:
+                        type: number
                       state:
                         description: State of the app compute.
                         type: string
@@ -1547,6 +1950,10 @@ spec:
                   budgetPolicyId:
                     description: The Budget Policy ID set for this resource.
                     type: string
+                  computeMaxInstances:
+                    type: number
+                  computeMinInstances:
+                    type: number
                   computeSize:
                     description: A string specifying compute size for the App. Possible
                       values are MEDIUM, LARGE.
@@ -1581,7 +1988,7 @@ spec:
                     description: The effective budget policy ID.
                     type: string
                   effectiveUsagePolicyId:
-                    description: Id of the SQL warehouse to grant permission on.
+                    description: The effective usage policy ID.
                     type: string
                   effectiveUserApiScopes:
                     description: A list of effective api scopes granted to the user
@@ -1590,11 +1997,18 @@ spec:
                       type: string
                     type: array
                   gitRepository:
+                    description: Git repository configuration for app deployments
+                      (see below). When specified, deployments can reference code
+                      from this repository by providing only the git reference (branch,
+                      tag, or commit).
                     properties:
                       provider:
+                        description: 'Git provider. Case insensitive. Supported values:
+                          gitHub, gitHubEnterprise, bitbucketCloud, bitbucketServer,
+                          azureDevOpsServices, gitLab, gitLabEnterpriseEdition, awsCodeCommit.'
                         type: string
                       url:
-                        description: The URL of the app once it is deployed.
+                        description: URL of the Git repository.
                         type: string
                     type: object
                   id:
@@ -1603,12 +2017,17 @@ spec:
                   noCompute:
                     type: boolean
                   oauth2AppClientId:
-                    description: Id of the SQL warehouse to grant permission on.
+                    description: The OAuth2 client ID of the app's integration, set
+                      when the app uses user authorization.
                     type: string
                   oauth2AppIntegrationId:
-                    description: Id of the SQL warehouse to grant permission on.
+                    description: The unique ID of the OAuth2 integration associated
+                      with the app.
                     type: string
                   pendingDeployment:
+                    description: the pending deployment of the app. A deployment is
+                      considered pending when it is being prepared for deployment
+                      to the app compute. Schema is identical to active_deployment.
                     properties:
                       command:
                         items:
@@ -1621,12 +2040,15 @@ spec:
                         description: The email of the user that created the app.
                         type: string
                       deploymentArtifacts:
+                        description: attribute
                         properties:
                           sourceCodePath:
+                            description: The workspace file system path of the source
+                              code used to create the deployment.
                             type: string
                         type: object
                       deploymentId:
-                        description: Id of the SQL warehouse to grant permission on.
+                        description: The unique ID of the deployment.
                         type: string
                       envVars:
                         items:
@@ -1645,29 +2067,45 @@ spec:
                       gitSource:
                         properties:
                           branch:
+                            description: The resource path of the Lakebase Autoscaling
+                              branch to grant permission on (e.g. projects/proj-abc123/branches/branch-xyz789).
                             type: string
                           commit:
                             type: string
                           gitRepository:
+                            description: Git repository configuration for app deployments
+                              (see below). When specified, deployments can reference
+                              code from this repository by providing only the git
+                              reference (branch, tag, or commit).
                             properties:
                               provider:
+                                description: 'Git provider. Case insensitive. Supported
+                                  values: gitHub, gitHubEnterprise, bitbucketCloud,
+                                  bitbucketServer, azureDevOpsServices, gitLab, gitLabEnterpriseEdition,
+                                  awsCodeCommit.'
                                 type: string
                               url:
-                                description: The URL of the app once it is deployed.
+                                description: URL of the Git repository.
                                 type: string
                             type: object
                           resolvedCommit:
                             type: string
                           sourceCodePath:
+                            description: The workspace file system path of the source
+                              code used to create the deployment.
                             type: string
                           tag:
                             type: string
                         type: object
                       mode:
+                        description: The deployment mode (AUTO_SYNC or SNAPSHOT).
                         type: string
                       sourceCodePath:
+                        description: The workspace file system path of the source
+                          code used to create the deployment.
                         type: string
                       status:
+                        description: attribute
                         properties:
                           message:
                             description: Compute status message
@@ -1691,6 +2129,18 @@ spec:
                     items:
                       properties:
                         app:
+                          description: reference to another Databricks App.
+                          properties:
+                            name:
+                              description: The name of the app. The name must contain
+                                only lowercase alphanumeric characters and hyphens.
+                                It must be unique within the workspace.
+                              type: string
+                            permission:
+                              description: 'Permission to grant on the secret scope.
+                                For secrets, only one permission is allowed. Permission
+                                must be one of: READ, WRITE, MANAGE.'
+                              type: string
                           type: object
                         database:
                           description: attribute
@@ -1711,10 +2161,11 @@ spec:
                           description: The description of the app.
                           type: string
                         experiment:
+                          description: attribute
                           properties:
                             experimentId:
-                              description: Id of the SQL warehouse to grant permission
-                                on.
+                              description: The ID of the MLflow experiment to grant
+                                permission on.
                               type: string
                             permission:
                               description: 'Permission to grant on the secret scope.
@@ -1757,6 +2208,22 @@ spec:
                             only lowercase alphanumeric characters and hyphens. It
                             must be unique within the workspace.
                           type: string
+                        postgres:
+                          description: attribute
+                          properties:
+                            branch:
+                              description: The resource path of the Lakebase Autoscaling
+                                branch to grant permission on (e.g. projects/proj-abc123/branches/branch-xyz789).
+                              type: string
+                            database:
+                              description: attribute
+                              type: string
+                            permission:
+                              description: 'Permission to grant on the secret scope.
+                                For secrets, only one permission is allowed. Permission
+                                must be one of: READ, WRITE, MANAGE.'
+                              type: string
+                          type: object
                         secret:
                           description: attribute
                           properties:
@@ -1810,12 +2277,13 @@ spec:
                                 must be one of: READ, WRITE, MANAGE.'
                               type: string
                             securableFullName:
-                              description: the full name of UC securable, i.e. my-catalog.my-schema.my-volume.
+                              description: The full name of UC securable, i.e. my-catalog.my-schema.my-volume.
                               type: string
                             securableKind:
                               type: string
                             securableType:
-                              description: the type of UC securable, i.e. VOLUME.
+                              description: The type of UC securable. Supported values
+                                are CONNECTION, FUNCTION, TABLE, VOLUME.
                               type: string
                           type: object
                       type: object
@@ -1831,6 +2299,33 @@ spec:
                     type: string
                   space:
                     type: string
+                  telemetryExportDestinations:
+                    description: A list of destinations to which the app's telemetry
+                      (logs, metrics, traces) is exported (see below).
+                    items:
+                      properties:
+                        unityCatalog:
+                          description: export telemetry to Unity Catalog tables (must
+                            already exist and be writable by the app's service principal).
+                          properties:
+                            logsTable:
+                              description: Full name of the Unity Catalog table for
+                                OpenTelemetry logs.
+                              type: string
+                            metricsTable:
+                              description: Full name of the Unity Catalog table for
+                                OpenTelemetry metrics.
+                              type: string
+                            tracesTable:
+                              description: Full name of the Unity Catalog table for
+                                OpenTelemetry traces (spans).
+                              type: string
+                          type: object
+                      type: object
+                    type: array
+                  thumbnailUrl:
+                    description: The URL of the thumbnail image for the app.
+                    type: string
                   updateTime:
                     description: The update time of the app.
                     type: string
@@ -1838,13 +2333,14 @@ spec:
                     description: The email of the user that last updated the app.
                     type: string
                   url:
-                    description: The URL of the app once it is deployed.
+                    description: URL of the Git repository.
                     type: string
                   usagePolicyId:
-                    description: Id of the SQL warehouse to grant permission on.
+                    description: The Usage Policy ID set for this resource.
                     type: string
                   userApiScopes:
-                    description: A list of api scopes granted to the user access token.
+                    description: A list of api scopes granted to the user access token.  See
+                      REST API docs for full list of supported scopes.
                     items:
                       type: string
                     type: array

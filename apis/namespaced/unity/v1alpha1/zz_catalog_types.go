@@ -14,6 +14,45 @@ import (
 	v2 "github.com/crossplane/crossplane-runtime/v2/apis/common/v2"
 )
 
+type AzureEncryptionSettingsInitParameters struct {
+
+	// ID of this catalog - same as the name.
+	AzureCmkAccessConnectorID *string `json:"azureCmkAccessConnectorId,omitempty" tf:"azure_cmk_access_connector_id,omitempty"`
+
+	// ID of this catalog - same as the name.
+	AzureCmkManagedIdentityID *string `json:"azureCmkManagedIdentityId,omitempty" tf:"azure_cmk_managed_identity_id,omitempty"`
+
+	// ID of this catalog - same as the name.
+	AzureTenantID *string `json:"azureTenantId,omitempty" tf:"azure_tenant_id,omitempty"`
+}
+
+type AzureEncryptionSettingsObservation struct {
+
+	// ID of this catalog - same as the name.
+	AzureCmkAccessConnectorID *string `json:"azureCmkAccessConnectorId,omitempty" tf:"azure_cmk_access_connector_id,omitempty"`
+
+	// ID of this catalog - same as the name.
+	AzureCmkManagedIdentityID *string `json:"azureCmkManagedIdentityId,omitempty" tf:"azure_cmk_managed_identity_id,omitempty"`
+
+	// ID of this catalog - same as the name.
+	AzureTenantID *string `json:"azureTenantId,omitempty" tf:"azure_tenant_id,omitempty"`
+}
+
+type AzureEncryptionSettingsParameters struct {
+
+	// ID of this catalog - same as the name.
+	// +kubebuilder:validation:Optional
+	AzureCmkAccessConnectorID *string `json:"azureCmkAccessConnectorId,omitempty" tf:"azure_cmk_access_connector_id,omitempty"`
+
+	// ID of this catalog - same as the name.
+	// +kubebuilder:validation:Optional
+	AzureCmkManagedIdentityID *string `json:"azureCmkManagedIdentityId,omitempty" tf:"azure_cmk_managed_identity_id,omitempty"`
+
+	// ID of this catalog - same as the name.
+	// +kubebuilder:validation:Optional
+	AzureTenantID *string `json:"azureTenantId" tf:"azure_tenant_id,omitempty"`
+}
+
 type CatalogInitParameters struct {
 	BrowseOnly *bool `json:"browseOnly,omitempty" tf:"browse_only,omitempty"`
 
@@ -22,6 +61,8 @@ type CatalogInitParameters struct {
 
 	// For Foreign Catalogs: the name of the connection to an external data source. Changes forces creation of a new resource.
 	ConnectionName *string `json:"connectionName,omitempty" tf:"connection_name,omitempty"`
+
+	CustomMaxRetentionHours *float64 `json:"customMaxRetentionHours,omitempty" tf:"custom_max_retention_hours,omitempty"`
 
 	EffectivePredictiveOptimizationFlag []EffectivePredictiveOptimizationFlagInitParameters `json:"effectivePredictiveOptimizationFlag,omitempty" tf:"effective_predictive_optimization_flag,omitempty"`
 
@@ -33,6 +74,8 @@ type CatalogInitParameters struct {
 
 	// Whether the catalog is accessible from all workspaces or a specific set of workspaces. Can be ISOLATED or OPEN. Setting the catalog to ISOLATED will automatically allow access from the current workspace.
 	IsolationMode *string `json:"isolationMode,omitempty" tf:"isolation_mode,omitempty"`
+
+	ManagedEncryptionSettings []ManagedEncryptionSettingsInitParameters `json:"managedEncryptionSettings,omitempty" tf:"managed_encryption_settings,omitempty"`
 
 	// ID of the parent metastore.
 	MetastoreID *string `json:"metastoreId,omitempty" tf:"metastore_id,omitempty"`
@@ -84,6 +127,8 @@ type CatalogObservation struct {
 	// username of catalog creator.
 	CreatedBy *string `json:"createdBy,omitempty" tf:"created_by,omitempty"`
 
+	CustomMaxRetentionHours *float64 `json:"customMaxRetentionHours,omitempty" tf:"custom_max_retention_hours,omitempty"`
+
 	EffectivePredictiveOptimizationFlag []EffectivePredictiveOptimizationFlagObservation `json:"effectivePredictiveOptimizationFlag,omitempty" tf:"effective_predictive_optimization_flag,omitempty"`
 
 	// Whether predictive optimization should be enabled for this object and objects under it. Can be ENABLE, DISABLE or INHERIT
@@ -100,6 +145,8 @@ type CatalogObservation struct {
 
 	// Whether the catalog is accessible from all workspaces or a specific set of workspaces. Can be ISOLATED or OPEN. Setting the catalog to ISOLATED will automatically allow access from the current workspace.
 	IsolationMode *string `json:"isolationMode,omitempty" tf:"isolation_mode,omitempty"`
+
+	ManagedEncryptionSettings []ManagedEncryptionSettingsObservation `json:"managedEncryptionSettings,omitempty" tf:"managed_encryption_settings,omitempty"`
 
 	// ID of the parent metastore.
 	MetastoreID *string `json:"metastoreId,omitempty" tf:"metastore_id,omitempty"`
@@ -159,6 +206,9 @@ type CatalogParameters struct {
 	ConnectionName *string `json:"connectionName,omitempty" tf:"connection_name,omitempty"`
 
 	// +kubebuilder:validation:Optional
+	CustomMaxRetentionHours *float64 `json:"customMaxRetentionHours,omitempty" tf:"custom_max_retention_hours,omitempty"`
+
+	// +kubebuilder:validation:Optional
 	EffectivePredictiveOptimizationFlag []EffectivePredictiveOptimizationFlagParameters `json:"effectivePredictiveOptimizationFlag,omitempty" tf:"effective_predictive_optimization_flag,omitempty"`
 
 	// Whether predictive optimization should be enabled for this object and objects under it. Can be ENABLE, DISABLE or INHERIT
@@ -172,6 +222,9 @@ type CatalogParameters struct {
 	// Whether the catalog is accessible from all workspaces or a specific set of workspaces. Can be ISOLATED or OPEN. Setting the catalog to ISOLATED will automatically allow access from the current workspace.
 	// +kubebuilder:validation:Optional
 	IsolationMode *string `json:"isolationMode,omitempty" tf:"isolation_mode,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	ManagedEncryptionSettings []ManagedEncryptionSettingsParameters `json:"managedEncryptionSettings,omitempty" tf:"managed_encryption_settings,omitempty"`
 
 	// ID of the parent metastore.
 	// +kubebuilder:validation:Optional
@@ -231,7 +284,7 @@ type CatalogProviderConfigParameters struct {
 
 	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
 	// +kubebuilder:validation:Optional
-	WorkspaceID *string `json:"workspaceId" tf:"workspace_id,omitempty"`
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
 }
 
 type EffectivePredictiveOptimizationFlagInitParameters struct {
@@ -265,6 +318,40 @@ type EffectivePredictiveOptimizationFlagParameters struct {
 
 	// +kubebuilder:validation:Optional
 	Value *string `json:"value" tf:"value,omitempty"`
+}
+
+type ManagedEncryptionSettingsInitParameters struct {
+	AzureEncryptionSettings []AzureEncryptionSettingsInitParameters `json:"azureEncryptionSettings,omitempty" tf:"azure_encryption_settings,omitempty"`
+
+	// ID of this catalog - same as the name.
+	AzureKeyVaultKeyID *string `json:"azureKeyVaultKeyId,omitempty" tf:"azure_key_vault_key_id,omitempty"`
+
+	// ID of this catalog - same as the name.
+	CustomerManagedKeyID *string `json:"customerManagedKeyId,omitempty" tf:"customer_managed_key_id,omitempty"`
+}
+
+type ManagedEncryptionSettingsObservation struct {
+	AzureEncryptionSettings []AzureEncryptionSettingsObservation `json:"azureEncryptionSettings,omitempty" tf:"azure_encryption_settings,omitempty"`
+
+	// ID of this catalog - same as the name.
+	AzureKeyVaultKeyID *string `json:"azureKeyVaultKeyId,omitempty" tf:"azure_key_vault_key_id,omitempty"`
+
+	// ID of this catalog - same as the name.
+	CustomerManagedKeyID *string `json:"customerManagedKeyId,omitempty" tf:"customer_managed_key_id,omitempty"`
+}
+
+type ManagedEncryptionSettingsParameters struct {
+
+	// +kubebuilder:validation:Optional
+	AzureEncryptionSettings []AzureEncryptionSettingsParameters `json:"azureEncryptionSettings,omitempty" tf:"azure_encryption_settings,omitempty"`
+
+	// ID of this catalog - same as the name.
+	// +kubebuilder:validation:Optional
+	AzureKeyVaultKeyID *string `json:"azureKeyVaultKeyId,omitempty" tf:"azure_key_vault_key_id,omitempty"`
+
+	// ID of this catalog - same as the name.
+	// +kubebuilder:validation:Optional
+	CustomerManagedKeyID *string `json:"customerManagedKeyId,omitempty" tf:"customer_managed_key_id,omitempty"`
 }
 
 type ProvisioningInfoInitParameters struct {

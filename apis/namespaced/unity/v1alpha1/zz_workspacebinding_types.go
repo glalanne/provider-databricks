@@ -16,7 +16,7 @@ import (
 
 type WorkspaceBindingInitParameters struct {
 
-	// Binding mode. Default to BINDING_TYPE_READ_WRITE. Possible values are BINDING_TYPE_READ_ONLY, BINDING_TYPE_READ_WRITE.
+	// Binding mode. Default to BINDING_TYPE_READ_WRITE. Possible values are BINDING_TYPE_READ_ONLY, BINDING_TYPE_READ_WRITE. Note: BINDING_TYPE_READ_ONLY is only supported when securable_type is catalog. For storage_credential, external_location, and credential, only BINDING_TYPE_READ_WRITE is supported.
 	BindingType *string `json:"bindingType,omitempty" tf:"binding_type,omitempty"`
 
 	CatalogName *string `json:"catalogName,omitempty" tf:"catalog_name,omitempty"`
@@ -56,7 +56,7 @@ type WorkspaceBindingInitParameters struct {
 
 type WorkspaceBindingObservation struct {
 
-	// Binding mode. Default to BINDING_TYPE_READ_WRITE. Possible values are BINDING_TYPE_READ_ONLY, BINDING_TYPE_READ_WRITE.
+	// Binding mode. Default to BINDING_TYPE_READ_WRITE. Possible values are BINDING_TYPE_READ_ONLY, BINDING_TYPE_READ_WRITE. Note: BINDING_TYPE_READ_ONLY is only supported when securable_type is catalog. For storage_credential, external_location, and credential, only BINDING_TYPE_READ_WRITE is supported.
 	BindingType *string `json:"bindingType,omitempty" tf:"binding_type,omitempty"`
 
 	CatalogName *string `json:"catalogName,omitempty" tf:"catalog_name,omitempty"`
@@ -78,7 +78,7 @@ type WorkspaceBindingObservation struct {
 
 type WorkspaceBindingParameters struct {
 
-	// Binding mode. Default to BINDING_TYPE_READ_WRITE. Possible values are BINDING_TYPE_READ_ONLY, BINDING_TYPE_READ_WRITE.
+	// Binding mode. Default to BINDING_TYPE_READ_WRITE. Possible values are BINDING_TYPE_READ_ONLY, BINDING_TYPE_READ_WRITE. Note: BINDING_TYPE_READ_ONLY is only supported when securable_type is catalog. For storage_credential, external_location, and credential, only BINDING_TYPE_READ_WRITE is supported.
 	// +kubebuilder:validation:Optional
 	BindingType *string `json:"bindingType,omitempty" tf:"binding_type,omitempty"`
 
@@ -138,7 +138,7 @@ type WorkspaceBindingProviderConfigParameters struct {
 
 	// ID of the workspace. Change forces creation of a new resource.
 	// +kubebuilder:validation:Optional
-	WorkspaceID *string `json:"workspaceId" tf:"workspace_id,omitempty"`
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
 }
 
 // WorkspaceBindingSpec defines the desired state of WorkspaceBinding

@@ -15,6 +15,10 @@ import (
 
 type GroupRoleInitParameters struct {
 
+	// Specifies whether to use account-level or workspace-level API. Valid values are account and workspace. When not set, the API level is inferred from the provider host.
+	// Specifies whether to use account-level or workspace-level API. Valid values are `account` and `workspace`. When not set, the API level is inferred from the provider host.
+	API *string `json:"api,omitempty" tf:"api,omitempty"`
+
 	// This is the id of the group resource.
 	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/cluster/security/v1beta1.Group
 	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/v2/pkg/resource.ExtractResourceID()
@@ -27,6 +31,8 @@ type GroupRoleInitParameters struct {
 	// Selector for a Group in security to populate groupId.
 	// +kubebuilder:validation:Optional
 	GroupIDSelector *v1.Selector `json:"groupIdSelector,omitempty" tf:"-"`
+
+	ProviderConfig *GroupRoleProviderConfigInitParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
 
 	// Either a role name or the ARN/ID of the instance profile resource.
 	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/cluster/deployment/v1beta1.InstanceProfile
@@ -44,17 +50,28 @@ type GroupRoleInitParameters struct {
 
 type GroupRoleObservation struct {
 
+	// Specifies whether to use account-level or workspace-level API. Valid values are account and workspace. When not set, the API level is inferred from the provider host.
+	// Specifies whether to use account-level or workspace-level API. Valid values are `account` and `workspace`. When not set, the API level is inferred from the provider host.
+	API *string `json:"api,omitempty" tf:"api,omitempty"`
+
 	// This is the id of the group resource.
 	GroupID *string `json:"groupId,omitempty" tf:"group_id,omitempty"`
 
 	// The id for the databricks_group_role object which is in the format <group_id>|<role>.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
+	ProviderConfig *GroupRoleProviderConfigObservation `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
+
 	// Either a role name or the ARN/ID of the instance profile resource.
 	Role *string `json:"role,omitempty" tf:"role,omitempty"`
 }
 
 type GroupRoleParameters struct {
+
+	// Specifies whether to use account-level or workspace-level API. Valid values are account and workspace. When not set, the API level is inferred from the provider host.
+	// Specifies whether to use account-level or workspace-level API. Valid values are `account` and `workspace`. When not set, the API level is inferred from the provider host.
+	// +kubebuilder:validation:Optional
+	API *string `json:"api,omitempty" tf:"api,omitempty"`
 
 	// This is the id of the group resource.
 	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/cluster/security/v1beta1.Group
@@ -70,6 +87,9 @@ type GroupRoleParameters struct {
 	// +kubebuilder:validation:Optional
 	GroupIDSelector *v1.Selector `json:"groupIdSelector,omitempty" tf:"-"`
 
+	// +kubebuilder:validation:Optional
+	ProviderConfig *GroupRoleProviderConfigParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
+
 	// Either a role name or the ARN/ID of the instance profile resource.
 	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/cluster/deployment/v1beta1.InstanceProfile
 	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/v2/pkg/resource.ExtractResourceID()
@@ -83,6 +103,25 @@ type GroupRoleParameters struct {
 	// Selector for a InstanceProfile in deployment to populate role.
 	// +kubebuilder:validation:Optional
 	RoleSelector *v1.Selector `json:"roleSelector,omitempty" tf:"-"`
+}
+
+type GroupRoleProviderConfigInitParameters struct {
+
+	// The id for the databricks_group_role object which is in the format <group_id>|<role>.
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
+}
+
+type GroupRoleProviderConfigObservation struct {
+
+	// The id for the databricks_group_role object which is in the format <group_id>|<role>.
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
+}
+
+type GroupRoleProviderConfigParameters struct {
+
+	// The id for the databricks_group_role object which is in the format <group_id>|<role>.
+	// +kubebuilder:validation:Optional
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
 }
 
 // GroupRoleSpec defines the desired state of GroupRole

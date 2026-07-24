@@ -85,6 +85,11 @@ spec:
                       could be assigned with databricks_permissions and instance_pool_id
                       argument.
                     type: boolean
+                  api:
+                    description: |-
+                      Specifies whether to use account-level or workspace-level API. Valid values are account and workspace. When not set, the API level is inferred from the provider host.
+                      Specifies whether to use account-level or workspace-level API. Valid values are `account` and `workspace`. When not set, the API level is inferred from the provider host.
+                    type: string
                   applicationId:
                     description: managed service principals this value is auto-generated.
                     type: string
@@ -125,6 +130,15 @@ spec:
                   home:
                     description: Home folder of the service principal, e.g. /Users/00000000-0000-0000-0000-000000000000.
                     type: string
+                  providerConfig:
+                    items:
+                      properties:
+                        workspaceId:
+                          description: Canonical unique identifier for the service
+                            principal (SCIM ID).
+                          type: string
+                      type: object
+                    type: array
                   repos:
                     description: Personal Repos location of the service principal,
                       e.g. /Repos/00000000-0000-0000-0000-000000000000.
@@ -176,6 +190,11 @@ spec:
                       could be assigned with databricks_permissions and instance_pool_id
                       argument.
                     type: boolean
+                  api:
+                    description: |-
+                      Specifies whether to use account-level or workspace-level API. Valid values are account and workspace. When not set, the API level is inferred from the provider host.
+                      Specifies whether to use account-level or workspace-level API. Valid values are `account` and `workspace`. When not set, the API level is inferred from the provider host.
+                    type: string
                   applicationId:
                     description: managed service principals this value is auto-generated.
                     type: string
@@ -216,6 +235,15 @@ spec:
                   home:
                     description: Home folder of the service principal, e.g. /Users/00000000-0000-0000-0000-000000000000.
                     type: string
+                  providerConfig:
+                    items:
+                      properties:
+                        workspaceId:
+                          description: Canonical unique identifier for the service
+                            principal (SCIM ID).
+                          type: string
+                      type: object
+                    type: array
                   repos:
                     description: Personal Repos location of the service principal,
                       e.g. /Repos/00000000-0000-0000-0000-000000000000.
@@ -317,6 +345,11 @@ spec:
                       could be assigned with databricks_permissions and instance_pool_id
                       argument.
                     type: boolean
+                  api:
+                    description: |-
+                      Specifies whether to use account-level or workspace-level API. Valid values are account and workspace. When not set, the API level is inferred from the provider host.
+                      Specifies whether to use account-level or workspace-level API. Valid values are `account` and `workspace`. When not set, the API level is inferred from the provider host.
+                    type: string
                   applicationId:
                     description: managed service principals this value is auto-generated.
                     type: string
@@ -361,6 +394,15 @@ spec:
                     description: Canonical unique identifier for the service principal
                       (SCIM ID).
                     type: string
+                  providerConfig:
+                    items:
+                      properties:
+                        workspaceId:
+                          description: Canonical unique identifier for the service
+                            principal (SCIM ID).
+                          type: string
+                      type: object
+                    type: array
                   repos:
                     description: Personal Repos location of the service principal,
                       e.g. /Repos/00000000-0000-0000-0000-000000000000.
@@ -500,6 +542,11 @@ spec:
                       could be assigned with databricks_permissions and instance_pool_id
                       argument.
                     type: boolean
+                  api:
+                    description: |-
+                      Specifies whether to use account-level or workspace-level API. Valid values are account and workspace. When not set, the API level is inferred from the provider host.
+                      Specifies whether to use account-level or workspace-level API. Valid values are `account` and `workspace`. When not set, the API level is inferred from the provider host.
+                    type: string
                   applicationId:
                     description: managed service principals this value is auto-generated.
                     type: string
@@ -540,6 +587,13 @@ spec:
                   home:
                     description: Home folder of the service principal, e.g. /Users/00000000-0000-0000-0000-000000000000.
                     type: string
+                  providerConfig:
+                    properties:
+                      workspaceId:
+                        description: Canonical unique identifier for the service principal
+                          (SCIM ID).
+                        type: string
+                    type: object
                   repos:
                     description: Personal Repos location of the service principal,
                       e.g. /Repos/00000000-0000-0000-0000-000000000000.
@@ -591,6 +645,11 @@ spec:
                       could be assigned with databricks_permissions and instance_pool_id
                       argument.
                     type: boolean
+                  api:
+                    description: |-
+                      Specifies whether to use account-level or workspace-level API. Valid values are account and workspace. When not set, the API level is inferred from the provider host.
+                      Specifies whether to use account-level or workspace-level API. Valid values are `account` and `workspace`. When not set, the API level is inferred from the provider host.
+                    type: string
                   applicationId:
                     description: managed service principals this value is auto-generated.
                     type: string
@@ -631,6 +690,13 @@ spec:
                   home:
                     description: Home folder of the service principal, e.g. /Users/00000000-0000-0000-0000-000000000000.
                     type: string
+                  providerConfig:
+                    properties:
+                      workspaceId:
+                        description: Canonical unique identifier for the service principal
+                          (SCIM ID).
+                        type: string
+                    type: object
                   repos:
                     description: Personal Repos location of the service principal,
                       e.g. /Repos/00000000-0000-0000-0000-000000000000.
@@ -732,6 +798,11 @@ spec:
                       could be assigned with databricks_permissions and instance_pool_id
                       argument.
                     type: boolean
+                  api:
+                    description: |-
+                      Specifies whether to use account-level or workspace-level API. Valid values are account and workspace. When not set, the API level is inferred from the provider host.
+                      Specifies whether to use account-level or workspace-level API. Valid values are `account` and `workspace`. When not set, the API level is inferred from the provider host.
+                    type: string
                   applicationId:
                     description: managed service principals this value is auto-generated.
                     type: string
@@ -776,6 +847,13 @@ spec:
                     description: Canonical unique identifier for the service principal
                       (SCIM ID).
                     type: string
+                  providerConfig:
+                    properties:
+                      workspaceId:
+                        description: Canonical unique identifier for the service principal
+                          (SCIM ID).
+                        type: string
+                    type: object
                   repos:
                     description: Personal Repos location of the service principal,
                       e.g. /Repos/00000000-0000-0000-0000-000000000000.

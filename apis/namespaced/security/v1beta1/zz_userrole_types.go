@@ -16,6 +16,12 @@ import (
 
 type UserRoleInitParameters struct {
 
+	// Specifies whether to use account-level or workspace-level API. Valid values are account and workspace. When not set, the API level is inferred from the provider host.
+	// Specifies whether to use account-level or workspace-level API. Valid values are `account` and `workspace`. When not set, the API level is inferred from the provider host.
+	API *string `json:"api,omitempty" tf:"api,omitempty"`
+
+	ProviderConfig *UserRoleProviderConfigInitParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
+
 	// Either a role name or the ARN/ID of the instance profile resource.
 	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/namespaced/deployment/v1beta1.InstanceProfile
 	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/v2/pkg/resource.ExtractResourceID()
@@ -45,8 +51,14 @@ type UserRoleInitParameters struct {
 
 type UserRoleObservation struct {
 
+	// Specifies whether to use account-level or workspace-level API. Valid values are account and workspace. When not set, the API level is inferred from the provider host.
+	// Specifies whether to use account-level or workspace-level API. Valid values are `account` and `workspace`. When not set, the API level is inferred from the provider host.
+	API *string `json:"api,omitempty" tf:"api,omitempty"`
+
 	// The id in the format <user_id>|<role>.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
+	ProviderConfig *UserRoleProviderConfigObservation `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
 
 	// Either a role name or the ARN/ID of the instance profile resource.
 	Role *string `json:"role,omitempty" tf:"role,omitempty"`
@@ -56,6 +68,14 @@ type UserRoleObservation struct {
 }
 
 type UserRoleParameters struct {
+
+	// Specifies whether to use account-level or workspace-level API. Valid values are account and workspace. When not set, the API level is inferred from the provider host.
+	// Specifies whether to use account-level or workspace-level API. Valid values are `account` and `workspace`. When not set, the API level is inferred from the provider host.
+	// +kubebuilder:validation:Optional
+	API *string `json:"api,omitempty" tf:"api,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	ProviderConfig *UserRoleProviderConfigParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
 
 	// Either a role name or the ARN/ID of the instance profile resource.
 	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/namespaced/deployment/v1beta1.InstanceProfile
@@ -84,6 +104,25 @@ type UserRoleParameters struct {
 	// Selector for a User in security to populate userId.
 	// +kubebuilder:validation:Optional
 	UserIDSelector *v1.NamespacedSelector `json:"userIdSelector,omitempty" tf:"-"`
+}
+
+type UserRoleProviderConfigInitParameters struct {
+
+	// The id in the format <user_id>|<role>.
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
+}
+
+type UserRoleProviderConfigObservation struct {
+
+	// The id in the format <user_id>|<role>.
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
+}
+
+type UserRoleProviderConfigParameters struct {
+
+	// The id in the format <user_id>|<role>.
+	// +kubebuilder:validation:Optional
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
 }
 
 // UserRoleSpec defines the desired state of UserRole

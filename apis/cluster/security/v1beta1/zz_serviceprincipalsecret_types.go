@@ -15,6 +15,10 @@ import (
 
 type ServicePrincipalSecretInitParameters struct {
 
+	// Specifies whether to use account-level or workspace-level API. Valid values are account and workspace. When not set, the API level is inferred from the provider host.
+	// Specifies whether to use account-level or workspace-level API. Valid values are `account` and `workspace`. When not set, the API level is inferred from the provider host.
+	API *string `json:"api,omitempty" tf:"api,omitempty"`
+
 	// UTC time when the secret was created.
 	CreateTime *string `json:"createTime,omitempty" tf:"create_time,omitempty"`
 
@@ -58,6 +62,10 @@ type ServicePrincipalSecretInitParameters struct {
 
 type ServicePrincipalSecretObservation struct {
 
+	// Specifies whether to use account-level or workspace-level API. Valid values are account and workspace. When not set, the API level is inferred from the provider host.
+	// Specifies whether to use account-level or workspace-level API. Valid values are `account` and `workspace`. When not set, the API level is inferred from the provider host.
+	API *string `json:"api,omitempty" tf:"api,omitempty"`
+
 	// UTC time when the secret was created.
 	CreateTime *string `json:"createTime,omitempty" tf:"create_time,omitempty"`
 
@@ -90,6 +98,11 @@ type ServicePrincipalSecretObservation struct {
 }
 
 type ServicePrincipalSecretParameters struct {
+
+	// Specifies whether to use account-level or workspace-level API. Valid values are account and workspace. When not set, the API level is inferred from the provider host.
+	// Specifies whether to use account-level or workspace-level API. Valid values are `account` and `workspace`. When not set, the API level is inferred from the provider host.
+	// +kubebuilder:validation:Optional
+	API *string `json:"api,omitempty" tf:"api,omitempty"`
 
 	// UTC time when the secret was created.
 	// +kubebuilder:validation:Optional
@@ -158,7 +171,7 @@ type ServicePrincipalSecretProviderConfigParameters struct {
 
 	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
 	// +kubebuilder:validation:Optional
-	WorkspaceID *string `json:"workspaceId" tf:"workspace_id,omitempty"`
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
 }
 
 // ServicePrincipalSecretSpec defines the desired state of ServicePrincipalSecret

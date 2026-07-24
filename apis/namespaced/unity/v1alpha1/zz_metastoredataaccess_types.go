@@ -210,6 +210,11 @@ type MetastoreDataAccessDatabricksGCPServiceAccountParameters struct {
 }
 
 type MetastoreDataAccessInitParameters struct {
+
+	// Specifies whether to use account-level or workspace-level API. Valid values are account and workspace. When not set, the API level is inferred from the provider host.
+	// Specifies whether to use account-level or workspace-level API. Valid values are `account` and `workspace`. When not set, the API level is inferred from the provider host.
+	API *string `json:"api,omitempty" tf:"api,omitempty"`
+
 	AwsIAMRole []MetastoreDataAccessAwsIAMRoleInitParameters `json:"awsIamRole,omitempty" tf:"aws_iam_role,omitempty"`
 
 	AzureManagedIdentity []MetastoreDataAccessAzureManagedIdentityInitParameters `json:"azureManagedIdentity,omitempty" tf:"azure_managed_identity,omitempty"`
@@ -250,12 +255,20 @@ type MetastoreDataAccessInitParameters struct {
 
 	Owner *string `json:"owner,omitempty" tf:"owner,omitempty"`
 
+	// Configure the provider for management through account provider. This block consists of the following fields:
+	ProviderConfig []MetastoreDataAccessProviderConfigInitParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
+
 	ReadOnly *bool `json:"readOnly,omitempty" tf:"read_only,omitempty"`
 
 	SkipValidation *bool `json:"skipValidation,omitempty" tf:"skip_validation,omitempty"`
 }
 
 type MetastoreDataAccessObservation struct {
+
+	// Specifies whether to use account-level or workspace-level API. Valid values are account and workspace. When not set, the API level is inferred from the provider host.
+	// Specifies whether to use account-level or workspace-level API. Valid values are `account` and `workspace`. When not set, the API level is inferred from the provider host.
+	API *string `json:"api,omitempty" tf:"api,omitempty"`
+
 	AwsIAMRole []MetastoreDataAccessAwsIAMRoleObservation `json:"awsIamRole,omitempty" tf:"aws_iam_role,omitempty"`
 
 	AzureManagedIdentity []MetastoreDataAccessAzureManagedIdentityObservation `json:"azureManagedIdentity,omitempty" tf:"azure_managed_identity,omitempty"`
@@ -289,12 +302,20 @@ type MetastoreDataAccessObservation struct {
 
 	Owner *string `json:"owner,omitempty" tf:"owner,omitempty"`
 
+	// Configure the provider for management through account provider. This block consists of the following fields:
+	ProviderConfig []MetastoreDataAccessProviderConfigObservation `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
+
 	ReadOnly *bool `json:"readOnly,omitempty" tf:"read_only,omitempty"`
 
 	SkipValidation *bool `json:"skipValidation,omitempty" tf:"skip_validation,omitempty"`
 }
 
 type MetastoreDataAccessParameters struct {
+
+	// Specifies whether to use account-level or workspace-level API. Valid values are account and workspace. When not set, the API level is inferred from the provider host.
+	// Specifies whether to use account-level or workspace-level API. Valid values are `account` and `workspace`. When not set, the API level is inferred from the provider host.
+	// +kubebuilder:validation:Optional
+	API *string `json:"api,omitempty" tf:"api,omitempty"`
 
 	// +kubebuilder:validation:Optional
 	AwsIAMRole []MetastoreDataAccessAwsIAMRoleParameters `json:"awsIamRole,omitempty" tf:"aws_iam_role,omitempty"`
@@ -350,11 +371,34 @@ type MetastoreDataAccessParameters struct {
 	// +kubebuilder:validation:Optional
 	Owner *string `json:"owner,omitempty" tf:"owner,omitempty"`
 
+	// Configure the provider for management through account provider. This block consists of the following fields:
+	// +kubebuilder:validation:Optional
+	ProviderConfig []MetastoreDataAccessProviderConfigParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
+
 	// +kubebuilder:validation:Optional
 	ReadOnly *bool `json:"readOnly,omitempty" tf:"read_only,omitempty"`
 
 	// +kubebuilder:validation:Optional
 	SkipValidation *bool `json:"skipValidation,omitempty" tf:"skip_validation,omitempty"`
+}
+
+type MetastoreDataAccessProviderConfigInitParameters struct {
+
+	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
+}
+
+type MetastoreDataAccessProviderConfigObservation struct {
+
+	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
+}
+
+type MetastoreDataAccessProviderConfigParameters struct {
+
+	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
+	// +kubebuilder:validation:Optional
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
 }
 
 // MetastoreDataAccessSpec defines the desired state of MetastoreDataAccess

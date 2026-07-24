@@ -38,6 +38,8 @@ type MlflowExperimentInitParameters struct {
 
 	// Tags for the MLflow experiment.
 	Tags []TagsInitParameters `json:"tags,omitempty" tf:"tags,omitempty"`
+
+	TraceLocation *TraceLocationInitParameters `json:"traceLocation,omitempty" tf:"trace_location,omitempty"`
 }
 
 type MlflowExperimentObservation struct {
@@ -67,6 +69,8 @@ type MlflowExperimentObservation struct {
 
 	// Tags for the MLflow experiment.
 	Tags []TagsObservation `json:"tags,omitempty" tf:"tags,omitempty"`
+
+	TraceLocation *TraceLocationObservation `json:"traceLocation,omitempty" tf:"trace_location,omitempty"`
 }
 
 type MlflowExperimentParameters struct {
@@ -102,6 +106,9 @@ type MlflowExperimentParameters struct {
 	// Tags for the MLflow experiment.
 	// +kubebuilder:validation:Optional
 	Tags []TagsParameters `json:"tags,omitempty" tf:"tags,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	TraceLocation *TraceLocationParameters `json:"traceLocation,omitempty" tf:"trace_location,omitempty"`
 }
 
 type ProviderConfigInitParameters struct {
@@ -120,7 +127,7 @@ type ProviderConfigParameters struct {
 
 	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
 	// +kubebuilder:validation:Optional
-	WorkspaceID *string `json:"workspaceId" tf:"workspace_id,omitempty"`
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
 }
 
 type TagsInitParameters struct {
@@ -142,6 +149,48 @@ type TagsParameters struct {
 
 	// +kubebuilder:validation:Optional
 	Value *string `json:"value,omitempty" tf:"value,omitempty"`
+}
+
+type TraceLocationInitParameters struct {
+	UcTraceLocation *UcTraceLocationInitParameters `json:"ucTraceLocation,omitempty" tf:"uc_trace_location,omitempty"`
+}
+
+type TraceLocationObservation struct {
+	UcTraceLocation *UcTraceLocationObservation `json:"ucTraceLocation,omitempty" tf:"uc_trace_location,omitempty"`
+}
+
+type TraceLocationParameters struct {
+
+	// +kubebuilder:validation:Optional
+	UcTraceLocation *UcTraceLocationParameters `json:"ucTraceLocation,omitempty" tf:"uc_trace_location,omitempty"`
+}
+
+type UcTraceLocationInitParameters struct {
+	Catalog *string `json:"catalog,omitempty" tf:"catalog,omitempty"`
+
+	Schema *string `json:"schema,omitempty" tf:"schema,omitempty"`
+
+	TablePrefix *string `json:"tablePrefix,omitempty" tf:"table_prefix,omitempty"`
+}
+
+type UcTraceLocationObservation struct {
+	Catalog *string `json:"catalog,omitempty" tf:"catalog,omitempty"`
+
+	Schema *string `json:"schema,omitempty" tf:"schema,omitempty"`
+
+	TablePrefix *string `json:"tablePrefix,omitempty" tf:"table_prefix,omitempty"`
+}
+
+type UcTraceLocationParameters struct {
+
+	// +kubebuilder:validation:Optional
+	Catalog *string `json:"catalog" tf:"catalog,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	Schema *string `json:"schema" tf:"schema,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	TablePrefix *string `json:"tablePrefix,omitempty" tf:"table_prefix,omitempty"`
 }
 
 // MlflowExperimentSpec defines the desired state of MlflowExperiment

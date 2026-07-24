@@ -62,6 +62,11 @@ spec:
             properties:
               forProvider:
                 properties:
+                  api:
+                    description: |-
+                      Specifies whether to use account-level or workspace-level API. Valid values are account and workspace. When not set, the API level is inferred from the provider host.
+                      Specifies whether to use account-level or workspace-level API. Valid values are `account` and `workspace`. When not set, the API level is inferred from the provider host.
+                    type: string
                   defaultCatalogName:
                     description: (Deprecated) Default catalog used for this assignment.
                       Please use databricks_default_namespace_setting instead.
@@ -149,6 +154,16 @@ spec:
                             type: string
                         type: object
                     type: object
+                  providerConfig:
+                    description: 'Configure the provider for management through account
+                      provider. This block consists of the following fields:'
+                    items:
+                      properties:
+                        workspaceId:
+                          description: id of the workspace for the assignment
+                          type: string
+                      type: object
+                    type: array
                   workspaceId:
                     description: id of the workspace for the assignment
                     type: number
@@ -166,6 +181,11 @@ spec:
                   for example because of an external controller is managing them, like an
                   autoscaler.
                 properties:
+                  api:
+                    description: |-
+                      Specifies whether to use account-level or workspace-level API. Valid values are account and workspace. When not set, the API level is inferred from the provider host.
+                      Specifies whether to use account-level or workspace-level API. Valid values are `account` and `workspace`. When not set, the API level is inferred from the provider host.
+                    type: string
                   defaultCatalogName:
                     description: (Deprecated) Default catalog used for this assignment.
                       Please use databricks_default_namespace_setting instead.
@@ -253,6 +273,16 @@ spec:
                             type: string
                         type: object
                     type: object
+                  providerConfig:
+                    description: 'Configure the provider for management through account
+                      provider. This block consists of the following fields:'
+                    items:
+                      properties:
+                        workspaceId:
+                          description: id of the workspace for the assignment
+                          type: string
+                      type: object
+                    type: array
                   workspaceId:
                     description: id of the workspace for the assignment
                     type: number
@@ -325,6 +355,11 @@ spec:
             properties:
               atProvider:
                 properties:
+                  api:
+                    description: |-
+                      Specifies whether to use account-level or workspace-level API. Valid values are account and workspace. When not set, the API level is inferred from the provider host.
+                      Specifies whether to use account-level or workspace-level API. Valid values are `account` and `workspace`. When not set, the API level is inferred from the provider host.
+                    type: string
                   defaultCatalogName:
                     description: (Deprecated) Default catalog used for this assignment.
                       Please use databricks_default_namespace_setting instead.
@@ -335,6 +370,16 @@ spec:
                   metastoreId:
                     description: Unique identifier of the parent Metastore
                     type: string
+                  providerConfig:
+                    description: 'Configure the provider for management through account
+                      provider. This block consists of the following fields:'
+                    items:
+                      properties:
+                        workspaceId:
+                          description: id of the workspace for the assignment
+                          type: string
+                      type: object
+                    type: array
                   workspaceId:
                     description: id of the workspace for the assignment
                     type: number
@@ -441,6 +486,11 @@ spec:
             properties:
               forProvider:
                 properties:
+                  api:
+                    description: |-
+                      Specifies whether to use account-level or workspace-level API. Valid values are account and workspace. When not set, the API level is inferred from the provider host.
+                      Specifies whether to use account-level or workspace-level API. Valid values are `account` and `workspace`. When not set, the API level is inferred from the provider host.
+                    type: string
                   defaultCatalogName:
                     description: (Deprecated) Default catalog used for this assignment.
                       Please use databricks_default_namespace_setting instead.
@@ -527,6 +577,14 @@ spec:
                             - IfNotPresent
                             type: string
                         type: object
+                    type: object
+                  providerConfig:
+                    description: 'Configure the provider for management through account
+                      provider. This block consists of the following fields:'
+                    properties:
+                      workspaceId:
+                        description: id of the workspace for the assignment
+                        type: string
                     type: object
                   workspaceId:
                     description: id of the workspace for the assignment
@@ -545,6 +603,11 @@ spec:
                   for example because of an external controller is managing them, like an
                   autoscaler.
                 properties:
+                  api:
+                    description: |-
+                      Specifies whether to use account-level or workspace-level API. Valid values are account and workspace. When not set, the API level is inferred from the provider host.
+                      Specifies whether to use account-level or workspace-level API. Valid values are `account` and `workspace`. When not set, the API level is inferred from the provider host.
+                    type: string
                   defaultCatalogName:
                     description: (Deprecated) Default catalog used for this assignment.
                       Please use databricks_default_namespace_setting instead.
@@ -631,6 +694,14 @@ spec:
                             - IfNotPresent
                             type: string
                         type: object
+                    type: object
+                  providerConfig:
+                    description: 'Configure the provider for management through account
+                      provider. This block consists of the following fields:'
+                    properties:
+                      workspaceId:
+                        description: id of the workspace for the assignment
+                        type: string
                     type: object
                   workspaceId:
                     description: id of the workspace for the assignment
@@ -704,6 +775,11 @@ spec:
             properties:
               atProvider:
                 properties:
+                  api:
+                    description: |-
+                      Specifies whether to use account-level or workspace-level API. Valid values are account and workspace. When not set, the API level is inferred from the provider host.
+                      Specifies whether to use account-level or workspace-level API. Valid values are `account` and `workspace`. When not set, the API level is inferred from the provider host.
+                    type: string
                   defaultCatalogName:
                     description: (Deprecated) Default catalog used for this assignment.
                       Please use databricks_default_namespace_setting instead.
@@ -714,6 +790,14 @@ spec:
                   metastoreId:
                     description: Unique identifier of the parent Metastore
                     type: string
+                  providerConfig:
+                    description: 'Configure the provider for management through account
+                      provider. This block consists of the following fields:'
+                    properties:
+                      workspaceId:
+                        description: id of the workspace for the assignment
+                        type: string
+                    type: object
                   workspaceId:
                     description: id of the workspace for the assignment
                     type: number

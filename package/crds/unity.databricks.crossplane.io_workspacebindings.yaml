@@ -77,8 +77,11 @@ spec:
               forProvider:
                 properties:
                   bindingType:
-                    description: Binding mode. Default to BINDING_TYPE_READ_WRITE.
+                    description: 'Binding mode. Default to BINDING_TYPE_READ_WRITE.
                       Possible values are BINDING_TYPE_READ_ONLY, BINDING_TYPE_READ_WRITE.
+                      Note: BINDING_TYPE_READ_ONLY is only supported when securable_type
+                      is catalog. For storage_credential, external_location, and credential,
+                      only BINDING_TYPE_READ_WRITE is supported.'
                     type: string
                   catalogName:
                     type: string
@@ -271,8 +274,11 @@ spec:
                   autoscaler.
                 properties:
                   bindingType:
-                    description: Binding mode. Default to BINDING_TYPE_READ_WRITE.
+                    description: 'Binding mode. Default to BINDING_TYPE_READ_WRITE.
                       Possible values are BINDING_TYPE_READ_ONLY, BINDING_TYPE_READ_WRITE.
+                      Note: BINDING_TYPE_READ_ONLY is only supported when securable_type
+                      is catalog. For storage_credential, external_location, and credential,
+                      only BINDING_TYPE_READ_WRITE is supported.'
                     type: string
                   catalogName:
                     type: string
@@ -543,8 +549,11 @@ spec:
               atProvider:
                 properties:
                   bindingType:
-                    description: Binding mode. Default to BINDING_TYPE_READ_WRITE.
+                    description: 'Binding mode. Default to BINDING_TYPE_READ_WRITE.
                       Possible values are BINDING_TYPE_READ_ONLY, BINDING_TYPE_READ_WRITE.
+                      Note: BINDING_TYPE_READ_ONLY is only supported when securable_type
+                      is catalog. For storage_credential, external_location, and credential,
+                      only BINDING_TYPE_READ_WRITE is supported.'
                     type: string
                   catalogName:
                     type: string
@@ -691,8 +700,11 @@ spec:
               forProvider:
                 properties:
                   bindingType:
-                    description: Binding mode. Default to BINDING_TYPE_READ_WRITE.
+                    description: 'Binding mode. Default to BINDING_TYPE_READ_WRITE.
                       Possible values are BINDING_TYPE_READ_ONLY, BINDING_TYPE_READ_WRITE.
+                      Note: BINDING_TYPE_READ_ONLY is only supported when securable_type
+                      is catalog. For storage_credential, external_location, and credential,
+                      only BINDING_TYPE_READ_WRITE is supported.'
                     type: string
                   catalogName:
                     type: string
@@ -883,8 +895,11 @@ spec:
                   autoscaler.
                 properties:
                   bindingType:
-                    description: Binding mode. Default to BINDING_TYPE_READ_WRITE.
+                    description: 'Binding mode. Default to BINDING_TYPE_READ_WRITE.
                       Possible values are BINDING_TYPE_READ_ONLY, BINDING_TYPE_READ_WRITE.
+                      Note: BINDING_TYPE_READ_ONLY is only supported when securable_type
+                      is catalog. For storage_credential, external_location, and credential,
+                      only BINDING_TYPE_READ_WRITE is supported.'
                     type: string
                   catalogName:
                     type: string
@@ -1153,8 +1168,11 @@ spec:
               atProvider:
                 properties:
                   bindingType:
-                    description: Binding mode. Default to BINDING_TYPE_READ_WRITE.
+                    description: 'Binding mode. Default to BINDING_TYPE_READ_WRITE.
                       Possible values are BINDING_TYPE_READ_ONLY, BINDING_TYPE_READ_WRITE.
+                      Note: BINDING_TYPE_READ_ONLY is only supported when securable_type
+                      is catalog. For storage_credential, external_location, and credential,
+                      only BINDING_TYPE_READ_WRITE is supported.'
                     type: string
                   catalogName:
                     type: string

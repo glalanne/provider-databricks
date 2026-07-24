@@ -16,6 +16,10 @@ import (
 
 type GroupInstanceProfileInitParameters struct {
 
+	// Specifies whether to use account-level or workspace-level API. Valid values are account and workspace. When not set, the API level is inferred from the provider host.
+	// Specifies whether to use account-level or workspace-level API. Valid values are `account` and `workspace`. When not set, the API level is inferred from the provider host.
+	API *string `json:"api,omitempty" tf:"api,omitempty"`
+
 	// This is the id of the group resource.
 	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/namespaced/security/v1beta1.Group
 	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/v2/pkg/resource.ExtractResourceID()
@@ -41,9 +45,15 @@ type GroupInstanceProfileInitParameters struct {
 	// Selector for a InstanceProfile in deployment to populate instanceProfileId.
 	// +kubebuilder:validation:Optional
 	InstanceProfileIDSelector *v1.NamespacedSelector `json:"instanceProfileIdSelector,omitempty" tf:"-"`
+
+	ProviderConfig *GroupInstanceProfileProviderConfigInitParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
 }
 
 type GroupInstanceProfileObservation struct {
+
+	// Specifies whether to use account-level or workspace-level API. Valid values are account and workspace. When not set, the API level is inferred from the provider host.
+	// Specifies whether to use account-level or workspace-level API. Valid values are `account` and `workspace`. When not set, the API level is inferred from the provider host.
+	API *string `json:"api,omitempty" tf:"api,omitempty"`
 
 	// This is the id of the group resource.
 	GroupID *string `json:"groupId,omitempty" tf:"group_id,omitempty"`
@@ -53,9 +63,16 @@ type GroupInstanceProfileObservation struct {
 
 	// This is the id of the instance profile resource.
 	InstanceProfileID *string `json:"instanceProfileId,omitempty" tf:"instance_profile_id,omitempty"`
+
+	ProviderConfig *GroupInstanceProfileProviderConfigObservation `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
 }
 
 type GroupInstanceProfileParameters struct {
+
+	// Specifies whether to use account-level or workspace-level API. Valid values are account and workspace. When not set, the API level is inferred from the provider host.
+	// Specifies whether to use account-level or workspace-level API. Valid values are `account` and `workspace`. When not set, the API level is inferred from the provider host.
+	// +kubebuilder:validation:Optional
+	API *string `json:"api,omitempty" tf:"api,omitempty"`
 
 	// This is the id of the group resource.
 	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/namespaced/security/v1beta1.Group
@@ -84,6 +101,28 @@ type GroupInstanceProfileParameters struct {
 	// Selector for a InstanceProfile in deployment to populate instanceProfileId.
 	// +kubebuilder:validation:Optional
 	InstanceProfileIDSelector *v1.NamespacedSelector `json:"instanceProfileIdSelector,omitempty" tf:"-"`
+
+	// +kubebuilder:validation:Optional
+	ProviderConfig *GroupInstanceProfileProviderConfigParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
+}
+
+type GroupInstanceProfileProviderConfigInitParameters struct {
+
+	// The id in the format <group_id>|<instance_profile_id>.
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
+}
+
+type GroupInstanceProfileProviderConfigObservation struct {
+
+	// The id in the format <group_id>|<instance_profile_id>.
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
+}
+
+type GroupInstanceProfileProviderConfigParameters struct {
+
+	// The id in the format <group_id>|<instance_profile_id>.
+	// +kubebuilder:validation:Optional
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
 }
 
 // GroupInstanceProfileSpec defines the desired state of GroupInstanceProfile

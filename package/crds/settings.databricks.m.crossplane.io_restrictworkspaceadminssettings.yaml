@@ -81,6 +81,8 @@ spec:
                     description: The configuration details.
                     items:
                       properties:
+                        disableGovTagCreation:
+                          type: boolean
                         status:
                           description: The restrict workspace admins status for the
                             workspace.
@@ -121,6 +123,8 @@ spec:
                     description: The configuration details.
                     items:
                       properties:
+                        disableGovTagCreation:
+                          type: boolean
                         status:
                           description: The restrict workspace admins status for the
                             workspace.
@@ -219,6 +223,8 @@ spec:
                     description: The configuration details.
                     items:
                       properties:
+                        disableGovTagCreation:
+                          type: boolean
                         status:
                           description: The restrict workspace admins status for the
                             workspace.
@@ -346,6 +352,8 @@ spec:
                   restrictWorkspaceAdmins:
                     description: The configuration details.
                     properties:
+                      disableGovTagCreation:
+                        type: boolean
                       status:
                         description: The restrict workspace admins status for the
                           workspace.
@@ -382,6 +390,8 @@ spec:
                   restrictWorkspaceAdmins:
                     description: The configuration details.
                     properties:
+                      disableGovTagCreation:
+                        type: boolean
                       status:
                         description: The restrict workspace admins status for the
                           workspace.
@@ -476,6 +486,8 @@ spec:
                   restrictWorkspaceAdmins:
                     description: The configuration details.
                     properties:
+                      disableGovTagCreation:
+                        type: boolean
                       status:
                         description: The restrict workspace admins status for the
                           workspace.

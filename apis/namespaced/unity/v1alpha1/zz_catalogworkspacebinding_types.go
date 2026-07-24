@@ -135,7 +135,7 @@ type CatalogWorkspaceBindingProviderConfigParameters struct {
 
 	// ID of the workspace. Change forces creation of a new resource.
 	// +kubebuilder:validation:Optional
-	WorkspaceID *string `json:"workspaceId" tf:"workspace_id,omitempty"`
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
 }
 
 // CatalogWorkspaceBindingSpec defines the desired state of CatalogWorkspaceBinding

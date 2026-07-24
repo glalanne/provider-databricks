@@ -72,6 +72,8 @@ spec:
                       to an external data source. Changes forces creation of a new
                       resource.'
                     type: string
+                  customMaxRetentionHours:
+                    type: number
                   effectivePredictiveOptimizationFlag:
                     items:
                       properties:
@@ -98,6 +100,31 @@ spec:
                       the catalog to ISOLATED will automatically allow access from
                       the current workspace.
                     type: string
+                  managedEncryptionSettings:
+                    items:
+                      properties:
+                        azureEncryptionSettings:
+                          items:
+                            properties:
+                              azureCmkAccessConnectorId:
+                                description: ID of this catalog - same as the name.
+                                type: string
+                              azureCmkManagedIdentityId:
+                                description: ID of this catalog - same as the name.
+                                type: string
+                              azureTenantId:
+                                description: ID of this catalog - same as the name.
+                                type: string
+                            type: object
+                          type: array
+                        azureKeyVaultKeyId:
+                          description: ID of this catalog - same as the name.
+                          type: string
+                        customerManagedKeyId:
+                          description: ID of this catalog - same as the name.
+                          type: string
+                      type: object
+                    type: array
                   metastoreId:
                     description: ID of the parent metastore.
                     type: string
@@ -181,6 +208,8 @@ spec:
                       to an external data source. Changes forces creation of a new
                       resource.'
                     type: string
+                  customMaxRetentionHours:
+                    type: number
                   effectivePredictiveOptimizationFlag:
                     items:
                       properties:
@@ -207,6 +236,31 @@ spec:
                       the catalog to ISOLATED will automatically allow access from
                       the current workspace.
                     type: string
+                  managedEncryptionSettings:
+                    items:
+                      properties:
+                        azureEncryptionSettings:
+                          items:
+                            properties:
+                              azureCmkAccessConnectorId:
+                                description: ID of this catalog - same as the name.
+                                type: string
+                              azureCmkManagedIdentityId:
+                                description: ID of this catalog - same as the name.
+                                type: string
+                              azureTenantId:
+                                description: ID of this catalog - same as the name.
+                                type: string
+                            type: object
+                          type: array
+                        azureKeyVaultKeyId:
+                          description: ID of this catalog - same as the name.
+                          type: string
+                        customerManagedKeyId:
+                          description: ID of this catalog - same as the name.
+                          type: string
+                      type: object
+                    type: array
                   metastoreId:
                     description: ID of the parent metastore.
                     type: string
@@ -350,6 +404,8 @@ spec:
                   createdBy:
                     description: username of catalog creator.
                     type: string
+                  customMaxRetentionHours:
+                    type: number
                   effectivePredictiveOptimizationFlag:
                     items:
                       properties:
@@ -382,6 +438,31 @@ spec:
                       the catalog to ISOLATED will automatically allow access from
                       the current workspace.
                     type: string
+                  managedEncryptionSettings:
+                    items:
+                      properties:
+                        azureEncryptionSettings:
+                          items:
+                            properties:
+                              azureCmkAccessConnectorId:
+                                description: ID of this catalog - same as the name.
+                                type: string
+                              azureCmkManagedIdentityId:
+                                description: ID of this catalog - same as the name.
+                                type: string
+                              azureTenantId:
+                                description: ID of this catalog - same as the name.
+                                type: string
+                            type: object
+                          type: array
+                        azureKeyVaultKeyId:
+                          description: ID of this catalog - same as the name.
+                          type: string
+                        customerManagedKeyId:
+                          description: ID of this catalog - same as the name.
+                          type: string
+                      type: object
+                    type: array
                   metastoreId:
                     description: ID of the parent metastore.
                     type: string
@@ -567,6 +648,8 @@ spec:
                       to an external data source. Changes forces creation of a new
                       resource.'
                     type: string
+                  customMaxRetentionHours:
+                    type: number
                   effectivePredictiveOptimizationFlag:
                     properties:
                       inheritedFromName:
@@ -591,6 +674,27 @@ spec:
                       the catalog to ISOLATED will automatically allow access from
                       the current workspace.
                     type: string
+                  managedEncryptionSettings:
+                    properties:
+                      azureEncryptionSettings:
+                        properties:
+                          azureCmkAccessConnectorId:
+                            description: ID of this catalog - same as the name.
+                            type: string
+                          azureCmkManagedIdentityId:
+                            description: ID of this catalog - same as the name.
+                            type: string
+                          azureTenantId:
+                            description: ID of this catalog - same as the name.
+                            type: string
+                        type: object
+                      azureKeyVaultKeyId:
+                        description: ID of this catalog - same as the name.
+                        type: string
+                      customerManagedKeyId:
+                        description: ID of this catalog - same as the name.
+                        type: string
+                    type: object
                   metastoreId:
                     description: ID of the parent metastore.
                     type: string
@@ -670,6 +774,8 @@ spec:
                       to an external data source. Changes forces creation of a new
                       resource.'
                     type: string
+                  customMaxRetentionHours:
+                    type: number
                   effectivePredictiveOptimizationFlag:
                     properties:
                       inheritedFromName:
@@ -694,6 +800,27 @@ spec:
                       the catalog to ISOLATED will automatically allow access from
                       the current workspace.
                     type: string
+                  managedEncryptionSettings:
+                    properties:
+                      azureEncryptionSettings:
+                        properties:
+                          azureCmkAccessConnectorId:
+                            description: ID of this catalog - same as the name.
+                            type: string
+                          azureCmkManagedIdentityId:
+                            description: ID of this catalog - same as the name.
+                            type: string
+                          azureTenantId:
+                            description: ID of this catalog - same as the name.
+                            type: string
+                        type: object
+                      azureKeyVaultKeyId:
+                        description: ID of this catalog - same as the name.
+                        type: string
+                      customerManagedKeyId:
+                        description: ID of this catalog - same as the name.
+                        type: string
+                    type: object
                   metastoreId:
                     description: ID of the parent metastore.
                     type: string
@@ -833,6 +960,8 @@ spec:
                   createdBy:
                     description: username of catalog creator.
                     type: string
+                  customMaxRetentionHours:
+                    type: number
                   effectivePredictiveOptimizationFlag:
                     properties:
                       inheritedFromName:
@@ -863,6 +992,27 @@ spec:
                       the catalog to ISOLATED will automatically allow access from
                       the current workspace.
                     type: string
+                  managedEncryptionSettings:
+                    properties:
+                      azureEncryptionSettings:
+                        properties:
+                          azureCmkAccessConnectorId:
+                            description: ID of this catalog - same as the name.
+                            type: string
+                          azureCmkManagedIdentityId:
+                            description: ID of this catalog - same as the name.
+                            type: string
+                          azureTenantId:
+                            description: ID of this catalog - same as the name.
+                            type: string
+                        type: object
+                      azureKeyVaultKeyId:
+                        description: ID of this catalog - same as the name.
+                        type: string
+                      customerManagedKeyId:
+                        description: ID of this catalog - same as the name.
+                        type: string
+                    type: object
                   metastoreId:
                     description: ID of the parent metastore.
                     type: string

@@ -19,6 +19,10 @@ type GroupInitParameters struct {
 	// identifier for use in databricks_access_control_rule_set, e.g. groups/Some Group.
 	ACLPrincipalID *string `json:"aclPrincipalId,omitempty" tf:"acl_principal_id,omitempty"`
 
+	// Specifies whether to use account-level or workspace-level API. Valid values are account and workspace. When not set, the API level is inferred from the provider host.
+	// Specifies whether to use account-level or workspace-level API. Valid values are `account` and `workspace`. When not set, the API level is inferred from the provider host.
+	API *string `json:"api,omitempty" tf:"api,omitempty"`
+
 	// This is a field to allow the group to have cluster create privileges. More fine grained permissions could be assigned with databricks_permissions and cluster_id argument. Everyone without allow_cluster_create argument set, but with permission to use Cluster Policy would be able to create clusters, but within boundaries of that specific policy.
 	AllowClusterCreate *bool `json:"allowClusterCreate,omitempty" tf:"allow_cluster_create,omitempty"`
 
@@ -37,6 +41,8 @@ type GroupInitParameters struct {
 	// Ignore cannot create group: Group with name X already exists. This functionality is experimental and is designed to simplify corner cases, like Azure Active Directory synchronisation.
 	Force *bool `json:"force,omitempty" tf:"force,omitempty"`
 
+	ProviderConfig *GroupProviderConfigInitParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
+
 	URL *string `json:"url,omitempty" tf:"url,omitempty"`
 
 	// This is a field to allow the group to have access to a Databricks Workspace UI and Databricks One.
@@ -50,6 +56,10 @@ type GroupObservation struct {
 
 	// identifier for use in databricks_access_control_rule_set, e.g. groups/Some Group.
 	ACLPrincipalID *string `json:"aclPrincipalId,omitempty" tf:"acl_principal_id,omitempty"`
+
+	// Specifies whether to use account-level or workspace-level API. Valid values are account and workspace. When not set, the API level is inferred from the provider host.
+	// Specifies whether to use account-level or workspace-level API. Valid values are `account` and `workspace`. When not set, the API level is inferred from the provider host.
+	API *string `json:"api,omitempty" tf:"api,omitempty"`
 
 	// This is a field to allow the group to have cluster create privileges. More fine grained permissions could be assigned with databricks_permissions and cluster_id argument. Everyone without allow_cluster_create argument set, but with permission to use Cluster Policy would be able to create clusters, but within boundaries of that specific policy.
 	AllowClusterCreate *bool `json:"allowClusterCreate,omitempty" tf:"allow_cluster_create,omitempty"`
@@ -72,6 +82,8 @@ type GroupObservation struct {
 	// Canonical unique identifier for the group (SCIM ID).
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
+	ProviderConfig *GroupProviderConfigObservation `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
+
 	URL *string `json:"url,omitempty" tf:"url,omitempty"`
 
 	// This is a field to allow the group to have access to a Databricks Workspace UI and Databricks One.
@@ -86,6 +98,11 @@ type GroupParameters struct {
 	// identifier for use in databricks_access_control_rule_set, e.g. groups/Some Group.
 	// +kubebuilder:validation:Optional
 	ACLPrincipalID *string `json:"aclPrincipalId,omitempty" tf:"acl_principal_id,omitempty"`
+
+	// Specifies whether to use account-level or workspace-level API. Valid values are account and workspace. When not set, the API level is inferred from the provider host.
+	// Specifies whether to use account-level or workspace-level API. Valid values are `account` and `workspace`. When not set, the API level is inferred from the provider host.
+	// +kubebuilder:validation:Optional
+	API *string `json:"api,omitempty" tf:"api,omitempty"`
 
 	// This is a field to allow the group to have cluster create privileges. More fine grained permissions could be assigned with databricks_permissions and cluster_id argument. Everyone without allow_cluster_create argument set, but with permission to use Cluster Policy would be able to create clusters, but within boundaries of that specific policy.
 	// +kubebuilder:validation:Optional
@@ -112,6 +129,9 @@ type GroupParameters struct {
 	Force *bool `json:"force,omitempty" tf:"force,omitempty"`
 
 	// +kubebuilder:validation:Optional
+	ProviderConfig *GroupProviderConfigParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
+
+	// +kubebuilder:validation:Optional
 	URL *string `json:"url,omitempty" tf:"url,omitempty"`
 
 	// This is a field to allow the group to have access to a Databricks Workspace UI and Databricks One.
@@ -121,6 +141,25 @@ type GroupParameters struct {
 	// This is a field to allow the group to have access only to Databricks One.  Couldn't be used with workspace_access or databricks_sql_access.
 	// +kubebuilder:validation:Optional
 	WorkspaceConsume *bool `json:"workspaceConsume,omitempty" tf:"workspace_consume,omitempty"`
+}
+
+type GroupProviderConfigInitParameters struct {
+
+	// Canonical unique identifier for the group (SCIM ID).
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
+}
+
+type GroupProviderConfigObservation struct {
+
+	// Canonical unique identifier for the group (SCIM ID).
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
+}
+
+type GroupProviderConfigParameters struct {
+
+	// Canonical unique identifier for the group (SCIM ID).
+	// +kubebuilder:validation:Optional
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
 }
 
 // GroupSpec defines the desired state of Group

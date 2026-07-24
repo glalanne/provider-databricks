@@ -235,6 +235,10 @@ spec:
                   deployment:
                     items:
                       properties:
+                        deploymentId:
+                          description: ID of the system notification that is notified
+                            when an event defined in webhook_notifications is triggered.
+                          type: string
                         kind:
                           type: string
                         metadataFilePath:
@@ -243,6 +247,10 @@ spec:
                             SQL commands to execute. If source is WORKSPACE: Absolute
                             path to the file in the workspace with SQL commands to
                             execute.'
+                          type: string
+                        versionId:
+                          description: ID of the system notification that is notified
+                            when an event defined in webhook_notifications is triggered.
                           type: string
                       type: object
                     type: array
@@ -519,6 +527,8 @@ spec:
                                   properties:
                                     availability:
                                       type: string
+                                    capacityReservationGroup:
+                                      type: string
                                     firstOnDemand:
                                       type: number
                                     logAnalyticsInfo:
@@ -693,6 +703,8 @@ spec:
                                       type: string
                                     bootDiskSize:
                                       type: number
+                                    confidentialComputeType:
+                                      type: string
                                     firstOnDemand:
                                       type: number
                                     googleServiceAccount:
@@ -1065,6 +1077,8 @@ spec:
                             properties:
                               availability:
                                 type: string
+                              capacityReservationGroup:
+                                type: string
                               firstOnDemand:
                                 type: number
                               logAnalyticsInfo:
@@ -1232,6 +1246,8 @@ spec:
                                 type: string
                               bootDiskSize:
                                 type: number
+                              confidentialComputeType:
+                                type: string
                               firstOnDemand:
                                 type: number
                               googleServiceAccount:
@@ -1683,6 +1699,12 @@ spec:
                           type: string
                       type: object
                     type: array
+                  parentPath:
+                    description: 'If source is GIT: Relative path to the file in the
+                      repository specified in the git_source block with SQL commands
+                      to execute. If source is WORKSPACE: Absolute path to the file
+                      in the workspace with SQL commands to execute.'
+                    type: string
                   performanceTarget:
                     description: 'The performance mode on a serverless job. The performance
                       target determines the level of compute performance or cost-efficiency
@@ -1806,6 +1828,25 @@ spec:
                           description: A Cron expression using Quartz syntax that
                             describes the schedule for a job. This field is required.
                           type: string
+                        sqlCondition:
+                          description: The table(s) condition based on which to trigger
+                            a job run.  Possible values are ANY_UPDATED, ALL_UPDATED.
+                          items:
+                            properties:
+                              sqlQueryId:
+                                description: ID of the system notification that is
+                                  notified when an event defined in webhook_notifications
+                                  is triggered.
+                                type: string
+                              triggerMode:
+                                type: string
+                              warehouseId:
+                                description: The warehouse id to execute the dashboard
+                                  with for the schedule. If not specified, will use
+                                  the default warehouse of dashboard
+                                type: string
+                            type: object
+                          type: array
                         timezoneId:
                           description: A Java timezone ID. The schedule for a job
                             will be resolved with respect to this timezone. See Java
@@ -1883,6 +1924,87 @@ spec:
                       See task Configuration Block below.
                     items:
                       properties:
+                        aiRuntimeTask:
+                          description: A list of task specification that the job will
+                            execute. See task Configuration Block below.
+                          items:
+                            properties:
+                              deployments:
+                                items:
+                                  properties:
+                                    commandPath:
+                                      description: 'If source is GIT: Relative path
+                                        to the file in the repository specified in
+                                        the git_source block with SQL commands to
+                                        execute. If source is WORKSPACE: Absolute
+                                        path to the file in the workspace with SQL
+                                        commands to execute.'
+                                      type: string
+                                    compute:
+                                      description: Task level compute configuration.
+                                        This block is documented below.
+                                      items:
+                                        properties:
+                                          acceleratorCount:
+                                            type: number
+                                          acceleratorType:
+                                            type: string
+                                        type: object
+                                      type: array
+                                    name:
+                                      description: An optional name for the job. The
+                                        default value is Untitled.
+                                      type: string
+                                  type: object
+                                type: array
+                              experiment:
+                                type: string
+                              mlflowExperimentDirectory:
+                                type: string
+                              mlflowRun:
+                                type: string
+                            type: object
+                          type: array
+                        alertTask:
+                          description: A list of task specification that the job will
+                            execute. See task Configuration Block below.
+                          items:
+                            properties:
+                              alertId:
+                                description: (String) identifier of the Databricks
+                                  Alert (databricks_alert).
+                                type: string
+                              subscribers:
+                                description: The list of subscribers to send the snapshot
+                                  of the dashboard to.
+                                items:
+                                  properties:
+                                    destinationId:
+                                      description: A snapshot of the dashboard will
+                                        be sent to the destination when the destination_id
+                                        field is present.
+                                      type: string
+                                    userName:
+                                      description: A snapshot of the dashboard will
+                                        be sent to the user's email when the user_name
+                                        field is present.
+                                      type: string
+                                  type: object
+                                type: array
+                              warehouseId:
+                                description: The warehouse id to execute the dashboard
+                                  with for the schedule. If not specified, will use
+                                  the default warehouse of dashboard
+                                type: string
+                              workspacePath:
+                                description: 'If source is GIT: Relative path to the
+                                  file in the repository specified in the git_source
+                                  block with SQL commands to execute. If source is
+                                  WORKSPACE: Absolute path to the file in the workspace
+                                  with SQL commands to execute.'
+                                type: string
+                            type: object
+                          type: array
                         cleanRoomsNotebookTask:
                           description: A list of task specification that the job will
                             execute. See task Configuration Block below.
@@ -2243,6 +2365,9 @@ spec:
                             tasks.
                           type: boolean
                         disabled:
+                          description: (Bool) An optional flag to disable the task.
+                            If set to true, the task will not run even if it is part
+                            of a job.
                           type: boolean
                         emailNotifications:
                           description: (List) An optional set of email addresses notified
@@ -2401,6 +2526,95 @@ spec:
                                   job will execute. See task Configuration Block below.
                                 items:
                                   properties:
+                                    aiRuntimeTask:
+                                      description: A list of task specification that
+                                        the job will execute. See task Configuration
+                                        Block below.
+                                      items:
+                                        properties:
+                                          deployments:
+                                            items:
+                                              properties:
+                                                commandPath:
+                                                  description: 'If source is GIT:
+                                                    Relative path to the file in the
+                                                    repository specified in the git_source
+                                                    block with SQL commands to execute.
+                                                    If source is WORKSPACE: Absolute
+                                                    path to the file in the workspace
+                                                    with SQL commands to execute.'
+                                                  type: string
+                                                compute:
+                                                  description: Task level compute
+                                                    configuration. This block is documented
+                                                    below.
+                                                  items:
+                                                    properties:
+                                                      acceleratorCount:
+                                                        type: number
+                                                      acceleratorType:
+                                                        type: string
+                                                    type: object
+                                                  type: array
+                                                name:
+                                                  description: An optional name for
+                                                    the job. The default value is
+                                                    Untitled.
+                                                  type: string
+                                              type: object
+                                            type: array
+                                          experiment:
+                                            type: string
+                                          mlflowExperimentDirectory:
+                                            type: string
+                                          mlflowRun:
+                                            type: string
+                                        type: object
+                                      type: array
+                                    alertTask:
+                                      description: A list of task specification that
+                                        the job will execute. See task Configuration
+                                        Block below.
+                                      items:
+                                        properties:
+                                          alertId:
+                                            description: (String) identifier of the
+                                              Databricks Alert (databricks_alert).
+                                            type: string
+                                          subscribers:
+                                            description: The list of subscribers to
+                                              send the snapshot of the dashboard to.
+                                            items:
+                                              properties:
+                                                destinationId:
+                                                  description: A snapshot of the dashboard
+                                                    will be sent to the destination
+                                                    when the destination_id field
+                                                    is present.
+                                                  type: string
+                                                userName:
+                                                  description: A snapshot of the dashboard
+                                                    will be sent to the user's email
+                                                    when the user_name field is present.
+                                                  type: string
+                                              type: object
+                                            type: array
+                                          warehouseId:
+                                            description: The warehouse id to execute
+                                              the dashboard with for the schedule.
+                                              If not specified, will use the default
+                                              warehouse of dashboard
+                                            type: string
+                                          workspacePath:
+                                            description: 'If source is GIT: Relative
+                                              path to the file in the repository specified
+                                              in the git_source block with SQL commands
+                                              to execute. If source is WORKSPACE:
+                                              Absolute path to the file in the workspace
+                                              with SQL commands to execute.'
+                                            type: string
+                                        type: object
+                                      type: array
                                     cleanRoomsNotebookTask:
                                       description: A list of task specification that
                                         the job will execute. See task Configuration
@@ -2638,6 +2852,9 @@ spec:
                                         in serverless tasks.
                                       type: boolean
                                     disabled:
+                                      description: (Bool) An optional flag to disable
+                                        the task. If set to true, the task will not
+                                        run even if it is part of a job.
                                       type: boolean
                                     emailNotifications:
                                       description: (List) An optional set of email
@@ -2940,6 +3157,8 @@ spec:
                                               properties:
                                                 availability:
                                                   type: string
+                                                capacityReservationGroup:
+                                                  type: string
                                                 firstOnDemand:
                                                   type: number
                                                 logAnalyticsInfo:
@@ -3124,6 +3343,8 @@ spec:
                                                   type: string
                                                 bootDiskSize:
                                                   type: number
+                                                confidentialComputeType:
+                                                  type: string
                                                 firstOnDemand:
                                                   type: number
                                                 googleServiceAccount:
@@ -3453,9 +3674,31 @@ spec:
                                             description: (Bool) Specifies if there
                                               should be full refresh of the pipeline.
                                             type: boolean
+                                          fullRefreshSelection:
+                                            items:
+                                              type: string
+                                            type: array
+                                          parameters:
+                                            additionalProperties:
+                                              type: string
+                                            description: Parameters for the task
+                                            type: object
+                                            x-kubernetes-map-type: granular
                                           pipelineId:
                                             description: The pipeline's unique ID.
                                             type: string
+                                          refreshFlowSelection:
+                                            items:
+                                              type: string
+                                            type: array
+                                          refreshSelection:
+                                            items:
+                                              type: string
+                                            type: array
+                                          resetCheckpointSelection:
+                                            items:
+                                              type: string
+                                            type: array
                                         type: object
                                       type: array
                                     powerBiTask:
@@ -3534,6 +3777,31 @@ spec:
                                               If not specified, will use the default
                                               warehouse of dashboard
                                             type: string
+                                        type: object
+                                      type: array
+                                    pythonOperatorTask:
+                                      description: A list of task specification that
+                                        the job will execute. See task Configuration
+                                        Block below.
+                                      items:
+                                        properties:
+                                          main:
+                                            type: string
+                                          parameters:
+                                            description: Parameters for the task
+                                            items:
+                                              properties:
+                                                name:
+                                                  description: An optional name for
+                                                    the job. The default value is
+                                                    Untitled.
+                                                  type: string
+                                                value:
+                                                  description: integer value used
+                                                    to compare to the given metric.
+                                                  type: string
+                                              type: object
+                                            type: array
                                         type: object
                                       type: array
                                     pythonWheelTask:
@@ -3616,6 +3884,22 @@ spec:
                                                     there should be full refresh of
                                                     the pipeline.
                                                   type: boolean
+                                                fullRefreshSelection:
+                                                  items:
+                                                    type: string
+                                                  type: array
+                                                refreshFlowSelection:
+                                                  items:
+                                                    type: string
+                                                  type: array
+                                                refreshSelection:
+                                                  items:
+                                                    type: string
+                                                  type: array
+                                                resetCheckpointSelection:
+                                                  items:
+                                                    type: string
+                                                  type: array
                                               type: object
                                             type: array
                                           pythonNamedParams:
@@ -4163,6 +4447,8 @@ spec:
                                   properties:
                                     availability:
                                       type: string
+                                    capacityReservationGroup:
+                                      type: string
                                     firstOnDemand:
                                       type: number
                                     logAnalyticsInfo:
@@ -4337,6 +4623,8 @@ spec:
                                       type: string
                                     bootDiskSize:
                                       type: number
+                                    confidentialComputeType:
+                                      type: string
                                     firstOnDemand:
                                       type: number
                                     googleServiceAccount:
@@ -4798,6 +5086,16 @@ spec:
                                 description: (Bool) Specifies if there should be full
                                   refresh of the pipeline.
                                 type: boolean
+                              fullRefreshSelection:
+                                items:
+                                  type: string
+                                type: array
+                              parameters:
+                                additionalProperties:
+                                  type: string
+                                description: Parameters for the task
+                                type: object
+                                x-kubernetes-map-type: granular
                               pipelineId:
                                 description: The pipeline's unique ID.
                                 type: string
@@ -4877,6 +5175,18 @@ spec:
                                         type: string
                                     type: object
                                 type: object
+                              refreshFlowSelection:
+                                items:
+                                  type: string
+                                type: array
+                              refreshSelection:
+                                items:
+                                  type: string
+                                type: array
+                              resetCheckpointSelection:
+                                items:
+                                  type: string
+                                type: array
                             type: object
                           type: array
                         powerBiTask:
@@ -5024,6 +5334,29 @@ spec:
                                 type: object
                             type: object
                           type: array
+                        pythonOperatorTask:
+                          description: A list of task specification that the job will
+                            execute. See task Configuration Block below.
+                          items:
+                            properties:
+                              main:
+                                type: string
+                              parameters:
+                                description: Parameters for the task
+                                items:
+                                  properties:
+                                    name:
+                                      description: An optional name for the job. The
+                                        default value is Untitled.
+                                      type: string
+                                    value:
+                                      description: integer value used to compare to
+                                        the given metric.
+                                      type: string
+                                  type: object
+                                type: array
+                            type: object
+                          type: array
                         pythonWheelTask:
                           description: A list of task specification that the job will
                             execute. See task Configuration Block below.
@@ -5097,6 +5430,22 @@ spec:
                                       description: (Bool) Specifies if there should
                                         be full refresh of the pipeline.
                                       type: boolean
+                                    fullRefreshSelection:
+                                      items:
+                                        type: string
+                                      type: array
+                                    refreshFlowSelection:
+                                      items:
+                                        type: string
+                                      type: array
+                                    refreshSelection:
+                                      items:
+                                        type: string
+                                      type: array
+                                    resetCheckpointSelection:
+                                      items:
+                                        type: string
+                                      type: array
                                   type: object
                                 type: array
                               pythonNamedParams:
@@ -5775,6 +6124,25 @@ spec:
                               unit:
                                 description: 'The unit of time for the interval.  Possible
                                   values are: DAYS, HOURS, WEEKS.'
+                                type: string
+                            type: object
+                          type: array
+                        sqlCondition:
+                          description: The table(s) condition based on which to trigger
+                            a job run.  Possible values are ANY_UPDATED, ALL_UPDATED.
+                          items:
+                            properties:
+                              sqlQueryId:
+                                description: ID of the system notification that is
+                                  notified when an event defined in webhook_notifications
+                                  is triggered.
+                                type: string
+                              triggerMode:
+                                type: string
+                              warehouseId:
+                                description: The warehouse id to execute the dashboard
+                                  with for the schedule. If not specified, will use
+                                  the default warehouse of dashboard
                                 type: string
                             type: object
                           type: array
@@ -6062,6 +6430,10 @@ spec:
                   deployment:
                     items:
                       properties:
+                        deploymentId:
+                          description: ID of the system notification that is notified
+                            when an event defined in webhook_notifications is triggered.
+                          type: string
                         kind:
                           type: string
                         metadataFilePath:
@@ -6070,6 +6442,10 @@ spec:
                             SQL commands to execute. If source is WORKSPACE: Absolute
                             path to the file in the workspace with SQL commands to
                             execute.'
+                          type: string
+                        versionId:
+                          description: ID of the system notification that is notified
+                            when an event defined in webhook_notifications is triggered.
                           type: string
                       type: object
                     type: array
@@ -6346,6 +6722,8 @@ spec:
                                   properties:
                                     availability:
                                       type: string
+                                    capacityReservationGroup:
+                                      type: string
                                     firstOnDemand:
                                       type: number
                                     logAnalyticsInfo:
@@ -6522,6 +6900,8 @@ spec:
                                       type: string
                                     bootDiskSize:
                                       type: number
+                                    confidentialComputeType:
+                                      type: string
                                     firstOnDemand:
                                       type: number
                                     googleServiceAccount:
@@ -6894,6 +7274,8 @@ spec:
                             properties:
                               availability:
                                 type: string
+                              capacityReservationGroup:
+                                type: string
                               firstOnDemand:
                                 type: number
                               logAnalyticsInfo:
@@ -7063,6 +7445,8 @@ spec:
                                 type: string
                               bootDiskSize:
                                 type: number
+                              confidentialComputeType:
+                                type: string
                               firstOnDemand:
                                 type: number
                               googleServiceAccount:
@@ -7514,6 +7898,12 @@ spec:
                           type: string
                       type: object
                     type: array
+                  parentPath:
+                    description: 'If source is GIT: Relative path to the file in the
+                      repository specified in the git_source block with SQL commands
+                      to execute. If source is WORKSPACE: Absolute path to the file
+                      in the workspace with SQL commands to execute.'
+                    type: string
                   performanceTarget:
                     description: 'The performance mode on a serverless job. The performance
                       target determines the level of compute performance or cost-efficiency
@@ -7637,6 +8027,25 @@ spec:
                           description: A Cron expression using Quartz syntax that
                             describes the schedule for a job. This field is required.
                           type: string
+                        sqlCondition:
+                          description: The table(s) condition based on which to trigger
+                            a job run.  Possible values are ANY_UPDATED, ALL_UPDATED.
+                          items:
+                            properties:
+                              sqlQueryId:
+                                description: ID of the system notification that is
+                                  notified when an event defined in webhook_notifications
+                                  is triggered.
+                                type: string
+                              triggerMode:
+                                type: string
+                              warehouseId:
+                                description: The warehouse id to execute the dashboard
+                                  with for the schedule. If not specified, will use
+                                  the default warehouse of dashboard
+                                type: string
+                            type: object
+                          type: array
                         timezoneId:
                           description: A Java timezone ID. The schedule for a job
                             will be resolved with respect to this timezone. See Java
@@ -7714,6 +8123,87 @@ spec:
                       See task Configuration Block below.
                     items:
                       properties:
+                        aiRuntimeTask:
+                          description: A list of task specification that the job will
+                            execute. See task Configuration Block below.
+                          items:
+                            properties:
+                              deployments:
+                                items:
+                                  properties:
+                                    commandPath:
+                                      description: 'If source is GIT: Relative path
+                                        to the file in the repository specified in
+                                        the git_source block with SQL commands to
+                                        execute. If source is WORKSPACE: Absolute
+                                        path to the file in the workspace with SQL
+                                        commands to execute.'
+                                      type: string
+                                    compute:
+                                      description: Task level compute configuration.
+                                        This block is documented below.
+                                      items:
+                                        properties:
+                                          acceleratorCount:
+                                            type: number
+                                          acceleratorType:
+                                            type: string
+                                        type: object
+                                      type: array
+                                    name:
+                                      description: An optional name for the job. The
+                                        default value is Untitled.
+                                      type: string
+                                  type: object
+                                type: array
+                              experiment:
+                                type: string
+                              mlflowExperimentDirectory:
+                                type: string
+                              mlflowRun:
+                                type: string
+                            type: object
+                          type: array
+                        alertTask:
+                          description: A list of task specification that the job will
+                            execute. See task Configuration Block below.
+                          items:
+                            properties:
+                              alertId:
+                                description: (String) identifier of the Databricks
+                                  Alert (databricks_alert).
+                                type: string
+                              subscribers:
+                                description: The list of subscribers to send the snapshot
+                                  of the dashboard to.
+                                items:
+                                  properties:
+                                    destinationId:
+                                      description: A snapshot of the dashboard will
+                                        be sent to the destination when the destination_id
+                                        field is present.
+                                      type: string
+                                    userName:
+                                      description: A snapshot of the dashboard will
+                                        be sent to the user's email when the user_name
+                                        field is present.
+                                      type: string
+                                  type: object
+                                type: array
+                              warehouseId:
+                                description: The warehouse id to execute the dashboard
+                                  with for the schedule. If not specified, will use
+                                  the default warehouse of dashboard
+                                type: string
+                              workspacePath:
+                                description: 'If source is GIT: Relative path to the
+                                  file in the repository specified in the git_source
+                                  block with SQL commands to execute. If source is
+                                  WORKSPACE: Absolute path to the file in the workspace
+                                  with SQL commands to execute.'
+                                type: string
+                            type: object
+                          type: array
                         cleanRoomsNotebookTask:
                           description: A list of task specification that the job will
                             execute. See task Configuration Block below.
@@ -8074,6 +8564,9 @@ spec:
                             tasks.
                           type: boolean
                         disabled:
+                          description: (Bool) An optional flag to disable the task.
+                            If set to true, the task will not run even if it is part
+                            of a job.
                           type: boolean
                         emailNotifications:
                           description: (List) An optional set of email addresses notified
@@ -8232,6 +8725,95 @@ spec:
                                   job will execute. See task Configuration Block below.
                                 items:
                                   properties:
+                                    aiRuntimeTask:
+                                      description: A list of task specification that
+                                        the job will execute. See task Configuration
+                                        Block below.
+                                      items:
+                                        properties:
+                                          deployments:
+                                            items:
+                                              properties:
+                                                commandPath:
+                                                  description: 'If source is GIT:
+                                                    Relative path to the file in the
+                                                    repository specified in the git_source
+                                                    block with SQL commands to execute.
+                                                    If source is WORKSPACE: Absolute
+                                                    path to the file in the workspace
+                                                    with SQL commands to execute.'
+                                                  type: string
+                                                compute:
+                                                  description: Task level compute
+                                                    configuration. This block is documented
+                                                    below.
+                                                  items:
+                                                    properties:
+                                                      acceleratorCount:
+                                                        type: number
+                                                      acceleratorType:
+                                                        type: string
+                                                    type: object
+                                                  type: array
+                                                name:
+                                                  description: An optional name for
+                                                    the job. The default value is
+                                                    Untitled.
+                                                  type: string
+                                              type: object
+                                            type: array
+                                          experiment:
+                                            type: string
+                                          mlflowExperimentDirectory:
+                                            type: string
+                                          mlflowRun:
+                                            type: string
+                                        type: object
+                                      type: array
+                                    alertTask:
+                                      description: A list of task specification that
+                                        the job will execute. See task Configuration
+                                        Block below.
+                                      items:
+                                        properties:
+                                          alertId:
+                                            description: (String) identifier of the
+                                              Databricks Alert (databricks_alert).
+                                            type: string
+                                          subscribers:
+                                            description: The list of subscribers to
+                                              send the snapshot of the dashboard to.
+                                            items:
+                                              properties:
+                                                destinationId:
+                                                  description: A snapshot of the dashboard
+                                                    will be sent to the destination
+                                                    when the destination_id field
+                                                    is present.
+                                                  type: string
+                                                userName:
+                                                  description: A snapshot of the dashboard
+                                                    will be sent to the user's email
+                                                    when the user_name field is present.
+                                                  type: string
+                                              type: object
+                                            type: array
+                                          warehouseId:
+                                            description: The warehouse id to execute
+                                              the dashboard with for the schedule.
+                                              If not specified, will use the default
+                                              warehouse of dashboard
+                                            type: string
+                                          workspacePath:
+                                            description: 'If source is GIT: Relative
+                                              path to the file in the repository specified
+                                              in the git_source block with SQL commands
+                                              to execute. If source is WORKSPACE:
+                                              Absolute path to the file in the workspace
+                                              with SQL commands to execute.'
+                                            type: string
+                                        type: object
+                                      type: array
                                     cleanRoomsNotebookTask:
                                       description: A list of task specification that
                                         the job will execute. See task Configuration
@@ -8469,6 +9051,9 @@ spec:
                                         in serverless tasks.
                                       type: boolean
                                     disabled:
+                                      description: (Bool) An optional flag to disable
+                                        the task. If set to true, the task will not
+                                        run even if it is part of a job.
                                       type: boolean
                                     emailNotifications:
                                       description: (List) An optional set of email
@@ -8771,6 +9356,8 @@ spec:
                                               properties:
                                                 availability:
                                                   type: string
+                                                capacityReservationGroup:
+                                                  type: string
                                                 firstOnDemand:
                                                   type: number
                                                 logAnalyticsInfo:
@@ -8957,6 +9544,8 @@ spec:
                                                   type: string
                                                 bootDiskSize:
                                                   type: number
+                                                confidentialComputeType:
+                                                  type: string
                                                 firstOnDemand:
                                                   type: number
                                                 googleServiceAccount:
@@ -9286,9 +9875,31 @@ spec:
                                             description: (Bool) Specifies if there
                                               should be full refresh of the pipeline.
                                             type: boolean
+                                          fullRefreshSelection:
+                                            items:
+                                              type: string
+                                            type: array
+                                          parameters:
+                                            additionalProperties:
+                                              type: string
+                                            description: Parameters for the task
+                                            type: object
+                                            x-kubernetes-map-type: granular
                                           pipelineId:
                                             description: The pipeline's unique ID.
                                             type: string
+                                          refreshFlowSelection:
+                                            items:
+                                              type: string
+                                            type: array
+                                          refreshSelection:
+                                            items:
+                                              type: string
+                                            type: array
+                                          resetCheckpointSelection:
+                                            items:
+                                              type: string
+                                            type: array
                                         type: object
                                       type: array
                                     powerBiTask:
@@ -9367,6 +9978,31 @@ spec:
                                               If not specified, will use the default
                                               warehouse of dashboard
                                             type: string
+                                        type: object
+                                      type: array
+                                    pythonOperatorTask:
+                                      description: A list of task specification that
+                                        the job will execute. See task Configuration
+                                        Block below.
+                                      items:
+                                        properties:
+                                          main:
+                                            type: string
+                                          parameters:
+                                            description: Parameters for the task
+                                            items:
+                                              properties:
+                                                name:
+                                                  description: An optional name for
+                                                    the job. The default value is
+                                                    Untitled.
+                                                  type: string
+                                                value:
+                                                  description: integer value used
+                                                    to compare to the given metric.
+                                                  type: string
+                                              type: object
+                                            type: array
                                         type: object
                                       type: array
                                     pythonWheelTask:
@@ -9449,6 +10085,22 @@ spec:
                                                     there should be full refresh of
                                                     the pipeline.
                                                   type: boolean
+                                                fullRefreshSelection:
+                                                  items:
+                                                    type: string
+                                                  type: array
+                                                refreshFlowSelection:
+                                                  items:
+                                                    type: string
+                                                  type: array
+                                                refreshSelection:
+                                                  items:
+                                                    type: string
+                                                  type: array
+                                                resetCheckpointSelection:
+                                                  items:
+                                                    type: string
+                                                  type: array
                                               type: object
                                             type: array
                                           pythonNamedParams:
@@ -9996,6 +10648,8 @@ spec:
                                   properties:
                                     availability:
                                       type: string
+                                    capacityReservationGroup:
+                                      type: string
                                     firstOnDemand:
                                       type: number
                                     logAnalyticsInfo:
@@ -10172,6 +10826,8 @@ spec:
                                       type: string
                                     bootDiskSize:
                                       type: number
+                                    confidentialComputeType:
+                                      type: string
                                     firstOnDemand:
                                       type: number
                                     googleServiceAccount:
@@ -10633,6 +11289,16 @@ spec:
                                 description: (Bool) Specifies if there should be full
                                   refresh of the pipeline.
                                 type: boolean
+                              fullRefreshSelection:
+                                items:
+                                  type: string
+                                type: array
+                              parameters:
+                                additionalProperties:
+                                  type: string
+                                description: Parameters for the task
+                                type: object
+                                x-kubernetes-map-type: granular
                               pipelineId:
                                 description: The pipeline's unique ID.
                                 type: string
@@ -10712,6 +11378,18 @@ spec:
                                         type: string
                                     type: object
                                 type: object
+                              refreshFlowSelection:
+                                items:
+                                  type: string
+                                type: array
+                              refreshSelection:
+                                items:
+                                  type: string
+                                type: array
+                              resetCheckpointSelection:
+                                items:
+                                  type: string
+                                type: array
                             type: object
                           type: array
                         powerBiTask:
@@ -10859,6 +11537,29 @@ spec:
                                 type: object
                             type: object
                           type: array
+                        pythonOperatorTask:
+                          description: A list of task specification that the job will
+                            execute. See task Configuration Block below.
+                          items:
+                            properties:
+                              main:
+                                type: string
+                              parameters:
+                                description: Parameters for the task
+                                items:
+                                  properties:
+                                    name:
+                                      description: An optional name for the job. The
+                                        default value is Untitled.
+                                      type: string
+                                    value:
+                                      description: integer value used to compare to
+                                        the given metric.
+                                      type: string
+                                  type: object
+                                type: array
+                            type: object
+                          type: array
                         pythonWheelTask:
                           description: A list of task specification that the job will
                             execute. See task Configuration Block below.
@@ -10932,6 +11633,22 @@ spec:
                                       description: (Bool) Specifies if there should
                                         be full refresh of the pipeline.
                                       type: boolean
+                                    fullRefreshSelection:
+                                      items:
+                                        type: string
+                                      type: array
+                                    refreshFlowSelection:
+                                      items:
+                                        type: string
+                                      type: array
+                                    refreshSelection:
+                                      items:
+                                        type: string
+                                      type: array
+                                    resetCheckpointSelection:
+                                      items:
+                                        type: string
+                                      type: array
                                   type: object
                                 type: array
                               pythonNamedParams:
@@ -11610,6 +12327,25 @@ spec:
                               unit:
                                 description: 'The unit of time for the interval.  Possible
                                   values are: DAYS, HOURS, WEEKS.'
+                                type: string
+                            type: object
+                          type: array
+                        sqlCondition:
+                          description: The table(s) condition based on which to trigger
+                            a job run.  Possible values are ANY_UPDATED, ALL_UPDATED.
+                          items:
+                            properties:
+                              sqlQueryId:
+                                description: ID of the system notification that is
+                                  notified when an event defined in webhook_notifications
+                                  is triggered.
+                                type: string
+                              triggerMode:
+                                type: string
+                              warehouseId:
+                                description: The warehouse id to execute the dashboard
+                                  with for the schedule. If not specified, will use
+                                  the default warehouse of dashboard
                                 type: string
                             type: object
                           type: array
@@ -11899,6 +12635,10 @@ spec:
                   deployment:
                     items:
                       properties:
+                        deploymentId:
+                          description: ID of the system notification that is notified
+                            when an event defined in webhook_notifications is triggered.
+                          type: string
                         kind:
                           type: string
                         metadataFilePath:
@@ -11907,6 +12647,10 @@ spec:
                             SQL commands to execute. If source is WORKSPACE: Absolute
                             path to the file in the workspace with SQL commands to
                             execute.'
+                          type: string
+                        versionId:
+                          description: ID of the system notification that is notified
+                            when an event defined in webhook_notifications is triggered.
                           type: string
                       type: object
                     type: array
@@ -12187,6 +12931,8 @@ spec:
                                   properties:
                                     availability:
                                       type: string
+                                    capacityReservationGroup:
+                                      type: string
                                     firstOnDemand:
                                       type: number
                                     logAnalyticsInfo:
@@ -12342,6 +13088,8 @@ spec:
                                       type: string
                                     bootDiskSize:
                                       type: number
+                                    confidentialComputeType:
+                                      type: string
                                     firstOnDemand:
                                       type: number
                                     googleServiceAccount:
@@ -12714,6 +13462,8 @@ spec:
                             properties:
                               availability:
                                 type: string
+                              capacityReservationGroup:
+                                type: string
                               firstOnDemand:
                                 type: number
                               logAnalyticsInfo:
@@ -12863,6 +13613,8 @@ spec:
                                 type: string
                               bootDiskSize:
                                 type: number
+                              confidentialComputeType:
+                                type: string
                               firstOnDemand:
                                 type: number
                               googleServiceAccount:
@@ -13162,6 +13914,12 @@ spec:
                           type: string
                       type: object
                     type: array
+                  parentPath:
+                    description: 'If source is GIT: Relative path to the file in the
+                      repository specified in the git_source block with SQL commands
+                      to execute. If source is WORKSPACE: Absolute path to the file
+                      in the workspace with SQL commands to execute.'
+                    type: string
                   performanceTarget:
                     description: 'The performance mode on a serverless job. The performance
                       target determines the level of compute performance or cost-efficiency
@@ -13285,6 +14043,25 @@ spec:
                           description: A Cron expression using Quartz syntax that
                             describes the schedule for a job. This field is required.
                           type: string
+                        sqlCondition:
+                          description: The table(s) condition based on which to trigger
+                            a job run.  Possible values are ANY_UPDATED, ALL_UPDATED.
+                          items:
+                            properties:
+                              sqlQueryId:
+                                description: ID of the system notification that is
+                                  notified when an event defined in webhook_notifications
+                                  is triggered.
+                                type: string
+                              triggerMode:
+                                type: string
+                              warehouseId:
+                                description: The warehouse id to execute the dashboard
+                                  with for the schedule. If not specified, will use
+                                  the default warehouse of dashboard
+                                type: string
+                            type: object
+                          type: array
                         timezoneId:
                           description: A Java timezone ID. The schedule for a job
                             will be resolved with respect to this timezone. See Java
@@ -13362,6 +14139,87 @@ spec:
                       See task Configuration Block below.
                     items:
                       properties:
+                        aiRuntimeTask:
+                          description: A list of task specification that the job will
+                            execute. See task Configuration Block below.
+                          items:
+                            properties:
+                              deployments:
+                                items:
+                                  properties:
+                                    commandPath:
+                                      description: 'If source is GIT: Relative path
+                                        to the file in the repository specified in
+                                        the git_source block with SQL commands to
+                                        execute. If source is WORKSPACE: Absolute
+                                        path to the file in the workspace with SQL
+                                        commands to execute.'
+                                      type: string
+                                    compute:
+                                      description: Task level compute configuration.
+                                        This block is documented below.
+                                      items:
+                                        properties:
+                                          acceleratorCount:
+                                            type: number
+                                          acceleratorType:
+                                            type: string
+                                        type: object
+                                      type: array
+                                    name:
+                                      description: An optional name for the job. The
+                                        default value is Untitled.
+                                      type: string
+                                  type: object
+                                type: array
+                              experiment:
+                                type: string
+                              mlflowExperimentDirectory:
+                                type: string
+                              mlflowRun:
+                                type: string
+                            type: object
+                          type: array
+                        alertTask:
+                          description: A list of task specification that the job will
+                            execute. See task Configuration Block below.
+                          items:
+                            properties:
+                              alertId:
+                                description: (String) identifier of the Databricks
+                                  Alert (databricks_alert).
+                                type: string
+                              subscribers:
+                                description: The list of subscribers to send the snapshot
+                                  of the dashboard to.
+                                items:
+                                  properties:
+                                    destinationId:
+                                      description: A snapshot of the dashboard will
+                                        be sent to the destination when the destination_id
+                                        field is present.
+                                      type: string
+                                    userName:
+                                      description: A snapshot of the dashboard will
+                                        be sent to the user's email when the user_name
+                                        field is present.
+                                      type: string
+                                  type: object
+                                type: array
+                              warehouseId:
+                                description: The warehouse id to execute the dashboard
+                                  with for the schedule. If not specified, will use
+                                  the default warehouse of dashboard
+                                type: string
+                              workspacePath:
+                                description: 'If source is GIT: Relative path to the
+                                  file in the repository specified in the git_source
+                                  block with SQL commands to execute. If source is
+                                  WORKSPACE: Absolute path to the file in the workspace
+                                  with SQL commands to execute.'
+                                type: string
+                            type: object
+                          type: array
                         cleanRoomsNotebookTask:
                           description: A list of task specification that the job will
                             execute. See task Configuration Block below.
@@ -13570,6 +14428,9 @@ spec:
                             tasks.
                           type: boolean
                         disabled:
+                          description: (Bool) An optional flag to disable the task.
+                            If set to true, the task will not run even if it is part
+                            of a job.
                           type: boolean
                         emailNotifications:
                           description: (List) An optional set of email addresses notified
@@ -13652,6 +14513,95 @@ spec:
                                   job will execute. See task Configuration Block below.
                                 items:
                                   properties:
+                                    aiRuntimeTask:
+                                      description: A list of task specification that
+                                        the job will execute. See task Configuration
+                                        Block below.
+                                      items:
+                                        properties:
+                                          deployments:
+                                            items:
+                                              properties:
+                                                commandPath:
+                                                  description: 'If source is GIT:
+                                                    Relative path to the file in the
+                                                    repository specified in the git_source
+                                                    block with SQL commands to execute.
+                                                    If source is WORKSPACE: Absolute
+                                                    path to the file in the workspace
+                                                    with SQL commands to execute.'
+                                                  type: string
+                                                compute:
+                                                  description: Task level compute
+                                                    configuration. This block is documented
+                                                    below.
+                                                  items:
+                                                    properties:
+                                                      acceleratorCount:
+                                                        type: number
+                                                      acceleratorType:
+                                                        type: string
+                                                    type: object
+                                                  type: array
+                                                name:
+                                                  description: An optional name for
+                                                    the job. The default value is
+                                                    Untitled.
+                                                  type: string
+                                              type: object
+                                            type: array
+                                          experiment:
+                                            type: string
+                                          mlflowExperimentDirectory:
+                                            type: string
+                                          mlflowRun:
+                                            type: string
+                                        type: object
+                                      type: array
+                                    alertTask:
+                                      description: A list of task specification that
+                                        the job will execute. See task Configuration
+                                        Block below.
+                                      items:
+                                        properties:
+                                          alertId:
+                                            description: (String) identifier of the
+                                              Databricks Alert (databricks_alert).
+                                            type: string
+                                          subscribers:
+                                            description: The list of subscribers to
+                                              send the snapshot of the dashboard to.
+                                            items:
+                                              properties:
+                                                destinationId:
+                                                  description: A snapshot of the dashboard
+                                                    will be sent to the destination
+                                                    when the destination_id field
+                                                    is present.
+                                                  type: string
+                                                userName:
+                                                  description: A snapshot of the dashboard
+                                                    will be sent to the user's email
+                                                    when the user_name field is present.
+                                                  type: string
+                                              type: object
+                                            type: array
+                                          warehouseId:
+                                            description: The warehouse id to execute
+                                              the dashboard with for the schedule.
+                                              If not specified, will use the default
+                                              warehouse of dashboard
+                                            type: string
+                                          workspacePath:
+                                            description: 'If source is GIT: Relative
+                                              path to the file in the repository specified
+                                              in the git_source block with SQL commands
+                                              to execute. If source is WORKSPACE:
+                                              Absolute path to the file in the workspace
+                                              with SQL commands to execute.'
+                                            type: string
+                                        type: object
+                                      type: array
                                     cleanRoomsNotebookTask:
                                       description: A list of task specification that
                                         the job will execute. See task Configuration
@@ -13889,6 +14839,9 @@ spec:
                                         in serverless tasks.
                                       type: boolean
                                     disabled:
+                                      description: (Bool) An optional flag to disable
+                                        the task. If set to true, the task will not
+                                        run even if it is part of a job.
                                       type: boolean
                                     emailNotifications:
                                       description: (List) An optional set of email
@@ -14191,6 +15144,8 @@ spec:
                                               properties:
                                                 availability:
                                                   type: string
+                                                capacityReservationGroup:
+                                                  type: string
                                                 firstOnDemand:
                                                   type: number
                                                 logAnalyticsInfo:
@@ -14353,6 +15308,8 @@ spec:
                                                   type: string
                                                 bootDiskSize:
                                                   type: number
+                                                confidentialComputeType:
+                                                  type: string
                                                 firstOnDemand:
                                                   type: number
                                                 googleServiceAccount:
@@ -14682,9 +15639,31 @@ spec:
                                             description: (Bool) Specifies if there
                                               should be full refresh of the pipeline.
                                             type: boolean
+                                          fullRefreshSelection:
+                                            items:
+                                              type: string
+                                            type: array
+                                          parameters:
+                                            additionalProperties:
+                                              type: string
+                                            description: Parameters for the task
+                                            type: object
+                                            x-kubernetes-map-type: granular
                                           pipelineId:
                                             description: The pipeline's unique ID.
                                             type: string
+                                          refreshFlowSelection:
+                                            items:
+                                              type: string
+                                            type: array
+                                          refreshSelection:
+                                            items:
+                                              type: string
+                                            type: array
+                                          resetCheckpointSelection:
+                                            items:
+                                              type: string
+                                            type: array
                                         type: object
                                       type: array
                                     powerBiTask:
@@ -14763,6 +15742,31 @@ spec:
                                               If not specified, will use the default
                                               warehouse of dashboard
                                             type: string
+                                        type: object
+                                      type: array
+                                    pythonOperatorTask:
+                                      description: A list of task specification that
+                                        the job will execute. See task Configuration
+                                        Block below.
+                                      items:
+                                        properties:
+                                          main:
+                                            type: string
+                                          parameters:
+                                            description: Parameters for the task
+                                            items:
+                                              properties:
+                                                name:
+                                                  description: An optional name for
+                                                    the job. The default value is
+                                                    Untitled.
+                                                  type: string
+                                                value:
+                                                  description: integer value used
+                                                    to compare to the given metric.
+                                                  type: string
+                                              type: object
+                                            type: array
                                         type: object
                                       type: array
                                     pythonWheelTask:
@@ -14845,6 +15849,22 @@ spec:
                                                     there should be full refresh of
                                                     the pipeline.
                                                   type: boolean
+                                                fullRefreshSelection:
+                                                  items:
+                                                    type: string
+                                                  type: array
+                                                refreshFlowSelection:
+                                                  items:
+                                                    type: string
+                                                  type: array
+                                                refreshSelection:
+                                                  items:
+                                                    type: string
+                                                  type: array
+                                                resetCheckpointSelection:
+                                                  items:
+                                                    type: string
+                                                  type: array
                                               type: object
                                             type: array
                                           pythonNamedParams:
@@ -15392,6 +16412,8 @@ spec:
                                   properties:
                                     availability:
                                       type: string
+                                    capacityReservationGroup:
+                                      type: string
                                     firstOnDemand:
                                       type: number
                                     logAnalyticsInfo:
@@ -15547,6 +16569,8 @@ spec:
                                       type: string
                                     bootDiskSize:
                                       type: number
+                                    confidentialComputeType:
+                                      type: string
                                     firstOnDemand:
                                       type: number
                                     googleServiceAccount:
@@ -15856,9 +16880,31 @@ spec:
                                 description: (Bool) Specifies if there should be full
                                   refresh of the pipeline.
                                 type: boolean
+                              fullRefreshSelection:
+                                items:
+                                  type: string
+                                type: array
+                              parameters:
+                                additionalProperties:
+                                  type: string
+                                description: Parameters for the task
+                                type: object
+                                x-kubernetes-map-type: granular
                               pipelineId:
                                 description: The pipeline's unique ID.
                                 type: string
+                              refreshFlowSelection:
+                                items:
+                                  type: string
+                                type: array
+                              refreshSelection:
+                                items:
+                                  type: string
+                                type: array
+                              resetCheckpointSelection:
+                                items:
+                                  type: string
+                                type: array
                             type: object
                           type: array
                         powerBiTask:
@@ -15928,6 +16974,29 @@ spec:
                                   with for the schedule. If not specified, will use
                                   the default warehouse of dashboard
                                 type: string
+                            type: object
+                          type: array
+                        pythonOperatorTask:
+                          description: A list of task specification that the job will
+                            execute. See task Configuration Block below.
+                          items:
+                            properties:
+                              main:
+                                type: string
+                              parameters:
+                                description: Parameters for the task
+                                items:
+                                  properties:
+                                    name:
+                                      description: An optional name for the job. The
+                                        default value is Untitled.
+                                      type: string
+                                    value:
+                                      description: integer value used to compare to
+                                        the given metric.
+                                      type: string
+                                  type: object
+                                type: array
                             type: object
                           type: array
                         pythonWheelTask:
@@ -16003,6 +17072,22 @@ spec:
                                       description: (Bool) Specifies if there should
                                         be full refresh of the pipeline.
                                       type: boolean
+                                    fullRefreshSelection:
+                                      items:
+                                        type: string
+                                      type: array
+                                    refreshFlowSelection:
+                                      items:
+                                        type: string
+                                      type: array
+                                    refreshSelection:
+                                      items:
+                                        type: string
+                                      type: array
+                                    resetCheckpointSelection:
+                                      items:
+                                        type: string
+                                      type: array
                                   type: object
                                 type: array
                               pythonNamedParams:
@@ -16377,6 +17462,25 @@ spec:
                               unit:
                                 description: 'The unit of time for the interval.  Possible
                                   values are: DAYS, HOURS, WEEKS.'
+                                type: string
+                            type: object
+                          type: array
+                        sqlCondition:
+                          description: The table(s) condition based on which to trigger
+                            a job run.  Possible values are ANY_UPDATED, ALL_UPDATED.
+                          items:
+                            properties:
+                              sqlQueryId:
+                                description: ID of the system notification that is
+                                  notified when an event defined in webhook_notifications
+                                  is triggered.
+                                type: string
+                              triggerMode:
+                                type: string
+                              warehouseId:
+                                description: The warehouse id to execute the dashboard
+                                  with for the schedule. If not specified, will use
+                                  the default warehouse of dashboard
                                 type: string
                             type: object
                           type: array
@@ -16765,6 +17869,10 @@ spec:
                     type: object
                   deployment:
                     properties:
+                      deploymentId:
+                        description: ID of the system notification that is notified
+                          when an event defined in webhook_notifications is triggered.
+                        type: string
                       kind:
                         type: string
                       metadataFilePath:
@@ -16772,6 +17880,10 @@ spec:
                           in the repository specified in the git_source block with
                           SQL commands to execute. If source is WORKSPACE: Absolute
                           path to the file in the workspace with SQL commands to execute.'
+                        type: string
+                      versionId:
+                        description: ID of the system notification that is notified
+                          when an event defined in webhook_notifications is triggered.
                         type: string
                     type: object
                   description:
@@ -17026,6 +18138,8 @@ spec:
                               properties:
                                 availability:
                                   type: string
+                                capacityReservationGroup:
+                                  type: string
                                 firstOnDemand:
                                   type: number
                                 logAnalyticsInfo:
@@ -17176,6 +18290,8 @@ spec:
                                   type: string
                                 bootDiskSize:
                                   type: number
+                                confidentialComputeType:
+                                  type: string
                                 firstOnDemand:
                                   type: number
                                 googleServiceAccount:
@@ -17499,6 +18615,8 @@ spec:
                         properties:
                           availability:
                             type: string
+                          capacityReservationGroup:
+                            type: string
                           firstOnDemand:
                             type: number
                           logAnalyticsInfo:
@@ -17646,6 +18764,8 @@ spec:
                             type: string
                           bootDiskSize:
                             type: number
+                          confidentialComputeType:
+                            type: string
                           firstOnDemand:
                             type: number
                           googleServiceAccount:
@@ -18057,6 +19177,12 @@ spec:
                           type: string
                       type: object
                     type: array
+                  parentPath:
+                    description: 'If source is GIT: Relative path to the file in the
+                      repository specified in the git_source block with SQL commands
+                      to execute. If source is WORKSPACE: Absolute path to the file
+                      in the workspace with SQL commands to execute.'
+                    type: string
                   performanceTarget:
                     description: 'The performance mode on a serverless job. The performance
                       target determines the level of compute performance or cost-efficiency
@@ -18166,6 +19292,22 @@ spec:
                         description: A Cron expression using Quartz syntax that describes
                           the schedule for a job. This field is required.
                         type: string
+                      sqlCondition:
+                        description: The table(s) condition based on which to trigger
+                          a job run.  Possible values are ANY_UPDATED, ALL_UPDATED.
+                        properties:
+                          sqlQueryId:
+                            description: ID of the system notification that is notified
+                              when an event defined in webhook_notifications is triggered.
+                            type: string
+                          triggerMode:
+                            type: string
+                          warehouseId:
+                            description: The warehouse id to execute the dashboard
+                              with for the schedule. If not specified, will use the
+                              default warehouse of dashboard
+                            type: string
+                        type: object
                       timezoneId:
                         description: A Java timezone ID. The schedule for a job will
                           be resolved with respect to this timezone. See Java TimeZone
@@ -18236,6 +19378,80 @@ spec:
                       See task Configuration Block below.
                     items:
                       properties:
+                        aiRuntimeTask:
+                          description: A list of task specification that the job will
+                            execute. See task Configuration Block below.
+                          properties:
+                            deployments:
+                              items:
+                                properties:
+                                  commandPath:
+                                    description: 'If source is GIT: Relative path
+                                      to the file in the repository specified in the
+                                      git_source block with SQL commands to execute.
+                                      If source is WORKSPACE: Absolute path to the
+                                      file in the workspace with SQL commands to execute.'
+                                    type: string
+                                  compute:
+                                    description: Task level compute configuration.
+                                      This block is documented below.
+                                    properties:
+                                      acceleratorCount:
+                                        type: number
+                                      acceleratorType:
+                                        type: string
+                                    type: object
+                                  name:
+                                    description: An optional name for the job. The
+                                      default value is Untitled.
+                                    type: string
+                                type: object
+                              type: array
+                            experiment:
+                              type: string
+                            mlflowExperimentDirectory:
+                              type: string
+                            mlflowRun:
+                              type: string
+                          type: object
+                        alertTask:
+                          description: A list of task specification that the job will
+                            execute. See task Configuration Block below.
+                          properties:
+                            alertId:
+                              description: (String) identifier of the Databricks Alert
+                                (databricks_alert).
+                              type: string
+                            subscribers:
+                              description: The list of subscribers to send the snapshot
+                                of the dashboard to.
+                              items:
+                                properties:
+                                  destinationId:
+                                    description: A snapshot of the dashboard will
+                                      be sent to the destination when the destination_id
+                                      field is present.
+                                    type: string
+                                  userName:
+                                    description: A snapshot of the dashboard will
+                                      be sent to the user's email when the user_name
+                                      field is present.
+                                    type: string
+                                type: object
+                              type: array
+                            warehouseId:
+                              description: The warehouse id to execute the dashboard
+                                with for the schedule. If not specified, will use
+                                the default warehouse of dashboard
+                              type: string
+                            workspacePath:
+                              description: 'If source is GIT: Relative path to the
+                                file in the repository specified in the git_source
+                                block with SQL commands to execute. If source is WORKSPACE:
+                                Absolute path to the file in the workspace with SQL
+                                commands to execute.'
+                              type: string
+                          type: object
                         cleanRoomsNotebookTask:
                           description: A list of task specification that the job will
                             execute. See task Configuration Block below.
@@ -18580,6 +19796,9 @@ spec:
                             tasks.
                           type: boolean
                         disabled:
+                          description: (Bool) An optional flag to disable the task.
+                            If set to true, the task will not run even if it is part
+                            of a job.
                           type: boolean
                         emailNotifications:
                           description: (List) An optional set of email addresses notified
@@ -18733,6 +19952,84 @@ spec:
                               description: A list of task specification that the job
                                 will execute. See task Configuration Block below.
                               properties:
+                                aiRuntimeTask:
+                                  description: A list of task specification that the
+                                    job will execute. See task Configuration Block
+                                    below.
+                                  properties:
+                                    deployments:
+                                      items:
+                                        properties:
+                                          commandPath:
+                                            description: 'If source is GIT: Relative
+                                              path to the file in the repository specified
+                                              in the git_source block with SQL commands
+                                              to execute. If source is WORKSPACE:
+                                              Absolute path to the file in the workspace
+                                              with SQL commands to execute.'
+                                            type: string
+                                          compute:
+                                            description: Task level compute configuration.
+                                              This block is documented below.
+                                            properties:
+                                              acceleratorCount:
+                                                type: number
+                                              acceleratorType:
+                                                type: string
+                                            type: object
+                                          name:
+                                            description: An optional name for the
+                                              job. The default value is Untitled.
+                                            type: string
+                                        type: object
+                                      type: array
+                                    experiment:
+                                      type: string
+                                    mlflowExperimentDirectory:
+                                      type: string
+                                    mlflowRun:
+                                      type: string
+                                  type: object
+                                alertTask:
+                                  description: A list of task specification that the
+                                    job will execute. See task Configuration Block
+                                    below.
+                                  properties:
+                                    alertId:
+                                      description: (String) identifier of the Databricks
+                                        Alert (databricks_alert).
+                                      type: string
+                                    subscribers:
+                                      description: The list of subscribers to send
+                                        the snapshot of the dashboard to.
+                                      items:
+                                        properties:
+                                          destinationId:
+                                            description: A snapshot of the dashboard
+                                              will be sent to the destination when
+                                              the destination_id field is present.
+                                            type: string
+                                          userName:
+                                            description: A snapshot of the dashboard
+                                              will be sent to the user's email when
+                                              the user_name field is present.
+                                            type: string
+                                        type: object
+                                      type: array
+                                    warehouseId:
+                                      description: The warehouse id to execute the
+                                        dashboard with for the schedule. If not specified,
+                                        will use the default warehouse of dashboard
+                                      type: string
+                                    workspacePath:
+                                      description: 'If source is GIT: Relative path
+                                        to the file in the repository specified in
+                                        the git_source block with SQL commands to
+                                        execute. If source is WORKSPACE: Absolute
+                                        path to the file in the workspace with SQL
+                                        commands to execute.'
+                                      type: string
+                                  type: object
                                 cleanRoomsNotebookTask:
                                   description: A list of task specification that the
                                     job will execute. See task Configuration Block
@@ -18940,6 +20237,9 @@ spec:
                                     in serverless tasks.
                                   type: boolean
                                 disabled:
+                                  description: (Bool) An optional flag to disable
+                                    the task. If set to true, the task will not run
+                                    even if it is part of a job.
                                   type: boolean
                                 emailNotifications:
                                   description: (List) An optional set of email addresses
@@ -19209,6 +20509,8 @@ spec:
                                       properties:
                                         availability:
                                           type: string
+                                        capacityReservationGroup:
+                                          type: string
                                         firstOnDemand:
                                           type: number
                                         logAnalyticsInfo:
@@ -19363,6 +20665,8 @@ spec:
                                           type: string
                                         bootDiskSize:
                                           type: number
+                                        confidentialComputeType:
+                                          type: string
                                         firstOnDemand:
                                           type: number
                                         googleServiceAccount:
@@ -19643,9 +20947,31 @@ spec:
                                       description: (Bool) Specifies if there should
                                         be full refresh of the pipeline.
                                       type: boolean
+                                    fullRefreshSelection:
+                                      items:
+                                        type: string
+                                      type: array
+                                    parameters:
+                                      additionalProperties:
+                                        type: string
+                                      description: Parameters for the task
+                                      type: object
+                                      x-kubernetes-map-type: granular
                                     pipelineId:
                                       description: The pipeline's unique ID.
                                       type: string
+                                    refreshFlowSelection:
+                                      items:
+                                        type: string
+                                      type: array
+                                    refreshSelection:
+                                      items:
+                                        type: string
+                                      type: array
+                                    resetCheckpointSelection:
+                                      items:
+                                        type: string
+                                      type: array
                                   type: object
                                 powerBiTask:
                                   description: A list of task specification that the
@@ -19712,6 +21038,28 @@ spec:
                                         dashboard with for the schedule. If not specified,
                                         will use the default warehouse of dashboard
                                       type: string
+                                  type: object
+                                pythonOperatorTask:
+                                  description: A list of task specification that the
+                                    job will execute. See task Configuration Block
+                                    below.
+                                  properties:
+                                    main:
+                                      type: string
+                                    parameters:
+                                      description: Parameters for the task
+                                      items:
+                                        properties:
+                                          name:
+                                            description: An optional name for the
+                                              job. The default value is Untitled.
+                                            type: string
+                                          value:
+                                            description: integer value used to compare
+                                              to the given metric.
+                                            type: string
+                                        type: object
+                                      type: array
                                   type: object
                                 pythonWheelTask:
                                   description: A list of task specification that the
@@ -19786,6 +21134,22 @@ spec:
                                           description: (Bool) Specifies if there should
                                             be full refresh of the pipeline.
                                           type: boolean
+                                        fullRefreshSelection:
+                                          items:
+                                            type: string
+                                          type: array
+                                        refreshFlowSelection:
+                                          items:
+                                            type: string
+                                          type: array
+                                        refreshSelection:
+                                          items:
+                                            type: string
+                                          type: array
+                                        resetCheckpointSelection:
+                                          items:
+                                            type: string
+                                          type: array
                                       type: object
                                     pythonNamedParams:
                                       additionalProperties:
@@ -20269,6 +21633,8 @@ spec:
                               properties:
                                 availability:
                                   type: string
+                                capacityReservationGroup:
+                                  type: string
                                 firstOnDemand:
                                   type: number
                                 logAnalyticsInfo:
@@ -20419,6 +21785,8 @@ spec:
                                   type: string
                                 bootDiskSize:
                                   type: number
+                                confidentialComputeType:
+                                  type: string
                                 firstOnDemand:
                                   type: number
                                 googleServiceAccount:
@@ -20840,6 +22208,16 @@ spec:
                               description: (Bool) Specifies if there should be full
                                 refresh of the pipeline.
                               type: boolean
+                            fullRefreshSelection:
+                              items:
+                                type: string
+                              type: array
+                            parameters:
+                              additionalProperties:
+                                type: string
+                              description: Parameters for the task
+                              type: object
+                              x-kubernetes-map-type: granular
                             pipelineId:
                               description: The pipeline's unique ID.
                               type: string
@@ -20919,6 +22297,18 @@ spec:
                                       type: string
                                   type: object
                               type: object
+                            refreshFlowSelection:
+                              items:
+                                type: string
+                              type: array
+                            refreshSelection:
+                              items:
+                                type: string
+                              type: array
+                            resetCheckpointSelection:
+                              items:
+                                type: string
+                              type: array
                           type: object
                         powerBiTask:
                           description: A list of task specification that the job will
@@ -21060,6 +22450,27 @@ spec:
                                   type: object
                               type: object
                           type: object
+                        pythonOperatorTask:
+                          description: A list of task specification that the job will
+                            execute. See task Configuration Block below.
+                          properties:
+                            main:
+                              type: string
+                            parameters:
+                              description: Parameters for the task
+                              items:
+                                properties:
+                                  name:
+                                    description: An optional name for the job. The
+                                      default value is Untitled.
+                                    type: string
+                                  value:
+                                    description: integer value used to compare to
+                                      the given metric.
+                                    type: string
+                                type: object
+                              type: array
+                          type: object
                         pythonWheelTask:
                           description: A list of task specification that the job will
                             execute. See task Configuration Block below.
@@ -21129,6 +22540,22 @@ spec:
                                   description: (Bool) Specifies if there should be
                                     full refresh of the pipeline.
                                   type: boolean
+                                fullRefreshSelection:
+                                  items:
+                                    type: string
+                                  type: array
+                                refreshFlowSelection:
+                                  items:
+                                    type: string
+                                  type: array
+                                refreshSelection:
+                                  items:
+                                    type: string
+                                  type: array
+                                resetCheckpointSelection:
+                                  items:
+                                    type: string
+                                  type: array
                               type: object
                             pythonNamedParams:
                               additionalProperties:
@@ -21775,6 +23202,22 @@ spec:
                           unit:
                             description: 'The unit of time for the interval.  Possible
                               values are: DAYS, HOURS, WEEKS.'
+                            type: string
+                        type: object
+                      sqlCondition:
+                        description: The table(s) condition based on which to trigger
+                          a job run.  Possible values are ANY_UPDATED, ALL_UPDATED.
+                        properties:
+                          sqlQueryId:
+                            description: ID of the system notification that is notified
+                              when an event defined in webhook_notifications is triggered.
+                            type: string
+                          triggerMode:
+                            type: string
+                          warehouseId:
+                            description: The warehouse id to execute the dashboard
+                              with for the schedule. If not specified, will use the
+                              default warehouse of dashboard
                             type: string
                         type: object
                       tableUpdate:
@@ -22047,6 +23490,10 @@ spec:
                     type: object
                   deployment:
                     properties:
+                      deploymentId:
+                        description: ID of the system notification that is notified
+                          when an event defined in webhook_notifications is triggered.
+                        type: string
                       kind:
                         type: string
                       metadataFilePath:
@@ -22054,6 +23501,10 @@ spec:
                           in the repository specified in the git_source block with
                           SQL commands to execute. If source is WORKSPACE: Absolute
                           path to the file in the workspace with SQL commands to execute.'
+                        type: string
+                      versionId:
+                        description: ID of the system notification that is notified
+                          when an event defined in webhook_notifications is triggered.
                         type: string
                     type: object
                   description:
@@ -22308,6 +23759,8 @@ spec:
                               properties:
                                 availability:
                                   type: string
+                                capacityReservationGroup:
+                                  type: string
                                 firstOnDemand:
                                   type: number
                                 logAnalyticsInfo:
@@ -22460,6 +23913,8 @@ spec:
                                   type: string
                                 bootDiskSize:
                                   type: number
+                                confidentialComputeType:
+                                  type: string
                                 firstOnDemand:
                                   type: number
                                 googleServiceAccount:
@@ -22783,6 +24238,8 @@ spec:
                         properties:
                           availability:
                             type: string
+                          capacityReservationGroup:
+                            type: string
                           firstOnDemand:
                             type: number
                           logAnalyticsInfo:
@@ -22932,6 +24389,8 @@ spec:
                             type: string
                           bootDiskSize:
                             type: number
+                          confidentialComputeType:
+                            type: string
                           firstOnDemand:
                             type: number
                           googleServiceAccount:
@@ -23343,6 +24802,12 @@ spec:
                           type: string
                       type: object
                     type: array
+                  parentPath:
+                    description: 'If source is GIT: Relative path to the file in the
+                      repository specified in the git_source block with SQL commands
+                      to execute. If source is WORKSPACE: Absolute path to the file
+                      in the workspace with SQL commands to execute.'
+                    type: string
                   performanceTarget:
                     description: 'The performance mode on a serverless job. The performance
                       target determines the level of compute performance or cost-efficiency
@@ -23452,6 +24917,22 @@ spec:
                         description: A Cron expression using Quartz syntax that describes
                           the schedule for a job. This field is required.
                         type: string
+                      sqlCondition:
+                        description: The table(s) condition based on which to trigger
+                          a job run.  Possible values are ANY_UPDATED, ALL_UPDATED.
+                        properties:
+                          sqlQueryId:
+                            description: ID of the system notification that is notified
+                              when an event defined in webhook_notifications is triggered.
+                            type: string
+                          triggerMode:
+                            type: string
+                          warehouseId:
+                            description: The warehouse id to execute the dashboard
+                              with for the schedule. If not specified, will use the
+                              default warehouse of dashboard
+                            type: string
+                        type: object
                       timezoneId:
                         description: A Java timezone ID. The schedule for a job will
                           be resolved with respect to this timezone. See Java TimeZone
@@ -23522,6 +25003,80 @@ spec:
                       See task Configuration Block below.
                     items:
                       properties:
+                        aiRuntimeTask:
+                          description: A list of task specification that the job will
+                            execute. See task Configuration Block below.
+                          properties:
+                            deployments:
+                              items:
+                                properties:
+                                  commandPath:
+                                    description: 'If source is GIT: Relative path
+                                      to the file in the repository specified in the
+                                      git_source block with SQL commands to execute.
+                                      If source is WORKSPACE: Absolute path to the
+                                      file in the workspace with SQL commands to execute.'
+                                    type: string
+                                  compute:
+                                    description: Task level compute configuration.
+                                      This block is documented below.
+                                    properties:
+                                      acceleratorCount:
+                                        type: number
+                                      acceleratorType:
+                                        type: string
+                                    type: object
+                                  name:
+                                    description: An optional name for the job. The
+                                      default value is Untitled.
+                                    type: string
+                                type: object
+                              type: array
+                            experiment:
+                              type: string
+                            mlflowExperimentDirectory:
+                              type: string
+                            mlflowRun:
+                              type: string
+                          type: object
+                        alertTask:
+                          description: A list of task specification that the job will
+                            execute. See task Configuration Block below.
+                          properties:
+                            alertId:
+                              description: (String) identifier of the Databricks Alert
+                                (databricks_alert).
+                              type: string
+                            subscribers:
+                              description: The list of subscribers to send the snapshot
+                                of the dashboard to.
+                              items:
+                                properties:
+                                  destinationId:
+                                    description: A snapshot of the dashboard will
+                                      be sent to the destination when the destination_id
+                                      field is present.
+                                    type: string
+                                  userName:
+                                    description: A snapshot of the dashboard will
+                                      be sent to the user's email when the user_name
+                                      field is present.
+                                    type: string
+                                type: object
+                              type: array
+                            warehouseId:
+                              description: The warehouse id to execute the dashboard
+                                with for the schedule. If not specified, will use
+                                the default warehouse of dashboard
+                              type: string
+                            workspacePath:
+                              description: 'If source is GIT: Relative path to the
+                                file in the repository specified in the git_source
+                                block with SQL commands to execute. If source is WORKSPACE:
+                                Absolute path to the file in the workspace with SQL
+                                commands to execute.'
+                              type: string
+                          type: object
                         cleanRoomsNotebookTask:
                           description: A list of task specification that the job will
                             execute. See task Configuration Block below.
@@ -23866,6 +25421,9 @@ spec:
                             tasks.
                           type: boolean
                         disabled:
+                          description: (Bool) An optional flag to disable the task.
+                            If set to true, the task will not run even if it is part
+                            of a job.
                           type: boolean
                         emailNotifications:
                           description: (List) An optional set of email addresses notified
@@ -24019,6 +25577,84 @@ spec:
                               description: A list of task specification that the job
                                 will execute. See task Configuration Block below.
                               properties:
+                                aiRuntimeTask:
+                                  description: A list of task specification that the
+                                    job will execute. See task Configuration Block
+                                    below.
+                                  properties:
+                                    deployments:
+                                      items:
+                                        properties:
+                                          commandPath:
+                                            description: 'If source is GIT: Relative
+                                              path to the file in the repository specified
+                                              in the git_source block with SQL commands
+                                              to execute. If source is WORKSPACE:
+                                              Absolute path to the file in the workspace
+                                              with SQL commands to execute.'
+                                            type: string
+                                          compute:
+                                            description: Task level compute configuration.
+                                              This block is documented below.
+                                            properties:
+                                              acceleratorCount:
+                                                type: number
+                                              acceleratorType:
+                                                type: string
+                                            type: object
+                                          name:
+                                            description: An optional name for the
+                                              job. The default value is Untitled.
+                                            type: string
+                                        type: object
+                                      type: array
+                                    experiment:
+                                      type: string
+                                    mlflowExperimentDirectory:
+                                      type: string
+                                    mlflowRun:
+                                      type: string
+                                  type: object
+                                alertTask:
+                                  description: A list of task specification that the
+                                    job will execute. See task Configuration Block
+                                    below.
+                                  properties:
+                                    alertId:
+                                      description: (String) identifier of the Databricks
+                                        Alert (databricks_alert).
+                                      type: string
+                                    subscribers:
+                                      description: The list of subscribers to send
+                                        the snapshot of the dashboard to.
+                                      items:
+                                        properties:
+                                          destinationId:
+                                            description: A snapshot of the dashboard
+                                              will be sent to the destination when
+                                              the destination_id field is present.
+                                            type: string
+                                          userName:
+                                            description: A snapshot of the dashboard
+                                              will be sent to the user's email when
+                                              the user_name field is present.
+                                            type: string
+                                        type: object
+                                      type: array
+                                    warehouseId:
+                                      description: The warehouse id to execute the
+                                        dashboard with for the schedule. If not specified,
+                                        will use the default warehouse of dashboard
+                                      type: string
+                                    workspacePath:
+                                      description: 'If source is GIT: Relative path
+                                        to the file in the repository specified in
+                                        the git_source block with SQL commands to
+                                        execute. If source is WORKSPACE: Absolute
+                                        path to the file in the workspace with SQL
+                                        commands to execute.'
+                                      type: string
+                                  type: object
                                 cleanRoomsNotebookTask:
                                   description: A list of task specification that the
                                     job will execute. See task Configuration Block
@@ -24226,6 +25862,9 @@ spec:
                                     in serverless tasks.
                                   type: boolean
                                 disabled:
+                                  description: (Bool) An optional flag to disable
+                                    the task. If set to true, the task will not run
+                                    even if it is part of a job.
                                   type: boolean
                                 emailNotifications:
                                   description: (List) An optional set of email addresses
@@ -24495,6 +26134,8 @@ spec:
                                       properties:
                                         availability:
                                           type: string
+                                        capacityReservationGroup:
+                                          type: string
                                         firstOnDemand:
                                           type: number
                                         logAnalyticsInfo:
@@ -24651,6 +26292,8 @@ spec:
                                           type: string
                                         bootDiskSize:
                                           type: number
+                                        confidentialComputeType:
+                                          type: string
                                         firstOnDemand:
                                           type: number
                                         googleServiceAccount:
@@ -24931,9 +26574,31 @@ spec:
                                       description: (Bool) Specifies if there should
                                         be full refresh of the pipeline.
                                       type: boolean
+                                    fullRefreshSelection:
+                                      items:
+                                        type: string
+                                      type: array
+                                    parameters:
+                                      additionalProperties:
+                                        type: string
+                                      description: Parameters for the task
+                                      type: object
+                                      x-kubernetes-map-type: granular
                                     pipelineId:
                                       description: The pipeline's unique ID.
                                       type: string
+                                    refreshFlowSelection:
+                                      items:
+                                        type: string
+                                      type: array
+                                    refreshSelection:
+                                      items:
+                                        type: string
+                                      type: array
+                                    resetCheckpointSelection:
+                                      items:
+                                        type: string
+                                      type: array
                                   type: object
                                 powerBiTask:
                                   description: A list of task specification that the
@@ -25000,6 +26665,28 @@ spec:
                                         dashboard with for the schedule. If not specified,
                                         will use the default warehouse of dashboard
                                       type: string
+                                  type: object
+                                pythonOperatorTask:
+                                  description: A list of task specification that the
+                                    job will execute. See task Configuration Block
+                                    below.
+                                  properties:
+                                    main:
+                                      type: string
+                                    parameters:
+                                      description: Parameters for the task
+                                      items:
+                                        properties:
+                                          name:
+                                            description: An optional name for the
+                                              job. The default value is Untitled.
+                                            type: string
+                                          value:
+                                            description: integer value used to compare
+                                              to the given metric.
+                                            type: string
+                                        type: object
+                                      type: array
                                   type: object
                                 pythonWheelTask:
                                   description: A list of task specification that the
@@ -25074,6 +26761,22 @@ spec:
                                           description: (Bool) Specifies if there should
                                             be full refresh of the pipeline.
                                           type: boolean
+                                        fullRefreshSelection:
+                                          items:
+                                            type: string
+                                          type: array
+                                        refreshFlowSelection:
+                                          items:
+                                            type: string
+                                          type: array
+                                        refreshSelection:
+                                          items:
+                                            type: string
+                                          type: array
+                                        resetCheckpointSelection:
+                                          items:
+                                            type: string
+                                          type: array
                                       type: object
                                     pythonNamedParams:
                                       additionalProperties:
@@ -25557,6 +27260,8 @@ spec:
                               properties:
                                 availability:
                                   type: string
+                                capacityReservationGroup:
+                                  type: string
                                 firstOnDemand:
                                   type: number
                                 logAnalyticsInfo:
@@ -25709,6 +27414,8 @@ spec:
                                   type: string
                                 bootDiskSize:
                                   type: number
+                                confidentialComputeType:
+                                  type: string
                                 firstOnDemand:
                                   type: number
                                 googleServiceAccount:
@@ -26130,6 +27837,16 @@ spec:
                               description: (Bool) Specifies if there should be full
                                 refresh of the pipeline.
                               type: boolean
+                            fullRefreshSelection:
+                              items:
+                                type: string
+                              type: array
+                            parameters:
+                              additionalProperties:
+                                type: string
+                              description: Parameters for the task
+                              type: object
+                              x-kubernetes-map-type: granular
                             pipelineId:
                               description: The pipeline's unique ID.
                               type: string
@@ -26209,6 +27926,18 @@ spec:
                                       type: string
                                   type: object
                               type: object
+                            refreshFlowSelection:
+                              items:
+                                type: string
+                              type: array
+                            refreshSelection:
+                              items:
+                                type: string
+                              type: array
+                            resetCheckpointSelection:
+                              items:
+                                type: string
+                              type: array
                           type: object
                         powerBiTask:
                           description: A list of task specification that the job will
@@ -26350,6 +28079,27 @@ spec:
                                   type: object
                               type: object
                           type: object
+                        pythonOperatorTask:
+                          description: A list of task specification that the job will
+                            execute. See task Configuration Block below.
+                          properties:
+                            main:
+                              type: string
+                            parameters:
+                              description: Parameters for the task
+                              items:
+                                properties:
+                                  name:
+                                    description: An optional name for the job. The
+                                      default value is Untitled.
+                                    type: string
+                                  value:
+                                    description: integer value used to compare to
+                                      the given metric.
+                                    type: string
+                                type: object
+                              type: array
+                          type: object
                         pythonWheelTask:
                           description: A list of task specification that the job will
                             execute. See task Configuration Block below.
@@ -26419,6 +28169,22 @@ spec:
                                   description: (Bool) Specifies if there should be
                                     full refresh of the pipeline.
                                   type: boolean
+                                fullRefreshSelection:
+                                  items:
+                                    type: string
+                                  type: array
+                                refreshFlowSelection:
+                                  items:
+                                    type: string
+                                  type: array
+                                refreshSelection:
+                                  items:
+                                    type: string
+                                  type: array
+                                resetCheckpointSelection:
+                                  items:
+                                    type: string
+                                  type: array
                               type: object
                             pythonNamedParams:
                               additionalProperties:
@@ -27065,6 +28831,22 @@ spec:
                           unit:
                             description: 'The unit of time for the interval.  Possible
                               values are: DAYS, HOURS, WEEKS.'
+                            type: string
+                        type: object
+                      sqlCondition:
+                        description: The table(s) condition based on which to trigger
+                          a job run.  Possible values are ANY_UPDATED, ALL_UPDATED.
+                        properties:
+                          sqlQueryId:
+                            description: ID of the system notification that is notified
+                              when an event defined in webhook_notifications is triggered.
+                            type: string
+                          triggerMode:
+                            type: string
+                          warehouseId:
+                            description: The warehouse id to execute the dashboard
+                              with for the schedule. If not specified, will use the
+                              default warehouse of dashboard
                             type: string
                         type: object
                       tableUpdate:
@@ -27339,6 +29121,10 @@ spec:
                     type: object
                   deployment:
                     properties:
+                      deploymentId:
+                        description: ID of the system notification that is notified
+                          when an event defined in webhook_notifications is triggered.
+                        type: string
                       kind:
                         type: string
                       metadataFilePath:
@@ -27346,6 +29132,10 @@ spec:
                           in the repository specified in the git_source block with
                           SQL commands to execute. If source is WORKSPACE: Absolute
                           path to the file in the workspace with SQL commands to execute.'
+                        type: string
+                      versionId:
+                        description: ID of the system notification that is notified
+                          when an event defined in webhook_notifications is triggered.
                         type: string
                     type: object
                   description:
@@ -27604,6 +29394,8 @@ spec:
                               properties:
                                 availability:
                                   type: string
+                                capacityReservationGroup:
+                                  type: string
                                 firstOnDemand:
                                   type: number
                                 logAnalyticsInfo:
@@ -27736,6 +29528,8 @@ spec:
                                   type: string
                                 bootDiskSize:
                                   type: number
+                                confidentialComputeType:
+                                  type: string
                                 firstOnDemand:
                                   type: number
                                 googleServiceAccount:
@@ -28059,6 +29853,8 @@ spec:
                         properties:
                           availability:
                             type: string
+                          capacityReservationGroup:
+                            type: string
                           firstOnDemand:
                             type: number
                           logAnalyticsInfo:
@@ -28188,6 +29984,8 @@ spec:
                             type: string
                           bootDiskSize:
                             type: number
+                          confidentialComputeType:
+                            type: string
                           firstOnDemand:
                             type: number
                           googleServiceAccount:
@@ -28447,6 +30245,12 @@ spec:
                           type: string
                       type: object
                     type: array
+                  parentPath:
+                    description: 'If source is GIT: Relative path to the file in the
+                      repository specified in the git_source block with SQL commands
+                      to execute. If source is WORKSPACE: Absolute path to the file
+                      in the workspace with SQL commands to execute.'
+                    type: string
                   performanceTarget:
                     description: 'The performance mode on a serverless job. The performance
                       target determines the level of compute performance or cost-efficiency
@@ -28556,6 +30360,22 @@ spec:
                         description: A Cron expression using Quartz syntax that describes
                           the schedule for a job. This field is required.
                         type: string
+                      sqlCondition:
+                        description: The table(s) condition based on which to trigger
+                          a job run.  Possible values are ANY_UPDATED, ALL_UPDATED.
+                        properties:
+                          sqlQueryId:
+                            description: ID of the system notification that is notified
+                              when an event defined in webhook_notifications is triggered.
+                            type: string
+                          triggerMode:
+                            type: string
+                          warehouseId:
+                            description: The warehouse id to execute the dashboard
+                              with for the schedule. If not specified, will use the
+                              default warehouse of dashboard
+                            type: string
+                        type: object
                       timezoneId:
                         description: A Java timezone ID. The schedule for a job will
                           be resolved with respect to this timezone. See Java TimeZone
@@ -28626,6 +30446,80 @@ spec:
                       See task Configuration Block below.
                     items:
                       properties:
+                        aiRuntimeTask:
+                          description: A list of task specification that the job will
+                            execute. See task Configuration Block below.
+                          properties:
+                            deployments:
+                              items:
+                                properties:
+                                  commandPath:
+                                    description: 'If source is GIT: Relative path
+                                      to the file in the repository specified in the
+                                      git_source block with SQL commands to execute.
+                                      If source is WORKSPACE: Absolute path to the
+                                      file in the workspace with SQL commands to execute.'
+                                    type: string
+                                  compute:
+                                    description: Task level compute configuration.
+                                      This block is documented below.
+                                    properties:
+                                      acceleratorCount:
+                                        type: number
+                                      acceleratorType:
+                                        type: string
+                                    type: object
+                                  name:
+                                    description: An optional name for the job. The
+                                      default value is Untitled.
+                                    type: string
+                                type: object
+                              type: array
+                            experiment:
+                              type: string
+                            mlflowExperimentDirectory:
+                              type: string
+                            mlflowRun:
+                              type: string
+                          type: object
+                        alertTask:
+                          description: A list of task specification that the job will
+                            execute. See task Configuration Block below.
+                          properties:
+                            alertId:
+                              description: (String) identifier of the Databricks Alert
+                                (databricks_alert).
+                              type: string
+                            subscribers:
+                              description: The list of subscribers to send the snapshot
+                                of the dashboard to.
+                              items:
+                                properties:
+                                  destinationId:
+                                    description: A snapshot of the dashboard will
+                                      be sent to the destination when the destination_id
+                                      field is present.
+                                    type: string
+                                  userName:
+                                    description: A snapshot of the dashboard will
+                                      be sent to the user's email when the user_name
+                                      field is present.
+                                    type: string
+                                type: object
+                              type: array
+                            warehouseId:
+                              description: The warehouse id to execute the dashboard
+                                with for the schedule. If not specified, will use
+                                the default warehouse of dashboard
+                              type: string
+                            workspacePath:
+                              description: 'If source is GIT: Relative path to the
+                                file in the repository specified in the git_source
+                                block with SQL commands to execute. If source is WORKSPACE:
+                                Absolute path to the file in the workspace with SQL
+                                commands to execute.'
+                              type: string
+                          type: object
                         cleanRoomsNotebookTask:
                           description: A list of task specification that the job will
                             execute. See task Configuration Block below.
@@ -28818,6 +30712,9 @@ spec:
                             tasks.
                           type: boolean
                         disabled:
+                          description: (Bool) An optional flag to disable the task.
+                            If set to true, the task will not run even if it is part
+                            of a job.
                           type: boolean
                         emailNotifications:
                           description: (List) An optional set of email addresses notified
@@ -28895,6 +30792,84 @@ spec:
                               description: A list of task specification that the job
                                 will execute. See task Configuration Block below.
                               properties:
+                                aiRuntimeTask:
+                                  description: A list of task specification that the
+                                    job will execute. See task Configuration Block
+                                    below.
+                                  properties:
+                                    deployments:
+                                      items:
+                                        properties:
+                                          commandPath:
+                                            description: 'If source is GIT: Relative
+                                              path to the file in the repository specified
+                                              in the git_source block with SQL commands
+                                              to execute. If source is WORKSPACE:
+                                              Absolute path to the file in the workspace
+                                              with SQL commands to execute.'
+                                            type: string
+                                          compute:
+                                            description: Task level compute configuration.
+                                              This block is documented below.
+                                            properties:
+                                              acceleratorCount:
+                                                type: number
+                                              acceleratorType:
+                                                type: string
+                                            type: object
+                                          name:
+                                            description: An optional name for the
+                                              job. The default value is Untitled.
+                                            type: string
+                                        type: object
+                                      type: array
+                                    experiment:
+                                      type: string
+                                    mlflowExperimentDirectory:
+                                      type: string
+                                    mlflowRun:
+                                      type: string
+                                  type: object
+                                alertTask:
+                                  description: A list of task specification that the
+                                    job will execute. See task Configuration Block
+                                    below.
+                                  properties:
+                                    alertId:
+                                      description: (String) identifier of the Databricks
+                                        Alert (databricks_alert).
+                                      type: string
+                                    subscribers:
+                                      description: The list of subscribers to send
+                                        the snapshot of the dashboard to.
+                                      items:
+                                        properties:
+                                          destinationId:
+                                            description: A snapshot of the dashboard
+                                              will be sent to the destination when
+                                              the destination_id field is present.
+                                            type: string
+                                          userName:
+                                            description: A snapshot of the dashboard
+                                              will be sent to the user's email when
+                                              the user_name field is present.
+                                            type: string
+                                        type: object
+                                      type: array
+                                    warehouseId:
+                                      description: The warehouse id to execute the
+                                        dashboard with for the schedule. If not specified,
+                                        will use the default warehouse of dashboard
+                                      type: string
+                                    workspacePath:
+                                      description: 'If source is GIT: Relative path
+                                        to the file in the repository specified in
+                                        the git_source block with SQL commands to
+                                        execute. If source is WORKSPACE: Absolute
+                                        path to the file in the workspace with SQL
+                                        commands to execute.'
+                                      type: string
+                                  type: object
                                 cleanRoomsNotebookTask:
                                   description: A list of task specification that the
                                     job will execute. See task Configuration Block
@@ -29102,6 +31077,9 @@ spec:
                                     in serverless tasks.
                                   type: boolean
                                 disabled:
+                                  description: (Bool) An optional flag to disable
+                                    the task. If set to true, the task will not run
+                                    even if it is part of a job.
                                   type: boolean
                                 emailNotifications:
                                   description: (List) An optional set of email addresses
@@ -29371,6 +31349,8 @@ spec:
                                       properties:
                                         availability:
                                           type: string
+                                        capacityReservationGroup:
+                                          type: string
                                         firstOnDemand:
                                           type: number
                                         logAnalyticsInfo:
@@ -29506,6 +31486,8 @@ spec:
                                           type: string
                                         bootDiskSize:
                                           type: number
+                                        confidentialComputeType:
+                                          type: string
                                         firstOnDemand:
                                           type: number
                                         googleServiceAccount:
@@ -29786,9 +31768,31 @@ spec:
                                       description: (Bool) Specifies if there should
                                         be full refresh of the pipeline.
                                       type: boolean
+                                    fullRefreshSelection:
+                                      items:
+                                        type: string
+                                      type: array
+                                    parameters:
+                                      additionalProperties:
+                                        type: string
+                                      description: Parameters for the task
+                                      type: object
+                                      x-kubernetes-map-type: granular
                                     pipelineId:
                                       description: The pipeline's unique ID.
                                       type: string
+                                    refreshFlowSelection:
+                                      items:
+                                        type: string
+                                      type: array
+                                    refreshSelection:
+                                      items:
+                                        type: string
+                                      type: array
+                                    resetCheckpointSelection:
+                                      items:
+                                        type: string
+                                      type: array
                                   type: object
                                 powerBiTask:
                                   description: A list of task specification that the
@@ -29855,6 +31859,28 @@ spec:
                                         dashboard with for the schedule. If not specified,
                                         will use the default warehouse of dashboard
                                       type: string
+                                  type: object
+                                pythonOperatorTask:
+                                  description: A list of task specification that the
+                                    job will execute. See task Configuration Block
+                                    below.
+                                  properties:
+                                    main:
+                                      type: string
+                                    parameters:
+                                      description: Parameters for the task
+                                      items:
+                                        properties:
+                                          name:
+                                            description: An optional name for the
+                                              job. The default value is Untitled.
+                                            type: string
+                                          value:
+                                            description: integer value used to compare
+                                              to the given metric.
+                                            type: string
+                                        type: object
+                                      type: array
                                   type: object
                                 pythonWheelTask:
                                   description: A list of task specification that the
@@ -29929,6 +31955,22 @@ spec:
                                           description: (Bool) Specifies if there should
                                             be full refresh of the pipeline.
                                           type: boolean
+                                        fullRefreshSelection:
+                                          items:
+                                            type: string
+                                          type: array
+                                        refreshFlowSelection:
+                                          items:
+                                            type: string
+                                          type: array
+                                        refreshSelection:
+                                          items:
+                                            type: string
+                                          type: array
+                                        resetCheckpointSelection:
+                                          items:
+                                            type: string
+                                          type: array
                                       type: object
                                     pythonNamedParams:
                                       additionalProperties:
@@ -30412,6 +32454,8 @@ spec:
                               properties:
                                 availability:
                                   type: string
+                                capacityReservationGroup:
+                                  type: string
                                 firstOnDemand:
                                   type: number
                                 logAnalyticsInfo:
@@ -30544,6 +32588,8 @@ spec:
                                   type: string
                                 bootDiskSize:
                                   type: number
+                                confidentialComputeType:
+                                  type: string
                                 firstOnDemand:
                                   type: number
                                 googleServiceAccount:
@@ -30813,9 +32859,31 @@ spec:
                               description: (Bool) Specifies if there should be full
                                 refresh of the pipeline.
                               type: boolean
+                            fullRefreshSelection:
+                              items:
+                                type: string
+                              type: array
+                            parameters:
+                              additionalProperties:
+                                type: string
+                              description: Parameters for the task
+                              type: object
+                              x-kubernetes-map-type: granular
                             pipelineId:
                               description: The pipeline's unique ID.
                               type: string
+                            refreshFlowSelection:
+                              items:
+                                type: string
+                              type: array
+                            refreshSelection:
+                              items:
+                                type: string
+                              type: array
+                            resetCheckpointSelection:
+                              items:
+                                type: string
+                              type: array
                           type: object
                         powerBiTask:
                           description: A list of task specification that the job will
@@ -30880,6 +32948,27 @@ spec:
                                 with for the schedule. If not specified, will use
                                 the default warehouse of dashboard
                               type: string
+                          type: object
+                        pythonOperatorTask:
+                          description: A list of task specification that the job will
+                            execute. See task Configuration Block below.
+                          properties:
+                            main:
+                              type: string
+                            parameters:
+                              description: Parameters for the task
+                              items:
+                                properties:
+                                  name:
+                                    description: An optional name for the job. The
+                                      default value is Untitled.
+                                    type: string
+                                  value:
+                                    description: integer value used to compare to
+                                      the given metric.
+                                    type: string
+                                type: object
+                              type: array
                           type: object
                         pythonWheelTask:
                           description: A list of task specification that the job will
@@ -30950,6 +33039,22 @@ spec:
                                   description: (Bool) Specifies if there should be
                                     full refresh of the pipeline.
                                   type: boolean
+                                fullRefreshSelection:
+                                  items:
+                                    type: string
+                                  type: array
+                                refreshFlowSelection:
+                                  items:
+                                    type: string
+                                  type: array
+                                refreshSelection:
+                                  items:
+                                    type: string
+                                  type: array
+                                resetCheckpointSelection:
+                                  items:
+                                    type: string
+                                  type: array
                               type: object
                             pythonNamedParams:
                               additionalProperties:
@@ -31292,6 +33397,22 @@ spec:
                           unit:
                             description: 'The unit of time for the interval.  Possible
                               values are: DAYS, HOURS, WEEKS.'
+                            type: string
+                        type: object
+                      sqlCondition:
+                        description: The table(s) condition based on which to trigger
+                          a job run.  Possible values are ANY_UPDATED, ALL_UPDATED.
+                        properties:
+                          sqlQueryId:
+                            description: ID of the system notification that is notified
+                              when an event defined in webhook_notifications is triggered.
+                            type: string
+                          triggerMode:
+                            type: string
+                          warehouseId:
+                            description: The warehouse id to execute the dashboard
+                              with for the schedule. If not specified, will use the
+                              default warehouse of dashboard
                             type: string
                         type: object
                       tableUpdate:

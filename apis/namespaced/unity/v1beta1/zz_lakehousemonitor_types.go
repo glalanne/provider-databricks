@@ -366,7 +366,7 @@ type LakehouseMonitorProviderConfigParameters struct {
 
 	// ID of this monitor is the same as the full table name of the format {catalog}.{schema_name}.{table_name}
 	// +kubebuilder:validation:Optional
-	WorkspaceID *string `json:"workspaceId" tf:"workspace_id,omitempty"`
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
 }
 
 type NotificationsInitParameters struct {

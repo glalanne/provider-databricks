@@ -76,7 +76,7 @@ type EnhancedSecurityMonitoringWorkspaceSettingProviderConfigObservation struct 
 type EnhancedSecurityMonitoringWorkspaceSettingProviderConfigParameters struct {
 
 	// +kubebuilder:validation:Optional
-	WorkspaceID *string `json:"workspaceId" tf:"workspace_id,omitempty"`
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
 }
 
 // EnhancedSecurityMonitoringWorkspaceSettingSpec defines the desired state of EnhancedSecurityMonitoringWorkspaceSetting

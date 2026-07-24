@@ -151,6 +151,98 @@ spec:
                             type: string
                         type: object
                     type: object
+                  effectiveFileEventQueue:
+                    items:
+                      properties:
+                        managedAqs:
+                          description: Configuration for managed Azure Queue Storage
+                            queue.
+                          items:
+                            properties:
+                              managedResourceId:
+                                description: (Computed) The ID of the managed resource.
+                                type: string
+                              queueUrl:
+                                description: The URL of the queue.
+                                type: string
+                              resourceGroup:
+                                description: The name of the Azure resource group.
+                                type: string
+                              subscriptionId:
+                                description: The Azure subscription ID.
+                                type: string
+                            type: object
+                          type: array
+                        managedPubsub:
+                          description: Configuration for managed Google Cloud Pub/Sub
+                            queue.
+                          items:
+                            properties:
+                              managedResourceId:
+                                description: (Computed) The ID of the managed resource.
+                                type: string
+                              subscriptionName:
+                                description: The name of the subscription.
+                                type: string
+                            type: object
+                          type: array
+                        managedSqs:
+                          description: Configuration for managed Amazon SQS queue.
+                          items:
+                            properties:
+                              managedResourceId:
+                                description: (Computed) The ID of the managed resource.
+                                type: string
+                              queueUrl:
+                                description: The URL of the queue.
+                                type: string
+                            type: object
+                          type: array
+                        providedAqs:
+                          description: Configuration for provided Azure Storage Queue.
+                          items:
+                            properties:
+                              managedResourceId:
+                                description: (Computed) The ID of the managed resource.
+                                type: string
+                              queueUrl:
+                                description: The URL of the queue.
+                                type: string
+                              resourceGroup:
+                                description: The name of the Azure resource group.
+                                type: string
+                              subscriptionId:
+                                description: The Azure subscription ID.
+                                type: string
+                            type: object
+                          type: array
+                        providedPubsub:
+                          description: Configuration for provided Google Cloud Pub/Sub
+                            queue.
+                          items:
+                            properties:
+                              managedResourceId:
+                                description: (Computed) The ID of the managed resource.
+                                type: string
+                              subscriptionName:
+                                description: The name of the subscription.
+                                type: string
+                            type: object
+                          type: array
+                        providedSqs:
+                          description: Configuration for provided Amazon SQS queue.
+                          items:
+                            properties:
+                              managedResourceId:
+                                description: (Computed) The ID of the managed resource.
+                                type: string
+                              queueUrl:
+                                description: The URL of the queue.
+                                type: string
+                            type: object
+                          type: array
+                      type: object
+                    type: array
                   enableFileEvents:
                     description: indicates if managed file events are enabled for
                       this external location.  Requires file_event_queue block.
@@ -410,6 +502,98 @@ spec:
                             type: string
                         type: object
                     type: object
+                  effectiveFileEventQueue:
+                    items:
+                      properties:
+                        managedAqs:
+                          description: Configuration for managed Azure Queue Storage
+                            queue.
+                          items:
+                            properties:
+                              managedResourceId:
+                                description: (Computed) The ID of the managed resource.
+                                type: string
+                              queueUrl:
+                                description: The URL of the queue.
+                                type: string
+                              resourceGroup:
+                                description: The name of the Azure resource group.
+                                type: string
+                              subscriptionId:
+                                description: The Azure subscription ID.
+                                type: string
+                            type: object
+                          type: array
+                        managedPubsub:
+                          description: Configuration for managed Google Cloud Pub/Sub
+                            queue.
+                          items:
+                            properties:
+                              managedResourceId:
+                                description: (Computed) The ID of the managed resource.
+                                type: string
+                              subscriptionName:
+                                description: The name of the subscription.
+                                type: string
+                            type: object
+                          type: array
+                        managedSqs:
+                          description: Configuration for managed Amazon SQS queue.
+                          items:
+                            properties:
+                              managedResourceId:
+                                description: (Computed) The ID of the managed resource.
+                                type: string
+                              queueUrl:
+                                description: The URL of the queue.
+                                type: string
+                            type: object
+                          type: array
+                        providedAqs:
+                          description: Configuration for provided Azure Storage Queue.
+                          items:
+                            properties:
+                              managedResourceId:
+                                description: (Computed) The ID of the managed resource.
+                                type: string
+                              queueUrl:
+                                description: The URL of the queue.
+                                type: string
+                              resourceGroup:
+                                description: The name of the Azure resource group.
+                                type: string
+                              subscriptionId:
+                                description: The Azure subscription ID.
+                                type: string
+                            type: object
+                          type: array
+                        providedPubsub:
+                          description: Configuration for provided Google Cloud Pub/Sub
+                            queue.
+                          items:
+                            properties:
+                              managedResourceId:
+                                description: (Computed) The ID of the managed resource.
+                                type: string
+                              subscriptionName:
+                                description: The name of the subscription.
+                                type: string
+                            type: object
+                          type: array
+                        providedSqs:
+                          description: Configuration for provided Amazon SQS queue.
+                          items:
+                            properties:
+                              managedResourceId:
+                                description: (Computed) The ID of the managed resource.
+                                type: string
+                              queueUrl:
+                                description: The URL of the queue.
+                                type: string
+                            type: object
+                          type: array
+                      type: object
+                    type: array
                   enableFileEvents:
                     description: indicates if managed file events are enabled for
                       this external location.  Requires file_event_queue block.
@@ -662,6 +846,98 @@ spec:
                     description: indicates if managed file events are enabled for
                       this external location.  Requires file_event_queue block.
                     type: boolean
+                  effectiveFileEventQueue:
+                    items:
+                      properties:
+                        managedAqs:
+                          description: Configuration for managed Azure Queue Storage
+                            queue.
+                          items:
+                            properties:
+                              managedResourceId:
+                                description: (Computed) The ID of the managed resource.
+                                type: string
+                              queueUrl:
+                                description: The URL of the queue.
+                                type: string
+                              resourceGroup:
+                                description: The name of the Azure resource group.
+                                type: string
+                              subscriptionId:
+                                description: The Azure subscription ID.
+                                type: string
+                            type: object
+                          type: array
+                        managedPubsub:
+                          description: Configuration for managed Google Cloud Pub/Sub
+                            queue.
+                          items:
+                            properties:
+                              managedResourceId:
+                                description: (Computed) The ID of the managed resource.
+                                type: string
+                              subscriptionName:
+                                description: The name of the subscription.
+                                type: string
+                            type: object
+                          type: array
+                        managedSqs:
+                          description: Configuration for managed Amazon SQS queue.
+                          items:
+                            properties:
+                              managedResourceId:
+                                description: (Computed) The ID of the managed resource.
+                                type: string
+                              queueUrl:
+                                description: The URL of the queue.
+                                type: string
+                            type: object
+                          type: array
+                        providedAqs:
+                          description: Configuration for provided Azure Storage Queue.
+                          items:
+                            properties:
+                              managedResourceId:
+                                description: (Computed) The ID of the managed resource.
+                                type: string
+                              queueUrl:
+                                description: The URL of the queue.
+                                type: string
+                              resourceGroup:
+                                description: The name of the Azure resource group.
+                                type: string
+                              subscriptionId:
+                                description: The Azure subscription ID.
+                                type: string
+                            type: object
+                          type: array
+                        providedPubsub:
+                          description: Configuration for provided Google Cloud Pub/Sub
+                            queue.
+                          items:
+                            properties:
+                              managedResourceId:
+                                description: (Computed) The ID of the managed resource.
+                                type: string
+                              subscriptionName:
+                                description: The name of the subscription.
+                                type: string
+                            type: object
+                          type: array
+                        providedSqs:
+                          description: Configuration for provided Amazon SQS queue.
+                          items:
+                            properties:
+                              managedResourceId:
+                                description: (Computed) The ID of the managed resource.
+                                type: string
+                              queueUrl:
+                                description: The URL of the queue.
+                                type: string
+                            type: object
+                          type: array
+                      type: object
+                    type: array
                   enableFileEvents:
                     description: indicates if managed file events are enabled for
                       this external location.  Requires file_event_queue block.
@@ -1037,6 +1313,84 @@ spec:
                             type: string
                         type: object
                     type: object
+                  effectiveFileEventQueue:
+                    properties:
+                      managedAqs:
+                        description: Configuration for managed Azure Queue Storage
+                          queue.
+                        properties:
+                          managedResourceId:
+                            description: (Computed) The ID of the managed resource.
+                            type: string
+                          queueUrl:
+                            description: The URL of the queue.
+                            type: string
+                          resourceGroup:
+                            description: The name of the Azure resource group.
+                            type: string
+                          subscriptionId:
+                            description: The Azure subscription ID.
+                            type: string
+                        type: object
+                      managedPubsub:
+                        description: Configuration for managed Google Cloud Pub/Sub
+                          queue.
+                        properties:
+                          managedResourceId:
+                            description: (Computed) The ID of the managed resource.
+                            type: string
+                          subscriptionName:
+                            description: The name of the subscription.
+                            type: string
+                        type: object
+                      managedSqs:
+                        description: Configuration for managed Amazon SQS queue.
+                        properties:
+                          managedResourceId:
+                            description: (Computed) The ID of the managed resource.
+                            type: string
+                          queueUrl:
+                            description: The URL of the queue.
+                            type: string
+                        type: object
+                      providedAqs:
+                        description: Configuration for provided Azure Storage Queue.
+                        properties:
+                          managedResourceId:
+                            description: (Computed) The ID of the managed resource.
+                            type: string
+                          queueUrl:
+                            description: The URL of the queue.
+                            type: string
+                          resourceGroup:
+                            description: The name of the Azure resource group.
+                            type: string
+                          subscriptionId:
+                            description: The Azure subscription ID.
+                            type: string
+                        type: object
+                      providedPubsub:
+                        description: Configuration for provided Google Cloud Pub/Sub
+                          queue.
+                        properties:
+                          managedResourceId:
+                            description: (Computed) The ID of the managed resource.
+                            type: string
+                          subscriptionName:
+                            description: The name of the subscription.
+                            type: string
+                        type: object
+                      providedSqs:
+                        description: Configuration for provided Amazon SQS queue.
+                        properties:
+                          managedResourceId:
+                            description: (Computed) The ID of the managed resource.
+                            type: string
+                          queueUrl:
+                            description: The URL of the queue.
+                            type: string
+                        type: object
+                    type: object
                   enableFileEvents:
                     description: indicates if managed file events are enabled for
                       this external location.  Requires file_event_queue block.
@@ -1275,6 +1629,84 @@ spec:
                             type: string
                         type: object
                     type: object
+                  effectiveFileEventQueue:
+                    properties:
+                      managedAqs:
+                        description: Configuration for managed Azure Queue Storage
+                          queue.
+                        properties:
+                          managedResourceId:
+                            description: (Computed) The ID of the managed resource.
+                            type: string
+                          queueUrl:
+                            description: The URL of the queue.
+                            type: string
+                          resourceGroup:
+                            description: The name of the Azure resource group.
+                            type: string
+                          subscriptionId:
+                            description: The Azure subscription ID.
+                            type: string
+                        type: object
+                      managedPubsub:
+                        description: Configuration for managed Google Cloud Pub/Sub
+                          queue.
+                        properties:
+                          managedResourceId:
+                            description: (Computed) The ID of the managed resource.
+                            type: string
+                          subscriptionName:
+                            description: The name of the subscription.
+                            type: string
+                        type: object
+                      managedSqs:
+                        description: Configuration for managed Amazon SQS queue.
+                        properties:
+                          managedResourceId:
+                            description: (Computed) The ID of the managed resource.
+                            type: string
+                          queueUrl:
+                            description: The URL of the queue.
+                            type: string
+                        type: object
+                      providedAqs:
+                        description: Configuration for provided Azure Storage Queue.
+                        properties:
+                          managedResourceId:
+                            description: (Computed) The ID of the managed resource.
+                            type: string
+                          queueUrl:
+                            description: The URL of the queue.
+                            type: string
+                          resourceGroup:
+                            description: The name of the Azure resource group.
+                            type: string
+                          subscriptionId:
+                            description: The Azure subscription ID.
+                            type: string
+                        type: object
+                      providedPubsub:
+                        description: Configuration for provided Google Cloud Pub/Sub
+                          queue.
+                        properties:
+                          managedResourceId:
+                            description: (Computed) The ID of the managed resource.
+                            type: string
+                          subscriptionName:
+                            description: The name of the subscription.
+                            type: string
+                        type: object
+                      providedSqs:
+                        description: Configuration for provided Amazon SQS queue.
+                        properties:
+                          managedResourceId:
+                            description: (Computed) The ID of the managed resource.
+                            type: string
+                          queueUrl:
+                            description: The URL of the queue.
+                            type: string
+                        type: object
+                    type: object
                   enableFileEvents:
                     description: indicates if managed file events are enabled for
                       this external location.  Requires file_event_queue block.
@@ -1506,6 +1938,84 @@ spec:
                     description: indicates if managed file events are enabled for
                       this external location.  Requires file_event_queue block.
                     type: boolean
+                  effectiveFileEventQueue:
+                    properties:
+                      managedAqs:
+                        description: Configuration for managed Azure Queue Storage
+                          queue.
+                        properties:
+                          managedResourceId:
+                            description: (Computed) The ID of the managed resource.
+                            type: string
+                          queueUrl:
+                            description: The URL of the queue.
+                            type: string
+                          resourceGroup:
+                            description: The name of the Azure resource group.
+                            type: string
+                          subscriptionId:
+                            description: The Azure subscription ID.
+                            type: string
+                        type: object
+                      managedPubsub:
+                        description: Configuration for managed Google Cloud Pub/Sub
+                          queue.
+                        properties:
+                          managedResourceId:
+                            description: (Computed) The ID of the managed resource.
+                            type: string
+                          subscriptionName:
+                            description: The name of the subscription.
+                            type: string
+                        type: object
+                      managedSqs:
+                        description: Configuration for managed Amazon SQS queue.
+                        properties:
+                          managedResourceId:
+                            description: (Computed) The ID of the managed resource.
+                            type: string
+                          queueUrl:
+                            description: The URL of the queue.
+                            type: string
+                        type: object
+                      providedAqs:
+                        description: Configuration for provided Azure Storage Queue.
+                        properties:
+                          managedResourceId:
+                            description: (Computed) The ID of the managed resource.
+                            type: string
+                          queueUrl:
+                            description: The URL of the queue.
+                            type: string
+                          resourceGroup:
+                            description: The name of the Azure resource group.
+                            type: string
+                          subscriptionId:
+                            description: The Azure subscription ID.
+                            type: string
+                        type: object
+                      providedPubsub:
+                        description: Configuration for provided Google Cloud Pub/Sub
+                          queue.
+                        properties:
+                          managedResourceId:
+                            description: (Computed) The ID of the managed resource.
+                            type: string
+                          subscriptionName:
+                            description: The name of the subscription.
+                            type: string
+                        type: object
+                      providedSqs:
+                        description: Configuration for provided Amazon SQS queue.
+                        properties:
+                          managedResourceId:
+                            description: (Computed) The ID of the managed resource.
+                            type: string
+                          queueUrl:
+                            description: The URL of the queue.
+                            type: string
+                        type: object
+                    type: object
                   enableFileEvents:
                     description: indicates if managed file events are enabled for
                       this external location.  Requires file_event_queue block.

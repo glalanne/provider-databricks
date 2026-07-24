@@ -104,7 +104,7 @@ spec:
                   scalingInfo:
                     items:
                       properties:
-                        requestedMinQps:
+                        requestedTargetQps:
                           type: number
                         state:
                           description: 'Current state of the endpoint. Currently following
@@ -154,7 +154,7 @@ spec:
                   scalingInfo:
                     items:
                       properties:
-                        requestedMinQps:
+                        requestedTargetQps:
                           type: number
                         state:
                           description: 'Current state of the endpoint. Currently following
@@ -330,7 +330,7 @@ spec:
                   scalingInfo:
                     items:
                       properties:
-                        requestedMinQps:
+                        requestedTargetQps:
                           type: number
                         state:
                           description: 'Current state of the endpoint. Currently following
@@ -480,7 +480,7 @@ spec:
                     type: object
                   scalingInfo:
                     properties:
-                      requestedMinQps:
+                      requestedTargetQps:
                         type: number
                       state:
                         description: 'Current state of the endpoint. Currently following
@@ -526,7 +526,7 @@ spec:
                     type: object
                   scalingInfo:
                     properties:
-                      requestedMinQps:
+                      requestedTargetQps:
                         type: number
                       state:
                         description: 'Current state of the endpoint. Currently following
@@ -698,7 +698,7 @@ spec:
                     type: object
                   scalingInfo:
                     properties:
-                      requestedMinQps:
+                      requestedTargetQps:
                         type: number
                       state:
                         description: 'Current state of the endpoint. Currently following

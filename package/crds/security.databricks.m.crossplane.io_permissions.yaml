@@ -937,6 +937,9 @@ spec:
                             type: string
                         type: object
                     type: object
+                  knowledgeAssistantId:
+                    description: Knowledge Assistant id
+                    type: string
                   notebookId:
                     description: ID of notebook within workspace
                     type: string
@@ -1793,6 +1796,9 @@ spec:
                             type: string
                         type: object
                     type: object
+                  supervisorAgentId:
+                    description: Supervisor Agent id
+                    type: string
                   vectorSearchEndpointId:
                     description: Vector Search endpoint id.
                     type: string
@@ -2937,6 +2943,9 @@ spec:
                             type: string
                         type: object
                     type: object
+                  knowledgeAssistantId:
+                    description: Knowledge Assistant id
+                    type: string
                   notebookId:
                     description: ID of notebook within workspace
                     type: string
@@ -3793,6 +3802,9 @@ spec:
                             type: string
                         type: object
                     type: object
+                  supervisorAgentId:
+                    description: Supervisor Agent id
+                    type: string
                   vectorSearchEndpointId:
                     description: Vector Search endpoint id.
                     type: string
@@ -4182,6 +4194,9 @@ spec:
                   jobId:
                     description: job id
                     type: string
+                  knowledgeAssistantId:
+                    description: Knowledge Assistant id
+                    type: string
                   notebookId:
                     description: ID of notebook within workspace
                     type: string
@@ -4229,6 +4244,9 @@ spec:
                     type: string
                   sqlQueryId:
                     description: SQL query id
+                    type: string
+                  supervisorAgentId:
+                    description: Supervisor Agent id
                     type: string
                   vectorSearchEndpointId:
                     description: Vector Search endpoint id.
@@ -5216,6 +5234,9 @@ spec:
                             type: string
                         type: object
                     type: object
+                  knowledgeAssistantId:
+                    description: Knowledge Assistant id
+                    type: string
                   notebookId:
                     description: ID of notebook within workspace
                     type: string
@@ -6070,6 +6091,9 @@ spec:
                             type: string
                         type: object
                     type: object
+                  supervisorAgentId:
+                    description: Supervisor Agent id
+                    type: string
                   vectorSearchEndpointId:
                     description: Vector Search endpoint id.
                     type: string
@@ -7214,6 +7238,9 @@ spec:
                             type: string
                         type: object
                     type: object
+                  knowledgeAssistantId:
+                    description: Knowledge Assistant id
+                    type: string
                   notebookId:
                     description: ID of notebook within workspace
                     type: string
@@ -8068,6 +8095,9 @@ spec:
                             type: string
                         type: object
                     type: object
+                  supervisorAgentId:
+                    description: Supervisor Agent id
+                    type: string
                   vectorSearchEndpointId:
                     description: Vector Search endpoint id.
                     type: string
@@ -8457,6 +8487,9 @@ spec:
                   jobId:
                     description: job id
                     type: string
+                  knowledgeAssistantId:
+                    description: Knowledge Assistant id
+                    type: string
                   notebookId:
                     description: ID of notebook within workspace
                     type: string
@@ -8502,6 +8535,9 @@ spec:
                     type: string
                   sqlQueryId:
                     description: SQL query id
+                    type: string
+                  supervisorAgentId:
+                    description: Supervisor Agent id
                     type: string
                   vectorSearchEndpointId:
                     description: Vector Search endpoint id.

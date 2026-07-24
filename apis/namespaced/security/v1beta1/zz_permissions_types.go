@@ -221,6 +221,9 @@ type PermissionsInitParameters struct {
 	// +kubebuilder:validation:Optional
 	JobIDSelector *v1.NamespacedSelector `json:"jobIdSelector,omitempty" tf:"-"`
 
+	// Knowledge Assistant id
+	KnowledgeAssistantID *string `json:"knowledgeAssistantId,omitempty" tf:"knowledge_assistant_id,omitempty"`
+
 	// ID of notebook within workspace
 	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/namespaced/workspace/v1beta1.Notebook
 	NotebookID *string `json:"notebookId,omitempty" tf:"notebook_id,omitempty"`
@@ -354,6 +357,9 @@ type PermissionsInitParameters struct {
 	// +kubebuilder:validation:Optional
 	ServingEndpointIDSelector *v1.NamespacedSelector `json:"servingEndpointIdSelector,omitempty" tf:"-"`
 
+	// Supervisor Agent id
+	SupervisorAgentID *string `json:"supervisorAgentId,omitempty" tf:"supervisor_agent_id,omitempty"`
+
 	// Vector Search endpoint id.
 	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/namespaced/mosaic/v1beta1.VectorSearchEndpoint
 	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/v2/pkg/resource.ExtractParamPath("endpoint_id",true)
@@ -438,6 +444,9 @@ type PermissionsObservation struct {
 	// job id
 	JobID *string `json:"jobId,omitempty" tf:"job_id,omitempty"`
 
+	// Knowledge Assistant id
+	KnowledgeAssistantID *string `json:"knowledgeAssistantId,omitempty" tf:"knowledge_assistant_id,omitempty"`
+
 	// ID of notebook within workspace
 	NotebookID *string `json:"notebookId,omitempty" tf:"notebook_id,omitempty"`
 
@@ -476,6 +485,9 @@ type PermissionsObservation struct {
 
 	// Model Serving endpoint id.
 	ServingEndpointID *string `json:"servingEndpointId,omitempty" tf:"serving_endpoint_id,omitempty"`
+
+	// Supervisor Agent id
+	SupervisorAgentID *string `json:"supervisorAgentId,omitempty" tf:"supervisor_agent_id,omitempty"`
 
 	// Vector Search endpoint id.
 	VectorSearchEndpointID *string `json:"vectorSearchEndpointId,omitempty" tf:"vector_search_endpoint_id,omitempty"`
@@ -618,6 +630,10 @@ type PermissionsParameters struct {
 	// Selector for a Job in compute to populate jobId.
 	// +kubebuilder:validation:Optional
 	JobIDSelector *v1.NamespacedSelector `json:"jobIdSelector,omitempty" tf:"-"`
+
+	// Knowledge Assistant id
+	// +kubebuilder:validation:Optional
+	KnowledgeAssistantID *string `json:"knowledgeAssistantId,omitempty" tf:"knowledge_assistant_id,omitempty"`
 
 	// ID of notebook within workspace
 	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/namespaced/workspace/v1beta1.Notebook
@@ -765,6 +781,10 @@ type PermissionsParameters struct {
 	// +kubebuilder:validation:Optional
 	ServingEndpointIDSelector *v1.NamespacedSelector `json:"servingEndpointIdSelector,omitempty" tf:"-"`
 
+	// Supervisor Agent id
+	// +kubebuilder:validation:Optional
+	SupervisorAgentID *string `json:"supervisorAgentId,omitempty" tf:"supervisor_agent_id,omitempty"`
+
 	// Vector Search endpoint id.
 	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/namespaced/mosaic/v1beta1.VectorSearchEndpoint
 	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/v2/pkg/resource.ExtractParamPath("endpoint_id",true)
@@ -823,7 +843,7 @@ type PermissionsProviderConfigParameters struct {
 
 	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
 	// +kubebuilder:validation:Optional
-	WorkspaceID *string `json:"workspaceId" tf:"workspace_id,omitempty"`
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
 }
 
 // PermissionsSpec defines the desired state of Permissions

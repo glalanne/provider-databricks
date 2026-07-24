@@ -138,7 +138,8 @@ type DatabaseInstanceInitParameters struct {
 	// Configure the provider for management through account provider.
 	ProviderConfig *ProviderConfigInitParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
 
-	// Purge the resource on delete
+	// Deprecated. Omitting the field or setting it to true will result in the field being hard deleted. Setting a value
+	// of false will throw a bad request
 	PurgeOnDelete *bool `json:"purgeOnDelete,omitempty" tf:"purge_on_delete,omitempty"`
 
 	// The retention window for the instance. This is the time window in days
@@ -237,7 +238,8 @@ type DatabaseInstanceObservation struct {
 	// Configure the provider for management through account provider.
 	ProviderConfig *ProviderConfigObservation `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
 
-	// Purge the resource on delete
+	// Deprecated. Omitting the field or setting it to true will result in the field being hard deleted. Setting a value
+	// of false will throw a bad request
 	PurgeOnDelete *bool `json:"purgeOnDelete,omitempty" tf:"purge_on_delete,omitempty"`
 
 	// The DNS endpoint to connect to the instance for read only access. This is only available if
@@ -299,7 +301,8 @@ type DatabaseInstanceParameters struct {
 	// +kubebuilder:validation:Optional
 	ProviderConfig *ProviderConfigParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
 
-	// Purge the resource on delete
+	// Deprecated. Omitting the field or setting it to true will result in the field being hard deleted. Setting a value
+	// of false will throw a bad request
 	// +kubebuilder:validation:Optional
 	PurgeOnDelete *bool `json:"purgeOnDelete,omitempty" tf:"purge_on_delete,omitempty"`
 
@@ -431,7 +434,7 @@ type ProviderConfigParameters struct {
 
 	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
 	// +kubebuilder:validation:Optional
-	WorkspaceID *string `json:"workspaceId" tf:"workspace_id,omitempty"`
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
 }
 
 // DatabaseInstanceSpec defines the desired state of DatabaseInstance

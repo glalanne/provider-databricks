@@ -170,6 +170,8 @@ type ClusterAwsAttributesParameters struct {
 type ClusterAzureAttributesInitParameters struct {
 	Availability *string `json:"availability,omitempty" tf:"availability,omitempty"`
 
+	CapacityReservationGroup *string `json:"capacityReservationGroup,omitempty" tf:"capacity_reservation_group,omitempty"`
+
 	FirstOnDemand *float64 `json:"firstOnDemand,omitempty" tf:"first_on_demand,omitempty"`
 
 	LogAnalyticsInfo *ClusterAzureAttributesLogAnalyticsInfoInitParameters `json:"logAnalyticsInfo,omitempty" tf:"log_analytics_info,omitempty"`
@@ -204,6 +206,8 @@ type ClusterAzureAttributesLogAnalyticsInfoParameters struct {
 type ClusterAzureAttributesObservation struct {
 	Availability *string `json:"availability,omitempty" tf:"availability,omitempty"`
 
+	CapacityReservationGroup *string `json:"capacityReservationGroup,omitempty" tf:"capacity_reservation_group,omitempty"`
+
 	FirstOnDemand *float64 `json:"firstOnDemand,omitempty" tf:"first_on_demand,omitempty"`
 
 	LogAnalyticsInfo *ClusterAzureAttributesLogAnalyticsInfoObservation `json:"logAnalyticsInfo,omitempty" tf:"log_analytics_info,omitempty"`
@@ -215,6 +219,9 @@ type ClusterAzureAttributesParameters struct {
 
 	// +kubebuilder:validation:Optional
 	Availability *string `json:"availability,omitempty" tf:"availability,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	CapacityReservationGroup *string `json:"capacityReservationGroup,omitempty" tf:"capacity_reservation_group,omitempty"`
 
 	// +kubebuilder:validation:Optional
 	FirstOnDemand *float64 `json:"firstOnDemand,omitempty" tf:"first_on_demand,omitempty"`
@@ -341,6 +348,8 @@ type ClusterClusterLogConfVolumesParameters struct {
 type ClusterGCPAttributesInitParameters struct {
 	Availability *string `json:"availability,omitempty" tf:"availability,omitempty"`
 
+	ConfidentialComputeType *string `json:"confidentialComputeType,omitempty" tf:"confidential_compute_type,omitempty"`
+
 	FirstOnDemand *float64 `json:"firstOnDemand,omitempty" tf:"first_on_demand,omitempty"`
 
 	GoogleServiceAccount *string `json:"googleServiceAccount,omitempty" tf:"google_service_account,omitempty"`
@@ -353,6 +362,8 @@ type ClusterGCPAttributesInitParameters struct {
 
 type ClusterGCPAttributesObservation struct {
 	Availability *string `json:"availability,omitempty" tf:"availability,omitempty"`
+
+	ConfidentialComputeType *string `json:"confidentialComputeType,omitempty" tf:"confidential_compute_type,omitempty"`
 
 	FirstOnDemand *float64 `json:"firstOnDemand,omitempty" tf:"first_on_demand,omitempty"`
 
@@ -368,6 +379,9 @@ type ClusterGCPAttributesParameters struct {
 
 	// +kubebuilder:validation:Optional
 	Availability *string `json:"availability,omitempty" tf:"availability,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	ConfidentialComputeType *string `json:"confidentialComputeType,omitempty" tf:"confidential_compute_type,omitempty"`
 
 	// +kubebuilder:validation:Optional
 	FirstOnDemand *float64 `json:"firstOnDemand,omitempty" tf:"first_on_demand,omitempty"`
@@ -582,6 +596,20 @@ type ClusterInitScriptsWorkspaceParameters struct {
 	Destination *string `json:"destination" tf:"destination,omitempty"`
 }
 
+type ConfluenceOptionsInitParameters struct {
+	IncludeConfluenceSpaces []*string `json:"includeConfluenceSpaces,omitempty" tf:"include_confluence_spaces,omitempty"`
+}
+
+type ConfluenceOptionsObservation struct {
+	IncludeConfluenceSpaces []*string `json:"includeConfluenceSpaces,omitempty" tf:"include_confluence_spaces,omitempty"`
+}
+
+type ConfluenceOptionsParameters struct {
+
+	// +kubebuilder:validation:Optional
+	IncludeConfluenceSpaces []*string `json:"includeConfluenceSpaces,omitempty" tf:"include_confluence_spaces,omitempty"`
+}
+
 type ConnectionParametersInitParameters struct {
 
 	// The name of default catalog in Unity Catalog. Change of this parameter forces recreation of the pipeline if you switch from  (Conflicts with storage).
@@ -599,6 +627,703 @@ type ConnectionParametersParameters struct {
 	// The name of default catalog in Unity Catalog. Change of this parameter forces recreation of the pipeline if you switch from  (Conflicts with storage).
 	// +kubebuilder:validation:Optional
 	SourceCatalog *string `json:"sourceCatalog,omitempty" tf:"source_catalog,omitempty"`
+}
+
+type ConnectorOptionsConfluenceOptionsInitParameters struct {
+	IncludeConfluenceSpaces []*string `json:"includeConfluenceSpaces,omitempty" tf:"include_confluence_spaces,omitempty"`
+}
+
+type ConnectorOptionsConfluenceOptionsObservation struct {
+	IncludeConfluenceSpaces []*string `json:"includeConfluenceSpaces,omitempty" tf:"include_confluence_spaces,omitempty"`
+}
+
+type ConnectorOptionsConfluenceOptionsParameters struct {
+
+	// +kubebuilder:validation:Optional
+	IncludeConfluenceSpaces []*string `json:"includeConfluenceSpaces,omitempty" tf:"include_confluence_spaces,omitempty"`
+}
+
+type ConnectorOptionsGdriveOptionsInitParameters struct {
+	EntityType *string `json:"entityType,omitempty" tf:"entity_type,omitempty"`
+
+	FileIngestionOptions *GdriveOptionsFileIngestionOptionsInitParameters `json:"fileIngestionOptions,omitempty" tf:"file_ingestion_options,omitempty"`
+
+	// URL of the Lakeflow Declarative Pipeline on the given workspace.
+	URL *string `json:"url,omitempty" tf:"url,omitempty"`
+}
+
+type ConnectorOptionsGdriveOptionsObservation struct {
+	EntityType *string `json:"entityType,omitempty" tf:"entity_type,omitempty"`
+
+	FileIngestionOptions *GdriveOptionsFileIngestionOptionsObservation `json:"fileIngestionOptions,omitempty" tf:"file_ingestion_options,omitempty"`
+
+	// URL of the Lakeflow Declarative Pipeline on the given workspace.
+	URL *string `json:"url,omitempty" tf:"url,omitempty"`
+}
+
+type ConnectorOptionsGdriveOptionsParameters struct {
+
+	// +kubebuilder:validation:Optional
+	EntityType *string `json:"entityType,omitempty" tf:"entity_type,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	FileIngestionOptions *GdriveOptionsFileIngestionOptionsParameters `json:"fileIngestionOptions,omitempty" tf:"file_ingestion_options,omitempty"`
+
+	// URL of the Lakeflow Declarative Pipeline on the given workspace.
+	// +kubebuilder:validation:Optional
+	URL *string `json:"url,omitempty" tf:"url,omitempty"`
+}
+
+type ConnectorOptionsGoogleAdsOptionsInitParameters struct {
+	CustomReportOptions *GoogleAdsOptionsCustomReportOptionsInitParameters `json:"customReportOptions,omitempty" tf:"custom_report_options,omitempty"`
+
+	LookbackWindowDays *float64 `json:"lookbackWindowDays,omitempty" tf:"lookback_window_days,omitempty"`
+
+	// Canonical unique identifier of the Lakeflow Declarative Pipeline.
+	ManagerAccountID *string `json:"managerAccountId,omitempty" tf:"manager_account_id,omitempty"`
+
+	SyncStartDate *string `json:"syncStartDate,omitempty" tf:"sync_start_date,omitempty"`
+}
+
+type ConnectorOptionsGoogleAdsOptionsObservation struct {
+	CustomReportOptions *GoogleAdsOptionsCustomReportOptionsObservation `json:"customReportOptions,omitempty" tf:"custom_report_options,omitempty"`
+
+	LookbackWindowDays *float64 `json:"lookbackWindowDays,omitempty" tf:"lookback_window_days,omitempty"`
+
+	// Canonical unique identifier of the Lakeflow Declarative Pipeline.
+	ManagerAccountID *string `json:"managerAccountId,omitempty" tf:"manager_account_id,omitempty"`
+
+	SyncStartDate *string `json:"syncStartDate,omitempty" tf:"sync_start_date,omitempty"`
+}
+
+type ConnectorOptionsGoogleAdsOptionsParameters struct {
+
+	// +kubebuilder:validation:Optional
+	CustomReportOptions *GoogleAdsOptionsCustomReportOptionsParameters `json:"customReportOptions,omitempty" tf:"custom_report_options,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	LookbackWindowDays *float64 `json:"lookbackWindowDays,omitempty" tf:"lookback_window_days,omitempty"`
+
+	// Canonical unique identifier of the Lakeflow Declarative Pipeline.
+	// +kubebuilder:validation:Optional
+	ManagerAccountID *string `json:"managerAccountId" tf:"manager_account_id,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	SyncStartDate *string `json:"syncStartDate,omitempty" tf:"sync_start_date,omitempty"`
+}
+
+type ConnectorOptionsInitParameters struct {
+	ConfluenceOptions *ConfluenceOptionsInitParameters `json:"confluenceOptions,omitempty" tf:"confluence_options,omitempty"`
+
+	GdriveOptions *GdriveOptionsInitParameters `json:"gdriveOptions,omitempty" tf:"gdrive_options,omitempty"`
+
+	GoogleAdsOptions *GoogleAdsOptionsInitParameters `json:"googleAdsOptions,omitempty" tf:"google_ads_options,omitempty"`
+
+	JiraOptions *JiraOptionsInitParameters `json:"jiraOptions,omitempty" tf:"jira_options,omitempty"`
+
+	KafkaOptions *KafkaOptionsInitParameters `json:"kafkaOptions,omitempty" tf:"kafka_options,omitempty"`
+
+	MetaAdsOptions *MetaAdsOptionsInitParameters `json:"metaAdsOptions,omitempty" tf:"meta_ads_options,omitempty"`
+
+	OutlookOptions *OutlookOptionsInitParameters `json:"outlookOptions,omitempty" tf:"outlook_options,omitempty"`
+
+	SharepointOptions *SharepointOptionsInitParameters `json:"sharepointOptions,omitempty" tf:"sharepoint_options,omitempty"`
+
+	SmartsheetOptions *SmartsheetOptionsInitParameters `json:"smartsheetOptions,omitempty" tf:"smartsheet_options,omitempty"`
+
+	TiktokAdsOptions *TiktokAdsOptionsInitParameters `json:"tiktokAdsOptions,omitempty" tf:"tiktok_ads_options,omitempty"`
+
+	ZendeskSupportOptions *ZendeskSupportOptionsInitParameters `json:"zendeskSupportOptions,omitempty" tf:"zendesk_support_options,omitempty"`
+}
+
+type ConnectorOptionsJiraOptionsInitParameters struct {
+	IncludeJiraSpaces []*string `json:"includeJiraSpaces,omitempty" tf:"include_jira_spaces,omitempty"`
+}
+
+type ConnectorOptionsJiraOptionsObservation struct {
+	IncludeJiraSpaces []*string `json:"includeJiraSpaces,omitempty" tf:"include_jira_spaces,omitempty"`
+}
+
+type ConnectorOptionsJiraOptionsParameters struct {
+
+	// +kubebuilder:validation:Optional
+	IncludeJiraSpaces []*string `json:"includeJiraSpaces,omitempty" tf:"include_jira_spaces,omitempty"`
+}
+
+type ConnectorOptionsKafkaOptionsInitParameters struct {
+
+	// +mapType=granular
+	ClientConfig map[string]*string `json:"clientConfig,omitempty" tf:"client_config,omitempty"`
+
+	KeyTransformer *KafkaOptionsKeyTransformerInitParameters `json:"keyTransformer,omitempty" tf:"key_transformer,omitempty"`
+
+	MaxOffsetsPerTrigger *float64 `json:"maxOffsetsPerTrigger,omitempty" tf:"max_offsets_per_trigger,omitempty"`
+
+	StartingOffset *string `json:"startingOffset,omitempty" tf:"starting_offset,omitempty"`
+
+	TopicPattern *string `json:"topicPattern,omitempty" tf:"topic_pattern,omitempty"`
+
+	Topics []*string `json:"topics,omitempty" tf:"topics,omitempty"`
+
+	ValueTransformer *KafkaOptionsValueTransformerInitParameters `json:"valueTransformer,omitempty" tf:"value_transformer,omitempty"`
+}
+
+type ConnectorOptionsKafkaOptionsObservation struct {
+
+	// +mapType=granular
+	ClientConfig map[string]*string `json:"clientConfig,omitempty" tf:"client_config,omitempty"`
+
+	KeyTransformer *KafkaOptionsKeyTransformerObservation `json:"keyTransformer,omitempty" tf:"key_transformer,omitempty"`
+
+	MaxOffsetsPerTrigger *float64 `json:"maxOffsetsPerTrigger,omitempty" tf:"max_offsets_per_trigger,omitempty"`
+
+	StartingOffset *string `json:"startingOffset,omitempty" tf:"starting_offset,omitempty"`
+
+	TopicPattern *string `json:"topicPattern,omitempty" tf:"topic_pattern,omitempty"`
+
+	Topics []*string `json:"topics,omitempty" tf:"topics,omitempty"`
+
+	ValueTransformer *KafkaOptionsValueTransformerObservation `json:"valueTransformer,omitempty" tf:"value_transformer,omitempty"`
+}
+
+type ConnectorOptionsKafkaOptionsParameters struct {
+
+	// +kubebuilder:validation:Optional
+	// +mapType=granular
+	ClientConfig map[string]*string `json:"clientConfig,omitempty" tf:"client_config,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	KeyTransformer *KafkaOptionsKeyTransformerParameters `json:"keyTransformer,omitempty" tf:"key_transformer,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	MaxOffsetsPerTrigger *float64 `json:"maxOffsetsPerTrigger,omitempty" tf:"max_offsets_per_trigger,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	StartingOffset *string `json:"startingOffset,omitempty" tf:"starting_offset,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	TopicPattern *string `json:"topicPattern,omitempty" tf:"topic_pattern,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	Topics []*string `json:"topics,omitempty" tf:"topics,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	ValueTransformer *KafkaOptionsValueTransformerParameters `json:"valueTransformer,omitempty" tf:"value_transformer,omitempty"`
+}
+
+type ConnectorOptionsMetaAdsOptionsCustomReportOptionsInitParameters struct {
+	ActionAttributionWindows []*string `json:"actionAttributionWindows,omitempty" tf:"action_attribution_windows,omitempty"`
+
+	ActionBreakdowns []*string `json:"actionBreakdowns,omitempty" tf:"action_breakdowns,omitempty"`
+
+	ActionReportTime *string `json:"actionReportTime,omitempty" tf:"action_report_time,omitempty"`
+
+	Breakdowns []*string `json:"breakdowns,omitempty" tf:"breakdowns,omitempty"`
+
+	Level *string `json:"level,omitempty" tf:"level,omitempty"`
+
+	TimeIncrement *string `json:"timeIncrement,omitempty" tf:"time_increment,omitempty"`
+}
+
+type ConnectorOptionsMetaAdsOptionsCustomReportOptionsObservation struct {
+	ActionAttributionWindows []*string `json:"actionAttributionWindows,omitempty" tf:"action_attribution_windows,omitempty"`
+
+	ActionBreakdowns []*string `json:"actionBreakdowns,omitempty" tf:"action_breakdowns,omitempty"`
+
+	ActionReportTime *string `json:"actionReportTime,omitempty" tf:"action_report_time,omitempty"`
+
+	Breakdowns []*string `json:"breakdowns,omitempty" tf:"breakdowns,omitempty"`
+
+	Level *string `json:"level,omitempty" tf:"level,omitempty"`
+
+	TimeIncrement *string `json:"timeIncrement,omitempty" tf:"time_increment,omitempty"`
+}
+
+type ConnectorOptionsMetaAdsOptionsCustomReportOptionsParameters struct {
+
+	// +kubebuilder:validation:Optional
+	ActionAttributionWindows []*string `json:"actionAttributionWindows,omitempty" tf:"action_attribution_windows,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	ActionBreakdowns []*string `json:"actionBreakdowns,omitempty" tf:"action_breakdowns,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	ActionReportTime *string `json:"actionReportTime,omitempty" tf:"action_report_time,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	Breakdowns []*string `json:"breakdowns,omitempty" tf:"breakdowns,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	Level *string `json:"level,omitempty" tf:"level,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	TimeIncrement *string `json:"timeIncrement,omitempty" tf:"time_increment,omitempty"`
+}
+
+type ConnectorOptionsMetaAdsOptionsInitParameters struct {
+	ActionAttributionWindows []*string `json:"actionAttributionWindows,omitempty" tf:"action_attribution_windows,omitempty"`
+
+	ActionBreakdowns []*string `json:"actionBreakdowns,omitempty" tf:"action_breakdowns,omitempty"`
+
+	ActionReportTime *string `json:"actionReportTime,omitempty" tf:"action_report_time,omitempty"`
+
+	Breakdowns []*string `json:"breakdowns,omitempty" tf:"breakdowns,omitempty"`
+
+	CustomInsightsLookbackWindow *float64 `json:"customInsightsLookbackWindow,omitempty" tf:"custom_insights_lookback_window,omitempty"`
+
+	CustomReportOptions *ConnectorOptionsMetaAdsOptionsCustomReportOptionsInitParameters `json:"customReportOptions,omitempty" tf:"custom_report_options,omitempty"`
+
+	Level *string `json:"level,omitempty" tf:"level,omitempty"`
+
+	StartDate *string `json:"startDate,omitempty" tf:"start_date,omitempty"`
+
+	TimeIncrement *string `json:"timeIncrement,omitempty" tf:"time_increment,omitempty"`
+}
+
+type ConnectorOptionsMetaAdsOptionsObservation struct {
+	ActionAttributionWindows []*string `json:"actionAttributionWindows,omitempty" tf:"action_attribution_windows,omitempty"`
+
+	ActionBreakdowns []*string `json:"actionBreakdowns,omitempty" tf:"action_breakdowns,omitempty"`
+
+	ActionReportTime *string `json:"actionReportTime,omitempty" tf:"action_report_time,omitempty"`
+
+	Breakdowns []*string `json:"breakdowns,omitempty" tf:"breakdowns,omitempty"`
+
+	CustomInsightsLookbackWindow *float64 `json:"customInsightsLookbackWindow,omitempty" tf:"custom_insights_lookback_window,omitempty"`
+
+	CustomReportOptions *ConnectorOptionsMetaAdsOptionsCustomReportOptionsObservation `json:"customReportOptions,omitempty" tf:"custom_report_options,omitempty"`
+
+	Level *string `json:"level,omitempty" tf:"level,omitempty"`
+
+	StartDate *string `json:"startDate,omitempty" tf:"start_date,omitempty"`
+
+	TimeIncrement *string `json:"timeIncrement,omitempty" tf:"time_increment,omitempty"`
+}
+
+type ConnectorOptionsMetaAdsOptionsParameters struct {
+
+	// +kubebuilder:validation:Optional
+	ActionAttributionWindows []*string `json:"actionAttributionWindows,omitempty" tf:"action_attribution_windows,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	ActionBreakdowns []*string `json:"actionBreakdowns,omitempty" tf:"action_breakdowns,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	ActionReportTime *string `json:"actionReportTime,omitempty" tf:"action_report_time,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	Breakdowns []*string `json:"breakdowns,omitempty" tf:"breakdowns,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	CustomInsightsLookbackWindow *float64 `json:"customInsightsLookbackWindow,omitempty" tf:"custom_insights_lookback_window,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	CustomReportOptions *ConnectorOptionsMetaAdsOptionsCustomReportOptionsParameters `json:"customReportOptions,omitempty" tf:"custom_report_options,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	Level *string `json:"level,omitempty" tf:"level,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	StartDate *string `json:"startDate,omitempty" tf:"start_date,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	TimeIncrement *string `json:"timeIncrement,omitempty" tf:"time_increment,omitempty"`
+}
+
+type ConnectorOptionsObservation struct {
+	ConfluenceOptions *ConfluenceOptionsObservation `json:"confluenceOptions,omitempty" tf:"confluence_options,omitempty"`
+
+	GdriveOptions *GdriveOptionsObservation `json:"gdriveOptions,omitempty" tf:"gdrive_options,omitempty"`
+
+	GoogleAdsOptions *GoogleAdsOptionsObservation `json:"googleAdsOptions,omitempty" tf:"google_ads_options,omitempty"`
+
+	JiraOptions *JiraOptionsObservation `json:"jiraOptions,omitempty" tf:"jira_options,omitempty"`
+
+	KafkaOptions *KafkaOptionsObservation `json:"kafkaOptions,omitempty" tf:"kafka_options,omitempty"`
+
+	MetaAdsOptions *MetaAdsOptionsObservation `json:"metaAdsOptions,omitempty" tf:"meta_ads_options,omitempty"`
+
+	OutlookOptions *OutlookOptionsObservation `json:"outlookOptions,omitempty" tf:"outlook_options,omitempty"`
+
+	SharepointOptions *SharepointOptionsObservation `json:"sharepointOptions,omitempty" tf:"sharepoint_options,omitempty"`
+
+	SmartsheetOptions *SmartsheetOptionsObservation `json:"smartsheetOptions,omitempty" tf:"smartsheet_options,omitempty"`
+
+	TiktokAdsOptions *TiktokAdsOptionsObservation `json:"tiktokAdsOptions,omitempty" tf:"tiktok_ads_options,omitempty"`
+
+	ZendeskSupportOptions *ZendeskSupportOptionsObservation `json:"zendeskSupportOptions,omitempty" tf:"zendesk_support_options,omitempty"`
+}
+
+type ConnectorOptionsOutlookOptionsInitParameters struct {
+	AttachmentMode *string `json:"attachmentMode,omitempty" tf:"attachment_mode,omitempty"`
+
+	BodyFormat *string `json:"bodyFormat,omitempty" tf:"body_format,omitempty"`
+
+	FolderFilter []*string `json:"folderFilter,omitempty" tf:"folder_filter,omitempty"`
+
+	IncludeFolders []*string `json:"includeFolders,omitempty" tf:"include_folders,omitempty"`
+
+	IncludeMailboxes []*string `json:"includeMailboxes,omitempty" tf:"include_mailboxes,omitempty"`
+
+	IncludeSenders []*string `json:"includeSenders,omitempty" tf:"include_senders,omitempty"`
+
+	IncludeSubjects []*string `json:"includeSubjects,omitempty" tf:"include_subjects,omitempty"`
+
+	SenderFilter []*string `json:"senderFilter,omitempty" tf:"sender_filter,omitempty"`
+
+	StartDate *string `json:"startDate,omitempty" tf:"start_date,omitempty"`
+
+	SubjectFilter []*string `json:"subjectFilter,omitempty" tf:"subject_filter,omitempty"`
+}
+
+type ConnectorOptionsOutlookOptionsObservation struct {
+	AttachmentMode *string `json:"attachmentMode,omitempty" tf:"attachment_mode,omitempty"`
+
+	BodyFormat *string `json:"bodyFormat,omitempty" tf:"body_format,omitempty"`
+
+	FolderFilter []*string `json:"folderFilter,omitempty" tf:"folder_filter,omitempty"`
+
+	IncludeFolders []*string `json:"includeFolders,omitempty" tf:"include_folders,omitempty"`
+
+	IncludeMailboxes []*string `json:"includeMailboxes,omitempty" tf:"include_mailboxes,omitempty"`
+
+	IncludeSenders []*string `json:"includeSenders,omitempty" tf:"include_senders,omitempty"`
+
+	IncludeSubjects []*string `json:"includeSubjects,omitempty" tf:"include_subjects,omitempty"`
+
+	SenderFilter []*string `json:"senderFilter,omitempty" tf:"sender_filter,omitempty"`
+
+	StartDate *string `json:"startDate,omitempty" tf:"start_date,omitempty"`
+
+	SubjectFilter []*string `json:"subjectFilter,omitempty" tf:"subject_filter,omitempty"`
+}
+
+type ConnectorOptionsOutlookOptionsParameters struct {
+
+	// +kubebuilder:validation:Optional
+	AttachmentMode *string `json:"attachmentMode,omitempty" tf:"attachment_mode,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	BodyFormat *string `json:"bodyFormat,omitempty" tf:"body_format,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	FolderFilter []*string `json:"folderFilter,omitempty" tf:"folder_filter,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	IncludeFolders []*string `json:"includeFolders,omitempty" tf:"include_folders,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	IncludeMailboxes []*string `json:"includeMailboxes,omitempty" tf:"include_mailboxes,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	IncludeSenders []*string `json:"includeSenders,omitempty" tf:"include_senders,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	IncludeSubjects []*string `json:"includeSubjects,omitempty" tf:"include_subjects,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	SenderFilter []*string `json:"senderFilter,omitempty" tf:"sender_filter,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	StartDate *string `json:"startDate,omitempty" tf:"start_date,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	SubjectFilter []*string `json:"subjectFilter,omitempty" tf:"subject_filter,omitempty"`
+}
+
+type ConnectorOptionsParameters struct {
+
+	// +kubebuilder:validation:Optional
+	ConfluenceOptions *ConfluenceOptionsParameters `json:"confluenceOptions,omitempty" tf:"confluence_options,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	GdriveOptions *GdriveOptionsParameters `json:"gdriveOptions,omitempty" tf:"gdrive_options,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	GoogleAdsOptions *GoogleAdsOptionsParameters `json:"googleAdsOptions,omitempty" tf:"google_ads_options,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	JiraOptions *JiraOptionsParameters `json:"jiraOptions,omitempty" tf:"jira_options,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	KafkaOptions *KafkaOptionsParameters `json:"kafkaOptions,omitempty" tf:"kafka_options,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	MetaAdsOptions *MetaAdsOptionsParameters `json:"metaAdsOptions,omitempty" tf:"meta_ads_options,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	OutlookOptions *OutlookOptionsParameters `json:"outlookOptions,omitempty" tf:"outlook_options,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	SharepointOptions *SharepointOptionsParameters `json:"sharepointOptions,omitempty" tf:"sharepoint_options,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	SmartsheetOptions *SmartsheetOptionsParameters `json:"smartsheetOptions,omitempty" tf:"smartsheet_options,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	TiktokAdsOptions *TiktokAdsOptionsParameters `json:"tiktokAdsOptions,omitempty" tf:"tiktok_ads_options,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	ZendeskSupportOptions *ZendeskSupportOptionsParameters `json:"zendeskSupportOptions,omitempty" tf:"zendesk_support_options,omitempty"`
+}
+
+type ConnectorOptionsSharepointOptionsFileIngestionOptionsInitParameters struct {
+	CorruptRecordColumn *string `json:"corruptRecordColumn,omitempty" tf:"corrupt_record_column,omitempty"`
+
+	// Filters on which Pipeline packages to include in the deployed graph.  This block consists of following attributes:
+	FileFilters []SharepointOptionsFileIngestionOptionsFileFiltersInitParameters `json:"fileFilters,omitempty" tf:"file_filters,omitempty"`
+
+	Format *string `json:"format,omitempty" tf:"format,omitempty"`
+
+	// +mapType=granular
+	FormatOptions map[string]*string `json:"formatOptions,omitempty" tf:"format_options,omitempty"`
+
+	IgnoreCorruptFiles *bool `json:"ignoreCorruptFiles,omitempty" tf:"ignore_corrupt_files,omitempty"`
+
+	InferColumnTypes *bool `json:"inferColumnTypes,omitempty" tf:"infer_column_types,omitempty"`
+
+	ReaderCaseSensitive *bool `json:"readerCaseSensitive,omitempty" tf:"reader_case_sensitive,omitempty"`
+
+	RescuedDataColumn *string `json:"rescuedDataColumn,omitempty" tf:"rescued_data_column,omitempty"`
+
+	SchemaEvolutionMode *string `json:"schemaEvolutionMode,omitempty" tf:"schema_evolution_mode,omitempty"`
+
+	SchemaHints *string `json:"schemaHints,omitempty" tf:"schema_hints,omitempty"`
+
+	SingleVariantColumn *string `json:"singleVariantColumn,omitempty" tf:"single_variant_column,omitempty"`
+}
+
+type ConnectorOptionsSharepointOptionsFileIngestionOptionsObservation struct {
+	CorruptRecordColumn *string `json:"corruptRecordColumn,omitempty" tf:"corrupt_record_column,omitempty"`
+
+	// Filters on which Pipeline packages to include in the deployed graph.  This block consists of following attributes:
+	FileFilters []SharepointOptionsFileIngestionOptionsFileFiltersObservation `json:"fileFilters,omitempty" tf:"file_filters,omitempty"`
+
+	Format *string `json:"format,omitempty" tf:"format,omitempty"`
+
+	// +mapType=granular
+	FormatOptions map[string]*string `json:"formatOptions,omitempty" tf:"format_options,omitempty"`
+
+	IgnoreCorruptFiles *bool `json:"ignoreCorruptFiles,omitempty" tf:"ignore_corrupt_files,omitempty"`
+
+	InferColumnTypes *bool `json:"inferColumnTypes,omitempty" tf:"infer_column_types,omitempty"`
+
+	ReaderCaseSensitive *bool `json:"readerCaseSensitive,omitempty" tf:"reader_case_sensitive,omitempty"`
+
+	RescuedDataColumn *string `json:"rescuedDataColumn,omitempty" tf:"rescued_data_column,omitempty"`
+
+	SchemaEvolutionMode *string `json:"schemaEvolutionMode,omitempty" tf:"schema_evolution_mode,omitempty"`
+
+	SchemaHints *string `json:"schemaHints,omitempty" tf:"schema_hints,omitempty"`
+
+	SingleVariantColumn *string `json:"singleVariantColumn,omitempty" tf:"single_variant_column,omitempty"`
+}
+
+type ConnectorOptionsSharepointOptionsFileIngestionOptionsParameters struct {
+
+	// +kubebuilder:validation:Optional
+	CorruptRecordColumn *string `json:"corruptRecordColumn,omitempty" tf:"corrupt_record_column,omitempty"`
+
+	// Filters on which Pipeline packages to include in the deployed graph.  This block consists of following attributes:
+	// +kubebuilder:validation:Optional
+	FileFilters []SharepointOptionsFileIngestionOptionsFileFiltersParameters `json:"fileFilters,omitempty" tf:"file_filters,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	Format *string `json:"format,omitempty" tf:"format,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	// +mapType=granular
+	FormatOptions map[string]*string `json:"formatOptions,omitempty" tf:"format_options,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	IgnoreCorruptFiles *bool `json:"ignoreCorruptFiles,omitempty" tf:"ignore_corrupt_files,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	InferColumnTypes *bool `json:"inferColumnTypes,omitempty" tf:"infer_column_types,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	ReaderCaseSensitive *bool `json:"readerCaseSensitive,omitempty" tf:"reader_case_sensitive,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	RescuedDataColumn *string `json:"rescuedDataColumn,omitempty" tf:"rescued_data_column,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	SchemaEvolutionMode *string `json:"schemaEvolutionMode,omitempty" tf:"schema_evolution_mode,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	SchemaHints *string `json:"schemaHints,omitempty" tf:"schema_hints,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	SingleVariantColumn *string `json:"singleVariantColumn,omitempty" tf:"single_variant_column,omitempty"`
+}
+
+type ConnectorOptionsSharepointOptionsInitParameters struct {
+	EntityType *string `json:"entityType,omitempty" tf:"entity_type,omitempty"`
+
+	FileIngestionOptions *ConnectorOptionsSharepointOptionsFileIngestionOptionsInitParameters `json:"fileIngestionOptions,omitempty" tf:"file_ingestion_options,omitempty"`
+
+	// URL of the Lakeflow Declarative Pipeline on the given workspace.
+	URL *string `json:"url,omitempty" tf:"url,omitempty"`
+}
+
+type ConnectorOptionsSharepointOptionsObservation struct {
+	EntityType *string `json:"entityType,omitempty" tf:"entity_type,omitempty"`
+
+	FileIngestionOptions *ConnectorOptionsSharepointOptionsFileIngestionOptionsObservation `json:"fileIngestionOptions,omitempty" tf:"file_ingestion_options,omitempty"`
+
+	// URL of the Lakeflow Declarative Pipeline on the given workspace.
+	URL *string `json:"url,omitempty" tf:"url,omitempty"`
+}
+
+type ConnectorOptionsSharepointOptionsParameters struct {
+
+	// +kubebuilder:validation:Optional
+	EntityType *string `json:"entityType,omitempty" tf:"entity_type,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	FileIngestionOptions *ConnectorOptionsSharepointOptionsFileIngestionOptionsParameters `json:"fileIngestionOptions,omitempty" tf:"file_ingestion_options,omitempty"`
+
+	// URL of the Lakeflow Declarative Pipeline on the given workspace.
+	// +kubebuilder:validation:Optional
+	URL *string `json:"url,omitempty" tf:"url,omitempty"`
+}
+
+type ConnectorOptionsSmartsheetOptionsInitParameters struct {
+
+	// The default schema (database) where tables are read from or published to. The presence of this attribute implies that the pipeline is in direct publishing mode.
+	EnforceSchema *bool `json:"enforceSchema,omitempty" tf:"enforce_schema,omitempty"`
+}
+
+type ConnectorOptionsSmartsheetOptionsObservation struct {
+
+	// The default schema (database) where tables are read from or published to. The presence of this attribute implies that the pipeline is in direct publishing mode.
+	EnforceSchema *bool `json:"enforceSchema,omitempty" tf:"enforce_schema,omitempty"`
+}
+
+type ConnectorOptionsSmartsheetOptionsParameters struct {
+
+	// The default schema (database) where tables are read from or published to. The presence of this attribute implies that the pipeline is in direct publishing mode.
+	// +kubebuilder:validation:Optional
+	EnforceSchema *bool `json:"enforceSchema,omitempty" tf:"enforce_schema,omitempty"`
+}
+
+type ConnectorOptionsTiktokAdsOptionsCustomReportOptionsInitParameters struct {
+	DataLevel *string `json:"dataLevel,omitempty" tf:"data_level,omitempty"`
+
+	Dimensions []*string `json:"dimensions,omitempty" tf:"dimensions,omitempty"`
+
+	Metrics []*string `json:"metrics,omitempty" tf:"metrics,omitempty"`
+
+	QueryLifetime *bool `json:"queryLifetime,omitempty" tf:"query_lifetime,omitempty"`
+
+	ReportType *string `json:"reportType,omitempty" tf:"report_type,omitempty"`
+}
+
+type ConnectorOptionsTiktokAdsOptionsCustomReportOptionsObservation struct {
+	DataLevel *string `json:"dataLevel,omitempty" tf:"data_level,omitempty"`
+
+	Dimensions []*string `json:"dimensions,omitempty" tf:"dimensions,omitempty"`
+
+	Metrics []*string `json:"metrics,omitempty" tf:"metrics,omitempty"`
+
+	QueryLifetime *bool `json:"queryLifetime,omitempty" tf:"query_lifetime,omitempty"`
+
+	ReportType *string `json:"reportType,omitempty" tf:"report_type,omitempty"`
+}
+
+type ConnectorOptionsTiktokAdsOptionsCustomReportOptionsParameters struct {
+
+	// +kubebuilder:validation:Optional
+	DataLevel *string `json:"dataLevel,omitempty" tf:"data_level,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	Dimensions []*string `json:"dimensions,omitempty" tf:"dimensions,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	Metrics []*string `json:"metrics,omitempty" tf:"metrics,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	QueryLifetime *bool `json:"queryLifetime,omitempty" tf:"query_lifetime,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	ReportType *string `json:"reportType,omitempty" tf:"report_type,omitempty"`
+}
+
+type ConnectorOptionsTiktokAdsOptionsInitParameters struct {
+	CustomReportOptions *ConnectorOptionsTiktokAdsOptionsCustomReportOptionsInitParameters `json:"customReportOptions,omitempty" tf:"custom_report_options,omitempty"`
+
+	DataLevel *string `json:"dataLevel,omitempty" tf:"data_level,omitempty"`
+
+	Dimensions []*string `json:"dimensions,omitempty" tf:"dimensions,omitempty"`
+
+	LookbackWindowDays *float64 `json:"lookbackWindowDays,omitempty" tf:"lookback_window_days,omitempty"`
+
+	Metrics []*string `json:"metrics,omitempty" tf:"metrics,omitempty"`
+
+	QueryLifetime *bool `json:"queryLifetime,omitempty" tf:"query_lifetime,omitempty"`
+
+	ReportType *string `json:"reportType,omitempty" tf:"report_type,omitempty"`
+
+	SyncStartDate *string `json:"syncStartDate,omitempty" tf:"sync_start_date,omitempty"`
+}
+
+type ConnectorOptionsTiktokAdsOptionsObservation struct {
+	CustomReportOptions *ConnectorOptionsTiktokAdsOptionsCustomReportOptionsObservation `json:"customReportOptions,omitempty" tf:"custom_report_options,omitempty"`
+
+	DataLevel *string `json:"dataLevel,omitempty" tf:"data_level,omitempty"`
+
+	Dimensions []*string `json:"dimensions,omitempty" tf:"dimensions,omitempty"`
+
+	LookbackWindowDays *float64 `json:"lookbackWindowDays,omitempty" tf:"lookback_window_days,omitempty"`
+
+	Metrics []*string `json:"metrics,omitempty" tf:"metrics,omitempty"`
+
+	QueryLifetime *bool `json:"queryLifetime,omitempty" tf:"query_lifetime,omitempty"`
+
+	ReportType *string `json:"reportType,omitempty" tf:"report_type,omitempty"`
+
+	SyncStartDate *string `json:"syncStartDate,omitempty" tf:"sync_start_date,omitempty"`
+}
+
+type ConnectorOptionsTiktokAdsOptionsParameters struct {
+
+	// +kubebuilder:validation:Optional
+	CustomReportOptions *ConnectorOptionsTiktokAdsOptionsCustomReportOptionsParameters `json:"customReportOptions,omitempty" tf:"custom_report_options,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	DataLevel *string `json:"dataLevel,omitempty" tf:"data_level,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	Dimensions []*string `json:"dimensions,omitempty" tf:"dimensions,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	LookbackWindowDays *float64 `json:"lookbackWindowDays,omitempty" tf:"lookback_window_days,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	Metrics []*string `json:"metrics,omitempty" tf:"metrics,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	QueryLifetime *bool `json:"queryLifetime,omitempty" tf:"query_lifetime,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	ReportType *string `json:"reportType,omitempty" tf:"report_type,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	SyncStartDate *string `json:"syncStartDate,omitempty" tf:"sync_start_date,omitempty"`
+}
+
+type ConnectorOptionsZendeskSupportOptionsInitParameters struct {
+	StartDate *string `json:"startDate,omitempty" tf:"start_date,omitempty"`
+}
+
+type ConnectorOptionsZendeskSupportOptionsObservation struct {
+	StartDate *string `json:"startDate,omitempty" tf:"start_date,omitempty"`
+}
+
+type ConnectorOptionsZendeskSupportOptionsParameters struct {
+
+	// +kubebuilder:validation:Optional
+	StartDate *string `json:"startDate,omitempty" tf:"start_date,omitempty"`
 }
 
 type CronInitParameters struct {
@@ -623,6 +1348,80 @@ type CronParameters struct {
 	// Canonical unique identifier of the Lakeflow Declarative Pipeline.
 	// +kubebuilder:validation:Optional
 	TimezoneID *string `json:"timezoneId,omitempty" tf:"timezone_id,omitempty"`
+}
+
+type CustomReportOptionsInitParameters struct {
+	Metrics []*string `json:"metrics,omitempty" tf:"metrics,omitempty"`
+
+	Resource *string `json:"resource,omitempty" tf:"resource,omitempty"`
+
+	ResourceFields []*string `json:"resourceFields,omitempty" tf:"resource_fields,omitempty"`
+
+	Segments []*string `json:"segments,omitempty" tf:"segments,omitempty"`
+}
+
+type CustomReportOptionsObservation struct {
+	Metrics []*string `json:"metrics,omitempty" tf:"metrics,omitempty"`
+
+	Resource *string `json:"resource,omitempty" tf:"resource,omitempty"`
+
+	ResourceFields []*string `json:"resourceFields,omitempty" tf:"resource_fields,omitempty"`
+
+	Segments []*string `json:"segments,omitempty" tf:"segments,omitempty"`
+}
+
+type CustomReportOptionsParameters struct {
+
+	// +kubebuilder:validation:Optional
+	Metrics []*string `json:"metrics,omitempty" tf:"metrics,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	Resource *string `json:"resource" tf:"resource,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	ResourceFields []*string `json:"resourceFields,omitempty" tf:"resource_fields,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	Segments []*string `json:"segments,omitempty" tf:"segments,omitempty"`
+}
+
+type DataStagingOptionsInitParameters struct {
+
+	// A user-friendly name for this pipeline. The name can be used to identify pipeline jobs in the UI.
+	CatalogName *string `json:"catalogName,omitempty" tf:"catalog_name,omitempty"`
+
+	// A user-friendly name for this pipeline. The name can be used to identify pipeline jobs in the UI.
+	SchemaName *string `json:"schemaName,omitempty" tf:"schema_name,omitempty"`
+
+	// A user-friendly name for this pipeline. The name can be used to identify pipeline jobs in the UI.
+	VolumeName *string `json:"volumeName,omitempty" tf:"volume_name,omitempty"`
+}
+
+type DataStagingOptionsObservation struct {
+
+	// A user-friendly name for this pipeline. The name can be used to identify pipeline jobs in the UI.
+	CatalogName *string `json:"catalogName,omitempty" tf:"catalog_name,omitempty"`
+
+	// A user-friendly name for this pipeline. The name can be used to identify pipeline jobs in the UI.
+	SchemaName *string `json:"schemaName,omitempty" tf:"schema_name,omitempty"`
+
+	// A user-friendly name for this pipeline. The name can be used to identify pipeline jobs in the UI.
+	VolumeName *string `json:"volumeName,omitempty" tf:"volume_name,omitempty"`
+}
+
+type DataStagingOptionsParameters struct {
+
+	// A user-friendly name for this pipeline. The name can be used to identify pipeline jobs in the UI.
+	// +kubebuilder:validation:Optional
+	CatalogName *string `json:"catalogName" tf:"catalog_name,omitempty"`
+
+	// A user-friendly name for this pipeline. The name can be used to identify pipeline jobs in the UI.
+	// +kubebuilder:validation:Optional
+	SchemaName *string `json:"schemaName" tf:"schema_name,omitempty"`
+
+	// A user-friendly name for this pipeline. The name can be used to identify pipeline jobs in the UI.
+	// +kubebuilder:validation:Optional
+	VolumeName *string `json:"volumeName,omitempty" tf:"volume_name,omitempty"`
 }
 
 type EventLogInitParameters struct {
@@ -662,6 +1461,152 @@ type EventLogParameters struct {
 	// The default schema (database) where tables are read from or published to. The presence of this attribute implies that the pipeline is in direct publishing mode.
 	// +kubebuilder:validation:Optional
 	Schema *string `json:"schema,omitempty" tf:"schema,omitempty"`
+}
+
+type FileFiltersInitParameters struct {
+	ModifiedAfter *string `json:"modifiedAfter,omitempty" tf:"modified_after,omitempty"`
+
+	ModifiedBefore *string `json:"modifiedBefore,omitempty" tf:"modified_before,omitempty"`
+
+	PathFilter *string `json:"pathFilter,omitempty" tf:"path_filter,omitempty"`
+}
+
+type FileFiltersObservation struct {
+	ModifiedAfter *string `json:"modifiedAfter,omitempty" tf:"modified_after,omitempty"`
+
+	ModifiedBefore *string `json:"modifiedBefore,omitempty" tf:"modified_before,omitempty"`
+
+	PathFilter *string `json:"pathFilter,omitempty" tf:"path_filter,omitempty"`
+}
+
+type FileFiltersParameters struct {
+
+	// +kubebuilder:validation:Optional
+	ModifiedAfter *string `json:"modifiedAfter,omitempty" tf:"modified_after,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	ModifiedBefore *string `json:"modifiedBefore,omitempty" tf:"modified_before,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	PathFilter *string `json:"pathFilter,omitempty" tf:"path_filter,omitempty"`
+}
+
+type FileIngestionOptionsFileFiltersInitParameters struct {
+	ModifiedAfter *string `json:"modifiedAfter,omitempty" tf:"modified_after,omitempty"`
+
+	ModifiedBefore *string `json:"modifiedBefore,omitempty" tf:"modified_before,omitempty"`
+
+	PathFilter *string `json:"pathFilter,omitempty" tf:"path_filter,omitempty"`
+}
+
+type FileIngestionOptionsFileFiltersObservation struct {
+	ModifiedAfter *string `json:"modifiedAfter,omitempty" tf:"modified_after,omitempty"`
+
+	ModifiedBefore *string `json:"modifiedBefore,omitempty" tf:"modified_before,omitempty"`
+
+	PathFilter *string `json:"pathFilter,omitempty" tf:"path_filter,omitempty"`
+}
+
+type FileIngestionOptionsFileFiltersParameters struct {
+
+	// +kubebuilder:validation:Optional
+	ModifiedAfter *string `json:"modifiedAfter,omitempty" tf:"modified_after,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	ModifiedBefore *string `json:"modifiedBefore,omitempty" tf:"modified_before,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	PathFilter *string `json:"pathFilter,omitempty" tf:"path_filter,omitempty"`
+}
+
+type FileIngestionOptionsInitParameters struct {
+	CorruptRecordColumn *string `json:"corruptRecordColumn,omitempty" tf:"corrupt_record_column,omitempty"`
+
+	// Filters on which Pipeline packages to include in the deployed graph.  This block consists of following attributes:
+	FileFilters []FileFiltersInitParameters `json:"fileFilters,omitempty" tf:"file_filters,omitempty"`
+
+	Format *string `json:"format,omitempty" tf:"format,omitempty"`
+
+	// +mapType=granular
+	FormatOptions map[string]*string `json:"formatOptions,omitempty" tf:"format_options,omitempty"`
+
+	IgnoreCorruptFiles *bool `json:"ignoreCorruptFiles,omitempty" tf:"ignore_corrupt_files,omitempty"`
+
+	InferColumnTypes *bool `json:"inferColumnTypes,omitempty" tf:"infer_column_types,omitempty"`
+
+	ReaderCaseSensitive *bool `json:"readerCaseSensitive,omitempty" tf:"reader_case_sensitive,omitempty"`
+
+	RescuedDataColumn *string `json:"rescuedDataColumn,omitempty" tf:"rescued_data_column,omitempty"`
+
+	SchemaEvolutionMode *string `json:"schemaEvolutionMode,omitempty" tf:"schema_evolution_mode,omitempty"`
+
+	SchemaHints *string `json:"schemaHints,omitempty" tf:"schema_hints,omitempty"`
+
+	SingleVariantColumn *string `json:"singleVariantColumn,omitempty" tf:"single_variant_column,omitempty"`
+}
+
+type FileIngestionOptionsObservation struct {
+	CorruptRecordColumn *string `json:"corruptRecordColumn,omitempty" tf:"corrupt_record_column,omitempty"`
+
+	// Filters on which Pipeline packages to include in the deployed graph.  This block consists of following attributes:
+	FileFilters []FileFiltersObservation `json:"fileFilters,omitempty" tf:"file_filters,omitempty"`
+
+	Format *string `json:"format,omitempty" tf:"format,omitempty"`
+
+	// +mapType=granular
+	FormatOptions map[string]*string `json:"formatOptions,omitempty" tf:"format_options,omitempty"`
+
+	IgnoreCorruptFiles *bool `json:"ignoreCorruptFiles,omitempty" tf:"ignore_corrupt_files,omitempty"`
+
+	InferColumnTypes *bool `json:"inferColumnTypes,omitempty" tf:"infer_column_types,omitempty"`
+
+	ReaderCaseSensitive *bool `json:"readerCaseSensitive,omitempty" tf:"reader_case_sensitive,omitempty"`
+
+	RescuedDataColumn *string `json:"rescuedDataColumn,omitempty" tf:"rescued_data_column,omitempty"`
+
+	SchemaEvolutionMode *string `json:"schemaEvolutionMode,omitempty" tf:"schema_evolution_mode,omitempty"`
+
+	SchemaHints *string `json:"schemaHints,omitempty" tf:"schema_hints,omitempty"`
+
+	SingleVariantColumn *string `json:"singleVariantColumn,omitempty" tf:"single_variant_column,omitempty"`
+}
+
+type FileIngestionOptionsParameters struct {
+
+	// +kubebuilder:validation:Optional
+	CorruptRecordColumn *string `json:"corruptRecordColumn,omitempty" tf:"corrupt_record_column,omitempty"`
+
+	// Filters on which Pipeline packages to include in the deployed graph.  This block consists of following attributes:
+	// +kubebuilder:validation:Optional
+	FileFilters []FileFiltersParameters `json:"fileFilters,omitempty" tf:"file_filters,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	Format *string `json:"format,omitempty" tf:"format,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	// +mapType=granular
+	FormatOptions map[string]*string `json:"formatOptions,omitempty" tf:"format_options,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	IgnoreCorruptFiles *bool `json:"ignoreCorruptFiles,omitempty" tf:"ignore_corrupt_files,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	InferColumnTypes *bool `json:"inferColumnTypes,omitempty" tf:"infer_column_types,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	ReaderCaseSensitive *bool `json:"readerCaseSensitive,omitempty" tf:"reader_case_sensitive,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	RescuedDataColumn *string `json:"rescuedDataColumn,omitempty" tf:"rescued_data_column,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	SchemaEvolutionMode *string `json:"schemaEvolutionMode,omitempty" tf:"schema_evolution_mode,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	SchemaHints *string `json:"schemaHints,omitempty" tf:"schema_hints,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	SingleVariantColumn *string `json:"singleVariantColumn,omitempty" tf:"single_variant_column,omitempty"`
 }
 
 type FiltersInitParameters struct {
@@ -790,6 +1735,155 @@ type GatewayDefinitionParameters struct {
 	GatewayStorageSchema *string `json:"gatewayStorageSchema" tf:"gateway_storage_schema,omitempty"`
 }
 
+type GdriveOptionsFileIngestionOptionsFileFiltersInitParameters struct {
+	ModifiedAfter *string `json:"modifiedAfter,omitempty" tf:"modified_after,omitempty"`
+
+	ModifiedBefore *string `json:"modifiedBefore,omitempty" tf:"modified_before,omitempty"`
+
+	PathFilter *string `json:"pathFilter,omitempty" tf:"path_filter,omitempty"`
+}
+
+type GdriveOptionsFileIngestionOptionsFileFiltersObservation struct {
+	ModifiedAfter *string `json:"modifiedAfter,omitempty" tf:"modified_after,omitempty"`
+
+	ModifiedBefore *string `json:"modifiedBefore,omitempty" tf:"modified_before,omitempty"`
+
+	PathFilter *string `json:"pathFilter,omitempty" tf:"path_filter,omitempty"`
+}
+
+type GdriveOptionsFileIngestionOptionsFileFiltersParameters struct {
+
+	// +kubebuilder:validation:Optional
+	ModifiedAfter *string `json:"modifiedAfter,omitempty" tf:"modified_after,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	ModifiedBefore *string `json:"modifiedBefore,omitempty" tf:"modified_before,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	PathFilter *string `json:"pathFilter,omitempty" tf:"path_filter,omitempty"`
+}
+
+type GdriveOptionsFileIngestionOptionsInitParameters struct {
+	CorruptRecordColumn *string `json:"corruptRecordColumn,omitempty" tf:"corrupt_record_column,omitempty"`
+
+	// Filters on which Pipeline packages to include in the deployed graph.  This block consists of following attributes:
+	FileFilters []GdriveOptionsFileIngestionOptionsFileFiltersInitParameters `json:"fileFilters,omitempty" tf:"file_filters,omitempty"`
+
+	Format *string `json:"format,omitempty" tf:"format,omitempty"`
+
+	// +mapType=granular
+	FormatOptions map[string]*string `json:"formatOptions,omitempty" tf:"format_options,omitempty"`
+
+	IgnoreCorruptFiles *bool `json:"ignoreCorruptFiles,omitempty" tf:"ignore_corrupt_files,omitempty"`
+
+	InferColumnTypes *bool `json:"inferColumnTypes,omitempty" tf:"infer_column_types,omitempty"`
+
+	ReaderCaseSensitive *bool `json:"readerCaseSensitive,omitempty" tf:"reader_case_sensitive,omitempty"`
+
+	RescuedDataColumn *string `json:"rescuedDataColumn,omitempty" tf:"rescued_data_column,omitempty"`
+
+	SchemaEvolutionMode *string `json:"schemaEvolutionMode,omitempty" tf:"schema_evolution_mode,omitempty"`
+
+	SchemaHints *string `json:"schemaHints,omitempty" tf:"schema_hints,omitempty"`
+
+	SingleVariantColumn *string `json:"singleVariantColumn,omitempty" tf:"single_variant_column,omitempty"`
+}
+
+type GdriveOptionsFileIngestionOptionsObservation struct {
+	CorruptRecordColumn *string `json:"corruptRecordColumn,omitempty" tf:"corrupt_record_column,omitempty"`
+
+	// Filters on which Pipeline packages to include in the deployed graph.  This block consists of following attributes:
+	FileFilters []GdriveOptionsFileIngestionOptionsFileFiltersObservation `json:"fileFilters,omitempty" tf:"file_filters,omitempty"`
+
+	Format *string `json:"format,omitempty" tf:"format,omitempty"`
+
+	// +mapType=granular
+	FormatOptions map[string]*string `json:"formatOptions,omitempty" tf:"format_options,omitempty"`
+
+	IgnoreCorruptFiles *bool `json:"ignoreCorruptFiles,omitempty" tf:"ignore_corrupt_files,omitempty"`
+
+	InferColumnTypes *bool `json:"inferColumnTypes,omitempty" tf:"infer_column_types,omitempty"`
+
+	ReaderCaseSensitive *bool `json:"readerCaseSensitive,omitempty" tf:"reader_case_sensitive,omitempty"`
+
+	RescuedDataColumn *string `json:"rescuedDataColumn,omitempty" tf:"rescued_data_column,omitempty"`
+
+	SchemaEvolutionMode *string `json:"schemaEvolutionMode,omitempty" tf:"schema_evolution_mode,omitempty"`
+
+	SchemaHints *string `json:"schemaHints,omitempty" tf:"schema_hints,omitempty"`
+
+	SingleVariantColumn *string `json:"singleVariantColumn,omitempty" tf:"single_variant_column,omitempty"`
+}
+
+type GdriveOptionsFileIngestionOptionsParameters struct {
+
+	// +kubebuilder:validation:Optional
+	CorruptRecordColumn *string `json:"corruptRecordColumn,omitempty" tf:"corrupt_record_column,omitempty"`
+
+	// Filters on which Pipeline packages to include in the deployed graph.  This block consists of following attributes:
+	// +kubebuilder:validation:Optional
+	FileFilters []GdriveOptionsFileIngestionOptionsFileFiltersParameters `json:"fileFilters,omitempty" tf:"file_filters,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	Format *string `json:"format,omitempty" tf:"format,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	// +mapType=granular
+	FormatOptions map[string]*string `json:"formatOptions,omitempty" tf:"format_options,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	IgnoreCorruptFiles *bool `json:"ignoreCorruptFiles,omitempty" tf:"ignore_corrupt_files,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	InferColumnTypes *bool `json:"inferColumnTypes,omitempty" tf:"infer_column_types,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	ReaderCaseSensitive *bool `json:"readerCaseSensitive,omitempty" tf:"reader_case_sensitive,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	RescuedDataColumn *string `json:"rescuedDataColumn,omitempty" tf:"rescued_data_column,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	SchemaEvolutionMode *string `json:"schemaEvolutionMode,omitempty" tf:"schema_evolution_mode,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	SchemaHints *string `json:"schemaHints,omitempty" tf:"schema_hints,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	SingleVariantColumn *string `json:"singleVariantColumn,omitempty" tf:"single_variant_column,omitempty"`
+}
+
+type GdriveOptionsInitParameters struct {
+	EntityType *string `json:"entityType,omitempty" tf:"entity_type,omitempty"`
+
+	FileIngestionOptions *FileIngestionOptionsInitParameters `json:"fileIngestionOptions,omitempty" tf:"file_ingestion_options,omitempty"`
+
+	// URL of the Lakeflow Declarative Pipeline on the given workspace.
+	URL *string `json:"url,omitempty" tf:"url,omitempty"`
+}
+
+type GdriveOptionsObservation struct {
+	EntityType *string `json:"entityType,omitempty" tf:"entity_type,omitempty"`
+
+	FileIngestionOptions *FileIngestionOptionsObservation `json:"fileIngestionOptions,omitempty" tf:"file_ingestion_options,omitempty"`
+
+	// URL of the Lakeflow Declarative Pipeline on the given workspace.
+	URL *string `json:"url,omitempty" tf:"url,omitempty"`
+}
+
+type GdriveOptionsParameters struct {
+
+	// +kubebuilder:validation:Optional
+	EntityType *string `json:"entityType,omitempty" tf:"entity_type,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	FileIngestionOptions *FileIngestionOptionsParameters `json:"fileIngestionOptions,omitempty" tf:"file_ingestion_options,omitempty"`
+
+	// URL of the Lakeflow Declarative Pipeline on the given workspace.
+	// +kubebuilder:validation:Optional
+	URL *string `json:"url,omitempty" tf:"url,omitempty"`
+}
+
 type GlobInitParameters struct {
 
 	// Paths to include.
@@ -809,10 +1903,106 @@ type GlobParameters struct {
 	Include *string `json:"include" tf:"include,omitempty"`
 }
 
+type GoogleAdsConfigInitParameters struct {
+
+	// Canonical unique identifier of the Lakeflow Declarative Pipeline.
+	ManagerAccountID *string `json:"managerAccountId,omitempty" tf:"manager_account_id,omitempty"`
+}
+
+type GoogleAdsConfigObservation struct {
+
+	// Canonical unique identifier of the Lakeflow Declarative Pipeline.
+	ManagerAccountID *string `json:"managerAccountId,omitempty" tf:"manager_account_id,omitempty"`
+}
+
+type GoogleAdsConfigParameters struct {
+
+	// Canonical unique identifier of the Lakeflow Declarative Pipeline.
+	// +kubebuilder:validation:Optional
+	ManagerAccountID *string `json:"managerAccountId,omitempty" tf:"manager_account_id,omitempty"`
+}
+
+type GoogleAdsOptionsCustomReportOptionsInitParameters struct {
+	Metrics []*string `json:"metrics,omitempty" tf:"metrics,omitempty"`
+
+	Resource *string `json:"resource,omitempty" tf:"resource,omitempty"`
+
+	ResourceFields []*string `json:"resourceFields,omitempty" tf:"resource_fields,omitempty"`
+
+	Segments []*string `json:"segments,omitempty" tf:"segments,omitempty"`
+}
+
+type GoogleAdsOptionsCustomReportOptionsObservation struct {
+	Metrics []*string `json:"metrics,omitempty" tf:"metrics,omitempty"`
+
+	Resource *string `json:"resource,omitempty" tf:"resource,omitempty"`
+
+	ResourceFields []*string `json:"resourceFields,omitempty" tf:"resource_fields,omitempty"`
+
+	Segments []*string `json:"segments,omitempty" tf:"segments,omitempty"`
+}
+
+type GoogleAdsOptionsCustomReportOptionsParameters struct {
+
+	// +kubebuilder:validation:Optional
+	Metrics []*string `json:"metrics,omitempty" tf:"metrics,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	Resource *string `json:"resource" tf:"resource,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	ResourceFields []*string `json:"resourceFields,omitempty" tf:"resource_fields,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	Segments []*string `json:"segments,omitempty" tf:"segments,omitempty"`
+}
+
+type GoogleAdsOptionsInitParameters struct {
+	CustomReportOptions *CustomReportOptionsInitParameters `json:"customReportOptions,omitempty" tf:"custom_report_options,omitempty"`
+
+	LookbackWindowDays *float64 `json:"lookbackWindowDays,omitempty" tf:"lookback_window_days,omitempty"`
+
+	// Canonical unique identifier of the Lakeflow Declarative Pipeline.
+	ManagerAccountID *string `json:"managerAccountId,omitempty" tf:"manager_account_id,omitempty"`
+
+	SyncStartDate *string `json:"syncStartDate,omitempty" tf:"sync_start_date,omitempty"`
+}
+
+type GoogleAdsOptionsObservation struct {
+	CustomReportOptions *CustomReportOptionsObservation `json:"customReportOptions,omitempty" tf:"custom_report_options,omitempty"`
+
+	LookbackWindowDays *float64 `json:"lookbackWindowDays,omitempty" tf:"lookback_window_days,omitempty"`
+
+	// Canonical unique identifier of the Lakeflow Declarative Pipeline.
+	ManagerAccountID *string `json:"managerAccountId,omitempty" tf:"manager_account_id,omitempty"`
+
+	SyncStartDate *string `json:"syncStartDate,omitempty" tf:"sync_start_date,omitempty"`
+}
+
+type GoogleAdsOptionsParameters struct {
+
+	// +kubebuilder:validation:Optional
+	CustomReportOptions *CustomReportOptionsParameters `json:"customReportOptions,omitempty" tf:"custom_report_options,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	LookbackWindowDays *float64 `json:"lookbackWindowDays,omitempty" tf:"lookback_window_days,omitempty"`
+
+	// Canonical unique identifier of the Lakeflow Declarative Pipeline.
+	// +kubebuilder:validation:Optional
+	ManagerAccountID *string `json:"managerAccountId" tf:"manager_account_id,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	SyncStartDate *string `json:"syncStartDate,omitempty" tf:"sync_start_date,omitempty"`
+}
+
 type IngestionDefinitionInitParameters struct {
 
 	// Immutable. The Unity Catalog connection this ingestion pipeline uses to communicate with the source. Specify either ingestion_gateway_id or connection_name.
 	ConnectionName *string `json:"connectionName,omitempty" tf:"connection_name,omitempty"`
+
+	ConnectorType *string `json:"connectorType,omitempty" tf:"connector_type,omitempty"`
+
+	DataStagingOptions *DataStagingOptionsInitParameters `json:"dataStagingOptions,omitempty" tf:"data_staging_options,omitempty"`
 
 	FullRefreshWindow *FullRefreshWindowInitParameters `json:"fullRefreshWindow,omitempty" tf:"full_refresh_window,omitempty"`
 
@@ -841,6 +2031,10 @@ type IngestionDefinitionObservation struct {
 	// Immutable. The Unity Catalog connection this ingestion pipeline uses to communicate with the source. Specify either ingestion_gateway_id or connection_name.
 	ConnectionName *string `json:"connectionName,omitempty" tf:"connection_name,omitempty"`
 
+	ConnectorType *string `json:"connectorType,omitempty" tf:"connector_type,omitempty"`
+
+	DataStagingOptions *DataStagingOptionsObservation `json:"dataStagingOptions,omitempty" tf:"data_staging_options,omitempty"`
+
 	FullRefreshWindow *FullRefreshWindowObservation `json:"fullRefreshWindow,omitempty" tf:"full_refresh_window,omitempty"`
 
 	// The name of default catalog in Unity Catalog. Change of this parameter forces recreation of the pipeline if you switch from  (Conflicts with storage).
@@ -868,6 +2062,12 @@ type IngestionDefinitionParameters struct {
 	// Immutable. The Unity Catalog connection this ingestion pipeline uses to communicate with the source. Specify either ingestion_gateway_id or connection_name.
 	// +kubebuilder:validation:Optional
 	ConnectionName *string `json:"connectionName,omitempty" tf:"connection_name,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	ConnectorType *string `json:"connectorType,omitempty" tf:"connector_type,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	DataStagingOptions *DataStagingOptionsParameters `json:"dataStagingOptions,omitempty" tf:"data_staging_options,omitempty"`
 
 	// +kubebuilder:validation:Optional
 	FullRefreshWindow *FullRefreshWindowParameters `json:"fullRefreshWindow,omitempty" tf:"full_refresh_window,omitempty"`
@@ -923,6 +2123,10 @@ type IngestionDefinitionTableConfigurationAutoFullRefreshPolicyParameters struct
 type IngestionDefinitionTableConfigurationInitParameters struct {
 	AutoFullRefreshPolicy *IngestionDefinitionTableConfigurationAutoFullRefreshPolicyInitParameters `json:"autoFullRefreshPolicy,omitempty" tf:"auto_full_refresh_policy,omitempty"`
 
+	ClusteringColumns []*string `json:"clusteringColumns,omitempty" tf:"clustering_columns,omitempty"`
+
+	EnableAutoClustering *bool `json:"enableAutoClustering,omitempty" tf:"enable_auto_clustering,omitempty"`
+
 	ExcludeColumns []*string `json:"excludeColumns,omitempty" tf:"exclude_columns,omitempty"`
 
 	IncludeColumns []*string `json:"includeColumns,omitempty" tf:"include_columns,omitempty"`
@@ -939,11 +2143,20 @@ type IngestionDefinitionTableConfigurationInitParameters struct {
 
 	SequenceBy []*string `json:"sequenceBy,omitempty" tf:"sequence_by,omitempty"`
 
+	SourceMetadataColumn *string `json:"sourceMetadataColumn,omitempty" tf:"source_metadata_column,omitempty"`
+
+	// +mapType=granular
+	TableProperties map[string]*string `json:"tableProperties,omitempty" tf:"table_properties,omitempty"`
+
 	WorkdayReportParameters *IngestionDefinitionTableConfigurationWorkdayReportParametersInitParameters `json:"workdayReportParameters,omitempty" tf:"workday_report_parameters,omitempty"`
 }
 
 type IngestionDefinitionTableConfigurationObservation struct {
 	AutoFullRefreshPolicy *IngestionDefinitionTableConfigurationAutoFullRefreshPolicyObservation `json:"autoFullRefreshPolicy,omitempty" tf:"auto_full_refresh_policy,omitempty"`
+
+	ClusteringColumns []*string `json:"clusteringColumns,omitempty" tf:"clustering_columns,omitempty"`
+
+	EnableAutoClustering *bool `json:"enableAutoClustering,omitempty" tf:"enable_auto_clustering,omitempty"`
 
 	ExcludeColumns []*string `json:"excludeColumns,omitempty" tf:"exclude_columns,omitempty"`
 
@@ -961,6 +2174,11 @@ type IngestionDefinitionTableConfigurationObservation struct {
 
 	SequenceBy []*string `json:"sequenceBy,omitempty" tf:"sequence_by,omitempty"`
 
+	SourceMetadataColumn *string `json:"sourceMetadataColumn,omitempty" tf:"source_metadata_column,omitempty"`
+
+	// +mapType=granular
+	TableProperties map[string]*string `json:"tableProperties,omitempty" tf:"table_properties,omitempty"`
+
 	WorkdayReportParameters *IngestionDefinitionTableConfigurationWorkdayReportParametersObservation `json:"workdayReportParameters,omitempty" tf:"workday_report_parameters,omitempty"`
 }
 
@@ -968,6 +2186,12 @@ type IngestionDefinitionTableConfigurationParameters struct {
 
 	// +kubebuilder:validation:Optional
 	AutoFullRefreshPolicy *IngestionDefinitionTableConfigurationAutoFullRefreshPolicyParameters `json:"autoFullRefreshPolicy,omitempty" tf:"auto_full_refresh_policy,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	ClusteringColumns []*string `json:"clusteringColumns,omitempty" tf:"clustering_columns,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	EnableAutoClustering *bool `json:"enableAutoClustering,omitempty" tf:"enable_auto_clustering,omitempty"`
 
 	// +kubebuilder:validation:Optional
 	ExcludeColumns []*string `json:"excludeColumns,omitempty" tf:"exclude_columns,omitempty"`
@@ -992,6 +2216,13 @@ type IngestionDefinitionTableConfigurationParameters struct {
 
 	// +kubebuilder:validation:Optional
 	SequenceBy []*string `json:"sequenceBy,omitempty" tf:"sequence_by,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	SourceMetadataColumn *string `json:"sourceMetadataColumn,omitempty" tf:"source_metadata_column,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	// +mapType=granular
+	TableProperties map[string]*string `json:"tableProperties,omitempty" tf:"table_properties,omitempty"`
 
 	// +kubebuilder:validation:Optional
 	WorkdayReportParameters *IngestionDefinitionTableConfigurationWorkdayReportParametersParameters `json:"workdayReportParameters,omitempty" tf:"workday_report_parameters,omitempty"`
@@ -1077,6 +2308,279 @@ type IngestionDefinitionTableConfigurationWorkdayReportParametersReportParameter
 	Value *string `json:"value,omitempty" tf:"value,omitempty"`
 }
 
+type JSONOptionsInitParameters struct {
+	AsVariant *bool `json:"asVariant,omitempty" tf:"as_variant,omitempty"`
+
+	// The default schema (database) where tables are read from or published to. The presence of this attribute implies that the pipeline is in direct publishing mode.
+	Schema *string `json:"schema,omitempty" tf:"schema,omitempty"`
+
+	SchemaEvolutionMode *string `json:"schemaEvolutionMode,omitempty" tf:"schema_evolution_mode,omitempty"`
+
+	SchemaFilePath *string `json:"schemaFilePath,omitempty" tf:"schema_file_path,omitempty"`
+
+	SchemaHints *string `json:"schemaHints,omitempty" tf:"schema_hints,omitempty"`
+}
+
+type JSONOptionsObservation struct {
+	AsVariant *bool `json:"asVariant,omitempty" tf:"as_variant,omitempty"`
+
+	// The default schema (database) where tables are read from or published to. The presence of this attribute implies that the pipeline is in direct publishing mode.
+	Schema *string `json:"schema,omitempty" tf:"schema,omitempty"`
+
+	SchemaEvolutionMode *string `json:"schemaEvolutionMode,omitempty" tf:"schema_evolution_mode,omitempty"`
+
+	SchemaFilePath *string `json:"schemaFilePath,omitempty" tf:"schema_file_path,omitempty"`
+
+	SchemaHints *string `json:"schemaHints,omitempty" tf:"schema_hints,omitempty"`
+}
+
+type JSONOptionsParameters struct {
+
+	// +kubebuilder:validation:Optional
+	AsVariant *bool `json:"asVariant,omitempty" tf:"as_variant,omitempty"`
+
+	// The default schema (database) where tables are read from or published to. The presence of this attribute implies that the pipeline is in direct publishing mode.
+	// +kubebuilder:validation:Optional
+	Schema *string `json:"schema,omitempty" tf:"schema,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	SchemaEvolutionMode *string `json:"schemaEvolutionMode,omitempty" tf:"schema_evolution_mode,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	SchemaFilePath *string `json:"schemaFilePath,omitempty" tf:"schema_file_path,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	SchemaHints *string `json:"schemaHints,omitempty" tf:"schema_hints,omitempty"`
+}
+
+type JiraOptionsInitParameters struct {
+	IncludeJiraSpaces []*string `json:"includeJiraSpaces,omitempty" tf:"include_jira_spaces,omitempty"`
+}
+
+type JiraOptionsObservation struct {
+	IncludeJiraSpaces []*string `json:"includeJiraSpaces,omitempty" tf:"include_jira_spaces,omitempty"`
+}
+
+type JiraOptionsParameters struct {
+
+	// +kubebuilder:validation:Optional
+	IncludeJiraSpaces []*string `json:"includeJiraSpaces,omitempty" tf:"include_jira_spaces,omitempty"`
+}
+
+type KafkaOptionsInitParameters struct {
+
+	// +mapType=granular
+	ClientConfig map[string]*string `json:"clientConfig,omitempty" tf:"client_config,omitempty"`
+
+	KeyTransformer *KeyTransformerInitParameters `json:"keyTransformer,omitempty" tf:"key_transformer,omitempty"`
+
+	MaxOffsetsPerTrigger *float64 `json:"maxOffsetsPerTrigger,omitempty" tf:"max_offsets_per_trigger,omitempty"`
+
+	StartingOffset *string `json:"startingOffset,omitempty" tf:"starting_offset,omitempty"`
+
+	TopicPattern *string `json:"topicPattern,omitempty" tf:"topic_pattern,omitempty"`
+
+	Topics []*string `json:"topics,omitempty" tf:"topics,omitempty"`
+
+	ValueTransformer *ValueTransformerInitParameters `json:"valueTransformer,omitempty" tf:"value_transformer,omitempty"`
+}
+
+type KafkaOptionsKeyTransformerInitParameters struct {
+	Format *string `json:"format,omitempty" tf:"format,omitempty"`
+
+	JSONOptions *KeyTransformerJSONOptionsInitParameters `json:"jsonOptions,omitempty" tf:"json_options,omitempty"`
+}
+
+type KafkaOptionsKeyTransformerObservation struct {
+	Format *string `json:"format,omitempty" tf:"format,omitempty"`
+
+	JSONOptions *KeyTransformerJSONOptionsObservation `json:"jsonOptions,omitempty" tf:"json_options,omitempty"`
+}
+
+type KafkaOptionsKeyTransformerParameters struct {
+
+	// +kubebuilder:validation:Optional
+	Format *string `json:"format,omitempty" tf:"format,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	JSONOptions *KeyTransformerJSONOptionsParameters `json:"jsonOptions,omitempty" tf:"json_options,omitempty"`
+}
+
+type KafkaOptionsObservation struct {
+
+	// +mapType=granular
+	ClientConfig map[string]*string `json:"clientConfig,omitempty" tf:"client_config,omitempty"`
+
+	KeyTransformer *KeyTransformerObservation `json:"keyTransformer,omitempty" tf:"key_transformer,omitempty"`
+
+	MaxOffsetsPerTrigger *float64 `json:"maxOffsetsPerTrigger,omitempty" tf:"max_offsets_per_trigger,omitempty"`
+
+	StartingOffset *string `json:"startingOffset,omitempty" tf:"starting_offset,omitempty"`
+
+	TopicPattern *string `json:"topicPattern,omitempty" tf:"topic_pattern,omitempty"`
+
+	Topics []*string `json:"topics,omitempty" tf:"topics,omitempty"`
+
+	ValueTransformer *ValueTransformerObservation `json:"valueTransformer,omitempty" tf:"value_transformer,omitempty"`
+}
+
+type KafkaOptionsParameters struct {
+
+	// +kubebuilder:validation:Optional
+	// +mapType=granular
+	ClientConfig map[string]*string `json:"clientConfig,omitempty" tf:"client_config,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	KeyTransformer *KeyTransformerParameters `json:"keyTransformer,omitempty" tf:"key_transformer,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	MaxOffsetsPerTrigger *float64 `json:"maxOffsetsPerTrigger,omitempty" tf:"max_offsets_per_trigger,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	StartingOffset *string `json:"startingOffset,omitempty" tf:"starting_offset,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	TopicPattern *string `json:"topicPattern,omitempty" tf:"topic_pattern,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	Topics []*string `json:"topics,omitempty" tf:"topics,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	ValueTransformer *ValueTransformerParameters `json:"valueTransformer,omitempty" tf:"value_transformer,omitempty"`
+}
+
+type KafkaOptionsValueTransformerInitParameters struct {
+	Format *string `json:"format,omitempty" tf:"format,omitempty"`
+
+	JSONOptions *KafkaOptionsValueTransformerJSONOptionsInitParameters `json:"jsonOptions,omitempty" tf:"json_options,omitempty"`
+}
+
+type KafkaOptionsValueTransformerJSONOptionsInitParameters struct {
+	AsVariant *bool `json:"asVariant,omitempty" tf:"as_variant,omitempty"`
+
+	// The default schema (database) where tables are read from or published to. The presence of this attribute implies that the pipeline is in direct publishing mode.
+	Schema *string `json:"schema,omitempty" tf:"schema,omitempty"`
+
+	SchemaEvolutionMode *string `json:"schemaEvolutionMode,omitempty" tf:"schema_evolution_mode,omitempty"`
+
+	SchemaFilePath *string `json:"schemaFilePath,omitempty" tf:"schema_file_path,omitempty"`
+
+	SchemaHints *string `json:"schemaHints,omitempty" tf:"schema_hints,omitempty"`
+}
+
+type KafkaOptionsValueTransformerJSONOptionsObservation struct {
+	AsVariant *bool `json:"asVariant,omitempty" tf:"as_variant,omitempty"`
+
+	// The default schema (database) where tables are read from or published to. The presence of this attribute implies that the pipeline is in direct publishing mode.
+	Schema *string `json:"schema,omitempty" tf:"schema,omitempty"`
+
+	SchemaEvolutionMode *string `json:"schemaEvolutionMode,omitempty" tf:"schema_evolution_mode,omitempty"`
+
+	SchemaFilePath *string `json:"schemaFilePath,omitempty" tf:"schema_file_path,omitempty"`
+
+	SchemaHints *string `json:"schemaHints,omitempty" tf:"schema_hints,omitempty"`
+}
+
+type KafkaOptionsValueTransformerJSONOptionsParameters struct {
+
+	// +kubebuilder:validation:Optional
+	AsVariant *bool `json:"asVariant,omitempty" tf:"as_variant,omitempty"`
+
+	// The default schema (database) where tables are read from or published to. The presence of this attribute implies that the pipeline is in direct publishing mode.
+	// +kubebuilder:validation:Optional
+	Schema *string `json:"schema,omitempty" tf:"schema,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	SchemaEvolutionMode *string `json:"schemaEvolutionMode,omitempty" tf:"schema_evolution_mode,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	SchemaFilePath *string `json:"schemaFilePath,omitempty" tf:"schema_file_path,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	SchemaHints *string `json:"schemaHints,omitempty" tf:"schema_hints,omitempty"`
+}
+
+type KafkaOptionsValueTransformerObservation struct {
+	Format *string `json:"format,omitempty" tf:"format,omitempty"`
+
+	JSONOptions *KafkaOptionsValueTransformerJSONOptionsObservation `json:"jsonOptions,omitempty" tf:"json_options,omitempty"`
+}
+
+type KafkaOptionsValueTransformerParameters struct {
+
+	// +kubebuilder:validation:Optional
+	Format *string `json:"format,omitempty" tf:"format,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	JSONOptions *KafkaOptionsValueTransformerJSONOptionsParameters `json:"jsonOptions,omitempty" tf:"json_options,omitempty"`
+}
+
+type KeyTransformerInitParameters struct {
+	Format *string `json:"format,omitempty" tf:"format,omitempty"`
+
+	JSONOptions *JSONOptionsInitParameters `json:"jsonOptions,omitempty" tf:"json_options,omitempty"`
+}
+
+type KeyTransformerJSONOptionsInitParameters struct {
+	AsVariant *bool `json:"asVariant,omitempty" tf:"as_variant,omitempty"`
+
+	// The default schema (database) where tables are read from or published to. The presence of this attribute implies that the pipeline is in direct publishing mode.
+	Schema *string `json:"schema,omitempty" tf:"schema,omitempty"`
+
+	SchemaEvolutionMode *string `json:"schemaEvolutionMode,omitempty" tf:"schema_evolution_mode,omitempty"`
+
+	SchemaFilePath *string `json:"schemaFilePath,omitempty" tf:"schema_file_path,omitempty"`
+
+	SchemaHints *string `json:"schemaHints,omitempty" tf:"schema_hints,omitempty"`
+}
+
+type KeyTransformerJSONOptionsObservation struct {
+	AsVariant *bool `json:"asVariant,omitempty" tf:"as_variant,omitempty"`
+
+	// The default schema (database) where tables are read from or published to. The presence of this attribute implies that the pipeline is in direct publishing mode.
+	Schema *string `json:"schema,omitempty" tf:"schema,omitempty"`
+
+	SchemaEvolutionMode *string `json:"schemaEvolutionMode,omitempty" tf:"schema_evolution_mode,omitempty"`
+
+	SchemaFilePath *string `json:"schemaFilePath,omitempty" tf:"schema_file_path,omitempty"`
+
+	SchemaHints *string `json:"schemaHints,omitempty" tf:"schema_hints,omitempty"`
+}
+
+type KeyTransformerJSONOptionsParameters struct {
+
+	// +kubebuilder:validation:Optional
+	AsVariant *bool `json:"asVariant,omitempty" tf:"as_variant,omitempty"`
+
+	// The default schema (database) where tables are read from or published to. The presence of this attribute implies that the pipeline is in direct publishing mode.
+	// +kubebuilder:validation:Optional
+	Schema *string `json:"schema,omitempty" tf:"schema,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	SchemaEvolutionMode *string `json:"schemaEvolutionMode,omitempty" tf:"schema_evolution_mode,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	SchemaFilePath *string `json:"schemaFilePath,omitempty" tf:"schema_file_path,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	SchemaHints *string `json:"schemaHints,omitempty" tf:"schema_hints,omitempty"`
+}
+
+type KeyTransformerObservation struct {
+	Format *string `json:"format,omitempty" tf:"format,omitempty"`
+
+	JSONOptions *JSONOptionsObservation `json:"jsonOptions,omitempty" tf:"json_options,omitempty"`
+}
+
+type KeyTransformerParameters struct {
+
+	// +kubebuilder:validation:Optional
+	Format *string `json:"format,omitempty" tf:"format,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	JSONOptions *JSONOptionsParameters `json:"jsonOptions,omitempty" tf:"json_options,omitempty"`
+}
+
 type LatestUpdatesInitParameters struct {
 	CreationTime *string `json:"creationTime,omitempty" tf:"creation_time,omitempty"`
 
@@ -1129,6 +2633,125 @@ type ManualObservation struct {
 }
 
 type ManualParameters struct {
+}
+
+type MetaAdsOptionsCustomReportOptionsInitParameters struct {
+	ActionAttributionWindows []*string `json:"actionAttributionWindows,omitempty" tf:"action_attribution_windows,omitempty"`
+
+	ActionBreakdowns []*string `json:"actionBreakdowns,omitempty" tf:"action_breakdowns,omitempty"`
+
+	ActionReportTime *string `json:"actionReportTime,omitempty" tf:"action_report_time,omitempty"`
+
+	Breakdowns []*string `json:"breakdowns,omitempty" tf:"breakdowns,omitempty"`
+
+	Level *string `json:"level,omitempty" tf:"level,omitempty"`
+
+	TimeIncrement *string `json:"timeIncrement,omitempty" tf:"time_increment,omitempty"`
+}
+
+type MetaAdsOptionsCustomReportOptionsObservation struct {
+	ActionAttributionWindows []*string `json:"actionAttributionWindows,omitempty" tf:"action_attribution_windows,omitempty"`
+
+	ActionBreakdowns []*string `json:"actionBreakdowns,omitempty" tf:"action_breakdowns,omitempty"`
+
+	ActionReportTime *string `json:"actionReportTime,omitempty" tf:"action_report_time,omitempty"`
+
+	Breakdowns []*string `json:"breakdowns,omitempty" tf:"breakdowns,omitempty"`
+
+	Level *string `json:"level,omitempty" tf:"level,omitempty"`
+
+	TimeIncrement *string `json:"timeIncrement,omitempty" tf:"time_increment,omitempty"`
+}
+
+type MetaAdsOptionsCustomReportOptionsParameters struct {
+
+	// +kubebuilder:validation:Optional
+	ActionAttributionWindows []*string `json:"actionAttributionWindows,omitempty" tf:"action_attribution_windows,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	ActionBreakdowns []*string `json:"actionBreakdowns,omitempty" tf:"action_breakdowns,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	ActionReportTime *string `json:"actionReportTime,omitempty" tf:"action_report_time,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	Breakdowns []*string `json:"breakdowns,omitempty" tf:"breakdowns,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	Level *string `json:"level,omitempty" tf:"level,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	TimeIncrement *string `json:"timeIncrement,omitempty" tf:"time_increment,omitempty"`
+}
+
+type MetaAdsOptionsInitParameters struct {
+	ActionAttributionWindows []*string `json:"actionAttributionWindows,omitempty" tf:"action_attribution_windows,omitempty"`
+
+	ActionBreakdowns []*string `json:"actionBreakdowns,omitempty" tf:"action_breakdowns,omitempty"`
+
+	ActionReportTime *string `json:"actionReportTime,omitempty" tf:"action_report_time,omitempty"`
+
+	Breakdowns []*string `json:"breakdowns,omitempty" tf:"breakdowns,omitempty"`
+
+	CustomInsightsLookbackWindow *float64 `json:"customInsightsLookbackWindow,omitempty" tf:"custom_insights_lookback_window,omitempty"`
+
+	CustomReportOptions *MetaAdsOptionsCustomReportOptionsInitParameters `json:"customReportOptions,omitempty" tf:"custom_report_options,omitempty"`
+
+	Level *string `json:"level,omitempty" tf:"level,omitempty"`
+
+	StartDate *string `json:"startDate,omitempty" tf:"start_date,omitempty"`
+
+	TimeIncrement *string `json:"timeIncrement,omitempty" tf:"time_increment,omitempty"`
+}
+
+type MetaAdsOptionsObservation struct {
+	ActionAttributionWindows []*string `json:"actionAttributionWindows,omitempty" tf:"action_attribution_windows,omitempty"`
+
+	ActionBreakdowns []*string `json:"actionBreakdowns,omitempty" tf:"action_breakdowns,omitempty"`
+
+	ActionReportTime *string `json:"actionReportTime,omitempty" tf:"action_report_time,omitempty"`
+
+	Breakdowns []*string `json:"breakdowns,omitempty" tf:"breakdowns,omitempty"`
+
+	CustomInsightsLookbackWindow *float64 `json:"customInsightsLookbackWindow,omitempty" tf:"custom_insights_lookback_window,omitempty"`
+
+	CustomReportOptions *MetaAdsOptionsCustomReportOptionsObservation `json:"customReportOptions,omitempty" tf:"custom_report_options,omitempty"`
+
+	Level *string `json:"level,omitempty" tf:"level,omitempty"`
+
+	StartDate *string `json:"startDate,omitempty" tf:"start_date,omitempty"`
+
+	TimeIncrement *string `json:"timeIncrement,omitempty" tf:"time_increment,omitempty"`
+}
+
+type MetaAdsOptionsParameters struct {
+
+	// +kubebuilder:validation:Optional
+	ActionAttributionWindows []*string `json:"actionAttributionWindows,omitempty" tf:"action_attribution_windows,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	ActionBreakdowns []*string `json:"actionBreakdowns,omitempty" tf:"action_breakdowns,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	ActionReportTime *string `json:"actionReportTime,omitempty" tf:"action_report_time,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	Breakdowns []*string `json:"breakdowns,omitempty" tf:"breakdowns,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	CustomInsightsLookbackWindow *float64 `json:"customInsightsLookbackWindow,omitempty" tf:"custom_insights_lookback_window,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	CustomReportOptions *MetaAdsOptionsCustomReportOptionsParameters `json:"customReportOptions,omitempty" tf:"custom_report_options,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	Level *string `json:"level,omitempty" tf:"level,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	StartDate *string `json:"startDate,omitempty" tf:"start_date,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	TimeIncrement *string `json:"timeIncrement,omitempty" tf:"time_increment,omitempty"`
 }
 
 type NotebookInitParameters struct {
@@ -1224,6 +2847,83 @@ type ObjectsParameters struct {
 
 	// +kubebuilder:validation:Optional
 	Table *TableParameters `json:"table,omitempty" tf:"table,omitempty"`
+}
+
+type OutlookOptionsInitParameters struct {
+	AttachmentMode *string `json:"attachmentMode,omitempty" tf:"attachment_mode,omitempty"`
+
+	BodyFormat *string `json:"bodyFormat,omitempty" tf:"body_format,omitempty"`
+
+	FolderFilter []*string `json:"folderFilter,omitempty" tf:"folder_filter,omitempty"`
+
+	IncludeFolders []*string `json:"includeFolders,omitempty" tf:"include_folders,omitempty"`
+
+	IncludeMailboxes []*string `json:"includeMailboxes,omitempty" tf:"include_mailboxes,omitempty"`
+
+	IncludeSenders []*string `json:"includeSenders,omitempty" tf:"include_senders,omitempty"`
+
+	IncludeSubjects []*string `json:"includeSubjects,omitempty" tf:"include_subjects,omitempty"`
+
+	SenderFilter []*string `json:"senderFilter,omitempty" tf:"sender_filter,omitempty"`
+
+	StartDate *string `json:"startDate,omitempty" tf:"start_date,omitempty"`
+
+	SubjectFilter []*string `json:"subjectFilter,omitempty" tf:"subject_filter,omitempty"`
+}
+
+type OutlookOptionsObservation struct {
+	AttachmentMode *string `json:"attachmentMode,omitempty" tf:"attachment_mode,omitempty"`
+
+	BodyFormat *string `json:"bodyFormat,omitempty" tf:"body_format,omitempty"`
+
+	FolderFilter []*string `json:"folderFilter,omitempty" tf:"folder_filter,omitempty"`
+
+	IncludeFolders []*string `json:"includeFolders,omitempty" tf:"include_folders,omitempty"`
+
+	IncludeMailboxes []*string `json:"includeMailboxes,omitempty" tf:"include_mailboxes,omitempty"`
+
+	IncludeSenders []*string `json:"includeSenders,omitempty" tf:"include_senders,omitempty"`
+
+	IncludeSubjects []*string `json:"includeSubjects,omitempty" tf:"include_subjects,omitempty"`
+
+	SenderFilter []*string `json:"senderFilter,omitempty" tf:"sender_filter,omitempty"`
+
+	StartDate *string `json:"startDate,omitempty" tf:"start_date,omitempty"`
+
+	SubjectFilter []*string `json:"subjectFilter,omitempty" tf:"subject_filter,omitempty"`
+}
+
+type OutlookOptionsParameters struct {
+
+	// +kubebuilder:validation:Optional
+	AttachmentMode *string `json:"attachmentMode,omitempty" tf:"attachment_mode,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	BodyFormat *string `json:"bodyFormat,omitempty" tf:"body_format,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	FolderFilter []*string `json:"folderFilter,omitempty" tf:"folder_filter,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	IncludeFolders []*string `json:"includeFolders,omitempty" tf:"include_folders,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	IncludeMailboxes []*string `json:"includeMailboxes,omitempty" tf:"include_mailboxes,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	IncludeSenders []*string `json:"includeSenders,omitempty" tf:"include_senders,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	IncludeSubjects []*string `json:"includeSubjects,omitempty" tf:"include_subjects,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	SenderFilter []*string `json:"senderFilter,omitempty" tf:"sender_filter,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	StartDate *string `json:"startDate,omitempty" tf:"start_date,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	SubjectFilter []*string `json:"subjectFilter,omitempty" tf:"subject_filter,omitempty"`
 }
 
 type PipelineClusterInitParameters struct {
@@ -1395,23 +3095,39 @@ type PipelineClusterParameters struct {
 
 type PipelineDeploymentInitParameters struct {
 
+	// Canonical unique identifier of the Lakeflow Declarative Pipeline.
+	DeploymentID *string `json:"deploymentId,omitempty" tf:"deployment_id,omitempty"`
+
 	// The deployment method that manages the pipeline.
 	Kind *string `json:"kind,omitempty" tf:"kind,omitempty"`
 
 	// The path to the file containing metadata about the deployment.
 	MetadataFilePath *string `json:"metadataFilePath,omitempty" tf:"metadata_file_path,omitempty"`
+
+	// Canonical unique identifier of the Lakeflow Declarative Pipeline.
+	VersionID *string `json:"versionId,omitempty" tf:"version_id,omitempty"`
 }
 
 type PipelineDeploymentObservation struct {
 
+	// Canonical unique identifier of the Lakeflow Declarative Pipeline.
+	DeploymentID *string `json:"deploymentId,omitempty" tf:"deployment_id,omitempty"`
+
 	// The deployment method that manages the pipeline.
 	Kind *string `json:"kind,omitempty" tf:"kind,omitempty"`
 
 	// The path to the file containing metadata about the deployment.
 	MetadataFilePath *string `json:"metadataFilePath,omitempty" tf:"metadata_file_path,omitempty"`
+
+	// Canonical unique identifier of the Lakeflow Declarative Pipeline.
+	VersionID *string `json:"versionId,omitempty" tf:"version_id,omitempty"`
 }
 
 type PipelineDeploymentParameters struct {
+
+	// Canonical unique identifier of the Lakeflow Declarative Pipeline.
+	// +kubebuilder:validation:Optional
+	DeploymentID *string `json:"deploymentId,omitempty" tf:"deployment_id,omitempty"`
 
 	// The deployment method that manages the pipeline.
 	// +kubebuilder:validation:Optional
@@ -1420,18 +3136,26 @@ type PipelineDeploymentParameters struct {
 	// The path to the file containing metadata about the deployment.
 	// +kubebuilder:validation:Optional
 	MetadataFilePath *string `json:"metadataFilePath,omitempty" tf:"metadata_file_path,omitempty"`
+
+	// Canonical unique identifier of the Lakeflow Declarative Pipeline.
+	// +kubebuilder:validation:Optional
+	VersionID *string `json:"versionId,omitempty" tf:"version_id,omitempty"`
 }
 
 type PipelineEnvironmentInitParameters struct {
 
 	// a list of pip dependencies, as supported by the version of pip in this environment. Each dependency is a pip requirement file line.  See API docs for more information.
 	Dependencies []*string `json:"dependencies,omitempty" tf:"dependencies,omitempty"`
+
+	EnvironmentVersion *string `json:"environmentVersion,omitempty" tf:"environment_version,omitempty"`
 }
 
 type PipelineEnvironmentObservation struct {
 
 	// a list of pip dependencies, as supported by the version of pip in this environment. Each dependency is a pip requirement file line.  See API docs for more information.
 	Dependencies []*string `json:"dependencies,omitempty" tf:"dependencies,omitempty"`
+
+	EnvironmentVersion *string `json:"environmentVersion,omitempty" tf:"environment_version,omitempty"`
 }
 
 type PipelineEnvironmentParameters struct {
@@ -1439,6 +3163,9 @@ type PipelineEnvironmentParameters struct {
 	// a list of pip dependencies, as supported by the version of pip in this environment. Each dependency is a pip requirement file line.  See API docs for more information.
 	// +kubebuilder:validation:Optional
 	Dependencies []*string `json:"dependencies,omitempty" tf:"dependencies,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	EnvironmentVersion *string `json:"environmentVersion,omitempty" tf:"environment_version,omitempty"`
 }
 
 type PipelineInitParameters struct {
@@ -1533,6 +3260,9 @@ type PipelineInitParameters struct {
 
 	// An optional flag indicating if serverless compute should be used for this Lakeflow Declarative Pipeline.  Requires catalog to be set, as it could be used only with Unity Catalog.
 	Serverless *bool `json:"serverless,omitempty" tf:"serverless,omitempty"`
+
+	// Canonical unique identifier of the Lakeflow Declarative Pipeline.
+	ServerlessComputeID *string `json:"serverlessComputeId,omitempty" tf:"serverless_compute_id,omitempty"`
 
 	State *string `json:"state,omitempty" tf:"state,omitempty"`
 
@@ -1739,6 +3469,9 @@ type PipelineObservation struct {
 	// An optional flag indicating if serverless compute should be used for this Lakeflow Declarative Pipeline.  Requires catalog to be set, as it could be used only with Unity Catalog.
 	Serverless *bool `json:"serverless,omitempty" tf:"serverless,omitempty"`
 
+	// Canonical unique identifier of the Lakeflow Declarative Pipeline.
+	ServerlessComputeID *string `json:"serverlessComputeId,omitempty" tf:"serverless_compute_id,omitempty"`
+
 	State *string `json:"state,omitempty" tf:"state,omitempty"`
 
 	// to catalog or vice versa.  If pipeline was already created with catalog set, the value could be changed.
@@ -1886,6 +3619,10 @@ type PipelineParameters struct {
 	// +kubebuilder:validation:Optional
 	Serverless *bool `json:"serverless,omitempty" tf:"serverless,omitempty"`
 
+	// Canonical unique identifier of the Lakeflow Declarative Pipeline.
+	// +kubebuilder:validation:Optional
+	ServerlessComputeID *string `json:"serverlessComputeId,omitempty" tf:"serverless_compute_id,omitempty"`
+
 	// +kubebuilder:validation:Optional
 	State *string `json:"state,omitempty" tf:"state,omitempty"`
 
@@ -1930,7 +3667,7 @@ type PipelineProviderConfigParameters struct {
 
 	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
 	// +kubebuilder:validation:Optional
-	WorkspaceID *string `json:"workspaceId" tf:"workspace_id,omitempty"`
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
 }
 
 type PipelineRunAsInitParameters struct {
@@ -2134,6 +3871,7 @@ type RestartWindowParameters struct {
 }
 
 type SchemaInitParameters struct {
+	ConnectorOptions *ConnectorOptionsInitParameters `json:"connectorOptions,omitempty" tf:"connector_options,omitempty"`
 
 	// The name of default catalog in Unity Catalog. Change of this parameter forces recreation of the pipeline if you switch from  (Conflicts with storage).
 	DestinationCatalog *string `json:"destinationCatalog,omitempty" tf:"destination_catalog,omitempty"`
@@ -2152,6 +3890,7 @@ type SchemaInitParameters struct {
 }
 
 type SchemaObservation struct {
+	ConnectorOptions *ConnectorOptionsObservation `json:"connectorOptions,omitempty" tf:"connector_options,omitempty"`
 
 	// The name of default catalog in Unity Catalog. Change of this parameter forces recreation of the pipeline if you switch from  (Conflicts with storage).
 	DestinationCatalog *string `json:"destinationCatalog,omitempty" tf:"destination_catalog,omitempty"`
@@ -2170,6 +3909,9 @@ type SchemaObservation struct {
 }
 
 type SchemaParameters struct {
+
+	// +kubebuilder:validation:Optional
+	ConnectorOptions *ConnectorOptionsParameters `json:"connectorOptions,omitempty" tf:"connector_options,omitempty"`
 
 	// The name of default catalog in Unity Catalog. Change of this parameter forces recreation of the pipeline if you switch from  (Conflicts with storage).
 	// +kubebuilder:validation:Optional
@@ -2195,6 +3937,10 @@ type SchemaParameters struct {
 type SchemaTableConfigurationInitParameters struct {
 	AutoFullRefreshPolicy *TableConfigurationAutoFullRefreshPolicyInitParameters `json:"autoFullRefreshPolicy,omitempty" tf:"auto_full_refresh_policy,omitempty"`
 
+	ClusteringColumns []*string `json:"clusteringColumns,omitempty" tf:"clustering_columns,omitempty"`
+
+	EnableAutoClustering *bool `json:"enableAutoClustering,omitempty" tf:"enable_auto_clustering,omitempty"`
+
 	ExcludeColumns []*string `json:"excludeColumns,omitempty" tf:"exclude_columns,omitempty"`
 
 	IncludeColumns []*string `json:"includeColumns,omitempty" tf:"include_columns,omitempty"`
@@ -2211,11 +3957,20 @@ type SchemaTableConfigurationInitParameters struct {
 
 	SequenceBy []*string `json:"sequenceBy,omitempty" tf:"sequence_by,omitempty"`
 
+	SourceMetadataColumn *string `json:"sourceMetadataColumn,omitempty" tf:"source_metadata_column,omitempty"`
+
+	// +mapType=granular
+	TableProperties map[string]*string `json:"tableProperties,omitempty" tf:"table_properties,omitempty"`
+
 	WorkdayReportParameters *TableConfigurationWorkdayReportParametersInitParameters `json:"workdayReportParameters,omitempty" tf:"workday_report_parameters,omitempty"`
 }
 
 type SchemaTableConfigurationObservation struct {
 	AutoFullRefreshPolicy *TableConfigurationAutoFullRefreshPolicyObservation `json:"autoFullRefreshPolicy,omitempty" tf:"auto_full_refresh_policy,omitempty"`
+
+	ClusteringColumns []*string `json:"clusteringColumns,omitempty" tf:"clustering_columns,omitempty"`
+
+	EnableAutoClustering *bool `json:"enableAutoClustering,omitempty" tf:"enable_auto_clustering,omitempty"`
 
 	ExcludeColumns []*string `json:"excludeColumns,omitempty" tf:"exclude_columns,omitempty"`
 
@@ -2233,6 +3988,11 @@ type SchemaTableConfigurationObservation struct {
 
 	SequenceBy []*string `json:"sequenceBy,omitempty" tf:"sequence_by,omitempty"`
 
+	SourceMetadataColumn *string `json:"sourceMetadataColumn,omitempty" tf:"source_metadata_column,omitempty"`
+
+	// +mapType=granular
+	TableProperties map[string]*string `json:"tableProperties,omitempty" tf:"table_properties,omitempty"`
+
 	WorkdayReportParameters *TableConfigurationWorkdayReportParametersObservation `json:"workdayReportParameters,omitempty" tf:"workday_report_parameters,omitempty"`
 }
 
@@ -2240,6 +4000,12 @@ type SchemaTableConfigurationParameters struct {
 
 	// +kubebuilder:validation:Optional
 	AutoFullRefreshPolicy *TableConfigurationAutoFullRefreshPolicyParameters `json:"autoFullRefreshPolicy,omitempty" tf:"auto_full_refresh_policy,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	ClusteringColumns []*string `json:"clusteringColumns,omitempty" tf:"clustering_columns,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	EnableAutoClustering *bool `json:"enableAutoClustering,omitempty" tf:"enable_auto_clustering,omitempty"`
 
 	// +kubebuilder:validation:Optional
 	ExcludeColumns []*string `json:"excludeColumns,omitempty" tf:"exclude_columns,omitempty"`
@@ -2266,7 +4032,163 @@ type SchemaTableConfigurationParameters struct {
 	SequenceBy []*string `json:"sequenceBy,omitempty" tf:"sequence_by,omitempty"`
 
 	// +kubebuilder:validation:Optional
+	SourceMetadataColumn *string `json:"sourceMetadataColumn,omitempty" tf:"source_metadata_column,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	// +mapType=granular
+	TableProperties map[string]*string `json:"tableProperties,omitempty" tf:"table_properties,omitempty"`
+
+	// +kubebuilder:validation:Optional
 	WorkdayReportParameters *TableConfigurationWorkdayReportParametersParameters `json:"workdayReportParameters,omitempty" tf:"workday_report_parameters,omitempty"`
+}
+
+type SharepointOptionsFileIngestionOptionsFileFiltersInitParameters struct {
+	ModifiedAfter *string `json:"modifiedAfter,omitempty" tf:"modified_after,omitempty"`
+
+	ModifiedBefore *string `json:"modifiedBefore,omitempty" tf:"modified_before,omitempty"`
+
+	PathFilter *string `json:"pathFilter,omitempty" tf:"path_filter,omitempty"`
+}
+
+type SharepointOptionsFileIngestionOptionsFileFiltersObservation struct {
+	ModifiedAfter *string `json:"modifiedAfter,omitempty" tf:"modified_after,omitempty"`
+
+	ModifiedBefore *string `json:"modifiedBefore,omitempty" tf:"modified_before,omitempty"`
+
+	PathFilter *string `json:"pathFilter,omitempty" tf:"path_filter,omitempty"`
+}
+
+type SharepointOptionsFileIngestionOptionsFileFiltersParameters struct {
+
+	// +kubebuilder:validation:Optional
+	ModifiedAfter *string `json:"modifiedAfter,omitempty" tf:"modified_after,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	ModifiedBefore *string `json:"modifiedBefore,omitempty" tf:"modified_before,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	PathFilter *string `json:"pathFilter,omitempty" tf:"path_filter,omitempty"`
+}
+
+type SharepointOptionsFileIngestionOptionsInitParameters struct {
+	CorruptRecordColumn *string `json:"corruptRecordColumn,omitempty" tf:"corrupt_record_column,omitempty"`
+
+	// Filters on which Pipeline packages to include in the deployed graph.  This block consists of following attributes:
+	FileFilters []FileIngestionOptionsFileFiltersInitParameters `json:"fileFilters,omitempty" tf:"file_filters,omitempty"`
+
+	Format *string `json:"format,omitempty" tf:"format,omitempty"`
+
+	// +mapType=granular
+	FormatOptions map[string]*string `json:"formatOptions,omitempty" tf:"format_options,omitempty"`
+
+	IgnoreCorruptFiles *bool `json:"ignoreCorruptFiles,omitempty" tf:"ignore_corrupt_files,omitempty"`
+
+	InferColumnTypes *bool `json:"inferColumnTypes,omitempty" tf:"infer_column_types,omitempty"`
+
+	ReaderCaseSensitive *bool `json:"readerCaseSensitive,omitempty" tf:"reader_case_sensitive,omitempty"`
+
+	RescuedDataColumn *string `json:"rescuedDataColumn,omitempty" tf:"rescued_data_column,omitempty"`
+
+	SchemaEvolutionMode *string `json:"schemaEvolutionMode,omitempty" tf:"schema_evolution_mode,omitempty"`
+
+	SchemaHints *string `json:"schemaHints,omitempty" tf:"schema_hints,omitempty"`
+
+	SingleVariantColumn *string `json:"singleVariantColumn,omitempty" tf:"single_variant_column,omitempty"`
+}
+
+type SharepointOptionsFileIngestionOptionsObservation struct {
+	CorruptRecordColumn *string `json:"corruptRecordColumn,omitempty" tf:"corrupt_record_column,omitempty"`
+
+	// Filters on which Pipeline packages to include in the deployed graph.  This block consists of following attributes:
+	FileFilters []FileIngestionOptionsFileFiltersObservation `json:"fileFilters,omitempty" tf:"file_filters,omitempty"`
+
+	Format *string `json:"format,omitempty" tf:"format,omitempty"`
+
+	// +mapType=granular
+	FormatOptions map[string]*string `json:"formatOptions,omitempty" tf:"format_options,omitempty"`
+
+	IgnoreCorruptFiles *bool `json:"ignoreCorruptFiles,omitempty" tf:"ignore_corrupt_files,omitempty"`
+
+	InferColumnTypes *bool `json:"inferColumnTypes,omitempty" tf:"infer_column_types,omitempty"`
+
+	ReaderCaseSensitive *bool `json:"readerCaseSensitive,omitempty" tf:"reader_case_sensitive,omitempty"`
+
+	RescuedDataColumn *string `json:"rescuedDataColumn,omitempty" tf:"rescued_data_column,omitempty"`
+
+	SchemaEvolutionMode *string `json:"schemaEvolutionMode,omitempty" tf:"schema_evolution_mode,omitempty"`
+
+	SchemaHints *string `json:"schemaHints,omitempty" tf:"schema_hints,omitempty"`
+
+	SingleVariantColumn *string `json:"singleVariantColumn,omitempty" tf:"single_variant_column,omitempty"`
+}
+
+type SharepointOptionsFileIngestionOptionsParameters struct {
+
+	// +kubebuilder:validation:Optional
+	CorruptRecordColumn *string `json:"corruptRecordColumn,omitempty" tf:"corrupt_record_column,omitempty"`
+
+	// Filters on which Pipeline packages to include in the deployed graph.  This block consists of following attributes:
+	// +kubebuilder:validation:Optional
+	FileFilters []FileIngestionOptionsFileFiltersParameters `json:"fileFilters,omitempty" tf:"file_filters,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	Format *string `json:"format,omitempty" tf:"format,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	// +mapType=granular
+	FormatOptions map[string]*string `json:"formatOptions,omitempty" tf:"format_options,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	IgnoreCorruptFiles *bool `json:"ignoreCorruptFiles,omitempty" tf:"ignore_corrupt_files,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	InferColumnTypes *bool `json:"inferColumnTypes,omitempty" tf:"infer_column_types,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	ReaderCaseSensitive *bool `json:"readerCaseSensitive,omitempty" tf:"reader_case_sensitive,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	RescuedDataColumn *string `json:"rescuedDataColumn,omitempty" tf:"rescued_data_column,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	SchemaEvolutionMode *string `json:"schemaEvolutionMode,omitempty" tf:"schema_evolution_mode,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	SchemaHints *string `json:"schemaHints,omitempty" tf:"schema_hints,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	SingleVariantColumn *string `json:"singleVariantColumn,omitempty" tf:"single_variant_column,omitempty"`
+}
+
+type SharepointOptionsInitParameters struct {
+	EntityType *string `json:"entityType,omitempty" tf:"entity_type,omitempty"`
+
+	FileIngestionOptions *SharepointOptionsFileIngestionOptionsInitParameters `json:"fileIngestionOptions,omitempty" tf:"file_ingestion_options,omitempty"`
+
+	// URL of the Lakeflow Declarative Pipeline on the given workspace.
+	URL *string `json:"url,omitempty" tf:"url,omitempty"`
+}
+
+type SharepointOptionsObservation struct {
+	EntityType *string `json:"entityType,omitempty" tf:"entity_type,omitempty"`
+
+	FileIngestionOptions *SharepointOptionsFileIngestionOptionsObservation `json:"fileIngestionOptions,omitempty" tf:"file_ingestion_options,omitempty"`
+
+	// URL of the Lakeflow Declarative Pipeline on the given workspace.
+	URL *string `json:"url,omitempty" tf:"url,omitempty"`
+}
+
+type SharepointOptionsParameters struct {
+
+	// +kubebuilder:validation:Optional
+	EntityType *string `json:"entityType,omitempty" tf:"entity_type,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	FileIngestionOptions *SharepointOptionsFileIngestionOptionsParameters `json:"fileIngestionOptions,omitempty" tf:"file_ingestion_options,omitempty"`
+
+	// URL of the Lakeflow Declarative Pipeline on the given workspace.
+	// +kubebuilder:validation:Optional
+	URL *string `json:"url,omitempty" tf:"url,omitempty"`
 }
 
 type SlotConfigInitParameters struct {
@@ -2298,16 +4220,39 @@ type SlotConfigParameters struct {
 	SlotName *string `json:"slotName,omitempty" tf:"slot_name,omitempty"`
 }
 
+type SmartsheetOptionsInitParameters struct {
+
+	// The default schema (database) where tables are read from or published to. The presence of this attribute implies that the pipeline is in direct publishing mode.
+	EnforceSchema *bool `json:"enforceSchema,omitempty" tf:"enforce_schema,omitempty"`
+}
+
+type SmartsheetOptionsObservation struct {
+
+	// The default schema (database) where tables are read from or published to. The presence of this attribute implies that the pipeline is in direct publishing mode.
+	EnforceSchema *bool `json:"enforceSchema,omitempty" tf:"enforce_schema,omitempty"`
+}
+
+type SmartsheetOptionsParameters struct {
+
+	// The default schema (database) where tables are read from or published to. The presence of this attribute implies that the pipeline is in direct publishing mode.
+	// +kubebuilder:validation:Optional
+	EnforceSchema *bool `json:"enforceSchema,omitempty" tf:"enforce_schema,omitempty"`
+}
+
 type SourceConfigurationsInitParameters struct {
 
 	// The name of default catalog in Unity Catalog. Change of this parameter forces recreation of the pipeline if you switch from  (Conflicts with storage).
 	Catalog *CatalogInitParameters `json:"catalog,omitempty" tf:"catalog,omitempty"`
+
+	GoogleAdsConfig *GoogleAdsConfigInitParameters `json:"googleAdsConfig,omitempty" tf:"google_ads_config,omitempty"`
 }
 
 type SourceConfigurationsObservation struct {
 
 	// The name of default catalog in Unity Catalog. Change of this parameter forces recreation of the pipeline if you switch from  (Conflicts with storage).
 	Catalog *CatalogObservation `json:"catalog,omitempty" tf:"catalog,omitempty"`
+
+	GoogleAdsConfig *GoogleAdsConfigObservation `json:"googleAdsConfig,omitempty" tf:"google_ads_config,omitempty"`
 }
 
 type SourceConfigurationsParameters struct {
@@ -2315,6 +4260,9 @@ type SourceConfigurationsParameters struct {
 	// The name of default catalog in Unity Catalog. Change of this parameter forces recreation of the pipeline if you switch from  (Conflicts with storage).
 	// +kubebuilder:validation:Optional
 	Catalog *CatalogParameters `json:"catalog,omitempty" tf:"catalog,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	GoogleAdsConfig *GoogleAdsConfigParameters `json:"googleAdsConfig,omitempty" tf:"google_ads_config,omitempty"`
 }
 
 type TableConfigurationAutoFullRefreshPolicyInitParameters struct {
@@ -2341,6 +4289,10 @@ type TableConfigurationAutoFullRefreshPolicyParameters struct {
 type TableConfigurationInitParameters struct {
 	AutoFullRefreshPolicy *AutoFullRefreshPolicyInitParameters `json:"autoFullRefreshPolicy,omitempty" tf:"auto_full_refresh_policy,omitempty"`
 
+	ClusteringColumns []*string `json:"clusteringColumns,omitempty" tf:"clustering_columns,omitempty"`
+
+	EnableAutoClustering *bool `json:"enableAutoClustering,omitempty" tf:"enable_auto_clustering,omitempty"`
+
 	ExcludeColumns []*string `json:"excludeColumns,omitempty" tf:"exclude_columns,omitempty"`
 
 	IncludeColumns []*string `json:"includeColumns,omitempty" tf:"include_columns,omitempty"`
@@ -2357,11 +4309,20 @@ type TableConfigurationInitParameters struct {
 
 	SequenceBy []*string `json:"sequenceBy,omitempty" tf:"sequence_by,omitempty"`
 
+	SourceMetadataColumn *string `json:"sourceMetadataColumn,omitempty" tf:"source_metadata_column,omitempty"`
+
+	// +mapType=granular
+	TableProperties map[string]*string `json:"tableProperties,omitempty" tf:"table_properties,omitempty"`
+
 	WorkdayReportParameters *WorkdayReportParametersInitParameters `json:"workdayReportParameters,omitempty" tf:"workday_report_parameters,omitempty"`
 }
 
 type TableConfigurationObservation struct {
 	AutoFullRefreshPolicy *AutoFullRefreshPolicyObservation `json:"autoFullRefreshPolicy,omitempty" tf:"auto_full_refresh_policy,omitempty"`
+
+	ClusteringColumns []*string `json:"clusteringColumns,omitempty" tf:"clustering_columns,omitempty"`
+
+	EnableAutoClustering *bool `json:"enableAutoClustering,omitempty" tf:"enable_auto_clustering,omitempty"`
 
 	ExcludeColumns []*string `json:"excludeColumns,omitempty" tf:"exclude_columns,omitempty"`
 
@@ -2379,6 +4340,11 @@ type TableConfigurationObservation struct {
 
 	SequenceBy []*string `json:"sequenceBy,omitempty" tf:"sequence_by,omitempty"`
 
+	SourceMetadataColumn *string `json:"sourceMetadataColumn,omitempty" tf:"source_metadata_column,omitempty"`
+
+	// +mapType=granular
+	TableProperties map[string]*string `json:"tableProperties,omitempty" tf:"table_properties,omitempty"`
+
 	WorkdayReportParameters *WorkdayReportParametersObservation `json:"workdayReportParameters,omitempty" tf:"workday_report_parameters,omitempty"`
 }
 
@@ -2386,6 +4352,12 @@ type TableConfigurationParameters struct {
 
 	// +kubebuilder:validation:Optional
 	AutoFullRefreshPolicy *AutoFullRefreshPolicyParameters `json:"autoFullRefreshPolicy,omitempty" tf:"auto_full_refresh_policy,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	ClusteringColumns []*string `json:"clusteringColumns,omitempty" tf:"clustering_columns,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	EnableAutoClustering *bool `json:"enableAutoClustering,omitempty" tf:"enable_auto_clustering,omitempty"`
 
 	// +kubebuilder:validation:Optional
 	ExcludeColumns []*string `json:"excludeColumns,omitempty" tf:"exclude_columns,omitempty"`
@@ -2410,6 +4382,13 @@ type TableConfigurationParameters struct {
 
 	// +kubebuilder:validation:Optional
 	SequenceBy []*string `json:"sequenceBy,omitempty" tf:"sequence_by,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	SourceMetadataColumn *string `json:"sourceMetadataColumn,omitempty" tf:"source_metadata_column,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	// +mapType=granular
+	TableProperties map[string]*string `json:"tableProperties,omitempty" tf:"table_properties,omitempty"`
 
 	// +kubebuilder:validation:Optional
 	WorkdayReportParameters *WorkdayReportParametersParameters `json:"workdayReportParameters,omitempty" tf:"workday_report_parameters,omitempty"`
@@ -2495,7 +4474,92 @@ type TableConfigurationWorkdayReportParametersReportParametersParameters struct 
 	Value *string `json:"value,omitempty" tf:"value,omitempty"`
 }
 
+type TableConnectorOptionsInitParameters struct {
+	ConfluenceOptions *ConnectorOptionsConfluenceOptionsInitParameters `json:"confluenceOptions,omitempty" tf:"confluence_options,omitempty"`
+
+	GdriveOptions *ConnectorOptionsGdriveOptionsInitParameters `json:"gdriveOptions,omitempty" tf:"gdrive_options,omitempty"`
+
+	GoogleAdsOptions *ConnectorOptionsGoogleAdsOptionsInitParameters `json:"googleAdsOptions,omitempty" tf:"google_ads_options,omitempty"`
+
+	JiraOptions *ConnectorOptionsJiraOptionsInitParameters `json:"jiraOptions,omitempty" tf:"jira_options,omitempty"`
+
+	KafkaOptions *ConnectorOptionsKafkaOptionsInitParameters `json:"kafkaOptions,omitempty" tf:"kafka_options,omitempty"`
+
+	MetaAdsOptions *ConnectorOptionsMetaAdsOptionsInitParameters `json:"metaAdsOptions,omitempty" tf:"meta_ads_options,omitempty"`
+
+	OutlookOptions *ConnectorOptionsOutlookOptionsInitParameters `json:"outlookOptions,omitempty" tf:"outlook_options,omitempty"`
+
+	SharepointOptions *ConnectorOptionsSharepointOptionsInitParameters `json:"sharepointOptions,omitempty" tf:"sharepoint_options,omitempty"`
+
+	SmartsheetOptions *ConnectorOptionsSmartsheetOptionsInitParameters `json:"smartsheetOptions,omitempty" tf:"smartsheet_options,omitempty"`
+
+	TiktokAdsOptions *ConnectorOptionsTiktokAdsOptionsInitParameters `json:"tiktokAdsOptions,omitempty" tf:"tiktok_ads_options,omitempty"`
+
+	ZendeskSupportOptions *ConnectorOptionsZendeskSupportOptionsInitParameters `json:"zendeskSupportOptions,omitempty" tf:"zendesk_support_options,omitempty"`
+}
+
+type TableConnectorOptionsObservation struct {
+	ConfluenceOptions *ConnectorOptionsConfluenceOptionsObservation `json:"confluenceOptions,omitempty" tf:"confluence_options,omitempty"`
+
+	GdriveOptions *ConnectorOptionsGdriveOptionsObservation `json:"gdriveOptions,omitempty" tf:"gdrive_options,omitempty"`
+
+	GoogleAdsOptions *ConnectorOptionsGoogleAdsOptionsObservation `json:"googleAdsOptions,omitempty" tf:"google_ads_options,omitempty"`
+
+	JiraOptions *ConnectorOptionsJiraOptionsObservation `json:"jiraOptions,omitempty" tf:"jira_options,omitempty"`
+
+	KafkaOptions *ConnectorOptionsKafkaOptionsObservation `json:"kafkaOptions,omitempty" tf:"kafka_options,omitempty"`
+
+	MetaAdsOptions *ConnectorOptionsMetaAdsOptionsObservation `json:"metaAdsOptions,omitempty" tf:"meta_ads_options,omitempty"`
+
+	OutlookOptions *ConnectorOptionsOutlookOptionsObservation `json:"outlookOptions,omitempty" tf:"outlook_options,omitempty"`
+
+	SharepointOptions *ConnectorOptionsSharepointOptionsObservation `json:"sharepointOptions,omitempty" tf:"sharepoint_options,omitempty"`
+
+	SmartsheetOptions *ConnectorOptionsSmartsheetOptionsObservation `json:"smartsheetOptions,omitempty" tf:"smartsheet_options,omitempty"`
+
+	TiktokAdsOptions *ConnectorOptionsTiktokAdsOptionsObservation `json:"tiktokAdsOptions,omitempty" tf:"tiktok_ads_options,omitempty"`
+
+	ZendeskSupportOptions *ConnectorOptionsZendeskSupportOptionsObservation `json:"zendeskSupportOptions,omitempty" tf:"zendesk_support_options,omitempty"`
+}
+
+type TableConnectorOptionsParameters struct {
+
+	// +kubebuilder:validation:Optional
+	ConfluenceOptions *ConnectorOptionsConfluenceOptionsParameters `json:"confluenceOptions,omitempty" tf:"confluence_options,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	GdriveOptions *ConnectorOptionsGdriveOptionsParameters `json:"gdriveOptions,omitempty" tf:"gdrive_options,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	GoogleAdsOptions *ConnectorOptionsGoogleAdsOptionsParameters `json:"googleAdsOptions,omitempty" tf:"google_ads_options,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	JiraOptions *ConnectorOptionsJiraOptionsParameters `json:"jiraOptions,omitempty" tf:"jira_options,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	KafkaOptions *ConnectorOptionsKafkaOptionsParameters `json:"kafkaOptions,omitempty" tf:"kafka_options,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	MetaAdsOptions *ConnectorOptionsMetaAdsOptionsParameters `json:"metaAdsOptions,omitempty" tf:"meta_ads_options,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	OutlookOptions *ConnectorOptionsOutlookOptionsParameters `json:"outlookOptions,omitempty" tf:"outlook_options,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	SharepointOptions *ConnectorOptionsSharepointOptionsParameters `json:"sharepointOptions,omitempty" tf:"sharepoint_options,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	SmartsheetOptions *ConnectorOptionsSmartsheetOptionsParameters `json:"smartsheetOptions,omitempty" tf:"smartsheet_options,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	TiktokAdsOptions *ConnectorOptionsTiktokAdsOptionsParameters `json:"tiktokAdsOptions,omitempty" tf:"tiktok_ads_options,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	ZendeskSupportOptions *ConnectorOptionsZendeskSupportOptionsParameters `json:"zendeskSupportOptions,omitempty" tf:"zendesk_support_options,omitempty"`
+}
+
 type TableInitParameters struct {
+	ConnectorOptions *TableConnectorOptionsInitParameters `json:"connectorOptions,omitempty" tf:"connector_options,omitempty"`
 
 	// The name of default catalog in Unity Catalog. Change of this parameter forces recreation of the pipeline if you switch from  (Conflicts with storage).
 	DestinationCatalog *string `json:"destinationCatalog,omitempty" tf:"destination_catalog,omitempty"`
@@ -2518,6 +4582,7 @@ type TableInitParameters struct {
 }
 
 type TableObservation struct {
+	ConnectorOptions *TableConnectorOptionsObservation `json:"connectorOptions,omitempty" tf:"connector_options,omitempty"`
 
 	// The name of default catalog in Unity Catalog. Change of this parameter forces recreation of the pipeline if you switch from  (Conflicts with storage).
 	DestinationCatalog *string `json:"destinationCatalog,omitempty" tf:"destination_catalog,omitempty"`
@@ -2540,6 +4605,9 @@ type TableObservation struct {
 }
 
 type TableParameters struct {
+
+	// +kubebuilder:validation:Optional
+	ConnectorOptions *TableConnectorOptionsParameters `json:"connectorOptions,omitempty" tf:"connector_options,omitempty"`
 
 	// The name of default catalog in Unity Catalog. Change of this parameter forces recreation of the pipeline if you switch from  (Conflicts with storage).
 	// +kubebuilder:validation:Optional
@@ -2592,6 +4660,10 @@ type TableTableConfigurationAutoFullRefreshPolicyParameters struct {
 type TableTableConfigurationInitParameters struct {
 	AutoFullRefreshPolicy *TableTableConfigurationAutoFullRefreshPolicyInitParameters `json:"autoFullRefreshPolicy,omitempty" tf:"auto_full_refresh_policy,omitempty"`
 
+	ClusteringColumns []*string `json:"clusteringColumns,omitempty" tf:"clustering_columns,omitempty"`
+
+	EnableAutoClustering *bool `json:"enableAutoClustering,omitempty" tf:"enable_auto_clustering,omitempty"`
+
 	ExcludeColumns []*string `json:"excludeColumns,omitempty" tf:"exclude_columns,omitempty"`
 
 	IncludeColumns []*string `json:"includeColumns,omitempty" tf:"include_columns,omitempty"`
@@ -2608,11 +4680,20 @@ type TableTableConfigurationInitParameters struct {
 
 	SequenceBy []*string `json:"sequenceBy,omitempty" tf:"sequence_by,omitempty"`
 
+	SourceMetadataColumn *string `json:"sourceMetadataColumn,omitempty" tf:"source_metadata_column,omitempty"`
+
+	// +mapType=granular
+	TableProperties map[string]*string `json:"tableProperties,omitempty" tf:"table_properties,omitempty"`
+
 	WorkdayReportParameters *TableTableConfigurationWorkdayReportParametersInitParameters `json:"workdayReportParameters,omitempty" tf:"workday_report_parameters,omitempty"`
 }
 
 type TableTableConfigurationObservation struct {
 	AutoFullRefreshPolicy *TableTableConfigurationAutoFullRefreshPolicyObservation `json:"autoFullRefreshPolicy,omitempty" tf:"auto_full_refresh_policy,omitempty"`
+
+	ClusteringColumns []*string `json:"clusteringColumns,omitempty" tf:"clustering_columns,omitempty"`
+
+	EnableAutoClustering *bool `json:"enableAutoClustering,omitempty" tf:"enable_auto_clustering,omitempty"`
 
 	ExcludeColumns []*string `json:"excludeColumns,omitempty" tf:"exclude_columns,omitempty"`
 
@@ -2630,6 +4711,11 @@ type TableTableConfigurationObservation struct {
 
 	SequenceBy []*string `json:"sequenceBy,omitempty" tf:"sequence_by,omitempty"`
 
+	SourceMetadataColumn *string `json:"sourceMetadataColumn,omitempty" tf:"source_metadata_column,omitempty"`
+
+	// +mapType=granular
+	TableProperties map[string]*string `json:"tableProperties,omitempty" tf:"table_properties,omitempty"`
+
 	WorkdayReportParameters *TableTableConfigurationWorkdayReportParametersObservation `json:"workdayReportParameters,omitempty" tf:"workday_report_parameters,omitempty"`
 }
 
@@ -2637,6 +4723,12 @@ type TableTableConfigurationParameters struct {
 
 	// +kubebuilder:validation:Optional
 	AutoFullRefreshPolicy *TableTableConfigurationAutoFullRefreshPolicyParameters `json:"autoFullRefreshPolicy,omitempty" tf:"auto_full_refresh_policy,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	ClusteringColumns []*string `json:"clusteringColumns,omitempty" tf:"clustering_columns,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	EnableAutoClustering *bool `json:"enableAutoClustering,omitempty" tf:"enable_auto_clustering,omitempty"`
 
 	// +kubebuilder:validation:Optional
 	ExcludeColumns []*string `json:"excludeColumns,omitempty" tf:"exclude_columns,omitempty"`
@@ -2661,6 +4753,13 @@ type TableTableConfigurationParameters struct {
 
 	// +kubebuilder:validation:Optional
 	SequenceBy []*string `json:"sequenceBy,omitempty" tf:"sequence_by,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	SourceMetadataColumn *string `json:"sourceMetadataColumn,omitempty" tf:"source_metadata_column,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	// +mapType=granular
+	TableProperties map[string]*string `json:"tableProperties,omitempty" tf:"table_properties,omitempty"`
 
 	// +kubebuilder:validation:Optional
 	WorkdayReportParameters *TableTableConfigurationWorkdayReportParametersParameters `json:"workdayReportParameters,omitempty" tf:"workday_report_parameters,omitempty"`
@@ -2725,6 +4824,177 @@ type TableTableConfigurationWorkdayReportParametersParameters struct {
 	ReportParameters []TableConfigurationWorkdayReportParametersReportParametersParameters `json:"reportParameters,omitempty" tf:"report_parameters,omitempty"`
 }
 
+type TiktokAdsOptionsCustomReportOptionsInitParameters struct {
+	DataLevel *string `json:"dataLevel,omitempty" tf:"data_level,omitempty"`
+
+	Dimensions []*string `json:"dimensions,omitempty" tf:"dimensions,omitempty"`
+
+	Metrics []*string `json:"metrics,omitempty" tf:"metrics,omitempty"`
+
+	QueryLifetime *bool `json:"queryLifetime,omitempty" tf:"query_lifetime,omitempty"`
+
+	ReportType *string `json:"reportType,omitempty" tf:"report_type,omitempty"`
+}
+
+type TiktokAdsOptionsCustomReportOptionsObservation struct {
+	DataLevel *string `json:"dataLevel,omitempty" tf:"data_level,omitempty"`
+
+	Dimensions []*string `json:"dimensions,omitempty" tf:"dimensions,omitempty"`
+
+	Metrics []*string `json:"metrics,omitempty" tf:"metrics,omitempty"`
+
+	QueryLifetime *bool `json:"queryLifetime,omitempty" tf:"query_lifetime,omitempty"`
+
+	ReportType *string `json:"reportType,omitempty" tf:"report_type,omitempty"`
+}
+
+type TiktokAdsOptionsCustomReportOptionsParameters struct {
+
+	// +kubebuilder:validation:Optional
+	DataLevel *string `json:"dataLevel,omitempty" tf:"data_level,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	Dimensions []*string `json:"dimensions,omitempty" tf:"dimensions,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	Metrics []*string `json:"metrics,omitempty" tf:"metrics,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	QueryLifetime *bool `json:"queryLifetime,omitempty" tf:"query_lifetime,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	ReportType *string `json:"reportType,omitempty" tf:"report_type,omitempty"`
+}
+
+type TiktokAdsOptionsInitParameters struct {
+	CustomReportOptions *TiktokAdsOptionsCustomReportOptionsInitParameters `json:"customReportOptions,omitempty" tf:"custom_report_options,omitempty"`
+
+	DataLevel *string `json:"dataLevel,omitempty" tf:"data_level,omitempty"`
+
+	Dimensions []*string `json:"dimensions,omitempty" tf:"dimensions,omitempty"`
+
+	LookbackWindowDays *float64 `json:"lookbackWindowDays,omitempty" tf:"lookback_window_days,omitempty"`
+
+	Metrics []*string `json:"metrics,omitempty" tf:"metrics,omitempty"`
+
+	QueryLifetime *bool `json:"queryLifetime,omitempty" tf:"query_lifetime,omitempty"`
+
+	ReportType *string `json:"reportType,omitempty" tf:"report_type,omitempty"`
+
+	SyncStartDate *string `json:"syncStartDate,omitempty" tf:"sync_start_date,omitempty"`
+}
+
+type TiktokAdsOptionsObservation struct {
+	CustomReportOptions *TiktokAdsOptionsCustomReportOptionsObservation `json:"customReportOptions,omitempty" tf:"custom_report_options,omitempty"`
+
+	DataLevel *string `json:"dataLevel,omitempty" tf:"data_level,omitempty"`
+
+	Dimensions []*string `json:"dimensions,omitempty" tf:"dimensions,omitempty"`
+
+	LookbackWindowDays *float64 `json:"lookbackWindowDays,omitempty" tf:"lookback_window_days,omitempty"`
+
+	Metrics []*string `json:"metrics,omitempty" tf:"metrics,omitempty"`
+
+	QueryLifetime *bool `json:"queryLifetime,omitempty" tf:"query_lifetime,omitempty"`
+
+	ReportType *string `json:"reportType,omitempty" tf:"report_type,omitempty"`
+
+	SyncStartDate *string `json:"syncStartDate,omitempty" tf:"sync_start_date,omitempty"`
+}
+
+type TiktokAdsOptionsParameters struct {
+
+	// +kubebuilder:validation:Optional
+	CustomReportOptions *TiktokAdsOptionsCustomReportOptionsParameters `json:"customReportOptions,omitempty" tf:"custom_report_options,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	DataLevel *string `json:"dataLevel,omitempty" tf:"data_level,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	Dimensions []*string `json:"dimensions,omitempty" tf:"dimensions,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	LookbackWindowDays *float64 `json:"lookbackWindowDays,omitempty" tf:"lookback_window_days,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	Metrics []*string `json:"metrics,omitempty" tf:"metrics,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	QueryLifetime *bool `json:"queryLifetime,omitempty" tf:"query_lifetime,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	ReportType *string `json:"reportType,omitempty" tf:"report_type,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	SyncStartDate *string `json:"syncStartDate,omitempty" tf:"sync_start_date,omitempty"`
+}
+
+type ValueTransformerInitParameters struct {
+	Format *string `json:"format,omitempty" tf:"format,omitempty"`
+
+	JSONOptions *ValueTransformerJSONOptionsInitParameters `json:"jsonOptions,omitempty" tf:"json_options,omitempty"`
+}
+
+type ValueTransformerJSONOptionsInitParameters struct {
+	AsVariant *bool `json:"asVariant,omitempty" tf:"as_variant,omitempty"`
+
+	// The default schema (database) where tables are read from or published to. The presence of this attribute implies that the pipeline is in direct publishing mode.
+	Schema *string `json:"schema,omitempty" tf:"schema,omitempty"`
+
+	SchemaEvolutionMode *string `json:"schemaEvolutionMode,omitempty" tf:"schema_evolution_mode,omitempty"`
+
+	SchemaFilePath *string `json:"schemaFilePath,omitempty" tf:"schema_file_path,omitempty"`
+
+	SchemaHints *string `json:"schemaHints,omitempty" tf:"schema_hints,omitempty"`
+}
+
+type ValueTransformerJSONOptionsObservation struct {
+	AsVariant *bool `json:"asVariant,omitempty" tf:"as_variant,omitempty"`
+
+	// The default schema (database) where tables are read from or published to. The presence of this attribute implies that the pipeline is in direct publishing mode.
+	Schema *string `json:"schema,omitempty" tf:"schema,omitempty"`
+
+	SchemaEvolutionMode *string `json:"schemaEvolutionMode,omitempty" tf:"schema_evolution_mode,omitempty"`
+
+	SchemaFilePath *string `json:"schemaFilePath,omitempty" tf:"schema_file_path,omitempty"`
+
+	SchemaHints *string `json:"schemaHints,omitempty" tf:"schema_hints,omitempty"`
+}
+
+type ValueTransformerJSONOptionsParameters struct {
+
+	// +kubebuilder:validation:Optional
+	AsVariant *bool `json:"asVariant,omitempty" tf:"as_variant,omitempty"`
+
+	// The default schema (database) where tables are read from or published to. The presence of this attribute implies that the pipeline is in direct publishing mode.
+	// +kubebuilder:validation:Optional
+	Schema *string `json:"schema,omitempty" tf:"schema,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	SchemaEvolutionMode *string `json:"schemaEvolutionMode,omitempty" tf:"schema_evolution_mode,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	SchemaFilePath *string `json:"schemaFilePath,omitempty" tf:"schema_file_path,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	SchemaHints *string `json:"schemaHints,omitempty" tf:"schema_hints,omitempty"`
+}
+
+type ValueTransformerObservation struct {
+	Format *string `json:"format,omitempty" tf:"format,omitempty"`
+
+	JSONOptions *ValueTransformerJSONOptionsObservation `json:"jsonOptions,omitempty" tf:"json_options,omitempty"`
+}
+
+type ValueTransformerParameters struct {
+
+	// +kubebuilder:validation:Optional
+	Format *string `json:"format,omitempty" tf:"format,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	JSONOptions *ValueTransformerJSONOptionsParameters `json:"jsonOptions,omitempty" tf:"json_options,omitempty"`
+}
+
 type WorkdayReportParametersInitParameters struct {
 	Incremental *bool `json:"incremental,omitempty" tf:"incremental,omitempty"`
 
@@ -2775,6 +5045,20 @@ type WorkdayReportParametersReportParametersParameters struct {
 
 	// +kubebuilder:validation:Optional
 	Value *string `json:"value,omitempty" tf:"value,omitempty"`
+}
+
+type ZendeskSupportOptionsInitParameters struct {
+	StartDate *string `json:"startDate,omitempty" tf:"start_date,omitempty"`
+}
+
+type ZendeskSupportOptionsObservation struct {
+	StartDate *string `json:"startDate,omitempty" tf:"start_date,omitempty"`
+}
+
+type ZendeskSupportOptionsParameters struct {
+
+	// +kubebuilder:validation:Optional
+	StartDate *string `json:"startDate,omitempty" tf:"start_date,omitempty"`
 }
 
 // PipelineSpec defines the desired state of Pipeline

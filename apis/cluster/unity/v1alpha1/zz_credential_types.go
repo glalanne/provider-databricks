@@ -160,6 +160,9 @@ type CredentialInitParameters struct {
 	// Username/groupname/sp application_id of the credential owner.
 	Owner *string `json:"owner,omitempty" tf:"owner,omitempty"`
 
+	// Configure the provider for management through account provider. This block consists of the following fields:
+	ProviderConfig []CredentialProviderConfigInitParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
+
 	// Indicates the purpose of the credential. Can be SERVICE or STORAGE.
 	Purpose *string `json:"purpose,omitempty" tf:"purpose,omitempty"`
 
@@ -217,6 +220,9 @@ type CredentialObservation struct {
 
 	// Username/groupname/sp application_id of the credential owner.
 	Owner *string `json:"owner,omitempty" tf:"owner,omitempty"`
+
+	// Configure the provider for management through account provider. This block consists of the following fields:
+	ProviderConfig []CredentialProviderConfigObservation `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
 
 	// Indicates the purpose of the credential. Can be SERVICE or STORAGE.
 	Purpose *string `json:"purpose,omitempty" tf:"purpose,omitempty"`
@@ -285,6 +291,10 @@ type CredentialParameters struct {
 	// +kubebuilder:validation:Optional
 	Owner *string `json:"owner,omitempty" tf:"owner,omitempty"`
 
+	// Configure the provider for management through account provider. This block consists of the following fields:
+	// +kubebuilder:validation:Optional
+	ProviderConfig []CredentialProviderConfigParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
+
 	// Indicates the purpose of the credential. Can be SERVICE or STORAGE.
 	// +kubebuilder:validation:Optional
 	Purpose *string `json:"purpose,omitempty" tf:"purpose,omitempty"`
@@ -305,6 +315,25 @@ type CredentialParameters struct {
 
 	// +kubebuilder:validation:Optional
 	UsedForManagedStorage *bool `json:"usedForManagedStorage,omitempty" tf:"used_for_managed_storage,omitempty"`
+}
+
+type CredentialProviderConfigInitParameters struct {
+
+	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
+}
+
+type CredentialProviderConfigObservation struct {
+
+	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
+}
+
+type CredentialProviderConfigParameters struct {
+
+	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
+	// +kubebuilder:validation:Optional
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
 }
 
 type DatabricksGCPServiceAccountInitParameters struct {

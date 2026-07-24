@@ -76,6 +76,19 @@ spec:
                 type: string
               forProvider:
                 properties:
+                  api:
+                    description: |-
+                      Specifies whether to use account-level or workspace-level API. Valid values are account and workspace. When not set, the API level is inferred from the provider host.
+                      Specifies whether to use account-level or workspace-level API. Valid values are `account` and `workspace`. When not set, the API level is inferred from the provider host.
+                    type: string
+                  providerConfig:
+                    items:
+                      properties:
+                        workspaceId:
+                          description: The id in the format <user_id>|<role>.
+                          type: string
+                      type: object
+                    type: array
                   role:
                     description: Either a role name or the ARN/ID of the instance
                       profile resource.
@@ -247,6 +260,19 @@ spec:
                   for example because of an external controller is managing them, like an
                   autoscaler.
                 properties:
+                  api:
+                    description: |-
+                      Specifies whether to use account-level or workspace-level API. Valid values are account and workspace. When not set, the API level is inferred from the provider host.
+                      Specifies whether to use account-level or workspace-level API. Valid values are `account` and `workspace`. When not set, the API level is inferred from the provider host.
+                    type: string
+                  providerConfig:
+                    items:
+                      properties:
+                        workspaceId:
+                          description: The id in the format <user_id>|<role>.
+                          type: string
+                      type: object
+                    type: array
                   role:
                     description: Either a role name or the ARN/ID of the instance
                       profile resource.
@@ -496,9 +522,22 @@ spec:
             properties:
               atProvider:
                 properties:
+                  api:
+                    description: |-
+                      Specifies whether to use account-level or workspace-level API. Valid values are account and workspace. When not set, the API level is inferred from the provider host.
+                      Specifies whether to use account-level or workspace-level API. Valid values are `account` and `workspace`. When not set, the API level is inferred from the provider host.
+                    type: string
                   id:
                     description: The id in the format <user_id>|<role>.
                     type: string
+                  providerConfig:
+                    items:
+                      properties:
+                        workspaceId:
+                          description: The id in the format <user_id>|<role>.
+                          type: string
+                      type: object
+                    type: array
                   role:
                     description: Either a role name or the ARN/ID of the instance
                       profile resource.
@@ -622,6 +661,17 @@ spec:
                 type: string
               forProvider:
                 properties:
+                  api:
+                    description: |-
+                      Specifies whether to use account-level or workspace-level API. Valid values are account and workspace. When not set, the API level is inferred from the provider host.
+                      Specifies whether to use account-level or workspace-level API. Valid values are `account` and `workspace`. When not set, the API level is inferred from the provider host.
+                    type: string
+                  providerConfig:
+                    properties:
+                      workspaceId:
+                        description: The id in the format <user_id>|<role>.
+                        type: string
+                    type: object
                   role:
                     description: Either a role name or the ARN/ID of the instance
                       profile resource.
@@ -793,6 +843,17 @@ spec:
                   for example because of an external controller is managing them, like an
                   autoscaler.
                 properties:
+                  api:
+                    description: |-
+                      Specifies whether to use account-level or workspace-level API. Valid values are account and workspace. When not set, the API level is inferred from the provider host.
+                      Specifies whether to use account-level or workspace-level API. Valid values are `account` and `workspace`. When not set, the API level is inferred from the provider host.
+                    type: string
+                  providerConfig:
+                    properties:
+                      workspaceId:
+                        description: The id in the format <user_id>|<role>.
+                        type: string
+                    type: object
                   role:
                     description: Either a role name or the ARN/ID of the instance
                       profile resource.
@@ -1042,9 +1103,20 @@ spec:
             properties:
               atProvider:
                 properties:
+                  api:
+                    description: |-
+                      Specifies whether to use account-level or workspace-level API. Valid values are account and workspace. When not set, the API level is inferred from the provider host.
+                      Specifies whether to use account-level or workspace-level API. Valid values are `account` and `workspace`. When not set, the API level is inferred from the provider host.
+                    type: string
                   id:
                     description: The id in the format <user_id>|<role>.
                     type: string
+                  providerConfig:
+                    properties:
+                      workspaceId:
+                        description: The id in the format <user_id>|<role>.
+                        type: string
+                    type: object
                   role:
                     description: Either a role name or the ARN/ID of the instance
                       profile resource.

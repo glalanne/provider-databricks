@@ -844,6 +844,9 @@ type ModelServingInitParameters struct {
 
 	// Tags to be attached to the serving endpoint and automatically propagated to billing logs.
 	Tags []TagsInitParameters `json:"tags,omitempty" tf:"tags,omitempty"`
+
+	// The model serving endpoint configuration. This is optional and can be added and modified after creation. If config was provided in a previous apply but is not provided in the current apply, no change to the model serving endpoint will occur. To recreate the model serving endpoint without the config block, the model serving endpoint must be destroyed and recreated.
+	TelemetryConfig *TelemetryConfigInitParameters `json:"telemetryConfig,omitempty" tf:"telemetry_config,omitempty"`
 }
 
 type ModelServingObservation struct {
@@ -886,6 +889,9 @@ type ModelServingObservation struct {
 
 	// Tags to be attached to the serving endpoint and automatically propagated to billing logs.
 	Tags []TagsObservation `json:"tags,omitempty" tf:"tags,omitempty"`
+
+	// The model serving endpoint configuration. This is optional and can be added and modified after creation. If config was provided in a previous apply but is not provided in the current apply, no change to the model serving endpoint will occur. To recreate the model serving endpoint without the config block, the model serving endpoint must be destroyed and recreated.
+	TelemetryConfig *TelemetryConfigObservation `json:"telemetryConfig,omitempty" tf:"telemetry_config,omitempty"`
 }
 
 type ModelServingParameters struct {
@@ -929,6 +935,10 @@ type ModelServingParameters struct {
 	// Tags to be attached to the serving endpoint and automatically propagated to billing logs.
 	// +kubebuilder:validation:Optional
 	Tags []TagsParameters `json:"tags,omitempty" tf:"tags,omitempty"`
+
+	// The model serving endpoint configuration. This is optional and can be added and modified after creation. If config was provided in a previous apply but is not provided in the current apply, no change to the model serving endpoint will occur. To recreate the model serving endpoint without the config block, the model serving endpoint must be destroyed and recreated.
+	// +kubebuilder:validation:Optional
+	TelemetryConfig *TelemetryConfigParameters `json:"telemetryConfig,omitempty" tf:"telemetry_config,omitempty"`
 }
 
 type ModelServingRateLimitsInitParameters struct {
@@ -1212,7 +1222,7 @@ type ProviderConfigParameters struct {
 
 	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
 	// +kubebuilder:validation:Optional
-	WorkspaceID *string `json:"workspaceId" tf:"workspace_id,omitempty"`
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
 }
 
 type RateLimitsInitParameters struct {
@@ -1648,6 +1658,51 @@ type TagsParameters struct {
 	// The value field for a tag.
 	// +kubebuilder:validation:Optional
 	Value *string `json:"value,omitempty" tf:"value,omitempty"`
+}
+
+type TelemetryConfigInferenceTableConfigInitParameters struct {
+
+	// The name of a served model. It must be unique across an endpoint. If not specified, this field will default to modelname-modelversion. A served model name can consist of alphanumeric characters, dashes, and underscores.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	SamplingFraction *float64 `json:"samplingFraction,omitempty" tf:"sampling_fraction,omitempty"`
+}
+
+type TelemetryConfigInferenceTableConfigObservation struct {
+
+	// The name of a served model. It must be unique across an endpoint. If not specified, this field will default to modelname-modelversion. A served model name can consist of alphanumeric characters, dashes, and underscores.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	SamplingFraction *float64 `json:"samplingFraction,omitempty" tf:"sampling_fraction,omitempty"`
+}
+
+type TelemetryConfigInferenceTableConfigParameters struct {
+
+	// The name of a served model. It must be unique across an endpoint. If not specified, this field will default to modelname-modelversion. A served model name can consist of alphanumeric characters, dashes, and underscores.
+	// +kubebuilder:validation:Optional
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	SamplingFraction *float64 `json:"samplingFraction,omitempty" tf:"sampling_fraction,omitempty"`
+}
+
+type TelemetryConfigInitParameters struct {
+
+	// Block describing the configuration of usage tracking. Consists of the following attributes:
+	InferenceTableConfig *TelemetryConfigInferenceTableConfigInitParameters `json:"inferenceTableConfig,omitempty" tf:"inference_table_config,omitempty"`
+}
+
+type TelemetryConfigObservation struct {
+
+	// Block describing the configuration of usage tracking. Consists of the following attributes:
+	InferenceTableConfig *TelemetryConfigInferenceTableConfigObservation `json:"inferenceTableConfig,omitempty" tf:"inference_table_config,omitempty"`
+}
+
+type TelemetryConfigParameters struct {
+
+	// Block describing the configuration of usage tracking. Consists of the following attributes:
+	// +kubebuilder:validation:Optional
+	InferenceTableConfig *TelemetryConfigInferenceTableConfigParameters `json:"inferenceTableConfig,omitempty" tf:"inference_table_config,omitempty"`
 }
 
 type TrafficConfigInitParameters struct {

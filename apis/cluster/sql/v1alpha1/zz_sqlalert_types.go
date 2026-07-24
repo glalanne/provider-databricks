@@ -209,7 +209,7 @@ type SQLAlertProviderConfigParameters struct {
 
 	// unique ID of the SQL Alert.
 	// +kubebuilder:validation:Optional
-	WorkspaceID *string `json:"workspaceId" tf:"workspace_id,omitempty"`
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
 }
 
 // SQLAlertSpec defines the desired state of SQLAlert

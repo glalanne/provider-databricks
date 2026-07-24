@@ -178,6 +178,18 @@ spec:
                           x-kubernetes-list-type: set
                       type: object
                     type: array
+                  providerConfig:
+                    description: 'Configure the provider for management through account
+                      provider. This block consists of the following fields:'
+                    items:
+                      properties:
+                        workspaceId:
+                          description: Workspace ID which the resource belongs to.
+                            This workspace must be part of the account which the provider
+                            is configured with.
+                          type: string
+                      type: object
+                    type: array
                   table:
                     description: Name of the table. Can be combined with the database.
                     type: string
@@ -314,6 +326,18 @@ spec:
                           x-kubernetes-list-type: set
                       type: object
                     type: array
+                  providerConfig:
+                    description: 'Configure the provider for management through account
+                      provider. This block consists of the following fields:'
+                    items:
+                      properties:
+                        workspaceId:
+                          description: Workspace ID which the resource belongs to.
+                            This workspace must be part of the account which the provider
+                            is configured with.
+                          type: string
+                      type: object
+                    type: array
                   table:
                     description: Name of the table. Can be combined with the database.
                     type: string
@@ -420,6 +444,18 @@ spec:
                             type: string
                           type: array
                           x-kubernetes-list-type: set
+                      type: object
+                    type: array
+                  providerConfig:
+                    description: 'Configure the provider for management through account
+                      provider. This block consists of the following fields:'
+                    items:
+                      properties:
+                        workspaceId:
+                          description: Workspace ID which the resource belongs to.
+                            This workspace must be part of the account which the provider
+                            is configured with.
+                          type: string
                       type: object
                     type: array
                   table:
@@ -646,6 +682,16 @@ spec:
                           x-kubernetes-list-type: set
                       type: object
                     type: array
+                  providerConfig:
+                    description: 'Configure the provider for management through account
+                      provider. This block consists of the following fields:'
+                    properties:
+                      workspaceId:
+                        description: Workspace ID which the resource belongs to. This
+                          workspace must be part of the account which the provider
+                          is configured with.
+                        type: string
+                    type: object
                   table:
                     description: Name of the table. Can be combined with the database.
                     type: string
@@ -782,6 +828,16 @@ spec:
                           x-kubernetes-list-type: set
                       type: object
                     type: array
+                  providerConfig:
+                    description: 'Configure the provider for management through account
+                      provider. This block consists of the following fields:'
+                    properties:
+                      workspaceId:
+                        description: Workspace ID which the resource belongs to. This
+                          workspace must be part of the account which the provider
+                          is configured with.
+                        type: string
+                    type: object
                   table:
                     description: Name of the table. Can be combined with the database.
                     type: string
@@ -890,6 +946,16 @@ spec:
                           x-kubernetes-list-type: set
                       type: object
                     type: array
+                  providerConfig:
+                    description: 'Configure the provider for management through account
+                      provider. This block consists of the following fields:'
+                    properties:
+                      workspaceId:
+                        description: Workspace ID which the resource belongs to. This
+                          workspace must be part of the account which the provider
+                          is configured with.
+                        type: string
+                    type: object
                   table:
                     description: Name of the table. Can be combined with the database.
                     type: string

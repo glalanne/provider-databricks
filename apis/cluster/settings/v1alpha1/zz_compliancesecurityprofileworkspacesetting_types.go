@@ -82,7 +82,7 @@ type ProviderConfigObservation struct {
 type ProviderConfigParameters struct {
 
 	// +kubebuilder:validation:Optional
-	WorkspaceID *string `json:"workspaceId" tf:"workspace_id,omitempty"`
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
 }
 
 // ComplianceSecurityProfileWorkspaceSettingSpec defines the desired state of ComplianceSecurityProfileWorkspaceSetting

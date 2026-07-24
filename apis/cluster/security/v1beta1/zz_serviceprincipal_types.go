@@ -18,6 +18,10 @@ type ServicePrincipalInitParameters struct {
 	// identifier for use in databricks_access_control_rule_set, e.g. servicePrincipals/00000000-0000-0000-0000-000000000000.
 	ACLPrincipalID *string `json:"aclPrincipalId,omitempty" tf:"acl_principal_id,omitempty"`
 
+	// Specifies whether to use account-level or workspace-level API. Valid values are account and workspace. When not set, the API level is inferred from the provider host.
+	// Specifies whether to use account-level or workspace-level API. Valid values are `account` and `workspace`. When not set, the API level is inferred from the provider host.
+	API *string `json:"api,omitempty" tf:"api,omitempty"`
+
 	// Either service principal is active or not. True by default, but can be set to false in case of service principal deactivation with preserving service principal assets.
 	Active *bool `json:"active,omitempty" tf:"active,omitempty"`
 
@@ -54,6 +58,8 @@ type ServicePrincipalInitParameters struct {
 	// Home folder of the service principal, e.g. /Users/00000000-0000-0000-0000-000000000000.
 	Home *string `json:"home,omitempty" tf:"home,omitempty"`
 
+	ProviderConfig *ServicePrincipalProviderConfigInitParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
+
 	// Personal Repos location of the service principal, e.g. /Repos/00000000-0000-0000-0000-000000000000.
 	Repos *string `json:"repos,omitempty" tf:"repos,omitempty"`
 
@@ -68,6 +74,10 @@ type ServicePrincipalObservation struct {
 
 	// identifier for use in databricks_access_control_rule_set, e.g. servicePrincipals/00000000-0000-0000-0000-000000000000.
 	ACLPrincipalID *string `json:"aclPrincipalId,omitempty" tf:"acl_principal_id,omitempty"`
+
+	// Specifies whether to use account-level or workspace-level API. Valid values are account and workspace. When not set, the API level is inferred from the provider host.
+	// Specifies whether to use account-level or workspace-level API. Valid values are `account` and `workspace`. When not set, the API level is inferred from the provider host.
+	API *string `json:"api,omitempty" tf:"api,omitempty"`
 
 	// Either service principal is active or not. True by default, but can be set to false in case of service principal deactivation with preserving service principal assets.
 	Active *bool `json:"active,omitempty" tf:"active,omitempty"`
@@ -108,6 +118,8 @@ type ServicePrincipalObservation struct {
 	// Canonical unique identifier for the service principal (SCIM ID).
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
+	ProviderConfig *ServicePrincipalProviderConfigObservation `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
+
 	// Personal Repos location of the service principal, e.g. /Repos/00000000-0000-0000-0000-000000000000.
 	Repos *string `json:"repos,omitempty" tf:"repos,omitempty"`
 
@@ -123,6 +135,11 @@ type ServicePrincipalParameters struct {
 	// identifier for use in databricks_access_control_rule_set, e.g. servicePrincipals/00000000-0000-0000-0000-000000000000.
 	// +kubebuilder:validation:Optional
 	ACLPrincipalID *string `json:"aclPrincipalId,omitempty" tf:"acl_principal_id,omitempty"`
+
+	// Specifies whether to use account-level or workspace-level API. Valid values are account and workspace. When not set, the API level is inferred from the provider host.
+	// Specifies whether to use account-level or workspace-level API. Valid values are `account` and `workspace`. When not set, the API level is inferred from the provider host.
+	// +kubebuilder:validation:Optional
+	API *string `json:"api,omitempty" tf:"api,omitempty"`
 
 	// Either service principal is active or not. True by default, but can be set to false in case of service principal deactivation with preserving service principal assets.
 	// +kubebuilder:validation:Optional
@@ -172,6 +189,9 @@ type ServicePrincipalParameters struct {
 	// +kubebuilder:validation:Optional
 	Home *string `json:"home,omitempty" tf:"home,omitempty"`
 
+	// +kubebuilder:validation:Optional
+	ProviderConfig *ServicePrincipalProviderConfigParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
+
 	// Personal Repos location of the service principal, e.g. /Repos/00000000-0000-0000-0000-000000000000.
 	// +kubebuilder:validation:Optional
 	Repos *string `json:"repos,omitempty" tf:"repos,omitempty"`
@@ -183,6 +203,25 @@ type ServicePrincipalParameters struct {
 	// This is a field to allow the service principal to have access to a Databricks Workspace as consumer, with limited access to workspace UI.  Couldn't be used with workspace_access or databricks_sql_access.
 	// +kubebuilder:validation:Optional
 	WorkspaceConsume *bool `json:"workspaceConsume,omitempty" tf:"workspace_consume,omitempty"`
+}
+
+type ServicePrincipalProviderConfigInitParameters struct {
+
+	// Canonical unique identifier for the service principal (SCIM ID).
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
+}
+
+type ServicePrincipalProviderConfigObservation struct {
+
+	// Canonical unique identifier for the service principal (SCIM ID).
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
+}
+
+type ServicePrincipalProviderConfigParameters struct {
+
+	// Canonical unique identifier for the service principal (SCIM ID).
+	// +kubebuilder:validation:Optional
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
 }
 
 // ServicePrincipalSpec defines the desired state of ServicePrincipal
