@@ -10,7 +10,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
+	v2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 )
 
 type PrivilegeAssignmentsInitParameters struct {
@@ -63,11 +63,11 @@ type SQLPermissionsInitParameters struct {
 
 	// Reference to a Cluster in compute to populate clusterId.
 	// +kubebuilder:validation:Optional
-	ClusterIDRef *v1.Reference `json:"clusterIdRef,omitempty" tf:"-"`
+	ClusterIDRef *v2.Reference `json:"clusterIdRef,omitempty" tf:"-"`
 
 	// Selector for a Cluster in compute to populate clusterId.
 	// +kubebuilder:validation:Optional
-	ClusterIDSelector *v1.Selector `json:"clusterIdSelector,omitempty" tf:"-"`
+	ClusterIDSelector *v2.Selector `json:"clusterIdSelector,omitempty" tf:"-"`
 
 	// Name of the database. Has a default value of default.
 	Database *string `json:"database,omitempty" tf:"database,omitempty"`
@@ -137,11 +137,11 @@ type SQLPermissionsParameters struct {
 
 	// Reference to a Cluster in compute to populate clusterId.
 	// +kubebuilder:validation:Optional
-	ClusterIDRef *v1.Reference `json:"clusterIdRef,omitempty" tf:"-"`
+	ClusterIDRef *v2.Reference `json:"clusterIdRef,omitempty" tf:"-"`
 
 	// Selector for a Cluster in compute to populate clusterId.
 	// +kubebuilder:validation:Optional
-	ClusterIDSelector *v1.Selector `json:"clusterIdSelector,omitempty" tf:"-"`
+	ClusterIDSelector *v2.Selector `json:"clusterIdSelector,omitempty" tf:"-"`
 
 	// Name of the database. Has a default value of default.
 	// +kubebuilder:validation:Optional
@@ -184,8 +184,8 @@ type SQLPermissionsProviderConfigParameters struct {
 
 // SQLPermissionsSpec defines the desired state of SQLPermissions
 type SQLPermissionsSpec struct {
-	v1.ResourceSpec `json:",inline"`
-	ForProvider     SQLPermissionsParameters `json:"forProvider"`
+	v2.ClusterManagedResourceSpec `json:",inline"`
+	ForProvider                   SQLPermissionsParameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
 	// InitProvider holds the same fields as ForProvider, with the exception
@@ -201,8 +201,8 @@ type SQLPermissionsSpec struct {
 
 // SQLPermissionsStatus defines the observed state of SQLPermissions.
 type SQLPermissionsStatus struct {
-	v1.ResourceStatus `json:",inline"`
-	AtProvider        SQLPermissionsObservation `json:"atProvider,omitempty"`
+	v2.ManagedResourceStatus `json:",inline"`
+	AtProvider               SQLPermissionsObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true

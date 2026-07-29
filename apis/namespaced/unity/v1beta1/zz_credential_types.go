@@ -10,8 +10,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
-	v2 "github.com/crossplane/crossplane-runtime/v2/apis/common/v2"
+	v2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 )
 
 type AwsIAMRoleInitParameters struct {
@@ -95,7 +94,7 @@ type AzureServicePrincipalInitParameters struct {
 	ApplicationID *string `json:"applicationId,omitempty" tf:"application_id,omitempty"`
 
 	// The client secret generated for the above app ID in AAD. This field is redacted on output
-	ClientSecretSecretRef v1.LocalSecretKeySelector `json:"clientSecretSecretRef" tf:"-"`
+	ClientSecretSecretRef v2.LocalSecretKeySelector `json:"clientSecretSecretRef" tf:"-"`
 
 	// The directory ID corresponding to the Azure Active Directory (AAD) tenant of the application
 	DirectoryID *string `json:"directoryId,omitempty" tf:"directory_id,omitempty"`
@@ -118,7 +117,7 @@ type AzureServicePrincipalParameters struct {
 
 	// The client secret generated for the above app ID in AAD. This field is redacted on output
 	// +kubebuilder:validation:Optional
-	ClientSecretSecretRef v1.LocalSecretKeySelector `json:"clientSecretSecretRef" tf:"-"`
+	ClientSecretSecretRef v2.LocalSecretKeySelector `json:"clientSecretSecretRef" tf:"-"`
 
 	// The directory ID corresponding to the Azure Active Directory (AAD) tenant of the application
 	// +kubebuilder:validation:Optional
@@ -395,8 +394,8 @@ type CredentialSpec struct {
 
 // CredentialStatus defines the observed state of Credential.
 type CredentialStatus struct {
-	v1.ResourceStatus `json:",inline"`
-	AtProvider        CredentialObservation `json:"atProvider,omitempty"`
+	v2.ManagedResourceStatus `json:",inline"`
+	AtProvider               CredentialObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true

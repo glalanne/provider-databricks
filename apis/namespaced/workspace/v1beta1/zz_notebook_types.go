@@ -10,8 +10,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
-	v2 "github.com/crossplane/crossplane-runtime/v2/apis/common/v2"
+	v2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 )
 
 type NotebookInitParameters struct {
@@ -151,8 +150,8 @@ type NotebookSpec struct {
 
 // NotebookStatus defines the observed state of Notebook.
 type NotebookStatus struct {
-	v1.ResourceStatus `json:",inline"`
-	AtProvider        NotebookObservation `json:"atProvider,omitempty"`
+	v2.ManagedResourceStatus `json:",inline"`
+	AtProvider               NotebookObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true

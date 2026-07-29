@@ -10,7 +10,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
+	v2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 )
 
 type ServicePrincipalRoleInitParameters struct {
@@ -28,11 +28,11 @@ type ServicePrincipalRoleInitParameters struct {
 
 	// Reference to a InstanceProfile in deployment to populate role.
 	// +kubebuilder:validation:Optional
-	RoleRef *v1.Reference `json:"roleRef,omitempty" tf:"-"`
+	RoleRef *v2.Reference `json:"roleRef,omitempty" tf:"-"`
 
 	// Selector for a InstanceProfile in deployment to populate role.
 	// +kubebuilder:validation:Optional
-	RoleSelector *v1.Selector `json:"roleSelector,omitempty" tf:"-"`
+	RoleSelector *v2.Selector `json:"roleSelector,omitempty" tf:"-"`
 
 	// This is the id of the service principal resource.
 	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/cluster/security/v1beta1.ServicePrincipal
@@ -41,11 +41,11 @@ type ServicePrincipalRoleInitParameters struct {
 
 	// Reference to a ServicePrincipal in security to populate servicePrincipalId.
 	// +kubebuilder:validation:Optional
-	ServicePrincipalIDRef *v1.Reference `json:"servicePrincipalIdRef,omitempty" tf:"-"`
+	ServicePrincipalIDRef *v2.Reference `json:"servicePrincipalIdRef,omitempty" tf:"-"`
 
 	// Selector for a ServicePrincipal in security to populate servicePrincipalId.
 	// +kubebuilder:validation:Optional
-	ServicePrincipalIDSelector *v1.Selector `json:"servicePrincipalIdSelector,omitempty" tf:"-"`
+	ServicePrincipalIDSelector *v2.Selector `json:"servicePrincipalIdSelector,omitempty" tf:"-"`
 }
 
 type ServicePrincipalRoleObservation struct {
@@ -84,11 +84,11 @@ type ServicePrincipalRoleParameters struct {
 
 	// Reference to a InstanceProfile in deployment to populate role.
 	// +kubebuilder:validation:Optional
-	RoleRef *v1.Reference `json:"roleRef,omitempty" tf:"-"`
+	RoleRef *v2.Reference `json:"roleRef,omitempty" tf:"-"`
 
 	// Selector for a InstanceProfile in deployment to populate role.
 	// +kubebuilder:validation:Optional
-	RoleSelector *v1.Selector `json:"roleSelector,omitempty" tf:"-"`
+	RoleSelector *v2.Selector `json:"roleSelector,omitempty" tf:"-"`
 
 	// This is the id of the service principal resource.
 	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/cluster/security/v1beta1.ServicePrincipal
@@ -98,11 +98,11 @@ type ServicePrincipalRoleParameters struct {
 
 	// Reference to a ServicePrincipal in security to populate servicePrincipalId.
 	// +kubebuilder:validation:Optional
-	ServicePrincipalIDRef *v1.Reference `json:"servicePrincipalIdRef,omitempty" tf:"-"`
+	ServicePrincipalIDRef *v2.Reference `json:"servicePrincipalIdRef,omitempty" tf:"-"`
 
 	// Selector for a ServicePrincipal in security to populate servicePrincipalId.
 	// +kubebuilder:validation:Optional
-	ServicePrincipalIDSelector *v1.Selector `json:"servicePrincipalIdSelector,omitempty" tf:"-"`
+	ServicePrincipalIDSelector *v2.Selector `json:"servicePrincipalIdSelector,omitempty" tf:"-"`
 }
 
 type ServicePrincipalRoleProviderConfigInitParameters struct {
@@ -126,8 +126,8 @@ type ServicePrincipalRoleProviderConfigParameters struct {
 
 // ServicePrincipalRoleSpec defines the desired state of ServicePrincipalRole
 type ServicePrincipalRoleSpec struct {
-	v1.ResourceSpec `json:",inline"`
-	ForProvider     ServicePrincipalRoleParameters `json:"forProvider"`
+	v2.ClusterManagedResourceSpec `json:",inline"`
+	ForProvider                   ServicePrincipalRoleParameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
 	// InitProvider holds the same fields as ForProvider, with the exception
@@ -143,8 +143,8 @@ type ServicePrincipalRoleSpec struct {
 
 // ServicePrincipalRoleStatus defines the observed state of ServicePrincipalRole.
 type ServicePrincipalRoleStatus struct {
-	v1.ResourceStatus `json:",inline"`
-	AtProvider        ServicePrincipalRoleObservation `json:"atProvider,omitempty"`
+	v2.ManagedResourceStatus `json:",inline"`
+	AtProvider               ServicePrincipalRoleObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true

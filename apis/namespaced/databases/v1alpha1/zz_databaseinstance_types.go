@@ -10,8 +10,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
-	v2 "github.com/crossplane/crossplane-runtime/v2/apis/common/v2"
+	v2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 )
 
 type ChildInstanceRefsInitParameters struct {
@@ -456,16 +455,15 @@ type DatabaseInstanceSpec struct {
 
 // DatabaseInstanceStatus defines the observed state of DatabaseInstance.
 type DatabaseInstanceStatus struct {
-	v1.ResourceStatus `json:",inline"`
-	AtProvider        DatabaseInstanceObservation `json:"atProvider,omitempty"`
+	v2.ManagedResourceStatus `json:",inline"`
+	AtProvider               DatabaseInstanceObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true
 // +kubebuilder:subresource:status
-// +kubebuilder:deprecatedversion:warning="This API version is deprecated. Please migrate to v1beta1."
+// +kubebuilder:storageversion
 
 // DatabaseInstance is the Schema for the DatabaseInstances API.
-// Deprecated: This API version (v1alpha1) has been deprecated.
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"

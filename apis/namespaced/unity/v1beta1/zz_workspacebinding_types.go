@@ -10,8 +10,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
-	v2 "github.com/crossplane/crossplane-runtime/v2/apis/common/v2"
+	v2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 )
 
 type WorkspaceBindingInitParameters struct {
@@ -31,11 +30,11 @@ type WorkspaceBindingInitParameters struct {
 
 	// Reference to a Catalog in unity to populate securableName.
 	// +kubebuilder:validation:Optional
-	SecurableNameRef *v1.NamespacedReference `json:"securableNameRef,omitempty" tf:"-"`
+	SecurableNameRef *v2.NamespacedReference `json:"securableNameRef,omitempty" tf:"-"`
 
 	// Selector for a Catalog in unity to populate securableName.
 	// +kubebuilder:validation:Optional
-	SecurableNameSelector *v1.NamespacedSelector `json:"securableNameSelector,omitempty" tf:"-"`
+	SecurableNameSelector *v2.NamespacedSelector `json:"securableNameSelector,omitempty" tf:"-"`
 
 	// Type of securable. Can be catalog, external_location, storage_credential or credential. Default to catalog. Change forces creation of a new resource.
 	SecurableType *string `json:"securableType,omitempty" tf:"securable_type,omitempty"`
@@ -47,11 +46,11 @@ type WorkspaceBindingInitParameters struct {
 
 	// Reference to a MwsWorkspaces in deployment to populate workspaceId.
 	// +kubebuilder:validation:Optional
-	WorkspaceIDRef *v1.NamespacedReference `json:"workspaceIdRef,omitempty" tf:"-"`
+	WorkspaceIDRef *v2.NamespacedReference `json:"workspaceIdRef,omitempty" tf:"-"`
 
 	// Selector for a MwsWorkspaces in deployment to populate workspaceId.
 	// +kubebuilder:validation:Optional
-	WorkspaceIDSelector *v1.NamespacedSelector `json:"workspaceIdSelector,omitempty" tf:"-"`
+	WorkspaceIDSelector *v2.NamespacedSelector `json:"workspaceIdSelector,omitempty" tf:"-"`
 }
 
 type WorkspaceBindingObservation struct {
@@ -97,11 +96,11 @@ type WorkspaceBindingParameters struct {
 
 	// Reference to a Catalog in unity to populate securableName.
 	// +kubebuilder:validation:Optional
-	SecurableNameRef *v1.NamespacedReference `json:"securableNameRef,omitempty" tf:"-"`
+	SecurableNameRef *v2.NamespacedReference `json:"securableNameRef,omitempty" tf:"-"`
 
 	// Selector for a Catalog in unity to populate securableName.
 	// +kubebuilder:validation:Optional
-	SecurableNameSelector *v1.NamespacedSelector `json:"securableNameSelector,omitempty" tf:"-"`
+	SecurableNameSelector *v2.NamespacedSelector `json:"securableNameSelector,omitempty" tf:"-"`
 
 	// Type of securable. Can be catalog, external_location, storage_credential or credential. Default to catalog. Change forces creation of a new resource.
 	// +kubebuilder:validation:Optional
@@ -115,11 +114,11 @@ type WorkspaceBindingParameters struct {
 
 	// Reference to a MwsWorkspaces in deployment to populate workspaceId.
 	// +kubebuilder:validation:Optional
-	WorkspaceIDRef *v1.NamespacedReference `json:"workspaceIdRef,omitempty" tf:"-"`
+	WorkspaceIDRef *v2.NamespacedReference `json:"workspaceIdRef,omitempty" tf:"-"`
 
 	// Selector for a MwsWorkspaces in deployment to populate workspaceId.
 	// +kubebuilder:validation:Optional
-	WorkspaceIDSelector *v1.NamespacedSelector `json:"workspaceIdSelector,omitempty" tf:"-"`
+	WorkspaceIDSelector *v2.NamespacedSelector `json:"workspaceIdSelector,omitempty" tf:"-"`
 }
 
 type WorkspaceBindingProviderConfigInitParameters struct {
@@ -160,8 +159,8 @@ type WorkspaceBindingSpec struct {
 
 // WorkspaceBindingStatus defines the observed state of WorkspaceBinding.
 type WorkspaceBindingStatus struct {
-	v1.ResourceStatus `json:",inline"`
-	AtProvider        WorkspaceBindingObservation `json:"atProvider,omitempty"`
+	v2.ManagedResourceStatus `json:",inline"`
+	AtProvider               WorkspaceBindingObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true

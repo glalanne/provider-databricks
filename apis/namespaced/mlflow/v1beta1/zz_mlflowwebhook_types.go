@@ -10,8 +10,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
-	v2 "github.com/crossplane/crossplane-runtime/v2/apis/common/v2"
+	v2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 )
 
 type HTTPURLSpecInitParameters struct {
@@ -23,7 +22,7 @@ type HTTPURLSpecInitParameters struct {
 	EnableSSLVerification *bool `json:"enableSslVerification,omitempty" tf:"enable_ssl_verification,omitempty"`
 
 	// Shared secret required for HMAC encoding payload. The HMAC-encoded payload will be sent in the header as X-Databricks-Signature: encoded_payload.
-	SecretSecretRef *v1.LocalSecretKeySelector `json:"secretSecretRef,omitempty" tf:"-"`
+	SecretSecretRef *v2.LocalSecretKeySelector `json:"secretSecretRef,omitempty" tf:"-"`
 
 	// External HTTPS URL called on event trigger (by using a POST request). Structure of payload depends on the event type, refer to documentation for more details.
 	URL *string `json:"url,omitempty" tf:"url,omitempty"`
@@ -53,7 +52,7 @@ type HTTPURLSpecParameters struct {
 
 	// Shared secret required for HMAC encoding payload. The HMAC-encoded payload will be sent in the header as X-Databricks-Signature: encoded_payload.
 	// +kubebuilder:validation:Optional
-	SecretSecretRef *v1.LocalSecretKeySelector `json:"secretSecretRef,omitempty" tf:"-"`
+	SecretSecretRef *v2.LocalSecretKeySelector `json:"secretSecretRef,omitempty" tf:"-"`
 
 	// External HTTPS URL called on event trigger (by using a POST request). Structure of payload depends on the event type, refer to documentation for more details.
 	// +kubebuilder:validation:Optional
@@ -63,7 +62,7 @@ type HTTPURLSpecParameters struct {
 type JobSpecInitParameters struct {
 
 	// The personal access token used to authorize webhook's job runs.
-	AccessTokenSecretRef v1.LocalSecretKeySelector `json:"accessTokenSecretRef" tf:"-"`
+	AccessTokenSecretRef v2.LocalSecretKeySelector `json:"accessTokenSecretRef" tf:"-"`
 
 	// ID of the Databricks job that the webhook runs.
 	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/namespaced/compute/v1beta1.Job
@@ -72,11 +71,11 @@ type JobSpecInitParameters struct {
 
 	// Reference to a Job in compute to populate jobId.
 	// +kubebuilder:validation:Optional
-	JobIDRef *v1.NamespacedReference `json:"jobIdRef,omitempty" tf:"-"`
+	JobIDRef *v2.NamespacedReference `json:"jobIdRef,omitempty" tf:"-"`
 
 	// Selector for a Job in compute to populate jobId.
 	// +kubebuilder:validation:Optional
-	JobIDSelector *v1.NamespacedSelector `json:"jobIdSelector,omitempty" tf:"-"`
+	JobIDSelector *v2.NamespacedSelector `json:"jobIdSelector,omitempty" tf:"-"`
 
 	// URL of the workspace containing the job that this webhook runs. If not specified, the job’s workspace URL is assumed to be the same as the workspace where the webhook is created.
 	WorkspaceURL *string `json:"workspaceUrl,omitempty" tf:"workspace_url,omitempty"`
@@ -95,7 +94,7 @@ type JobSpecParameters struct {
 
 	// The personal access token used to authorize webhook's job runs.
 	// +kubebuilder:validation:Optional
-	AccessTokenSecretRef v1.LocalSecretKeySelector `json:"accessTokenSecretRef" tf:"-"`
+	AccessTokenSecretRef v2.LocalSecretKeySelector `json:"accessTokenSecretRef" tf:"-"`
 
 	// ID of the Databricks job that the webhook runs.
 	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/namespaced/compute/v1beta1.Job
@@ -105,11 +104,11 @@ type JobSpecParameters struct {
 
 	// Reference to a Job in compute to populate jobId.
 	// +kubebuilder:validation:Optional
-	JobIDRef *v1.NamespacedReference `json:"jobIdRef,omitempty" tf:"-"`
+	JobIDRef *v2.NamespacedReference `json:"jobIdRef,omitempty" tf:"-"`
 
 	// Selector for a Job in compute to populate jobId.
 	// +kubebuilder:validation:Optional
-	JobIDSelector *v1.NamespacedSelector `json:"jobIdSelector,omitempty" tf:"-"`
+	JobIDSelector *v2.NamespacedSelector `json:"jobIdSelector,omitempty" tf:"-"`
 
 	// URL of the workspace containing the job that this webhook runs. If not specified, the job’s workspace URL is assumed to be the same as the workspace where the webhook is created.
 	// +kubebuilder:validation:Optional
@@ -230,8 +229,8 @@ type MlflowWebhookSpec struct {
 
 // MlflowWebhookStatus defines the observed state of MlflowWebhook.
 type MlflowWebhookStatus struct {
-	v1.ResourceStatus `json:",inline"`
-	AtProvider        MlflowWebhookObservation `json:"atProvider,omitempty"`
+	v2.ManagedResourceStatus `json:",inline"`
+	AtProvider               MlflowWebhookObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true

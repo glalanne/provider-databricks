@@ -10,8 +10,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
-	v2 "github.com/crossplane/crossplane-runtime/v2/apis/common/v2"
+	v2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 )
 
 type GroupInstanceProfileInitParameters struct {
@@ -27,11 +26,11 @@ type GroupInstanceProfileInitParameters struct {
 
 	// Reference to a Group in security to populate groupId.
 	// +kubebuilder:validation:Optional
-	GroupIDRef *v1.NamespacedReference `json:"groupIdRef,omitempty" tf:"-"`
+	GroupIDRef *v2.NamespacedReference `json:"groupIdRef,omitempty" tf:"-"`
 
 	// Selector for a Group in security to populate groupId.
 	// +kubebuilder:validation:Optional
-	GroupIDSelector *v1.NamespacedSelector `json:"groupIdSelector,omitempty" tf:"-"`
+	GroupIDSelector *v2.NamespacedSelector `json:"groupIdSelector,omitempty" tf:"-"`
 
 	// This is the id of the instance profile resource.
 	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/namespaced/deployment/v1beta1.InstanceProfile
@@ -40,11 +39,11 @@ type GroupInstanceProfileInitParameters struct {
 
 	// Reference to a InstanceProfile in deployment to populate instanceProfileId.
 	// +kubebuilder:validation:Optional
-	InstanceProfileIDRef *v1.NamespacedReference `json:"instanceProfileIdRef,omitempty" tf:"-"`
+	InstanceProfileIDRef *v2.NamespacedReference `json:"instanceProfileIdRef,omitempty" tf:"-"`
 
 	// Selector for a InstanceProfile in deployment to populate instanceProfileId.
 	// +kubebuilder:validation:Optional
-	InstanceProfileIDSelector *v1.NamespacedSelector `json:"instanceProfileIdSelector,omitempty" tf:"-"`
+	InstanceProfileIDSelector *v2.NamespacedSelector `json:"instanceProfileIdSelector,omitempty" tf:"-"`
 
 	ProviderConfig *GroupInstanceProfileProviderConfigInitParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
 }
@@ -82,11 +81,11 @@ type GroupInstanceProfileParameters struct {
 
 	// Reference to a Group in security to populate groupId.
 	// +kubebuilder:validation:Optional
-	GroupIDRef *v1.NamespacedReference `json:"groupIdRef,omitempty" tf:"-"`
+	GroupIDRef *v2.NamespacedReference `json:"groupIdRef,omitempty" tf:"-"`
 
 	// Selector for a Group in security to populate groupId.
 	// +kubebuilder:validation:Optional
-	GroupIDSelector *v1.NamespacedSelector `json:"groupIdSelector,omitempty" tf:"-"`
+	GroupIDSelector *v2.NamespacedSelector `json:"groupIdSelector,omitempty" tf:"-"`
 
 	// This is the id of the instance profile resource.
 	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/namespaced/deployment/v1beta1.InstanceProfile
@@ -96,11 +95,11 @@ type GroupInstanceProfileParameters struct {
 
 	// Reference to a InstanceProfile in deployment to populate instanceProfileId.
 	// +kubebuilder:validation:Optional
-	InstanceProfileIDRef *v1.NamespacedReference `json:"instanceProfileIdRef,omitempty" tf:"-"`
+	InstanceProfileIDRef *v2.NamespacedReference `json:"instanceProfileIdRef,omitempty" tf:"-"`
 
 	// Selector for a InstanceProfile in deployment to populate instanceProfileId.
 	// +kubebuilder:validation:Optional
-	InstanceProfileIDSelector *v1.NamespacedSelector `json:"instanceProfileIdSelector,omitempty" tf:"-"`
+	InstanceProfileIDSelector *v2.NamespacedSelector `json:"instanceProfileIdSelector,omitempty" tf:"-"`
 
 	// +kubebuilder:validation:Optional
 	ProviderConfig *GroupInstanceProfileProviderConfigParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
@@ -144,8 +143,8 @@ type GroupInstanceProfileSpec struct {
 
 // GroupInstanceProfileStatus defines the observed state of GroupInstanceProfile.
 type GroupInstanceProfileStatus struct {
-	v1.ResourceStatus `json:",inline"`
-	AtProvider        GroupInstanceProfileObservation `json:"atProvider,omitempty"`
+	v2.ManagedResourceStatus `json:",inline"`
+	AtProvider               GroupInstanceProfileObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true

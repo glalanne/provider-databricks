@@ -10,8 +10,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
-	v2 "github.com/crossplane/crossplane-runtime/v2/apis/common/v2"
+	v2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 )
 
 type DeltaSyncIndexSpecInitParameters struct {
@@ -204,11 +203,11 @@ type EmbeddingSourceColumnsInitParameters struct {
 
 	// Reference to a ModelServing in serving to populate embeddingModelEndpointName.
 	// +kubebuilder:validation:Optional
-	EmbeddingModelEndpointNameRef *v1.NamespacedReference `json:"embeddingModelEndpointNameRef,omitempty" tf:"-"`
+	EmbeddingModelEndpointNameRef *v2.NamespacedReference `json:"embeddingModelEndpointNameRef,omitempty" tf:"-"`
 
 	// Selector for a ModelServing in serving to populate embeddingModelEndpointName.
 	// +kubebuilder:validation:Optional
-	EmbeddingModelEndpointNameSelector *v1.NamespacedSelector `json:"embeddingModelEndpointNameSelector,omitempty" tf:"-"`
+	EmbeddingModelEndpointNameSelector *v2.NamespacedSelector `json:"embeddingModelEndpointNameSelector,omitempty" tf:"-"`
 
 	// The name of the embedding model endpoint which, if specified, is used for querying (not ingestion).
 	ModelEndpointNameForQuery *string `json:"modelEndpointNameForQuery,omitempty" tf:"model_endpoint_name_for_query,omitempty"`
@@ -239,11 +238,11 @@ type EmbeddingSourceColumnsParameters struct {
 
 	// Reference to a ModelServing in serving to populate embeddingModelEndpointName.
 	// +kubebuilder:validation:Optional
-	EmbeddingModelEndpointNameRef *v1.NamespacedReference `json:"embeddingModelEndpointNameRef,omitempty" tf:"-"`
+	EmbeddingModelEndpointNameRef *v2.NamespacedReference `json:"embeddingModelEndpointNameRef,omitempty" tf:"-"`
 
 	// Selector for a ModelServing in serving to populate embeddingModelEndpointName.
 	// +kubebuilder:validation:Optional
-	EmbeddingModelEndpointNameSelector *v1.NamespacedSelector `json:"embeddingModelEndpointNameSelector,omitempty" tf:"-"`
+	EmbeddingModelEndpointNameSelector *v2.NamespacedSelector `json:"embeddingModelEndpointNameSelector,omitempty" tf:"-"`
 
 	// The name of the embedding model endpoint which, if specified, is used for querying (not ingestion).
 	// +kubebuilder:validation:Optional
@@ -322,11 +321,11 @@ type VectorSearchIndexInitParameters struct {
 
 	// Reference to a VectorSearchEndpoint in mosaic to populate endpointName.
 	// +kubebuilder:validation:Optional
-	EndpointNameRef *v1.NamespacedReference `json:"endpointNameRef,omitempty" tf:"-"`
+	EndpointNameRef *v2.NamespacedReference `json:"endpointNameRef,omitempty" tf:"-"`
 
 	// Selector for a VectorSearchEndpoint in mosaic to populate endpointName.
 	// +kubebuilder:validation:Optional
-	EndpointNameSelector *v1.NamespacedSelector `json:"endpointNameSelector,omitempty" tf:"-"`
+	EndpointNameSelector *v2.NamespacedSelector `json:"endpointNameSelector,omitempty" tf:"-"`
 
 	IndexSubtype *string `json:"indexSubtype,omitempty" tf:"index_subtype,omitempty"`
 
@@ -403,11 +402,11 @@ type VectorSearchIndexParameters struct {
 
 	// Reference to a VectorSearchEndpoint in mosaic to populate endpointName.
 	// +kubebuilder:validation:Optional
-	EndpointNameRef *v1.NamespacedReference `json:"endpointNameRef,omitempty" tf:"-"`
+	EndpointNameRef *v2.NamespacedReference `json:"endpointNameRef,omitempty" tf:"-"`
 
 	// Selector for a VectorSearchEndpoint in mosaic to populate endpointName.
 	// +kubebuilder:validation:Optional
-	EndpointNameSelector *v1.NamespacedSelector `json:"endpointNameSelector,omitempty" tf:"-"`
+	EndpointNameSelector *v2.NamespacedSelector `json:"endpointNameSelector,omitempty" tf:"-"`
 
 	// +kubebuilder:validation:Optional
 	IndexSubtype *string `json:"indexSubtype,omitempty" tf:"index_subtype,omitempty"`
@@ -467,8 +466,8 @@ type VectorSearchIndexSpec struct {
 
 // VectorSearchIndexStatus defines the observed state of VectorSearchIndex.
 type VectorSearchIndexStatus struct {
-	v1.ResourceStatus `json:",inline"`
-	AtProvider        VectorSearchIndexObservation `json:"atProvider,omitempty"`
+	v2.ManagedResourceStatus `json:",inline"`
+	AtProvider               VectorSearchIndexObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true

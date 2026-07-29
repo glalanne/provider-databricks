@@ -10,7 +10,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
+	v2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 )
 
 type GroupRoleInitParameters struct {
@@ -26,11 +26,11 @@ type GroupRoleInitParameters struct {
 
 	// Reference to a Group in security to populate groupId.
 	// +kubebuilder:validation:Optional
-	GroupIDRef *v1.Reference `json:"groupIdRef,omitempty" tf:"-"`
+	GroupIDRef *v2.Reference `json:"groupIdRef,omitempty" tf:"-"`
 
 	// Selector for a Group in security to populate groupId.
 	// +kubebuilder:validation:Optional
-	GroupIDSelector *v1.Selector `json:"groupIdSelector,omitempty" tf:"-"`
+	GroupIDSelector *v2.Selector `json:"groupIdSelector,omitempty" tf:"-"`
 
 	ProviderConfig *GroupRoleProviderConfigInitParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
 
@@ -41,11 +41,11 @@ type GroupRoleInitParameters struct {
 
 	// Reference to a InstanceProfile in deployment to populate role.
 	// +kubebuilder:validation:Optional
-	RoleRef *v1.Reference `json:"roleRef,omitempty" tf:"-"`
+	RoleRef *v2.Reference `json:"roleRef,omitempty" tf:"-"`
 
 	// Selector for a InstanceProfile in deployment to populate role.
 	// +kubebuilder:validation:Optional
-	RoleSelector *v1.Selector `json:"roleSelector,omitempty" tf:"-"`
+	RoleSelector *v2.Selector `json:"roleSelector,omitempty" tf:"-"`
 }
 
 type GroupRoleObservation struct {
@@ -81,11 +81,11 @@ type GroupRoleParameters struct {
 
 	// Reference to a Group in security to populate groupId.
 	// +kubebuilder:validation:Optional
-	GroupIDRef *v1.Reference `json:"groupIdRef,omitempty" tf:"-"`
+	GroupIDRef *v2.Reference `json:"groupIdRef,omitempty" tf:"-"`
 
 	// Selector for a Group in security to populate groupId.
 	// +kubebuilder:validation:Optional
-	GroupIDSelector *v1.Selector `json:"groupIdSelector,omitempty" tf:"-"`
+	GroupIDSelector *v2.Selector `json:"groupIdSelector,omitempty" tf:"-"`
 
 	// +kubebuilder:validation:Optional
 	ProviderConfig *GroupRoleProviderConfigParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
@@ -98,11 +98,11 @@ type GroupRoleParameters struct {
 
 	// Reference to a InstanceProfile in deployment to populate role.
 	// +kubebuilder:validation:Optional
-	RoleRef *v1.Reference `json:"roleRef,omitempty" tf:"-"`
+	RoleRef *v2.Reference `json:"roleRef,omitempty" tf:"-"`
 
 	// Selector for a InstanceProfile in deployment to populate role.
 	// +kubebuilder:validation:Optional
-	RoleSelector *v1.Selector `json:"roleSelector,omitempty" tf:"-"`
+	RoleSelector *v2.Selector `json:"roleSelector,omitempty" tf:"-"`
 }
 
 type GroupRoleProviderConfigInitParameters struct {
@@ -126,8 +126,8 @@ type GroupRoleProviderConfigParameters struct {
 
 // GroupRoleSpec defines the desired state of GroupRole
 type GroupRoleSpec struct {
-	v1.ResourceSpec `json:",inline"`
-	ForProvider     GroupRoleParameters `json:"forProvider"`
+	v2.ClusterManagedResourceSpec `json:",inline"`
+	ForProvider                   GroupRoleParameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
 	// InitProvider holds the same fields as ForProvider, with the exception
@@ -143,8 +143,8 @@ type GroupRoleSpec struct {
 
 // GroupRoleStatus defines the observed state of GroupRole.
 type GroupRoleStatus struct {
-	v1.ResourceStatus `json:",inline"`
-	AtProvider        GroupRoleObservation `json:"atProvider,omitempty"`
+	v2.ManagedResourceStatus `json:",inline"`
+	AtProvider               GroupRoleObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true

@@ -10,7 +10,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
+	v2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 )
 
 type OptionsInitParameters struct {
@@ -113,11 +113,11 @@ type SQLAlertInitParameters struct {
 
 	// Reference to a SQLQuery in sql to populate queryId.
 	// +kubebuilder:validation:Optional
-	QueryIDRef *v1.Reference `json:"queryIdRef,omitempty" tf:"-"`
+	QueryIDRef *v2.Reference `json:"queryIdRef,omitempty" tf:"-"`
 
 	// Selector for a SQLQuery in sql to populate queryId.
 	// +kubebuilder:validation:Optional
-	QueryIDSelector *v1.Selector `json:"queryIdSelector,omitempty" tf:"-"`
+	QueryIDSelector *v2.Selector `json:"queryIdSelector,omitempty" tf:"-"`
 
 	// Number of seconds after being triggered before the alert rearms itself and can be triggered again. If not defined, alert will never be triggered again.
 	Rearm *float64 `json:"rearm,omitempty" tf:"rearm,omitempty"`
@@ -179,11 +179,11 @@ type SQLAlertParameters struct {
 
 	// Reference to a SQLQuery in sql to populate queryId.
 	// +kubebuilder:validation:Optional
-	QueryIDRef *v1.Reference `json:"queryIdRef,omitempty" tf:"-"`
+	QueryIDRef *v2.Reference `json:"queryIdRef,omitempty" tf:"-"`
 
 	// Selector for a SQLQuery in sql to populate queryId.
 	// +kubebuilder:validation:Optional
-	QueryIDSelector *v1.Selector `json:"queryIdSelector,omitempty" tf:"-"`
+	QueryIDSelector *v2.Selector `json:"queryIdSelector,omitempty" tf:"-"`
 
 	// Number of seconds after being triggered before the alert rearms itself and can be triggered again. If not defined, alert will never be triggered again.
 	// +kubebuilder:validation:Optional
@@ -214,8 +214,8 @@ type SQLAlertProviderConfigParameters struct {
 
 // SQLAlertSpec defines the desired state of SQLAlert
 type SQLAlertSpec struct {
-	v1.ResourceSpec `json:",inline"`
-	ForProvider     SQLAlertParameters `json:"forProvider"`
+	v2.ClusterManagedResourceSpec `json:",inline"`
+	ForProvider                   SQLAlertParameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
 	// InitProvider holds the same fields as ForProvider, with the exception
@@ -231,8 +231,8 @@ type SQLAlertSpec struct {
 
 // SQLAlertStatus defines the observed state of SQLAlert.
 type SQLAlertStatus struct {
-	v1.ResourceStatus `json:",inline"`
-	AtProvider        SQLAlertObservation `json:"atProvider,omitempty"`
+	v2.ManagedResourceStatus `json:",inline"`
+	AtProvider               SQLAlertObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true

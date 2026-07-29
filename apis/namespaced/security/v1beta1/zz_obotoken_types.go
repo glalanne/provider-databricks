@@ -10,8 +10,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
-	v2 "github.com/crossplane/crossplane-runtime/v2/apis/common/v2"
+	v2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 )
 
 type OboTokenInitParameters struct {
@@ -23,11 +22,11 @@ type OboTokenInitParameters struct {
 
 	// Reference to a ServicePrincipal in security to populate applicationId.
 	// +kubebuilder:validation:Optional
-	ApplicationIDRef *v1.NamespacedReference `json:"applicationIdRef,omitempty" tf:"-"`
+	ApplicationIDRef *v2.NamespacedReference `json:"applicationIdRef,omitempty" tf:"-"`
 
 	// Selector for a ServicePrincipal in security to populate applicationId.
 	// +kubebuilder:validation:Optional
-	ApplicationIDSelector *v1.NamespacedSelector `json:"applicationIdSelector,omitempty" tf:"-"`
+	ApplicationIDSelector *v2.NamespacedSelector `json:"applicationIdSelector,omitempty" tf:"-"`
 
 	// (String, Optional) Comment that describes the purpose of the token.
 	Comment *string `json:"comment,omitempty" tf:"comment,omitempty"`
@@ -67,11 +66,11 @@ type OboTokenParameters struct {
 
 	// Reference to a ServicePrincipal in security to populate applicationId.
 	// +kubebuilder:validation:Optional
-	ApplicationIDRef *v1.NamespacedReference `json:"applicationIdRef,omitempty" tf:"-"`
+	ApplicationIDRef *v2.NamespacedReference `json:"applicationIdRef,omitempty" tf:"-"`
 
 	// Selector for a ServicePrincipal in security to populate applicationId.
 	// +kubebuilder:validation:Optional
-	ApplicationIDSelector *v1.NamespacedSelector `json:"applicationIdSelector,omitempty" tf:"-"`
+	ApplicationIDSelector *v2.NamespacedSelector `json:"applicationIdSelector,omitempty" tf:"-"`
 
 	// (String, Optional) Comment that describes the purpose of the token.
 	// +kubebuilder:validation:Optional
@@ -124,8 +123,8 @@ type OboTokenSpec struct {
 
 // OboTokenStatus defines the observed state of OboToken.
 type OboTokenStatus struct {
-	v1.ResourceStatus `json:",inline"`
-	AtProvider        OboTokenObservation `json:"atProvider,omitempty"`
+	v2.ManagedResourceStatus `json:",inline"`
+	AtProvider               OboTokenObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true

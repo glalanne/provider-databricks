@@ -10,8 +10,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
-	v2 "github.com/crossplane/crossplane-runtime/v2/apis/common/v2"
+	v2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 )
 
 type EffectiveFileEventQueueInitParameters struct {
@@ -114,11 +113,11 @@ type ExternalLocationInitParameters struct {
 
 	// Reference to a StorageCredential in unity to populate credentialName.
 	// +kubebuilder:validation:Optional
-	CredentialNameRef *v1.NamespacedReference `json:"credentialNameRef,omitempty" tf:"-"`
+	CredentialNameRef *v2.NamespacedReference `json:"credentialNameRef,omitempty" tf:"-"`
 
 	// Selector for a StorageCredential in unity to populate credentialName.
 	// +kubebuilder:validation:Optional
-	CredentialNameSelector *v1.NamespacedSelector `json:"credentialNameSelector,omitempty" tf:"-"`
+	CredentialNameSelector *v2.NamespacedSelector `json:"credentialNameSelector,omitempty" tf:"-"`
 
 	EffectiveFileEventQueue *EffectiveFileEventQueueInitParameters `json:"effectiveFileEventQueue,omitempty" tf:"effective_file_event_queue,omitempty"`
 
@@ -250,11 +249,11 @@ type ExternalLocationParameters struct {
 
 	// Reference to a StorageCredential in unity to populate credentialName.
 	// +kubebuilder:validation:Optional
-	CredentialNameRef *v1.NamespacedReference `json:"credentialNameRef,omitempty" tf:"-"`
+	CredentialNameRef *v2.NamespacedReference `json:"credentialNameRef,omitempty" tf:"-"`
 
 	// Selector for a StorageCredential in unity to populate credentialName.
 	// +kubebuilder:validation:Optional
-	CredentialNameSelector *v1.NamespacedSelector `json:"credentialNameSelector,omitempty" tf:"-"`
+	CredentialNameSelector *v2.NamespacedSelector `json:"credentialNameSelector,omitempty" tf:"-"`
 
 	// +kubebuilder:validation:Optional
 	EffectiveFileEventQueue *EffectiveFileEventQueueParameters `json:"effectiveFileEventQueue,omitempty" tf:"effective_file_event_queue,omitempty"`
@@ -836,8 +835,8 @@ type ExternalLocationSpec struct {
 
 // ExternalLocationStatus defines the observed state of ExternalLocation.
 type ExternalLocationStatus struct {
-	v1.ResourceStatus `json:",inline"`
-	AtProvider        ExternalLocationObservation `json:"atProvider,omitempty"`
+	v2.ManagedResourceStatus `json:",inline"`
+	AtProvider               ExternalLocationObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true

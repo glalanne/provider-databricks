@@ -153,26 +153,6 @@ func (tr *IPAccessList) ConvertFrom(srcRaw conversion.Hub) error {
 	return nil
 }
 
-// ConvertTo converts this MwsPermissionAssignment to the hub type.
-func (tr *MwsPermissionAssignment) ConvertTo(dstRaw conversion.Hub) error {
-	spokeVersion := tr.GetObjectKind().GroupVersionKind().Version
-	hubVersion := dstRaw.GetObjectKind().GroupVersionKind().Version
-	if err := ujconversion.RoundTrip(dstRaw.(resource.Terraformed), tr); err != nil {
-		return errors.Wrapf(err, "cannot convert from the spoke version %q to the hub version %q", spokeVersion, hubVersion)
-	}
-	return nil
-}
-
-// ConvertFrom converts from the hub type to the MwsPermissionAssignment type.
-func (tr *MwsPermissionAssignment) ConvertFrom(srcRaw conversion.Hub) error {
-	spokeVersion := tr.GetObjectKind().GroupVersionKind().Version
-	hubVersion := srcRaw.GetObjectKind().GroupVersionKind().Version
-	if err := ujconversion.RoundTrip(tr, srcRaw.(resource.Terraformed)); err != nil {
-		return errors.Wrapf(err, "cannot convert from the hub version %q to the spoke version %q", hubVersion, spokeVersion)
-	}
-	return nil
-}
-
 // ConvertTo converts this OboToken to the hub type.
 func (tr *OboToken) ConvertTo(dstRaw conversion.Hub) error {
 	spokeVersion := tr.GetObjectKind().GroupVersionKind().Version

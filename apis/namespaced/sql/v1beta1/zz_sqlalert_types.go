@@ -10,8 +10,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
-	v2 "github.com/crossplane/crossplane-runtime/v2/apis/common/v2"
+	v2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 )
 
 type OptionsInitParameters struct {
@@ -114,11 +113,11 @@ type SQLAlertInitParameters struct {
 
 	// Reference to a SQLQuery in sql to populate queryId.
 	// +kubebuilder:validation:Optional
-	QueryIDRef *v1.NamespacedReference `json:"queryIdRef,omitempty" tf:"-"`
+	QueryIDRef *v2.NamespacedReference `json:"queryIdRef,omitempty" tf:"-"`
 
 	// Selector for a SQLQuery in sql to populate queryId.
 	// +kubebuilder:validation:Optional
-	QueryIDSelector *v1.NamespacedSelector `json:"queryIdSelector,omitempty" tf:"-"`
+	QueryIDSelector *v2.NamespacedSelector `json:"queryIdSelector,omitempty" tf:"-"`
 
 	// Number of seconds after being triggered before the alert rearms itself and can be triggered again. If not defined, alert will never be triggered again.
 	Rearm *float64 `json:"rearm,omitempty" tf:"rearm,omitempty"`
@@ -180,11 +179,11 @@ type SQLAlertParameters struct {
 
 	// Reference to a SQLQuery in sql to populate queryId.
 	// +kubebuilder:validation:Optional
-	QueryIDRef *v1.NamespacedReference `json:"queryIdRef,omitempty" tf:"-"`
+	QueryIDRef *v2.NamespacedReference `json:"queryIdRef,omitempty" tf:"-"`
 
 	// Selector for a SQLQuery in sql to populate queryId.
 	// +kubebuilder:validation:Optional
-	QueryIDSelector *v1.NamespacedSelector `json:"queryIdSelector,omitempty" tf:"-"`
+	QueryIDSelector *v2.NamespacedSelector `json:"queryIdSelector,omitempty" tf:"-"`
 
 	// Number of seconds after being triggered before the alert rearms itself and can be triggered again. If not defined, alert will never be triggered again.
 	// +kubebuilder:validation:Optional
@@ -232,8 +231,8 @@ type SQLAlertSpec struct {
 
 // SQLAlertStatus defines the observed state of SQLAlert.
 type SQLAlertStatus struct {
-	v1.ResourceStatus `json:",inline"`
-	AtProvider        SQLAlertObservation `json:"atProvider,omitempty"`
+	v2.ManagedResourceStatus `json:",inline"`
+	AtProvider               SQLAlertObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true

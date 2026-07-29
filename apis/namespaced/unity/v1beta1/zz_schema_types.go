@@ -10,8 +10,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
-	v2 "github.com/crossplane/crossplane-runtime/v2/apis/common/v2"
+	v2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 )
 
 type SchemaInitParameters struct {
@@ -23,11 +22,11 @@ type SchemaInitParameters struct {
 
 	// Reference to a Catalog in unity to populate catalogName.
 	// +kubebuilder:validation:Optional
-	CatalogNameRef *v1.NamespacedReference `json:"catalogNameRef,omitempty" tf:"-"`
+	CatalogNameRef *v2.NamespacedReference `json:"catalogNameRef,omitempty" tf:"-"`
 
 	// Selector for a Catalog in unity to populate catalogName.
 	// +kubebuilder:validation:Optional
-	CatalogNameSelector *v1.NamespacedSelector `json:"catalogNameSelector,omitempty" tf:"-"`
+	CatalogNameSelector *v2.NamespacedSelector `json:"catalogNameSelector,omitempty" tf:"-"`
 
 	// User-supplied free-form text.
 	Comment *string `json:"comment,omitempty" tf:"comment,omitempty"`
@@ -108,11 +107,11 @@ type SchemaParameters struct {
 
 	// Reference to a Catalog in unity to populate catalogName.
 	// +kubebuilder:validation:Optional
-	CatalogNameRef *v1.NamespacedReference `json:"catalogNameRef,omitempty" tf:"-"`
+	CatalogNameRef *v2.NamespacedReference `json:"catalogNameRef,omitempty" tf:"-"`
 
 	// Selector for a Catalog in unity to populate catalogName.
 	// +kubebuilder:validation:Optional
-	CatalogNameSelector *v1.NamespacedSelector `json:"catalogNameSelector,omitempty" tf:"-"`
+	CatalogNameSelector *v2.NamespacedSelector `json:"catalogNameSelector,omitempty" tf:"-"`
 
 	// User-supplied free-form text.
 	// +kubebuilder:validation:Optional
@@ -190,8 +189,8 @@ type SchemaSpec struct {
 
 // SchemaStatus defines the observed state of Schema.
 type SchemaStatus struct {
-	v1.ResourceStatus `json:",inline"`
-	AtProvider        SchemaObservation `json:"atProvider,omitempty"`
+	v2.ManagedResourceStatus `json:",inline"`
+	AtProvider               SchemaObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true

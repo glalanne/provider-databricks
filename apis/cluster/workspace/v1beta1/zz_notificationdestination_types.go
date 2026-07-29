@@ -10,7 +10,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
+	v2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 )
 
 type ConfigInitParameters struct {
@@ -94,17 +94,17 @@ type EmailParameters struct {
 type GenericWebhookInitParameters struct {
 
 	// The password for basic authentication.
-	PasswordSecretRef *v1.SecretKeySelector `json:"passwordSecretRef,omitempty" tf:"-"`
+	PasswordSecretRef *v2.SecretKeySelector `json:"passwordSecretRef,omitempty" tf:"-"`
 
 	PasswordSet *bool `json:"passwordSet,omitempty" tf:"password_set,omitempty"`
 
 	// The Slack webhook URL.
-	URLSecretRef *v1.SecretKeySelector `json:"urlSecretRef,omitempty" tf:"-"`
+	URLSecretRef *v2.SecretKeySelector `json:"urlSecretRef,omitempty" tf:"-"`
 
 	URLSet *bool `json:"urlSet,omitempty" tf:"url_set,omitempty"`
 
 	// The username for basic authentication.
-	UsernameSecretRef *v1.SecretKeySelector `json:"usernameSecretRef,omitempty" tf:"-"`
+	UsernameSecretRef *v2.SecretKeySelector `json:"usernameSecretRef,omitempty" tf:"-"`
 
 	UsernameSet *bool `json:"usernameSet,omitempty" tf:"username_set,omitempty"`
 }
@@ -121,21 +121,21 @@ type GenericWebhookParameters struct {
 
 	// The password for basic authentication.
 	// +kubebuilder:validation:Optional
-	PasswordSecretRef *v1.SecretKeySelector `json:"passwordSecretRef,omitempty" tf:"-"`
+	PasswordSecretRef *v2.SecretKeySelector `json:"passwordSecretRef,omitempty" tf:"-"`
 
 	// +kubebuilder:validation:Optional
 	PasswordSet *bool `json:"passwordSet,omitempty" tf:"password_set,omitempty"`
 
 	// The Slack webhook URL.
 	// +kubebuilder:validation:Optional
-	URLSecretRef *v1.SecretKeySelector `json:"urlSecretRef,omitempty" tf:"-"`
+	URLSecretRef *v2.SecretKeySelector `json:"urlSecretRef,omitempty" tf:"-"`
 
 	// +kubebuilder:validation:Optional
 	URLSet *bool `json:"urlSet,omitempty" tf:"url_set,omitempty"`
 
 	// The username for basic authentication.
 	// +kubebuilder:validation:Optional
-	UsernameSecretRef *v1.SecretKeySelector `json:"usernameSecretRef,omitempty" tf:"-"`
+	UsernameSecretRef *v2.SecretKeySelector `json:"usernameSecretRef,omitempty" tf:"-"`
 
 	// +kubebuilder:validation:Optional
 	UsernameSet *bool `json:"usernameSet,omitempty" tf:"username_set,omitempty"`
@@ -144,27 +144,27 @@ type GenericWebhookParameters struct {
 type MicrosoftTeamsInitParameters struct {
 
 	// App ID for Microsoft Teams App.
-	AppIDSecretRef *v1.SecretKeySelector `json:"appIdSecretRef,omitempty" tf:"-"`
+	AppIDSecretRef *v2.SecretKeySelector `json:"appIdSecretRef,omitempty" tf:"-"`
 
 	AppIDSet *bool `json:"appIdSet,omitempty" tf:"app_id_set,omitempty"`
 
 	// Secret for Microsoft Teams App authentication.
-	AuthSecretSecretRef *v1.SecretKeySelector `json:"authSecretSecretRef,omitempty" tf:"-"`
+	AuthSecretSecretRef *v2.SecretKeySelector `json:"authSecretSecretRef,omitempty" tf:"-"`
 
 	AuthSecretSet *bool `json:"authSecretSet,omitempty" tf:"auth_secret_set,omitempty"`
 
 	// Channel URL for Microsoft Teams App.
-	ChannelURLSecretRef *v1.SecretKeySelector `json:"channelUrlSecretRef,omitempty" tf:"-"`
+	ChannelURLSecretRef *v2.SecretKeySelector `json:"channelUrlSecretRef,omitempty" tf:"-"`
 
 	ChannelURLSet *bool `json:"channelUrlSet,omitempty" tf:"channel_url_set,omitempty"`
 
 	// Tenant ID for Microsoft Teams App.
-	TenantIDSecretRef *v1.SecretKeySelector `json:"tenantIdSecretRef,omitempty" tf:"-"`
+	TenantIDSecretRef *v2.SecretKeySelector `json:"tenantIdSecretRef,omitempty" tf:"-"`
 
 	TenantIDSet *bool `json:"tenantIdSet,omitempty" tf:"tenant_id_set,omitempty"`
 
 	// The Slack webhook URL.
-	URLSecretRef *v1.SecretKeySelector `json:"urlSecretRef,omitempty" tf:"-"`
+	URLSecretRef *v2.SecretKeySelector `json:"urlSecretRef,omitempty" tf:"-"`
 
 	URLSet *bool `json:"urlSet,omitempty" tf:"url_set,omitempty"`
 }
@@ -185,35 +185,35 @@ type MicrosoftTeamsParameters struct {
 
 	// App ID for Microsoft Teams App.
 	// +kubebuilder:validation:Optional
-	AppIDSecretRef *v1.SecretKeySelector `json:"appIdSecretRef,omitempty" tf:"-"`
+	AppIDSecretRef *v2.SecretKeySelector `json:"appIdSecretRef,omitempty" tf:"-"`
 
 	// +kubebuilder:validation:Optional
 	AppIDSet *bool `json:"appIdSet,omitempty" tf:"app_id_set,omitempty"`
 
 	// Secret for Microsoft Teams App authentication.
 	// +kubebuilder:validation:Optional
-	AuthSecretSecretRef *v1.SecretKeySelector `json:"authSecretSecretRef,omitempty" tf:"-"`
+	AuthSecretSecretRef *v2.SecretKeySelector `json:"authSecretSecretRef,omitempty" tf:"-"`
 
 	// +kubebuilder:validation:Optional
 	AuthSecretSet *bool `json:"authSecretSet,omitempty" tf:"auth_secret_set,omitempty"`
 
 	// Channel URL for Microsoft Teams App.
 	// +kubebuilder:validation:Optional
-	ChannelURLSecretRef *v1.SecretKeySelector `json:"channelUrlSecretRef,omitempty" tf:"-"`
+	ChannelURLSecretRef *v2.SecretKeySelector `json:"channelUrlSecretRef,omitempty" tf:"-"`
 
 	// +kubebuilder:validation:Optional
 	ChannelURLSet *bool `json:"channelUrlSet,omitempty" tf:"channel_url_set,omitempty"`
 
 	// Tenant ID for Microsoft Teams App.
 	// +kubebuilder:validation:Optional
-	TenantIDSecretRef *v1.SecretKeySelector `json:"tenantIdSecretRef,omitempty" tf:"-"`
+	TenantIDSecretRef *v2.SecretKeySelector `json:"tenantIdSecretRef,omitempty" tf:"-"`
 
 	// +kubebuilder:validation:Optional
 	TenantIDSet *bool `json:"tenantIdSet,omitempty" tf:"tenant_id_set,omitempty"`
 
 	// The Slack webhook URL.
 	// +kubebuilder:validation:Optional
-	URLSecretRef *v1.SecretKeySelector `json:"urlSecretRef,omitempty" tf:"-"`
+	URLSecretRef *v2.SecretKeySelector `json:"urlSecretRef,omitempty" tf:"-"`
 
 	// +kubebuilder:validation:Optional
 	URLSet *bool `json:"urlSet,omitempty" tf:"url_set,omitempty"`
@@ -293,7 +293,7 @@ type NotificationDestinationProviderConfigParameters struct {
 type PagerdutyInitParameters struct {
 
 	// The PagerDuty integration key.
-	IntegrationKeySecretRef *v1.SecretKeySelector `json:"integrationKeySecretRef,omitempty" tf:"-"`
+	IntegrationKeySecretRef *v2.SecretKeySelector `json:"integrationKeySecretRef,omitempty" tf:"-"`
 
 	IntegrationKeySet *bool `json:"integrationKeySet,omitempty" tf:"integration_key_set,omitempty"`
 }
@@ -306,7 +306,7 @@ type PagerdutyParameters struct {
 
 	// The PagerDuty integration key.
 	// +kubebuilder:validation:Optional
-	IntegrationKeySecretRef *v1.SecretKeySelector `json:"integrationKeySecretRef,omitempty" tf:"-"`
+	IntegrationKeySecretRef *v2.SecretKeySelector `json:"integrationKeySecretRef,omitempty" tf:"-"`
 
 	// +kubebuilder:validation:Optional
 	IntegrationKeySet *bool `json:"integrationKeySet,omitempty" tf:"integration_key_set,omitempty"`
@@ -315,17 +315,17 @@ type PagerdutyParameters struct {
 type SlackInitParameters struct {
 
 	// Slack channel ID for notifications.
-	ChannelIDSecretRef *v1.SecretKeySelector `json:"channelIdSecretRef,omitempty" tf:"-"`
+	ChannelIDSecretRef *v2.SecretKeySelector `json:"channelIdSecretRef,omitempty" tf:"-"`
 
 	ChannelIDSet *bool `json:"channelIdSet,omitempty" tf:"channel_id_set,omitempty"`
 
 	// OAuth token for Slack authentication.
-	OauthTokenSecretRef *v1.SecretKeySelector `json:"oauthTokenSecretRef,omitempty" tf:"-"`
+	OauthTokenSecretRef *v2.SecretKeySelector `json:"oauthTokenSecretRef,omitempty" tf:"-"`
 
 	OauthTokenSet *bool `json:"oauthTokenSet,omitempty" tf:"oauth_token_set,omitempty"`
 
 	// The Slack webhook URL.
-	URLSecretRef *v1.SecretKeySelector `json:"urlSecretRef,omitempty" tf:"-"`
+	URLSecretRef *v2.SecretKeySelector `json:"urlSecretRef,omitempty" tf:"-"`
 
 	URLSet *bool `json:"urlSet,omitempty" tf:"url_set,omitempty"`
 }
@@ -342,21 +342,21 @@ type SlackParameters struct {
 
 	// Slack channel ID for notifications.
 	// +kubebuilder:validation:Optional
-	ChannelIDSecretRef *v1.SecretKeySelector `json:"channelIdSecretRef,omitempty" tf:"-"`
+	ChannelIDSecretRef *v2.SecretKeySelector `json:"channelIdSecretRef,omitempty" tf:"-"`
 
 	// +kubebuilder:validation:Optional
 	ChannelIDSet *bool `json:"channelIdSet,omitempty" tf:"channel_id_set,omitempty"`
 
 	// OAuth token for Slack authentication.
 	// +kubebuilder:validation:Optional
-	OauthTokenSecretRef *v1.SecretKeySelector `json:"oauthTokenSecretRef,omitempty" tf:"-"`
+	OauthTokenSecretRef *v2.SecretKeySelector `json:"oauthTokenSecretRef,omitempty" tf:"-"`
 
 	// +kubebuilder:validation:Optional
 	OauthTokenSet *bool `json:"oauthTokenSet,omitempty" tf:"oauth_token_set,omitempty"`
 
 	// The Slack webhook URL.
 	// +kubebuilder:validation:Optional
-	URLSecretRef *v1.SecretKeySelector `json:"urlSecretRef,omitempty" tf:"-"`
+	URLSecretRef *v2.SecretKeySelector `json:"urlSecretRef,omitempty" tf:"-"`
 
 	// +kubebuilder:validation:Optional
 	URLSet *bool `json:"urlSet,omitempty" tf:"url_set,omitempty"`
@@ -364,8 +364,8 @@ type SlackParameters struct {
 
 // NotificationDestinationSpec defines the desired state of NotificationDestination
 type NotificationDestinationSpec struct {
-	v1.ResourceSpec `json:",inline"`
-	ForProvider     NotificationDestinationParameters `json:"forProvider"`
+	v2.ClusterManagedResourceSpec `json:",inline"`
+	ForProvider                   NotificationDestinationParameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
 	// InitProvider holds the same fields as ForProvider, with the exception
@@ -381,8 +381,8 @@ type NotificationDestinationSpec struct {
 
 // NotificationDestinationStatus defines the observed state of NotificationDestination.
 type NotificationDestinationStatus struct {
-	v1.ResourceStatus `json:",inline"`
-	AtProvider        NotificationDestinationObservation `json:"atProvider,omitempty"`
+	v2.ManagedResourceStatus `json:",inline"`
+	AtProvider               NotificationDestinationObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true

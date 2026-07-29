@@ -10,7 +10,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
+	v2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 )
 
 type EffectiveFileEventQueueInitParameters struct {
@@ -113,11 +113,11 @@ type ExternalLocationInitParameters struct {
 
 	// Reference to a StorageCredential in unity to populate credentialName.
 	// +kubebuilder:validation:Optional
-	CredentialNameRef *v1.Reference `json:"credentialNameRef,omitempty" tf:"-"`
+	CredentialNameRef *v2.Reference `json:"credentialNameRef,omitempty" tf:"-"`
 
 	// Selector for a StorageCredential in unity to populate credentialName.
 	// +kubebuilder:validation:Optional
-	CredentialNameSelector *v1.Selector `json:"credentialNameSelector,omitempty" tf:"-"`
+	CredentialNameSelector *v2.Selector `json:"credentialNameSelector,omitempty" tf:"-"`
 
 	EffectiveFileEventQueue *EffectiveFileEventQueueInitParameters `json:"effectiveFileEventQueue,omitempty" tf:"effective_file_event_queue,omitempty"`
 
@@ -249,11 +249,11 @@ type ExternalLocationParameters struct {
 
 	// Reference to a StorageCredential in unity to populate credentialName.
 	// +kubebuilder:validation:Optional
-	CredentialNameRef *v1.Reference `json:"credentialNameRef,omitempty" tf:"-"`
+	CredentialNameRef *v2.Reference `json:"credentialNameRef,omitempty" tf:"-"`
 
 	// Selector for a StorageCredential in unity to populate credentialName.
 	// +kubebuilder:validation:Optional
-	CredentialNameSelector *v1.Selector `json:"credentialNameSelector,omitempty" tf:"-"`
+	CredentialNameSelector *v2.Selector `json:"credentialNameSelector,omitempty" tf:"-"`
 
 	// +kubebuilder:validation:Optional
 	EffectiveFileEventQueue *EffectiveFileEventQueueParameters `json:"effectiveFileEventQueue,omitempty" tf:"effective_file_event_queue,omitempty"`
@@ -818,8 +818,8 @@ type SseEncryptionDetailsParameters struct {
 
 // ExternalLocationSpec defines the desired state of ExternalLocation
 type ExternalLocationSpec struct {
-	v1.ResourceSpec `json:",inline"`
-	ForProvider     ExternalLocationParameters `json:"forProvider"`
+	v2.ClusterManagedResourceSpec `json:",inline"`
+	ForProvider                   ExternalLocationParameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
 	// InitProvider holds the same fields as ForProvider, with the exception
@@ -835,8 +835,8 @@ type ExternalLocationSpec struct {
 
 // ExternalLocationStatus defines the observed state of ExternalLocation.
 type ExternalLocationStatus struct {
-	v1.ResourceStatus `json:",inline"`
-	AtProvider        ExternalLocationObservation `json:"atProvider,omitempty"`
+	v2.ManagedResourceStatus `json:",inline"`
+	AtProvider               ExternalLocationObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true

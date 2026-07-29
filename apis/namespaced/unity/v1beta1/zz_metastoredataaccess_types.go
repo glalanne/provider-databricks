@@ -10,8 +10,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
-	v2 "github.com/crossplane/crossplane-runtime/v2/apis/common/v2"
+	v2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 )
 
 type CloudflareAPITokenInitParameters struct {
@@ -22,7 +21,7 @@ type CloudflareAPITokenInitParameters struct {
 	// ID of this data access configuration in form of <metastore_id>|<name>.
 	AccountID *string `json:"accountId,omitempty" tf:"account_id,omitempty"`
 
-	SecretAccessKeySecretRef v1.LocalSecretKeySelector `json:"secretAccessKeySecretRef" tf:"-"`
+	SecretAccessKeySecretRef v2.LocalSecretKeySelector `json:"secretAccessKeySecretRef" tf:"-"`
 }
 
 type CloudflareAPITokenObservation struct {
@@ -45,7 +44,7 @@ type CloudflareAPITokenParameters struct {
 	AccountID *string `json:"accountId" tf:"account_id,omitempty"`
 
 	// +kubebuilder:validation:Optional
-	SecretAccessKeySecretRef v1.LocalSecretKeySelector `json:"secretAccessKeySecretRef" tf:"-"`
+	SecretAccessKeySecretRef v2.LocalSecretKeySelector `json:"secretAccessKeySecretRef" tf:"-"`
 }
 
 type GCPServiceAccountKeyInitParameters struct {
@@ -54,7 +53,7 @@ type GCPServiceAccountKeyInitParameters struct {
 	// ID of this data access configuration in form of <metastore_id>|<name>.
 	PrivateKeyID *string `json:"privateKeyId,omitempty" tf:"private_key_id,omitempty"`
 
-	PrivateKeySecretRef v1.LocalSecretKeySelector `json:"privateKeySecretRef" tf:"-"`
+	PrivateKeySecretRef v2.LocalSecretKeySelector `json:"privateKeySecretRef" tf:"-"`
 }
 
 type GCPServiceAccountKeyObservation struct {
@@ -74,7 +73,7 @@ type GCPServiceAccountKeyParameters struct {
 	PrivateKeyID *string `json:"privateKeyId" tf:"private_key_id,omitempty"`
 
 	// +kubebuilder:validation:Optional
-	PrivateKeySecretRef v1.LocalSecretKeySelector `json:"privateKeySecretRef" tf:"-"`
+	PrivateKeySecretRef v2.LocalSecretKeySelector `json:"privateKeySecretRef" tf:"-"`
 }
 
 type MetastoreDataAccessAwsIAMRoleInitParameters struct {
@@ -154,7 +153,7 @@ type MetastoreDataAccessAzureServicePrincipalInitParameters struct {
 	// ID of this data access configuration in form of <metastore_id>|<name>.
 	ApplicationID *string `json:"applicationId,omitempty" tf:"application_id,omitempty"`
 
-	ClientSecretSecretRef v1.LocalSecretKeySelector `json:"clientSecretSecretRef" tf:"-"`
+	ClientSecretSecretRef v2.LocalSecretKeySelector `json:"clientSecretSecretRef" tf:"-"`
 
 	// ID of this data access configuration in form of <metastore_id>|<name>.
 	DirectoryID *string `json:"directoryId,omitempty" tf:"directory_id,omitempty"`
@@ -176,7 +175,7 @@ type MetastoreDataAccessAzureServicePrincipalParameters struct {
 	ApplicationID *string `json:"applicationId" tf:"application_id,omitempty"`
 
 	// +kubebuilder:validation:Optional
-	ClientSecretSecretRef v1.LocalSecretKeySelector `json:"clientSecretSecretRef" tf:"-"`
+	ClientSecretSecretRef v2.LocalSecretKeySelector `json:"clientSecretSecretRef" tf:"-"`
 
 	// ID of this data access configuration in form of <metastore_id>|<name>.
 	// +kubebuilder:validation:Optional
@@ -245,11 +244,11 @@ type MetastoreDataAccessInitParameters struct {
 
 	// Reference to a Metastore in unity to populate metastoreId.
 	// +kubebuilder:validation:Optional
-	MetastoreIDRef *v1.NamespacedReference `json:"metastoreIdRef,omitempty" tf:"-"`
+	MetastoreIDRef *v2.NamespacedReference `json:"metastoreIdRef,omitempty" tf:"-"`
 
 	// Selector for a Metastore in unity to populate metastoreId.
 	// +kubebuilder:validation:Optional
-	MetastoreIDSelector *v1.NamespacedSelector `json:"metastoreIdSelector,omitempty" tf:"-"`
+	MetastoreIDSelector *v2.NamespacedSelector `json:"metastoreIdSelector,omitempty" tf:"-"`
 
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
@@ -359,11 +358,11 @@ type MetastoreDataAccessParameters struct {
 
 	// Reference to a Metastore in unity to populate metastoreId.
 	// +kubebuilder:validation:Optional
-	MetastoreIDRef *v1.NamespacedReference `json:"metastoreIdRef,omitempty" tf:"-"`
+	MetastoreIDRef *v2.NamespacedReference `json:"metastoreIdRef,omitempty" tf:"-"`
 
 	// Selector for a Metastore in unity to populate metastoreId.
 	// +kubebuilder:validation:Optional
-	MetastoreIDSelector *v1.NamespacedSelector `json:"metastoreIdSelector,omitempty" tf:"-"`
+	MetastoreIDSelector *v2.NamespacedSelector `json:"metastoreIdSelector,omitempty" tf:"-"`
 
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
@@ -420,8 +419,8 @@ type MetastoreDataAccessSpec struct {
 
 // MetastoreDataAccessStatus defines the observed state of MetastoreDataAccess.
 type MetastoreDataAccessStatus struct {
-	v1.ResourceStatus `json:",inline"`
-	AtProvider        MetastoreDataAccessObservation `json:"atProvider,omitempty"`
+	v2.ManagedResourceStatus `json:",inline"`
+	AtProvider               MetastoreDataAccessObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true

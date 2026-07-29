@@ -10,8 +10,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
-	v2 "github.com/crossplane/crossplane-runtime/v2/apis/common/v2"
+	v2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 )
 
 type GroupMemberInitParameters struct {
@@ -26,11 +25,11 @@ type GroupMemberInitParameters struct {
 
 	// Reference to a Group in security to populate groupId.
 	// +kubebuilder:validation:Optional
-	GroupIDRef *v1.NamespacedReference `json:"groupIdRef,omitempty" tf:"-"`
+	GroupIDRef *v2.NamespacedReference `json:"groupIdRef,omitempty" tf:"-"`
 
 	// Selector for a Group in security to populate groupId.
 	// +kubebuilder:validation:Optional
-	GroupIDSelector *v1.NamespacedSelector `json:"groupIdSelector,omitempty" tf:"-"`
+	GroupIDSelector *v2.NamespacedSelector `json:"groupIdSelector,omitempty" tf:"-"`
 
 	// This is the id attribute (SCIM ID) of the group, service principal, or user.
 	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/namespaced/security/v1beta1.Group
@@ -39,11 +38,11 @@ type GroupMemberInitParameters struct {
 
 	// Reference to a Group in security to populate memberId.
 	// +kubebuilder:validation:Optional
-	MemberIDRef *v1.NamespacedReference `json:"memberIdRef,omitempty" tf:"-"`
+	MemberIDRef *v2.NamespacedReference `json:"memberIdRef,omitempty" tf:"-"`
 
 	// Selector for a Group in security to populate memberId.
 	// +kubebuilder:validation:Optional
-	MemberIDSelector *v1.NamespacedSelector `json:"memberIdSelector,omitempty" tf:"-"`
+	MemberIDSelector *v2.NamespacedSelector `json:"memberIdSelector,omitempty" tf:"-"`
 
 	ProviderConfig *GroupMemberProviderConfigInitParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
 }
@@ -80,11 +79,11 @@ type GroupMemberParameters struct {
 
 	// Reference to a Group in security to populate groupId.
 	// +kubebuilder:validation:Optional
-	GroupIDRef *v1.NamespacedReference `json:"groupIdRef,omitempty" tf:"-"`
+	GroupIDRef *v2.NamespacedReference `json:"groupIdRef,omitempty" tf:"-"`
 
 	// Selector for a Group in security to populate groupId.
 	// +kubebuilder:validation:Optional
-	GroupIDSelector *v1.NamespacedSelector `json:"groupIdSelector,omitempty" tf:"-"`
+	GroupIDSelector *v2.NamespacedSelector `json:"groupIdSelector,omitempty" tf:"-"`
 
 	// This is the id attribute (SCIM ID) of the group, service principal, or user.
 	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/namespaced/security/v1beta1.Group
@@ -94,11 +93,11 @@ type GroupMemberParameters struct {
 
 	// Reference to a Group in security to populate memberId.
 	// +kubebuilder:validation:Optional
-	MemberIDRef *v1.NamespacedReference `json:"memberIdRef,omitempty" tf:"-"`
+	MemberIDRef *v2.NamespacedReference `json:"memberIdRef,omitempty" tf:"-"`
 
 	// Selector for a Group in security to populate memberId.
 	// +kubebuilder:validation:Optional
-	MemberIDSelector *v1.NamespacedSelector `json:"memberIdSelector,omitempty" tf:"-"`
+	MemberIDSelector *v2.NamespacedSelector `json:"memberIdSelector,omitempty" tf:"-"`
 
 	// +kubebuilder:validation:Optional
 	ProviderConfig *GroupMemberProviderConfigParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
@@ -142,8 +141,8 @@ type GroupMemberSpec struct {
 
 // GroupMemberStatus defines the observed state of GroupMember.
 type GroupMemberStatus struct {
-	v1.ResourceStatus `json:",inline"`
-	AtProvider        GroupMemberObservation `json:"atProvider,omitempty"`
+	v2.ManagedResourceStatus `json:",inline"`
+	AtProvider               GroupMemberObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true

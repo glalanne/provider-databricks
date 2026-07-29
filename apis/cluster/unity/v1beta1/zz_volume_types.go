@@ -10,7 +10,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
+	v2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 )
 
 type VolumeInitParameters struct {
@@ -22,11 +22,11 @@ type VolumeInitParameters struct {
 
 	// Reference to a Catalog in unity to populate catalogName.
 	// +kubebuilder:validation:Optional
-	CatalogNameRef *v1.Reference `json:"catalogNameRef,omitempty" tf:"-"`
+	CatalogNameRef *v2.Reference `json:"catalogNameRef,omitempty" tf:"-"`
 
 	// Selector for a Catalog in unity to populate catalogName.
 	// +kubebuilder:validation:Optional
-	CatalogNameSelector *v1.Selector `json:"catalogNameSelector,omitempty" tf:"-"`
+	CatalogNameSelector *v2.Selector `json:"catalogNameSelector,omitempty" tf:"-"`
 
 	// Free-form text.
 	Comment *string `json:"comment,omitempty" tf:"comment,omitempty"`
@@ -47,11 +47,11 @@ type VolumeInitParameters struct {
 
 	// Reference to a Schema in unity to populate schemaName.
 	// +kubebuilder:validation:Optional
-	SchemaNameRef *v1.Reference `json:"schemaNameRef,omitempty" tf:"-"`
+	SchemaNameRef *v2.Reference `json:"schemaNameRef,omitempty" tf:"-"`
 
 	// Selector for a Schema in unity to populate schemaName.
 	// +kubebuilder:validation:Optional
-	SchemaNameSelector *v1.Selector `json:"schemaNameSelector,omitempty" tf:"-"`
+	SchemaNameSelector *v2.Selector `json:"schemaNameSelector,omitempty" tf:"-"`
 
 	// URL for the volume (should be inside of an existing External Location). Only used for EXTERNAL Volumes.  If the URL contains special characters, such as space, &, etc., they should be percent-encoded (space -> %20, etc.). Change forces creation of a new resource.
 	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/cluster/unity/v1beta1.ExternalLocation
@@ -60,11 +60,11 @@ type VolumeInitParameters struct {
 
 	// Reference to a ExternalLocation in unity to populate storageLocation.
 	// +kubebuilder:validation:Optional
-	StorageLocationRef *v1.Reference `json:"storageLocationRef,omitempty" tf:"-"`
+	StorageLocationRef *v2.Reference `json:"storageLocationRef,omitempty" tf:"-"`
 
 	// Selector for a ExternalLocation in unity to populate storageLocation.
 	// +kubebuilder:validation:Optional
-	StorageLocationSelector *v1.Selector `json:"storageLocationSelector,omitempty" tf:"-"`
+	StorageLocationSelector *v2.Selector `json:"storageLocationSelector,omitempty" tf:"-"`
 
 	// Volume type. EXTERNAL or MANAGED. Change forces creation of a new resource.
 	VolumeType *string `json:"volumeType,omitempty" tf:"volume_type,omitempty"`
@@ -113,11 +113,11 @@ type VolumeParameters struct {
 
 	// Reference to a Catalog in unity to populate catalogName.
 	// +kubebuilder:validation:Optional
-	CatalogNameRef *v1.Reference `json:"catalogNameRef,omitempty" tf:"-"`
+	CatalogNameRef *v2.Reference `json:"catalogNameRef,omitempty" tf:"-"`
 
 	// Selector for a Catalog in unity to populate catalogName.
 	// +kubebuilder:validation:Optional
-	CatalogNameSelector *v1.Selector `json:"catalogNameSelector,omitempty" tf:"-"`
+	CatalogNameSelector *v2.Selector `json:"catalogNameSelector,omitempty" tf:"-"`
 
 	// Free-form text.
 	// +kubebuilder:validation:Optional
@@ -143,11 +143,11 @@ type VolumeParameters struct {
 
 	// Reference to a Schema in unity to populate schemaName.
 	// +kubebuilder:validation:Optional
-	SchemaNameRef *v1.Reference `json:"schemaNameRef,omitempty" tf:"-"`
+	SchemaNameRef *v2.Reference `json:"schemaNameRef,omitempty" tf:"-"`
 
 	// Selector for a Schema in unity to populate schemaName.
 	// +kubebuilder:validation:Optional
-	SchemaNameSelector *v1.Selector `json:"schemaNameSelector,omitempty" tf:"-"`
+	SchemaNameSelector *v2.Selector `json:"schemaNameSelector,omitempty" tf:"-"`
 
 	// URL for the volume (should be inside of an existing External Location). Only used for EXTERNAL Volumes.  If the URL contains special characters, such as space, &, etc., they should be percent-encoded (space -> %20, etc.). Change forces creation of a new resource.
 	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/cluster/unity/v1beta1.ExternalLocation
@@ -157,11 +157,11 @@ type VolumeParameters struct {
 
 	// Reference to a ExternalLocation in unity to populate storageLocation.
 	// +kubebuilder:validation:Optional
-	StorageLocationRef *v1.Reference `json:"storageLocationRef,omitempty" tf:"-"`
+	StorageLocationRef *v2.Reference `json:"storageLocationRef,omitempty" tf:"-"`
 
 	// Selector for a ExternalLocation in unity to populate storageLocation.
 	// +kubebuilder:validation:Optional
-	StorageLocationSelector *v1.Selector `json:"storageLocationSelector,omitempty" tf:"-"`
+	StorageLocationSelector *v2.Selector `json:"storageLocationSelector,omitempty" tf:"-"`
 
 	// Volume type. EXTERNAL or MANAGED. Change forces creation of a new resource.
 	// +kubebuilder:validation:Optional
@@ -189,8 +189,8 @@ type VolumeProviderConfigParameters struct {
 
 // VolumeSpec defines the desired state of Volume
 type VolumeSpec struct {
-	v1.ResourceSpec `json:",inline"`
-	ForProvider     VolumeParameters `json:"forProvider"`
+	v2.ClusterManagedResourceSpec `json:",inline"`
+	ForProvider                   VolumeParameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
 	// InitProvider holds the same fields as ForProvider, with the exception
@@ -206,8 +206,8 @@ type VolumeSpec struct {
 
 // VolumeStatus defines the observed state of Volume.
 type VolumeStatus struct {
-	v1.ResourceStatus `json:",inline"`
-	AtProvider        VolumeObservation `json:"atProvider,omitempty"`
+	v2.ManagedResourceStatus `json:",inline"`
+	AtProvider               VolumeObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true

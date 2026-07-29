@@ -10,8 +10,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
-	v2 "github.com/crossplane/crossplane-runtime/v2/apis/common/v2"
+	v2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 )
 
 type CatalogWorkspaceBindingInitParameters struct {
@@ -30,11 +29,11 @@ type CatalogWorkspaceBindingInitParameters struct {
 
 	// Reference to a Catalog in unity to populate securableName.
 	// +kubebuilder:validation:Optional
-	SecurableNameRef *v1.NamespacedReference `json:"securableNameRef,omitempty" tf:"-"`
+	SecurableNameRef *v2.NamespacedReference `json:"securableNameRef,omitempty" tf:"-"`
 
 	// Selector for a Catalog in unity to populate securableName.
 	// +kubebuilder:validation:Optional
-	SecurableNameSelector *v1.NamespacedSelector `json:"securableNameSelector,omitempty" tf:"-"`
+	SecurableNameSelector *v2.NamespacedSelector `json:"securableNameSelector,omitempty" tf:"-"`
 
 	// Type of securable. Default to catalog. Change forces creation of a new resource.
 	SecurableType *string `json:"securableType,omitempty" tf:"securable_type,omitempty"`
@@ -46,11 +45,11 @@ type CatalogWorkspaceBindingInitParameters struct {
 
 	// Reference to a MwsWorkspaces in deployment to populate workspaceId.
 	// +kubebuilder:validation:Optional
-	WorkspaceIDRef *v1.NamespacedReference `json:"workspaceIdRef,omitempty" tf:"-"`
+	WorkspaceIDRef *v2.NamespacedReference `json:"workspaceIdRef,omitempty" tf:"-"`
 
 	// Selector for a MwsWorkspaces in deployment to populate workspaceId.
 	// +kubebuilder:validation:Optional
-	WorkspaceIDSelector *v1.NamespacedSelector `json:"workspaceIdSelector,omitempty" tf:"-"`
+	WorkspaceIDSelector *v2.NamespacedSelector `json:"workspaceIdSelector,omitempty" tf:"-"`
 }
 
 type CatalogWorkspaceBindingObservation struct {
@@ -94,11 +93,11 @@ type CatalogWorkspaceBindingParameters struct {
 
 	// Reference to a Catalog in unity to populate securableName.
 	// +kubebuilder:validation:Optional
-	SecurableNameRef *v1.NamespacedReference `json:"securableNameRef,omitempty" tf:"-"`
+	SecurableNameRef *v2.NamespacedReference `json:"securableNameRef,omitempty" tf:"-"`
 
 	// Selector for a Catalog in unity to populate securableName.
 	// +kubebuilder:validation:Optional
-	SecurableNameSelector *v1.NamespacedSelector `json:"securableNameSelector,omitempty" tf:"-"`
+	SecurableNameSelector *v2.NamespacedSelector `json:"securableNameSelector,omitempty" tf:"-"`
 
 	// Type of securable. Default to catalog. Change forces creation of a new resource.
 	// +kubebuilder:validation:Optional
@@ -112,11 +111,11 @@ type CatalogWorkspaceBindingParameters struct {
 
 	// Reference to a MwsWorkspaces in deployment to populate workspaceId.
 	// +kubebuilder:validation:Optional
-	WorkspaceIDRef *v1.NamespacedReference `json:"workspaceIdRef,omitempty" tf:"-"`
+	WorkspaceIDRef *v2.NamespacedReference `json:"workspaceIdRef,omitempty" tf:"-"`
 
 	// Selector for a MwsWorkspaces in deployment to populate workspaceId.
 	// +kubebuilder:validation:Optional
-	WorkspaceIDSelector *v1.NamespacedSelector `json:"workspaceIdSelector,omitempty" tf:"-"`
+	WorkspaceIDSelector *v2.NamespacedSelector `json:"workspaceIdSelector,omitempty" tf:"-"`
 }
 
 type CatalogWorkspaceBindingProviderConfigInitParameters struct {
@@ -157,8 +156,8 @@ type CatalogWorkspaceBindingSpec struct {
 
 // CatalogWorkspaceBindingStatus defines the observed state of CatalogWorkspaceBinding.
 type CatalogWorkspaceBindingStatus struct {
-	v1.ResourceStatus `json:",inline"`
-	AtProvider        CatalogWorkspaceBindingObservation `json:"atProvider,omitempty"`
+	v2.ManagedResourceStatus `json:",inline"`
+	AtProvider               CatalogWorkspaceBindingObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true

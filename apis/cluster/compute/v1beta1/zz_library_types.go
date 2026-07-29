@@ -10,7 +10,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
+	v2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 )
 
 type LibraryCranInitParameters_2 struct {
@@ -51,11 +51,11 @@ type LibraryInitParameters_2 struct {
 
 	// Reference to a Cluster in compute to populate clusterId.
 	// +kubebuilder:validation:Optional
-	ClusterIDRef *v1.Reference `json:"clusterIdRef,omitempty" tf:"-"`
+	ClusterIDRef *v2.Reference `json:"clusterIdRef,omitempty" tf:"-"`
 
 	// Selector for a Cluster in compute to populate clusterId.
 	// +kubebuilder:validation:Optional
-	ClusterIDSelector *v1.Selector `json:"clusterIdSelector,omitempty" tf:"-"`
+	ClusterIDSelector *v2.Selector `json:"clusterIdSelector,omitempty" tf:"-"`
 
 	// Configuration block for a CRAN library. The block consists of the following fields:
 	Cran *LibraryCranInitParameters_2 `json:"cran,omitempty" tf:"cran,omitempty"`
@@ -67,11 +67,11 @@ type LibraryInitParameters_2 struct {
 
 	// Reference to a DbfsFile in storage to populate egg.
 	// +kubebuilder:validation:Optional
-	EggRef *v1.Reference `json:"eggRef,omitempty" tf:"-"`
+	EggRef *v2.Reference `json:"eggRef,omitempty" tf:"-"`
 
 	// Selector for a DbfsFile in storage to populate egg.
 	// +kubebuilder:validation:Optional
-	EggSelector *v1.Selector `json:"eggSelector,omitempty" tf:"-"`
+	EggSelector *v2.Selector `json:"eggSelector,omitempty" tf:"-"`
 
 	// Path to the JAR library. Supported URIs include Workspace paths, Unity Catalog Volumes paths, and S3 URIs. For example: /Workspace/path/to/library.jar, /Volumes/path/to/library.jar or s3://my-bucket/library.jar. If S3 is used, make sure the cluster has read access to the library. You may need to launch the cluster with an IAM role to access the S3 URI.
 	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/cluster/storage/v1beta1.File
@@ -80,11 +80,11 @@ type LibraryInitParameters_2 struct {
 
 	// Reference to a File in storage to populate jar.
 	// +kubebuilder:validation:Optional
-	JarRef *v1.Reference `json:"jarRef,omitempty" tf:"-"`
+	JarRef *v2.Reference `json:"jarRef,omitempty" tf:"-"`
 
 	// Selector for a File in storage to populate jar.
 	// +kubebuilder:validation:Optional
-	JarSelector *v1.Selector `json:"jarSelector,omitempty" tf:"-"`
+	JarSelector *v2.Selector `json:"jarSelector,omitempty" tf:"-"`
 
 	// Configuration block for a Maven library. The block consists of the following fields:
 	Maven *LibraryMavenInitParameters_2 `json:"maven,omitempty" tf:"maven,omitempty"`
@@ -105,11 +105,11 @@ type LibraryInitParameters_2 struct {
 
 	// Reference to a File in storage to populate whl.
 	// +kubebuilder:validation:Optional
-	WhlRef *v1.Reference `json:"whlRef,omitempty" tf:"-"`
+	WhlRef *v2.Reference `json:"whlRef,omitempty" tf:"-"`
 
 	// Selector for a File in storage to populate whl.
 	// +kubebuilder:validation:Optional
-	WhlSelector *v1.Selector `json:"whlSelector,omitempty" tf:"-"`
+	WhlSelector *v2.Selector `json:"whlSelector,omitempty" tf:"-"`
 }
 
 type LibraryMavenInitParameters_2 struct {
@@ -193,11 +193,11 @@ type LibraryParameters_2 struct {
 
 	// Reference to a Cluster in compute to populate clusterId.
 	// +kubebuilder:validation:Optional
-	ClusterIDRef *v1.Reference `json:"clusterIdRef,omitempty" tf:"-"`
+	ClusterIDRef *v2.Reference `json:"clusterIdRef,omitempty" tf:"-"`
 
 	// Selector for a Cluster in compute to populate clusterId.
 	// +kubebuilder:validation:Optional
-	ClusterIDSelector *v1.Selector `json:"clusterIdSelector,omitempty" tf:"-"`
+	ClusterIDSelector *v2.Selector `json:"clusterIdSelector,omitempty" tf:"-"`
 
 	// Configuration block for a CRAN library. The block consists of the following fields:
 	// +kubebuilder:validation:Optional
@@ -211,11 +211,11 @@ type LibraryParameters_2 struct {
 
 	// Reference to a DbfsFile in storage to populate egg.
 	// +kubebuilder:validation:Optional
-	EggRef *v1.Reference `json:"eggRef,omitempty" tf:"-"`
+	EggRef *v2.Reference `json:"eggRef,omitempty" tf:"-"`
 
 	// Selector for a DbfsFile in storage to populate egg.
 	// +kubebuilder:validation:Optional
-	EggSelector *v1.Selector `json:"eggSelector,omitempty" tf:"-"`
+	EggSelector *v2.Selector `json:"eggSelector,omitempty" tf:"-"`
 
 	// Path to the JAR library. Supported URIs include Workspace paths, Unity Catalog Volumes paths, and S3 URIs. For example: /Workspace/path/to/library.jar, /Volumes/path/to/library.jar or s3://my-bucket/library.jar. If S3 is used, make sure the cluster has read access to the library. You may need to launch the cluster with an IAM role to access the S3 URI.
 	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/cluster/storage/v1beta1.File
@@ -225,11 +225,11 @@ type LibraryParameters_2 struct {
 
 	// Reference to a File in storage to populate jar.
 	// +kubebuilder:validation:Optional
-	JarRef *v1.Reference `json:"jarRef,omitempty" tf:"-"`
+	JarRef *v2.Reference `json:"jarRef,omitempty" tf:"-"`
 
 	// Selector for a File in storage to populate jar.
 	// +kubebuilder:validation:Optional
-	JarSelector *v1.Selector `json:"jarSelector,omitempty" tf:"-"`
+	JarSelector *v2.Selector `json:"jarSelector,omitempty" tf:"-"`
 
 	// Configuration block for a Maven library. The block consists of the following fields:
 	// +kubebuilder:validation:Optional
@@ -255,11 +255,11 @@ type LibraryParameters_2 struct {
 
 	// Reference to a File in storage to populate whl.
 	// +kubebuilder:validation:Optional
-	WhlRef *v1.Reference `json:"whlRef,omitempty" tf:"-"`
+	WhlRef *v2.Reference `json:"whlRef,omitempty" tf:"-"`
 
 	// Selector for a File in storage to populate whl.
 	// +kubebuilder:validation:Optional
-	WhlSelector *v1.Selector `json:"whlSelector,omitempty" tf:"-"`
+	WhlSelector *v2.Selector `json:"whlSelector,omitempty" tf:"-"`
 }
 
 type LibraryProviderConfigInitParameters_2 struct {
@@ -312,8 +312,8 @@ type LibraryPypiParameters_2 struct {
 
 // LibrarySpec defines the desired state of Library
 type LibrarySpec struct {
-	v1.ResourceSpec `json:",inline"`
-	ForProvider     LibraryParameters_2 `json:"forProvider"`
+	v2.ClusterManagedResourceSpec `json:",inline"`
+	ForProvider                   LibraryParameters_2 `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
 	// InitProvider holds the same fields as ForProvider, with the exception
@@ -329,8 +329,8 @@ type LibrarySpec struct {
 
 // LibraryStatus defines the observed state of Library.
 type LibraryStatus struct {
-	v1.ResourceStatus `json:",inline"`
-	AtProvider        LibraryObservation_2 `json:"atProvider,omitempty"`
+	v2.ManagedResourceStatus `json:",inline"`
+	AtProvider               LibraryObservation_2 `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true

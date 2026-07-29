@@ -10,8 +10,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
-	v2 "github.com/crossplane/crossplane-runtime/v2/apis/common/v2"
+	v2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 )
 
 type AIRuntimeTaskDeploymentsInitParameters struct {
@@ -599,11 +598,11 @@ type DashboardTaskInitParameters struct {
 
 	// Reference to a SQLEndpoint in sql to populate warehouseId.
 	// +kubebuilder:validation:Optional
-	WarehouseIDRef *v1.NamespacedReference `json:"warehouseIdRef,omitempty" tf:"-"`
+	WarehouseIDRef *v2.NamespacedReference `json:"warehouseIdRef,omitempty" tf:"-"`
 
 	// Selector for a SQLEndpoint in sql to populate warehouseId.
 	// +kubebuilder:validation:Optional
-	WarehouseIDSelector *v1.NamespacedSelector `json:"warehouseIdSelector,omitempty" tf:"-"`
+	WarehouseIDSelector *v2.NamespacedSelector `json:"warehouseIdSelector,omitempty" tf:"-"`
 }
 
 type DashboardTaskObservation struct {
@@ -642,11 +641,11 @@ type DashboardTaskParameters struct {
 
 	// Reference to a SQLEndpoint in sql to populate warehouseId.
 	// +kubebuilder:validation:Optional
-	WarehouseIDRef *v1.NamespacedReference `json:"warehouseIdRef,omitempty" tf:"-"`
+	WarehouseIDRef *v2.NamespacedReference `json:"warehouseIdRef,omitempty" tf:"-"`
 
 	// Selector for a SQLEndpoint in sql to populate warehouseId.
 	// +kubebuilder:validation:Optional
-	WarehouseIDSelector *v1.NamespacedSelector `json:"warehouseIdSelector,omitempty" tf:"-"`
+	WarehouseIDSelector *v2.NamespacedSelector `json:"warehouseIdSelector,omitempty" tf:"-"`
 }
 
 type DashboardTaskSubscriptionInitParameters struct {
@@ -801,11 +800,11 @@ type DbtTaskInitParameters struct {
 
 	// Reference to a SQLEndpoint in sql to populate warehouseId.
 	// +kubebuilder:validation:Optional
-	WarehouseIDRef *v1.NamespacedReference `json:"warehouseIdRef,omitempty" tf:"-"`
+	WarehouseIDRef *v2.NamespacedReference `json:"warehouseIdRef,omitempty" tf:"-"`
 
 	// Selector for a SQLEndpoint in sql to populate warehouseId.
 	// +kubebuilder:validation:Optional
-	WarehouseIDSelector *v1.NamespacedSelector `json:"warehouseIdSelector,omitempty" tf:"-"`
+	WarehouseIDSelector *v2.NamespacedSelector `json:"warehouseIdSelector,omitempty" tf:"-"`
 }
 
 type DbtTaskObservation struct {
@@ -865,11 +864,11 @@ type DbtTaskParameters struct {
 
 	// Reference to a SQLEndpoint in sql to populate warehouseId.
 	// +kubebuilder:validation:Optional
-	WarehouseIDRef *v1.NamespacedReference `json:"warehouseIdRef,omitempty" tf:"-"`
+	WarehouseIDRef *v2.NamespacedReference `json:"warehouseIdRef,omitempty" tf:"-"`
 
 	// Selector for a SQLEndpoint in sql to populate warehouseId.
 	// +kubebuilder:validation:Optional
-	WarehouseIDSelector *v1.NamespacedSelector `json:"warehouseIdSelector,omitempty" tf:"-"`
+	WarehouseIDSelector *v2.NamespacedSelector `json:"warehouseIdSelector,omitempty" tf:"-"`
 }
 
 type DependsOnInitParameters struct {
@@ -1008,7 +1007,7 @@ type DeploymentsParameters struct {
 }
 
 type DockerImageBasicAuthInitParameters struct {
-	PasswordSecretRef v1.LocalSecretKeySelector `json:"passwordSecretRef" tf:"-"`
+	PasswordSecretRef v2.LocalSecretKeySelector `json:"passwordSecretRef" tf:"-"`
 
 	// An optional name for the job. The default value is Untitled.
 	Username *string `json:"username,omitempty" tf:"username,omitempty"`
@@ -1023,7 +1022,7 @@ type DockerImageBasicAuthObservation struct {
 type DockerImageBasicAuthParameters struct {
 
 	// +kubebuilder:validation:Optional
-	PasswordSecretRef v1.LocalSecretKeySelector `json:"passwordSecretRef" tf:"-"`
+	PasswordSecretRef v2.LocalSecretKeySelector `json:"passwordSecretRef" tf:"-"`
 
 	// An optional name for the job. The default value is Untitled.
 	// +kubebuilder:validation:Optional
@@ -4177,7 +4176,7 @@ type JobTaskNewClusterClusterMountInfoParameters struct {
 }
 
 type JobTaskNewClusterDockerImageBasicAuthInitParameters struct {
-	PasswordSecretRef v1.LocalSecretKeySelector `json:"passwordSecretRef" tf:"-"`
+	PasswordSecretRef v2.LocalSecretKeySelector `json:"passwordSecretRef" tf:"-"`
 
 	// An optional name for the job. The default value is Untitled.
 	Username *string `json:"username,omitempty" tf:"username,omitempty"`
@@ -4192,7 +4191,7 @@ type JobTaskNewClusterDockerImageBasicAuthObservation struct {
 type JobTaskNewClusterDockerImageBasicAuthParameters struct {
 
 	// +kubebuilder:validation:Optional
-	PasswordSecretRef v1.LocalSecretKeySelector `json:"passwordSecretRef" tf:"-"`
+	PasswordSecretRef v2.LocalSecretKeySelector `json:"passwordSecretRef" tf:"-"`
 
 	// An optional name for the job. The default value is Untitled.
 	// +kubebuilder:validation:Optional
@@ -5066,11 +5065,11 @@ type JobTaskNotebookTaskInitParameters struct {
 
 	// Reference to a Notebook in workspace to populate notebookPath.
 	// +kubebuilder:validation:Optional
-	NotebookPathRef *v1.NamespacedReference `json:"notebookPathRef,omitempty" tf:"-"`
+	NotebookPathRef *v2.NamespacedReference `json:"notebookPathRef,omitempty" tf:"-"`
 
 	// Selector for a Notebook in workspace to populate notebookPath.
 	// +kubebuilder:validation:Optional
-	NotebookPathSelector *v1.NamespacedSelector `json:"notebookPathSelector,omitempty" tf:"-"`
+	NotebookPathSelector *v2.NamespacedSelector `json:"notebookPathSelector,omitempty" tf:"-"`
 
 	// The source of the project. Possible values are WORKSPACE and GIT.  Defaults to GIT if a git_source block is present in the job definition.
 	Source *string `json:"source,omitempty" tf:"source,omitempty"`
@@ -5081,11 +5080,11 @@ type JobTaskNotebookTaskInitParameters struct {
 
 	// Reference to a SQLEndpoint in sql to populate warehouseId.
 	// +kubebuilder:validation:Optional
-	WarehouseIDRef *v1.NamespacedReference `json:"warehouseIdRef,omitempty" tf:"-"`
+	WarehouseIDRef *v2.NamespacedReference `json:"warehouseIdRef,omitempty" tf:"-"`
 
 	// Selector for a SQLEndpoint in sql to populate warehouseId.
 	// +kubebuilder:validation:Optional
-	WarehouseIDSelector *v1.NamespacedSelector `json:"warehouseIdSelector,omitempty" tf:"-"`
+	WarehouseIDSelector *v2.NamespacedSelector `json:"warehouseIdSelector,omitempty" tf:"-"`
 }
 
 type JobTaskNotebookTaskObservation struct {
@@ -5119,11 +5118,11 @@ type JobTaskNotebookTaskParameters struct {
 
 	// Reference to a Notebook in workspace to populate notebookPath.
 	// +kubebuilder:validation:Optional
-	NotebookPathRef *v1.NamespacedReference `json:"notebookPathRef,omitempty" tf:"-"`
+	NotebookPathRef *v2.NamespacedReference `json:"notebookPathRef,omitempty" tf:"-"`
 
 	// Selector for a Notebook in workspace to populate notebookPath.
 	// +kubebuilder:validation:Optional
-	NotebookPathSelector *v1.NamespacedSelector `json:"notebookPathSelector,omitempty" tf:"-"`
+	NotebookPathSelector *v2.NamespacedSelector `json:"notebookPathSelector,omitempty" tf:"-"`
 
 	// The source of the project. Possible values are WORKSPACE and GIT.  Defaults to GIT if a git_source block is present in the job definition.
 	// +kubebuilder:validation:Optional
@@ -5136,11 +5135,11 @@ type JobTaskNotebookTaskParameters struct {
 
 	// Reference to a SQLEndpoint in sql to populate warehouseId.
 	// +kubebuilder:validation:Optional
-	WarehouseIDRef *v1.NamespacedReference `json:"warehouseIdRef,omitempty" tf:"-"`
+	WarehouseIDRef *v2.NamespacedReference `json:"warehouseIdRef,omitempty" tf:"-"`
 
 	// Selector for a SQLEndpoint in sql to populate warehouseId.
 	// +kubebuilder:validation:Optional
-	WarehouseIDSelector *v1.NamespacedSelector `json:"warehouseIdSelector,omitempty" tf:"-"`
+	WarehouseIDSelector *v2.NamespacedSelector `json:"warehouseIdSelector,omitempty" tf:"-"`
 }
 
 type JobTaskNotificationSettingsInitParameters struct {
@@ -5200,11 +5199,11 @@ type JobTaskPipelineTaskInitParameters struct {
 
 	// Reference to a Pipeline in compute to populate pipelineId.
 	// +kubebuilder:validation:Optional
-	PipelineIDRef *v1.NamespacedReference `json:"pipelineIdRef,omitempty" tf:"-"`
+	PipelineIDRef *v2.NamespacedReference `json:"pipelineIdRef,omitempty" tf:"-"`
 
 	// Selector for a Pipeline in compute to populate pipelineId.
 	// +kubebuilder:validation:Optional
-	PipelineIDSelector *v1.NamespacedSelector `json:"pipelineIdSelector,omitempty" tf:"-"`
+	PipelineIDSelector *v2.NamespacedSelector `json:"pipelineIdSelector,omitempty" tf:"-"`
 
 	RefreshFlowSelection []*string `json:"refreshFlowSelection,omitempty" tf:"refresh_flow_selection,omitempty"`
 
@@ -5256,11 +5255,11 @@ type JobTaskPipelineTaskParameters struct {
 
 	// Reference to a Pipeline in compute to populate pipelineId.
 	// +kubebuilder:validation:Optional
-	PipelineIDRef *v1.NamespacedReference `json:"pipelineIdRef,omitempty" tf:"-"`
+	PipelineIDRef *v2.NamespacedReference `json:"pipelineIdRef,omitempty" tf:"-"`
 
 	// Selector for a Pipeline in compute to populate pipelineId.
 	// +kubebuilder:validation:Optional
-	PipelineIDSelector *v1.NamespacedSelector `json:"pipelineIdSelector,omitempty" tf:"-"`
+	PipelineIDSelector *v2.NamespacedSelector `json:"pipelineIdSelector,omitempty" tf:"-"`
 
 	// +kubebuilder:validation:Optional
 	RefreshFlowSelection []*string `json:"refreshFlowSelection,omitempty" tf:"refresh_flow_selection,omitempty"`
@@ -6157,7 +6156,7 @@ type NewClusterClusterMountInfoParameters struct {
 }
 
 type NewClusterDockerImageBasicAuthInitParameters struct {
-	PasswordSecretRef v1.LocalSecretKeySelector `json:"passwordSecretRef" tf:"-"`
+	PasswordSecretRef v2.LocalSecretKeySelector `json:"passwordSecretRef" tf:"-"`
 
 	// An optional name for the job. The default value is Untitled.
 	Username *string `json:"username,omitempty" tf:"username,omitempty"`
@@ -6172,7 +6171,7 @@ type NewClusterDockerImageBasicAuthObservation struct {
 type NewClusterDockerImageBasicAuthParameters struct {
 
 	// +kubebuilder:validation:Optional
-	PasswordSecretRef v1.LocalSecretKeySelector `json:"passwordSecretRef" tf:"-"`
+	PasswordSecretRef v2.LocalSecretKeySelector `json:"passwordSecretRef" tf:"-"`
 
 	// An optional name for the job. The default value is Untitled.
 	// +kubebuilder:validation:Optional
@@ -7046,11 +7045,11 @@ type NotebookTaskInitParameters struct {
 
 	// Reference to a Notebook in workspace to populate notebookPath.
 	// +kubebuilder:validation:Optional
-	NotebookPathRef *v1.NamespacedReference `json:"notebookPathRef,omitempty" tf:"-"`
+	NotebookPathRef *v2.NamespacedReference `json:"notebookPathRef,omitempty" tf:"-"`
 
 	// Selector for a Notebook in workspace to populate notebookPath.
 	// +kubebuilder:validation:Optional
-	NotebookPathSelector *v1.NamespacedSelector `json:"notebookPathSelector,omitempty" tf:"-"`
+	NotebookPathSelector *v2.NamespacedSelector `json:"notebookPathSelector,omitempty" tf:"-"`
 
 	// The source of the project. Possible values are WORKSPACE and GIT.  Defaults to GIT if a git_source block is present in the job definition.
 	Source *string `json:"source,omitempty" tf:"source,omitempty"`
@@ -7061,11 +7060,11 @@ type NotebookTaskInitParameters struct {
 
 	// Reference to a SQLEndpoint in sql to populate warehouseId.
 	// +kubebuilder:validation:Optional
-	WarehouseIDRef *v1.NamespacedReference `json:"warehouseIdRef,omitempty" tf:"-"`
+	WarehouseIDRef *v2.NamespacedReference `json:"warehouseIdRef,omitempty" tf:"-"`
 
 	// Selector for a SQLEndpoint in sql to populate warehouseId.
 	// +kubebuilder:validation:Optional
-	WarehouseIDSelector *v1.NamespacedSelector `json:"warehouseIdSelector,omitempty" tf:"-"`
+	WarehouseIDSelector *v2.NamespacedSelector `json:"warehouseIdSelector,omitempty" tf:"-"`
 }
 
 type NotebookTaskObservation struct {
@@ -7099,11 +7098,11 @@ type NotebookTaskParameters struct {
 
 	// Reference to a Notebook in workspace to populate notebookPath.
 	// +kubebuilder:validation:Optional
-	NotebookPathRef *v1.NamespacedReference `json:"notebookPathRef,omitempty" tf:"-"`
+	NotebookPathRef *v2.NamespacedReference `json:"notebookPathRef,omitempty" tf:"-"`
 
 	// Selector for a Notebook in workspace to populate notebookPath.
 	// +kubebuilder:validation:Optional
-	NotebookPathSelector *v1.NamespacedSelector `json:"notebookPathSelector,omitempty" tf:"-"`
+	NotebookPathSelector *v2.NamespacedSelector `json:"notebookPathSelector,omitempty" tf:"-"`
 
 	// The source of the project. Possible values are WORKSPACE and GIT.  Defaults to GIT if a git_source block is present in the job definition.
 	// +kubebuilder:validation:Optional
@@ -7116,11 +7115,11 @@ type NotebookTaskParameters struct {
 
 	// Reference to a SQLEndpoint in sql to populate warehouseId.
 	// +kubebuilder:validation:Optional
-	WarehouseIDRef *v1.NamespacedReference `json:"warehouseIdRef,omitempty" tf:"-"`
+	WarehouseIDRef *v2.NamespacedReference `json:"warehouseIdRef,omitempty" tf:"-"`
 
 	// Selector for a SQLEndpoint in sql to populate warehouseId.
 	// +kubebuilder:validation:Optional
-	WarehouseIDSelector *v1.NamespacedSelector `json:"warehouseIdSelector,omitempty" tf:"-"`
+	WarehouseIDSelector *v2.NamespacedSelector `json:"warehouseIdSelector,omitempty" tf:"-"`
 }
 
 type NotificationSettingsInitParameters struct {
@@ -7981,11 +7980,11 @@ type SQLTaskAlertInitParameters struct {
 
 	// Reference to a SQLAlert in sql to populate alertId.
 	// +kubebuilder:validation:Optional
-	AlertIDRef *v1.NamespacedReference `json:"alertIdRef,omitempty" tf:"-"`
+	AlertIDRef *v2.NamespacedReference `json:"alertIdRef,omitempty" tf:"-"`
 
 	// Selector for a SQLAlert in sql to populate alertId.
 	// +kubebuilder:validation:Optional
-	AlertIDSelector *v1.NamespacedSelector `json:"alertIdSelector,omitempty" tf:"-"`
+	AlertIDSelector *v2.NamespacedSelector `json:"alertIdSelector,omitempty" tf:"-"`
 
 	// flag that specifies if subscriptions are paused or not.
 	PauseSubscriptions *bool `json:"pauseSubscriptions,omitempty" tf:"pause_subscriptions,omitempty"`
@@ -8016,11 +8015,11 @@ type SQLTaskAlertParameters struct {
 
 	// Reference to a SQLAlert in sql to populate alertId.
 	// +kubebuilder:validation:Optional
-	AlertIDRef *v1.NamespacedReference `json:"alertIdRef,omitempty" tf:"-"`
+	AlertIDRef *v2.NamespacedReference `json:"alertIdRef,omitempty" tf:"-"`
 
 	// Selector for a SQLAlert in sql to populate alertId.
 	// +kubebuilder:validation:Optional
-	AlertIDSelector *v1.NamespacedSelector `json:"alertIdSelector,omitempty" tf:"-"`
+	AlertIDSelector *v2.NamespacedSelector `json:"alertIdSelector,omitempty" tf:"-"`
 
 	// flag that specifies if subscriptions are paused or not.
 	// +kubebuilder:validation:Optional
@@ -8043,11 +8042,11 @@ type SQLTaskDashboardInitParameters struct {
 
 	// Reference to a SQLDashboard in sql to populate dashboardId.
 	// +kubebuilder:validation:Optional
-	DashboardIDRef *v1.NamespacedReference `json:"dashboardIdRef,omitempty" tf:"-"`
+	DashboardIDRef *v2.NamespacedReference `json:"dashboardIdRef,omitempty" tf:"-"`
 
 	// Selector for a SQLDashboard in sql to populate dashboardId.
 	// +kubebuilder:validation:Optional
-	DashboardIDSelector *v1.NamespacedSelector `json:"dashboardIdSelector,omitempty" tf:"-"`
+	DashboardIDSelector *v2.NamespacedSelector `json:"dashboardIdSelector,omitempty" tf:"-"`
 
 	// flag that specifies if subscriptions are paused or not.
 	PauseSubscriptions *bool `json:"pauseSubscriptions,omitempty" tf:"pause_subscriptions,omitempty"`
@@ -8085,11 +8084,11 @@ type SQLTaskDashboardParameters struct {
 
 	// Reference to a SQLDashboard in sql to populate dashboardId.
 	// +kubebuilder:validation:Optional
-	DashboardIDRef *v1.NamespacedReference `json:"dashboardIdRef,omitempty" tf:"-"`
+	DashboardIDRef *v2.NamespacedReference `json:"dashboardIdRef,omitempty" tf:"-"`
 
 	// Selector for a SQLDashboard in sql to populate dashboardId.
 	// +kubebuilder:validation:Optional
-	DashboardIDSelector *v1.NamespacedSelector `json:"dashboardIdSelector,omitempty" tf:"-"`
+	DashboardIDSelector *v2.NamespacedSelector `json:"dashboardIdSelector,omitempty" tf:"-"`
 
 	// flag that specifies if subscriptions are paused or not.
 	// +kubebuilder:validation:Optional
@@ -8239,11 +8238,11 @@ type SQLTaskQueryInitParameters struct {
 
 	// Reference to a SQLQuery in sql to populate queryId.
 	// +kubebuilder:validation:Optional
-	QueryIDRef *v1.NamespacedReference `json:"queryIdRef,omitempty" tf:"-"`
+	QueryIDRef *v2.NamespacedReference `json:"queryIdRef,omitempty" tf:"-"`
 
 	// Selector for a SQLQuery in sql to populate queryId.
 	// +kubebuilder:validation:Optional
-	QueryIDSelector *v1.NamespacedSelector `json:"queryIdSelector,omitempty" tf:"-"`
+	QueryIDSelector *v2.NamespacedSelector `json:"queryIdSelector,omitempty" tf:"-"`
 }
 
 type SQLTaskQueryObservation struct {
@@ -8262,11 +8261,11 @@ type SQLTaskQueryParameters struct {
 
 	// Reference to a SQLQuery in sql to populate queryId.
 	// +kubebuilder:validation:Optional
-	QueryIDRef *v1.NamespacedReference `json:"queryIdRef,omitempty" tf:"-"`
+	QueryIDRef *v2.NamespacedReference `json:"queryIdRef,omitempty" tf:"-"`
 
 	// Selector for a SQLQuery in sql to populate queryId.
 	// +kubebuilder:validation:Optional
-	QueryIDSelector *v1.NamespacedSelector `json:"queryIdSelector,omitempty" tf:"-"`
+	QueryIDSelector *v2.NamespacedSelector `json:"queryIdSelector,omitempty" tf:"-"`
 }
 
 type ScheduleInitParameters struct {
@@ -9026,11 +9025,11 @@ type TaskDbtTaskInitParameters struct {
 
 	// Reference to a SQLEndpoint in sql to populate warehouseId.
 	// +kubebuilder:validation:Optional
-	WarehouseIDRef *v1.NamespacedReference `json:"warehouseIdRef,omitempty" tf:"-"`
+	WarehouseIDRef *v2.NamespacedReference `json:"warehouseIdRef,omitempty" tf:"-"`
 
 	// Selector for a SQLEndpoint in sql to populate warehouseId.
 	// +kubebuilder:validation:Optional
-	WarehouseIDSelector *v1.NamespacedSelector `json:"warehouseIdSelector,omitempty" tf:"-"`
+	WarehouseIDSelector *v2.NamespacedSelector `json:"warehouseIdSelector,omitempty" tf:"-"`
 }
 
 type TaskDbtTaskObservation struct {
@@ -9090,11 +9089,11 @@ type TaskDbtTaskParameters struct {
 
 	// Reference to a SQLEndpoint in sql to populate warehouseId.
 	// +kubebuilder:validation:Optional
-	WarehouseIDRef *v1.NamespacedReference `json:"warehouseIdRef,omitempty" tf:"-"`
+	WarehouseIDRef *v2.NamespacedReference `json:"warehouseIdRef,omitempty" tf:"-"`
 
 	// Selector for a SQLEndpoint in sql to populate warehouseId.
 	// +kubebuilder:validation:Optional
-	WarehouseIDSelector *v1.NamespacedSelector `json:"warehouseIdSelector,omitempty" tf:"-"`
+	WarehouseIDSelector *v2.NamespacedSelector `json:"warehouseIdSelector,omitempty" tf:"-"`
 }
 
 type TaskDependsOnInitParameters struct {
@@ -9421,11 +9420,11 @@ type TaskInitParameters struct {
 
 	// Reference to a Cluster in compute to populate existingClusterId.
 	// +kubebuilder:validation:Optional
-	ExistingClusterIDRef *v1.NamespacedReference `json:"existingClusterIdRef,omitempty" tf:"-"`
+	ExistingClusterIDRef *v2.NamespacedReference `json:"existingClusterIdRef,omitempty" tf:"-"`
 
 	// Selector for a Cluster in compute to populate existingClusterId.
 	// +kubebuilder:validation:Optional
-	ExistingClusterIDSelector *v1.NamespacedSelector `json:"existingClusterIdSelector,omitempty" tf:"-"`
+	ExistingClusterIDSelector *v2.NamespacedSelector `json:"existingClusterIdSelector,omitempty" tf:"-"`
 
 	// A list of task specification that the job will execute. See task Configuration Block below.
 	ForEachTask *ForEachTaskInitParameters `json:"forEachTask,omitempty" tf:"for_each_task,omitempty"`
@@ -9992,7 +9991,7 @@ type TaskNewClusterClusterMountInfoParameters struct {
 }
 
 type TaskNewClusterDockerImageBasicAuthInitParameters struct {
-	PasswordSecretRef v1.LocalSecretKeySelector `json:"passwordSecretRef" tf:"-"`
+	PasswordSecretRef v2.LocalSecretKeySelector `json:"passwordSecretRef" tf:"-"`
 
 	// An optional name for the job. The default value is Untitled.
 	Username *string `json:"username,omitempty" tf:"username,omitempty"`
@@ -10007,7 +10006,7 @@ type TaskNewClusterDockerImageBasicAuthObservation struct {
 type TaskNewClusterDockerImageBasicAuthParameters struct {
 
 	// +kubebuilder:validation:Optional
-	PasswordSecretRef v1.LocalSecretKeySelector `json:"passwordSecretRef" tf:"-"`
+	PasswordSecretRef v2.LocalSecretKeySelector `json:"passwordSecretRef" tf:"-"`
 
 	// An optional name for the job. The default value is Untitled.
 	// +kubebuilder:validation:Optional
@@ -11145,11 +11144,11 @@ type TaskParameters struct {
 
 	// Reference to a Cluster in compute to populate existingClusterId.
 	// +kubebuilder:validation:Optional
-	ExistingClusterIDRef *v1.NamespacedReference `json:"existingClusterIdRef,omitempty" tf:"-"`
+	ExistingClusterIDRef *v2.NamespacedReference `json:"existingClusterIdRef,omitempty" tf:"-"`
 
 	// Selector for a Cluster in compute to populate existingClusterId.
 	// +kubebuilder:validation:Optional
-	ExistingClusterIDSelector *v1.NamespacedSelector `json:"existingClusterIdSelector,omitempty" tf:"-"`
+	ExistingClusterIDSelector *v2.NamespacedSelector `json:"existingClusterIdSelector,omitempty" tf:"-"`
 
 	// A list of task specification that the job will execute. See task Configuration Block below.
 	// +kubebuilder:validation:Optional
@@ -11338,11 +11337,11 @@ type TaskPowerBiTaskInitParameters struct {
 
 	// Reference to a SQLEndpoint in sql to populate warehouseId.
 	// +kubebuilder:validation:Optional
-	WarehouseIDRef *v1.NamespacedReference `json:"warehouseIdRef,omitempty" tf:"-"`
+	WarehouseIDRef *v2.NamespacedReference `json:"warehouseIdRef,omitempty" tf:"-"`
 
 	// Selector for a SQLEndpoint in sql to populate warehouseId.
 	// +kubebuilder:validation:Optional
-	WarehouseIDSelector *v1.NamespacedSelector `json:"warehouseIdSelector,omitempty" tf:"-"`
+	WarehouseIDSelector *v2.NamespacedSelector `json:"warehouseIdSelector,omitempty" tf:"-"`
 }
 
 type TaskPowerBiTaskObservation struct {
@@ -11388,11 +11387,11 @@ type TaskPowerBiTaskParameters struct {
 
 	// Reference to a SQLEndpoint in sql to populate warehouseId.
 	// +kubebuilder:validation:Optional
-	WarehouseIDRef *v1.NamespacedReference `json:"warehouseIdRef,omitempty" tf:"-"`
+	WarehouseIDRef *v2.NamespacedReference `json:"warehouseIdRef,omitempty" tf:"-"`
 
 	// Selector for a SQLEndpoint in sql to populate warehouseId.
 	// +kubebuilder:validation:Optional
-	WarehouseIDSelector *v1.NamespacedSelector `json:"warehouseIdSelector,omitempty" tf:"-"`
+	WarehouseIDSelector *v2.NamespacedSelector `json:"warehouseIdSelector,omitempty" tf:"-"`
 }
 
 type TaskPythonOperatorTaskInitParameters struct {
@@ -11624,11 +11623,11 @@ type TaskSQLTaskInitParameters struct {
 
 	// Reference to a SQLEndpoint in sql to populate warehouseId.
 	// +kubebuilder:validation:Optional
-	WarehouseIDRef *v1.NamespacedReference `json:"warehouseIdRef,omitempty" tf:"-"`
+	WarehouseIDRef *v2.NamespacedReference `json:"warehouseIdRef,omitempty" tf:"-"`
 
 	// Selector for a SQLEndpoint in sql to populate warehouseId.
 	// +kubebuilder:validation:Optional
-	WarehouseIDSelector *v1.NamespacedSelector `json:"warehouseIdSelector,omitempty" tf:"-"`
+	WarehouseIDSelector *v2.NamespacedSelector `json:"warehouseIdSelector,omitempty" tf:"-"`
 }
 
 type TaskSQLTaskObservation struct {
@@ -11683,11 +11682,11 @@ type TaskSQLTaskParameters struct {
 
 	// Reference to a SQLEndpoint in sql to populate warehouseId.
 	// +kubebuilder:validation:Optional
-	WarehouseIDRef *v1.NamespacedReference `json:"warehouseIdRef,omitempty" tf:"-"`
+	WarehouseIDRef *v2.NamespacedReference `json:"warehouseIdRef,omitempty" tf:"-"`
 
 	// Selector for a SQLEndpoint in sql to populate warehouseId.
 	// +kubebuilder:validation:Optional
-	WarehouseIDSelector *v1.NamespacedSelector `json:"warehouseIdSelector,omitempty" tf:"-"`
+	WarehouseIDSelector *v2.NamespacedSelector `json:"warehouseIdSelector,omitempty" tf:"-"`
 }
 
 type TaskSparkJarTaskInitParameters struct {
@@ -12144,8 +12143,8 @@ type JobSpec struct {
 
 // JobStatus defines the observed state of Job.
 type JobStatus struct {
-	v1.ResourceStatus `json:",inline"`
-	AtProvider        JobObservation `json:"atProvider,omitempty"`
+	v2.ManagedResourceStatus `json:",inline"`
+	AtProvider               JobObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true

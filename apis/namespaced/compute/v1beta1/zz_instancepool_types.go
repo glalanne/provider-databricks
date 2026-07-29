@@ -10,8 +10,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
-	v2 "github.com/crossplane/crossplane-runtime/v2/apis/common/v2"
+	v2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 )
 
 type DiskSpecInitParameters struct {
@@ -483,7 +482,7 @@ type NodeTypeFlexibilityParameters struct {
 }
 
 type PreloadedDockerImageBasicAuthInitParameters struct {
-	PasswordSecretRef v1.LocalSecretKeySelector `json:"passwordSecretRef" tf:"-"`
+	PasswordSecretRef v2.LocalSecretKeySelector `json:"passwordSecretRef" tf:"-"`
 
 	Username *string `json:"username,omitempty" tf:"username,omitempty"`
 }
@@ -495,7 +494,7 @@ type PreloadedDockerImageBasicAuthObservation struct {
 type PreloadedDockerImageBasicAuthParameters struct {
 
 	// +kubebuilder:validation:Optional
-	PasswordSecretRef v1.LocalSecretKeySelector `json:"passwordSecretRef" tf:"-"`
+	PasswordSecretRef v2.LocalSecretKeySelector `json:"passwordSecretRef" tf:"-"`
 
 	// +kubebuilder:validation:Optional
 	Username *string `json:"username" tf:"username,omitempty"`
@@ -549,8 +548,8 @@ type InstancePoolSpec struct {
 
 // InstancePoolStatus defines the observed state of InstancePool.
 type InstancePoolStatus struct {
-	v1.ResourceStatus `json:",inline"`
-	AtProvider        InstancePoolObservation `json:"atProvider,omitempty"`
+	v2.ManagedResourceStatus `json:",inline"`
+	AtProvider               InstancePoolObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true

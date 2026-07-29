@@ -10,7 +10,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
+	v2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 )
 
 type ColumnMaskInitParameters struct {
@@ -135,7 +135,7 @@ type PolicyInfoInitParameters struct {
 	PolicyType *string `json:"policyType,omitempty" tf:"policy_type,omitempty"`
 
 	// Configure the provider for management through account provider.
-	ProviderConfig *PolicyInfoProviderConfigInitParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
+	ProviderConfig *ProviderConfigInitParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
 
 	// Options for row filter policies. Valid only if policy_type is POLICY_TYPE_ROW_FILTER.
 	// Required on create and optional on update. When specified on update,
@@ -195,7 +195,7 @@ type PolicyInfoObservation struct {
 	PolicyType *string `json:"policyType,omitempty" tf:"policy_type,omitempty"`
 
 	// Configure the provider for management through account provider.
-	ProviderConfig *PolicyInfoProviderConfigObservation `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
+	ProviderConfig *ProviderConfigObservation `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
 
 	// Options for row filter policies. Valid only if policy_type is POLICY_TYPE_ROW_FILTER.
 	// Required on create and optional on update. When specified on update,
@@ -261,7 +261,7 @@ type PolicyInfoParameters struct {
 
 	// Configure the provider for management through account provider.
 	// +kubebuilder:validation:Optional
-	ProviderConfig *PolicyInfoProviderConfigParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
+	ProviderConfig *ProviderConfigParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
 
 	// Options for row filter policies. Valid only if policy_type is POLICY_TYPE_ROW_FILTER.
 	// Required on create and optional on update. When specified on update,
@@ -279,19 +279,19 @@ type PolicyInfoParameters struct {
 	WhenCondition *string `json:"whenCondition,omitempty" tf:"when_condition,omitempty"`
 }
 
-type PolicyInfoProviderConfigInitParameters struct {
+type ProviderConfigInitParameters struct {
 
 	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
 	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
 }
 
-type PolicyInfoProviderConfigObservation struct {
+type ProviderConfigObservation struct {
 
 	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
 	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
 }
 
-type PolicyInfoProviderConfigParameters struct {
+type ProviderConfigParameters struct {
 
 	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
 	// +kubebuilder:validation:Optional
@@ -399,8 +399,8 @@ type UsingParameters struct {
 
 // PolicyInfoSpec defines the desired state of PolicyInfo
 type PolicyInfoSpec struct {
-	v1.ResourceSpec `json:",inline"`
-	ForProvider     PolicyInfoParameters `json:"forProvider"`
+	v2.ClusterManagedResourceSpec `json:",inline"`
+	ForProvider                   PolicyInfoParameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
 	// InitProvider holds the same fields as ForProvider, with the exception
@@ -416,16 +416,15 @@ type PolicyInfoSpec struct {
 
 // PolicyInfoStatus defines the observed state of PolicyInfo.
 type PolicyInfoStatus struct {
-	v1.ResourceStatus `json:",inline"`
-	AtProvider        PolicyInfoObservation `json:"atProvider,omitempty"`
+	v2.ManagedResourceStatus `json:",inline"`
+	AtProvider               PolicyInfoObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true
 // +kubebuilder:subresource:status
-// +kubebuilder:deprecatedversion:warning="This API version is deprecated. Please migrate to v1beta1."
+// +kubebuilder:storageversion
 
 // PolicyInfo is the Schema for the PolicyInfos API.
-// Deprecated: This API version (v1alpha1) has been deprecated.
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"

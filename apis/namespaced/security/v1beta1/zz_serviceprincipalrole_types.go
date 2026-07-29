@@ -10,8 +10,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
-	v2 "github.com/crossplane/crossplane-runtime/v2/apis/common/v2"
+	v2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 )
 
 type ServicePrincipalRoleInitParameters struct {
@@ -29,11 +28,11 @@ type ServicePrincipalRoleInitParameters struct {
 
 	// Reference to a InstanceProfile in deployment to populate role.
 	// +kubebuilder:validation:Optional
-	RoleRef *v1.NamespacedReference `json:"roleRef,omitempty" tf:"-"`
+	RoleRef *v2.NamespacedReference `json:"roleRef,omitempty" tf:"-"`
 
 	// Selector for a InstanceProfile in deployment to populate role.
 	// +kubebuilder:validation:Optional
-	RoleSelector *v1.NamespacedSelector `json:"roleSelector,omitempty" tf:"-"`
+	RoleSelector *v2.NamespacedSelector `json:"roleSelector,omitempty" tf:"-"`
 
 	// This is the id of the service principal resource.
 	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/namespaced/security/v1beta1.ServicePrincipal
@@ -42,11 +41,11 @@ type ServicePrincipalRoleInitParameters struct {
 
 	// Reference to a ServicePrincipal in security to populate servicePrincipalId.
 	// +kubebuilder:validation:Optional
-	ServicePrincipalIDRef *v1.NamespacedReference `json:"servicePrincipalIdRef,omitempty" tf:"-"`
+	ServicePrincipalIDRef *v2.NamespacedReference `json:"servicePrincipalIdRef,omitempty" tf:"-"`
 
 	// Selector for a ServicePrincipal in security to populate servicePrincipalId.
 	// +kubebuilder:validation:Optional
-	ServicePrincipalIDSelector *v1.NamespacedSelector `json:"servicePrincipalIdSelector,omitempty" tf:"-"`
+	ServicePrincipalIDSelector *v2.NamespacedSelector `json:"servicePrincipalIdSelector,omitempty" tf:"-"`
 }
 
 type ServicePrincipalRoleObservation struct {
@@ -85,11 +84,11 @@ type ServicePrincipalRoleParameters struct {
 
 	// Reference to a InstanceProfile in deployment to populate role.
 	// +kubebuilder:validation:Optional
-	RoleRef *v1.NamespacedReference `json:"roleRef,omitempty" tf:"-"`
+	RoleRef *v2.NamespacedReference `json:"roleRef,omitempty" tf:"-"`
 
 	// Selector for a InstanceProfile in deployment to populate role.
 	// +kubebuilder:validation:Optional
-	RoleSelector *v1.NamespacedSelector `json:"roleSelector,omitempty" tf:"-"`
+	RoleSelector *v2.NamespacedSelector `json:"roleSelector,omitempty" tf:"-"`
 
 	// This is the id of the service principal resource.
 	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/namespaced/security/v1beta1.ServicePrincipal
@@ -99,11 +98,11 @@ type ServicePrincipalRoleParameters struct {
 
 	// Reference to a ServicePrincipal in security to populate servicePrincipalId.
 	// +kubebuilder:validation:Optional
-	ServicePrincipalIDRef *v1.NamespacedReference `json:"servicePrincipalIdRef,omitempty" tf:"-"`
+	ServicePrincipalIDRef *v2.NamespacedReference `json:"servicePrincipalIdRef,omitempty" tf:"-"`
 
 	// Selector for a ServicePrincipal in security to populate servicePrincipalId.
 	// +kubebuilder:validation:Optional
-	ServicePrincipalIDSelector *v1.NamespacedSelector `json:"servicePrincipalIdSelector,omitempty" tf:"-"`
+	ServicePrincipalIDSelector *v2.NamespacedSelector `json:"servicePrincipalIdSelector,omitempty" tf:"-"`
 }
 
 type ServicePrincipalRoleProviderConfigInitParameters struct {
@@ -144,8 +143,8 @@ type ServicePrincipalRoleSpec struct {
 
 // ServicePrincipalRoleStatus defines the observed state of ServicePrincipalRole.
 type ServicePrincipalRoleStatus struct {
-	v1.ResourceStatus `json:",inline"`
-	AtProvider        ServicePrincipalRoleObservation `json:"atProvider,omitempty"`
+	v2.ManagedResourceStatus `json:",inline"`
+	AtProvider               ServicePrincipalRoleObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true

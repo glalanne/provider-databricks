@@ -10,7 +10,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
+	v2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 )
 
 type ServicePrincipalSecretInitParameters struct {
@@ -35,7 +35,7 @@ type ServicePrincipalSecretInitParameters struct {
 	SecretHash *string `json:"secretHash,omitempty" tf:"secret_hash,omitempty"`
 
 	// Sensitive Generated secret for the service principal.
-	SecretSecretRef *v1.SecretKeySelector `json:"secretSecretRef,omitempty" tf:"-"`
+	SecretSecretRef *v2.SecretKeySelector `json:"secretSecretRef,omitempty" tf:"-"`
 
 	// SCIM ID of the databricks_service_principal (not application ID).
 	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/cluster/security/v1beta1.ServicePrincipal
@@ -44,11 +44,11 @@ type ServicePrincipalSecretInitParameters struct {
 
 	// Reference to a ServicePrincipal in security to populate servicePrincipalId.
 	// +kubebuilder:validation:Optional
-	ServicePrincipalIDRef *v1.Reference `json:"servicePrincipalIdRef,omitempty" tf:"-"`
+	ServicePrincipalIDRef *v2.Reference `json:"servicePrincipalIdRef,omitempty" tf:"-"`
 
 	// Selector for a ServicePrincipal in security to populate servicePrincipalId.
 	// +kubebuilder:validation:Optional
-	ServicePrincipalIDSelector *v1.Selector `json:"servicePrincipalIdSelector,omitempty" tf:"-"`
+	ServicePrincipalIDSelector *v2.Selector `json:"servicePrincipalIdSelector,omitempty" tf:"-"`
 
 	// Status of the secret (i.e., ACTIVE - see REST API docs for full list).
 	Status *string `json:"status,omitempty" tf:"status,omitempty"`
@@ -126,7 +126,7 @@ type ServicePrincipalSecretParameters struct {
 
 	// Sensitive Generated secret for the service principal.
 	// +kubebuilder:validation:Optional
-	SecretSecretRef *v1.SecretKeySelector `json:"secretSecretRef,omitempty" tf:"-"`
+	SecretSecretRef *v2.SecretKeySelector `json:"secretSecretRef,omitempty" tf:"-"`
 
 	// SCIM ID of the databricks_service_principal (not application ID).
 	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/cluster/security/v1beta1.ServicePrincipal
@@ -136,11 +136,11 @@ type ServicePrincipalSecretParameters struct {
 
 	// Reference to a ServicePrincipal in security to populate servicePrincipalId.
 	// +kubebuilder:validation:Optional
-	ServicePrincipalIDRef *v1.Reference `json:"servicePrincipalIdRef,omitempty" tf:"-"`
+	ServicePrincipalIDRef *v2.Reference `json:"servicePrincipalIdRef,omitempty" tf:"-"`
 
 	// Selector for a ServicePrincipal in security to populate servicePrincipalId.
 	// +kubebuilder:validation:Optional
-	ServicePrincipalIDSelector *v1.Selector `json:"servicePrincipalIdSelector,omitempty" tf:"-"`
+	ServicePrincipalIDSelector *v2.Selector `json:"servicePrincipalIdSelector,omitempty" tf:"-"`
 
 	// Status of the secret (i.e., ACTIVE - see REST API docs for full list).
 	// +kubebuilder:validation:Optional
@@ -176,8 +176,8 @@ type ServicePrincipalSecretProviderConfigParameters struct {
 
 // ServicePrincipalSecretSpec defines the desired state of ServicePrincipalSecret
 type ServicePrincipalSecretSpec struct {
-	v1.ResourceSpec `json:",inline"`
-	ForProvider     ServicePrincipalSecretParameters `json:"forProvider"`
+	v2.ClusterManagedResourceSpec `json:",inline"`
+	ForProvider                   ServicePrincipalSecretParameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
 	// InitProvider holds the same fields as ForProvider, with the exception
@@ -193,8 +193,8 @@ type ServicePrincipalSecretSpec struct {
 
 // ServicePrincipalSecretStatus defines the observed state of ServicePrincipalSecret.
 type ServicePrincipalSecretStatus struct {
-	v1.ResourceStatus `json:",inline"`
-	AtProvider        ServicePrincipalSecretObservation `json:"atProvider,omitempty"`
+	v2.ManagedResourceStatus `json:",inline"`
+	AtProvider               ServicePrincipalSecretObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true

@@ -64,21 +64,7 @@ func getProviderSchema(s string) (*tfschema.Provider, error) {
 
 // GetProvider returns provider configuration
 func GetProvider(_ context.Context, fwProvider fwprovider.Provider, sdkProvider *tfschema.Provider, generationProvider bool) (*config.Provider, error) {
-	pc, err := getProviderWithMode(fwProvider, sdkProvider, generationProvider, "databricks.crossplane.io", generationModeV1Beta1)
-	if err != nil {
-		return nil, err
-	}
-	for _, configure := range cluster.ProviderConfiguration {
-		configure(pc)
-	}
-	pc.ConfigureResources()
-	return pc, nil
-}
-
-// GetProviderV1Alpha1Legacy returns provider configuration for generating
-// the legacy v1alpha1 APIs (array/singleton-list shape).
-func GetProviderV1Alpha1Legacy(_ context.Context, fwProvider fwprovider.Provider, sdkProvider *tfschema.Provider, generationProvider bool) (*config.Provider, error) {
-	pc, err := getProviderWithMode(fwProvider, sdkProvider, generationProvider, "databricks.crossplane.io", generationModeV1Alpha1Legacy)
+	pc, err := getProvider(fwProvider, sdkProvider, generationProvider, "databricks.crossplane.io")
 	if err != nil {
 		return nil, err
 	}
@@ -91,7 +77,7 @@ func GetProviderV1Alpha1Legacy(_ context.Context, fwProvider fwprovider.Provider
 
 // GetProviderNamespaced returns provider configuration for namespace-scoped resources
 func GetProviderNamespaced(_ context.Context, fwProvider fwprovider.Provider, sdkProvider *tfschema.Provider, generationProvider bool) (*config.Provider, error) {
-	pc, err := getProviderWithMode(fwProvider, sdkProvider, generationProvider, "databricks.m.crossplane.io", generationModeV1Beta1)
+	pc, err := getProvider(fwProvider, sdkProvider, generationProvider, "databricks.m.crossplane.io")
 	if err != nil {
 		return nil, err
 	}
@@ -102,21 +88,7 @@ func GetProviderNamespaced(_ context.Context, fwProvider fwprovider.Provider, sd
 	return pc, nil
 }
 
-// GetProviderNamespacedV1Alpha1Legacy returns namespaced provider
-// configuration for generating the legacy v1alpha1 APIs.
-func GetProviderNamespacedV1Alpha1Legacy(_ context.Context, fwProvider fwprovider.Provider, sdkProvider *tfschema.Provider, generationProvider bool) (*config.Provider, error) {
-	pc, err := getProviderWithMode(fwProvider, sdkProvider, generationProvider, "databricks.m.crossplane.io", generationModeV1Alpha1Legacy)
-	if err != nil {
-		return nil, err
-	}
-	for _, configure := range namespaced.ProviderConfiguration {
-		configure(pc)
-	}
-	pc.ConfigureResources()
-	return pc, nil
-}
-
-func getProviderWithMode(fwProvider fwprovider.Provider, sdkProvider *tfschema.Provider, generationProvider bool, rootGroup string, mode generationMode) (*config.Provider, error) {
+func getProvider(fwProvider fwprovider.Provider, sdkProvider *tfschema.Provider, generationProvider bool, rootGroup string) (*config.Provider, error) {
 	if generationProvider {
 		p, err := getProviderSchema(providerSchema)
 		if err != nil {
@@ -142,11 +114,12 @@ func getProviderWithMode(fwProvider fwprovider.Provider, sdkProvider *tfschema.P
 		config.WithFeaturesPackage("internal/features"),
 		config.WithTerraformProvider(sdkProvider),
 		config.WithTerraformPluginFrameworkProvider(fwProvider),
+		config.WithSchemaTraversers(&config.SingletonListEmbedder{}),
 	}
-	if mode == generationModeV1Beta1 {
-		providerOpts = append(providerOpts, config.WithSchemaTraversers(&config.SingletonListEmbedder{}))
-	}
+
 	pc := config.NewProvider([]byte(providerSchema), resourcePrefix, modulePath, []byte(providerMetadata), providerOpts...)
+
+	bumpVersionsWithEmbeddedLists(pc)
 
 	// Rename resources to make it more pleasing to the eye
 	for _, r := range pc.Resources {
@@ -155,12 +128,6 @@ func getProviderWithMode(fwProvider fwprovider.Provider, sdkProvider *tfschema.P
 			r.ShortGroup = resourcePrefix
 			r.Kind = uname.NewFromSnake(strings.Join(parts[1:], "_")).Camel
 		}
-	}
-
-	if mode == generationModeV1Alpha1Legacy {
-		setLegacyV1Alpha1(pc)
-	} else {
-		bumpVersionsWithEmbeddedLists(pc)
 	}
 
 	return pc, nil
@@ -206,41 +173,44 @@ func TerraformPluginFrameworkResourceList() []string {
 }
 
 func bumpVersionsWithEmbeddedLists(pc *config.Provider) {
-	for name, r := range pc.Resources {
-		r := r
-		paths := r.CRDListConversionPaths()
-		r.Version = "v1beta1"
-		r.PreviousVersions = []string{"v1alpha1"}
-		// Keep storage on the singleton API version so v1alpha1 can be
-		// deprecated in a later release.
-		r.SetCRDStorageVersion(r.Version)
-		// Use v1alpha1 as conversion hub for legacy array-shaped APIs.
-		r.SetCRDHubVersion("v1alpha1")
-		r.Conversions = []conversion.Conversion{
-			conversion.NewIdentityConversionExpandPaths(conversion.AllVersions, conversion.AllVersions, conversion.DefaultPathPrefixes(), paths...),
-			conversion.NewSingletonListConversion("v1alpha1", "v1beta1", conversion.DefaultPathPrefixes(), paths, conversion.ToEmbeddedObject),
-			conversion.NewSingletonListConversion("v1beta1", "v1alpha1", conversion.DefaultPathPrefixes(), paths, conversion.ToSingletonList),
-		}
-		if err := r.SetDeprecatedVersion("v1alpha1", config.VersionDeprecation{
-			Warning: "This API version is deprecated. Please migrate to v1beta1.",
-		}); err != nil {
-			panic(err)
-		}
-		r.TerraformConversions = []config.TerraformConversion{
-			config.NewTFSingletonConversion(),
-		}
-		pc.Resources[name] = r
-	}
-}
 
-func setLegacyV1Alpha1(pc *config.Provider) {
+	oldSLAPIs := make(map[string]struct{}, len(oldSingletonListAPIs))
+	for _, n := range oldSingletonListAPIs {
+		oldSLAPIs[n] = struct{}{}
+	}
+
 	for name, r := range pc.Resources {
 		r := r
-		r.Version = "v1alpha1"
-		r.PreviousVersions = nil
-		r.SetCRDStorageVersion(r.Version)
-		r.Conversions = nil
-		r.TerraformConversions = nil
+		// nothing to do if no singleton list has been converted to
+		// an embedded object
+		paths := r.CRDListConversionPaths()
+
+		if len(paths) == 0 {
+			continue
+		}
+		if _, ok := oldSLAPIs[name]; ok {
+			r.Version = "v1beta1"
+			r.PreviousVersions = []string{"v1alpha1"}
+			// Keep storage on the singleton API version so v1alpha1 can be
+			// deprecated in a later release.
+			r.SetCRDStorageVersion(r.Version)
+			// Use v1alpha1 as conversion hub for legacy array-shaped APIs.
+			r.SetCRDHubVersion("v1alpha1")
+			r.Conversions = []conversion.Conversion{
+				conversion.NewIdentityConversionExpandPaths(conversion.AllVersions, conversion.AllVersions, conversion.DefaultPathPrefixes(), paths...),
+				conversion.NewSingletonListConversion("v1alpha1", "v1beta1", conversion.DefaultPathPrefixes(), paths, conversion.ToEmbeddedObject),
+				conversion.NewSingletonListConversion("v1beta1", "v1alpha1", conversion.DefaultPathPrefixes(), paths, conversion.ToSingletonList),
+			}
+			if err := r.SetDeprecatedVersion("v1alpha1", config.VersionDeprecation{
+				Warning: "This API version is deprecated. Please migrate to v1beta1.",
+			}); err != nil {
+				panic(err)
+			}
+			r.TerraformConversions = []config.TerraformConversion{
+				config.NewTFSingletonConversion(),
+			}
+		}
+
 		pc.Resources[name] = r
 	}
 }

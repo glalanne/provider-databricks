@@ -10,7 +10,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
+	v2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 )
 
 type AccessControlRuleSetInitParameters struct {
@@ -77,11 +77,11 @@ type GrantRulesInitParameters struct {
 
 	// References to Group in security to populate principals.
 	// +kubebuilder:validation:Optional
-	PrincipalsRefs []v1.Reference `json:"principalsRefs,omitempty" tf:"-"`
+	PrincipalsRefs []v2.Reference `json:"principalsRefs,omitempty" tf:"-"`
 
 	// Selector for a list of Group in security to populate principals.
 	// +kubebuilder:validation:Optional
-	PrincipalsSelector *v1.Selector `json:"principalsSelector,omitempty" tf:"-"`
+	PrincipalsSelector *v2.Selector `json:"principalsSelector,omitempty" tf:"-"`
 
 	// Role to be granted. The supported roles are listed below. For more information about these roles, refer to service principal roles, group roles, marketplace roles or budget policy permissions, depending on the name defined:
 	Role *string `json:"role,omitempty" tf:"role,omitempty"`
@@ -108,11 +108,11 @@ type GrantRulesParameters struct {
 
 	// References to Group in security to populate principals.
 	// +kubebuilder:validation:Optional
-	PrincipalsRefs []v1.Reference `json:"principalsRefs,omitempty" tf:"-"`
+	PrincipalsRefs []v2.Reference `json:"principalsRefs,omitempty" tf:"-"`
 
 	// Selector for a list of Group in security to populate principals.
 	// +kubebuilder:validation:Optional
-	PrincipalsSelector *v1.Selector `json:"principalsSelector,omitempty" tf:"-"`
+	PrincipalsSelector *v2.Selector `json:"principalsSelector,omitempty" tf:"-"`
 
 	// Role to be granted. The supported roles are listed below. For more information about these roles, refer to service principal roles, group roles, marketplace roles or budget policy permissions, depending on the name defined:
 	// +kubebuilder:validation:Optional
@@ -140,8 +140,8 @@ type ProviderConfigParameters struct {
 
 // AccessControlRuleSetSpec defines the desired state of AccessControlRuleSet
 type AccessControlRuleSetSpec struct {
-	v1.ResourceSpec `json:",inline"`
-	ForProvider     AccessControlRuleSetParameters `json:"forProvider"`
+	v2.ClusterManagedResourceSpec `json:",inline"`
+	ForProvider                   AccessControlRuleSetParameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
 	// InitProvider holds the same fields as ForProvider, with the exception
@@ -157,8 +157,8 @@ type AccessControlRuleSetSpec struct {
 
 // AccessControlRuleSetStatus defines the observed state of AccessControlRuleSet.
 type AccessControlRuleSetStatus struct {
-	v1.ResourceStatus `json:",inline"`
-	AtProvider        AccessControlRuleSetObservation `json:"atProvider,omitempty"`
+	v2.ManagedResourceStatus `json:",inline"`
+	AtProvider               AccessControlRuleSetObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true

@@ -10,8 +10,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
-	v2 "github.com/crossplane/crossplane-runtime/v2/apis/common/v2"
+	v2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 )
 
 type StorageCredentialAwsIAMRoleInitParameters struct {
@@ -98,7 +97,7 @@ type StorageCredentialAzureServicePrincipalInitParameters struct {
 	ApplicationID *string `json:"applicationId,omitempty" tf:"application_id,omitempty"`
 
 	// The client secret generated for the above app ID in AAD. This field is redacted on output
-	ClientSecretSecretRef v1.LocalSecretKeySelector `json:"clientSecretSecretRef" tf:"-"`
+	ClientSecretSecretRef v2.LocalSecretKeySelector `json:"clientSecretSecretRef" tf:"-"`
 
 	// The directory ID corresponding to the Azure Active Directory (AAD) tenant of the application
 	DirectoryID *string `json:"directoryId,omitempty" tf:"directory_id,omitempty"`
@@ -121,7 +120,7 @@ type StorageCredentialAzureServicePrincipalParameters struct {
 
 	// The client secret generated for the above app ID in AAD. This field is redacted on output
 	// +kubebuilder:validation:Optional
-	ClientSecretSecretRef v1.LocalSecretKeySelector `json:"clientSecretSecretRef" tf:"-"`
+	ClientSecretSecretRef v2.LocalSecretKeySelector `json:"clientSecretSecretRef" tf:"-"`
 
 	// The directory ID corresponding to the Azure Active Directory (AAD) tenant of the application
 	// +kubebuilder:validation:Optional
@@ -137,7 +136,7 @@ type StorageCredentialCloudflareAPITokenInitParameters struct {
 	AccountID *string `json:"accountId,omitempty" tf:"account_id,omitempty"`
 
 	// R2 API token secret access key
-	SecretAccessKeySecretRef v1.LocalSecretKeySelector `json:"secretAccessKeySecretRef" tf:"-"`
+	SecretAccessKeySecretRef v2.LocalSecretKeySelector `json:"secretAccessKeySecretRef" tf:"-"`
 }
 
 type StorageCredentialCloudflareAPITokenObservation struct {
@@ -161,7 +160,7 @@ type StorageCredentialCloudflareAPITokenParameters struct {
 
 	// R2 API token secret access key
 	// +kubebuilder:validation:Optional
-	SecretAccessKeySecretRef v1.LocalSecretKeySelector `json:"secretAccessKeySecretRef" tf:"-"`
+	SecretAccessKeySecretRef v2.LocalSecretKeySelector `json:"secretAccessKeySecretRef" tf:"-"`
 }
 
 type StorageCredentialDatabricksGCPServiceAccountInitParameters struct {
@@ -201,7 +200,7 @@ type StorageCredentialGCPServiceAccountKeyInitParameters struct {
 	// ID of this storage credential - same as the name.
 	PrivateKeyID *string `json:"privateKeyId,omitempty" tf:"private_key_id,omitempty"`
 
-	PrivateKeySecretRef v1.LocalSecretKeySelector `json:"privateKeySecretRef" tf:"-"`
+	PrivateKeySecretRef v2.LocalSecretKeySelector `json:"privateKeySecretRef" tf:"-"`
 }
 
 type StorageCredentialGCPServiceAccountKeyObservation struct {
@@ -224,7 +223,7 @@ type StorageCredentialGCPServiceAccountKeyParameters struct {
 	PrivateKeyID *string `json:"privateKeyId" tf:"private_key_id,omitempty"`
 
 	// +kubebuilder:validation:Optional
-	PrivateKeySecretRef v1.LocalSecretKeySelector `json:"privateKeySecretRef" tf:"-"`
+	PrivateKeySecretRef v2.LocalSecretKeySelector `json:"privateKeySecretRef" tf:"-"`
 }
 
 type StorageCredentialInitParameters struct {
@@ -435,8 +434,8 @@ type StorageCredentialSpec struct {
 
 // StorageCredentialStatus defines the observed state of StorageCredential.
 type StorageCredentialStatus struct {
-	v1.ResourceStatus `json:",inline"`
-	AtProvider        StorageCredentialObservation `json:"atProvider,omitempty"`
+	v2.ManagedResourceStatus `json:",inline"`
+	AtProvider               StorageCredentialObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true

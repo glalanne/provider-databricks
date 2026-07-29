@@ -10,7 +10,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
+	v2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 )
 
 type GCPEndpointInitParameters struct {
@@ -50,11 +50,11 @@ type MwsNccPrivateEndpointRuleInitParameters struct {
 
 	// Reference to a MwsNetworkConnectivityConfig in deployment to populate networkConnectivityConfigId.
 	// +kubebuilder:validation:Optional
-	NetworkConnectivityConfigIDRef *v1.Reference `json:"networkConnectivityConfigIdRef,omitempty" tf:"-"`
+	NetworkConnectivityConfigIDRef *v2.Reference `json:"networkConnectivityConfigIdRef,omitempty" tf:"-"`
 
 	// Selector for a MwsNetworkConnectivityConfig in deployment to populate networkConnectivityConfigId.
 	// +kubebuilder:validation:Optional
-	NetworkConnectivityConfigIDSelector *v1.Selector `json:"networkConnectivityConfigIdSelector,omitempty" tf:"-"`
+	NetworkConnectivityConfigIDSelector *v2.Selector `json:"networkConnectivityConfigIdSelector,omitempty" tf:"-"`
 
 	// (Azure only) The Azure resource ID of the target resource. Change forces creation of a new resource.
 	ResourceID *string `json:"resourceId,omitempty" tf:"resource_id,omitempty"`
@@ -150,11 +150,11 @@ type MwsNccPrivateEndpointRuleParameters struct {
 
 	// Reference to a MwsNetworkConnectivityConfig in deployment to populate networkConnectivityConfigId.
 	// +kubebuilder:validation:Optional
-	NetworkConnectivityConfigIDRef *v1.Reference `json:"networkConnectivityConfigIdRef,omitempty" tf:"-"`
+	NetworkConnectivityConfigIDRef *v2.Reference `json:"networkConnectivityConfigIdRef,omitempty" tf:"-"`
 
 	// Selector for a MwsNetworkConnectivityConfig in deployment to populate networkConnectivityConfigId.
 	// +kubebuilder:validation:Optional
-	NetworkConnectivityConfigIDSelector *v1.Selector `json:"networkConnectivityConfigIdSelector,omitempty" tf:"-"`
+	NetworkConnectivityConfigIDSelector *v2.Selector `json:"networkConnectivityConfigIdSelector,omitempty" tf:"-"`
 
 	// (Azure only) The Azure resource ID of the target resource. Change forces creation of a new resource.
 	// +kubebuilder:validation:Optional
@@ -167,8 +167,8 @@ type MwsNccPrivateEndpointRuleParameters struct {
 
 // MwsNccPrivateEndpointRuleSpec defines the desired state of MwsNccPrivateEndpointRule
 type MwsNccPrivateEndpointRuleSpec struct {
-	v1.ResourceSpec `json:",inline"`
-	ForProvider     MwsNccPrivateEndpointRuleParameters `json:"forProvider"`
+	v2.ClusterManagedResourceSpec `json:",inline"`
+	ForProvider                   MwsNccPrivateEndpointRuleParameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
 	// InitProvider holds the same fields as ForProvider, with the exception
@@ -184,8 +184,8 @@ type MwsNccPrivateEndpointRuleSpec struct {
 
 // MwsNccPrivateEndpointRuleStatus defines the observed state of MwsNccPrivateEndpointRule.
 type MwsNccPrivateEndpointRuleStatus struct {
-	v1.ResourceStatus `json:",inline"`
-	AtProvider        MwsNccPrivateEndpointRuleObservation `json:"atProvider,omitempty"`
+	v2.ManagedResourceStatus `json:",inline"`
+	AtProvider               MwsNccPrivateEndpointRuleObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true

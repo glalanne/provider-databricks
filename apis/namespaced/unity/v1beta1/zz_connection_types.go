@@ -10,8 +10,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
-	v2 "github.com/crossplane/crossplane-runtime/v2/apis/common/v2"
+	v2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 )
 
 type ConnectionInitParameters struct {
@@ -128,7 +127,7 @@ type ConnectionParameters struct {
 
 	// A map of key-value properties attached to the securable. The required keys depend on the connection type, e.g. host, port, user, password, authorization_endpoint, client_id, client_secret, or GoogleServiceAccountKeyJson. Please consult the documentation for the required options. This field is sensitive.
 	// +kubebuilder:validation:Optional
-	OptionsSecretRef *v1.LocalSecretReference `json:"optionsSecretRef,omitempty" tf:"-"`
+	OptionsSecretRef *v2.LocalSecretReference `json:"optionsSecretRef,omitempty" tf:"-"`
 
 	// Username of current owner of the connection.
 	// +kubebuilder:validation:Optional
@@ -227,8 +226,8 @@ type ConnectionSpec struct {
 
 // ConnectionStatus defines the observed state of Connection.
 type ConnectionStatus struct {
-	v1.ResourceStatus `json:",inline"`
-	AtProvider        ConnectionObservation `json:"atProvider,omitempty"`
+	v2.ManagedResourceStatus `json:",inline"`
+	AtProvider               ConnectionObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true

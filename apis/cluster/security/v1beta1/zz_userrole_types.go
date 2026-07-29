@@ -10,7 +10,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
+	v2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 )
 
 type UserRoleInitParameters struct {
@@ -28,11 +28,11 @@ type UserRoleInitParameters struct {
 
 	// Reference to a InstanceProfile in deployment to populate role.
 	// +kubebuilder:validation:Optional
-	RoleRef *v1.Reference `json:"roleRef,omitempty" tf:"-"`
+	RoleRef *v2.Reference `json:"roleRef,omitempty" tf:"-"`
 
 	// Selector for a InstanceProfile in deployment to populate role.
 	// +kubebuilder:validation:Optional
-	RoleSelector *v1.Selector `json:"roleSelector,omitempty" tf:"-"`
+	RoleSelector *v2.Selector `json:"roleSelector,omitempty" tf:"-"`
 
 	// This is the id of the user resource.
 	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/cluster/security/v1beta1.User
@@ -41,11 +41,11 @@ type UserRoleInitParameters struct {
 
 	// Reference to a User in security to populate userId.
 	// +kubebuilder:validation:Optional
-	UserIDRef *v1.Reference `json:"userIdRef,omitempty" tf:"-"`
+	UserIDRef *v2.Reference `json:"userIdRef,omitempty" tf:"-"`
 
 	// Selector for a User in security to populate userId.
 	// +kubebuilder:validation:Optional
-	UserIDSelector *v1.Selector `json:"userIdSelector,omitempty" tf:"-"`
+	UserIDSelector *v2.Selector `json:"userIdSelector,omitempty" tf:"-"`
 }
 
 type UserRoleObservation struct {
@@ -84,11 +84,11 @@ type UserRoleParameters struct {
 
 	// Reference to a InstanceProfile in deployment to populate role.
 	// +kubebuilder:validation:Optional
-	RoleRef *v1.Reference `json:"roleRef,omitempty" tf:"-"`
+	RoleRef *v2.Reference `json:"roleRef,omitempty" tf:"-"`
 
 	// Selector for a InstanceProfile in deployment to populate role.
 	// +kubebuilder:validation:Optional
-	RoleSelector *v1.Selector `json:"roleSelector,omitempty" tf:"-"`
+	RoleSelector *v2.Selector `json:"roleSelector,omitempty" tf:"-"`
 
 	// This is the id of the user resource.
 	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/cluster/security/v1beta1.User
@@ -98,11 +98,11 @@ type UserRoleParameters struct {
 
 	// Reference to a User in security to populate userId.
 	// +kubebuilder:validation:Optional
-	UserIDRef *v1.Reference `json:"userIdRef,omitempty" tf:"-"`
+	UserIDRef *v2.Reference `json:"userIdRef,omitempty" tf:"-"`
 
 	// Selector for a User in security to populate userId.
 	// +kubebuilder:validation:Optional
-	UserIDSelector *v1.Selector `json:"userIdSelector,omitempty" tf:"-"`
+	UserIDSelector *v2.Selector `json:"userIdSelector,omitempty" tf:"-"`
 }
 
 type UserRoleProviderConfigInitParameters struct {
@@ -126,8 +126,8 @@ type UserRoleProviderConfigParameters struct {
 
 // UserRoleSpec defines the desired state of UserRole
 type UserRoleSpec struct {
-	v1.ResourceSpec `json:",inline"`
-	ForProvider     UserRoleParameters `json:"forProvider"`
+	v2.ClusterManagedResourceSpec `json:",inline"`
+	ForProvider                   UserRoleParameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
 	// InitProvider holds the same fields as ForProvider, with the exception
@@ -143,8 +143,8 @@ type UserRoleSpec struct {
 
 // UserRoleStatus defines the observed state of UserRole.
 type UserRoleStatus struct {
-	v1.ResourceStatus `json:",inline"`
-	AtProvider        UserRoleObservation `json:"atProvider,omitempty"`
+	v2.ManagedResourceStatus `json:",inline"`
+	AtProvider               UserRoleObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true

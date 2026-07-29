@@ -10,7 +10,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
+	v2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 )
 
 type AIGatewayInitParameters struct {
@@ -81,7 +81,7 @@ type APIKeyAuthInitParameters struct {
 	Value *string `json:"value,omitempty" tf:"value,omitempty"`
 
 	// The API Key provided as a plaintext string.
-	ValuePlaintextSecretRef *v1.SecretKeySelector `json:"valuePlaintextSecretRef,omitempty" tf:"-"`
+	ValuePlaintextSecretRef *v2.SecretKeySelector `json:"valuePlaintextSecretRef,omitempty" tf:"-"`
 }
 
 type APIKeyAuthObservation struct {
@@ -105,7 +105,7 @@ type APIKeyAuthParameters struct {
 
 	// The API Key provided as a plaintext string.
 	// +kubebuilder:validation:Optional
-	ValuePlaintextSecretRef *v1.SecretKeySelector `json:"valuePlaintextSecretRef,omitempty" tf:"-"`
+	ValuePlaintextSecretRef *v2.SecretKeySelector `json:"valuePlaintextSecretRef,omitempty" tf:"-"`
 }
 
 type Ai21LabsConfigInitParameters struct {
@@ -114,7 +114,7 @@ type Ai21LabsConfigInitParameters struct {
 	Ai21LabsAPIKey *string `json:"ai21labsApiKey,omitempty" tf:"ai21labs_api_key,omitempty"`
 
 	// An AI21 Labs API key provided as a plaintext string.
-	Ai21LabsAPIKeyPlaintextSecretRef *v1.SecretKeySelector `json:"ai21LabsApiKeyPlaintextSecretRef,omitempty" tf:"-"`
+	Ai21LabsAPIKeyPlaintextSecretRef *v2.SecretKeySelector `json:"ai21LabsApiKeyPlaintextSecretRef,omitempty" tf:"-"`
 }
 
 type Ai21LabsConfigObservation struct {
@@ -131,7 +131,7 @@ type Ai21LabsConfigParameters struct {
 
 	// An AI21 Labs API key provided as a plaintext string.
 	// +kubebuilder:validation:Optional
-	Ai21LabsAPIKeyPlaintextSecretRef *v1.SecretKeySelector `json:"ai21LabsApiKeyPlaintextSecretRef,omitempty" tf:"-"`
+	Ai21LabsAPIKeyPlaintextSecretRef *v2.SecretKeySelector `json:"ai21LabsApiKeyPlaintextSecretRef,omitempty" tf:"-"`
 }
 
 type AmazonBedrockConfigInitParameters struct {
@@ -140,7 +140,7 @@ type AmazonBedrockConfigInitParameters struct {
 	AwsAccessKeyID *string `json:"awsAccessKeyId,omitempty" tf:"aws_access_key_id,omitempty"`
 
 	// An AWS access key ID with permissions to interact with Bedrock services provided as a plaintext string.
-	AwsAccessKeyIDPlaintextSecretRef *v1.SecretKeySelector `json:"awsAccessKeyIdPlaintextSecretRef,omitempty" tf:"-"`
+	AwsAccessKeyIDPlaintextSecretRef *v2.SecretKeySelector `json:"awsAccessKeyIdPlaintextSecretRef,omitempty" tf:"-"`
 
 	// The AWS region to use. Bedrock has to be enabled there.
 	AwsRegion *string `json:"awsRegion,omitempty" tf:"aws_region,omitempty"`
@@ -149,7 +149,7 @@ type AmazonBedrockConfigInitParameters struct {
 	AwsSecretAccessKey *string `json:"awsSecretAccessKey,omitempty" tf:"aws_secret_access_key,omitempty"`
 
 	// An AWS secret access key paired with the access key ID, with permissions to interact with Bedrock services provided as a plaintext string.
-	AwsSecretAccessKeyPlaintextSecretRef *v1.SecretKeySelector `json:"awsSecretAccessKeyPlaintextSecretRef,omitempty" tf:"-"`
+	AwsSecretAccessKeyPlaintextSecretRef *v2.SecretKeySelector `json:"awsSecretAccessKeyPlaintextSecretRef,omitempty" tf:"-"`
 
 	// The underlying provider in Amazon Bedrock. Supported values (case insensitive) include: Anthropic, Cohere, AI21Labs, Amazon.
 	BedrockProvider *string `json:"bedrockProvider,omitempty" tf:"bedrock_provider,omitempty"`
@@ -184,7 +184,7 @@ type AmazonBedrockConfigParameters struct {
 
 	// An AWS access key ID with permissions to interact with Bedrock services provided as a plaintext string.
 	// +kubebuilder:validation:Optional
-	AwsAccessKeyIDPlaintextSecretRef *v1.SecretKeySelector `json:"awsAccessKeyIdPlaintextSecretRef,omitempty" tf:"-"`
+	AwsAccessKeyIDPlaintextSecretRef *v2.SecretKeySelector `json:"awsAccessKeyIdPlaintextSecretRef,omitempty" tf:"-"`
 
 	// The AWS region to use. Bedrock has to be enabled there.
 	// +kubebuilder:validation:Optional
@@ -196,7 +196,7 @@ type AmazonBedrockConfigParameters struct {
 
 	// An AWS secret access key paired with the access key ID, with permissions to interact with Bedrock services provided as a plaintext string.
 	// +kubebuilder:validation:Optional
-	AwsSecretAccessKeyPlaintextSecretRef *v1.SecretKeySelector `json:"awsSecretAccessKeyPlaintextSecretRef,omitempty" tf:"-"`
+	AwsSecretAccessKeyPlaintextSecretRef *v2.SecretKeySelector `json:"awsSecretAccessKeyPlaintextSecretRef,omitempty" tf:"-"`
 
 	// The underlying provider in Amazon Bedrock. Supported values (case insensitive) include: Anthropic, Cohere, AI21Labs, Amazon.
 	// +kubebuilder:validation:Optional
@@ -213,7 +213,7 @@ type AnthropicConfigInitParameters struct {
 	AnthropicAPIKey *string `json:"anthropicApiKey,omitempty" tf:"anthropic_api_key,omitempty"`
 
 	// The Anthropic API key provided as a plaintext string.
-	AnthropicAPIKeyPlaintextSecretRef *v1.SecretKeySelector `json:"anthropicApiKeyPlaintextSecretRef,omitempty" tf:"-"`
+	AnthropicAPIKeyPlaintextSecretRef *v2.SecretKeySelector `json:"anthropicApiKeyPlaintextSecretRef,omitempty" tf:"-"`
 }
 
 type AnthropicConfigObservation struct {
@@ -230,7 +230,7 @@ type AnthropicConfigParameters struct {
 
 	// The Anthropic API key provided as a plaintext string.
 	// +kubebuilder:validation:Optional
-	AnthropicAPIKeyPlaintextSecretRef *v1.SecretKeySelector `json:"anthropicApiKeyPlaintextSecretRef,omitempty" tf:"-"`
+	AnthropicAPIKeyPlaintextSecretRef *v2.SecretKeySelector `json:"anthropicApiKeyPlaintextSecretRef,omitempty" tf:"-"`
 }
 
 type AutoCaptureConfigInitParameters struct {
@@ -288,7 +288,7 @@ type BearerTokenAuthInitParameters struct {
 	Token *string `json:"token,omitempty" tf:"token,omitempty"`
 
 	// The token provided as a plaintext string.
-	TokenPlaintextSecretRef *v1.SecretKeySelector `json:"tokenPlaintextSecretRef,omitempty" tf:"-"`
+	TokenPlaintextSecretRef *v2.SecretKeySelector `json:"tokenPlaintextSecretRef,omitempty" tf:"-"`
 }
 
 type BearerTokenAuthObservation struct {
@@ -305,7 +305,7 @@ type BearerTokenAuthParameters struct {
 
 	// The token provided as a plaintext string.
 	// +kubebuilder:validation:Optional
-	TokenPlaintextSecretRef *v1.SecretKeySelector `json:"tokenPlaintextSecretRef,omitempty" tf:"-"`
+	TokenPlaintextSecretRef *v2.SecretKeySelector `json:"tokenPlaintextSecretRef,omitempty" tf:"-"`
 }
 
 type CohereConfigInitParameters struct {
@@ -315,7 +315,7 @@ type CohereConfigInitParameters struct {
 	CohereAPIKey *string `json:"cohereApiKey,omitempty" tf:"cohere_api_key,omitempty"`
 
 	// The Cohere API key provided as a plaintext string.
-	CohereAPIKeyPlaintextSecretRef *v1.SecretKeySelector `json:"cohereApiKeyPlaintextSecretRef,omitempty" tf:"-"`
+	CohereAPIKeyPlaintextSecretRef *v2.SecretKeySelector `json:"cohereApiKeyPlaintextSecretRef,omitempty" tf:"-"`
 }
 
 type CohereConfigObservation struct {
@@ -336,7 +336,7 @@ type CohereConfigParameters struct {
 
 	// The Cohere API key provided as a plaintext string.
 	// +kubebuilder:validation:Optional
-	CohereAPIKeyPlaintextSecretRef *v1.SecretKeySelector `json:"cohereApiKeyPlaintextSecretRef,omitempty" tf:"-"`
+	CohereAPIKeyPlaintextSecretRef *v2.SecretKeySelector `json:"cohereApiKeyPlaintextSecretRef,omitempty" tf:"-"`
 }
 
 type ConfigInitParameters struct {
@@ -433,7 +433,7 @@ type DatabricksModelServingConfigInitParameters struct {
 	DatabricksAPIToken *string `json:"databricksApiToken,omitempty" tf:"databricks_api_token,omitempty"`
 
 	// The Databricks API token that corresponds to a user or service principal with Can Query access to the model serving endpoint pointed to by this external model provided as a plaintext string.
-	DatabricksAPITokenPlaintextSecretRef *v1.SecretKeySelector `json:"databricksApiTokenPlaintextSecretRef,omitempty" tf:"-"`
+	DatabricksAPITokenPlaintextSecretRef *v2.SecretKeySelector `json:"databricksApiTokenPlaintextSecretRef,omitempty" tf:"-"`
 
 	// The URL of the Databricks workspace containing the model serving endpoint pointed to by this external model.
 	DatabricksWorkspaceURL *string `json:"databricksWorkspaceUrl,omitempty" tf:"databricks_workspace_url,omitempty"`
@@ -456,7 +456,7 @@ type DatabricksModelServingConfigParameters struct {
 
 	// The Databricks API token that corresponds to a user or service principal with Can Query access to the model serving endpoint pointed to by this external model provided as a plaintext string.
 	// +kubebuilder:validation:Optional
-	DatabricksAPITokenPlaintextSecretRef *v1.SecretKeySelector `json:"databricksApiTokenPlaintextSecretRef,omitempty" tf:"-"`
+	DatabricksAPITokenPlaintextSecretRef *v2.SecretKeySelector `json:"databricksApiTokenPlaintextSecretRef,omitempty" tf:"-"`
 
 	// The URL of the Databricks workspace containing the model serving endpoint pointed to by this external model.
 	// +kubebuilder:validation:Optional
@@ -646,7 +646,7 @@ type GoogleCloudVertexAIConfigInitParameters struct {
 	PrivateKey *string `json:"privateKey,omitempty" tf:"private_key,omitempty"`
 
 	// The private key for the service account that has access to the Google Cloud Vertex AI Service is provided as a plaintext secret.
-	PrivateKeyPlaintextSecretRef *v1.SecretKeySelector `json:"privateKeyPlaintextSecretRef,omitempty" tf:"-"`
+	PrivateKeyPlaintextSecretRef *v2.SecretKeySelector `json:"privateKeyPlaintextSecretRef,omitempty" tf:"-"`
 
 	// This is the Google Cloud project id that the service account is associated with.
 	ProjectID *string `json:"projectId,omitempty" tf:"project_id,omitempty"`
@@ -675,7 +675,7 @@ type GoogleCloudVertexAIConfigParameters struct {
 
 	// The private key for the service account that has access to the Google Cloud Vertex AI Service is provided as a plaintext secret.
 	// +kubebuilder:validation:Optional
-	PrivateKeyPlaintextSecretRef *v1.SecretKeySelector `json:"privateKeyPlaintextSecretRef,omitempty" tf:"-"`
+	PrivateKeyPlaintextSecretRef *v2.SecretKeySelector `json:"privateKeyPlaintextSecretRef,omitempty" tf:"-"`
 
 	// This is the Google Cloud project id that the service account is associated with.
 	// +kubebuilder:validation:Optional
@@ -989,7 +989,7 @@ type OpenaiConfigInitParameters struct {
 	MicrosoftEntraClientSecret *string `json:"microsoftEntraClientSecret,omitempty" tf:"microsoft_entra_client_secret,omitempty"`
 
 	// The client secret used for Microsoft Entra ID authentication provided as a plaintext string.
-	MicrosoftEntraClientSecretPlaintextSecretRef *v1.SecretKeySelector `json:"microsoftEntraClientSecretPlaintextSecretRef,omitempty" tf:"-"`
+	MicrosoftEntraClientSecretPlaintextSecretRef *v2.SecretKeySelector `json:"microsoftEntraClientSecretPlaintextSecretRef,omitempty" tf:"-"`
 
 	// This field is only required for Azure AD OpenAI and is the Microsoft Entra Tenant ID.
 	MicrosoftEntraTenantID *string `json:"microsoftEntraTenantId,omitempty" tf:"microsoft_entra_tenant_id,omitempty"`
@@ -1001,7 +1001,7 @@ type OpenaiConfigInitParameters struct {
 	OpenaiAPIKey *string `json:"openaiApiKey,omitempty" tf:"openai_api_key,omitempty"`
 
 	// The OpenAI API key using the OpenAI or Azure service provided as a plaintext string.
-	OpenaiAPIKeyPlaintextSecretRef *v1.SecretKeySelector `json:"openaiApiKeyPlaintextSecretRef,omitempty" tf:"-"`
+	OpenaiAPIKeyPlaintextSecretRef *v2.SecretKeySelector `json:"openaiApiKeyPlaintextSecretRef,omitempty" tf:"-"`
 
 	// This is an optional field to specify the type of OpenAI API to use. For Azure OpenAI, this field is required, and this parameter represents the preferred security access validation protocol. For access token validation, use azure. For authentication using Azure Active Directory (Azure AD) use, azuread.
 	OpenaiAPIType *string `json:"openaiApiType,omitempty" tf:"openai_api_type,omitempty"`
@@ -1058,7 +1058,7 @@ type OpenaiConfigParameters struct {
 
 	// The client secret used for Microsoft Entra ID authentication provided as a plaintext string.
 	// +kubebuilder:validation:Optional
-	MicrosoftEntraClientSecretPlaintextSecretRef *v1.SecretKeySelector `json:"microsoftEntraClientSecretPlaintextSecretRef,omitempty" tf:"-"`
+	MicrosoftEntraClientSecretPlaintextSecretRef *v2.SecretKeySelector `json:"microsoftEntraClientSecretPlaintextSecretRef,omitempty" tf:"-"`
 
 	// This field is only required for Azure AD OpenAI and is the Microsoft Entra Tenant ID.
 	// +kubebuilder:validation:Optional
@@ -1074,7 +1074,7 @@ type OpenaiConfigParameters struct {
 
 	// The OpenAI API key using the OpenAI or Azure service provided as a plaintext string.
 	// +kubebuilder:validation:Optional
-	OpenaiAPIKeyPlaintextSecretRef *v1.SecretKeySelector `json:"openaiApiKeyPlaintextSecretRef,omitempty" tf:"-"`
+	OpenaiAPIKeyPlaintextSecretRef *v2.SecretKeySelector `json:"openaiApiKeyPlaintextSecretRef,omitempty" tf:"-"`
 
 	// This is an optional field to specify the type of OpenAI API to use. For Azure OpenAI, this field is required, and this parameter represents the preferred security access validation protocol. For access token validation, use azure. For authentication using Azure Active Directory (Azure AD) use, azuread.
 	// +kubebuilder:validation:Optional
@@ -1167,7 +1167,7 @@ type PalmConfigInitParameters struct {
 	PalmAPIKey *string `json:"palmApiKey,omitempty" tf:"palm_api_key,omitempty"`
 
 	// The PaLM API key provided as a plaintext string.
-	PalmAPIKeyPlaintextSecretRef *v1.SecretKeySelector `json:"palmApiKeyPlaintextSecretRef,omitempty" tf:"-"`
+	PalmAPIKeyPlaintextSecretRef *v2.SecretKeySelector `json:"palmApiKeyPlaintextSecretRef,omitempty" tf:"-"`
 }
 
 type PalmConfigObservation struct {
@@ -1184,7 +1184,7 @@ type PalmConfigParameters struct {
 
 	// The PaLM API key provided as a plaintext string.
 	// +kubebuilder:validation:Optional
-	PalmAPIKeyPlaintextSecretRef *v1.SecretKeySelector `json:"palmApiKeyPlaintextSecretRef,omitempty" tf:"-"`
+	PalmAPIKeyPlaintextSecretRef *v2.SecretKeySelector `json:"palmApiKeyPlaintextSecretRef,omitempty" tf:"-"`
 }
 
 type PiiInitParameters struct {
@@ -1745,8 +1745,8 @@ type UsageTrackingConfigParameters struct {
 
 // ModelServingSpec defines the desired state of ModelServing
 type ModelServingSpec struct {
-	v1.ResourceSpec `json:",inline"`
-	ForProvider     ModelServingParameters `json:"forProvider"`
+	v2.ClusterManagedResourceSpec `json:",inline"`
+	ForProvider                   ModelServingParameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
 	// InitProvider holds the same fields as ForProvider, with the exception
@@ -1762,8 +1762,8 @@ type ModelServingSpec struct {
 
 // ModelServingStatus defines the observed state of ModelServing.
 type ModelServingStatus struct {
-	v1.ResourceStatus `json:",inline"`
-	AtProvider        ModelServingObservation `json:"atProvider,omitempty"`
+	v2.ManagedResourceStatus `json:",inline"`
+	AtProvider               ModelServingObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true

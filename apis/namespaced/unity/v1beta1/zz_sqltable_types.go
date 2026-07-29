@@ -10,8 +10,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
-	v2 "github.com/crossplane/crossplane-runtime/v2/apis/common/v2"
+	v2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 )
 
 type ColumnInitParameters struct {
@@ -89,11 +88,11 @@ type SQLTableInitParameters struct {
 
 	// Reference to a Catalog in unity to populate catalogName.
 	// +kubebuilder:validation:Optional
-	CatalogNameRef *v1.NamespacedReference `json:"catalogNameRef,omitempty" tf:"-"`
+	CatalogNameRef *v2.NamespacedReference `json:"catalogNameRef,omitempty" tf:"-"`
 
 	// Selector for a Catalog in unity to populate catalogName.
 	// +kubebuilder:validation:Optional
-	CatalogNameSelector *v1.NamespacedSelector `json:"catalogNameSelector,omitempty" tf:"-"`
+	CatalogNameSelector *v2.NamespacedSelector `json:"catalogNameSelector,omitempty" tf:"-"`
 
 	// All table CRUD operations must be executed on a running cluster or SQL warehouse. If a cluster_id is specified, it will be used to execute SQL commands to manage this table. Conflicts with warehouse_id.
 	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/namespaced/compute/v1beta1.Cluster
@@ -101,11 +100,11 @@ type SQLTableInitParameters struct {
 
 	// Reference to a Cluster in compute to populate clusterId.
 	// +kubebuilder:validation:Optional
-	ClusterIDRef *v1.NamespacedReference `json:"clusterIdRef,omitempty" tf:"-"`
+	ClusterIDRef *v2.NamespacedReference `json:"clusterIdRef,omitempty" tf:"-"`
 
 	// Selector for a Cluster in compute to populate clusterId.
 	// +kubebuilder:validation:Optional
-	ClusterIDSelector *v1.NamespacedSelector `json:"clusterIdSelector,omitempty" tf:"-"`
+	ClusterIDSelector *v2.NamespacedSelector `json:"clusterIdSelector,omitempty" tf:"-"`
 
 	// a subset of columns to liquid cluster the table by. For automatic clustering, set cluster_keys to ["AUTO"]. To turn off clustering, set it to ["NONE"]. Conflicts with partitions.
 	ClusterKeys []*string `json:"clusterKeys,omitempty" tf:"cluster_keys,omitempty"`
@@ -145,11 +144,11 @@ type SQLTableInitParameters struct {
 
 	// Reference to a Schema in unity to populate schemaName.
 	// +kubebuilder:validation:Optional
-	SchemaNameRef *v1.NamespacedReference `json:"schemaNameRef,omitempty" tf:"-"`
+	SchemaNameRef *v2.NamespacedReference `json:"schemaNameRef,omitempty" tf:"-"`
 
 	// Selector for a Schema in unity to populate schemaName.
 	// +kubebuilder:validation:Optional
-	SchemaNameSelector *v1.NamespacedSelector `json:"schemaNameSelector,omitempty" tf:"-"`
+	SchemaNameSelector *v2.NamespacedSelector `json:"schemaNameSelector,omitempty" tf:"-"`
 
 	// For EXTERNAL Tables only: the name of storage credential to use. Change forces the creation of a new resource.
 	StorageCredentialName *string `json:"storageCredentialName,omitempty" tf:"storage_credential_name,omitempty"`
@@ -169,11 +168,11 @@ type SQLTableInitParameters struct {
 
 	// Reference to a SQLEndpoint in sql to populate warehouseId.
 	// +kubebuilder:validation:Optional
-	WarehouseIDRef *v1.NamespacedReference `json:"warehouseIdRef,omitempty" tf:"-"`
+	WarehouseIDRef *v2.NamespacedReference `json:"warehouseIdRef,omitempty" tf:"-"`
 
 	// Selector for a SQLEndpoint in sql to populate warehouseId.
 	// +kubebuilder:validation:Optional
-	WarehouseIDSelector *v1.NamespacedSelector `json:"warehouseIdSelector,omitempty" tf:"-"`
+	WarehouseIDSelector *v2.NamespacedSelector `json:"warehouseIdSelector,omitempty" tf:"-"`
 }
 
 type SQLTableObservation struct {
@@ -254,11 +253,11 @@ type SQLTableParameters struct {
 
 	// Reference to a Catalog in unity to populate catalogName.
 	// +kubebuilder:validation:Optional
-	CatalogNameRef *v1.NamespacedReference `json:"catalogNameRef,omitempty" tf:"-"`
+	CatalogNameRef *v2.NamespacedReference `json:"catalogNameRef,omitempty" tf:"-"`
 
 	// Selector for a Catalog in unity to populate catalogName.
 	// +kubebuilder:validation:Optional
-	CatalogNameSelector *v1.NamespacedSelector `json:"catalogNameSelector,omitempty" tf:"-"`
+	CatalogNameSelector *v2.NamespacedSelector `json:"catalogNameSelector,omitempty" tf:"-"`
 
 	// All table CRUD operations must be executed on a running cluster or SQL warehouse. If a cluster_id is specified, it will be used to execute SQL commands to manage this table. Conflicts with warehouse_id.
 	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/namespaced/compute/v1beta1.Cluster
@@ -267,11 +266,11 @@ type SQLTableParameters struct {
 
 	// Reference to a Cluster in compute to populate clusterId.
 	// +kubebuilder:validation:Optional
-	ClusterIDRef *v1.NamespacedReference `json:"clusterIdRef,omitempty" tf:"-"`
+	ClusterIDRef *v2.NamespacedReference `json:"clusterIdRef,omitempty" tf:"-"`
 
 	// Selector for a Cluster in compute to populate clusterId.
 	// +kubebuilder:validation:Optional
-	ClusterIDSelector *v1.NamespacedSelector `json:"clusterIdSelector,omitempty" tf:"-"`
+	ClusterIDSelector *v2.NamespacedSelector `json:"clusterIdSelector,omitempty" tf:"-"`
 
 	// a subset of columns to liquid cluster the table by. For automatic clustering, set cluster_keys to ["AUTO"]. To turn off clustering, set it to ["NONE"]. Conflicts with partitions.
 	// +kubebuilder:validation:Optional
@@ -322,11 +321,11 @@ type SQLTableParameters struct {
 
 	// Reference to a Schema in unity to populate schemaName.
 	// +kubebuilder:validation:Optional
-	SchemaNameRef *v1.NamespacedReference `json:"schemaNameRef,omitempty" tf:"-"`
+	SchemaNameRef *v2.NamespacedReference `json:"schemaNameRef,omitempty" tf:"-"`
 
 	// Selector for a Schema in unity to populate schemaName.
 	// +kubebuilder:validation:Optional
-	SchemaNameSelector *v1.NamespacedSelector `json:"schemaNameSelector,omitempty" tf:"-"`
+	SchemaNameSelector *v2.NamespacedSelector `json:"schemaNameSelector,omitempty" tf:"-"`
 
 	// For EXTERNAL Tables only: the name of storage credential to use. Change forces the creation of a new resource.
 	// +kubebuilder:validation:Optional
@@ -351,11 +350,11 @@ type SQLTableParameters struct {
 
 	// Reference to a SQLEndpoint in sql to populate warehouseId.
 	// +kubebuilder:validation:Optional
-	WarehouseIDRef *v1.NamespacedReference `json:"warehouseIdRef,omitempty" tf:"-"`
+	WarehouseIDRef *v2.NamespacedReference `json:"warehouseIdRef,omitempty" tf:"-"`
 
 	// Selector for a SQLEndpoint in sql to populate warehouseId.
 	// +kubebuilder:validation:Optional
-	WarehouseIDSelector *v1.NamespacedSelector `json:"warehouseIdSelector,omitempty" tf:"-"`
+	WarehouseIDSelector *v2.NamespacedSelector `json:"warehouseIdSelector,omitempty" tf:"-"`
 }
 
 type SQLTableProviderConfigInitParameters struct {
@@ -396,8 +395,8 @@ type SQLTableSpec struct {
 
 // SQLTableStatus defines the observed state of SQLTable.
 type SQLTableStatus struct {
-	v1.ResourceStatus `json:",inline"`
-	AtProvider        SQLTableObservation `json:"atProvider,omitempty"`
+	v2.ManagedResourceStatus `json:",inline"`
+	AtProvider               SQLTableObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true
