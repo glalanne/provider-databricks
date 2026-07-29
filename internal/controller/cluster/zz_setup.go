@@ -9,8 +9,15 @@ import (
 
 	"github.com/crossplane/upjet/v2/pkg/controller"
 
+	aisearchendpoint "github.com/glalanne/provider-databricks/internal/controller/cluster/ai/aisearchendpoint"
+	aisearchindex "github.com/glalanne/provider-databricks/internal/controller/cluster/ai/aisearchindex"
+	knowledgeassistant "github.com/glalanne/provider-databricks/internal/controller/cluster/ai/knowledgeassistant"
+	knowledgeassistantknowledgesource "github.com/glalanne/provider-databricks/internal/controller/cluster/ai/knowledgeassistantknowledgesource"
+	supervisoragent "github.com/glalanne/provider-databricks/internal/controller/cluster/ai/supervisoragent"
+	supervisoragenttool "github.com/glalanne/provider-databricks/internal/controller/cluster/ai/supervisoragenttool"
 	app "github.com/glalanne/provider-databricks/internal/controller/cluster/apps/app"
 	customappintegration "github.com/glalanne/provider-databricks/internal/controller/cluster/apps/customappintegration"
+	budgetpolicy "github.com/glalanne/provider-databricks/internal/controller/cluster/billing/budgetpolicy"
 	cluster "github.com/glalanne/provider-databricks/internal/controller/cluster/compute/cluster"
 	clusterpolicy "github.com/glalanne/provider-databricks/internal/controller/cluster/compute/clusterpolicy"
 	instancepool "github.com/glalanne/provider-databricks/internal/controller/cluster/compute/instancepool"
@@ -29,7 +36,12 @@ import (
 	mwsstorageconfigurations "github.com/glalanne/provider-databricks/internal/controller/cluster/deployment/mwsstorageconfigurations"
 	mwsvpcendpoint "github.com/glalanne/provider-databricks/internal/controller/cluster/deployment/mwsvpcendpoint"
 	mwsworkspaces "github.com/glalanne/provider-databricks/internal/controller/cluster/deployment/mwsworkspaces"
+	disasterrecoveryfailovergroup "github.com/glalanne/provider-databricks/internal/controller/cluster/dr/disasterrecoveryfailovergroup"
+	disasterrecoverystableurl "github.com/glalanne/provider-databricks/internal/controller/cluster/dr/disasterrecoverystableurl"
+	environmentsdefaultworkspacebaseenvironment "github.com/glalanne/provider-databricks/internal/controller/cluster/envs/environmentsdefaultworkspacebaseenvironment"
+	environmentsworkspacebaseenvironment "github.com/glalanne/provider-databricks/internal/controller/cluster/envs/environmentsworkspacebaseenvironment"
 	budget "github.com/glalanne/provider-databricks/internal/controller/cluster/finops/budget"
+	dataclassificationcatalogconfig "github.com/glalanne/provider-databricks/internal/controller/cluster/governance/dataclassificationcatalogconfig"
 	mwslogdelivery "github.com/glalanne/provider-databricks/internal/controller/cluster/log/mwslogdelivery"
 	mlflowexperiment "github.com/glalanne/provider-databricks/internal/controller/cluster/mlflow/mlflowexperiment"
 	mlflowmodel "github.com/glalanne/provider-databricks/internal/controller/cluster/mlflow/mlflowmodel"
@@ -38,6 +50,14 @@ import (
 	vectorsearchindex "github.com/glalanne/provider-databricks/internal/controller/cluster/mosaic/vectorsearchindex"
 	accountfederationpolicy "github.com/glalanne/provider-databricks/internal/controller/cluster/oauth/accountfederationpolicy"
 	serviceprincipalfederationpolicy "github.com/glalanne/provider-databricks/internal/controller/cluster/oauth/serviceprincipalfederationpolicy"
+	postgresbranch "github.com/glalanne/provider-databricks/internal/controller/cluster/postgres/postgresbranch"
+	postgrescatalog "github.com/glalanne/provider-databricks/internal/controller/cluster/postgres/postgrescatalog"
+	postgrescdfconfig "github.com/glalanne/provider-databricks/internal/controller/cluster/postgres/postgrescdfconfig"
+	postgresdatabase "github.com/glalanne/provider-databricks/internal/controller/cluster/postgres/postgresdatabase"
+	postgresendpoint "github.com/glalanne/provider-databricks/internal/controller/cluster/postgres/postgresendpoint"
+	postgresproject "github.com/glalanne/provider-databricks/internal/controller/cluster/postgres/postgresproject"
+	postgresrole "github.com/glalanne/provider-databricks/internal/controller/cluster/postgres/postgresrole"
+	postgressyncedtable "github.com/glalanne/provider-databricks/internal/controller/cluster/postgres/postgressyncedtable"
 	providerconfig "github.com/glalanne/provider-databricks/internal/controller/cluster/providerconfig"
 	accesscontrolruleset "github.com/glalanne/provider-databricks/internal/controller/cluster/security/accesscontrolruleset"
 	entitlements "github.com/glalanne/provider-databricks/internal/controller/cluster/security/entitlements"
@@ -62,14 +82,24 @@ import (
 	userinstanceprofile "github.com/glalanne/provider-databricks/internal/controller/cluster/security/userinstanceprofile"
 	userrole "github.com/glalanne/provider-databricks/internal/controller/cluster/security/userrole"
 	modelserving "github.com/glalanne/provider-databricks/internal/controller/cluster/serving/modelserving"
+	accountnetworkpolicy "github.com/glalanne/provider-databricks/internal/controller/cluster/settings/accountnetworkpolicy"
+	accountsettingv2 "github.com/glalanne/provider-databricks/internal/controller/cluster/settings/accountsettingv2"
+	aibidashboardembeddingaccesspolicysetting "github.com/glalanne/provider-databricks/internal/controller/cluster/settings/aibidashboardembeddingaccesspolicysetting"
+	aibidashboardembeddingapproveddomainssetting "github.com/glalanne/provider-databricks/internal/controller/cluster/settings/aibidashboardembeddingapproveddomainssetting"
 	compliancesecurityprofileworkspacesetting "github.com/glalanne/provider-databricks/internal/controller/cluster/settings/compliancesecurityprofileworkspacesetting"
 	defaultnamespacesetting "github.com/glalanne/provider-databricks/internal/controller/cluster/settings/defaultnamespacesetting"
+	disablelegacyaccesssetting "github.com/glalanne/provider-databricks/internal/controller/cluster/settings/disablelegacyaccesssetting"
+	disablelegacydbfssetting "github.com/glalanne/provider-databricks/internal/controller/cluster/settings/disablelegacydbfssetting"
+	disablelegacyfeaturessetting "github.com/glalanne/provider-databricks/internal/controller/cluster/settings/disablelegacyfeaturessetting"
 	enhancedsecuritymonitoringworkspacesetting "github.com/glalanne/provider-databricks/internal/controller/cluster/settings/enhancedsecuritymonitoringworkspacesetting"
 	restrictworkspaceadminssetting "github.com/glalanne/provider-databricks/internal/controller/cluster/settings/restrictworkspaceadminssetting"
+	workspacenetworkoption "github.com/glalanne/provider-databricks/internal/controller/cluster/settings/workspacenetworkoption"
+	workspacesettingv2 "github.com/glalanne/provider-databricks/internal/controller/cluster/settings/workspacesettingv2"
 	provider "github.com/glalanne/provider-databricks/internal/controller/cluster/sharing/provider"
 	recipient "github.com/glalanne/provider-databricks/internal/controller/cluster/sharing/recipient"
 	share "github.com/glalanne/provider-databricks/internal/controller/cluster/sharing/share"
 	alert "github.com/glalanne/provider-databricks/internal/controller/cluster/sql/alert"
+	alertv2 "github.com/glalanne/provider-databricks/internal/controller/cluster/sql/alertv2"
 	dashboard "github.com/glalanne/provider-databricks/internal/controller/cluster/sql/dashboard"
 	query "github.com/glalanne/provider-databricks/internal/controller/cluster/sql/query"
 	sqlalert "github.com/glalanne/provider-databricks/internal/controller/cluster/sql/sqlalert"
@@ -82,12 +112,17 @@ import (
 	dbfsfile "github.com/glalanne/provider-databricks/internal/controller/cluster/storage/dbfsfile"
 	file "github.com/glalanne/provider-databricks/internal/controller/cluster/storage/file"
 	mount "github.com/glalanne/provider-databricks/internal/controller/cluster/storage/mount"
+	tagpolicy "github.com/glalanne/provider-databricks/internal/controller/cluster/tags/tagpolicy"
+	workspaceentitytagassignment "github.com/glalanne/provider-databricks/internal/controller/cluster/tags/workspaceentitytagassignment"
 	artifactallowlist "github.com/glalanne/provider-databricks/internal/controller/cluster/unity/artifactallowlist"
 	catalog "github.com/glalanne/provider-databricks/internal/controller/cluster/unity/catalog"
 	catalogworkspacebinding "github.com/glalanne/provider-databricks/internal/controller/cluster/unity/catalogworkspacebinding"
 	connection "github.com/glalanne/provider-databricks/internal/controller/cluster/unity/connection"
 	credential "github.com/glalanne/provider-databricks/internal/controller/cluster/unity/credential"
+	dataqualityrefresh "github.com/glalanne/provider-databricks/internal/controller/cluster/unity/dataqualityrefresh"
+	entitytagassignment "github.com/glalanne/provider-databricks/internal/controller/cluster/unity/entitytagassignment"
 	externallocation "github.com/glalanne/provider-databricks/internal/controller/cluster/unity/externallocation"
+	externalmetadata "github.com/glalanne/provider-databricks/internal/controller/cluster/unity/externalmetadata"
 	grant "github.com/glalanne/provider-databricks/internal/controller/cluster/unity/grant"
 	grantmap "github.com/glalanne/provider-databricks/internal/controller/cluster/unity/grantmap"
 	lakehousemonitor "github.com/glalanne/provider-databricks/internal/controller/cluster/unity/lakehousemonitor"
@@ -98,7 +133,9 @@ import (
 	policyinfo "github.com/glalanne/provider-databricks/internal/controller/cluster/unity/policyinfo"
 	qualitymonitor "github.com/glalanne/provider-databricks/internal/controller/cluster/unity/qualitymonitor"
 	registeredmodel "github.com/glalanne/provider-databricks/internal/controller/cluster/unity/registeredmodel"
+	rfaaccessrequestdestinations "github.com/glalanne/provider-databricks/internal/controller/cluster/unity/rfaaccessrequestdestinations"
 	schema "github.com/glalanne/provider-databricks/internal/controller/cluster/unity/schema"
+	secretuc "github.com/glalanne/provider-databricks/internal/controller/cluster/unity/secretuc"
 	sqltable "github.com/glalanne/provider-databricks/internal/controller/cluster/unity/sqltable"
 	storagecredential "github.com/glalanne/provider-databricks/internal/controller/cluster/unity/storagecredential"
 	systemschema "github.com/glalanne/provider-databricks/internal/controller/cluster/unity/systemschema"
@@ -118,8 +155,15 @@ import (
 // the supplied manager.
 func Setup(mgr ctrl.Manager, o controller.Options) error {
 	for _, setup := range []func(ctrl.Manager, controller.Options) error{
+		aisearchendpoint.Setup,
+		aisearchindex.Setup,
+		knowledgeassistant.Setup,
+		knowledgeassistantknowledgesource.Setup,
+		supervisoragent.Setup,
+		supervisoragenttool.Setup,
 		app.Setup,
 		customappintegration.Setup,
+		budgetpolicy.Setup,
 		cluster.Setup,
 		clusterpolicy.Setup,
 		instancepool.Setup,
@@ -138,7 +182,12 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 		mwsstorageconfigurations.Setup,
 		mwsvpcendpoint.Setup,
 		mwsworkspaces.Setup,
+		disasterrecoveryfailovergroup.Setup,
+		disasterrecoverystableurl.Setup,
+		environmentsdefaultworkspacebaseenvironment.Setup,
+		environmentsworkspacebaseenvironment.Setup,
 		budget.Setup,
+		dataclassificationcatalogconfig.Setup,
 		mwslogdelivery.Setup,
 		mlflowexperiment.Setup,
 		mlflowmodel.Setup,
@@ -147,6 +196,14 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 		vectorsearchindex.Setup,
 		accountfederationpolicy.Setup,
 		serviceprincipalfederationpolicy.Setup,
+		postgresbranch.Setup,
+		postgrescatalog.Setup,
+		postgrescdfconfig.Setup,
+		postgresdatabase.Setup,
+		postgresendpoint.Setup,
+		postgresproject.Setup,
+		postgresrole.Setup,
+		postgressyncedtable.Setup,
 		providerconfig.Setup,
 		accesscontrolruleset.Setup,
 		entitlements.Setup,
@@ -171,14 +228,24 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 		userinstanceprofile.Setup,
 		userrole.Setup,
 		modelserving.Setup,
+		accountnetworkpolicy.Setup,
+		accountsettingv2.Setup,
+		aibidashboardembeddingaccesspolicysetting.Setup,
+		aibidashboardembeddingapproveddomainssetting.Setup,
 		compliancesecurityprofileworkspacesetting.Setup,
 		defaultnamespacesetting.Setup,
+		disablelegacyaccesssetting.Setup,
+		disablelegacydbfssetting.Setup,
+		disablelegacyfeaturessetting.Setup,
 		enhancedsecuritymonitoringworkspacesetting.Setup,
 		restrictworkspaceadminssetting.Setup,
+		workspacenetworkoption.Setup,
+		workspacesettingv2.Setup,
 		provider.Setup,
 		recipient.Setup,
 		share.Setup,
 		alert.Setup,
+		alertv2.Setup,
 		dashboard.Setup,
 		query.Setup,
 		sqlalert.Setup,
@@ -191,12 +258,17 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 		dbfsfile.Setup,
 		file.Setup,
 		mount.Setup,
+		tagpolicy.Setup,
+		workspaceentitytagassignment.Setup,
 		artifactallowlist.Setup,
 		catalog.Setup,
 		catalogworkspacebinding.Setup,
 		connection.Setup,
 		credential.Setup,
+		dataqualityrefresh.Setup,
+		entitytagassignment.Setup,
 		externallocation.Setup,
+		externalmetadata.Setup,
 		grant.Setup,
 		grantmap.Setup,
 		lakehousemonitor.Setup,
@@ -207,7 +279,9 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 		policyinfo.Setup,
 		qualitymonitor.Setup,
 		registeredmodel.Setup,
+		rfaaccessrequestdestinations.Setup,
 		schema.Setup,
+		secretuc.Setup,
 		sqltable.Setup,
 		storagecredential.Setup,
 		systemschema.Setup,
@@ -233,8 +307,15 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 // the supplied manager gated.
 func SetupGated(mgr ctrl.Manager, o controller.Options) error {
 	for _, setup := range []func(ctrl.Manager, controller.Options) error{
+		aisearchendpoint.SetupGated,
+		aisearchindex.SetupGated,
+		knowledgeassistant.SetupGated,
+		knowledgeassistantknowledgesource.SetupGated,
+		supervisoragent.SetupGated,
+		supervisoragenttool.SetupGated,
 		app.SetupGated,
 		customappintegration.SetupGated,
+		budgetpolicy.SetupGated,
 		cluster.SetupGated,
 		clusterpolicy.SetupGated,
 		instancepool.SetupGated,
@@ -253,7 +334,12 @@ func SetupGated(mgr ctrl.Manager, o controller.Options) error {
 		mwsstorageconfigurations.SetupGated,
 		mwsvpcendpoint.SetupGated,
 		mwsworkspaces.SetupGated,
+		disasterrecoveryfailovergroup.SetupGated,
+		disasterrecoverystableurl.SetupGated,
+		environmentsdefaultworkspacebaseenvironment.SetupGated,
+		environmentsworkspacebaseenvironment.SetupGated,
 		budget.SetupGated,
+		dataclassificationcatalogconfig.SetupGated,
 		mwslogdelivery.SetupGated,
 		mlflowexperiment.SetupGated,
 		mlflowmodel.SetupGated,
@@ -262,6 +348,14 @@ func SetupGated(mgr ctrl.Manager, o controller.Options) error {
 		vectorsearchindex.SetupGated,
 		accountfederationpolicy.SetupGated,
 		serviceprincipalfederationpolicy.SetupGated,
+		postgresbranch.SetupGated,
+		postgrescatalog.SetupGated,
+		postgrescdfconfig.SetupGated,
+		postgresdatabase.SetupGated,
+		postgresendpoint.SetupGated,
+		postgresproject.SetupGated,
+		postgresrole.SetupGated,
+		postgressyncedtable.SetupGated,
 		providerconfig.SetupGated,
 		accesscontrolruleset.SetupGated,
 		entitlements.SetupGated,
@@ -286,14 +380,24 @@ func SetupGated(mgr ctrl.Manager, o controller.Options) error {
 		userinstanceprofile.SetupGated,
 		userrole.SetupGated,
 		modelserving.SetupGated,
+		accountnetworkpolicy.SetupGated,
+		accountsettingv2.SetupGated,
+		aibidashboardembeddingaccesspolicysetting.SetupGated,
+		aibidashboardembeddingapproveddomainssetting.SetupGated,
 		compliancesecurityprofileworkspacesetting.SetupGated,
 		defaultnamespacesetting.SetupGated,
+		disablelegacyaccesssetting.SetupGated,
+		disablelegacydbfssetting.SetupGated,
+		disablelegacyfeaturessetting.SetupGated,
 		enhancedsecuritymonitoringworkspacesetting.SetupGated,
 		restrictworkspaceadminssetting.SetupGated,
+		workspacenetworkoption.SetupGated,
+		workspacesettingv2.SetupGated,
 		provider.SetupGated,
 		recipient.SetupGated,
 		share.SetupGated,
 		alert.SetupGated,
+		alertv2.SetupGated,
 		dashboard.SetupGated,
 		query.SetupGated,
 		sqlalert.SetupGated,
@@ -306,12 +410,17 @@ func SetupGated(mgr ctrl.Manager, o controller.Options) error {
 		dbfsfile.SetupGated,
 		file.SetupGated,
 		mount.SetupGated,
+		tagpolicy.SetupGated,
+		workspaceentitytagassignment.SetupGated,
 		artifactallowlist.SetupGated,
 		catalog.SetupGated,
 		catalogworkspacebinding.SetupGated,
 		connection.SetupGated,
 		credential.SetupGated,
+		dataqualityrefresh.SetupGated,
+		entitytagassignment.SetupGated,
 		externallocation.SetupGated,
+		externalmetadata.SetupGated,
 		grant.SetupGated,
 		grantmap.SetupGated,
 		lakehousemonitor.SetupGated,
@@ -322,7 +431,9 @@ func SetupGated(mgr ctrl.Manager, o controller.Options) error {
 		policyinfo.SetupGated,
 		qualitymonitor.SetupGated,
 		registeredmodel.SetupGated,
+		rfaaccessrequestdestinations.SetupGated,
 		schema.SetupGated,
+		secretuc.SetupGated,
 		sqltable.SetupGated,
 		storagecredential.SetupGated,
 		systemschema.SetupGated,
@@ -347,8 +458,15 @@ func SetupGated(mgr ctrl.Manager, o controller.Options) error {
 // SetupWebhookWithManager registers conversion webhooks for all resource kinds in the group.
 func SetupWebhookWithManager(mgr ctrl.Manager) error {
 	for _, setup := range []func(ctrl.Manager) error{
+		aisearchendpoint.SetupWebhookWithManager,
+		aisearchindex.SetupWebhookWithManager,
+		knowledgeassistant.SetupWebhookWithManager,
+		knowledgeassistantknowledgesource.SetupWebhookWithManager,
+		supervisoragent.SetupWebhookWithManager,
+		supervisoragenttool.SetupWebhookWithManager,
 		app.SetupWebhookWithManager,
 		customappintegration.SetupWebhookWithManager,
+		budgetpolicy.SetupWebhookWithManager,
 		cluster.SetupWebhookWithManager,
 		clusterpolicy.SetupWebhookWithManager,
 		instancepool.SetupWebhookWithManager,
@@ -367,7 +485,12 @@ func SetupWebhookWithManager(mgr ctrl.Manager) error {
 		mwsstorageconfigurations.SetupWebhookWithManager,
 		mwsvpcendpoint.SetupWebhookWithManager,
 		mwsworkspaces.SetupWebhookWithManager,
+		disasterrecoveryfailovergroup.SetupWebhookWithManager,
+		disasterrecoverystableurl.SetupWebhookWithManager,
+		environmentsdefaultworkspacebaseenvironment.SetupWebhookWithManager,
+		environmentsworkspacebaseenvironment.SetupWebhookWithManager,
 		budget.SetupWebhookWithManager,
+		dataclassificationcatalogconfig.SetupWebhookWithManager,
 		mwslogdelivery.SetupWebhookWithManager,
 		mlflowexperiment.SetupWebhookWithManager,
 		mlflowmodel.SetupWebhookWithManager,
@@ -376,6 +499,14 @@ func SetupWebhookWithManager(mgr ctrl.Manager) error {
 		vectorsearchindex.SetupWebhookWithManager,
 		accountfederationpolicy.SetupWebhookWithManager,
 		serviceprincipalfederationpolicy.SetupWebhookWithManager,
+		postgresbranch.SetupWebhookWithManager,
+		postgrescatalog.SetupWebhookWithManager,
+		postgrescdfconfig.SetupWebhookWithManager,
+		postgresdatabase.SetupWebhookWithManager,
+		postgresendpoint.SetupWebhookWithManager,
+		postgresproject.SetupWebhookWithManager,
+		postgresrole.SetupWebhookWithManager,
+		postgressyncedtable.SetupWebhookWithManager,
 		providerconfig.SetupWebhookWithManager,
 		accesscontrolruleset.SetupWebhookWithManager,
 		entitlements.SetupWebhookWithManager,
@@ -400,14 +531,24 @@ func SetupWebhookWithManager(mgr ctrl.Manager) error {
 		userinstanceprofile.SetupWebhookWithManager,
 		userrole.SetupWebhookWithManager,
 		modelserving.SetupWebhookWithManager,
+		accountnetworkpolicy.SetupWebhookWithManager,
+		accountsettingv2.SetupWebhookWithManager,
+		aibidashboardembeddingaccesspolicysetting.SetupWebhookWithManager,
+		aibidashboardembeddingapproveddomainssetting.SetupWebhookWithManager,
 		compliancesecurityprofileworkspacesetting.SetupWebhookWithManager,
 		defaultnamespacesetting.SetupWebhookWithManager,
+		disablelegacyaccesssetting.SetupWebhookWithManager,
+		disablelegacydbfssetting.SetupWebhookWithManager,
+		disablelegacyfeaturessetting.SetupWebhookWithManager,
 		enhancedsecuritymonitoringworkspacesetting.SetupWebhookWithManager,
 		restrictworkspaceadminssetting.SetupWebhookWithManager,
+		workspacenetworkoption.SetupWebhookWithManager,
+		workspacesettingv2.SetupWebhookWithManager,
 		provider.SetupWebhookWithManager,
 		recipient.SetupWebhookWithManager,
 		share.SetupWebhookWithManager,
 		alert.SetupWebhookWithManager,
+		alertv2.SetupWebhookWithManager,
 		dashboard.SetupWebhookWithManager,
 		query.SetupWebhookWithManager,
 		sqlalert.SetupWebhookWithManager,
@@ -420,12 +561,17 @@ func SetupWebhookWithManager(mgr ctrl.Manager) error {
 		dbfsfile.SetupWebhookWithManager,
 		file.SetupWebhookWithManager,
 		mount.SetupWebhookWithManager,
+		tagpolicy.SetupWebhookWithManager,
+		workspaceentitytagassignment.SetupWebhookWithManager,
 		artifactallowlist.SetupWebhookWithManager,
 		catalog.SetupWebhookWithManager,
 		catalogworkspacebinding.SetupWebhookWithManager,
 		connection.SetupWebhookWithManager,
 		credential.SetupWebhookWithManager,
+		dataqualityrefresh.SetupWebhookWithManager,
+		entitytagassignment.SetupWebhookWithManager,
 		externallocation.SetupWebhookWithManager,
+		externalmetadata.SetupWebhookWithManager,
 		grant.SetupWebhookWithManager,
 		grantmap.SetupWebhookWithManager,
 		lakehousemonitor.SetupWebhookWithManager,
@@ -436,7 +582,9 @@ func SetupWebhookWithManager(mgr ctrl.Manager) error {
 		policyinfo.SetupWebhookWithManager,
 		qualitymonitor.SetupWebhookWithManager,
 		registeredmodel.SetupWebhookWithManager,
+		rfaaccessrequestdestinations.SetupWebhookWithManager,
 		schema.SetupWebhookWithManager,
+		secretuc.SetupWebhookWithManager,
 		sqltable.SetupWebhookWithManager,
 		storagecredential.SetupWebhookWithManager,
 		systemschema.SetupWebhookWithManager,

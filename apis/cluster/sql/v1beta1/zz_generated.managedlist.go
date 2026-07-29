@@ -17,6 +17,15 @@ func (l *AlertList) GetItems() []resource.Managed {
 	return items
 }
 
+// GetItems of this AlertV2List.
+func (l *AlertV2List) GetItems() []resource.Managed {
+	items := make([]resource.Managed, len(l.Items))
+	for i := range l.Items {
+		items[i] = &l.Items[i]
+	}
+	return items
+}
+
 // GetItems of this DashboardList.
 func (l *DashboardList) GetItems() []resource.Managed {
 	items := make([]resource.Managed, len(l.Items))

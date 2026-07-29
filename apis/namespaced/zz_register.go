@@ -10,16 +10,22 @@ package namespaced
 import (
 	"k8s.io/apimachinery/pkg/runtime"
 
+	v1beta1 "github.com/glalanne/provider-databricks/apis/namespaced/ai/v1beta1"
 	v1alpha1 "github.com/glalanne/provider-databricks/apis/namespaced/apps/v1alpha1"
-	v1beta1 "github.com/glalanne/provider-databricks/apis/namespaced/apps/v1beta1"
+	v1beta1apps "github.com/glalanne/provider-databricks/apis/namespaced/apps/v1beta1"
+	v1beta1billing "github.com/glalanne/provider-databricks/apis/namespaced/billing/v1beta1"
 	v1beta1compute "github.com/glalanne/provider-databricks/apis/namespaced/compute/v1beta1"
 	v1alpha1databases "github.com/glalanne/provider-databricks/apis/namespaced/databases/v1alpha1"
 	v1beta1deployment "github.com/glalanne/provider-databricks/apis/namespaced/deployment/v1beta1"
+	v1beta1dr "github.com/glalanne/provider-databricks/apis/namespaced/dr/v1beta1"
+	v1beta1envs "github.com/glalanne/provider-databricks/apis/namespaced/envs/v1beta1"
 	v1beta1finops "github.com/glalanne/provider-databricks/apis/namespaced/finops/v1beta1"
+	v1beta1governance "github.com/glalanne/provider-databricks/apis/namespaced/governance/v1beta1"
 	v1beta1log "github.com/glalanne/provider-databricks/apis/namespaced/log/v1beta1"
 	v1beta1mlflow "github.com/glalanne/provider-databricks/apis/namespaced/mlflow/v1beta1"
 	v1beta1mosaic "github.com/glalanne/provider-databricks/apis/namespaced/mosaic/v1beta1"
 	v1alpha1oauth "github.com/glalanne/provider-databricks/apis/namespaced/oauth/v1alpha1"
+	v1beta1postgres "github.com/glalanne/provider-databricks/apis/namespaced/postgres/v1beta1"
 	v1beta1security "github.com/glalanne/provider-databricks/apis/namespaced/security/v1beta1"
 	v1beta1serving "github.com/glalanne/provider-databricks/apis/namespaced/serving/v1beta1"
 	v1beta1settings "github.com/glalanne/provider-databricks/apis/namespaced/settings/v1beta1"
@@ -27,6 +33,7 @@ import (
 	v1beta1sharing "github.com/glalanne/provider-databricks/apis/namespaced/sharing/v1beta1"
 	v1beta1sql "github.com/glalanne/provider-databricks/apis/namespaced/sql/v1beta1"
 	v1beta1storage "github.com/glalanne/provider-databricks/apis/namespaced/storage/v1beta1"
+	v1beta1tags "github.com/glalanne/provider-databricks/apis/namespaced/tags/v1beta1"
 	v1alpha1unity "github.com/glalanne/provider-databricks/apis/namespaced/unity/v1alpha1"
 	v1beta1unity "github.com/glalanne/provider-databricks/apis/namespaced/unity/v1beta1"
 	v1alpha1namespaced "github.com/glalanne/provider-databricks/apis/namespaced/v1alpha1"
@@ -37,16 +44,22 @@ import (
 func init() {
 	// Register the types with the Scheme so the components can map objects to GroupVersionKinds and back
 	AddToSchemes = append(AddToSchemes,
-		v1alpha1.SchemeBuilder.AddToScheme,
 		v1beta1.SchemeBuilder.AddToScheme,
+		v1alpha1.SchemeBuilder.AddToScheme,
+		v1beta1apps.SchemeBuilder.AddToScheme,
+		v1beta1billing.SchemeBuilder.AddToScheme,
 		v1beta1compute.SchemeBuilder.AddToScheme,
 		v1alpha1databases.SchemeBuilder.AddToScheme,
 		v1beta1deployment.SchemeBuilder.AddToScheme,
+		v1beta1dr.SchemeBuilder.AddToScheme,
+		v1beta1envs.SchemeBuilder.AddToScheme,
 		v1beta1finops.SchemeBuilder.AddToScheme,
+		v1beta1governance.SchemeBuilder.AddToScheme,
 		v1beta1log.SchemeBuilder.AddToScheme,
 		v1beta1mlflow.SchemeBuilder.AddToScheme,
 		v1beta1mosaic.SchemeBuilder.AddToScheme,
 		v1alpha1oauth.SchemeBuilder.AddToScheme,
+		v1beta1postgres.SchemeBuilder.AddToScheme,
 		v1beta1security.SchemeBuilder.AddToScheme,
 		v1beta1serving.SchemeBuilder.AddToScheme,
 		v1beta1settings.SchemeBuilder.AddToScheme,
@@ -54,6 +67,7 @@ func init() {
 		v1beta1sharing.SchemeBuilder.AddToScheme,
 		v1beta1sql.SchemeBuilder.AddToScheme,
 		v1beta1storage.SchemeBuilder.AddToScheme,
+		v1beta1tags.SchemeBuilder.AddToScheme,
 		v1alpha1unity.SchemeBuilder.AddToScheme,
 		v1beta1unity.SchemeBuilder.AddToScheme,
 		v1alpha1namespaced.SchemeBuilder.AddToScheme,

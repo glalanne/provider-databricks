@@ -1,0 +1,1082 @@
+---
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  annotations:
+    controller-gen.kubebuilder.io/version: v0.21.0
+  name: accountsettingv2s.settings.databricks.m.crossplane.io
+spec:
+  group: settings.databricks.m.crossplane.io
+  names:
+    categories:
+    - crossplane
+    - managed
+    - databricks
+    kind: AccountSettingV2
+    listKind: AccountSettingV2List
+    plural: accountsettingv2s
+    singular: accountsettingv2
+  scope: Namespaced
+  versions:
+  - additionalPrinterColumns:
+    - jsonPath: .status.conditions[?(@.type=='Synced')].status
+      name: SYNCED
+      type: string
+    - jsonPath: .status.conditions[?(@.type=='Ready')].status
+      name: READY
+      type: string
+    - jsonPath: .metadata.annotations.crossplane\.io/external-name
+      name: EXTERNAL-NAME
+      type: string
+    - jsonPath: .metadata.creationTimestamp
+      name: AGE
+      type: date
+    name: v1beta1
+    schema:
+      openAPIV3Schema:
+        description: AccountSettingV2 is the Schema for the AccountSettingV2s API.
+        properties:
+          apiVersion:
+            description: |-
+              APIVersion defines the versioned schema of this representation of an object.
+              Servers should convert recognized schemas to the latest internal value, and
+              may reject unrecognized values.
+              More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+            type: string
+          kind:
+            description: |-
+              Kind is a string value representing the REST resource this object represents.
+              Servers may infer this from the endpoint the client submits requests to.
+              Cannot be updated.
+              In CamelCase.
+              More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+            type: string
+          metadata:
+            type: object
+          spec:
+            description: AccountSettingV2Spec defines the desired state of AccountSettingV2
+            properties:
+              forProvider:
+                properties:
+                  aibiDashboardEmbeddingAccessPolicy:
+                    description: Setting value for aibi_dashboard_embedding_access_policy
+                      setting. This is the setting value set by consumers, check effective_aibi_dashboard_embedding_access_policy
+                      for final setting value
+                    properties:
+                      accessPolicyType:
+                        description: 'Possible values are: ALLOW_ALL_DOMAINS, ALLOW_APPROVED_DOMAINS,
+                          DENY_ALL_DOMAINS'
+                        type: string
+                    type: object
+                  aibiDashboardEmbeddingApprovedDomains:
+                    description: Setting value for aibi_dashboard_embedding_approved_domains
+                      setting. This is the setting value set by consumers, check effective_aibi_dashboard_embedding_approved_domains
+                      for final setting value
+                    properties:
+                      approvedDomains:
+                        description: (list of string, optional)
+                        items:
+                          type: string
+                        type: array
+                    type: object
+                  allowedAppsUserApiScopes:
+                    description: Setting value for allowed_apps_user_api_scopes setting.
+                      This is the setting value set by consumers, check effective_allowed_apps_user_api_scopes
+                      for final setting value
+                    properties:
+                      allowedScopes:
+                        description: (list of string, optional)
+                        items:
+                          type: string
+                        type: array
+                    type: object
+                  automaticClusterUpdateWorkspace:
+                    description: Setting value for automatic_cluster_update_workspace
+                      setting. This is the setting value set by consumers, check effective_automatic_cluster_update_workspace
+                      for final setting value
+                    properties:
+                      canToggle:
+                        description: (boolean, optional)
+                        type: boolean
+                      enabled:
+                        description: (boolean, optional)
+                        type: boolean
+                      enablementDetails:
+                        description: (ClusterAutoRestartMessageEnablementDetails,
+                          optional)
+                        properties:
+                          forcedForComplianceMode:
+                            description: The feature is force enabled if compliance
+                              mode is active
+                            type: boolean
+                          unavailableForDisabledEntitlement:
+                            description: The feature is unavailable if the corresponding
+                              entitlement disabled (see getShieldEntitlementEnable)
+                            type: boolean
+                          unavailableForNonEnterpriseTier:
+                            description: The feature is unavailable if the customer
+                              doesn't have enterprise tier
+                            type: boolean
+                        type: object
+                      maintenanceWindow:
+                        description: (ClusterAutoRestartMessageMaintenanceWindow,
+                          optional)
+                        properties:
+                          weekDayBasedSchedule:
+                            description: (ClusterAutoRestartMessageMaintenanceWindowWeekDayBasedSchedule,
+                              optional)
+                            properties:
+                              dayOfWeek:
+                                description: 'Possible values are: FRIDAY, MONDAY,
+                                  SATURDAY, SUNDAY, THURSDAY, TUESDAY, WEDNESDAY'
+                                type: string
+                              frequency:
+                                description: 'Possible values are: EVERY_WEEK, FIRST_AND_THIRD_OF_MONTH,
+                                  FIRST_OF_MONTH, FOURTH_OF_MONTH, SECOND_AND_FOURTH_OF_MONTH,
+                                  SECOND_OF_MONTH, THIRD_OF_MONTH'
+                                type: string
+                              windowStartTime:
+                                description: (ClusterAutoRestartMessageMaintenanceWindowWindowStartTime,
+                                  optional)
+                                properties:
+                                  hours:
+                                    description: (integer, optional)
+                                    type: number
+                                  minutes:
+                                    description: (integer, optional)
+                                    type: number
+                                type: object
+                            type: object
+                        type: object
+                      restartEvenIfNoUpdatesAvailable:
+                        description: (boolean, optional)
+                        type: boolean
+                    type: object
+                  booleanVal:
+                    description: Setting value for boolean type setting. This is the
+                      setting value set by consumers, check effective_boolean_val
+                      for final setting value
+                    properties:
+                      value:
+                        description: (boolean, optional)
+                        type: boolean
+                    type: object
+                  collaborationPlatformConnectivity:
+                    description: Setting value for collaboration_platform_connectivity
+                      setting. This is the setting value set by consumers, check effective_collaboration_platform_connectivity
+                      for final setting value
+                    properties:
+                      connectivity:
+                        description: 'Possible values are: ALLOW_ALL, ALLOW_SLACK,
+                          ALLOW_TEAMS, DENY_ALL'
+                        type: string
+                    type: object
+                  effectiveAibiDashboardEmbeddingAccessPolicy:
+                    description: Effective setting value for aibi_dashboard_embedding_access_policy
+                      setting. This is the final effective value of setting. To set
+                      a value use aibi_dashboard_embedding_access_policy
+                    properties:
+                      accessPolicyType:
+                        description: 'Possible values are: ALLOW_ALL_DOMAINS, ALLOW_APPROVED_DOMAINS,
+                          DENY_ALL_DOMAINS'
+                        type: string
+                    type: object
+                  effectiveAibiDashboardEmbeddingApprovedDomains:
+                    description: Effective setting value for aibi_dashboard_embedding_approved_domains
+                      setting. This is the final effective value of setting. To set
+                      a value use aibi_dashboard_embedding_approved_domains
+                    properties:
+                      approvedDomains:
+                        description: (list of string, optional)
+                        items:
+                          type: string
+                        type: array
+                    type: object
+                  effectiveAutomaticClusterUpdateWorkspace:
+                    description: Effective setting value for automatic_cluster_update_workspace
+                      setting. This is the final effective value of setting. To set
+                      a value use automatic_cluster_update_workspace
+                    properties:
+                      canToggle:
+                        description: (boolean, optional)
+                        type: boolean
+                      enabled:
+                        description: (boolean, optional)
+                        type: boolean
+                      enablementDetails:
+                        description: (ClusterAutoRestartMessageEnablementDetails,
+                          optional)
+                        properties:
+                          forcedForComplianceMode:
+                            description: The feature is force enabled if compliance
+                              mode is active
+                            type: boolean
+                          unavailableForDisabledEntitlement:
+                            description: The feature is unavailable if the corresponding
+                              entitlement disabled (see getShieldEntitlementEnable)
+                            type: boolean
+                          unavailableForNonEnterpriseTier:
+                            description: The feature is unavailable if the customer
+                              doesn't have enterprise tier
+                            type: boolean
+                        type: object
+                      maintenanceWindow:
+                        description: (ClusterAutoRestartMessageMaintenanceWindow,
+                          optional)
+                        properties:
+                          weekDayBasedSchedule:
+                            description: (ClusterAutoRestartMessageMaintenanceWindowWeekDayBasedSchedule,
+                              optional)
+                            properties:
+                              dayOfWeek:
+                                description: 'Possible values are: FRIDAY, MONDAY,
+                                  SATURDAY, SUNDAY, THURSDAY, TUESDAY, WEDNESDAY'
+                                type: string
+                              frequency:
+                                description: 'Possible values are: EVERY_WEEK, FIRST_AND_THIRD_OF_MONTH,
+                                  FIRST_OF_MONTH, FOURTH_OF_MONTH, SECOND_AND_FOURTH_OF_MONTH,
+                                  SECOND_OF_MONTH, THIRD_OF_MONTH'
+                                type: string
+                              windowStartTime:
+                                description: (ClusterAutoRestartMessageMaintenanceWindowWindowStartTime,
+                                  optional)
+                                properties:
+                                  hours:
+                                    description: (integer, optional)
+                                    type: number
+                                  minutes:
+                                    description: (integer, optional)
+                                    type: number
+                                type: object
+                            type: object
+                        type: object
+                      restartEvenIfNoUpdatesAvailable:
+                        description: (boolean, optional)
+                        type: boolean
+                    type: object
+                  effectivePersonalCompute:
+                    description: Effective setting value for personal_compute setting.
+                      This is the final effective value of setting. To set a value
+                      use personal_compute
+                    properties:
+                      value:
+                        description: (boolean, optional)
+                        type: string
+                    type: object
+                  effectiveRestrictWorkspaceAdmins:
+                    description: Effective setting value for restrict_workspace_admins
+                      setting. This is the final effective value of setting. To set
+                      a value use restrict_workspace_admins
+                    properties:
+                      disableGovTagCreation:
+                        description: |-
+                          When true, workspace admins cannot create governance tags.
+                          ALLOW_ALL status does not override this; they are independent
+                        type: boolean
+                      status:
+                        description: 'Possible values are: ALLOW_ALL, RESTRICT_TOKENS_AND_JOB_RUN_AS'
+                        type: string
+                    type: object
+                  integerVal:
+                    description: Setting value for integer type setting. This is the
+                      setting value set by consumers, check effective_integer_val
+                      for final setting value
+                    properties:
+                      value:
+                        description: (boolean, optional)
+                        type: number
+                    type: object
+                  name:
+                    description: Name of the setting
+                    type: string
+                  operationalEmailCustomRecipient:
+                    description: Setting value for operational_email_custom_recipient
+                      setting. This is the setting value set by consumers, check effective_operational_email_custom_recipient
+                      for final setting value
+                    properties:
+                      email:
+                        description: (string, optional)
+                        type: string
+                    type: object
+                  personalCompute:
+                    description: Setting value for personal_compute setting. This
+                      is the setting value set by consumers, check effective_personal_compute
+                      for final setting value
+                    properties:
+                      value:
+                        description: (boolean, optional)
+                        type: string
+                    type: object
+                  restrictWorkspaceAdmins:
+                    description: Setting value for restrict_workspace_admins setting.
+                      This is the setting value set by consumers, check effective_restrict_workspace_admins
+                      for final setting value
+                    properties:
+                      disableGovTagCreation:
+                        description: |-
+                          When true, workspace admins cannot create governance tags.
+                          ALLOW_ALL status does not override this; they are independent
+                        type: boolean
+                      status:
+                        description: 'Possible values are: ALLOW_ALL, RESTRICT_TOKENS_AND_JOB_RUN_AS'
+                        type: string
+                    type: object
+                  stringVal:
+                    description: Setting value for string type setting. This is the
+                      setting value set by consumers, check effective_string_val for
+                      final setting value
+                    properties:
+                      value:
+                        description: (boolean, optional)
+                        type: string
+                    type: object
+                type: object
+              initProvider:
+                description: |-
+                  THIS IS A BETA FIELD. It will be honored
+                  unless the Management Policies feature flag is disabled.
+                  InitProvider holds the same fields as ForProvider, with the exception
+                  of Identifier and other resource reference fields. The fields that are
+                  in InitProvider are merged into ForProvider when the resource is created.
+                  The same fields are also added to the terraform ignore_changes hook, to
+                  avoid updating them after creation. This is useful for fields that are
+                  required on creation, but we do not desire to update them after creation,
+                  for example because of an external controller is managing them, like an
+                  autoscaler.
+                properties:
+                  aibiDashboardEmbeddingAccessPolicy:
+                    description: Setting value for aibi_dashboard_embedding_access_policy
+                      setting. This is the setting value set by consumers, check effective_aibi_dashboard_embedding_access_policy
+                      for final setting value
+                    properties:
+                      accessPolicyType:
+                        description: 'Possible values are: ALLOW_ALL_DOMAINS, ALLOW_APPROVED_DOMAINS,
+                          DENY_ALL_DOMAINS'
+                        type: string
+                    type: object
+                  aibiDashboardEmbeddingApprovedDomains:
+                    description: Setting value for aibi_dashboard_embedding_approved_domains
+                      setting. This is the setting value set by consumers, check effective_aibi_dashboard_embedding_approved_domains
+                      for final setting value
+                    properties:
+                      approvedDomains:
+                        description: (list of string, optional)
+                        items:
+                          type: string
+                        type: array
+                    type: object
+                  allowedAppsUserApiScopes:
+                    description: Setting value for allowed_apps_user_api_scopes setting.
+                      This is the setting value set by consumers, check effective_allowed_apps_user_api_scopes
+                      for final setting value
+                    properties:
+                      allowedScopes:
+                        description: (list of string, optional)
+                        items:
+                          type: string
+                        type: array
+                    type: object
+                  automaticClusterUpdateWorkspace:
+                    description: Setting value for automatic_cluster_update_workspace
+                      setting. This is the setting value set by consumers, check effective_automatic_cluster_update_workspace
+                      for final setting value
+                    properties:
+                      canToggle:
+                        description: (boolean, optional)
+                        type: boolean
+                      enabled:
+                        description: (boolean, optional)
+                        type: boolean
+                      enablementDetails:
+                        description: (ClusterAutoRestartMessageEnablementDetails,
+                          optional)
+                        properties:
+                          forcedForComplianceMode:
+                            description: The feature is force enabled if compliance
+                              mode is active
+                            type: boolean
+                          unavailableForDisabledEntitlement:
+                            description: The feature is unavailable if the corresponding
+                              entitlement disabled (see getShieldEntitlementEnable)
+                            type: boolean
+                          unavailableForNonEnterpriseTier:
+                            description: The feature is unavailable if the customer
+                              doesn't have enterprise tier
+                            type: boolean
+                        type: object
+                      maintenanceWindow:
+                        description: (ClusterAutoRestartMessageMaintenanceWindow,
+                          optional)
+                        properties:
+                          weekDayBasedSchedule:
+                            description: (ClusterAutoRestartMessageMaintenanceWindowWeekDayBasedSchedule,
+                              optional)
+                            properties:
+                              dayOfWeek:
+                                description: 'Possible values are: FRIDAY, MONDAY,
+                                  SATURDAY, SUNDAY, THURSDAY, TUESDAY, WEDNESDAY'
+                                type: string
+                              frequency:
+                                description: 'Possible values are: EVERY_WEEK, FIRST_AND_THIRD_OF_MONTH,
+                                  FIRST_OF_MONTH, FOURTH_OF_MONTH, SECOND_AND_FOURTH_OF_MONTH,
+                                  SECOND_OF_MONTH, THIRD_OF_MONTH'
+                                type: string
+                              windowStartTime:
+                                description: (ClusterAutoRestartMessageMaintenanceWindowWindowStartTime,
+                                  optional)
+                                properties:
+                                  hours:
+                                    description: (integer, optional)
+                                    type: number
+                                  minutes:
+                                    description: (integer, optional)
+                                    type: number
+                                type: object
+                            type: object
+                        type: object
+                      restartEvenIfNoUpdatesAvailable:
+                        description: (boolean, optional)
+                        type: boolean
+                    type: object
+                  booleanVal:
+                    description: Setting value for boolean type setting. This is the
+                      setting value set by consumers, check effective_boolean_val
+                      for final setting value
+                    properties:
+                      value:
+                        description: (boolean, optional)
+                        type: boolean
+                    type: object
+                  collaborationPlatformConnectivity:
+                    description: Setting value for collaboration_platform_connectivity
+                      setting. This is the setting value set by consumers, check effective_collaboration_platform_connectivity
+                      for final setting value
+                    properties:
+                      connectivity:
+                        description: 'Possible values are: ALLOW_ALL, ALLOW_SLACK,
+                          ALLOW_TEAMS, DENY_ALL'
+                        type: string
+                    type: object
+                  effectiveAibiDashboardEmbeddingAccessPolicy:
+                    description: Effective setting value for aibi_dashboard_embedding_access_policy
+                      setting. This is the final effective value of setting. To set
+                      a value use aibi_dashboard_embedding_access_policy
+                    properties:
+                      accessPolicyType:
+                        description: 'Possible values are: ALLOW_ALL_DOMAINS, ALLOW_APPROVED_DOMAINS,
+                          DENY_ALL_DOMAINS'
+                        type: string
+                    type: object
+                  effectiveAibiDashboardEmbeddingApprovedDomains:
+                    description: Effective setting value for aibi_dashboard_embedding_approved_domains
+                      setting. This is the final effective value of setting. To set
+                      a value use aibi_dashboard_embedding_approved_domains
+                    properties:
+                      approvedDomains:
+                        description: (list of string, optional)
+                        items:
+                          type: string
+                        type: array
+                    type: object
+                  effectiveAutomaticClusterUpdateWorkspace:
+                    description: Effective setting value for automatic_cluster_update_workspace
+                      setting. This is the final effective value of setting. To set
+                      a value use automatic_cluster_update_workspace
+                    properties:
+                      canToggle:
+                        description: (boolean, optional)
+                        type: boolean
+                      enabled:
+                        description: (boolean, optional)
+                        type: boolean
+                      enablementDetails:
+                        description: (ClusterAutoRestartMessageEnablementDetails,
+                          optional)
+                        properties:
+                          forcedForComplianceMode:
+                            description: The feature is force enabled if compliance
+                              mode is active
+                            type: boolean
+                          unavailableForDisabledEntitlement:
+                            description: The feature is unavailable if the corresponding
+                              entitlement disabled (see getShieldEntitlementEnable)
+                            type: boolean
+                          unavailableForNonEnterpriseTier:
+                            description: The feature is unavailable if the customer
+                              doesn't have enterprise tier
+                            type: boolean
+                        type: object
+                      maintenanceWindow:
+                        description: (ClusterAutoRestartMessageMaintenanceWindow,
+                          optional)
+                        properties:
+                          weekDayBasedSchedule:
+                            description: (ClusterAutoRestartMessageMaintenanceWindowWeekDayBasedSchedule,
+                              optional)
+                            properties:
+                              dayOfWeek:
+                                description: 'Possible values are: FRIDAY, MONDAY,
+                                  SATURDAY, SUNDAY, THURSDAY, TUESDAY, WEDNESDAY'
+                                type: string
+                              frequency:
+                                description: 'Possible values are: EVERY_WEEK, FIRST_AND_THIRD_OF_MONTH,
+                                  FIRST_OF_MONTH, FOURTH_OF_MONTH, SECOND_AND_FOURTH_OF_MONTH,
+                                  SECOND_OF_MONTH, THIRD_OF_MONTH'
+                                type: string
+                              windowStartTime:
+                                description: (ClusterAutoRestartMessageMaintenanceWindowWindowStartTime,
+                                  optional)
+                                properties:
+                                  hours:
+                                    description: (integer, optional)
+                                    type: number
+                                  minutes:
+                                    description: (integer, optional)
+                                    type: number
+                                type: object
+                            type: object
+                        type: object
+                      restartEvenIfNoUpdatesAvailable:
+                        description: (boolean, optional)
+                        type: boolean
+                    type: object
+                  effectivePersonalCompute:
+                    description: Effective setting value for personal_compute setting.
+                      This is the final effective value of setting. To set a value
+                      use personal_compute
+                    properties:
+                      value:
+                        description: (boolean, optional)
+                        type: string
+                    type: object
+                  effectiveRestrictWorkspaceAdmins:
+                    description: Effective setting value for restrict_workspace_admins
+                      setting. This is the final effective value of setting. To set
+                      a value use restrict_workspace_admins
+                    properties:
+                      disableGovTagCreation:
+                        description: |-
+                          When true, workspace admins cannot create governance tags.
+                          ALLOW_ALL status does not override this; they are independent
+                        type: boolean
+                      status:
+                        description: 'Possible values are: ALLOW_ALL, RESTRICT_TOKENS_AND_JOB_RUN_AS'
+                        type: string
+                    type: object
+                  integerVal:
+                    description: Setting value for integer type setting. This is the
+                      setting value set by consumers, check effective_integer_val
+                      for final setting value
+                    properties:
+                      value:
+                        description: (boolean, optional)
+                        type: number
+                    type: object
+                  name:
+                    description: Name of the setting
+                    type: string
+                  operationalEmailCustomRecipient:
+                    description: Setting value for operational_email_custom_recipient
+                      setting. This is the setting value set by consumers, check effective_operational_email_custom_recipient
+                      for final setting value
+                    properties:
+                      email:
+                        description: (string, optional)
+                        type: string
+                    type: object
+                  personalCompute:
+                    description: Setting value for personal_compute setting. This
+                      is the setting value set by consumers, check effective_personal_compute
+                      for final setting value
+                    properties:
+                      value:
+                        description: (boolean, optional)
+                        type: string
+                    type: object
+                  restrictWorkspaceAdmins:
+                    description: Setting value for restrict_workspace_admins setting.
+                      This is the setting value set by consumers, check effective_restrict_workspace_admins
+                      for final setting value
+                    properties:
+                      disableGovTagCreation:
+                        description: |-
+                          When true, workspace admins cannot create governance tags.
+                          ALLOW_ALL status does not override this; they are independent
+                        type: boolean
+                      status:
+                        description: 'Possible values are: ALLOW_ALL, RESTRICT_TOKENS_AND_JOB_RUN_AS'
+                        type: string
+                    type: object
+                  stringVal:
+                    description: Setting value for string type setting. This is the
+                      setting value set by consumers, check effective_string_val for
+                      final setting value
+                    properties:
+                      value:
+                        description: (boolean, optional)
+                        type: string
+                    type: object
+                type: object
+              managementPolicies:
+                default:
+                - '*'
+                description: |-
+                  THIS IS A BETA FIELD. It is on by default but can be opted out
+                  through a Crossplane feature flag.
+                  ManagementPolicies specify the array of actions Crossplane is allowed to
+                  take on the managed and external resources.
+                  See the design doc for more information: https://github.com/crossplane/crossplane/blob/499895a25d1a1a0ba1604944ef98ac7a1a71f197/design/design-doc-observe-only-resources.md?plain=1#L223
+                  and this one: https://github.com/crossplane/crossplane/blob/444267e84783136daa93568b364a5f01228cacbe/design/one-pager-ignore-changes.md
+                items:
+                  description: |-
+                    A ManagementAction represents an action that the Crossplane controllers
+                    can take on an external resource.
+                  enum:
+                  - Observe
+                  - Create
+                  - Update
+                  - Delete
+                  - LateInitialize
+                  - '*'
+                  type: string
+                type: array
+              providerConfigRef:
+                default:
+                  kind: ClusterProviderConfig
+                  name: default
+                description: |-
+                  ProviderConfigReference specifies how the provider that will be used to
+                  create, observe, update, and delete this managed resource should be
+                  configured.
+                properties:
+                  kind:
+                    description: Kind of the referenced object.
+                    type: string
+                  name:
+                    description: Name of the referenced object.
+                    type: string
+                required:
+                - kind
+                - name
+                type: object
+              writeConnectionSecretToRef:
+                description: |-
+                  WriteConnectionSecretToReference specifies the namespace and name of a
+                  Secret to which any connection details for this managed resource should
+                  be written. Connection details frequently include the endpoint, username,
+                  and password required to connect to the managed resource.
+                properties:
+                  name:
+                    description: Name of the secret.
+                    type: string
+                required:
+                - name
+                type: object
+            required:
+            - forProvider
+            type: object
+          status:
+            description: AccountSettingV2Status defines the observed state of AccountSettingV2.
+            properties:
+              atProvider:
+                properties:
+                  aibiDashboardEmbeddingAccessPolicy:
+                    description: Setting value for aibi_dashboard_embedding_access_policy
+                      setting. This is the setting value set by consumers, check effective_aibi_dashboard_embedding_access_policy
+                      for final setting value
+                    properties:
+                      accessPolicyType:
+                        description: 'Possible values are: ALLOW_ALL_DOMAINS, ALLOW_APPROVED_DOMAINS,
+                          DENY_ALL_DOMAINS'
+                        type: string
+                    type: object
+                  aibiDashboardEmbeddingApprovedDomains:
+                    description: Setting value for aibi_dashboard_embedding_approved_domains
+                      setting. This is the setting value set by consumers, check effective_aibi_dashboard_embedding_approved_domains
+                      for final setting value
+                    properties:
+                      approvedDomains:
+                        description: (list of string, optional)
+                        items:
+                          type: string
+                        type: array
+                    type: object
+                  allowedAppsUserApiScopes:
+                    description: Setting value for allowed_apps_user_api_scopes setting.
+                      This is the setting value set by consumers, check effective_allowed_apps_user_api_scopes
+                      for final setting value
+                    properties:
+                      allowedScopes:
+                        description: (list of string, optional)
+                        items:
+                          type: string
+                        type: array
+                    type: object
+                  automaticClusterUpdateWorkspace:
+                    description: Setting value for automatic_cluster_update_workspace
+                      setting. This is the setting value set by consumers, check effective_automatic_cluster_update_workspace
+                      for final setting value
+                    properties:
+                      canToggle:
+                        description: (boolean, optional)
+                        type: boolean
+                      enabled:
+                        description: (boolean, optional)
+                        type: boolean
+                      enablementDetails:
+                        description: (ClusterAutoRestartMessageEnablementDetails,
+                          optional)
+                        properties:
+                          forcedForComplianceMode:
+                            description: The feature is force enabled if compliance
+                              mode is active
+                            type: boolean
+                          unavailableForDisabledEntitlement:
+                            description: The feature is unavailable if the corresponding
+                              entitlement disabled (see getShieldEntitlementEnable)
+                            type: boolean
+                          unavailableForNonEnterpriseTier:
+                            description: The feature is unavailable if the customer
+                              doesn't have enterprise tier
+                            type: boolean
+                        type: object
+                      maintenanceWindow:
+                        description: (ClusterAutoRestartMessageMaintenanceWindow,
+                          optional)
+                        properties:
+                          weekDayBasedSchedule:
+                            description: (ClusterAutoRestartMessageMaintenanceWindowWeekDayBasedSchedule,
+                              optional)
+                            properties:
+                              dayOfWeek:
+                                description: 'Possible values are: FRIDAY, MONDAY,
+                                  SATURDAY, SUNDAY, THURSDAY, TUESDAY, WEDNESDAY'
+                                type: string
+                              frequency:
+                                description: 'Possible values are: EVERY_WEEK, FIRST_AND_THIRD_OF_MONTH,
+                                  FIRST_OF_MONTH, FOURTH_OF_MONTH, SECOND_AND_FOURTH_OF_MONTH,
+                                  SECOND_OF_MONTH, THIRD_OF_MONTH'
+                                type: string
+                              windowStartTime:
+                                description: (ClusterAutoRestartMessageMaintenanceWindowWindowStartTime,
+                                  optional)
+                                properties:
+                                  hours:
+                                    description: (integer, optional)
+                                    type: number
+                                  minutes:
+                                    description: (integer, optional)
+                                    type: number
+                                type: object
+                            type: object
+                        type: object
+                      restartEvenIfNoUpdatesAvailable:
+                        description: (boolean, optional)
+                        type: boolean
+                    type: object
+                  booleanVal:
+                    description: Setting value for boolean type setting. This is the
+                      setting value set by consumers, check effective_boolean_val
+                      for final setting value
+                    properties:
+                      value:
+                        description: (boolean, optional)
+                        type: boolean
+                    type: object
+                  collaborationPlatformConnectivity:
+                    description: Setting value for collaboration_platform_connectivity
+                      setting. This is the setting value set by consumers, check effective_collaboration_platform_connectivity
+                      for final setting value
+                    properties:
+                      connectivity:
+                        description: 'Possible values are: ALLOW_ALL, ALLOW_SLACK,
+                          ALLOW_TEAMS, DENY_ALL'
+                        type: string
+                    type: object
+                  effectiveAibiDashboardEmbeddingAccessPolicy:
+                    description: Effective setting value for aibi_dashboard_embedding_access_policy
+                      setting. This is the final effective value of setting. To set
+                      a value use aibi_dashboard_embedding_access_policy
+                    properties:
+                      accessPolicyType:
+                        description: 'Possible values are: ALLOW_ALL_DOMAINS, ALLOW_APPROVED_DOMAINS,
+                          DENY_ALL_DOMAINS'
+                        type: string
+                    type: object
+                  effectiveAibiDashboardEmbeddingApprovedDomains:
+                    description: Effective setting value for aibi_dashboard_embedding_approved_domains
+                      setting. This is the final effective value of setting. To set
+                      a value use aibi_dashboard_embedding_approved_domains
+                    properties:
+                      approvedDomains:
+                        description: (list of string, optional)
+                        items:
+                          type: string
+                        type: array
+                    type: object
+                  effectiveAllowedAppsUserApiScopes:
+                    description: Effective setting value for allowed_apps_user_api_scopes
+                      setting. This is the final effective value of setting. To set
+                      a value use allowed_apps_user_api_scopes
+                    properties:
+                      allowedScopes:
+                        description: (list of string, optional)
+                        items:
+                          type: string
+                        type: array
+                    type: object
+                  effectiveAutomaticClusterUpdateWorkspace:
+                    description: Effective setting value for automatic_cluster_update_workspace
+                      setting. This is the final effective value of setting. To set
+                      a value use automatic_cluster_update_workspace
+                    properties:
+                      canToggle:
+                        description: (boolean, optional)
+                        type: boolean
+                      enabled:
+                        description: (boolean, optional)
+                        type: boolean
+                      enablementDetails:
+                        description: (ClusterAutoRestartMessageEnablementDetails,
+                          optional)
+                        properties:
+                          forcedForComplianceMode:
+                            description: The feature is force enabled if compliance
+                              mode is active
+                            type: boolean
+                          unavailableForDisabledEntitlement:
+                            description: The feature is unavailable if the corresponding
+                              entitlement disabled (see getShieldEntitlementEnable)
+                            type: boolean
+                          unavailableForNonEnterpriseTier:
+                            description: The feature is unavailable if the customer
+                              doesn't have enterprise tier
+                            type: boolean
+                        type: object
+                      maintenanceWindow:
+                        description: (ClusterAutoRestartMessageMaintenanceWindow,
+                          optional)
+                        properties:
+                          weekDayBasedSchedule:
+                            description: (ClusterAutoRestartMessageMaintenanceWindowWeekDayBasedSchedule,
+                              optional)
+                            properties:
+                              dayOfWeek:
+                                description: 'Possible values are: FRIDAY, MONDAY,
+                                  SATURDAY, SUNDAY, THURSDAY, TUESDAY, WEDNESDAY'
+                                type: string
+                              frequency:
+                                description: 'Possible values are: EVERY_WEEK, FIRST_AND_THIRD_OF_MONTH,
+                                  FIRST_OF_MONTH, FOURTH_OF_MONTH, SECOND_AND_FOURTH_OF_MONTH,
+                                  SECOND_OF_MONTH, THIRD_OF_MONTH'
+                                type: string
+                              windowStartTime:
+                                description: (ClusterAutoRestartMessageMaintenanceWindowWindowStartTime,
+                                  optional)
+                                properties:
+                                  hours:
+                                    description: (integer, optional)
+                                    type: number
+                                  minutes:
+                                    description: (integer, optional)
+                                    type: number
+                                type: object
+                            type: object
+                        type: object
+                      restartEvenIfNoUpdatesAvailable:
+                        description: (boolean, optional)
+                        type: boolean
+                    type: object
+                  effectiveBooleanVal:
+                    description: Effective setting value for boolean type setting.
+                      This is the final effective value of setting. To set a value
+                      use boolean_val
+                    properties:
+                      value:
+                        description: (boolean, optional)
+                        type: boolean
+                    type: object
+                  effectiveCollaborationPlatformConnectivity:
+                    description: Effective setting value for collaboration_platform_connectivity
+                      setting. This is the final effective value of setting. To set
+                      a value use collaboration_platform_connectivity
+                    properties:
+                      connectivity:
+                        description: 'Possible values are: ALLOW_ALL, ALLOW_SLACK,
+                          ALLOW_TEAMS, DENY_ALL'
+                        type: string
+                    type: object
+                  effectiveIntegerVal:
+                    description: Effective setting value for integer type setting.
+                      This is the final effective value of setting. To set a value
+                      use integer_val
+                    properties:
+                      value:
+                        description: (boolean, optional)
+                        type: number
+                    type: object
+                  effectiveOperationalEmailCustomRecipient:
+                    description: Effective setting value for operational_email_custom_recipient
+                      setting. This is the final effective value of setting. To set
+                      a value use operational_email_custom_recipient
+                    properties:
+                      email:
+                        description: (string, optional)
+                        type: string
+                    type: object
+                  effectivePersonalCompute:
+                    description: Effective setting value for personal_compute setting.
+                      This is the final effective value of setting. To set a value
+                      use personal_compute
+                    properties:
+                      value:
+                        description: (boolean, optional)
+                        type: string
+                    type: object
+                  effectiveRestrictWorkspaceAdmins:
+                    description: Effective setting value for restrict_workspace_admins
+                      setting. This is the final effective value of setting. To set
+                      a value use restrict_workspace_admins
+                    properties:
+                      disableGovTagCreation:
+                        description: |-
+                          When true, workspace admins cannot create governance tags.
+                          ALLOW_ALL status does not override this; they are independent
+                        type: boolean
+                      status:
+                        description: 'Possible values are: ALLOW_ALL, RESTRICT_TOKENS_AND_JOB_RUN_AS'
+                        type: string
+                    type: object
+                  effectiveStringVal:
+                    description: Effective setting value for string type setting.
+                      This is the final effective value of setting. To set a value
+                      use string_val
+                    properties:
+                      value:
+                        description: (boolean, optional)
+                        type: string
+                    type: object
+                  id:
+                    type: string
+                  integerVal:
+                    description: Setting value for integer type setting. This is the
+                      setting value set by consumers, check effective_integer_val
+                      for final setting value
+                    properties:
+                      value:
+                        description: (boolean, optional)
+                        type: number
+                    type: object
+                  name:
+                    description: Name of the setting
+                    type: string
+                  operationalEmailCustomRecipient:
+                    description: Setting value for operational_email_custom_recipient
+                      setting. This is the setting value set by consumers, check effective_operational_email_custom_recipient
+                      for final setting value
+                    properties:
+                      email:
+                        description: (string, optional)
+                        type: string
+                    type: object
+                  personalCompute:
+                    description: Setting value for personal_compute setting. This
+                      is the setting value set by consumers, check effective_personal_compute
+                      for final setting value
+                    properties:
+                      value:
+                        description: (boolean, optional)
+                        type: string
+                    type: object
+                  restrictWorkspaceAdmins:
+                    description: Setting value for restrict_workspace_admins setting.
+                      This is the setting value set by consumers, check effective_restrict_workspace_admins
+                      for final setting value
+                    properties:
+                      disableGovTagCreation:
+                        description: |-
+                          When true, workspace admins cannot create governance tags.
+                          ALLOW_ALL status does not override this; they are independent
+                        type: boolean
+                      status:
+                        description: 'Possible values are: ALLOW_ALL, RESTRICT_TOKENS_AND_JOB_RUN_AS'
+                        type: string
+                    type: object
+                  stringVal:
+                    description: Setting value for string type setting. This is the
+                      setting value set by consumers, check effective_string_val for
+                      final setting value
+                    properties:
+                      value:
+                        description: (boolean, optional)
+                        type: string
+                    type: object
+                type: object
+              conditions:
+                description: Conditions of the resource.
+                items:
+                  description: A Condition that may apply to a resource.
+                  properties:
+                    lastTransitionTime:
+                      description: |-
+                        LastTransitionTime is the last time this condition transitioned from one
+                        status to another.
+                      format: date-time
+                      type: string
+                    message:
+                      description: |-
+                        A Message containing details about this condition's last transition from
+                        one status to another, if any.
+                      type: string
+                    observedGeneration:
+                      description: |-
+                        ObservedGeneration represents the .metadata.generation that the condition was set based upon.
+                        For instance, if .metadata.generation is currently 12, but the .status.conditions[x].observedGeneration is 9, the condition is out of date
+                        with respect to the current state of the instance.
+                      format: int64
+                      type: integer
+                    reason:
+                      description: A Reason for this condition's last transition from
+                        one status to another.
+                      type: string
+                    status:
+                      description: Status of this condition; is it currently True,
+                        False, or Unknown?
+                      type: string
+                    type:
+                      description: |-
+                        Type of this condition. At most one of each condition type may apply to
+                        a resource at any point in time.
+                      type: string
+                  required:
+                  - lastTransitionTime
+                  - reason
+                  - status
+                  - type
+                  type: object
+                type: array
+                x-kubernetes-list-map-keys:
+                - type
+                x-kubernetes-list-type: map
+              lastHandledReconcileAt:
+                description: |-
+                  LastHandledReconcileAt holds the value of the most recent
+                  reconcile-requested-at annotation token that the controller has
+                  processed. Users can compare this to the annotation to determine
+                  whether a reconcile request has been handled.
+                type: string
+              observedGeneration:
+                description: |-
+                  ObservedGeneration is the latest metadata.generation
+                  which resulted in either a ready state, or stalled due to error
+                  it can not recover from without human intervention.
+                format: int64
+                type: integer
+            type: object
+        required:
+        - spec
+        type: object
+    served: true
+    storage: true
+    subresources:
+      status: {}

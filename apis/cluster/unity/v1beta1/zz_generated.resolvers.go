@@ -109,6 +109,58 @@ func (mg *CatalogWorkspaceBinding) ResolveReferences( // ResolveReferences of th
 	return nil
 }
 
+// ResolveReferences of this DataQualityRefresh.
+func (mg *DataQualityRefresh) ResolveReferences(ctx context.Context, c client.Reader) error {
+	var m xpresource.Managed
+	var l xpresource.ManagedList
+	r := reference.NewAPIResolver(c, mg)
+
+	var rsp reference.ResolutionResponse
+	var err error
+	{
+		m, l, err = apisresolver.GetManagedResource("unity.databricks.crossplane.io", "v1beta1", "SQLTable", "SQLTableList")
+		if err != nil {
+			return errors.Wrap(err, "failed to get the reference target managed resource and its list for reference resolution")
+		}
+
+		rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
+			CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.ObjectID),
+			Extract:      resource.ExtractResourceID(),
+			Namespace:    mg.GetNamespace(),
+			Reference:    mg.Spec.ForProvider.ObjectIDRef,
+			Selector:     mg.Spec.ForProvider.ObjectIDSelector,
+			To:           reference.To{List: l, Managed: m},
+		})
+	}
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.ForProvider.ObjectID")
+	}
+	mg.Spec.ForProvider.ObjectID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.ForProvider.ObjectIDRef = rsp.ResolvedReference
+	{
+		m, l, err = apisresolver.GetManagedResource("unity.databricks.crossplane.io", "v1beta1", "SQLTable", "SQLTableList")
+		if err != nil {
+			return errors.Wrap(err, "failed to get the reference target managed resource and its list for reference resolution")
+		}
+
+		rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
+			CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.ObjectID),
+			Extract:      resource.ExtractResourceID(),
+			Namespace:    mg.GetNamespace(),
+			Reference:    mg.Spec.InitProvider.ObjectIDRef,
+			Selector:     mg.Spec.InitProvider.ObjectIDSelector,
+			To:           reference.To{List: l, Managed: m},
+		})
+	}
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.InitProvider.ObjectID")
+	}
+	mg.Spec.InitProvider.ObjectID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.InitProvider.ObjectIDRef = rsp.ResolvedReference
+
+	return nil
+}
+
 // ResolveReferences of this ExternalLocation.
 func (mg *ExternalLocation) ResolveReferences(ctx context.Context, c client.Reader) error {
 	var m xpresource.Managed

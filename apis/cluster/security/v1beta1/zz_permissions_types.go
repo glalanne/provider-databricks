@@ -221,7 +221,17 @@ type PermissionsInitParameters struct {
 	JobIDSelector *v2.Selector `json:"jobIdSelector,omitempty" tf:"-"`
 
 	// Knowledge Assistant id
+	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/cluster/ai/v1beta1.KnowledgeAssistant
+	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/v2/pkg/resource.ExtractResourceID()
 	KnowledgeAssistantID *string `json:"knowledgeAssistantId,omitempty" tf:"knowledge_assistant_id,omitempty"`
+
+	// Reference to a KnowledgeAssistant in ai to populate knowledgeAssistantId.
+	// +kubebuilder:validation:Optional
+	KnowledgeAssistantIDRef *v2.Reference `json:"knowledgeAssistantIdRef,omitempty" tf:"-"`
+
+	// Selector for a KnowledgeAssistant in ai to populate knowledgeAssistantId.
+	// +kubebuilder:validation:Optional
+	KnowledgeAssistantIDSelector *v2.Selector `json:"knowledgeAssistantIdSelector,omitempty" tf:"-"`
 
 	// ID of notebook within workspace
 	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/cluster/workspace/v1beta1.Notebook
@@ -357,7 +367,17 @@ type PermissionsInitParameters struct {
 	ServingEndpointIDSelector *v2.Selector `json:"servingEndpointIdSelector,omitempty" tf:"-"`
 
 	// Supervisor Agent id
+	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/cluster/ai/v1beta1.SupervisorAgent
+	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/v2/pkg/resource.ExtractParamPath("supervisor_agent_id",true)
 	SupervisorAgentID *string `json:"supervisorAgentId,omitempty" tf:"supervisor_agent_id,omitempty"`
+
+	// Reference to a SupervisorAgent in ai to populate supervisorAgentId.
+	// +kubebuilder:validation:Optional
+	SupervisorAgentIDRef *v2.Reference `json:"supervisorAgentIdRef,omitempty" tf:"-"`
+
+	// Selector for a SupervisorAgent in ai to populate supervisorAgentId.
+	// +kubebuilder:validation:Optional
+	SupervisorAgentIDSelector *v2.Selector `json:"supervisorAgentIdSelector,omitempty" tf:"-"`
 
 	// Vector Search endpoint id.
 	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/cluster/mosaic/v1beta1.VectorSearchEndpoint
@@ -631,8 +651,18 @@ type PermissionsParameters struct {
 	JobIDSelector *v2.Selector `json:"jobIdSelector,omitempty" tf:"-"`
 
 	// Knowledge Assistant id
+	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/cluster/ai/v1beta1.KnowledgeAssistant
+	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/v2/pkg/resource.ExtractResourceID()
 	// +kubebuilder:validation:Optional
 	KnowledgeAssistantID *string `json:"knowledgeAssistantId,omitempty" tf:"knowledge_assistant_id,omitempty"`
+
+	// Reference to a KnowledgeAssistant in ai to populate knowledgeAssistantId.
+	// +kubebuilder:validation:Optional
+	KnowledgeAssistantIDRef *v2.Reference `json:"knowledgeAssistantIdRef,omitempty" tf:"-"`
+
+	// Selector for a KnowledgeAssistant in ai to populate knowledgeAssistantId.
+	// +kubebuilder:validation:Optional
+	KnowledgeAssistantIDSelector *v2.Selector `json:"knowledgeAssistantIdSelector,omitempty" tf:"-"`
 
 	// ID of notebook within workspace
 	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/cluster/workspace/v1beta1.Notebook
@@ -781,8 +811,18 @@ type PermissionsParameters struct {
 	ServingEndpointIDSelector *v2.Selector `json:"servingEndpointIdSelector,omitempty" tf:"-"`
 
 	// Supervisor Agent id
+	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/cluster/ai/v1beta1.SupervisorAgent
+	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/v2/pkg/resource.ExtractParamPath("supervisor_agent_id",true)
 	// +kubebuilder:validation:Optional
 	SupervisorAgentID *string `json:"supervisorAgentId,omitempty" tf:"supervisor_agent_id,omitempty"`
+
+	// Reference to a SupervisorAgent in ai to populate supervisorAgentId.
+	// +kubebuilder:validation:Optional
+	SupervisorAgentIDRef *v2.Reference `json:"supervisorAgentIdRef,omitempty" tf:"-"`
+
+	// Selector for a SupervisorAgent in ai to populate supervisorAgentId.
+	// +kubebuilder:validation:Optional
+	SupervisorAgentIDSelector *v2.Selector `json:"supervisorAgentIdSelector,omitempty" tf:"-"`
 
 	// Vector Search endpoint id.
 	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/cluster/mosaic/v1beta1.VectorSearchEndpoint

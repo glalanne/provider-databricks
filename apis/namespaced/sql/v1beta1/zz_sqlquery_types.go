@@ -444,7 +444,7 @@ type SQLQueryInitParameters struct {
 	// Run as role. Possible values are viewer, owner.
 	RunAsRole *string `json:"runAsRole,omitempty" tf:"run_as_role,omitempty"`
 
-	Schedule *ScheduleInitParameters `json:"schedule,omitempty" tf:"schedule,omitempty"`
+	Schedule *SQLQueryScheduleInitParameters `json:"schedule,omitempty" tf:"schedule,omitempty"`
 
 	Tags []*string `json:"tags,omitempty" tf:"tags,omitempty"`
 
@@ -480,7 +480,7 @@ type SQLQueryObservation struct {
 	// Run as role. Possible values are viewer, owner.
 	RunAsRole *string `json:"runAsRole,omitempty" tf:"run_as_role,omitempty"`
 
-	Schedule *ScheduleObservation `json:"schedule,omitempty" tf:"schedule,omitempty"`
+	Schedule *SQLQueryScheduleObservation `json:"schedule,omitempty" tf:"schedule,omitempty"`
 
 	Tags []*string `json:"tags,omitempty" tf:"tags,omitempty"`
 
@@ -634,7 +634,7 @@ type SQLQueryParameters struct {
 	RunAsRole *string `json:"runAsRole,omitempty" tf:"run_as_role,omitempty"`
 
 	// +kubebuilder:validation:Optional
-	Schedule *ScheduleParameters `json:"schedule,omitempty" tf:"schedule,omitempty"`
+	Schedule *SQLQueryScheduleParameters `json:"schedule,omitempty" tf:"schedule,omitempty"`
 
 	// +kubebuilder:validation:Optional
 	Tags []*string `json:"tags,omitempty" tf:"tags,omitempty"`
@@ -662,7 +662,7 @@ type SQLQueryProviderConfigParameters struct {
 	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
 }
 
-type ScheduleInitParameters struct {
+type SQLQueryScheduleInitParameters struct {
 	Continuous *ContinuousInitParameters `json:"continuous,omitempty" tf:"continuous,omitempty"`
 
 	Daily *DailyInitParameters `json:"daily,omitempty" tf:"daily,omitempty"`
@@ -670,7 +670,7 @@ type ScheduleInitParameters struct {
 	Weekly *WeeklyInitParameters `json:"weekly,omitempty" tf:"weekly,omitempty"`
 }
 
-type ScheduleObservation struct {
+type SQLQueryScheduleObservation struct {
 	Continuous *ContinuousObservation `json:"continuous,omitempty" tf:"continuous,omitempty"`
 
 	Daily *DailyObservation `json:"daily,omitempty" tf:"daily,omitempty"`
@@ -678,7 +678,7 @@ type ScheduleObservation struct {
 	Weekly *WeeklyObservation `json:"weekly,omitempty" tf:"weekly,omitempty"`
 }
 
-type ScheduleParameters struct {
+type SQLQueryScheduleParameters struct {
 
 	// +kubebuilder:validation:Optional
 	Continuous *ContinuousParameters `json:"continuous,omitempty" tf:"continuous,omitempty"`

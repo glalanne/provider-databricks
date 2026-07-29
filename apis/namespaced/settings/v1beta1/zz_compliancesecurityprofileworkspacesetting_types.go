@@ -39,7 +39,7 @@ type ComplianceSecurityProfileWorkspaceSettingInitParameters struct {
 
 	Etag *string `json:"etag,omitempty" tf:"etag,omitempty"`
 
-	ProviderConfig *ProviderConfigInitParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
+	ProviderConfig *ComplianceSecurityProfileWorkspaceSettingProviderConfigInitParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
 
 	SettingName *string `json:"settingName,omitempty" tf:"setting_name,omitempty"`
 }
@@ -51,7 +51,7 @@ type ComplianceSecurityProfileWorkspaceSettingObservation struct {
 
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
-	ProviderConfig *ProviderConfigObservation `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
+	ProviderConfig *ComplianceSecurityProfileWorkspaceSettingProviderConfigObservation `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
 
 	SettingName *string `json:"settingName,omitempty" tf:"setting_name,omitempty"`
 }
@@ -65,21 +65,21 @@ type ComplianceSecurityProfileWorkspaceSettingParameters struct {
 	Etag *string `json:"etag,omitempty" tf:"etag,omitempty"`
 
 	// +kubebuilder:validation:Optional
-	ProviderConfig *ProviderConfigParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
+	ProviderConfig *ComplianceSecurityProfileWorkspaceSettingProviderConfigParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
 
 	// +kubebuilder:validation:Optional
 	SettingName *string `json:"settingName,omitempty" tf:"setting_name,omitempty"`
 }
 
-type ProviderConfigInitParameters struct {
+type ComplianceSecurityProfileWorkspaceSettingProviderConfigInitParameters struct {
 	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
 }
 
-type ProviderConfigObservation struct {
+type ComplianceSecurityProfileWorkspaceSettingProviderConfigObservation struct {
 	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
 }
 
-type ProviderConfigParameters struct {
+type ComplianceSecurityProfileWorkspaceSettingProviderConfigParameters struct {
 
 	// +kubebuilder:validation:Optional
 	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`

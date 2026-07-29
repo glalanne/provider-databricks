@@ -1,0 +1,675 @@
+---
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  annotations:
+    controller-gen.kubebuilder.io/version: v0.21.0
+  name: postgressyncedtables.postgres.databricks.crossplane.io
+spec:
+  group: postgres.databricks.crossplane.io
+  names:
+    categories:
+    - crossplane
+    - managed
+    - databricks
+    kind: PostgresSyncedTable
+    listKind: PostgresSyncedTableList
+    plural: postgressyncedtables
+    singular: postgressyncedtable
+  scope: Cluster
+  versions:
+  - additionalPrinterColumns:
+    - jsonPath: .status.conditions[?(@.type=='Synced')].status
+      name: SYNCED
+      type: string
+    - jsonPath: .status.conditions[?(@.type=='Ready')].status
+      name: READY
+      type: string
+    - jsonPath: .metadata.annotations.crossplane\.io/external-name
+      name: EXTERNAL-NAME
+      type: string
+    - jsonPath: .metadata.creationTimestamp
+      name: AGE
+      type: date
+    name: v1beta1
+    schema:
+      openAPIV3Schema:
+        description: PostgresSyncedTable is the Schema for the PostgresSyncedTables
+          API.
+        properties:
+          apiVersion:
+            description: |-
+              APIVersion defines the versioned schema of this representation of an object.
+              Servers should convert recognized schemas to the latest internal value, and
+              may reject unrecognized values.
+              More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+            type: string
+          kind:
+            description: |-
+              Kind is a string value representing the REST resource this object represents.
+              Servers may infer this from the endpoint the client submits requests to.
+              Cannot be updated.
+              In CamelCase.
+              More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+            type: string
+          metadata:
+            type: object
+          spec:
+            description: PostgresSyncedTableSpec defines the desired state of PostgresSyncedTable
+            properties:
+              deletionPolicy:
+                default: Delete
+                description: |-
+                  DeletionPolicy specifies what will happen to the underlying external
+                  when this managed resource is deleted - either "Delete" or "Orphan" the
+                  external resource.
+                  This field is planned to be deprecated in favor of the ManagementPolicies
+                  field in a future release. Currently, both could be set independently and
+                  non-default values would be honored if the feature flag is enabled.
+                  See the design doc for more information: https://github.com/crossplane/crossplane/blob/499895a25d1a1a0ba1604944ef98ac7a1a71f197/design/design-doc-observe-only-resources.md?plain=1#L223
+                enum:
+                - Orphan
+                - Delete
+                type: string
+              forProvider:
+                properties:
+                  providerConfig:
+                    description: Configure the provider for management through account
+                      provider.
+                    properties:
+                      workspaceId:
+                        description: Workspace ID which the resource belongs to. This
+                          workspace must be part of the account which the provider
+                          is configured with.
+                        type: string
+                    type: object
+                  spec:
+                    description: |-
+                      Configuration details of the synced table, such as the source table, scheduling policy, etc.
+                      This attribute is specified at creation time and most fields are returned as is on subsequent queries
+                    properties:
+                      acceleratedSync:
+                        description: |-
+                          When true, enables accelerated sync mode for the initial data load.
+                          This significantly improves performance for large tables.
+                          Requires workspace-level enablement through Lakebase Accelerated Sync preview
+                        type: boolean
+                      branch:
+                        description: The full resource name the branch associated
+                          with the table.
+                        type: string
+                      createDatabaseObjectsIfMissing:
+                        description: |-
+                          If true, the synced table's logical database and schema resources in PG
+                          will be created if they do not already exist.
+                          The request will fail if this is false and the database/schema do not exist.
+                        type: boolean
+                      existingPipelineId:
+                        description: |-
+                          ID of an existing pipeline to bin-pack this synced table into.
+                          At most one of existing_pipeline_id and new_pipeline_spec should be defined.
+                        type: string
+                      newPipelineSpec:
+                        description: |-
+                          Specification for creating a new pipeline.
+                          At most one of existing_pipeline_id and new_pipeline_spec should be defined.
+                        properties:
+                          budgetPolicyId:
+                            description: Budget policy to set on the newly created
+                              pipeline
+                            type: string
+                          storageCatalog:
+                            description: |-
+                              UC catalog for the pipeline to store intermediate files (checkpoints, event logs etc).
+                              This needs to be a standard catalog where the user has permissions to create Delta tables
+                            type: string
+                          storageSchema:
+                            description: |-
+                              UC schema for the pipeline to store intermediate files (checkpoints, event logs etc).
+                              This needs to be in the standard catalog where the user has permissions to create Delta tables
+                            type: string
+                        type: object
+                      postgresDatabase:
+                        description: The Postgres database name where the synced table
+                          will be created in.
+                        type: string
+                      primaryKeyColumns:
+                        description: Primary Key columns to be used for data insert/update
+                          in the destination
+                        items:
+                          type: string
+                        type: array
+                      schedulingPolicy:
+                        description: 'Scheduling policy of the underlying pipeline.
+                          Possible values are: CONTINUOUS, SNAPSHOT, TRIGGERED'
+                        type: string
+                      sourceTableFullName:
+                        description: Three-part (catalog, schema, table) name of the
+                          source Delta table.
+                        type: string
+                      timeseriesKey:
+                        description: Time series key to deduplicate (tie-break) rows
+                          with the same primary key
+                        type: string
+                      typeOverrides:
+                        description: |-
+                          Override the default Delta->PG type mapping for specific columns.
+                          A TypeOverride with PG_SPECIFIC_TYPE_UNSPECIFIED is rejected; a valid pg_type must be set
+                        items:
+                          properties:
+                            columnName:
+                              description: Name of the source column whose target
+                                PostgreSQL type should be overridden
+                              type: string
+                            pgType:
+                              description: 'PostgreSQL-specific target type to use
+                                for the column. Possible values are: PG_SPECIFIC_TYPE_VECTOR'
+                              type: string
+                            size:
+                              description: |-
+                                Size parameter for the target type. Required when pg_type is PG_SPECIFIC_TYPE_VECTOR
+                                or PG_SPECIFIC_TYPE_HALFVEC (specifies the vector dimension, e.g., 1024)
+                              type: number
+                          type: object
+                        type: array
+                    type: object
+                  syncedTableId:
+                    description: 'part Unity Catalog name: catalog.schema.table'
+                    type: string
+                type: object
+              initProvider:
+                description: |-
+                  THIS IS A BETA FIELD. It will be honored
+                  unless the Management Policies feature flag is disabled.
+                  InitProvider holds the same fields as ForProvider, with the exception
+                  of Identifier and other resource reference fields. The fields that are
+                  in InitProvider are merged into ForProvider when the resource is created.
+                  The same fields are also added to the terraform ignore_changes hook, to
+                  avoid updating them after creation. This is useful for fields that are
+                  required on creation, but we do not desire to update them after creation,
+                  for example because of an external controller is managing them, like an
+                  autoscaler.
+                properties:
+                  providerConfig:
+                    description: Configure the provider for management through account
+                      provider.
+                    properties:
+                      workspaceId:
+                        description: Workspace ID which the resource belongs to. This
+                          workspace must be part of the account which the provider
+                          is configured with.
+                        type: string
+                    type: object
+                  spec:
+                    description: |-
+                      Configuration details of the synced table, such as the source table, scheduling policy, etc.
+                      This attribute is specified at creation time and most fields are returned as is on subsequent queries
+                    properties:
+                      acceleratedSync:
+                        description: |-
+                          When true, enables accelerated sync mode for the initial data load.
+                          This significantly improves performance for large tables.
+                          Requires workspace-level enablement through Lakebase Accelerated Sync preview
+                        type: boolean
+                      branch:
+                        description: The full resource name the branch associated
+                          with the table.
+                        type: string
+                      createDatabaseObjectsIfMissing:
+                        description: |-
+                          If true, the synced table's logical database and schema resources in PG
+                          will be created if they do not already exist.
+                          The request will fail if this is false and the database/schema do not exist.
+                        type: boolean
+                      existingPipelineId:
+                        description: |-
+                          ID of an existing pipeline to bin-pack this synced table into.
+                          At most one of existing_pipeline_id and new_pipeline_spec should be defined.
+                        type: string
+                      newPipelineSpec:
+                        description: |-
+                          Specification for creating a new pipeline.
+                          At most one of existing_pipeline_id and new_pipeline_spec should be defined.
+                        properties:
+                          budgetPolicyId:
+                            description: Budget policy to set on the newly created
+                              pipeline
+                            type: string
+                          storageCatalog:
+                            description: |-
+                              UC catalog for the pipeline to store intermediate files (checkpoints, event logs etc).
+                              This needs to be a standard catalog where the user has permissions to create Delta tables
+                            type: string
+                          storageSchema:
+                            description: |-
+                              UC schema for the pipeline to store intermediate files (checkpoints, event logs etc).
+                              This needs to be in the standard catalog where the user has permissions to create Delta tables
+                            type: string
+                        type: object
+                      postgresDatabase:
+                        description: The Postgres database name where the synced table
+                          will be created in.
+                        type: string
+                      primaryKeyColumns:
+                        description: Primary Key columns to be used for data insert/update
+                          in the destination
+                        items:
+                          type: string
+                        type: array
+                      schedulingPolicy:
+                        description: 'Scheduling policy of the underlying pipeline.
+                          Possible values are: CONTINUOUS, SNAPSHOT, TRIGGERED'
+                        type: string
+                      sourceTableFullName:
+                        description: Three-part (catalog, schema, table) name of the
+                          source Delta table.
+                        type: string
+                      timeseriesKey:
+                        description: Time series key to deduplicate (tie-break) rows
+                          with the same primary key
+                        type: string
+                      typeOverrides:
+                        description: |-
+                          Override the default Delta->PG type mapping for specific columns.
+                          A TypeOverride with PG_SPECIFIC_TYPE_UNSPECIFIED is rejected; a valid pg_type must be set
+                        items:
+                          properties:
+                            columnName:
+                              description: Name of the source column whose target
+                                PostgreSQL type should be overridden
+                              type: string
+                            pgType:
+                              description: 'PostgreSQL-specific target type to use
+                                for the column. Possible values are: PG_SPECIFIC_TYPE_VECTOR'
+                              type: string
+                            size:
+                              description: |-
+                                Size parameter for the target type. Required when pg_type is PG_SPECIFIC_TYPE_VECTOR
+                                or PG_SPECIFIC_TYPE_HALFVEC (specifies the vector dimension, e.g., 1024)
+                              type: number
+                          type: object
+                        type: array
+                    type: object
+                  syncedTableId:
+                    description: 'part Unity Catalog name: catalog.schema.table'
+                    type: string
+                type: object
+              managementPolicies:
+                default:
+                - '*'
+                description: |-
+                  THIS IS A BETA FIELD. It is on by default but can be opted out
+                  through a Crossplane feature flag.
+                  ManagementPolicies specify the array of actions Crossplane is allowed to
+                  take on the managed and external resources.
+                  This field is planned to replace the DeletionPolicy field in a future
+                  release. Currently, both could be set independently and non-default
+                  values would be honored if the feature flag is enabled. If both are
+                  custom, the DeletionPolicy field will be ignored.
+                  See the design doc for more information: https://github.com/crossplane/crossplane/blob/499895a25d1a1a0ba1604944ef98ac7a1a71f197/design/design-doc-observe-only-resources.md?plain=1#L223
+                  and this one: https://github.com/crossplane/crossplane/blob/444267e84783136daa93568b364a5f01228cacbe/design/one-pager-ignore-changes.md
+                items:
+                  description: |-
+                    A ManagementAction represents an action that the Crossplane controllers
+                    can take on an external resource.
+                  enum:
+                  - Observe
+                  - Create
+                  - Update
+                  - Delete
+                  - LateInitialize
+                  - '*'
+                  type: string
+                type: array
+              providerConfigRef:
+                default:
+                  name: default
+                description: |-
+                  ProviderConfigReference specifies how the provider that will be used to
+                  create, observe, update, and delete this managed resource should be
+                  configured.
+                properties:
+                  name:
+                    description: Name of the referenced object.
+                    type: string
+                  policy:
+                    description: Policies for referencing.
+                    properties:
+                      resolution:
+                        default: Required
+                        description: |-
+                          Resolution specifies whether resolution of this reference is required.
+                          The default is 'Required', which means the reconcile will fail if the
+                          reference cannot be resolved. 'Optional' means this reference will be
+                          a no-op if it cannot be resolved.
+                        enum:
+                        - Required
+                        - Optional
+                        type: string
+                      resolve:
+                        description: |-
+                          Resolve specifies when this reference should be resolved. The default
+                          is 'IfNotPresent', which will attempt to resolve the reference only when
+                          the corresponding field is not present. Use 'Always' to resolve the
+                          reference on every reconcile.
+                        enum:
+                        - Always
+                        - IfNotPresent
+                        type: string
+                    type: object
+                required:
+                - name
+                type: object
+              writeConnectionSecretToRef:
+                description: |-
+                  WriteConnectionSecretToReference specifies the namespace and name of a
+                  Secret to which any connection details for this managed resource should
+                  be written. Connection details frequently include the endpoint, username,
+                  and password required to connect to the managed resource.
+                properties:
+                  name:
+                    description: Name of the secret.
+                    type: string
+                  namespace:
+                    description: Namespace of the secret.
+                    type: string
+                required:
+                - name
+                - namespace
+                type: object
+            required:
+            - forProvider
+            type: object
+            x-kubernetes-validations:
+            - message: spec.forProvider.syncedTableId is a required parameter
+              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
+                || ''Update'' in self.managementPolicies) || has(self.forProvider.syncedTableId)
+                || (has(self.initProvider) && has(self.initProvider.syncedTableId))'
+          status:
+            description: PostgresSyncedTableStatus defines the observed state of PostgresSyncedTable.
+            properties:
+              atProvider:
+                properties:
+                  createTime:
+                    description: (string)
+                    type: string
+                  id:
+                    type: string
+                  name:
+                    description: |-
+                      Output only. The Full resource name of the synced table in Postgres
+                      where (catalog, schema, table) are the UC entity names.
+                    type: string
+                  providerConfig:
+                    description: Configure the provider for management through account
+                      provider.
+                    properties:
+                      workspaceId:
+                        description: Workspace ID which the resource belongs to. This
+                          workspace must be part of the account which the provider
+                          is configured with.
+                        type: string
+                    type: object
+                  spec:
+                    description: |-
+                      Configuration details of the synced table, such as the source table, scheduling policy, etc.
+                      This attribute is specified at creation time and most fields are returned as is on subsequent queries
+                    properties:
+                      acceleratedSync:
+                        description: |-
+                          When true, enables accelerated sync mode for the initial data load.
+                          This significantly improves performance for large tables.
+                          Requires workspace-level enablement through Lakebase Accelerated Sync preview
+                        type: boolean
+                      branch:
+                        description: The full resource name the branch associated
+                          with the table.
+                        type: string
+                      createDatabaseObjectsIfMissing:
+                        description: |-
+                          If true, the synced table's logical database and schema resources in PG
+                          will be created if they do not already exist.
+                          The request will fail if this is false and the database/schema do not exist.
+                        type: boolean
+                      existingPipelineId:
+                        description: |-
+                          ID of an existing pipeline to bin-pack this synced table into.
+                          At most one of existing_pipeline_id and new_pipeline_spec should be defined.
+                        type: string
+                      newPipelineSpec:
+                        description: |-
+                          Specification for creating a new pipeline.
+                          At most one of existing_pipeline_id and new_pipeline_spec should be defined.
+                        properties:
+                          budgetPolicyId:
+                            description: Budget policy to set on the newly created
+                              pipeline
+                            type: string
+                          storageCatalog:
+                            description: |-
+                              UC catalog for the pipeline to store intermediate files (checkpoints, event logs etc).
+                              This needs to be a standard catalog where the user has permissions to create Delta tables
+                            type: string
+                          storageSchema:
+                            description: |-
+                              UC schema for the pipeline to store intermediate files (checkpoints, event logs etc).
+                              This needs to be in the standard catalog where the user has permissions to create Delta tables
+                            type: string
+                        type: object
+                      postgresDatabase:
+                        description: The Postgres database name where the synced table
+                          will be created in.
+                        type: string
+                      primaryKeyColumns:
+                        description: Primary Key columns to be used for data insert/update
+                          in the destination
+                        items:
+                          type: string
+                        type: array
+                      schedulingPolicy:
+                        description: 'Scheduling policy of the underlying pipeline.
+                          Possible values are: CONTINUOUS, SNAPSHOT, TRIGGERED'
+                        type: string
+                      sourceTableFullName:
+                        description: Three-part (catalog, schema, table) name of the
+                          source Delta table.
+                        type: string
+                      timeseriesKey:
+                        description: Time series key to deduplicate (tie-break) rows
+                          with the same primary key
+                        type: string
+                      typeOverrides:
+                        description: |-
+                          Override the default Delta->PG type mapping for specific columns.
+                          A TypeOverride with PG_SPECIFIC_TYPE_UNSPECIFIED is rejected; a valid pg_type must be set
+                        items:
+                          properties:
+                            columnName:
+                              description: Name of the source column whose target
+                                PostgreSQL type should be overridden
+                              type: string
+                            pgType:
+                              description: 'PostgreSQL-specific target type to use
+                                for the column. Possible values are: PG_SPECIFIC_TYPE_VECTOR'
+                              type: string
+                            size:
+                              description: |-
+                                Size parameter for the target type. Required when pg_type is PG_SPECIFIC_TYPE_VECTOR
+                                or PG_SPECIFIC_TYPE_HALFVEC (specifies the vector dimension, e.g., 1024)
+                              type: number
+                          type: object
+                        type: array
+                    type: object
+                  status:
+                    description: Synced Table data synchronization status
+                    properties:
+                      detailedState:
+                        description: 'The state of the synced table. Possible values
+                          are: SYNCED_TABLE_OFFLINE, SYNCED_TABLE_OFFLINE_FAILED,
+                          SYNCED_TABLE_ONLINE, SYNCED_TABLE_ONLINE_CONTINUOUS_UPDATE,
+                          SYNCED_TABLE_ONLINE_NO_PENDING_UPDATE, SYNCED_TABLE_ONLINE_PIPELINE_FAILED,
+                          SYNCED_TABLE_ONLINE_TRIGGERED_UPDATE, SYNCED_TABLE_ONLINE_UPDATING_PIPELINE_RESOURCES,
+                          SYNCED_TABLE_PROVISIONING, SYNCED_TABLE_PROVISIONING_INITIAL_SNAPSHOT,
+                          SYNCED_TABLE_PROVISIONING_PIPELINE_RESOURCES'
+                        type: string
+                      lastProcessedCommitVersion:
+                        description: The last source table Delta version that was
+                          successfully synced to the synced table
+                        type: number
+                      lastSync:
+                        description: Summary of the last successful synchronization
+                          from source to destination
+                        properties:
+                          deltaTableSyncInfo:
+                            description: (DeltaTableSyncInfo)
+                            properties:
+                              deltaCommitTime:
+                                description: |-
+                                  The timestamp when the above Delta version was committed in the source Delta table.
+                                  Note: This is the Delta commit time, not the time the data was written to the synced table
+                                type: string
+                              deltaCommitVersion:
+                                description: The Delta Lake commit version that was
+                                  last successfully synced
+                                type: number
+                            type: object
+                          syncEndTime:
+                            description: |-
+                              The end timestamp of the most recent successful synchronization.
+                              This is the time when the data is available in the synced table
+                            type: string
+                          syncStartTime:
+                            description: |-
+                              The starting timestamp of the most recent successful synchronization from the source table
+                              to the destination (synced) table.
+                              Note this is the starting timestamp of the sync operation, not the end time.
+                              E.g., for a batch, this is the time when the sync operation started
+                            type: string
+                        type: object
+                      lastSyncTime:
+                        description: |-
+                          The end timestamp of the last time any data was synchronized from the source table to the synced
+                          table. This is when the data is available in the synced table
+                        type: string
+                      message:
+                        description: A text description of the current state of the
+                          synced table
+                        type: string
+                      ongoingSyncProgress:
+                        description: (SyncedTablePipelineProgress)
+                        properties:
+                          estimatedCompletionTimeSeconds:
+                            description: The estimated time remaining to complete
+                              this update in seconds
+                            type: number
+                          latestVersionCurrentlyProcessing:
+                            description: |-
+                              The source table Delta version that was last processed by the pipeline. The pipeline may not
+                              have completely processed this version yet
+                            type: number
+                          syncProgressCompletion:
+                            description: The completion ratio of this update. This
+                              is a number between 0 and 1
+                            type: number
+                          syncedRowCount:
+                            description: The number of rows that have been synced
+                              in this update
+                            type: number
+                          totalRowCount:
+                            description: The total number of rows that need to be
+                              synced in this update. This number may be an estimate
+                            type: number
+                        type: object
+                      pipelineId:
+                        description: ID of the associated pipeline
+                        type: string
+                      project:
+                        description: The full resource name of the project associated
+                          with the table.
+                        type: string
+                      provisioningPhase:
+                        description: 'The current phase of the data synchronization
+                          pipeline. Possible values are: PROVISIONING_PHASE_INDEX_SCAN,
+                          PROVISIONING_PHASE_INDEX_SORT, PROVISIONING_PHASE_MAIN'
+                        type: string
+                      unityCatalogProvisioningState:
+                        description: 'The provisioning state of the synced table entity
+                          in Unity Catalog. Possible values are: ACTIVE, DEGRADED,
+                          DELETING, FAILED, PROVISIONING, UPDATING'
+                        type: string
+                    type: object
+                  syncedTableId:
+                    description: 'part Unity Catalog name: catalog.schema.table'
+                    type: string
+                  uid:
+                    description: The Unity Catalog table ID for this synced table
+                    type: string
+                type: object
+              conditions:
+                description: Conditions of the resource.
+                items:
+                  description: A Condition that may apply to a resource.
+                  properties:
+                    lastTransitionTime:
+                      description: |-
+                        LastTransitionTime is the last time this condition transitioned from one
+                        status to another.
+                      format: date-time
+                      type: string
+                    message:
+                      description: |-
+                        A Message containing details about this condition's last transition from
+                        one status to another, if any.
+                      type: string
+                    observedGeneration:
+                      description: |-
+                        ObservedGeneration represents the .metadata.generation that the condition was set based upon.
+                        For instance, if .metadata.generation is currently 12, but the .status.conditions[x].observedGeneration is 9, the condition is out of date
+                        with respect to the current state of the instance.
+                      format: int64
+                      type: integer
+                    reason:
+                      description: A Reason for this condition's last transition from
+                        one status to another.
+                      type: string
+                    status:
+                      description: Status of this condition; is it currently True,
+                        False, or Unknown?
+                      type: string
+                    type:
+                      description: |-
+                        Type of this condition. At most one of each condition type may apply to
+                        a resource at any point in time.
+                      type: string
+                  required:
+                  - lastTransitionTime
+                  - reason
+                  - status
+                  - type
+                  type: object
+                type: array
+                x-kubernetes-list-map-keys:
+                - type
+                x-kubernetes-list-type: map
+              lastHandledReconcileAt:
+                description: |-
+                  LastHandledReconcileAt holds the value of the most recent
+                  reconcile-requested-at annotation token that the controller has
+                  processed. Users can compare this to the annotation to determine
+                  whether a reconcile request has been handled.
+                type: string
+              observedGeneration:
+                description: |-
+                  ObservedGeneration is the latest metadata.generation
+                  which resulted in either a ready state, or stalled due to error
+                  it can not recover from without human intervention.
+                format: int64
+                type: integer
+            type: object
+        required:
+        - spec
+        type: object
+    served: true
+    storage: true
+    subresources:
+      status: {}

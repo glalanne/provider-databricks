@@ -8,6 +8,166 @@ package v1beta1
 
 import xpv2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 
+// GetCondition of this AccountNetworkPolicy.
+func (mg *AccountNetworkPolicy) GetCondition(ct xpv2.ConditionType) xpv2.Condition {
+	return mg.Status.GetCondition(ct)
+}
+
+// GetManagementPolicies of this AccountNetworkPolicy.
+func (mg *AccountNetworkPolicy) GetManagementPolicies() xpv2.ManagementPolicies {
+	return mg.Spec.ManagementPolicies
+}
+
+// GetProviderConfigReference of this AccountNetworkPolicy.
+func (mg *AccountNetworkPolicy) GetProviderConfigReference() *xpv2.ProviderConfigReference {
+	return mg.Spec.ProviderConfigReference
+}
+
+// GetWriteConnectionSecretToReference of this AccountNetworkPolicy.
+func (mg *AccountNetworkPolicy) GetWriteConnectionSecretToReference() *xpv2.LocalSecretReference {
+	return mg.Spec.WriteConnectionSecretToReference
+}
+
+// SetConditions of this AccountNetworkPolicy.
+func (mg *AccountNetworkPolicy) SetConditions(c ...xpv2.Condition) {
+	mg.Status.SetConditions(c...)
+}
+
+// SetManagementPolicies of this AccountNetworkPolicy.
+func (mg *AccountNetworkPolicy) SetManagementPolicies(r xpv2.ManagementPolicies) {
+	mg.Spec.ManagementPolicies = r
+}
+
+// SetProviderConfigReference of this AccountNetworkPolicy.
+func (mg *AccountNetworkPolicy) SetProviderConfigReference(r *xpv2.ProviderConfigReference) {
+	mg.Spec.ProviderConfigReference = r
+}
+
+// SetWriteConnectionSecretToReference of this AccountNetworkPolicy.
+func (mg *AccountNetworkPolicy) SetWriteConnectionSecretToReference(r *xpv2.LocalSecretReference) {
+	mg.Spec.WriteConnectionSecretToReference = r
+}
+
+// GetCondition of this AccountSettingV2.
+func (mg *AccountSettingV2) GetCondition(ct xpv2.ConditionType) xpv2.Condition {
+	return mg.Status.GetCondition(ct)
+}
+
+// GetManagementPolicies of this AccountSettingV2.
+func (mg *AccountSettingV2) GetManagementPolicies() xpv2.ManagementPolicies {
+	return mg.Spec.ManagementPolicies
+}
+
+// GetProviderConfigReference of this AccountSettingV2.
+func (mg *AccountSettingV2) GetProviderConfigReference() *xpv2.ProviderConfigReference {
+	return mg.Spec.ProviderConfigReference
+}
+
+// GetWriteConnectionSecretToReference of this AccountSettingV2.
+func (mg *AccountSettingV2) GetWriteConnectionSecretToReference() *xpv2.LocalSecretReference {
+	return mg.Spec.WriteConnectionSecretToReference
+}
+
+// SetConditions of this AccountSettingV2.
+func (mg *AccountSettingV2) SetConditions(c ...xpv2.Condition) {
+	mg.Status.SetConditions(c...)
+}
+
+// SetManagementPolicies of this AccountSettingV2.
+func (mg *AccountSettingV2) SetManagementPolicies(r xpv2.ManagementPolicies) {
+	mg.Spec.ManagementPolicies = r
+}
+
+// SetProviderConfigReference of this AccountSettingV2.
+func (mg *AccountSettingV2) SetProviderConfigReference(r *xpv2.ProviderConfigReference) {
+	mg.Spec.ProviderConfigReference = r
+}
+
+// SetWriteConnectionSecretToReference of this AccountSettingV2.
+func (mg *AccountSettingV2) SetWriteConnectionSecretToReference(r *xpv2.LocalSecretReference) {
+	mg.Spec.WriteConnectionSecretToReference = r
+}
+
+// GetCondition of this AibiDashboardEmbeddingAccessPolicySetting.
+func (mg *AibiDashboardEmbeddingAccessPolicySetting) GetCondition(ct xpv2.ConditionType) xpv2.Condition {
+	return mg.Status.GetCondition(ct)
+}
+
+// GetManagementPolicies of this AibiDashboardEmbeddingAccessPolicySetting.
+func (mg *AibiDashboardEmbeddingAccessPolicySetting) GetManagementPolicies() xpv2.ManagementPolicies {
+	return mg.Spec.ManagementPolicies
+}
+
+// GetProviderConfigReference of this AibiDashboardEmbeddingAccessPolicySetting.
+func (mg *AibiDashboardEmbeddingAccessPolicySetting) GetProviderConfigReference() *xpv2.ProviderConfigReference {
+	return mg.Spec.ProviderConfigReference
+}
+
+// GetWriteConnectionSecretToReference of this AibiDashboardEmbeddingAccessPolicySetting.
+func (mg *AibiDashboardEmbeddingAccessPolicySetting) GetWriteConnectionSecretToReference() *xpv2.LocalSecretReference {
+	return mg.Spec.WriteConnectionSecretToReference
+}
+
+// SetConditions of this AibiDashboardEmbeddingAccessPolicySetting.
+func (mg *AibiDashboardEmbeddingAccessPolicySetting) SetConditions(c ...xpv2.Condition) {
+	mg.Status.SetConditions(c...)
+}
+
+// SetManagementPolicies of this AibiDashboardEmbeddingAccessPolicySetting.
+func (mg *AibiDashboardEmbeddingAccessPolicySetting) SetManagementPolicies(r xpv2.ManagementPolicies) {
+	mg.Spec.ManagementPolicies = r
+}
+
+// SetProviderConfigReference of this AibiDashboardEmbeddingAccessPolicySetting.
+func (mg *AibiDashboardEmbeddingAccessPolicySetting) SetProviderConfigReference(r *xpv2.ProviderConfigReference) {
+	mg.Spec.ProviderConfigReference = r
+}
+
+// SetWriteConnectionSecretToReference of this AibiDashboardEmbeddingAccessPolicySetting.
+func (mg *AibiDashboardEmbeddingAccessPolicySetting) SetWriteConnectionSecretToReference(r *xpv2.LocalSecretReference) {
+	mg.Spec.WriteConnectionSecretToReference = r
+}
+
+// GetCondition of this AibiDashboardEmbeddingApprovedDomainsSetting.
+func (mg *AibiDashboardEmbeddingApprovedDomainsSetting) GetCondition(ct xpv2.ConditionType) xpv2.Condition {
+	return mg.Status.GetCondition(ct)
+}
+
+// GetManagementPolicies of this AibiDashboardEmbeddingApprovedDomainsSetting.
+func (mg *AibiDashboardEmbeddingApprovedDomainsSetting) GetManagementPolicies() xpv2.ManagementPolicies {
+	return mg.Spec.ManagementPolicies
+}
+
+// GetProviderConfigReference of this AibiDashboardEmbeddingApprovedDomainsSetting.
+func (mg *AibiDashboardEmbeddingApprovedDomainsSetting) GetProviderConfigReference() *xpv2.ProviderConfigReference {
+	return mg.Spec.ProviderConfigReference
+}
+
+// GetWriteConnectionSecretToReference of this AibiDashboardEmbeddingApprovedDomainsSetting.
+func (mg *AibiDashboardEmbeddingApprovedDomainsSetting) GetWriteConnectionSecretToReference() *xpv2.LocalSecretReference {
+	return mg.Spec.WriteConnectionSecretToReference
+}
+
+// SetConditions of this AibiDashboardEmbeddingApprovedDomainsSetting.
+func (mg *AibiDashboardEmbeddingApprovedDomainsSetting) SetConditions(c ...xpv2.Condition) {
+	mg.Status.SetConditions(c...)
+}
+
+// SetManagementPolicies of this AibiDashboardEmbeddingApprovedDomainsSetting.
+func (mg *AibiDashboardEmbeddingApprovedDomainsSetting) SetManagementPolicies(r xpv2.ManagementPolicies) {
+	mg.Spec.ManagementPolicies = r
+}
+
+// SetProviderConfigReference of this AibiDashboardEmbeddingApprovedDomainsSetting.
+func (mg *AibiDashboardEmbeddingApprovedDomainsSetting) SetProviderConfigReference(r *xpv2.ProviderConfigReference) {
+	mg.Spec.ProviderConfigReference = r
+}
+
+// SetWriteConnectionSecretToReference of this AibiDashboardEmbeddingApprovedDomainsSetting.
+func (mg *AibiDashboardEmbeddingApprovedDomainsSetting) SetWriteConnectionSecretToReference(r *xpv2.LocalSecretReference) {
+	mg.Spec.WriteConnectionSecretToReference = r
+}
+
 // GetCondition of this ComplianceSecurityProfileWorkspaceSetting.
 func (mg *ComplianceSecurityProfileWorkspaceSetting) GetCondition(ct xpv2.ConditionType) xpv2.Condition {
 	return mg.Status.GetCondition(ct)
@@ -88,6 +248,126 @@ func (mg *DefaultNamespaceSetting) SetWriteConnectionSecretToReference(r *xpv2.L
 	mg.Spec.WriteConnectionSecretToReference = r
 }
 
+// GetCondition of this DisableLegacyAccessSetting.
+func (mg *DisableLegacyAccessSetting) GetCondition(ct xpv2.ConditionType) xpv2.Condition {
+	return mg.Status.GetCondition(ct)
+}
+
+// GetManagementPolicies of this DisableLegacyAccessSetting.
+func (mg *DisableLegacyAccessSetting) GetManagementPolicies() xpv2.ManagementPolicies {
+	return mg.Spec.ManagementPolicies
+}
+
+// GetProviderConfigReference of this DisableLegacyAccessSetting.
+func (mg *DisableLegacyAccessSetting) GetProviderConfigReference() *xpv2.ProviderConfigReference {
+	return mg.Spec.ProviderConfigReference
+}
+
+// GetWriteConnectionSecretToReference of this DisableLegacyAccessSetting.
+func (mg *DisableLegacyAccessSetting) GetWriteConnectionSecretToReference() *xpv2.LocalSecretReference {
+	return mg.Spec.WriteConnectionSecretToReference
+}
+
+// SetConditions of this DisableLegacyAccessSetting.
+func (mg *DisableLegacyAccessSetting) SetConditions(c ...xpv2.Condition) {
+	mg.Status.SetConditions(c...)
+}
+
+// SetManagementPolicies of this DisableLegacyAccessSetting.
+func (mg *DisableLegacyAccessSetting) SetManagementPolicies(r xpv2.ManagementPolicies) {
+	mg.Spec.ManagementPolicies = r
+}
+
+// SetProviderConfigReference of this DisableLegacyAccessSetting.
+func (mg *DisableLegacyAccessSetting) SetProviderConfigReference(r *xpv2.ProviderConfigReference) {
+	mg.Spec.ProviderConfigReference = r
+}
+
+// SetWriteConnectionSecretToReference of this DisableLegacyAccessSetting.
+func (mg *DisableLegacyAccessSetting) SetWriteConnectionSecretToReference(r *xpv2.LocalSecretReference) {
+	mg.Spec.WriteConnectionSecretToReference = r
+}
+
+// GetCondition of this DisableLegacyDbfsSetting.
+func (mg *DisableLegacyDbfsSetting) GetCondition(ct xpv2.ConditionType) xpv2.Condition {
+	return mg.Status.GetCondition(ct)
+}
+
+// GetManagementPolicies of this DisableLegacyDbfsSetting.
+func (mg *DisableLegacyDbfsSetting) GetManagementPolicies() xpv2.ManagementPolicies {
+	return mg.Spec.ManagementPolicies
+}
+
+// GetProviderConfigReference of this DisableLegacyDbfsSetting.
+func (mg *DisableLegacyDbfsSetting) GetProviderConfigReference() *xpv2.ProviderConfigReference {
+	return mg.Spec.ProviderConfigReference
+}
+
+// GetWriteConnectionSecretToReference of this DisableLegacyDbfsSetting.
+func (mg *DisableLegacyDbfsSetting) GetWriteConnectionSecretToReference() *xpv2.LocalSecretReference {
+	return mg.Spec.WriteConnectionSecretToReference
+}
+
+// SetConditions of this DisableLegacyDbfsSetting.
+func (mg *DisableLegacyDbfsSetting) SetConditions(c ...xpv2.Condition) {
+	mg.Status.SetConditions(c...)
+}
+
+// SetManagementPolicies of this DisableLegacyDbfsSetting.
+func (mg *DisableLegacyDbfsSetting) SetManagementPolicies(r xpv2.ManagementPolicies) {
+	mg.Spec.ManagementPolicies = r
+}
+
+// SetProviderConfigReference of this DisableLegacyDbfsSetting.
+func (mg *DisableLegacyDbfsSetting) SetProviderConfigReference(r *xpv2.ProviderConfigReference) {
+	mg.Spec.ProviderConfigReference = r
+}
+
+// SetWriteConnectionSecretToReference of this DisableLegacyDbfsSetting.
+func (mg *DisableLegacyDbfsSetting) SetWriteConnectionSecretToReference(r *xpv2.LocalSecretReference) {
+	mg.Spec.WriteConnectionSecretToReference = r
+}
+
+// GetCondition of this DisableLegacyFeaturesSetting.
+func (mg *DisableLegacyFeaturesSetting) GetCondition(ct xpv2.ConditionType) xpv2.Condition {
+	return mg.Status.GetCondition(ct)
+}
+
+// GetManagementPolicies of this DisableLegacyFeaturesSetting.
+func (mg *DisableLegacyFeaturesSetting) GetManagementPolicies() xpv2.ManagementPolicies {
+	return mg.Spec.ManagementPolicies
+}
+
+// GetProviderConfigReference of this DisableLegacyFeaturesSetting.
+func (mg *DisableLegacyFeaturesSetting) GetProviderConfigReference() *xpv2.ProviderConfigReference {
+	return mg.Spec.ProviderConfigReference
+}
+
+// GetWriteConnectionSecretToReference of this DisableLegacyFeaturesSetting.
+func (mg *DisableLegacyFeaturesSetting) GetWriteConnectionSecretToReference() *xpv2.LocalSecretReference {
+	return mg.Spec.WriteConnectionSecretToReference
+}
+
+// SetConditions of this DisableLegacyFeaturesSetting.
+func (mg *DisableLegacyFeaturesSetting) SetConditions(c ...xpv2.Condition) {
+	mg.Status.SetConditions(c...)
+}
+
+// SetManagementPolicies of this DisableLegacyFeaturesSetting.
+func (mg *DisableLegacyFeaturesSetting) SetManagementPolicies(r xpv2.ManagementPolicies) {
+	mg.Spec.ManagementPolicies = r
+}
+
+// SetProviderConfigReference of this DisableLegacyFeaturesSetting.
+func (mg *DisableLegacyFeaturesSetting) SetProviderConfigReference(r *xpv2.ProviderConfigReference) {
+	mg.Spec.ProviderConfigReference = r
+}
+
+// SetWriteConnectionSecretToReference of this DisableLegacyFeaturesSetting.
+func (mg *DisableLegacyFeaturesSetting) SetWriteConnectionSecretToReference(r *xpv2.LocalSecretReference) {
+	mg.Spec.WriteConnectionSecretToReference = r
+}
+
 // GetCondition of this EnhancedSecurityMonitoringWorkspaceSetting.
 func (mg *EnhancedSecurityMonitoringWorkspaceSetting) GetCondition(ct xpv2.ConditionType) xpv2.Condition {
 	return mg.Status.GetCondition(ct)
@@ -165,5 +445,85 @@ func (mg *RestrictWorkspaceAdminsSetting) SetProviderConfigReference(r *xpv2.Pro
 
 // SetWriteConnectionSecretToReference of this RestrictWorkspaceAdminsSetting.
 func (mg *RestrictWorkspaceAdminsSetting) SetWriteConnectionSecretToReference(r *xpv2.LocalSecretReference) {
+	mg.Spec.WriteConnectionSecretToReference = r
+}
+
+// GetCondition of this WorkspaceNetworkOption.
+func (mg *WorkspaceNetworkOption) GetCondition(ct xpv2.ConditionType) xpv2.Condition {
+	return mg.Status.GetCondition(ct)
+}
+
+// GetManagementPolicies of this WorkspaceNetworkOption.
+func (mg *WorkspaceNetworkOption) GetManagementPolicies() xpv2.ManagementPolicies {
+	return mg.Spec.ManagementPolicies
+}
+
+// GetProviderConfigReference of this WorkspaceNetworkOption.
+func (mg *WorkspaceNetworkOption) GetProviderConfigReference() *xpv2.ProviderConfigReference {
+	return mg.Spec.ProviderConfigReference
+}
+
+// GetWriteConnectionSecretToReference of this WorkspaceNetworkOption.
+func (mg *WorkspaceNetworkOption) GetWriteConnectionSecretToReference() *xpv2.LocalSecretReference {
+	return mg.Spec.WriteConnectionSecretToReference
+}
+
+// SetConditions of this WorkspaceNetworkOption.
+func (mg *WorkspaceNetworkOption) SetConditions(c ...xpv2.Condition) {
+	mg.Status.SetConditions(c...)
+}
+
+// SetManagementPolicies of this WorkspaceNetworkOption.
+func (mg *WorkspaceNetworkOption) SetManagementPolicies(r xpv2.ManagementPolicies) {
+	mg.Spec.ManagementPolicies = r
+}
+
+// SetProviderConfigReference of this WorkspaceNetworkOption.
+func (mg *WorkspaceNetworkOption) SetProviderConfigReference(r *xpv2.ProviderConfigReference) {
+	mg.Spec.ProviderConfigReference = r
+}
+
+// SetWriteConnectionSecretToReference of this WorkspaceNetworkOption.
+func (mg *WorkspaceNetworkOption) SetWriteConnectionSecretToReference(r *xpv2.LocalSecretReference) {
+	mg.Spec.WriteConnectionSecretToReference = r
+}
+
+// GetCondition of this WorkspaceSettingV2.
+func (mg *WorkspaceSettingV2) GetCondition(ct xpv2.ConditionType) xpv2.Condition {
+	return mg.Status.GetCondition(ct)
+}
+
+// GetManagementPolicies of this WorkspaceSettingV2.
+func (mg *WorkspaceSettingV2) GetManagementPolicies() xpv2.ManagementPolicies {
+	return mg.Spec.ManagementPolicies
+}
+
+// GetProviderConfigReference of this WorkspaceSettingV2.
+func (mg *WorkspaceSettingV2) GetProviderConfigReference() *xpv2.ProviderConfigReference {
+	return mg.Spec.ProviderConfigReference
+}
+
+// GetWriteConnectionSecretToReference of this WorkspaceSettingV2.
+func (mg *WorkspaceSettingV2) GetWriteConnectionSecretToReference() *xpv2.LocalSecretReference {
+	return mg.Spec.WriteConnectionSecretToReference
+}
+
+// SetConditions of this WorkspaceSettingV2.
+func (mg *WorkspaceSettingV2) SetConditions(c ...xpv2.Condition) {
+	mg.Status.SetConditions(c...)
+}
+
+// SetManagementPolicies of this WorkspaceSettingV2.
+func (mg *WorkspaceSettingV2) SetManagementPolicies(r xpv2.ManagementPolicies) {
+	mg.Spec.ManagementPolicies = r
+}
+
+// SetProviderConfigReference of this WorkspaceSettingV2.
+func (mg *WorkspaceSettingV2) SetProviderConfigReference(r *xpv2.ProviderConfigReference) {
+	mg.Spec.ProviderConfigReference = r
+}
+
+// SetWriteConnectionSecretToReference of this WorkspaceSettingV2.
+func (mg *WorkspaceSettingV2) SetWriteConnectionSecretToReference(r *xpv2.LocalSecretReference) {
 	mg.Spec.WriteConnectionSecretToReference = r
 }
