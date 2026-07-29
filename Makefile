@@ -289,7 +289,7 @@ vendor.check: modules.check
 .PHONY: fmt
 fmt:
 	@echo "✓ Formatting source code with goimports ..."
-	@go tool goimports -w $(shell find . -type f -name '*.go' -not -path "./vendor/*" -not -path "./.git/*")
+	@go tool goimports -w $(shell find . -type f -name '*.go' -not -path "./vendor/*" -not -path "./.git/*" -not -name "zz_generated.deepcopy.go")
 	@echo "✓ Formatting source code with gofmt ..."
-	@gofmt -w $(shell find . -type f -name '*.go' -not -path "./vendor/*" -not -path "./.git/*")
+	@gofmt -w $(shell find . -type f -name '*.go' -not -path "./vendor/*" -not -path "./.git/*" -not -name "zz_generated.deepcopy.go")
 
