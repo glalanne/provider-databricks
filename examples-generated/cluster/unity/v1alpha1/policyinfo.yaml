@@ -6,7 +6,7 @@ apiVersion: unity.databricks.crossplane.io/v1alpha1
 kind: PolicyInfo
 metadata:
   annotations:
-    meta.upbound.io/example-id: unity/v1alpha1/policyinfo
+    meta.upbound.io/example-id: unity/v1beta1/policyinfo
   labels:
     testing.upbound.io/example-name: pii_row_filter
   name: pii-row-filter

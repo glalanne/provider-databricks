@@ -140,7 +140,7 @@ type GrantMapInitParameters struct {
 	// +kubebuilder:validation:Optional
 	SchemaSelector *v2.Selector `json:"schemaSelector,omitempty" tf:"-"`
 
-	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/cluster/sharing/v1alpha1.Share
+	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/cluster/sharing/v1beta1.Share
 	Share *string `json:"share,omitempty" tf:"share,omitempty"`
 
 	// Reference to a Share in sharing to populate share.
@@ -304,7 +304,7 @@ type GrantMapParameters struct {
 	// +kubebuilder:validation:Optional
 	SchemaSelector *v2.Selector `json:"schemaSelector,omitempty" tf:"-"`
 
-	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/cluster/sharing/v1alpha1.Share
+	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/cluster/sharing/v1beta1.Share
 	// +kubebuilder:validation:Optional
 	Share *string `json:"share,omitempty" tf:"share,omitempty"`
 

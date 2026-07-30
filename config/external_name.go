@@ -106,6 +106,12 @@ var (
 		"databricks_workspace_binding",
 		"databricks_workspace_conf",
 		"databricks_workspace_file",
+		"databricks_app",
+		"databricks_share",
+		"databricks_service_principal_federation_policy",
+		"databricks_account_federation_policy",
+		"databricks_database_instance",
+		"databricks_policy_info",
 	}
 )
 

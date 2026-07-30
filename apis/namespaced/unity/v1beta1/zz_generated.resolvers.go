@@ -342,7 +342,7 @@ func (mg *Grant) ResolveReferences(ctx context.Context, c client.Reader) error {
 	mg.Spec.ForProvider.Schema = reference.ToPtrValue(rsp.ResolvedValue)
 	mg.Spec.ForProvider.SchemaRef = rsp.ResolvedReference
 	{
-		m, l, err = apisresolver.GetManagedResource("sharing.databricks.m.crossplane.io", "v1alpha1", "Share", "ShareList")
+		m, l, err = apisresolver.GetManagedResource("sharing.databricks.m.crossplane.io", "v1beta1", "Share", "ShareList")
 		if err != nil {
 			return errors.Wrap(err, "failed to get the reference target managed resource and its list for reference resolution")
 		}
@@ -522,7 +522,7 @@ func (mg *Grant) ResolveReferences(ctx context.Context, c client.Reader) error {
 	mg.Spec.InitProvider.Schema = reference.ToPtrValue(rsp.ResolvedValue)
 	mg.Spec.InitProvider.SchemaRef = rsp.ResolvedReference
 	{
-		m, l, err = apisresolver.GetManagedResource("sharing.databricks.m.crossplane.io", "v1alpha1", "Share", "ShareList")
+		m, l, err = apisresolver.GetManagedResource("sharing.databricks.m.crossplane.io", "v1beta1", "Share", "ShareList")
 		if err != nil {
 			return errors.Wrap(err, "failed to get the reference target managed resource and its list for reference resolution")
 		}
@@ -716,7 +716,7 @@ func (mg *GrantMap) ResolveReferences(ctx context.Context, c client.Reader) erro
 	mg.Spec.ForProvider.Schema = reference.ToPtrValue(rsp.ResolvedValue)
 	mg.Spec.ForProvider.SchemaRef = rsp.ResolvedReference
 	{
-		m, l, err = apisresolver.GetManagedResource("sharing.databricks.m.crossplane.io", "v1alpha1", "Share", "ShareList")
+		m, l, err = apisresolver.GetManagedResource("sharing.databricks.m.crossplane.io", "v1beta1", "Share", "ShareList")
 		if err != nil {
 			return errors.Wrap(err, "failed to get the reference target managed resource and its list for reference resolution")
 		}
@@ -898,7 +898,7 @@ func (mg *GrantMap) ResolveReferences(ctx context.Context, c client.Reader) erro
 	mg.Spec.InitProvider.Schema = reference.ToPtrValue(rsp.ResolvedValue)
 	mg.Spec.InitProvider.SchemaRef = rsp.ResolvedReference
 	{
-		m, l, err = apisresolver.GetManagedResource("sharing.databricks.m.crossplane.io", "v1alpha1", "Share", "ShareList")
+		m, l, err = apisresolver.GetManagedResource("sharing.databricks.m.crossplane.io", "v1beta1", "Share", "ShareList")
 		if err != nil {
 			return errors.Wrap(err, "failed to get the reference target managed resource and its list for reference resolution")
 		}

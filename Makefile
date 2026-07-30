@@ -249,6 +249,11 @@ crddiff: $(UPTEST)
 	done
 	@$(OK) Checking breaking CRD schema changes
 
+crd-breaking-check:
+	@$(INFO) Checking CRD backward compatibility against branch base
+	@./scripts/check_crd_breaking_changes.sh "$${BASE_REF:-main}" "$${HEAD_REF:-HEAD}"
+	@$(OK) Checking CRD backward compatibility against branch base
+
 schema-version-diff:
 	@$(INFO) Checking for native state schema version changes
 	@export PREV_PROVIDER_VERSION=$$(git cat-file -p "${GITHUB_BASE_REF}:Makefile" | sed -nr 's/^export[[:space:]]*TERRAFORM_PROVIDER_VERSION[[:space:]]*:=[[:space:]]*(.+)/\1/p'); \

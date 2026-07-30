@@ -135,7 +135,7 @@ type PolicyInfoInitParameters struct {
 	PolicyType *string `json:"policyType,omitempty" tf:"policy_type,omitempty"`
 
 	// Configure the provider for management through account provider.
-	ProviderConfig *ProviderConfigInitParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
+	ProviderConfig *PolicyInfoProviderConfigInitParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
 
 	// Options for row filter policies. Valid only if policy_type is POLICY_TYPE_ROW_FILTER.
 	// Required on create and optional on update. When specified on update,
@@ -195,7 +195,7 @@ type PolicyInfoObservation struct {
 	PolicyType *string `json:"policyType,omitempty" tf:"policy_type,omitempty"`
 
 	// Configure the provider for management through account provider.
-	ProviderConfig *ProviderConfigObservation `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
+	ProviderConfig *PolicyInfoProviderConfigObservation `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
 
 	// Options for row filter policies. Valid only if policy_type is POLICY_TYPE_ROW_FILTER.
 	// Required on create and optional on update. When specified on update,
@@ -261,7 +261,7 @@ type PolicyInfoParameters struct {
 
 	// Configure the provider for management through account provider.
 	// +kubebuilder:validation:Optional
-	ProviderConfig *ProviderConfigParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
+	ProviderConfig *PolicyInfoProviderConfigParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
 
 	// Options for row filter policies. Valid only if policy_type is POLICY_TYPE_ROW_FILTER.
 	// Required on create and optional on update. When specified on update,
@@ -279,19 +279,19 @@ type PolicyInfoParameters struct {
 	WhenCondition *string `json:"whenCondition,omitempty" tf:"when_condition,omitempty"`
 }
 
-type ProviderConfigInitParameters struct {
+type PolicyInfoProviderConfigInitParameters struct {
 
 	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
 	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
 }
 
-type ProviderConfigObservation struct {
+type PolicyInfoProviderConfigObservation struct {
 
 	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
 	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
 }
 
-type ProviderConfigParameters struct {
+type PolicyInfoProviderConfigParameters struct {
 
 	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
 	// +kubebuilder:validation:Optional
@@ -422,9 +422,10 @@ type PolicyInfoStatus struct {
 
 // +kubebuilder:object:root=true
 // +kubebuilder:subresource:status
-// +kubebuilder:storageversion
+// +kubebuilder:deprecatedversion:warning="This API version is deprecated. Please migrate to v1beta1."
 
 // PolicyInfo is the Schema for the PolicyInfos API.
+// Deprecated: This API version (v1alpha1) has been deprecated.
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"

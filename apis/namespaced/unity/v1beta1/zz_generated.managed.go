@@ -648,6 +648,26 @@ func (mg *OnlineTable) SetWriteConnectionSecretToReference(r *xpv2.LocalSecretRe
 	mg.Spec.WriteConnectionSecretToReference = r
 }
 
+// GetProviderConfigReference of this PolicyInfo.
+func (mg *PolicyInfo) GetProviderConfigReference() *xpv2.ProviderConfigReference {
+	return mg.Spec.ProviderConfigReference
+}
+
+// GetWriteConnectionSecretToReference of this PolicyInfo.
+func (mg *PolicyInfo) GetWriteConnectionSecretToReference() *xpv2.LocalSecretReference {
+	return mg.Spec.WriteConnectionSecretToReference
+}
+
+// SetProviderConfigReference of this PolicyInfo.
+func (mg *PolicyInfo) SetProviderConfigReference(r *xpv2.ProviderConfigReference) {
+	mg.Spec.ProviderConfigReference = r
+}
+
+// SetWriteConnectionSecretToReference of this PolicyInfo.
+func (mg *PolicyInfo) SetWriteConnectionSecretToReference(r *xpv2.LocalSecretReference) {
+	mg.Spec.WriteConnectionSecretToReference = r
+}
+
 // GetCondition of this QualityMonitor.
 func (mg *QualityMonitor) GetCondition(ct xpv2.ConditionType) xpv2.Condition {
 	return mg.Status.GetCondition(ct)

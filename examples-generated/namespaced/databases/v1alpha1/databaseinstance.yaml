@@ -6,7 +6,7 @@ apiVersion: databases.databricks.m.crossplane.io/v1alpha1
 kind: DatabaseInstance
 metadata:
   annotations:
-    meta.upbound.io/example-id: databases/v1alpha1/databaseinstance
+    meta.upbound.io/example-id: databases/v1beta1/databaseinstance
   labels:
     testing.upbound.io/example-name: this
   name: this
