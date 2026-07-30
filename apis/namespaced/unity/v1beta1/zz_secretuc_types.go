@@ -26,9 +26,6 @@ type SecretUcInitParameters struct {
 	// does not trigger any automatic actions or affect the secret's lifecycle
 	ExpireTime *string `json:"expireTime,omitempty" tf:"expire_time,omitempty"`
 
-	// The name of the secret, relative to its parent schema
-	Name *string `json:"name,omitempty" tf:"name,omitempty"`
-
 	// The owner of the secret. Defaults to the creating principal on creation. Can be updated to
 	// transfer ownership of the secret to another principal
 	Owner *string `json:"owner,omitempty" tf:"owner,omitempty"`
@@ -81,9 +78,6 @@ type SecretUcObservation struct {
 	// Unique identifier of the metastore hosting the secret
 	MetastoreID *string `json:"metastoreId,omitempty" tf:"metastore_id,omitempty"`
 
-	// The name of the secret, relative to its parent schema
-	Name *string `json:"name,omitempty" tf:"name,omitempty"`
-
 	// The owner of the secret. Defaults to the creating principal on creation. Can be updated to
 	// transfer ownership of the secret to another principal
 	Owner *string `json:"owner,omitempty" tf:"owner,omitempty"`
@@ -122,10 +116,6 @@ type SecretUcParameters struct {
 	// does not trigger any automatic actions or affect the secret's lifecycle
 	// +kubebuilder:validation:Optional
 	ExpireTime *string `json:"expireTime,omitempty" tf:"expire_time,omitempty"`
-
-	// The name of the secret, relative to its parent schema
-	// +kubebuilder:validation:Optional
-	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// The owner of the secret. Defaults to the creating principal on creation. Can be updated to
 	// transfer ownership of the secret to another principal
@@ -204,7 +194,6 @@ type SecretUc struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.catalogName) || (has(self.initProvider) && has(self.initProvider.catalogName))",message="spec.forProvider.catalogName is a required parameter"
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.name) || (has(self.initProvider) && has(self.initProvider.name))",message="spec.forProvider.name is a required parameter"
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.schemaName) || (has(self.initProvider) && has(self.initProvider.schemaName))",message="spec.forProvider.schemaName is a required parameter"
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.value) || (has(self.initProvider) && has(self.initProvider.value))",message="spec.forProvider.value is a required parameter"
 	Spec   SecretUcSpec   `json:"spec"`

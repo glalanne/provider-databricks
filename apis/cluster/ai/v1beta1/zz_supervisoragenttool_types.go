@@ -97,8 +97,6 @@ type SupervisorAgentToolObservation struct {
 
 	KnowledgeAssistant *SupervisorAgentToolKnowledgeAssistantObservation `json:"knowledgeAssistant,omitempty" tf:"knowledge_assistant,omitempty"`
 
-	Name *string `json:"name,omitempty" tf:"name,omitempty"`
-
 	Parent *string `json:"parent,omitempty" tf:"parent,omitempty"`
 
 	ProviderConfig *SupervisorAgentToolProviderConfigObservation `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`

@@ -57,7 +57,6 @@ type PostgresRoleInitParameters struct {
 	// The Branch where this Role exists.
 	// Format: projects/{project_id}/branches/{branch_id}
 	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/cluster/postgres/v1beta1.PostgresBranch
-	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/v2/pkg/resource.ExtractParamPath("name",true)
 	Parent *string `json:"parent,omitempty" tf:"parent,omitempty"`
 
 	// Reference to a PostgresBranch in postgres to populate parent.
@@ -89,10 +88,6 @@ type PostgresRoleObservation struct {
 
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
-	// Output only. The full resource path of the role.
-	// Format: projects/{project_id}/branches/{branch_id}/roles/{role_id}
-	Name *string `json:"name,omitempty" tf:"name,omitempty"`
-
 	// The Branch where this Role exists.
 	// Format: projects/{project_id}/branches/{branch_id}
 	Parent *string `json:"parent,omitempty" tf:"parent,omitempty"`
@@ -122,7 +117,6 @@ type PostgresRoleParameters struct {
 	// The Branch where this Role exists.
 	// Format: projects/{project_id}/branches/{branch_id}
 	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/cluster/postgres/v1beta1.PostgresBranch
-	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/v2/pkg/resource.ExtractParamPath("name",true)
 	// +kubebuilder:validation:Optional
 	Parent *string `json:"parent,omitempty" tf:"parent,omitempty"`
 

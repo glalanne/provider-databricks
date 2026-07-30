@@ -3586,16 +3586,6 @@ func (in *PermissionsInitParameters) DeepCopyInto(out *PermissionsInitParameters
 		*out = new(string)
 		**out = **in
 	}
-	if in.KnowledgeAssistantIDRef != nil {
-		in, out := &in.KnowledgeAssistantIDRef, &out.KnowledgeAssistantIDRef
-		*out = new(v2.NamespacedReference)
-		(*in).DeepCopyInto(*out)
-	}
-	if in.KnowledgeAssistantIDSelector != nil {
-		in, out := &in.KnowledgeAssistantIDSelector, &out.KnowledgeAssistantIDSelector
-		*out = new(v2.NamespacedSelector)
-		(*in).DeepCopyInto(*out)
-	}
 	if in.NotebookID != nil {
 		in, out := &in.NotebookID, &out.NotebookID
 		*out = new(string)
@@ -3767,16 +3757,6 @@ func (in *PermissionsInitParameters) DeepCopyInto(out *PermissionsInitParameters
 		in, out := &in.SupervisorAgentID, &out.SupervisorAgentID
 		*out = new(string)
 		**out = **in
-	}
-	if in.SupervisorAgentIDRef != nil {
-		in, out := &in.SupervisorAgentIDRef, &out.SupervisorAgentIDRef
-		*out = new(v2.NamespacedReference)
-		(*in).DeepCopyInto(*out)
-	}
-	if in.SupervisorAgentIDSelector != nil {
-		in, out := &in.SupervisorAgentIDSelector, &out.SupervisorAgentIDSelector
-		*out = new(v2.NamespacedSelector)
-		(*in).DeepCopyInto(*out)
 	}
 	if in.VectorSearchEndpointID != nil {
 		in, out := &in.VectorSearchEndpointID, &out.VectorSearchEndpointID
@@ -4211,16 +4191,6 @@ func (in *PermissionsParameters) DeepCopyInto(out *PermissionsParameters) {
 		*out = new(string)
 		**out = **in
 	}
-	if in.KnowledgeAssistantIDRef != nil {
-		in, out := &in.KnowledgeAssistantIDRef, &out.KnowledgeAssistantIDRef
-		*out = new(v2.NamespacedReference)
-		(*in).DeepCopyInto(*out)
-	}
-	if in.KnowledgeAssistantIDSelector != nil {
-		in, out := &in.KnowledgeAssistantIDSelector, &out.KnowledgeAssistantIDSelector
-		*out = new(v2.NamespacedSelector)
-		(*in).DeepCopyInto(*out)
-	}
 	if in.NotebookID != nil {
 		in, out := &in.NotebookID, &out.NotebookID
 		*out = new(string)
@@ -4392,16 +4362,6 @@ func (in *PermissionsParameters) DeepCopyInto(out *PermissionsParameters) {
 		in, out := &in.SupervisorAgentID, &out.SupervisorAgentID
 		*out = new(string)
 		**out = **in
-	}
-	if in.SupervisorAgentIDRef != nil {
-		in, out := &in.SupervisorAgentIDRef, &out.SupervisorAgentIDRef
-		*out = new(v2.NamespacedReference)
-		(*in).DeepCopyInto(*out)
-	}
-	if in.SupervisorAgentIDSelector != nil {
-		in, out := &in.SupervisorAgentIDSelector, &out.SupervisorAgentIDSelector
-		*out = new(v2.NamespacedSelector)
-		(*in).DeepCopyInto(*out)
 	}
 	if in.VectorSearchEndpointID != nil {
 		in, out := &in.VectorSearchEndpointID, &out.VectorSearchEndpointID

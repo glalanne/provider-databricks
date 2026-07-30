@@ -25,7 +25,6 @@ type PostgresCdfConfigInitParameters struct {
 	// The parent database under which to create the CdfConfig.
 	// Format: projects/{project}/branches/{branch}/databases/{database}
 	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/cluster/postgres/v1beta1.PostgresDatabase
-	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/v2/pkg/resource.ExtractParamPath("name",true)
 	Parent *string `json:"parent,omitempty" tf:"parent,omitempty"`
 
 	// Reference to a PostgresDatabase in postgres to populate parent.
@@ -61,10 +60,6 @@ type PostgresCdfConfigObservation struct {
 
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
-	// Output only. The full resource name of the CdfConfig.
-	// Format: projects/{project}/branches/{branch}/databases/{database}/cdf-configs/{cdf_config}
-	Name *string `json:"name,omitempty" tf:"name,omitempty"`
-
 	// The parent database under which to create the CdfConfig.
 	// Format: projects/{project}/branches/{branch}/databases/{database}
 	Parent *string `json:"parent,omitempty" tf:"parent,omitempty"`
@@ -94,7 +89,6 @@ type PostgresCdfConfigParameters struct {
 	// The parent database under which to create the CdfConfig.
 	// Format: projects/{project}/branches/{branch}/databases/{database}
 	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/cluster/postgres/v1beta1.PostgresDatabase
-	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/v2/pkg/resource.ExtractParamPath("name",true)
 	// +kubebuilder:validation:Optional
 	Parent *string `json:"parent,omitempty" tf:"parent,omitempty"`
 

@@ -21,7 +21,6 @@ spec:
     - time
     description: A stream of security related events in the critical services.
     entityType: Topic
-    name: security_events_stream
     properties:
       compression.enabled: "true"
       compression.format: zstd

@@ -8,19 +8,9 @@ package v1beta1
 
 import xpv2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 
-// GetCondition of this AccessControlRuleSet.
-func (mg *AccessControlRuleSet) GetCondition(ct xpv2.ConditionType) xpv2.Condition {
-	return mg.Status.GetCondition(ct)
-}
-
 // GetDeletionPolicy of this AccessControlRuleSet.
 func (mg *AccessControlRuleSet) GetDeletionPolicy() xpv2.DeletionPolicy {
 	return mg.Spec.DeletionPolicy
-}
-
-// GetManagementPolicies of this AccessControlRuleSet.
-func (mg *AccessControlRuleSet) GetManagementPolicies() xpv2.ManagementPolicies {
-	return mg.Spec.ManagementPolicies
 }
 
 // GetProviderConfigReference of this AccessControlRuleSet.
@@ -33,19 +23,9 @@ func (mg *AccessControlRuleSet) GetWriteConnectionSecretToReference() *xpv2.Secr
 	return mg.Spec.WriteConnectionSecretToReference
 }
 
-// SetConditions of this AccessControlRuleSet.
-func (mg *AccessControlRuleSet) SetConditions(c ...xpv2.Condition) {
-	mg.Status.SetConditions(c...)
-}
-
 // SetDeletionPolicy of this AccessControlRuleSet.
 func (mg *AccessControlRuleSet) SetDeletionPolicy(r xpv2.DeletionPolicy) {
 	mg.Spec.DeletionPolicy = r
-}
-
-// SetManagementPolicies of this AccessControlRuleSet.
-func (mg *AccessControlRuleSet) SetManagementPolicies(r xpv2.ManagementPolicies) {
-	mg.Spec.ManagementPolicies = r
 }
 
 // SetProviderConfigReference of this AccessControlRuleSet.
@@ -58,19 +38,9 @@ func (mg *AccessControlRuleSet) SetWriteConnectionSecretToReference(r *xpv2.Secr
 	mg.Spec.WriteConnectionSecretToReference = r
 }
 
-// GetCondition of this Entitlements.
-func (mg *Entitlements) GetCondition(ct xpv2.ConditionType) xpv2.Condition {
-	return mg.Status.GetCondition(ct)
-}
-
 // GetDeletionPolicy of this Entitlements.
 func (mg *Entitlements) GetDeletionPolicy() xpv2.DeletionPolicy {
 	return mg.Spec.DeletionPolicy
-}
-
-// GetManagementPolicies of this Entitlements.
-func (mg *Entitlements) GetManagementPolicies() xpv2.ManagementPolicies {
-	return mg.Spec.ManagementPolicies
 }
 
 // GetProviderConfigReference of this Entitlements.
@@ -83,19 +53,9 @@ func (mg *Entitlements) GetWriteConnectionSecretToReference() *xpv2.SecretRefere
 	return mg.Spec.WriteConnectionSecretToReference
 }
 
-// SetConditions of this Entitlements.
-func (mg *Entitlements) SetConditions(c ...xpv2.Condition) {
-	mg.Status.SetConditions(c...)
-}
-
 // SetDeletionPolicy of this Entitlements.
 func (mg *Entitlements) SetDeletionPolicy(r xpv2.DeletionPolicy) {
 	mg.Spec.DeletionPolicy = r
-}
-
-// SetManagementPolicies of this Entitlements.
-func (mg *Entitlements) SetManagementPolicies(r xpv2.ManagementPolicies) {
-	mg.Spec.ManagementPolicies = r
 }
 
 // SetProviderConfigReference of this Entitlements.
@@ -108,19 +68,9 @@ func (mg *Entitlements) SetWriteConnectionSecretToReference(r *xpv2.SecretRefere
 	mg.Spec.WriteConnectionSecretToReference = r
 }
 
-// GetCondition of this Group.
-func (mg *Group) GetCondition(ct xpv2.ConditionType) xpv2.Condition {
-	return mg.Status.GetCondition(ct)
-}
-
 // GetDeletionPolicy of this Group.
 func (mg *Group) GetDeletionPolicy() xpv2.DeletionPolicy {
 	return mg.Spec.DeletionPolicy
-}
-
-// GetManagementPolicies of this Group.
-func (mg *Group) GetManagementPolicies() xpv2.ManagementPolicies {
-	return mg.Spec.ManagementPolicies
 }
 
 // GetProviderConfigReference of this Group.
@@ -133,19 +83,9 @@ func (mg *Group) GetWriteConnectionSecretToReference() *xpv2.SecretReference {
 	return mg.Spec.WriteConnectionSecretToReference
 }
 
-// SetConditions of this Group.
-func (mg *Group) SetConditions(c ...xpv2.Condition) {
-	mg.Status.SetConditions(c...)
-}
-
 // SetDeletionPolicy of this Group.
 func (mg *Group) SetDeletionPolicy(r xpv2.DeletionPolicy) {
 	mg.Spec.DeletionPolicy = r
-}
-
-// SetManagementPolicies of this Group.
-func (mg *Group) SetManagementPolicies(r xpv2.ManagementPolicies) {
-	mg.Spec.ManagementPolicies = r
 }
 
 // SetProviderConfigReference of this Group.
@@ -158,19 +98,9 @@ func (mg *Group) SetWriteConnectionSecretToReference(r *xpv2.SecretReference) {
 	mg.Spec.WriteConnectionSecretToReference = r
 }
 
-// GetCondition of this GroupInstanceProfile.
-func (mg *GroupInstanceProfile) GetCondition(ct xpv2.ConditionType) xpv2.Condition {
-	return mg.Status.GetCondition(ct)
-}
-
 // GetDeletionPolicy of this GroupInstanceProfile.
 func (mg *GroupInstanceProfile) GetDeletionPolicy() xpv2.DeletionPolicy {
 	return mg.Spec.DeletionPolicy
-}
-
-// GetManagementPolicies of this GroupInstanceProfile.
-func (mg *GroupInstanceProfile) GetManagementPolicies() xpv2.ManagementPolicies {
-	return mg.Spec.ManagementPolicies
 }
 
 // GetProviderConfigReference of this GroupInstanceProfile.
@@ -183,19 +113,9 @@ func (mg *GroupInstanceProfile) GetWriteConnectionSecretToReference() *xpv2.Secr
 	return mg.Spec.WriteConnectionSecretToReference
 }
 
-// SetConditions of this GroupInstanceProfile.
-func (mg *GroupInstanceProfile) SetConditions(c ...xpv2.Condition) {
-	mg.Status.SetConditions(c...)
-}
-
 // SetDeletionPolicy of this GroupInstanceProfile.
 func (mg *GroupInstanceProfile) SetDeletionPolicy(r xpv2.DeletionPolicy) {
 	mg.Spec.DeletionPolicy = r
-}
-
-// SetManagementPolicies of this GroupInstanceProfile.
-func (mg *GroupInstanceProfile) SetManagementPolicies(r xpv2.ManagementPolicies) {
-	mg.Spec.ManagementPolicies = r
 }
 
 // SetProviderConfigReference of this GroupInstanceProfile.
@@ -208,19 +128,9 @@ func (mg *GroupInstanceProfile) SetWriteConnectionSecretToReference(r *xpv2.Secr
 	mg.Spec.WriteConnectionSecretToReference = r
 }
 
-// GetCondition of this GroupMember.
-func (mg *GroupMember) GetCondition(ct xpv2.ConditionType) xpv2.Condition {
-	return mg.Status.GetCondition(ct)
-}
-
 // GetDeletionPolicy of this GroupMember.
 func (mg *GroupMember) GetDeletionPolicy() xpv2.DeletionPolicy {
 	return mg.Spec.DeletionPolicy
-}
-
-// GetManagementPolicies of this GroupMember.
-func (mg *GroupMember) GetManagementPolicies() xpv2.ManagementPolicies {
-	return mg.Spec.ManagementPolicies
 }
 
 // GetProviderConfigReference of this GroupMember.
@@ -233,19 +143,9 @@ func (mg *GroupMember) GetWriteConnectionSecretToReference() *xpv2.SecretReferen
 	return mg.Spec.WriteConnectionSecretToReference
 }
 
-// SetConditions of this GroupMember.
-func (mg *GroupMember) SetConditions(c ...xpv2.Condition) {
-	mg.Status.SetConditions(c...)
-}
-
 // SetDeletionPolicy of this GroupMember.
 func (mg *GroupMember) SetDeletionPolicy(r xpv2.DeletionPolicy) {
 	mg.Spec.DeletionPolicy = r
-}
-
-// SetManagementPolicies of this GroupMember.
-func (mg *GroupMember) SetManagementPolicies(r xpv2.ManagementPolicies) {
-	mg.Spec.ManagementPolicies = r
 }
 
 // SetProviderConfigReference of this GroupMember.
@@ -258,19 +158,9 @@ func (mg *GroupMember) SetWriteConnectionSecretToReference(r *xpv2.SecretReferen
 	mg.Spec.WriteConnectionSecretToReference = r
 }
 
-// GetCondition of this GroupRole.
-func (mg *GroupRole) GetCondition(ct xpv2.ConditionType) xpv2.Condition {
-	return mg.Status.GetCondition(ct)
-}
-
 // GetDeletionPolicy of this GroupRole.
 func (mg *GroupRole) GetDeletionPolicy() xpv2.DeletionPolicy {
 	return mg.Spec.DeletionPolicy
-}
-
-// GetManagementPolicies of this GroupRole.
-func (mg *GroupRole) GetManagementPolicies() xpv2.ManagementPolicies {
-	return mg.Spec.ManagementPolicies
 }
 
 // GetProviderConfigReference of this GroupRole.
@@ -283,19 +173,9 @@ func (mg *GroupRole) GetWriteConnectionSecretToReference() *xpv2.SecretReference
 	return mg.Spec.WriteConnectionSecretToReference
 }
 
-// SetConditions of this GroupRole.
-func (mg *GroupRole) SetConditions(c ...xpv2.Condition) {
-	mg.Status.SetConditions(c...)
-}
-
 // SetDeletionPolicy of this GroupRole.
 func (mg *GroupRole) SetDeletionPolicy(r xpv2.DeletionPolicy) {
 	mg.Spec.DeletionPolicy = r
-}
-
-// SetManagementPolicies of this GroupRole.
-func (mg *GroupRole) SetManagementPolicies(r xpv2.ManagementPolicies) {
-	mg.Spec.ManagementPolicies = r
 }
 
 // SetProviderConfigReference of this GroupRole.
@@ -308,19 +188,9 @@ func (mg *GroupRole) SetWriteConnectionSecretToReference(r *xpv2.SecretReference
 	mg.Spec.WriteConnectionSecretToReference = r
 }
 
-// GetCondition of this IPAccessList.
-func (mg *IPAccessList) GetCondition(ct xpv2.ConditionType) xpv2.Condition {
-	return mg.Status.GetCondition(ct)
-}
-
 // GetDeletionPolicy of this IPAccessList.
 func (mg *IPAccessList) GetDeletionPolicy() xpv2.DeletionPolicy {
 	return mg.Spec.DeletionPolicy
-}
-
-// GetManagementPolicies of this IPAccessList.
-func (mg *IPAccessList) GetManagementPolicies() xpv2.ManagementPolicies {
-	return mg.Spec.ManagementPolicies
 }
 
 // GetProviderConfigReference of this IPAccessList.
@@ -333,19 +203,9 @@ func (mg *IPAccessList) GetWriteConnectionSecretToReference() *xpv2.SecretRefere
 	return mg.Spec.WriteConnectionSecretToReference
 }
 
-// SetConditions of this IPAccessList.
-func (mg *IPAccessList) SetConditions(c ...xpv2.Condition) {
-	mg.Status.SetConditions(c...)
-}
-
 // SetDeletionPolicy of this IPAccessList.
 func (mg *IPAccessList) SetDeletionPolicy(r xpv2.DeletionPolicy) {
 	mg.Spec.DeletionPolicy = r
-}
-
-// SetManagementPolicies of this IPAccessList.
-func (mg *IPAccessList) SetManagementPolicies(r xpv2.ManagementPolicies) {
-	mg.Spec.ManagementPolicies = r
 }
 
 // SetProviderConfigReference of this IPAccessList.
@@ -358,19 +218,9 @@ func (mg *IPAccessList) SetWriteConnectionSecretToReference(r *xpv2.SecretRefere
 	mg.Spec.WriteConnectionSecretToReference = r
 }
 
-// GetCondition of this MwsPermissionAssignment.
-func (mg *MwsPermissionAssignment) GetCondition(ct xpv2.ConditionType) xpv2.Condition {
-	return mg.Status.GetCondition(ct)
-}
-
 // GetDeletionPolicy of this MwsPermissionAssignment.
 func (mg *MwsPermissionAssignment) GetDeletionPolicy() xpv2.DeletionPolicy {
 	return mg.Spec.DeletionPolicy
-}
-
-// GetManagementPolicies of this MwsPermissionAssignment.
-func (mg *MwsPermissionAssignment) GetManagementPolicies() xpv2.ManagementPolicies {
-	return mg.Spec.ManagementPolicies
 }
 
 // GetProviderConfigReference of this MwsPermissionAssignment.
@@ -383,19 +233,9 @@ func (mg *MwsPermissionAssignment) GetWriteConnectionSecretToReference() *xpv2.S
 	return mg.Spec.WriteConnectionSecretToReference
 }
 
-// SetConditions of this MwsPermissionAssignment.
-func (mg *MwsPermissionAssignment) SetConditions(c ...xpv2.Condition) {
-	mg.Status.SetConditions(c...)
-}
-
 // SetDeletionPolicy of this MwsPermissionAssignment.
 func (mg *MwsPermissionAssignment) SetDeletionPolicy(r xpv2.DeletionPolicy) {
 	mg.Spec.DeletionPolicy = r
-}
-
-// SetManagementPolicies of this MwsPermissionAssignment.
-func (mg *MwsPermissionAssignment) SetManagementPolicies(r xpv2.ManagementPolicies) {
-	mg.Spec.ManagementPolicies = r
 }
 
 // SetProviderConfigReference of this MwsPermissionAssignment.
@@ -408,19 +248,9 @@ func (mg *MwsPermissionAssignment) SetWriteConnectionSecretToReference(r *xpv2.S
 	mg.Spec.WriteConnectionSecretToReference = r
 }
 
-// GetCondition of this OboToken.
-func (mg *OboToken) GetCondition(ct xpv2.ConditionType) xpv2.Condition {
-	return mg.Status.GetCondition(ct)
-}
-
 // GetDeletionPolicy of this OboToken.
 func (mg *OboToken) GetDeletionPolicy() xpv2.DeletionPolicy {
 	return mg.Spec.DeletionPolicy
-}
-
-// GetManagementPolicies of this OboToken.
-func (mg *OboToken) GetManagementPolicies() xpv2.ManagementPolicies {
-	return mg.Spec.ManagementPolicies
 }
 
 // GetProviderConfigReference of this OboToken.
@@ -433,19 +263,9 @@ func (mg *OboToken) GetWriteConnectionSecretToReference() *xpv2.SecretReference 
 	return mg.Spec.WriteConnectionSecretToReference
 }
 
-// SetConditions of this OboToken.
-func (mg *OboToken) SetConditions(c ...xpv2.Condition) {
-	mg.Status.SetConditions(c...)
-}
-
 // SetDeletionPolicy of this OboToken.
 func (mg *OboToken) SetDeletionPolicy(r xpv2.DeletionPolicy) {
 	mg.Spec.DeletionPolicy = r
-}
-
-// SetManagementPolicies of this OboToken.
-func (mg *OboToken) SetManagementPolicies(r xpv2.ManagementPolicies) {
-	mg.Spec.ManagementPolicies = r
 }
 
 // SetProviderConfigReference of this OboToken.
@@ -458,19 +278,9 @@ func (mg *OboToken) SetWriteConnectionSecretToReference(r *xpv2.SecretReference)
 	mg.Spec.WriteConnectionSecretToReference = r
 }
 
-// GetCondition of this PermissionAssignment.
-func (mg *PermissionAssignment) GetCondition(ct xpv2.ConditionType) xpv2.Condition {
-	return mg.Status.GetCondition(ct)
-}
-
 // GetDeletionPolicy of this PermissionAssignment.
 func (mg *PermissionAssignment) GetDeletionPolicy() xpv2.DeletionPolicy {
 	return mg.Spec.DeletionPolicy
-}
-
-// GetManagementPolicies of this PermissionAssignment.
-func (mg *PermissionAssignment) GetManagementPolicies() xpv2.ManagementPolicies {
-	return mg.Spec.ManagementPolicies
 }
 
 // GetProviderConfigReference of this PermissionAssignment.
@@ -483,19 +293,9 @@ func (mg *PermissionAssignment) GetWriteConnectionSecretToReference() *xpv2.Secr
 	return mg.Spec.WriteConnectionSecretToReference
 }
 
-// SetConditions of this PermissionAssignment.
-func (mg *PermissionAssignment) SetConditions(c ...xpv2.Condition) {
-	mg.Status.SetConditions(c...)
-}
-
 // SetDeletionPolicy of this PermissionAssignment.
 func (mg *PermissionAssignment) SetDeletionPolicy(r xpv2.DeletionPolicy) {
 	mg.Spec.DeletionPolicy = r
-}
-
-// SetManagementPolicies of this PermissionAssignment.
-func (mg *PermissionAssignment) SetManagementPolicies(r xpv2.ManagementPolicies) {
-	mg.Spec.ManagementPolicies = r
 }
 
 // SetProviderConfigReference of this PermissionAssignment.
@@ -508,19 +308,9 @@ func (mg *PermissionAssignment) SetWriteConnectionSecretToReference(r *xpv2.Secr
 	mg.Spec.WriteConnectionSecretToReference = r
 }
 
-// GetCondition of this Permissions.
-func (mg *Permissions) GetCondition(ct xpv2.ConditionType) xpv2.Condition {
-	return mg.Status.GetCondition(ct)
-}
-
 // GetDeletionPolicy of this Permissions.
 func (mg *Permissions) GetDeletionPolicy() xpv2.DeletionPolicy {
 	return mg.Spec.DeletionPolicy
-}
-
-// GetManagementPolicies of this Permissions.
-func (mg *Permissions) GetManagementPolicies() xpv2.ManagementPolicies {
-	return mg.Spec.ManagementPolicies
 }
 
 // GetProviderConfigReference of this Permissions.
@@ -533,19 +323,9 @@ func (mg *Permissions) GetWriteConnectionSecretToReference() *xpv2.SecretReferen
 	return mg.Spec.WriteConnectionSecretToReference
 }
 
-// SetConditions of this Permissions.
-func (mg *Permissions) SetConditions(c ...xpv2.Condition) {
-	mg.Status.SetConditions(c...)
-}
-
 // SetDeletionPolicy of this Permissions.
 func (mg *Permissions) SetDeletionPolicy(r xpv2.DeletionPolicy) {
 	mg.Spec.DeletionPolicy = r
-}
-
-// SetManagementPolicies of this Permissions.
-func (mg *Permissions) SetManagementPolicies(r xpv2.ManagementPolicies) {
-	mg.Spec.ManagementPolicies = r
 }
 
 // SetProviderConfigReference of this Permissions.
@@ -558,19 +338,9 @@ func (mg *Permissions) SetWriteConnectionSecretToReference(r *xpv2.SecretReferen
 	mg.Spec.WriteConnectionSecretToReference = r
 }
 
-// GetCondition of this SQLPermissions.
-func (mg *SQLPermissions) GetCondition(ct xpv2.ConditionType) xpv2.Condition {
-	return mg.Status.GetCondition(ct)
-}
-
 // GetDeletionPolicy of this SQLPermissions.
 func (mg *SQLPermissions) GetDeletionPolicy() xpv2.DeletionPolicy {
 	return mg.Spec.DeletionPolicy
-}
-
-// GetManagementPolicies of this SQLPermissions.
-func (mg *SQLPermissions) GetManagementPolicies() xpv2.ManagementPolicies {
-	return mg.Spec.ManagementPolicies
 }
 
 // GetProviderConfigReference of this SQLPermissions.
@@ -583,19 +353,9 @@ func (mg *SQLPermissions) GetWriteConnectionSecretToReference() *xpv2.SecretRefe
 	return mg.Spec.WriteConnectionSecretToReference
 }
 
-// SetConditions of this SQLPermissions.
-func (mg *SQLPermissions) SetConditions(c ...xpv2.Condition) {
-	mg.Status.SetConditions(c...)
-}
-
 // SetDeletionPolicy of this SQLPermissions.
 func (mg *SQLPermissions) SetDeletionPolicy(r xpv2.DeletionPolicy) {
 	mg.Spec.DeletionPolicy = r
-}
-
-// SetManagementPolicies of this SQLPermissions.
-func (mg *SQLPermissions) SetManagementPolicies(r xpv2.ManagementPolicies) {
-	mg.Spec.ManagementPolicies = r
 }
 
 // SetProviderConfigReference of this SQLPermissions.
@@ -608,19 +368,9 @@ func (mg *SQLPermissions) SetWriteConnectionSecretToReference(r *xpv2.SecretRefe
 	mg.Spec.WriteConnectionSecretToReference = r
 }
 
-// GetCondition of this Secret.
-func (mg *Secret) GetCondition(ct xpv2.ConditionType) xpv2.Condition {
-	return mg.Status.GetCondition(ct)
-}
-
 // GetDeletionPolicy of this Secret.
 func (mg *Secret) GetDeletionPolicy() xpv2.DeletionPolicy {
 	return mg.Spec.DeletionPolicy
-}
-
-// GetManagementPolicies of this Secret.
-func (mg *Secret) GetManagementPolicies() xpv2.ManagementPolicies {
-	return mg.Spec.ManagementPolicies
 }
 
 // GetProviderConfigReference of this Secret.
@@ -633,19 +383,9 @@ func (mg *Secret) GetWriteConnectionSecretToReference() *xpv2.SecretReference {
 	return mg.Spec.WriteConnectionSecretToReference
 }
 
-// SetConditions of this Secret.
-func (mg *Secret) SetConditions(c ...xpv2.Condition) {
-	mg.Status.SetConditions(c...)
-}
-
 // SetDeletionPolicy of this Secret.
 func (mg *Secret) SetDeletionPolicy(r xpv2.DeletionPolicy) {
 	mg.Spec.DeletionPolicy = r
-}
-
-// SetManagementPolicies of this Secret.
-func (mg *Secret) SetManagementPolicies(r xpv2.ManagementPolicies) {
-	mg.Spec.ManagementPolicies = r
 }
 
 // SetProviderConfigReference of this Secret.
@@ -658,19 +398,9 @@ func (mg *Secret) SetWriteConnectionSecretToReference(r *xpv2.SecretReference) {
 	mg.Spec.WriteConnectionSecretToReference = r
 }
 
-// GetCondition of this SecretACL.
-func (mg *SecretACL) GetCondition(ct xpv2.ConditionType) xpv2.Condition {
-	return mg.Status.GetCondition(ct)
-}
-
 // GetDeletionPolicy of this SecretACL.
 func (mg *SecretACL) GetDeletionPolicy() xpv2.DeletionPolicy {
 	return mg.Spec.DeletionPolicy
-}
-
-// GetManagementPolicies of this SecretACL.
-func (mg *SecretACL) GetManagementPolicies() xpv2.ManagementPolicies {
-	return mg.Spec.ManagementPolicies
 }
 
 // GetProviderConfigReference of this SecretACL.
@@ -683,19 +413,9 @@ func (mg *SecretACL) GetWriteConnectionSecretToReference() *xpv2.SecretReference
 	return mg.Spec.WriteConnectionSecretToReference
 }
 
-// SetConditions of this SecretACL.
-func (mg *SecretACL) SetConditions(c ...xpv2.Condition) {
-	mg.Status.SetConditions(c...)
-}
-
 // SetDeletionPolicy of this SecretACL.
 func (mg *SecretACL) SetDeletionPolicy(r xpv2.DeletionPolicy) {
 	mg.Spec.DeletionPolicy = r
-}
-
-// SetManagementPolicies of this SecretACL.
-func (mg *SecretACL) SetManagementPolicies(r xpv2.ManagementPolicies) {
-	mg.Spec.ManagementPolicies = r
 }
 
 // SetProviderConfigReference of this SecretACL.
@@ -708,19 +428,9 @@ func (mg *SecretACL) SetWriteConnectionSecretToReference(r *xpv2.SecretReference
 	mg.Spec.WriteConnectionSecretToReference = r
 }
 
-// GetCondition of this SecretScope.
-func (mg *SecretScope) GetCondition(ct xpv2.ConditionType) xpv2.Condition {
-	return mg.Status.GetCondition(ct)
-}
-
 // GetDeletionPolicy of this SecretScope.
 func (mg *SecretScope) GetDeletionPolicy() xpv2.DeletionPolicy {
 	return mg.Spec.DeletionPolicy
-}
-
-// GetManagementPolicies of this SecretScope.
-func (mg *SecretScope) GetManagementPolicies() xpv2.ManagementPolicies {
-	return mg.Spec.ManagementPolicies
 }
 
 // GetProviderConfigReference of this SecretScope.
@@ -733,19 +443,9 @@ func (mg *SecretScope) GetWriteConnectionSecretToReference() *xpv2.SecretReferen
 	return mg.Spec.WriteConnectionSecretToReference
 }
 
-// SetConditions of this SecretScope.
-func (mg *SecretScope) SetConditions(c ...xpv2.Condition) {
-	mg.Status.SetConditions(c...)
-}
-
 // SetDeletionPolicy of this SecretScope.
 func (mg *SecretScope) SetDeletionPolicy(r xpv2.DeletionPolicy) {
 	mg.Spec.DeletionPolicy = r
-}
-
-// SetManagementPolicies of this SecretScope.
-func (mg *SecretScope) SetManagementPolicies(r xpv2.ManagementPolicies) {
-	mg.Spec.ManagementPolicies = r
 }
 
 // SetProviderConfigReference of this SecretScope.
@@ -758,19 +458,9 @@ func (mg *SecretScope) SetWriteConnectionSecretToReference(r *xpv2.SecretReferen
 	mg.Spec.WriteConnectionSecretToReference = r
 }
 
-// GetCondition of this ServicePrincipal.
-func (mg *ServicePrincipal) GetCondition(ct xpv2.ConditionType) xpv2.Condition {
-	return mg.Status.GetCondition(ct)
-}
-
 // GetDeletionPolicy of this ServicePrincipal.
 func (mg *ServicePrincipal) GetDeletionPolicy() xpv2.DeletionPolicy {
 	return mg.Spec.DeletionPolicy
-}
-
-// GetManagementPolicies of this ServicePrincipal.
-func (mg *ServicePrincipal) GetManagementPolicies() xpv2.ManagementPolicies {
-	return mg.Spec.ManagementPolicies
 }
 
 // GetProviderConfigReference of this ServicePrincipal.
@@ -783,19 +473,9 @@ func (mg *ServicePrincipal) GetWriteConnectionSecretToReference() *xpv2.SecretRe
 	return mg.Spec.WriteConnectionSecretToReference
 }
 
-// SetConditions of this ServicePrincipal.
-func (mg *ServicePrincipal) SetConditions(c ...xpv2.Condition) {
-	mg.Status.SetConditions(c...)
-}
-
 // SetDeletionPolicy of this ServicePrincipal.
 func (mg *ServicePrincipal) SetDeletionPolicy(r xpv2.DeletionPolicy) {
 	mg.Spec.DeletionPolicy = r
-}
-
-// SetManagementPolicies of this ServicePrincipal.
-func (mg *ServicePrincipal) SetManagementPolicies(r xpv2.ManagementPolicies) {
-	mg.Spec.ManagementPolicies = r
 }
 
 // SetProviderConfigReference of this ServicePrincipal.
@@ -808,19 +488,9 @@ func (mg *ServicePrincipal) SetWriteConnectionSecretToReference(r *xpv2.SecretRe
 	mg.Spec.WriteConnectionSecretToReference = r
 }
 
-// GetCondition of this ServicePrincipalRole.
-func (mg *ServicePrincipalRole) GetCondition(ct xpv2.ConditionType) xpv2.Condition {
-	return mg.Status.GetCondition(ct)
-}
-
 // GetDeletionPolicy of this ServicePrincipalRole.
 func (mg *ServicePrincipalRole) GetDeletionPolicy() xpv2.DeletionPolicy {
 	return mg.Spec.DeletionPolicy
-}
-
-// GetManagementPolicies of this ServicePrincipalRole.
-func (mg *ServicePrincipalRole) GetManagementPolicies() xpv2.ManagementPolicies {
-	return mg.Spec.ManagementPolicies
 }
 
 // GetProviderConfigReference of this ServicePrincipalRole.
@@ -833,19 +503,9 @@ func (mg *ServicePrincipalRole) GetWriteConnectionSecretToReference() *xpv2.Secr
 	return mg.Spec.WriteConnectionSecretToReference
 }
 
-// SetConditions of this ServicePrincipalRole.
-func (mg *ServicePrincipalRole) SetConditions(c ...xpv2.Condition) {
-	mg.Status.SetConditions(c...)
-}
-
 // SetDeletionPolicy of this ServicePrincipalRole.
 func (mg *ServicePrincipalRole) SetDeletionPolicy(r xpv2.DeletionPolicy) {
 	mg.Spec.DeletionPolicy = r
-}
-
-// SetManagementPolicies of this ServicePrincipalRole.
-func (mg *ServicePrincipalRole) SetManagementPolicies(r xpv2.ManagementPolicies) {
-	mg.Spec.ManagementPolicies = r
 }
 
 // SetProviderConfigReference of this ServicePrincipalRole.
@@ -858,19 +518,9 @@ func (mg *ServicePrincipalRole) SetWriteConnectionSecretToReference(r *xpv2.Secr
 	mg.Spec.WriteConnectionSecretToReference = r
 }
 
-// GetCondition of this ServicePrincipalSecret.
-func (mg *ServicePrincipalSecret) GetCondition(ct xpv2.ConditionType) xpv2.Condition {
-	return mg.Status.GetCondition(ct)
-}
-
 // GetDeletionPolicy of this ServicePrincipalSecret.
 func (mg *ServicePrincipalSecret) GetDeletionPolicy() xpv2.DeletionPolicy {
 	return mg.Spec.DeletionPolicy
-}
-
-// GetManagementPolicies of this ServicePrincipalSecret.
-func (mg *ServicePrincipalSecret) GetManagementPolicies() xpv2.ManagementPolicies {
-	return mg.Spec.ManagementPolicies
 }
 
 // GetProviderConfigReference of this ServicePrincipalSecret.
@@ -883,19 +533,9 @@ func (mg *ServicePrincipalSecret) GetWriteConnectionSecretToReference() *xpv2.Se
 	return mg.Spec.WriteConnectionSecretToReference
 }
 
-// SetConditions of this ServicePrincipalSecret.
-func (mg *ServicePrincipalSecret) SetConditions(c ...xpv2.Condition) {
-	mg.Status.SetConditions(c...)
-}
-
 // SetDeletionPolicy of this ServicePrincipalSecret.
 func (mg *ServicePrincipalSecret) SetDeletionPolicy(r xpv2.DeletionPolicy) {
 	mg.Spec.DeletionPolicy = r
-}
-
-// SetManagementPolicies of this ServicePrincipalSecret.
-func (mg *ServicePrincipalSecret) SetManagementPolicies(r xpv2.ManagementPolicies) {
-	mg.Spec.ManagementPolicies = r
 }
 
 // SetProviderConfigReference of this ServicePrincipalSecret.
@@ -908,19 +548,9 @@ func (mg *ServicePrincipalSecret) SetWriteConnectionSecretToReference(r *xpv2.Se
 	mg.Spec.WriteConnectionSecretToReference = r
 }
 
-// GetCondition of this Token.
-func (mg *Token) GetCondition(ct xpv2.ConditionType) xpv2.Condition {
-	return mg.Status.GetCondition(ct)
-}
-
 // GetDeletionPolicy of this Token.
 func (mg *Token) GetDeletionPolicy() xpv2.DeletionPolicy {
 	return mg.Spec.DeletionPolicy
-}
-
-// GetManagementPolicies of this Token.
-func (mg *Token) GetManagementPolicies() xpv2.ManagementPolicies {
-	return mg.Spec.ManagementPolicies
 }
 
 // GetProviderConfigReference of this Token.
@@ -933,19 +563,9 @@ func (mg *Token) GetWriteConnectionSecretToReference() *xpv2.SecretReference {
 	return mg.Spec.WriteConnectionSecretToReference
 }
 
-// SetConditions of this Token.
-func (mg *Token) SetConditions(c ...xpv2.Condition) {
-	mg.Status.SetConditions(c...)
-}
-
 // SetDeletionPolicy of this Token.
 func (mg *Token) SetDeletionPolicy(r xpv2.DeletionPolicy) {
 	mg.Spec.DeletionPolicy = r
-}
-
-// SetManagementPolicies of this Token.
-func (mg *Token) SetManagementPolicies(r xpv2.ManagementPolicies) {
-	mg.Spec.ManagementPolicies = r
 }
 
 // SetProviderConfigReference of this Token.
@@ -958,19 +578,9 @@ func (mg *Token) SetWriteConnectionSecretToReference(r *xpv2.SecretReference) {
 	mg.Spec.WriteConnectionSecretToReference = r
 }
 
-// GetCondition of this User.
-func (mg *User) GetCondition(ct xpv2.ConditionType) xpv2.Condition {
-	return mg.Status.GetCondition(ct)
-}
-
 // GetDeletionPolicy of this User.
 func (mg *User) GetDeletionPolicy() xpv2.DeletionPolicy {
 	return mg.Spec.DeletionPolicy
-}
-
-// GetManagementPolicies of this User.
-func (mg *User) GetManagementPolicies() xpv2.ManagementPolicies {
-	return mg.Spec.ManagementPolicies
 }
 
 // GetProviderConfigReference of this User.
@@ -983,19 +593,9 @@ func (mg *User) GetWriteConnectionSecretToReference() *xpv2.SecretReference {
 	return mg.Spec.WriteConnectionSecretToReference
 }
 
-// SetConditions of this User.
-func (mg *User) SetConditions(c ...xpv2.Condition) {
-	mg.Status.SetConditions(c...)
-}
-
 // SetDeletionPolicy of this User.
 func (mg *User) SetDeletionPolicy(r xpv2.DeletionPolicy) {
 	mg.Spec.DeletionPolicy = r
-}
-
-// SetManagementPolicies of this User.
-func (mg *User) SetManagementPolicies(r xpv2.ManagementPolicies) {
-	mg.Spec.ManagementPolicies = r
 }
 
 // SetProviderConfigReference of this User.
@@ -1008,19 +608,9 @@ func (mg *User) SetWriteConnectionSecretToReference(r *xpv2.SecretReference) {
 	mg.Spec.WriteConnectionSecretToReference = r
 }
 
-// GetCondition of this UserInstanceProfile.
-func (mg *UserInstanceProfile) GetCondition(ct xpv2.ConditionType) xpv2.Condition {
-	return mg.Status.GetCondition(ct)
-}
-
 // GetDeletionPolicy of this UserInstanceProfile.
 func (mg *UserInstanceProfile) GetDeletionPolicy() xpv2.DeletionPolicy {
 	return mg.Spec.DeletionPolicy
-}
-
-// GetManagementPolicies of this UserInstanceProfile.
-func (mg *UserInstanceProfile) GetManagementPolicies() xpv2.ManagementPolicies {
-	return mg.Spec.ManagementPolicies
 }
 
 // GetProviderConfigReference of this UserInstanceProfile.
@@ -1033,19 +623,9 @@ func (mg *UserInstanceProfile) GetWriteConnectionSecretToReference() *xpv2.Secre
 	return mg.Spec.WriteConnectionSecretToReference
 }
 
-// SetConditions of this UserInstanceProfile.
-func (mg *UserInstanceProfile) SetConditions(c ...xpv2.Condition) {
-	mg.Status.SetConditions(c...)
-}
-
 // SetDeletionPolicy of this UserInstanceProfile.
 func (mg *UserInstanceProfile) SetDeletionPolicy(r xpv2.DeletionPolicy) {
 	mg.Spec.DeletionPolicy = r
-}
-
-// SetManagementPolicies of this UserInstanceProfile.
-func (mg *UserInstanceProfile) SetManagementPolicies(r xpv2.ManagementPolicies) {
-	mg.Spec.ManagementPolicies = r
 }
 
 // SetProviderConfigReference of this UserInstanceProfile.
@@ -1058,19 +638,9 @@ func (mg *UserInstanceProfile) SetWriteConnectionSecretToReference(r *xpv2.Secre
 	mg.Spec.WriteConnectionSecretToReference = r
 }
 
-// GetCondition of this UserRole.
-func (mg *UserRole) GetCondition(ct xpv2.ConditionType) xpv2.Condition {
-	return mg.Status.GetCondition(ct)
-}
-
 // GetDeletionPolicy of this UserRole.
 func (mg *UserRole) GetDeletionPolicy() xpv2.DeletionPolicy {
 	return mg.Spec.DeletionPolicy
-}
-
-// GetManagementPolicies of this UserRole.
-func (mg *UserRole) GetManagementPolicies() xpv2.ManagementPolicies {
-	return mg.Spec.ManagementPolicies
 }
 
 // GetProviderConfigReference of this UserRole.
@@ -1083,19 +653,9 @@ func (mg *UserRole) GetWriteConnectionSecretToReference() *xpv2.SecretReference 
 	return mg.Spec.WriteConnectionSecretToReference
 }
 
-// SetConditions of this UserRole.
-func (mg *UserRole) SetConditions(c ...xpv2.Condition) {
-	mg.Status.SetConditions(c...)
-}
-
 // SetDeletionPolicy of this UserRole.
 func (mg *UserRole) SetDeletionPolicy(r xpv2.DeletionPolicy) {
 	mg.Spec.DeletionPolicy = r
-}
-
-// SetManagementPolicies of this UserRole.
-func (mg *UserRole) SetManagementPolicies(r xpv2.ManagementPolicies) {
-	mg.Spec.ManagementPolicies = r
 }
 
 // SetProviderConfigReference of this UserRole.

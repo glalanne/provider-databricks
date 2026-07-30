@@ -255,8 +255,6 @@ spec:
                     type: object
                   knowledgeCutoffTime:
                     type: string
-                  name:
-                    type: string
                   parent:
                     type: string
                   providerConfig:

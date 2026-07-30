@@ -537,11 +537,6 @@ spec:
                     type: string
                   id:
                     type: string
-                  name:
-                    description: |-
-                      The resource name of this singleton resource.
-                      Format: default-workspace-base-environment
-                    type: string
                   providerConfig:
                     description: Configure the provider for management through account
                       provider.

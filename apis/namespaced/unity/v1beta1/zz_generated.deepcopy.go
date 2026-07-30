@@ -5120,11 +5120,6 @@ func (in *ExternalMetadataInitParameters) DeepCopyInto(out *ExternalMetadataInit
 		*out = new(string)
 		**out = **in
 	}
-	if in.Name != nil {
-		in, out := &in.Name, &out.Name
-		*out = new(string)
-		**out = **in
-	}
 	if in.Owner != nil {
 		in, out := &in.Owner, &out.Owner
 		*out = new(string)
@@ -5249,11 +5244,6 @@ func (in *ExternalMetadataObservation) DeepCopyInto(out *ExternalMetadataObserva
 		*out = new(string)
 		**out = **in
 	}
-	if in.Name != nil {
-		in, out := &in.Name, &out.Name
-		*out = new(string)
-		**out = **in
-	}
 	if in.Owner != nil {
 		in, out := &in.Owner, &out.Owner
 		*out = new(string)
@@ -5333,11 +5323,6 @@ func (in *ExternalMetadataParameters) DeepCopyInto(out *ExternalMetadataParamete
 	}
 	if in.EntityType != nil {
 		in, out := &in.EntityType, &out.EntityType
-		*out = new(string)
-		**out = **in
-	}
-	if in.Name != nil {
-		in, out := &in.Name, &out.Name
 		*out = new(string)
 		**out = **in
 	}
@@ -12330,13 +12315,17 @@ func (in *QualityMonitorInitParameters) DeepCopyInto(out *QualityMonitorInitPara
 	}
 	if in.DataClassificationConfig != nil {
 		in, out := &in.DataClassificationConfig, &out.DataClassificationConfig
-		*out = new(QualityMonitorDataClassificationConfigInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]QualityMonitorDataClassificationConfigInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.InferenceLog != nil {
 		in, out := &in.InferenceLog, &out.InferenceLog
-		*out = new(QualityMonitorInferenceLogInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]QualityMonitorInferenceLogInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.LatestMonitorFailureMsg != nil {
 		in, out := &in.LatestMonitorFailureMsg, &out.LatestMonitorFailureMsg
@@ -12345,8 +12334,10 @@ func (in *QualityMonitorInitParameters) DeepCopyInto(out *QualityMonitorInitPara
 	}
 	if in.Notifications != nil {
 		in, out := &in.Notifications, &out.Notifications
-		*out = new(QualityMonitorNotificationsInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]QualityMonitorNotificationsInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.OutputSchemaName != nil {
 		in, out := &in.OutputSchemaName, &out.OutputSchemaName
@@ -12355,13 +12346,17 @@ func (in *QualityMonitorInitParameters) DeepCopyInto(out *QualityMonitorInitPara
 	}
 	if in.ProviderConfig != nil {
 		in, out := &in.ProviderConfig, &out.ProviderConfig
-		*out = new(QualityMonitorProviderConfigInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]QualityMonitorProviderConfigInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Schedule != nil {
 		in, out := &in.Schedule, &out.Schedule
-		*out = new(QualityMonitorScheduleInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]QualityMonitorScheduleInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.SkipBuiltinDashboard != nil {
 		in, out := &in.SkipBuiltinDashboard, &out.SkipBuiltinDashboard
@@ -12381,8 +12376,8 @@ func (in *QualityMonitorInitParameters) DeepCopyInto(out *QualityMonitorInitPara
 	}
 	if in.Snapshot != nil {
 		in, out := &in.Snapshot, &out.Snapshot
-		*out = new(QualityMonitorSnapshotInitParameters)
-		**out = **in
+		*out = make([]QualityMonitorSnapshotInitParameters, len(*in))
+		copy(*out, *in)
 	}
 	if in.TableName != nil {
 		in, out := &in.TableName, &out.TableName
@@ -12391,8 +12386,10 @@ func (in *QualityMonitorInitParameters) DeepCopyInto(out *QualityMonitorInitPara
 	}
 	if in.TimeSeries != nil {
 		in, out := &in.TimeSeries, &out.TimeSeries
-		*out = new(QualityMonitorTimeSeriesInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]QualityMonitorTimeSeriesInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.WarehouseID != nil {
 		in, out := &in.WarehouseID, &out.WarehouseID
@@ -12448,13 +12445,17 @@ func (in *QualityMonitorNotificationsInitParameters) DeepCopyInto(out *QualityMo
 	*out = *in
 	if in.OnFailure != nil {
 		in, out := &in.OnFailure, &out.OnFailure
-		*out = new(NotificationsOnFailureInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]NotificationsOnFailureInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.OnNewClassificationTagDetected != nil {
 		in, out := &in.OnNewClassificationTagDetected, &out.OnNewClassificationTagDetected
-		*out = new(NotificationsOnNewClassificationTagDetectedInitParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]NotificationsOnNewClassificationTagDetectedInitParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 }
 
@@ -12473,13 +12474,17 @@ func (in *QualityMonitorNotificationsObservation) DeepCopyInto(out *QualityMonit
 	*out = *in
 	if in.OnFailure != nil {
 		in, out := &in.OnFailure, &out.OnFailure
-		*out = new(NotificationsOnFailureObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]NotificationsOnFailureObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.OnNewClassificationTagDetected != nil {
 		in, out := &in.OnNewClassificationTagDetected, &out.OnNewClassificationTagDetected
-		*out = new(NotificationsOnNewClassificationTagDetectedObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]NotificationsOnNewClassificationTagDetectedObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 }
 
@@ -12498,13 +12503,17 @@ func (in *QualityMonitorNotificationsParameters) DeepCopyInto(out *QualityMonito
 	*out = *in
 	if in.OnFailure != nil {
 		in, out := &in.OnFailure, &out.OnFailure
-		*out = new(NotificationsOnFailureParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]NotificationsOnFailureParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.OnNewClassificationTagDetected != nil {
 		in, out := &in.OnNewClassificationTagDetected, &out.OnNewClassificationTagDetected
-		*out = new(NotificationsOnNewClassificationTagDetectedParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]NotificationsOnNewClassificationTagDetectedParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 }
 
@@ -12545,8 +12554,10 @@ func (in *QualityMonitorObservation) DeepCopyInto(out *QualityMonitorObservation
 	}
 	if in.DataClassificationConfig != nil {
 		in, out := &in.DataClassificationConfig, &out.DataClassificationConfig
-		*out = new(QualityMonitorDataClassificationConfigObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]QualityMonitorDataClassificationConfigObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.DriftMetricsTableName != nil {
 		in, out := &in.DriftMetricsTableName, &out.DriftMetricsTableName
@@ -12560,8 +12571,10 @@ func (in *QualityMonitorObservation) DeepCopyInto(out *QualityMonitorObservation
 	}
 	if in.InferenceLog != nil {
 		in, out := &in.InferenceLog, &out.InferenceLog
-		*out = new(QualityMonitorInferenceLogObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]QualityMonitorInferenceLogObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.LatestMonitorFailureMsg != nil {
 		in, out := &in.LatestMonitorFailureMsg, &out.LatestMonitorFailureMsg
@@ -12575,8 +12588,10 @@ func (in *QualityMonitorObservation) DeepCopyInto(out *QualityMonitorObservation
 	}
 	if in.Notifications != nil {
 		in, out := &in.Notifications, &out.Notifications
-		*out = new(QualityMonitorNotificationsObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]QualityMonitorNotificationsObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.OutputSchemaName != nil {
 		in, out := &in.OutputSchemaName, &out.OutputSchemaName
@@ -12590,13 +12605,17 @@ func (in *QualityMonitorObservation) DeepCopyInto(out *QualityMonitorObservation
 	}
 	if in.ProviderConfig != nil {
 		in, out := &in.ProviderConfig, &out.ProviderConfig
-		*out = new(QualityMonitorProviderConfigObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]QualityMonitorProviderConfigObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Schedule != nil {
 		in, out := &in.Schedule, &out.Schedule
-		*out = new(QualityMonitorScheduleObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]QualityMonitorScheduleObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.SkipBuiltinDashboard != nil {
 		in, out := &in.SkipBuiltinDashboard, &out.SkipBuiltinDashboard
@@ -12616,8 +12635,8 @@ func (in *QualityMonitorObservation) DeepCopyInto(out *QualityMonitorObservation
 	}
 	if in.Snapshot != nil {
 		in, out := &in.Snapshot, &out.Snapshot
-		*out = new(QualityMonitorSnapshotParameters)
-		**out = **in
+		*out = make([]QualityMonitorSnapshotParameters, len(*in))
+		copy(*out, *in)
 	}
 	if in.Status != nil {
 		in, out := &in.Status, &out.Status
@@ -12631,8 +12650,10 @@ func (in *QualityMonitorObservation) DeepCopyInto(out *QualityMonitorObservation
 	}
 	if in.TimeSeries != nil {
 		in, out := &in.TimeSeries, &out.TimeSeries
-		*out = new(QualityMonitorTimeSeriesObservation)
-		(*in).DeepCopyInto(*out)
+		*out = make([]QualityMonitorTimeSeriesObservation, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.WarehouseID != nil {
 		in, out := &in.WarehouseID, &out.WarehouseID
@@ -12673,13 +12694,17 @@ func (in *QualityMonitorParameters) DeepCopyInto(out *QualityMonitorParameters) 
 	}
 	if in.DataClassificationConfig != nil {
 		in, out := &in.DataClassificationConfig, &out.DataClassificationConfig
-		*out = new(QualityMonitorDataClassificationConfigParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]QualityMonitorDataClassificationConfigParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.InferenceLog != nil {
 		in, out := &in.InferenceLog, &out.InferenceLog
-		*out = new(QualityMonitorInferenceLogParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]QualityMonitorInferenceLogParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.LatestMonitorFailureMsg != nil {
 		in, out := &in.LatestMonitorFailureMsg, &out.LatestMonitorFailureMsg
@@ -12688,8 +12713,10 @@ func (in *QualityMonitorParameters) DeepCopyInto(out *QualityMonitorParameters) 
 	}
 	if in.Notifications != nil {
 		in, out := &in.Notifications, &out.Notifications
-		*out = new(QualityMonitorNotificationsParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]QualityMonitorNotificationsParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.OutputSchemaName != nil {
 		in, out := &in.OutputSchemaName, &out.OutputSchemaName
@@ -12698,13 +12725,17 @@ func (in *QualityMonitorParameters) DeepCopyInto(out *QualityMonitorParameters) 
 	}
 	if in.ProviderConfig != nil {
 		in, out := &in.ProviderConfig, &out.ProviderConfig
-		*out = new(QualityMonitorProviderConfigParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]QualityMonitorProviderConfigParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.Schedule != nil {
 		in, out := &in.Schedule, &out.Schedule
-		*out = new(QualityMonitorScheduleParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]QualityMonitorScheduleParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.SkipBuiltinDashboard != nil {
 		in, out := &in.SkipBuiltinDashboard, &out.SkipBuiltinDashboard
@@ -12724,8 +12755,8 @@ func (in *QualityMonitorParameters) DeepCopyInto(out *QualityMonitorParameters) 
 	}
 	if in.Snapshot != nil {
 		in, out := &in.Snapshot, &out.Snapshot
-		*out = new(QualityMonitorSnapshotParameters)
-		**out = **in
+		*out = make([]QualityMonitorSnapshotParameters, len(*in))
+		copy(*out, *in)
 	}
 	if in.TableName != nil {
 		in, out := &in.TableName, &out.TableName
@@ -12734,8 +12765,10 @@ func (in *QualityMonitorParameters) DeepCopyInto(out *QualityMonitorParameters) 
 	}
 	if in.TimeSeries != nil {
 		in, out := &in.TimeSeries, &out.TimeSeries
-		*out = new(QualityMonitorTimeSeriesParameters)
-		(*in).DeepCopyInto(*out)
+		*out = make([]QualityMonitorTimeSeriesParameters, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
 	}
 	if in.WarehouseID != nil {
 		in, out := &in.WarehouseID, &out.WarehouseID
@@ -15243,11 +15276,6 @@ func (in *SecretUcInitParameters) DeepCopyInto(out *SecretUcInitParameters) {
 		*out = new(string)
 		**out = **in
 	}
-	if in.Name != nil {
-		in, out := &in.Name, &out.Name
-		*out = new(string)
-		**out = **in
-	}
 	if in.Owner != nil {
 		in, out := &in.Owner, &out.Owner
 		*out = new(string)
@@ -15365,11 +15393,6 @@ func (in *SecretUcObservation) DeepCopyInto(out *SecretUcObservation) {
 		*out = new(string)
 		**out = **in
 	}
-	if in.Name != nil {
-		in, out := &in.Name, &out.Name
-		*out = new(string)
-		**out = **in
-	}
 	if in.Owner != nil {
 		in, out := &in.Owner, &out.Owner
 		*out = new(string)
@@ -15427,11 +15450,6 @@ func (in *SecretUcParameters) DeepCopyInto(out *SecretUcParameters) {
 	}
 	if in.ExpireTime != nil {
 		in, out := &in.ExpireTime, &out.ExpireTime
-		*out = new(string)
-		**out = **in
-	}
-	if in.Name != nil {
-		in, out := &in.Name, &out.Name
 		*out = new(string)
 		**out = **in
 	}

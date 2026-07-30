@@ -42,8 +42,6 @@ type KnowledgeAssistantObservation struct {
 
 	Instructions *string `json:"instructions,omitempty" tf:"instructions,omitempty"`
 
-	Name *string `json:"name,omitempty" tf:"name,omitempty"`
-
 	ProviderConfig *KnowledgeAssistantProviderConfigObservation `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
 
 	State *string `json:"state,omitempty" tf:"state,omitempty"`

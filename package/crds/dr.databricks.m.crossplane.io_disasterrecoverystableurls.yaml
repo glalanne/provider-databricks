@@ -204,11 +204,6 @@ spec:
                       requests to associate the stable URL with a workspace. Not returned in
                       responses
                     type: string
-                  name:
-                    description: |-
-                      Fully qualified resource name.
-                      Format: accounts/{account_id}/stable-urls/{stable_url_id}
-                    type: string
                   parent:
                     description: 'The parent resource. Format: accounts/{account_id}'
                     type: string

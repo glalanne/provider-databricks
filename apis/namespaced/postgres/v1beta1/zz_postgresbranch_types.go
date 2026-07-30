@@ -21,7 +21,6 @@ type PostgresBranchInitParameters struct {
 	// The project containing this branch (API resource hierarchy).
 	// Format: projects/{project_id}
 	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/namespaced/postgres/v1beta1.PostgresProject
-	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/v2/pkg/resource.ExtractParamPath("name",true)
 	Parent *string `json:"parent,omitempty" tf:"parent,omitempty"`
 
 	// Reference to a PostgresProject in postgres to populate parent.
@@ -54,10 +53,6 @@ type PostgresBranchObservation struct {
 	CreateTime *string `json:"createTime,omitempty" tf:"create_time,omitempty"`
 
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
-
-	// Output only. The full resource path of the branch.
-	// Format: projects/{project_id}/branches/{branch_id}
-	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// The project containing this branch (API resource hierarchy).
 	// Format: projects/{project_id}
@@ -94,7 +89,6 @@ type PostgresBranchParameters struct {
 	// The project containing this branch (API resource hierarchy).
 	// Format: projects/{project_id}
 	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/namespaced/postgres/v1beta1.PostgresProject
-	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/v2/pkg/resource.ExtractParamPath("name",true)
 	// +kubebuilder:validation:Optional
 	Parent *string `json:"parent,omitempty" tf:"parent,omitempty"`
 

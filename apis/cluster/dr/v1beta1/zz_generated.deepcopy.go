@@ -217,11 +217,6 @@ func (in *DisasterRecoveryFailoverGroupObservation) DeepCopyInto(out *DisasterRe
 		*out = new(string)
 		**out = **in
 	}
-	if in.Name != nil {
-		in, out := &in.Name, &out.Name
-		*out = new(string)
-		**out = **in
-	}
 	if in.Parent != nil {
 		in, out := &in.Parent, &out.Parent
 		*out = new(string)
@@ -474,11 +469,6 @@ func (in *DisasterRecoveryStableURLObservation) DeepCopyInto(out *DisasterRecove
 	}
 	if in.InitialWorkspaceID != nil {
 		in, out := &in.InitialWorkspaceID, &out.InitialWorkspaceID
-		*out = new(string)
-		**out = **in
-	}
-	if in.Name != nil {
-		in, out := &in.Name, &out.Name
 		*out = new(string)
 		**out = **in
 	}

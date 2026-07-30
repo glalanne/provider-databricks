@@ -8,16 +8,6 @@ package v1beta1
 
 import xpv2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 
-// GetCondition of this DbfsFile.
-func (mg *DbfsFile) GetCondition(ct xpv2.ConditionType) xpv2.Condition {
-	return mg.Status.GetCondition(ct)
-}
-
-// GetManagementPolicies of this DbfsFile.
-func (mg *DbfsFile) GetManagementPolicies() xpv2.ManagementPolicies {
-	return mg.Spec.ManagementPolicies
-}
-
 // GetProviderConfigReference of this DbfsFile.
 func (mg *DbfsFile) GetProviderConfigReference() *xpv2.ProviderConfigReference {
 	return mg.Spec.ProviderConfigReference
@@ -26,16 +16,6 @@ func (mg *DbfsFile) GetProviderConfigReference() *xpv2.ProviderConfigReference {
 // GetWriteConnectionSecretToReference of this DbfsFile.
 func (mg *DbfsFile) GetWriteConnectionSecretToReference() *xpv2.LocalSecretReference {
 	return mg.Spec.WriteConnectionSecretToReference
-}
-
-// SetConditions of this DbfsFile.
-func (mg *DbfsFile) SetConditions(c ...xpv2.Condition) {
-	mg.Status.SetConditions(c...)
-}
-
-// SetManagementPolicies of this DbfsFile.
-func (mg *DbfsFile) SetManagementPolicies(r xpv2.ManagementPolicies) {
-	mg.Spec.ManagementPolicies = r
 }
 
 // SetProviderConfigReference of this DbfsFile.
@@ -48,16 +28,6 @@ func (mg *DbfsFile) SetWriteConnectionSecretToReference(r *xpv2.LocalSecretRefer
 	mg.Spec.WriteConnectionSecretToReference = r
 }
 
-// GetCondition of this File.
-func (mg *File) GetCondition(ct xpv2.ConditionType) xpv2.Condition {
-	return mg.Status.GetCondition(ct)
-}
-
-// GetManagementPolicies of this File.
-func (mg *File) GetManagementPolicies() xpv2.ManagementPolicies {
-	return mg.Spec.ManagementPolicies
-}
-
 // GetProviderConfigReference of this File.
 func (mg *File) GetProviderConfigReference() *xpv2.ProviderConfigReference {
 	return mg.Spec.ProviderConfigReference
@@ -66,16 +36,6 @@ func (mg *File) GetProviderConfigReference() *xpv2.ProviderConfigReference {
 // GetWriteConnectionSecretToReference of this File.
 func (mg *File) GetWriteConnectionSecretToReference() *xpv2.LocalSecretReference {
 	return mg.Spec.WriteConnectionSecretToReference
-}
-
-// SetConditions of this File.
-func (mg *File) SetConditions(c ...xpv2.Condition) {
-	mg.Status.SetConditions(c...)
-}
-
-// SetManagementPolicies of this File.
-func (mg *File) SetManagementPolicies(r xpv2.ManagementPolicies) {
-	mg.Spec.ManagementPolicies = r
 }
 
 // SetProviderConfigReference of this File.
@@ -88,16 +48,6 @@ func (mg *File) SetWriteConnectionSecretToReference(r *xpv2.LocalSecretReference
 	mg.Spec.WriteConnectionSecretToReference = r
 }
 
-// GetCondition of this Mount.
-func (mg *Mount) GetCondition(ct xpv2.ConditionType) xpv2.Condition {
-	return mg.Status.GetCondition(ct)
-}
-
-// GetManagementPolicies of this Mount.
-func (mg *Mount) GetManagementPolicies() xpv2.ManagementPolicies {
-	return mg.Spec.ManagementPolicies
-}
-
 // GetProviderConfigReference of this Mount.
 func (mg *Mount) GetProviderConfigReference() *xpv2.ProviderConfigReference {
 	return mg.Spec.ProviderConfigReference
@@ -106,16 +56,6 @@ func (mg *Mount) GetProviderConfigReference() *xpv2.ProviderConfigReference {
 // GetWriteConnectionSecretToReference of this Mount.
 func (mg *Mount) GetWriteConnectionSecretToReference() *xpv2.LocalSecretReference {
 	return mg.Spec.WriteConnectionSecretToReference
-}
-
-// SetConditions of this Mount.
-func (mg *Mount) SetConditions(c ...xpv2.Condition) {
-	mg.Status.SetConditions(c...)
-}
-
-// SetManagementPolicies of this Mount.
-func (mg *Mount) SetManagementPolicies(r xpv2.ManagementPolicies) {
-	mg.Spec.ManagementPolicies = r
 }
 
 // SetProviderConfigReference of this Mount.

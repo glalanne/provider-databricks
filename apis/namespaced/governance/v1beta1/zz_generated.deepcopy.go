@@ -213,11 +213,6 @@ func (in *DataClassificationCatalogConfigObservation) DeepCopyInto(out *DataClas
 		*out = new(IncludedSchemasObservation)
 		(*in).DeepCopyInto(*out)
 	}
-	if in.Name != nil {
-		in, out := &in.Name, &out.Name
-		*out = new(string)
-		**out = **in
-	}
 	if in.Parent != nil {
 		in, out := &in.Parent, &out.Parent
 		*out = new(string)

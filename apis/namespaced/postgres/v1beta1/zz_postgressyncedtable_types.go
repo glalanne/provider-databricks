@@ -141,10 +141,6 @@ type PostgresSyncedTableObservation struct {
 
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
-	// Output only. The Full resource name of the synced table in Postgres
-	// where (catalog, schema, table) are the UC entity names.
-	Name *string `json:"name,omitempty" tf:"name,omitempty"`
-
 	// Configure the provider for management through account provider.
 	ProviderConfig *PostgresSyncedTableProviderConfigObservation `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
 

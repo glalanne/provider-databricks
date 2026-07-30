@@ -364,9 +364,6 @@ spec:
                       Initial primary region. Used only in Create requests to set the starting
                       primary region. Not returned in responses
                     type: string
-                  name:
-                    description: Resource name for this location
-                    type: string
                   parent:
                     description: 'The parent resource. Format: accounts/{account_id}'
                     type: string

@@ -310,9 +310,6 @@ spec:
                           type: string
                         type: array
                     type: object
-                  name:
-                    description: 'Resource name in the format: catalogs/{catalog_name}/config'
-                    type: string
                   parent:
                     description: 'Parent resource in the format: catalogs/{catalog_name}'
                     type: string

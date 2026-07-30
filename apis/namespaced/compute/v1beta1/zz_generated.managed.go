@@ -8,16 +8,6 @@ package v1beta1
 
 import xpv2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 
-// GetCondition of this Cluster.
-func (mg *Cluster) GetCondition(ct xpv2.ConditionType) xpv2.Condition {
-	return mg.Status.GetCondition(ct)
-}
-
-// GetManagementPolicies of this Cluster.
-func (mg *Cluster) GetManagementPolicies() xpv2.ManagementPolicies {
-	return mg.Spec.ManagementPolicies
-}
-
 // GetProviderConfigReference of this Cluster.
 func (mg *Cluster) GetProviderConfigReference() *xpv2.ProviderConfigReference {
 	return mg.Spec.ProviderConfigReference
@@ -26,16 +16,6 @@ func (mg *Cluster) GetProviderConfigReference() *xpv2.ProviderConfigReference {
 // GetWriteConnectionSecretToReference of this Cluster.
 func (mg *Cluster) GetWriteConnectionSecretToReference() *xpv2.LocalSecretReference {
 	return mg.Spec.WriteConnectionSecretToReference
-}
-
-// SetConditions of this Cluster.
-func (mg *Cluster) SetConditions(c ...xpv2.Condition) {
-	mg.Status.SetConditions(c...)
-}
-
-// SetManagementPolicies of this Cluster.
-func (mg *Cluster) SetManagementPolicies(r xpv2.ManagementPolicies) {
-	mg.Spec.ManagementPolicies = r
 }
 
 // SetProviderConfigReference of this Cluster.
@@ -48,16 +28,6 @@ func (mg *Cluster) SetWriteConnectionSecretToReference(r *xpv2.LocalSecretRefere
 	mg.Spec.WriteConnectionSecretToReference = r
 }
 
-// GetCondition of this ClusterPolicy.
-func (mg *ClusterPolicy) GetCondition(ct xpv2.ConditionType) xpv2.Condition {
-	return mg.Status.GetCondition(ct)
-}
-
-// GetManagementPolicies of this ClusterPolicy.
-func (mg *ClusterPolicy) GetManagementPolicies() xpv2.ManagementPolicies {
-	return mg.Spec.ManagementPolicies
-}
-
 // GetProviderConfigReference of this ClusterPolicy.
 func (mg *ClusterPolicy) GetProviderConfigReference() *xpv2.ProviderConfigReference {
 	return mg.Spec.ProviderConfigReference
@@ -66,16 +36,6 @@ func (mg *ClusterPolicy) GetProviderConfigReference() *xpv2.ProviderConfigRefere
 // GetWriteConnectionSecretToReference of this ClusterPolicy.
 func (mg *ClusterPolicy) GetWriteConnectionSecretToReference() *xpv2.LocalSecretReference {
 	return mg.Spec.WriteConnectionSecretToReference
-}
-
-// SetConditions of this ClusterPolicy.
-func (mg *ClusterPolicy) SetConditions(c ...xpv2.Condition) {
-	mg.Status.SetConditions(c...)
-}
-
-// SetManagementPolicies of this ClusterPolicy.
-func (mg *ClusterPolicy) SetManagementPolicies(r xpv2.ManagementPolicies) {
-	mg.Spec.ManagementPolicies = r
 }
 
 // SetProviderConfigReference of this ClusterPolicy.
@@ -88,16 +48,6 @@ func (mg *ClusterPolicy) SetWriteConnectionSecretToReference(r *xpv2.LocalSecret
 	mg.Spec.WriteConnectionSecretToReference = r
 }
 
-// GetCondition of this InstancePool.
-func (mg *InstancePool) GetCondition(ct xpv2.ConditionType) xpv2.Condition {
-	return mg.Status.GetCondition(ct)
-}
-
-// GetManagementPolicies of this InstancePool.
-func (mg *InstancePool) GetManagementPolicies() xpv2.ManagementPolicies {
-	return mg.Spec.ManagementPolicies
-}
-
 // GetProviderConfigReference of this InstancePool.
 func (mg *InstancePool) GetProviderConfigReference() *xpv2.ProviderConfigReference {
 	return mg.Spec.ProviderConfigReference
@@ -106,16 +56,6 @@ func (mg *InstancePool) GetProviderConfigReference() *xpv2.ProviderConfigReferen
 // GetWriteConnectionSecretToReference of this InstancePool.
 func (mg *InstancePool) GetWriteConnectionSecretToReference() *xpv2.LocalSecretReference {
 	return mg.Spec.WriteConnectionSecretToReference
-}
-
-// SetConditions of this InstancePool.
-func (mg *InstancePool) SetConditions(c ...xpv2.Condition) {
-	mg.Status.SetConditions(c...)
-}
-
-// SetManagementPolicies of this InstancePool.
-func (mg *InstancePool) SetManagementPolicies(r xpv2.ManagementPolicies) {
-	mg.Spec.ManagementPolicies = r
 }
 
 // SetProviderConfigReference of this InstancePool.
@@ -128,16 +68,6 @@ func (mg *InstancePool) SetWriteConnectionSecretToReference(r *xpv2.LocalSecretR
 	mg.Spec.WriteConnectionSecretToReference = r
 }
 
-// GetCondition of this Job.
-func (mg *Job) GetCondition(ct xpv2.ConditionType) xpv2.Condition {
-	return mg.Status.GetCondition(ct)
-}
-
-// GetManagementPolicies of this Job.
-func (mg *Job) GetManagementPolicies() xpv2.ManagementPolicies {
-	return mg.Spec.ManagementPolicies
-}
-
 // GetProviderConfigReference of this Job.
 func (mg *Job) GetProviderConfigReference() *xpv2.ProviderConfigReference {
 	return mg.Spec.ProviderConfigReference
@@ -146,16 +76,6 @@ func (mg *Job) GetProviderConfigReference() *xpv2.ProviderConfigReference {
 // GetWriteConnectionSecretToReference of this Job.
 func (mg *Job) GetWriteConnectionSecretToReference() *xpv2.LocalSecretReference {
 	return mg.Spec.WriteConnectionSecretToReference
-}
-
-// SetConditions of this Job.
-func (mg *Job) SetConditions(c ...xpv2.Condition) {
-	mg.Status.SetConditions(c...)
-}
-
-// SetManagementPolicies of this Job.
-func (mg *Job) SetManagementPolicies(r xpv2.ManagementPolicies) {
-	mg.Spec.ManagementPolicies = r
 }
 
 // SetProviderConfigReference of this Job.
@@ -168,16 +88,6 @@ func (mg *Job) SetWriteConnectionSecretToReference(r *xpv2.LocalSecretReference)
 	mg.Spec.WriteConnectionSecretToReference = r
 }
 
-// GetCondition of this Library.
-func (mg *Library) GetCondition(ct xpv2.ConditionType) xpv2.Condition {
-	return mg.Status.GetCondition(ct)
-}
-
-// GetManagementPolicies of this Library.
-func (mg *Library) GetManagementPolicies() xpv2.ManagementPolicies {
-	return mg.Spec.ManagementPolicies
-}
-
 // GetProviderConfigReference of this Library.
 func (mg *Library) GetProviderConfigReference() *xpv2.ProviderConfigReference {
 	return mg.Spec.ProviderConfigReference
@@ -186,16 +96,6 @@ func (mg *Library) GetProviderConfigReference() *xpv2.ProviderConfigReference {
 // GetWriteConnectionSecretToReference of this Library.
 func (mg *Library) GetWriteConnectionSecretToReference() *xpv2.LocalSecretReference {
 	return mg.Spec.WriteConnectionSecretToReference
-}
-
-// SetConditions of this Library.
-func (mg *Library) SetConditions(c ...xpv2.Condition) {
-	mg.Status.SetConditions(c...)
-}
-
-// SetManagementPolicies of this Library.
-func (mg *Library) SetManagementPolicies(r xpv2.ManagementPolicies) {
-	mg.Spec.ManagementPolicies = r
 }
 
 // SetProviderConfigReference of this Library.
@@ -208,16 +108,6 @@ func (mg *Library) SetWriteConnectionSecretToReference(r *xpv2.LocalSecretRefere
 	mg.Spec.WriteConnectionSecretToReference = r
 }
 
-// GetCondition of this Pipeline.
-func (mg *Pipeline) GetCondition(ct xpv2.ConditionType) xpv2.Condition {
-	return mg.Status.GetCondition(ct)
-}
-
-// GetManagementPolicies of this Pipeline.
-func (mg *Pipeline) GetManagementPolicies() xpv2.ManagementPolicies {
-	return mg.Spec.ManagementPolicies
-}
-
 // GetProviderConfigReference of this Pipeline.
 func (mg *Pipeline) GetProviderConfigReference() *xpv2.ProviderConfigReference {
 	return mg.Spec.ProviderConfigReference
@@ -226,16 +116,6 @@ func (mg *Pipeline) GetProviderConfigReference() *xpv2.ProviderConfigReference {
 // GetWriteConnectionSecretToReference of this Pipeline.
 func (mg *Pipeline) GetWriteConnectionSecretToReference() *xpv2.LocalSecretReference {
 	return mg.Spec.WriteConnectionSecretToReference
-}
-
-// SetConditions of this Pipeline.
-func (mg *Pipeline) SetConditions(c ...xpv2.Condition) {
-	mg.Status.SetConditions(c...)
-}
-
-// SetManagementPolicies of this Pipeline.
-func (mg *Pipeline) SetManagementPolicies(r xpv2.ManagementPolicies) {
-	mg.Spec.ManagementPolicies = r
 }
 
 // SetProviderConfigReference of this Pipeline.

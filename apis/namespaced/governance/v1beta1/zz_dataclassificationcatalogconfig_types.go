@@ -90,9 +90,6 @@ type DataClassificationCatalogConfigObservation struct {
 	// If neither included_schemas nor excluded_schemas is set, all schemas are scanned
 	IncludedSchemas *IncludedSchemasObservation `json:"includedSchemas,omitempty" tf:"included_schemas,omitempty"`
 
-	// Resource name in the format: catalogs/{catalog_name}/config
-	Name *string `json:"name,omitempty" tf:"name,omitempty"`
-
 	// Parent resource in the format: catalogs/{catalog_name}
 	Parent *string `json:"parent,omitempty" tf:"parent,omitempty"`
 

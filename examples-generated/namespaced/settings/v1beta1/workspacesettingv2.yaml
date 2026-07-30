@@ -15,4 +15,3 @@ spec:
   forProvider:
     booleanVal:
       value: false
-    name: llm_proxy_partner_powered

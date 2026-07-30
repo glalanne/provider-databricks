@@ -51,9 +51,6 @@ type AccountSettingV2InitParameters struct {
 	// Setting value for integer type setting. This is the setting value set by consumers, check effective_integer_val for final setting value
 	IntegerVal *IntegerValInitParameters `json:"integerVal,omitempty" tf:"integer_val,omitempty"`
 
-	// Name of the setting
-	Name *string `json:"name,omitempty" tf:"name,omitempty"`
-
 	// Setting value for operational_email_custom_recipient setting. This is the setting value set by consumers, check effective_operational_email_custom_recipient for final setting value
 	OperationalEmailCustomRecipient *OperationalEmailCustomRecipientInitParameters `json:"operationalEmailCustomRecipient,omitempty" tf:"operational_email_custom_recipient,omitempty"`
 
@@ -125,9 +122,6 @@ type AccountSettingV2Observation struct {
 	// Setting value for integer type setting. This is the setting value set by consumers, check effective_integer_val for final setting value
 	IntegerVal *IntegerValObservation `json:"integerVal,omitempty" tf:"integer_val,omitempty"`
 
-	// Name of the setting
-	Name *string `json:"name,omitempty" tf:"name,omitempty"`
-
 	// Setting value for operational_email_custom_recipient setting. This is the setting value set by consumers, check effective_operational_email_custom_recipient for final setting value
 	OperationalEmailCustomRecipient *OperationalEmailCustomRecipientObservation `json:"operationalEmailCustomRecipient,omitempty" tf:"operational_email_custom_recipient,omitempty"`
 
@@ -190,10 +184,6 @@ type AccountSettingV2Parameters struct {
 	// Setting value for integer type setting. This is the setting value set by consumers, check effective_integer_val for final setting value
 	// +kubebuilder:validation:Optional
 	IntegerVal *IntegerValParameters `json:"integerVal,omitempty" tf:"integer_val,omitempty"`
-
-	// Name of the setting
-	// +kubebuilder:validation:Optional
-	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// Setting value for operational_email_custom_recipient setting. This is the setting value set by consumers, check effective_operational_email_custom_recipient for final setting value
 	// +kubebuilder:validation:Optional

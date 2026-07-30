@@ -11,7 +11,6 @@ import (
 	"context"
 	reference "github.com/crossplane/crossplane-runtime/v2/pkg/reference"
 	xpresource "github.com/crossplane/crossplane-runtime/v2/pkg/resource"
-	resource "github.com/crossplane/upjet/v2/pkg/resource"
 	apisresolver "github.com/glalanne/provider-databricks/internal/apis"
 	errors "github.com/pkg/errors"
 	client "sigs.k8s.io/controller-runtime/pkg/client"
@@ -33,7 +32,7 @@ func (mg *PostgresBranch) ResolveReferences( // ResolveReferences of this Postgr
 
 		rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
 			CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.Parent),
-			Extract:      resource.ExtractParamPath("name", true),
+			Extract:      reference.ExternalName(),
 			Namespace:    mg.GetNamespace(),
 			Reference:    mg.Spec.ForProvider.ParentRef,
 			Selector:     mg.Spec.ForProvider.ParentSelector,
@@ -53,7 +52,7 @@ func (mg *PostgresBranch) ResolveReferences( // ResolveReferences of this Postgr
 
 		rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
 			CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.Parent),
-			Extract:      resource.ExtractParamPath("name", true),
+			Extract:      reference.ExternalName(),
 			Namespace:    mg.GetNamespace(),
 			Reference:    mg.Spec.InitProvider.ParentRef,
 			Selector:     mg.Spec.InitProvider.ParentSelector,
@@ -85,7 +84,7 @@ func (mg *PostgresCdfConfig) ResolveReferences(ctx context.Context, c client.Rea
 
 		rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
 			CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.Parent),
-			Extract:      resource.ExtractParamPath("name", true),
+			Extract:      reference.ExternalName(),
 			Namespace:    mg.GetNamespace(),
 			Reference:    mg.Spec.ForProvider.ParentRef,
 			Selector:     mg.Spec.ForProvider.ParentSelector,
@@ -105,7 +104,7 @@ func (mg *PostgresCdfConfig) ResolveReferences(ctx context.Context, c client.Rea
 
 		rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
 			CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.Parent),
-			Extract:      resource.ExtractParamPath("name", true),
+			Extract:      reference.ExternalName(),
 			Namespace:    mg.GetNamespace(),
 			Reference:    mg.Spec.InitProvider.ParentRef,
 			Selector:     mg.Spec.InitProvider.ParentSelector,
@@ -137,7 +136,7 @@ func (mg *PostgresDatabase) ResolveReferences(ctx context.Context, c client.Read
 
 		rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
 			CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.Parent),
-			Extract:      resource.ExtractParamPath("name", true),
+			Extract:      reference.ExternalName(),
 			Namespace:    mg.GetNamespace(),
 			Reference:    mg.Spec.ForProvider.ParentRef,
 			Selector:     mg.Spec.ForProvider.ParentSelector,
@@ -157,7 +156,7 @@ func (mg *PostgresDatabase) ResolveReferences(ctx context.Context, c client.Read
 
 		rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
 			CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.Parent),
-			Extract:      resource.ExtractParamPath("name", true),
+			Extract:      reference.ExternalName(),
 			Namespace:    mg.GetNamespace(),
 			Reference:    mg.Spec.InitProvider.ParentRef,
 			Selector:     mg.Spec.InitProvider.ParentSelector,
@@ -189,7 +188,7 @@ func (mg *PostgresEndpoint) ResolveReferences(ctx context.Context, c client.Read
 
 		rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
 			CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.Parent),
-			Extract:      resource.ExtractParamPath("name", true),
+			Extract:      reference.ExternalName(),
 			Namespace:    mg.GetNamespace(),
 			Reference:    mg.Spec.ForProvider.ParentRef,
 			Selector:     mg.Spec.ForProvider.ParentSelector,
@@ -209,7 +208,7 @@ func (mg *PostgresEndpoint) ResolveReferences(ctx context.Context, c client.Read
 
 		rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
 			CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.Parent),
-			Extract:      resource.ExtractParamPath("name", true),
+			Extract:      reference.ExternalName(),
 			Namespace:    mg.GetNamespace(),
 			Reference:    mg.Spec.InitProvider.ParentRef,
 			Selector:     mg.Spec.InitProvider.ParentSelector,
@@ -241,7 +240,7 @@ func (mg *PostgresRole) ResolveReferences(ctx context.Context, c client.Reader) 
 
 		rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
 			CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.Parent),
-			Extract:      resource.ExtractParamPath("name", true),
+			Extract:      reference.ExternalName(),
 			Namespace:    mg.GetNamespace(),
 			Reference:    mg.Spec.ForProvider.ParentRef,
 			Selector:     mg.Spec.ForProvider.ParentSelector,
@@ -261,7 +260,7 @@ func (mg *PostgresRole) ResolveReferences(ctx context.Context, c client.Reader) 
 
 		rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
 			CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.Parent),
-			Extract:      resource.ExtractParamPath("name", true),
+			Extract:      reference.ExternalName(),
 			Namespace:    mg.GetNamespace(),
 			Reference:    mg.Spec.InitProvider.ParentRef,
 			Selector:     mg.Spec.InitProvider.ParentSelector,

@@ -391,11 +391,6 @@ spec:
                     type: string
                   id:
                     type: string
-                  name:
-                    description: |-
-                      Output only. The full resource name of the CdfConfig.
-                      Format: projects/{project}/branches/{branch}/databases/{database}/cdf-configs/{cdf_config}
-                    type: string
                   parent:
                     description: |-
                       The parent database under which to create the CdfConfig.

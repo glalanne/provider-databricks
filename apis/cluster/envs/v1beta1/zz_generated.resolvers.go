@@ -11,7 +11,6 @@ import (
 	"context"
 	reference "github.com/crossplane/crossplane-runtime/v2/pkg/reference"
 	xpresource "github.com/crossplane/crossplane-runtime/v2/pkg/resource"
-	resource "github.com/crossplane/upjet/v2/pkg/resource"
 	apisresolver "github.com/glalanne/provider-databricks/internal/apis"
 	errors "github.com/pkg/errors"
 	client "sigs.k8s.io/controller-runtime/pkg/client"
@@ -33,7 +32,7 @@ func (mg *EnvironmentsDefaultWorkspaceBaseEnvironment) ResolveReferences( // Res
 
 		rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 			CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.CPUWorkspaceBaseEnvironment),
-			Extract:      resource.ExtractParamPath("name", true),
+			Extract:      reference.ExternalName(),
 			Namespace:    mg.GetNamespace(),
 			Reference:    mg.Spec.ForProvider.CPUWorkspaceBaseEnvironmentRef,
 			Selector:     mg.Spec.ForProvider.CPUWorkspaceBaseEnvironmentSelector,
@@ -53,7 +52,7 @@ func (mg *EnvironmentsDefaultWorkspaceBaseEnvironment) ResolveReferences( // Res
 
 		rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 			CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.GpuWorkspaceBaseEnvironment),
-			Extract:      resource.ExtractParamPath("name", true),
+			Extract:      reference.ExternalName(),
 			Namespace:    mg.GetNamespace(),
 			Reference:    mg.Spec.ForProvider.GpuWorkspaceBaseEnvironmentRef,
 			Selector:     mg.Spec.ForProvider.GpuWorkspaceBaseEnvironmentSelector,
@@ -73,7 +72,7 @@ func (mg *EnvironmentsDefaultWorkspaceBaseEnvironment) ResolveReferences( // Res
 
 		rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 			CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.CPUWorkspaceBaseEnvironment),
-			Extract:      resource.ExtractParamPath("name", true),
+			Extract:      reference.ExternalName(),
 			Namespace:    mg.GetNamespace(),
 			Reference:    mg.Spec.InitProvider.CPUWorkspaceBaseEnvironmentRef,
 			Selector:     mg.Spec.InitProvider.CPUWorkspaceBaseEnvironmentSelector,
@@ -93,7 +92,7 @@ func (mg *EnvironmentsDefaultWorkspaceBaseEnvironment) ResolveReferences( // Res
 
 		rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 			CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.GpuWorkspaceBaseEnvironment),
-			Extract:      resource.ExtractParamPath("name", true),
+			Extract:      reference.ExternalName(),
 			Namespace:    mg.GetNamespace(),
 			Reference:    mg.Spec.InitProvider.GpuWorkspaceBaseEnvironmentRef,
 			Selector:     mg.Spec.InitProvider.GpuWorkspaceBaseEnvironmentSelector,

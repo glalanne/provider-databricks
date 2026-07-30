@@ -64,10 +64,6 @@ type EnvironmentsWorkspaceBaseEnvironmentObservation struct {
 	// Status message providing additional details about the environment status
 	Message *string `json:"message,omitempty" tf:"message,omitempty"`
 
-	// The resource name of the workspace base environment.
-	// Format: workspace-base-environments/{workspace-base-environment}
-	Name *string `json:"name,omitempty" tf:"name,omitempty"`
-
 	// Configure the provider for management through account provider.
 	ProviderConfig *EnvironmentsWorkspaceBaseEnvironmentProviderConfigObservation `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
 

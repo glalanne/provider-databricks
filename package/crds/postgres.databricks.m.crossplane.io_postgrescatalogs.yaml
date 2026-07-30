@@ -216,9 +216,6 @@ spec:
                     type: string
                   id:
                     type: string
-                  name:
-                    description: Output only. The full resource path of the catalog.
-                    type: string
                   providerConfig:
                     description: Configure the provider for management through account
                       provider.

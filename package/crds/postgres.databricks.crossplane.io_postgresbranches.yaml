@@ -476,11 +476,6 @@ spec:
                     type: string
                   id:
                     type: string
-                  name:
-                    description: |-
-                      Output only. The full resource path of the branch.
-                      Format: projects/{project_id}/branches/{branch_id}
-                    type: string
                   parent:
                     description: |-
                       The project containing this branch (API resource hierarchy).

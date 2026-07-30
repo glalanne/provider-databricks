@@ -303,8 +303,6 @@ spec:
                       servingEndpointName:
                         type: string
                     type: object
-                  name:
-                    type: string
                   parent:
                     type: string
                   providerConfig:

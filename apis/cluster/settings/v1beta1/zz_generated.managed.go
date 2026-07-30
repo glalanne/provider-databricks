@@ -208,19 +208,9 @@ func (mg *AibiDashboardEmbeddingApprovedDomainsSetting) SetWriteConnectionSecret
 	mg.Spec.WriteConnectionSecretToReference = r
 }
 
-// GetCondition of this ComplianceSecurityProfileWorkspaceSetting.
-func (mg *ComplianceSecurityProfileWorkspaceSetting) GetCondition(ct xpv2.ConditionType) xpv2.Condition {
-	return mg.Status.GetCondition(ct)
-}
-
 // GetDeletionPolicy of this ComplianceSecurityProfileWorkspaceSetting.
 func (mg *ComplianceSecurityProfileWorkspaceSetting) GetDeletionPolicy() xpv2.DeletionPolicy {
 	return mg.Spec.DeletionPolicy
-}
-
-// GetManagementPolicies of this ComplianceSecurityProfileWorkspaceSetting.
-func (mg *ComplianceSecurityProfileWorkspaceSetting) GetManagementPolicies() xpv2.ManagementPolicies {
-	return mg.Spec.ManagementPolicies
 }
 
 // GetProviderConfigReference of this ComplianceSecurityProfileWorkspaceSetting.
@@ -233,19 +223,9 @@ func (mg *ComplianceSecurityProfileWorkspaceSetting) GetWriteConnectionSecretToR
 	return mg.Spec.WriteConnectionSecretToReference
 }
 
-// SetConditions of this ComplianceSecurityProfileWorkspaceSetting.
-func (mg *ComplianceSecurityProfileWorkspaceSetting) SetConditions(c ...xpv2.Condition) {
-	mg.Status.SetConditions(c...)
-}
-
 // SetDeletionPolicy of this ComplianceSecurityProfileWorkspaceSetting.
 func (mg *ComplianceSecurityProfileWorkspaceSetting) SetDeletionPolicy(r xpv2.DeletionPolicy) {
 	mg.Spec.DeletionPolicy = r
-}
-
-// SetManagementPolicies of this ComplianceSecurityProfileWorkspaceSetting.
-func (mg *ComplianceSecurityProfileWorkspaceSetting) SetManagementPolicies(r xpv2.ManagementPolicies) {
-	mg.Spec.ManagementPolicies = r
 }
 
 // SetProviderConfigReference of this ComplianceSecurityProfileWorkspaceSetting.
@@ -258,19 +238,9 @@ func (mg *ComplianceSecurityProfileWorkspaceSetting) SetWriteConnectionSecretToR
 	mg.Spec.WriteConnectionSecretToReference = r
 }
 
-// GetCondition of this DefaultNamespaceSetting.
-func (mg *DefaultNamespaceSetting) GetCondition(ct xpv2.ConditionType) xpv2.Condition {
-	return mg.Status.GetCondition(ct)
-}
-
 // GetDeletionPolicy of this DefaultNamespaceSetting.
 func (mg *DefaultNamespaceSetting) GetDeletionPolicy() xpv2.DeletionPolicy {
 	return mg.Spec.DeletionPolicy
-}
-
-// GetManagementPolicies of this DefaultNamespaceSetting.
-func (mg *DefaultNamespaceSetting) GetManagementPolicies() xpv2.ManagementPolicies {
-	return mg.Spec.ManagementPolicies
 }
 
 // GetProviderConfigReference of this DefaultNamespaceSetting.
@@ -283,19 +253,9 @@ func (mg *DefaultNamespaceSetting) GetWriteConnectionSecretToReference() *xpv2.S
 	return mg.Spec.WriteConnectionSecretToReference
 }
 
-// SetConditions of this DefaultNamespaceSetting.
-func (mg *DefaultNamespaceSetting) SetConditions(c ...xpv2.Condition) {
-	mg.Status.SetConditions(c...)
-}
-
 // SetDeletionPolicy of this DefaultNamespaceSetting.
 func (mg *DefaultNamespaceSetting) SetDeletionPolicy(r xpv2.DeletionPolicy) {
 	mg.Spec.DeletionPolicy = r
-}
-
-// SetManagementPolicies of this DefaultNamespaceSetting.
-func (mg *DefaultNamespaceSetting) SetManagementPolicies(r xpv2.ManagementPolicies) {
-	mg.Spec.ManagementPolicies = r
 }
 
 // SetProviderConfigReference of this DefaultNamespaceSetting.
@@ -458,19 +418,9 @@ func (mg *DisableLegacyFeaturesSetting) SetWriteConnectionSecretToReference(r *x
 	mg.Spec.WriteConnectionSecretToReference = r
 }
 
-// GetCondition of this EnhancedSecurityMonitoringWorkspaceSetting.
-func (mg *EnhancedSecurityMonitoringWorkspaceSetting) GetCondition(ct xpv2.ConditionType) xpv2.Condition {
-	return mg.Status.GetCondition(ct)
-}
-
 // GetDeletionPolicy of this EnhancedSecurityMonitoringWorkspaceSetting.
 func (mg *EnhancedSecurityMonitoringWorkspaceSetting) GetDeletionPolicy() xpv2.DeletionPolicy {
 	return mg.Spec.DeletionPolicy
-}
-
-// GetManagementPolicies of this EnhancedSecurityMonitoringWorkspaceSetting.
-func (mg *EnhancedSecurityMonitoringWorkspaceSetting) GetManagementPolicies() xpv2.ManagementPolicies {
-	return mg.Spec.ManagementPolicies
 }
 
 // GetProviderConfigReference of this EnhancedSecurityMonitoringWorkspaceSetting.
@@ -483,19 +433,9 @@ func (mg *EnhancedSecurityMonitoringWorkspaceSetting) GetWriteConnectionSecretTo
 	return mg.Spec.WriteConnectionSecretToReference
 }
 
-// SetConditions of this EnhancedSecurityMonitoringWorkspaceSetting.
-func (mg *EnhancedSecurityMonitoringWorkspaceSetting) SetConditions(c ...xpv2.Condition) {
-	mg.Status.SetConditions(c...)
-}
-
 // SetDeletionPolicy of this EnhancedSecurityMonitoringWorkspaceSetting.
 func (mg *EnhancedSecurityMonitoringWorkspaceSetting) SetDeletionPolicy(r xpv2.DeletionPolicy) {
 	mg.Spec.DeletionPolicy = r
-}
-
-// SetManagementPolicies of this EnhancedSecurityMonitoringWorkspaceSetting.
-func (mg *EnhancedSecurityMonitoringWorkspaceSetting) SetManagementPolicies(r xpv2.ManagementPolicies) {
-	mg.Spec.ManagementPolicies = r
 }
 
 // SetProviderConfigReference of this EnhancedSecurityMonitoringWorkspaceSetting.
@@ -508,19 +448,9 @@ func (mg *EnhancedSecurityMonitoringWorkspaceSetting) SetWriteConnectionSecretTo
 	mg.Spec.WriteConnectionSecretToReference = r
 }
 
-// GetCondition of this RestrictWorkspaceAdminsSetting.
-func (mg *RestrictWorkspaceAdminsSetting) GetCondition(ct xpv2.ConditionType) xpv2.Condition {
-	return mg.Status.GetCondition(ct)
-}
-
 // GetDeletionPolicy of this RestrictWorkspaceAdminsSetting.
 func (mg *RestrictWorkspaceAdminsSetting) GetDeletionPolicy() xpv2.DeletionPolicy {
 	return mg.Spec.DeletionPolicy
-}
-
-// GetManagementPolicies of this RestrictWorkspaceAdminsSetting.
-func (mg *RestrictWorkspaceAdminsSetting) GetManagementPolicies() xpv2.ManagementPolicies {
-	return mg.Spec.ManagementPolicies
 }
 
 // GetProviderConfigReference of this RestrictWorkspaceAdminsSetting.
@@ -533,19 +463,9 @@ func (mg *RestrictWorkspaceAdminsSetting) GetWriteConnectionSecretToReference() 
 	return mg.Spec.WriteConnectionSecretToReference
 }
 
-// SetConditions of this RestrictWorkspaceAdminsSetting.
-func (mg *RestrictWorkspaceAdminsSetting) SetConditions(c ...xpv2.Condition) {
-	mg.Status.SetConditions(c...)
-}
-
 // SetDeletionPolicy of this RestrictWorkspaceAdminsSetting.
 func (mg *RestrictWorkspaceAdminsSetting) SetDeletionPolicy(r xpv2.DeletionPolicy) {
 	mg.Spec.DeletionPolicy = r
-}
-
-// SetManagementPolicies of this RestrictWorkspaceAdminsSetting.
-func (mg *RestrictWorkspaceAdminsSetting) SetManagementPolicies(r xpv2.ManagementPolicies) {
-	mg.Spec.ManagementPolicies = r
 }
 
 // SetProviderConfigReference of this RestrictWorkspaceAdminsSetting.

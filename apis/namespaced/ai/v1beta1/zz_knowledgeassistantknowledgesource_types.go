@@ -111,8 +111,6 @@ type KnowledgeAssistantKnowledgeSourceObservation struct {
 
 	KnowledgeCutoffTime *string `json:"knowledgeCutoffTime,omitempty" tf:"knowledge_cutoff_time,omitempty"`
 
-	Name *string `json:"name,omitempty" tf:"name,omitempty"`
-
 	Parent *string `json:"parent,omitempty" tf:"parent,omitempty"`
 
 	ProviderConfig *KnowledgeAssistantKnowledgeSourceProviderConfigObservation `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`

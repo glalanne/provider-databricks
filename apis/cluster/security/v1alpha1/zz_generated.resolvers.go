@@ -707,26 +707,6 @@ func (mg *Permissions) ResolveReferences(ctx context.Context, c client.Reader) e
 	mg.Spec.ForProvider.JobID = reference.ToPtrValue(rsp.ResolvedValue)
 	mg.Spec.ForProvider.JobIDRef = rsp.ResolvedReference
 	{
-		m, l, err = apisresolver.GetManagedResource("ai.databricks.crossplane.io", "v1beta1", "KnowledgeAssistant", "KnowledgeAssistantList")
-		if err != nil {
-			return errors.Wrap(err, "failed to get the reference target managed resource and its list for reference resolution")
-		}
-
-		rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
-			CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.KnowledgeAssistantID),
-			Extract:      resource.ExtractResourceID(),
-			Namespace:    mg.GetNamespace(),
-			Reference:    mg.Spec.ForProvider.KnowledgeAssistantIDRef,
-			Selector:     mg.Spec.ForProvider.KnowledgeAssistantIDSelector,
-			To:           reference.To{List: l, Managed: m},
-		})
-	}
-	if err != nil {
-		return errors.Wrap(err, "mg.Spec.ForProvider.KnowledgeAssistantID")
-	}
-	mg.Spec.ForProvider.KnowledgeAssistantID = reference.ToPtrValue(rsp.ResolvedValue)
-	mg.Spec.ForProvider.KnowledgeAssistantIDRef = rsp.ResolvedReference
-	{
 		m, l, err = apisresolver.GetManagedResource("workspace.databricks.crossplane.io", "v1alpha1", "Notebook", "NotebookList")
 		if err != nil {
 			return errors.Wrap(err, "failed to get the reference target managed resource and its list for reference resolution")
@@ -926,26 +906,6 @@ func (mg *Permissions) ResolveReferences(ctx context.Context, c client.Reader) e
 	}
 	mg.Spec.ForProvider.ServingEndpointID = reference.ToPtrValue(rsp.ResolvedValue)
 	mg.Spec.ForProvider.ServingEndpointIDRef = rsp.ResolvedReference
-	{
-		m, l, err = apisresolver.GetManagedResource("ai.databricks.crossplane.io", "v1beta1", "SupervisorAgent", "SupervisorAgentList")
-		if err != nil {
-			return errors.Wrap(err, "failed to get the reference target managed resource and its list for reference resolution")
-		}
-
-		rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
-			CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.SupervisorAgentID),
-			Extract:      resource.ExtractParamPath("supervisor_agent_id", true),
-			Namespace:    mg.GetNamespace(),
-			Reference:    mg.Spec.ForProvider.SupervisorAgentIDRef,
-			Selector:     mg.Spec.ForProvider.SupervisorAgentIDSelector,
-			To:           reference.To{List: l, Managed: m},
-		})
-	}
-	if err != nil {
-		return errors.Wrap(err, "mg.Spec.ForProvider.SupervisorAgentID")
-	}
-	mg.Spec.ForProvider.SupervisorAgentID = reference.ToPtrValue(rsp.ResolvedValue)
-	mg.Spec.ForProvider.SupervisorAgentIDRef = rsp.ResolvedReference
 	{
 		m, l, err = apisresolver.GetManagedResource("mosaic.databricks.crossplane.io", "v1alpha1", "VectorSearchEndpoint", "VectorSearchEndpointList")
 		if err != nil {
@@ -1211,26 +1171,6 @@ func (mg *Permissions) ResolveReferences(ctx context.Context, c client.Reader) e
 	mg.Spec.InitProvider.JobID = reference.ToPtrValue(rsp.ResolvedValue)
 	mg.Spec.InitProvider.JobIDRef = rsp.ResolvedReference
 	{
-		m, l, err = apisresolver.GetManagedResource("ai.databricks.crossplane.io", "v1beta1", "KnowledgeAssistant", "KnowledgeAssistantList")
-		if err != nil {
-			return errors.Wrap(err, "failed to get the reference target managed resource and its list for reference resolution")
-		}
-
-		rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
-			CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.KnowledgeAssistantID),
-			Extract:      resource.ExtractResourceID(),
-			Namespace:    mg.GetNamespace(),
-			Reference:    mg.Spec.InitProvider.KnowledgeAssistantIDRef,
-			Selector:     mg.Spec.InitProvider.KnowledgeAssistantIDSelector,
-			To:           reference.To{List: l, Managed: m},
-		})
-	}
-	if err != nil {
-		return errors.Wrap(err, "mg.Spec.InitProvider.KnowledgeAssistantID")
-	}
-	mg.Spec.InitProvider.KnowledgeAssistantID = reference.ToPtrValue(rsp.ResolvedValue)
-	mg.Spec.InitProvider.KnowledgeAssistantIDRef = rsp.ResolvedReference
-	{
 		m, l, err = apisresolver.GetManagedResource("workspace.databricks.crossplane.io", "v1alpha1", "Notebook", "NotebookList")
 		if err != nil {
 			return errors.Wrap(err, "failed to get the reference target managed resource and its list for reference resolution")
@@ -1430,26 +1370,6 @@ func (mg *Permissions) ResolveReferences(ctx context.Context, c client.Reader) e
 	}
 	mg.Spec.InitProvider.ServingEndpointID = reference.ToPtrValue(rsp.ResolvedValue)
 	mg.Spec.InitProvider.ServingEndpointIDRef = rsp.ResolvedReference
-	{
-		m, l, err = apisresolver.GetManagedResource("ai.databricks.crossplane.io", "v1beta1", "SupervisorAgent", "SupervisorAgentList")
-		if err != nil {
-			return errors.Wrap(err, "failed to get the reference target managed resource and its list for reference resolution")
-		}
-
-		rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
-			CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.SupervisorAgentID),
-			Extract:      resource.ExtractParamPath("supervisor_agent_id", true),
-			Namespace:    mg.GetNamespace(),
-			Reference:    mg.Spec.InitProvider.SupervisorAgentIDRef,
-			Selector:     mg.Spec.InitProvider.SupervisorAgentIDSelector,
-			To:           reference.To{List: l, Managed: m},
-		})
-	}
-	if err != nil {
-		return errors.Wrap(err, "mg.Spec.InitProvider.SupervisorAgentID")
-	}
-	mg.Spec.InitProvider.SupervisorAgentID = reference.ToPtrValue(rsp.ResolvedValue)
-	mg.Spec.InitProvider.SupervisorAgentIDRef = rsp.ResolvedReference
 	{
 		m, l, err = apisresolver.GetManagedResource("mosaic.databricks.crossplane.io", "v1alpha1", "VectorSearchEndpoint", "VectorSearchEndpointList")
 		if err != nil {

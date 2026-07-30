@@ -566,11 +566,6 @@ spec:
                           Mutually exclusive with no_suspension
                         type: string
                     type: object
-                  name:
-                    description: |-
-                      Output only. The full resource path of the project.
-                      Format: projects/{project_id}
-                    type: string
                   projectId:
                     description: The part of the name, chosen by the user when the
                       resource was created

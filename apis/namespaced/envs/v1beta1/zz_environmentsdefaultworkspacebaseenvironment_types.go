@@ -18,7 +18,6 @@ type EnvironmentsDefaultWorkspaceBaseEnvironmentInitParameters struct {
 	// The default workspace base environment for CPU compute.
 	// Format: workspace-base-environments/{workspace_base_environment}
 	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/namespaced/envs/v1beta1.EnvironmentsWorkspaceBaseEnvironment
-	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/v2/pkg/resource.ExtractParamPath("name",true)
 	CPUWorkspaceBaseEnvironment *string `json:"cpuWorkspaceBaseEnvironment,omitempty" tf:"cpu_workspace_base_environment,omitempty"`
 
 	// Reference to a EnvironmentsWorkspaceBaseEnvironment in envs to populate cpuWorkspaceBaseEnvironment.
@@ -32,7 +31,6 @@ type EnvironmentsDefaultWorkspaceBaseEnvironmentInitParameters struct {
 	// The default workspace base environment for GPU compute.
 	// Format: workspace-base-environments/{workspace_base_environment}
 	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/namespaced/envs/v1beta1.EnvironmentsWorkspaceBaseEnvironment
-	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/v2/pkg/resource.ExtractParamPath("name",true)
 	GpuWorkspaceBaseEnvironment *string `json:"gpuWorkspaceBaseEnvironment,omitempty" tf:"gpu_workspace_base_environment,omitempty"`
 
 	// Reference to a EnvironmentsWorkspaceBaseEnvironment in envs to populate gpuWorkspaceBaseEnvironment.
@@ -59,10 +57,6 @@ type EnvironmentsDefaultWorkspaceBaseEnvironmentObservation struct {
 
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
-	// The resource name of this singleton resource.
-	// Format: default-workspace-base-environment
-	Name *string `json:"name,omitempty" tf:"name,omitempty"`
-
 	// Configure the provider for management through account provider.
 	ProviderConfig *ProviderConfigObservation `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
 }
@@ -72,7 +66,6 @@ type EnvironmentsDefaultWorkspaceBaseEnvironmentParameters struct {
 	// The default workspace base environment for CPU compute.
 	// Format: workspace-base-environments/{workspace_base_environment}
 	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/namespaced/envs/v1beta1.EnvironmentsWorkspaceBaseEnvironment
-	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/v2/pkg/resource.ExtractParamPath("name",true)
 	// +kubebuilder:validation:Optional
 	CPUWorkspaceBaseEnvironment *string `json:"cpuWorkspaceBaseEnvironment,omitempty" tf:"cpu_workspace_base_environment,omitempty"`
 
@@ -87,7 +80,6 @@ type EnvironmentsDefaultWorkspaceBaseEnvironmentParameters struct {
 	// The default workspace base environment for GPU compute.
 	// Format: workspace-base-environments/{workspace_base_environment}
 	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/namespaced/envs/v1beta1.EnvironmentsWorkspaceBaseEnvironment
-	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/v2/pkg/resource.ExtractParamPath("name",true)
 	// +kubebuilder:validation:Optional
 	GpuWorkspaceBaseEnvironment *string `json:"gpuWorkspaceBaseEnvironment,omitempty" tf:"gpu_workspace_base_environment,omitempty"`
 

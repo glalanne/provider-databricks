@@ -40,8 +40,6 @@ type SupervisorAgentObservation struct {
 
 	Instructions *string `json:"instructions,omitempty" tf:"instructions,omitempty"`
 
-	Name *string `json:"name,omitempty" tf:"name,omitempty"`
-
 	ProviderConfig *SupervisorAgentProviderConfigObservation `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
 
 	SupervisorAgentID *string `json:"supervisorAgentId,omitempty" tf:"supervisor_agent_id,omitempty"`

@@ -70,9 +70,6 @@ spec:
                   entityType:
                     description: Type of entity within the external system
                     type: string
-                  name:
-                    description: Name of the external metadata object
-                    type: string
                   owner:
                     description: Owner of the external metadata object
                     type: string
@@ -128,9 +125,6 @@ spec:
                     type: string
                   entityType:
                     description: Type of entity within the external system
-                    type: string
-                  name:
-                    description: Name of the external metadata object
                     type: string
                   owner:
                     description: Owner of the external metadata object
@@ -226,10 +220,6 @@ spec:
               rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
                 || ''Update'' in self.managementPolicies) || has(self.forProvider.entityType)
                 || (has(self.initProvider) && has(self.initProvider.entityType))'
-            - message: spec.forProvider.name is a required parameter
-              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
-                || ''Update'' in self.managementPolicies) || has(self.forProvider.name)
-                || (has(self.initProvider) && has(self.initProvider.name))'
             - message: spec.forProvider.systemType is a required parameter
               rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
                 || ''Update'' in self.managementPolicies) || has(self.forProvider.systemType)
@@ -262,9 +252,6 @@ spec:
                     type: string
                   metastoreId:
                     description: Unique identifier of parent metastore
-                    type: string
-                  name:
-                    description: Name of the external metadata object
                     type: string
                   owner:
                     description: Owner of the external metadata object

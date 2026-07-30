@@ -381,11 +381,6 @@ spec:
                     type: string
                   id:
                     type: string
-                  name:
-                    description: |-
-                      The resource name of the database.
-                      Format: projects/{project_id}/branches/{branch_id}/databases/{database_id}
-                    type: string
                   parent:
                     description: |-
                       The branch containing this database.

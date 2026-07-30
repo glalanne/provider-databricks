@@ -228,8 +228,6 @@ spec:
                     type: string
                   instructions:
                     type: string
-                  name:
-                    type: string
                   providerConfig:
                     properties:
                       workspaceId:

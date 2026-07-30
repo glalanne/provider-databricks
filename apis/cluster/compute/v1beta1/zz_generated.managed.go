@@ -8,19 +8,9 @@ package v1beta1
 
 import xpv2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 
-// GetCondition of this Cluster.
-func (mg *Cluster) GetCondition(ct xpv2.ConditionType) xpv2.Condition {
-	return mg.Status.GetCondition(ct)
-}
-
 // GetDeletionPolicy of this Cluster.
 func (mg *Cluster) GetDeletionPolicy() xpv2.DeletionPolicy {
 	return mg.Spec.DeletionPolicy
-}
-
-// GetManagementPolicies of this Cluster.
-func (mg *Cluster) GetManagementPolicies() xpv2.ManagementPolicies {
-	return mg.Spec.ManagementPolicies
 }
 
 // GetProviderConfigReference of this Cluster.
@@ -33,19 +23,9 @@ func (mg *Cluster) GetWriteConnectionSecretToReference() *xpv2.SecretReference {
 	return mg.Spec.WriteConnectionSecretToReference
 }
 
-// SetConditions of this Cluster.
-func (mg *Cluster) SetConditions(c ...xpv2.Condition) {
-	mg.Status.SetConditions(c...)
-}
-
 // SetDeletionPolicy of this Cluster.
 func (mg *Cluster) SetDeletionPolicy(r xpv2.DeletionPolicy) {
 	mg.Spec.DeletionPolicy = r
-}
-
-// SetManagementPolicies of this Cluster.
-func (mg *Cluster) SetManagementPolicies(r xpv2.ManagementPolicies) {
-	mg.Spec.ManagementPolicies = r
 }
 
 // SetProviderConfigReference of this Cluster.
@@ -58,19 +38,9 @@ func (mg *Cluster) SetWriteConnectionSecretToReference(r *xpv2.SecretReference) 
 	mg.Spec.WriteConnectionSecretToReference = r
 }
 
-// GetCondition of this ClusterPolicy.
-func (mg *ClusterPolicy) GetCondition(ct xpv2.ConditionType) xpv2.Condition {
-	return mg.Status.GetCondition(ct)
-}
-
 // GetDeletionPolicy of this ClusterPolicy.
 func (mg *ClusterPolicy) GetDeletionPolicy() xpv2.DeletionPolicy {
 	return mg.Spec.DeletionPolicy
-}
-
-// GetManagementPolicies of this ClusterPolicy.
-func (mg *ClusterPolicy) GetManagementPolicies() xpv2.ManagementPolicies {
-	return mg.Spec.ManagementPolicies
 }
 
 // GetProviderConfigReference of this ClusterPolicy.
@@ -83,19 +53,9 @@ func (mg *ClusterPolicy) GetWriteConnectionSecretToReference() *xpv2.SecretRefer
 	return mg.Spec.WriteConnectionSecretToReference
 }
 
-// SetConditions of this ClusterPolicy.
-func (mg *ClusterPolicy) SetConditions(c ...xpv2.Condition) {
-	mg.Status.SetConditions(c...)
-}
-
 // SetDeletionPolicy of this ClusterPolicy.
 func (mg *ClusterPolicy) SetDeletionPolicy(r xpv2.DeletionPolicy) {
 	mg.Spec.DeletionPolicy = r
-}
-
-// SetManagementPolicies of this ClusterPolicy.
-func (mg *ClusterPolicy) SetManagementPolicies(r xpv2.ManagementPolicies) {
-	mg.Spec.ManagementPolicies = r
 }
 
 // SetProviderConfigReference of this ClusterPolicy.
@@ -108,19 +68,9 @@ func (mg *ClusterPolicy) SetWriteConnectionSecretToReference(r *xpv2.SecretRefer
 	mg.Spec.WriteConnectionSecretToReference = r
 }
 
-// GetCondition of this InstancePool.
-func (mg *InstancePool) GetCondition(ct xpv2.ConditionType) xpv2.Condition {
-	return mg.Status.GetCondition(ct)
-}
-
 // GetDeletionPolicy of this InstancePool.
 func (mg *InstancePool) GetDeletionPolicy() xpv2.DeletionPolicy {
 	return mg.Spec.DeletionPolicy
-}
-
-// GetManagementPolicies of this InstancePool.
-func (mg *InstancePool) GetManagementPolicies() xpv2.ManagementPolicies {
-	return mg.Spec.ManagementPolicies
 }
 
 // GetProviderConfigReference of this InstancePool.
@@ -133,19 +83,9 @@ func (mg *InstancePool) GetWriteConnectionSecretToReference() *xpv2.SecretRefere
 	return mg.Spec.WriteConnectionSecretToReference
 }
 
-// SetConditions of this InstancePool.
-func (mg *InstancePool) SetConditions(c ...xpv2.Condition) {
-	mg.Status.SetConditions(c...)
-}
-
 // SetDeletionPolicy of this InstancePool.
 func (mg *InstancePool) SetDeletionPolicy(r xpv2.DeletionPolicy) {
 	mg.Spec.DeletionPolicy = r
-}
-
-// SetManagementPolicies of this InstancePool.
-func (mg *InstancePool) SetManagementPolicies(r xpv2.ManagementPolicies) {
-	mg.Spec.ManagementPolicies = r
 }
 
 // SetProviderConfigReference of this InstancePool.
@@ -158,19 +98,9 @@ func (mg *InstancePool) SetWriteConnectionSecretToReference(r *xpv2.SecretRefere
 	mg.Spec.WriteConnectionSecretToReference = r
 }
 
-// GetCondition of this Job.
-func (mg *Job) GetCondition(ct xpv2.ConditionType) xpv2.Condition {
-	return mg.Status.GetCondition(ct)
-}
-
 // GetDeletionPolicy of this Job.
 func (mg *Job) GetDeletionPolicy() xpv2.DeletionPolicy {
 	return mg.Spec.DeletionPolicy
-}
-
-// GetManagementPolicies of this Job.
-func (mg *Job) GetManagementPolicies() xpv2.ManagementPolicies {
-	return mg.Spec.ManagementPolicies
 }
 
 // GetProviderConfigReference of this Job.
@@ -183,19 +113,9 @@ func (mg *Job) GetWriteConnectionSecretToReference() *xpv2.SecretReference {
 	return mg.Spec.WriteConnectionSecretToReference
 }
 
-// SetConditions of this Job.
-func (mg *Job) SetConditions(c ...xpv2.Condition) {
-	mg.Status.SetConditions(c...)
-}
-
 // SetDeletionPolicy of this Job.
 func (mg *Job) SetDeletionPolicy(r xpv2.DeletionPolicy) {
 	mg.Spec.DeletionPolicy = r
-}
-
-// SetManagementPolicies of this Job.
-func (mg *Job) SetManagementPolicies(r xpv2.ManagementPolicies) {
-	mg.Spec.ManagementPolicies = r
 }
 
 // SetProviderConfigReference of this Job.
@@ -208,19 +128,9 @@ func (mg *Job) SetWriteConnectionSecretToReference(r *xpv2.SecretReference) {
 	mg.Spec.WriteConnectionSecretToReference = r
 }
 
-// GetCondition of this Library.
-func (mg *Library) GetCondition(ct xpv2.ConditionType) xpv2.Condition {
-	return mg.Status.GetCondition(ct)
-}
-
 // GetDeletionPolicy of this Library.
 func (mg *Library) GetDeletionPolicy() xpv2.DeletionPolicy {
 	return mg.Spec.DeletionPolicy
-}
-
-// GetManagementPolicies of this Library.
-func (mg *Library) GetManagementPolicies() xpv2.ManagementPolicies {
-	return mg.Spec.ManagementPolicies
 }
 
 // GetProviderConfigReference of this Library.
@@ -233,19 +143,9 @@ func (mg *Library) GetWriteConnectionSecretToReference() *xpv2.SecretReference {
 	return mg.Spec.WriteConnectionSecretToReference
 }
 
-// SetConditions of this Library.
-func (mg *Library) SetConditions(c ...xpv2.Condition) {
-	mg.Status.SetConditions(c...)
-}
-
 // SetDeletionPolicy of this Library.
 func (mg *Library) SetDeletionPolicy(r xpv2.DeletionPolicy) {
 	mg.Spec.DeletionPolicy = r
-}
-
-// SetManagementPolicies of this Library.
-func (mg *Library) SetManagementPolicies(r xpv2.ManagementPolicies) {
-	mg.Spec.ManagementPolicies = r
 }
 
 // SetProviderConfigReference of this Library.
@@ -258,19 +158,9 @@ func (mg *Library) SetWriteConnectionSecretToReference(r *xpv2.SecretReference) 
 	mg.Spec.WriteConnectionSecretToReference = r
 }
 
-// GetCondition of this Pipeline.
-func (mg *Pipeline) GetCondition(ct xpv2.ConditionType) xpv2.Condition {
-	return mg.Status.GetCondition(ct)
-}
-
 // GetDeletionPolicy of this Pipeline.
 func (mg *Pipeline) GetDeletionPolicy() xpv2.DeletionPolicy {
 	return mg.Spec.DeletionPolicy
-}
-
-// GetManagementPolicies of this Pipeline.
-func (mg *Pipeline) GetManagementPolicies() xpv2.ManagementPolicies {
-	return mg.Spec.ManagementPolicies
 }
 
 // GetProviderConfigReference of this Pipeline.
@@ -283,19 +173,9 @@ func (mg *Pipeline) GetWriteConnectionSecretToReference() *xpv2.SecretReference 
 	return mg.Spec.WriteConnectionSecretToReference
 }
 
-// SetConditions of this Pipeline.
-func (mg *Pipeline) SetConditions(c ...xpv2.Condition) {
-	mg.Status.SetConditions(c...)
-}
-
 // SetDeletionPolicy of this Pipeline.
 func (mg *Pipeline) SetDeletionPolicy(r xpv2.DeletionPolicy) {
 	mg.Spec.DeletionPolicy = r
-}
-
-// SetManagementPolicies of this Pipeline.
-func (mg *Pipeline) SetManagementPolicies(r xpv2.ManagementPolicies) {
-	mg.Spec.ManagementPolicies = r
 }
 
 // SetProviderConfigReference of this Pipeline.

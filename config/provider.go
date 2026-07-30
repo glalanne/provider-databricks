@@ -8,7 +8,6 @@ import (
 	// Note(turkenh): we are importing this to embed provider schema document
 	"context"
 	_ "embed"
-	"slices"
 	"strings"
 
 	"github.com/crossplane/upjet/v2/pkg/config"
@@ -136,8 +135,7 @@ func getProviderWithMode(fwProvider fwprovider.Provider, sdkProvider *tfschema.P
 	providerOpts := []config.ProviderOption{
 		config.WithRootGroup(rootGroup),
 		config.WithIncludeList(CLIReconciledResourceList()),
-		config.WithTerraformPluginSDKIncludeList(TerraformPluginSDKResourceList()),
-		config.WithTerraformPluginFrameworkIncludeList(TerraformPluginFrameworkResourceList()),
+		config.WithTerraformPluginSDKIncludeList(TerraformPluginSDKResourceList(mode)),
 		config.WithDefaultResourceOptions(ResourceConfigurator()),
 		config.WithReferenceInjectors([]config.ReferenceInjector{reference.NewInjector(modulePath)}),
 		config.WithFeaturesPackage("internal/features"),
@@ -145,7 +143,8 @@ func getProviderWithMode(fwProvider fwprovider.Provider, sdkProvider *tfschema.P
 		config.WithTerraformPluginFrameworkProvider(fwProvider),
 	}
 	if mode == generationModeV1Beta1 {
-		providerOpts = append(providerOpts, config.WithSchemaTraversers(&config.SingletonListEmbedder{}))
+		providerOpts = append(providerOpts, config.WithSchemaTraversers(&config.SingletonListEmbedder{}),
+			config.WithTerraformPluginFrameworkIncludeList(TerraformPluginFrameworkResourceList()))
 	}
 	pc := config.NewProvider([]byte(providerSchema), resourcePrefix, modulePath, []byte(providerMetadata), providerOpts...)
 
@@ -184,15 +183,27 @@ func CLIReconciledResourceList() []string {
 // TerraformPluginSDKResourceList returns the list of resources that have external
 // name configured in ExternalNameConfigs table and to be reconciled under
 // the no-fork architecture.
-func TerraformPluginSDKResourceList() []string {
-	l := make([]string, len(TerraformPluginSDKExternalNameConfigs))
-	i := 0
-	for name := range TerraformPluginSDKExternalNameConfigs {
+func TerraformPluginSDKResourceList(mode generationMode) []string {
+	if mode == generationModeV1Alpha1Legacy {
+		l := make([]string, len(TerraformPluginSDKExternalNameV1Alpha1Configs))
+		i := 0
+		for name := range TerraformPluginSDKExternalNameV1Alpha1Configs {
+			// Expected format is regex and we'd like to have exact matches.
+			l[i] = name + "$"
+			i++
+		}
+		return l
+	} else {
 		// Expected format is regex and we'd like to have exact matches.
-		l[i] = name + "$"
-		i++
+		l := make([]string, len(TerraformPluginSDKExternalNameConfigs))
+		i := 0
+		for name := range TerraformPluginSDKExternalNameConfigs {
+			// Expected format is regex and we'd like to have exact matches.
+			l[i] = name + "$"
+			i++
+		}
+		return l
 	}
-	return l
 }
 
 func TerraformPluginFrameworkResourceList() []string {
@@ -208,9 +219,9 @@ func TerraformPluginFrameworkResourceList() []string {
 
 func bumpVersionsWithEmbeddedLists(pc *config.Provider) {
 	for name, r := range pc.Resources {
-		if slices.Contains(oldSingletonListAPIs, name) {
+		r.Version = "v1beta1"
+		if _, ok := TerraformPluginSDKExternalNameV1Alpha1Configs[name]; ok {
 			paths := r.CRDListConversionPaths()
-			r.Version = "v1beta1"
 			r.PreviousVersions = []string{"v1alpha1"}
 			// Keep storage on the singleton API version so v1alpha1 can be
 			// deprecated in a later release.
@@ -237,15 +248,11 @@ func bumpVersionsWithEmbeddedLists(pc *config.Provider) {
 
 func setLegacyV1Alpha1(pc *config.Provider) {
 	for name, r := range pc.Resources {
-
-		// If the resource is in the list of legacy singleton-list APIs, we set its version to v1alpha1 and clear previous versions and conversions.
-		if slices.Contains(oldSingletonListAPIs, name) {
-			r.Version = "v1alpha1"
-			r.PreviousVersions = nil
-			r.SetCRDStorageVersion(r.Version)
-			r.Conversions = nil
-			r.TerraformConversions = nil
-			pc.Resources[name] = r
-		}
+		r.Version = "v1alpha1"
+		r.PreviousVersions = nil
+		r.SetCRDStorageVersion(r.Version)
+		r.Conversions = nil
+		r.TerraformConversions = nil
+		pc.Resources[name] = r
 	}
 }

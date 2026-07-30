@@ -579,9 +579,6 @@ spec:
                     description: 'Type of index. Required on create and immutable
                       thereafter. Possible values are: DELTA_SYNC, DIRECT_ACCESS'
                     type: string
-                  name:
-                    description: Name of the source column
-                    type: string
                   parent:
                     description: |-
                       The Endpoint where this Index will be created.

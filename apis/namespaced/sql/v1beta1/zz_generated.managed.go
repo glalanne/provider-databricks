@@ -8,16 +8,6 @@ package v1beta1
 
 import xpv2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 
-// GetCondition of this Alert.
-func (mg *Alert) GetCondition(ct xpv2.ConditionType) xpv2.Condition {
-	return mg.Status.GetCondition(ct)
-}
-
-// GetManagementPolicies of this Alert.
-func (mg *Alert) GetManagementPolicies() xpv2.ManagementPolicies {
-	return mg.Spec.ManagementPolicies
-}
-
 // GetProviderConfigReference of this Alert.
 func (mg *Alert) GetProviderConfigReference() *xpv2.ProviderConfigReference {
 	return mg.Spec.ProviderConfigReference
@@ -26,16 +16,6 @@ func (mg *Alert) GetProviderConfigReference() *xpv2.ProviderConfigReference {
 // GetWriteConnectionSecretToReference of this Alert.
 func (mg *Alert) GetWriteConnectionSecretToReference() *xpv2.LocalSecretReference {
 	return mg.Spec.WriteConnectionSecretToReference
-}
-
-// SetConditions of this Alert.
-func (mg *Alert) SetConditions(c ...xpv2.Condition) {
-	mg.Status.SetConditions(c...)
-}
-
-// SetManagementPolicies of this Alert.
-func (mg *Alert) SetManagementPolicies(r xpv2.ManagementPolicies) {
-	mg.Spec.ManagementPolicies = r
 }
 
 // SetProviderConfigReference of this Alert.
@@ -88,16 +68,6 @@ func (mg *AlertV2) SetWriteConnectionSecretToReference(r *xpv2.LocalSecretRefere
 	mg.Spec.WriteConnectionSecretToReference = r
 }
 
-// GetCondition of this Dashboard.
-func (mg *Dashboard) GetCondition(ct xpv2.ConditionType) xpv2.Condition {
-	return mg.Status.GetCondition(ct)
-}
-
-// GetManagementPolicies of this Dashboard.
-func (mg *Dashboard) GetManagementPolicies() xpv2.ManagementPolicies {
-	return mg.Spec.ManagementPolicies
-}
-
 // GetProviderConfigReference of this Dashboard.
 func (mg *Dashboard) GetProviderConfigReference() *xpv2.ProviderConfigReference {
 	return mg.Spec.ProviderConfigReference
@@ -106,16 +76,6 @@ func (mg *Dashboard) GetProviderConfigReference() *xpv2.ProviderConfigReference 
 // GetWriteConnectionSecretToReference of this Dashboard.
 func (mg *Dashboard) GetWriteConnectionSecretToReference() *xpv2.LocalSecretReference {
 	return mg.Spec.WriteConnectionSecretToReference
-}
-
-// SetConditions of this Dashboard.
-func (mg *Dashboard) SetConditions(c ...xpv2.Condition) {
-	mg.Status.SetConditions(c...)
-}
-
-// SetManagementPolicies of this Dashboard.
-func (mg *Dashboard) SetManagementPolicies(r xpv2.ManagementPolicies) {
-	mg.Spec.ManagementPolicies = r
 }
 
 // SetProviderConfigReference of this Dashboard.
@@ -128,16 +88,6 @@ func (mg *Dashboard) SetWriteConnectionSecretToReference(r *xpv2.LocalSecretRefe
 	mg.Spec.WriteConnectionSecretToReference = r
 }
 
-// GetCondition of this Query.
-func (mg *Query) GetCondition(ct xpv2.ConditionType) xpv2.Condition {
-	return mg.Status.GetCondition(ct)
-}
-
-// GetManagementPolicies of this Query.
-func (mg *Query) GetManagementPolicies() xpv2.ManagementPolicies {
-	return mg.Spec.ManagementPolicies
-}
-
 // GetProviderConfigReference of this Query.
 func (mg *Query) GetProviderConfigReference() *xpv2.ProviderConfigReference {
 	return mg.Spec.ProviderConfigReference
@@ -146,16 +96,6 @@ func (mg *Query) GetProviderConfigReference() *xpv2.ProviderConfigReference {
 // GetWriteConnectionSecretToReference of this Query.
 func (mg *Query) GetWriteConnectionSecretToReference() *xpv2.LocalSecretReference {
 	return mg.Spec.WriteConnectionSecretToReference
-}
-
-// SetConditions of this Query.
-func (mg *Query) SetConditions(c ...xpv2.Condition) {
-	mg.Status.SetConditions(c...)
-}
-
-// SetManagementPolicies of this Query.
-func (mg *Query) SetManagementPolicies(r xpv2.ManagementPolicies) {
-	mg.Spec.ManagementPolicies = r
 }
 
 // SetProviderConfigReference of this Query.
@@ -168,16 +108,6 @@ func (mg *Query) SetWriteConnectionSecretToReference(r *xpv2.LocalSecretReferenc
 	mg.Spec.WriteConnectionSecretToReference = r
 }
 
-// GetCondition of this SQLAlert.
-func (mg *SQLAlert) GetCondition(ct xpv2.ConditionType) xpv2.Condition {
-	return mg.Status.GetCondition(ct)
-}
-
-// GetManagementPolicies of this SQLAlert.
-func (mg *SQLAlert) GetManagementPolicies() xpv2.ManagementPolicies {
-	return mg.Spec.ManagementPolicies
-}
-
 // GetProviderConfigReference of this SQLAlert.
 func (mg *SQLAlert) GetProviderConfigReference() *xpv2.ProviderConfigReference {
 	return mg.Spec.ProviderConfigReference
@@ -186,16 +116,6 @@ func (mg *SQLAlert) GetProviderConfigReference() *xpv2.ProviderConfigReference {
 // GetWriteConnectionSecretToReference of this SQLAlert.
 func (mg *SQLAlert) GetWriteConnectionSecretToReference() *xpv2.LocalSecretReference {
 	return mg.Spec.WriteConnectionSecretToReference
-}
-
-// SetConditions of this SQLAlert.
-func (mg *SQLAlert) SetConditions(c ...xpv2.Condition) {
-	mg.Status.SetConditions(c...)
-}
-
-// SetManagementPolicies of this SQLAlert.
-func (mg *SQLAlert) SetManagementPolicies(r xpv2.ManagementPolicies) {
-	mg.Spec.ManagementPolicies = r
 }
 
 // SetProviderConfigReference of this SQLAlert.
@@ -208,16 +128,6 @@ func (mg *SQLAlert) SetWriteConnectionSecretToReference(r *xpv2.LocalSecretRefer
 	mg.Spec.WriteConnectionSecretToReference = r
 }
 
-// GetCondition of this SQLDashboard.
-func (mg *SQLDashboard) GetCondition(ct xpv2.ConditionType) xpv2.Condition {
-	return mg.Status.GetCondition(ct)
-}
-
-// GetManagementPolicies of this SQLDashboard.
-func (mg *SQLDashboard) GetManagementPolicies() xpv2.ManagementPolicies {
-	return mg.Spec.ManagementPolicies
-}
-
 // GetProviderConfigReference of this SQLDashboard.
 func (mg *SQLDashboard) GetProviderConfigReference() *xpv2.ProviderConfigReference {
 	return mg.Spec.ProviderConfigReference
@@ -226,16 +136,6 @@ func (mg *SQLDashboard) GetProviderConfigReference() *xpv2.ProviderConfigReferen
 // GetWriteConnectionSecretToReference of this SQLDashboard.
 func (mg *SQLDashboard) GetWriteConnectionSecretToReference() *xpv2.LocalSecretReference {
 	return mg.Spec.WriteConnectionSecretToReference
-}
-
-// SetConditions of this SQLDashboard.
-func (mg *SQLDashboard) SetConditions(c ...xpv2.Condition) {
-	mg.Status.SetConditions(c...)
-}
-
-// SetManagementPolicies of this SQLDashboard.
-func (mg *SQLDashboard) SetManagementPolicies(r xpv2.ManagementPolicies) {
-	mg.Spec.ManagementPolicies = r
 }
 
 // SetProviderConfigReference of this SQLDashboard.
@@ -248,16 +148,6 @@ func (mg *SQLDashboard) SetWriteConnectionSecretToReference(r *xpv2.LocalSecretR
 	mg.Spec.WriteConnectionSecretToReference = r
 }
 
-// GetCondition of this SQLEndpoint.
-func (mg *SQLEndpoint) GetCondition(ct xpv2.ConditionType) xpv2.Condition {
-	return mg.Status.GetCondition(ct)
-}
-
-// GetManagementPolicies of this SQLEndpoint.
-func (mg *SQLEndpoint) GetManagementPolicies() xpv2.ManagementPolicies {
-	return mg.Spec.ManagementPolicies
-}
-
 // GetProviderConfigReference of this SQLEndpoint.
 func (mg *SQLEndpoint) GetProviderConfigReference() *xpv2.ProviderConfigReference {
 	return mg.Spec.ProviderConfigReference
@@ -266,16 +156,6 @@ func (mg *SQLEndpoint) GetProviderConfigReference() *xpv2.ProviderConfigReferenc
 // GetWriteConnectionSecretToReference of this SQLEndpoint.
 func (mg *SQLEndpoint) GetWriteConnectionSecretToReference() *xpv2.LocalSecretReference {
 	return mg.Spec.WriteConnectionSecretToReference
-}
-
-// SetConditions of this SQLEndpoint.
-func (mg *SQLEndpoint) SetConditions(c ...xpv2.Condition) {
-	mg.Status.SetConditions(c...)
-}
-
-// SetManagementPolicies of this SQLEndpoint.
-func (mg *SQLEndpoint) SetManagementPolicies(r xpv2.ManagementPolicies) {
-	mg.Spec.ManagementPolicies = r
 }
 
 // SetProviderConfigReference of this SQLEndpoint.
@@ -288,16 +168,6 @@ func (mg *SQLEndpoint) SetWriteConnectionSecretToReference(r *xpv2.LocalSecretRe
 	mg.Spec.WriteConnectionSecretToReference = r
 }
 
-// GetCondition of this SQLGlobalConfig.
-func (mg *SQLGlobalConfig) GetCondition(ct xpv2.ConditionType) xpv2.Condition {
-	return mg.Status.GetCondition(ct)
-}
-
-// GetManagementPolicies of this SQLGlobalConfig.
-func (mg *SQLGlobalConfig) GetManagementPolicies() xpv2.ManagementPolicies {
-	return mg.Spec.ManagementPolicies
-}
-
 // GetProviderConfigReference of this SQLGlobalConfig.
 func (mg *SQLGlobalConfig) GetProviderConfigReference() *xpv2.ProviderConfigReference {
 	return mg.Spec.ProviderConfigReference
@@ -306,16 +176,6 @@ func (mg *SQLGlobalConfig) GetProviderConfigReference() *xpv2.ProviderConfigRefe
 // GetWriteConnectionSecretToReference of this SQLGlobalConfig.
 func (mg *SQLGlobalConfig) GetWriteConnectionSecretToReference() *xpv2.LocalSecretReference {
 	return mg.Spec.WriteConnectionSecretToReference
-}
-
-// SetConditions of this SQLGlobalConfig.
-func (mg *SQLGlobalConfig) SetConditions(c ...xpv2.Condition) {
-	mg.Status.SetConditions(c...)
-}
-
-// SetManagementPolicies of this SQLGlobalConfig.
-func (mg *SQLGlobalConfig) SetManagementPolicies(r xpv2.ManagementPolicies) {
-	mg.Spec.ManagementPolicies = r
 }
 
 // SetProviderConfigReference of this SQLGlobalConfig.
@@ -328,16 +188,6 @@ func (mg *SQLGlobalConfig) SetWriteConnectionSecretToReference(r *xpv2.LocalSecr
 	mg.Spec.WriteConnectionSecretToReference = r
 }
 
-// GetCondition of this SQLQuery.
-func (mg *SQLQuery) GetCondition(ct xpv2.ConditionType) xpv2.Condition {
-	return mg.Status.GetCondition(ct)
-}
-
-// GetManagementPolicies of this SQLQuery.
-func (mg *SQLQuery) GetManagementPolicies() xpv2.ManagementPolicies {
-	return mg.Spec.ManagementPolicies
-}
-
 // GetProviderConfigReference of this SQLQuery.
 func (mg *SQLQuery) GetProviderConfigReference() *xpv2.ProviderConfigReference {
 	return mg.Spec.ProviderConfigReference
@@ -346,16 +196,6 @@ func (mg *SQLQuery) GetProviderConfigReference() *xpv2.ProviderConfigReference {
 // GetWriteConnectionSecretToReference of this SQLQuery.
 func (mg *SQLQuery) GetWriteConnectionSecretToReference() *xpv2.LocalSecretReference {
 	return mg.Spec.WriteConnectionSecretToReference
-}
-
-// SetConditions of this SQLQuery.
-func (mg *SQLQuery) SetConditions(c ...xpv2.Condition) {
-	mg.Status.SetConditions(c...)
-}
-
-// SetManagementPolicies of this SQLQuery.
-func (mg *SQLQuery) SetManagementPolicies(r xpv2.ManagementPolicies) {
-	mg.Spec.ManagementPolicies = r
 }
 
 // SetProviderConfigReference of this SQLQuery.
@@ -368,16 +208,6 @@ func (mg *SQLQuery) SetWriteConnectionSecretToReference(r *xpv2.LocalSecretRefer
 	mg.Spec.WriteConnectionSecretToReference = r
 }
 
-// GetCondition of this SQLVisualization.
-func (mg *SQLVisualization) GetCondition(ct xpv2.ConditionType) xpv2.Condition {
-	return mg.Status.GetCondition(ct)
-}
-
-// GetManagementPolicies of this SQLVisualization.
-func (mg *SQLVisualization) GetManagementPolicies() xpv2.ManagementPolicies {
-	return mg.Spec.ManagementPolicies
-}
-
 // GetProviderConfigReference of this SQLVisualization.
 func (mg *SQLVisualization) GetProviderConfigReference() *xpv2.ProviderConfigReference {
 	return mg.Spec.ProviderConfigReference
@@ -386,16 +216,6 @@ func (mg *SQLVisualization) GetProviderConfigReference() *xpv2.ProviderConfigRef
 // GetWriteConnectionSecretToReference of this SQLVisualization.
 func (mg *SQLVisualization) GetWriteConnectionSecretToReference() *xpv2.LocalSecretReference {
 	return mg.Spec.WriteConnectionSecretToReference
-}
-
-// SetConditions of this SQLVisualization.
-func (mg *SQLVisualization) SetConditions(c ...xpv2.Condition) {
-	mg.Status.SetConditions(c...)
-}
-
-// SetManagementPolicies of this SQLVisualization.
-func (mg *SQLVisualization) SetManagementPolicies(r xpv2.ManagementPolicies) {
-	mg.Spec.ManagementPolicies = r
 }
 
 // SetProviderConfigReference of this SQLVisualization.
@@ -408,16 +228,6 @@ func (mg *SQLVisualization) SetWriteConnectionSecretToReference(r *xpv2.LocalSec
 	mg.Spec.WriteConnectionSecretToReference = r
 }
 
-// GetCondition of this SQLWidget.
-func (mg *SQLWidget) GetCondition(ct xpv2.ConditionType) xpv2.Condition {
-	return mg.Status.GetCondition(ct)
-}
-
-// GetManagementPolicies of this SQLWidget.
-func (mg *SQLWidget) GetManagementPolicies() xpv2.ManagementPolicies {
-	return mg.Spec.ManagementPolicies
-}
-
 // GetProviderConfigReference of this SQLWidget.
 func (mg *SQLWidget) GetProviderConfigReference() *xpv2.ProviderConfigReference {
 	return mg.Spec.ProviderConfigReference
@@ -426,16 +236,6 @@ func (mg *SQLWidget) GetProviderConfigReference() *xpv2.ProviderConfigReference 
 // GetWriteConnectionSecretToReference of this SQLWidget.
 func (mg *SQLWidget) GetWriteConnectionSecretToReference() *xpv2.LocalSecretReference {
 	return mg.Spec.WriteConnectionSecretToReference
-}
-
-// SetConditions of this SQLWidget.
-func (mg *SQLWidget) SetConditions(c ...xpv2.Condition) {
-	mg.Status.SetConditions(c...)
-}
-
-// SetManagementPolicies of this SQLWidget.
-func (mg *SQLWidget) SetManagementPolicies(r xpv2.ManagementPolicies) {
-	mg.Spec.ManagementPolicies = r
 }
 
 // SetProviderConfigReference of this SQLWidget.

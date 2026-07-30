@@ -234,11 +234,6 @@ spec:
                     description: Status message providing additional details about
                       the environment status
                     type: string
-                  name:
-                    description: |-
-                      The resource name of the workspace base environment.
-                      Format: workspace-base-environments/{workspace-base-environment}
-                    type: string
                   providerConfig:
                     description: Configure the provider for management through account
                       provider.

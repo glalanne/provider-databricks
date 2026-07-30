@@ -24,9 +24,6 @@ type ExternalMetadataInitParameters struct {
 	// Type of entity within the external system
 	EntityType *string `json:"entityType,omitempty" tf:"entity_type,omitempty"`
 
-	// Name of the external metadata object
-	Name *string `json:"name,omitempty" tf:"name,omitempty"`
-
 	// Owner of the external metadata object
 	Owner *string `json:"owner,omitempty" tf:"owner,omitempty"`
 
@@ -67,9 +64,6 @@ type ExternalMetadataObservation struct {
 	// Unique identifier of parent metastore
 	MetastoreID *string `json:"metastoreId,omitempty" tf:"metastore_id,omitempty"`
 
-	// Name of the external metadata object
-	Name *string `json:"name,omitempty" tf:"name,omitempty"`
-
 	// Owner of the external metadata object
 	Owner *string `json:"owner,omitempty" tf:"owner,omitempty"`
 
@@ -106,10 +100,6 @@ type ExternalMetadataParameters struct {
 	// Type of entity within the external system
 	// +kubebuilder:validation:Optional
 	EntityType *string `json:"entityType,omitempty" tf:"entity_type,omitempty"`
-
-	// Name of the external metadata object
-	// +kubebuilder:validation:Optional
-	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// Owner of the external metadata object
 	// +kubebuilder:validation:Optional
@@ -189,7 +179,6 @@ type ExternalMetadata struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.entityType) || (has(self.initProvider) && has(self.initProvider.entityType))",message="spec.forProvider.entityType is a required parameter"
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.name) || (has(self.initProvider) && has(self.initProvider.name))",message="spec.forProvider.name is a required parameter"
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.systemType) || (has(self.initProvider) && has(self.initProvider.systemType))",message="spec.forProvider.systemType is a required parameter"
 	Spec   ExternalMetadataSpec   `json:"spec"`
 	Status ExternalMetadataStatus `json:"status,omitempty"`

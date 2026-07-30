@@ -505,11 +505,6 @@ spec:
                     type: string
                   id:
                     type: string
-                  name:
-                    description: |-
-                      Output only. The full resource path of the endpoint.
-                      Format: projects/{project_id}/branches/{branch_id}/endpoints/{endpoint_id}
-                    type: string
                   parent:
                     description: |-
                       The branch containing this endpoint (API resource hierarchy).

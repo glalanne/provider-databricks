@@ -353,11 +353,6 @@ spec:
                     type: string
                   id:
                     type: string
-                  name:
-                    description: |-
-                      Output only. The Full resource name of the synced table in Postgres
-                      where (catalog, schema, table) are the UC entity names.
-                    type: string
                   providerConfig:
                     description: Configure the provider for management through account
                       provider.

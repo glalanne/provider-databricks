@@ -51,10 +51,6 @@ type DisasterRecoveryStableURLObservation struct {
 	// responses
 	InitialWorkspaceID *string `json:"initialWorkspaceId,omitempty" tf:"initial_workspace_id,omitempty"`
 
-	// Fully qualified resource name.
-	// Format: accounts/{account_id}/stable-urls/{stable_url_id}
-	Name *string `json:"name,omitempty" tf:"name,omitempty"`
-
 	// The parent resource. Format: accounts/{account_id}
 	Parent *string `json:"parent,omitempty" tf:"parent,omitempty"`
 

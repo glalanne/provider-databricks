@@ -168,16 +168,6 @@ func (mg *AibiDashboardEmbeddingApprovedDomainsSetting) SetWriteConnectionSecret
 	mg.Spec.WriteConnectionSecretToReference = r
 }
 
-// GetCondition of this ComplianceSecurityProfileWorkspaceSetting.
-func (mg *ComplianceSecurityProfileWorkspaceSetting) GetCondition(ct xpv2.ConditionType) xpv2.Condition {
-	return mg.Status.GetCondition(ct)
-}
-
-// GetManagementPolicies of this ComplianceSecurityProfileWorkspaceSetting.
-func (mg *ComplianceSecurityProfileWorkspaceSetting) GetManagementPolicies() xpv2.ManagementPolicies {
-	return mg.Spec.ManagementPolicies
-}
-
 // GetProviderConfigReference of this ComplianceSecurityProfileWorkspaceSetting.
 func (mg *ComplianceSecurityProfileWorkspaceSetting) GetProviderConfigReference() *xpv2.ProviderConfigReference {
 	return mg.Spec.ProviderConfigReference
@@ -186,16 +176,6 @@ func (mg *ComplianceSecurityProfileWorkspaceSetting) GetProviderConfigReference(
 // GetWriteConnectionSecretToReference of this ComplianceSecurityProfileWorkspaceSetting.
 func (mg *ComplianceSecurityProfileWorkspaceSetting) GetWriteConnectionSecretToReference() *xpv2.LocalSecretReference {
 	return mg.Spec.WriteConnectionSecretToReference
-}
-
-// SetConditions of this ComplianceSecurityProfileWorkspaceSetting.
-func (mg *ComplianceSecurityProfileWorkspaceSetting) SetConditions(c ...xpv2.Condition) {
-	mg.Status.SetConditions(c...)
-}
-
-// SetManagementPolicies of this ComplianceSecurityProfileWorkspaceSetting.
-func (mg *ComplianceSecurityProfileWorkspaceSetting) SetManagementPolicies(r xpv2.ManagementPolicies) {
-	mg.Spec.ManagementPolicies = r
 }
 
 // SetProviderConfigReference of this ComplianceSecurityProfileWorkspaceSetting.
@@ -208,16 +188,6 @@ func (mg *ComplianceSecurityProfileWorkspaceSetting) SetWriteConnectionSecretToR
 	mg.Spec.WriteConnectionSecretToReference = r
 }
 
-// GetCondition of this DefaultNamespaceSetting.
-func (mg *DefaultNamespaceSetting) GetCondition(ct xpv2.ConditionType) xpv2.Condition {
-	return mg.Status.GetCondition(ct)
-}
-
-// GetManagementPolicies of this DefaultNamespaceSetting.
-func (mg *DefaultNamespaceSetting) GetManagementPolicies() xpv2.ManagementPolicies {
-	return mg.Spec.ManagementPolicies
-}
-
 // GetProviderConfigReference of this DefaultNamespaceSetting.
 func (mg *DefaultNamespaceSetting) GetProviderConfigReference() *xpv2.ProviderConfigReference {
 	return mg.Spec.ProviderConfigReference
@@ -226,16 +196,6 @@ func (mg *DefaultNamespaceSetting) GetProviderConfigReference() *xpv2.ProviderCo
 // GetWriteConnectionSecretToReference of this DefaultNamespaceSetting.
 func (mg *DefaultNamespaceSetting) GetWriteConnectionSecretToReference() *xpv2.LocalSecretReference {
 	return mg.Spec.WriteConnectionSecretToReference
-}
-
-// SetConditions of this DefaultNamespaceSetting.
-func (mg *DefaultNamespaceSetting) SetConditions(c ...xpv2.Condition) {
-	mg.Status.SetConditions(c...)
-}
-
-// SetManagementPolicies of this DefaultNamespaceSetting.
-func (mg *DefaultNamespaceSetting) SetManagementPolicies(r xpv2.ManagementPolicies) {
-	mg.Spec.ManagementPolicies = r
 }
 
 // SetProviderConfigReference of this DefaultNamespaceSetting.
@@ -368,16 +328,6 @@ func (mg *DisableLegacyFeaturesSetting) SetWriteConnectionSecretToReference(r *x
 	mg.Spec.WriteConnectionSecretToReference = r
 }
 
-// GetCondition of this EnhancedSecurityMonitoringWorkspaceSetting.
-func (mg *EnhancedSecurityMonitoringWorkspaceSetting) GetCondition(ct xpv2.ConditionType) xpv2.Condition {
-	return mg.Status.GetCondition(ct)
-}
-
-// GetManagementPolicies of this EnhancedSecurityMonitoringWorkspaceSetting.
-func (mg *EnhancedSecurityMonitoringWorkspaceSetting) GetManagementPolicies() xpv2.ManagementPolicies {
-	return mg.Spec.ManagementPolicies
-}
-
 // GetProviderConfigReference of this EnhancedSecurityMonitoringWorkspaceSetting.
 func (mg *EnhancedSecurityMonitoringWorkspaceSetting) GetProviderConfigReference() *xpv2.ProviderConfigReference {
 	return mg.Spec.ProviderConfigReference
@@ -386,16 +336,6 @@ func (mg *EnhancedSecurityMonitoringWorkspaceSetting) GetProviderConfigReference
 // GetWriteConnectionSecretToReference of this EnhancedSecurityMonitoringWorkspaceSetting.
 func (mg *EnhancedSecurityMonitoringWorkspaceSetting) GetWriteConnectionSecretToReference() *xpv2.LocalSecretReference {
 	return mg.Spec.WriteConnectionSecretToReference
-}
-
-// SetConditions of this EnhancedSecurityMonitoringWorkspaceSetting.
-func (mg *EnhancedSecurityMonitoringWorkspaceSetting) SetConditions(c ...xpv2.Condition) {
-	mg.Status.SetConditions(c...)
-}
-
-// SetManagementPolicies of this EnhancedSecurityMonitoringWorkspaceSetting.
-func (mg *EnhancedSecurityMonitoringWorkspaceSetting) SetManagementPolicies(r xpv2.ManagementPolicies) {
-	mg.Spec.ManagementPolicies = r
 }
 
 // SetProviderConfigReference of this EnhancedSecurityMonitoringWorkspaceSetting.
@@ -408,16 +348,6 @@ func (mg *EnhancedSecurityMonitoringWorkspaceSetting) SetWriteConnectionSecretTo
 	mg.Spec.WriteConnectionSecretToReference = r
 }
 
-// GetCondition of this RestrictWorkspaceAdminsSetting.
-func (mg *RestrictWorkspaceAdminsSetting) GetCondition(ct xpv2.ConditionType) xpv2.Condition {
-	return mg.Status.GetCondition(ct)
-}
-
-// GetManagementPolicies of this RestrictWorkspaceAdminsSetting.
-func (mg *RestrictWorkspaceAdminsSetting) GetManagementPolicies() xpv2.ManagementPolicies {
-	return mg.Spec.ManagementPolicies
-}
-
 // GetProviderConfigReference of this RestrictWorkspaceAdminsSetting.
 func (mg *RestrictWorkspaceAdminsSetting) GetProviderConfigReference() *xpv2.ProviderConfigReference {
 	return mg.Spec.ProviderConfigReference
@@ -426,16 +356,6 @@ func (mg *RestrictWorkspaceAdminsSetting) GetProviderConfigReference() *xpv2.Pro
 // GetWriteConnectionSecretToReference of this RestrictWorkspaceAdminsSetting.
 func (mg *RestrictWorkspaceAdminsSetting) GetWriteConnectionSecretToReference() *xpv2.LocalSecretReference {
 	return mg.Spec.WriteConnectionSecretToReference
-}
-
-// SetConditions of this RestrictWorkspaceAdminsSetting.
-func (mg *RestrictWorkspaceAdminsSetting) SetConditions(c ...xpv2.Condition) {
-	mg.Status.SetConditions(c...)
-}
-
-// SetManagementPolicies of this RestrictWorkspaceAdminsSetting.
-func (mg *RestrictWorkspaceAdminsSetting) SetManagementPolicies(r xpv2.ManagementPolicies) {
-	mg.Spec.ManagementPolicies = r
 }
 
 // SetProviderConfigReference of this RestrictWorkspaceAdminsSetting.

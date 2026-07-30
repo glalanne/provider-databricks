@@ -306,10 +306,6 @@ type PostgresProjectObservation struct {
 	// spec.default_endpoint_settings to configure default settings for endpoints created after project creation
 	InitialEndpointSpec *InitialEndpointSpecObservation `json:"initialEndpointSpec,omitempty" tf:"initial_endpoint_spec,omitempty"`
 
-	// Output only. The full resource path of the project.
-	// Format: projects/{project_id}
-	Name *string `json:"name,omitempty" tf:"name,omitempty"`
-
 	// The part of the name, chosen by the user when the resource was created
 	ProjectID *string `json:"projectId,omitempty" tf:"project_id,omitempty"`
 

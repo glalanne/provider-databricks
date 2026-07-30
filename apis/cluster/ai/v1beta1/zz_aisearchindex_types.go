@@ -73,9 +73,6 @@ type AISearchIndexObservation struct {
 	// Type of index. Required on create and immutable thereafter. Possible values are: DELTA_SYNC, DIRECT_ACCESS
 	IndexType *string `json:"indexType,omitempty" tf:"index_type,omitempty"`
 
-	// Name of the source column
-	Name *string `json:"name,omitempty" tf:"name,omitempty"`
-
 	// The Endpoint where this Index will be created.
 	// Format: workspaces/{workspace_id}/endpoints/{endpoint_id}
 	Parent *string `json:"parent,omitempty" tf:"parent,omitempty"`
