@@ -31,13 +31,6 @@ const (
 	modulePath     = "github.com/glalanne/provider-databricks"
 )
 
-type generationMode int
-
-const (
-	generationModeV1Beta1 generationMode = iota
-	generationModeV1Alpha1Legacy
-)
-
 //go:embed schema.json
 var providerSchema string
 
