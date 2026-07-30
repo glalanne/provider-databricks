@@ -43,17 +43,32 @@ func main() {
 		panic(fmt.Sprintf("cannot determine absolute path for %q: %v", root, err))
 	}
 
-	if err := filepath.WalkDir(absRoot, func(path string, d os.DirEntry, walkErr error) error {
-		if walkErr != nil {
-			return walkErr
-		}
-		if d.IsDir() || d.Name() != "zz_generated.conversion_spokes.go" {
-			return nil
-		}
-		return ensureShim(filepath.Dir(path), path)
-	}); err != nil {
+	if err := walkForConversionSpokes(absRoot); err != nil {
 		panic(err)
 	}
+}
+
+func walkForConversionSpokes(root string) error {
+	entries, err := os.ReadDir(root)
+	if err != nil {
+		return err
+	}
+	for _, entry := range entries {
+		path := filepath.Join(root, entry.Name())
+		if entry.IsDir() {
+			if err := walkForConversionSpokes(path); err != nil {
+				return err
+			}
+			continue
+		}
+		if entry.Name() != "zz_generated.conversion_spokes.go" {
+			continue
+		}
+		if err := ensureShim(filepath.Dir(path), path); err != nil {
+			return err
+		}
+	}
+	return nil
 }
 
 func ensureShim(pkgDir, spokeFile string) error {
@@ -80,15 +95,18 @@ func ensureShim(pkgDir, spokeFile string) error {
 
 	shimPath := filepath.Join(pkgDir, "zz_generated.managed_shim.go")
 	if len(missingByType) == 0 {
+		// #nosec G703,G304 -- shimPath is derived from checked-in package directories.
 		_ = os.Remove(shimPath)
 		return nil
 	}
 
 	content := renderShim(missingByType)
-	return os.WriteFile(shimPath, []byte(content), 0o644)
+	// #nosec G703,G304 -- shimPath is derived from checked-in package directories.
+	return os.WriteFile(shimPath, []byte(content), 0600)
 }
 
 func parseTypesFromSpokes(path string) ([]string, error) {
+	// #nosec G304,G703 -- path is discovered from the checked-in repository tree.
 	b, err := os.ReadFile(path)
 	if err != nil {
 		return nil, fmt.Errorf("read %s: %w", path, err)
@@ -119,6 +137,7 @@ func packageHasMethod(pkgDir, typeName string, method methodName) (bool, error) 
 		if strings.HasSuffix(f, "zz_generated.managed_shim.go") {
 			continue
 		}
+		// #nosec G304,G703 -- files are sourced from the repository's own package directory.
 		b, err := os.ReadFile(f)
 		if err != nil {
 			return false, fmt.Errorf("read %s: %w", f, err)
@@ -151,21 +170,25 @@ func renderShim(missingByType map[string][]methodName) string {
 		for _, m := range methods {
 			switch m {
 			case mGetCondition:
-				sb.WriteString(fmt.Sprintf("func (mg *%s) GetCondition(ct xpv2.ConditionType) xpv2.Condition {\n", t))
-				sb.WriteString("\treturn mg.Status.GetCondition(ct)\n")
-				sb.WriteString("}\n\n")
+				fmt.Fprintf(&sb, "func (mg *%s) GetCondition(ct xpv2.ConditionType) xpv2.Condition {\n", t)
+				fmt.Fprintln(&sb, "\treturn mg.Status.GetCondition(ct)")
+				fmt.Fprintln(&sb, "}")
+				fmt.Fprintln(&sb)
 			case mSetConditions:
-				sb.WriteString(fmt.Sprintf("func (mg *%s) SetConditions(c ...xpv2.Condition) {\n", t))
-				sb.WriteString("\tmg.Status.SetConditions(c...)\n")
-				sb.WriteString("}\n\n")
+				fmt.Fprintf(&sb, "func (mg *%s) SetConditions(c ...xpv2.Condition) {\n", t)
+				fmt.Fprintln(&sb, "\tmg.Status.SetConditions(c...)")
+				fmt.Fprintln(&sb, "}")
+				fmt.Fprintln(&sb)
 			case mGetManagementPolicies:
-				sb.WriteString(fmt.Sprintf("func (mg *%s) GetManagementPolicies() xpv2.ManagementPolicies {\n", t))
-				sb.WriteString("\treturn mg.Spec.ManagementPolicies\n")
-				sb.WriteString("}\n\n")
+				fmt.Fprintf(&sb, "func (mg *%s) GetManagementPolicies() xpv2.ManagementPolicies {\n", t)
+				fmt.Fprintln(&sb, "\treturn mg.Spec.ManagementPolicies")
+				fmt.Fprintln(&sb, "}")
+				fmt.Fprintln(&sb)
 			case mSetManagementPolicies:
-				sb.WriteString(fmt.Sprintf("func (mg *%s) SetManagementPolicies(r xpv2.ManagementPolicies) {\n", t))
-				sb.WriteString("\tmg.Spec.ManagementPolicies = r\n")
-				sb.WriteString("}\n\n")
+				fmt.Fprintf(&sb, "func (mg *%s) SetManagementPolicies(r xpv2.ManagementPolicies) {\n", t)
+				fmt.Fprintln(&sb, "\tmg.Spec.ManagementPolicies = r")
+				fmt.Fprintln(&sb, "}")
+				fmt.Fprintln(&sb)
 			}
 		}
 	}

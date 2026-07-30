@@ -30,6 +30,7 @@
 // Generate deepcopy methodsets and CRD manifests
 //go:generate go run -tags generate sigs.k8s.io/controller-tools/cmd/controller-gen object:headerFile=../hack/boilerplate.go.txt paths=./... crd:allowDangerousTypes=true,crdVersions=v1 output:artifacts:config=../package/crds
 
+// Hack, will need to be fixed in Upjet to avoid generating conversion spokes for types that don't have any hub versions.
 // Generate temporary managed shims so conversion spokes compile while angryjet computes methodsets.
 //go:generate go run ../cmd/managedshim/main.go ../apis
 

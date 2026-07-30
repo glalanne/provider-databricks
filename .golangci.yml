@@ -98,6 +98,7 @@ linters:
         text: "SA1019:.*scheme.Builder is deprecated"
         linters:
           - staticcheck
+      
     paths:
       - zz_generated\..+\.go$
       - third_party$
