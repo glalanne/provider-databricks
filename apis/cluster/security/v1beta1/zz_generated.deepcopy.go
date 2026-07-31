@@ -3392,6 +3392,16 @@ func (in *PermissionsInitParameters) DeepCopyInto(out *PermissionsInitParameters
 		*out = new(string)
 		**out = **in
 	}
+	if in.AppNameRef != nil {
+		in, out := &in.AppNameRef, &out.AppNameRef
+		*out = new(v2.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.AppNameSelector != nil {
+		in, out := &in.AppNameSelector, &out.AppNameSelector
+		*out = new(v2.Selector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.Authorization != nil {
 		in, out := &in.Authorization, &out.Authorization
 		*out = new(string)
@@ -3446,6 +3456,16 @@ func (in *PermissionsInitParameters) DeepCopyInto(out *PermissionsInitParameters
 		in, out := &in.DatabaseInstanceName, &out.DatabaseInstanceName
 		*out = new(string)
 		**out = **in
+	}
+	if in.DatabaseInstanceNameRef != nil {
+		in, out := &in.DatabaseInstanceNameRef, &out.DatabaseInstanceNameRef
+		*out = new(v2.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.DatabaseInstanceNameSelector != nil {
+		in, out := &in.DatabaseInstanceNameSelector, &out.DatabaseInstanceNameSelector
+		*out = new(v2.Selector)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.DatabaseProjectName != nil {
 		in, out := &in.DatabaseProjectName, &out.DatabaseProjectName
@@ -4013,6 +4033,16 @@ func (in *PermissionsParameters) DeepCopyInto(out *PermissionsParameters) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.AppNameRef != nil {
+		in, out := &in.AppNameRef, &out.AppNameRef
+		*out = new(v2.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.AppNameSelector != nil {
+		in, out := &in.AppNameSelector, &out.AppNameSelector
+		*out = new(v2.Selector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.Authorization != nil {
 		in, out := &in.Authorization, &out.Authorization
 		*out = new(string)
@@ -4067,6 +4097,16 @@ func (in *PermissionsParameters) DeepCopyInto(out *PermissionsParameters) {
 		in, out := &in.DatabaseInstanceName, &out.DatabaseInstanceName
 		*out = new(string)
 		**out = **in
+	}
+	if in.DatabaseInstanceNameRef != nil {
+		in, out := &in.DatabaseInstanceNameRef, &out.DatabaseInstanceNameRef
+		*out = new(v2.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.DatabaseInstanceNameSelector != nil {
+		in, out := &in.DatabaseInstanceNameSelector, &out.DatabaseInstanceNameSelector
+		*out = new(v2.Selector)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.DatabaseProjectName != nil {
 		in, out := &in.DatabaseProjectName, &out.DatabaseProjectName

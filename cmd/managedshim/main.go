@@ -95,13 +95,13 @@ func ensureShim(pkgDir, spokeFile string) error {
 
 	shimPath := filepath.Join(pkgDir, "zz_generated.managed_shim.go")
 	if len(missingByType) == 0 {
-		// #nosec G703,G304 -- shimPath is derived from checked-in package directories.
+		// #nosec G304,G703 -- shimPath is derived from checked-in package directories.
 		_ = os.Remove(shimPath)
 		return nil
 	}
 
 	content := renderShim(missingByType)
-	// #nosec G703,G304 -- shimPath is derived from checked-in package directories.
+	// #nosec G304,G703 -- shimPath is derived from checked-in package directories.
 	return os.WriteFile(shimPath, []byte(content), 0600)
 }
 

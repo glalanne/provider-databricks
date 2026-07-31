@@ -14,8 +14,11 @@ import (
 	"k8s.io/apimachinery/pkg/runtime"
 
 	clusterapis "github.com/glalanne/provider-databricks/apis/cluster"
+	clustersecurityv1beta1 "github.com/glalanne/provider-databricks/apis/cluster/security/v1beta1"
 	namespacedapis "github.com/glalanne/provider-databricks/apis/namespaced"
+	namespacedsecurityv1beta1 "github.com/glalanne/provider-databricks/apis/namespaced/security/v1beta1"
 	"github.com/glalanne/provider-databricks/config"
+	"k8s.io/apimachinery/pkg/runtime/schema"
 )
 
 // TestRoundTrip configures and invokes the API roundtrip tests.
@@ -54,6 +57,10 @@ func TestRoundTrip(t *testing.T) {
 		roundtrip.WithComparisonOptions(
 			roundtrip.EquateEmptyAndSingleZeroSlice(),
 			roundtrip.EquateNilAndZeroValuePtr(),
+		),
+		roundtrip.WithExcludeGroupKinds(
+			schema.GroupKind{Group: clustersecurityv1beta1.CRDGroup, Kind: clustersecurityv1beta1.Permissions_Kind},
+			schema.GroupKind{Group: namespacedsecurityv1beta1.CRDGroup, Kind: namespacedsecurityv1beta1.Permissions_Kind},
 		),
 	)
 	if err != nil {

@@ -109,7 +109,16 @@ type PermissionsInitParameters struct {
 	AlertV2ID *string `json:"alertV2Id,omitempty" tf:"alert_v2_id,omitempty"`
 
 	// app name
+	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/cluster/apps/v1beta1.App
 	AppName *string `json:"appName,omitempty" tf:"app_name,omitempty"`
+
+	// Reference to a App in apps to populate appName.
+	// +kubebuilder:validation:Optional
+	AppNameRef *v2.Reference `json:"appNameRef,omitempty" tf:"-"`
+
+	// Selector for a App in apps to populate appName.
+	// +kubebuilder:validation:Optional
+	AppNameSelector *v2.Selector `json:"appNameSelector,omitempty" tf:"-"`
 
 	// either tokens or passwords.
 	Authorization *string `json:"authorization,omitempty" tf:"authorization,omitempty"`
@@ -152,7 +161,16 @@ type PermissionsInitParameters struct {
 	DashboardIDSelector *v2.Selector `json:"dashboardIdSelector,omitempty" tf:"-"`
 
 	// Lakebase database instance name
+	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/cluster/databases/v1beta1.DatabaseInstance
 	DatabaseInstanceName *string `json:"databaseInstanceName,omitempty" tf:"database_instance_name,omitempty"`
+
+	// Reference to a DatabaseInstance in databases to populate databaseInstanceName.
+	// +kubebuilder:validation:Optional
+	DatabaseInstanceNameRef *v2.Reference `json:"databaseInstanceNameRef,omitempty" tf:"-"`
+
+	// Selector for a DatabaseInstance in databases to populate databaseInstanceName.
+	// +kubebuilder:validation:Optional
+	DatabaseInstanceNameSelector *v2.Selector `json:"databaseInstanceNameSelector,omitempty" tf:"-"`
 
 	// Lakebase database project name
 	DatabaseProjectName *string `json:"databaseProjectName,omitempty" tf:"database_project_name,omitempty"`
@@ -222,7 +240,6 @@ type PermissionsInitParameters struct {
 
 	// Knowledge Assistant id
 	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/cluster/ai/v1beta1.KnowledgeAssistant
-	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/v2/pkg/resource.ExtractResourceID()
 	KnowledgeAssistantID *string `json:"knowledgeAssistantId,omitempty" tf:"knowledge_assistant_id,omitempty"`
 
 	// Reference to a KnowledgeAssistant in ai to populate knowledgeAssistantId.
@@ -368,7 +385,6 @@ type PermissionsInitParameters struct {
 
 	// Supervisor Agent id
 	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/cluster/ai/v1beta1.SupervisorAgent
-	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/v2/pkg/resource.ExtractParamPath("supervisor_agent_id",true)
 	SupervisorAgentID *string `json:"supervisorAgentId,omitempty" tf:"supervisor_agent_id,omitempty"`
 
 	// Reference to a SupervisorAgent in ai to populate supervisorAgentId.
@@ -381,7 +397,6 @@ type PermissionsInitParameters struct {
 
 	// Vector Search endpoint id.
 	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/cluster/mosaic/v1beta1.VectorSearchEndpoint
-	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/v2/pkg/resource.ExtractParamPath("endpoint_id",true)
 	VectorSearchEndpointID *string `json:"vectorSearchEndpointId,omitempty" tf:"vector_search_endpoint_id,omitempty"`
 
 	// Reference to a VectorSearchEndpoint in mosaic to populate vectorSearchEndpointId.
@@ -527,8 +542,17 @@ type PermissionsParameters struct {
 	AlertV2ID *string `json:"alertV2Id,omitempty" tf:"alert_v2_id,omitempty"`
 
 	// app name
+	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/cluster/apps/v1beta1.App
 	// +kubebuilder:validation:Optional
 	AppName *string `json:"appName,omitempty" tf:"app_name,omitempty"`
+
+	// Reference to a App in apps to populate appName.
+	// +kubebuilder:validation:Optional
+	AppNameRef *v2.Reference `json:"appNameRef,omitempty" tf:"-"`
+
+	// Selector for a App in apps to populate appName.
+	// +kubebuilder:validation:Optional
+	AppNameSelector *v2.Selector `json:"appNameSelector,omitempty" tf:"-"`
 
 	// either tokens or passwords.
 	// +kubebuilder:validation:Optional
@@ -575,8 +599,17 @@ type PermissionsParameters struct {
 	DashboardIDSelector *v2.Selector `json:"dashboardIdSelector,omitempty" tf:"-"`
 
 	// Lakebase database instance name
+	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/cluster/databases/v1beta1.DatabaseInstance
 	// +kubebuilder:validation:Optional
 	DatabaseInstanceName *string `json:"databaseInstanceName,omitempty" tf:"database_instance_name,omitempty"`
+
+	// Reference to a DatabaseInstance in databases to populate databaseInstanceName.
+	// +kubebuilder:validation:Optional
+	DatabaseInstanceNameRef *v2.Reference `json:"databaseInstanceNameRef,omitempty" tf:"-"`
+
+	// Selector for a DatabaseInstance in databases to populate databaseInstanceName.
+	// +kubebuilder:validation:Optional
+	DatabaseInstanceNameSelector *v2.Selector `json:"databaseInstanceNameSelector,omitempty" tf:"-"`
 
 	// Lakebase database project name
 	// +kubebuilder:validation:Optional
@@ -652,7 +685,6 @@ type PermissionsParameters struct {
 
 	// Knowledge Assistant id
 	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/cluster/ai/v1beta1.KnowledgeAssistant
-	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/v2/pkg/resource.ExtractResourceID()
 	// +kubebuilder:validation:Optional
 	KnowledgeAssistantID *string `json:"knowledgeAssistantId,omitempty" tf:"knowledge_assistant_id,omitempty"`
 
@@ -812,7 +844,6 @@ type PermissionsParameters struct {
 
 	// Supervisor Agent id
 	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/cluster/ai/v1beta1.SupervisorAgent
-	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/v2/pkg/resource.ExtractParamPath("supervisor_agent_id",true)
 	// +kubebuilder:validation:Optional
 	SupervisorAgentID *string `json:"supervisorAgentId,omitempty" tf:"supervisor_agent_id,omitempty"`
 
@@ -826,7 +857,6 @@ type PermissionsParameters struct {
 
 	// Vector Search endpoint id.
 	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/cluster/mosaic/v1beta1.VectorSearchEndpoint
-	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/v2/pkg/resource.ExtractParamPath("endpoint_id",true)
 	// +kubebuilder:validation:Optional
 	VectorSearchEndpointID *string `json:"vectorSearchEndpointId,omitempty" tf:"vector_search_endpoint_id,omitempty"`
 
