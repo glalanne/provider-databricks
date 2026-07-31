@@ -16294,7 +16294,6 @@ spec:
                             type: object
                           type: array
                         index:
-                          default: default
                           description: This is an injected field with a default value
                             for being able to merge items of the parent object list.
                           type: string
@@ -17399,9 +17398,6 @@ spec:
                           type: array
                       type: object
                     type: array
-                    x-kubernetes-list-map-keys:
-                    - index
-                    x-kubernetes-list-type: map
                   timeoutSeconds:
                     description: (Integer) An optional timeout applied to each run
                       of this job. The default behavior is to have no timeout.
@@ -32382,7 +32378,6 @@ spec:
                               type: array
                           type: object
                         index:
-                          default: default
                           description: This is an injected field with a default value
                             for being able to merge items of the parent object list.
                           type: string
@@ -33373,9 +33368,6 @@ spec:
                           type: object
                       type: object
                     type: array
-                    x-kubernetes-list-map-keys:
-                    - index
-                    x-kubernetes-list-type: map
                   timeoutSeconds:
                     description: (Integer) An optional timeout applied to each run
                       of this job. The default behavior is to have no timeout.

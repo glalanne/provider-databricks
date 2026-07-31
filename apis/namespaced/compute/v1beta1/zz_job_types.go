@@ -3423,8 +3423,6 @@ type JobObservation struct {
 	Tags map[string]*string `json:"tags,omitempty" tf:"tags,omitempty"`
 
 	// A list of task specification that the job will execute. See task Configuration Block below.
-	// +listType=map
-	// +listMapKey=index
 	Task []TaskObservation `json:"task,omitempty" tf:"task,omitempty"`
 
 	// (Integer) An optional timeout applied to each run of this job. The default behavior is to have no timeout.
@@ -11021,7 +11019,6 @@ type TaskObservation struct {
 	Health *JobTaskHealthObservation `json:"health,omitempty" tf:"health,omitempty"`
 
 	// This is an injected field with a default value for being able to merge items of the parent object list.
-	// +kubebuilder:default:=default
 	Index *string `json:"index,omitempty" tf:"-"`
 
 	// Identifier of the Job cluster specified in the job_cluster block.
