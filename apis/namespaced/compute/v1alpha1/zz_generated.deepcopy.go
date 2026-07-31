@@ -48136,6 +48136,11 @@ func (in *TaskInitParameters) DeepCopyInto(out *TaskInitParameters) {
 			(*in)[i].DeepCopyInto(&(*out)[i])
 		}
 	}
+	if in.Index != nil {
+		in, out := &in.Index, &out.Index
+		*out = new(string)
+		**out = **in
+	}
 	if in.JobClusterKey != nil {
 		in, out := &in.JobClusterKey, &out.JobClusterKey
 		*out = new(string)
@@ -52846,6 +52851,11 @@ func (in *TaskObservation) DeepCopyInto(out *TaskObservation) {
 			(*in)[i].DeepCopyInto(&(*out)[i])
 		}
 	}
+	if in.Index != nil {
+		in, out := &in.Index, &out.Index
+		*out = new(string)
+		**out = **in
+	}
 	if in.JobClusterKey != nil {
 		in, out := &in.JobClusterKey, &out.JobClusterKey
 		*out = new(string)
@@ -53126,6 +53136,11 @@ func (in *TaskParameters) DeepCopyInto(out *TaskParameters) {
 		for i := range *in {
 			(*in)[i].DeepCopyInto(&(*out)[i])
 		}
+	}
+	if in.Index != nil {
+		in, out := &in.Index, &out.Index
+		*out = new(string)
+		**out = **in
 	}
 	if in.JobClusterKey != nil {
 		in, out := &in.JobClusterKey, &out.JobClusterKey

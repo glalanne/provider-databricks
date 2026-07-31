@@ -2245,6 +2245,8 @@ type JobInitParameters struct {
 	Tags map[string]*string `json:"tags,omitempty" tf:"tags,omitempty"`
 
 	// A list of task specification that the job will execute. See task Configuration Block below.
+	// +listType=map
+	// +listMapKey=index
 	Task []TaskInitParameters `json:"task,omitempty" tf:"task,omitempty"`
 
 	// (Integer) An optional timeout applied to each run of this job. The default behavior is to have no timeout.
@@ -3421,6 +3423,8 @@ type JobObservation struct {
 	Tags map[string]*string `json:"tags,omitempty" tf:"tags,omitempty"`
 
 	// A list of task specification that the job will execute. See task Configuration Block below.
+	// +listType=map
+	// +listMapKey=index
 	Task []TaskObservation `json:"task,omitempty" tf:"task,omitempty"`
 
 	// (Integer) An optional timeout applied to each run of this job. The default behavior is to have no timeout.
@@ -3593,6 +3597,8 @@ type JobParameters struct {
 
 	// A list of task specification that the job will execute. See task Configuration Block below.
 	// +kubebuilder:validation:Optional
+	// +listType=map
+	// +listMapKey=index
 	Task []TaskParameters `json:"task,omitempty" tf:"task,omitempty"`
 
 	// (Integer) An optional timeout applied to each run of this job. The default behavior is to have no timeout.
@@ -9435,6 +9441,10 @@ type TaskInitParameters struct {
 	// An optional block that specifies the health conditions for the job documented below.
 	Health []JobTaskHealthInitParameters `json:"health,omitempty" tf:"health,omitempty"`
 
+	// This is an injected field with a default value for being able to merge items of the parent object list.
+	// +kubebuilder:default:=default
+	Index *string `json:"index,omitempty" tf:"-"`
+
 	// Identifier of the Job cluster specified in the job_cluster block.
 	JobClusterKey *string `json:"jobClusterKey,omitempty" tf:"job_cluster_key,omitempty"`
 
@@ -11010,6 +11020,10 @@ type TaskObservation struct {
 	// An optional block that specifies the health conditions for the job documented below.
 	Health []JobTaskHealthObservation `json:"health,omitempty" tf:"health,omitempty"`
 
+	// This is an injected field with a default value for being able to merge items of the parent object list.
+	// +kubebuilder:default:=default
+	Index *string `json:"index,omitempty" tf:"-"`
+
 	// Identifier of the Job cluster specified in the job_cluster block.
 	JobClusterKey *string `json:"jobClusterKey,omitempty" tf:"job_cluster_key,omitempty"`
 
@@ -11161,6 +11175,11 @@ type TaskParameters struct {
 	// An optional block that specifies the health conditions for the job documented below.
 	// +kubebuilder:validation:Optional
 	Health []JobTaskHealthParameters `json:"health,omitempty" tf:"health,omitempty"`
+
+	// This is an injected field with a default value for being able to merge items of the parent object list.
+	// +kubebuilder:validation:Optional
+	// +kubebuilder:default:=default
+	Index *string `json:"index" tf:"-"`
 
 	// Identifier of the Job cluster specified in the job_cluster block.
 	// +kubebuilder:validation:Optional

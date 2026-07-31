@@ -71,5 +71,17 @@ func Configure(p *config.Provider) {
 		r.References["for_each_task.task.power_bi_task.warehouse_id"] = config.Reference{
 			TerraformName: "databricks_sql_endpoint",
 		}
+
+		r.ServerSideApplyMergeStrategies["task"] = config.MergeStrategy{
+			ListMergeStrategy: config.ListMergeStrategy{
+				ListMapKeys: config.ListMapKeys{
+					InjectedKey: config.InjectedKey{
+						Key:          "index",
+						DefaultValue: "default",
+					},
+				},
+				MergeStrategy: config.ListTypeMap,
+			},
+		}
 	})
 }
