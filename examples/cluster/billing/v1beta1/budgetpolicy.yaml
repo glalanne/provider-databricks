@@ -1,0 +1,18 @@
+# SPDX-FileCopyrightText: 2026 The Crossplane Authors <https://crossplane.io>
+#
+# SPDX-License-Identifier: CC0-1.0
+
+apiVersion: billing.databricks.crossplane.io/v1beta1
+kind: BudgetPolicy
+metadata:
+  annotations:
+    meta.upbound.io/example-id: billing/v1beta1/budgetpolicy
+  labels:
+    testing.upbound.io/example-name: this
+  name: this
+spec:
+  forProvider:
+    customTags:
+    - key: mykey
+      value: myvalue
+    policyName: my-budget-policy

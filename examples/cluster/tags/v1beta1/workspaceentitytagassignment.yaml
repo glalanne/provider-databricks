@@ -1,0 +1,18 @@
+# SPDX-FileCopyrightText: 2026 The Crossplane Authors <https://crossplane.io>
+#
+# SPDX-License-Identifier: CC0-1.0
+
+apiVersion: tags.databricks.crossplane.io/v1beta1
+kind: WorkspaceEntityTagAssignment
+metadata:
+  annotations:
+    meta.upbound.io/example-id: tags/v1beta1/workspaceentitytagassignment
+  labels:
+    testing.upbound.io/example-name: notebook_tag
+  name: notebook-tag
+spec:
+  forProvider:
+    entityId: "2807324866692453"
+    entityType: notebooks
+    tagKey: sensitivity_level
+    tagValue: high
