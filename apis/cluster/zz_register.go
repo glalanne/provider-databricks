@@ -10,16 +10,21 @@ package cluster
 import (
 	"k8s.io/apimachinery/pkg/runtime"
 
+	v1beta1 "github.com/glalanne/provider-databricks/apis/cluster/ai/v1beta1"
 	v1alpha1 "github.com/glalanne/provider-databricks/apis/cluster/apps/v1alpha1"
-	v1beta1 "github.com/glalanne/provider-databricks/apis/cluster/apps/v1beta1"
+	v1beta1apps "github.com/glalanne/provider-databricks/apis/cluster/apps/v1beta1"
+	v1beta1billing "github.com/glalanne/provider-databricks/apis/cluster/billing/v1beta1"
 	v1alpha1compute "github.com/glalanne/provider-databricks/apis/cluster/compute/v1alpha1"
 	v1beta1compute "github.com/glalanne/provider-databricks/apis/cluster/compute/v1beta1"
 	v1alpha1databases "github.com/glalanne/provider-databricks/apis/cluster/databases/v1alpha1"
 	v1beta1databases "github.com/glalanne/provider-databricks/apis/cluster/databases/v1beta1"
 	v1alpha1deployment "github.com/glalanne/provider-databricks/apis/cluster/deployment/v1alpha1"
 	v1beta1deployment "github.com/glalanne/provider-databricks/apis/cluster/deployment/v1beta1"
+	v1beta1dr "github.com/glalanne/provider-databricks/apis/cluster/dr/v1beta1"
+	v1beta1envs "github.com/glalanne/provider-databricks/apis/cluster/envs/v1beta1"
 	v1alpha1finops "github.com/glalanne/provider-databricks/apis/cluster/finops/v1alpha1"
 	v1beta1finops "github.com/glalanne/provider-databricks/apis/cluster/finops/v1beta1"
+	v1beta1governance "github.com/glalanne/provider-databricks/apis/cluster/governance/v1beta1"
 	v1alpha1log "github.com/glalanne/provider-databricks/apis/cluster/log/v1alpha1"
 	v1beta1log "github.com/glalanne/provider-databricks/apis/cluster/log/v1beta1"
 	v1alpha1mlflow "github.com/glalanne/provider-databricks/apis/cluster/mlflow/v1alpha1"
@@ -28,6 +33,7 @@ import (
 	v1beta1mosaic "github.com/glalanne/provider-databricks/apis/cluster/mosaic/v1beta1"
 	v1alpha1oauth "github.com/glalanne/provider-databricks/apis/cluster/oauth/v1alpha1"
 	v1beta1oauth "github.com/glalanne/provider-databricks/apis/cluster/oauth/v1beta1"
+	v1beta1postgres "github.com/glalanne/provider-databricks/apis/cluster/postgres/v1beta1"
 	v1alpha1security "github.com/glalanne/provider-databricks/apis/cluster/security/v1alpha1"
 	v1beta1security "github.com/glalanne/provider-databricks/apis/cluster/security/v1beta1"
 	v1alpha1serving "github.com/glalanne/provider-databricks/apis/cluster/serving/v1alpha1"
@@ -40,6 +46,7 @@ import (
 	v1beta1sql "github.com/glalanne/provider-databricks/apis/cluster/sql/v1beta1"
 	v1alpha1storage "github.com/glalanne/provider-databricks/apis/cluster/storage/v1alpha1"
 	v1beta1storage "github.com/glalanne/provider-databricks/apis/cluster/storage/v1beta1"
+	v1beta1tags "github.com/glalanne/provider-databricks/apis/cluster/tags/v1beta1"
 	v1alpha1unity "github.com/glalanne/provider-databricks/apis/cluster/unity/v1alpha1"
 	v1beta1unity "github.com/glalanne/provider-databricks/apis/cluster/unity/v1beta1"
 	v1alpha1cluster "github.com/glalanne/provider-databricks/apis/cluster/v1alpha1"
@@ -51,16 +58,21 @@ import (
 func init() {
 	// Register the types with the Scheme so the components can map objects to GroupVersionKinds and back
 	AddToSchemes = append(AddToSchemes,
-		v1alpha1.SchemeBuilder.AddToScheme,
 		v1beta1.SchemeBuilder.AddToScheme,
+		v1alpha1.SchemeBuilder.AddToScheme,
+		v1beta1apps.SchemeBuilder.AddToScheme,
+		v1beta1billing.SchemeBuilder.AddToScheme,
 		v1alpha1compute.SchemeBuilder.AddToScheme,
 		v1beta1compute.SchemeBuilder.AddToScheme,
 		v1alpha1databases.SchemeBuilder.AddToScheme,
 		v1beta1databases.SchemeBuilder.AddToScheme,
 		v1alpha1deployment.SchemeBuilder.AddToScheme,
 		v1beta1deployment.SchemeBuilder.AddToScheme,
+		v1beta1dr.SchemeBuilder.AddToScheme,
+		v1beta1envs.SchemeBuilder.AddToScheme,
 		v1alpha1finops.SchemeBuilder.AddToScheme,
 		v1beta1finops.SchemeBuilder.AddToScheme,
+		v1beta1governance.SchemeBuilder.AddToScheme,
 		v1alpha1log.SchemeBuilder.AddToScheme,
 		v1beta1log.SchemeBuilder.AddToScheme,
 		v1alpha1mlflow.SchemeBuilder.AddToScheme,
@@ -69,6 +81,7 @@ func init() {
 		v1beta1mosaic.SchemeBuilder.AddToScheme,
 		v1alpha1oauth.SchemeBuilder.AddToScheme,
 		v1beta1oauth.SchemeBuilder.AddToScheme,
+		v1beta1postgres.SchemeBuilder.AddToScheme,
 		v1alpha1security.SchemeBuilder.AddToScheme,
 		v1beta1security.SchemeBuilder.AddToScheme,
 		v1alpha1serving.SchemeBuilder.AddToScheme,
@@ -81,6 +94,7 @@ func init() {
 		v1beta1sql.SchemeBuilder.AddToScheme,
 		v1alpha1storage.SchemeBuilder.AddToScheme,
 		v1beta1storage.SchemeBuilder.AddToScheme,
+		v1beta1tags.SchemeBuilder.AddToScheme,
 		v1alpha1unity.SchemeBuilder.AddToScheme,
 		v1beta1unity.SchemeBuilder.AddToScheme,
 		v1alpha1cluster.SchemeBuilder.AddToScheme,

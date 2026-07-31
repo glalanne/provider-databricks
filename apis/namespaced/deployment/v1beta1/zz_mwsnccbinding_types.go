@@ -10,8 +10,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
-	v2 "github.com/crossplane/crossplane-runtime/v2/apis/common/v2"
+	v2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 )
 
 type MwsNccBindingInitParameters struct {
@@ -23,11 +22,11 @@ type MwsNccBindingInitParameters struct {
 
 	// Reference to a MwsNetworkConnectivityConfig in deployment to populate networkConnectivityConfigId.
 	// +kubebuilder:validation:Optional
-	NetworkConnectivityConfigIDRef *v1.NamespacedReference `json:"networkConnectivityConfigIdRef,omitempty" tf:"-"`
+	NetworkConnectivityConfigIDRef *v2.NamespacedReference `json:"networkConnectivityConfigIdRef,omitempty" tf:"-"`
 
 	// Selector for a MwsNetworkConnectivityConfig in deployment to populate networkConnectivityConfigId.
 	// +kubebuilder:validation:Optional
-	NetworkConnectivityConfigIDSelector *v1.NamespacedSelector `json:"networkConnectivityConfigIdSelector,omitempty" tf:"-"`
+	NetworkConnectivityConfigIDSelector *v2.NamespacedSelector `json:"networkConnectivityConfigIdSelector,omitempty" tf:"-"`
 
 	// Identifier of the workspace to attach the NCC to. Change forces creation of a new resource.
 	WorkspaceID *float64 `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
@@ -53,11 +52,11 @@ type MwsNccBindingParameters struct {
 
 	// Reference to a MwsNetworkConnectivityConfig in deployment to populate networkConnectivityConfigId.
 	// +kubebuilder:validation:Optional
-	NetworkConnectivityConfigIDRef *v1.NamespacedReference `json:"networkConnectivityConfigIdRef,omitempty" tf:"-"`
+	NetworkConnectivityConfigIDRef *v2.NamespacedReference `json:"networkConnectivityConfigIdRef,omitempty" tf:"-"`
 
 	// Selector for a MwsNetworkConnectivityConfig in deployment to populate networkConnectivityConfigId.
 	// +kubebuilder:validation:Optional
-	NetworkConnectivityConfigIDSelector *v1.NamespacedSelector `json:"networkConnectivityConfigIdSelector,omitempty" tf:"-"`
+	NetworkConnectivityConfigIDSelector *v2.NamespacedSelector `json:"networkConnectivityConfigIdSelector,omitempty" tf:"-"`
 
 	// Identifier of the workspace to attach the NCC to. Change forces creation of a new resource.
 	// +kubebuilder:validation:Optional
@@ -83,8 +82,8 @@ type MwsNccBindingSpec struct {
 
 // MwsNccBindingStatus defines the observed state of MwsNccBinding.
 type MwsNccBindingStatus struct {
-	v1.ResourceStatus `json:",inline"`
-	AtProvider        MwsNccBindingObservation `json:"atProvider,omitempty"`
+	v2.ManagedResourceStatus `json:",inline"`
+	AtProvider               MwsNccBindingObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true

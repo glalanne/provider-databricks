@@ -1,0 +1,58 @@
+# SPDX-FileCopyrightText: 2026 The Crossplane Authors <https://crossplane.io>
+#
+# SPDX-License-Identifier: CC0-1.0
+
+apiVersion: postgres.databricks.crossplane.io/v1beta1
+kind: PostgresDatabase
+metadata:
+  annotations:
+    meta.upbound.io/example-id: postgres/v1beta1/postgresdatabase
+  labels:
+    testing.upbound.io/example-name: databricks_postgres
+  name: databricks-postgres
+spec:
+  forProvider:
+    databaseId: databricks-postgres
+    parentSelector:
+      matchLabels:
+        testing.upbound.io/example-name: production
+    replaceExisting: true
+    spec:
+      postgresDatabase: databricks_postgres
+
+---
+
+apiVersion: postgres.databricks.crossplane.io/v1beta1
+kind: PostgresBranch
+metadata:
+  annotations:
+    meta.upbound.io/example-id: postgres/v1beta1/postgresdatabase
+  labels:
+    testing.upbound.io/example-name: production
+  name: production
+spec:
+  forProvider:
+    branchId: production
+    parentSelector:
+      matchLabels:
+        testing.upbound.io/example-name: this
+    replaceExisting: true
+    spec:
+      noExpiry: true
+
+---
+
+apiVersion: postgres.databricks.crossplane.io/v1beta1
+kind: PostgresProject
+metadata:
+  annotations:
+    meta.upbound.io/example-id: postgres/v1beta1/postgresdatabase
+  labels:
+    testing.upbound.io/example-name: this
+  name: this
+spec:
+  forProvider:
+    projectId: my-project
+    spec:
+      displayName: My Project
+      pgVersion: 17

@@ -10,7 +10,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
+	v2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 )
 
 type AwsIAMRoleInitParameters struct {
@@ -94,7 +94,7 @@ type AzureServicePrincipalInitParameters struct {
 	ApplicationID *string `json:"applicationId,omitempty" tf:"application_id,omitempty"`
 
 	// The client secret generated for the above app ID in AAD. This field is redacted on output
-	ClientSecretSecretRef v1.SecretKeySelector `json:"clientSecretSecretRef" tf:"-"`
+	ClientSecretSecretRef v2.SecretKeySelector `json:"clientSecretSecretRef" tf:"-"`
 
 	// The directory ID corresponding to the Azure Active Directory (AAD) tenant of the application
 	DirectoryID *string `json:"directoryId,omitempty" tf:"directory_id,omitempty"`
@@ -117,7 +117,7 @@ type AzureServicePrincipalParameters struct {
 
 	// The client secret generated for the above app ID in AAD. This field is redacted on output
 	// +kubebuilder:validation:Optional
-	ClientSecretSecretRef v1.SecretKeySelector `json:"clientSecretSecretRef" tf:"-"`
+	ClientSecretSecretRef v2.SecretKeySelector `json:"clientSecretSecretRef" tf:"-"`
 
 	// The directory ID corresponding to the Azure Active Directory (AAD) tenant of the application
 	// +kubebuilder:validation:Optional
@@ -159,6 +159,9 @@ type CredentialInitParameters struct {
 
 	// Username/groupname/sp application_id of the credential owner.
 	Owner *string `json:"owner,omitempty" tf:"owner,omitempty"`
+
+	// Configure the provider for management through account provider. This block consists of the following fields:
+	ProviderConfig []CredentialProviderConfigInitParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
 
 	// Indicates the purpose of the credential. Can be SERVICE or STORAGE.
 	Purpose *string `json:"purpose,omitempty" tf:"purpose,omitempty"`
@@ -217,6 +220,9 @@ type CredentialObservation struct {
 
 	// Username/groupname/sp application_id of the credential owner.
 	Owner *string `json:"owner,omitempty" tf:"owner,omitempty"`
+
+	// Configure the provider for management through account provider. This block consists of the following fields:
+	ProviderConfig []CredentialProviderConfigObservation `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
 
 	// Indicates the purpose of the credential. Can be SERVICE or STORAGE.
 	Purpose *string `json:"purpose,omitempty" tf:"purpose,omitempty"`
@@ -285,6 +291,10 @@ type CredentialParameters struct {
 	// +kubebuilder:validation:Optional
 	Owner *string `json:"owner,omitempty" tf:"owner,omitempty"`
 
+	// Configure the provider for management through account provider. This block consists of the following fields:
+	// +kubebuilder:validation:Optional
+	ProviderConfig []CredentialProviderConfigParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
+
 	// Indicates the purpose of the credential. Can be SERVICE or STORAGE.
 	// +kubebuilder:validation:Optional
 	Purpose *string `json:"purpose,omitempty" tf:"purpose,omitempty"`
@@ -305,6 +315,25 @@ type CredentialParameters struct {
 
 	// +kubebuilder:validation:Optional
 	UsedForManagedStorage *bool `json:"usedForManagedStorage,omitempty" tf:"used_for_managed_storage,omitempty"`
+}
+
+type CredentialProviderConfigInitParameters struct {
+
+	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
+}
+
+type CredentialProviderConfigObservation struct {
+
+	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
+}
+
+type CredentialProviderConfigParameters struct {
+
+	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
+	// +kubebuilder:validation:Optional
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
 }
 
 type DatabricksGCPServiceAccountInitParameters struct {
@@ -348,8 +377,8 @@ type DatabricksGCPServiceAccountParameters struct {
 
 // CredentialSpec defines the desired state of Credential
 type CredentialSpec struct {
-	v1.ResourceSpec `json:",inline"`
-	ForProvider     CredentialParameters `json:"forProvider"`
+	v2.ClusterManagedResourceSpec `json:",inline"`
+	ForProvider                   CredentialParameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
 	// InitProvider holds the same fields as ForProvider, with the exception
@@ -365,8 +394,8 @@ type CredentialSpec struct {
 
 // CredentialStatus defines the observed state of Credential.
 type CredentialStatus struct {
-	v1.ResourceStatus `json:",inline"`
-	AtProvider        CredentialObservation `json:"atProvider,omitempty"`
+	v2.ManagedResourceStatus `json:",inline"`
+	AtProvider               CredentialObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true

@@ -7,26 +7,47 @@ package cluster
 import (
 	"github.com/glalanne/provider-databricks/config/cluster/access_control_rule_set"
 	"github.com/glalanne/provider-databricks/config/cluster/account_federation_policy"
+	"github.com/glalanne/provider-databricks/config/cluster/account_network_policy"
+	"github.com/glalanne/provider-databricks/config/cluster/account_setting_v2"
+	"github.com/glalanne/provider-databricks/config/cluster/ai_search_endpoint"
+	"github.com/glalanne/provider-databricks/config/cluster/ai_search_index"
+	"github.com/glalanne/provider-databricks/config/cluster/aibi_dashboard_embedding_access_policy_setting"
+	"github.com/glalanne/provider-databricks/config/cluster/aibi_dashboard_embedding_approved_domains_setting"
 	"github.com/glalanne/provider-databricks/config/cluster/alert"
+	"github.com/glalanne/provider-databricks/config/cluster/alert_v2"
 	"github.com/glalanne/provider-databricks/config/cluster/app"
 	"github.com/glalanne/provider-databricks/config/cluster/artifact_allowlist"
+	"github.com/glalanne/provider-databricks/config/cluster/automatic_cluster_update_setting"
 	"github.com/glalanne/provider-databricks/config/cluster/budget"
+	"github.com/glalanne/provider-databricks/config/cluster/budget_policy"
 	"github.com/glalanne/provider-databricks/config/cluster/catalog"
 	"github.com/glalanne/provider-databricks/config/cluster/catalog_workspace_binding"
 	"github.com/glalanne/provider-databricks/config/cluster/cluster"
 	"github.com/glalanne/provider-databricks/config/cluster/cluster_policy"
+	"github.com/glalanne/provider-databricks/config/cluster/compliance_security_profile_setting"
 	"github.com/glalanne/provider-databricks/config/cluster/compliance_security_profile_workspace_setting"
 	"github.com/glalanne/provider-databricks/config/cluster/connection"
 	"github.com/glalanne/provider-databricks/config/cluster/credential"
 	"github.com/glalanne/provider-databricks/config/cluster/custom_app_integration"
 	"github.com/glalanne/provider-databricks/config/cluster/dashboard"
+	"github.com/glalanne/provider-databricks/config/cluster/data_classification_catalog_config"
+	"github.com/glalanne/provider-databricks/config/cluster/data_quality_refresh"
 	"github.com/glalanne/provider-databricks/config/cluster/database_instance"
 	"github.com/glalanne/provider-databricks/config/cluster/dbfs_file"
 	"github.com/glalanne/provider-databricks/config/cluster/default_namespace_setting"
 	"github.com/glalanne/provider-databricks/config/cluster/directory"
+	"github.com/glalanne/provider-databricks/config/cluster/disable_legacy_access_setting"
+	"github.com/glalanne/provider-databricks/config/cluster/disable_legacy_dbfs_setting"
+	"github.com/glalanne/provider-databricks/config/cluster/disable_legacy_features_setting"
+	"github.com/glalanne/provider-databricks/config/cluster/disaster_recovery_failover_group"
+	"github.com/glalanne/provider-databricks/config/cluster/disaster_recovery_stable_url"
 	"github.com/glalanne/provider-databricks/config/cluster/enhanced_security_monitoring_workspace_setting"
 	"github.com/glalanne/provider-databricks/config/cluster/entitlements"
+	"github.com/glalanne/provider-databricks/config/cluster/entity_tag_assignment"
+	"github.com/glalanne/provider-databricks/config/cluster/environments_default_workspace_base_environment"
+	"github.com/glalanne/provider-databricks/config/cluster/environments_workspace_base_environment"
 	"github.com/glalanne/provider-databricks/config/cluster/external_location"
+	"github.com/glalanne/provider-databricks/config/cluster/external_metadata"
 	"github.com/glalanne/provider-databricks/config/cluster/file"
 	"github.com/glalanne/provider-databricks/config/cluster/git_credential"
 	"github.com/glalanne/provider-databricks/config/cluster/global_init_script"
@@ -40,6 +61,8 @@ import (
 	"github.com/glalanne/provider-databricks/config/cluster/instance_profile"
 	"github.com/glalanne/provider-databricks/config/cluster/ip_access_list"
 	"github.com/glalanne/provider-databricks/config/cluster/job"
+	"github.com/glalanne/provider-databricks/config/cluster/knowledge_assistant"
+	"github.com/glalanne/provider-databricks/config/cluster/knowledge_assistant_knowledge_source"
 	"github.com/glalanne/provider-databricks/config/cluster/lakehouse_monitor"
 	"github.com/glalanne/provider-databricks/config/cluster/library"
 	"github.com/glalanne/provider-databricks/config/cluster/metastore"
@@ -70,6 +93,14 @@ import (
 	"github.com/glalanne/provider-databricks/config/cluster/permissions"
 	"github.com/glalanne/provider-databricks/config/cluster/pipeline"
 	"github.com/glalanne/provider-databricks/config/cluster/policy_info"
+	"github.com/glalanne/provider-databricks/config/cluster/postgres_branch"
+	"github.com/glalanne/provider-databricks/config/cluster/postgres_catalog"
+	"github.com/glalanne/provider-databricks/config/cluster/postgres_cdf_config"
+	"github.com/glalanne/provider-databricks/config/cluster/postgres_database"
+	"github.com/glalanne/provider-databricks/config/cluster/postgres_endpoint"
+	"github.com/glalanne/provider-databricks/config/cluster/postgres_project"
+	"github.com/glalanne/provider-databricks/config/cluster/postgres_role"
+	"github.com/glalanne/provider-databricks/config/cluster/postgres_synced_table"
 	"github.com/glalanne/provider-databricks/config/cluster/provider"
 	"github.com/glalanne/provider-databricks/config/cluster/quality_monitor"
 	"github.com/glalanne/provider-databricks/config/cluster/query"
@@ -77,10 +108,12 @@ import (
 	"github.com/glalanne/provider-databricks/config/cluster/registered_model"
 	"github.com/glalanne/provider-databricks/config/cluster/repo"
 	"github.com/glalanne/provider-databricks/config/cluster/restrict_workspace_admins_setting"
+	"github.com/glalanne/provider-databricks/config/cluster/rfa_access_request_destinations"
 	"github.com/glalanne/provider-databricks/config/cluster/schema"
 	"github.com/glalanne/provider-databricks/config/cluster/secret"
 	"github.com/glalanne/provider-databricks/config/cluster/secret_acl"
 	"github.com/glalanne/provider-databricks/config/cluster/secret_scope"
+	"github.com/glalanne/provider-databricks/config/cluster/secret_uc"
 	"github.com/glalanne/provider-databricks/config/cluster/service_principal"
 	"github.com/glalanne/provider-databricks/config/cluster/service_principal_federation_policy"
 	"github.com/glalanne/provider-databricks/config/cluster/service_principal_role"
@@ -96,7 +129,10 @@ import (
 	"github.com/glalanne/provider-databricks/config/cluster/sql_visualization"
 	"github.com/glalanne/provider-databricks/config/cluster/sql_widget"
 	"github.com/glalanne/provider-databricks/config/cluster/storage_credential"
+	"github.com/glalanne/provider-databricks/config/cluster/supervisor_agent"
+	"github.com/glalanne/provider-databricks/config/cluster/supervisor_agent_tool"
 	"github.com/glalanne/provider-databricks/config/cluster/system_schema"
+	"github.com/glalanne/provider-databricks/config/cluster/tag_policy"
 	"github.com/glalanne/provider-databricks/config/cluster/token"
 	"github.com/glalanne/provider-databricks/config/cluster/user"
 	"github.com/glalanne/provider-databricks/config/cluster/user_instance_profile"
@@ -106,7 +142,10 @@ import (
 	"github.com/glalanne/provider-databricks/config/cluster/volume"
 	"github.com/glalanne/provider-databricks/config/cluster/workspace_binding"
 	"github.com/glalanne/provider-databricks/config/cluster/workspace_conf"
+	"github.com/glalanne/provider-databricks/config/cluster/workspace_entity_tag_assignment"
 	"github.com/glalanne/provider-databricks/config/cluster/workspace_file"
+	"github.com/glalanne/provider-databricks/config/cluster/workspace_network_option"
+	"github.com/glalanne/provider-databricks/config/cluster/workspace_setting_v2"
 )
 
 func init() {
@@ -212,4 +251,43 @@ func init() {
 	ProviderConfiguration.AddConfig(app.Configure)
 	ProviderConfiguration.AddConfig(policy_info.Configure)
 	ProviderConfiguration.AddConfig(database_instance.Configure)
+	ProviderConfiguration.AddConfig(data_classification_catalog_config.Configure)
+	ProviderConfiguration.AddConfig(workspace_entity_tag_assignment.Configure)
+	ProviderConfiguration.AddConfig(aibi_dashboard_embedding_access_policy_setting.Configure)
+	ProviderConfiguration.AddConfig(environments_default_workspace_base_environment.Configure)
+	ProviderConfiguration.AddConfig(postgres_role.Configure)
+	ProviderConfiguration.AddConfig(rfa_access_request_destinations.Configure)
+	ProviderConfiguration.AddConfig(postgres_synced_table.Configure)
+	ProviderConfiguration.AddConfig(account_network_policy.Configure)
+	ProviderConfiguration.AddConfig(postgres_endpoint.Configure)
+	ProviderConfiguration.AddConfig(compliance_security_profile_setting.Configure)
+	ProviderConfiguration.AddConfig(disable_legacy_access_setting.Configure)
+	ProviderConfiguration.AddConfig(aibi_dashboard_embedding_approved_domains_setting.Configure)
+	ProviderConfiguration.AddConfig(disable_legacy_features_setting.Configure)
+	ProviderConfiguration.AddConfig(supervisor_agent_tool.Configure)
+	ProviderConfiguration.AddConfig(environments_workspace_base_environment.Configure)
+	ProviderConfiguration.AddConfig(alert_v2.Configure)
+	ProviderConfiguration.AddConfig(disaster_recovery_failover_group.Configure)
+	ProviderConfiguration.AddConfig(postgres_project.Configure)
+	ProviderConfiguration.AddConfig(supervisor_agent.Configure)
+	ProviderConfiguration.AddConfig(knowledge_assistant.Configure)
+	ProviderConfiguration.AddConfig(account_setting_v2.Configure)
+	ProviderConfiguration.AddConfig(postgres_cdf_config.Configure)
+	ProviderConfiguration.AddConfig(postgres_branch.Configure)
+	ProviderConfiguration.AddConfig(budget_policy.Configure)
+	ProviderConfiguration.AddConfig(postgres_catalog.Configure)
+	ProviderConfiguration.AddConfig(postgres_database.Configure)
+	ProviderConfiguration.AddConfig(workspace_network_option.Configure)
+	ProviderConfiguration.AddConfig(knowledge_assistant_knowledge_source.Configure)
+	ProviderConfiguration.AddConfig(tag_policy.Configure)
+	ProviderConfiguration.AddConfig(entity_tag_assignment.Configure)
+	ProviderConfiguration.AddConfig(secret_uc.Configure)
+	ProviderConfiguration.AddConfig(workspace_setting_v2.Configure)
+	ProviderConfiguration.AddConfig(automatic_cluster_update_setting.Configure)
+	ProviderConfiguration.AddConfig(ai_search_endpoint.Configure)
+	ProviderConfiguration.AddConfig(data_quality_refresh.Configure)
+	ProviderConfiguration.AddConfig(ai_search_index.Configure)
+	ProviderConfiguration.AddConfig(disaster_recovery_stable_url.Configure)
+	ProviderConfiguration.AddConfig(external_metadata.Configure)
+	ProviderConfiguration.AddConfig(disable_legacy_dbfs_setting.Configure)
 }

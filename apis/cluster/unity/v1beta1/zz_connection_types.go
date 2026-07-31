@@ -10,45 +10,48 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
+	v2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 )
 
 type ConnectionInitParameters struct {
 
-	// Free-form text. Change forces creation of a new resource.
+	// User-provided free-form text description. Change forces creation of a new resource.
 	Comment *string `json:"comment,omitempty" tf:"comment,omitempty"`
 
-	// Connection type. MYSQL, POSTGRESQL, SNOWFLAKE, REDSHIFT SQLDW, SQLSERVER, DATABRICKS, SALESFORCE, BIGQUERY, WORKDAY_RAAS, HIVE_METASTORE, GA4_RAW_DATA, SERVICENOW, SALESFORCE_DATA_CLOUD, GLUE, ORACLE, TERADATA, HTTP or POWER_BI are supported. Up-to-date list of connection type supported is in the documentation. Change forces creation of a new resource.
+	// The type of connection. Possible values are: BIGQUERY, CONFLUENCE, DATABRICKS, GA4_RAW_DATA, GITHUB, GLUE, HIVE_METASTORE, HTTP, HUBSPOT, META_MARKETING, MYSQL, ORACLE, OUTLOOK, POSTGRESQL, POWER_BI, REDSHIFT, SALESFORCE, SALESFORCE_DATA_CLOUD, SERVICENOW, SMARTSHEET, SNOWFLAKE, SQLDW, SQLSERVER, TERADATA, WORKDAY_RAAS, or ZENDESK. For an up-to-date list of connection types and required options, see the documentation. Change forces creation of a new resource.
 	ConnectionType *string `json:"connectionType,omitempty" tf:"connection_type,omitempty"`
 
-	// Name of the Connection.
+	// Connection environment settings. This block consists of the following fields:
+	EnvironmentSettings *EnvironmentSettingsInitParameters `json:"environmentSettings,omitempty" tf:"environment_settings,omitempty"`
+
+	// Name of the connection.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	Options map[string]*string `json:"optionsSecretRef,omitempty" tf:"-"`
 
-	// Name of the connection owner.
+	// Username of current owner of the connection.
 	Owner *string `json:"owner,omitempty" tf:"owner,omitempty"`
 
-	// Free-form connection properties. Change forces creation of a new resource.
+	// A map of key-value properties attached to the securable. Change forces creation of a new resource.
 	// +mapType=granular
 	Properties map[string]*string `json:"properties,omitempty" tf:"properties,omitempty"`
 
 	// Configure the provider for management through account provider. This block consists of the following fields:
 	ProviderConfig *ConnectionProviderConfigInitParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
 
-	// Indicates whether the connection is read-only. Change forces creation of a new resource.
+	// If the connection is read only. Change forces creation of a new resource.
 	ReadOnly *bool `json:"readOnly,omitempty" tf:"read_only,omitempty"`
 }
 
 type ConnectionObservation struct {
 
-	// Free-form text. Change forces creation of a new resource.
+	// User-provided free-form text description. Change forces creation of a new resource.
 	Comment *string `json:"comment,omitempty" tf:"comment,omitempty"`
 
-	// Unique ID of the connection.
+	// Unique identifier of the Connection.
 	ConnectionID *string `json:"connectionId,omitempty" tf:"connection_id,omitempty"`
 
-	// Connection type. MYSQL, POSTGRESQL, SNOWFLAKE, REDSHIFT SQLDW, SQLSERVER, DATABRICKS, SALESFORCE, BIGQUERY, WORKDAY_RAAS, HIVE_METASTORE, GA4_RAW_DATA, SERVICENOW, SALESFORCE_DATA_CLOUD, GLUE, ORACLE, TERADATA, HTTP or POWER_BI are supported. Up-to-date list of connection type supported is in the documentation. Change forces creation of a new resource.
+	// The type of connection. Possible values are: BIGQUERY, CONFLUENCE, DATABRICKS, GA4_RAW_DATA, GITHUB, GLUE, HIVE_METASTORE, HTTP, HUBSPOT, META_MARKETING, MYSQL, ORACLE, OUTLOOK, POSTGRESQL, POWER_BI, REDSHIFT, SALESFORCE, SALESFORCE_DATA_CLOUD, SERVICENOW, SMARTSHEET, SNOWFLAKE, SQLDW, SQLSERVER, TERADATA, WORKDAY_RAAS, or ZENDESK. For an up-to-date list of connection types and required options, see the documentation. Change forces creation of a new resource.
 	ConnectionType *string `json:"connectionType,omitempty" tf:"connection_type,omitempty"`
 
 	// Time at which this connection was created, in epoch milliseconds.
@@ -57,8 +60,11 @@ type ConnectionObservation struct {
 	// Username of connection creator.
 	CreatedBy *string `json:"createdBy,omitempty" tf:"created_by,omitempty"`
 
-	// The type of credential for this connection.
+	// The type of credential.
 	CredentialType *string `json:"credentialType,omitempty" tf:"credential_type,omitempty"`
+
+	// Connection environment settings. This block consists of the following fields:
+	EnvironmentSettings *EnvironmentSettingsObservation `json:"environmentSettings,omitempty" tf:"environment_settings,omitempty"`
 
 	// Full name of connection.
 	FullName *string `json:"fullName,omitempty" tf:"full_name,omitempty"`
@@ -66,63 +72,68 @@ type ConnectionObservation struct {
 	// ID of this connection in form of <metastore_id>|<name>.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
-	// Unique ID of the UC metastore for this connection.
+	// Unique identifier of parent metastore.
 	MetastoreID *string `json:"metastoreId,omitempty" tf:"metastore_id,omitempty"`
 
-	// Name of the Connection.
+	// Name of the connection.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
-	// Name of the connection owner.
+	// Username of current owner of the connection.
 	Owner *string `json:"owner,omitempty" tf:"owner,omitempty"`
 
-	// Free-form connection properties. Change forces creation of a new resource.
+	// A map of key-value properties attached to the securable. Change forces creation of a new resource.
 	// +mapType=granular
 	Properties map[string]*string `json:"properties,omitempty" tf:"properties,omitempty"`
 
 	// Configure the provider for management through account provider. This block consists of the following fields:
 	ProviderConfig *ConnectionProviderConfigObservation `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
 
-	// Object with the status of an asynchronously provisioned resource.
+	// Status of an asynchronously provisioned resource. This block consists of the following fields:
 	ProvisioningInfo []ConnectionProvisioningInfoObservation `json:"provisioningInfo,omitempty" tf:"provisioning_info,omitempty"`
 
-	// Indicates whether the connection is read-only. Change forces creation of a new resource.
+	// If the connection is read only. Change forces creation of a new resource.
 	ReadOnly *bool `json:"readOnly,omitempty" tf:"read_only,omitempty"`
 
+	// Securable type.
 	SecurableType *string `json:"securableType,omitempty" tf:"securable_type,omitempty"`
 
 	// URL of the remote data source, extracted from options.
 	URL *string `json:"url,omitempty" tf:"url,omitempty"`
 
-	// Time at which connection this was last modified, in epoch milliseconds.
+	// Time at which this connection was updated, in epoch milliseconds.
 	UpdatedAt *float64 `json:"updatedAt,omitempty" tf:"updated_at,omitempty"`
 
-	// Username of user who last modified the connection.
+	// Username of user who last modified connection.
 	UpdatedBy *string `json:"updatedBy,omitempty" tf:"updated_by,omitempty"`
 }
 
 type ConnectionParameters struct {
 
-	// Free-form text. Change forces creation of a new resource.
+	// User-provided free-form text description. Change forces creation of a new resource.
 	// +kubebuilder:validation:Optional
 	Comment *string `json:"comment,omitempty" tf:"comment,omitempty"`
 
-	// Connection type. MYSQL, POSTGRESQL, SNOWFLAKE, REDSHIFT SQLDW, SQLSERVER, DATABRICKS, SALESFORCE, BIGQUERY, WORKDAY_RAAS, HIVE_METASTORE, GA4_RAW_DATA, SERVICENOW, SALESFORCE_DATA_CLOUD, GLUE, ORACLE, TERADATA, HTTP or POWER_BI are supported. Up-to-date list of connection type supported is in the documentation. Change forces creation of a new resource.
+	// The type of connection. Possible values are: BIGQUERY, CONFLUENCE, DATABRICKS, GA4_RAW_DATA, GITHUB, GLUE, HIVE_METASTORE, HTTP, HUBSPOT, META_MARKETING, MYSQL, ORACLE, OUTLOOK, POSTGRESQL, POWER_BI, REDSHIFT, SALESFORCE, SALESFORCE_DATA_CLOUD, SERVICENOW, SMARTSHEET, SNOWFLAKE, SQLDW, SQLSERVER, TERADATA, WORKDAY_RAAS, or ZENDESK. For an up-to-date list of connection types and required options, see the documentation. Change forces creation of a new resource.
 	// +kubebuilder:validation:Optional
 	ConnectionType *string `json:"connectionType,omitempty" tf:"connection_type,omitempty"`
 
-	// Name of the Connection.
+	// Connection environment settings. This block consists of the following fields:
+	// +kubebuilder:validation:Optional
+	EnvironmentSettings *EnvironmentSettingsParameters `json:"environmentSettings,omitempty" tf:"environment_settings,omitempty"`
+
+	// Name of the connection.
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
-	// The key value of options required by the connection, e.g. host, port, user, password, authorization_endpoint, client_id, client_secret or GoogleServiceAccountKeyJson. Please consult the documentation for the required option.
+	// A map of key-value properties attached to the securable. The required keys depend on the connection type, e.g. host, port, user, password, authorization_endpoint, client_id, client_secret, or GoogleServiceAccountKeyJson. Please consult the documentation for the required options. This field is sensitive.
 	// +kubebuilder:validation:Optional
-	OptionsSecretRef *v1.SecretReference `json:"optionsSecretRef,omitempty" tf:"-"`
+	OptionsSecretRef *v2.SecretReference `json:"optionsSecretRef,omitempty" tf:"-"`
 
-	// Name of the connection owner.
+	// Username of current owner of the connection.
 	// +kubebuilder:validation:Optional
 	Owner *string `json:"owner,omitempty" tf:"owner,omitempty"`
 
-	// Free-form connection properties. Change forces creation of a new resource.
+	// A map of key-value properties attached to the securable. Change forces creation of a new resource.
 	// +kubebuilder:validation:Optional
 	// +mapType=granular
 	Properties map[string]*string `json:"properties,omitempty" tf:"properties,omitempty"`
@@ -131,7 +142,7 @@ type ConnectionParameters struct {
 	// +kubebuilder:validation:Optional
 	ProviderConfig *ConnectionProviderConfigParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
 
-	// Indicates whether the connection is read-only. Change forces creation of a new resource.
+	// If the connection is read only. Change forces creation of a new resource.
 	// +kubebuilder:validation:Optional
 	ReadOnly *bool `json:"readOnly,omitempty" tf:"read_only,omitempty"`
 }
@@ -152,23 +163,54 @@ type ConnectionProviderConfigParameters struct {
 
 	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
 	// +kubebuilder:validation:Optional
-	WorkspaceID *string `json:"workspaceId" tf:"workspace_id,omitempty"`
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
 }
 
 type ConnectionProvisioningInfoInitParameters struct {
 }
 
 type ConnectionProvisioningInfoObservation struct {
+
+	// The provisioning state of the resource. Possible values are: ACTIVE, DEGRADED, DELETING, FAILED, PROVISIONING, or UPDATING.
 	State *string `json:"state,omitempty" tf:"state,omitempty"`
 }
 
 type ConnectionProvisioningInfoParameters struct {
 }
 
+type EnvironmentSettingsInitParameters struct {
+
+	// Environment version.
+	EnvironmentVersion *string `json:"environmentVersion,omitempty" tf:"environment_version,omitempty"`
+
+	// List of Java dependencies.
+	JavaDependencies []*string `json:"javaDependencies,omitempty" tf:"java_dependencies,omitempty"`
+}
+
+type EnvironmentSettingsObservation struct {
+
+	// Environment version.
+	EnvironmentVersion *string `json:"environmentVersion,omitempty" tf:"environment_version,omitempty"`
+
+	// List of Java dependencies.
+	JavaDependencies []*string `json:"javaDependencies,omitempty" tf:"java_dependencies,omitempty"`
+}
+
+type EnvironmentSettingsParameters struct {
+
+	// Environment version.
+	// +kubebuilder:validation:Optional
+	EnvironmentVersion *string `json:"environmentVersion,omitempty" tf:"environment_version,omitempty"`
+
+	// List of Java dependencies.
+	// +kubebuilder:validation:Optional
+	JavaDependencies []*string `json:"javaDependencies,omitempty" tf:"java_dependencies,omitempty"`
+}
+
 // ConnectionSpec defines the desired state of Connection
 type ConnectionSpec struct {
-	v1.ResourceSpec `json:",inline"`
-	ForProvider     ConnectionParameters `json:"forProvider"`
+	v2.ClusterManagedResourceSpec `json:",inline"`
+	ForProvider                   ConnectionParameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
 	// InitProvider holds the same fields as ForProvider, with the exception
@@ -184,8 +226,8 @@ type ConnectionSpec struct {
 
 // ConnectionStatus defines the observed state of Connection.
 type ConnectionStatus struct {
-	v1.ResourceStatus `json:",inline"`
-	AtProvider        ConnectionObservation `json:"atProvider,omitempty"`
+	v2.ManagedResourceStatus `json:",inline"`
+	AtProvider               ConnectionObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true

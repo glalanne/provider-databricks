@@ -10,8 +10,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
-	v2 "github.com/crossplane/crossplane-runtime/v2/apis/common/v2"
+	v2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 )
 
 type GitCredentialInitParameters struct {
@@ -35,9 +34,9 @@ type GitCredentialInitParameters struct {
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// The personal access token used to authenticate to the corresponding Git provider. If value is not provided, it's sourced from the first environment variable of GITHUB_TOKEN, GITLAB_TOKEN, or AZDO_PERSONAL_ACCESS_TOKEN, that has a non-empty value.
-	PersonalAccessTokenSecretRef *v1.LocalSecretKeySelector `json:"personalAccessTokenSecretRef,omitempty" tf:"-"`
+	PersonalAccessTokenSecretRef *v2.LocalSecretKeySelector `json:"personalAccessTokenSecretRef,omitempty" tf:"-"`
 
-	// identifier of specific Git credential
+	// The ID of the service principal whose credentials will be managed. Only service principal managers can use this field. When specified, the git credential is created or updated for the given service principal instead of the calling user.
 	PrincipalID *float64 `json:"principalId,omitempty" tf:"principal_id,omitempty"`
 
 	// Configure the provider for management through account provider. This block consists of the following fields:
@@ -67,7 +66,7 @@ type GitCredentialObservation struct {
 	// the name of the git credential, used for identification and ease of lookup.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
-	// identifier of specific Git credential
+	// The ID of the service principal whose credentials will be managed. Only service principal managers can use this field. When specified, the git credential is created or updated for the given service principal instead of the calling user.
 	PrincipalID *float64 `json:"principalId,omitempty" tf:"principal_id,omitempty"`
 
 	// Configure the provider for management through account provider. This block consists of the following fields:
@@ -102,9 +101,9 @@ type GitCredentialParameters struct {
 
 	// The personal access token used to authenticate to the corresponding Git provider. If value is not provided, it's sourced from the first environment variable of GITHUB_TOKEN, GITLAB_TOKEN, or AZDO_PERSONAL_ACCESS_TOKEN, that has a non-empty value.
 	// +kubebuilder:validation:Optional
-	PersonalAccessTokenSecretRef *v1.LocalSecretKeySelector `json:"personalAccessTokenSecretRef,omitempty" tf:"-"`
+	PersonalAccessTokenSecretRef *v2.LocalSecretKeySelector `json:"personalAccessTokenSecretRef,omitempty" tf:"-"`
 
-	// identifier of specific Git credential
+	// The ID of the service principal whose credentials will be managed. Only service principal managers can use this field. When specified, the git credential is created or updated for the given service principal instead of the calling user.
 	// +kubebuilder:validation:Optional
 	PrincipalID *float64 `json:"principalId,omitempty" tf:"principal_id,omitempty"`
 
@@ -129,7 +128,7 @@ type GitCredentialProviderConfigParameters struct {
 
 	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
 	// +kubebuilder:validation:Optional
-	WorkspaceID *string `json:"workspaceId" tf:"workspace_id,omitempty"`
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
 }
 
 // GitCredentialSpec defines the desired state of GitCredential
@@ -151,8 +150,8 @@ type GitCredentialSpec struct {
 
 // GitCredentialStatus defines the observed state of GitCredential.
 type GitCredentialStatus struct {
-	v1.ResourceStatus `json:",inline"`
-	AtProvider        GitCredentialObservation `json:"atProvider,omitempty"`
+	v2.ManagedResourceStatus `json:",inline"`
+	AtProvider               GitCredentialObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true

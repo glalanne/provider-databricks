@@ -10,8 +10,77 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
+	v2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 )
+
+type EffectiveFileEventQueueInitParameters struct {
+
+	// Configuration for managed Azure Queue Storage queue.
+	ManagedAqs []ManagedAqsInitParameters `json:"managedAqs,omitempty" tf:"managed_aqs,omitempty"`
+
+	// Configuration for managed Google Cloud Pub/Sub queue.
+	ManagedPubsub []ManagedPubsubInitParameters `json:"managedPubsub,omitempty" tf:"managed_pubsub,omitempty"`
+
+	// Configuration for managed Amazon SQS queue.
+	ManagedSqs []ManagedSqsInitParameters `json:"managedSqs,omitempty" tf:"managed_sqs,omitempty"`
+
+	// Configuration for provided Azure Storage Queue.
+	ProvidedAqs []ProvidedAqsInitParameters `json:"providedAqs,omitempty" tf:"provided_aqs,omitempty"`
+
+	// Configuration for provided Google Cloud Pub/Sub queue.
+	ProvidedPubsub []ProvidedPubsubInitParameters `json:"providedPubsub,omitempty" tf:"provided_pubsub,omitempty"`
+
+	// Configuration for provided Amazon SQS queue.
+	ProvidedSqs []ProvidedSqsInitParameters `json:"providedSqs,omitempty" tf:"provided_sqs,omitempty"`
+}
+
+type EffectiveFileEventQueueObservation struct {
+
+	// Configuration for managed Azure Queue Storage queue.
+	ManagedAqs []ManagedAqsObservation `json:"managedAqs,omitempty" tf:"managed_aqs,omitempty"`
+
+	// Configuration for managed Google Cloud Pub/Sub queue.
+	ManagedPubsub []ManagedPubsubObservation `json:"managedPubsub,omitempty" tf:"managed_pubsub,omitempty"`
+
+	// Configuration for managed Amazon SQS queue.
+	ManagedSqs []ManagedSqsObservation `json:"managedSqs,omitempty" tf:"managed_sqs,omitempty"`
+
+	// Configuration for provided Azure Storage Queue.
+	ProvidedAqs []ProvidedAqsObservation `json:"providedAqs,omitempty" tf:"provided_aqs,omitempty"`
+
+	// Configuration for provided Google Cloud Pub/Sub queue.
+	ProvidedPubsub []ProvidedPubsubObservation `json:"providedPubsub,omitempty" tf:"provided_pubsub,omitempty"`
+
+	// Configuration for provided Amazon SQS queue.
+	ProvidedSqs []ProvidedSqsObservation `json:"providedSqs,omitempty" tf:"provided_sqs,omitempty"`
+}
+
+type EffectiveFileEventQueueParameters struct {
+
+	// Configuration for managed Azure Queue Storage queue.
+	// +kubebuilder:validation:Optional
+	ManagedAqs []ManagedAqsParameters `json:"managedAqs,omitempty" tf:"managed_aqs,omitempty"`
+
+	// Configuration for managed Google Cloud Pub/Sub queue.
+	// +kubebuilder:validation:Optional
+	ManagedPubsub []ManagedPubsubParameters `json:"managedPubsub,omitempty" tf:"managed_pubsub,omitempty"`
+
+	// Configuration for managed Amazon SQS queue.
+	// +kubebuilder:validation:Optional
+	ManagedSqs []ManagedSqsParameters `json:"managedSqs,omitempty" tf:"managed_sqs,omitempty"`
+
+	// Configuration for provided Azure Storage Queue.
+	// +kubebuilder:validation:Optional
+	ProvidedAqs []ProvidedAqsParameters `json:"providedAqs,omitempty" tf:"provided_aqs,omitempty"`
+
+	// Configuration for provided Google Cloud Pub/Sub queue.
+	// +kubebuilder:validation:Optional
+	ProvidedPubsub []ProvidedPubsubParameters `json:"providedPubsub,omitempty" tf:"provided_pubsub,omitempty"`
+
+	// Configuration for provided Amazon SQS queue.
+	// +kubebuilder:validation:Optional
+	ProvidedSqs []ProvidedSqsParameters `json:"providedSqs,omitempty" tf:"provided_sqs,omitempty"`
+}
 
 type EncryptionDetailsInitParameters struct {
 
@@ -44,11 +113,13 @@ type ExternalLocationInitParameters struct {
 
 	// Reference to a StorageCredential in unity to populate credentialName.
 	// +kubebuilder:validation:Optional
-	CredentialNameRef *v1.Reference `json:"credentialNameRef,omitempty" tf:"-"`
+	CredentialNameRef *v2.Reference `json:"credentialNameRef,omitempty" tf:"-"`
 
 	// Selector for a StorageCredential in unity to populate credentialName.
 	// +kubebuilder:validation:Optional
-	CredentialNameSelector *v1.Selector `json:"credentialNameSelector,omitempty" tf:"-"`
+	CredentialNameSelector *v2.Selector `json:"credentialNameSelector,omitempty" tf:"-"`
+
+	EffectiveFileEventQueue []EffectiveFileEventQueueInitParameters `json:"effectiveFileEventQueue,omitempty" tf:"effective_file_event_queue,omitempty"`
 
 	// indicates if managed file events are enabled for this external location.  Requires file_event_queue block.
 	EnableFileEvents *bool `json:"enableFileEvents,omitempty" tf:"enable_file_events,omitempty"`
@@ -111,6 +182,8 @@ type ExternalLocationObservation struct {
 
 	// indicates if managed file events are enabled for this external location.  Requires file_event_queue block.
 	EffectiveEnableFileEvents *bool `json:"effectiveEnableFileEvents,omitempty" tf:"effective_enable_file_events,omitempty"`
+
+	EffectiveFileEventQueue []EffectiveFileEventQueueObservation `json:"effectiveFileEventQueue,omitempty" tf:"effective_file_event_queue,omitempty"`
 
 	// indicates if managed file events are enabled for this external location.  Requires file_event_queue block.
 	EnableFileEvents *bool `json:"enableFileEvents,omitempty" tf:"enable_file_events,omitempty"`
@@ -176,11 +249,14 @@ type ExternalLocationParameters struct {
 
 	// Reference to a StorageCredential in unity to populate credentialName.
 	// +kubebuilder:validation:Optional
-	CredentialNameRef *v1.Reference `json:"credentialNameRef,omitempty" tf:"-"`
+	CredentialNameRef *v2.Reference `json:"credentialNameRef,omitempty" tf:"-"`
 
 	// Selector for a StorageCredential in unity to populate credentialName.
 	// +kubebuilder:validation:Optional
-	CredentialNameSelector *v1.Selector `json:"credentialNameSelector,omitempty" tf:"-"`
+	CredentialNameSelector *v2.Selector `json:"credentialNameSelector,omitempty" tf:"-"`
+
+	// +kubebuilder:validation:Optional
+	EffectiveFileEventQueue []EffectiveFileEventQueueParameters `json:"effectiveFileEventQueue,omitempty" tf:"effective_file_event_queue,omitempty"`
 
 	// indicates if managed file events are enabled for this external location.  Requires file_event_queue block.
 	// +kubebuilder:validation:Optional
@@ -253,79 +329,254 @@ type ExternalLocationProviderConfigParameters struct {
 
 	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
 	// +kubebuilder:validation:Optional
-	WorkspaceID *string `json:"workspaceId" tf:"workspace_id,omitempty"`
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
 }
 
 type FileEventQueueInitParameters struct {
 
 	// Configuration for managed Azure Queue Storage queue.
-	ManagedAqs []ManagedAqsInitParameters `json:"managedAqs,omitempty" tf:"managed_aqs,omitempty"`
+	ManagedAqs []FileEventQueueManagedAqsInitParameters `json:"managedAqs,omitempty" tf:"managed_aqs,omitempty"`
 
 	// Configuration for managed Google Cloud Pub/Sub queue.
-	ManagedPubsub []ManagedPubsubInitParameters `json:"managedPubsub,omitempty" tf:"managed_pubsub,omitempty"`
+	ManagedPubsub []FileEventQueueManagedPubsubInitParameters `json:"managedPubsub,omitempty" tf:"managed_pubsub,omitempty"`
 
 	// Configuration for managed Amazon SQS queue.
-	ManagedSqs []ManagedSqsInitParameters `json:"managedSqs,omitempty" tf:"managed_sqs,omitempty"`
+	ManagedSqs []FileEventQueueManagedSqsInitParameters `json:"managedSqs,omitempty" tf:"managed_sqs,omitempty"`
 
 	// Configuration for provided Azure Storage Queue.
-	ProvidedAqs []ProvidedAqsInitParameters `json:"providedAqs,omitempty" tf:"provided_aqs,omitempty"`
+	ProvidedAqs []FileEventQueueProvidedAqsInitParameters `json:"providedAqs,omitempty" tf:"provided_aqs,omitempty"`
 
 	// Configuration for provided Google Cloud Pub/Sub queue.
-	ProvidedPubsub []ProvidedPubsubInitParameters `json:"providedPubsub,omitempty" tf:"provided_pubsub,omitempty"`
+	ProvidedPubsub []FileEventQueueProvidedPubsubInitParameters `json:"providedPubsub,omitempty" tf:"provided_pubsub,omitempty"`
 
 	// Configuration for provided Amazon SQS queue.
-	ProvidedSqs []ProvidedSqsInitParameters `json:"providedSqs,omitempty" tf:"provided_sqs,omitempty"`
+	ProvidedSqs []FileEventQueueProvidedSqsInitParameters `json:"providedSqs,omitempty" tf:"provided_sqs,omitempty"`
+}
+
+type FileEventQueueManagedAqsInitParameters struct {
+
+	// The URL of the queue.
+	QueueURL *string `json:"queueUrl,omitempty" tf:"queue_url,omitempty"`
+
+	// The name of the Azure resource group.
+	ResourceGroup *string `json:"resourceGroup,omitempty" tf:"resource_group,omitempty"`
+
+	// The Azure subscription ID.
+	SubscriptionID *string `json:"subscriptionId,omitempty" tf:"subscription_id,omitempty"`
+}
+
+type FileEventQueueManagedAqsObservation struct {
+
+	// (Computed) The ID of the managed resource.
+	ManagedResourceID *string `json:"managedResourceId,omitempty" tf:"managed_resource_id,omitempty"`
+
+	// The URL of the queue.
+	QueueURL *string `json:"queueUrl,omitempty" tf:"queue_url,omitempty"`
+
+	// The name of the Azure resource group.
+	ResourceGroup *string `json:"resourceGroup,omitempty" tf:"resource_group,omitempty"`
+
+	// The Azure subscription ID.
+	SubscriptionID *string `json:"subscriptionId,omitempty" tf:"subscription_id,omitempty"`
+}
+
+type FileEventQueueManagedAqsParameters struct {
+
+	// The URL of the queue.
+	// +kubebuilder:validation:Optional
+	QueueURL *string `json:"queueUrl,omitempty" tf:"queue_url,omitempty"`
+
+	// The name of the Azure resource group.
+	// +kubebuilder:validation:Optional
+	ResourceGroup *string `json:"resourceGroup" tf:"resource_group,omitempty"`
+
+	// The Azure subscription ID.
+	// +kubebuilder:validation:Optional
+	SubscriptionID *string `json:"subscriptionId" tf:"subscription_id,omitempty"`
+}
+
+type FileEventQueueManagedPubsubInitParameters struct {
+
+	// The name of the subscription.
+	SubscriptionName *string `json:"subscriptionName,omitempty" tf:"subscription_name,omitempty"`
+}
+
+type FileEventQueueManagedPubsubObservation struct {
+
+	// (Computed) The ID of the managed resource.
+	ManagedResourceID *string `json:"managedResourceId,omitempty" tf:"managed_resource_id,omitempty"`
+
+	// The name of the subscription.
+	SubscriptionName *string `json:"subscriptionName,omitempty" tf:"subscription_name,omitempty"`
+}
+
+type FileEventQueueManagedPubsubParameters struct {
+
+	// The name of the subscription.
+	// +kubebuilder:validation:Optional
+	SubscriptionName *string `json:"subscriptionName,omitempty" tf:"subscription_name,omitempty"`
+}
+
+type FileEventQueueManagedSqsInitParameters struct {
+
+	// The URL of the queue.
+	QueueURL *string `json:"queueUrl,omitempty" tf:"queue_url,omitempty"`
+}
+
+type FileEventQueueManagedSqsObservation struct {
+
+	// (Computed) The ID of the managed resource.
+	ManagedResourceID *string `json:"managedResourceId,omitempty" tf:"managed_resource_id,omitempty"`
+
+	// The URL of the queue.
+	QueueURL *string `json:"queueUrl,omitempty" tf:"queue_url,omitempty"`
+}
+
+type FileEventQueueManagedSqsParameters struct {
+
+	// The URL of the queue.
+	// +kubebuilder:validation:Optional
+	QueueURL *string `json:"queueUrl,omitempty" tf:"queue_url,omitempty"`
 }
 
 type FileEventQueueObservation struct {
 
 	// Configuration for managed Azure Queue Storage queue.
-	ManagedAqs []ManagedAqsObservation `json:"managedAqs,omitempty" tf:"managed_aqs,omitempty"`
+	ManagedAqs []FileEventQueueManagedAqsObservation `json:"managedAqs,omitempty" tf:"managed_aqs,omitempty"`
 
 	// Configuration for managed Google Cloud Pub/Sub queue.
-	ManagedPubsub []ManagedPubsubObservation `json:"managedPubsub,omitempty" tf:"managed_pubsub,omitempty"`
+	ManagedPubsub []FileEventQueueManagedPubsubObservation `json:"managedPubsub,omitempty" tf:"managed_pubsub,omitempty"`
 
 	// Configuration for managed Amazon SQS queue.
-	ManagedSqs []ManagedSqsObservation `json:"managedSqs,omitempty" tf:"managed_sqs,omitempty"`
+	ManagedSqs []FileEventQueueManagedSqsObservation `json:"managedSqs,omitempty" tf:"managed_sqs,omitempty"`
 
 	// Configuration for provided Azure Storage Queue.
-	ProvidedAqs []ProvidedAqsObservation `json:"providedAqs,omitempty" tf:"provided_aqs,omitempty"`
+	ProvidedAqs []FileEventQueueProvidedAqsObservation `json:"providedAqs,omitempty" tf:"provided_aqs,omitempty"`
 
 	// Configuration for provided Google Cloud Pub/Sub queue.
-	ProvidedPubsub []ProvidedPubsubObservation `json:"providedPubsub,omitempty" tf:"provided_pubsub,omitempty"`
+	ProvidedPubsub []FileEventQueueProvidedPubsubObservation `json:"providedPubsub,omitempty" tf:"provided_pubsub,omitempty"`
 
 	// Configuration for provided Amazon SQS queue.
-	ProvidedSqs []ProvidedSqsObservation `json:"providedSqs,omitempty" tf:"provided_sqs,omitempty"`
+	ProvidedSqs []FileEventQueueProvidedSqsObservation `json:"providedSqs,omitempty" tf:"provided_sqs,omitempty"`
 }
 
 type FileEventQueueParameters struct {
 
 	// Configuration for managed Azure Queue Storage queue.
 	// +kubebuilder:validation:Optional
-	ManagedAqs []ManagedAqsParameters `json:"managedAqs,omitempty" tf:"managed_aqs,omitempty"`
+	ManagedAqs []FileEventQueueManagedAqsParameters `json:"managedAqs,omitempty" tf:"managed_aqs,omitempty"`
 
 	// Configuration for managed Google Cloud Pub/Sub queue.
 	// +kubebuilder:validation:Optional
-	ManagedPubsub []ManagedPubsubParameters `json:"managedPubsub,omitempty" tf:"managed_pubsub,omitempty"`
+	ManagedPubsub []FileEventQueueManagedPubsubParameters `json:"managedPubsub,omitempty" tf:"managed_pubsub,omitempty"`
 
 	// Configuration for managed Amazon SQS queue.
 	// +kubebuilder:validation:Optional
-	ManagedSqs []ManagedSqsParameters `json:"managedSqs,omitempty" tf:"managed_sqs,omitempty"`
+	ManagedSqs []FileEventQueueManagedSqsParameters `json:"managedSqs,omitempty" tf:"managed_sqs,omitempty"`
 
 	// Configuration for provided Azure Storage Queue.
 	// +kubebuilder:validation:Optional
-	ProvidedAqs []ProvidedAqsParameters `json:"providedAqs,omitempty" tf:"provided_aqs,omitempty"`
+	ProvidedAqs []FileEventQueueProvidedAqsParameters `json:"providedAqs,omitempty" tf:"provided_aqs,omitempty"`
 
 	// Configuration for provided Google Cloud Pub/Sub queue.
 	// +kubebuilder:validation:Optional
-	ProvidedPubsub []ProvidedPubsubParameters `json:"providedPubsub,omitempty" tf:"provided_pubsub,omitempty"`
+	ProvidedPubsub []FileEventQueueProvidedPubsubParameters `json:"providedPubsub,omitempty" tf:"provided_pubsub,omitempty"`
 
 	// Configuration for provided Amazon SQS queue.
 	// +kubebuilder:validation:Optional
-	ProvidedSqs []ProvidedSqsParameters `json:"providedSqs,omitempty" tf:"provided_sqs,omitempty"`
+	ProvidedSqs []FileEventQueueProvidedSqsParameters `json:"providedSqs,omitempty" tf:"provided_sqs,omitempty"`
+}
+
+type FileEventQueueProvidedAqsInitParameters struct {
+
+	// The URL of the queue.
+	QueueURL *string `json:"queueUrl,omitempty" tf:"queue_url,omitempty"`
+
+	// The name of the Azure resource group.
+	ResourceGroup *string `json:"resourceGroup,omitempty" tf:"resource_group,omitempty"`
+
+	// The Azure subscription ID.
+	SubscriptionID *string `json:"subscriptionId,omitempty" tf:"subscription_id,omitempty"`
+}
+
+type FileEventQueueProvidedAqsObservation struct {
+
+	// (Computed) The ID of the managed resource.
+	ManagedResourceID *string `json:"managedResourceId,omitempty" tf:"managed_resource_id,omitempty"`
+
+	// The URL of the queue.
+	QueueURL *string `json:"queueUrl,omitempty" tf:"queue_url,omitempty"`
+
+	// The name of the Azure resource group.
+	ResourceGroup *string `json:"resourceGroup,omitempty" tf:"resource_group,omitempty"`
+
+	// The Azure subscription ID.
+	SubscriptionID *string `json:"subscriptionId,omitempty" tf:"subscription_id,omitempty"`
+}
+
+type FileEventQueueProvidedAqsParameters struct {
+
+	// The URL of the queue.
+	// +kubebuilder:validation:Optional
+	QueueURL *string `json:"queueUrl" tf:"queue_url,omitempty"`
+
+	// The name of the Azure resource group.
+	// +kubebuilder:validation:Optional
+	ResourceGroup *string `json:"resourceGroup,omitempty" tf:"resource_group,omitempty"`
+
+	// The Azure subscription ID.
+	// +kubebuilder:validation:Optional
+	SubscriptionID *string `json:"subscriptionId,omitempty" tf:"subscription_id,omitempty"`
+}
+
+type FileEventQueueProvidedPubsubInitParameters struct {
+
+	// The name of the subscription.
+	SubscriptionName *string `json:"subscriptionName,omitempty" tf:"subscription_name,omitempty"`
+}
+
+type FileEventQueueProvidedPubsubObservation struct {
+
+	// (Computed) The ID of the managed resource.
+	ManagedResourceID *string `json:"managedResourceId,omitempty" tf:"managed_resource_id,omitempty"`
+
+	// The name of the subscription.
+	SubscriptionName *string `json:"subscriptionName,omitempty" tf:"subscription_name,omitempty"`
+}
+
+type FileEventQueueProvidedPubsubParameters struct {
+
+	// The name of the subscription.
+	// +kubebuilder:validation:Optional
+	SubscriptionName *string `json:"subscriptionName" tf:"subscription_name,omitempty"`
+}
+
+type FileEventQueueProvidedSqsInitParameters struct {
+
+	// The URL of the queue.
+	QueueURL *string `json:"queueUrl,omitempty" tf:"queue_url,omitempty"`
+}
+
+type FileEventQueueProvidedSqsObservation struct {
+
+	// (Computed) The ID of the managed resource.
+	ManagedResourceID *string `json:"managedResourceId,omitempty" tf:"managed_resource_id,omitempty"`
+
+	// The URL of the queue.
+	QueueURL *string `json:"queueUrl,omitempty" tf:"queue_url,omitempty"`
+}
+
+type FileEventQueueProvidedSqsParameters struct {
+
+	// The URL of the queue.
+	// +kubebuilder:validation:Optional
+	QueueURL *string `json:"queueUrl" tf:"queue_url,omitempty"`
 }
 
 type ManagedAqsInitParameters struct {
+
+	// (Computed) The ID of the managed resource.
+	ManagedResourceID *string `json:"managedResourceId,omitempty" tf:"managed_resource_id,omitempty"`
 
 	// The URL of the queue.
 	QueueURL *string `json:"queueUrl,omitempty" tf:"queue_url,omitempty"`
@@ -354,20 +605,27 @@ type ManagedAqsObservation struct {
 
 type ManagedAqsParameters struct {
 
+	// (Computed) The ID of the managed resource.
+	// +kubebuilder:validation:Optional
+	ManagedResourceID *string `json:"managedResourceId,omitempty" tf:"managed_resource_id,omitempty"`
+
 	// The URL of the queue.
 	// +kubebuilder:validation:Optional
 	QueueURL *string `json:"queueUrl,omitempty" tf:"queue_url,omitempty"`
 
 	// The name of the Azure resource group.
 	// +kubebuilder:validation:Optional
-	ResourceGroup *string `json:"resourceGroup" tf:"resource_group,omitempty"`
+	ResourceGroup *string `json:"resourceGroup,omitempty" tf:"resource_group,omitempty"`
 
 	// The Azure subscription ID.
 	// +kubebuilder:validation:Optional
-	SubscriptionID *string `json:"subscriptionId" tf:"subscription_id,omitempty"`
+	SubscriptionID *string `json:"subscriptionId,omitempty" tf:"subscription_id,omitempty"`
 }
 
 type ManagedPubsubInitParameters struct {
+
+	// (Computed) The ID of the managed resource.
+	ManagedResourceID *string `json:"managedResourceId,omitempty" tf:"managed_resource_id,omitempty"`
 
 	// The name of the subscription.
 	SubscriptionName *string `json:"subscriptionName,omitempty" tf:"subscription_name,omitempty"`
@@ -384,12 +642,19 @@ type ManagedPubsubObservation struct {
 
 type ManagedPubsubParameters struct {
 
+	// (Computed) The ID of the managed resource.
+	// +kubebuilder:validation:Optional
+	ManagedResourceID *string `json:"managedResourceId,omitempty" tf:"managed_resource_id,omitempty"`
+
 	// The name of the subscription.
 	// +kubebuilder:validation:Optional
 	SubscriptionName *string `json:"subscriptionName,omitempty" tf:"subscription_name,omitempty"`
 }
 
 type ManagedSqsInitParameters struct {
+
+	// (Computed) The ID of the managed resource.
+	ManagedResourceID *string `json:"managedResourceId,omitempty" tf:"managed_resource_id,omitempty"`
 
 	// The URL of the queue.
 	QueueURL *string `json:"queueUrl,omitempty" tf:"queue_url,omitempty"`
@@ -406,12 +671,19 @@ type ManagedSqsObservation struct {
 
 type ManagedSqsParameters struct {
 
+	// (Computed) The ID of the managed resource.
+	// +kubebuilder:validation:Optional
+	ManagedResourceID *string `json:"managedResourceId,omitempty" tf:"managed_resource_id,omitempty"`
+
 	// The URL of the queue.
 	// +kubebuilder:validation:Optional
 	QueueURL *string `json:"queueUrl,omitempty" tf:"queue_url,omitempty"`
 }
 
 type ProvidedAqsInitParameters struct {
+
+	// (Computed) The ID of the managed resource.
+	ManagedResourceID *string `json:"managedResourceId,omitempty" tf:"managed_resource_id,omitempty"`
 
 	// The URL of the queue.
 	QueueURL *string `json:"queueUrl,omitempty" tf:"queue_url,omitempty"`
@@ -440,9 +712,13 @@ type ProvidedAqsObservation struct {
 
 type ProvidedAqsParameters struct {
 
+	// (Computed) The ID of the managed resource.
+	// +kubebuilder:validation:Optional
+	ManagedResourceID *string `json:"managedResourceId,omitempty" tf:"managed_resource_id,omitempty"`
+
 	// The URL of the queue.
 	// +kubebuilder:validation:Optional
-	QueueURL *string `json:"queueUrl" tf:"queue_url,omitempty"`
+	QueueURL *string `json:"queueUrl,omitempty" tf:"queue_url,omitempty"`
 
 	// The name of the Azure resource group.
 	// +kubebuilder:validation:Optional
@@ -454,6 +730,9 @@ type ProvidedAqsParameters struct {
 }
 
 type ProvidedPubsubInitParameters struct {
+
+	// (Computed) The ID of the managed resource.
+	ManagedResourceID *string `json:"managedResourceId,omitempty" tf:"managed_resource_id,omitempty"`
 
 	// The name of the subscription.
 	SubscriptionName *string `json:"subscriptionName,omitempty" tf:"subscription_name,omitempty"`
@@ -470,12 +749,19 @@ type ProvidedPubsubObservation struct {
 
 type ProvidedPubsubParameters struct {
 
+	// (Computed) The ID of the managed resource.
+	// +kubebuilder:validation:Optional
+	ManagedResourceID *string `json:"managedResourceId,omitempty" tf:"managed_resource_id,omitempty"`
+
 	// The name of the subscription.
 	// +kubebuilder:validation:Optional
-	SubscriptionName *string `json:"subscriptionName" tf:"subscription_name,omitempty"`
+	SubscriptionName *string `json:"subscriptionName,omitempty" tf:"subscription_name,omitempty"`
 }
 
 type ProvidedSqsInitParameters struct {
+
+	// (Computed) The ID of the managed resource.
+	ManagedResourceID *string `json:"managedResourceId,omitempty" tf:"managed_resource_id,omitempty"`
 
 	// The URL of the queue.
 	QueueURL *string `json:"queueUrl,omitempty" tf:"queue_url,omitempty"`
@@ -492,9 +778,13 @@ type ProvidedSqsObservation struct {
 
 type ProvidedSqsParameters struct {
 
+	// (Computed) The ID of the managed resource.
+	// +kubebuilder:validation:Optional
+	ManagedResourceID *string `json:"managedResourceId,omitempty" tf:"managed_resource_id,omitempty"`
+
 	// The URL of the queue.
 	// +kubebuilder:validation:Optional
-	QueueURL *string `json:"queueUrl" tf:"queue_url,omitempty"`
+	QueueURL *string `json:"queueUrl,omitempty" tf:"queue_url,omitempty"`
 }
 
 type SseEncryptionDetailsInitParameters struct {
@@ -528,8 +818,8 @@ type SseEncryptionDetailsParameters struct {
 
 // ExternalLocationSpec defines the desired state of ExternalLocation
 type ExternalLocationSpec struct {
-	v1.ResourceSpec `json:",inline"`
-	ForProvider     ExternalLocationParameters `json:"forProvider"`
+	v2.ClusterManagedResourceSpec `json:",inline"`
+	ForProvider                   ExternalLocationParameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
 	// InitProvider holds the same fields as ForProvider, with the exception
@@ -545,8 +835,8 @@ type ExternalLocationSpec struct {
 
 // ExternalLocationStatus defines the observed state of ExternalLocation.
 type ExternalLocationStatus struct {
-	v1.ResourceStatus `json:",inline"`
-	AtProvider        ExternalLocationObservation `json:"atProvider,omitempty"`
+	v2.ManagedResourceStatus `json:",inline"`
+	AtProvider               ExternalLocationObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true

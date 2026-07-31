@@ -135,8 +135,7 @@ func getProviderWithMode(fwProvider fwprovider.Provider, sdkProvider *tfschema.P
 	providerOpts := []config.ProviderOption{
 		config.WithRootGroup(rootGroup),
 		config.WithIncludeList(CLIReconciledResourceList()),
-		config.WithTerraformPluginSDKIncludeList(TerraformPluginSDKResourceList()),
-		config.WithTerraformPluginFrameworkIncludeList(TerraformPluginFrameworkResourceList()),
+		config.WithTerraformPluginSDKIncludeList(TerraformPluginSDKResourceList(mode)),
 		config.WithDefaultResourceOptions(ResourceConfigurator()),
 		config.WithReferenceInjectors([]config.ReferenceInjector{reference.NewInjector(modulePath)}),
 		config.WithFeaturesPackage("internal/features"),
@@ -144,7 +143,8 @@ func getProviderWithMode(fwProvider fwprovider.Provider, sdkProvider *tfschema.P
 		config.WithTerraformPluginFrameworkProvider(fwProvider),
 	}
 	if mode == generationModeV1Beta1 {
-		providerOpts = append(providerOpts, config.WithSchemaTraversers(&config.SingletonListEmbedder{}))
+		providerOpts = append(providerOpts, config.WithSchemaTraversers(&config.SingletonListEmbedder{}),
+			config.WithTerraformPluginFrameworkIncludeList(TerraformPluginFrameworkResourceList()))
 	}
 	pc := config.NewProvider([]byte(providerSchema), resourcePrefix, modulePath, []byte(providerMetadata), providerOpts...)
 
@@ -183,15 +183,27 @@ func CLIReconciledResourceList() []string {
 // TerraformPluginSDKResourceList returns the list of resources that have external
 // name configured in ExternalNameConfigs table and to be reconciled under
 // the no-fork architecture.
-func TerraformPluginSDKResourceList() []string {
-	l := make([]string, len(TerraformPluginSDKExternalNameConfigs))
-	i := 0
-	for name := range TerraformPluginSDKExternalNameConfigs {
+func TerraformPluginSDKResourceList(mode generationMode) []string {
+	if mode == generationModeV1Alpha1Legacy {
+		l := make([]string, len(TerraformPluginSDKExternalNameV1Alpha1Configs))
+		i := 0
+		for name := range TerraformPluginSDKExternalNameV1Alpha1Configs {
+			// Expected format is regex and we'd like to have exact matches.
+			l[i] = name + "$"
+			i++
+		}
+		return l
+	} else {
 		// Expected format is regex and we'd like to have exact matches.
-		l[i] = name + "$"
-		i++
+		l := make([]string, len(TerraformPluginSDKExternalNameConfigs))
+		i := 0
+		for name := range TerraformPluginSDKExternalNameConfigs {
+			// Expected format is regex and we'd like to have exact matches.
+			l[i] = name + "$"
+			i++
+		}
+		return l
 	}
-	return l
 }
 
 func TerraformPluginFrameworkResourceList() []string {
@@ -207,27 +219,28 @@ func TerraformPluginFrameworkResourceList() []string {
 
 func bumpVersionsWithEmbeddedLists(pc *config.Provider) {
 	for name, r := range pc.Resources {
-		r := r
-		paths := r.CRDListConversionPaths()
 		r.Version = "v1beta1"
-		r.PreviousVersions = []string{"v1alpha1"}
-		// Keep storage on the singleton API version so v1alpha1 can be
-		// deprecated in a later release.
-		r.SetCRDStorageVersion(r.Version)
-		// Use v1alpha1 as conversion hub for legacy array-shaped APIs.
-		r.SetCRDHubVersion("v1alpha1")
-		r.Conversions = []conversion.Conversion{
-			conversion.NewIdentityConversionExpandPaths(conversion.AllVersions, conversion.AllVersions, conversion.DefaultPathPrefixes(), paths...),
-			conversion.NewSingletonListConversion("v1alpha1", "v1beta1", conversion.DefaultPathPrefixes(), paths, conversion.ToEmbeddedObject),
-			conversion.NewSingletonListConversion("v1beta1", "v1alpha1", conversion.DefaultPathPrefixes(), paths, conversion.ToSingletonList),
-		}
-		if err := r.SetDeprecatedVersion("v1alpha1", config.VersionDeprecation{
-			Warning: "This API version is deprecated. Please migrate to v1beta1.",
-		}); err != nil {
-			panic(err)
-		}
-		r.TerraformConversions = []config.TerraformConversion{
-			config.NewTFSingletonConversion(),
+		if _, ok := TerraformPluginSDKExternalNameV1Alpha1Configs[name]; ok {
+			paths := r.CRDListConversionPaths()
+			r.PreviousVersions = []string{"v1alpha1"}
+			// Keep storage on the singleton API version so v1alpha1 can be
+			// deprecated in a later release.
+			r.SetCRDStorageVersion(r.Version)
+			// Use v1alpha1 as conversion hub for legacy array-shaped APIs.
+			r.SetCRDHubVersion("v1alpha1")
+			r.Conversions = []conversion.Conversion{
+				conversion.NewIdentityConversionExpandPaths(conversion.AllVersions, conversion.AllVersions, conversion.DefaultPathPrefixes(), paths...),
+				conversion.NewSingletonListConversion("v1alpha1", "v1beta1", conversion.DefaultPathPrefixes(), paths, conversion.ToEmbeddedObject),
+				conversion.NewSingletonListConversion("v1beta1", "v1alpha1", conversion.DefaultPathPrefixes(), paths, conversion.ToSingletonList),
+			}
+			if err := r.SetDeprecatedVersion("v1alpha1", config.VersionDeprecation{
+				Warning: "This API version is deprecated. Please migrate to v1beta1.",
+			}); err != nil {
+				panic(err)
+			}
+			r.TerraformConversions = []config.TerraformConversion{
+				config.NewTFSingletonConversion(),
+			}
 		}
 		pc.Resources[name] = r
 	}
@@ -235,7 +248,6 @@ func bumpVersionsWithEmbeddedLists(pc *config.Provider) {
 
 func setLegacyV1Alpha1(pc *config.Provider) {
 	for name, r := range pc.Resources {
-		r := r
 		r.Version = "v1alpha1"
 		r.PreviousVersions = nil
 		r.SetCRDStorageVersion(r.Version)

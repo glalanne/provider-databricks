@@ -10,7 +10,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
+	v2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 )
 
 type OboTokenInitParameters struct {
@@ -22,11 +22,11 @@ type OboTokenInitParameters struct {
 
 	// Reference to a ServicePrincipal in security to populate applicationId.
 	// +kubebuilder:validation:Optional
-	ApplicationIDRef *v1.Reference `json:"applicationIdRef,omitempty" tf:"-"`
+	ApplicationIDRef *v2.Reference `json:"applicationIdRef,omitempty" tf:"-"`
 
 	// Selector for a ServicePrincipal in security to populate applicationId.
 	// +kubebuilder:validation:Optional
-	ApplicationIDSelector *v1.Selector `json:"applicationIdSelector,omitempty" tf:"-"`
+	ApplicationIDSelector *v2.Selector `json:"applicationIdSelector,omitempty" tf:"-"`
 
 	// (String, Optional) Comment that describes the purpose of the token.
 	Comment *string `json:"comment,omitempty" tf:"comment,omitempty"`
@@ -66,11 +66,11 @@ type OboTokenParameters struct {
 
 	// Reference to a ServicePrincipal in security to populate applicationId.
 	// +kubebuilder:validation:Optional
-	ApplicationIDRef *v1.Reference `json:"applicationIdRef,omitempty" tf:"-"`
+	ApplicationIDRef *v2.Reference `json:"applicationIdRef,omitempty" tf:"-"`
 
 	// Selector for a ServicePrincipal in security to populate applicationId.
 	// +kubebuilder:validation:Optional
-	ApplicationIDSelector *v1.Selector `json:"applicationIdSelector,omitempty" tf:"-"`
+	ApplicationIDSelector *v2.Selector `json:"applicationIdSelector,omitempty" tf:"-"`
 
 	// (String, Optional) Comment that describes the purpose of the token.
 	// +kubebuilder:validation:Optional
@@ -101,13 +101,13 @@ type OboTokenProviderConfigParameters struct {
 
 	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
 	// +kubebuilder:validation:Optional
-	WorkspaceID *string `json:"workspaceId" tf:"workspace_id,omitempty"`
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
 }
 
 // OboTokenSpec defines the desired state of OboToken
 type OboTokenSpec struct {
-	v1.ResourceSpec `json:",inline"`
-	ForProvider     OboTokenParameters `json:"forProvider"`
+	v2.ClusterManagedResourceSpec `json:",inline"`
+	ForProvider                   OboTokenParameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
 	// InitProvider holds the same fields as ForProvider, with the exception
@@ -123,8 +123,8 @@ type OboTokenSpec struct {
 
 // OboTokenStatus defines the observed state of OboToken.
 type OboTokenStatus struct {
-	v1.ResourceStatus `json:",inline"`
-	AtProvider        OboTokenObservation `json:"atProvider,omitempty"`
+	v2.ManagedResourceStatus `json:",inline"`
+	AtProvider               OboTokenObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true

@@ -10,7 +10,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
+	v2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 )
 
 type ContinuousInitParameters struct {
@@ -418,11 +418,11 @@ type SQLQueryInitParameters struct {
 
 	// Reference to a SQLEndpoint in sql to populate dataSourceId.
 	// +kubebuilder:validation:Optional
-	DataSourceIDRef *v1.Reference `json:"dataSourceIdRef,omitempty" tf:"-"`
+	DataSourceIDRef *v2.Reference `json:"dataSourceIdRef,omitempty" tf:"-"`
 
 	// Selector for a SQLEndpoint in sql to populate dataSourceId.
 	// +kubebuilder:validation:Optional
-	DataSourceIDSelector *v1.Selector `json:"dataSourceIdSelector,omitempty" tf:"-"`
+	DataSourceIDSelector *v2.Selector `json:"dataSourceIdSelector,omitempty" tf:"-"`
 
 	// General description that conveys additional information about this query such as usage notes.
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
@@ -600,11 +600,11 @@ type SQLQueryParameters struct {
 
 	// Reference to a SQLEndpoint in sql to populate dataSourceId.
 	// +kubebuilder:validation:Optional
-	DataSourceIDRef *v1.Reference `json:"dataSourceIdRef,omitempty" tf:"-"`
+	DataSourceIDRef *v2.Reference `json:"dataSourceIdRef,omitempty" tf:"-"`
 
 	// Selector for a SQLEndpoint in sql to populate dataSourceId.
 	// +kubebuilder:validation:Optional
-	DataSourceIDSelector *v1.Selector `json:"dataSourceIdSelector,omitempty" tf:"-"`
+	DataSourceIDSelector *v2.Selector `json:"dataSourceIdSelector,omitempty" tf:"-"`
 
 	// General description that conveys additional information about this query such as usage notes.
 	// +kubebuilder:validation:Optional
@@ -659,7 +659,7 @@ type SQLQueryProviderConfigParameters struct {
 
 	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
 	// +kubebuilder:validation:Optional
-	WorkspaceID *string `json:"workspaceId" tf:"workspace_id,omitempty"`
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
 }
 
 type ScheduleInitParameters struct {
@@ -746,8 +746,8 @@ type WeeklyParameters struct {
 
 // SQLQuerySpec defines the desired state of SQLQuery
 type SQLQuerySpec struct {
-	v1.ResourceSpec `json:",inline"`
-	ForProvider     SQLQueryParameters `json:"forProvider"`
+	v2.ClusterManagedResourceSpec `json:",inline"`
+	ForProvider                   SQLQueryParameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
 	// InitProvider holds the same fields as ForProvider, with the exception
@@ -763,8 +763,8 @@ type SQLQuerySpec struct {
 
 // SQLQueryStatus defines the observed state of SQLQuery.
 type SQLQueryStatus struct {
-	v1.ResourceStatus `json:",inline"`
-	AtProvider        SQLQueryObservation `json:"atProvider,omitempty"`
+	v2.ManagedResourceStatus `json:",inline"`
+	AtProvider               SQLQueryObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true

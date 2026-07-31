@@ -53,8 +53,35 @@ func (l *CredentialList) GetItems() []resource.Managed {
 	return items
 }
 
+// GetItems of this DataQualityRefreshList.
+func (l *DataQualityRefreshList) GetItems() []resource.Managed {
+	items := make([]resource.Managed, len(l.Items))
+	for i := range l.Items {
+		items[i] = &l.Items[i]
+	}
+	return items
+}
+
+// GetItems of this EntityTagAssignmentList.
+func (l *EntityTagAssignmentList) GetItems() []resource.Managed {
+	items := make([]resource.Managed, len(l.Items))
+	for i := range l.Items {
+		items[i] = &l.Items[i]
+	}
+	return items
+}
+
 // GetItems of this ExternalLocationList.
 func (l *ExternalLocationList) GetItems() []resource.Managed {
+	items := make([]resource.Managed, len(l.Items))
+	for i := range l.Items {
+		items[i] = &l.Items[i]
+	}
+	return items
+}
+
+// GetItems of this ExternalMetadataList.
+func (l *ExternalMetadataList) GetItems() []resource.Managed {
 	items := make([]resource.Managed, len(l.Items))
 	for i := range l.Items {
 		items[i] = &l.Items[i]
@@ -152,6 +179,15 @@ func (l *RegisteredModelList) GetItems() []resource.Managed {
 	return items
 }
 
+// GetItems of this RfaAccessRequestDestinationsList.
+func (l *RfaAccessRequestDestinationsList) GetItems() []resource.Managed {
+	items := make([]resource.Managed, len(l.Items))
+	for i := range l.Items {
+		items[i] = &l.Items[i]
+	}
+	return items
+}
+
 // GetItems of this SQLTableList.
 func (l *SQLTableList) GetItems() []resource.Managed {
 	items := make([]resource.Managed, len(l.Items))
@@ -163,6 +199,15 @@ func (l *SQLTableList) GetItems() []resource.Managed {
 
 // GetItems of this SchemaList.
 func (l *SchemaList) GetItems() []resource.Managed {
+	items := make([]resource.Managed, len(l.Items))
+	for i := range l.Items {
+		items[i] = &l.Items[i]
+	}
+	return items
+}
+
+// GetItems of this SecretUcList.
+func (l *SecretUcList) GetItems() []resource.Managed {
 	items := make([]resource.Managed, len(l.Items))
 	for i := range l.Items {
 		items[i] = &l.Items[i]

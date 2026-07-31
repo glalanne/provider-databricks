@@ -10,7 +10,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
+	v2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 )
 
 type ErrorMessagesInitParameters struct {
@@ -100,7 +100,7 @@ type GCPNetworkInfoParameters struct {
 type MwsNetworksInitParameters struct {
 
 	// Account Id that could be found in the top right corner of Accounts Console
-	AccountIDSecretRef v1.SecretKeySelector `json:"accountIdSecretRef" tf:"-"`
+	AccountIDSecretRef v2.SecretKeySelector `json:"accountIdSecretRef" tf:"-"`
 
 	CreationTime *float64 `json:"creationTime,omitempty" tf:"creation_time,omitempty"`
 
@@ -178,7 +178,7 @@ type MwsNetworksParameters struct {
 
 	// Account Id that could be found in the top right corner of Accounts Console
 	// +kubebuilder:validation:Optional
-	AccountIDSecretRef v1.SecretKeySelector `json:"accountIdSecretRef" tf:"-"`
+	AccountIDSecretRef v2.SecretKeySelector `json:"accountIdSecretRef" tf:"-"`
 
 	// +kubebuilder:validation:Optional
 	CreationTime *float64 `json:"creationTime,omitempty" tf:"creation_time,omitempty"`
@@ -234,11 +234,11 @@ type VPCEndpointsInitParameters struct {
 
 	// References to MwsVPCEndpoint in deployment to populate dataplaneRelay.
 	// +kubebuilder:validation:Optional
-	DataplaneRelayRefs []v1.Reference `json:"dataplaneRelayRefs,omitempty" tf:"-"`
+	DataplaneRelayRefs []v2.Reference `json:"dataplaneRelayRefs,omitempty" tf:"-"`
 
 	// Selector for a list of MwsVPCEndpoint in deployment to populate dataplaneRelay.
 	// +kubebuilder:validation:Optional
-	DataplaneRelaySelector *v1.Selector `json:"dataplaneRelaySelector,omitempty" tf:"-"`
+	DataplaneRelaySelector *v2.Selector `json:"dataplaneRelaySelector,omitempty" tf:"-"`
 
 	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/cluster/deployment/v1alpha1.MwsVPCEndpoint
 	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/v2/pkg/resource.ExtractParamPath("vpc_endpoint_id",false)
@@ -247,11 +247,11 @@ type VPCEndpointsInitParameters struct {
 
 	// References to MwsVPCEndpoint in deployment to populate restApi.
 	// +kubebuilder:validation:Optional
-	RestAPIRefs []v1.Reference `json:"restApiRefs,omitempty" tf:"-"`
+	RestAPIRefs []v2.Reference `json:"restApiRefs,omitempty" tf:"-"`
 
 	// Selector for a list of MwsVPCEndpoint in deployment to populate restApi.
 	// +kubebuilder:validation:Optional
-	RestAPISelector *v1.Selector `json:"restApiSelector,omitempty" tf:"-"`
+	RestAPISelector *v2.Selector `json:"restApiSelector,omitempty" tf:"-"`
 }
 
 type VPCEndpointsObservation struct {
@@ -273,11 +273,11 @@ type VPCEndpointsParameters struct {
 
 	// References to MwsVPCEndpoint in deployment to populate dataplaneRelay.
 	// +kubebuilder:validation:Optional
-	DataplaneRelayRefs []v1.Reference `json:"dataplaneRelayRefs,omitempty" tf:"-"`
+	DataplaneRelayRefs []v2.Reference `json:"dataplaneRelayRefs,omitempty" tf:"-"`
 
 	// Selector for a list of MwsVPCEndpoint in deployment to populate dataplaneRelay.
 	// +kubebuilder:validation:Optional
-	DataplaneRelaySelector *v1.Selector `json:"dataplaneRelaySelector,omitempty" tf:"-"`
+	DataplaneRelaySelector *v2.Selector `json:"dataplaneRelaySelector,omitempty" tf:"-"`
 
 	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/cluster/deployment/v1alpha1.MwsVPCEndpoint
 	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/v2/pkg/resource.ExtractParamPath("vpc_endpoint_id",false)
@@ -287,17 +287,17 @@ type VPCEndpointsParameters struct {
 
 	// References to MwsVPCEndpoint in deployment to populate restApi.
 	// +kubebuilder:validation:Optional
-	RestAPIRefs []v1.Reference `json:"restApiRefs,omitempty" tf:"-"`
+	RestAPIRefs []v2.Reference `json:"restApiRefs,omitempty" tf:"-"`
 
 	// Selector for a list of MwsVPCEndpoint in deployment to populate restApi.
 	// +kubebuilder:validation:Optional
-	RestAPISelector *v1.Selector `json:"restApiSelector,omitempty" tf:"-"`
+	RestAPISelector *v2.Selector `json:"restApiSelector,omitempty" tf:"-"`
 }
 
 // MwsNetworksSpec defines the desired state of MwsNetworks
 type MwsNetworksSpec struct {
-	v1.ResourceSpec `json:",inline"`
-	ForProvider     MwsNetworksParameters `json:"forProvider"`
+	v2.ClusterManagedResourceSpec `json:",inline"`
+	ForProvider                   MwsNetworksParameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
 	// InitProvider holds the same fields as ForProvider, with the exception
@@ -313,8 +313,8 @@ type MwsNetworksSpec struct {
 
 // MwsNetworksStatus defines the observed state of MwsNetworks.
 type MwsNetworksStatus struct {
-	v1.ResourceStatus `json:",inline"`
-	AtProvider        MwsNetworksObservation `json:"atProvider,omitempty"`
+	v2.ManagedResourceStatus `json:",inline"`
+	AtProvider               MwsNetworksObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true

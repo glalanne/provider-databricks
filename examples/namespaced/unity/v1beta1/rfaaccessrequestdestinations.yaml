@@ -1,0 +1,29 @@
+# SPDX-FileCopyrightText: 2026 The Crossplane Authors <https://crossplane.io>
+#
+# SPDX-License-Identifier: CC0-1.0
+
+apiVersion: unity.databricks.m.crossplane.io/v1beta1
+kind: RfaAccessRequestDestinations
+metadata:
+  annotations:
+    meta.upbound.io/example-id: unity/v1beta1/rfaaccessrequestdestinations
+  labels:
+    testing.upbound.io/example-name: customer_data_table
+  name: customer-data-table
+  namespace: upbound-system
+spec:
+  forProvider:
+    destinations:
+    - destinationId: john.doe@databricks.com
+      destinationType: EMAIL
+    - destinationId: https://www.databricks.com/
+      destinationType: URL
+    - destinationId: 456e7890-e89b-12d3-a456-426614174001
+      destinationType: SLACK
+    - destinationId: 789e0123-e89b-12d3-a456-426614174002
+      destinationType: MICROSOFT_TEAMS
+    - destinationId: 012e3456-e89b-12d3-a456-426614174003
+      destinationType: GENERIC_WEBHOOK
+    securable:
+      fullName: main.customer_data
+      type: SCHEMA

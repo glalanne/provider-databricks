@@ -10,8 +10,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
-	v2 "github.com/crossplane/crossplane-runtime/v2/apis/common/v2"
+	v2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 )
 
 type WorkspaceFileInitParameters struct {
@@ -105,7 +104,7 @@ type WorkspaceFileProviderConfigParameters struct {
 
 	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
 	// +kubebuilder:validation:Optional
-	WorkspaceID *string `json:"workspaceId" tf:"workspace_id,omitempty"`
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
 }
 
 // WorkspaceFileSpec defines the desired state of WorkspaceFile
@@ -127,8 +126,8 @@ type WorkspaceFileSpec struct {
 
 // WorkspaceFileStatus defines the observed state of WorkspaceFile.
 type WorkspaceFileStatus struct {
-	v1.ResourceStatus `json:",inline"`
-	AtProvider        WorkspaceFileObservation `json:"atProvider,omitempty"`
+	v2.ManagedResourceStatus `json:",inline"`
+	AtProvider               WorkspaceFileObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true

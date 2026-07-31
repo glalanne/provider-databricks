@@ -10,11 +10,14 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
-	v2 "github.com/crossplane/crossplane-runtime/v2/apis/common/v2"
+	v2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 )
 
 type GroupMemberInitParameters struct {
+
+	// Specifies whether to use account-level or workspace-level API. Valid values are account and workspace. When not set, the API level is inferred from the provider host.
+	// Specifies whether to use account-level or workspace-level API. Valid values are `account` and `workspace`. When not set, the API level is inferred from the provider host.
+	API *string `json:"api,omitempty" tf:"api,omitempty"`
 
 	// This is the id attribute (SCIM ID) of the group resource.
 	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/namespaced/security/v1beta1.Group
@@ -22,11 +25,11 @@ type GroupMemberInitParameters struct {
 
 	// Reference to a Group in security to populate groupId.
 	// +kubebuilder:validation:Optional
-	GroupIDRef *v1.NamespacedReference `json:"groupIdRef,omitempty" tf:"-"`
+	GroupIDRef *v2.NamespacedReference `json:"groupIdRef,omitempty" tf:"-"`
 
 	// Selector for a Group in security to populate groupId.
 	// +kubebuilder:validation:Optional
-	GroupIDSelector *v1.NamespacedSelector `json:"groupIdSelector,omitempty" tf:"-"`
+	GroupIDSelector *v2.NamespacedSelector `json:"groupIdSelector,omitempty" tf:"-"`
 
 	// This is the id attribute (SCIM ID) of the group, service principal, or user.
 	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/namespaced/security/v1beta1.Group
@@ -35,14 +38,20 @@ type GroupMemberInitParameters struct {
 
 	// Reference to a Group in security to populate memberId.
 	// +kubebuilder:validation:Optional
-	MemberIDRef *v1.NamespacedReference `json:"memberIdRef,omitempty" tf:"-"`
+	MemberIDRef *v2.NamespacedReference `json:"memberIdRef,omitempty" tf:"-"`
 
 	// Selector for a Group in security to populate memberId.
 	// +kubebuilder:validation:Optional
-	MemberIDSelector *v1.NamespacedSelector `json:"memberIdSelector,omitempty" tf:"-"`
+	MemberIDSelector *v2.NamespacedSelector `json:"memberIdSelector,omitempty" tf:"-"`
+
+	ProviderConfig *GroupMemberProviderConfigInitParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
 }
 
 type GroupMemberObservation struct {
+
+	// Specifies whether to use account-level or workspace-level API. Valid values are account and workspace. When not set, the API level is inferred from the provider host.
+	// Specifies whether to use account-level or workspace-level API. Valid values are `account` and `workspace`. When not set, the API level is inferred from the provider host.
+	API *string `json:"api,omitempty" tf:"api,omitempty"`
 
 	// This is the id attribute (SCIM ID) of the group resource.
 	GroupID *string `json:"groupId,omitempty" tf:"group_id,omitempty"`
@@ -52,9 +61,16 @@ type GroupMemberObservation struct {
 
 	// This is the id attribute (SCIM ID) of the group, service principal, or user.
 	MemberID *string `json:"memberId,omitempty" tf:"member_id,omitempty"`
+
+	ProviderConfig *GroupMemberProviderConfigObservation `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
 }
 
 type GroupMemberParameters struct {
+
+	// Specifies whether to use account-level or workspace-level API. Valid values are account and workspace. When not set, the API level is inferred from the provider host.
+	// Specifies whether to use account-level or workspace-level API. Valid values are `account` and `workspace`. When not set, the API level is inferred from the provider host.
+	// +kubebuilder:validation:Optional
+	API *string `json:"api,omitempty" tf:"api,omitempty"`
 
 	// This is the id attribute (SCIM ID) of the group resource.
 	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/namespaced/security/v1beta1.Group
@@ -63,11 +79,11 @@ type GroupMemberParameters struct {
 
 	// Reference to a Group in security to populate groupId.
 	// +kubebuilder:validation:Optional
-	GroupIDRef *v1.NamespacedReference `json:"groupIdRef,omitempty" tf:"-"`
+	GroupIDRef *v2.NamespacedReference `json:"groupIdRef,omitempty" tf:"-"`
 
 	// Selector for a Group in security to populate groupId.
 	// +kubebuilder:validation:Optional
-	GroupIDSelector *v1.NamespacedSelector `json:"groupIdSelector,omitempty" tf:"-"`
+	GroupIDSelector *v2.NamespacedSelector `json:"groupIdSelector,omitempty" tf:"-"`
 
 	// This is the id attribute (SCIM ID) of the group, service principal, or user.
 	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/namespaced/security/v1beta1.Group
@@ -77,11 +93,33 @@ type GroupMemberParameters struct {
 
 	// Reference to a Group in security to populate memberId.
 	// +kubebuilder:validation:Optional
-	MemberIDRef *v1.NamespacedReference `json:"memberIdRef,omitempty" tf:"-"`
+	MemberIDRef *v2.NamespacedReference `json:"memberIdRef,omitempty" tf:"-"`
 
 	// Selector for a Group in security to populate memberId.
 	// +kubebuilder:validation:Optional
-	MemberIDSelector *v1.NamespacedSelector `json:"memberIdSelector,omitempty" tf:"-"`
+	MemberIDSelector *v2.NamespacedSelector `json:"memberIdSelector,omitempty" tf:"-"`
+
+	// +kubebuilder:validation:Optional
+	ProviderConfig *GroupMemberProviderConfigParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
+}
+
+type GroupMemberProviderConfigInitParameters struct {
+
+	// The id for the databricks_group_member object which is in the format <group_id>|<member_id>.
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
+}
+
+type GroupMemberProviderConfigObservation struct {
+
+	// The id for the databricks_group_member object which is in the format <group_id>|<member_id>.
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
+}
+
+type GroupMemberProviderConfigParameters struct {
+
+	// The id for the databricks_group_member object which is in the format <group_id>|<member_id>.
+	// +kubebuilder:validation:Optional
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
 }
 
 // GroupMemberSpec defines the desired state of GroupMember
@@ -103,8 +141,8 @@ type GroupMemberSpec struct {
 
 // GroupMemberStatus defines the observed state of GroupMember.
 type GroupMemberStatus struct {
-	v1.ResourceStatus `json:",inline"`
-	AtProvider        GroupMemberObservation `json:"atProvider,omitempty"`
+	v2.ManagedResourceStatus `json:",inline"`
+	AtProvider               GroupMemberObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true

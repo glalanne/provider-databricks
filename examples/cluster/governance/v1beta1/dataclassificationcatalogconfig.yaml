@@ -1,0 +1,24 @@
+# SPDX-FileCopyrightText: 2026 The Crossplane Authors <https://crossplane.io>
+#
+# SPDX-License-Identifier: CC0-1.0
+
+apiVersion: governance.databricks.crossplane.io/v1beta1
+kind: DataClassificationCatalogConfig
+metadata:
+  annotations:
+    meta.upbound.io/example-id: governance/v1beta1/dataclassificationcatalogconfig
+  labels:
+    testing.upbound.io/example-name: example
+  name: example
+spec:
+  forProvider:
+    autoTagConfigs:
+    - autoTaggingMode: AUTO_TAGGING_ENABLED
+      classificationTag: class.credit_card
+    - autoTaggingMode: AUTO_TAGGING_ENABLED
+      classificationTag: class.email
+    includedSchemas:
+      names:
+      - sales
+      - marketing
+      - customer_data

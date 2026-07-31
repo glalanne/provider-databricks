@@ -10,8 +10,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
-	v2 "github.com/crossplane/crossplane-runtime/v2/apis/common/v2"
+	v2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 )
 
 type ComplianceSecurityProfileWorkspaceInitParameters struct {
@@ -83,7 +82,7 @@ type ProviderConfigObservation struct {
 type ProviderConfigParameters struct {
 
 	// +kubebuilder:validation:Optional
-	WorkspaceID *string `json:"workspaceId" tf:"workspace_id,omitempty"`
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
 }
 
 // ComplianceSecurityProfileWorkspaceSettingSpec defines the desired state of ComplianceSecurityProfileWorkspaceSetting
@@ -105,8 +104,8 @@ type ComplianceSecurityProfileWorkspaceSettingSpec struct {
 
 // ComplianceSecurityProfileWorkspaceSettingStatus defines the observed state of ComplianceSecurityProfileWorkspaceSetting.
 type ComplianceSecurityProfileWorkspaceSettingStatus struct {
-	v1.ResourceStatus `json:",inline"`
-	AtProvider        ComplianceSecurityProfileWorkspaceSettingObservation `json:"atProvider,omitempty"`
+	v2.ManagedResourceStatus `json:",inline"`
+	AtProvider               ComplianceSecurityProfileWorkspaceSettingObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true

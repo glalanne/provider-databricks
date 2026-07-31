@@ -10,11 +10,14 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
-	v2 "github.com/crossplane/crossplane-runtime/v2/apis/common/v2"
+	v2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 )
 
 type MetastoreInitParameters struct {
+
+	// Specifies whether to use account-level or workspace-level API. Valid values are account and workspace. When not set, the API level is inferred from the provider host.
+	// Specifies whether to use account-level or workspace-level API. Valid values are `account` and `workspace`. When not set, the API level is inferred from the provider host.
+	API *string `json:"api,omitempty" tf:"api,omitempty"`
 
 	// Unique identifier of the metastore's default data access configuration.
 	DefaultDataAccessConfigID *string `json:"defaultDataAccessConfigId,omitempty" tf:"default_data_access_config_id,omitempty"`
@@ -43,6 +46,9 @@ type MetastoreInitParameters struct {
 	// Privilege model version of the metastore, of the form major.minor (e.g., 1.0).
 	PrivilegeModelVersion *string `json:"privilegeModelVersion,omitempty" tf:"privilege_model_version,omitempty"`
 
+	// Configure the provider for management through account provider. This block consists of the following fields:
+	ProviderConfig []MetastoreProviderConfigInitParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
+
 	// (Mandatory for account-level) The region of the metastore
 	Region *string `json:"region,omitempty" tf:"region,omitempty"`
 
@@ -57,6 +63,10 @@ type MetastoreInitParameters struct {
 }
 
 type MetastoreObservation struct {
+
+	// Specifies whether to use account-level or workspace-level API. Valid values are account and workspace. When not set, the API level is inferred from the provider host.
+	// Specifies whether to use account-level or workspace-level API. Valid values are `account` and `workspace`. When not set, the API level is inferred from the provider host.
+	API *string `json:"api,omitempty" tf:"api,omitempty"`
 
 	// Cloud vendor of the metastore home shard (e.g., aws, azure, gcp).
 	Cloud *string `json:"cloud,omitempty" tf:"cloud,omitempty"`
@@ -103,6 +113,9 @@ type MetastoreObservation struct {
 	// Privilege model version of the metastore, of the form major.minor (e.g., 1.0).
 	PrivilegeModelVersion *string `json:"privilegeModelVersion,omitempty" tf:"privilege_model_version,omitempty"`
 
+	// Configure the provider for management through account provider. This block consists of the following fields:
+	ProviderConfig []MetastoreProviderConfigObservation `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
+
 	// (Mandatory for account-level) The region of the metastore
 	Region *string `json:"region,omitempty" tf:"region,omitempty"`
 
@@ -123,6 +136,11 @@ type MetastoreObservation struct {
 }
 
 type MetastoreParameters struct {
+
+	// Specifies whether to use account-level or workspace-level API. Valid values are account and workspace. When not set, the API level is inferred from the provider host.
+	// Specifies whether to use account-level or workspace-level API. Valid values are `account` and `workspace`. When not set, the API level is inferred from the provider host.
+	// +kubebuilder:validation:Optional
+	API *string `json:"api,omitempty" tf:"api,omitempty"`
 
 	// Unique identifier of the metastore's default data access configuration.
 	// +kubebuilder:validation:Optional
@@ -160,6 +178,10 @@ type MetastoreParameters struct {
 	// +kubebuilder:validation:Optional
 	PrivilegeModelVersion *string `json:"privilegeModelVersion,omitempty" tf:"privilege_model_version,omitempty"`
 
+	// Configure the provider for management through account provider. This block consists of the following fields:
+	// +kubebuilder:validation:Optional
+	ProviderConfig []MetastoreProviderConfigParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
+
 	// (Mandatory for account-level) The region of the metastore
 	// +kubebuilder:validation:Optional
 	Region *string `json:"region,omitempty" tf:"region,omitempty"`
@@ -175,6 +197,25 @@ type MetastoreParameters struct {
 	// Name of the storage credential to access the metastore storage_root.
 	// +kubebuilder:validation:Optional
 	StorageRootCredentialName *string `json:"storageRootCredentialName,omitempty" tf:"storage_root_credential_name,omitempty"`
+}
+
+type MetastoreProviderConfigInitParameters struct {
+
+	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
+}
+
+type MetastoreProviderConfigObservation struct {
+
+	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
+}
+
+type MetastoreProviderConfigParameters struct {
+
+	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
+	// +kubebuilder:validation:Optional
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
 }
 
 // MetastoreSpec defines the desired state of Metastore
@@ -196,8 +237,8 @@ type MetastoreSpec struct {
 
 // MetastoreStatus defines the observed state of Metastore.
 type MetastoreStatus struct {
-	v1.ResourceStatus `json:",inline"`
-	AtProvider        MetastoreObservation `json:"atProvider,omitempty"`
+	v2.ManagedResourceStatus `json:",inline"`
+	AtProvider               MetastoreObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true

@@ -3,7 +3,7 @@ apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
   annotations:
-    controller-gen.kubebuilder.io/version: v0.20.0
+    controller-gen.kubebuilder.io/version: v0.21.0
   name: modelservings.serving.databricks.m.crossplane.io
 spec:
   group: serving.databricks.m.crossplane.io
@@ -1011,6 +1011,33 @@ spec:
                           type: string
                       type: object
                     type: array
+                  telemetryConfig:
+                    description: The model serving endpoint configuration. This is
+                      optional and can be added and modified after creation. If config
+                      was provided in a previous apply but is not provided in the
+                      current apply, no change to the model serving endpoint will
+                      occur. To recreate the model serving endpoint without the config
+                      block, the model serving endpoint must be destroyed and recreated.
+                    items:
+                      properties:
+                        inferenceTableConfig:
+                          description: 'Block describing the configuration of usage
+                            tracking. Consists of the following attributes:'
+                          items:
+                            properties:
+                              name:
+                                description: The name of a served model. It must be
+                                  unique across an endpoint. If not specified, this
+                                  field will default to modelname-modelversion. A
+                                  served model name can consist of alphanumeric characters,
+                                  dashes, and underscores.
+                                type: string
+                              samplingFraction:
+                                type: number
+                            type: object
+                          type: array
+                      type: object
+                    type: array
                 type: object
               initProvider:
                 description: |-
@@ -1974,6 +2001,33 @@ spec:
                           type: string
                       type: object
                     type: array
+                  telemetryConfig:
+                    description: The model serving endpoint configuration. This is
+                      optional and can be added and modified after creation. If config
+                      was provided in a previous apply but is not provided in the
+                      current apply, no change to the model serving endpoint will
+                      occur. To recreate the model serving endpoint without the config
+                      block, the model serving endpoint must be destroyed and recreated.
+                    items:
+                      properties:
+                        inferenceTableConfig:
+                          description: 'Block describing the configuration of usage
+                            tracking. Consists of the following attributes:'
+                          items:
+                            properties:
+                              name:
+                                description: The name of a served model. It must be
+                                  unique across an endpoint. If not specified, this
+                                  field will default to modelname-modelversion. A
+                                  served model name can consist of alphanumeric characters,
+                                  dashes, and underscores.
+                                type: string
+                              samplingFraction:
+                                type: number
+                            type: object
+                          type: array
+                      type: object
+                    type: array
                 type: object
               managementPolicies:
                 default:
@@ -2837,6 +2891,33 @@ spec:
                           type: string
                       type: object
                     type: array
+                  telemetryConfig:
+                    description: The model serving endpoint configuration. This is
+                      optional and can be added and modified after creation. If config
+                      was provided in a previous apply but is not provided in the
+                      current apply, no change to the model serving endpoint will
+                      occur. To recreate the model serving endpoint without the config
+                      block, the model serving endpoint must be destroyed and recreated.
+                    items:
+                      properties:
+                        inferenceTableConfig:
+                          description: 'Block describing the configuration of usage
+                            tracking. Consists of the following attributes:'
+                          items:
+                            properties:
+                              name:
+                                description: The name of a served model. It must be
+                                  unique across an endpoint. If not specified, this
+                                  field will default to modelname-modelversion. A
+                                  served model name can consist of alphanumeric characters,
+                                  dashes, and underscores.
+                                type: string
+                              samplingFraction:
+                                type: number
+                            type: object
+                          type: array
+                      type: object
+                    type: array
                 type: object
               conditions:
                 description: Conditions of the resource.
@@ -2884,6 +2965,13 @@ spec:
                 x-kubernetes-list-map-keys:
                 - type
                 x-kubernetes-list-type: map
+              lastHandledReconcileAt:
+                description: |-
+                  LastHandledReconcileAt holds the value of the most recent
+                  reconcile-requested-at annotation token that the controller has
+                  processed. Users can compare this to the annotation to determine
+                  whether a reconcile request has been handled.
+                type: string
               observedGeneration:
                 description: |-
                   ObservedGeneration is the latest metadata.generation
@@ -3804,6 +3892,29 @@ spec:
                           type: string
                       type: object
                     type: array
+                  telemetryConfig:
+                    description: The model serving endpoint configuration. This is
+                      optional and can be added and modified after creation. If config
+                      was provided in a previous apply but is not provided in the
+                      current apply, no change to the model serving endpoint will
+                      occur. To recreate the model serving endpoint without the config
+                      block, the model serving endpoint must be destroyed and recreated.
+                    properties:
+                      inferenceTableConfig:
+                        description: 'Block describing the configuration of usage
+                          tracking. Consists of the following attributes:'
+                        properties:
+                          name:
+                            description: The name of a served model. It must be unique
+                              across an endpoint. If not specified, this field will
+                              default to modelname-modelversion. A served model name
+                              can consist of alphanumeric characters, dashes, and
+                              underscores.
+                            type: string
+                          samplingFraction:
+                            type: number
+                        type: object
+                    type: object
                 type: object
               initProvider:
                 description: |-
@@ -4683,6 +4794,29 @@ spec:
                           type: string
                       type: object
                     type: array
+                  telemetryConfig:
+                    description: The model serving endpoint configuration. This is
+                      optional and can be added and modified after creation. If config
+                      was provided in a previous apply but is not provided in the
+                      current apply, no change to the model serving endpoint will
+                      occur. To recreate the model serving endpoint without the config
+                      block, the model serving endpoint must be destroyed and recreated.
+                    properties:
+                      inferenceTableConfig:
+                        description: 'Block describing the configuration of usage
+                          tracking. Consists of the following attributes:'
+                        properties:
+                          name:
+                            description: The name of a served model. It must be unique
+                              across an endpoint. If not specified, this field will
+                              default to modelname-modelversion. A served model name
+                              can consist of alphanumeric characters, dashes, and
+                              underscores.
+                            type: string
+                          samplingFraction:
+                            type: number
+                        type: object
+                    type: object
                 type: object
               managementPolicies:
                 default:
@@ -5464,6 +5598,29 @@ spec:
                           type: string
                       type: object
                     type: array
+                  telemetryConfig:
+                    description: The model serving endpoint configuration. This is
+                      optional and can be added and modified after creation. If config
+                      was provided in a previous apply but is not provided in the
+                      current apply, no change to the model serving endpoint will
+                      occur. To recreate the model serving endpoint without the config
+                      block, the model serving endpoint must be destroyed and recreated.
+                    properties:
+                      inferenceTableConfig:
+                        description: 'Block describing the configuration of usage
+                          tracking. Consists of the following attributes:'
+                        properties:
+                          name:
+                            description: The name of a served model. It must be unique
+                              across an endpoint. If not specified, this field will
+                              default to modelname-modelversion. A served model name
+                              can consist of alphanumeric characters, dashes, and
+                              underscores.
+                            type: string
+                          samplingFraction:
+                            type: number
+                        type: object
+                    type: object
                 type: object
               conditions:
                 description: Conditions of the resource.
@@ -5511,6 +5668,13 @@ spec:
                 x-kubernetes-list-map-keys:
                 - type
                 x-kubernetes-list-type: map
+              lastHandledReconcileAt:
+                description: |-
+                  LastHandledReconcileAt holds the value of the most recent
+                  reconcile-requested-at annotation token that the controller has
+                  processed. Users can compare this to the annotation to determine
+                  whether a reconcile request has been handled.
+                type: string
               observedGeneration:
                 description: |-
                   ObservedGeneration is the latest metadata.generation

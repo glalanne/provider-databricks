@@ -1,0 +1,16 @@
+# SPDX-FileCopyrightText: 2026 The Crossplane Authors <https://crossplane.io>
+#
+# SPDX-License-Identifier: CC0-1.0
+
+apiVersion: settings.databricks.crossplane.io/v1beta1
+kind: WorkspaceNetworkOption
+metadata:
+  annotations:
+    meta.upbound.io/example-id: settings/v1beta1/workspacenetworkoption
+  labels:
+    testing.upbound.io/example-name: example_workspace_network_option
+  name: example-workspace-network-option
+spec:
+  forProvider:
+    networkPolicyId: default-policy
+    workspaceId: "9999999999999999"

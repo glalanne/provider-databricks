@@ -1,0 +1,17 @@
+# SPDX-FileCopyrightText: 2026 The Crossplane Authors <https://crossplane.io>
+#
+# SPDX-License-Identifier: CC0-1.0
+
+apiVersion: dr.databricks.m.crossplane.io/v1beta1
+kind: DisasterRecoveryStableURL
+metadata:
+  annotations:
+    meta.upbound.io/example-id: dr/v1beta1/disasterrecoverystableurl
+  labels:
+    testing.upbound.io/example-name: this
+  name: this
+  namespace: upbound-system
+spec:
+  forProvider:
+    initialWorkspaceId: "1234567890123456"
+    stableUrlId: accounting-stable-url

@@ -10,8 +10,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
-	v2 "github.com/crossplane/crossplane-runtime/v2/apis/common/v2"
+	v2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 )
 
 type AccessControlInitParameters struct {
@@ -23,11 +22,11 @@ type AccessControlInitParameters struct {
 
 	// Reference to a Group in security to populate groupName.
 	// +kubebuilder:validation:Optional
-	GroupNameRef *v1.NamespacedReference `json:"groupNameRef,omitempty" tf:"-"`
+	GroupNameRef *v2.NamespacedReference `json:"groupNameRef,omitempty" tf:"-"`
 
 	// Selector for a Group in security to populate groupName.
 	// +kubebuilder:validation:Optional
-	GroupNameSelector *v1.NamespacedSelector `json:"groupNameSelector,omitempty" tf:"-"`
+	GroupNameSelector *v2.NamespacedSelector `json:"groupNameSelector,omitempty" tf:"-"`
 
 	// permission level according to specific resource. See examples above for the reference.
 	PermissionLevel *string `json:"permissionLevel,omitempty" tf:"permission_level,omitempty"`
@@ -39,11 +38,11 @@ type AccessControlInitParameters struct {
 
 	// Reference to a ServicePrincipal in security to populate servicePrincipalName.
 	// +kubebuilder:validation:Optional
-	ServicePrincipalNameRef *v1.NamespacedReference `json:"servicePrincipalNameRef,omitempty" tf:"-"`
+	ServicePrincipalNameRef *v2.NamespacedReference `json:"servicePrincipalNameRef,omitempty" tf:"-"`
 
 	// Selector for a ServicePrincipal in security to populate servicePrincipalName.
 	// +kubebuilder:validation:Optional
-	ServicePrincipalNameSelector *v1.NamespacedSelector `json:"servicePrincipalNameSelector,omitempty" tf:"-"`
+	ServicePrincipalNameSelector *v2.NamespacedSelector `json:"servicePrincipalNameSelector,omitempty" tf:"-"`
 
 	// name of the user.
 	UserName *string `json:"userName,omitempty" tf:"user_name,omitempty"`
@@ -74,11 +73,11 @@ type AccessControlParameters struct {
 
 	// Reference to a Group in security to populate groupName.
 	// +kubebuilder:validation:Optional
-	GroupNameRef *v1.NamespacedReference `json:"groupNameRef,omitempty" tf:"-"`
+	GroupNameRef *v2.NamespacedReference `json:"groupNameRef,omitempty" tf:"-"`
 
 	// Selector for a Group in security to populate groupName.
 	// +kubebuilder:validation:Optional
-	GroupNameSelector *v1.NamespacedSelector `json:"groupNameSelector,omitempty" tf:"-"`
+	GroupNameSelector *v2.NamespacedSelector `json:"groupNameSelector,omitempty" tf:"-"`
 
 	// permission level according to specific resource. See examples above for the reference.
 	// +kubebuilder:validation:Optional
@@ -92,11 +91,11 @@ type AccessControlParameters struct {
 
 	// Reference to a ServicePrincipal in security to populate servicePrincipalName.
 	// +kubebuilder:validation:Optional
-	ServicePrincipalNameRef *v1.NamespacedReference `json:"servicePrincipalNameRef,omitempty" tf:"-"`
+	ServicePrincipalNameRef *v2.NamespacedReference `json:"servicePrincipalNameRef,omitempty" tf:"-"`
 
 	// Selector for a ServicePrincipal in security to populate servicePrincipalName.
 	// +kubebuilder:validation:Optional
-	ServicePrincipalNameSelector *v1.NamespacedSelector `json:"servicePrincipalNameSelector,omitempty" tf:"-"`
+	ServicePrincipalNameSelector *v2.NamespacedSelector `json:"servicePrincipalNameSelector,omitempty" tf:"-"`
 
 	// name of the user.
 	// +kubebuilder:validation:Optional
@@ -121,11 +120,11 @@ type PermissionsInitParameters struct {
 
 	// Reference to a Cluster in compute to populate clusterId.
 	// +kubebuilder:validation:Optional
-	ClusterIDRef *v1.NamespacedReference `json:"clusterIdRef,omitempty" tf:"-"`
+	ClusterIDRef *v2.NamespacedReference `json:"clusterIdRef,omitempty" tf:"-"`
 
 	// Selector for a Cluster in compute to populate clusterId.
 	// +kubebuilder:validation:Optional
-	ClusterIDSelector *v1.NamespacedSelector `json:"clusterIdSelector,omitempty" tf:"-"`
+	ClusterIDSelector *v2.NamespacedSelector `json:"clusterIdSelector,omitempty" tf:"-"`
 
 	// cluster policy id
 	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/namespaced/compute/v1alpha1.ClusterPolicy
@@ -133,11 +132,11 @@ type PermissionsInitParameters struct {
 
 	// Reference to a ClusterPolicy in compute to populate clusterPolicyId.
 	// +kubebuilder:validation:Optional
-	ClusterPolicyIDRef *v1.NamespacedReference `json:"clusterPolicyIdRef,omitempty" tf:"-"`
+	ClusterPolicyIDRef *v2.NamespacedReference `json:"clusterPolicyIdRef,omitempty" tf:"-"`
 
 	// Selector for a ClusterPolicy in compute to populate clusterPolicyId.
 	// +kubebuilder:validation:Optional
-	ClusterPolicyIDSelector *v1.NamespacedSelector `json:"clusterPolicyIdSelector,omitempty" tf:"-"`
+	ClusterPolicyIDSelector *v2.NamespacedSelector `json:"clusterPolicyIdSelector,omitempty" tf:"-"`
 
 	// Canonical unique identifier for the permissions in form of /<object type>/<object id>.
 	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/namespaced/sql/v1alpha1.Dashboard
@@ -146,11 +145,11 @@ type PermissionsInitParameters struct {
 
 	// Reference to a Dashboard in sql to populate dashboardId.
 	// +kubebuilder:validation:Optional
-	DashboardIDRef *v1.NamespacedReference `json:"dashboardIdRef,omitempty" tf:"-"`
+	DashboardIDRef *v2.NamespacedReference `json:"dashboardIdRef,omitempty" tf:"-"`
 
 	// Selector for a Dashboard in sql to populate dashboardId.
 	// +kubebuilder:validation:Optional
-	DashboardIDSelector *v1.NamespacedSelector `json:"dashboardIdSelector,omitempty" tf:"-"`
+	DashboardIDSelector *v2.NamespacedSelector `json:"dashboardIdSelector,omitempty" tf:"-"`
 
 	// Lakebase database instance name
 	DatabaseInstanceName *string `json:"databaseInstanceName,omitempty" tf:"database_instance_name,omitempty"`
@@ -165,11 +164,11 @@ type PermissionsInitParameters struct {
 
 	// Reference to a Directory in workspace to populate directoryId.
 	// +kubebuilder:validation:Optional
-	DirectoryIDRef *v1.NamespacedReference `json:"directoryIdRef,omitempty" tf:"-"`
+	DirectoryIDRef *v2.NamespacedReference `json:"directoryIdRef,omitempty" tf:"-"`
 
 	// Selector for a Directory in workspace to populate directoryId.
 	// +kubebuilder:validation:Optional
-	DirectoryIDSelector *v1.NamespacedSelector `json:"directoryIdSelector,omitempty" tf:"-"`
+	DirectoryIDSelector *v2.NamespacedSelector `json:"directoryIdSelector,omitempty" tf:"-"`
 
 	// path of directory
 	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/namespaced/workspace/v1alpha1.Directory
@@ -178,11 +177,11 @@ type PermissionsInitParameters struct {
 
 	// Reference to a Directory in workspace to populate directoryPath.
 	// +kubebuilder:validation:Optional
-	DirectoryPathRef *v1.NamespacedReference `json:"directoryPathRef,omitempty" tf:"-"`
+	DirectoryPathRef *v2.NamespacedReference `json:"directoryPathRef,omitempty" tf:"-"`
 
 	// Selector for a Directory in workspace to populate directoryPath.
 	// +kubebuilder:validation:Optional
-	DirectoryPathSelector *v1.NamespacedSelector `json:"directoryPathSelector,omitempty" tf:"-"`
+	DirectoryPathSelector *v2.NamespacedSelector `json:"directoryPathSelector,omitempty" tf:"-"`
 
 	// MLflow experiment id
 	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/namespaced/mlflow/v1alpha1.MlflowExperiment
@@ -191,11 +190,11 @@ type PermissionsInitParameters struct {
 
 	// Reference to a MlflowExperiment in mlflow to populate experimentId.
 	// +kubebuilder:validation:Optional
-	ExperimentIDRef *v1.NamespacedReference `json:"experimentIdRef,omitempty" tf:"-"`
+	ExperimentIDRef *v2.NamespacedReference `json:"experimentIdRef,omitempty" tf:"-"`
 
 	// Selector for a MlflowExperiment in mlflow to populate experimentId.
 	// +kubebuilder:validation:Optional
-	ExperimentIDSelector *v1.NamespacedSelector `json:"experimentIdSelector,omitempty" tf:"-"`
+	ExperimentIDSelector *v2.NamespacedSelector `json:"experimentIdSelector,omitempty" tf:"-"`
 
 	// instance pool id
 	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/namespaced/compute/v1alpha1.InstancePool
@@ -203,11 +202,11 @@ type PermissionsInitParameters struct {
 
 	// Reference to a InstancePool in compute to populate instancePoolId.
 	// +kubebuilder:validation:Optional
-	InstancePoolIDRef *v1.NamespacedReference `json:"instancePoolIdRef,omitempty" tf:"-"`
+	InstancePoolIDRef *v2.NamespacedReference `json:"instancePoolIdRef,omitempty" tf:"-"`
 
 	// Selector for a InstancePool in compute to populate instancePoolId.
 	// +kubebuilder:validation:Optional
-	InstancePoolIDSelector *v1.NamespacedSelector `json:"instancePoolIdSelector,omitempty" tf:"-"`
+	InstancePoolIDSelector *v2.NamespacedSelector `json:"instancePoolIdSelector,omitempty" tf:"-"`
 
 	// job id
 	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/namespaced/compute/v1alpha1.Job
@@ -215,11 +214,14 @@ type PermissionsInitParameters struct {
 
 	// Reference to a Job in compute to populate jobId.
 	// +kubebuilder:validation:Optional
-	JobIDRef *v1.NamespacedReference `json:"jobIdRef,omitempty" tf:"-"`
+	JobIDRef *v2.NamespacedReference `json:"jobIdRef,omitempty" tf:"-"`
 
 	// Selector for a Job in compute to populate jobId.
 	// +kubebuilder:validation:Optional
-	JobIDSelector *v1.NamespacedSelector `json:"jobIdSelector,omitempty" tf:"-"`
+	JobIDSelector *v2.NamespacedSelector `json:"jobIdSelector,omitempty" tf:"-"`
+
+	// Knowledge Assistant id
+	KnowledgeAssistantID *string `json:"knowledgeAssistantId,omitempty" tf:"knowledge_assistant_id,omitempty"`
 
 	// ID of notebook within workspace
 	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/namespaced/workspace/v1alpha1.Notebook
@@ -227,11 +229,11 @@ type PermissionsInitParameters struct {
 
 	// Reference to a Notebook in workspace to populate notebookId.
 	// +kubebuilder:validation:Optional
-	NotebookIDRef *v1.NamespacedReference `json:"notebookIdRef,omitempty" tf:"-"`
+	NotebookIDRef *v2.NamespacedReference `json:"notebookIdRef,omitempty" tf:"-"`
 
 	// Selector for a Notebook in workspace to populate notebookId.
 	// +kubebuilder:validation:Optional
-	NotebookIDSelector *v1.NamespacedSelector `json:"notebookIdSelector,omitempty" tf:"-"`
+	NotebookIDSelector *v2.NamespacedSelector `json:"notebookIdSelector,omitempty" tf:"-"`
 
 	// path of notebook
 	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/namespaced/workspace/v1alpha1.Notebook
@@ -240,11 +242,11 @@ type PermissionsInitParameters struct {
 
 	// Reference to a Notebook in workspace to populate notebookPath.
 	// +kubebuilder:validation:Optional
-	NotebookPathRef *v1.NamespacedReference `json:"notebookPathRef,omitempty" tf:"-"`
+	NotebookPathRef *v2.NamespacedReference `json:"notebookPathRef,omitempty" tf:"-"`
 
 	// Selector for a Notebook in workspace to populate notebookPath.
 	// +kubebuilder:validation:Optional
-	NotebookPathSelector *v1.NamespacedSelector `json:"notebookPathSelector,omitempty" tf:"-"`
+	NotebookPathSelector *v2.NamespacedSelector `json:"notebookPathSelector,omitempty" tf:"-"`
 
 	// type of permissions.
 	ObjectType *string `json:"objectType,omitempty" tf:"object_type,omitempty"`
@@ -255,11 +257,11 @@ type PermissionsInitParameters struct {
 
 	// Reference to a Pipeline in compute to populate pipelineId.
 	// +kubebuilder:validation:Optional
-	PipelineIDRef *v1.NamespacedReference `json:"pipelineIdRef,omitempty" tf:"-"`
+	PipelineIDRef *v2.NamespacedReference `json:"pipelineIdRef,omitempty" tf:"-"`
 
 	// Selector for a Pipeline in compute to populate pipelineId.
 	// +kubebuilder:validation:Optional
-	PipelineIDSelector *v1.NamespacedSelector `json:"pipelineIdSelector,omitempty" tf:"-"`
+	PipelineIDSelector *v2.NamespacedSelector `json:"pipelineIdSelector,omitempty" tf:"-"`
 
 	// Configure the provider for management through account provider. This block consists of the following fields:
 	ProviderConfig []PermissionsProviderConfigInitParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
@@ -271,11 +273,11 @@ type PermissionsInitParameters struct {
 
 	// Reference to a MlflowModel in mlflow to populate registeredModelId.
 	// +kubebuilder:validation:Optional
-	RegisteredModelIDRef *v1.NamespacedReference `json:"registeredModelIdRef,omitempty" tf:"-"`
+	RegisteredModelIDRef *v2.NamespacedReference `json:"registeredModelIdRef,omitempty" tf:"-"`
 
 	// Selector for a MlflowModel in mlflow to populate registeredModelId.
 	// +kubebuilder:validation:Optional
-	RegisteredModelIDSelector *v1.NamespacedSelector `json:"registeredModelIdSelector,omitempty" tf:"-"`
+	RegisteredModelIDSelector *v2.NamespacedSelector `json:"registeredModelIdSelector,omitempty" tf:"-"`
 
 	// repo id
 	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/namespaced/workspace/v1alpha1.Repo
@@ -284,11 +286,11 @@ type PermissionsInitParameters struct {
 
 	// Reference to a Repo in workspace to populate repoId.
 	// +kubebuilder:validation:Optional
-	RepoIDRef *v1.NamespacedReference `json:"repoIdRef,omitempty" tf:"-"`
+	RepoIDRef *v2.NamespacedReference `json:"repoIdRef,omitempty" tf:"-"`
 
 	// Selector for a Repo in workspace to populate repoId.
 	// +kubebuilder:validation:Optional
-	RepoIDSelector *v1.NamespacedSelector `json:"repoIdSelector,omitempty" tf:"-"`
+	RepoIDSelector *v2.NamespacedSelector `json:"repoIdSelector,omitempty" tf:"-"`
 
 	// path of databricks repo directory(/Repos/<username>/...)
 	RepoPath *string `json:"repoPath,omitempty" tf:"repo_path,omitempty"`
@@ -299,11 +301,11 @@ type PermissionsInitParameters struct {
 
 	// Reference to a SQLAlert in sql to populate sqlAlertId.
 	// +kubebuilder:validation:Optional
-	SQLAlertIDRef *v1.NamespacedReference `json:"sqlAlertIdRef,omitempty" tf:"-"`
+	SQLAlertIDRef *v2.NamespacedReference `json:"sqlAlertIdRef,omitempty" tf:"-"`
 
 	// Selector for a SQLAlert in sql to populate sqlAlertId.
 	// +kubebuilder:validation:Optional
-	SQLAlertIDSelector *v1.NamespacedSelector `json:"sqlAlertIdSelector,omitempty" tf:"-"`
+	SQLAlertIDSelector *v2.NamespacedSelector `json:"sqlAlertIdSelector,omitempty" tf:"-"`
 
 	// SQL dashboard id
 	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/namespaced/sql/v1alpha1.SQLDashboard
@@ -311,11 +313,11 @@ type PermissionsInitParameters struct {
 
 	// Reference to a SQLDashboard in sql to populate sqlDashboardId.
 	// +kubebuilder:validation:Optional
-	SQLDashboardIDRef *v1.NamespacedReference `json:"sqlDashboardIdRef,omitempty" tf:"-"`
+	SQLDashboardIDRef *v2.NamespacedReference `json:"sqlDashboardIdRef,omitempty" tf:"-"`
 
 	// Selector for a SQLDashboard in sql to populate sqlDashboardId.
 	// +kubebuilder:validation:Optional
-	SQLDashboardIDSelector *v1.NamespacedSelector `json:"sqlDashboardIdSelector,omitempty" tf:"-"`
+	SQLDashboardIDSelector *v2.NamespacedSelector `json:"sqlDashboardIdSelector,omitempty" tf:"-"`
 
 	// SQL warehouse id
 	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/namespaced/sql/v1alpha1.SQLEndpoint
@@ -323,11 +325,11 @@ type PermissionsInitParameters struct {
 
 	// Reference to a SQLEndpoint in sql to populate sqlEndpointId.
 	// +kubebuilder:validation:Optional
-	SQLEndpointIDRef *v1.NamespacedReference `json:"sqlEndpointIdRef,omitempty" tf:"-"`
+	SQLEndpointIDRef *v2.NamespacedReference `json:"sqlEndpointIdRef,omitempty" tf:"-"`
 
 	// Selector for a SQLEndpoint in sql to populate sqlEndpointId.
 	// +kubebuilder:validation:Optional
-	SQLEndpointIDSelector *v1.NamespacedSelector `json:"sqlEndpointIdSelector,omitempty" tf:"-"`
+	SQLEndpointIDSelector *v2.NamespacedSelector `json:"sqlEndpointIdSelector,omitempty" tf:"-"`
 
 	// SQL query id
 	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/namespaced/sql/v1alpha1.SQLQuery
@@ -335,11 +337,11 @@ type PermissionsInitParameters struct {
 
 	// Reference to a SQLQuery in sql to populate sqlQueryId.
 	// +kubebuilder:validation:Optional
-	SQLQueryIDRef *v1.NamespacedReference `json:"sqlQueryIdRef,omitempty" tf:"-"`
+	SQLQueryIDRef *v2.NamespacedReference `json:"sqlQueryIdRef,omitempty" tf:"-"`
 
 	// Selector for a SQLQuery in sql to populate sqlQueryId.
 	// +kubebuilder:validation:Optional
-	SQLQueryIDSelector *v1.NamespacedSelector `json:"sqlQueryIdSelector,omitempty" tf:"-"`
+	SQLQueryIDSelector *v2.NamespacedSelector `json:"sqlQueryIdSelector,omitempty" tf:"-"`
 
 	// Model Serving endpoint id.
 	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/namespaced/serving/v1alpha1.ModelServing
@@ -348,11 +350,14 @@ type PermissionsInitParameters struct {
 
 	// Reference to a ModelServing in serving to populate servingEndpointId.
 	// +kubebuilder:validation:Optional
-	ServingEndpointIDRef *v1.NamespacedReference `json:"servingEndpointIdRef,omitempty" tf:"-"`
+	ServingEndpointIDRef *v2.NamespacedReference `json:"servingEndpointIdRef,omitempty" tf:"-"`
 
 	// Selector for a ModelServing in serving to populate servingEndpointId.
 	// +kubebuilder:validation:Optional
-	ServingEndpointIDSelector *v1.NamespacedSelector `json:"servingEndpointIdSelector,omitempty" tf:"-"`
+	ServingEndpointIDSelector *v2.NamespacedSelector `json:"servingEndpointIdSelector,omitempty" tf:"-"`
+
+	// Supervisor Agent id
+	SupervisorAgentID *string `json:"supervisorAgentId,omitempty" tf:"supervisor_agent_id,omitempty"`
 
 	// Vector Search endpoint id.
 	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/namespaced/mosaic/v1alpha1.VectorSearchEndpoint
@@ -361,11 +366,11 @@ type PermissionsInitParameters struct {
 
 	// Reference to a VectorSearchEndpoint in mosaic to populate vectorSearchEndpointId.
 	// +kubebuilder:validation:Optional
-	VectorSearchEndpointIDRef *v1.NamespacedReference `json:"vectorSearchEndpointIdRef,omitempty" tf:"-"`
+	VectorSearchEndpointIDRef *v2.NamespacedReference `json:"vectorSearchEndpointIdRef,omitempty" tf:"-"`
 
 	// Selector for a VectorSearchEndpoint in mosaic to populate vectorSearchEndpointId.
 	// +kubebuilder:validation:Optional
-	VectorSearchEndpointIDSelector *v1.NamespacedSelector `json:"vectorSearchEndpointIdSelector,omitempty" tf:"-"`
+	VectorSearchEndpointIDSelector *v2.NamespacedSelector `json:"vectorSearchEndpointIdSelector,omitempty" tf:"-"`
 
 	// Canonical unique identifier for the permissions in form of /<object type>/<object id>.
 	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/namespaced/workspace/v1alpha1.WorkspaceFile
@@ -374,11 +379,11 @@ type PermissionsInitParameters struct {
 
 	// Reference to a WorkspaceFile in workspace to populate workspaceFileId.
 	// +kubebuilder:validation:Optional
-	WorkspaceFileIDRef *v1.NamespacedReference `json:"workspaceFileIdRef,omitempty" tf:"-"`
+	WorkspaceFileIDRef *v2.NamespacedReference `json:"workspaceFileIdRef,omitempty" tf:"-"`
 
 	// Selector for a WorkspaceFile in workspace to populate workspaceFileId.
 	// +kubebuilder:validation:Optional
-	WorkspaceFileIDSelector *v1.NamespacedSelector `json:"workspaceFileIdSelector,omitempty" tf:"-"`
+	WorkspaceFileIDSelector *v2.NamespacedSelector `json:"workspaceFileIdSelector,omitempty" tf:"-"`
 
 	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/namespaced/workspace/v1alpha1.WorkspaceFile
 	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/v2/pkg/resource.ExtractParamPath("path",false)
@@ -386,11 +391,11 @@ type PermissionsInitParameters struct {
 
 	// Reference to a WorkspaceFile in workspace to populate workspaceFilePath.
 	// +kubebuilder:validation:Optional
-	WorkspaceFilePathRef *v1.NamespacedReference `json:"workspaceFilePathRef,omitempty" tf:"-"`
+	WorkspaceFilePathRef *v2.NamespacedReference `json:"workspaceFilePathRef,omitempty" tf:"-"`
 
 	// Selector for a WorkspaceFile in workspace to populate workspaceFilePath.
 	// +kubebuilder:validation:Optional
-	WorkspaceFilePathSelector *v1.NamespacedSelector `json:"workspaceFilePathSelector,omitempty" tf:"-"`
+	WorkspaceFilePathSelector *v2.NamespacedSelector `json:"workspaceFilePathSelector,omitempty" tf:"-"`
 }
 
 type PermissionsObservation struct {
@@ -438,6 +443,9 @@ type PermissionsObservation struct {
 	// job id
 	JobID *string `json:"jobId,omitempty" tf:"job_id,omitempty"`
 
+	// Knowledge Assistant id
+	KnowledgeAssistantID *string `json:"knowledgeAssistantId,omitempty" tf:"knowledge_assistant_id,omitempty"`
+
 	// ID of notebook within workspace
 	NotebookID *string `json:"notebookId,omitempty" tf:"notebook_id,omitempty"`
 
@@ -477,6 +485,9 @@ type PermissionsObservation struct {
 	// Model Serving endpoint id.
 	ServingEndpointID *string `json:"servingEndpointId,omitempty" tf:"serving_endpoint_id,omitempty"`
 
+	// Supervisor Agent id
+	SupervisorAgentID *string `json:"supervisorAgentId,omitempty" tf:"supervisor_agent_id,omitempty"`
+
 	// Vector Search endpoint id.
 	VectorSearchEndpointID *string `json:"vectorSearchEndpointId,omitempty" tf:"vector_search_endpoint_id,omitempty"`
 
@@ -510,11 +521,11 @@ type PermissionsParameters struct {
 
 	// Reference to a Cluster in compute to populate clusterId.
 	// +kubebuilder:validation:Optional
-	ClusterIDRef *v1.NamespacedReference `json:"clusterIdRef,omitempty" tf:"-"`
+	ClusterIDRef *v2.NamespacedReference `json:"clusterIdRef,omitempty" tf:"-"`
 
 	// Selector for a Cluster in compute to populate clusterId.
 	// +kubebuilder:validation:Optional
-	ClusterIDSelector *v1.NamespacedSelector `json:"clusterIdSelector,omitempty" tf:"-"`
+	ClusterIDSelector *v2.NamespacedSelector `json:"clusterIdSelector,omitempty" tf:"-"`
 
 	// cluster policy id
 	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/namespaced/compute/v1alpha1.ClusterPolicy
@@ -523,11 +534,11 @@ type PermissionsParameters struct {
 
 	// Reference to a ClusterPolicy in compute to populate clusterPolicyId.
 	// +kubebuilder:validation:Optional
-	ClusterPolicyIDRef *v1.NamespacedReference `json:"clusterPolicyIdRef,omitempty" tf:"-"`
+	ClusterPolicyIDRef *v2.NamespacedReference `json:"clusterPolicyIdRef,omitempty" tf:"-"`
 
 	// Selector for a ClusterPolicy in compute to populate clusterPolicyId.
 	// +kubebuilder:validation:Optional
-	ClusterPolicyIDSelector *v1.NamespacedSelector `json:"clusterPolicyIdSelector,omitempty" tf:"-"`
+	ClusterPolicyIDSelector *v2.NamespacedSelector `json:"clusterPolicyIdSelector,omitempty" tf:"-"`
 
 	// Canonical unique identifier for the permissions in form of /<object type>/<object id>.
 	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/namespaced/sql/v1alpha1.Dashboard
@@ -537,11 +548,11 @@ type PermissionsParameters struct {
 
 	// Reference to a Dashboard in sql to populate dashboardId.
 	// +kubebuilder:validation:Optional
-	DashboardIDRef *v1.NamespacedReference `json:"dashboardIdRef,omitempty" tf:"-"`
+	DashboardIDRef *v2.NamespacedReference `json:"dashboardIdRef,omitempty" tf:"-"`
 
 	// Selector for a Dashboard in sql to populate dashboardId.
 	// +kubebuilder:validation:Optional
-	DashboardIDSelector *v1.NamespacedSelector `json:"dashboardIdSelector,omitempty" tf:"-"`
+	DashboardIDSelector *v2.NamespacedSelector `json:"dashboardIdSelector,omitempty" tf:"-"`
 
 	// Lakebase database instance name
 	// +kubebuilder:validation:Optional
@@ -559,11 +570,11 @@ type PermissionsParameters struct {
 
 	// Reference to a Directory in workspace to populate directoryId.
 	// +kubebuilder:validation:Optional
-	DirectoryIDRef *v1.NamespacedReference `json:"directoryIdRef,omitempty" tf:"-"`
+	DirectoryIDRef *v2.NamespacedReference `json:"directoryIdRef,omitempty" tf:"-"`
 
 	// Selector for a Directory in workspace to populate directoryId.
 	// +kubebuilder:validation:Optional
-	DirectoryIDSelector *v1.NamespacedSelector `json:"directoryIdSelector,omitempty" tf:"-"`
+	DirectoryIDSelector *v2.NamespacedSelector `json:"directoryIdSelector,omitempty" tf:"-"`
 
 	// path of directory
 	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/namespaced/workspace/v1alpha1.Directory
@@ -573,11 +584,11 @@ type PermissionsParameters struct {
 
 	// Reference to a Directory in workspace to populate directoryPath.
 	// +kubebuilder:validation:Optional
-	DirectoryPathRef *v1.NamespacedReference `json:"directoryPathRef,omitempty" tf:"-"`
+	DirectoryPathRef *v2.NamespacedReference `json:"directoryPathRef,omitempty" tf:"-"`
 
 	// Selector for a Directory in workspace to populate directoryPath.
 	// +kubebuilder:validation:Optional
-	DirectoryPathSelector *v1.NamespacedSelector `json:"directoryPathSelector,omitempty" tf:"-"`
+	DirectoryPathSelector *v2.NamespacedSelector `json:"directoryPathSelector,omitempty" tf:"-"`
 
 	// MLflow experiment id
 	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/namespaced/mlflow/v1alpha1.MlflowExperiment
@@ -587,11 +598,11 @@ type PermissionsParameters struct {
 
 	// Reference to a MlflowExperiment in mlflow to populate experimentId.
 	// +kubebuilder:validation:Optional
-	ExperimentIDRef *v1.NamespacedReference `json:"experimentIdRef,omitempty" tf:"-"`
+	ExperimentIDRef *v2.NamespacedReference `json:"experimentIdRef,omitempty" tf:"-"`
 
 	// Selector for a MlflowExperiment in mlflow to populate experimentId.
 	// +kubebuilder:validation:Optional
-	ExperimentIDSelector *v1.NamespacedSelector `json:"experimentIdSelector,omitempty" tf:"-"`
+	ExperimentIDSelector *v2.NamespacedSelector `json:"experimentIdSelector,omitempty" tf:"-"`
 
 	// instance pool id
 	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/namespaced/compute/v1alpha1.InstancePool
@@ -600,11 +611,11 @@ type PermissionsParameters struct {
 
 	// Reference to a InstancePool in compute to populate instancePoolId.
 	// +kubebuilder:validation:Optional
-	InstancePoolIDRef *v1.NamespacedReference `json:"instancePoolIdRef,omitempty" tf:"-"`
+	InstancePoolIDRef *v2.NamespacedReference `json:"instancePoolIdRef,omitempty" tf:"-"`
 
 	// Selector for a InstancePool in compute to populate instancePoolId.
 	// +kubebuilder:validation:Optional
-	InstancePoolIDSelector *v1.NamespacedSelector `json:"instancePoolIdSelector,omitempty" tf:"-"`
+	InstancePoolIDSelector *v2.NamespacedSelector `json:"instancePoolIdSelector,omitempty" tf:"-"`
 
 	// job id
 	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/namespaced/compute/v1alpha1.Job
@@ -613,11 +624,15 @@ type PermissionsParameters struct {
 
 	// Reference to a Job in compute to populate jobId.
 	// +kubebuilder:validation:Optional
-	JobIDRef *v1.NamespacedReference `json:"jobIdRef,omitempty" tf:"-"`
+	JobIDRef *v2.NamespacedReference `json:"jobIdRef,omitempty" tf:"-"`
 
 	// Selector for a Job in compute to populate jobId.
 	// +kubebuilder:validation:Optional
-	JobIDSelector *v1.NamespacedSelector `json:"jobIdSelector,omitempty" tf:"-"`
+	JobIDSelector *v2.NamespacedSelector `json:"jobIdSelector,omitempty" tf:"-"`
+
+	// Knowledge Assistant id
+	// +kubebuilder:validation:Optional
+	KnowledgeAssistantID *string `json:"knowledgeAssistantId,omitempty" tf:"knowledge_assistant_id,omitempty"`
 
 	// ID of notebook within workspace
 	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/namespaced/workspace/v1alpha1.Notebook
@@ -626,11 +641,11 @@ type PermissionsParameters struct {
 
 	// Reference to a Notebook in workspace to populate notebookId.
 	// +kubebuilder:validation:Optional
-	NotebookIDRef *v1.NamespacedReference `json:"notebookIdRef,omitempty" tf:"-"`
+	NotebookIDRef *v2.NamespacedReference `json:"notebookIdRef,omitempty" tf:"-"`
 
 	// Selector for a Notebook in workspace to populate notebookId.
 	// +kubebuilder:validation:Optional
-	NotebookIDSelector *v1.NamespacedSelector `json:"notebookIdSelector,omitempty" tf:"-"`
+	NotebookIDSelector *v2.NamespacedSelector `json:"notebookIdSelector,omitempty" tf:"-"`
 
 	// path of notebook
 	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/namespaced/workspace/v1alpha1.Notebook
@@ -640,11 +655,11 @@ type PermissionsParameters struct {
 
 	// Reference to a Notebook in workspace to populate notebookPath.
 	// +kubebuilder:validation:Optional
-	NotebookPathRef *v1.NamespacedReference `json:"notebookPathRef,omitempty" tf:"-"`
+	NotebookPathRef *v2.NamespacedReference `json:"notebookPathRef,omitempty" tf:"-"`
 
 	// Selector for a Notebook in workspace to populate notebookPath.
 	// +kubebuilder:validation:Optional
-	NotebookPathSelector *v1.NamespacedSelector `json:"notebookPathSelector,omitempty" tf:"-"`
+	NotebookPathSelector *v2.NamespacedSelector `json:"notebookPathSelector,omitempty" tf:"-"`
 
 	// type of permissions.
 	// +kubebuilder:validation:Optional
@@ -657,11 +672,11 @@ type PermissionsParameters struct {
 
 	// Reference to a Pipeline in compute to populate pipelineId.
 	// +kubebuilder:validation:Optional
-	PipelineIDRef *v1.NamespacedReference `json:"pipelineIdRef,omitempty" tf:"-"`
+	PipelineIDRef *v2.NamespacedReference `json:"pipelineIdRef,omitempty" tf:"-"`
 
 	// Selector for a Pipeline in compute to populate pipelineId.
 	// +kubebuilder:validation:Optional
-	PipelineIDSelector *v1.NamespacedSelector `json:"pipelineIdSelector,omitempty" tf:"-"`
+	PipelineIDSelector *v2.NamespacedSelector `json:"pipelineIdSelector,omitempty" tf:"-"`
 
 	// Configure the provider for management through account provider. This block consists of the following fields:
 	// +kubebuilder:validation:Optional
@@ -675,11 +690,11 @@ type PermissionsParameters struct {
 
 	// Reference to a MlflowModel in mlflow to populate registeredModelId.
 	// +kubebuilder:validation:Optional
-	RegisteredModelIDRef *v1.NamespacedReference `json:"registeredModelIdRef,omitempty" tf:"-"`
+	RegisteredModelIDRef *v2.NamespacedReference `json:"registeredModelIdRef,omitempty" tf:"-"`
 
 	// Selector for a MlflowModel in mlflow to populate registeredModelId.
 	// +kubebuilder:validation:Optional
-	RegisteredModelIDSelector *v1.NamespacedSelector `json:"registeredModelIdSelector,omitempty" tf:"-"`
+	RegisteredModelIDSelector *v2.NamespacedSelector `json:"registeredModelIdSelector,omitempty" tf:"-"`
 
 	// repo id
 	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/namespaced/workspace/v1alpha1.Repo
@@ -689,11 +704,11 @@ type PermissionsParameters struct {
 
 	// Reference to a Repo in workspace to populate repoId.
 	// +kubebuilder:validation:Optional
-	RepoIDRef *v1.NamespacedReference `json:"repoIdRef,omitempty" tf:"-"`
+	RepoIDRef *v2.NamespacedReference `json:"repoIdRef,omitempty" tf:"-"`
 
 	// Selector for a Repo in workspace to populate repoId.
 	// +kubebuilder:validation:Optional
-	RepoIDSelector *v1.NamespacedSelector `json:"repoIdSelector,omitempty" tf:"-"`
+	RepoIDSelector *v2.NamespacedSelector `json:"repoIdSelector,omitempty" tf:"-"`
 
 	// path of databricks repo directory(/Repos/<username>/...)
 	// +kubebuilder:validation:Optional
@@ -706,11 +721,11 @@ type PermissionsParameters struct {
 
 	// Reference to a SQLAlert in sql to populate sqlAlertId.
 	// +kubebuilder:validation:Optional
-	SQLAlertIDRef *v1.NamespacedReference `json:"sqlAlertIdRef,omitempty" tf:"-"`
+	SQLAlertIDRef *v2.NamespacedReference `json:"sqlAlertIdRef,omitempty" tf:"-"`
 
 	// Selector for a SQLAlert in sql to populate sqlAlertId.
 	// +kubebuilder:validation:Optional
-	SQLAlertIDSelector *v1.NamespacedSelector `json:"sqlAlertIdSelector,omitempty" tf:"-"`
+	SQLAlertIDSelector *v2.NamespacedSelector `json:"sqlAlertIdSelector,omitempty" tf:"-"`
 
 	// SQL dashboard id
 	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/namespaced/sql/v1alpha1.SQLDashboard
@@ -719,11 +734,11 @@ type PermissionsParameters struct {
 
 	// Reference to a SQLDashboard in sql to populate sqlDashboardId.
 	// +kubebuilder:validation:Optional
-	SQLDashboardIDRef *v1.NamespacedReference `json:"sqlDashboardIdRef,omitempty" tf:"-"`
+	SQLDashboardIDRef *v2.NamespacedReference `json:"sqlDashboardIdRef,omitempty" tf:"-"`
 
 	// Selector for a SQLDashboard in sql to populate sqlDashboardId.
 	// +kubebuilder:validation:Optional
-	SQLDashboardIDSelector *v1.NamespacedSelector `json:"sqlDashboardIdSelector,omitempty" tf:"-"`
+	SQLDashboardIDSelector *v2.NamespacedSelector `json:"sqlDashboardIdSelector,omitempty" tf:"-"`
 
 	// SQL warehouse id
 	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/namespaced/sql/v1alpha1.SQLEndpoint
@@ -732,11 +747,11 @@ type PermissionsParameters struct {
 
 	// Reference to a SQLEndpoint in sql to populate sqlEndpointId.
 	// +kubebuilder:validation:Optional
-	SQLEndpointIDRef *v1.NamespacedReference `json:"sqlEndpointIdRef,omitempty" tf:"-"`
+	SQLEndpointIDRef *v2.NamespacedReference `json:"sqlEndpointIdRef,omitempty" tf:"-"`
 
 	// Selector for a SQLEndpoint in sql to populate sqlEndpointId.
 	// +kubebuilder:validation:Optional
-	SQLEndpointIDSelector *v1.NamespacedSelector `json:"sqlEndpointIdSelector,omitempty" tf:"-"`
+	SQLEndpointIDSelector *v2.NamespacedSelector `json:"sqlEndpointIdSelector,omitempty" tf:"-"`
 
 	// SQL query id
 	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/namespaced/sql/v1alpha1.SQLQuery
@@ -745,11 +760,11 @@ type PermissionsParameters struct {
 
 	// Reference to a SQLQuery in sql to populate sqlQueryId.
 	// +kubebuilder:validation:Optional
-	SQLQueryIDRef *v1.NamespacedReference `json:"sqlQueryIdRef,omitempty" tf:"-"`
+	SQLQueryIDRef *v2.NamespacedReference `json:"sqlQueryIdRef,omitempty" tf:"-"`
 
 	// Selector for a SQLQuery in sql to populate sqlQueryId.
 	// +kubebuilder:validation:Optional
-	SQLQueryIDSelector *v1.NamespacedSelector `json:"sqlQueryIdSelector,omitempty" tf:"-"`
+	SQLQueryIDSelector *v2.NamespacedSelector `json:"sqlQueryIdSelector,omitempty" tf:"-"`
 
 	// Model Serving endpoint id.
 	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/namespaced/serving/v1alpha1.ModelServing
@@ -759,11 +774,15 @@ type PermissionsParameters struct {
 
 	// Reference to a ModelServing in serving to populate servingEndpointId.
 	// +kubebuilder:validation:Optional
-	ServingEndpointIDRef *v1.NamespacedReference `json:"servingEndpointIdRef,omitempty" tf:"-"`
+	ServingEndpointIDRef *v2.NamespacedReference `json:"servingEndpointIdRef,omitempty" tf:"-"`
 
 	// Selector for a ModelServing in serving to populate servingEndpointId.
 	// +kubebuilder:validation:Optional
-	ServingEndpointIDSelector *v1.NamespacedSelector `json:"servingEndpointIdSelector,omitempty" tf:"-"`
+	ServingEndpointIDSelector *v2.NamespacedSelector `json:"servingEndpointIdSelector,omitempty" tf:"-"`
+
+	// Supervisor Agent id
+	// +kubebuilder:validation:Optional
+	SupervisorAgentID *string `json:"supervisorAgentId,omitempty" tf:"supervisor_agent_id,omitempty"`
 
 	// Vector Search endpoint id.
 	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/namespaced/mosaic/v1alpha1.VectorSearchEndpoint
@@ -773,11 +792,11 @@ type PermissionsParameters struct {
 
 	// Reference to a VectorSearchEndpoint in mosaic to populate vectorSearchEndpointId.
 	// +kubebuilder:validation:Optional
-	VectorSearchEndpointIDRef *v1.NamespacedReference `json:"vectorSearchEndpointIdRef,omitempty" tf:"-"`
+	VectorSearchEndpointIDRef *v2.NamespacedReference `json:"vectorSearchEndpointIdRef,omitempty" tf:"-"`
 
 	// Selector for a VectorSearchEndpoint in mosaic to populate vectorSearchEndpointId.
 	// +kubebuilder:validation:Optional
-	VectorSearchEndpointIDSelector *v1.NamespacedSelector `json:"vectorSearchEndpointIdSelector,omitempty" tf:"-"`
+	VectorSearchEndpointIDSelector *v2.NamespacedSelector `json:"vectorSearchEndpointIdSelector,omitempty" tf:"-"`
 
 	// Canonical unique identifier for the permissions in form of /<object type>/<object id>.
 	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/namespaced/workspace/v1alpha1.WorkspaceFile
@@ -787,11 +806,11 @@ type PermissionsParameters struct {
 
 	// Reference to a WorkspaceFile in workspace to populate workspaceFileId.
 	// +kubebuilder:validation:Optional
-	WorkspaceFileIDRef *v1.NamespacedReference `json:"workspaceFileIdRef,omitempty" tf:"-"`
+	WorkspaceFileIDRef *v2.NamespacedReference `json:"workspaceFileIdRef,omitempty" tf:"-"`
 
 	// Selector for a WorkspaceFile in workspace to populate workspaceFileId.
 	// +kubebuilder:validation:Optional
-	WorkspaceFileIDSelector *v1.NamespacedSelector `json:"workspaceFileIdSelector,omitempty" tf:"-"`
+	WorkspaceFileIDSelector *v2.NamespacedSelector `json:"workspaceFileIdSelector,omitempty" tf:"-"`
 
 	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/namespaced/workspace/v1alpha1.WorkspaceFile
 	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/v2/pkg/resource.ExtractParamPath("path",false)
@@ -800,11 +819,11 @@ type PermissionsParameters struct {
 
 	// Reference to a WorkspaceFile in workspace to populate workspaceFilePath.
 	// +kubebuilder:validation:Optional
-	WorkspaceFilePathRef *v1.NamespacedReference `json:"workspaceFilePathRef,omitempty" tf:"-"`
+	WorkspaceFilePathRef *v2.NamespacedReference `json:"workspaceFilePathRef,omitempty" tf:"-"`
 
 	// Selector for a WorkspaceFile in workspace to populate workspaceFilePath.
 	// +kubebuilder:validation:Optional
-	WorkspaceFilePathSelector *v1.NamespacedSelector `json:"workspaceFilePathSelector,omitempty" tf:"-"`
+	WorkspaceFilePathSelector *v2.NamespacedSelector `json:"workspaceFilePathSelector,omitempty" tf:"-"`
 }
 
 type PermissionsProviderConfigInitParameters struct {
@@ -823,7 +842,7 @@ type PermissionsProviderConfigParameters struct {
 
 	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
 	// +kubebuilder:validation:Optional
-	WorkspaceID *string `json:"workspaceId" tf:"workspace_id,omitempty"`
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
 }
 
 // PermissionsSpec defines the desired state of Permissions
@@ -845,8 +864,8 @@ type PermissionsSpec struct {
 
 // PermissionsStatus defines the observed state of Permissions.
 type PermissionsStatus struct {
-	v1.ResourceStatus `json:",inline"`
-	AtProvider        PermissionsObservation `json:"atProvider,omitempty"`
+	v2.ManagedResourceStatus `json:",inline"`
+	AtProvider               PermissionsObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true

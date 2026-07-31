@@ -10,13 +10,12 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
-	v2 "github.com/crossplane/crossplane-runtime/v2/apis/common/v2"
+	v2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 )
 
 type WorkspaceBindingInitParameters struct {
 
-	// Binding mode. Default to BINDING_TYPE_READ_WRITE. Possible values are BINDING_TYPE_READ_ONLY, BINDING_TYPE_READ_WRITE.
+	// Binding mode. Default to BINDING_TYPE_READ_WRITE. Possible values are BINDING_TYPE_READ_ONLY, BINDING_TYPE_READ_WRITE. Note: BINDING_TYPE_READ_ONLY is only supported when securable_type is catalog. For storage_credential, external_location, and credential, only BINDING_TYPE_READ_WRITE is supported.
 	BindingType *string `json:"bindingType,omitempty" tf:"binding_type,omitempty"`
 
 	CatalogName *string `json:"catalogName,omitempty" tf:"catalog_name,omitempty"`
@@ -31,11 +30,11 @@ type WorkspaceBindingInitParameters struct {
 
 	// Reference to a Catalog in unity to populate securableName.
 	// +kubebuilder:validation:Optional
-	SecurableNameRef *v1.NamespacedReference `json:"securableNameRef,omitempty" tf:"-"`
+	SecurableNameRef *v2.NamespacedReference `json:"securableNameRef,omitempty" tf:"-"`
 
 	// Selector for a Catalog in unity to populate securableName.
 	// +kubebuilder:validation:Optional
-	SecurableNameSelector *v1.NamespacedSelector `json:"securableNameSelector,omitempty" tf:"-"`
+	SecurableNameSelector *v2.NamespacedSelector `json:"securableNameSelector,omitempty" tf:"-"`
 
 	// Type of securable. Can be catalog, external_location, storage_credential or credential. Default to catalog. Change forces creation of a new resource.
 	SecurableType *string `json:"securableType,omitempty" tf:"securable_type,omitempty"`
@@ -47,16 +46,16 @@ type WorkspaceBindingInitParameters struct {
 
 	// Reference to a MwsWorkspaces in deployment to populate workspaceId.
 	// +kubebuilder:validation:Optional
-	WorkspaceIDRef *v1.NamespacedReference `json:"workspaceIdRef,omitempty" tf:"-"`
+	WorkspaceIDRef *v2.NamespacedReference `json:"workspaceIdRef,omitempty" tf:"-"`
 
 	// Selector for a MwsWorkspaces in deployment to populate workspaceId.
 	// +kubebuilder:validation:Optional
-	WorkspaceIDSelector *v1.NamespacedSelector `json:"workspaceIdSelector,omitempty" tf:"-"`
+	WorkspaceIDSelector *v2.NamespacedSelector `json:"workspaceIdSelector,omitempty" tf:"-"`
 }
 
 type WorkspaceBindingObservation struct {
 
-	// Binding mode. Default to BINDING_TYPE_READ_WRITE. Possible values are BINDING_TYPE_READ_ONLY, BINDING_TYPE_READ_WRITE.
+	// Binding mode. Default to BINDING_TYPE_READ_WRITE. Possible values are BINDING_TYPE_READ_ONLY, BINDING_TYPE_READ_WRITE. Note: BINDING_TYPE_READ_ONLY is only supported when securable_type is catalog. For storage_credential, external_location, and credential, only BINDING_TYPE_READ_WRITE is supported.
 	BindingType *string `json:"bindingType,omitempty" tf:"binding_type,omitempty"`
 
 	CatalogName *string `json:"catalogName,omitempty" tf:"catalog_name,omitempty"`
@@ -78,7 +77,7 @@ type WorkspaceBindingObservation struct {
 
 type WorkspaceBindingParameters struct {
 
-	// Binding mode. Default to BINDING_TYPE_READ_WRITE. Possible values are BINDING_TYPE_READ_ONLY, BINDING_TYPE_READ_WRITE.
+	// Binding mode. Default to BINDING_TYPE_READ_WRITE. Possible values are BINDING_TYPE_READ_ONLY, BINDING_TYPE_READ_WRITE. Note: BINDING_TYPE_READ_ONLY is only supported when securable_type is catalog. For storage_credential, external_location, and credential, only BINDING_TYPE_READ_WRITE is supported.
 	// +kubebuilder:validation:Optional
 	BindingType *string `json:"bindingType,omitempty" tf:"binding_type,omitempty"`
 
@@ -97,11 +96,11 @@ type WorkspaceBindingParameters struct {
 
 	// Reference to a Catalog in unity to populate securableName.
 	// +kubebuilder:validation:Optional
-	SecurableNameRef *v1.NamespacedReference `json:"securableNameRef,omitempty" tf:"-"`
+	SecurableNameRef *v2.NamespacedReference `json:"securableNameRef,omitempty" tf:"-"`
 
 	// Selector for a Catalog in unity to populate securableName.
 	// +kubebuilder:validation:Optional
-	SecurableNameSelector *v1.NamespacedSelector `json:"securableNameSelector,omitempty" tf:"-"`
+	SecurableNameSelector *v2.NamespacedSelector `json:"securableNameSelector,omitempty" tf:"-"`
 
 	// Type of securable. Can be catalog, external_location, storage_credential or credential. Default to catalog. Change forces creation of a new resource.
 	// +kubebuilder:validation:Optional
@@ -115,11 +114,11 @@ type WorkspaceBindingParameters struct {
 
 	// Reference to a MwsWorkspaces in deployment to populate workspaceId.
 	// +kubebuilder:validation:Optional
-	WorkspaceIDRef *v1.NamespacedReference `json:"workspaceIdRef,omitempty" tf:"-"`
+	WorkspaceIDRef *v2.NamespacedReference `json:"workspaceIdRef,omitempty" tf:"-"`
 
 	// Selector for a MwsWorkspaces in deployment to populate workspaceId.
 	// +kubebuilder:validation:Optional
-	WorkspaceIDSelector *v1.NamespacedSelector `json:"workspaceIdSelector,omitempty" tf:"-"`
+	WorkspaceIDSelector *v2.NamespacedSelector `json:"workspaceIdSelector,omitempty" tf:"-"`
 }
 
 type WorkspaceBindingProviderConfigInitParameters struct {
@@ -138,7 +137,7 @@ type WorkspaceBindingProviderConfigParameters struct {
 
 	// ID of the workspace. Change forces creation of a new resource.
 	// +kubebuilder:validation:Optional
-	WorkspaceID *string `json:"workspaceId" tf:"workspace_id,omitempty"`
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
 }
 
 // WorkspaceBindingSpec defines the desired state of WorkspaceBinding
@@ -160,8 +159,8 @@ type WorkspaceBindingSpec struct {
 
 // WorkspaceBindingStatus defines the observed state of WorkspaceBinding.
 type WorkspaceBindingStatus struct {
-	v1.ResourceStatus `json:",inline"`
-	AtProvider        WorkspaceBindingObservation `json:"atProvider,omitempty"`
+	v2.ManagedResourceStatus `json:",inline"`
+	AtProvider               WorkspaceBindingObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true

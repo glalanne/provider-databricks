@@ -1,0 +1,67 @@
+# SPDX-FileCopyrightText: 2026 The Crossplane Authors <https://crossplane.io>
+#
+# SPDX-License-Identifier: CC0-1.0
+
+apiVersion: postgres.databricks.m.crossplane.io/v1beta1
+kind: PostgresRole
+metadata:
+  annotations:
+    meta.upbound.io/example-id: postgres/v1beta1/postgresrole
+  labels:
+    testing.upbound.io/example-name: owner
+  name: owner
+  namespace: upbound-system
+spec:
+  forProvider:
+    parentSelector:
+      matchLabels:
+        testing.upbound.io/example-name: production
+    replaceExisting: true
+    roleId: jane-doe
+    spec:
+      attributes:
+        bypassrls: true
+        createdb: true
+        createrole: true
+      membershipRoles:
+      - DATABRICKS_SUPERUSER
+      postgresRole: jane.doe@databricks.com
+
+---
+
+apiVersion: postgres.databricks.m.crossplane.io/v1beta1
+kind: PostgresBranch
+metadata:
+  annotations:
+    meta.upbound.io/example-id: postgres/v1beta1/postgresrole
+  labels:
+    testing.upbound.io/example-name: production
+  name: production
+  namespace: upbound-system
+spec:
+  forProvider:
+    branchId: production
+    parentSelector:
+      matchLabels:
+        testing.upbound.io/example-name: this
+    replaceExisting: true
+    spec:
+      noExpiry: true
+
+---
+
+apiVersion: postgres.databricks.m.crossplane.io/v1beta1
+kind: PostgresProject
+metadata:
+  annotations:
+    meta.upbound.io/example-id: postgres/v1beta1/postgresrole
+  labels:
+    testing.upbound.io/example-name: this
+  name: this
+  namespace: upbound-system
+spec:
+  forProvider:
+    projectId: my-project
+    spec:
+      displayName: My Project
+      pgVersion: 17

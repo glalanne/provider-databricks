@@ -10,7 +10,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
+	v2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 )
 
 type CloudflareAPITokenInitParameters struct {
@@ -21,7 +21,7 @@ type CloudflareAPITokenInitParameters struct {
 	// ID of this data access configuration in form of <metastore_id>|<name>.
 	AccountID *string `json:"accountId,omitempty" tf:"account_id,omitempty"`
 
-	SecretAccessKeySecretRef v1.SecretKeySelector `json:"secretAccessKeySecretRef" tf:"-"`
+	SecretAccessKeySecretRef v2.SecretKeySelector `json:"secretAccessKeySecretRef" tf:"-"`
 }
 
 type CloudflareAPITokenObservation struct {
@@ -44,7 +44,7 @@ type CloudflareAPITokenParameters struct {
 	AccountID *string `json:"accountId" tf:"account_id,omitempty"`
 
 	// +kubebuilder:validation:Optional
-	SecretAccessKeySecretRef v1.SecretKeySelector `json:"secretAccessKeySecretRef" tf:"-"`
+	SecretAccessKeySecretRef v2.SecretKeySelector `json:"secretAccessKeySecretRef" tf:"-"`
 }
 
 type GCPServiceAccountKeyInitParameters struct {
@@ -53,7 +53,7 @@ type GCPServiceAccountKeyInitParameters struct {
 	// ID of this data access configuration in form of <metastore_id>|<name>.
 	PrivateKeyID *string `json:"privateKeyId,omitempty" tf:"private_key_id,omitempty"`
 
-	PrivateKeySecretRef v1.SecretKeySelector `json:"privateKeySecretRef" tf:"-"`
+	PrivateKeySecretRef v2.SecretKeySelector `json:"privateKeySecretRef" tf:"-"`
 }
 
 type GCPServiceAccountKeyObservation struct {
@@ -73,7 +73,7 @@ type GCPServiceAccountKeyParameters struct {
 	PrivateKeyID *string `json:"privateKeyId" tf:"private_key_id,omitempty"`
 
 	// +kubebuilder:validation:Optional
-	PrivateKeySecretRef v1.SecretKeySelector `json:"privateKeySecretRef" tf:"-"`
+	PrivateKeySecretRef v2.SecretKeySelector `json:"privateKeySecretRef" tf:"-"`
 }
 
 type MetastoreDataAccessAwsIAMRoleInitParameters struct {
@@ -153,7 +153,7 @@ type MetastoreDataAccessAzureServicePrincipalInitParameters struct {
 	// ID of this data access configuration in form of <metastore_id>|<name>.
 	ApplicationID *string `json:"applicationId,omitempty" tf:"application_id,omitempty"`
 
-	ClientSecretSecretRef v1.SecretKeySelector `json:"clientSecretSecretRef" tf:"-"`
+	ClientSecretSecretRef v2.SecretKeySelector `json:"clientSecretSecretRef" tf:"-"`
 
 	// ID of this data access configuration in form of <metastore_id>|<name>.
 	DirectoryID *string `json:"directoryId,omitempty" tf:"directory_id,omitempty"`
@@ -175,7 +175,7 @@ type MetastoreDataAccessAzureServicePrincipalParameters struct {
 	ApplicationID *string `json:"applicationId" tf:"application_id,omitempty"`
 
 	// +kubebuilder:validation:Optional
-	ClientSecretSecretRef v1.SecretKeySelector `json:"clientSecretSecretRef" tf:"-"`
+	ClientSecretSecretRef v2.SecretKeySelector `json:"clientSecretSecretRef" tf:"-"`
 
 	// ID of this data access configuration in form of <metastore_id>|<name>.
 	// +kubebuilder:validation:Optional
@@ -209,6 +209,11 @@ type MetastoreDataAccessDatabricksGCPServiceAccountParameters struct {
 }
 
 type MetastoreDataAccessInitParameters struct {
+
+	// Specifies whether to use account-level or workspace-level API. Valid values are account and workspace. When not set, the API level is inferred from the provider host.
+	// Specifies whether to use account-level or workspace-level API. Valid values are `account` and `workspace`. When not set, the API level is inferred from the provider host.
+	API *string `json:"api,omitempty" tf:"api,omitempty"`
+
 	AwsIAMRole []MetastoreDataAccessAwsIAMRoleInitParameters `json:"awsIamRole,omitempty" tf:"aws_iam_role,omitempty"`
 
 	AzureManagedIdentity []MetastoreDataAccessAzureManagedIdentityInitParameters `json:"azureManagedIdentity,omitempty" tf:"azure_managed_identity,omitempty"`
@@ -239,15 +244,18 @@ type MetastoreDataAccessInitParameters struct {
 
 	// Reference to a Metastore in unity to populate metastoreId.
 	// +kubebuilder:validation:Optional
-	MetastoreIDRef *v1.Reference `json:"metastoreIdRef,omitempty" tf:"-"`
+	MetastoreIDRef *v2.Reference `json:"metastoreIdRef,omitempty" tf:"-"`
 
 	// Selector for a Metastore in unity to populate metastoreId.
 	// +kubebuilder:validation:Optional
-	MetastoreIDSelector *v1.Selector `json:"metastoreIdSelector,omitempty" tf:"-"`
+	MetastoreIDSelector *v2.Selector `json:"metastoreIdSelector,omitempty" tf:"-"`
 
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	Owner *string `json:"owner,omitempty" tf:"owner,omitempty"`
+
+	// Configure the provider for management through account provider. This block consists of the following fields:
+	ProviderConfig []MetastoreDataAccessProviderConfigInitParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
 
 	ReadOnly *bool `json:"readOnly,omitempty" tf:"read_only,omitempty"`
 
@@ -255,6 +263,11 @@ type MetastoreDataAccessInitParameters struct {
 }
 
 type MetastoreDataAccessObservation struct {
+
+	// Specifies whether to use account-level or workspace-level API. Valid values are account and workspace. When not set, the API level is inferred from the provider host.
+	// Specifies whether to use account-level or workspace-level API. Valid values are `account` and `workspace`. When not set, the API level is inferred from the provider host.
+	API *string `json:"api,omitempty" tf:"api,omitempty"`
+
 	AwsIAMRole []MetastoreDataAccessAwsIAMRoleObservation `json:"awsIamRole,omitempty" tf:"aws_iam_role,omitempty"`
 
 	AzureManagedIdentity []MetastoreDataAccessAzureManagedIdentityObservation `json:"azureManagedIdentity,omitempty" tf:"azure_managed_identity,omitempty"`
@@ -288,12 +301,20 @@ type MetastoreDataAccessObservation struct {
 
 	Owner *string `json:"owner,omitempty" tf:"owner,omitempty"`
 
+	// Configure the provider for management through account provider. This block consists of the following fields:
+	ProviderConfig []MetastoreDataAccessProviderConfigObservation `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
+
 	ReadOnly *bool `json:"readOnly,omitempty" tf:"read_only,omitempty"`
 
 	SkipValidation *bool `json:"skipValidation,omitempty" tf:"skip_validation,omitempty"`
 }
 
 type MetastoreDataAccessParameters struct {
+
+	// Specifies whether to use account-level or workspace-level API. Valid values are account and workspace. When not set, the API level is inferred from the provider host.
+	// Specifies whether to use account-level or workspace-level API. Valid values are `account` and `workspace`. When not set, the API level is inferred from the provider host.
+	// +kubebuilder:validation:Optional
+	API *string `json:"api,omitempty" tf:"api,omitempty"`
 
 	// +kubebuilder:validation:Optional
 	AwsIAMRole []MetastoreDataAccessAwsIAMRoleParameters `json:"awsIamRole,omitempty" tf:"aws_iam_role,omitempty"`
@@ -337,17 +358,21 @@ type MetastoreDataAccessParameters struct {
 
 	// Reference to a Metastore in unity to populate metastoreId.
 	// +kubebuilder:validation:Optional
-	MetastoreIDRef *v1.Reference `json:"metastoreIdRef,omitempty" tf:"-"`
+	MetastoreIDRef *v2.Reference `json:"metastoreIdRef,omitempty" tf:"-"`
 
 	// Selector for a Metastore in unity to populate metastoreId.
 	// +kubebuilder:validation:Optional
-	MetastoreIDSelector *v1.Selector `json:"metastoreIdSelector,omitempty" tf:"-"`
+	MetastoreIDSelector *v2.Selector `json:"metastoreIdSelector,omitempty" tf:"-"`
 
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// +kubebuilder:validation:Optional
 	Owner *string `json:"owner,omitempty" tf:"owner,omitempty"`
+
+	// Configure the provider for management through account provider. This block consists of the following fields:
+	// +kubebuilder:validation:Optional
+	ProviderConfig []MetastoreDataAccessProviderConfigParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
 
 	// +kubebuilder:validation:Optional
 	ReadOnly *bool `json:"readOnly,omitempty" tf:"read_only,omitempty"`
@@ -356,10 +381,29 @@ type MetastoreDataAccessParameters struct {
 	SkipValidation *bool `json:"skipValidation,omitempty" tf:"skip_validation,omitempty"`
 }
 
+type MetastoreDataAccessProviderConfigInitParameters struct {
+
+	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
+}
+
+type MetastoreDataAccessProviderConfigObservation struct {
+
+	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
+}
+
+type MetastoreDataAccessProviderConfigParameters struct {
+
+	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
+	// +kubebuilder:validation:Optional
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
+}
+
 // MetastoreDataAccessSpec defines the desired state of MetastoreDataAccess
 type MetastoreDataAccessSpec struct {
-	v1.ResourceSpec `json:",inline"`
-	ForProvider     MetastoreDataAccessParameters `json:"forProvider"`
+	v2.ClusterManagedResourceSpec `json:",inline"`
+	ForProvider                   MetastoreDataAccessParameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
 	// InitProvider holds the same fields as ForProvider, with the exception
@@ -375,8 +419,8 @@ type MetastoreDataAccessSpec struct {
 
 // MetastoreDataAccessStatus defines the observed state of MetastoreDataAccess.
 type MetastoreDataAccessStatus struct {
-	v1.ResourceStatus `json:",inline"`
-	AtProvider        MetastoreDataAccessObservation `json:"atProvider,omitempty"`
+	v2.ManagedResourceStatus `json:",inline"`
+	AtProvider               MetastoreDataAccessObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true

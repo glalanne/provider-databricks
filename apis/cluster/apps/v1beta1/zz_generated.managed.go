@@ -6,104 +6,64 @@
 
 package v1beta1
 
-import xpv1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
-
-// GetCondition of this App.
-func (mg *App) GetCondition(ct xpv1.ConditionType) xpv1.Condition {
-	return mg.Status.GetCondition(ct)
-}
+import xpv2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 
 // GetDeletionPolicy of this App.
-func (mg *App) GetDeletionPolicy() xpv1.DeletionPolicy {
+func (mg *App) GetDeletionPolicy() xpv2.DeletionPolicy {
 	return mg.Spec.DeletionPolicy
 }
 
-// GetManagementPolicies of this App.
-func (mg *App) GetManagementPolicies() xpv1.ManagementPolicies {
-	return mg.Spec.ManagementPolicies
-}
-
 // GetProviderConfigReference of this App.
-func (mg *App) GetProviderConfigReference() *xpv1.Reference {
+func (mg *App) GetProviderConfigReference() *xpv2.Reference {
 	return mg.Spec.ProviderConfigReference
 }
 
 // GetWriteConnectionSecretToReference of this App.
-func (mg *App) GetWriteConnectionSecretToReference() *xpv1.SecretReference {
+func (mg *App) GetWriteConnectionSecretToReference() *xpv2.SecretReference {
 	return mg.Spec.WriteConnectionSecretToReference
 }
 
-// SetConditions of this App.
-func (mg *App) SetConditions(c ...xpv1.Condition) {
-	mg.Status.SetConditions(c...)
-}
-
 // SetDeletionPolicy of this App.
-func (mg *App) SetDeletionPolicy(r xpv1.DeletionPolicy) {
+func (mg *App) SetDeletionPolicy(r xpv2.DeletionPolicy) {
 	mg.Spec.DeletionPolicy = r
 }
 
-// SetManagementPolicies of this App.
-func (mg *App) SetManagementPolicies(r xpv1.ManagementPolicies) {
-	mg.Spec.ManagementPolicies = r
-}
-
 // SetProviderConfigReference of this App.
-func (mg *App) SetProviderConfigReference(r *xpv1.Reference) {
+func (mg *App) SetProviderConfigReference(r *xpv2.Reference) {
 	mg.Spec.ProviderConfigReference = r
 }
 
 // SetWriteConnectionSecretToReference of this App.
-func (mg *App) SetWriteConnectionSecretToReference(r *xpv1.SecretReference) {
+func (mg *App) SetWriteConnectionSecretToReference(r *xpv2.SecretReference) {
 	mg.Spec.WriteConnectionSecretToReference = r
 }
 
-// GetCondition of this CustomAppIntegration.
-func (mg *CustomAppIntegration) GetCondition(ct xpv1.ConditionType) xpv1.Condition {
-	return mg.Status.GetCondition(ct)
-}
-
 // GetDeletionPolicy of this CustomAppIntegration.
-func (mg *CustomAppIntegration) GetDeletionPolicy() xpv1.DeletionPolicy {
+func (mg *CustomAppIntegration) GetDeletionPolicy() xpv2.DeletionPolicy {
 	return mg.Spec.DeletionPolicy
 }
 
-// GetManagementPolicies of this CustomAppIntegration.
-func (mg *CustomAppIntegration) GetManagementPolicies() xpv1.ManagementPolicies {
-	return mg.Spec.ManagementPolicies
-}
-
 // GetProviderConfigReference of this CustomAppIntegration.
-func (mg *CustomAppIntegration) GetProviderConfigReference() *xpv1.Reference {
+func (mg *CustomAppIntegration) GetProviderConfigReference() *xpv2.Reference {
 	return mg.Spec.ProviderConfigReference
 }
 
 // GetWriteConnectionSecretToReference of this CustomAppIntegration.
-func (mg *CustomAppIntegration) GetWriteConnectionSecretToReference() *xpv1.SecretReference {
+func (mg *CustomAppIntegration) GetWriteConnectionSecretToReference() *xpv2.SecretReference {
 	return mg.Spec.WriteConnectionSecretToReference
 }
 
-// SetConditions of this CustomAppIntegration.
-func (mg *CustomAppIntegration) SetConditions(c ...xpv1.Condition) {
-	mg.Status.SetConditions(c...)
-}
-
 // SetDeletionPolicy of this CustomAppIntegration.
-func (mg *CustomAppIntegration) SetDeletionPolicy(r xpv1.DeletionPolicy) {
+func (mg *CustomAppIntegration) SetDeletionPolicy(r xpv2.DeletionPolicy) {
 	mg.Spec.DeletionPolicy = r
 }
 
-// SetManagementPolicies of this CustomAppIntegration.
-func (mg *CustomAppIntegration) SetManagementPolicies(r xpv1.ManagementPolicies) {
-	mg.Spec.ManagementPolicies = r
-}
-
 // SetProviderConfigReference of this CustomAppIntegration.
-func (mg *CustomAppIntegration) SetProviderConfigReference(r *xpv1.Reference) {
+func (mg *CustomAppIntegration) SetProviderConfigReference(r *xpv2.Reference) {
 	mg.Spec.ProviderConfigReference = r
 }
 
 // SetWriteConnectionSecretToReference of this CustomAppIntegration.
-func (mg *CustomAppIntegration) SetWriteConnectionSecretToReference(r *xpv1.SecretReference) {
+func (mg *CustomAppIntegration) SetWriteConnectionSecretToReference(r *xpv2.SecretReference) {
 	mg.Spec.WriteConnectionSecretToReference = r
 }

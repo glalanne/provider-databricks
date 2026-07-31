@@ -12,7 +12,7 @@ TERRAFORM_VERSION_VALID := $(shell [ "$(TERRAFORM_VERSION)" = "`printf "$(TERRAF
 
 export TERRAFORM_PROVIDER_SOURCE ?= databricks/databricks
 export TERRAFORM_PROVIDER_REPO ?= https://github.com/databricks/terraform-provider-databricks
-export TERRAFORM_PROVIDER_VERSION ?= 1.110.0
+export TERRAFORM_PROVIDER_VERSION ?= 1.122.0
 export TERRAFORM_PROVIDER_DOWNLOAD_NAME ?= terraform-provider-databricks
 export TERRAFORM_PROVIDER_DOWNLOAD_URL_PREFIX ?= https://github.com/databricks/$(TERRAFORM_PROVIDER_DOWNLOAD_NAME)/releases/download/v$(TERRAFORM_PROVIDER_VERSION)
 export TERRAFORM_NATIVE_PROVIDER_BINARY ?= $(TERRAFORM_PROVIDER_DOWNLOAD_NAME)_v$(TERRAFORM_PROVIDER_VERSION)
@@ -44,8 +44,8 @@ NPROCS ?= 1
 # to half the number of CPU cores.
 GO_TEST_PARALLEL := $(shell echo $$(( $(NPROCS) / 2 )))
 
-GO_REQUIRED_VERSION ?= 1.25.8
-GOLANGCILINT_VERSION ?= 2.8.0
+GO_REQUIRED_VERSION ?= 1.26.5
+GOLANGCILINT_VERSION ?= 2.11.4
 GO_STATIC_PACKAGES = $(GO_PROJECT)/cmd/provider $(GO_PROJECT)/cmd/generator
 GO_LDFLAGS += -X $(GO_PROJECT)/internal/version.Version=$(VERSION)
 GO_SUBDIRS += cmd internal apis config
@@ -249,6 +249,11 @@ crddiff: $(UPTEST)
 	done
 	@$(OK) Checking breaking CRD schema changes
 
+crd-breaking-check:
+	@$(INFO) Checking CRD backward compatibility against branch base
+	@./scripts/check_crd_breaking_changes.sh "$${BASE_REF:-main}" "$${HEAD_REF:-HEAD}"
+	@$(OK) Checking CRD backward compatibility against branch base
+
 schema-version-diff:
 	@$(INFO) Checking for native state schema version changes
 	@export PREV_PROVIDER_VERSION=$$(git cat-file -p "${GITHUB_BASE_REF}:Makefile" | sed -nr 's/^export[[:space:]]*TERRAFORM_PROVIDER_VERSION[[:space:]]*:=[[:space:]]*(.+)/\1/p'); \
@@ -285,3 +290,11 @@ help-special: crossplane.help
 # TODO(negz): Update CI to use these targets.
 vendor: modules.download
 vendor.check: modules.check
+
+.PHONY: fmt
+fmt:
+	@echo "✓ Formatting source code with goimports ..."
+	@go tool goimports -w $(shell find . -type f -name '*.go' -not -path "./vendor/*" -not -path "./.git/*" -not -name "zz_generated.*.go")
+	@echo "✓ Formatting source code with gofmt ..."
+	@gofmt -w $(shell find . -type f -name '*.go' -not -path "./vendor/*" -not -path "./.git/*" -not -name "zz_generated.*.go")
+

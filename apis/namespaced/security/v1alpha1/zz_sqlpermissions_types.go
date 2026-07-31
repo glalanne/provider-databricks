@@ -10,8 +10,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
-	v2 "github.com/crossplane/crossplane-runtime/v2/apis/common/v2"
+	v2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 )
 
 type PrivilegeAssignmentsInitParameters struct {
@@ -64,16 +63,19 @@ type SQLPermissionsInitParameters struct {
 
 	// Reference to a Cluster in compute to populate clusterId.
 	// +kubebuilder:validation:Optional
-	ClusterIDRef *v1.NamespacedReference `json:"clusterIdRef,omitempty" tf:"-"`
+	ClusterIDRef *v2.NamespacedReference `json:"clusterIdRef,omitempty" tf:"-"`
 
 	// Selector for a Cluster in compute to populate clusterId.
 	// +kubebuilder:validation:Optional
-	ClusterIDSelector *v1.NamespacedSelector `json:"clusterIdSelector,omitempty" tf:"-"`
+	ClusterIDSelector *v2.NamespacedSelector `json:"clusterIdSelector,omitempty" tf:"-"`
 
 	// Name of the database. Has a default value of default.
 	Database *string `json:"database,omitempty" tf:"database,omitempty"`
 
 	PrivilegeAssignments []PrivilegeAssignmentsInitParameters `json:"privilegeAssignments,omitempty" tf:"privilege_assignments,omitempty"`
+
+	// Configure the provider for management through account provider. This block consists of the following fields:
+	ProviderConfig []SQLPermissionsProviderConfigInitParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
 
 	// Name of the table. Can be combined with the database.
 	Table *string `json:"table,omitempty" tf:"table,omitempty"`
@@ -102,6 +104,9 @@ type SQLPermissionsObservation struct {
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
 	PrivilegeAssignments []PrivilegeAssignmentsObservation `json:"privilegeAssignments,omitempty" tf:"privilege_assignments,omitempty"`
+
+	// Configure the provider for management through account provider. This block consists of the following fields:
+	ProviderConfig []SQLPermissionsProviderConfigObservation `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
 
 	// Name of the table. Can be combined with the database.
 	Table *string `json:"table,omitempty" tf:"table,omitempty"`
@@ -132,11 +137,11 @@ type SQLPermissionsParameters struct {
 
 	// Reference to a Cluster in compute to populate clusterId.
 	// +kubebuilder:validation:Optional
-	ClusterIDRef *v1.NamespacedReference `json:"clusterIdRef,omitempty" tf:"-"`
+	ClusterIDRef *v2.NamespacedReference `json:"clusterIdRef,omitempty" tf:"-"`
 
 	// Selector for a Cluster in compute to populate clusterId.
 	// +kubebuilder:validation:Optional
-	ClusterIDSelector *v1.NamespacedSelector `json:"clusterIdSelector,omitempty" tf:"-"`
+	ClusterIDSelector *v2.NamespacedSelector `json:"clusterIdSelector,omitempty" tf:"-"`
 
 	// Name of the database. Has a default value of default.
 	// +kubebuilder:validation:Optional
@@ -145,6 +150,10 @@ type SQLPermissionsParameters struct {
 	// +kubebuilder:validation:Optional
 	PrivilegeAssignments []PrivilegeAssignmentsParameters `json:"privilegeAssignments,omitempty" tf:"privilege_assignments,omitempty"`
 
+	// Configure the provider for management through account provider. This block consists of the following fields:
+	// +kubebuilder:validation:Optional
+	ProviderConfig []SQLPermissionsProviderConfigParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
+
 	// Name of the table. Can be combined with the database.
 	// +kubebuilder:validation:Optional
 	Table *string `json:"table,omitempty" tf:"table,omitempty"`
@@ -152,6 +161,25 @@ type SQLPermissionsParameters struct {
 	// Name of the view. Can be combined with the database.
 	// +kubebuilder:validation:Optional
 	View *string `json:"view,omitempty" tf:"view,omitempty"`
+}
+
+type SQLPermissionsProviderConfigInitParameters struct {
+
+	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
+}
+
+type SQLPermissionsProviderConfigObservation struct {
+
+	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
+}
+
+type SQLPermissionsProviderConfigParameters struct {
+
+	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
+	// +kubebuilder:validation:Optional
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
 }
 
 // SQLPermissionsSpec defines the desired state of SQLPermissions
@@ -173,8 +201,8 @@ type SQLPermissionsSpec struct {
 
 // SQLPermissionsStatus defines the observed state of SQLPermissions.
 type SQLPermissionsStatus struct {
-	v1.ResourceStatus `json:",inline"`
-	AtProvider        SQLPermissionsObservation `json:"atProvider,omitempty"`
+	v2.ManagedResourceStatus `json:",inline"`
+	AtProvider               SQLPermissionsObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true
