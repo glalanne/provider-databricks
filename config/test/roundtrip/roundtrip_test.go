@@ -12,13 +12,13 @@ import (
 	"github.com/crossplane/upjet/v2/pkg/apitesting/roundtrip"
 	"github.com/databricks/terraform-provider-databricks/xpprovider"
 	"k8s.io/apimachinery/pkg/runtime"
+	"k8s.io/apimachinery/pkg/runtime/schema"
 
 	clusterapis "github.com/glalanne/provider-databricks/apis/cluster"
 	clustersecurityv1beta1 "github.com/glalanne/provider-databricks/apis/cluster/security/v1beta1"
 	namespacedapis "github.com/glalanne/provider-databricks/apis/namespaced"
 	namespacedsecurityv1beta1 "github.com/glalanne/provider-databricks/apis/namespaced/security/v1beta1"
 	"github.com/glalanne/provider-databricks/config"
-	"k8s.io/apimachinery/pkg/runtime/schema"
 )
 
 // TestRoundTrip configures and invokes the API roundtrip tests.
