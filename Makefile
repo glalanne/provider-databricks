@@ -19,6 +19,9 @@ export TERRAFORM_NATIVE_PROVIDER_BINARY ?= $(TERRAFORM_PROVIDER_DOWNLOAD_NAME)_v
 export TERRAFORM_DOCS_PATH ?= docs/resources
 
 
+# UPTEST_EXAMPLE_LIST ?= examples/cluster/compute/v1beta1/cluster.yaml,examples/namespaced/compute/v1beta1/cluster.yaml
+UPTEST_EXAMPLE_LIST ?= examples/namespaced/security/v1beta1/permissions.yaml
+
 PLATFORMS ?= linux_amd64 linux_arm64
 
 # -include will silently skip missing files, which allows us
@@ -44,7 +47,7 @@ NPROCS ?= 1
 # to half the number of CPU cores.
 GO_TEST_PARALLEL := $(shell echo $$(( $(NPROCS) / 2 )))
 
-GO_REQUIRED_VERSION ?= 1.26.5
+GO_REQUIRED_VERSION ?= $(shell grep -E '^go ' go.mod | awk '{print $2}')
 GOLANGCILINT_VERSION ?= 2.11.4
 GO_STATIC_PACKAGES = $(GO_PROJECT)/cmd/provider $(GO_PROJECT)/cmd/generator
 GO_LDFLAGS += -X $(GO_PROJECT)/internal/version.Version=$(VERSION)
@@ -54,12 +57,12 @@ GO_SUBDIRS += cmd internal apis config
 # ====================================================================================
 # Setup Kubernetes tools
 
-KIND_VERSION = v0.31.0
+KIND_VERSION = v0.32.0
 UPTEST_VERSION = v2.2.0
 CRDDIFF_VERSION = v0.12.1
-CROSSPLANE_CLI_VERSION = v2.1.3
+CROSSPLANE_CLI_VERSION = v2.3.4
 # for e2e testing
-CROSSPLANE_VERSION = 2.1.3
+CROSSPLANE_VERSION = 2.3.4
 -include build/makelib/k8s_tools.mk
 
 # ====================================================================================
