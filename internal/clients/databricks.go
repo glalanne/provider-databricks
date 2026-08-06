@@ -7,11 +7,13 @@ package clients
 import (
 	"context"
 	"encoding/json"
+	"os"
 	"strings"
 
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
 
 	xpresource "github.com/crossplane/crossplane-runtime/v2/pkg/resource"
+	xpv2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 	"github.com/pkg/errors"
 	"k8s.io/apimachinery/pkg/types"
 	"sigs.k8s.io/controller-runtime/pkg/client"
@@ -35,16 +37,39 @@ const (
 	errClientIDNotSet       = "client ID must be set in ProviderConfig when credential source is OIDCTokenFile or Upbound"
 
 	keyHost                     = "host"
+	keyEnvironment              = "environment"
 	keyAzureWorkspaceResourceID = "azure_workspace_resource_id"
 	keyAzureUseMsi              = "azure_use_msi"
 	keyAzureClientID            = "azure_client_id"
 	keyAzureClientSecret        = "azure_client_secret"
 	keyAzureTenantID            = "azure_tenant_id"
+	keyAzureEnvironment         = "azure_environment"
+	keySubscriptionID           = "subscription_id"
 	keyClientID                 = "client_id"
 	keyClientSecret             = "client_secret"
 	keyAccountID                = "account_id"
 	keyAuthType                 = "auth_type"
 	keyAuthToken                = "token"
+	keyOidcTokenFilePath        = "oidc_token_file_path"
+	keyUseOIDC                  = "use_oidc"
+	keyTenantID                 = "tenant_id"
+	keyMSIEndpoint              = "msi_endpoint"
+	keyUseMSI                   = "use_msi"
+	keyGoogleCredentials        = "google_credentials"
+	keyGoogleServiceAccount     = "google_service_account"
+	// Default OidcTokenFilePath
+	defaultOidcTokenFilePath = "/var/run/secrets/azure/tokens/azure-identity-token"
+
+	envAzureFederatedTokenFile = "AZURE_FEDERATED_TOKEN_FILE"
+)
+
+var (
+	credentialsSourceUserAssignedManagedIdentity   xpv2.CredentialsSource = "UserAssignedManagedIdentity"
+	credentialsSourceSystemAssignedManagedIdentity xpv2.CredentialsSource = "SystemAssignedManagedIdentity"
+	credentialsSourceOIDCTokenFile                 xpv2.CredentialsSource = "OIDCTokenFile"
+	credentialsSourceUpbound                       xpv2.CredentialsSource = "Upbound"
+
+	upboundProviderIdentityTokenFile = "/var/run/secrets/upbound.io/provider/token"
 )
 
 // TerraformSetupBuilder returns Terraform setup with provider specific
@@ -62,7 +87,16 @@ func TerraformSetupBuilder(tfProvider *schema.Provider) terraform.SetupFn { //no
 		// Set credentials in Terraform provider configuration.
 		ps.Configuration = map[string]any{}
 
-		err = defaultAuth(ctx, pcSpec, &ps, client)
+		switch pcSpec.Credentials.Source { //nolint:exhaustive
+		case credentialsSourceSystemAssignedManagedIdentity, credentialsSourceUserAssignedManagedIdentity:
+			err = msiAuth(pcSpec, &ps)
+		case credentialsSourceOIDCTokenFile:
+			err = oidcAuth(pcSpec, &ps)
+		case credentialsSourceUpbound:
+			err = upboundAuth(pcSpec, &ps)
+		default:
+			err = defaultAuth(ctx, pcSpec, &ps, client)
+		}
 
 		if err != nil {
 			return terraform.Setup{}, errors.Wrap(err, "failed to prepare terraform.Setup")
@@ -117,7 +151,99 @@ func defaultAuth(ctx context.Context, pcSpec *namespacedv1beta1.ProviderConfigSp
 	if v, ok := creds[keyAccountID]; ok {
 		ps.Configuration[keyAccountID] = v
 	}
+	if v, ok := creds[keySubscriptionID]; ok {
+		ps.Configuration[keySubscriptionID] = v
+	}
+	if v, ok := creds[keyTenantID]; ok {
+		ps.Configuration[keyTenantID] = v
+	}
+	if v, ok := creds[keyEnvironment]; ok {
+		ps.Configuration[keyEnvironment] = v
+	}
+	if v, ok := creds[keyAzureEnvironment]; ok {
+		ps.Configuration[keyAzureEnvironment] = v
+	}
+	if v, ok := creds[keyGoogleCredentials]; ok {
+		ps.Configuration[keyGoogleCredentials] = v
+	}
+	if v, ok := creds[keyGoogleServiceAccount]; ok {
+		ps.Configuration[keyGoogleServiceAccount] = v
+	}
 
+	return nil
+}
+
+func msiAuth(pcSpec *namespacedv1beta1.ProviderConfigSpec, ps *terraform.Setup) error {
+	if pcSpec.SubscriptionID == nil || len(*pcSpec.SubscriptionID) == 0 {
+		return errors.New(errSubscriptionIDNotSet)
+	}
+	if pcSpec.TenantID == nil || len(*pcSpec.TenantID) == 0 {
+		return errors.New(errTenantIDNotSet)
+	}
+	ps.Configuration[keySubscriptionID] = *pcSpec.SubscriptionID
+	ps.Configuration[keyTenantID] = *pcSpec.TenantID
+	ps.Configuration[keyUseMSI] = "true"
+	if pcSpec.MSIEndpoint != nil {
+		ps.Configuration[keyMSIEndpoint] = *pcSpec.MSIEndpoint
+	}
+	if pcSpec.ClientID != nil {
+		ps.Configuration[keyClientID] = *pcSpec.ClientID
+	}
+	if pcSpec.Environment != nil {
+		ps.Configuration[keyEnvironment] = *pcSpec.Environment
+	}
+	return nil
+}
+
+func oidcAuth(pcSpec *namespacedv1beta1.ProviderConfigSpec, ps *terraform.Setup) error {
+	if pcSpec.SubscriptionID == nil || len(*pcSpec.SubscriptionID) == 0 {
+		return errors.New(errSubscriptionIDNotSet)
+	}
+	if pcSpec.TenantID == nil || len(*pcSpec.TenantID) == 0 {
+		return errors.New(errTenantIDNotSet)
+	}
+	if pcSpec.ClientID == nil || len(*pcSpec.ClientID) == 0 {
+		return errors.New(errClientIDNotSet)
+	}
+	// OIDC Token File Path: an explicit oidcTokenFilePath always wins. Otherwise
+	// prefer AZURE_FEDERATED_TOKEN_FILE, which the azure workload identity webhook
+	// sets to wherever it actually projected the token, falling back to the
+	// historical hardcoded default only if that env var isn't set.
+	ps.Configuration[keyOidcTokenFilePath] = defaultOidcTokenFilePath
+	if tokenFile := os.Getenv(envAzureFederatedTokenFile); tokenFile != "" {
+		ps.Configuration[keyOidcTokenFilePath] = tokenFile
+	}
+	if pcSpec.OidcTokenFilePath != nil {
+		ps.Configuration[keyOidcTokenFilePath] = *pcSpec.OidcTokenFilePath
+	}
+	ps.Configuration[keySubscriptionID] = *pcSpec.SubscriptionID
+	ps.Configuration[keyTenantID] = *pcSpec.TenantID
+	ps.Configuration[keyClientID] = *pcSpec.ClientID
+	ps.Configuration[keyUseOIDC] = "true"
+	if pcSpec.Environment != nil {
+		ps.Configuration[keyEnvironment] = *pcSpec.Environment
+	}
+	return nil
+}
+
+func upboundAuth(pcSpec *namespacedv1beta1.ProviderConfigSpec, ps *terraform.Setup) error {
+	if pcSpec.SubscriptionID == nil || len(*pcSpec.SubscriptionID) == 0 {
+		return errors.New(errSubscriptionIDNotSet)
+	}
+	if pcSpec.TenantID == nil || len(*pcSpec.TenantID) == 0 {
+		return errors.New(errTenantIDNotSet)
+	}
+	if pcSpec.ClientID == nil || len(*pcSpec.ClientID) == 0 {
+		return errors.New(errClientIDNotSet)
+	}
+	ps.Configuration[keyOidcTokenFilePath] = upboundProviderIdentityTokenFile
+	ps.Configuration[keySubscriptionID] = *pcSpec.SubscriptionID
+	ps.Configuration[keyTenantID] = *pcSpec.TenantID
+	ps.Configuration[keyClientID] = *pcSpec.ClientID
+	ps.Configuration[keyUseOIDC] = "true"
+	if pcSpec.Environment != nil {
+		ps.Configuration[keyEnvironment] = *pcSpec.Environment
+	}
 	return nil
 }
 
