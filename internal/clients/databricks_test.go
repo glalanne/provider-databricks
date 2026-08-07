@@ -4,8 +4,9 @@ import (
 	"testing"
 
 	"github.com/crossplane/upjet/v2/pkg/terraform"
-	namespacedv1beta1 "github.com/glalanne/provider-databricks/apis/namespaced/v1beta1"
 	"github.com/google/go-cmp/cmp"
+
+	namespacedv1beta1 "github.com/glalanne/provider-databricks/apis/namespaced/v1beta1"
 )
 
 func Test_oidcAuth_tokenFilePath(t *testing.T) {
