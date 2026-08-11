@@ -10,6 +10,9 @@ cover.out
 .vscode/
 .idea/
 cmd/provider/__debug*
+cmd/generator/__debug*
+cmd/managedshim/__debug*
 .env
 kubeconfig
 .datasource.yaml
+

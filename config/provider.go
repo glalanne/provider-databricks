@@ -141,10 +141,10 @@ func getProviderWithMode(fwProvider fwprovider.Provider, sdkProvider *tfschema.P
 		config.WithFeaturesPackage("internal/features"),
 		config.WithTerraformProvider(sdkProvider),
 		config.WithTerraformPluginFrameworkProvider(fwProvider),
+		config.WithTerraformPluginFrameworkIncludeList(TerraformPluginFrameworkResourceList(mode)),
 	}
 	if mode == generationModeV1Beta1 {
-		providerOpts = append(providerOpts, config.WithSchemaTraversers(&config.SingletonListEmbedder{}),
-			config.WithTerraformPluginFrameworkIncludeList(TerraformPluginFrameworkResourceList()))
+		providerOpts = append(providerOpts, config.WithSchemaTraversers(&config.SingletonListEmbedder{}))
 	}
 	pc := config.NewProvider([]byte(providerSchema), resourcePrefix, modulePath, []byte(providerMetadata), providerOpts...)
 
@@ -206,21 +206,32 @@ func TerraformPluginSDKResourceList(mode generationMode) []string {
 	}
 }
 
-func TerraformPluginFrameworkResourceList() []string {
-	l := make([]string, len(TerraformPluginFrameworkExternalNameConfigs))
-	i := 0
-	for name := range TerraformPluginFrameworkExternalNameConfigs {
-		// Expected format is regex, and we'd like to have exact matches.
-		l[i] = name + "$"
-		i++
+func TerraformPluginFrameworkResourceList(mode generationMode) []string {
+	if mode == generationModeV1Alpha1Legacy {
+		l := make([]string, len(TerraformPluginFrameworkExternalNameConfigsV1Alpha1))
+		i := 0
+		for name := range TerraformPluginFrameworkExternalNameConfigsV1Alpha1 {
+			// Expected format is regex, and we'd like to have exact matches.
+			l[i] = name + "$"
+			i++
+		}
+		return l
+	} else {
+		l := make([]string, len(TerraformPluginFrameworkExternalNameConfigs))
+		i := 0
+		for name := range TerraformPluginFrameworkExternalNameConfigs {
+			// Expected format is regex, and we'd like to have exact matches.
+			l[i] = name + "$"
+			i++
+		}
+		return l
 	}
-	return l
 }
 
 func bumpVersionsWithEmbeddedLists(pc *config.Provider) {
 	for name, r := range pc.Resources {
 		r.Version = "v1beta1"
-		if _, ok := TerraformPluginSDKExternalNameV1Alpha1Configs[name]; ok {
+		if _, ok := TerraformExternalNameConfigsV1Alpha1[name]; ok {
 			paths := r.CRDListConversionPaths()
 			r.PreviousVersions = []string{"v1alpha1"}
 			// Keep storage on the singleton API version so v1alpha1 can be
