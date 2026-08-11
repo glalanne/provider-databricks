@@ -10,9 +10,7 @@ import (
 
 var TerraformPluginSDKExternalNameV1Alpha1Configs = map[string]config.ExternalName{
 	"databricks_access_control_rule_set":                        config.IdentifierFromProvider,
-	"databricks_account_federation_policy":                      config.IdentifierFromProvider,
 	"databricks_alert":                                          config.IdentifierFromProvider,
-	"databricks_app":                                            config.IdentifierFromProvider,
 	"databricks_artifact_allowlist":                             config.IdentifierFromProvider,
 	"databricks_budget":                                         config.IdentifierFromProvider,
 	"databricks_catalog_workspace_binding":                      config.IdentifierFromProvider,
@@ -24,7 +22,6 @@ var TerraformPluginSDKExternalNameV1Alpha1Configs = map[string]config.ExternalNa
 	"databricks_credential":                                     config.IdentifierFromProvider,
 	"databricks_custom_app_integration":                         config.IdentifierFromProvider,
 	"databricks_dashboard":                                      config.IdentifierFromProvider,
-	"databricks_database_instance":                              config.IdentifierFromProvider,
 	"databricks_dbfs_file":                                      config.IdentifierFromProvider,
 	"databricks_default_namespace_setting":                      config.IdentifierFromProvider,
 	"databricks_directory":                                      config.IdentifierFromProvider,
@@ -73,9 +70,7 @@ var TerraformPluginSDKExternalNameV1Alpha1Configs = map[string]config.ExternalNa
 	"databricks_permission_assignment":                          config.IdentifierFromProvider,
 	"databricks_permissions":                                    config.IdentifierFromProvider,
 	"databricks_pipeline":                                       config.IdentifierFromProvider,
-	"databricks_policy_info":                                    config.IdentifierFromProvider,
 	"databricks_provider":                                       config.IdentifierFromProvider,
-	"databricks_quality_monitor":                                config.IdentifierFromProvider,
 	"databricks_query":                                          config.IdentifierFromProvider,
 	"databricks_recipient":                                      config.IdentifierFromProvider,
 	"databricks_registered_model":                               config.IdentifierFromProvider,
@@ -85,11 +80,9 @@ var TerraformPluginSDKExternalNameV1Alpha1Configs = map[string]config.ExternalNa
 	"databricks_secret_acl":                                     config.IdentifierFromProvider,
 	"databricks_secret_scope":                                   config.IdentifierFromProvider,
 	"databricks_secret":                                         config.IdentifierFromProvider,
-	"databricks_service_principal_federation_policy":            config.IdentifierFromProvider,
 	"databricks_service_principal_role":                         config.IdentifierFromProvider,
 	"databricks_service_principal_secret":                       config.IdentifierFromProvider,
 	"databricks_service_principal":                              config.IdentifierFromProvider,
-	"databricks_share":                                          config.IdentifierFromProvider,
 	"databricks_sql_alert":                                      config.IdentifierFromProvider,
 	"databricks_sql_dashboard":                                  config.IdentifierFromProvider,
 	"databricks_sql_endpoint":                                   config.IdentifierFromProvider,
@@ -111,6 +104,16 @@ var TerraformPluginSDKExternalNameV1Alpha1Configs = map[string]config.ExternalNa
 	"databricks_workspace_binding":                              config.IdentifierFromProvider,
 	"databricks_workspace_conf":                                 config.IdentifierFromProvider,
 	"databricks_workspace_file":                                 config.IdentifierFromProvider,
+}
+
+var TerraformPluginFrameworkExternalNameConfigsV1Alpha1 = map[string]config.ExternalName{
+	"databricks_account_federation_policy":           config.IdentifierFromProvider,
+	"databricks_app":                                 config.IdentifierFromProvider,
+	"databricks_database_instance":                   config.IdentifierFromProvider,
+	"databricks_quality_monitor":                     config.IdentifierFromProvider,
+	"databricks_policy_info":                         config.IdentifierFromProvider,
+	"databricks_service_principal_federation_policy": config.IdentifierFromProvider,
+	"databricks_share":                               config.IdentifierFromProvider,
 }
 
 // TerraformPluginSDKExternalNameConfigs contains all external name configurations
@@ -264,6 +267,18 @@ var TerraformPluginFrameworkExternalNameConfigs = map[string]config.ExternalName
 }
 
 var CLIReconciledExternalNameConfigs = map[string]config.ExternalName{}
+
+// merge the 2 maos into a single map for the TerraformExternalNameConfigsV1Alpha1
+var TerraformExternalNameConfigsV1Alpha1 = make(map[string]config.ExternalName)
+
+func init() {
+	for k, v := range TerraformPluginSDKExternalNameV1Alpha1Configs {
+		TerraformExternalNameConfigsV1Alpha1[k] = v
+	}
+	for k, v := range TerraformPluginFrameworkExternalNameConfigsV1Alpha1 {
+		TerraformExternalNameConfigsV1Alpha1[k] = v
+	}
+}
 
 // ExternalNameConfigurations applies all external name configs listed in the
 // table ExternalNameConfigs and sets the version of those resources to v1beta1
