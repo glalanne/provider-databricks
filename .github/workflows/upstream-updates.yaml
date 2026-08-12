@@ -104,7 +104,7 @@ jobs:
                   echo "Adding xpprovider.go file to the current repository"
                   TARGET_FILE="xpprovider/xpprovider.go"
                   mkdir -p "$(dirname "${TARGET_FILE}")"
-                  cp "./hack/xpprovider.txt" "${workdir}/fork/${TARGET_FILE}"
+                  cp "${GITHUB_WORKSPACE}/hack/xpprovider.go" "${workdir}/fork/${TARGET_FILE}"
 
                   git add "${TARGET_FILE}"
                   if git diff --cached --quiet; then
