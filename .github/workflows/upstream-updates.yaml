@@ -112,6 +112,15 @@ jobs:
                   git checkout -B "${branch_name}" "refs/tags/${version_tag}"
                   git pull upstream "${version_tag}" --ff-only
 
+                  fork_sha=$(git rev-parse HEAD)
+                  export TZ=UTC
+                  fork_ts=$(git show -s --format=%cd --date=format-local:%Y%m%d%H%M%S HEAD)
+                  fork_pseudo="v0.0.0-${fork_ts}-${fork_sha:0:12}"
+
+                  echo "branch_name=${branch_name}" >> "$GITHUB_OUTPUT"
+                  echo "branch_sha=${fork_sha}" >> "$GITHUB_OUTPUT"
+                  echo "branch_pseudo=${fork_pseudo}" >> "$GITHUB_OUTPUT"
+
                   # if a branch with the same name already exists, we will stop here to avoid overwriting it
                   if git rev-parse --verify --quiet "${branch_name}"; then
                     echo "Branch ${branch_name} already exists in the forked repository; skipping fork commit."
@@ -127,7 +136,6 @@ jobs:
                   # Use x-access-token to securely pass the PAT over HTTPS
                   git remote set-url origin "https://x-access-token:${FORK_REPO_PAT}@github.com/${FORK_OWNER}/${FORK_REPO}.git"
 
-
                   git add "${TARGET_FILE}"
                   if git diff --cached --quiet; then
                     echo "No changes for ${TARGET_FILE}; skipping fork commit."
@@ -137,15 +145,6 @@ jobs:
 
                   echo "Pushing branch ${branch_name} to forked repository"
                   git push origin "HEAD:refs/heads/${branch_name}"
-
-                  fork_sha=$(git rev-parse HEAD)
-                  export TZ=UTC
-                  fork_ts=$(git show -s --format=%cd --date=format-local:%Y%m%d%H%M%S HEAD)
-                  fork_pseudo="v0.0.0-${fork_ts}-${fork_sha:0:12}"
-
-                  echo "branch_name=${branch_name}" >> "$GITHUB_OUTPUT"
-                  echo "branch_sha=${fork_sha}" >> "$GITHUB_OUTPUT"
-                  echo "branch_pseudo=${fork_pseudo}" >> "$GITHUB_OUTPUT"
 
             - name: Create working branch
               if: steps.release.outputs.should_update == 'true'
@@ -171,13 +170,20 @@ jobs:
                   sed -i -E "s|^([[:space:]]*github.com/databricks/terraform-provider-databricks[[:space:]]+)v[^[:space:]]+$|\1${new_go_version}|" go.mod
                   sed -i -E "s|^replace github.com/databricks/terraform-provider-databricks => github.com/glalanne/terraform-provider-databricks[[:space:]]+.*$|replace github.com/databricks/terraform-provider-databricks => github.com/glalanne/terraform-provider-databricks ${new_fork_pseudo}|" go.mod
 
-                  go mod tidy
+                  if git diff --quiet; then
+                    echo "No changes for Makefile and go.mod; skipping fork commit."
+                  else
+                    git commit -m "chore: update Makefile and go.mod for ${new_version}"
+                  fi
+
+                  echo "Pushing branch ${WORK_BRANCH} to forked repository"
+                  git push origin "HEAD:refs/heads/${WORK_BRANCH}"
 
             - name: Configure git identity
               if: steps.release.outputs.should_update == 'true'
               run: |
-                  git config user.name "github-actions[bot]"
-                  git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+                  git config user.name "glalanne"
+                  git config user.email "provider-databricks@noreply.github.com"
 
             - name: Run generate
               if: steps.release.outputs.should_update == 'true'
