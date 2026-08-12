@@ -173,14 +173,11 @@ jobs:
                   sed -i -E "s|^([[:space:]]*github.com/databricks/terraform-provider-databricks[[:space:]]+)v[^[:space:]]+$|\1${new_go_version}|" go.mod
                   sed -i -E "s|^replace github.com/databricks/terraform-provider-databricks => github.com/glalanne/terraform-provider-databricks[[:space:]]+.*$|replace github.com/databricks/terraform-provider-databricks => github.com/glalanne/terraform-provider-databricks ${new_fork_pseudo}|" go.mod
 
-                  if git diff --quiet; then
-                    echo "No changes for Makefile and go.mod; skipping fork commit."
-                  else
-                    git commit -m "chore: update Makefile and go.mod for ${new_version}"
-                  fi
-
-                  echo "Pushing branch ${WORK_BRANCH} to forked repository"
-                  git push origin "HEAD:refs/heads/${WORK_BRANCH}"
+            - name: Echo file contents in debug mode only
+              if: ${{ runner.debug == '1' }}
+              run: |
+                cat Makefile
+                cat go.mod
 
             - name: Run generate
               if: steps.release.outputs.should_update == 'true'
