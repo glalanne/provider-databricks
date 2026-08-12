@@ -94,13 +94,14 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
-          git remote add upstream "https://github.com/${UPSTREAM_OWNER}/${UPSTREAM_REPO}.git"
+          # git remote add upstream "https://github.com/${UPSTREAM_OWNER}/${UPSTREAM_REPO}.git"
           git fetch upstream --tags
 
           git checkout -B "${branch_name}" "refs/tags/${version_tag}"
           git pull upstream "${version_tag}" --ff-only
 
           # Adding the missing xpprovider.go file from the forked repository to the current repository
+          echo "Adding xpprovider.go file to the current repository"
           TARGET_FILE="xpprovider/xpprovider.go"
           mkdir -p "$(dirname "${TARGET_FILE}")"
 
@@ -118,9 +119,7 @@ jobs:
 
             func GetProvider(_ context.Context) (fwprovider.Provider, *schema.Provider, error) {
                 return pluginfw.GetDatabricksProviderPluginFramework(),
-                    sdkv2.DatabricksProvider(
-                        sdkv2.WithSdkV2ResourceFallbacks([]string{"databricks_quality_monitor", "databricks_library"}),
-                    ), nil
+                    sdkv2.DatabricksProvider(), nil
             }
             EOF
 
@@ -131,6 +130,7 @@ jobs:
             git commit -m "chore: add ${TARGET_FILE} for ${version_tag}"
           fi
 
+          echo "Pushing branch ${branch_name} to forked repository"
           git push origin "${branch_name}"
 
           fork_sha=$(git rev-parse HEAD)
@@ -165,6 +165,8 @@ jobs:
           sed -i -E "s|^export[[:space:]]+TERRAFORM_PROVIDER_VERSION[[:space:]]+\?=[[:space:]]+.*$|export TERRAFORM_PROVIDER_VERSION ?= ${new_version}|" Makefile
           sed -i -E "s|^([[:space:]]*github.com/databricks/terraform-provider-databricks[[:space:]]+)v[^[:space:]]+$|\1${new_go_version}|" go.mod
           sed -i -E "s|^replace github.com/databricks/terraform-provider-databricks => github.com/glalanne/terraform-provider-databricks[[:space:]]+.*$|replace github.com/databricks/terraform-provider-databricks => github.com/glalanne/terraform-provider-databricks ${new_fork_pseudo}|" go.mod
+
+          go mod tidy
 
       - name: Configure git identity
         if: steps.release.outputs.should_update == 'true'
