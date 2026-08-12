@@ -115,8 +115,11 @@ jobs:
                   git checkout -B "${branch_name}" "refs/tags/${version_tag}"
                   git pull upstream "${version_tag}" --ff-only
 
-                  fork_sha=$(git rev-parse HEAD)
+                  # Use x-access-token to securely pass the PAT over HTTPS
+                  git remote set-url origin "https://x-access-token:${FORK_REPO_PAT}@github.com/${FORK_OWNER}/${FORK_REPO}.git"
+
                   export TZ=UTC
+                  fork_sha=$(git rev-parse HEAD)
                   fork_ts=$(git show -s --format=%cd --date=format-local:%Y%m%d%H%M%S HEAD)
                   fork_pseudo="v0.0.0-${fork_ts}-${fork_sha:0:12}"
 
@@ -135,9 +138,6 @@ jobs:
                   TARGET_FILE="xpprovider/xpprovider.go"
                   mkdir -p "$(dirname "${TARGET_FILE}")"
                   cp "${GITHUB_WORKSPACE}/hack/xpprovider.txt" "${workdir}/fork/${TARGET_FILE}"
-
-                  # Use x-access-token to securely pass the PAT over HTTPS
-                  git remote set-url origin "https://x-access-token:${FORK_REPO_PAT}@github.com/${FORK_OWNER}/${FORK_REPO}.git"
 
                   git add "${TARGET_FILE}"
                   if git diff --cached --quiet; then
