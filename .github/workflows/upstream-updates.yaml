@@ -28,12 +28,25 @@ jobs:
             WORK_BRANCH_PREFIX: chore/bump-databricks-provider-
             GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
             FORK_REPO_PAT: ${{ secrets.FORK_REPO_PAT }}
+            GO_VERSION: "1.25.8"
         steps:
             - name: Checkout
               uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
               with:
                   submodules: true
                   fetch-depth: 0
+
+            - name: Setup Go
+              uses: actions/setup-go@4dc6199c7b1a012772edbd06daecab0f50c9053c # v6
+              with:
+                go-version: ${{ env.GO_VERSION }}
+
+            - name: Find the Go Build Cache
+              id: go
+              run: echo "cache=$(make go.cachedir)" >> $GITHUB_OUTPUT
+
+            - name: Install goimports
+              run: go install golang.org/x/tools/cmd/goimports
 
             - name: Detect latest stable upstream release
               id: release
@@ -90,8 +103,8 @@ jobs:
                   git clone "https://x-access-token:${FORK_REPO_PAT}@github.com/${FORK_OWNER}/${FORK_REPO}.git" "${workdir}/fork"
                   cd "${workdir}/fork"
 
-                  git config user.name "github-actions[bot]"
-                  git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+                  #   git config user.name "glalanne"
+                  #   git config user.email "provider-databricks@noreply.github.com"
 
                   git remote add upstream "https://github.com/${UPSTREAM_OWNER}/${UPSTREAM_REPO}.git"
                   git fetch upstream --tags
@@ -107,7 +120,7 @@ jobs:
 
                   # Use x-access-token to securely pass the PAT over HTTPS
                   git remote set-url origin "https://x-access-token:${FORK_REPO_PAT}@github.com/${FORK_OWNER}/${FORK_REPO}.git"
-         
+
 
                   git add "${TARGET_FILE}"
                   if git diff --cached --quiet; then
