@@ -112,6 +112,12 @@ jobs:
                   git checkout -B "${branch_name}" "refs/tags/${version_tag}"
                   git pull upstream "${version_tag}" --ff-only
 
+                  # if a branch with the same name already exists, we will stop here to avoid overwriting it
+                  if git rev-parse --verify --quiet "${branch_name}"; then
+                    echo "Branch ${branch_name} already exists in the forked repository; skipping fork commit."
+                    exit 0
+                  fi
+
                   # Adding the missing xpprovider.go file from the forked repository to the current repository
                   echo "Adding xpprovider.go file to the current repository"
                   TARGET_FILE="xpprovider/xpprovider.go"
