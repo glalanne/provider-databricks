@@ -173,6 +173,9 @@ jobs:
                   sed -i -E "s|^([[:space:]]*github.com/databricks/terraform-provider-databricks[[:space:]]+)v[^[:space:]]+$|\1${new_go_version}|" go.mod
                   sed -i -E "s|^replace github.com/databricks/terraform-provider-databricks => github.com/glalanne/terraform-provider-databricks[[:space:]]+.*$|replace github.com/databricks/terraform-provider-databricks => github.com/glalanne/terraform-provider-databricks ${new_fork_pseudo}|" go.mod
 
+                  # forcing to update the go.sum file with the new version of the provider
+                  go mod download github.com/databricks/terraform-provider-databricks
+
             - name: Echo file contents in debug mode only
               if: ${{ runner.debug == '1' }}
               run: |
