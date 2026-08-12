@@ -1,0 +1,257 @@
+name: Update Upstream Terraform Provider Version
+
+on:
+    pull_request:
+        branches:
+            - main
+    # schedule:
+    #   - cron: "0 6 * * *"
+    # workflow_dispatch: {}
+
+permissions:
+    contents: write
+    pull-requests: write
+
+concurrency:
+    group: update-terraform-provider-version
+    cancel-in-progress: false
+
+jobs:
+    update-provider:
+        runs-on: ubuntu-latest
+        env:
+            BASE_BRANCH: alpha
+            UPSTREAM_OWNER: databricks
+            UPSTREAM_REPO: terraform-provider-databricks
+            FORK_OWNER: glalanne
+            FORK_REPO: terraform-provider-databricks
+            WORK_BRANCH_PREFIX: chore/bump-databricks-provider-
+            GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+            FORK_REPO_PAT: ${{ secrets.FORK_REPO_PAT }}
+            GO_VERSION: "1.26.5"
+        steps:
+            - name: Checkout
+              uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+              with:
+                  submodules: true
+                  fetch-depth: 0
+
+            - name: Setup Go
+              uses: actions/setup-go@4dc6199c7b1a012772edbd06daecab0f50c9053c # v6
+              with:
+                go-version: ${{ env.GO_VERSION }}
+
+            - name: Find the Go Build Cache
+              id: go
+              run: echo "cache=$(make go.cachedir)" >> $GITHUB_OUTPUT
+
+            - name: Install goimports
+              run: go install golang.org/x/tools/cmd/goimports
+
+            - name: Detect latest stable upstream release
+              id: release
+              shell: bash
+              run: |
+                  set -euo pipefail
+
+                  latest_tag=$(curl -fsSL "https://api.github.com/repos/${UPSTREAM_OWNER}/${UPSTREAM_REPO}/releases?per_page=20" | jq -r '[.[] | select(.prerelease == false and .draft == false)][0].tag_name')
+                  if [[ -z "${latest_tag}" || "${latest_tag}" == "null" ]]; then
+                    echo "Unable to resolve latest stable release tag."
+                    exit 1
+                  fi
+
+                  latest_version="${latest_tag#v}"
+                  current_version=$(sed -nr 's/^export[[:space:]]*TERRAFORM_PROVIDER_VERSION[[:space:]]*\?=[[:space:]]*(.+)/\1/p' Makefile | head -n1)
+
+                  if [[ -z "${current_version}" ]]; then
+                    echo "Unable to resolve current TERRAFORM_PROVIDER_VERSION from Makefile."
+                    exit 1
+                  fi
+
+                  echo "latest_tag=${latest_tag}" >> "$GITHUB_OUTPUT"
+                  echo "latest_version=${latest_version}" >> "$GITHUB_OUTPUT"
+                  echo "current_version=${current_version}" >> "$GITHUB_OUTPUT"
+
+                  if [[ "${latest_version}" == "${current_version}" ]]; then
+                    echo "should_update=false" >> "$GITHUB_OUTPUT"
+                  else
+                    echo "should_update=true" >> "$GITHUB_OUTPUT"
+                  fi
+
+            - name: Stop when no update is needed
+              if: steps.release.outputs.should_update != 'true'
+              run: echo "No provider update required."
+
+            - name: Configure git identity
+              if: steps.release.outputs.should_update == 'true'
+              run: |
+                  git config --global user.name "glalanne"
+                  git config --global user.email "provider-databricks@noreply.github.com"
+
+            - name: Prepare fork branch and commit xpprovider
+              if: steps.release.outputs.should_update == 'true'
+              id: fork
+              shell: bash
+              run: |
+                  set -euo pipefail
+
+                  if [[ -z "${FORK_REPO_PAT:-}" ]]; then
+                    echo "Missing secret FORK_REPO_PAT."
+                    exit 1
+                  fi
+
+                  version_tag="${{ steps.release.outputs.latest_tag }}"
+                  branch_name="${version_tag}"
+
+                  workdir=$(mktemp -d)
+                  trap 'rm -rf "${workdir}"' EXIT
+
+                  git clone "https://x-access-token:${FORK_REPO_PAT}@github.com/${FORK_OWNER}/${FORK_REPO}.git" "${workdir}/fork"
+                  cd "${workdir}/fork"
+
+                  git remote add upstream "https://github.com/${UPSTREAM_OWNER}/${UPSTREAM_REPO}.git"
+                  git fetch upstream --tags
+
+                  git checkout -B "${branch_name}" "refs/tags/${version_tag}"
+                  git pull upstream "${version_tag}" --ff-only
+
+                  # Use x-access-token to securely pass the PAT over HTTPS
+                  git remote set-url origin "https://x-access-token:${FORK_REPO_PAT}@github.com/${FORK_OWNER}/${FORK_REPO}.git"
+
+                  export TZ=UTC
+                  fork_sha=$(git rev-parse HEAD)
+                  fork_ts=$(git show -s --format=%cd --date=format-local:%Y%m%d%H%M%S HEAD)
+                  fork_pseudo="v0.0.0-${fork_ts}-${fork_sha:0:12}"
+
+                  echo "branch_name=${branch_name}" >> "$GITHUB_OUTPUT"
+                  echo "branch_sha=${fork_sha}" >> "$GITHUB_OUTPUT"
+                  echo "branch_pseudo=${fork_pseudo}" >> "$GITHUB_OUTPUT"
+
+                  # if a branch with the same name already exists, we will stop here to avoid overwriting it
+                  if git rev-parse --verify --quiet "${branch_name}"; then
+                    echo "Branch ${branch_name} already exists in the forked repository; skipping fork commit."
+                    exit 0
+                  fi
+
+                  # Adding the missing xpprovider.go file from the forked repository to the current repository
+                  echo "Adding xpprovider.go file to the current repository"
+                  TARGET_FILE="xpprovider/xpprovider.go"
+                  mkdir -p "$(dirname "${TARGET_FILE}")"
+                  cp "${GITHUB_WORKSPACE}/hack/xpprovider.txt" "${workdir}/fork/${TARGET_FILE}"
+
+                  git add "${TARGET_FILE}"
+                  if git diff --cached --quiet; then
+                    echo "No changes for ${TARGET_FILE}; skipping fork commit."
+                  else
+                    git commit -m "chore: add ${TARGET_FILE} for ${version_tag}"
+                  fi
+
+                  echo "Pushing branch ${branch_name} to forked repository"
+                  git push origin "HEAD:refs/heads/${branch_name}"
+
+            - name: Create working branch
+              if: steps.release.outputs.should_update == 'true'
+              shell: bash
+              run: |
+                  set -euo pipefail
+                  git fetch origin "${BASE_BRANCH}"
+                  branch_name="${WORK_BRANCH_PREFIX}${{ steps.release.outputs.latest_version }}"
+                  git checkout -B "${branch_name}" "origin/${BASE_BRANCH}"
+                  echo "WORK_BRANCH=${branch_name}" >> "$GITHUB_ENV"
+
+            - name: Update Makefile and go.mod
+              if: steps.release.outputs.should_update == 'true'
+              shell: bash
+              run: |
+                  set -euo pipefail
+
+                  new_version="${{ steps.release.outputs.latest_version }}"
+                  new_go_version="${{ steps.release.outputs.latest_tag }}"
+                  new_fork_pseudo="${{ steps.fork.outputs.branch_pseudo }}"
+
+                  sed -i -E "s|^export[[:space:]]+TERRAFORM_PROVIDER_VERSION[[:space:]]+\?=[[:space:]]+.*$|export TERRAFORM_PROVIDER_VERSION ?= ${new_version}|" Makefile
+                  sed -i -E "s|^([[:space:]]*github.com/databricks/terraform-provider-databricks[[:space:]]+)v[^[:space:]]+$|\1${new_go_version}|" go.mod
+                  sed -i -E "s|^replace github.com/databricks/terraform-provider-databricks => github.com/glalanne/terraform-provider-databricks[[:space:]]+.*$|replace github.com/databricks/terraform-provider-databricks => github.com/glalanne/terraform-provider-databricks ${new_fork_pseudo}|" go.mod
+
+                  # forcing to update the go.sum file with the new version of the provider
+                  go mod download github.com/databricks/terraform-provider-databricks
+                  go mod tidy
+                  
+            - name: Echo file contents in debug mode only
+              if: ${{ runner.debug == '1' }}
+              run: |
+                cat Makefile
+                cat go.mod
+
+            - name: Run generate
+              if: steps.release.outputs.should_update == 'true'
+              run: make generate
+
+            - name: Run lint
+              if: steps.release.outputs.should_update == 'true'
+              run: make lint
+
+            - name: Run test
+              if: steps.release.outputs.should_update == 'true'
+              run: make test
+
+            - name: Commit version bump
+              if: steps.release.outputs.should_update == 'true'
+              shell: bash
+              run: |
+                  set -euo pipefail
+                  git add Makefile go.mod go.sum
+                  git add .
+
+                  if git diff --cached --quiet; then
+                    echo "No changes to commit."
+                    exit 0
+                  fi
+
+                  git commit -m "chore: bump databricks terraform provider to ${{ steps.release.outputs.latest_tag }}"
+
+            - name: Run reviewable
+              if: steps.release.outputs.should_update == 'true'
+              run: make reviewable
+
+            - name: Ensure no extra changes after reviewable
+              if: steps.release.outputs.should_update == 'true'
+              shell: bash
+              run: |
+                  set -euo pipefail
+                  if [[ -n "$(git status --porcelain)" ]]; then
+                    echo "Working tree changed after make reviewable; please include generated output before push."
+                    git status --porcelain
+                    exit 1
+                  fi
+
+            - name: Push branch
+              if: steps.release.outputs.should_update == 'true'
+              run: git push --force-with-lease origin "${WORK_BRANCH}"
+
+            - name: Create or update PR
+              if: steps.release.outputs.should_update == 'true'
+              shell: bash
+              run: |
+                  set -euo pipefail
+
+                  title="chore: bump databricks terraform provider to ${{ steps.release.outputs.latest_tag }}"
+                  body=$(cat <<'EOF'
+                  This PR was generated automatically by the daily provider updater workflow.
+
+                  Summary:
+                  - Updated TERRAFORM_PROVIDER_VERSION in Makefile
+                  - Updated go.mod require for github.com/databricks/terraform-provider-databricks
+                  - Updated go.mod replace to fork pseudo-version from branch ${{ steps.fork.outputs.branch_name }}
+
+                  Source release:
+                  - https://github.com/${{ env.UPSTREAM_OWNER }}/${{ env.UPSTREAM_REPO }}/releases/tag/${{ steps.release.outputs.latest_tag }}
+                  EOF
+                  )
+
+                  pr_number=$(gh pr list --head "${WORK_BRANCH}" --state open --json number --limit 1 | jq -r '.[0].number // empty')
+                  if [[ -n "${pr_number}" ]]; then
+                    gh pr edit "${pr_number}" --title "${title}" --body "${body}" --base "${BASE_BRANCH}"
+                  else
+                    gh pr create --base "${BASE_BRANCH}" --head "${WORK_BRANCH}" --title "${title}" --body "${body}"
+                  fi
