@@ -175,7 +175,8 @@ jobs:
 
                   # forcing to update the go.sum file with the new version of the provider
                   go mod download github.com/databricks/terraform-provider-databricks
-
+                  go mod tidy
+                  
             - name: Echo file contents in debug mode only
               if: ${{ runner.debug == '1' }}
               run: |
