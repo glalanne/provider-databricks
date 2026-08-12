@@ -82,6 +82,12 @@ jobs:
               if: steps.release.outputs.should_update != 'true'
               run: echo "No provider update required."
 
+            - name: Configure git identity
+              if: steps.release.outputs.should_update == 'true'
+              run: |
+                  git config --global user.name "glalanne"
+                  git config --global user.email "provider-databricks@noreply.github.com"
+
             - name: Prepare fork branch and commit xpprovider
               if: steps.release.outputs.should_update == 'true'
               id: fork
@@ -102,9 +108,6 @@ jobs:
 
                   git clone "https://x-access-token:${FORK_REPO_PAT}@github.com/${FORK_OWNER}/${FORK_REPO}.git" "${workdir}/fork"
                   cd "${workdir}/fork"
-
-                  git config user.name "glalanne"
-                  git config user.email "provider-databricks@noreply.github.com"
 
                   git remote add upstream "https://github.com/${UPSTREAM_OWNER}/${UPSTREAM_REPO}.git"
                   git fetch upstream --tags
@@ -178,12 +181,6 @@ jobs:
 
                   echo "Pushing branch ${WORK_BRANCH} to forked repository"
                   git push origin "HEAD:refs/heads/${WORK_BRANCH}"
-
-            - name: Configure git identity
-              if: steps.release.outputs.should_update == 'true'
-              run: |
-                  git config user.name "glalanne"
-                  git config user.email "provider-databricks@noreply.github.com"
 
             - name: Run generate
               if: steps.release.outputs.should_update == 'true'
