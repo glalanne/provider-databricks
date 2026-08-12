@@ -114,7 +114,7 @@ jobs:
                   fi
 
                   echo "Pushing branch ${branch_name} to forked repository"
-                  git push origin "${branch_name}"
+                  git push origin "HEAD:refs/heads/${branch_name}"
 
                   fork_sha=$(git rev-parse HEAD)
                   export TZ=UTC
@@ -223,8 +223,9 @@ jobs:
                   EOF
                   )
 
-                  if gh pr view "${WORK_BRANCH}" --json number >/dev/null 2>&1; then
-                    gh pr edit "${WORK_BRANCH}" --title "${title}" --body "${body}" --base "${BASE_BRANCH}"
+                  pr_number=$(gh pr list --head "${WORK_BRANCH}" --state open --json number --limit 1 | jq -r '.[0].number // empty')
+                  if [[ -n "${pr_number}" ]]; then
+                    gh pr edit "${pr_number}" --title "${title}" --body "${body}" --base "${BASE_BRANCH}"
                   else
                     gh pr create --base "${BASE_BRANCH}" --head "${WORK_BRANCH}" --title "${title}" --body "${body}"
                   fi
