@@ -103,8 +103,8 @@ jobs:
                   git clone "https://x-access-token:${FORK_REPO_PAT}@github.com/${FORK_OWNER}/${FORK_REPO}.git" "${workdir}/fork"
                   cd "${workdir}/fork"
 
-                  #   git config user.name "glalanne"
-                  #   git config user.email "provider-databricks@noreply.github.com"
+                  git config user.name "glalanne"
+                  git config user.email "provider-databricks@noreply.github.com"
 
                   git remote add upstream "https://github.com/${UPSTREAM_OWNER}/${UPSTREAM_REPO}.git"
                   git fetch upstream --tags
