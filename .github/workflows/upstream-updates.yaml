@@ -28,7 +28,7 @@ jobs:
             WORK_BRANCH_PREFIX: chore/bump-databricks-provider-
             GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
             FORK_REPO_PAT: ${{ secrets.FORK_REPO_PAT }}
-            GO_VERSION: "1.25.8"
+            GO_VERSION: "1.26.5"
         steps:
             - name: Checkout
               uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
