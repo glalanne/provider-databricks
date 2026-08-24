@@ -1839,8 +1839,6 @@ spec:
                           type: array
                       type: object
                     type: array
-                  lastModified:
-                    type: number
                   latestUpdates:
                     items:
                       properties:
@@ -3924,8 +3922,6 @@ spec:
                           type: array
                       type: object
                     type: array
-                  lastModified:
-                    type: number
                   latestUpdates:
                     items:
                       properties:
@@ -6063,8 +6059,6 @@ spec:
                           type: array
                       type: object
                     type: array
-                  lastModified:
-                    type: number
                   latestUpdates:
                     items:
                       properties:
@@ -7951,8 +7945,6 @@ spec:
                             type: object
                         type: object
                     type: object
-                  lastModified:
-                    type: number
                   latestUpdates:
                     items:
                       properties:
@@ -9805,8 +9797,6 @@ spec:
                             type: object
                         type: object
                     type: object
-                  lastModified:
-                    type: number
                   latestUpdates:
                     items:
                       properties:
@@ -11713,8 +11703,6 @@ spec:
                             type: object
                         type: object
                     type: object
-                  lastModified:
-                    type: number
                   latestUpdates:
                     items:
                       properties:

@@ -37396,11 +37396,6 @@ func (in *PipelineInitParameters) DeepCopyInto(out *PipelineInitParameters) {
 			(*in)[i].DeepCopyInto(&(*out)[i])
 		}
 	}
-	if in.LastModified != nil {
-		in, out := &in.LastModified, &out.LastModified
-		*out = new(float64)
-		**out = **in
-	}
 	if in.LatestUpdates != nil {
 		in, out := &in.LatestUpdates, &out.LatestUpdates
 		*out = make([]LatestUpdatesInitParameters, len(*in))
@@ -37970,11 +37965,6 @@ func (in *PipelineObservation) DeepCopyInto(out *PipelineObservation) {
 			(*in)[i].DeepCopyInto(&(*out)[i])
 		}
 	}
-	if in.LastModified != nil {
-		in, out := &in.LastModified, &out.LastModified
-		*out = new(float64)
-		**out = **in
-	}
 	if in.LatestUpdates != nil {
 		in, out := &in.LatestUpdates, &out.LatestUpdates
 		*out = make([]LatestUpdatesObservation, len(*in))
@@ -38239,11 +38229,6 @@ func (in *PipelineParameters) DeepCopyInto(out *PipelineParameters) {
 		for i := range *in {
 			(*in)[i].DeepCopyInto(&(*out)[i])
 		}
-	}
-	if in.LastModified != nil {
-		in, out := &in.LastModified, &out.LastModified
-		*out = new(float64)
-		**out = **in
 	}
 	if in.LatestUpdates != nil {
 		in, out := &in.LatestUpdates, &out.LatestUpdates
@@ -48136,11 +48121,6 @@ func (in *TaskInitParameters) DeepCopyInto(out *TaskInitParameters) {
 			(*in)[i].DeepCopyInto(&(*out)[i])
 		}
 	}
-	if in.Index != nil {
-		in, out := &in.Index, &out.Index
-		*out = new(string)
-		**out = **in
-	}
 	if in.JobClusterKey != nil {
 		in, out := &in.JobClusterKey, &out.JobClusterKey
 		*out = new(string)
@@ -52851,11 +52831,6 @@ func (in *TaskObservation) DeepCopyInto(out *TaskObservation) {
 			(*in)[i].DeepCopyInto(&(*out)[i])
 		}
 	}
-	if in.Index != nil {
-		in, out := &in.Index, &out.Index
-		*out = new(string)
-		**out = **in
-	}
 	if in.JobClusterKey != nil {
 		in, out := &in.JobClusterKey, &out.JobClusterKey
 		*out = new(string)
@@ -53136,11 +53111,6 @@ func (in *TaskParameters) DeepCopyInto(out *TaskParameters) {
 		for i := range *in {
 			(*in)[i].DeepCopyInto(&(*out)[i])
 		}
-	}
-	if in.Index != nil {
-		in, out := &in.Index, &out.Index
-		*out = new(string)
-		**out = **in
 	}
 	if in.JobClusterKey != nil {
 		in, out := &in.JobClusterKey, &out.JobClusterKey
