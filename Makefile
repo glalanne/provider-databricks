@@ -20,7 +20,8 @@ export TERRAFORM_DOCS_PATH ?= docs/resources
 
 
 # UPTEST_EXAMPLE_LIST ?= examples/cluster/compute/v1beta1/cluster.yaml,examples/namespaced/compute/v1beta1/cluster.yaml
-UPTEST_EXAMPLE_LIST ?= examples/namespaced/security/v1beta1/permissions.yaml
+# UPTEST_EXAMPLE_LIST ?= examples/namespaced/security/v1beta1/permissions.yaml
+UPTEST_EXAMPLE_LIST ?= examples/namespaced/compute/v1beta1/job-serverless.yaml
 
 PLATFORMS ?= linux_amd64 linux_arm64
 
@@ -226,6 +227,12 @@ uptest: $(UPTEST) $(KUBECTL) $(CHAINSAW) $(CROSSPLANE_CLI)
 	@$(INFO) running automated tests
 	@KUBECTL=$(KUBECTL) CHAINSAW=$(CHAINSAW) CROSSPLANE_CLI=$(CROSSPLANE_CLI) CROSSPLANE_NAMESPACE=$(CROSSPLANE_NAMESPACE) $(UPTEST) e2e "${UPTEST_EXAMPLE_LIST}" --data-source="${UPTEST_DATASOURCE_PATH}" --setup-script=cluster/test/setup.sh --default-conditions="Test" || $(FAIL)
 	@$(OK) running automated tests
+
+uptest-debug: $(UPTEST) $(KUBECTL) $(CHAINSAW) $(CROSSPLANE_CLI)
+	@$(INFO) running automated tests
+	@KUBECTL=$(KUBECTL) CHAINSAW=$(CHAINSAW) CROSSPLANE_CLI=$(CROSSPLANE_CLI) CROSSPLANE_NAMESPACE=$(CROSSPLANE_NAMESPACE) $(UPTEST) e2e "${UPTEST_EXAMPLE_LIST}" --data-source="${UPTEST_DATASOURCE_PATH}" --setup-script=cluster/test/setup.sh --default-conditions="Test" --skip-delete || $(FAIL)
+	@$(OK) running automated tests
+
 
 local-deploy: build controlplane.up local.xpkg.deploy.provider.$(PROJECT_NAME)
 	@$(INFO) running locally built provider

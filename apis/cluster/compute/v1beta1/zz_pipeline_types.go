@@ -3225,8 +3225,6 @@ type PipelineInitParameters struct {
 
 	IngestionDefinition *IngestionDefinitionInitParameters `json:"ingestionDefinition,omitempty" tf:"ingestion_definition,omitempty"`
 
-	LastModified *float64 `json:"lastModified,omitempty" tf:"last_modified,omitempty"`
-
 	LatestUpdates []LatestUpdatesInitParameters `json:"latestUpdates,omitempty" tf:"latest_updates,omitempty"`
 
 	// Specifies pipeline code.
@@ -3433,8 +3431,6 @@ type PipelineObservation struct {
 
 	IngestionDefinition *IngestionDefinitionObservation `json:"ingestionDefinition,omitempty" tf:"ingestion_definition,omitempty"`
 
-	LastModified *float64 `json:"lastModified,omitempty" tf:"last_modified,omitempty"`
-
 	LatestUpdates []LatestUpdatesObservation `json:"latestUpdates,omitempty" tf:"latest_updates,omitempty"`
 
 	// Specifies pipeline code.
@@ -3569,9 +3565,6 @@ type PipelineParameters struct {
 
 	// +kubebuilder:validation:Optional
 	IngestionDefinition *IngestionDefinitionParameters `json:"ingestionDefinition,omitempty" tf:"ingestion_definition,omitempty"`
-
-	// +kubebuilder:validation:Optional
-	LastModified *float64 `json:"lastModified,omitempty" tf:"last_modified,omitempty"`
 
 	// +kubebuilder:validation:Optional
 	LatestUpdates []LatestUpdatesParameters `json:"latestUpdates,omitempty" tf:"latest_updates,omitempty"`
