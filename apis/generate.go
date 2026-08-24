@@ -13,6 +13,7 @@
 
 // Remove generated files
 //go:generate bash -c "find ../apis \\( -iname 'zz_generated.conversion_hubs.go' -o -iname 'zz_generated.conversion_spokes.go' \\) -delete"
+//go:generate bash -c "find ../apis -iname 'zz_generated.managed_shim.go' -delete"
 //go:generate bash -c "find . -type d -empty -delete"
 //go:generate bash -c "find ../internal/controller -iname 'zz_*' -delete"
 //go:generate bash -c "find ../internal/controller -type d -empty -delete"
@@ -29,8 +30,16 @@
 // Generate deepcopy methodsets and CRD manifests
 //go:generate go run -tags generate sigs.k8s.io/controller-tools/cmd/controller-gen object:headerFile=../hack/boilerplate.go.txt paths=./... crd:allowDangerousTypes=true,crdVersions=v1 output:artifacts:config=../package/crds
 
+// Hack, will need to be fixed in Upjet to avoid generating conversion spokes for types that don't have any hub versions.
+// Generate temporary managed shims so conversion spokes compile while angryjet computes methodsets.
+//go:generate go run ../cmd/managedshim/main.go ../apis
+
 // Generate crossplane-runtime methodsets (resource.Claim, etc)
 //go:generate go run -tags generate github.com/crossplane/crossplane-tools/cmd/angryjet generate-methodsets --header-file=../hack/boilerplate.go.txt ./...
+
+// Reconcile managed shims after angryjet to keep only still-missing methodsets.
+// This avoids duplicate methods while ensuring subsequent steps can load packages.
+//go:generate go run ../cmd/managedshim/main.go ../apis
 
 // Run upjet's transformer for the generated resolvers to get rid of the cross
 // API-group imports and to prevent import cycles after angryjet regeneration.

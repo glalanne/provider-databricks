@@ -3,7 +3,7 @@ apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
   annotations:
-    controller-gen.kubebuilder.io/version: v0.20.0
+    controller-gen.kubebuilder.io/version: v0.21.0
   name: clusters.compute.databricks.m.crossplane.io
 spec:
   group: compute.databricks.m.crossplane.io
@@ -197,6 +197,8 @@ spec:
                             Note: If first_on_demand is zero, this availability type
                             will be used for the entire cluster.'
                           type: string
+                        capacityReservationGroup:
+                          type: string
                         firstOnDemand:
                           description: The first first_on_demand nodes of the cluster
                             will be placed on on-demand instances. If this value is
@@ -232,6 +234,15 @@ spec:
                           type: number
                       type: object
                     type: array
+                  clearCloudAttributesOnRemove:
+                    description: If true, removing a cloud attributes block (aws_attributes,
+                      azure_attributes, or gcp_attributes) from the configuration
+                      clears it on the cluster instead of the removal being ignored.
+                      Defaults to false, in which case removing such a block is suppressed
+                      to avoid a perpetual diff caused by the platform returning default
+                      cloud attributes. Keeping the block, even partially specified,
+                      preserves the suppression; only removing the whole block clears.
+                    type: boolean
                   clusterLogConf:
                     items:
                       properties:
@@ -456,6 +467,8 @@ spec:
                         bootDiskSize:
                           description: Boot disk size in GB
                           type: number
+                        confidentialComputeType:
+                          type: string
                         firstOnDemand:
                           description: The first first_on_demand nodes of the cluster
                             will be placed on on-demand instances. If this value is
@@ -956,6 +969,8 @@ spec:
                             Note: If first_on_demand is zero, this availability type
                             will be used for the entire cluster.'
                           type: string
+                        capacityReservationGroup:
+                          type: string
                         firstOnDemand:
                           description: The first first_on_demand nodes of the cluster
                             will be placed on on-demand instances. If this value is
@@ -991,6 +1006,15 @@ spec:
                           type: number
                       type: object
                     type: array
+                  clearCloudAttributesOnRemove:
+                    description: If true, removing a cloud attributes block (aws_attributes,
+                      azure_attributes, or gcp_attributes) from the configuration
+                      clears it on the cluster instead of the removal being ignored.
+                      Defaults to false, in which case removing such a block is suppressed
+                      to avoid a perpetual diff caused by the platform returning default
+                      cloud attributes. Keeping the block, even partially specified,
+                      preserves the suppression; only removing the whole block clears.
+                    type: boolean
                   clusterLogConf:
                     items:
                       properties:
@@ -1217,6 +1241,8 @@ spec:
                         bootDiskSize:
                           description: Boot disk size in GB
                           type: number
+                        confidentialComputeType:
+                          type: string
                         firstOnDemand:
                           description: The first first_on_demand nodes of the cluster
                             will be placed on on-demand instances. If this value is
@@ -1772,6 +1798,8 @@ spec:
                             Note: If first_on_demand is zero, this availability type
                             will be used for the entire cluster.'
                           type: string
+                        capacityReservationGroup:
+                          type: string
                         firstOnDemand:
                           description: The first first_on_demand nodes of the cluster
                             will be placed on on-demand instances. If this value is
@@ -1807,6 +1835,15 @@ spec:
                           type: number
                       type: object
                     type: array
+                  clearCloudAttributesOnRemove:
+                    description: If true, removing a cloud attributes block (aws_attributes,
+                      azure_attributes, or gcp_attributes) from the configuration
+                      clears it on the cluster instead of the removal being ignored.
+                      Defaults to false, in which case removing such a block is suppressed
+                      to avoid a perpetual diff caused by the platform returning default
+                      cloud attributes. Keeping the block, even partially specified,
+                      preserves the suppression; only removing the whole block clears.
+                    type: boolean
                   clusterId:
                     description: Canonical unique identifier for the cluster.
                     type: string
@@ -2030,6 +2067,8 @@ spec:
                         bootDiskSize:
                           description: Boot disk size in GB
                           type: number
+                        confidentialComputeType:
+                          type: string
                         firstOnDemand:
                           description: The first first_on_demand nodes of the cluster
                             will be placed on on-demand instances. If this value is
@@ -2437,6 +2476,13 @@ spec:
                 x-kubernetes-list-map-keys:
                 - type
                 x-kubernetes-list-type: map
+              lastHandledReconcileAt:
+                description: |-
+                  LastHandledReconcileAt holds the value of the most recent
+                  reconcile-requested-at annotation token that the controller has
+                  processed. Users can compare this to the annotation to determine
+                  whether a reconcile request has been handled.
+                type: string
               observedGeneration:
                 description: |-
                   ObservedGeneration is the latest metadata.generation
@@ -2619,6 +2665,8 @@ spec:
                           first_on_demand is zero, this availability type will be
                           used for the entire cluster.'
                         type: string
+                      capacityReservationGroup:
+                        type: string
                       firstOnDemand:
                         description: The first first_on_demand nodes of the cluster
                           will be placed on on-demand instances. If this value is
@@ -2650,6 +2698,15 @@ spec:
                           spot instances or the price for a standard instance.
                         type: number
                     type: object
+                  clearCloudAttributesOnRemove:
+                    description: If true, removing a cloud attributes block (aws_attributes,
+                      azure_attributes, or gcp_attributes) from the configuration
+                      clears it on the cluster instead of the removal being ignored.
+                      Defaults to false, in which case removing such a block is suppressed
+                      to avoid a perpetual diff caused by the platform returning default
+                      cloud attributes. Keeping the block, even partially specified,
+                      preserves the suppression; only removing the whole block clears.
+                    type: boolean
                   clusterLogConf:
                     properties:
                       dbfs:
@@ -2854,6 +2911,8 @@ spec:
                       bootDiskSize:
                         description: Boot disk size in GB
                         type: number
+                      confidentialComputeType:
+                        type: string
                       firstOnDemand:
                         description: The first first_on_demand nodes of the cluster
                           will be placed on on-demand instances. If this value is
@@ -3314,6 +3373,8 @@ spec:
                           first_on_demand is zero, this availability type will be
                           used for the entire cluster.'
                         type: string
+                      capacityReservationGroup:
+                        type: string
                       firstOnDemand:
                         description: The first first_on_demand nodes of the cluster
                           will be placed on on-demand instances. If this value is
@@ -3345,6 +3406,15 @@ spec:
                           spot instances or the price for a standard instance.
                         type: number
                     type: object
+                  clearCloudAttributesOnRemove:
+                    description: If true, removing a cloud attributes block (aws_attributes,
+                      azure_attributes, or gcp_attributes) from the configuration
+                      clears it on the cluster instead of the removal being ignored.
+                      Defaults to false, in which case removing such a block is suppressed
+                      to avoid a perpetual diff caused by the platform returning default
+                      cloud attributes. Keeping the block, even partially specified,
+                      preserves the suppression; only removing the whole block clears.
+                    type: boolean
                   clusterLogConf:
                     properties:
                       dbfs:
@@ -3551,6 +3621,8 @@ spec:
                       bootDiskSize:
                         description: Boot disk size in GB
                         type: number
+                      confidentialComputeType:
+                        type: string
                       firstOnDemand:
                         description: The first first_on_demand nodes of the cluster
                           will be placed on on-demand instances. If this value is
@@ -4066,6 +4138,8 @@ spec:
                           first_on_demand is zero, this availability type will be
                           used for the entire cluster.'
                         type: string
+                      capacityReservationGroup:
+                        type: string
                       firstOnDemand:
                         description: The first first_on_demand nodes of the cluster
                           will be placed on on-demand instances. If this value is
@@ -4097,6 +4171,15 @@ spec:
                           spot instances or the price for a standard instance.
                         type: number
                     type: object
+                  clearCloudAttributesOnRemove:
+                    description: If true, removing a cloud attributes block (aws_attributes,
+                      azure_attributes, or gcp_attributes) from the configuration
+                      clears it on the cluster instead of the removal being ignored.
+                      Defaults to false, in which case removing such a block is suppressed
+                      to avoid a perpetual diff caused by the platform returning default
+                      cloud attributes. Keeping the block, even partially specified,
+                      preserves the suppression; only removing the whole block clears.
+                    type: boolean
                   clusterId:
                     description: Canonical unique identifier for the cluster.
                     type: string
@@ -4300,6 +4383,8 @@ spec:
                       bootDiskSize:
                         description: Boot disk size in GB
                         type: number
+                      confidentialComputeType:
+                        type: string
                       firstOnDemand:
                         description: The first first_on_demand nodes of the cluster
                           will be placed on on-demand instances. If this value is
@@ -4675,6 +4760,13 @@ spec:
                 x-kubernetes-list-map-keys:
                 - type
                 x-kubernetes-list-type: map
+              lastHandledReconcileAt:
+                description: |-
+                  LastHandledReconcileAt holds the value of the most recent
+                  reconcile-requested-at annotation token that the controller has
+                  processed. Users can compare this to the annotation to determine
+                  whether a reconcile request has been handled.
+                type: string
               observedGeneration:
                 description: |-
                   ObservedGeneration is the latest metadata.generation

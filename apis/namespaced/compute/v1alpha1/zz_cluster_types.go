@@ -10,8 +10,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
-	v2 "github.com/crossplane/crossplane-runtime/v2/apis/common/v2"
+	v2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 )
 
 type AbfssInitParameters struct {
@@ -176,6 +175,8 @@ type AzureAttributesInitParameters struct {
 	// Availability type used for all subsequent nodes past the first_on_demand ones. Valid values are SPOT_AZURE, SPOT_WITH_FALLBACK_AZURE, and ON_DEMAND_AZURE. Note: If first_on_demand is zero, this availability type will be used for the entire cluster.
 	Availability *string `json:"availability,omitempty" tf:"availability,omitempty"`
 
+	CapacityReservationGroup *string `json:"capacityReservationGroup,omitempty" tf:"capacity_reservation_group,omitempty"`
+
 	// The first first_on_demand nodes of the cluster will be placed on on-demand instances. If this value is greater than 0, the cluster driver node will be placed on an on-demand instance. If this value is greater than or equal to the current cluster size, all nodes will be placed on on-demand instances. If this value is less than the current cluster size, first_on_demand nodes will be placed on on-demand instances, and the remainder will be placed on availability instances. This value does not affect cluster size and cannot be mutated over the lifetime of a cluster.
 	FirstOnDemand *float64 `json:"firstOnDemand,omitempty" tf:"first_on_demand,omitempty"`
 
@@ -189,6 +190,8 @@ type AzureAttributesObservation struct {
 
 	// Availability type used for all subsequent nodes past the first_on_demand ones. Valid values are SPOT_AZURE, SPOT_WITH_FALLBACK_AZURE, and ON_DEMAND_AZURE. Note: If first_on_demand is zero, this availability type will be used for the entire cluster.
 	Availability *string `json:"availability,omitempty" tf:"availability,omitempty"`
+
+	CapacityReservationGroup *string `json:"capacityReservationGroup,omitempty" tf:"capacity_reservation_group,omitempty"`
 
 	// The first first_on_demand nodes of the cluster will be placed on on-demand instances. If this value is greater than 0, the cluster driver node will be placed on an on-demand instance. If this value is greater than or equal to the current cluster size, all nodes will be placed on on-demand instances. If this value is less than the current cluster size, first_on_demand nodes will be placed on on-demand instances, and the remainder will be placed on availability instances. This value does not affect cluster size and cannot be mutated over the lifetime of a cluster.
 	FirstOnDemand *float64 `json:"firstOnDemand,omitempty" tf:"first_on_demand,omitempty"`
@@ -205,6 +208,9 @@ type AzureAttributesParameters struct {
 	// +kubebuilder:validation:Optional
 	Availability *string `json:"availability,omitempty" tf:"availability,omitempty"`
 
+	// +kubebuilder:validation:Optional
+	CapacityReservationGroup *string `json:"capacityReservationGroup,omitempty" tf:"capacity_reservation_group,omitempty"`
+
 	// The first first_on_demand nodes of the cluster will be placed on on-demand instances. If this value is greater than 0, the cluster driver node will be placed on an on-demand instance. If this value is greater than or equal to the current cluster size, all nodes will be placed on on-demand instances. If this value is less than the current cluster size, first_on_demand nodes will be placed on on-demand instances, and the remainder will be placed on availability instances. This value does not affect cluster size and cannot be mutated over the lifetime of a cluster.
 	// +kubebuilder:validation:Optional
 	FirstOnDemand *float64 `json:"firstOnDemand,omitempty" tf:"first_on_demand,omitempty"`
@@ -218,7 +224,7 @@ type AzureAttributesParameters struct {
 }
 
 type BasicAuthInitParameters struct {
-	PasswordSecretRef v1.LocalSecretKeySelector `json:"passwordSecretRef" tf:"-"`
+	PasswordSecretRef v2.LocalSecretKeySelector `json:"passwordSecretRef" tf:"-"`
 
 	Username *string `json:"username,omitempty" tf:"username,omitempty"`
 }
@@ -230,7 +236,7 @@ type BasicAuthObservation struct {
 type BasicAuthParameters struct {
 
 	// +kubebuilder:validation:Optional
-	PasswordSecretRef v1.LocalSecretKeySelector `json:"passwordSecretRef" tf:"-"`
+	PasswordSecretRef v2.LocalSecretKeySelector `json:"passwordSecretRef" tf:"-"`
 
 	// +kubebuilder:validation:Optional
 	Username *string `json:"username" tf:"username,omitempty"`
@@ -278,6 +284,9 @@ type ClusterInitParameters struct {
 	AwsAttributes []AwsAttributesInitParameters `json:"awsAttributes,omitempty" tf:"aws_attributes,omitempty"`
 
 	AzureAttributes []AzureAttributesInitParameters `json:"azureAttributes,omitempty" tf:"azure_attributes,omitempty"`
+
+	// If true, removing a cloud attributes block (aws_attributes, azure_attributes, or gcp_attributes) from the configuration clears it on the cluster instead of the removal being ignored. Defaults to false, in which case removing such a block is suppressed to avoid a perpetual diff caused by the platform returning default cloud attributes. Keeping the block, even partially specified, preserves the suppression; only removing the whole block clears.
+	ClearCloudAttributesOnRemove *bool `json:"clearCloudAttributesOnRemove,omitempty" tf:"clear_cloud_attributes_on_remove,omitempty"`
 
 	ClusterLogConf []ClusterLogConfInitParameters `json:"clusterLogConf,omitempty" tf:"cluster_log_conf,omitempty"`
 
@@ -460,6 +469,9 @@ type ClusterObservation struct {
 
 	AzureAttributes []AzureAttributesObservation `json:"azureAttributes,omitempty" tf:"azure_attributes,omitempty"`
 
+	// If true, removing a cloud attributes block (aws_attributes, azure_attributes, or gcp_attributes) from the configuration clears it on the cluster instead of the removal being ignored. Defaults to false, in which case removing such a block is suppressed to avoid a perpetual diff caused by the platform returning default cloud attributes. Keeping the block, even partially specified, preserves the suppression; only removing the whole block clears.
+	ClearCloudAttributesOnRemove *bool `json:"clearCloudAttributesOnRemove,omitempty" tf:"clear_cloud_attributes_on_remove,omitempty"`
+
 	// Canonical unique identifier for the cluster.
 	ClusterID *string `json:"clusterId,omitempty" tf:"cluster_id,omitempty"`
 
@@ -594,6 +606,10 @@ type ClusterParameters struct {
 
 	// +kubebuilder:validation:Optional
 	AzureAttributes []AzureAttributesParameters `json:"azureAttributes,omitempty" tf:"azure_attributes,omitempty"`
+
+	// If true, removing a cloud attributes block (aws_attributes, azure_attributes, or gcp_attributes) from the configuration clears it on the cluster instead of the removal being ignored. Defaults to false, in which case removing such a block is suppressed to avoid a perpetual diff caused by the platform returning default cloud attributes. Keeping the block, even partially specified, preserves the suppression; only removing the whole block clears.
+	// +kubebuilder:validation:Optional
+	ClearCloudAttributesOnRemove *bool `json:"clearCloudAttributesOnRemove,omitempty" tf:"clear_cloud_attributes_on_remove,omitempty"`
 
 	// +kubebuilder:validation:Optional
 	ClusterLogConf []ClusterLogConfParameters `json:"clusterLogConf,omitempty" tf:"cluster_log_conf,omitempty"`
@@ -845,6 +861,8 @@ type GCPAttributesInitParameters struct {
 	// Boot disk size in GB
 	BootDiskSize *float64 `json:"bootDiskSize,omitempty" tf:"boot_disk_size,omitempty"`
 
+	ConfidentialComputeType *string `json:"confidentialComputeType,omitempty" tf:"confidential_compute_type,omitempty"`
+
 	// The first first_on_demand nodes of the cluster will be placed on on-demand instances. If this value is greater than 0, the cluster driver node will be placed on an on-demand instance. If this value is greater than or equal to the current cluster size, all nodes will be placed on on-demand instances. If this value is less than the current cluster size, first_on_demand nodes will be placed on on-demand instances, and the remainder will be placed on availability instances. This value does not affect cluster size and cannot be mutated over the lifetime of a cluster.
 	FirstOnDemand *float64 `json:"firstOnDemand,omitempty" tf:"first_on_demand,omitempty"`
 
@@ -868,6 +886,8 @@ type GCPAttributesObservation struct {
 
 	// Boot disk size in GB
 	BootDiskSize *float64 `json:"bootDiskSize,omitempty" tf:"boot_disk_size,omitempty"`
+
+	ConfidentialComputeType *string `json:"confidentialComputeType,omitempty" tf:"confidential_compute_type,omitempty"`
 
 	// The first first_on_demand nodes of the cluster will be placed on on-demand instances. If this value is greater than 0, the cluster driver node will be placed on an on-demand instance. If this value is greater than or equal to the current cluster size, all nodes will be placed on on-demand instances. If this value is less than the current cluster size, first_on_demand nodes will be placed on on-demand instances, and the remainder will be placed on availability instances. This value does not affect cluster size and cannot be mutated over the lifetime of a cluster.
 	FirstOnDemand *float64 `json:"firstOnDemand,omitempty" tf:"first_on_demand,omitempty"`
@@ -894,6 +914,9 @@ type GCPAttributesParameters struct {
 	// Boot disk size in GB
 	// +kubebuilder:validation:Optional
 	BootDiskSize *float64 `json:"bootDiskSize,omitempty" tf:"boot_disk_size,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	ConfidentialComputeType *string `json:"confidentialComputeType,omitempty" tf:"confidential_compute_type,omitempty"`
 
 	// The first first_on_demand nodes of the cluster will be placed on on-demand instances. If this value is greater than 0, the cluster driver node will be placed on an on-demand instance. If this value is greater than or equal to the current cluster size, all nodes will be placed on on-demand instances. If this value is less than the current cluster size, first_on_demand nodes will be placed on on-demand instances, and the remainder will be placed on availability instances. This value does not affect cluster size and cannot be mutated over the lifetime of a cluster.
 	// +kubebuilder:validation:Optional
@@ -1261,7 +1284,7 @@ type ProviderConfigParameters struct {
 
 	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
 	// +kubebuilder:validation:Optional
-	WorkspaceID *string `json:"workspaceId" tf:"workspace_id,omitempty"`
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
 }
 
 type PypiInitParameters struct {
@@ -1454,8 +1477,8 @@ type ClusterSpec struct {
 
 // ClusterStatus defines the observed state of Cluster.
 type ClusterStatus struct {
-	v1.ResourceStatus `json:",inline"`
-	AtProvider        ClusterObservation `json:"atProvider,omitempty"`
+	v2.ManagedResourceStatus `json:",inline"`
+	AtProvider               ClusterObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true

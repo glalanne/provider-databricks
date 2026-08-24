@@ -6,84 +6,44 @@
 
 package v1beta1
 
-import xpv1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
-
-// GetCondition of this App.
-func (mg *App) GetCondition(ct xpv1.ConditionType) xpv1.Condition {
-	return mg.Status.GetCondition(ct)
-}
-
-// GetManagementPolicies of this App.
-func (mg *App) GetManagementPolicies() xpv1.ManagementPolicies {
-	return mg.Spec.ManagementPolicies
-}
+import xpv2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 
 // GetProviderConfigReference of this App.
-func (mg *App) GetProviderConfigReference() *xpv1.ProviderConfigReference {
+func (mg *App) GetProviderConfigReference() *xpv2.ProviderConfigReference {
 	return mg.Spec.ProviderConfigReference
 }
 
 // GetWriteConnectionSecretToReference of this App.
-func (mg *App) GetWriteConnectionSecretToReference() *xpv1.LocalSecretReference {
+func (mg *App) GetWriteConnectionSecretToReference() *xpv2.LocalSecretReference {
 	return mg.Spec.WriteConnectionSecretToReference
 }
 
-// SetConditions of this App.
-func (mg *App) SetConditions(c ...xpv1.Condition) {
-	mg.Status.SetConditions(c...)
-}
-
-// SetManagementPolicies of this App.
-func (mg *App) SetManagementPolicies(r xpv1.ManagementPolicies) {
-	mg.Spec.ManagementPolicies = r
-}
-
 // SetProviderConfigReference of this App.
-func (mg *App) SetProviderConfigReference(r *xpv1.ProviderConfigReference) {
+func (mg *App) SetProviderConfigReference(r *xpv2.ProviderConfigReference) {
 	mg.Spec.ProviderConfigReference = r
 }
 
 // SetWriteConnectionSecretToReference of this App.
-func (mg *App) SetWriteConnectionSecretToReference(r *xpv1.LocalSecretReference) {
+func (mg *App) SetWriteConnectionSecretToReference(r *xpv2.LocalSecretReference) {
 	mg.Spec.WriteConnectionSecretToReference = r
 }
 
-// GetCondition of this CustomAppIntegration.
-func (mg *CustomAppIntegration) GetCondition(ct xpv1.ConditionType) xpv1.Condition {
-	return mg.Status.GetCondition(ct)
-}
-
-// GetManagementPolicies of this CustomAppIntegration.
-func (mg *CustomAppIntegration) GetManagementPolicies() xpv1.ManagementPolicies {
-	return mg.Spec.ManagementPolicies
-}
-
 // GetProviderConfigReference of this CustomAppIntegration.
-func (mg *CustomAppIntegration) GetProviderConfigReference() *xpv1.ProviderConfigReference {
+func (mg *CustomAppIntegration) GetProviderConfigReference() *xpv2.ProviderConfigReference {
 	return mg.Spec.ProviderConfigReference
 }
 
 // GetWriteConnectionSecretToReference of this CustomAppIntegration.
-func (mg *CustomAppIntegration) GetWriteConnectionSecretToReference() *xpv1.LocalSecretReference {
+func (mg *CustomAppIntegration) GetWriteConnectionSecretToReference() *xpv2.LocalSecretReference {
 	return mg.Spec.WriteConnectionSecretToReference
 }
 
-// SetConditions of this CustomAppIntegration.
-func (mg *CustomAppIntegration) SetConditions(c ...xpv1.Condition) {
-	mg.Status.SetConditions(c...)
-}
-
-// SetManagementPolicies of this CustomAppIntegration.
-func (mg *CustomAppIntegration) SetManagementPolicies(r xpv1.ManagementPolicies) {
-	mg.Spec.ManagementPolicies = r
-}
-
 // SetProviderConfigReference of this CustomAppIntegration.
-func (mg *CustomAppIntegration) SetProviderConfigReference(r *xpv1.ProviderConfigReference) {
+func (mg *CustomAppIntegration) SetProviderConfigReference(r *xpv2.ProviderConfigReference) {
 	mg.Spec.ProviderConfigReference = r
 }
 
 // SetWriteConnectionSecretToReference of this CustomAppIntegration.
-func (mg *CustomAppIntegration) SetWriteConnectionSecretToReference(r *xpv1.LocalSecretReference) {
+func (mg *CustomAppIntegration) SetWriteConnectionSecretToReference(r *xpv2.LocalSecretReference) {
 	mg.Spec.WriteConnectionSecretToReference = r
 }

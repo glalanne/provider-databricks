@@ -10,8 +10,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
-	v2 "github.com/crossplane/crossplane-runtime/v2/apis/common/v2"
+	v2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 )
 
 type EndpointStatusInitParameters struct {
@@ -45,18 +44,18 @@ type ProviderConfigParameters struct {
 
 	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
 	// +kubebuilder:validation:Optional
-	WorkspaceID *string `json:"workspaceId" tf:"workspace_id,omitempty"`
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
 }
 
 type ScalingInfoInitParameters struct {
-	RequestedMinQPS *float64 `json:"requestedMinQps,omitempty" tf:"requested_min_qps,omitempty"`
+	RequestedTargetQPS *float64 `json:"requestedTargetQps,omitempty" tf:"requested_target_qps,omitempty"`
 
 	// Current state of the endpoint. Currently following values are supported: PROVISIONING, ONLINE, and OFFLINE.
 	State *string `json:"state,omitempty" tf:"state,omitempty"`
 }
 
 type ScalingInfoObservation struct {
-	RequestedMinQPS *float64 `json:"requestedMinQps,omitempty" tf:"requested_min_qps,omitempty"`
+	RequestedTargetQPS *float64 `json:"requestedTargetQps,omitempty" tf:"requested_target_qps,omitempty"`
 
 	// Current state of the endpoint. Currently following values are supported: PROVISIONING, ONLINE, and OFFLINE.
 	State *string `json:"state,omitempty" tf:"state,omitempty"`
@@ -65,7 +64,7 @@ type ScalingInfoObservation struct {
 type ScalingInfoParameters struct {
 
 	// +kubebuilder:validation:Optional
-	RequestedMinQPS *float64 `json:"requestedMinQps,omitempty" tf:"requested_min_qps,omitempty"`
+	RequestedTargetQPS *float64 `json:"requestedTargetQps,omitempty" tf:"requested_target_qps,omitempty"`
 
 	// Current state of the endpoint. Currently following values are supported: PROVISIONING, ONLINE, and OFFLINE.
 	// +kubebuilder:validation:Optional
@@ -174,8 +173,8 @@ type VectorSearchEndpointSpec struct {
 
 // VectorSearchEndpointStatus defines the observed state of VectorSearchEndpoint.
 type VectorSearchEndpointStatus struct {
-	v1.ResourceStatus `json:",inline"`
-	AtProvider        VectorSearchEndpointObservation `json:"atProvider,omitempty"`
+	v2.ManagedResourceStatus `json:",inline"`
+	AtProvider               VectorSearchEndpointObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true

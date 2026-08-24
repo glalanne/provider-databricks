@@ -10,7 +10,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
+	v2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 )
 
 type DateRangeValueDateRangeValueInitParameters struct {
@@ -421,11 +421,11 @@ type QueryInitParameters struct {
 
 	// Reference to a Directory in workspace to populate parentPath.
 	// +kubebuilder:validation:Optional
-	ParentPathRef *v1.Reference `json:"parentPathRef,omitempty" tf:"-"`
+	ParentPathRef *v2.Reference `json:"parentPathRef,omitempty" tf:"-"`
 
 	// Selector for a Directory in workspace to populate parentPath.
 	// +kubebuilder:validation:Optional
-	ParentPathSelector *v1.Selector `json:"parentPathSelector,omitempty" tf:"-"`
+	ParentPathSelector *v2.Selector `json:"parentPathSelector,omitempty" tf:"-"`
 
 	// Configure the provider for management through account provider. This block consists of the following fields:
 	ProviderConfig *QueryProviderConfigInitParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
@@ -449,11 +449,11 @@ type QueryInitParameters struct {
 
 	// Reference to a SQLEndpoint in sql to populate warehouseId.
 	// +kubebuilder:validation:Optional
-	WarehouseIDRef *v1.Reference `json:"warehouseIdRef,omitempty" tf:"-"`
+	WarehouseIDRef *v2.Reference `json:"warehouseIdRef,omitempty" tf:"-"`
 
 	// Selector for a SQLEndpoint in sql to populate warehouseId.
 	// +kubebuilder:validation:Optional
-	WarehouseIDSelector *v1.Selector `json:"warehouseIdSelector,omitempty" tf:"-"`
+	WarehouseIDSelector *v2.Selector `json:"warehouseIdSelector,omitempty" tf:"-"`
 }
 
 type QueryObservation struct {
@@ -547,11 +547,11 @@ type QueryParameters struct {
 
 	// Reference to a Directory in workspace to populate parentPath.
 	// +kubebuilder:validation:Optional
-	ParentPathRef *v1.Reference `json:"parentPathRef,omitempty" tf:"-"`
+	ParentPathRef *v2.Reference `json:"parentPathRef,omitempty" tf:"-"`
 
 	// Selector for a Directory in workspace to populate parentPath.
 	// +kubebuilder:validation:Optional
-	ParentPathSelector *v1.Selector `json:"parentPathSelector,omitempty" tf:"-"`
+	ParentPathSelector *v2.Selector `json:"parentPathSelector,omitempty" tf:"-"`
 
 	// Configure the provider for management through account provider. This block consists of the following fields:
 	// +kubebuilder:validation:Optional
@@ -581,11 +581,11 @@ type QueryParameters struct {
 
 	// Reference to a SQLEndpoint in sql to populate warehouseId.
 	// +kubebuilder:validation:Optional
-	WarehouseIDRef *v1.Reference `json:"warehouseIdRef,omitempty" tf:"-"`
+	WarehouseIDRef *v2.Reference `json:"warehouseIdRef,omitempty" tf:"-"`
 
 	// Selector for a SQLEndpoint in sql to populate warehouseId.
 	// +kubebuilder:validation:Optional
-	WarehouseIDSelector *v1.Selector `json:"warehouseIdSelector,omitempty" tf:"-"`
+	WarehouseIDSelector *v2.Selector `json:"warehouseIdSelector,omitempty" tf:"-"`
 }
 
 type QueryProviderConfigInitParameters struct {
@@ -604,7 +604,7 @@ type QueryProviderConfigParameters struct {
 
 	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
 	// +kubebuilder:validation:Optional
-	WorkspaceID *string `json:"workspaceId" tf:"workspace_id,omitempty"`
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
 }
 
 type TextValueInitParameters struct {
@@ -628,8 +628,8 @@ type TextValueParameters struct {
 
 // QuerySpec defines the desired state of Query
 type QuerySpec struct {
-	v1.ResourceSpec `json:",inline"`
-	ForProvider     QueryParameters `json:"forProvider"`
+	v2.ClusterManagedResourceSpec `json:",inline"`
+	ForProvider                   QueryParameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
 	// InitProvider holds the same fields as ForProvider, with the exception
@@ -645,8 +645,8 @@ type QuerySpec struct {
 
 // QueryStatus defines the observed state of Query.
 type QueryStatus struct {
-	v1.ResourceStatus `json:",inline"`
-	AtProvider        QueryObservation `json:"atProvider,omitempty"`
+	v2.ManagedResourceStatus `json:",inline"`
+	AtProvider               QueryObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true

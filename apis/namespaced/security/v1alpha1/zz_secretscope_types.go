@@ -10,8 +10,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
-	v2 "github.com/crossplane/crossplane-runtime/v2/apis/common/v2"
+	v2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 )
 
 type KeyvaultMetadataInitParameters struct {
@@ -118,7 +117,7 @@ type SecretScopeProviderConfigParameters struct {
 
 	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
 	// +kubebuilder:validation:Optional
-	WorkspaceID *string `json:"workspaceId" tf:"workspace_id,omitempty"`
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
 }
 
 // SecretScopeSpec defines the desired state of SecretScope
@@ -140,8 +139,8 @@ type SecretScopeSpec struct {
 
 // SecretScopeStatus defines the observed state of SecretScope.
 type SecretScopeStatus struct {
-	v1.ResourceStatus `json:",inline"`
-	AtProvider        SecretScopeObservation `json:"atProvider,omitempty"`
+	v2.ManagedResourceStatus `json:",inline"`
+	AtProvider               SecretScopeObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true

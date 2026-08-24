@@ -3,7 +3,7 @@ apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
   annotations:
-    controller-gen.kubebuilder.io/version: v0.20.0
+    controller-gen.kubebuilder.io/version: v0.21.0
   name: users.security.databricks.crossplane.io
 spec:
   group: security.databricks.crossplane.io
@@ -98,6 +98,11 @@ spec:
                       Defaults to false. More fine grained permissions could be assigned
                       with databricks_permissions and instance_pool_id argument.
                     type: boolean
+                  api:
+                    description: |-
+                      Specifies whether to use account-level or workspace-level API. Valid values are account and workspace. When not set, the API level is inferred from the provider host.
+                      Specifies whether to use account-level or workspace-level API. Valid values are `account` and `workspace`. When not set, the API level is inferred from the provider host.
+                    type: string
                   databricksSqlAccess:
                     description: This is a field to allow the user to have access
                       to Databricks SQL  UI, Databricks One and through databricks_sql_endpoint.
@@ -133,6 +138,15 @@ spec:
                   home:
                     description: Home folder of the user, e.g. /Users/mr.foo@example.com.
                     type: string
+                  providerConfig:
+                    items:
+                      properties:
+                        workspaceId:
+                          description: Canonical unique identifier for the user (SCIM
+                            ID).
+                          type: string
+                      type: object
+                    type: array
                   repos:
                     description: Personal Repos location of the user, e.g. /Repos/mr.foo@example.com.
                     type: string
@@ -186,6 +200,11 @@ spec:
                       Defaults to false. More fine grained permissions could be assigned
                       with databricks_permissions and instance_pool_id argument.
                     type: boolean
+                  api:
+                    description: |-
+                      Specifies whether to use account-level or workspace-level API. Valid values are account and workspace. When not set, the API level is inferred from the provider host.
+                      Specifies whether to use account-level or workspace-level API. Valid values are `account` and `workspace`. When not set, the API level is inferred from the provider host.
+                    type: string
                   databricksSqlAccess:
                     description: This is a field to allow the user to have access
                       to Databricks SQL  UI, Databricks One and through databricks_sql_endpoint.
@@ -221,6 +240,15 @@ spec:
                   home:
                     description: Home folder of the user, e.g. /Users/mr.foo@example.com.
                     type: string
+                  providerConfig:
+                    items:
+                      properties:
+                        workspaceId:
+                          description: Canonical unique identifier for the user (SCIM
+                            ID).
+                          type: string
+                      type: object
+                    type: array
                   repos:
                     description: Personal Repos location of the user, e.g. /Repos/mr.foo@example.com.
                     type: string
@@ -357,6 +385,11 @@ spec:
                       Defaults to false. More fine grained permissions could be assigned
                       with databricks_permissions and instance_pool_id argument.
                     type: boolean
+                  api:
+                    description: |-
+                      Specifies whether to use account-level or workspace-level API. Valid values are account and workspace. When not set, the API level is inferred from the provider host.
+                      Specifies whether to use account-level or workspace-level API. Valid values are `account` and `workspace`. When not set, the API level is inferred from the provider host.
+                    type: string
                   databricksSqlAccess:
                     description: This is a field to allow the user to have access
                       to Databricks SQL  UI, Databricks One and through databricks_sql_endpoint.
@@ -395,6 +428,15 @@ spec:
                   id:
                     description: Canonical unique identifier for the user (SCIM ID).
                     type: string
+                  providerConfig:
+                    items:
+                      properties:
+                        workspaceId:
+                          description: Canonical unique identifier for the user (SCIM
+                            ID).
+                          type: string
+                      type: object
+                    type: array
                   repos:
                     description: Personal Repos location of the user, e.g. /Repos/mr.foo@example.com.
                     type: string
@@ -459,6 +501,13 @@ spec:
                 x-kubernetes-list-map-keys:
                 - type
                 x-kubernetes-list-type: map
+              lastHandledReconcileAt:
+                description: |-
+                  LastHandledReconcileAt holds the value of the most recent
+                  reconcile-requested-at annotation token that the controller has
+                  processed. Users can compare this to the annotation to determine
+                  whether a reconcile request has been handled.
+                type: string
               observedGeneration:
                 description: |-
                   ObservedGeneration is the latest metadata.generation
@@ -550,6 +599,11 @@ spec:
                       Defaults to false. More fine grained permissions could be assigned
                       with databricks_permissions and instance_pool_id argument.
                     type: boolean
+                  api:
+                    description: |-
+                      Specifies whether to use account-level or workspace-level API. Valid values are account and workspace. When not set, the API level is inferred from the provider host.
+                      Specifies whether to use account-level or workspace-level API. Valid values are `account` and `workspace`. When not set, the API level is inferred from the provider host.
+                    type: string
                   databricksSqlAccess:
                     description: This is a field to allow the user to have access
                       to Databricks SQL  UI, Databricks One and through databricks_sql_endpoint.
@@ -585,6 +639,13 @@ spec:
                   home:
                     description: Home folder of the user, e.g. /Users/mr.foo@example.com.
                     type: string
+                  providerConfig:
+                    properties:
+                      workspaceId:
+                        description: Canonical unique identifier for the user (SCIM
+                          ID).
+                        type: string
+                    type: object
                   repos:
                     description: Personal Repos location of the user, e.g. /Repos/mr.foo@example.com.
                     type: string
@@ -638,6 +699,11 @@ spec:
                       Defaults to false. More fine grained permissions could be assigned
                       with databricks_permissions and instance_pool_id argument.
                     type: boolean
+                  api:
+                    description: |-
+                      Specifies whether to use account-level or workspace-level API. Valid values are account and workspace. When not set, the API level is inferred from the provider host.
+                      Specifies whether to use account-level or workspace-level API. Valid values are `account` and `workspace`. When not set, the API level is inferred from the provider host.
+                    type: string
                   databricksSqlAccess:
                     description: This is a field to allow the user to have access
                       to Databricks SQL  UI, Databricks One and through databricks_sql_endpoint.
@@ -673,6 +739,13 @@ spec:
                   home:
                     description: Home folder of the user, e.g. /Users/mr.foo@example.com.
                     type: string
+                  providerConfig:
+                    properties:
+                      workspaceId:
+                        description: Canonical unique identifier for the user (SCIM
+                          ID).
+                        type: string
+                    type: object
                   repos:
                     description: Personal Repos location of the user, e.g. /Repos/mr.foo@example.com.
                     type: string
@@ -809,6 +882,11 @@ spec:
                       Defaults to false. More fine grained permissions could be assigned
                       with databricks_permissions and instance_pool_id argument.
                     type: boolean
+                  api:
+                    description: |-
+                      Specifies whether to use account-level or workspace-level API. Valid values are account and workspace. When not set, the API level is inferred from the provider host.
+                      Specifies whether to use account-level or workspace-level API. Valid values are `account` and `workspace`. When not set, the API level is inferred from the provider host.
+                    type: string
                   databricksSqlAccess:
                     description: This is a field to allow the user to have access
                       to Databricks SQL  UI, Databricks One and through databricks_sql_endpoint.
@@ -847,6 +925,13 @@ spec:
                   id:
                     description: Canonical unique identifier for the user (SCIM ID).
                     type: string
+                  providerConfig:
+                    properties:
+                      workspaceId:
+                        description: Canonical unique identifier for the user (SCIM
+                          ID).
+                        type: string
+                    type: object
                   repos:
                     description: Personal Repos location of the user, e.g. /Repos/mr.foo@example.com.
                     type: string
@@ -911,6 +996,13 @@ spec:
                 x-kubernetes-list-map-keys:
                 - type
                 x-kubernetes-list-type: map
+              lastHandledReconcileAt:
+                description: |-
+                  LastHandledReconcileAt holds the value of the most recent
+                  reconcile-requested-at annotation token that the controller has
+                  processed. Users can compare this to the annotation to determine
+                  whether a reconcile request has been handled.
+                type: string
               observedGeneration:
                 description: |-
                   ObservedGeneration is the latest metadata.generation

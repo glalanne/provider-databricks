@@ -1,0 +1,84 @@
+# SPDX-FileCopyrightText: 2026 The Crossplane Authors <https://crossplane.io>
+#
+# SPDX-License-Identifier: CC0-1.0
+
+apiVersion: unity.databricks.m.crossplane.io/v1beta1
+kind: DataQualityRefresh
+metadata:
+  annotations:
+    meta.upbound.io/example-id: unity/v1beta1/dataqualityrefresh
+  labels:
+    testing.upbound.io/example-name: this
+  name: this
+  namespace: upbound-system
+spec:
+  forProvider:
+    objectIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: myTestTable
+    objectType: table
+
+---
+
+apiVersion: unity.databricks.m.crossplane.io/v1beta1
+kind: Catalog
+metadata:
+  annotations:
+    meta.upbound.io/example-id: unity/v1beta1/dataqualityrefresh
+  labels:
+    testing.upbound.io/example-name: sandbox
+  name: sandbox
+  namespace: upbound-system
+spec:
+  forProvider:
+    comment: this catalog is managed by terraform
+    name: sandbox
+    properties:
+      purpose: testing
+
+---
+
+apiVersion: unity.databricks.m.crossplane.io/v1beta1
+kind: Schema
+metadata:
+  annotations:
+    meta.upbound.io/example-id: unity/v1beta1/dataqualityrefresh
+  labels:
+    testing.upbound.io/example-name: myTestSchema
+  name: mytestschema
+  namespace: upbound-system
+spec:
+  forProvider:
+    catalogNameSelector:
+      matchLabels:
+        testing.upbound.io/example-name: sandbox
+    comment: this database is managed by terraform
+    name: myTestSchema
+    properties:
+      kind: various
+
+---
+
+apiVersion: unity.databricks.m.crossplane.io/v1beta1
+kind: SQLTable
+metadata:
+  annotations:
+    meta.upbound.io/example-id: unity/v1beta1/dataqualityrefresh
+  labels:
+    testing.upbound.io/example-name: myTestTable
+  name: mytesttable
+  namespace: upbound-system
+spec:
+  forProvider:
+    catalogNameSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
+    column:
+    - name: timestamp
+      type: int
+    dataSourceFormat: DELTA
+    name: bar
+    schemaNameSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
+    tableType: MANAGED

@@ -10,7 +10,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
+	v2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 )
 
 type StorageCredentialAwsIAMRoleInitParameters struct {
@@ -97,7 +97,7 @@ type StorageCredentialAzureServicePrincipalInitParameters struct {
 	ApplicationID *string `json:"applicationId,omitempty" tf:"application_id,omitempty"`
 
 	// The client secret generated for the above app ID in AAD. This field is redacted on output
-	ClientSecretSecretRef v1.SecretKeySelector `json:"clientSecretSecretRef" tf:"-"`
+	ClientSecretSecretRef v2.SecretKeySelector `json:"clientSecretSecretRef" tf:"-"`
 
 	// The directory ID corresponding to the Azure Active Directory (AAD) tenant of the application
 	DirectoryID *string `json:"directoryId,omitempty" tf:"directory_id,omitempty"`
@@ -120,7 +120,7 @@ type StorageCredentialAzureServicePrincipalParameters struct {
 
 	// The client secret generated for the above app ID in AAD. This field is redacted on output
 	// +kubebuilder:validation:Optional
-	ClientSecretSecretRef v1.SecretKeySelector `json:"clientSecretSecretRef" tf:"-"`
+	ClientSecretSecretRef v2.SecretKeySelector `json:"clientSecretSecretRef" tf:"-"`
 
 	// The directory ID corresponding to the Azure Active Directory (AAD) tenant of the application
 	// +kubebuilder:validation:Optional
@@ -136,7 +136,7 @@ type StorageCredentialCloudflareAPITokenInitParameters struct {
 	AccountID *string `json:"accountId,omitempty" tf:"account_id,omitempty"`
 
 	// R2 API token secret access key
-	SecretAccessKeySecretRef v1.SecretKeySelector `json:"secretAccessKeySecretRef" tf:"-"`
+	SecretAccessKeySecretRef v2.SecretKeySelector `json:"secretAccessKeySecretRef" tf:"-"`
 }
 
 type StorageCredentialCloudflareAPITokenObservation struct {
@@ -160,7 +160,7 @@ type StorageCredentialCloudflareAPITokenParameters struct {
 
 	// R2 API token secret access key
 	// +kubebuilder:validation:Optional
-	SecretAccessKeySecretRef v1.SecretKeySelector `json:"secretAccessKeySecretRef" tf:"-"`
+	SecretAccessKeySecretRef v2.SecretKeySelector `json:"secretAccessKeySecretRef" tf:"-"`
 }
 
 type StorageCredentialDatabricksGCPServiceAccountInitParameters struct {
@@ -200,7 +200,7 @@ type StorageCredentialGCPServiceAccountKeyInitParameters struct {
 	// ID of this storage credential - same as the name.
 	PrivateKeyID *string `json:"privateKeyId,omitempty" tf:"private_key_id,omitempty"`
 
-	PrivateKeySecretRef v1.SecretKeySelector `json:"privateKeySecretRef" tf:"-"`
+	PrivateKeySecretRef v2.SecretKeySelector `json:"privateKeySecretRef" tf:"-"`
 }
 
 type StorageCredentialGCPServiceAccountKeyObservation struct {
@@ -223,10 +223,14 @@ type StorageCredentialGCPServiceAccountKeyParameters struct {
 	PrivateKeyID *string `json:"privateKeyId" tf:"private_key_id,omitempty"`
 
 	// +kubebuilder:validation:Optional
-	PrivateKeySecretRef v1.SecretKeySelector `json:"privateKeySecretRef" tf:"-"`
+	PrivateKeySecretRef v2.SecretKeySelector `json:"privateKeySecretRef" tf:"-"`
 }
 
 type StorageCredentialInitParameters struct {
+
+	// Specifies whether to use account-level or workspace-level API. Valid values are account and workspace. When not set, the API level is inferred from the provider host.
+	// Specifies whether to use account-level or workspace-level API. Valid values are `account` and `workspace`. When not set, the API level is inferred from the provider host.
+	API *string `json:"api,omitempty" tf:"api,omitempty"`
 
 	// exposes two additional attributes:
 	AwsIAMRole []StorageCredentialAwsIAMRoleInitParameters `json:"awsIamRole,omitempty" tf:"aws_iam_role,omitempty"`
@@ -261,6 +265,9 @@ type StorageCredentialInitParameters struct {
 	// Username/groupname/sp application_id of the storage credential owner.
 	Owner *string `json:"owner,omitempty" tf:"owner,omitempty"`
 
+	// Configure the provider for management through account provider. This block consists of the following fields:
+	ProviderConfig []StorageCredentialProviderConfigInitParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
+
 	// Indicates whether the storage credential is only usable for read operations.
 	ReadOnly *bool `json:"readOnly,omitempty" tf:"read_only,omitempty"`
 
@@ -269,6 +276,10 @@ type StorageCredentialInitParameters struct {
 }
 
 type StorageCredentialObservation struct {
+
+	// Specifies whether to use account-level or workspace-level API. Valid values are account and workspace. When not set, the API level is inferred from the provider host.
+	// Specifies whether to use account-level or workspace-level API. Valid values are `account` and `workspace`. When not set, the API level is inferred from the provider host.
+	API *string `json:"api,omitempty" tf:"api,omitempty"`
 
 	// exposes two additional attributes:
 	AwsIAMRole []StorageCredentialAwsIAMRoleObservation `json:"awsIamRole,omitempty" tf:"aws_iam_role,omitempty"`
@@ -306,6 +317,9 @@ type StorageCredentialObservation struct {
 	// Username/groupname/sp application_id of the storage credential owner.
 	Owner *string `json:"owner,omitempty" tf:"owner,omitempty"`
 
+	// Configure the provider for management through account provider. This block consists of the following fields:
+	ProviderConfig []StorageCredentialProviderConfigObservation `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
+
 	// Indicates whether the storage credential is only usable for read operations.
 	ReadOnly *bool `json:"readOnly,omitempty" tf:"read_only,omitempty"`
 
@@ -317,6 +331,11 @@ type StorageCredentialObservation struct {
 }
 
 type StorageCredentialParameters struct {
+
+	// Specifies whether to use account-level or workspace-level API. Valid values are account and workspace. When not set, the API level is inferred from the provider host.
+	// Specifies whether to use account-level or workspace-level API. Valid values are `account` and `workspace`. When not set, the API level is inferred from the provider host.
+	// +kubebuilder:validation:Optional
+	API *string `json:"api,omitempty" tf:"api,omitempty"`
 
 	// exposes two additional attributes:
 	// +kubebuilder:validation:Optional
@@ -364,6 +383,10 @@ type StorageCredentialParameters struct {
 	// +kubebuilder:validation:Optional
 	Owner *string `json:"owner,omitempty" tf:"owner,omitempty"`
 
+	// Configure the provider for management through account provider. This block consists of the following fields:
+	// +kubebuilder:validation:Optional
+	ProviderConfig []StorageCredentialProviderConfigParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
+
 	// Indicates whether the storage credential is only usable for read operations.
 	// +kubebuilder:validation:Optional
 	ReadOnly *bool `json:"readOnly,omitempty" tf:"read_only,omitempty"`
@@ -373,10 +396,29 @@ type StorageCredentialParameters struct {
 	SkipValidation *bool `json:"skipValidation,omitempty" tf:"skip_validation,omitempty"`
 }
 
+type StorageCredentialProviderConfigInitParameters struct {
+
+	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
+}
+
+type StorageCredentialProviderConfigObservation struct {
+
+	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
+}
+
+type StorageCredentialProviderConfigParameters struct {
+
+	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
+	// +kubebuilder:validation:Optional
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
+}
+
 // StorageCredentialSpec defines the desired state of StorageCredential
 type StorageCredentialSpec struct {
-	v1.ResourceSpec `json:",inline"`
-	ForProvider     StorageCredentialParameters `json:"forProvider"`
+	v2.ClusterManagedResourceSpec `json:",inline"`
+	ForProvider                   StorageCredentialParameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
 	// InitProvider holds the same fields as ForProvider, with the exception
@@ -392,8 +434,8 @@ type StorageCredentialSpec struct {
 
 // StorageCredentialStatus defines the observed state of StorageCredential.
 type StorageCredentialStatus struct {
-	v1.ResourceStatus `json:",inline"`
-	AtProvider        StorageCredentialObservation `json:"atProvider,omitempty"`
+	v2.ManagedResourceStatus `json:",inline"`
+	AtProvider               StorageCredentialObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true

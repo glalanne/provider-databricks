@@ -10,7 +10,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
+	v2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 )
 
 type MlflowModelInitParameters struct {
@@ -84,7 +84,7 @@ type MlflowModelProviderConfigParameters struct {
 
 	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
 	// +kubebuilder:validation:Optional
-	WorkspaceID *string `json:"workspaceId" tf:"workspace_id,omitempty"`
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
 }
 
 type MlflowModelTagsInitParameters struct {
@@ -110,8 +110,8 @@ type MlflowModelTagsParameters struct {
 
 // MlflowModelSpec defines the desired state of MlflowModel
 type MlflowModelSpec struct {
-	v1.ResourceSpec `json:",inline"`
-	ForProvider     MlflowModelParameters `json:"forProvider"`
+	v2.ClusterManagedResourceSpec `json:",inline"`
+	ForProvider                   MlflowModelParameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
 	// InitProvider holds the same fields as ForProvider, with the exception
@@ -127,8 +127,8 @@ type MlflowModelSpec struct {
 
 // MlflowModelStatus defines the observed state of MlflowModel.
 type MlflowModelStatus struct {
-	v1.ResourceStatus `json:",inline"`
-	AtProvider        MlflowModelObservation `json:"atProvider,omitempty"`
+	v2.ManagedResourceStatus `json:",inline"`
+	AtProvider               MlflowModelObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true

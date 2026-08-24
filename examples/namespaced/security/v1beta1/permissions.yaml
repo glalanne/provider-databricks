@@ -8,27 +8,27 @@ metadata:
   annotations:
     meta.upbound.io/example-id: security/v1beta1/permissions
   labels:
-    testing.upbound.io/example-name: cluster_usage
-  name: cluster-usage
+    testing.upbound.io/example-name: e2e-namespaced-cluster-security-cluster-usage
+  name: e2e-namespaced-cluster-security-cluster-usage-001
   namespace: upbound-system
 spec:
   forProvider:
     accessControl:
     - groupNameSelector:
         matchLabels:
-          testing.upbound.io/example-name: auto
+          testing.upbound.io/example-name: e2e-group-auto
       permissionLevel: CAN_ATTACH_TO
     - groupNameSelector:
         matchLabels:
-          testing.upbound.io/example-name: eng
+          testing.upbound.io/example-name: e2e-group-eng
       permissionLevel: CAN_RESTART
     - groupNameSelector:
         matchLabels:
-          testing.upbound.io/example-name: ds
+          testing.upbound.io/example-name: e2e-group-ds
       permissionLevel: CAN_MANAGE
     clusterIdSelector:
       matchLabels:
-        testing.upbound.io/example-name: shared_autoscaling
+        testing.upbound.io/example-name: e2e-namespaced-cluster-security
 
 ---
 
@@ -38,18 +38,18 @@ metadata:
   annotations:
     meta.upbound.io/example-id: security/v1beta1/permissions
   labels:
-    testing.upbound.io/example-name: shared_autoscaling
-  name: shared-autoscaling
+    testing.upbound.io/example-name: e2e-namespaced-cluster-security
+  name: e2e-namespaced-cluster-002
   namespace: upbound-system
 spec:
   forProvider:
     autoscale:
-      maxWorkers: 10
+      maxWorkers: 1
       minWorkers: 1
-    autoterminationMinutes: 60
-    clusterName: Shared Autoscaling
-    nodeTypeId: ${data.databricks_node_type.smallest.id}
-    sparkVersion: ${data.databricks_spark_version.latest.id}
+    autoterminationMinutes: 20
+    clusterName: "Crossplane E2E Namespaced 002"
+    nodeTypeId: "Standard_D3_v2" # Azure VM type, see https://docs.microsoft.com/en-us/azure/virtual-machines/sizes
+    sparkVersion: "18.x-scala2.13" # Databricks Runtime version, see https://docs.databricks.com/runtime/releases.html
 
 ---
 
@@ -59,12 +59,12 @@ metadata:
   annotations:
     meta.upbound.io/example-id: security/v1beta1/permissions
   labels:
-    testing.upbound.io/example-name: auto
-  name: auto
+    testing.upbound.io/example-name: e2e-group-auto
+  name: e2e-group-auto
   namespace: upbound-system
 spec:
   forProvider:
-    displayName: Automation
+    displayName: E2E Automation
 
 ---
 
@@ -74,12 +74,12 @@ metadata:
   annotations:
     meta.upbound.io/example-id: security/v1beta1/permissions
   labels:
-    testing.upbound.io/example-name: ds
-  name: ds
+    testing.upbound.io/example-name: e2e-group-ds
+  name: e2e-group-ds
   namespace: upbound-system
 spec:
   forProvider:
-    displayName: Data Science
+    displayName: E2EData Science
 
 ---
 
@@ -89,9 +89,9 @@ metadata:
   annotations:
     meta.upbound.io/example-id: security/v1beta1/permissions
   labels:
-    testing.upbound.io/example-name: eng
-  name: eng
+    testing.upbound.io/example-name: e2e-group-eng
+  name: e2e-group-eng
   namespace: upbound-system
 spec:
   forProvider:
-    displayName: Engineering
+    displayName: E2E Engineering

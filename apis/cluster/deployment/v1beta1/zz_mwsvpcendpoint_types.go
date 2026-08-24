@@ -10,7 +10,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
+	v2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 )
 
 type GCPVPCEndpointInfoInitParameters struct {
@@ -183,8 +183,8 @@ type MwsVPCEndpointParameters struct {
 
 // MwsVPCEndpointSpec defines the desired state of MwsVPCEndpoint
 type MwsVPCEndpointSpec struct {
-	v1.ResourceSpec `json:",inline"`
-	ForProvider     MwsVPCEndpointParameters `json:"forProvider"`
+	v2.ClusterManagedResourceSpec `json:",inline"`
+	ForProvider                   MwsVPCEndpointParameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
 	// InitProvider holds the same fields as ForProvider, with the exception
@@ -200,8 +200,8 @@ type MwsVPCEndpointSpec struct {
 
 // MwsVPCEndpointStatus defines the observed state of MwsVPCEndpoint.
 type MwsVPCEndpointStatus struct {
-	v1.ResourceStatus `json:",inline"`
-	AtProvider        MwsVPCEndpointObservation `json:"atProvider,omitempty"`
+	v2.ManagedResourceStatus `json:",inline"`
+	AtProvider               MwsVPCEndpointObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true

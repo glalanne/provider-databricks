@@ -1,0 +1,127 @@
+# SPDX-FileCopyrightText: 2026 The Crossplane Authors <https://crossplane.io>
+#
+# SPDX-License-Identifier: CC0-1.0
+
+apiVersion: workspace.databricks.m.crossplane.io/v1beta1
+kind: Notebook
+metadata:
+  labels:
+    testing.upbound.io/example-name: serverless-hello-world-notebook
+  name: serverless-hello-world
+  namespace: upbound-system
+spec:
+  forProvider:
+    contentBase64: cHJpbnQoIkhlbGxvIHdvcmxkIikK
+    language: PYTHON
+    path: /Shared/e2e-crossplane-serverless-hello-world
+
+---
+
+apiVersion: compute.databricks.m.crossplane.io/v1beta1
+kind: Job
+metadata:
+  labels:
+    testing.upbound.io/example-name: serverless-hello-world
+  annotations:
+    uptest.upbound.io/pre-assert-hook: "../../../../cluster/test/pre-assert-job.sh"
+  name: serverless-hello-world
+  namespace: upbound-system
+spec:
+  forProvider:
+    description: Runs two Hello World notebook tasks using serverless compute.
+    name: E2E Serverless Test Pipeline
+    environment:
+      - environmentKey: dbtDev
+        spec: 
+          client: "1"
+          dependencies:
+            - "dbt-databricks>=1.6.0" # Databricks recommends >= 1.6.0
+    task:
+    - dbtTask:
+        commands:
+        - dbt run
+        projectDirectory: /Workspace/Shared/e2e-hello-world-dbt-project
+        warehouseIdRef:
+          name: serverless-hello-world
+        source: WORKSPACE
+      taskKey: hello-world-3
+      environmentKey: dbtDev
+    - notebookTask:
+        notebookPathSelector:
+          matchLabels:
+            testing.upbound.io/example-name: serverless-hello-world-notebook
+        source: WORKSPACE
+      taskKey: hello-world-1
+    - dependsOn:
+      - taskKey: hello-world-1
+      notebookTask:
+        notebookPathSelector:
+          matchLabels:
+            testing.upbound.io/example-name: serverless-hello-world-notebook
+        source: WORKSPACE
+      taskKey: hello-world-2
+    tags:
+      env: dev
+      purpose: e2e
+
+---
+apiVersion: sql.databricks.m.crossplane.io/v1beta1
+kind: SQLEndpoint
+metadata:
+  annotations:
+    meta.upbound.io/example-id: sql/v1beta1/sqlendpoint
+  labels:
+    testing.upbound.io/example-name: serverless-hello-world-sql-endpoint
+  name: serverless-hello-world
+  namespace: upbound-system
+spec:
+  forProvider:
+    clusterSize: 2X-Small
+    maxNumClusters: 1
+    enableServerlessCompute: true
+    enablePhoton: false
+    name: E2E Serverless Test Pipeline
+    tags:
+      customTags:
+      - key: env
+        value: dev
+      - key: purpose
+        value: e2e
+---
+apiVersion: compute.databricks.m.crossplane.io/v1beta1
+kind: Pipeline
+metadata:
+  annotations:
+    meta.upbound.io/example-id: compute/v1beta1/pipeline
+  labels:
+    testing.upbound.io/example-name: serverless-hello-world-pipeline
+  name: serverless-hello-world-pipeline
+  namespace: upbound-system
+spec:
+  forProvider:
+    name: Pipeline E2E Serverless Test
+    catalog: btt_dev
+    schema: core-glapoc-dev
+    serverless: true
+    continuous: false
+
+    library:
+    - notebook:
+        pathSelector:
+          matchLabels:
+            testing.upbound.io/example-name: serverless-hello-world-notebook-dlt
+    
+    
+---
+apiVersion: workspace.databricks.m.crossplane.io/v1beta1
+kind: Notebook
+metadata:
+  labels:
+    testing.upbound.io/example-name: serverless-hello-world-notebook-dlt
+  name: serverless-hello-world-dlt
+  namespace: upbound-system
+spec:
+  forProvider:
+    contentBase64: aW1wb3J0IGRsdAoKQGRsdC50YWJsZSgKICAgIG5hbWU9ImhlbGxvX3dvcmxkIiwKICAgIGNvbW1lbnQ9IkEgZHVtbXkgaGVsbG8gd29ybGQgRGVsdGEgTGl2ZSBUYWJsZS4iLAopCmRlZiBoZWxsb193b3JsZCgpOgogICAgcmV0dXJuIHNwYXJrLmNyZWF0ZURhdGFGcmFtZSgKICAgICAgICBbKCJoZWxsbyB3b3JsZCIsKV0sCiAgICAgICAgWyJtZXNzYWdlIl0sCiAgICApCg==
+    language: PYTHON
+    path: /Shared/e2e-crossplane-serverless-hello-world-dlt

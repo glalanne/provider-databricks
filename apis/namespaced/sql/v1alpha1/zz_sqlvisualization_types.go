@@ -10,8 +10,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
-	v2 "github.com/crossplane/crossplane-runtime/v2/apis/common/v2"
+	v2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 )
 
 type SQLVisualizationInitParameters struct {
@@ -30,11 +29,11 @@ type SQLVisualizationInitParameters struct {
 
 	// Reference to a SQLQuery in sql to populate queryId.
 	// +kubebuilder:validation:Optional
-	QueryIDRef *v1.NamespacedReference `json:"queryIdRef,omitempty" tf:"-"`
+	QueryIDRef *v2.NamespacedReference `json:"queryIdRef,omitempty" tf:"-"`
 
 	// Selector for a SQLQuery in sql to populate queryId.
 	// +kubebuilder:validation:Optional
-	QueryIDSelector *v1.NamespacedSelector `json:"queryIdSelector,omitempty" tf:"-"`
+	QueryIDSelector *v2.NamespacedSelector `json:"queryIdSelector,omitempty" tf:"-"`
 
 	QueryPlan *string `json:"queryPlan,omitempty" tf:"query_plan,omitempty"`
 
@@ -86,11 +85,11 @@ type SQLVisualizationParameters struct {
 
 	// Reference to a SQLQuery in sql to populate queryId.
 	// +kubebuilder:validation:Optional
-	QueryIDRef *v1.NamespacedReference `json:"queryIdRef,omitempty" tf:"-"`
+	QueryIDRef *v2.NamespacedReference `json:"queryIdRef,omitempty" tf:"-"`
 
 	// Selector for a SQLQuery in sql to populate queryId.
 	// +kubebuilder:validation:Optional
-	QueryIDSelector *v1.NamespacedSelector `json:"queryIdSelector,omitempty" tf:"-"`
+	QueryIDSelector *v2.NamespacedSelector `json:"queryIdSelector,omitempty" tf:"-"`
 
 	// +kubebuilder:validation:Optional
 	QueryPlan *string `json:"queryPlan,omitempty" tf:"query_plan,omitempty"`
@@ -118,7 +117,7 @@ type SQLVisualizationProviderConfigParameters struct {
 
 	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
 	// +kubebuilder:validation:Optional
-	WorkspaceID *string `json:"workspaceId" tf:"workspace_id,omitempty"`
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
 }
 
 // SQLVisualizationSpec defines the desired state of SQLVisualization
@@ -140,8 +139,8 @@ type SQLVisualizationSpec struct {
 
 // SQLVisualizationStatus defines the observed state of SQLVisualization.
 type SQLVisualizationStatus struct {
-	v1.ResourceStatus `json:",inline"`
-	AtProvider        SQLVisualizationObservation `json:"atProvider,omitempty"`
+	v2.ManagedResourceStatus `json:",inline"`
+	AtProvider               SQLVisualizationObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true

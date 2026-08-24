@@ -1,0 +1,28 @@
+# SPDX-FileCopyrightText: 2026 The Crossplane Authors <https://crossplane.io>
+#
+# SPDX-License-Identifier: CC0-1.0
+
+apiVersion: unity.databricks.crossplane.io/v1beta1
+kind: ExternalMetadata
+metadata:
+  annotations:
+    meta.upbound.io/example-id: unity/v1beta1/externalmetadata
+  labels:
+    testing.upbound.io/example-name: this
+  name: this
+spec:
+  forProvider:
+    columns:
+    - type
+    - message
+    - details
+    - date
+    - time
+    description: A stream of security related events in the critical services.
+    entityType: Topic
+    properties:
+      compression.enabled: "true"
+      compression.format: zstd
+      topic: prod.security.events.raw
+    systemType: KAFKA
+    url: https://kafka.com/12345

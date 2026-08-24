@@ -10,19 +10,30 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
+	v2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 )
 
 type AccessControlRuleSetInitParameters struct {
+
+	// Specifies whether to use account-level or workspace-level API. Valid values are account and workspace. When not set, the API level is inferred from the provider host.
+	// Specifies whether to use account-level or workspace-level API. Valid values are `account` and `workspace`. When not set, the API level is inferred from the provider host.
+	API *string `json:"api,omitempty" tf:"api,omitempty"`
 
 	// The access control rules to be granted by this rule set, consisting of a set of principals and roles to be granted to them.
 	GrantRules []GrantRulesInitParameters `json:"grantRules,omitempty" tf:"grant_rules,omitempty"`
 
 	// Unique identifier of a rule set. The name determines the resource to which the rule set applies. Changing the name recreates the resource!. Currently, only default rule sets are supported. The following rule set formats are supported:
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	ProviderConfig *ProviderConfigInitParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
 }
 
 type AccessControlRuleSetObservation struct {
+
+	// Specifies whether to use account-level or workspace-level API. Valid values are account and workspace. When not set, the API level is inferred from the provider host.
+	// Specifies whether to use account-level or workspace-level API. Valid values are `account` and `workspace`. When not set, the API level is inferred from the provider host.
+	API *string `json:"api,omitempty" tf:"api,omitempty"`
+
 	Etag *string `json:"etag,omitempty" tf:"etag,omitempty"`
 
 	// The access control rules to be granted by this rule set, consisting of a set of principals and roles to be granted to them.
@@ -33,9 +44,16 @@ type AccessControlRuleSetObservation struct {
 
 	// Unique identifier of a rule set. The name determines the resource to which the rule set applies. Changing the name recreates the resource!. Currently, only default rule sets are supported. The following rule set formats are supported:
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	ProviderConfig *ProviderConfigObservation `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
 }
 
 type AccessControlRuleSetParameters struct {
+
+	// Specifies whether to use account-level or workspace-level API. Valid values are account and workspace. When not set, the API level is inferred from the provider host.
+	// Specifies whether to use account-level or workspace-level API. Valid values are `account` and `workspace`. When not set, the API level is inferred from the provider host.
+	// +kubebuilder:validation:Optional
+	API *string `json:"api,omitempty" tf:"api,omitempty"`
 
 	// The access control rules to be granted by this rule set, consisting of a set of principals and roles to be granted to them.
 	// +kubebuilder:validation:Optional
@@ -44,6 +62,9 @@ type AccessControlRuleSetParameters struct {
 	// Unique identifier of a rule set. The name determines the resource to which the rule set applies. Changing the name recreates the resource!. Currently, only default rule sets are supported. The following rule set formats are supported:
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	ProviderConfig *ProviderConfigParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
 }
 
 type GrantRulesInitParameters struct {
@@ -56,11 +77,11 @@ type GrantRulesInitParameters struct {
 
 	// References to Group in security to populate principals.
 	// +kubebuilder:validation:Optional
-	PrincipalsRefs []v1.Reference `json:"principalsRefs,omitempty" tf:"-"`
+	PrincipalsRefs []v2.Reference `json:"principalsRefs,omitempty" tf:"-"`
 
 	// Selector for a list of Group in security to populate principals.
 	// +kubebuilder:validation:Optional
-	PrincipalsSelector *v1.Selector `json:"principalsSelector,omitempty" tf:"-"`
+	PrincipalsSelector *v2.Selector `json:"principalsSelector,omitempty" tf:"-"`
 
 	// Role to be granted. The supported roles are listed below. For more information about these roles, refer to service principal roles, group roles, marketplace roles or budget policy permissions, depending on the name defined:
 	Role *string `json:"role,omitempty" tf:"role,omitempty"`
@@ -87,21 +108,40 @@ type GrantRulesParameters struct {
 
 	// References to Group in security to populate principals.
 	// +kubebuilder:validation:Optional
-	PrincipalsRefs []v1.Reference `json:"principalsRefs,omitempty" tf:"-"`
+	PrincipalsRefs []v2.Reference `json:"principalsRefs,omitempty" tf:"-"`
 
 	// Selector for a list of Group in security to populate principals.
 	// +kubebuilder:validation:Optional
-	PrincipalsSelector *v1.Selector `json:"principalsSelector,omitempty" tf:"-"`
+	PrincipalsSelector *v2.Selector `json:"principalsSelector,omitempty" tf:"-"`
 
 	// Role to be granted. The supported roles are listed below. For more information about these roles, refer to service principal roles, group roles, marketplace roles or budget policy permissions, depending on the name defined:
 	// +kubebuilder:validation:Optional
 	Role *string `json:"role" tf:"role,omitempty"`
 }
 
+type ProviderConfigInitParameters struct {
+
+	// ID of the access control rule set - the same as name.
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
+}
+
+type ProviderConfigObservation struct {
+
+	// ID of the access control rule set - the same as name.
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
+}
+
+type ProviderConfigParameters struct {
+
+	// ID of the access control rule set - the same as name.
+	// +kubebuilder:validation:Optional
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
+}
+
 // AccessControlRuleSetSpec defines the desired state of AccessControlRuleSet
 type AccessControlRuleSetSpec struct {
-	v1.ResourceSpec `json:",inline"`
-	ForProvider     AccessControlRuleSetParameters `json:"forProvider"`
+	v2.ClusterManagedResourceSpec `json:",inline"`
+	ForProvider                   AccessControlRuleSetParameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
 	// InitProvider holds the same fields as ForProvider, with the exception
@@ -117,8 +157,8 @@ type AccessControlRuleSetSpec struct {
 
 // AccessControlRuleSetStatus defines the observed state of AccessControlRuleSet.
 type AccessControlRuleSetStatus struct {
-	v1.ResourceStatus `json:",inline"`
-	AtProvider        AccessControlRuleSetObservation `json:"atProvider,omitempty"`
+	v2.ManagedResourceStatus `json:",inline"`
+	AtProvider               AccessControlRuleSetObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true
