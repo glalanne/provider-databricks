@@ -292,7 +292,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Fetch History
-        run: git fetch --prune
+        run: git fetch --prune --no-recurse-submodules
 
       - name: Setup Go
         uses: actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16 # v6
@@ -388,7 +388,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Fetch History
-        run: git fetch --prune
+        run: git fetch --prune --no-recurse-submodules
 
       - name: Setup Go
         uses: actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16 # v6
