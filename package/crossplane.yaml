@@ -9,14 +9,21 @@ metadata:
     meta.crossplane.io/maintainer: Geoffrey Lalanne <apps@lalanne.ca>
     meta.crossplane.io/source: github.com/glalanne/provider-databricks
     meta.crossplane.io/readme: |
-      `provider-databricks` is a community provider to manage [Databricks](https://www.databricks.com/) workspaces.
+      `provider-databricks` is a community provider to manage [Databricks](https://www.databricks.com/) resources.
 
-      The new version 2.x.x of this provider has breacking changes compaired the previous versions 0.x.x and  1.x.x. 
+      The new version 2.5.0 of the provider offers full support of Databricks resources with API version v1beta1. 
+      The provider is now compatible with Crossplane runtime v2.x.x and the new Crossplane CLI.
+
       Major changes include:
-      - The provider now uses the [new crossplane runtime v2.x.x](https://docs.crossplane.io/latest/whats-new/)
-      - Resources in v1.x.x used arrays of objects and in v2.x.x they use maps of objects (e.g Cluster, Job...).
+      - The provider now uses the [new crossplane runtime v2.3.x](https://docs.crossplane.io/latest/whats-new/)
+      - Resources in v1alpha used arrays of objects and v1beta1 they use maps of objects (e.g Cluster, Job...).
 
-      If you encounter an issue please create an issue in
+      v1alpha1 resources are still available but will be deprecated in the future major release. Please migrate to v1beta1 resources.
+
+      This provider is using the Databricks Terraform provider under the hood. 
+      For more information about the resources and their fields, please refer to the [Databricks Terraform provider documentation](https://registry.terraform.io/providers/databricks/databricks/latest/docs).
+
+      If you encounter an issue or want to report a new feature,please create an issue in
       the
       [glalanne/provider-databricks](https://github.com/glalanne/provider-databricks/issues)
       repo.
