@@ -3261,8 +3261,6 @@ type PipelineInitParameters struct {
 	// Canonical unique identifier of the Lakeflow Declarative Pipeline.
 	ServerlessComputeID *string `json:"serverlessComputeId,omitempty" tf:"serverless_compute_id,omitempty"`
 
-	State *string `json:"state,omitempty" tf:"state,omitempty"`
-
 	// to catalog or vice versa.  If pipeline was already created with catalog set, the value could be changed.
 	Storage *string `json:"storage,omitempty" tf:"storage,omitempty"`
 
@@ -3614,9 +3612,6 @@ type PipelineParameters struct {
 	// Canonical unique identifier of the Lakeflow Declarative Pipeline.
 	// +kubebuilder:validation:Optional
 	ServerlessComputeID *string `json:"serverlessComputeId,omitempty" tf:"serverless_compute_id,omitempty"`
-
-	// +kubebuilder:validation:Optional
-	State *string `json:"state,omitempty" tf:"state,omitempty"`
 
 	// to catalog or vice versa.  If pipeline was already created with catalog set, the value could be changed.
 	// +kubebuilder:validation:Optional

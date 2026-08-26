@@ -35973,11 +35973,6 @@ func (in *PipelineInitParameters) DeepCopyInto(out *PipelineInitParameters) {
 		*out = new(string)
 		**out = **in
 	}
-	if in.State != nil {
-		in, out := &in.State, &out.State
-		*out = new(string)
-		**out = **in
-	}
 	if in.Storage != nil {
 		in, out := &in.Storage, &out.Storage
 		*out = new(string)
@@ -36740,11 +36735,6 @@ func (in *PipelineParameters) DeepCopyInto(out *PipelineParameters) {
 	}
 	if in.ServerlessComputeID != nil {
 		in, out := &in.ServerlessComputeID, &out.ServerlessComputeID
-		*out = new(string)
-		**out = **in
-	}
-	if in.State != nil {
-		in, out := &in.State, &out.State
 		*out = new(string)
 		**out = **in
 	}

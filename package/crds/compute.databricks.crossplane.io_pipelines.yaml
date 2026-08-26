@@ -2090,8 +2090,6 @@ spec:
                     description: Canonical unique identifier of the Lakeflow Declarative
                       Pipeline.
                     type: string
-                  state:
-                    type: string
                   storage:
                     description: to catalog or vice versa.  If pipeline was already
                       created with catalog set, the value could be changed.
@@ -4166,8 +4164,6 @@ spec:
                   serverlessComputeId:
                     description: Canonical unique identifier of the Lakeflow Declarative
                       Pipeline.
-                    type: string
-                  state:
                     type: string
                   storage:
                     description: to catalog or vice versa.  If pipeline was already
@@ -8211,8 +8207,6 @@ spec:
                     description: Canonical unique identifier of the Lakeflow Declarative
                       Pipeline.
                     type: string
-                  state:
-                    type: string
                   storage:
                     description: to catalog or vice versa.  If pipeline was already
                       created with catalog set, the value could be changed.
@@ -10056,8 +10050,6 @@ spec:
                   serverlessComputeId:
                     description: Canonical unique identifier of the Lakeflow Declarative
                       Pipeline.
-                    type: string
-                  state:
                     type: string
                   storage:
                     description: to catalog or vice versa.  If pipeline was already
