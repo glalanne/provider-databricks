@@ -6,84 +6,84 @@
 
 package v1alpha1
 
-import xpv1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
+import xpv2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 
 // GetCondition of this AccountFederationPolicy.
-func (mg *AccountFederationPolicy) GetCondition(ct xpv1.ConditionType) xpv1.Condition {
+func (mg *AccountFederationPolicy) GetCondition(ct xpv2.ConditionType) xpv2.Condition {
 	return mg.Status.GetCondition(ct)
 }
 
 // GetManagementPolicies of this AccountFederationPolicy.
-func (mg *AccountFederationPolicy) GetManagementPolicies() xpv1.ManagementPolicies {
+func (mg *AccountFederationPolicy) GetManagementPolicies() xpv2.ManagementPolicies {
 	return mg.Spec.ManagementPolicies
 }
 
 // GetProviderConfigReference of this AccountFederationPolicy.
-func (mg *AccountFederationPolicy) GetProviderConfigReference() *xpv1.ProviderConfigReference {
+func (mg *AccountFederationPolicy) GetProviderConfigReference() *xpv2.ProviderConfigReference {
 	return mg.Spec.ProviderConfigReference
 }
 
 // GetWriteConnectionSecretToReference of this AccountFederationPolicy.
-func (mg *AccountFederationPolicy) GetWriteConnectionSecretToReference() *xpv1.LocalSecretReference {
+func (mg *AccountFederationPolicy) GetWriteConnectionSecretToReference() *xpv2.LocalSecretReference {
 	return mg.Spec.WriteConnectionSecretToReference
 }
 
 // SetConditions of this AccountFederationPolicy.
-func (mg *AccountFederationPolicy) SetConditions(c ...xpv1.Condition) {
+func (mg *AccountFederationPolicy) SetConditions(c ...xpv2.Condition) {
 	mg.Status.SetConditions(c...)
 }
 
 // SetManagementPolicies of this AccountFederationPolicy.
-func (mg *AccountFederationPolicy) SetManagementPolicies(r xpv1.ManagementPolicies) {
+func (mg *AccountFederationPolicy) SetManagementPolicies(r xpv2.ManagementPolicies) {
 	mg.Spec.ManagementPolicies = r
 }
 
 // SetProviderConfigReference of this AccountFederationPolicy.
-func (mg *AccountFederationPolicy) SetProviderConfigReference(r *xpv1.ProviderConfigReference) {
+func (mg *AccountFederationPolicy) SetProviderConfigReference(r *xpv2.ProviderConfigReference) {
 	mg.Spec.ProviderConfigReference = r
 }
 
 // SetWriteConnectionSecretToReference of this AccountFederationPolicy.
-func (mg *AccountFederationPolicy) SetWriteConnectionSecretToReference(r *xpv1.LocalSecretReference) {
+func (mg *AccountFederationPolicy) SetWriteConnectionSecretToReference(r *xpv2.LocalSecretReference) {
 	mg.Spec.WriteConnectionSecretToReference = r
 }
 
 // GetCondition of this ServicePrincipalFederationPolicy.
-func (mg *ServicePrincipalFederationPolicy) GetCondition(ct xpv1.ConditionType) xpv1.Condition {
+func (mg *ServicePrincipalFederationPolicy) GetCondition(ct xpv2.ConditionType) xpv2.Condition {
 	return mg.Status.GetCondition(ct)
 }
 
 // GetManagementPolicies of this ServicePrincipalFederationPolicy.
-func (mg *ServicePrincipalFederationPolicy) GetManagementPolicies() xpv1.ManagementPolicies {
+func (mg *ServicePrincipalFederationPolicy) GetManagementPolicies() xpv2.ManagementPolicies {
 	return mg.Spec.ManagementPolicies
 }
 
 // GetProviderConfigReference of this ServicePrincipalFederationPolicy.
-func (mg *ServicePrincipalFederationPolicy) GetProviderConfigReference() *xpv1.ProviderConfigReference {
+func (mg *ServicePrincipalFederationPolicy) GetProviderConfigReference() *xpv2.ProviderConfigReference {
 	return mg.Spec.ProviderConfigReference
 }
 
 // GetWriteConnectionSecretToReference of this ServicePrincipalFederationPolicy.
-func (mg *ServicePrincipalFederationPolicy) GetWriteConnectionSecretToReference() *xpv1.LocalSecretReference {
+func (mg *ServicePrincipalFederationPolicy) GetWriteConnectionSecretToReference() *xpv2.LocalSecretReference {
 	return mg.Spec.WriteConnectionSecretToReference
 }
 
 // SetConditions of this ServicePrincipalFederationPolicy.
-func (mg *ServicePrincipalFederationPolicy) SetConditions(c ...xpv1.Condition) {
+func (mg *ServicePrincipalFederationPolicy) SetConditions(c ...xpv2.Condition) {
 	mg.Status.SetConditions(c...)
 }
 
 // SetManagementPolicies of this ServicePrincipalFederationPolicy.
-func (mg *ServicePrincipalFederationPolicy) SetManagementPolicies(r xpv1.ManagementPolicies) {
+func (mg *ServicePrincipalFederationPolicy) SetManagementPolicies(r xpv2.ManagementPolicies) {
 	mg.Spec.ManagementPolicies = r
 }
 
 // SetProviderConfigReference of this ServicePrincipalFederationPolicy.
-func (mg *ServicePrincipalFederationPolicy) SetProviderConfigReference(r *xpv1.ProviderConfigReference) {
+func (mg *ServicePrincipalFederationPolicy) SetProviderConfigReference(r *xpv2.ProviderConfigReference) {
 	mg.Spec.ProviderConfigReference = r
 }
 
 // SetWriteConnectionSecretToReference of this ServicePrincipalFederationPolicy.
-func (mg *ServicePrincipalFederationPolicy) SetWriteConnectionSecretToReference(r *xpv1.LocalSecretReference) {
+func (mg *ServicePrincipalFederationPolicy) SetWriteConnectionSecretToReference(r *xpv2.LocalSecretReference) {
 	mg.Spec.WriteConnectionSecretToReference = r
 }

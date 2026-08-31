@@ -10,10 +10,16 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
+	v2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 )
 
 type ServicePrincipalRoleInitParameters struct {
+
+	// Specifies whether to use account-level or workspace-level API. Valid values are account and workspace. When not set, the API level is inferred from the provider host.
+	// Specifies whether to use account-level or workspace-level API. Valid values are `account` and `workspace`. When not set, the API level is inferred from the provider host.
+	API *string `json:"api,omitempty" tf:"api,omitempty"`
+
+	ProviderConfig []ServicePrincipalRoleProviderConfigInitParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
 
 	// This is the role name, role id, or instance profile resource.
 	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/cluster/deployment/v1alpha1.InstanceProfile
@@ -22,11 +28,11 @@ type ServicePrincipalRoleInitParameters struct {
 
 	// Reference to a InstanceProfile in deployment to populate role.
 	// +kubebuilder:validation:Optional
-	RoleRef *v1.Reference `json:"roleRef,omitempty" tf:"-"`
+	RoleRef *v2.Reference `json:"roleRef,omitempty" tf:"-"`
 
 	// Selector for a InstanceProfile in deployment to populate role.
 	// +kubebuilder:validation:Optional
-	RoleSelector *v1.Selector `json:"roleSelector,omitempty" tf:"-"`
+	RoleSelector *v2.Selector `json:"roleSelector,omitempty" tf:"-"`
 
 	// This is the id of the service principal resource.
 	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/cluster/security/v1alpha1.ServicePrincipal
@@ -35,17 +41,23 @@ type ServicePrincipalRoleInitParameters struct {
 
 	// Reference to a ServicePrincipal in security to populate servicePrincipalId.
 	// +kubebuilder:validation:Optional
-	ServicePrincipalIDRef *v1.Reference `json:"servicePrincipalIdRef,omitempty" tf:"-"`
+	ServicePrincipalIDRef *v2.Reference `json:"servicePrincipalIdRef,omitempty" tf:"-"`
 
 	// Selector for a ServicePrincipal in security to populate servicePrincipalId.
 	// +kubebuilder:validation:Optional
-	ServicePrincipalIDSelector *v1.Selector `json:"servicePrincipalIdSelector,omitempty" tf:"-"`
+	ServicePrincipalIDSelector *v2.Selector `json:"servicePrincipalIdSelector,omitempty" tf:"-"`
 }
 
 type ServicePrincipalRoleObservation struct {
 
+	// Specifies whether to use account-level or workspace-level API. Valid values are account and workspace. When not set, the API level is inferred from the provider host.
+	// Specifies whether to use account-level or workspace-level API. Valid values are `account` and `workspace`. When not set, the API level is inferred from the provider host.
+	API *string `json:"api,omitempty" tf:"api,omitempty"`
+
 	// The id in the format <service_principal_id>|<role>.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
+	ProviderConfig []ServicePrincipalRoleProviderConfigObservation `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
 
 	// This is the role name, role id, or instance profile resource.
 	Role *string `json:"role,omitempty" tf:"role,omitempty"`
@@ -56,6 +68,14 @@ type ServicePrincipalRoleObservation struct {
 
 type ServicePrincipalRoleParameters struct {
 
+	// Specifies whether to use account-level or workspace-level API. Valid values are account and workspace. When not set, the API level is inferred from the provider host.
+	// Specifies whether to use account-level or workspace-level API. Valid values are `account` and `workspace`. When not set, the API level is inferred from the provider host.
+	// +kubebuilder:validation:Optional
+	API *string `json:"api,omitempty" tf:"api,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	ProviderConfig []ServicePrincipalRoleProviderConfigParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
+
 	// This is the role name, role id, or instance profile resource.
 	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/cluster/deployment/v1alpha1.InstanceProfile
 	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/v2/pkg/resource.ExtractResourceID()
@@ -64,11 +84,11 @@ type ServicePrincipalRoleParameters struct {
 
 	// Reference to a InstanceProfile in deployment to populate role.
 	// +kubebuilder:validation:Optional
-	RoleRef *v1.Reference `json:"roleRef,omitempty" tf:"-"`
+	RoleRef *v2.Reference `json:"roleRef,omitempty" tf:"-"`
 
 	// Selector for a InstanceProfile in deployment to populate role.
 	// +kubebuilder:validation:Optional
-	RoleSelector *v1.Selector `json:"roleSelector,omitempty" tf:"-"`
+	RoleSelector *v2.Selector `json:"roleSelector,omitempty" tf:"-"`
 
 	// This is the id of the service principal resource.
 	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/cluster/security/v1alpha1.ServicePrincipal
@@ -78,17 +98,36 @@ type ServicePrincipalRoleParameters struct {
 
 	// Reference to a ServicePrincipal in security to populate servicePrincipalId.
 	// +kubebuilder:validation:Optional
-	ServicePrincipalIDRef *v1.Reference `json:"servicePrincipalIdRef,omitempty" tf:"-"`
+	ServicePrincipalIDRef *v2.Reference `json:"servicePrincipalIdRef,omitempty" tf:"-"`
 
 	// Selector for a ServicePrincipal in security to populate servicePrincipalId.
 	// +kubebuilder:validation:Optional
-	ServicePrincipalIDSelector *v1.Selector `json:"servicePrincipalIdSelector,omitempty" tf:"-"`
+	ServicePrincipalIDSelector *v2.Selector `json:"servicePrincipalIdSelector,omitempty" tf:"-"`
+}
+
+type ServicePrincipalRoleProviderConfigInitParameters struct {
+
+	// The id in the format <service_principal_id>|<role>.
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
+}
+
+type ServicePrincipalRoleProviderConfigObservation struct {
+
+	// The id in the format <service_principal_id>|<role>.
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
+}
+
+type ServicePrincipalRoleProviderConfigParameters struct {
+
+	// The id in the format <service_principal_id>|<role>.
+	// +kubebuilder:validation:Optional
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
 }
 
 // ServicePrincipalRoleSpec defines the desired state of ServicePrincipalRole
 type ServicePrincipalRoleSpec struct {
-	v1.ResourceSpec `json:",inline"`
-	ForProvider     ServicePrincipalRoleParameters `json:"forProvider"`
+	v2.ClusterManagedResourceSpec `json:",inline"`
+	ForProvider                   ServicePrincipalRoleParameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
 	// InitProvider holds the same fields as ForProvider, with the exception
@@ -104,8 +143,8 @@ type ServicePrincipalRoleSpec struct {
 
 // ServicePrincipalRoleStatus defines the observed state of ServicePrincipalRole.
 type ServicePrincipalRoleStatus struct {
-	v1.ResourceStatus `json:",inline"`
-	AtProvider        ServicePrincipalRoleObservation `json:"atProvider,omitempty"`
+	v2.ManagedResourceStatus `json:",inline"`
+	AtProvider               ServicePrincipalRoleObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true

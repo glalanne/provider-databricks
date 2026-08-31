@@ -5,7 +5,6 @@
 
 ![CI](https://github.com/glalanne/provider-databricks/workflows/CI/badge.svg)
 [![GitHub release](https://img.shields.io/github/release/glalanne/provider-databricks/all.svg)](https://github.com/glalanne/provider-databricks/releases)
-[![Go Report Card](https://goreportcard.com/badge/github.com/glalanne/provider-databricks)](https://goreportcard.com/report/github.com/glalanne/provider-databricks)
 [![Contributors](https://img.shields.io/github/contributors/glalanne/provider-databricks)](https://github.com/glalanne/provider-databricks/graphs/contributors)
 
 
@@ -24,7 +23,7 @@ Most of the testing have been done on [Azure Databricks](https://azure.microsoft
 Install the provider by using the following command after changing the image tag
 to the [latest release](https://marketplace.upbound.io/providers/lalanne/provider-databricks):
 ```
-up ctp provider install xpkg.upbound.io/lalanne/provider-databricks:v2.4.0
+up ctp provider install xpkg.upbound.io/lalanne/provider-databricks:v2.5.0
 ```
 
 Alternatively, you can use declarative installation:
@@ -35,7 +34,7 @@ kind: Provider
 metadata:
   name: provider-databricks
 spec:
-  package: xpkg.upbound.io/lalanne/provider-databricks:v2.4.0
+  package: xpkg.upbound.io/lalanne/provider-databricks:v2.5.0
 EOF
 ```
 

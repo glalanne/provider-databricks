@@ -6,124 +6,124 @@
 
 package v1alpha1
 
-import xpv1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
+import xpv2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 
 // GetCondition of this MlflowExperiment.
-func (mg *MlflowExperiment) GetCondition(ct xpv1.ConditionType) xpv1.Condition {
+func (mg *MlflowExperiment) GetCondition(ct xpv2.ConditionType) xpv2.Condition {
 	return mg.Status.GetCondition(ct)
 }
 
 // GetManagementPolicies of this MlflowExperiment.
-func (mg *MlflowExperiment) GetManagementPolicies() xpv1.ManagementPolicies {
+func (mg *MlflowExperiment) GetManagementPolicies() xpv2.ManagementPolicies {
 	return mg.Spec.ManagementPolicies
 }
 
 // GetProviderConfigReference of this MlflowExperiment.
-func (mg *MlflowExperiment) GetProviderConfigReference() *xpv1.ProviderConfigReference {
+func (mg *MlflowExperiment) GetProviderConfigReference() *xpv2.ProviderConfigReference {
 	return mg.Spec.ProviderConfigReference
 }
 
 // GetWriteConnectionSecretToReference of this MlflowExperiment.
-func (mg *MlflowExperiment) GetWriteConnectionSecretToReference() *xpv1.LocalSecretReference {
+func (mg *MlflowExperiment) GetWriteConnectionSecretToReference() *xpv2.LocalSecretReference {
 	return mg.Spec.WriteConnectionSecretToReference
 }
 
 // SetConditions of this MlflowExperiment.
-func (mg *MlflowExperiment) SetConditions(c ...xpv1.Condition) {
+func (mg *MlflowExperiment) SetConditions(c ...xpv2.Condition) {
 	mg.Status.SetConditions(c...)
 }
 
 // SetManagementPolicies of this MlflowExperiment.
-func (mg *MlflowExperiment) SetManagementPolicies(r xpv1.ManagementPolicies) {
+func (mg *MlflowExperiment) SetManagementPolicies(r xpv2.ManagementPolicies) {
 	mg.Spec.ManagementPolicies = r
 }
 
 // SetProviderConfigReference of this MlflowExperiment.
-func (mg *MlflowExperiment) SetProviderConfigReference(r *xpv1.ProviderConfigReference) {
+func (mg *MlflowExperiment) SetProviderConfigReference(r *xpv2.ProviderConfigReference) {
 	mg.Spec.ProviderConfigReference = r
 }
 
 // SetWriteConnectionSecretToReference of this MlflowExperiment.
-func (mg *MlflowExperiment) SetWriteConnectionSecretToReference(r *xpv1.LocalSecretReference) {
+func (mg *MlflowExperiment) SetWriteConnectionSecretToReference(r *xpv2.LocalSecretReference) {
 	mg.Spec.WriteConnectionSecretToReference = r
 }
 
 // GetCondition of this MlflowModel.
-func (mg *MlflowModel) GetCondition(ct xpv1.ConditionType) xpv1.Condition {
+func (mg *MlflowModel) GetCondition(ct xpv2.ConditionType) xpv2.Condition {
 	return mg.Status.GetCondition(ct)
 }
 
 // GetManagementPolicies of this MlflowModel.
-func (mg *MlflowModel) GetManagementPolicies() xpv1.ManagementPolicies {
+func (mg *MlflowModel) GetManagementPolicies() xpv2.ManagementPolicies {
 	return mg.Spec.ManagementPolicies
 }
 
 // GetProviderConfigReference of this MlflowModel.
-func (mg *MlflowModel) GetProviderConfigReference() *xpv1.ProviderConfigReference {
+func (mg *MlflowModel) GetProviderConfigReference() *xpv2.ProviderConfigReference {
 	return mg.Spec.ProviderConfigReference
 }
 
 // GetWriteConnectionSecretToReference of this MlflowModel.
-func (mg *MlflowModel) GetWriteConnectionSecretToReference() *xpv1.LocalSecretReference {
+func (mg *MlflowModel) GetWriteConnectionSecretToReference() *xpv2.LocalSecretReference {
 	return mg.Spec.WriteConnectionSecretToReference
 }
 
 // SetConditions of this MlflowModel.
-func (mg *MlflowModel) SetConditions(c ...xpv1.Condition) {
+func (mg *MlflowModel) SetConditions(c ...xpv2.Condition) {
 	mg.Status.SetConditions(c...)
 }
 
 // SetManagementPolicies of this MlflowModel.
-func (mg *MlflowModel) SetManagementPolicies(r xpv1.ManagementPolicies) {
+func (mg *MlflowModel) SetManagementPolicies(r xpv2.ManagementPolicies) {
 	mg.Spec.ManagementPolicies = r
 }
 
 // SetProviderConfigReference of this MlflowModel.
-func (mg *MlflowModel) SetProviderConfigReference(r *xpv1.ProviderConfigReference) {
+func (mg *MlflowModel) SetProviderConfigReference(r *xpv2.ProviderConfigReference) {
 	mg.Spec.ProviderConfigReference = r
 }
 
 // SetWriteConnectionSecretToReference of this MlflowModel.
-func (mg *MlflowModel) SetWriteConnectionSecretToReference(r *xpv1.LocalSecretReference) {
+func (mg *MlflowModel) SetWriteConnectionSecretToReference(r *xpv2.LocalSecretReference) {
 	mg.Spec.WriteConnectionSecretToReference = r
 }
 
 // GetCondition of this MlflowWebhook.
-func (mg *MlflowWebhook) GetCondition(ct xpv1.ConditionType) xpv1.Condition {
+func (mg *MlflowWebhook) GetCondition(ct xpv2.ConditionType) xpv2.Condition {
 	return mg.Status.GetCondition(ct)
 }
 
 // GetManagementPolicies of this MlflowWebhook.
-func (mg *MlflowWebhook) GetManagementPolicies() xpv1.ManagementPolicies {
+func (mg *MlflowWebhook) GetManagementPolicies() xpv2.ManagementPolicies {
 	return mg.Spec.ManagementPolicies
 }
 
 // GetProviderConfigReference of this MlflowWebhook.
-func (mg *MlflowWebhook) GetProviderConfigReference() *xpv1.ProviderConfigReference {
+func (mg *MlflowWebhook) GetProviderConfigReference() *xpv2.ProviderConfigReference {
 	return mg.Spec.ProviderConfigReference
 }
 
 // GetWriteConnectionSecretToReference of this MlflowWebhook.
-func (mg *MlflowWebhook) GetWriteConnectionSecretToReference() *xpv1.LocalSecretReference {
+func (mg *MlflowWebhook) GetWriteConnectionSecretToReference() *xpv2.LocalSecretReference {
 	return mg.Spec.WriteConnectionSecretToReference
 }
 
 // SetConditions of this MlflowWebhook.
-func (mg *MlflowWebhook) SetConditions(c ...xpv1.Condition) {
+func (mg *MlflowWebhook) SetConditions(c ...xpv2.Condition) {
 	mg.Status.SetConditions(c...)
 }
 
 // SetManagementPolicies of this MlflowWebhook.
-func (mg *MlflowWebhook) SetManagementPolicies(r xpv1.ManagementPolicies) {
+func (mg *MlflowWebhook) SetManagementPolicies(r xpv2.ManagementPolicies) {
 	mg.Spec.ManagementPolicies = r
 }
 
 // SetProviderConfigReference of this MlflowWebhook.
-func (mg *MlflowWebhook) SetProviderConfigReference(r *xpv1.ProviderConfigReference) {
+func (mg *MlflowWebhook) SetProviderConfigReference(r *xpv2.ProviderConfigReference) {
 	mg.Spec.ProviderConfigReference = r
 }
 
 // SetWriteConnectionSecretToReference of this MlflowWebhook.
-func (mg *MlflowWebhook) SetWriteConnectionSecretToReference(r *xpv1.LocalSecretReference) {
+func (mg *MlflowWebhook) SetWriteConnectionSecretToReference(r *xpv2.LocalSecretReference) {
 	mg.Spec.WriteConnectionSecretToReference = r
 }

@@ -10,7 +10,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
+	v2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 )
 
 type MwsPermissionAssignmentInitParameters struct {
@@ -26,11 +26,11 @@ type MwsPermissionAssignmentInitParameters struct {
 
 	// Reference to a Group in security to populate principalId.
 	// +kubebuilder:validation:Optional
-	PrincipalIDRef *v1.Reference `json:"principalIdRef,omitempty" tf:"-"`
+	PrincipalIDRef *v2.Reference `json:"principalIdRef,omitempty" tf:"-"`
 
 	// Selector for a Group in security to populate principalId.
 	// +kubebuilder:validation:Optional
-	PrincipalIDSelector *v1.Selector `json:"principalIdSelector,omitempty" tf:"-"`
+	PrincipalIDSelector *v2.Selector `json:"principalIdSelector,omitempty" tf:"-"`
 
 	// Databricks workspace ID.
 	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/cluster/deployment/v1alpha1.MwsWorkspaces
@@ -39,11 +39,11 @@ type MwsPermissionAssignmentInitParameters struct {
 
 	// Reference to a MwsWorkspaces in deployment to populate workspaceId.
 	// +kubebuilder:validation:Optional
-	WorkspaceIDRef *v1.Reference `json:"workspaceIdRef,omitempty" tf:"-"`
+	WorkspaceIDRef *v2.Reference `json:"workspaceIdRef,omitempty" tf:"-"`
 
 	// Selector for a MwsWorkspaces in deployment to populate workspaceId.
 	// +kubebuilder:validation:Optional
-	WorkspaceIDSelector *v1.Selector `json:"workspaceIdSelector,omitempty" tf:"-"`
+	WorkspaceIDSelector *v2.Selector `json:"workspaceIdSelector,omitempty" tf:"-"`
 }
 
 type MwsPermissionAssignmentObservation struct {
@@ -77,11 +77,11 @@ type MwsPermissionAssignmentParameters struct {
 
 	// Reference to a Group in security to populate principalId.
 	// +kubebuilder:validation:Optional
-	PrincipalIDRef *v1.Reference `json:"principalIdRef,omitempty" tf:"-"`
+	PrincipalIDRef *v2.Reference `json:"principalIdRef,omitempty" tf:"-"`
 
 	// Selector for a Group in security to populate principalId.
 	// +kubebuilder:validation:Optional
-	PrincipalIDSelector *v1.Selector `json:"principalIdSelector,omitempty" tf:"-"`
+	PrincipalIDSelector *v2.Selector `json:"principalIdSelector,omitempty" tf:"-"`
 
 	// Databricks workspace ID.
 	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/cluster/deployment/v1alpha1.MwsWorkspaces
@@ -91,17 +91,17 @@ type MwsPermissionAssignmentParameters struct {
 
 	// Reference to a MwsWorkspaces in deployment to populate workspaceId.
 	// +kubebuilder:validation:Optional
-	WorkspaceIDRef *v1.Reference `json:"workspaceIdRef,omitempty" tf:"-"`
+	WorkspaceIDRef *v2.Reference `json:"workspaceIdRef,omitempty" tf:"-"`
 
 	// Selector for a MwsWorkspaces in deployment to populate workspaceId.
 	// +kubebuilder:validation:Optional
-	WorkspaceIDSelector *v1.Selector `json:"workspaceIdSelector,omitempty" tf:"-"`
+	WorkspaceIDSelector *v2.Selector `json:"workspaceIdSelector,omitempty" tf:"-"`
 }
 
 // MwsPermissionAssignmentSpec defines the desired state of MwsPermissionAssignment
 type MwsPermissionAssignmentSpec struct {
-	v1.ResourceSpec `json:",inline"`
-	ForProvider     MwsPermissionAssignmentParameters `json:"forProvider"`
+	v2.ClusterManagedResourceSpec `json:",inline"`
+	ForProvider                   MwsPermissionAssignmentParameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
 	// InitProvider holds the same fields as ForProvider, with the exception
@@ -117,8 +117,8 @@ type MwsPermissionAssignmentSpec struct {
 
 // MwsPermissionAssignmentStatus defines the observed state of MwsPermissionAssignment.
 type MwsPermissionAssignmentStatus struct {
-	v1.ResourceStatus `json:",inline"`
-	AtProvider        MwsPermissionAssignmentObservation `json:"atProvider,omitempty"`
+	v2.ManagedResourceStatus `json:",inline"`
+	AtProvider               MwsPermissionAssignmentObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true

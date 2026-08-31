@@ -10,7 +10,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
+	v2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 )
 
 type ProviderConfigInitParameters struct {
@@ -29,7 +29,7 @@ type ProviderConfigParameters struct {
 
 	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
 	// +kubebuilder:validation:Optional
-	WorkspaceID *string `json:"workspaceId" tf:"workspace_id,omitempty"`
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
 }
 
 type ProviderInitParameters struct {
@@ -47,7 +47,7 @@ type ProviderInitParameters struct {
 	ProviderConfig []ProviderConfigInitParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
 
 	// This is the json file that is created from a recipient url.
-	RecipientProfileStrSecretRef v1.SecretKeySelector `json:"recipientProfileStrSecretRef" tf:"-"`
+	RecipientProfileStrSecretRef v2.SecretKeySelector `json:"recipientProfileStrSecretRef" tf:"-"`
 }
 
 type ProviderObservation struct {
@@ -88,13 +88,13 @@ type ProviderParameters struct {
 
 	// This is the json file that is created from a recipient url.
 	// +kubebuilder:validation:Optional
-	RecipientProfileStrSecretRef v1.SecretKeySelector `json:"recipientProfileStrSecretRef" tf:"-"`
+	RecipientProfileStrSecretRef v2.SecretKeySelector `json:"recipientProfileStrSecretRef" tf:"-"`
 }
 
 // ProviderSpec defines the desired state of Provider
 type ProviderSpec struct {
-	v1.ResourceSpec `json:",inline"`
-	ForProvider     ProviderParameters `json:"forProvider"`
+	v2.ClusterManagedResourceSpec `json:",inline"`
+	ForProvider                   ProviderParameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
 	// InitProvider holds the same fields as ForProvider, with the exception
@@ -110,8 +110,8 @@ type ProviderSpec struct {
 
 // ProviderStatus defines the observed state of Provider.
 type ProviderStatus struct {
-	v1.ResourceStatus `json:",inline"`
-	AtProvider        ProviderObservation `json:"atProvider,omitempty"`
+	v2.ManagedResourceStatus `json:",inline"`
+	AtProvider               ProviderObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true

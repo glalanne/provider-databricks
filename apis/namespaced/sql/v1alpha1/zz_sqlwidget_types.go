@@ -10,8 +10,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
-	v2 "github.com/crossplane/crossplane-runtime/v2/apis/common/v2"
+	v2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 )
 
 type PositionInitParameters struct {
@@ -64,11 +63,11 @@ type SQLWidgetInitParameters struct {
 
 	// Reference to a SQLDashboard in sql to populate dashboardId.
 	// +kubebuilder:validation:Optional
-	DashboardIDRef *v1.NamespacedReference `json:"dashboardIdRef,omitempty" tf:"-"`
+	DashboardIDRef *v2.NamespacedReference `json:"dashboardIdRef,omitempty" tf:"-"`
 
 	// Selector for a SQLDashboard in sql to populate dashboardId.
 	// +kubebuilder:validation:Optional
-	DashboardIDSelector *v1.NamespacedSelector `json:"dashboardIdSelector,omitempty" tf:"-"`
+	DashboardIDSelector *v2.NamespacedSelector `json:"dashboardIdSelector,omitempty" tf:"-"`
 
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
 
@@ -89,11 +88,11 @@ type SQLWidgetInitParameters struct {
 
 	// Reference to a SQLVisualization in sql to populate visualizationId.
 	// +kubebuilder:validation:Optional
-	VisualizationIDRef *v1.NamespacedReference `json:"visualizationIdRef,omitempty" tf:"-"`
+	VisualizationIDRef *v2.NamespacedReference `json:"visualizationIdRef,omitempty" tf:"-"`
 
 	// Selector for a SQLVisualization in sql to populate visualizationId.
 	// +kubebuilder:validation:Optional
-	VisualizationIDSelector *v1.NamespacedSelector `json:"visualizationIdSelector,omitempty" tf:"-"`
+	VisualizationIDSelector *v2.NamespacedSelector `json:"visualizationIdSelector,omitempty" tf:"-"`
 
 	WidgetID *string `json:"widgetId,omitempty" tf:"widget_id,omitempty"`
 }
@@ -179,11 +178,11 @@ type SQLWidgetParameters struct {
 
 	// Reference to a SQLDashboard in sql to populate dashboardId.
 	// +kubebuilder:validation:Optional
-	DashboardIDRef *v1.NamespacedReference `json:"dashboardIdRef,omitempty" tf:"-"`
+	DashboardIDRef *v2.NamespacedReference `json:"dashboardIdRef,omitempty" tf:"-"`
 
 	// Selector for a SQLDashboard in sql to populate dashboardId.
 	// +kubebuilder:validation:Optional
-	DashboardIDSelector *v1.NamespacedSelector `json:"dashboardIdSelector,omitempty" tf:"-"`
+	DashboardIDSelector *v2.NamespacedSelector `json:"dashboardIdSelector,omitempty" tf:"-"`
 
 	// +kubebuilder:validation:Optional
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
@@ -211,11 +210,11 @@ type SQLWidgetParameters struct {
 
 	// Reference to a SQLVisualization in sql to populate visualizationId.
 	// +kubebuilder:validation:Optional
-	VisualizationIDRef *v1.NamespacedReference `json:"visualizationIdRef,omitempty" tf:"-"`
+	VisualizationIDRef *v2.NamespacedReference `json:"visualizationIdRef,omitempty" tf:"-"`
 
 	// Selector for a SQLVisualization in sql to populate visualizationId.
 	// +kubebuilder:validation:Optional
-	VisualizationIDSelector *v1.NamespacedSelector `json:"visualizationIdSelector,omitempty" tf:"-"`
+	VisualizationIDSelector *v2.NamespacedSelector `json:"visualizationIdSelector,omitempty" tf:"-"`
 
 	// +kubebuilder:validation:Optional
 	WidgetID *string `json:"widgetId,omitempty" tf:"widget_id,omitempty"`
@@ -237,7 +236,7 @@ type SQLWidgetProviderConfigParameters struct {
 
 	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
 	// +kubebuilder:validation:Optional
-	WorkspaceID *string `json:"workspaceId" tf:"workspace_id,omitempty"`
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
 }
 
 // SQLWidgetSpec defines the desired state of SQLWidget
@@ -259,8 +258,8 @@ type SQLWidgetSpec struct {
 
 // SQLWidgetStatus defines the observed state of SQLWidget.
 type SQLWidgetStatus struct {
-	v1.ResourceStatus `json:",inline"`
-	AtProvider        SQLWidgetObservation `json:"atProvider,omitempty"`
+	v2.ManagedResourceStatus `json:",inline"`
+	AtProvider               SQLWidgetObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true

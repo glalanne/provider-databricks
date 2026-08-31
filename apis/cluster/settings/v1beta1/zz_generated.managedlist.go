@@ -8,6 +8,42 @@ package v1beta1
 
 import resource "github.com/crossplane/crossplane-runtime/v2/pkg/resource"
 
+// GetItems of this AccountNetworkPolicyList.
+func (l *AccountNetworkPolicyList) GetItems() []resource.Managed {
+	items := make([]resource.Managed, len(l.Items))
+	for i := range l.Items {
+		items[i] = &l.Items[i]
+	}
+	return items
+}
+
+// GetItems of this AccountSettingV2List.
+func (l *AccountSettingV2List) GetItems() []resource.Managed {
+	items := make([]resource.Managed, len(l.Items))
+	for i := range l.Items {
+		items[i] = &l.Items[i]
+	}
+	return items
+}
+
+// GetItems of this AibiDashboardEmbeddingAccessPolicySettingList.
+func (l *AibiDashboardEmbeddingAccessPolicySettingList) GetItems() []resource.Managed {
+	items := make([]resource.Managed, len(l.Items))
+	for i := range l.Items {
+		items[i] = &l.Items[i]
+	}
+	return items
+}
+
+// GetItems of this AibiDashboardEmbeddingApprovedDomainsSettingList.
+func (l *AibiDashboardEmbeddingApprovedDomainsSettingList) GetItems() []resource.Managed {
+	items := make([]resource.Managed, len(l.Items))
+	for i := range l.Items {
+		items[i] = &l.Items[i]
+	}
+	return items
+}
+
 // GetItems of this ComplianceSecurityProfileWorkspaceSettingList.
 func (l *ComplianceSecurityProfileWorkspaceSettingList) GetItems() []resource.Managed {
 	items := make([]resource.Managed, len(l.Items))
@@ -26,6 +62,33 @@ func (l *DefaultNamespaceSettingList) GetItems() []resource.Managed {
 	return items
 }
 
+// GetItems of this DisableLegacyAccessSettingList.
+func (l *DisableLegacyAccessSettingList) GetItems() []resource.Managed {
+	items := make([]resource.Managed, len(l.Items))
+	for i := range l.Items {
+		items[i] = &l.Items[i]
+	}
+	return items
+}
+
+// GetItems of this DisableLegacyDbfsSettingList.
+func (l *DisableLegacyDbfsSettingList) GetItems() []resource.Managed {
+	items := make([]resource.Managed, len(l.Items))
+	for i := range l.Items {
+		items[i] = &l.Items[i]
+	}
+	return items
+}
+
+// GetItems of this DisableLegacyFeaturesSettingList.
+func (l *DisableLegacyFeaturesSettingList) GetItems() []resource.Managed {
+	items := make([]resource.Managed, len(l.Items))
+	for i := range l.Items {
+		items[i] = &l.Items[i]
+	}
+	return items
+}
+
 // GetItems of this EnhancedSecurityMonitoringWorkspaceSettingList.
 func (l *EnhancedSecurityMonitoringWorkspaceSettingList) GetItems() []resource.Managed {
 	items := make([]resource.Managed, len(l.Items))
@@ -37,6 +100,24 @@ func (l *EnhancedSecurityMonitoringWorkspaceSettingList) GetItems() []resource.M
 
 // GetItems of this RestrictWorkspaceAdminsSettingList.
 func (l *RestrictWorkspaceAdminsSettingList) GetItems() []resource.Managed {
+	items := make([]resource.Managed, len(l.Items))
+	for i := range l.Items {
+		items[i] = &l.Items[i]
+	}
+	return items
+}
+
+// GetItems of this WorkspaceNetworkOptionList.
+func (l *WorkspaceNetworkOptionList) GetItems() []resource.Managed {
+	items := make([]resource.Managed, len(l.Items))
+	for i := range l.Items {
+		items[i] = &l.Items[i]
+	}
+	return items
+}
+
+// GetItems of this WorkspaceSettingV2List.
+func (l *WorkspaceSettingV2List) GetItems() []resource.Managed {
 	items := make([]resource.Managed, len(l.Items))
 	for i := range l.Items {
 		items[i] = &l.Items[i]

@@ -10,7 +10,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
+	v2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 )
 
 type ColumnMaskInitParameters struct {
@@ -295,7 +295,7 @@ type PolicyInfoProviderConfigParameters struct {
 
 	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
 	// +kubebuilder:validation:Optional
-	WorkspaceID *string `json:"workspaceId" tf:"workspace_id,omitempty"`
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
 }
 
 type RowFilterInitParameters struct {
@@ -399,8 +399,8 @@ type UsingParameters struct {
 
 // PolicyInfoSpec defines the desired state of PolicyInfo
 type PolicyInfoSpec struct {
-	v1.ResourceSpec `json:",inline"`
-	ForProvider     PolicyInfoParameters `json:"forProvider"`
+	v2.ClusterManagedResourceSpec `json:",inline"`
+	ForProvider                   PolicyInfoParameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
 	// InitProvider holds the same fields as ForProvider, with the exception
@@ -416,8 +416,8 @@ type PolicyInfoSpec struct {
 
 // PolicyInfoStatus defines the observed state of PolicyInfo.
 type PolicyInfoStatus struct {
-	v1.ResourceStatus `json:",inline"`
-	AtProvider        PolicyInfoObservation `json:"atProvider,omitempty"`
+	v2.ManagedResourceStatus `json:",inline"`
+	AtProvider               PolicyInfoObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true

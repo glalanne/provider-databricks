@@ -1,0 +1,37 @@
+# SPDX-FileCopyrightText: 2026 The Crossplane Authors <https://crossplane.io>
+#
+# SPDX-License-Identifier: CC0-1.0
+
+apiVersion: sql.databricks.crossplane.io/v1beta1
+kind: AlertV2
+metadata:
+  annotations:
+    meta.upbound.io/example-id: sql/v1beta1/alertv2
+  labels:
+    testing.upbound.io/example-name: basic_alert
+  name: basic-alert
+spec:
+  forProvider:
+    displayName: High Error Rate Alert
+    evaluation:
+      comparisonOperator: GREATER_THAN
+      emptyResultState: OK
+      notification:
+        notifyOnOk: true
+        subscriptions:
+        - userEmail: user@example.com
+      source:
+        aggregation: COUNT
+        display: Error Count
+        name: error_count
+      threshold:
+        value:
+          doubleValue: 100
+    parentPath: /Users/user@example.com
+    queryText: SELECT count(*) as error_count FROM logs WHERE level = 'ERROR' AND
+      timestamp > now() - interval 1 hour
+    schedule:
+      pauseStatus: UNPAUSED
+      quartzCronSchedule: 0 0/15 * * * ?
+      timezoneId: America/Los_Angeles
+    warehouseId: a7066a8ef796be84

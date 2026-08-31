@@ -9,7 +9,7 @@
 package v1beta1
 
 import (
-	"github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
+	"github.com/crossplane/crossplane/apis/v2/core/v2"
 	runtime "k8s.io/apimachinery/pkg/runtime"
 )
 
@@ -154,7 +154,7 @@ func (in *APIKeyAuthInitParameters) DeepCopyInto(out *APIKeyAuthInitParameters) 
 	}
 	if in.ValuePlaintextSecretRef != nil {
 		in, out := &in.ValuePlaintextSecretRef, &out.ValuePlaintextSecretRef
-		*out = new(v1.SecretKeySelector)
+		*out = new(v2.SecretKeySelector)
 		**out = **in
 	}
 }
@@ -209,7 +209,7 @@ func (in *APIKeyAuthParameters) DeepCopyInto(out *APIKeyAuthParameters) {
 	}
 	if in.ValuePlaintextSecretRef != nil {
 		in, out := &in.ValuePlaintextSecretRef, &out.ValuePlaintextSecretRef
-		*out = new(v1.SecretKeySelector)
+		*out = new(v2.SecretKeySelector)
 		**out = **in
 	}
 }
@@ -234,7 +234,7 @@ func (in *Ai21LabsConfigInitParameters) DeepCopyInto(out *Ai21LabsConfigInitPara
 	}
 	if in.Ai21LabsAPIKeyPlaintextSecretRef != nil {
 		in, out := &in.Ai21LabsAPIKeyPlaintextSecretRef, &out.Ai21LabsAPIKeyPlaintextSecretRef
-		*out = new(v1.SecretKeySelector)
+		*out = new(v2.SecretKeySelector)
 		**out = **in
 	}
 }
@@ -279,7 +279,7 @@ func (in *Ai21LabsConfigParameters) DeepCopyInto(out *Ai21LabsConfigParameters) 
 	}
 	if in.Ai21LabsAPIKeyPlaintextSecretRef != nil {
 		in, out := &in.Ai21LabsAPIKeyPlaintextSecretRef, &out.Ai21LabsAPIKeyPlaintextSecretRef
-		*out = new(v1.SecretKeySelector)
+		*out = new(v2.SecretKeySelector)
 		**out = **in
 	}
 }
@@ -304,7 +304,7 @@ func (in *AmazonBedrockConfigInitParameters) DeepCopyInto(out *AmazonBedrockConf
 	}
 	if in.AwsAccessKeyIDPlaintextSecretRef != nil {
 		in, out := &in.AwsAccessKeyIDPlaintextSecretRef, &out.AwsAccessKeyIDPlaintextSecretRef
-		*out = new(v1.SecretKeySelector)
+		*out = new(v2.SecretKeySelector)
 		**out = **in
 	}
 	if in.AwsRegion != nil {
@@ -319,7 +319,7 @@ func (in *AmazonBedrockConfigInitParameters) DeepCopyInto(out *AmazonBedrockConf
 	}
 	if in.AwsSecretAccessKeyPlaintextSecretRef != nil {
 		in, out := &in.AwsSecretAccessKeyPlaintextSecretRef, &out.AwsSecretAccessKeyPlaintextSecretRef
-		*out = new(v1.SecretKeySelector)
+		*out = new(v2.SecretKeySelector)
 		**out = **in
 	}
 	if in.BedrockProvider != nil {
@@ -394,7 +394,7 @@ func (in *AmazonBedrockConfigParameters) DeepCopyInto(out *AmazonBedrockConfigPa
 	}
 	if in.AwsAccessKeyIDPlaintextSecretRef != nil {
 		in, out := &in.AwsAccessKeyIDPlaintextSecretRef, &out.AwsAccessKeyIDPlaintextSecretRef
-		*out = new(v1.SecretKeySelector)
+		*out = new(v2.SecretKeySelector)
 		**out = **in
 	}
 	if in.AwsRegion != nil {
@@ -409,7 +409,7 @@ func (in *AmazonBedrockConfigParameters) DeepCopyInto(out *AmazonBedrockConfigPa
 	}
 	if in.AwsSecretAccessKeyPlaintextSecretRef != nil {
 		in, out := &in.AwsSecretAccessKeyPlaintextSecretRef, &out.AwsSecretAccessKeyPlaintextSecretRef
-		*out = new(v1.SecretKeySelector)
+		*out = new(v2.SecretKeySelector)
 		**out = **in
 	}
 	if in.BedrockProvider != nil {
@@ -444,7 +444,7 @@ func (in *AnthropicConfigInitParameters) DeepCopyInto(out *AnthropicConfigInitPa
 	}
 	if in.AnthropicAPIKeyPlaintextSecretRef != nil {
 		in, out := &in.AnthropicAPIKeyPlaintextSecretRef, &out.AnthropicAPIKeyPlaintextSecretRef
-		*out = new(v1.SecretKeySelector)
+		*out = new(v2.SecretKeySelector)
 		**out = **in
 	}
 }
@@ -489,7 +489,7 @@ func (in *AnthropicConfigParameters) DeepCopyInto(out *AnthropicConfigParameters
 	}
 	if in.AnthropicAPIKeyPlaintextSecretRef != nil {
 		in, out := &in.AnthropicAPIKeyPlaintextSecretRef, &out.AnthropicAPIKeyPlaintextSecretRef
-		*out = new(v1.SecretKeySelector)
+		*out = new(v2.SecretKeySelector)
 		**out = **in
 	}
 }
@@ -619,7 +619,7 @@ func (in *BearerTokenAuthInitParameters) DeepCopyInto(out *BearerTokenAuthInitPa
 	}
 	if in.TokenPlaintextSecretRef != nil {
 		in, out := &in.TokenPlaintextSecretRef, &out.TokenPlaintextSecretRef
-		*out = new(v1.SecretKeySelector)
+		*out = new(v2.SecretKeySelector)
 		**out = **in
 	}
 }
@@ -664,7 +664,7 @@ func (in *BearerTokenAuthParameters) DeepCopyInto(out *BearerTokenAuthParameters
 	}
 	if in.TokenPlaintextSecretRef != nil {
 		in, out := &in.TokenPlaintextSecretRef, &out.TokenPlaintextSecretRef
-		*out = new(v1.SecretKeySelector)
+		*out = new(v2.SecretKeySelector)
 		**out = **in
 	}
 }
@@ -694,7 +694,7 @@ func (in *CohereConfigInitParameters) DeepCopyInto(out *CohereConfigInitParamete
 	}
 	if in.CohereAPIKeyPlaintextSecretRef != nil {
 		in, out := &in.CohereAPIKeyPlaintextSecretRef, &out.CohereAPIKeyPlaintextSecretRef
-		*out = new(v1.SecretKeySelector)
+		*out = new(v2.SecretKeySelector)
 		**out = **in
 	}
 }
@@ -749,7 +749,7 @@ func (in *CohereConfigParameters) DeepCopyInto(out *CohereConfigParameters) {
 	}
 	if in.CohereAPIKeyPlaintextSecretRef != nil {
 		in, out := &in.CohereAPIKeyPlaintextSecretRef, &out.CohereAPIKeyPlaintextSecretRef
-		*out = new(v1.SecretKeySelector)
+		*out = new(v2.SecretKeySelector)
 		**out = **in
 	}
 }
@@ -981,7 +981,7 @@ func (in *DatabricksModelServingConfigInitParameters) DeepCopyInto(out *Databric
 	}
 	if in.DatabricksAPITokenPlaintextSecretRef != nil {
 		in, out := &in.DatabricksAPITokenPlaintextSecretRef, &out.DatabricksAPITokenPlaintextSecretRef
-		*out = new(v1.SecretKeySelector)
+		*out = new(v2.SecretKeySelector)
 		**out = **in
 	}
 	if in.DatabricksWorkspaceURL != nil {
@@ -1036,7 +1036,7 @@ func (in *DatabricksModelServingConfigParameters) DeepCopyInto(out *DatabricksMo
 	}
 	if in.DatabricksAPITokenPlaintextSecretRef != nil {
 		in, out := &in.DatabricksAPITokenPlaintextSecretRef, &out.DatabricksAPITokenPlaintextSecretRef
-		*out = new(v1.SecretKeySelector)
+		*out = new(v2.SecretKeySelector)
 		**out = **in
 	}
 	if in.DatabricksWorkspaceURL != nil {
@@ -1462,7 +1462,7 @@ func (in *GoogleCloudVertexAIConfigInitParameters) DeepCopyInto(out *GoogleCloud
 	}
 	if in.PrivateKeyPlaintextSecretRef != nil {
 		in, out := &in.PrivateKeyPlaintextSecretRef, &out.PrivateKeyPlaintextSecretRef
-		*out = new(v1.SecretKeySelector)
+		*out = new(v2.SecretKeySelector)
 		**out = **in
 	}
 	if in.ProjectID != nil {
@@ -1527,7 +1527,7 @@ func (in *GoogleCloudVertexAIConfigParameters) DeepCopyInto(out *GoogleCloudVert
 	}
 	if in.PrivateKeyPlaintextSecretRef != nil {
 		in, out := &in.PrivateKeyPlaintextSecretRef, &out.PrivateKeyPlaintextSecretRef
-		*out = new(v1.SecretKeySelector)
+		*out = new(v2.SecretKeySelector)
 		**out = **in
 	}
 	if in.ProjectID != nil {
@@ -1957,6 +1957,11 @@ func (in *ModelServingInitParameters) DeepCopyInto(out *ModelServingInitParamete
 			(*in)[i].DeepCopyInto(&(*out)[i])
 		}
 	}
+	if in.TelemetryConfig != nil {
+		in, out := &in.TelemetryConfig, &out.TelemetryConfig
+		*out = new(TelemetryConfigInitParameters)
+		(*in).DeepCopyInto(*out)
+	}
 }
 
 // DeepCopy is an autogenerated deepcopy function, copying the receiver, creating a new ModelServingInitParameters.
@@ -2073,6 +2078,11 @@ func (in *ModelServingObservation) DeepCopyInto(out *ModelServingObservation) {
 			(*in)[i].DeepCopyInto(&(*out)[i])
 		}
 	}
+	if in.TelemetryConfig != nil {
+		in, out := &in.TelemetryConfig, &out.TelemetryConfig
+		*out = new(TelemetryConfigObservation)
+		(*in).DeepCopyInto(*out)
+	}
 }
 
 // DeepCopy is an autogenerated deepcopy function, copying the receiver, creating a new ModelServingObservation.
@@ -2141,6 +2151,11 @@ func (in *ModelServingParameters) DeepCopyInto(out *ModelServingParameters) {
 		for i := range *in {
 			(*in)[i].DeepCopyInto(&(*out)[i])
 		}
+	}
+	if in.TelemetryConfig != nil {
+		in, out := &in.TelemetryConfig, &out.TelemetryConfig
+		*out = new(TelemetryConfigParameters)
+		(*in).DeepCopyInto(*out)
 	}
 }
 
@@ -2247,7 +2262,7 @@ func (in *ModelServingRateLimitsParameters) DeepCopy() *ModelServingRateLimitsPa
 // DeepCopyInto is an autogenerated deepcopy function, copying the receiver, writing into out. in must be non-nil.
 func (in *ModelServingSpec) DeepCopyInto(out *ModelServingSpec) {
 	*out = *in
-	in.ResourceSpec.DeepCopyInto(&out.ResourceSpec)
+	in.ClusterManagedResourceSpec.DeepCopyInto(&out.ClusterManagedResourceSpec)
 	in.ForProvider.DeepCopyInto(&out.ForProvider)
 	in.InitProvider.DeepCopyInto(&out.InitProvider)
 }
@@ -2265,7 +2280,7 @@ func (in *ModelServingSpec) DeepCopy() *ModelServingSpec {
 // DeepCopyInto is an autogenerated deepcopy function, copying the receiver, writing into out. in must be non-nil.
 func (in *ModelServingStatus) DeepCopyInto(out *ModelServingStatus) {
 	*out = *in
-	in.ResourceStatus.DeepCopyInto(&out.ResourceStatus)
+	in.ManagedResourceStatus.DeepCopyInto(&out.ManagedResourceStatus)
 	in.AtProvider.DeepCopyInto(&out.AtProvider)
 }
 
@@ -2294,7 +2309,7 @@ func (in *OpenaiConfigInitParameters) DeepCopyInto(out *OpenaiConfigInitParamete
 	}
 	if in.MicrosoftEntraClientSecretPlaintextSecretRef != nil {
 		in, out := &in.MicrosoftEntraClientSecretPlaintextSecretRef, &out.MicrosoftEntraClientSecretPlaintextSecretRef
-		*out = new(v1.SecretKeySelector)
+		*out = new(v2.SecretKeySelector)
 		**out = **in
 	}
 	if in.MicrosoftEntraTenantID != nil {
@@ -2314,7 +2329,7 @@ func (in *OpenaiConfigInitParameters) DeepCopyInto(out *OpenaiConfigInitParamete
 	}
 	if in.OpenaiAPIKeyPlaintextSecretRef != nil {
 		in, out := &in.OpenaiAPIKeyPlaintextSecretRef, &out.OpenaiAPIKeyPlaintextSecretRef
-		*out = new(v1.SecretKeySelector)
+		*out = new(v2.SecretKeySelector)
 		**out = **in
 	}
 	if in.OpenaiAPIType != nil {
@@ -2424,7 +2439,7 @@ func (in *OpenaiConfigParameters) DeepCopyInto(out *OpenaiConfigParameters) {
 	}
 	if in.MicrosoftEntraClientSecretPlaintextSecretRef != nil {
 		in, out := &in.MicrosoftEntraClientSecretPlaintextSecretRef, &out.MicrosoftEntraClientSecretPlaintextSecretRef
-		*out = new(v1.SecretKeySelector)
+		*out = new(v2.SecretKeySelector)
 		**out = **in
 	}
 	if in.MicrosoftEntraTenantID != nil {
@@ -2444,7 +2459,7 @@ func (in *OpenaiConfigParameters) DeepCopyInto(out *OpenaiConfigParameters) {
 	}
 	if in.OpenaiAPIKeyPlaintextSecretRef != nil {
 		in, out := &in.OpenaiAPIKeyPlaintextSecretRef, &out.OpenaiAPIKeyPlaintextSecretRef
-		*out = new(v1.SecretKeySelector)
+		*out = new(v2.SecretKeySelector)
 		**out = **in
 	}
 	if in.OpenaiAPIType != nil {
@@ -2690,7 +2705,7 @@ func (in *PalmConfigInitParameters) DeepCopyInto(out *PalmConfigInitParameters) 
 	}
 	if in.PalmAPIKeyPlaintextSecretRef != nil {
 		in, out := &in.PalmAPIKeyPlaintextSecretRef, &out.PalmAPIKeyPlaintextSecretRef
-		*out = new(v1.SecretKeySelector)
+		*out = new(v2.SecretKeySelector)
 		**out = **in
 	}
 }
@@ -2735,7 +2750,7 @@ func (in *PalmConfigParameters) DeepCopyInto(out *PalmConfigParameters) {
 	}
 	if in.PalmAPIKeyPlaintextSecretRef != nil {
 		in, out := &in.PalmAPIKeyPlaintextSecretRef, &out.PalmAPIKeyPlaintextSecretRef
-		*out = new(v1.SecretKeySelector)
+		*out = new(v2.SecretKeySelector)
 		**out = **in
 	}
 }
@@ -3742,6 +3757,141 @@ func (in *TagsParameters) DeepCopy() *TagsParameters {
 		return nil
 	}
 	out := new(TagsParameters)
+	in.DeepCopyInto(out)
+	return out
+}
+
+// DeepCopyInto is an autogenerated deepcopy function, copying the receiver, writing into out. in must be non-nil.
+func (in *TelemetryConfigInferenceTableConfigInitParameters) DeepCopyInto(out *TelemetryConfigInferenceTableConfigInitParameters) {
+	*out = *in
+	if in.Name != nil {
+		in, out := &in.Name, &out.Name
+		*out = new(string)
+		**out = **in
+	}
+	if in.SamplingFraction != nil {
+		in, out := &in.SamplingFraction, &out.SamplingFraction
+		*out = new(float64)
+		**out = **in
+	}
+}
+
+// DeepCopy is an autogenerated deepcopy function, copying the receiver, creating a new TelemetryConfigInferenceTableConfigInitParameters.
+func (in *TelemetryConfigInferenceTableConfigInitParameters) DeepCopy() *TelemetryConfigInferenceTableConfigInitParameters {
+	if in == nil {
+		return nil
+	}
+	out := new(TelemetryConfigInferenceTableConfigInitParameters)
+	in.DeepCopyInto(out)
+	return out
+}
+
+// DeepCopyInto is an autogenerated deepcopy function, copying the receiver, writing into out. in must be non-nil.
+func (in *TelemetryConfigInferenceTableConfigObservation) DeepCopyInto(out *TelemetryConfigInferenceTableConfigObservation) {
+	*out = *in
+	if in.Name != nil {
+		in, out := &in.Name, &out.Name
+		*out = new(string)
+		**out = **in
+	}
+	if in.SamplingFraction != nil {
+		in, out := &in.SamplingFraction, &out.SamplingFraction
+		*out = new(float64)
+		**out = **in
+	}
+}
+
+// DeepCopy is an autogenerated deepcopy function, copying the receiver, creating a new TelemetryConfigInferenceTableConfigObservation.
+func (in *TelemetryConfigInferenceTableConfigObservation) DeepCopy() *TelemetryConfigInferenceTableConfigObservation {
+	if in == nil {
+		return nil
+	}
+	out := new(TelemetryConfigInferenceTableConfigObservation)
+	in.DeepCopyInto(out)
+	return out
+}
+
+// DeepCopyInto is an autogenerated deepcopy function, copying the receiver, writing into out. in must be non-nil.
+func (in *TelemetryConfigInferenceTableConfigParameters) DeepCopyInto(out *TelemetryConfigInferenceTableConfigParameters) {
+	*out = *in
+	if in.Name != nil {
+		in, out := &in.Name, &out.Name
+		*out = new(string)
+		**out = **in
+	}
+	if in.SamplingFraction != nil {
+		in, out := &in.SamplingFraction, &out.SamplingFraction
+		*out = new(float64)
+		**out = **in
+	}
+}
+
+// DeepCopy is an autogenerated deepcopy function, copying the receiver, creating a new TelemetryConfigInferenceTableConfigParameters.
+func (in *TelemetryConfigInferenceTableConfigParameters) DeepCopy() *TelemetryConfigInferenceTableConfigParameters {
+	if in == nil {
+		return nil
+	}
+	out := new(TelemetryConfigInferenceTableConfigParameters)
+	in.DeepCopyInto(out)
+	return out
+}
+
+// DeepCopyInto is an autogenerated deepcopy function, copying the receiver, writing into out. in must be non-nil.
+func (in *TelemetryConfigInitParameters) DeepCopyInto(out *TelemetryConfigInitParameters) {
+	*out = *in
+	if in.InferenceTableConfig != nil {
+		in, out := &in.InferenceTableConfig, &out.InferenceTableConfig
+		*out = new(TelemetryConfigInferenceTableConfigInitParameters)
+		(*in).DeepCopyInto(*out)
+	}
+}
+
+// DeepCopy is an autogenerated deepcopy function, copying the receiver, creating a new TelemetryConfigInitParameters.
+func (in *TelemetryConfigInitParameters) DeepCopy() *TelemetryConfigInitParameters {
+	if in == nil {
+		return nil
+	}
+	out := new(TelemetryConfigInitParameters)
+	in.DeepCopyInto(out)
+	return out
+}
+
+// DeepCopyInto is an autogenerated deepcopy function, copying the receiver, writing into out. in must be non-nil.
+func (in *TelemetryConfigObservation) DeepCopyInto(out *TelemetryConfigObservation) {
+	*out = *in
+	if in.InferenceTableConfig != nil {
+		in, out := &in.InferenceTableConfig, &out.InferenceTableConfig
+		*out = new(TelemetryConfigInferenceTableConfigObservation)
+		(*in).DeepCopyInto(*out)
+	}
+}
+
+// DeepCopy is an autogenerated deepcopy function, copying the receiver, creating a new TelemetryConfigObservation.
+func (in *TelemetryConfigObservation) DeepCopy() *TelemetryConfigObservation {
+	if in == nil {
+		return nil
+	}
+	out := new(TelemetryConfigObservation)
+	in.DeepCopyInto(out)
+	return out
+}
+
+// DeepCopyInto is an autogenerated deepcopy function, copying the receiver, writing into out. in must be non-nil.
+func (in *TelemetryConfigParameters) DeepCopyInto(out *TelemetryConfigParameters) {
+	*out = *in
+	if in.InferenceTableConfig != nil {
+		in, out := &in.InferenceTableConfig, &out.InferenceTableConfig
+		*out = new(TelemetryConfigInferenceTableConfigParameters)
+		(*in).DeepCopyInto(*out)
+	}
+}
+
+// DeepCopy is an autogenerated deepcopy function, copying the receiver, creating a new TelemetryConfigParameters.
+func (in *TelemetryConfigParameters) DeepCopy() *TelemetryConfigParameters {
+	if in == nil {
+		return nil
+	}
+	out := new(TelemetryConfigParameters)
 	in.DeepCopyInto(out)
 	return out
 }

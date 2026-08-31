@@ -1,0 +1,75 @@
+# SPDX-FileCopyrightText: 2026 The Crossplane Authors <https://crossplane.io>
+#
+# SPDX-License-Identifier: CC0-1.0
+
+apiVersion: postgres.databricks.crossplane.io/v1beta1
+kind: PostgresCdfConfig
+metadata:
+  annotations:
+    meta.upbound.io/example-id: postgres/v1beta1/postgrescdfconfig
+  labels:
+    testing.upbound.io/example-name: this
+  name: this
+spec:
+  forProvider:
+    catalog: main
+    parentSelector:
+      matchLabels:
+        testing.upbound.io/example-name: app
+    postgresSchema: public
+    schema: app_replicated
+
+---
+
+apiVersion: postgres.databricks.crossplane.io/v1beta1
+kind: PostgresBranch
+metadata:
+  annotations:
+    meta.upbound.io/example-id: postgres/v1beta1/postgrescdfconfig
+  labels:
+    testing.upbound.io/example-name: main
+  name: main
+spec:
+  forProvider:
+    branchId: main
+    parentSelector:
+      matchLabels:
+        testing.upbound.io/example-name: this
+    spec:
+      noExpiry: true
+
+---
+
+apiVersion: postgres.databricks.crossplane.io/v1beta1
+kind: PostgresDatabase
+metadata:
+  annotations:
+    meta.upbound.io/example-id: postgres/v1beta1/postgrescdfconfig
+  labels:
+    testing.upbound.io/example-name: app
+  name: app
+spec:
+  forProvider:
+    databaseId: app_db
+    parentSelector:
+      matchLabels:
+        testing.upbound.io/example-name: main
+    spec:
+      postgresDatabase: app_db
+
+---
+
+apiVersion: postgres.databricks.crossplane.io/v1beta1
+kind: PostgresProject
+metadata:
+  annotations:
+    meta.upbound.io/example-id: postgres/v1beta1/postgrescdfconfig
+  labels:
+    testing.upbound.io/example-name: this
+  name: this
+spec:
+  forProvider:
+    projectId: my-project
+    spec:
+      displayName: My Project
+      pgVersion: 17

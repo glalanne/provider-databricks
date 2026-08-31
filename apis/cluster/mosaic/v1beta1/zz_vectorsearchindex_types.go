@@ -10,10 +10,13 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
+	v2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 )
 
 type DeltaSyncIndexSpecInitParameters struct {
+	ColumnsToIndex []*string `json:"columnsToIndex,omitempty" tf:"columns_to_index,omitempty"`
+
+	ColumnsToSync []*string `json:"columnsToSync,omitempty" tf:"columns_to_sync,omitempty"`
 
 	// array of objects representing columns that contain the embedding source.  Each entry consists of:
 	EmbeddingSourceColumns []EmbeddingSourceColumnsInitParameters `json:"embeddingSourceColumns,omitempty" tf:"embedding_source_columns,omitempty"`
@@ -32,6 +35,9 @@ type DeltaSyncIndexSpecInitParameters struct {
 }
 
 type DeltaSyncIndexSpecObservation struct {
+	ColumnsToIndex []*string `json:"columnsToIndex,omitempty" tf:"columns_to_index,omitempty"`
+
+	ColumnsToSync []*string `json:"columnsToSync,omitempty" tf:"columns_to_sync,omitempty"`
 
 	// array of objects representing columns that contain the embedding source.  Each entry consists of:
 	EmbeddingSourceColumns []EmbeddingSourceColumnsObservation `json:"embeddingSourceColumns,omitempty" tf:"embedding_source_columns,omitempty"`
@@ -53,6 +59,12 @@ type DeltaSyncIndexSpecObservation struct {
 }
 
 type DeltaSyncIndexSpecParameters struct {
+
+	// +kubebuilder:validation:Optional
+	ColumnsToIndex []*string `json:"columnsToIndex,omitempty" tf:"columns_to_index,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	ColumnsToSync []*string `json:"columnsToSync,omitempty" tf:"columns_to_sync,omitempty"`
 
 	// array of objects representing columns that contain the embedding source.  Each entry consists of:
 	// +kubebuilder:validation:Optional
@@ -191,11 +203,11 @@ type EmbeddingSourceColumnsInitParameters struct {
 
 	// Reference to a ModelServing in serving to populate embeddingModelEndpointName.
 	// +kubebuilder:validation:Optional
-	EmbeddingModelEndpointNameRef *v1.Reference `json:"embeddingModelEndpointNameRef,omitempty" tf:"-"`
+	EmbeddingModelEndpointNameRef *v2.Reference `json:"embeddingModelEndpointNameRef,omitempty" tf:"-"`
 
 	// Selector for a ModelServing in serving to populate embeddingModelEndpointName.
 	// +kubebuilder:validation:Optional
-	EmbeddingModelEndpointNameSelector *v1.Selector `json:"embeddingModelEndpointNameSelector,omitempty" tf:"-"`
+	EmbeddingModelEndpointNameSelector *v2.Selector `json:"embeddingModelEndpointNameSelector,omitempty" tf:"-"`
 
 	// The name of the embedding model endpoint which, if specified, is used for querying (not ingestion).
 	ModelEndpointNameForQuery *string `json:"modelEndpointNameForQuery,omitempty" tf:"model_endpoint_name_for_query,omitempty"`
@@ -226,11 +238,11 @@ type EmbeddingSourceColumnsParameters struct {
 
 	// Reference to a ModelServing in serving to populate embeddingModelEndpointName.
 	// +kubebuilder:validation:Optional
-	EmbeddingModelEndpointNameRef *v1.Reference `json:"embeddingModelEndpointNameRef,omitempty" tf:"-"`
+	EmbeddingModelEndpointNameRef *v2.Reference `json:"embeddingModelEndpointNameRef,omitempty" tf:"-"`
 
 	// Selector for a ModelServing in serving to populate embeddingModelEndpointName.
 	// +kubebuilder:validation:Optional
-	EmbeddingModelEndpointNameSelector *v1.Selector `json:"embeddingModelEndpointNameSelector,omitempty" tf:"-"`
+	EmbeddingModelEndpointNameSelector *v2.Selector `json:"embeddingModelEndpointNameSelector,omitempty" tf:"-"`
 
 	// The name of the embedding model endpoint which, if specified, is used for querying (not ingestion).
 	// +kubebuilder:validation:Optional
@@ -299,6 +311,9 @@ type VectorSearchIndexInitParameters struct {
 	// (object) Specification for Direct Vector Access Index. Required if index_type is DIRECT_ACCESS. This field is a block and is documented below.
 	DirectAccessIndexSpec *DirectAccessIndexSpecInitParameters `json:"directAccessIndexSpec,omitempty" tf:"direct_access_index_spec,omitempty"`
 
+	// The same as the name of the index.
+	EndpointID *string `json:"endpointId,omitempty" tf:"endpoint_id,omitempty"`
+
 	// The name of the Mosaic AI Vector Search Endpoint that will be used for indexing the data.
 	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/cluster/mosaic/v1beta1.VectorSearchEndpoint
 	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/v2/pkg/resource.ExtractParamPath("name",false)
@@ -306,11 +321,13 @@ type VectorSearchIndexInitParameters struct {
 
 	// Reference to a VectorSearchEndpoint in mosaic to populate endpointName.
 	// +kubebuilder:validation:Optional
-	EndpointNameRef *v1.Reference `json:"endpointNameRef,omitempty" tf:"-"`
+	EndpointNameRef *v2.Reference `json:"endpointNameRef,omitempty" tf:"-"`
 
 	// Selector for a VectorSearchEndpoint in mosaic to populate endpointName.
 	// +kubebuilder:validation:Optional
-	EndpointNameSelector *v1.Selector `json:"endpointNameSelector,omitempty" tf:"-"`
+	EndpointNameSelector *v2.Selector `json:"endpointNameSelector,omitempty" tf:"-"`
+
+	IndexSubtype *string `json:"indexSubtype,omitempty" tf:"index_subtype,omitempty"`
 
 	// Mosaic AI Vector Search index type. Currently supported values are:
 	IndexType *string `json:"indexType,omitempty" tf:"index_type,omitempty"`
@@ -336,11 +353,16 @@ type VectorSearchIndexObservation struct {
 	// (object) Specification for Direct Vector Access Index. Required if index_type is DIRECT_ACCESS. This field is a block and is documented below.
 	DirectAccessIndexSpec *DirectAccessIndexSpecObservation `json:"directAccessIndexSpec,omitempty" tf:"direct_access_index_spec,omitempty"`
 
+	// The same as the name of the index.
+	EndpointID *string `json:"endpointId,omitempty" tf:"endpoint_id,omitempty"`
+
 	// The name of the Mosaic AI Vector Search Endpoint that will be used for indexing the data.
 	EndpointName *string `json:"endpointName,omitempty" tf:"endpoint_name,omitempty"`
 
 	// The same as the name of the index.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
+	IndexSubtype *string `json:"indexSubtype,omitempty" tf:"index_subtype,omitempty"`
 
 	// Mosaic AI Vector Search index type. Currently supported values are:
 	IndexType *string `json:"indexType,omitempty" tf:"index_type,omitempty"`
@@ -368,6 +390,10 @@ type VectorSearchIndexParameters struct {
 	// +kubebuilder:validation:Optional
 	DirectAccessIndexSpec *DirectAccessIndexSpecParameters `json:"directAccessIndexSpec,omitempty" tf:"direct_access_index_spec,omitempty"`
 
+	// The same as the name of the index.
+	// +kubebuilder:validation:Optional
+	EndpointID *string `json:"endpointId,omitempty" tf:"endpoint_id,omitempty"`
+
 	// The name of the Mosaic AI Vector Search Endpoint that will be used for indexing the data.
 	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/cluster/mosaic/v1beta1.VectorSearchEndpoint
 	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/v2/pkg/resource.ExtractParamPath("name",false)
@@ -376,11 +402,14 @@ type VectorSearchIndexParameters struct {
 
 	// Reference to a VectorSearchEndpoint in mosaic to populate endpointName.
 	// +kubebuilder:validation:Optional
-	EndpointNameRef *v1.Reference `json:"endpointNameRef,omitempty" tf:"-"`
+	EndpointNameRef *v2.Reference `json:"endpointNameRef,omitempty" tf:"-"`
 
 	// Selector for a VectorSearchEndpoint in mosaic to populate endpointName.
 	// +kubebuilder:validation:Optional
-	EndpointNameSelector *v1.Selector `json:"endpointNameSelector,omitempty" tf:"-"`
+	EndpointNameSelector *v2.Selector `json:"endpointNameSelector,omitempty" tf:"-"`
+
+	// +kubebuilder:validation:Optional
+	IndexSubtype *string `json:"indexSubtype,omitempty" tf:"index_subtype,omitempty"`
 
 	// Mosaic AI Vector Search index type. Currently supported values are:
 	// +kubebuilder:validation:Optional
@@ -415,13 +444,13 @@ type VectorSearchIndexProviderConfigParameters struct {
 
 	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
 	// +kubebuilder:validation:Optional
-	WorkspaceID *string `json:"workspaceId" tf:"workspace_id,omitempty"`
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
 }
 
 // VectorSearchIndexSpec defines the desired state of VectorSearchIndex
 type VectorSearchIndexSpec struct {
-	v1.ResourceSpec `json:",inline"`
-	ForProvider     VectorSearchIndexParameters `json:"forProvider"`
+	v2.ClusterManagedResourceSpec `json:",inline"`
+	ForProvider                   VectorSearchIndexParameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
 	// InitProvider holds the same fields as ForProvider, with the exception
@@ -437,8 +466,8 @@ type VectorSearchIndexSpec struct {
 
 // VectorSearchIndexStatus defines the observed state of VectorSearchIndex.
 type VectorSearchIndexStatus struct {
-	v1.ResourceStatus `json:",inline"`
-	AtProvider        VectorSearchIndexObservation `json:"atProvider,omitempty"`
+	v2.ManagedResourceStatus `json:",inline"`
+	AtProvider               VectorSearchIndexObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true

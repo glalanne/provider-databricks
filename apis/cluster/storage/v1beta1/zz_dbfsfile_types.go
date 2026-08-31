@@ -10,7 +10,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
+	v2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 )
 
 type DbfsFileInitParameters struct {
@@ -94,13 +94,13 @@ type ProviderConfigParameters struct {
 
 	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
 	// +kubebuilder:validation:Optional
-	WorkspaceID *string `json:"workspaceId" tf:"workspace_id,omitempty"`
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
 }
 
 // DbfsFileSpec defines the desired state of DbfsFile
 type DbfsFileSpec struct {
-	v1.ResourceSpec `json:",inline"`
-	ForProvider     DbfsFileParameters `json:"forProvider"`
+	v2.ClusterManagedResourceSpec `json:",inline"`
+	ForProvider                   DbfsFileParameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
 	// InitProvider holds the same fields as ForProvider, with the exception
@@ -116,8 +116,8 @@ type DbfsFileSpec struct {
 
 // DbfsFileStatus defines the observed state of DbfsFile.
 type DbfsFileStatus struct {
-	v1.ResourceStatus `json:",inline"`
-	AtProvider        DbfsFileObservation `json:"atProvider,omitempty"`
+	v2.ManagedResourceStatus `json:",inline"`
+	AtProvider               DbfsFileObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true

@@ -10,7 +10,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
+	v2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 )
 
 type AwsKeyInfoInitParameters struct {
@@ -145,8 +145,8 @@ type MwsCustomerManagedKeysParameters struct {
 
 // MwsCustomerManagedKeysSpec defines the desired state of MwsCustomerManagedKeys
 type MwsCustomerManagedKeysSpec struct {
-	v1.ResourceSpec `json:",inline"`
-	ForProvider     MwsCustomerManagedKeysParameters `json:"forProvider"`
+	v2.ClusterManagedResourceSpec `json:",inline"`
+	ForProvider                   MwsCustomerManagedKeysParameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
 	// InitProvider holds the same fields as ForProvider, with the exception
@@ -162,8 +162,8 @@ type MwsCustomerManagedKeysSpec struct {
 
 // MwsCustomerManagedKeysStatus defines the observed state of MwsCustomerManagedKeys.
 type MwsCustomerManagedKeysStatus struct {
-	v1.ResourceStatus `json:",inline"`
-	AtProvider        MwsCustomerManagedKeysObservation `json:"atProvider,omitempty"`
+	v2.ManagedResourceStatus `json:",inline"`
+	AtProvider               MwsCustomerManagedKeysObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true

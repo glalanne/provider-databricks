@@ -10,11 +10,14 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
-	v2 "github.com/crossplane/crossplane-runtime/v2/apis/common/v2"
+	v2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 )
 
 type MetastoreAssignmentInitParameters struct {
+
+	// Specifies whether to use account-level or workspace-level API. Valid values are account and workspace. When not set, the API level is inferred from the provider host.
+	// Specifies whether to use account-level or workspace-level API. Valid values are `account` and `workspace`. When not set, the API level is inferred from the provider host.
+	API *string `json:"api,omitempty" tf:"api,omitempty"`
 
 	// (Deprecated) Default catalog used for this assignment. Please use databricks_default_namespace_setting instead.
 	DefaultCatalogName *string `json:"defaultCatalogName,omitempty" tf:"default_catalog_name,omitempty"`
@@ -26,17 +29,24 @@ type MetastoreAssignmentInitParameters struct {
 
 	// Reference to a Metastore in unity to populate metastoreId.
 	// +kubebuilder:validation:Optional
-	MetastoreIDRef *v1.NamespacedReference `json:"metastoreIdRef,omitempty" tf:"-"`
+	MetastoreIDRef *v2.NamespacedReference `json:"metastoreIdRef,omitempty" tf:"-"`
 
 	// Selector for a Metastore in unity to populate metastoreId.
 	// +kubebuilder:validation:Optional
-	MetastoreIDSelector *v1.NamespacedSelector `json:"metastoreIdSelector,omitempty" tf:"-"`
+	MetastoreIDSelector *v2.NamespacedSelector `json:"metastoreIdSelector,omitempty" tf:"-"`
+
+	// Configure the provider for management through account provider. This block consists of the following fields:
+	ProviderConfig *MetastoreAssignmentProviderConfigInitParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
 
 	// id of the workspace for the assignment
 	WorkspaceID *float64 `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
 }
 
 type MetastoreAssignmentObservation struct {
+
+	// Specifies whether to use account-level or workspace-level API. Valid values are account and workspace. When not set, the API level is inferred from the provider host.
+	// Specifies whether to use account-level or workspace-level API. Valid values are `account` and `workspace`. When not set, the API level is inferred from the provider host.
+	API *string `json:"api,omitempty" tf:"api,omitempty"`
 
 	// (Deprecated) Default catalog used for this assignment. Please use databricks_default_namespace_setting instead.
 	DefaultCatalogName *string `json:"defaultCatalogName,omitempty" tf:"default_catalog_name,omitempty"`
@@ -47,11 +57,19 @@ type MetastoreAssignmentObservation struct {
 	// Unique identifier of the parent Metastore
 	MetastoreID *string `json:"metastoreId,omitempty" tf:"metastore_id,omitempty"`
 
+	// Configure the provider for management through account provider. This block consists of the following fields:
+	ProviderConfig *MetastoreAssignmentProviderConfigObservation `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
+
 	// id of the workspace for the assignment
 	WorkspaceID *float64 `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
 }
 
 type MetastoreAssignmentParameters struct {
+
+	// Specifies whether to use account-level or workspace-level API. Valid values are account and workspace. When not set, the API level is inferred from the provider host.
+	// Specifies whether to use account-level or workspace-level API. Valid values are `account` and `workspace`. When not set, the API level is inferred from the provider host.
+	// +kubebuilder:validation:Optional
+	API *string `json:"api,omitempty" tf:"api,omitempty"`
 
 	// (Deprecated) Default catalog used for this assignment. Please use databricks_default_namespace_setting instead.
 	// +kubebuilder:validation:Optional
@@ -65,15 +83,38 @@ type MetastoreAssignmentParameters struct {
 
 	// Reference to a Metastore in unity to populate metastoreId.
 	// +kubebuilder:validation:Optional
-	MetastoreIDRef *v1.NamespacedReference `json:"metastoreIdRef,omitempty" tf:"-"`
+	MetastoreIDRef *v2.NamespacedReference `json:"metastoreIdRef,omitempty" tf:"-"`
 
 	// Selector for a Metastore in unity to populate metastoreId.
 	// +kubebuilder:validation:Optional
-	MetastoreIDSelector *v1.NamespacedSelector `json:"metastoreIdSelector,omitempty" tf:"-"`
+	MetastoreIDSelector *v2.NamespacedSelector `json:"metastoreIdSelector,omitempty" tf:"-"`
+
+	// Configure the provider for management through account provider. This block consists of the following fields:
+	// +kubebuilder:validation:Optional
+	ProviderConfig *MetastoreAssignmentProviderConfigParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
 
 	// id of the workspace for the assignment
 	// +kubebuilder:validation:Optional
 	WorkspaceID *float64 `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
+}
+
+type MetastoreAssignmentProviderConfigInitParameters struct {
+
+	// id of the workspace for the assignment
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
+}
+
+type MetastoreAssignmentProviderConfigObservation struct {
+
+	// id of the workspace for the assignment
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
+}
+
+type MetastoreAssignmentProviderConfigParameters struct {
+
+	// id of the workspace for the assignment
+	// +kubebuilder:validation:Optional
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
 }
 
 // MetastoreAssignmentSpec defines the desired state of MetastoreAssignment
@@ -95,8 +136,8 @@ type MetastoreAssignmentSpec struct {
 
 // MetastoreAssignmentStatus defines the observed state of MetastoreAssignment.
 type MetastoreAssignmentStatus struct {
-	v1.ResourceStatus `json:",inline"`
-	AtProvider        MetastoreAssignmentObservation `json:"atProvider,omitempty"`
+	v2.ManagedResourceStatus `json:",inline"`
+	AtProvider               MetastoreAssignmentObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true

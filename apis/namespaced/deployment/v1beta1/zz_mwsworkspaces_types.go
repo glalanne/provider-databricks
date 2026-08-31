@@ -10,8 +10,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
-	v2 "github.com/crossplane/crossplane-runtime/v2/apis/common/v2"
+	v2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 )
 
 type CloudResourceContainerInitParameters struct {
@@ -132,7 +131,7 @@ type GkeConfigParameters struct {
 type MwsWorkspacesInitParameters struct {
 
 	// Account Id that could be found in the top right corner of Accounts Console.
-	AccountIDSecretRef v1.LocalSecretKeySelector `json:"accountIdSecretRef" tf:"-"`
+	AccountIDSecretRef v2.LocalSecretKeySelector `json:"accountIdSecretRef" tf:"-"`
 
 	// (AWS only) region of VPC.
 	AwsRegion *string `json:"awsRegion,omitempty" tf:"aws_region,omitempty"`
@@ -155,11 +154,11 @@ type MwsWorkspacesInitParameters struct {
 
 	// Reference to a MwsCredentials in deployment to populate credentialsId.
 	// +kubebuilder:validation:Optional
-	CredentialsIDRef *v1.NamespacedReference `json:"credentialsIdRef,omitempty" tf:"-"`
+	CredentialsIDRef *v2.NamespacedReference `json:"credentialsIdRef,omitempty" tf:"-"`
 
 	// Selector for a MwsCredentials in deployment to populate credentialsId.
 	// +kubebuilder:validation:Optional
-	CredentialsIDSelector *v1.NamespacedSelector `json:"credentialsIdSelector,omitempty" tf:"-"`
+	CredentialsIDSelector *v2.NamespacedSelector `json:"credentialsIdSelector,omitempty" tf:"-"`
 
 	// - The custom tags key-value pairing that is attached to this workspace. These tags will be applied to clusters automatically in addition to any default_tags or custom_tags on a cluster level. Please note it can take up to an hour for custom_tags to be set due to scheduling on Control Plane. After custom tags are applied, they can be modified however they can never be completely removed.
 	// +mapType=granular
@@ -198,11 +197,11 @@ type MwsWorkspacesInitParameters struct {
 
 	// Reference to a MwsNetworks in deployment to populate networkId.
 	// +kubebuilder:validation:Optional
-	NetworkIDRef *v1.NamespacedReference `json:"networkIdRef,omitempty" tf:"-"`
+	NetworkIDRef *v2.NamespacedReference `json:"networkIdRef,omitempty" tf:"-"`
 
 	// Selector for a MwsNetworks in deployment to populate networkId.
 	// +kubebuilder:validation:Optional
-	NetworkIDSelector *v1.NamespacedSelector `json:"networkIdSelector,omitempty" tf:"-"`
+	NetworkIDSelector *v2.NamespacedSelector `json:"networkIdSelector,omitempty" tf:"-"`
 
 	// - The pricing tier of the workspace.
 	PricingTier *string `json:"pricingTier,omitempty" tf:"pricing_tier,omitempty"`
@@ -217,11 +216,11 @@ type MwsWorkspacesInitParameters struct {
 
 	// Reference to a MwsStorageConfigurations in deployment to populate storageConfigurationId.
 	// +kubebuilder:validation:Optional
-	StorageConfigurationIDRef *v1.NamespacedReference `json:"storageConfigurationIdRef,omitempty" tf:"-"`
+	StorageConfigurationIDRef *v2.NamespacedReference `json:"storageConfigurationIdRef,omitempty" tf:"-"`
 
 	// Selector for a MwsStorageConfigurations in deployment to populate storageConfigurationId.
 	// +kubebuilder:validation:Optional
-	StorageConfigurationIDSelector *v1.NamespacedSelector `json:"storageConfigurationIdSelector,omitempty" tf:"-"`
+	StorageConfigurationIDSelector *v2.NamespacedSelector `json:"storageConfigurationIdSelector,omitempty" tf:"-"`
 
 	// customer_managed_key_id from customer managed keys with use_cases set to STORAGE. This is used to encrypt the DBFS Storage & Cluster Volumes.
 	StorageCustomerManagedKeyID *string `json:"storageCustomerManagedKeyId,omitempty" tf:"storage_customer_managed_key_id,omitempty"`
@@ -339,7 +338,7 @@ type MwsWorkspacesParameters struct {
 
 	// Account Id that could be found in the top right corner of Accounts Console.
 	// +kubebuilder:validation:Optional
-	AccountIDSecretRef v1.LocalSecretKeySelector `json:"accountIdSecretRef" tf:"-"`
+	AccountIDSecretRef v2.LocalSecretKeySelector `json:"accountIdSecretRef" tf:"-"`
 
 	// (AWS only) region of VPC.
 	// +kubebuilder:validation:Optional
@@ -368,11 +367,11 @@ type MwsWorkspacesParameters struct {
 
 	// Reference to a MwsCredentials in deployment to populate credentialsId.
 	// +kubebuilder:validation:Optional
-	CredentialsIDRef *v1.NamespacedReference `json:"credentialsIdRef,omitempty" tf:"-"`
+	CredentialsIDRef *v2.NamespacedReference `json:"credentialsIdRef,omitempty" tf:"-"`
 
 	// Selector for a MwsCredentials in deployment to populate credentialsId.
 	// +kubebuilder:validation:Optional
-	CredentialsIDSelector *v1.NamespacedSelector `json:"credentialsIdSelector,omitempty" tf:"-"`
+	CredentialsIDSelector *v2.NamespacedSelector `json:"credentialsIdSelector,omitempty" tf:"-"`
 
 	// - The custom tags key-value pairing that is attached to this workspace. These tags will be applied to clusters automatically in addition to any default_tags or custom_tags on a cluster level. Please note it can take up to an hour for custom_tags to be set due to scheduling on Control Plane. After custom tags are applied, they can be modified however they can never be completely removed.
 	// +kubebuilder:validation:Optional
@@ -423,11 +422,11 @@ type MwsWorkspacesParameters struct {
 
 	// Reference to a MwsNetworks in deployment to populate networkId.
 	// +kubebuilder:validation:Optional
-	NetworkIDRef *v1.NamespacedReference `json:"networkIdRef,omitempty" tf:"-"`
+	NetworkIDRef *v2.NamespacedReference `json:"networkIdRef,omitempty" tf:"-"`
 
 	// Selector for a MwsNetworks in deployment to populate networkId.
 	// +kubebuilder:validation:Optional
-	NetworkIDSelector *v1.NamespacedSelector `json:"networkIdSelector,omitempty" tf:"-"`
+	NetworkIDSelector *v2.NamespacedSelector `json:"networkIdSelector,omitempty" tf:"-"`
 
 	// - The pricing tier of the workspace.
 	// +kubebuilder:validation:Optional
@@ -445,11 +444,11 @@ type MwsWorkspacesParameters struct {
 
 	// Reference to a MwsStorageConfigurations in deployment to populate storageConfigurationId.
 	// +kubebuilder:validation:Optional
-	StorageConfigurationIDRef *v1.NamespacedReference `json:"storageConfigurationIdRef,omitempty" tf:"-"`
+	StorageConfigurationIDRef *v2.NamespacedReference `json:"storageConfigurationIdRef,omitempty" tf:"-"`
 
 	// Selector for a MwsStorageConfigurations in deployment to populate storageConfigurationId.
 	// +kubebuilder:validation:Optional
-	StorageConfigurationIDSelector *v1.NamespacedSelector `json:"storageConfigurationIdSelector,omitempty" tf:"-"`
+	StorageConfigurationIDSelector *v2.NamespacedSelector `json:"storageConfigurationIdSelector,omitempty" tf:"-"`
 
 	// customer_managed_key_id from customer managed keys with use_cases set to STORAGE. This is used to encrypt the DBFS Storage & Cluster Volumes.
 	// +kubebuilder:validation:Optional
@@ -490,7 +489,7 @@ type TokenInitParameters struct {
 	// (String) Canonical unique identifier for the workspace, of the format <account-id>/<workspace-id>
 	TokenID *string `json:"tokenId,omitempty" tf:"token_id,omitempty"`
 
-	TokenValueSecretRef *v1.LocalSecretKeySelector `json:"tokenValueSecretRef,omitempty" tf:"-"`
+	TokenValueSecretRef *v2.LocalSecretKeySelector `json:"tokenValueSecretRef,omitempty" tf:"-"`
 }
 
 type TokenObservation struct {
@@ -520,7 +519,7 @@ type TokenParameters struct {
 	TokenID *string `json:"tokenId,omitempty" tf:"token_id,omitempty"`
 
 	// +kubebuilder:validation:Optional
-	TokenValueSecretRef *v1.LocalSecretKeySelector `json:"tokenValueSecretRef,omitempty" tf:"-"`
+	TokenValueSecretRef *v2.LocalSecretKeySelector `json:"tokenValueSecretRef,omitempty" tf:"-"`
 }
 
 // MwsWorkspacesSpec defines the desired state of MwsWorkspaces
@@ -542,8 +541,8 @@ type MwsWorkspacesSpec struct {
 
 // MwsWorkspacesStatus defines the observed state of MwsWorkspaces.
 type MwsWorkspacesStatus struct {
-	v1.ResourceStatus `json:",inline"`
-	AtProvider        MwsWorkspacesObservation `json:"atProvider,omitempty"`
+	v2.ManagedResourceStatus `json:",inline"`
+	AtProvider               MwsWorkspacesObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true

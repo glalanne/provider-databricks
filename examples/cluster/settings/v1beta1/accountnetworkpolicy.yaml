@@ -1,0 +1,27 @@
+# SPDX-FileCopyrightText: 2026 The Crossplane Authors <https://crossplane.io>
+#
+# SPDX-License-Identifier: CC0-1.0
+
+apiVersion: settings.databricks.crossplane.io/v1beta1
+kind: AccountNetworkPolicy
+metadata:
+  annotations:
+    meta.upbound.io/example-id: settings/v1beta1/accountnetworkpolicy
+  labels:
+    testing.upbound.io/example-name: example_network_policy
+  name: example-network-policy
+spec:
+  forProvider:
+    egress:
+      networkAccess:
+        allowedInternetDestinations:
+        - destination: example.com
+          internetDestinationType: DNS_NAME
+        allowedStorageDestinations:
+        - bucketName: example-aws-cloud-storage
+          region: us-west-1
+          storageDestinationType: AWS_S3
+        policyEnforcement:
+          enforcementMode: ENFORCED
+        restrictionMode: RESTRICTED_ACCESS
+    networkPolicyId: example-network-policy

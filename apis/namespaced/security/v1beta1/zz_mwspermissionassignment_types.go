@@ -10,8 +10,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
-	v2 "github.com/crossplane/crossplane-runtime/v2/apis/common/v2"
+	v2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 )
 
 type MwsPermissionAssignmentInitParameters struct {
@@ -27,11 +26,11 @@ type MwsPermissionAssignmentInitParameters struct {
 
 	// Reference to a Group in security to populate principalId.
 	// +kubebuilder:validation:Optional
-	PrincipalIDRef *v1.NamespacedReference `json:"principalIdRef,omitempty" tf:"-"`
+	PrincipalIDRef *v2.NamespacedReference `json:"principalIdRef,omitempty" tf:"-"`
 
 	// Selector for a Group in security to populate principalId.
 	// +kubebuilder:validation:Optional
-	PrincipalIDSelector *v1.NamespacedSelector `json:"principalIdSelector,omitempty" tf:"-"`
+	PrincipalIDSelector *v2.NamespacedSelector `json:"principalIdSelector,omitempty" tf:"-"`
 
 	// Databricks workspace ID.
 	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/namespaced/deployment/v1beta1.MwsWorkspaces
@@ -40,11 +39,11 @@ type MwsPermissionAssignmentInitParameters struct {
 
 	// Reference to a MwsWorkspaces in deployment to populate workspaceId.
 	// +kubebuilder:validation:Optional
-	WorkspaceIDRef *v1.NamespacedReference `json:"workspaceIdRef,omitempty" tf:"-"`
+	WorkspaceIDRef *v2.NamespacedReference `json:"workspaceIdRef,omitempty" tf:"-"`
 
 	// Selector for a MwsWorkspaces in deployment to populate workspaceId.
 	// +kubebuilder:validation:Optional
-	WorkspaceIDSelector *v1.NamespacedSelector `json:"workspaceIdSelector,omitempty" tf:"-"`
+	WorkspaceIDSelector *v2.NamespacedSelector `json:"workspaceIdSelector,omitempty" tf:"-"`
 }
 
 type MwsPermissionAssignmentObservation struct {
@@ -78,11 +77,11 @@ type MwsPermissionAssignmentParameters struct {
 
 	// Reference to a Group in security to populate principalId.
 	// +kubebuilder:validation:Optional
-	PrincipalIDRef *v1.NamespacedReference `json:"principalIdRef,omitempty" tf:"-"`
+	PrincipalIDRef *v2.NamespacedReference `json:"principalIdRef,omitempty" tf:"-"`
 
 	// Selector for a Group in security to populate principalId.
 	// +kubebuilder:validation:Optional
-	PrincipalIDSelector *v1.NamespacedSelector `json:"principalIdSelector,omitempty" tf:"-"`
+	PrincipalIDSelector *v2.NamespacedSelector `json:"principalIdSelector,omitempty" tf:"-"`
 
 	// Databricks workspace ID.
 	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/namespaced/deployment/v1beta1.MwsWorkspaces
@@ -92,11 +91,11 @@ type MwsPermissionAssignmentParameters struct {
 
 	// Reference to a MwsWorkspaces in deployment to populate workspaceId.
 	// +kubebuilder:validation:Optional
-	WorkspaceIDRef *v1.NamespacedReference `json:"workspaceIdRef,omitempty" tf:"-"`
+	WorkspaceIDRef *v2.NamespacedReference `json:"workspaceIdRef,omitempty" tf:"-"`
 
 	// Selector for a MwsWorkspaces in deployment to populate workspaceId.
 	// +kubebuilder:validation:Optional
-	WorkspaceIDSelector *v1.NamespacedSelector `json:"workspaceIdSelector,omitempty" tf:"-"`
+	WorkspaceIDSelector *v2.NamespacedSelector `json:"workspaceIdSelector,omitempty" tf:"-"`
 }
 
 // MwsPermissionAssignmentSpec defines the desired state of MwsPermissionAssignment
@@ -118,8 +117,8 @@ type MwsPermissionAssignmentSpec struct {
 
 // MwsPermissionAssignmentStatus defines the observed state of MwsPermissionAssignment.
 type MwsPermissionAssignmentStatus struct {
-	v1.ResourceStatus `json:",inline"`
-	AtProvider        MwsPermissionAssignmentObservation `json:"atProvider,omitempty"`
+	v2.ManagedResourceStatus `json:",inline"`
+	AtProvider               MwsPermissionAssignmentObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true

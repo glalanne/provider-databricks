@@ -10,7 +10,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
+	v2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 )
 
 type AlertInitParameters struct {
@@ -40,11 +40,11 @@ type AlertInitParameters struct {
 
 	// Reference to a Directory in workspace to populate parentPath.
 	// +kubebuilder:validation:Optional
-	ParentPathRef *v1.Reference `json:"parentPathRef,omitempty" tf:"-"`
+	ParentPathRef *v2.Reference `json:"parentPathRef,omitempty" tf:"-"`
 
 	// Selector for a Directory in workspace to populate parentPath.
 	// +kubebuilder:validation:Optional
-	ParentPathSelector *v1.Selector `json:"parentPathSelector,omitempty" tf:"-"`
+	ParentPathSelector *v2.Selector `json:"parentPathSelector,omitempty" tf:"-"`
 
 	// Configure the provider for management through account provider. This block consists of the following fields:
 	ProviderConfig []ProviderConfigInitParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
@@ -56,11 +56,11 @@ type AlertInitParameters struct {
 
 	// Reference to a Query in sql to populate queryId.
 	// +kubebuilder:validation:Optional
-	QueryIDRef *v1.Reference `json:"queryIdRef,omitempty" tf:"-"`
+	QueryIDRef *v2.Reference `json:"queryIdRef,omitempty" tf:"-"`
 
 	// Selector for a Query in sql to populate queryId.
 	// +kubebuilder:validation:Optional
-	QueryIDSelector *v1.Selector `json:"queryIdSelector,omitempty" tf:"-"`
+	QueryIDSelector *v2.Selector `json:"queryIdSelector,omitempty" tf:"-"`
 
 	// Number of seconds an alert must wait after being triggered to rearm itself. After rearming, it can be triggered again. If 0 or not specified, the alert will not be triggered again.
 	SecondsToRetrigger *float64 `json:"secondsToRetrigger,omitempty" tf:"seconds_to_retrigger,omitempty"`
@@ -151,11 +151,11 @@ type AlertParameters struct {
 
 	// Reference to a Directory in workspace to populate parentPath.
 	// +kubebuilder:validation:Optional
-	ParentPathRef *v1.Reference `json:"parentPathRef,omitempty" tf:"-"`
+	ParentPathRef *v2.Reference `json:"parentPathRef,omitempty" tf:"-"`
 
 	// Selector for a Directory in workspace to populate parentPath.
 	// +kubebuilder:validation:Optional
-	ParentPathSelector *v1.Selector `json:"parentPathSelector,omitempty" tf:"-"`
+	ParentPathSelector *v2.Selector `json:"parentPathSelector,omitempty" tf:"-"`
 
 	// Configure the provider for management through account provider. This block consists of the following fields:
 	// +kubebuilder:validation:Optional
@@ -169,11 +169,11 @@ type AlertParameters struct {
 
 	// Reference to a Query in sql to populate queryId.
 	// +kubebuilder:validation:Optional
-	QueryIDRef *v1.Reference `json:"queryIdRef,omitempty" tf:"-"`
+	QueryIDRef *v2.Reference `json:"queryIdRef,omitempty" tf:"-"`
 
 	// Selector for a Query in sql to populate queryId.
 	// +kubebuilder:validation:Optional
-	QueryIDSelector *v1.Selector `json:"queryIdSelector,omitempty" tf:"-"`
+	QueryIDSelector *v2.Selector `json:"queryIdSelector,omitempty" tf:"-"`
 
 	// Number of seconds an alert must wait after being triggered to rearm itself. After rearming, it can be triggered again. If 0 or not specified, the alert will not be triggered again.
 	// +kubebuilder:validation:Optional
@@ -283,7 +283,7 @@ type ProviderConfigParameters struct {
 
 	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
 	// +kubebuilder:validation:Optional
-	WorkspaceID *string `json:"workspaceId" tf:"workspace_id,omitempty"`
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
 }
 
 type ThresholdInitParameters struct {
@@ -346,8 +346,8 @@ type ValueParameters struct {
 
 // AlertSpec defines the desired state of Alert
 type AlertSpec struct {
-	v1.ResourceSpec `json:",inline"`
-	ForProvider     AlertParameters `json:"forProvider"`
+	v2.ClusterManagedResourceSpec `json:",inline"`
+	ForProvider                   AlertParameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
 	// InitProvider holds the same fields as ForProvider, with the exception
@@ -363,8 +363,8 @@ type AlertSpec struct {
 
 // AlertStatus defines the observed state of Alert.
 type AlertStatus struct {
-	v1.ResourceStatus `json:",inline"`
-	AtProvider        AlertObservation `json:"atProvider,omitempty"`
+	v2.ManagedResourceStatus `json:",inline"`
+	AtProvider               AlertObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true

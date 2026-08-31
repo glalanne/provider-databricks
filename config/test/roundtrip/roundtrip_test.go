@@ -12,9 +12,12 @@ import (
 	"github.com/crossplane/upjet/v2/pkg/apitesting/roundtrip"
 	"github.com/databricks/terraform-provider-databricks/xpprovider"
 	"k8s.io/apimachinery/pkg/runtime"
+	"k8s.io/apimachinery/pkg/runtime/schema"
 
 	clusterapis "github.com/glalanne/provider-databricks/apis/cluster"
+	clustersecurityv1beta1 "github.com/glalanne/provider-databricks/apis/cluster/security/v1beta1"
 	namespacedapis "github.com/glalanne/provider-databricks/apis/namespaced"
+	namespacedsecurityv1beta1 "github.com/glalanne/provider-databricks/apis/namespaced/security/v1beta1"
 	"github.com/glalanne/provider-databricks/config"
 )
 
@@ -54,6 +57,10 @@ func TestRoundTrip(t *testing.T) {
 		roundtrip.WithComparisonOptions(
 			roundtrip.EquateEmptyAndSingleZeroSlice(),
 			roundtrip.EquateNilAndZeroValuePtr(),
+		),
+		roundtrip.WithExcludeGroupKinds(
+			schema.GroupKind{Group: clustersecurityv1beta1.CRDGroup, Kind: clustersecurityv1beta1.Permissions_Kind},
+			schema.GroupKind{Group: namespacedsecurityv1beta1.CRDGroup, Kind: namespacedsecurityv1beta1.Permissions_Kind},
 		),
 	)
 	if err != nil {

@@ -3,7 +3,7 @@ apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
   annotations:
-    controller-gen.kubebuilder.io/version: v0.20.0
+    controller-gen.kubebuilder.io/version: v0.21.0
   name: groups.security.databricks.m.crossplane.io
 spec:
   group: security.databricks.m.crossplane.io
@@ -80,6 +80,11 @@ spec:
                       be assigned with databricks_permissions and instance_pool_id
                       argument.
                     type: boolean
+                  api:
+                    description: |-
+                      Specifies whether to use account-level or workspace-level API. Valid values are account and workspace. When not set, the API level is inferred from the provider host.
+                      Specifies whether to use account-level or workspace-level API. Valid values are `account` and `workspace`. When not set, the API level is inferred from the provider host.
+                    type: string
                   databricksSqlAccess:
                     description: This is a field to allow the group to have access
                       to Databricks SQL  UI, Databricks One and through databricks_sql_endpoint.
@@ -95,6 +100,15 @@ spec:
                       exists. This functionality is experimental and is designed to
                       simplify corner cases, like Azure Active Directory synchronisation.'
                     type: boolean
+                  providerConfig:
+                    items:
+                      properties:
+                        workspaceId:
+                          description: Canonical unique identifier for the group (SCIM
+                            ID).
+                          type: string
+                      type: object
+                    type: array
                   url:
                     type: string
                   workspaceAccess:
@@ -138,6 +152,11 @@ spec:
                       be assigned with databricks_permissions and instance_pool_id
                       argument.
                     type: boolean
+                  api:
+                    description: |-
+                      Specifies whether to use account-level or workspace-level API. Valid values are account and workspace. When not set, the API level is inferred from the provider host.
+                      Specifies whether to use account-level or workspace-level API. Valid values are `account` and `workspace`. When not set, the API level is inferred from the provider host.
+                    type: string
                   databricksSqlAccess:
                     description: This is a field to allow the group to have access
                       to Databricks SQL  UI, Databricks One and through databricks_sql_endpoint.
@@ -153,6 +172,15 @@ spec:
                       exists. This functionality is experimental and is designed to
                       simplify corner cases, like Azure Active Directory synchronisation.'
                     type: boolean
+                  providerConfig:
+                    items:
+                      properties:
+                        workspaceId:
+                          description: Canonical unique identifier for the group (SCIM
+                            ID).
+                          type: string
+                      type: object
+                    type: array
                   url:
                     type: string
                   workspaceAccess:
@@ -251,6 +279,11 @@ spec:
                       be assigned with databricks_permissions and instance_pool_id
                       argument.
                     type: boolean
+                  api:
+                    description: |-
+                      Specifies whether to use account-level or workspace-level API. Valid values are account and workspace. When not set, the API level is inferred from the provider host.
+                      Specifies whether to use account-level or workspace-level API. Valid values are `account` and `workspace`. When not set, the API level is inferred from the provider host.
+                    type: string
                   databricksSqlAccess:
                     description: This is a field to allow the group to have access
                       to Databricks SQL  UI, Databricks One and through databricks_sql_endpoint.
@@ -269,6 +302,15 @@ spec:
                   id:
                     description: Canonical unique identifier for the group (SCIM ID).
                     type: string
+                  providerConfig:
+                    items:
+                      properties:
+                        workspaceId:
+                          description: Canonical unique identifier for the group (SCIM
+                            ID).
+                          type: string
+                      type: object
+                    type: array
                   url:
                     type: string
                   workspaceAccess:
@@ -327,6 +369,13 @@ spec:
                 x-kubernetes-list-map-keys:
                 - type
                 x-kubernetes-list-type: map
+              lastHandledReconcileAt:
+                description: |-
+                  LastHandledReconcileAt holds the value of the most recent
+                  reconcile-requested-at annotation token that the controller has
+                  processed. Users can compare this to the annotation to determine
+                  whether a reconcile request has been handled.
+                type: string
               observedGeneration:
                 description: |-
                   ObservedGeneration is the latest metadata.generation
@@ -400,6 +449,11 @@ spec:
                       be assigned with databricks_permissions and instance_pool_id
                       argument.
                     type: boolean
+                  api:
+                    description: |-
+                      Specifies whether to use account-level or workspace-level API. Valid values are account and workspace. When not set, the API level is inferred from the provider host.
+                      Specifies whether to use account-level or workspace-level API. Valid values are `account` and `workspace`. When not set, the API level is inferred from the provider host.
+                    type: string
                   databricksSqlAccess:
                     description: This is a field to allow the group to have access
                       to Databricks SQL  UI, Databricks One and through databricks_sql_endpoint.
@@ -415,6 +469,13 @@ spec:
                       exists. This functionality is experimental and is designed to
                       simplify corner cases, like Azure Active Directory synchronisation.'
                     type: boolean
+                  providerConfig:
+                    properties:
+                      workspaceId:
+                        description: Canonical unique identifier for the group (SCIM
+                          ID).
+                        type: string
+                    type: object
                   url:
                     type: string
                   workspaceAccess:
@@ -458,6 +519,11 @@ spec:
                       be assigned with databricks_permissions and instance_pool_id
                       argument.
                     type: boolean
+                  api:
+                    description: |-
+                      Specifies whether to use account-level or workspace-level API. Valid values are account and workspace. When not set, the API level is inferred from the provider host.
+                      Specifies whether to use account-level or workspace-level API. Valid values are `account` and `workspace`. When not set, the API level is inferred from the provider host.
+                    type: string
                   databricksSqlAccess:
                     description: This is a field to allow the group to have access
                       to Databricks SQL  UI, Databricks One and through databricks_sql_endpoint.
@@ -473,6 +539,13 @@ spec:
                       exists. This functionality is experimental and is designed to
                       simplify corner cases, like Azure Active Directory synchronisation.'
                     type: boolean
+                  providerConfig:
+                    properties:
+                      workspaceId:
+                        description: Canonical unique identifier for the group (SCIM
+                          ID).
+                        type: string
+                    type: object
                   url:
                     type: string
                   workspaceAccess:
@@ -571,6 +644,11 @@ spec:
                       be assigned with databricks_permissions and instance_pool_id
                       argument.
                     type: boolean
+                  api:
+                    description: |-
+                      Specifies whether to use account-level or workspace-level API. Valid values are account and workspace. When not set, the API level is inferred from the provider host.
+                      Specifies whether to use account-level or workspace-level API. Valid values are `account` and `workspace`. When not set, the API level is inferred from the provider host.
+                    type: string
                   databricksSqlAccess:
                     description: This is a field to allow the group to have access
                       to Databricks SQL  UI, Databricks One and through databricks_sql_endpoint.
@@ -589,6 +667,13 @@ spec:
                   id:
                     description: Canonical unique identifier for the group (SCIM ID).
                     type: string
+                  providerConfig:
+                    properties:
+                      workspaceId:
+                        description: Canonical unique identifier for the group (SCIM
+                          ID).
+                        type: string
+                    type: object
                   url:
                     type: string
                   workspaceAccess:
@@ -647,6 +732,13 @@ spec:
                 x-kubernetes-list-map-keys:
                 - type
                 x-kubernetes-list-type: map
+              lastHandledReconcileAt:
+                description: |-
+                  LastHandledReconcileAt holds the value of the most recent
+                  reconcile-requested-at annotation token that the controller has
+                  processed. Users can compare this to the annotation to determine
+                  whether a reconcile request has been handled.
+                type: string
               observedGeneration:
                 description: |-
                   ObservedGeneration is the latest metadata.generation

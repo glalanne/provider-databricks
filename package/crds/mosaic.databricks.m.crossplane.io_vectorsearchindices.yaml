@@ -3,7 +3,7 @@ apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
   annotations:
-    controller-gen.kubebuilder.io/version: v0.20.0
+    controller-gen.kubebuilder.io/version: v0.21.0
   name: vectorsearchindices.mosaic.databricks.m.crossplane.io
 spec:
   group: mosaic.databricks.m.crossplane.io
@@ -68,6 +68,14 @@ spec:
                       below.
                     items:
                       properties:
+                        columnsToIndex:
+                          items:
+                            type: string
+                          type: array
+                        columnsToSync:
+                          items:
+                            type: string
+                          type: array
                         embeddingSourceColumns:
                           description: 'array of objects representing columns that
                             contain the embedding source.  Each entry consists of:'
@@ -242,6 +250,9 @@ spec:
                           type: string
                       type: object
                     type: array
+                  endpointId:
+                    description: The same as the name of the index.
+                    type: string
                   endpointName:
                     description: The name of the Mosaic AI Vector Search Endpoint
                       that will be used for indexing the data.
@@ -328,6 +339,8 @@ spec:
                             type: string
                         type: object
                     type: object
+                  indexSubtype:
+                    type: string
                   indexType:
                     description: 'Mosaic AI Vector Search index type. Currently supported
                       values are:'
@@ -371,6 +384,14 @@ spec:
                       below.
                     items:
                       properties:
+                        columnsToIndex:
+                          items:
+                            type: string
+                          type: array
+                        columnsToSync:
+                          items:
+                            type: string
+                          type: array
                         embeddingSourceColumns:
                           description: 'array of objects representing columns that
                             contain the embedding source.  Each entry consists of:'
@@ -545,6 +566,9 @@ spec:
                           type: string
                       type: object
                     type: array
+                  endpointId:
+                    description: The same as the name of the index.
+                    type: string
                   endpointName:
                     description: The name of the Mosaic AI Vector Search Endpoint
                       that will be used for indexing the data.
@@ -631,6 +655,8 @@ spec:
                             type: string
                         type: object
                     type: object
+                  indexSubtype:
+                    type: string
                   indexType:
                     description: 'Mosaic AI Vector Search index type. Currently supported
                       values are:'
@@ -740,6 +766,14 @@ spec:
                       below.
                     items:
                       properties:
+                        columnsToIndex:
+                          items:
+                            type: string
+                          type: array
+                        columnsToSync:
+                          items:
+                            type: string
+                          type: array
                         embeddingSourceColumns:
                           description: 'array of objects representing columns that
                             contain the embedding source.  Each entry consists of:'
@@ -835,12 +869,17 @@ spec:
                           type: string
                       type: object
                     type: array
+                  endpointId:
+                    description: The same as the name of the index.
+                    type: string
                   endpointName:
                     description: The name of the Mosaic AI Vector Search Endpoint
                       that will be used for indexing the data.
                     type: string
                   id:
                     description: The same as the name of the index.
+                    type: string
+                  indexSubtype:
                     type: string
                   indexType:
                     description: 'Mosaic AI Vector Search index type. Currently supported
@@ -932,6 +971,13 @@ spec:
                 x-kubernetes-list-map-keys:
                 - type
                 x-kubernetes-list-type: map
+              lastHandledReconcileAt:
+                description: |-
+                  LastHandledReconcileAt holds the value of the most recent
+                  reconcile-requested-at annotation token that the controller has
+                  processed. Users can compare this to the annotation to determine
+                  whether a reconcile request has been handled.
+                type: string
               observedGeneration:
                 description: |-
                   ObservedGeneration is the latest metadata.generation
@@ -992,6 +1038,14 @@ spec:
                       if index_type is DELTA_SYNC. This field is a block and is documented
                       below.
                     properties:
+                      columnsToIndex:
+                        items:
+                          type: string
+                        type: array
+                      columnsToSync:
+                        items:
+                          type: string
+                        type: array
                       embeddingSourceColumns:
                         description: 'array of objects representing columns that contain
                           the embedding source.  Each entry consists of:'
@@ -1163,6 +1217,9 @@ spec:
                           the API documentation for a list of supported data types.
                         type: string
                     type: object
+                  endpointId:
+                    description: The same as the name of the index.
+                    type: string
                   endpointName:
                     description: The name of the Mosaic AI Vector Search Endpoint
                       that will be used for indexing the data.
@@ -1249,6 +1306,8 @@ spec:
                             type: string
                         type: object
                     type: object
+                  indexSubtype:
+                    type: string
                   indexType:
                     description: 'Mosaic AI Vector Search index type. Currently supported
                       values are:'
@@ -1289,6 +1348,14 @@ spec:
                       if index_type is DELTA_SYNC. This field is a block and is documented
                       below.
                     properties:
+                      columnsToIndex:
+                        items:
+                          type: string
+                        type: array
+                      columnsToSync:
+                        items:
+                          type: string
+                        type: array
                       embeddingSourceColumns:
                         description: 'array of objects representing columns that contain
                           the embedding source.  Each entry consists of:'
@@ -1460,6 +1527,9 @@ spec:
                           the API documentation for a list of supported data types.
                         type: string
                     type: object
+                  endpointId:
+                    description: The same as the name of the index.
+                    type: string
                   endpointName:
                     description: The name of the Mosaic AI Vector Search Endpoint
                       that will be used for indexing the data.
@@ -1546,6 +1616,8 @@ spec:
                             type: string
                         type: object
                     type: object
+                  indexSubtype:
+                    type: string
                   indexType:
                     description: 'Mosaic AI Vector Search index type. Currently supported
                       values are:'
@@ -1652,6 +1724,14 @@ spec:
                       if index_type is DELTA_SYNC. This field is a block and is documented
                       below.
                     properties:
+                      columnsToIndex:
+                        items:
+                          type: string
+                        type: array
+                      columnsToSync:
+                        items:
+                          type: string
+                        type: array
                       embeddingSourceColumns:
                         description: 'array of objects representing columns that contain
                           the embedding source.  Each entry consists of:'
@@ -1744,12 +1824,17 @@ spec:
                           the API documentation for a list of supported data types.
                         type: string
                     type: object
+                  endpointId:
+                    description: The same as the name of the index.
+                    type: string
                   endpointName:
                     description: The name of the Mosaic AI Vector Search Endpoint
                       that will be used for indexing the data.
                     type: string
                   id:
                     description: The same as the name of the index.
+                    type: string
+                  indexSubtype:
                     type: string
                   indexType:
                     description: 'Mosaic AI Vector Search index type. Currently supported
@@ -1839,6 +1924,13 @@ spec:
                 x-kubernetes-list-map-keys:
                 - type
                 x-kubernetes-list-type: map
+              lastHandledReconcileAt:
+                description: |-
+                  LastHandledReconcileAt holds the value of the most recent
+                  reconcile-requested-at annotation token that the controller has
+                  processed. Users can compare this to the annotation to determine
+                  whether a reconcile request has been handled.
+                type: string
               observedGeneration:
                 description: |-
                   ObservedGeneration is the latest metadata.generation

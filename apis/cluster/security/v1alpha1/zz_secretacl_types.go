@@ -10,7 +10,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
+	v2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 )
 
 type SecretACLInitParameters struct {
@@ -25,11 +25,11 @@ type SecretACLInitParameters struct {
 
 	// Reference to a Group in security to populate principal.
 	// +kubebuilder:validation:Optional
-	PrincipalRef *v1.Reference `json:"principalRef,omitempty" tf:"-"`
+	PrincipalRef *v2.Reference `json:"principalRef,omitempty" tf:"-"`
 
 	// Selector for a Group in security to populate principal.
 	// +kubebuilder:validation:Optional
-	PrincipalSelector *v1.Selector `json:"principalSelector,omitempty" tf:"-"`
+	PrincipalSelector *v2.Selector `json:"principalSelector,omitempty" tf:"-"`
 
 	// Configure the provider for management through account provider. This block consists of the following fields:
 	ProviderConfig []SecretACLProviderConfigInitParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
@@ -41,11 +41,11 @@ type SecretACLInitParameters struct {
 
 	// Reference to a SecretScope in security to populate scope.
 	// +kubebuilder:validation:Optional
-	ScopeRef *v1.Reference `json:"scopeRef,omitempty" tf:"-"`
+	ScopeRef *v2.Reference `json:"scopeRef,omitempty" tf:"-"`
 
 	// Selector for a SecretScope in security to populate scope.
 	// +kubebuilder:validation:Optional
-	ScopeSelector *v1.Selector `json:"scopeSelector,omitempty" tf:"-"`
+	ScopeSelector *v2.Selector `json:"scopeSelector,omitempty" tf:"-"`
 }
 
 type SecretACLObservation struct {
@@ -78,11 +78,11 @@ type SecretACLParameters struct {
 
 	// Reference to a Group in security to populate principal.
 	// +kubebuilder:validation:Optional
-	PrincipalRef *v1.Reference `json:"principalRef,omitempty" tf:"-"`
+	PrincipalRef *v2.Reference `json:"principalRef,omitempty" tf:"-"`
 
 	// Selector for a Group in security to populate principal.
 	// +kubebuilder:validation:Optional
-	PrincipalSelector *v1.Selector `json:"principalSelector,omitempty" tf:"-"`
+	PrincipalSelector *v2.Selector `json:"principalSelector,omitempty" tf:"-"`
 
 	// Configure the provider for management through account provider. This block consists of the following fields:
 	// +kubebuilder:validation:Optional
@@ -96,11 +96,11 @@ type SecretACLParameters struct {
 
 	// Reference to a SecretScope in security to populate scope.
 	// +kubebuilder:validation:Optional
-	ScopeRef *v1.Reference `json:"scopeRef,omitempty" tf:"-"`
+	ScopeRef *v2.Reference `json:"scopeRef,omitempty" tf:"-"`
 
 	// Selector for a SecretScope in security to populate scope.
 	// +kubebuilder:validation:Optional
-	ScopeSelector *v1.Selector `json:"scopeSelector,omitempty" tf:"-"`
+	ScopeSelector *v2.Selector `json:"scopeSelector,omitempty" tf:"-"`
 }
 
 type SecretACLProviderConfigInitParameters struct {
@@ -119,13 +119,13 @@ type SecretACLProviderConfigParameters struct {
 
 	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
 	// +kubebuilder:validation:Optional
-	WorkspaceID *string `json:"workspaceId" tf:"workspace_id,omitempty"`
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
 }
 
 // SecretACLSpec defines the desired state of SecretACL
 type SecretACLSpec struct {
-	v1.ResourceSpec `json:",inline"`
-	ForProvider     SecretACLParameters `json:"forProvider"`
+	v2.ClusterManagedResourceSpec `json:",inline"`
+	ForProvider                   SecretACLParameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
 	// InitProvider holds the same fields as ForProvider, with the exception
@@ -141,8 +141,8 @@ type SecretACLSpec struct {
 
 // SecretACLStatus defines the observed state of SecretACL.
 type SecretACLStatus struct {
-	v1.ResourceStatus `json:",inline"`
-	AtProvider        SecretACLObservation `json:"atProvider,omitempty"`
+	v2.ManagedResourceStatus `json:",inline"`
+	AtProvider               SecretACLObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true

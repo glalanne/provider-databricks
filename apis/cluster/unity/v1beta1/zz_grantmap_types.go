@@ -10,7 +10,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
+	v2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 )
 
 type GrantMapGrantInitParameters struct {
@@ -21,11 +21,11 @@ type GrantMapGrantInitParameters struct {
 
 	// Reference to a Group in security to populate principal.
 	// +kubebuilder:validation:Optional
-	PrincipalRef *v1.Reference `json:"principalRef,omitempty" tf:"-"`
+	PrincipalRef *v2.Reference `json:"principalRef,omitempty" tf:"-"`
 
 	// Selector for a Group in security to populate principal.
 	// +kubebuilder:validation:Optional
-	PrincipalSelector *v1.Selector `json:"principalSelector,omitempty" tf:"-"`
+	PrincipalSelector *v2.Selector `json:"principalSelector,omitempty" tf:"-"`
 
 	// One or more privileges that are specific to a securable type.
 	// +listType=set
@@ -51,11 +51,11 @@ type GrantMapGrantParameters struct {
 
 	// Reference to a Group in security to populate principal.
 	// +kubebuilder:validation:Optional
-	PrincipalRef *v1.Reference `json:"principalRef,omitempty" tf:"-"`
+	PrincipalRef *v2.Reference `json:"principalRef,omitempty" tf:"-"`
 
 	// Selector for a Group in security to populate principal.
 	// +kubebuilder:validation:Optional
-	PrincipalSelector *v1.Selector `json:"principalSelector,omitempty" tf:"-"`
+	PrincipalSelector *v2.Selector `json:"principalSelector,omitempty" tf:"-"`
 
 	// One or more privileges that are specific to a securable type.
 	// +kubebuilder:validation:Optional
@@ -71,11 +71,11 @@ type GrantMapInitParameters struct {
 
 	// Reference to a Catalog in unity to populate catalog.
 	// +kubebuilder:validation:Optional
-	CatalogRef *v1.Reference `json:"catalogRef,omitempty" tf:"-"`
+	CatalogRef *v2.Reference `json:"catalogRef,omitempty" tf:"-"`
 
 	// Selector for a Catalog in unity to populate catalog.
 	// +kubebuilder:validation:Optional
-	CatalogSelector *v1.Selector `json:"catalogSelector,omitempty" tf:"-"`
+	CatalogSelector *v2.Selector `json:"catalogSelector,omitempty" tf:"-"`
 
 	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/cluster/unity/v1beta1.Credential
 	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/v2/pkg/resource.ExtractResourceID()
@@ -83,11 +83,11 @@ type GrantMapInitParameters struct {
 
 	// Reference to a Credential in unity to populate credential.
 	// +kubebuilder:validation:Optional
-	CredentialRef *v1.Reference `json:"credentialRef,omitempty" tf:"-"`
+	CredentialRef *v2.Reference `json:"credentialRef,omitempty" tf:"-"`
 
 	// Selector for a Credential in unity to populate credential.
 	// +kubebuilder:validation:Optional
-	CredentialSelector *v1.Selector `json:"credentialSelector,omitempty" tf:"-"`
+	CredentialSelector *v2.Selector `json:"credentialSelector,omitempty" tf:"-"`
 
 	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/cluster/unity/v1beta1.ExternalLocation
 	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/v2/pkg/resource.ExtractResourceID()
@@ -95,11 +95,11 @@ type GrantMapInitParameters struct {
 
 	// Reference to a ExternalLocation in unity to populate externalLocation.
 	// +kubebuilder:validation:Optional
-	ExternalLocationRef *v1.Reference `json:"externalLocationRef,omitempty" tf:"-"`
+	ExternalLocationRef *v2.Reference `json:"externalLocationRef,omitempty" tf:"-"`
 
 	// Selector for a ExternalLocation in unity to populate externalLocation.
 	// +kubebuilder:validation:Optional
-	ExternalLocationSelector *v1.Selector `json:"externalLocationSelector,omitempty" tf:"-"`
+	ExternalLocationSelector *v2.Selector `json:"externalLocationSelector,omitempty" tf:"-"`
 
 	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/cluster/unity/v1beta1.Connection
 	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/v2/pkg/resource.ExtractParamPath("name",false)
@@ -107,11 +107,11 @@ type GrantMapInitParameters struct {
 
 	// Reference to a Connection in unity to populate foreignConnection.
 	// +kubebuilder:validation:Optional
-	ForeignConnectionRef *v1.Reference `json:"foreignConnectionRef,omitempty" tf:"-"`
+	ForeignConnectionRef *v2.Reference `json:"foreignConnectionRef,omitempty" tf:"-"`
 
 	// Selector for a Connection in unity to populate foreignConnection.
 	// +kubebuilder:validation:Optional
-	ForeignConnectionSelector *v1.Selector `json:"foreignConnectionSelector,omitempty" tf:"-"`
+	ForeignConnectionSelector *v2.Selector `json:"foreignConnectionSelector,omitempty" tf:"-"`
 
 	Function *string `json:"function,omitempty" tf:"function,omitempty"`
 
@@ -134,22 +134,22 @@ type GrantMapInitParameters struct {
 
 	// Reference to a Schema in unity to populate schema.
 	// +kubebuilder:validation:Optional
-	SchemaRef *v1.Reference `json:"schemaRef,omitempty" tf:"-"`
+	SchemaRef *v2.Reference `json:"schemaRef,omitempty" tf:"-"`
 
 	// Selector for a Schema in unity to populate schema.
 	// +kubebuilder:validation:Optional
-	SchemaSelector *v1.Selector `json:"schemaSelector,omitempty" tf:"-"`
+	SchemaSelector *v2.Selector `json:"schemaSelector,omitempty" tf:"-"`
 
 	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/cluster/sharing/v1beta1.Share
 	Share *string `json:"share,omitempty" tf:"share,omitempty"`
 
 	// Reference to a Share in sharing to populate share.
 	// +kubebuilder:validation:Optional
-	ShareRef *v1.Reference `json:"shareRef,omitempty" tf:"-"`
+	ShareRef *v2.Reference `json:"shareRef,omitempty" tf:"-"`
 
 	// Selector for a Share in sharing to populate share.
 	// +kubebuilder:validation:Optional
-	ShareSelector *v1.Selector `json:"shareSelector,omitempty" tf:"-"`
+	ShareSelector *v2.Selector `json:"shareSelector,omitempty" tf:"-"`
 
 	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/cluster/unity/v1beta1.StorageCredential
 	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/v2/pkg/resource.ExtractResourceID()
@@ -157,11 +157,11 @@ type GrantMapInitParameters struct {
 
 	// Reference to a StorageCredential in unity to populate storageCredential.
 	// +kubebuilder:validation:Optional
-	StorageCredentialRef *v1.Reference `json:"storageCredentialRef,omitempty" tf:"-"`
+	StorageCredentialRef *v2.Reference `json:"storageCredentialRef,omitempty" tf:"-"`
 
 	// Selector for a StorageCredential in unity to populate storageCredential.
 	// +kubebuilder:validation:Optional
-	StorageCredentialSelector *v1.Selector `json:"storageCredentialSelector,omitempty" tf:"-"`
+	StorageCredentialSelector *v2.Selector `json:"storageCredentialSelector,omitempty" tf:"-"`
 
 	Table *string `json:"table,omitempty" tf:"table,omitempty"`
 
@@ -171,11 +171,11 @@ type GrantMapInitParameters struct {
 
 	// Reference to a Volume in unity to populate volume.
 	// +kubebuilder:validation:Optional
-	VolumeRef *v1.Reference `json:"volumeRef,omitempty" tf:"-"`
+	VolumeRef *v2.Reference `json:"volumeRef,omitempty" tf:"-"`
 
 	// Selector for a Volume in unity to populate volume.
 	// +kubebuilder:validation:Optional
-	VolumeSelector *v1.Selector `json:"volumeSelector,omitempty" tf:"-"`
+	VolumeSelector *v2.Selector `json:"volumeSelector,omitempty" tf:"-"`
 }
 
 type GrantMapObservation struct {
@@ -224,11 +224,11 @@ type GrantMapParameters struct {
 
 	// Reference to a Catalog in unity to populate catalog.
 	// +kubebuilder:validation:Optional
-	CatalogRef *v1.Reference `json:"catalogRef,omitempty" tf:"-"`
+	CatalogRef *v2.Reference `json:"catalogRef,omitempty" tf:"-"`
 
 	// Selector for a Catalog in unity to populate catalog.
 	// +kubebuilder:validation:Optional
-	CatalogSelector *v1.Selector `json:"catalogSelector,omitempty" tf:"-"`
+	CatalogSelector *v2.Selector `json:"catalogSelector,omitempty" tf:"-"`
 
 	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/cluster/unity/v1beta1.Credential
 	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/v2/pkg/resource.ExtractResourceID()
@@ -237,11 +237,11 @@ type GrantMapParameters struct {
 
 	// Reference to a Credential in unity to populate credential.
 	// +kubebuilder:validation:Optional
-	CredentialRef *v1.Reference `json:"credentialRef,omitempty" tf:"-"`
+	CredentialRef *v2.Reference `json:"credentialRef,omitempty" tf:"-"`
 
 	// Selector for a Credential in unity to populate credential.
 	// +kubebuilder:validation:Optional
-	CredentialSelector *v1.Selector `json:"credentialSelector,omitempty" tf:"-"`
+	CredentialSelector *v2.Selector `json:"credentialSelector,omitempty" tf:"-"`
 
 	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/cluster/unity/v1beta1.ExternalLocation
 	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/v2/pkg/resource.ExtractResourceID()
@@ -250,11 +250,11 @@ type GrantMapParameters struct {
 
 	// Reference to a ExternalLocation in unity to populate externalLocation.
 	// +kubebuilder:validation:Optional
-	ExternalLocationRef *v1.Reference `json:"externalLocationRef,omitempty" tf:"-"`
+	ExternalLocationRef *v2.Reference `json:"externalLocationRef,omitempty" tf:"-"`
 
 	// Selector for a ExternalLocation in unity to populate externalLocation.
 	// +kubebuilder:validation:Optional
-	ExternalLocationSelector *v1.Selector `json:"externalLocationSelector,omitempty" tf:"-"`
+	ExternalLocationSelector *v2.Selector `json:"externalLocationSelector,omitempty" tf:"-"`
 
 	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/cluster/unity/v1beta1.Connection
 	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/v2/pkg/resource.ExtractParamPath("name",false)
@@ -263,11 +263,11 @@ type GrantMapParameters struct {
 
 	// Reference to a Connection in unity to populate foreignConnection.
 	// +kubebuilder:validation:Optional
-	ForeignConnectionRef *v1.Reference `json:"foreignConnectionRef,omitempty" tf:"-"`
+	ForeignConnectionRef *v2.Reference `json:"foreignConnectionRef,omitempty" tf:"-"`
 
 	// Selector for a Connection in unity to populate foreignConnection.
 	// +kubebuilder:validation:Optional
-	ForeignConnectionSelector *v1.Selector `json:"foreignConnectionSelector,omitempty" tf:"-"`
+	ForeignConnectionSelector *v2.Selector `json:"foreignConnectionSelector,omitempty" tf:"-"`
 
 	// +kubebuilder:validation:Optional
 	Function *string `json:"function,omitempty" tf:"function,omitempty"`
@@ -298,11 +298,11 @@ type GrantMapParameters struct {
 
 	// Reference to a Schema in unity to populate schema.
 	// +kubebuilder:validation:Optional
-	SchemaRef *v1.Reference `json:"schemaRef,omitempty" tf:"-"`
+	SchemaRef *v2.Reference `json:"schemaRef,omitempty" tf:"-"`
 
 	// Selector for a Schema in unity to populate schema.
 	// +kubebuilder:validation:Optional
-	SchemaSelector *v1.Selector `json:"schemaSelector,omitempty" tf:"-"`
+	SchemaSelector *v2.Selector `json:"schemaSelector,omitempty" tf:"-"`
 
 	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/cluster/sharing/v1beta1.Share
 	// +kubebuilder:validation:Optional
@@ -310,11 +310,11 @@ type GrantMapParameters struct {
 
 	// Reference to a Share in sharing to populate share.
 	// +kubebuilder:validation:Optional
-	ShareRef *v1.Reference `json:"shareRef,omitempty" tf:"-"`
+	ShareRef *v2.Reference `json:"shareRef,omitempty" tf:"-"`
 
 	// Selector for a Share in sharing to populate share.
 	// +kubebuilder:validation:Optional
-	ShareSelector *v1.Selector `json:"shareSelector,omitempty" tf:"-"`
+	ShareSelector *v2.Selector `json:"shareSelector,omitempty" tf:"-"`
 
 	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/cluster/unity/v1beta1.StorageCredential
 	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/v2/pkg/resource.ExtractResourceID()
@@ -323,11 +323,11 @@ type GrantMapParameters struct {
 
 	// Reference to a StorageCredential in unity to populate storageCredential.
 	// +kubebuilder:validation:Optional
-	StorageCredentialRef *v1.Reference `json:"storageCredentialRef,omitempty" tf:"-"`
+	StorageCredentialRef *v2.Reference `json:"storageCredentialRef,omitempty" tf:"-"`
 
 	// Selector for a StorageCredential in unity to populate storageCredential.
 	// +kubebuilder:validation:Optional
-	StorageCredentialSelector *v1.Selector `json:"storageCredentialSelector,omitempty" tf:"-"`
+	StorageCredentialSelector *v2.Selector `json:"storageCredentialSelector,omitempty" tf:"-"`
 
 	// +kubebuilder:validation:Optional
 	Table *string `json:"table,omitempty" tf:"table,omitempty"`
@@ -339,11 +339,11 @@ type GrantMapParameters struct {
 
 	// Reference to a Volume in unity to populate volume.
 	// +kubebuilder:validation:Optional
-	VolumeRef *v1.Reference `json:"volumeRef,omitempty" tf:"-"`
+	VolumeRef *v2.Reference `json:"volumeRef,omitempty" tf:"-"`
 
 	// Selector for a Volume in unity to populate volume.
 	// +kubebuilder:validation:Optional
-	VolumeSelector *v1.Selector `json:"volumeSelector,omitempty" tf:"-"`
+	VolumeSelector *v2.Selector `json:"volumeSelector,omitempty" tf:"-"`
 }
 
 type GrantMapProviderConfigInitParameters struct {
@@ -362,13 +362,13 @@ type GrantMapProviderConfigParameters struct {
 
 	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
 	// +kubebuilder:validation:Optional
-	WorkspaceID *string `json:"workspaceId" tf:"workspace_id,omitempty"`
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
 }
 
 // GrantMapSpec defines the desired state of GrantMap
 type GrantMapSpec struct {
-	v1.ResourceSpec `json:",inline"`
-	ForProvider     GrantMapParameters `json:"forProvider"`
+	v2.ClusterManagedResourceSpec `json:",inline"`
+	ForProvider                   GrantMapParameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
 	// InitProvider holds the same fields as ForProvider, with the exception
@@ -384,8 +384,8 @@ type GrantMapSpec struct {
 
 // GrantMapStatus defines the observed state of GrantMap.
 type GrantMapStatus struct {
-	v1.ResourceStatus `json:",inline"`
-	AtProvider        GrantMapObservation `json:"atProvider,omitempty"`
+	v2.ManagedResourceStatus `json:",inline"`
+	AtProvider               GrantMapObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true

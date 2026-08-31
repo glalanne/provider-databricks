@@ -10,8 +10,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
-	v2 "github.com/crossplane/crossplane-runtime/v2/apis/common/v2"
+	v2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 )
 
 type SecretInitParameters struct {
@@ -29,14 +28,14 @@ type SecretInitParameters struct {
 
 	// Reference to a SecretScope in security to populate scope.
 	// +kubebuilder:validation:Optional
-	ScopeRef *v1.NamespacedReference `json:"scopeRef,omitempty" tf:"-"`
+	ScopeRef *v2.NamespacedReference `json:"scopeRef,omitempty" tf:"-"`
 
 	// Selector for a SecretScope in security to populate scope.
 	// +kubebuilder:validation:Optional
-	ScopeSelector *v1.NamespacedSelector `json:"scopeSelector,omitempty" tf:"-"`
+	ScopeSelector *v2.NamespacedSelector `json:"scopeSelector,omitempty" tf:"-"`
 
 	// (String) super secret sensitive value.
-	StringValueSecretRef v1.LocalSecretKeySelector `json:"stringValueSecretRef" tf:"-"`
+	StringValueSecretRef v2.LocalSecretKeySelector `json:"stringValueSecretRef" tf:"-"`
 }
 
 type SecretObservation struct {
@@ -78,15 +77,15 @@ type SecretParameters struct {
 
 	// Reference to a SecretScope in security to populate scope.
 	// +kubebuilder:validation:Optional
-	ScopeRef *v1.NamespacedReference `json:"scopeRef,omitempty" tf:"-"`
+	ScopeRef *v2.NamespacedReference `json:"scopeRef,omitempty" tf:"-"`
 
 	// Selector for a SecretScope in security to populate scope.
 	// +kubebuilder:validation:Optional
-	ScopeSelector *v1.NamespacedSelector `json:"scopeSelector,omitempty" tf:"-"`
+	ScopeSelector *v2.NamespacedSelector `json:"scopeSelector,omitempty" tf:"-"`
 
 	// (String) super secret sensitive value.
 	// +kubebuilder:validation:Optional
-	StringValueSecretRef v1.LocalSecretKeySelector `json:"stringValueSecretRef" tf:"-"`
+	StringValueSecretRef v2.LocalSecretKeySelector `json:"stringValueSecretRef" tf:"-"`
 }
 
 type SecretProviderConfigInitParameters struct {
@@ -105,7 +104,7 @@ type SecretProviderConfigParameters struct {
 
 	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
 	// +kubebuilder:validation:Optional
-	WorkspaceID *string `json:"workspaceId" tf:"workspace_id,omitempty"`
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
 }
 
 // SecretSpec defines the desired state of Secret
@@ -127,8 +126,8 @@ type SecretSpec struct {
 
 // SecretStatus defines the observed state of Secret.
 type SecretStatus struct {
-	v1.ResourceStatus `json:",inline"`
-	AtProvider        SecretObservation `json:"atProvider,omitempty"`
+	v2.ManagedResourceStatus `json:",inline"`
+	AtProvider               SecretObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true

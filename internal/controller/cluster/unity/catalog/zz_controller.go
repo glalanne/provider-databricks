@@ -25,6 +25,15 @@ import (
 	features "github.com/glalanne/provider-databricks/internal/features"
 )
 
+// SetupWebhookWithManager registers the conversion webhook for Catalog.
+func SetupWebhookWithManager(mgr ctrl.Manager) error {
+	if err := ctrl.NewWebhookManagedBy(mgr, &v1beta1.Catalog{}).
+		Complete(); err != nil {
+		return errors.Wrap(err, "cannot register webhook for the kind v1beta1.Catalog")
+	}
+	return nil
+}
+
 // SetupGated adds a controller that reconciles Catalog managed resources.
 func SetupGated(mgr ctrl.Manager, o tjcontroller.Options) error {
 	o.Options.Gate.Register(func() {
@@ -64,15 +73,6 @@ func Setup(mgr ctrl.Manager, o tjcontroller.Options) error {
 	}
 	if o.MetricOptions != nil {
 		opts = append(opts, managed.WithMetricRecorder(o.MetricOptions.MRMetrics))
-	}
-
-	// register webhooks for the kind v1beta1.Catalog
-	// if they're enabled.
-	if o.StartWebhooks {
-		if err := ctrl.NewWebhookManagedBy(mgr, &v1beta1.Catalog{}).
-			Complete(); err != nil {
-			return errors.Wrap(err, "cannot register webhook for the kind v1beta1.Catalog")
-		}
 	}
 
 	if o.MetricOptions != nil && o.MetricOptions.MRStateMetrics != nil {

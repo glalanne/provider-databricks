@@ -10,7 +10,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
+	v2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 )
 
 type AccountFederationPolicyInitParameters struct {
@@ -192,8 +192,8 @@ type OidcPolicyParameters struct {
 
 // AccountFederationPolicySpec defines the desired state of AccountFederationPolicy
 type AccountFederationPolicySpec struct {
-	v1.ResourceSpec `json:",inline"`
-	ForProvider     AccountFederationPolicyParameters `json:"forProvider"`
+	v2.ClusterManagedResourceSpec `json:",inline"`
+	ForProvider                   AccountFederationPolicyParameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
 	// InitProvider holds the same fields as ForProvider, with the exception
@@ -209,8 +209,8 @@ type AccountFederationPolicySpec struct {
 
 // AccountFederationPolicyStatus defines the observed state of AccountFederationPolicy.
 type AccountFederationPolicyStatus struct {
-	v1.ResourceStatus `json:",inline"`
-	AtProvider        AccountFederationPolicyObservation `json:"atProvider,omitempty"`
+	v2.ManagedResourceStatus `json:",inline"`
+	AtProvider               AccountFederationPolicyObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true

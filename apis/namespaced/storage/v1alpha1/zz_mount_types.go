@@ -10,8 +10,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
-	v2 "github.com/crossplane/crossplane-runtime/v2/apis/common/v2"
+	v2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 )
 
 type AbfsInitParameters struct {
@@ -26,11 +25,11 @@ type AbfsInitParameters struct {
 
 	// Reference to a Secret in security to populate clientSecretKey.
 	// +kubebuilder:validation:Optional
-	ClientSecretKeyRef *v1.NamespacedReference `json:"clientSecretKeyRef,omitempty" tf:"-"`
+	ClientSecretKeyRef *v2.NamespacedReference `json:"clientSecretKeyRef,omitempty" tf:"-"`
 
 	// Selector for a Secret in security to populate clientSecretKey.
 	// +kubebuilder:validation:Optional
-	ClientSecretKeySelector *v1.NamespacedSelector `json:"clientSecretKeySelector,omitempty" tf:"-"`
+	ClientSecretKeySelector *v2.NamespacedSelector `json:"clientSecretKeySelector,omitempty" tf:"-"`
 
 	// (String) This is the secret scope in which your service principal/enterprise app client secret will be stored.
 	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/namespaced/security/v1alpha1.SecretScope
@@ -39,11 +38,11 @@ type AbfsInitParameters struct {
 
 	// Reference to a SecretScope in security to populate clientSecretScope.
 	// +kubebuilder:validation:Optional
-	ClientSecretScopeRef *v1.NamespacedReference `json:"clientSecretScopeRef,omitempty" tf:"-"`
+	ClientSecretScopeRef *v2.NamespacedReference `json:"clientSecretScopeRef,omitempty" tf:"-"`
 
 	// Selector for a SecretScope in security to populate clientSecretScope.
 	// +kubebuilder:validation:Optional
-	ClientSecretScopeSelector *v1.NamespacedSelector `json:"clientSecretScopeSelector,omitempty" tf:"-"`
+	ClientSecretScopeSelector *v2.NamespacedSelector `json:"clientSecretScopeSelector,omitempty" tf:"-"`
 
 	// (String) ADLS gen2 container name. (Could be omitted if resource_id is provided)
 	ContainerName *string `json:"containerName,omitempty" tf:"container_name,omitempty"`
@@ -102,11 +101,11 @@ type AbfsParameters struct {
 
 	// Reference to a Secret in security to populate clientSecretKey.
 	// +kubebuilder:validation:Optional
-	ClientSecretKeyRef *v1.NamespacedReference `json:"clientSecretKeyRef,omitempty" tf:"-"`
+	ClientSecretKeyRef *v2.NamespacedReference `json:"clientSecretKeyRef,omitempty" tf:"-"`
 
 	// Selector for a Secret in security to populate clientSecretKey.
 	// +kubebuilder:validation:Optional
-	ClientSecretKeySelector *v1.NamespacedSelector `json:"clientSecretKeySelector,omitempty" tf:"-"`
+	ClientSecretKeySelector *v2.NamespacedSelector `json:"clientSecretKeySelector,omitempty" tf:"-"`
 
 	// (String) This is the secret scope in which your service principal/enterprise app client secret will be stored.
 	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/namespaced/security/v1alpha1.SecretScope
@@ -116,11 +115,11 @@ type AbfsParameters struct {
 
 	// Reference to a SecretScope in security to populate clientSecretScope.
 	// +kubebuilder:validation:Optional
-	ClientSecretScopeRef *v1.NamespacedReference `json:"clientSecretScopeRef,omitempty" tf:"-"`
+	ClientSecretScopeRef *v2.NamespacedReference `json:"clientSecretScopeRef,omitempty" tf:"-"`
 
 	// Selector for a SecretScope in security to populate clientSecretScope.
 	// +kubebuilder:validation:Optional
-	ClientSecretScopeSelector *v1.NamespacedSelector `json:"clientSecretScopeSelector,omitempty" tf:"-"`
+	ClientSecretScopeSelector *v2.NamespacedSelector `json:"clientSecretScopeSelector,omitempty" tf:"-"`
 
 	// (String) ADLS gen2 container name. (Could be omitted if resource_id is provided)
 	// +kubebuilder:validation:Optional
@@ -155,11 +154,11 @@ type AdlInitParameters struct {
 
 	// Reference to a Secret in security to populate clientSecretKey.
 	// +kubebuilder:validation:Optional
-	ClientSecretKeyRef *v1.NamespacedReference `json:"clientSecretKeyRef,omitempty" tf:"-"`
+	ClientSecretKeyRef *v2.NamespacedReference `json:"clientSecretKeyRef,omitempty" tf:"-"`
 
 	// Selector for a Secret in security to populate clientSecretKey.
 	// +kubebuilder:validation:Optional
-	ClientSecretKeySelector *v1.NamespacedSelector `json:"clientSecretKeySelector,omitempty" tf:"-"`
+	ClientSecretKeySelector *v2.NamespacedSelector `json:"clientSecretKeySelector,omitempty" tf:"-"`
 
 	// (String) This is the secret scope in which your service principal/enterprise app client secret will be stored.
 	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/namespaced/security/v1alpha1.SecretScope
@@ -168,11 +167,11 @@ type AdlInitParameters struct {
 
 	// Reference to a SecretScope in security to populate clientSecretScope.
 	// +kubebuilder:validation:Optional
-	ClientSecretScopeRef *v1.NamespacedReference `json:"clientSecretScopeRef,omitempty" tf:"-"`
+	ClientSecretScopeRef *v2.NamespacedReference `json:"clientSecretScopeRef,omitempty" tf:"-"`
 
 	// Selector for a SecretScope in security to populate clientSecretScope.
 	// +kubebuilder:validation:Optional
-	ClientSecretScopeSelector *v1.NamespacedSelector `json:"clientSecretScopeSelector,omitempty" tf:"-"`
+	ClientSecretScopeSelector *v2.NamespacedSelector `json:"clientSecretScopeSelector,omitempty" tf:"-"`
 
 	// (Computed) (String) This is optional if you don't want to add an additional directory that you wish to mount. This must start with a "/".
 	Directory *string `json:"directory,omitempty" tf:"directory,omitempty"`
@@ -225,11 +224,11 @@ type AdlParameters struct {
 
 	// Reference to a Secret in security to populate clientSecretKey.
 	// +kubebuilder:validation:Optional
-	ClientSecretKeyRef *v1.NamespacedReference `json:"clientSecretKeyRef,omitempty" tf:"-"`
+	ClientSecretKeyRef *v2.NamespacedReference `json:"clientSecretKeyRef,omitempty" tf:"-"`
 
 	// Selector for a Secret in security to populate clientSecretKey.
 	// +kubebuilder:validation:Optional
-	ClientSecretKeySelector *v1.NamespacedSelector `json:"clientSecretKeySelector,omitempty" tf:"-"`
+	ClientSecretKeySelector *v2.NamespacedSelector `json:"clientSecretKeySelector,omitempty" tf:"-"`
 
 	// (String) This is the secret scope in which your service principal/enterprise app client secret will be stored.
 	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/namespaced/security/v1alpha1.SecretScope
@@ -239,11 +238,11 @@ type AdlParameters struct {
 
 	// Reference to a SecretScope in security to populate clientSecretScope.
 	// +kubebuilder:validation:Optional
-	ClientSecretScopeRef *v1.NamespacedReference `json:"clientSecretScopeRef,omitempty" tf:"-"`
+	ClientSecretScopeRef *v2.NamespacedReference `json:"clientSecretScopeRef,omitempty" tf:"-"`
 
 	// Selector for a SecretScope in security to populate clientSecretScope.
 	// +kubebuilder:validation:Optional
-	ClientSecretScopeSelector *v1.NamespacedSelector `json:"clientSecretScopeSelector,omitempty" tf:"-"`
+	ClientSecretScopeSelector *v2.NamespacedSelector `json:"clientSecretScopeSelector,omitempty" tf:"-"`
 
 	// (Computed) (String) This is optional if you don't want to add an additional directory that you wish to mount. This must start with a "/".
 	// +kubebuilder:validation:Optional
@@ -306,11 +305,11 @@ type MountInitParameters struct {
 
 	// Reference to a Cluster in compute to populate clusterId.
 	// +kubebuilder:validation:Optional
-	ClusterIDRef *v1.NamespacedReference `json:"clusterIdRef,omitempty" tf:"-"`
+	ClusterIDRef *v2.NamespacedReference `json:"clusterIdRef,omitempty" tf:"-"`
 
 	// Selector for a Cluster in compute to populate clusterId.
 	// +kubebuilder:validation:Optional
-	ClusterIDSelector *v1.NamespacedSelector `json:"clusterIdSelector,omitempty" tf:"-"`
+	ClusterIDSelector *v2.NamespacedSelector `json:"clusterIdSelector,omitempty" tf:"-"`
 
 	// encryption type. Currently used only for AWS S3 mounts
 	EncryptionType *string `json:"encryptionType,omitempty" tf:"encryption_type,omitempty"`
@@ -405,11 +404,11 @@ type MountParameters struct {
 
 	// Reference to a Cluster in compute to populate clusterId.
 	// +kubebuilder:validation:Optional
-	ClusterIDRef *v1.NamespacedReference `json:"clusterIdRef,omitempty" tf:"-"`
+	ClusterIDRef *v2.NamespacedReference `json:"clusterIdRef,omitempty" tf:"-"`
 
 	// Selector for a Cluster in compute to populate clusterId.
 	// +kubebuilder:validation:Optional
-	ClusterIDSelector *v1.NamespacedSelector `json:"clusterIdSelector,omitempty" tf:"-"`
+	ClusterIDSelector *v2.NamespacedSelector `json:"clusterIdSelector,omitempty" tf:"-"`
 
 	// encryption type. Currently used only for AWS S3 mounts
 	// +kubebuilder:validation:Optional
@@ -465,7 +464,7 @@ type MountProviderConfigParameters struct {
 
 	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
 	// +kubebuilder:validation:Optional
-	WorkspaceID *string `json:"workspaceId" tf:"workspace_id,omitempty"`
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
 }
 
 type S3InitParameters struct {
@@ -480,11 +479,11 @@ type S3InitParameters struct {
 
 	// Reference to a InstanceProfile in deployment to populate instanceProfile.
 	// +kubebuilder:validation:Optional
-	InstanceProfileRef *v1.NamespacedReference `json:"instanceProfileRef,omitempty" tf:"-"`
+	InstanceProfileRef *v2.NamespacedReference `json:"instanceProfileRef,omitempty" tf:"-"`
 
 	// Selector for a InstanceProfile in deployment to populate instanceProfile.
 	// +kubebuilder:validation:Optional
-	InstanceProfileSelector *v1.NamespacedSelector `json:"instanceProfileSelector,omitempty" tf:"-"`
+	InstanceProfileSelector *v2.NamespacedSelector `json:"instanceProfileSelector,omitempty" tf:"-"`
 }
 
 type S3Observation struct {
@@ -510,11 +509,11 @@ type S3Parameters struct {
 
 	// Reference to a InstanceProfile in deployment to populate instanceProfile.
 	// +kubebuilder:validation:Optional
-	InstanceProfileRef *v1.NamespacedReference `json:"instanceProfileRef,omitempty" tf:"-"`
+	InstanceProfileRef *v2.NamespacedReference `json:"instanceProfileRef,omitempty" tf:"-"`
 
 	// Selector for a InstanceProfile in deployment to populate instanceProfile.
 	// +kubebuilder:validation:Optional
-	InstanceProfileSelector *v1.NamespacedSelector `json:"instanceProfileSelector,omitempty" tf:"-"`
+	InstanceProfileSelector *v2.NamespacedSelector `json:"instanceProfileSelector,omitempty" tf:"-"`
 }
 
 type WasbInitParameters struct {
@@ -538,11 +537,11 @@ type WasbInitParameters struct {
 
 	// Reference to a Secret in security to populate tokenSecretKey.
 	// +kubebuilder:validation:Optional
-	TokenSecretKeyRef *v1.NamespacedReference `json:"tokenSecretKeyRef,omitempty" tf:"-"`
+	TokenSecretKeyRef *v2.NamespacedReference `json:"tokenSecretKeyRef,omitempty" tf:"-"`
 
 	// Selector for a Secret in security to populate tokenSecretKey.
 	// +kubebuilder:validation:Optional
-	TokenSecretKeySelector *v1.NamespacedSelector `json:"tokenSecretKeySelector,omitempty" tf:"-"`
+	TokenSecretKeySelector *v2.NamespacedSelector `json:"tokenSecretKeySelector,omitempty" tf:"-"`
 
 	// (String) This is the secret scope in which your auth type token is stored.
 	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/namespaced/security/v1alpha1.SecretScope
@@ -551,11 +550,11 @@ type WasbInitParameters struct {
 
 	// Reference to a SecretScope in security to populate tokenSecretScope.
 	// +kubebuilder:validation:Optional
-	TokenSecretScopeRef *v1.NamespacedReference `json:"tokenSecretScopeRef,omitempty" tf:"-"`
+	TokenSecretScopeRef *v2.NamespacedReference `json:"tokenSecretScopeRef,omitempty" tf:"-"`
 
 	// Selector for a SecretScope in security to populate tokenSecretScope.
 	// +kubebuilder:validation:Optional
-	TokenSecretScopeSelector *v1.NamespacedSelector `json:"tokenSecretScopeSelector,omitempty" tf:"-"`
+	TokenSecretScopeSelector *v2.NamespacedSelector `json:"tokenSecretScopeSelector,omitempty" tf:"-"`
 }
 
 type WasbObservation struct {
@@ -605,11 +604,11 @@ type WasbParameters struct {
 
 	// Reference to a Secret in security to populate tokenSecretKey.
 	// +kubebuilder:validation:Optional
-	TokenSecretKeyRef *v1.NamespacedReference `json:"tokenSecretKeyRef,omitempty" tf:"-"`
+	TokenSecretKeyRef *v2.NamespacedReference `json:"tokenSecretKeyRef,omitempty" tf:"-"`
 
 	// Selector for a Secret in security to populate tokenSecretKey.
 	// +kubebuilder:validation:Optional
-	TokenSecretKeySelector *v1.NamespacedSelector `json:"tokenSecretKeySelector,omitempty" tf:"-"`
+	TokenSecretKeySelector *v2.NamespacedSelector `json:"tokenSecretKeySelector,omitempty" tf:"-"`
 
 	// (String) This is the secret scope in which your auth type token is stored.
 	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/namespaced/security/v1alpha1.SecretScope
@@ -619,11 +618,11 @@ type WasbParameters struct {
 
 	// Reference to a SecretScope in security to populate tokenSecretScope.
 	// +kubebuilder:validation:Optional
-	TokenSecretScopeRef *v1.NamespacedReference `json:"tokenSecretScopeRef,omitempty" tf:"-"`
+	TokenSecretScopeRef *v2.NamespacedReference `json:"tokenSecretScopeRef,omitempty" tf:"-"`
 
 	// Selector for a SecretScope in security to populate tokenSecretScope.
 	// +kubebuilder:validation:Optional
-	TokenSecretScopeSelector *v1.NamespacedSelector `json:"tokenSecretScopeSelector,omitempty" tf:"-"`
+	TokenSecretScopeSelector *v2.NamespacedSelector `json:"tokenSecretScopeSelector,omitempty" tf:"-"`
 }
 
 // MountSpec defines the desired state of Mount
@@ -645,8 +644,8 @@ type MountSpec struct {
 
 // MountStatus defines the observed state of Mount.
 type MountStatus struct {
-	v1.ResourceStatus `json:",inline"`
-	AtProvider        MountObservation `json:"atProvider,omitempty"`
+	v2.ManagedResourceStatus `json:",inline"`
+	AtProvider               MountObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true

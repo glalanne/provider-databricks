@@ -10,7 +10,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
+	v2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 )
 
 type ChildInstanceRefsInitParameters struct {
@@ -137,7 +137,8 @@ type DatabaseInstanceInitParameters struct {
 	// Configure the provider for management through account provider.
 	ProviderConfig *ProviderConfigInitParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
 
-	// Purge the resource on delete
+	// Deprecated. Omitting the field or setting it to true will result in the field being hard deleted. Setting a value
+	// of false will throw a bad request
 	PurgeOnDelete *bool `json:"purgeOnDelete,omitempty" tf:"purge_on_delete,omitempty"`
 
 	// The retention window for the instance. This is the time window in days
@@ -236,7 +237,8 @@ type DatabaseInstanceObservation struct {
 	// Configure the provider for management through account provider.
 	ProviderConfig *ProviderConfigObservation `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
 
-	// Purge the resource on delete
+	// Deprecated. Omitting the field or setting it to true will result in the field being hard deleted. Setting a value
+	// of false will throw a bad request
 	PurgeOnDelete *bool `json:"purgeOnDelete,omitempty" tf:"purge_on_delete,omitempty"`
 
 	// The DNS endpoint to connect to the instance for read only access. This is only available if
@@ -298,7 +300,8 @@ type DatabaseInstanceParameters struct {
 	// +kubebuilder:validation:Optional
 	ProviderConfig *ProviderConfigParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
 
-	// Purge the resource on delete
+	// Deprecated. Omitting the field or setting it to true will result in the field being hard deleted. Setting a value
+	// of false will throw a bad request
 	// +kubebuilder:validation:Optional
 	PurgeOnDelete *bool `json:"purgeOnDelete,omitempty" tf:"purge_on_delete,omitempty"`
 
@@ -430,13 +433,13 @@ type ProviderConfigParameters struct {
 
 	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
 	// +kubebuilder:validation:Optional
-	WorkspaceID *string `json:"workspaceId" tf:"workspace_id,omitempty"`
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
 }
 
 // DatabaseInstanceSpec defines the desired state of DatabaseInstance
 type DatabaseInstanceSpec struct {
-	v1.ResourceSpec `json:",inline"`
-	ForProvider     DatabaseInstanceParameters `json:"forProvider"`
+	v2.ClusterManagedResourceSpec `json:",inline"`
+	ForProvider                   DatabaseInstanceParameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
 	// InitProvider holds the same fields as ForProvider, with the exception
@@ -452,8 +455,8 @@ type DatabaseInstanceSpec struct {
 
 // DatabaseInstanceStatus defines the observed state of DatabaseInstance.
 type DatabaseInstanceStatus struct {
-	v1.ResourceStatus `json:",inline"`
-	AtProvider        DatabaseInstanceObservation `json:"atProvider,omitempty"`
+	v2.ManagedResourceStatus `json:",inline"`
+	AtProvider               DatabaseInstanceObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true

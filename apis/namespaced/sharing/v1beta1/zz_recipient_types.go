@@ -10,8 +10,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
-	v2 "github.com/crossplane/crossplane-runtime/v2/apis/common/v2"
+	v2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 )
 
 type IPAccessListInitParameters struct {
@@ -70,11 +69,11 @@ type RecipientInitParameters struct {
 
 	// Reference to a Metastore in unity to populate dataRecipientGlobalMetastoreId.
 	// +kubebuilder:validation:Optional
-	DataRecipientGlobalMetastoreIDRef *v1.NamespacedReference `json:"dataRecipientGlobalMetastoreIdRef,omitempty" tf:"-"`
+	DataRecipientGlobalMetastoreIDRef *v2.NamespacedReference `json:"dataRecipientGlobalMetastoreIdRef,omitempty" tf:"-"`
 
 	// Selector for a Metastore in unity to populate dataRecipientGlobalMetastoreId.
 	// +kubebuilder:validation:Optional
-	DataRecipientGlobalMetastoreIDSelector *v1.NamespacedSelector `json:"dataRecipientGlobalMetastoreIdSelector,omitempty" tf:"-"`
+	DataRecipientGlobalMetastoreIDSelector *v2.NamespacedSelector `json:"dataRecipientGlobalMetastoreIdSelector,omitempty" tf:"-"`
 
 	// Expiration timestamp of the token in epoch milliseconds.
 	ExpirationTime *float64 `json:"expirationTime,omitempty" tf:"expiration_time,omitempty"`
@@ -95,7 +94,7 @@ type RecipientInitParameters struct {
 	ProviderConfig *RecipientProviderConfigInitParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
 
 	// The one-time sharing code provided by the data recipient.
-	SharingCodeSecretRef *v1.LocalSecretKeySelector `json:"sharingCodeSecretRef,omitempty" tf:"-"`
+	SharingCodeSecretRef *v2.LocalSecretKeySelector `json:"sharingCodeSecretRef,omitempty" tf:"-"`
 
 	// List of Recipient Tokens. This field is only present when the authentication_type is TOKEN. Each list element is an object with following attributes:
 	Tokens []TokensInitParameters `json:"tokens,omitempty" tf:"tokens,omitempty"`
@@ -180,11 +179,11 @@ type RecipientParameters struct {
 
 	// Reference to a Metastore in unity to populate dataRecipientGlobalMetastoreId.
 	// +kubebuilder:validation:Optional
-	DataRecipientGlobalMetastoreIDRef *v1.NamespacedReference `json:"dataRecipientGlobalMetastoreIdRef,omitempty" tf:"-"`
+	DataRecipientGlobalMetastoreIDRef *v2.NamespacedReference `json:"dataRecipientGlobalMetastoreIdRef,omitempty" tf:"-"`
 
 	// Selector for a Metastore in unity to populate dataRecipientGlobalMetastoreId.
 	// +kubebuilder:validation:Optional
-	DataRecipientGlobalMetastoreIDSelector *v1.NamespacedSelector `json:"dataRecipientGlobalMetastoreIdSelector,omitempty" tf:"-"`
+	DataRecipientGlobalMetastoreIDSelector *v2.NamespacedSelector `json:"dataRecipientGlobalMetastoreIdSelector,omitempty" tf:"-"`
 
 	// Expiration timestamp of the token in epoch milliseconds.
 	// +kubebuilder:validation:Optional
@@ -212,7 +211,7 @@ type RecipientParameters struct {
 
 	// The one-time sharing code provided by the data recipient.
 	// +kubebuilder:validation:Optional
-	SharingCodeSecretRef *v1.LocalSecretKeySelector `json:"sharingCodeSecretRef,omitempty" tf:"-"`
+	SharingCodeSecretRef *v2.LocalSecretKeySelector `json:"sharingCodeSecretRef,omitempty" tf:"-"`
 
 	// List of Recipient Tokens. This field is only present when the authentication_type is TOKEN. Each list element is an object with following attributes:
 	// +kubebuilder:validation:Optional
@@ -235,7 +234,7 @@ type RecipientProviderConfigParameters struct {
 
 	// Workspace ID which the resource belongs to. This workspace must be part of the account which the provider is configured with.
 	// +kubebuilder:validation:Optional
-	WorkspaceID *string `json:"workspaceId" tf:"workspace_id,omitempty"`
+	WorkspaceID *string `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
 }
 
 type TokensInitParameters struct {
@@ -287,8 +286,8 @@ type RecipientSpec struct {
 
 // RecipientStatus defines the observed state of Recipient.
 type RecipientStatus struct {
-	v1.ResourceStatus `json:",inline"`
-	AtProvider        RecipientObservation `json:"atProvider,omitempty"`
+	v2.ManagedResourceStatus `json:",inline"`
+	AtProvider               RecipientObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true

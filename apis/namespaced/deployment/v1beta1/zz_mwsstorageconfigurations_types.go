@@ -10,14 +10,13 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
-	v2 "github.com/crossplane/crossplane-runtime/v2/apis/common/v2"
+	v2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 )
 
 type MwsStorageConfigurationsInitParameters struct {
 
 	// Account Id that could be found in the top right corner of Accounts Console
-	AccountIDSecretRef v1.LocalSecretKeySelector `json:"accountIdSecretRef" tf:"-"`
+	AccountIDSecretRef v2.LocalSecretKeySelector `json:"accountIdSecretRef" tf:"-"`
 
 	// name of AWS S3 bucket
 	BucketName *string `json:"bucketName,omitempty" tf:"bucket_name,omitempty"`
@@ -53,7 +52,7 @@ type MwsStorageConfigurationsParameters struct {
 
 	// Account Id that could be found in the top right corner of Accounts Console
 	// +kubebuilder:validation:Optional
-	AccountIDSecretRef v1.LocalSecretKeySelector `json:"accountIdSecretRef" tf:"-"`
+	AccountIDSecretRef v2.LocalSecretKeySelector `json:"accountIdSecretRef" tf:"-"`
 
 	// name of AWS S3 bucket
 	// +kubebuilder:validation:Optional
@@ -87,8 +86,8 @@ type MwsStorageConfigurationsSpec struct {
 
 // MwsStorageConfigurationsStatus defines the observed state of MwsStorageConfigurations.
 type MwsStorageConfigurationsStatus struct {
-	v1.ResourceStatus `json:",inline"`
-	AtProvider        MwsStorageConfigurationsObservation `json:"atProvider,omitempty"`
+	v2.ManagedResourceStatus `json:",inline"`
+	AtProvider               MwsStorageConfigurationsObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true

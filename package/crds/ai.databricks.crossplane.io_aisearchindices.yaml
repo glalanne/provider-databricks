@@ -1,0 +1,687 @@
+---
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  annotations:
+    controller-gen.kubebuilder.io/version: v0.21.0
+  name: aisearchindices.ai.databricks.crossplane.io
+spec:
+  group: ai.databricks.crossplane.io
+  names:
+    categories:
+    - crossplane
+    - managed
+    - databricks
+    kind: AISearchIndex
+    listKind: AISearchIndexList
+    plural: aisearchindices
+    singular: aisearchindex
+  scope: Cluster
+  versions:
+  - additionalPrinterColumns:
+    - jsonPath: .status.conditions[?(@.type=='Synced')].status
+      name: SYNCED
+      type: string
+    - jsonPath: .status.conditions[?(@.type=='Ready')].status
+      name: READY
+      type: string
+    - jsonPath: .metadata.annotations.crossplane\.io/external-name
+      name: EXTERNAL-NAME
+      type: string
+    - jsonPath: .metadata.creationTimestamp
+      name: AGE
+      type: date
+    name: v1beta1
+    schema:
+      openAPIV3Schema:
+        description: AISearchIndex is the Schema for the AISearchIndexs API.
+        properties:
+          apiVersion:
+            description: |-
+              APIVersion defines the versioned schema of this representation of an object.
+              Servers should convert recognized schemas to the latest internal value, and
+              may reject unrecognized values.
+              More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+            type: string
+          kind:
+            description: |-
+              Kind is a string value representing the REST resource this object represents.
+              Servers may infer this from the endpoint the client submits requests to.
+              Cannot be updated.
+              In CamelCase.
+              More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+            type: string
+          metadata:
+            type: object
+          spec:
+            description: AISearchIndexSpec defines the desired state of AISearchIndex
+            properties:
+              deletionPolicy:
+                default: Delete
+                description: |-
+                  DeletionPolicy specifies what will happen to the underlying external
+                  when this managed resource is deleted - either "Delete" or "Orphan" the
+                  external resource.
+                  This field is planned to be deprecated in favor of the ManagementPolicies
+                  field in a future release. Currently, both could be set independently and
+                  non-default values would be honored if the feature flag is enabled.
+                  See the design doc for more information: https://github.com/crossplane/crossplane/blob/499895a25d1a1a0ba1604944ef98ac7a1a71f197/design/design-doc-observe-only-resources.md?plain=1#L223
+                enum:
+                - Orphan
+                - Delete
+                type: string
+              forProvider:
+                properties:
+                  deltaSyncIndexSpec:
+                    description: Specification for a Delta Sync index. Set when index_type
+                      is DELTA_SYNC
+                    properties:
+                      columnsToSync:
+                        description: |-
+                          [Optional] Select the columns to sync with the index. If left blank, all columns
+                          from the source table are synced. The primary key column and embedding source or
+                          vector column are always synced
+                        items:
+                          type: string
+                        type: array
+                      embeddingSourceColumns:
+                        description: The columns that contain the embedding source
+                        items:
+                          properties:
+                            embeddingModelEndpoint:
+                              description: Name of the embedding model endpoint, used
+                                by default for both ingestion and querying
+                              type: string
+                            modelEndpointNameForQuery:
+                              description: Name of the embedding model endpoint which,
+                                if specified, is used for querying (not ingestion)
+                              type: string
+                            name:
+                              description: Name of the source column
+                              type: string
+                          type: object
+                        type: array
+                      embeddingVectorColumns:
+                        description: The columns that contain the embedding vectors
+                        items:
+                          properties:
+                            embeddingDimension:
+                              description: Dimension of the embedding vector
+                              type: number
+                            name:
+                              description: Name of the source column
+                              type: string
+                          type: object
+                        type: array
+                      embeddingWritebackTable:
+                        description: '[Optional] Name of the Delta table to sync the
+                          index contents and computed embeddings to'
+                        type: string
+                      pipelineType:
+                        description: |-
+                          Pipeline execution mode. Required on create — the backend rejects an unset value.
+                          Storage Optimized endpoints accept only TRIGGERED; Standard endpoints accept both.
+                          No explicit stage — a REQUIRED field staged below its service would be dropped from
+                          combined specs while remaining in required, tripping the OpenAPI required-vs-properties
+                          consistency check. The field inherits the service's launch stage. Possible values are: CONTINUOUS, TRIGGERED
+                        type: string
+                      sourceTable:
+                        description: The full name of the source Delta table
+                        type: string
+                    type: object
+                  directAccessIndexSpec:
+                    description: Specification for a Direct Access index. Set when
+                      index_type is DIRECT_ACCESS
+                    properties:
+                      embeddingSourceColumns:
+                        description: The columns that contain the embedding source
+                        items:
+                          properties:
+                            embeddingModelEndpoint:
+                              description: Name of the embedding model endpoint, used
+                                by default for both ingestion and querying
+                              type: string
+                            modelEndpointNameForQuery:
+                              description: Name of the embedding model endpoint which,
+                                if specified, is used for querying (not ingestion)
+                              type: string
+                            name:
+                              description: Name of the source column
+                              type: string
+                          type: object
+                        type: array
+                      embeddingVectorColumns:
+                        description: The columns that contain the embedding vectors
+                        items:
+                          properties:
+                            embeddingDimension:
+                              description: Dimension of the embedding vector
+                              type: number
+                            name:
+                              description: Name of the source column
+                              type: string
+                          type: object
+                        type: array
+                      schemaJson:
+                        description: |-
+                          The schema of the index in JSON format. Supported types are integer, long,
+                          float, double, boolean, string, date, timestamp. Supported types for
+                          vector columns: array<float>, array<double>
+                        type: string
+                    type: object
+                  indexId:
+                    description: |-
+                      The user-supplied Unity Catalog table name for the Index, per AIP-133. The server
+                      composes the full Index.name as {parent}/indexes/{index_id}. AIP-133 does not
+                      list index_id as a fields-may-be-required entry, so we annotate it OPTIONAL on the
+                      wire; the server still rejects empty values with INVALID_PARAMETER_VALUE
+                    type: string
+                  indexSubtype:
+                    description: 'The subtype of the index. Set on create and immutable
+                      thereafter. Possible values are: FULL_TEXT, HYBRID, VECTOR'
+                    type: string
+                  indexType:
+                    description: 'Type of index. Required on create and immutable
+                      thereafter. Possible values are: DELTA_SYNC, DIRECT_ACCESS'
+                    type: string
+                  parent:
+                    description: |-
+                      The Endpoint where this Index will be created.
+                      Format: workspaces/{workspace_id}/endpoints/{endpoint_id}
+                    type: string
+                  primaryKey:
+                    description: Primary key of the index. Set on create and immutable
+                      thereafter
+                    type: string
+                  providerConfig:
+                    description: Configure the provider for management through account
+                      provider.
+                    properties:
+                      workspaceId:
+                        description: Workspace ID which the resource belongs to. This
+                          workspace must be part of the account which the provider
+                          is configured with.
+                        type: string
+                    type: object
+                type: object
+              initProvider:
+                description: |-
+                  THIS IS A BETA FIELD. It will be honored
+                  unless the Management Policies feature flag is disabled.
+                  InitProvider holds the same fields as ForProvider, with the exception
+                  of Identifier and other resource reference fields. The fields that are
+                  in InitProvider are merged into ForProvider when the resource is created.
+                  The same fields are also added to the terraform ignore_changes hook, to
+                  avoid updating them after creation. This is useful for fields that are
+                  required on creation, but we do not desire to update them after creation,
+                  for example because of an external controller is managing them, like an
+                  autoscaler.
+                properties:
+                  deltaSyncIndexSpec:
+                    description: Specification for a Delta Sync index. Set when index_type
+                      is DELTA_SYNC
+                    properties:
+                      columnsToSync:
+                        description: |-
+                          [Optional] Select the columns to sync with the index. If left blank, all columns
+                          from the source table are synced. The primary key column and embedding source or
+                          vector column are always synced
+                        items:
+                          type: string
+                        type: array
+                      embeddingSourceColumns:
+                        description: The columns that contain the embedding source
+                        items:
+                          properties:
+                            embeddingModelEndpoint:
+                              description: Name of the embedding model endpoint, used
+                                by default for both ingestion and querying
+                              type: string
+                            modelEndpointNameForQuery:
+                              description: Name of the embedding model endpoint which,
+                                if specified, is used for querying (not ingestion)
+                              type: string
+                            name:
+                              description: Name of the source column
+                              type: string
+                          type: object
+                        type: array
+                      embeddingVectorColumns:
+                        description: The columns that contain the embedding vectors
+                        items:
+                          properties:
+                            embeddingDimension:
+                              description: Dimension of the embedding vector
+                              type: number
+                            name:
+                              description: Name of the source column
+                              type: string
+                          type: object
+                        type: array
+                      embeddingWritebackTable:
+                        description: '[Optional] Name of the Delta table to sync the
+                          index contents and computed embeddings to'
+                        type: string
+                      pipelineType:
+                        description: |-
+                          Pipeline execution mode. Required on create — the backend rejects an unset value.
+                          Storage Optimized endpoints accept only TRIGGERED; Standard endpoints accept both.
+                          No explicit stage — a REQUIRED field staged below its service would be dropped from
+                          combined specs while remaining in required, tripping the OpenAPI required-vs-properties
+                          consistency check. The field inherits the service's launch stage. Possible values are: CONTINUOUS, TRIGGERED
+                        type: string
+                      sourceTable:
+                        description: The full name of the source Delta table
+                        type: string
+                    type: object
+                  directAccessIndexSpec:
+                    description: Specification for a Direct Access index. Set when
+                      index_type is DIRECT_ACCESS
+                    properties:
+                      embeddingSourceColumns:
+                        description: The columns that contain the embedding source
+                        items:
+                          properties:
+                            embeddingModelEndpoint:
+                              description: Name of the embedding model endpoint, used
+                                by default for both ingestion and querying
+                              type: string
+                            modelEndpointNameForQuery:
+                              description: Name of the embedding model endpoint which,
+                                if specified, is used for querying (not ingestion)
+                              type: string
+                            name:
+                              description: Name of the source column
+                              type: string
+                          type: object
+                        type: array
+                      embeddingVectorColumns:
+                        description: The columns that contain the embedding vectors
+                        items:
+                          properties:
+                            embeddingDimension:
+                              description: Dimension of the embedding vector
+                              type: number
+                            name:
+                              description: Name of the source column
+                              type: string
+                          type: object
+                        type: array
+                      schemaJson:
+                        description: |-
+                          The schema of the index in JSON format. Supported types are integer, long,
+                          float, double, boolean, string, date, timestamp. Supported types for
+                          vector columns: array<float>, array<double>
+                        type: string
+                    type: object
+                  indexId:
+                    description: |-
+                      The user-supplied Unity Catalog table name for the Index, per AIP-133. The server
+                      composes the full Index.name as {parent}/indexes/{index_id}. AIP-133 does not
+                      list index_id as a fields-may-be-required entry, so we annotate it OPTIONAL on the
+                      wire; the server still rejects empty values with INVALID_PARAMETER_VALUE
+                    type: string
+                  indexSubtype:
+                    description: 'The subtype of the index. Set on create and immutable
+                      thereafter. Possible values are: FULL_TEXT, HYBRID, VECTOR'
+                    type: string
+                  indexType:
+                    description: 'Type of index. Required on create and immutable
+                      thereafter. Possible values are: DELTA_SYNC, DIRECT_ACCESS'
+                    type: string
+                  parent:
+                    description: |-
+                      The Endpoint where this Index will be created.
+                      Format: workspaces/{workspace_id}/endpoints/{endpoint_id}
+                    type: string
+                  primaryKey:
+                    description: Primary key of the index. Set on create and immutable
+                      thereafter
+                    type: string
+                  providerConfig:
+                    description: Configure the provider for management through account
+                      provider.
+                    properties:
+                      workspaceId:
+                        description: Workspace ID which the resource belongs to. This
+                          workspace must be part of the account which the provider
+                          is configured with.
+                        type: string
+                    type: object
+                type: object
+              managementPolicies:
+                default:
+                - '*'
+                description: |-
+                  THIS IS A BETA FIELD. It is on by default but can be opted out
+                  through a Crossplane feature flag.
+                  ManagementPolicies specify the array of actions Crossplane is allowed to
+                  take on the managed and external resources.
+                  This field is planned to replace the DeletionPolicy field in a future
+                  release. Currently, both could be set independently and non-default
+                  values would be honored if the feature flag is enabled. If both are
+                  custom, the DeletionPolicy field will be ignored.
+                  See the design doc for more information: https://github.com/crossplane/crossplane/blob/499895a25d1a1a0ba1604944ef98ac7a1a71f197/design/design-doc-observe-only-resources.md?plain=1#L223
+                  and this one: https://github.com/crossplane/crossplane/blob/444267e84783136daa93568b364a5f01228cacbe/design/one-pager-ignore-changes.md
+                items:
+                  description: |-
+                    A ManagementAction represents an action that the Crossplane controllers
+                    can take on an external resource.
+                  enum:
+                  - Observe
+                  - Create
+                  - Update
+                  - Delete
+                  - LateInitialize
+                  - '*'
+                  type: string
+                type: array
+              providerConfigRef:
+                default:
+                  name: default
+                description: |-
+                  ProviderConfigReference specifies how the provider that will be used to
+                  create, observe, update, and delete this managed resource should be
+                  configured.
+                properties:
+                  name:
+                    description: Name of the referenced object.
+                    type: string
+                  policy:
+                    description: Policies for referencing.
+                    properties:
+                      resolution:
+                        default: Required
+                        description: |-
+                          Resolution specifies whether resolution of this reference is required.
+                          The default is 'Required', which means the reconcile will fail if the
+                          reference cannot be resolved. 'Optional' means this reference will be
+                          a no-op if it cannot be resolved.
+                        enum:
+                        - Required
+                        - Optional
+                        type: string
+                      resolve:
+                        description: |-
+                          Resolve specifies when this reference should be resolved. The default
+                          is 'IfNotPresent', which will attempt to resolve the reference only when
+                          the corresponding field is not present. Use 'Always' to resolve the
+                          reference on every reconcile.
+                        enum:
+                        - Always
+                        - IfNotPresent
+                        type: string
+                    type: object
+                required:
+                - name
+                type: object
+              writeConnectionSecretToRef:
+                description: |-
+                  WriteConnectionSecretToReference specifies the namespace and name of a
+                  Secret to which any connection details for this managed resource should
+                  be written. Connection details frequently include the endpoint, username,
+                  and password required to connect to the managed resource.
+                properties:
+                  name:
+                    description: Name of the secret.
+                    type: string
+                  namespace:
+                    description: Namespace of the secret.
+                    type: string
+                required:
+                - name
+                - namespace
+                type: object
+            required:
+            - forProvider
+            type: object
+            x-kubernetes-validations:
+            - message: spec.forProvider.indexType is a required parameter
+              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
+                || ''Update'' in self.managementPolicies) || has(self.forProvider.indexType)
+                || (has(self.initProvider) && has(self.initProvider.indexType))'
+            - message: spec.forProvider.parent is a required parameter
+              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
+                || ''Update'' in self.managementPolicies) || has(self.forProvider.parent)
+                || (has(self.initProvider) && has(self.initProvider.parent))'
+            - message: spec.forProvider.primaryKey is a required parameter
+              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
+                || ''Update'' in self.managementPolicies) || has(self.forProvider.primaryKey)
+                || (has(self.initProvider) && has(self.initProvider.primaryKey))'
+          status:
+            description: AISearchIndexStatus defines the observed state of AISearchIndex.
+            properties:
+              atProvider:
+                properties:
+                  creator:
+                    description: Creator of the index
+                    type: string
+                  deltaSyncIndexSpec:
+                    description: Specification for a Delta Sync index. Set when index_type
+                      is DELTA_SYNC
+                    properties:
+                      columnsToSync:
+                        description: |-
+                          [Optional] Select the columns to sync with the index. If left blank, all columns
+                          from the source table are synced. The primary key column and embedding source or
+                          vector column are always synced
+                        items:
+                          type: string
+                        type: array
+                      embeddingSourceColumns:
+                        description: The columns that contain the embedding source
+                        items:
+                          properties:
+                            embeddingModelEndpoint:
+                              description: Name of the embedding model endpoint, used
+                                by default for both ingestion and querying
+                              type: string
+                            modelEndpointNameForQuery:
+                              description: Name of the embedding model endpoint which,
+                                if specified, is used for querying (not ingestion)
+                              type: string
+                            name:
+                              description: Name of the source column
+                              type: string
+                          type: object
+                        type: array
+                      embeddingVectorColumns:
+                        description: The columns that contain the embedding vectors
+                        items:
+                          properties:
+                            embeddingDimension:
+                              description: Dimension of the embedding vector
+                              type: number
+                            name:
+                              description: Name of the source column
+                              type: string
+                          type: object
+                        type: array
+                      embeddingWritebackTable:
+                        description: '[Optional] Name of the Delta table to sync the
+                          index contents and computed embeddings to'
+                        type: string
+                      pipelineId:
+                        description: The ID of the pipeline that is used to sync the
+                          index
+                        type: string
+                      pipelineType:
+                        description: |-
+                          Pipeline execution mode. Required on create — the backend rejects an unset value.
+                          Storage Optimized endpoints accept only TRIGGERED; Standard endpoints accept both.
+                          No explicit stage — a REQUIRED field staged below its service would be dropped from
+                          combined specs while remaining in required, tripping the OpenAPI required-vs-properties
+                          consistency check. The field inherits the service's launch stage. Possible values are: CONTINUOUS, TRIGGERED
+                        type: string
+                      sourceTable:
+                        description: The full name of the source Delta table
+                        type: string
+                    type: object
+                  directAccessIndexSpec:
+                    description: Specification for a Direct Access index. Set when
+                      index_type is DIRECT_ACCESS
+                    properties:
+                      embeddingSourceColumns:
+                        description: The columns that contain the embedding source
+                        items:
+                          properties:
+                            embeddingModelEndpoint:
+                              description: Name of the embedding model endpoint, used
+                                by default for both ingestion and querying
+                              type: string
+                            modelEndpointNameForQuery:
+                              description: Name of the embedding model endpoint which,
+                                if specified, is used for querying (not ingestion)
+                              type: string
+                            name:
+                              description: Name of the source column
+                              type: string
+                          type: object
+                        type: array
+                      embeddingVectorColumns:
+                        description: The columns that contain the embedding vectors
+                        items:
+                          properties:
+                            embeddingDimension:
+                              description: Dimension of the embedding vector
+                              type: number
+                            name:
+                              description: Name of the source column
+                              type: string
+                          type: object
+                        type: array
+                      schemaJson:
+                        description: |-
+                          The schema of the index in JSON format. Supported types are integer, long,
+                          float, double, boolean, string, date, timestamp. Supported types for
+                          vector columns: array<float>, array<double>
+                        type: string
+                    type: object
+                  endpoint:
+                    description: |-
+                      Name of the endpoint associated with the index. Ignored on create — the endpoint is
+                      taken from CreateIndexRequest.parent; populated only on output
+                    type: string
+                  id:
+                    type: string
+                  indexId:
+                    description: |-
+                      The user-supplied Unity Catalog table name for the Index, per AIP-133. The server
+                      composes the full Index.name as {parent}/indexes/{index_id}. AIP-133 does not
+                      list index_id as a fields-may-be-required entry, so we annotate it OPTIONAL on the
+                      wire; the server still rejects empty values with INVALID_PARAMETER_VALUE
+                    type: string
+                  indexSubtype:
+                    description: 'The subtype of the index. Set on create and immutable
+                      thereafter. Possible values are: FULL_TEXT, HYBRID, VECTOR'
+                    type: string
+                  indexType:
+                    description: 'Type of index. Required on create and immutable
+                      thereafter. Possible values are: DELTA_SYNC, DIRECT_ACCESS'
+                    type: string
+                  parent:
+                    description: |-
+                      The Endpoint where this Index will be created.
+                      Format: workspaces/{workspace_id}/endpoints/{endpoint_id}
+                    type: string
+                  primaryKey:
+                    description: Primary key of the index. Set on create and immutable
+                      thereafter
+                    type: string
+                  providerConfig:
+                    description: Configure the provider for management through account
+                      provider.
+                    properties:
+                      workspaceId:
+                        description: Workspace ID which the resource belongs to. This
+                          workspace must be part of the account which the provider
+                          is configured with.
+                        type: string
+                    type: object
+                  status:
+                    description: Current status of the index
+                    properties:
+                      indexUrl:
+                        description: Index API URL used to perform operations on the
+                          index
+                        type: string
+                      indexedRowCount:
+                        description: Number of rows indexed
+                        type: number
+                      message:
+                        description: Human-readable detail about the index's current
+                          state
+                        type: string
+                      ready:
+                        description: Whether the index is ready for search
+                        type: boolean
+                    type: object
+                type: object
+              conditions:
+                description: Conditions of the resource.
+                items:
+                  description: A Condition that may apply to a resource.
+                  properties:
+                    lastTransitionTime:
+                      description: |-
+                        LastTransitionTime is the last time this condition transitioned from one
+                        status to another.
+                      format: date-time
+                      type: string
+                    message:
+                      description: |-
+                        A Message containing details about this condition's last transition from
+                        one status to another, if any.
+                      type: string
+                    observedGeneration:
+                      description: |-
+                        ObservedGeneration represents the .metadata.generation that the condition was set based upon.
+                        For instance, if .metadata.generation is currently 12, but the .status.conditions[x].observedGeneration is 9, the condition is out of date
+                        with respect to the current state of the instance.
+                      format: int64
+                      type: integer
+                    reason:
+                      description: A Reason for this condition's last transition from
+                        one status to another.
+                      type: string
+                    status:
+                      description: Status of this condition; is it currently True,
+                        False, or Unknown?
+                      type: string
+                    type:
+                      description: |-
+                        Type of this condition. At most one of each condition type may apply to
+                        a resource at any point in time.
+                      type: string
+                  required:
+                  - lastTransitionTime
+                  - reason
+                  - status
+                  - type
+                  type: object
+                type: array
+                x-kubernetes-list-map-keys:
+                - type
+                x-kubernetes-list-type: map
+              lastHandledReconcileAt:
+                description: |-
+                  LastHandledReconcileAt holds the value of the most recent
+                  reconcile-requested-at annotation token that the controller has
+                  processed. Users can compare this to the annotation to determine
+                  whether a reconcile request has been handled.
+                type: string
+              observedGeneration:
+                description: |-
+                  ObservedGeneration is the latest metadata.generation
+                  which resulted in either a ready state, or stalled due to error
+                  it can not recover from without human intervention.
+                format: int64
+                type: integer
+            type: object
+        required:
+        - spec
+        type: object
+    served: true
+    storage: true
+    subresources:
+      status: {}

@@ -10,8 +10,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
-	v2 "github.com/crossplane/crossplane-runtime/v2/apis/common/v2"
+	v2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 )
 
 type MwsLogDeliveryInitParameters struct {
@@ -32,11 +31,11 @@ type MwsLogDeliveryInitParameters struct {
 
 	// Reference to a MwsCredentials in deployment to populate credentialsId.
 	// +kubebuilder:validation:Optional
-	CredentialsIDRef *v1.NamespacedReference `json:"credentialsIdRef,omitempty" tf:"-"`
+	CredentialsIDRef *v2.NamespacedReference `json:"credentialsIdRef,omitempty" tf:"-"`
 
 	// Selector for a MwsCredentials in deployment to populate credentialsId.
 	// +kubebuilder:validation:Optional
-	CredentialsIDSelector *v1.NamespacedSelector `json:"credentialsIdSelector,omitempty" tf:"-"`
+	CredentialsIDSelector *v2.NamespacedSelector `json:"credentialsIdSelector,omitempty" tf:"-"`
 
 	// Defaults to empty, which means that logs are delivered to the root of the bucket. The value must be a valid S3 object key. It must not start or end with a slash character.
 	DeliveryPathPrefix *string `json:"deliveryPathPrefix,omitempty" tf:"delivery_path_prefix,omitempty"`
@@ -60,11 +59,11 @@ type MwsLogDeliveryInitParameters struct {
 
 	// Reference to a MwsStorageConfigurations in deployment to populate storageConfigurationId.
 	// +kubebuilder:validation:Optional
-	StorageConfigurationIDRef *v1.NamespacedReference `json:"storageConfigurationIdRef,omitempty" tf:"-"`
+	StorageConfigurationIDRef *v2.NamespacedReference `json:"storageConfigurationIdRef,omitempty" tf:"-"`
 
 	// Selector for a MwsStorageConfigurations in deployment to populate storageConfigurationId.
 	// +kubebuilder:validation:Optional
-	StorageConfigurationIDSelector *v1.NamespacedSelector `json:"storageConfigurationIdSelector,omitempty" tf:"-"`
+	StorageConfigurationIDSelector *v2.NamespacedSelector `json:"storageConfigurationIdSelector,omitempty" tf:"-"`
 
 	// By default, this log configuration applies to all workspaces associated with your account ID. If your account is on the multitenant version of the platform or on a select custom plan that allows multiple workspaces per account, you may have multiple workspaces associated with your account ID. You can optionally set the field as mentioned earlier to an array of workspace IDs. If you plan to use different log delivery configurations for several workspaces, set this explicitly rather than leaving it blank. If you leave this blank and your account ID gets additional workspaces in the future, this configuration will also apply to the new workspaces.
 	WorkspaceIdsFilter []*float64 `json:"workspaceIdsFilter,omitempty" tf:"workspace_ids_filter,omitempty"`
@@ -131,11 +130,11 @@ type MwsLogDeliveryParameters struct {
 
 	// Reference to a MwsCredentials in deployment to populate credentialsId.
 	// +kubebuilder:validation:Optional
-	CredentialsIDRef *v1.NamespacedReference `json:"credentialsIdRef,omitempty" tf:"-"`
+	CredentialsIDRef *v2.NamespacedReference `json:"credentialsIdRef,omitempty" tf:"-"`
 
 	// Selector for a MwsCredentials in deployment to populate credentialsId.
 	// +kubebuilder:validation:Optional
-	CredentialsIDSelector *v1.NamespacedSelector `json:"credentialsIdSelector,omitempty" tf:"-"`
+	CredentialsIDSelector *v2.NamespacedSelector `json:"credentialsIdSelector,omitempty" tf:"-"`
 
 	// Defaults to empty, which means that logs are delivered to the root of the bucket. The value must be a valid S3 object key. It must not start or end with a slash character.
 	// +kubebuilder:validation:Optional
@@ -165,11 +164,11 @@ type MwsLogDeliveryParameters struct {
 
 	// Reference to a MwsStorageConfigurations in deployment to populate storageConfigurationId.
 	// +kubebuilder:validation:Optional
-	StorageConfigurationIDRef *v1.NamespacedReference `json:"storageConfigurationIdRef,omitempty" tf:"-"`
+	StorageConfigurationIDRef *v2.NamespacedReference `json:"storageConfigurationIdRef,omitempty" tf:"-"`
 
 	// Selector for a MwsStorageConfigurations in deployment to populate storageConfigurationId.
 	// +kubebuilder:validation:Optional
-	StorageConfigurationIDSelector *v1.NamespacedSelector `json:"storageConfigurationIdSelector,omitempty" tf:"-"`
+	StorageConfigurationIDSelector *v2.NamespacedSelector `json:"storageConfigurationIdSelector,omitempty" tf:"-"`
 
 	// By default, this log configuration applies to all workspaces associated with your account ID. If your account is on the multitenant version of the platform or on a select custom plan that allows multiple workspaces per account, you may have multiple workspaces associated with your account ID. You can optionally set the field as mentioned earlier to an array of workspace IDs. If you plan to use different log delivery configurations for several workspaces, set this explicitly rather than leaving it blank. If you leave this blank and your account ID gets additional workspaces in the future, this configuration will also apply to the new workspaces.
 	// +kubebuilder:validation:Optional
@@ -195,8 +194,8 @@ type MwsLogDeliverySpec struct {
 
 // MwsLogDeliveryStatus defines the observed state of MwsLogDelivery.
 type MwsLogDeliveryStatus struct {
-	v1.ResourceStatus `json:",inline"`
-	AtProvider        MwsLogDeliveryObservation `json:"atProvider,omitempty"`
+	v2.ManagedResourceStatus `json:",inline"`
+	AtProvider               MwsLogDeliveryObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true
