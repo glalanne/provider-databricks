@@ -21,7 +21,7 @@ export TERRAFORM_DOCS_PATH ?= docs/resources
 
 # UPTEST_EXAMPLE_LIST ?= examples/cluster/compute/v1beta1/cluster.yaml,examples/namespaced/compute/v1beta1/cluster.yaml
 # UPTEST_EXAMPLE_LIST ?= examples/namespaced/security/v1beta1/permissions.yaml
-UPTEST_EXAMPLE_LIST ?= examples/namespaced/compute/v1beta1/job-serverless.yaml
+# UPTEST_EXAMPLE_LIST ?= examples/namespaced/compute/v1beta1/job-serverless.yaml
 
 PLATFORMS ?= linux_amd64 linux_arm64
 
