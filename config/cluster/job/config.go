@@ -1,12 +1,20 @@
 package job
 
-import "github.com/crossplane/upjet/v2/pkg/config"
+import (
+	"github.com/crossplane/upjet/v2/pkg/config"
+
+	"github.com/glalanne/provider-databricks/config/common"
+)
 
 // Configure configures individual resources by adding custom ResourceConfigurators.
 func Configure(p *config.Provider) {
 	p.AddResourceConfigurator("databricks_job", func(r *config.Resource) {
 		r.ShortGroup = "compute"
 		r.LateInitializer.IgnoredFields = append(r.LateInitializer.IgnoredFields, "format")
+
+		// provider_config carries account provider credentials that the Jobs
+		// API never returns.
+		common.ClearStaleBlocksBeforeRead(r, "provider_config")
 
 		r.References["notebook_task.warehouse_id"] = config.Reference{
 			TerraformName: "databricks_sql_endpoint",
