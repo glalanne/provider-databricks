@@ -12,7 +12,7 @@ func Configure(p *config.Provider) {
 		r.ShortGroup = "compute"
 		r.LateInitializer.IgnoredFields = append(r.LateInitializer.IgnoredFields, "format")
 
-		// Clear Stale block except for provider_config which carries account provider credentials that the Jobs API never returns.
+		// Clear Stale blocks except for provider_config which carries account provider credentials that the Jobs API never returns.
 		common.ClearStaleBlocksBeforeRead(r, "provider_config")
 
 		r.References["notebook_task.warehouse_id"] = config.Reference{
