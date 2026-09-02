@@ -81,8 +81,8 @@ func isStaleProneBlock(s *schema.Schema) bool {
 	}
 	elem, ok := s.Elem.(*schema.Resource)
 	if !ok {
-		// Maps and primitive collections carry no nested secrets.
-		return s.Type == schema.TypeMap
+		// Primitive collections carry no nested secrets.
+		return s.Type == schema.TypeList || s.Type == schema.TypeSet || s.Type == schema.TypeMap
 	}
 	// A block holding a value the API never returns must keep its state.
 	return !containsSensitive(elem, map[*schema.Resource]struct{}{})

@@ -35,6 +35,37 @@ func testResource(read schema.ReadContextFunc) *config.Resource {
 					Optional: true,
 					Elem:     &schema.Schema{Type: schema.TypeString},
 				},
+				"keys": {
+					Type:     schema.TypeSet,
+					Optional: true,
+					Elem:     &schema.Schema{Type: schema.TypeString},
+				},
+				"task": {
+					Type:     schema.TypeList,
+					Optional: true,
+					Elem: &schema.Resource{
+						Schema: map[string]*schema.Schema{
+							"key": {
+								Type:     schema.TypeString,
+								Optional: true,
+							},
+							"email_notifications": {
+								Type:     schema.TypeList,
+								Optional: true,
+								MaxItems: 1,
+								Elem: &schema.Resource{
+									Schema: map[string]*schema.Schema{
+										"on_failure": {
+											Type:     schema.TypeList,
+											Optional: true,
+											Elem:     &schema.Schema{Type: schema.TypeString},
+										},
+									},
+								},
+							},
+						},
+					},
+				},
 			},
 			ReadContext: read,
 		},
@@ -43,13 +74,22 @@ func testResource(read schema.ReadContextFunc) *config.Resource {
 
 func staleData(t *testing.T, r *config.Resource) *schema.ResourceData {
 	t.Helper()
-	return schema.TestResourceDataRaw(t, r.TerraformResource.Schema, map[string]any{
+	d := schema.TestResourceDataRaw(t, r.TerraformResource.Schema, map[string]any{
 		"name": "job",
 		"schedule": []any{map[string]any{
 			"quartz_cron_expression": "0 0 12 * * ?",
 		}},
 		"tags": map[string]any{"env": "dev"},
+		"keys": []any{"ssh-rsa AAA"},
+		"task": []any{map[string]any{
+			"key": "main",
+			"email_notifications": []any{map[string]any{
+				"on_failure": []any{"oncall@example.com"},
+			}},
+		}},
 	})
+	d.SetId("1234")
+	return d
 }
 
 func TestClearFieldsBeforeReadClearsStaleValues(t *testing.T) {
@@ -160,6 +200,73 @@ func TestClearFieldsBeforeReadDuringGeneration(t *testing.T) {
 	ClearStaleBlocksBeforeRead(&config.Resource{})
 }
 
+func TestClearFieldsBeforeReadClearsSets(t *testing.T) {
+	r := testResource(func(_ context.Context, _ *schema.ResourceData, _ any) diag.Diagnostics {
+		return nil
+	})
+	ClearFieldsBeforeRead(r, "keys")
+
+	d := staleData(t, r)
+	if diags := r.TerraformResource.ReadContext(context.Background(), d, nil); diags.HasError() {
+		t.Fatalf("unexpected diagnostics: %v", diags)
+	}
+	if got := d.Get("keys").(*schema.Set); got.Len() != 0 {
+		t.Errorf("expected keys to be cleared, got %v", got.List())
+	}
+}
+
+func TestClearFieldsBeforeReadReplacesNestedValues(t *testing.T) {
+	// task is not registered for clearing: setting the parent must still drop
+	// the nested email_notifications the API no longer returns.
+	r := testResource(func(_ context.Context, d *schema.ResourceData, _ any) diag.Diagnostics {
+		if err := d.Set("task", []any{map[string]any{"key": "main"}}); err != nil {
+			return diag.FromErr(err)
+		}
+		return nil
+	})
+	ClearFieldsBeforeRead(r, "schedule")
+
+	d := staleData(t, r)
+	if diags := r.TerraformResource.ReadContext(context.Background(), d, nil); diags.HasError() {
+		t.Fatalf("unexpected diagnostics: %v", diags)
+	}
+
+	task := d.Get("task").([]any)
+	if len(task) != 1 {
+		t.Fatalf("expected one task, got %v", task)
+	}
+	if got := task[0].(map[string]any)["email_notifications"].([]any); len(got) != 0 {
+		t.Errorf("expected the nested block to be replaced, got %v", got)
+	}
+}
+
+func TestClearFieldsBeforeReadKeepsID(t *testing.T) {
+	r := testResource(func(_ context.Context, _ *schema.ResourceData, _ any) diag.Diagnostics {
+		return nil
+	})
+	ClearFieldsBeforeRead(r, "schedule", "tags", "keys", "task")
+
+	d := staleData(t, r)
+	if diags := r.TerraformResource.ReadContext(context.Background(), d, nil); diags.HasError() {
+		t.Fatalf("unexpected diagnostics: %v", diags)
+	}
+	if d.Id() != "1234" {
+		t.Errorf("expected the ID to be preserved, got %q", d.Id())
+	}
+}
+
+func TestClearFieldsBeforeReadPropagatesDiagnostics(t *testing.T) {
+	r := testResource(func(_ context.Context, _ *schema.ResourceData, _ any) diag.Diagnostics {
+		return diag.Errorf("boom")
+	})
+	ClearFieldsBeforeRead(r, "schedule")
+
+	diags := r.TerraformResource.ReadContext(context.Background(), staleData(t, r), nil)
+	if !diags.HasError() {
+		t.Fatal("expected the upstream error to be propagated")
+	}
+}
+
 func TestClearStaleBlocksBeforeReadSelectsFields(t *testing.T) {
 	block := func(s map[string]*schema.Schema) *schema.Schema {
 		return &schema.Schema{
@@ -193,6 +300,22 @@ func TestClearStaleBlocksBeforeReadSelectsFields(t *testing.T) {
 			"token":           block(map[string]*schema.Schema{"value": secret}),
 			"nested_token":    block(map[string]*schema.Schema{"inner": block(map[string]*schema.Schema{"value": secret})}),
 			"provider_config": block(map[string]*schema.Schema{"host": str}),
+			"parameters": {
+				Type:     schema.TypeList,
+				Optional: true,
+				Elem:     &schema.Schema{Type: schema.TypeString},
+			},
+			"ssh_public_keys": {
+				Type:     schema.TypeSet,
+				Optional: true,
+				Elem:     &schema.Schema{Type: schema.TypeString},
+			},
+			"secret_values": {
+				Type:      schema.TypeList,
+				Optional:  true,
+				Sensitive: true,
+				Elem:      &schema.Schema{Type: schema.TypeString},
+			},
 		},
 	}}
 
@@ -206,7 +329,7 @@ func TestClearStaleBlocksBeforeReadSelectsFields(t *testing.T) {
 	for _, n := range c.names() {
 		got[n] = true
 	}
-	want := []string{"schedule", "tags"}
+	want := []string{"schedule", "tags", "parameters", "ssh_public_keys"}
 	if len(got) != len(want) {
 		t.Fatalf("expected %v, got %v", want, c.names())
 	}
