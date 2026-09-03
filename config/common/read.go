@@ -165,7 +165,8 @@ func emptyValue(s *schema.Schema) any {
 		return []any{}
 	case schema.TypeMap:
 		return map[string]any{}
-	default:
+	case schema.TypeInvalid:
 		return nil
 	}
+	return nil
 }
