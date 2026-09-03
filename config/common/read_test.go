@@ -5,9 +5,18 @@ import (
 	"testing"
 
 	"github.com/crossplane/upjet/v2/pkg/config"
+	tfcommon "github.com/databricks/terraform-provider-databricks/common"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/diag"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
 )
+
+type observedSchedule struct {
+	QuartzCronExpression string `json:"quartz_cron_expression,omitempty"`
+}
+
+type observedJob struct {
+	Schedule *observedSchedule `json:"schedule,omitempty"`
+}
 
 func testResource(read schema.ReadContextFunc) *config.Resource {
 	return &config.Resource{
@@ -93,10 +102,10 @@ func staleData(t *testing.T, r *config.Resource) *schema.ResourceData {
 }
 
 func TestClearFieldsBeforeReadClearsStaleValues(t *testing.T) {
-	r := testResource(func(_ context.Context, _ *schema.ResourceData, _ any) diag.Diagnostics {
+	r := testResource(func(_ context.Context, d *schema.ResourceData, _ any) diag.Diagnostics {
 		// The Databricks API omits a removed schedule, so the upstream Read
 		// does not touch the field.
-		return nil
+		return diag.FromErr(tfcommon.StructToData(observedJob{}, observedJobSchema(), d))
 	})
 	ClearFieldsBeforeRead(r, "schedule", "tags")
 
@@ -116,14 +125,14 @@ func TestClearFieldsBeforeReadClearsStaleValues(t *testing.T) {
 	}
 }
 
-func TestClearFieldsBeforeReadKeepsValuesReturnedByRead(t *testing.T) {
+func TestUseAuthoritativeReadKeepsValuesReturnedByRead(t *testing.T) {
 	r := testResource(func(_ context.Context, d *schema.ResourceData, _ any) diag.Diagnostics {
-		if err := d.Set("schedule", []any{map[string]any{
-			"quartz_cron_expression": "0 0 6 * * ?",
-		}}); err != nil {
-			return diag.FromErr(err)
+		if !d.IsNewResource() {
+			return diag.Errorf("expected authoritative Read to be marked as new")
 		}
-		return nil
+		return diag.FromErr(tfcommon.StructToData(observedJob{Schedule: &observedSchedule{
+			QuartzCronExpression: "0 0 6 * * ?",
+		}}, observedJobSchema(), d))
 	})
 	ClearFieldsBeforeRead(r, "schedule")
 
@@ -138,6 +147,19 @@ func TestClearFieldsBeforeReadKeepsValuesReturnedByRead(t *testing.T) {
 	}
 	if cron := got[0].(map[string]any)["quartz_cron_expression"]; cron != "0 0 6 * * ?" {
 		t.Errorf("expected the schedule returned by Read, got %v", cron)
+	}
+}
+
+func observedJobSchema() map[string]*schema.Schema {
+	return map[string]*schema.Schema{
+		"schedule": {
+			Type:     schema.TypeList,
+			Optional: true,
+			MaxItems: 1,
+			Elem: &schema.Resource{Schema: map[string]*schema.Schema{
+				"quartz_cron_expression": {Type: schema.TypeString, Optional: true},
+			}},
+		},
 	}
 }
 
@@ -172,7 +194,7 @@ func TestClearFieldsBeforeReadWrapsOnce(t *testing.T) {
 	}
 }
 
-func TestClearFieldsBeforeReadIgnoresUnknownAndPrimitiveFields(t *testing.T) {
+func TestClearFieldsBeforeReadSupportsPrimitiveFields(t *testing.T) {
 	r := testResource(func(_ context.Context, _ *schema.ResourceData, _ any) diag.Diagnostics {
 		return nil
 	})
@@ -181,8 +203,8 @@ func TestClearFieldsBeforeReadIgnoresUnknownAndPrimitiveFields(t *testing.T) {
 	cleanersMu.Lock()
 	c := cleaners[r.TerraformResource]
 	cleanersMu.Unlock()
-	if len(c.names()) != 0 {
-		t.Errorf("expected no fields to be registered, got %v", c.names())
+	if names := c.names(); len(names) != 1 || names[0] != "name" {
+		t.Errorf("expected only name to be registered, got %v", names)
 	}
 }
 
@@ -196,8 +218,8 @@ func TestClearFieldsBeforeReadDuringGeneration(t *testing.T) {
 	}
 	ClearFieldsBeforeRead(nil, "schedule")
 	ClearFieldsBeforeRead(&config.Resource{}, "schedule")
-	ClearStaleBlocksBeforeRead(nil)
-	ClearStaleBlocksBeforeRead(&config.Resource{})
+	UseAuthoritativeRead(nil)
+	UseAuthoritativeRead(&config.Resource{})
 }
 
 func TestClearFieldsBeforeReadClearsSets(t *testing.T) {
@@ -267,7 +289,7 @@ func TestClearFieldsBeforeReadPropagatesDiagnostics(t *testing.T) {
 	}
 }
 
-func TestClearStaleBlocksBeforeReadSelectsFields(t *testing.T) {
+func TestUseAuthoritativeReadSelectsFields(t *testing.T) {
 	block := func(s map[string]*schema.Schema) *schema.Schema {
 		return &schema.Schema{
 			Type:     schema.TypeList,
@@ -285,6 +307,8 @@ func TestClearStaleBlocksBeforeReadSelectsFields(t *testing.T) {
 		},
 		Schema: map[string]*schema.Schema{
 			"name":     str,
+			"retries":  {Type: schema.TypeInt, Optional: true},
+			"enabled":  {Type: schema.TypeBool, Optional: true},
 			"schedule": block(map[string]*schema.Schema{"cron": str}),
 			"tags": {
 				Type:     schema.TypeMap,
@@ -319,7 +343,7 @@ func TestClearStaleBlocksBeforeReadSelectsFields(t *testing.T) {
 		},
 	}}
 
-	ClearStaleBlocksBeforeRead(r, "provider_config")
+	UseAuthoritativeRead(r, "provider_config")
 
 	cleanersMu.Lock()
 	c := cleaners[r.TerraformResource]
@@ -329,7 +353,7 @@ func TestClearStaleBlocksBeforeReadSelectsFields(t *testing.T) {
 	for _, n := range c.names() {
 		got[n] = true
 	}
-	want := []string{"schedule", "tags", "parameters", "ssh_public_keys"}
+	want := []string{"name", "retries", "enabled", "schedule", "tags", "parameters", "ssh_public_keys"}
 	if len(got) != len(want) {
 		t.Fatalf("expected %v, got %v", want, c.names())
 	}

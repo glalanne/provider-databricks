@@ -12,8 +12,8 @@ func Configure(p *config.Provider) {
 		r.ShortGroup = "compute"
 		r.LateInitializer.IgnoredFields = append(r.LateInitializer.IgnoredFields, "format")
 
-		// Clear Stale blocks except for provider_config which carries account provider credentials that the Jobs API never returns.
-		common.ClearStaleBlocksBeforeRead(r, "provider_config")
+		// Preserve schema-only and write-only lifecycle fields across reads.
+		common.UseAuthoritativeRead(r, "provider_config", "always_running", "control_run_state")
 
 		r.References["notebook_task.warehouse_id"] = config.Reference{
 			TerraformName: "databricks_sql_endpoint",

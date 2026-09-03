@@ -39,20 +39,22 @@ var (
 	cleaners = map[*schema.Resource]*readCleaner{}
 )
 
-// ClearStaleBlocksBeforeRead resets every optional nested block and map of the
-// resource to its empty value before the resource's Terraform Read runs.
+// UseAuthoritativeRead makes the API response authoritative for every
+// optional field that is safe to clear before the resource's Terraform Read.
 //
-// The Databricks API omits blocks that are no longer configured instead of
+// The Databricks API omits fields that are no longer configured instead of
 // returning them empty, and the upstream Read only sets what it receives. A
-// removed block therefore survives in the Terraform state, surfaces in
+// removed field therefore survives in the Terraform state, surfaces in
 // status.atProvider and is copied back into spec.forProvider by late
 // initialization. Clearing first lets the upstream Read repopulate only the
-// blocks that actually exist remotely.
+// fields that actually exist remotely. Marking the temporary ResourceData as
+// new makes StructToData populate fields returned by the API even when they
+// are absent from config.
 //
-// Blocks the API never echoes back are skipped automatically when they are
+// Fields the API never echoes back are skipped automatically when they are
 // computed or carry a sensitive field. Pass the names of any remaining
-// write-only blocks in excluded so they keep their state.
-func ClearStaleBlocksBeforeRead(r *config.Resource, excluded ...string) {
+// write-only fields in excluded so they keep their state.
+func UseAuthoritativeRead(r *config.Resource, excluded ...string) {
 	if r == nil || r.TerraformResource == nil {
 		return
 	}
@@ -66,23 +68,22 @@ func ClearStaleBlocksBeforeRead(r *config.Resource, excluded ...string) {
 		if _, ok := skip[name]; ok {
 			continue
 		}
-		if isStaleProneBlock(s) {
+		if isStaleProneField(s) {
 			fields = append(fields, name)
 		}
 	}
 	ClearFieldsBeforeRead(r, fields...)
 }
 
-// isStaleProneBlock reports whether a field holds a collection that the Read
-// leaves untouched once the API stops returning it.
-func isStaleProneBlock(s *schema.Schema) bool {
+// isStaleProneField reports whether a field can be cleared before Read and
+// reconstructed from the API response.
+func isStaleProneField(s *schema.Schema) bool {
 	if !s.Optional || s.Required || s.Computed || s.Sensitive || emptyValue(s) == nil {
 		return false
 	}
 	elem, ok := s.Elem.(*schema.Resource)
 	if !ok {
-		// Primitive collections carry no nested secrets.
-		return s.Type == schema.TypeList || s.Type == schema.TypeSet || s.Type == schema.TypeMap
+		return true
 	}
 	// A block holding a value the API never returns must keep its state.
 	return !containsSensitive(elem, map[*schema.Resource]struct{}{})
@@ -107,9 +108,9 @@ func containsSensitive(r *schema.Resource, seen map[*schema.Resource]struct{}) b
 	return false
 }
 
-// ClearFieldsBeforeRead resets the given top-level list, set or map fields to
-// their empty value before the resource's Terraform Read runs. Prefer
-// ClearStaleBlocksBeforeRead unless a single field has to be targeted.
+// ClearFieldsBeforeRead resets the given top-level fields to
+// their empty value if the resource's Terraform Read does not populate them.
+// Prefer UseAuthoritativeRead unless a single field has to be targeted.
 func ClearFieldsBeforeRead(r *config.Resource, fields ...string) {
 	if r == nil || r.TerraformResource == nil || r.TerraformResource.ReadContext == nil {
 		// No Terraform provider is wired in during API generation.
@@ -127,11 +128,13 @@ func ClearFieldsBeforeRead(r *config.Resource, fields ...string) {
 
 		read := tr.ReadContext
 		tr.ReadContext = func(ctx context.Context, d *schema.ResourceData, meta any) diag.Diagnostics {
-			for _, name := range c.names() {
+			names := c.names()
+			for _, name := range names {
 				if err := d.Set(name, emptyValue(tr.Schema[name])); err != nil {
 					return diag.FromErr(err)
 				}
 			}
+			d.MarkNewResource()
 			return read(ctx, d, meta)
 		}
 	}
@@ -149,12 +152,21 @@ func emptyValue(s *schema.Schema) any {
 	if s == nil {
 		return nil
 	}
-	switch s.Type { //nolint:exhaustive // primitive fields are intentionally not cleared
+	switch s.Type {
+	case schema.TypeBool:
+		return false
+	case schema.TypeInt:
+		return 0
+	case schema.TypeFloat:
+		return float64(0)
+	case schema.TypeString:
+		return ""
 	case schema.TypeList, schema.TypeSet:
 		return []any{}
 	case schema.TypeMap:
 		return map[string]any{}
-	default:
+	case schema.TypeInvalid:
 		return nil
 	}
+	return nil
 }
