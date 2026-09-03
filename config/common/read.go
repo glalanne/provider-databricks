@@ -108,8 +108,8 @@ func containsSensitive(r *schema.Resource, seen map[*schema.Resource]struct{}) b
 }
 
 // ClearFieldsBeforeRead resets the given top-level list, set or map fields to
-// their empty value before the resource's Terraform Read runs. Prefer
-// ClearStaleBlocksBeforeRead unless a single field has to be targeted.
+// their empty value if the resource's Terraform Read does not populate them.
+// Prefer ClearStaleBlocksBeforeRead unless a single field has to be targeted.
 func ClearFieldsBeforeRead(r *config.Resource, fields ...string) {
 	if r == nil || r.TerraformResource == nil || r.TerraformResource.ReadContext == nil {
 		// No Terraform provider is wired in during API generation.
@@ -127,12 +127,21 @@ func ClearFieldsBeforeRead(r *config.Resource, fields ...string) {
 
 		read := tr.ReadContext
 		tr.ReadContext = func(ctx context.Context, d *schema.ResourceData, meta any) diag.Diagnostics {
-			for _, name := range c.names() {
-				if err := d.Set(name, emptyValue(tr.Schema[name])); err != nil {
+			names := c.names()
+			for _, name := range names {
+				if err := d.Set(name, sentinelValue(tr.Schema[name])); err != nil {
 					return diag.FromErr(err)
 				}
 			}
-			return read(ctx, d, meta)
+			diags := read(ctx, d, meta)
+			for _, name := range names {
+				if isSentinel(tr.Schema[name], d.Get(name)) {
+					if err := d.Set(name, emptyValue(tr.Schema[name])); err != nil {
+						return diag.FromErr(err)
+					}
+				}
+			}
+			return diags
 		}
 	}
 
@@ -143,6 +152,68 @@ func ClearFieldsBeforeRead(r *config.Resource, fields ...string) {
 		}
 		c.add(f)
 	}
+}
+
+func sentinelValue(s *schema.Schema) any {
+	if s == nil {
+		return nil
+	}
+	switch s.Type { //nolint:exhaustive // primitive fields are intentionally not cleared
+	case schema.TypeList, schema.TypeSet:
+		if elem, ok := s.Elem.(*schema.Resource); ok {
+			m := map[string]any{}
+			for k, fs := range elem.Schema {
+				if fs.Type == schema.TypeString && !fs.Required {
+					m[k] = ""
+					break
+				}
+			}
+			if len(m) > 0 {
+				return []any{m}
+			}
+		}
+		return []any{""}
+	case schema.TypeMap:
+		return map[string]any{"": ""}
+	default:
+		return nil
+	}
+}
+
+func isSentinel(s *schema.Schema, v any) bool {
+	if s == nil || v == nil {
+		return false
+	}
+	switch s.Type {
+	case schema.TypeList, schema.TypeSet:
+		if elem, ok := s.Elem.(*schema.Resource); ok {
+			list, _ := v.([]any)
+			if set, ok := v.(*schema.Set); ok {
+				list = set.List()
+			}
+			if len(list) == 1 {
+				if m, ok := list[0].(map[string]any); ok {
+					for k, fs := range elem.Schema {
+						if fs.Type == schema.TypeString && !fs.Required {
+							val, exists := m[k]
+							return exists && val == ""
+						}
+					}
+				}
+			}
+			return false
+		}
+		list, _ := v.([]any)
+		if set, ok := v.(*schema.Set); ok {
+			list = set.List()
+		}
+		return len(list) == 1 && list[0] == ""
+	case schema.TypeMap:
+		m, _ := v.(map[string]any)
+		val, exists := m[""]
+		return exists && val == ""
+	}
+	return false
 }
 
 func emptyValue(s *schema.Schema) any {
