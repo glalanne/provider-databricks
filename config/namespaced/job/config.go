@@ -12,8 +12,7 @@ func Configure(p *config.Provider) {
 		r.ShortGroup = "compute"
 		r.LateInitializer.IgnoredFields = append(r.LateInitializer.IgnoredFields, "format")
 
-		// Preserve schema-only and write-only lifecycle fields across reads.
-		common.UseAuthoritativeRead(r, "provider_config", "always_running", "control_run_state")
+		common.ClearStaleBlocksBeforeRead(r, "provider_config")
 
 		r.References["notebook_task.warehouse_id"] = config.Reference{
 			TerraformName: "databricks_sql_endpoint",

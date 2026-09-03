@@ -7,10 +7,10 @@ import (
 	"github.com/databricks/terraform-provider-databricks/xpprovider"
 )
 
-// TestUseAuthoritativeReadOnJobSchema pins the selection against the real
+// TestClearStaleBlocksBeforeReadOnJobSchema pins the selection against the real
 // databricks_job schema, so an upstream schema change that flips a flag is
 // caught here rather than in a cluster.
-func TestUseAuthoritativeReadOnJobSchema(t *testing.T) {
+func TestClearStaleBlocksBeforeReadOnJobSchema(t *testing.T) {
 	_, sdkProvider, err := xpprovider.GetProvider(t.Context())
 	if err != nil {
 		t.Fatalf("GetProvider: %s", err)
@@ -21,7 +21,7 @@ func TestUseAuthoritativeReadOnJobSchema(t *testing.T) {
 	}
 
 	r := &config.Resource{TerraformResource: job}
-	UseAuthoritativeRead(r, "provider_config", "always_running", "control_run_state")
+	ClearStaleBlocksBeforeRead(r, "provider_config")
 
 	cleanersMu.Lock()
 	c := cleaners[job]
@@ -36,7 +36,6 @@ func TestUseAuthoritativeReadOnJobSchema(t *testing.T) {
 	}
 
 	for _, name := range []string{
-		"name", "description", "timeout_seconds", "max_retries", "max_concurrent_runs", "edit_mode",
 		"schedule", "continuous", "trigger", "queue", "health", "deployment", "run_job_task",
 		"git_source", "email_notifications", "webhook_notifications", "notification_settings",
 		"library", "parameter", "environment", "tags",
@@ -52,8 +51,9 @@ func TestUseAuthoritativeReadOnJobSchema(t *testing.T) {
 		// Carry a nested sensitive value, such as the docker image credentials,
 		// that the API does not return either.
 		"task", "job_cluster", "new_cluster",
-		// Computed fields and write-only lifecycle controls.
-		"id", "format", "url", "always_running", "control_run_state",
+		// Scalars the Read recomputes or never returns.
+		"id", "name", "description", "format", "url", "timeout_seconds", "max_retries",
+		"max_concurrent_runs", "edit_mode", "always_running", "control_run_state",
 	} {
 		if selected[name] {
 			t.Errorf("did not expect %q to be cleared before the Read", name)
