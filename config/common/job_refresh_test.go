@@ -17,7 +17,7 @@ import (
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
 )
 
-func TestClearStaleBlocksBeforeReadRefreshesJobSchedule(t *testing.T) {
+func TestClearFieldsBeforeReadRefreshesJobSchedule(t *testing.T) {
 	tests := map[string]struct {
 		schedule  *tfjobs.CronSchedule
 		wantCount int
@@ -42,7 +42,7 @@ func TestClearStaleBlocksBeforeReadRefreshesJobSchedule(t *testing.T) {
 				t.Fatalf("GetProvider: %v", err)
 			}
 			job := sdkProvider.ResourcesMap["databricks_job"]
-			ClearStaleBlocksBeforeRead(&config.Resource{TerraformResource: job}, "provider_config")
+			ClearFieldsBeforeRead(&config.Resource{TerraformResource: job}, "schedule")
 
 			server := httptest.NewServer(http.HandlerFunc(func(rw http.ResponseWriter, req *http.Request) {
 				if req.URL.Path == "/.well-known/databricks-config" {
@@ -78,13 +78,13 @@ func TestClearStaleBlocksBeforeReadRefreshesJobSchedule(t *testing.T) {
 	}
 }
 
-func TestClearStaleBlocksBeforeReadRefreshesMultiTaskJobSchedule(t *testing.T) {
+func TestClearFieldsBeforeReadRefreshesMultiTaskJobSchedule(t *testing.T) {
 	_, sdkProvider, err := xpprovider.GetProvider(t.Context())
 	if err != nil {
 		t.Fatalf("GetProvider: %v", err)
 	}
 	job := sdkProvider.ResourcesMap["databricks_job"]
-	ClearStaleBlocksBeforeRead(&config.Resource{TerraformResource: job}, "provider_config")
+	ClearFieldsBeforeRead(&config.Resource{TerraformResource: job}, "schedule")
 
 	server := httptest.NewServer(http.HandlerFunc(func(rw http.ResponseWriter, req *http.Request) {
 		if req.URL.Path == "/.well-known/databricks-config" {
