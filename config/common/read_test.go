@@ -147,6 +147,24 @@ func TestClearFieldsBeforeReadKeepsValuesReturnedByRead(t *testing.T) {
 	}
 }
 
+func TestClearFieldsBeforeReadRemovesEmptyBlockReturnedByRead(t *testing.T) {
+	r := testResource(func(_ context.Context, d *schema.ResourceData, _ any) diag.Diagnostics {
+		if err := d.Set("schedule", []any{map[string]any{}}); err != nil {
+			return diag.FromErr(err)
+		}
+		return nil
+	})
+	ClearFieldsBeforeRead(r, "schedule")
+
+	d := staleData(t, r)
+	if diags := r.TerraformResource.ReadContext(context.Background(), d, nil); diags.HasError() {
+		t.Fatalf("unexpected diagnostics: %v", diags)
+	}
+	if got := d.Get("schedule").([]any); len(got) != 0 {
+		t.Fatalf("expected empty schedule block to be removed, got %v", got)
+	}
+}
+
 func TestClearFieldsBeforeReadPreservesDefaultSuppression(t *testing.T) {
 	r := testResource(func(_ context.Context, d *schema.ResourceData, _ any) diag.Diagnostics {
 		if err := d.Set("name", "server default"); err != nil {
@@ -240,8 +258,6 @@ func TestClearFieldsBeforeReadDuringGeneration(t *testing.T) {
 	}
 	ClearFieldsBeforeRead(nil, "schedule")
 	ClearFieldsBeforeRead(&config.Resource{}, "schedule")
-	ClearStaleBlocksBeforeRead(nil)
-	ClearStaleBlocksBeforeRead(&config.Resource{})
 }
 
 func TestClearFieldsBeforeReadClearsSets(t *testing.T) {
@@ -311,7 +327,7 @@ func TestClearFieldsBeforeReadPropagatesDiagnostics(t *testing.T) {
 	}
 }
 
-func TestClearStaleBlocksBeforeReadSelectsFields(t *testing.T) {
+func TestClearFieldsBeforeReadRegistersExplicitFields(t *testing.T) {
 	block := func(s map[string]*schema.Schema) *schema.Schema {
 		return &schema.Schema{
 			Type:     schema.TypeList,
@@ -365,7 +381,7 @@ func TestClearStaleBlocksBeforeReadSelectsFields(t *testing.T) {
 		},
 	}}
 
-	ClearStaleBlocksBeforeRead(r, "provider_config")
+	ClearFieldsBeforeRead(r, "schedule", "tags", "parameters", "ssh_public_keys")
 
 	cleanersMu.Lock()
 	c := cleaners[r.TerraformResource]
