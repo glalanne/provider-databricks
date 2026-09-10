@@ -15,7 +15,6 @@ func Configure(p *config.Provider) {
 			"run_job_task", "git_source", "email_notifications", "webhook_notifications",
 			"notification_settings", "library", "parameter", "environment", "tags",
 		)
-		common.ClearStaleBlocksBeforeRead(r, "provider_config")
 
 		r.References["notebook_task.warehouse_id"] = config.Reference{
 			TerraformName: "databricks_sql_endpoint",
