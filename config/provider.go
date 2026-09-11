@@ -32,17 +32,21 @@ const (
 	modulePath     = "github.com/glalanne/provider-databricks"
 )
 
-var terraformedTemplate = strings.Replace(
-	templates.TerraformedTemplate,
-	"    return json.TFParser.Unmarshal(p, &tr.Status.AtProvider)",
-	`    var observation {{ .CRD.Kind }}Observation
-    if err := json.TFParser.Unmarshal(p, &observation); err != nil {
-        return err
-    }
-    tr.Status.AtProvider = observation
-    return nil`,
-	1,
-)
+var terraformedTemplate = func() string {
+	template := strings.Replace(
+		templates.TerraformedTemplate,
+		"import (\n",
+		"import (\n\t\"reflect\"\n",
+		1,
+	)
+	return strings.Replace(
+		template,
+		"    return json.TFParser.Unmarshal(p, &tr.Status.AtProvider)",
+		`    reflect.ValueOf(&tr.Status.AtProvider).Elem().Set(reflect.Zero(reflect.TypeOf(tr.Status.AtProvider)))
+    return json.TFParser.Unmarshal(p, &tr.Status.AtProvider)`,
+		1,
+	)
+}()
 
 type generationMode int
 
