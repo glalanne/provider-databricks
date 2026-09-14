@@ -10,6 +10,7 @@ import (
 	"os"
 	"strings"
 
+	fwprovider "github.com/hashicorp/terraform-plugin-framework/provider"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
 
 	xpresource "github.com/crossplane/crossplane-runtime/v2/pkg/resource"
@@ -75,9 +76,9 @@ var (
 // TerraformSetupBuilder returns Terraform setup with provider specific
 // configuration like provider credentials used to connect to cloud APIs in the
 // expected form of a Terraform provider.
-func TerraformSetupBuilder(tfProvider *schema.Provider) terraform.SetupFn { //nolint:gocyclo
+func TerraformSetupBuilder(fwProvider fwprovider.Provider, tfProvider *schema.Provider) terraform.SetupFn { //nolint:gocyclo
 	return func(ctx context.Context, client client.Client, mg xpresource.Managed) (terraform.Setup, error) {
-		ps := terraform.Setup{}
+		ps := terraform.Setup{FrameworkProvider: fwProvider}
 
 		pcSpec, err := resolveProviderConfig(ctx, client, mg)
 		if err != nil {
