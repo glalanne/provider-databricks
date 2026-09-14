@@ -7,8 +7,6 @@
 package v1beta1
 
 import (
-	"reflect"
-
 	"dario.cat/mergo"
 	"github.com/pkg/errors"
 
@@ -42,7 +40,6 @@ func (tr *AibiDashboardEmbeddingAccessPolicySetting) SetObservation(obs map[stri
 	if err != nil {
 		return err
 	}
-	reflect.ValueOf(&tr.Status.AtProvider).Elem().Set(reflect.Zero(reflect.TypeOf(tr.Status.AtProvider)))
 	return json.TFParser.Unmarshal(p, &tr.Status.AtProvider)
 }
 
