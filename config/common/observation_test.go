@@ -64,7 +64,7 @@ func TestEmptyObjectCleaner(t *testing.T) {
 
 func TestEmptyObjectCleanerAfterSingletonConversion(t *testing.T) {
 	params := map[string]any{}
-	cleaner := JobEmptyObjectCleaner(configuredJobResource(t))
+	cleaner := EmptyObjectCleanerForResource(configuredJobResource(t))
 	for _, field := range cleaner {
 		if strings.Contains(field, "[*]") || strings.Contains(field, ".") {
 			continue
@@ -84,14 +84,14 @@ func TestEmptyObjectCleanerAfterSingletonConversion(t *testing.T) {
 	}
 }
 
-func TestJobEmptyObjectCleanerClearsNestedObject(t *testing.T) {
+func TestEmptyObjectCleanerForResourceClearsNestedObject(t *testing.T) {
 	params := map[string]any{
 		"task": []any{map[string]any{
 			"task_key":            "main",
 			"email_notifications": map[string]any{},
 		}},
 	}
-	cleaned, err := JobEmptyObjectCleaner(configuredJobResource(t)).Convert(params, nil, config.FromTerraform)
+	cleaned, err := EmptyObjectCleanerForResource(configuredJobResource(t)).Convert(params, nil, config.FromTerraform)
 	if err != nil {
 		t.Fatalf("Convert: %v", err)
 	}
@@ -102,7 +102,7 @@ func TestJobEmptyObjectCleanerClearsNestedObject(t *testing.T) {
 	}
 }
 
-func TestJobEmptyObjectCleanerAfterNestedSingletonConversion(t *testing.T) {
+func TestEmptyObjectCleanerForResourceAfterNestedSingletonConversion(t *testing.T) {
 	r := configuredJobResource(t)
 	params := map[string]any{
 		"schedule": []any{map[string]any{
@@ -114,7 +114,7 @@ func TestJobEmptyObjectCleanerAfterNestedSingletonConversion(t *testing.T) {
 	if err != nil {
 		t.Fatalf("singleton conversion: %v", err)
 	}
-	cleaned, err := JobEmptyObjectCleaner(r).Convert(converted, nil, config.FromTerraform)
+	cleaned, err := EmptyObjectCleanerForResource(r).Convert(converted, nil, config.FromTerraform)
 	if err != nil {
 		t.Fatalf("empty object cleanup: %v", err)
 	}

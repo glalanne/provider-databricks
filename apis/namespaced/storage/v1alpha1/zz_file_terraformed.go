@@ -7,8 +7,6 @@
 package v1alpha1
 
 import (
-	"reflect"
-
 	"dario.cat/mergo"
 	"github.com/pkg/errors"
 
@@ -42,7 +40,6 @@ func (tr *File) SetObservation(obs map[string]any) error {
 	if err != nil {
 		return err
 	}
-	reflect.ValueOf(&tr.Status.AtProvider).Elem().Set(reflect.Zero(reflect.TypeOf(tr.Status.AtProvider)))
 	return json.TFParser.Unmarshal(p, &tr.Status.AtProvider)
 }
 

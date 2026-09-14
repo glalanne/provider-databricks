@@ -14,9 +14,9 @@ import (
 // generated observation setters clear values that disappeared remotely.
 type EmptyObjectCleaner []string
 
-// JobEmptyObjectCleaner returns every Job singleton block and map path,
+// EmptyObjectCleanerForResource returns every singleton block and map path,
 // including nested paths, whose empty value can merge with stale observation.
-func JobEmptyObjectCleaner(r *config.Resource) EmptyObjectCleaner {
+func EmptyObjectCleanerForResource(r *config.Resource) EmptyObjectCleaner {
 	if r == nil || r.TerraformResource == nil {
 		return nil
 	}
