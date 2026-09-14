@@ -24,7 +24,7 @@ func JobEmptyObjectCleaner(r *config.Resource) EmptyObjectCleaner {
 	paths := map[string]struct{}{}
 	for _, path := range r.TFListConversionPaths() {
 		if fieldSchema := schemaAtPath(r.TerraformResource.Schema, path); isStaleProneBlock(fieldSchema) {
-			paths[path] = struct{}{}
+			paths[embeddedObjectPath(r.TerraformResource.Schema, path)] = struct{}{}
 		}
 	}
 	addMapPaths(r.TerraformResource.Schema, "", paths)
@@ -100,4 +100,24 @@ func schemaAtPath(fields map[string]*schema.Schema, path string) *schema.Schema 
 		fields = nested.Schema
 	}
 	return nil
+}
+
+func embeddedObjectPath(fields map[string]*schema.Schema, path string) string {
+	segments := strings.Split(path, ".")
+	for i, segment := range segments {
+		name := strings.TrimSuffix(strings.TrimSuffix(segment, "[*]"), "[0]")
+		fieldSchema := fields[name]
+		if fieldSchema == nil {
+			break
+		}
+		if fieldSchema.MaxItems == 1 {
+			segments[i] = name
+		}
+		nested, ok := fieldSchema.Elem.(*schema.Resource)
+		if !ok {
+			break
+		}
+		fields = nested.Schema
+	}
+	return strings.Join(segments, ".")
 }

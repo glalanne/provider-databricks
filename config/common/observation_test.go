@@ -102,6 +102,28 @@ func TestJobEmptyObjectCleanerClearsNestedObject(t *testing.T) {
 	}
 }
 
+func TestJobEmptyObjectCleanerAfterNestedSingletonConversion(t *testing.T) {
+	r := configuredJobResource(t)
+	params := map[string]any{
+		"schedule": []any{map[string]any{
+			"pause_status":  "UNPAUSED",
+			"sql_condition": []any{map[string]any{}},
+		}},
+	}
+	converted, err := config.NewTFSingletonConversion().Convert(params, r, config.FromTerraform)
+	if err != nil {
+		t.Fatalf("singleton conversion: %v", err)
+	}
+	cleaned, err := JobEmptyObjectCleaner(r).Convert(converted, nil, config.FromTerraform)
+	if err != nil {
+		t.Fatalf("empty object cleanup: %v", err)
+	}
+	schedule := cleaned["schedule"].(map[string]any)
+	if schedule["sql_condition"] != nil {
+		t.Fatalf("sql_condition: got %#v, want nil", schedule["sql_condition"])
+	}
+}
+
 func configuredJobResource(t *testing.T) *config.Resource {
 	t.Helper()
 	_, sdkProvider, err := xpprovider.GetProvider(t.Context())
