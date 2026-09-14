@@ -12,7 +12,6 @@ import (
 
 	"github.com/crossplane/upjet/v2/pkg/config"
 	"github.com/crossplane/upjet/v2/pkg/config/conversion"
-	"github.com/crossplane/upjet/v2/pkg/pipeline/templates"
 	"github.com/crossplane/upjet/v2/pkg/registry/reference"
 	"github.com/crossplane/upjet/v2/pkg/schema/traverser"
 	conversiontfjson "github.com/crossplane/upjet/v2/pkg/types/conversion/tfjson"
@@ -31,22 +30,6 @@ const (
 	resourcePrefix = "databricks"
 	modulePath     = "github.com/glalanne/provider-databricks"
 )
-
-var terraformedTemplate = func() string {
-	template := strings.Replace(
-		templates.TerraformedTemplate,
-		"import (\n",
-		"import (\n\t\"reflect\"\n",
-		1,
-	)
-	return strings.Replace(
-		template,
-		"    return json.TFParser.Unmarshal(p, &tr.Status.AtProvider)",
-		`    reflect.ValueOf(&tr.Status.AtProvider).Elem().Set(reflect.Zero(reflect.TypeOf(tr.Status.AtProvider)))
-    return json.TFParser.Unmarshal(p, &tr.Status.AtProvider)`,
-		1,
-	)
-}()
 
 type generationMode int
 
@@ -156,7 +139,6 @@ func getProviderWithMode(fwProvider fwprovider.Provider, sdkProvider *tfschema.P
 		config.WithDefaultResourceOptions(ResourceConfigurator()),
 		config.WithReferenceInjectors([]config.ReferenceInjector{reference.NewInjector(modulePath)}),
 		config.WithFeaturesPackage("internal/features"),
-		config.WithTerraformedTemplate(terraformedTemplate),
 		config.WithTerraformProvider(sdkProvider),
 		config.WithTerraformPluginFrameworkProvider(fwProvider),
 		config.WithTerraformPluginFrameworkIncludeList(TerraformPluginFrameworkResourceList(mode)),
