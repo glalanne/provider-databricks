@@ -193,6 +193,11 @@ func (in *AISearchEndpointObservation) DeepCopyInto(out *AISearchEndpointObserva
 		*out = new(string)
 		**out = **in
 	}
+	if in.Name != nil {
+		in, out := &in.Name, &out.Name
+		*out = new(string)
+		**out = **in
+	}
 	if in.Parent != nil {
 		in, out := &in.Parent, &out.Parent
 		*out = new(string)
@@ -496,6 +501,11 @@ func (in *AISearchIndexObservation) DeepCopyInto(out *AISearchIndexObservation) 
 	}
 	if in.IndexType != nil {
 		in, out := &in.IndexType, &out.IndexType
+		*out = new(string)
+		**out = **in
+	}
+	if in.Name != nil {
+		in, out := &in.Name, &out.Name
 		*out = new(string)
 		**out = **in
 	}
@@ -1977,6 +1987,11 @@ func (in *KnowledgeAssistantKnowledgeSourceObservation) DeepCopyInto(out *Knowle
 		*out = new(string)
 		**out = **in
 	}
+	if in.Name != nil {
+		in, out := &in.Name, &out.Name
+		*out = new(string)
+		**out = **in
+	}
 	if in.Parent != nil {
 		in, out := &in.Parent, &out.Parent
 		*out = new(string)
@@ -2236,6 +2251,11 @@ func (in *KnowledgeAssistantObservation) DeepCopyInto(out *KnowledgeAssistantObs
 	}
 	if in.Instructions != nil {
 		in, out := &in.Instructions, &out.Instructions
+		*out = new(string)
+		**out = **in
+	}
+	if in.Name != nil {
+		in, out := &in.Name, &out.Name
 		*out = new(string)
 		**out = **in
 	}
@@ -2718,6 +2738,11 @@ func (in *SupervisorAgentObservation) DeepCopyInto(out *SupervisorAgentObservati
 		*out = new(string)
 		**out = **in
 	}
+	if in.Name != nil {
+		in, out := &in.Name, &out.Name
+		*out = new(string)
+		**out = **in
+	}
 	if in.ProviderConfig != nil {
 		in, out := &in.ProviderConfig, &out.ProviderConfig
 		*out = new(SupervisorAgentProviderConfigObservation)
@@ -3101,6 +3126,11 @@ func (in *SupervisorAgentToolObservation) DeepCopyInto(out *SupervisorAgentToolO
 		in, out := &in.KnowledgeAssistant, &out.KnowledgeAssistant
 		*out = new(SupervisorAgentToolKnowledgeAssistantObservation)
 		(*in).DeepCopyInto(*out)
+	}
+	if in.Name != nil {
+		in, out := &in.Name, &out.Name
+		*out = new(string)
+		**out = **in
 	}
 	if in.Parent != nil {
 		in, out := &in.Parent, &out.Parent

@@ -5120,6 +5120,11 @@ func (in *ExternalMetadataInitParameters) DeepCopyInto(out *ExternalMetadataInit
 		*out = new(string)
 		**out = **in
 	}
+	if in.Name != nil {
+		in, out := &in.Name, &out.Name
+		*out = new(string)
+		**out = **in
+	}
 	if in.Owner != nil {
 		in, out := &in.Owner, &out.Owner
 		*out = new(string)
@@ -5244,6 +5249,11 @@ func (in *ExternalMetadataObservation) DeepCopyInto(out *ExternalMetadataObserva
 		*out = new(string)
 		**out = **in
 	}
+	if in.Name != nil {
+		in, out := &in.Name, &out.Name
+		*out = new(string)
+		**out = **in
+	}
 	if in.Owner != nil {
 		in, out := &in.Owner, &out.Owner
 		*out = new(string)
@@ -5323,6 +5333,11 @@ func (in *ExternalMetadataParameters) DeepCopyInto(out *ExternalMetadataParamete
 	}
 	if in.EntityType != nil {
 		in, out := &in.EntityType, &out.EntityType
+		*out = new(string)
+		**out = **in
+	}
+	if in.Name != nil {
+		in, out := &in.Name, &out.Name
 		*out = new(string)
 		**out = **in
 	}
@@ -11022,6 +11037,11 @@ func (in *PolicyInfoInitParameters) DeepCopyInto(out *PolicyInfoInitParameters) 
 			(*in)[i].DeepCopyInto(&(*out)[i])
 		}
 	}
+	if in.Name != nil {
+		in, out := &in.Name, &out.Name
+		*out = new(string)
+		**out = **in
+	}
 	if in.OnSecurableFullname != nil {
 		in, out := &in.OnSecurableFullname, &out.OnSecurableFullname
 		*out = new(string)
@@ -11158,6 +11178,11 @@ func (in *PolicyInfoObservation) DeepCopyInto(out *PolicyInfoObservation) {
 			(*in)[i].DeepCopyInto(&(*out)[i])
 		}
 	}
+	if in.Name != nil {
+		in, out := &in.Name, &out.Name
+		*out = new(string)
+		**out = **in
+	}
 	if in.OnSecurableFullname != nil {
 		in, out := &in.OnSecurableFullname, &out.OnSecurableFullname
 		*out = new(string)
@@ -11256,6 +11281,11 @@ func (in *PolicyInfoParameters) DeepCopyInto(out *PolicyInfoParameters) {
 		for i := range *in {
 			(*in)[i].DeepCopyInto(&(*out)[i])
 		}
+	}
+	if in.Name != nil {
+		in, out := &in.Name, &out.Name
+		*out = new(string)
+		**out = **in
 	}
 	if in.OnSecurableFullname != nil {
 		in, out := &in.OnSecurableFullname, &out.OnSecurableFullname
@@ -15276,6 +15306,11 @@ func (in *SecretUcInitParameters) DeepCopyInto(out *SecretUcInitParameters) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.Name != nil {
+		in, out := &in.Name, &out.Name
+		*out = new(string)
+		**out = **in
+	}
 	if in.Owner != nil {
 		in, out := &in.Owner, &out.Owner
 		*out = new(string)
@@ -15393,6 +15428,11 @@ func (in *SecretUcObservation) DeepCopyInto(out *SecretUcObservation) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.Name != nil {
+		in, out := &in.Name, &out.Name
+		*out = new(string)
+		**out = **in
+	}
 	if in.Owner != nil {
 		in, out := &in.Owner, &out.Owner
 		*out = new(string)
@@ -15450,6 +15490,11 @@ func (in *SecretUcParameters) DeepCopyInto(out *SecretUcParameters) {
 	}
 	if in.ExpireTime != nil {
 		in, out := &in.ExpireTime, &out.ExpireTime
+		*out = new(string)
+		**out = **in
+	}
+	if in.Name != nil {
+		in, out := &in.Name, &out.Name
 		*out = new(string)
 		**out = **in
 	}

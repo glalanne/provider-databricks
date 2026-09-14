@@ -124,6 +124,9 @@ type DatabaseInstanceInitParameters struct {
 	// Whether to enable secondaries to serve read-only traffic. Defaults to false
 	EnableReadableSecondaries *bool `json:"enableReadableSecondaries,omitempty" tf:"enable_readable_secondaries,omitempty"`
 
+	// The name of the instance. This is the unique identifier for the instance
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
 	// The number of nodes in the instance, composed of 1 primary and 0 or more secondaries. Defaults to
 	// 1 primary and 0 secondaries. This field is input only, see effective_node_count for the output
 	NodeCount *float64 `json:"nodeCount,omitempty" tf:"node_count,omitempty"`
@@ -221,6 +224,9 @@ type DatabaseInstanceObservation struct {
 
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
+	// The name of the instance. This is the unique identifier for the instance
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
 	// The number of nodes in the instance, composed of 1 primary and 0 or more secondaries. Defaults to
 	// 1 primary and 0 secondaries. This field is input only, see effective_node_count for the output
 	NodeCount *float64 `json:"nodeCount,omitempty" tf:"node_count,omitempty"`
@@ -283,6 +289,10 @@ type DatabaseInstanceParameters struct {
 	// Whether to enable secondaries to serve read-only traffic. Defaults to false
 	// +kubebuilder:validation:Optional
 	EnableReadableSecondaries *bool `json:"enableReadableSecondaries,omitempty" tf:"enable_readable_secondaries,omitempty"`
+
+	// The name of the instance. This is the unique identifier for the instance
+	// +kubebuilder:validation:Optional
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// The number of nodes in the instance, composed of 1 primary and 0 or more secondaries. Defaults to
 	// 1 primary and 0 secondaries. This field is input only, see effective_node_count for the output
@@ -473,8 +483,9 @@ type DatabaseInstanceStatus struct {
 type DatabaseInstance struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	Spec              DatabaseInstanceSpec   `json:"spec"`
-	Status            DatabaseInstanceStatus `json:"status,omitempty"`
+	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.name) || (has(self.initProvider) && has(self.initProvider.name))",message="spec.forProvider.name is a required parameter"
+	Spec   DatabaseInstanceSpec   `json:"spec"`
+	Status DatabaseInstanceStatus `json:"status,omitempty"`
 }
 
 // +kubebuilder:object:root=true

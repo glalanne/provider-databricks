@@ -6,6 +6,8 @@ package config
 
 import (
 	"github.com/crossplane/upjet/v2/pkg/config"
+
+	"github.com/glalanne/provider-databricks/config/common"
 )
 
 var TerraformPluginSDKExternalNameV1Alpha1Configs = map[string]config.ExternalName{
@@ -238,7 +240,7 @@ var TerraformPluginFrameworkExternalNameConfigs = map[string]config.ExternalName
 	"databricks_database_instance":                               config.IdentifierFromProvider,
 	"databricks_disaster_recovery_failover_group":                config.IdentifierFromProvider,
 	"databricks_disaster_recovery_stable_url":                    config.IdentifierFromProvider,
-	"databricks_entity_tag_assignment":                           config.IdentifierFromProvider,
+	"databricks_entity_tag_assignment":                           common.EntityTagAssignmentExternalName,
 	"databricks_environments_default_workspace_base_environment": config.IdentifierFromProvider,
 	"databricks_environments_workspace_base_environment":         config.IdentifierFromProvider,
 	"databricks_external_metadata":                               config.IdentifierFromProvider,
@@ -319,6 +321,9 @@ func ResourceConfigurator() config.ResourceOption {
 		e, configured := TerraformPluginSDKExternalNameConfigs[r.Name]
 		if !configured {
 			e, configured = CLIReconciledExternalNameConfigs[r.Name]
+		}
+		if !configured {
+			e, configured = TerraformPluginFrameworkExternalNameConfigs[r.Name]
 		}
 		if !configured {
 			return

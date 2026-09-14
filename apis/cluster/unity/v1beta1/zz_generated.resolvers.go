@@ -349,7 +349,7 @@ func (mg *Grant) ResolveReferences(ctx context.Context, c client.Reader) error {
 
 		rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 			CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.Share),
-			Extract:      reference.ExternalName(),
+			Extract:      resource.ExtractParamPath("name", false),
 			Namespace:    mg.GetNamespace(),
 			Reference:    mg.Spec.ForProvider.ShareRef,
 			Selector:     mg.Spec.ForProvider.ShareSelector,
@@ -529,7 +529,7 @@ func (mg *Grant) ResolveReferences(ctx context.Context, c client.Reader) error {
 
 		rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 			CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.Share),
-			Extract:      reference.ExternalName(),
+			Extract:      resource.ExtractParamPath("name", false),
 			Namespace:    mg.GetNamespace(),
 			Reference:    mg.Spec.InitProvider.ShareRef,
 			Selector:     mg.Spec.InitProvider.ShareSelector,
@@ -723,7 +723,7 @@ func (mg *GrantMap) ResolveReferences(ctx context.Context, c client.Reader) erro
 
 		rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 			CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.Share),
-			Extract:      reference.ExternalName(),
+			Extract:      resource.ExtractParamPath("name", false),
 			Namespace:    mg.GetNamespace(),
 			Reference:    mg.Spec.ForProvider.ShareRef,
 			Selector:     mg.Spec.ForProvider.ShareSelector,
@@ -905,7 +905,7 @@ func (mg *GrantMap) ResolveReferences(ctx context.Context, c client.Reader) erro
 
 		rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 			CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.Share),
-			Extract:      reference.ExternalName(),
+			Extract:      resource.ExtractParamPath("name", false),
 			Namespace:    mg.GetNamespace(),
 			Reference:    mg.Spec.InitProvider.ShareRef,
 			Selector:     mg.Spec.InitProvider.ShareSelector,

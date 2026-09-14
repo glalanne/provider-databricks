@@ -35,6 +35,9 @@ type PostgresCatalogObservation struct {
 
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
+	// Output only. The full resource path of the catalog.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
 	// Configure the provider for management through account provider.
 	ProviderConfig *PostgresCatalogProviderConfigObservation `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
 

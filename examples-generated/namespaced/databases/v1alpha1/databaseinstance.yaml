@@ -14,3 +14,4 @@ metadata:
 spec:
   forProvider:
     capacity: CU_2
+    name: my-database-instance
