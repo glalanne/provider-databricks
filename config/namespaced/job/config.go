@@ -16,7 +16,7 @@ func Configure(p *config.Provider) {
 			"notification_settings", "library", "parameter", "environment", "tags",
 		)
 		r.TerraformConversions = append(r.TerraformConversions,
-			common.JobEmptyObjectCleaner(r),
+			common.EmptyObjectCleanerForResource(r),
 		)
 
 		r.References["notebook_task.warehouse_id"] = config.Reference{
