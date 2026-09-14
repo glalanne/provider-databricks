@@ -141,6 +141,11 @@ spec:
                           type: string
                       type: object
                     type: array
+                  name:
+                    description: |-
+                      Name of the policy. Required on create and optional on update.
+                      To rename the policy, set name to a different value on update
+                    type: string
                   onSecurableFullname:
                     description: |-
                       Full name of the securable on which the policy is defined.
@@ -283,6 +288,11 @@ spec:
                           type: string
                       type: object
                     type: array
+                  name:
+                    description: |-
+                      Name of the policy. Required on create and optional on update.
+                      To rename the policy, set name to a different value on update
+                    type: string
                   onSecurableFullname:
                     description: |-
                       Full name of the securable on which the policy is defined.
@@ -528,6 +538,11 @@ spec:
                           type: string
                       type: object
                     type: array
+                  name:
+                    description: |-
+                      Name of the policy. Required on create and optional on update.
+                      To rename the policy, set name to a different value on update
+                    type: string
                   onSecurableFullname:
                     description: |-
                       Full name of the securable on which the policy is defined.
@@ -787,6 +802,11 @@ spec:
                           type: string
                       type: object
                     type: array
+                  name:
+                    description: |-
+                      Name of the policy. Required on create and optional on update.
+                      To rename the policy, set name to a different value on update
+                    type: string
                   onSecurableFullname:
                     description: |-
                       Full name of the securable on which the policy is defined.
@@ -929,6 +949,11 @@ spec:
                           type: string
                       type: object
                     type: array
+                  name:
+                    description: |-
+                      Name of the policy. Required on create and optional on update.
+                      To rename the policy, set name to a different value on update
+                    type: string
                   onSecurableFullname:
                     description: |-
                       Full name of the securable on which the policy is defined.
@@ -1174,6 +1199,11 @@ spec:
                           type: string
                       type: object
                     type: array
+                  name:
+                    description: |-
+                      Name of the policy. Required on create and optional on update.
+                      To rename the policy, set name to a different value on update
+                    type: string
                   onSecurableFullname:
                     description: |-
                       Full name of the securable on which the policy is defined.

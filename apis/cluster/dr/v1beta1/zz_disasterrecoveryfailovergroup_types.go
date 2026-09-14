@@ -77,6 +77,9 @@ type DisasterRecoveryFailoverGroupObservation struct {
 	// primary region. Not returned in responses
 	InitialPrimaryRegion *string `json:"initialPrimaryRegion,omitempty" tf:"initial_primary_region,omitempty"`
 
+	// Resource name for this location
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
 	// The parent resource. Format: accounts/{account_id}
 	Parent *string `json:"parent,omitempty" tf:"parent,omitempty"`
 

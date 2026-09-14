@@ -1163,6 +1163,11 @@ func (in *PostgresBranchObservation) DeepCopyInto(out *PostgresBranchObservation
 		*out = new(string)
 		**out = **in
 	}
+	if in.Name != nil {
+		in, out := &in.Name, &out.Name
+		*out = new(string)
+		**out = **in
+	}
 	if in.Parent != nil {
 		in, out := &in.Parent, &out.Parent
 		*out = new(string)
@@ -1409,6 +1414,11 @@ func (in *PostgresCatalogObservation) DeepCopyInto(out *PostgresCatalogObservati
 	}
 	if in.ID != nil {
 		in, out := &in.ID, &out.ID
+		*out = new(string)
+		**out = **in
+	}
+	if in.Name != nil {
+		in, out := &in.Name, &out.Name
 		*out = new(string)
 		**out = **in
 	}
@@ -1861,6 +1871,11 @@ func (in *PostgresCdfConfigObservation) DeepCopyInto(out *PostgresCdfConfigObser
 		*out = new(string)
 		**out = **in
 	}
+	if in.Name != nil {
+		in, out := &in.Name, &out.Name
+		*out = new(string)
+		**out = **in
+	}
 	if in.Parent != nil {
 		in, out := &in.Parent, &out.Parent
 		*out = new(string)
@@ -2167,6 +2182,11 @@ func (in *PostgresDatabaseObservation) DeepCopyInto(out *PostgresDatabaseObserva
 	}
 	if in.ID != nil {
 		in, out := &in.ID, &out.ID
+		*out = new(string)
+		**out = **in
+	}
+	if in.Name != nil {
+		in, out := &in.Name, &out.Name
 		*out = new(string)
 		**out = **in
 	}
@@ -2636,6 +2656,11 @@ func (in *PostgresEndpointObservation) DeepCopyInto(out *PostgresEndpointObserva
 	}
 	if in.ID != nil {
 		in, out := &in.ID, &out.ID
+		*out = new(string)
+		**out = **in
+	}
+	if in.Name != nil {
+		in, out := &in.Name, &out.Name
 		*out = new(string)
 		**out = **in
 	}
@@ -3232,6 +3257,11 @@ func (in *PostgresProjectObservation) DeepCopyInto(out *PostgresProjectObservati
 		in, out := &in.InitialEndpointSpec, &out.InitialEndpointSpec
 		*out = new(InitialEndpointSpecObservation)
 		(*in).DeepCopyInto(*out)
+	}
+	if in.Name != nil {
+		in, out := &in.Name, &out.Name
+		*out = new(string)
+		**out = **in
 	}
 	if in.ProjectID != nil {
 		in, out := &in.ProjectID, &out.ProjectID
@@ -3830,6 +3860,11 @@ func (in *PostgresRoleObservation) DeepCopyInto(out *PostgresRoleObservation) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.Name != nil {
+		in, out := &in.Name, &out.Name
+		*out = new(string)
+		**out = **in
+	}
 	if in.Parent != nil {
 		in, out := &in.Parent, &out.Parent
 		*out = new(string)
@@ -4402,6 +4437,11 @@ func (in *PostgresSyncedTableObservation) DeepCopyInto(out *PostgresSyncedTableO
 	}
 	if in.ID != nil {
 		in, out := &in.ID, &out.ID
+		*out = new(string)
+		**out = **in
+	}
+	if in.Name != nil {
+		in, out := &in.Name, &out.Name
 		*out = new(string)
 		**out = **in
 	}

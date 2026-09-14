@@ -306,6 +306,15 @@ spec:
                     type: string
                   id:
                     type: string
+                  name:
+                    description: |-
+                      Resource name for the federation policy. Example values include
+                      accounts/<account-id>/federationPolicies/my-federation-policy for Account Federation Policies, and
+                      accounts/<account-id>/servicePrincipals/<service-principal-id>/federationPolicies/my-federation-policy
+                      for Service Principal Federation Policies. Typically an output parameter, which does not need to be
+                      specified in create or update requests. If specified in a request, must match the value in the
+                      request URL
+                    type: string
                   oidcPolicy:
                     description: (OidcFederationPolicy, optional)
                     properties:
@@ -719,6 +728,15 @@ spec:
                     description: Description of the federation policy
                     type: string
                   id:
+                    type: string
+                  name:
+                    description: |-
+                      Resource name for the federation policy. Example values include
+                      accounts/<account-id>/federationPolicies/my-federation-policy for Account Federation Policies, and
+                      accounts/<account-id>/servicePrincipals/<service-principal-id>/federationPolicies/my-federation-policy
+                      for Service Principal Federation Policies. Typically an output parameter, which does not need to be
+                      specified in create or update requests. If specified in a request, must match the value in the
+                      request URL
                     type: string
                   oidcPolicy:
                     description: (OidcFederationPolicy, optional)

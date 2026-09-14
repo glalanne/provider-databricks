@@ -122,6 +122,10 @@ type PolicyInfoInitParameters struct {
 	// When specified, the policy only applies to tables whose columns satisfy all match conditions
 	MatchColumns []MatchColumnsInitParameters `json:"matchColumns,omitempty" tf:"match_columns,omitempty"`
 
+	// Name of the policy. Required on create and optional on update.
+	// To rename the policy, set name to a different value on update
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
 	// Full name of the securable on which the policy is defined.
 	// Required on create
 	OnSecurableFullname *string `json:"onSecurableFullname,omitempty" tf:"on_securable_fullname,omitempty"`
@@ -181,6 +185,10 @@ type PolicyInfoObservation struct {
 	// Only valid when for_securable_type is TABLE.
 	// When specified, the policy only applies to tables whose columns satisfy all match conditions
 	MatchColumns []MatchColumnsObservation `json:"matchColumns,omitempty" tf:"match_columns,omitempty"`
+
+	// Name of the policy. Required on create and optional on update.
+	// To rename the policy, set name to a different value on update
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// Full name of the securable on which the policy is defined.
 	// Required on create
@@ -243,6 +251,11 @@ type PolicyInfoParameters struct {
 	// When specified, the policy only applies to tables whose columns satisfy all match conditions
 	// +kubebuilder:validation:Optional
 	MatchColumns []MatchColumnsParameters `json:"matchColumns,omitempty" tf:"match_columns,omitempty"`
+
+	// Name of the policy. Required on create and optional on update.
+	// To rename the policy, set name to a different value on update
+	// +kubebuilder:validation:Optional
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// Full name of the securable on which the policy is defined.
 	// Required on create

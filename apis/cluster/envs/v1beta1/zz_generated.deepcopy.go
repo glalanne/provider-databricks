@@ -140,6 +140,11 @@ func (in *EnvironmentsDefaultWorkspaceBaseEnvironmentObservation) DeepCopyInto(o
 		*out = new(string)
 		**out = **in
 	}
+	if in.Name != nil {
+		in, out := &in.Name, &out.Name
+		*out = new(string)
+		**out = **in
+	}
 	if in.ProviderConfig != nil {
 		in, out := &in.ProviderConfig, &out.ProviderConfig
 		*out = new(ProviderConfigObservation)
@@ -391,6 +396,11 @@ func (in *EnvironmentsWorkspaceBaseEnvironmentObservation) DeepCopyInto(out *Env
 	}
 	if in.Message != nil {
 		in, out := &in.Message, &out.Message
+		*out = new(string)
+		**out = **in
+	}
+	if in.Name != nil {
+		in, out := &in.Name, &out.Name
 		*out = new(string)
 		**out = **in
 	}

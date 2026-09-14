@@ -97,6 +97,7 @@ type PostgresEndpointInitParameters struct {
 	// The branch containing this endpoint (API resource hierarchy).
 	// Format: projects/{project_id}/branches/{branch_id}
 	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/cluster/postgres/v1beta1.PostgresBranch
+	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/v2/pkg/resource.ExtractParamPath("name",true)
 	Parent *string `json:"parent,omitempty" tf:"parent,omitempty"`
 
 	// Reference to a PostgresBranch in postgres to populate parent.
@@ -126,6 +127,10 @@ type PostgresEndpointObservation struct {
 	EndpointID *string `json:"endpointId,omitempty" tf:"endpoint_id,omitempty"`
 
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
+	// Output only. The full resource path of the endpoint.
+	// Format: projects/{project_id}/branches/{branch_id}/endpoints/{endpoint_id}
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// The branch containing this endpoint (API resource hierarchy).
 	// Format: projects/{project_id}/branches/{branch_id}
@@ -159,6 +164,7 @@ type PostgresEndpointParameters struct {
 	// The branch containing this endpoint (API resource hierarchy).
 	// Format: projects/{project_id}/branches/{branch_id}
 	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/cluster/postgres/v1beta1.PostgresBranch
+	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/v2/pkg/resource.ExtractParamPath("name",true)
 	// +kubebuilder:validation:Optional
 	Parent *string `json:"parent,omitempty" tf:"parent,omitempty"`
 

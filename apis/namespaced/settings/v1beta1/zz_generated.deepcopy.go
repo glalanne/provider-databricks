@@ -474,6 +474,11 @@ func (in *AccountSettingV2InitParameters) DeepCopyInto(out *AccountSettingV2Init
 		*out = new(IntegerValInitParameters)
 		(*in).DeepCopyInto(*out)
 	}
+	if in.Name != nil {
+		in, out := &in.Name, &out.Name
+		*out = new(string)
+		**out = **in
+	}
 	if in.OperationalEmailCustomRecipient != nil {
 		in, out := &in.OperationalEmailCustomRecipient, &out.OperationalEmailCustomRecipient
 		*out = new(OperationalEmailCustomRecipientInitParameters)
@@ -636,6 +641,11 @@ func (in *AccountSettingV2Observation) DeepCopyInto(out *AccountSettingV2Observa
 		*out = new(IntegerValObservation)
 		(*in).DeepCopyInto(*out)
 	}
+	if in.Name != nil {
+		in, out := &in.Name, &out.Name
+		*out = new(string)
+		**out = **in
+	}
 	if in.OperationalEmailCustomRecipient != nil {
 		in, out := &in.OperationalEmailCustomRecipient, &out.OperationalEmailCustomRecipient
 		*out = new(OperationalEmailCustomRecipientObservation)
@@ -730,6 +740,11 @@ func (in *AccountSettingV2Parameters) DeepCopyInto(out *AccountSettingV2Paramete
 		in, out := &in.IntegerVal, &out.IntegerVal
 		*out = new(IntegerValParameters)
 		(*in).DeepCopyInto(*out)
+	}
+	if in.Name != nil {
+		in, out := &in.Name, &out.Name
+		*out = new(string)
+		**out = **in
 	}
 	if in.OperationalEmailCustomRecipient != nil {
 		in, out := &in.OperationalEmailCustomRecipient, &out.OperationalEmailCustomRecipient
@@ -22584,6 +22599,11 @@ func (in *WorkspaceSettingV2InitParameters) DeepCopyInto(out *WorkspaceSettingV2
 		*out = new(WorkspaceSettingV2IntegerValInitParameters)
 		(*in).DeepCopyInto(*out)
 	}
+	if in.Name != nil {
+		in, out := &in.Name, &out.Name
+		*out = new(string)
+		**out = **in
+	}
 	if in.OperationalEmailCustomRecipient != nil {
 		in, out := &in.OperationalEmailCustomRecipient, &out.OperationalEmailCustomRecipient
 		*out = new(WorkspaceSettingV2OperationalEmailCustomRecipientInitParameters)
@@ -22811,6 +22831,11 @@ func (in *WorkspaceSettingV2Observation) DeepCopyInto(out *WorkspaceSettingV2Obs
 		*out = new(WorkspaceSettingV2IntegerValObservation)
 		(*in).DeepCopyInto(*out)
 	}
+	if in.Name != nil {
+		in, out := &in.Name, &out.Name
+		*out = new(string)
+		**out = **in
+	}
 	if in.OperationalEmailCustomRecipient != nil {
 		in, out := &in.OperationalEmailCustomRecipient, &out.OperationalEmailCustomRecipient
 		*out = new(WorkspaceSettingV2OperationalEmailCustomRecipientObservation)
@@ -22970,6 +22995,11 @@ func (in *WorkspaceSettingV2Parameters) DeepCopyInto(out *WorkspaceSettingV2Para
 		in, out := &in.IntegerVal, &out.IntegerVal
 		*out = new(WorkspaceSettingV2IntegerValParameters)
 		(*in).DeepCopyInto(*out)
+	}
+	if in.Name != nil {
+		in, out := &in.Name, &out.Name
+		*out = new(string)
+		**out = **in
 	}
 	if in.OperationalEmailCustomRecipient != nil {
 		in, out := &in.OperationalEmailCustomRecipient, &out.OperationalEmailCustomRecipient

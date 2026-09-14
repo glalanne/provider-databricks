@@ -10163,6 +10163,11 @@ func (in *PolicyInfoInitParameters) DeepCopyInto(out *PolicyInfoInitParameters) 
 			(*in)[i].DeepCopyInto(&(*out)[i])
 		}
 	}
+	if in.Name != nil {
+		in, out := &in.Name, &out.Name
+		*out = new(string)
+		**out = **in
+	}
 	if in.OnSecurableFullname != nil {
 		in, out := &in.OnSecurableFullname, &out.OnSecurableFullname
 		*out = new(string)
@@ -10299,6 +10304,11 @@ func (in *PolicyInfoObservation) DeepCopyInto(out *PolicyInfoObservation) {
 			(*in)[i].DeepCopyInto(&(*out)[i])
 		}
 	}
+	if in.Name != nil {
+		in, out := &in.Name, &out.Name
+		*out = new(string)
+		**out = **in
+	}
 	if in.OnSecurableFullname != nil {
 		in, out := &in.OnSecurableFullname, &out.OnSecurableFullname
 		*out = new(string)
@@ -10397,6 +10407,11 @@ func (in *PolicyInfoParameters) DeepCopyInto(out *PolicyInfoParameters) {
 		for i := range *in {
 			(*in)[i].DeepCopyInto(&(*out)[i])
 		}
+	}
+	if in.Name != nil {
+		in, out := &in.Name, &out.Name
+		*out = new(string)
+		**out = **in
 	}
 	if in.OnSecurableFullname != nil {
 		in, out := &in.OnSecurableFullname, &out.OnSecurableFullname
