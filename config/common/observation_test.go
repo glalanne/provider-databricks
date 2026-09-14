@@ -6,6 +6,7 @@ import (
 	"testing"
 
 	"github.com/crossplane/upjet/v2/pkg/config"
+	"github.com/databricks/terraform-provider-databricks/xpprovider"
 )
 
 func TestEmptyObjectCleaner(t *testing.T) {
@@ -99,4 +100,21 @@ func TestJobEmptyObjectCleanerClearsNestedObject(t *testing.T) {
 	if nested != nil {
 		t.Fatalf("email_notifications: got %#v, want nil", nested)
 	}
+}
+
+func configuredJobResource(t *testing.T) *config.Resource {
+	t.Helper()
+	_, sdkProvider, err := xpprovider.GetProvider(t.Context())
+	if err != nil {
+		t.Fatalf("GetProvider: %s", err)
+	}
+	job, ok := sdkProvider.ResourcesMap["databricks_job"]
+	if !ok {
+		t.Fatal("databricks_job is not in the provider schema")
+	}
+	r := config.DefaultResource("databricks_job", job, nil, nil)
+	if err := config.TraverseSchemas("databricks_job", r, &config.SingletonListEmbedder{}); err != nil {
+		t.Fatalf("TraverseSchemas: %v", err)
+	}
+	return r
 }
