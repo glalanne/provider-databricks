@@ -6,6 +6,8 @@ package config
 
 import (
 	"github.com/crossplane/upjet/v2/pkg/config"
+
+	"github.com/glalanne/provider-databricks/config/common"
 )
 
 var TerraformPluginSDKExternalNameV1Alpha1Configs = map[string]config.ExternalName{
@@ -234,11 +236,11 @@ var TerraformPluginFrameworkExternalNameConfigs = map[string]config.ExternalName
 	"databricks_alert_v2":                                        config.IdentifierFromProvider,
 	"databricks_budget_policy":                                   config.IdentifierFromProvider,
 	"databricks_data_classification_catalog_config":              config.IdentifierFromProvider,
-	"databricks_data_quality_refresh":                            config.IdentifierFromProvider,
+	"databricks_data_quality_refresh":                            common.DataQualityRefreshExternalName,
 	"databricks_database_instance":                               config.IdentifierFromProvider,
 	"databricks_disaster_recovery_failover_group":                config.IdentifierFromProvider,
 	"databricks_disaster_recovery_stable_url":                    config.IdentifierFromProvider,
-	"databricks_entity_tag_assignment":                           config.IdentifierFromProvider,
+	"databricks_entity_tag_assignment":                           common.EntityTagAssignmentExternalName,
 	"databricks_environments_default_workspace_base_environment": config.IdentifierFromProvider,
 	"databricks_environments_workspace_base_environment":         config.IdentifierFromProvider,
 	"databricks_external_metadata":                               config.IdentifierFromProvider,
@@ -254,14 +256,14 @@ var TerraformPluginFrameworkExternalNameConfigs = map[string]config.ExternalName
 	"databricks_postgres_role":                                   config.IdentifierFromProvider,
 	"databricks_postgres_synced_table":                           config.IdentifierFromProvider,
 	"databricks_quality_monitor":                                 config.IdentifierFromProvider,
-	"databricks_rfa_access_request_destinations":                 config.IdentifierFromProvider,
+	"databricks_rfa_access_request_destinations":                 common.RFAAccessRequestDestinationsExternalName,
 	"databricks_secret_uc":                                       config.IdentifierFromProvider,
-	"databricks_service_principal_federation_policy":             config.IdentifierFromProvider,
+	"databricks_service_principal_federation_policy":             common.ServicePrincipalFederationPolicyExternalName,
 	"databricks_share":                                           config.IdentifierFromProvider,
 	"databricks_supervisor_agent_tool":                           config.IdentifierFromProvider,
 	"databricks_supervisor_agent":                                config.IdentifierFromProvider,
 	"databricks_tag_policy":                                      config.IdentifierFromProvider,
-	"databricks_workspace_entity_tag_assignment":                 config.IdentifierFromProvider,
+	"databricks_workspace_entity_tag_assignment":                 common.WorkspaceEntityTagAssignmentExternalName,
 	"databricks_workspace_network_option":                        config.IdentifierFromProvider,
 	"databricks_workspace_setting_v2":                            config.IdentifierFromProvider,
 }
@@ -319,6 +321,9 @@ func ResourceConfigurator() config.ResourceOption {
 		e, configured := TerraformPluginSDKExternalNameConfigs[r.Name]
 		if !configured {
 			e, configured = CLIReconciledExternalNameConfigs[r.Name]
+		}
+		if !configured {
+			e, configured = TerraformPluginFrameworkExternalNameConfigs[r.Name]
 		}
 		if !configured {
 			return

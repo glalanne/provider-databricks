@@ -239,6 +239,11 @@ func (in *DatabaseInstanceInitParameters) DeepCopyInto(out *DatabaseInstanceInit
 		*out = new(bool)
 		**out = **in
 	}
+	if in.Name != nil {
+		in, out := &in.Name, &out.Name
+		*out = new(string)
+		**out = **in
+	}
 	if in.NodeCount != nil {
 		in, out := &in.NodeCount, &out.NodeCount
 		*out = new(float64)
@@ -407,6 +412,11 @@ func (in *DatabaseInstanceObservation) DeepCopyInto(out *DatabaseInstanceObserva
 		*out = new(string)
 		**out = **in
 	}
+	if in.Name != nil {
+		in, out := &in.Name, &out.Name
+		*out = new(string)
+		**out = **in
+	}
 	if in.NodeCount != nil {
 		in, out := &in.NodeCount, &out.NodeCount
 		*out = new(float64)
@@ -502,6 +512,11 @@ func (in *DatabaseInstanceParameters) DeepCopyInto(out *DatabaseInstanceParamete
 	if in.EnableReadableSecondaries != nil {
 		in, out := &in.EnableReadableSecondaries, &out.EnableReadableSecondaries
 		*out = new(bool)
+		**out = **in
+	}
+	if in.Name != nil {
+		in, out := &in.Name, &out.Name
+		*out = new(string)
 		**out = **in
 	}
 	if in.NodeCount != nil {

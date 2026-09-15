@@ -101,6 +101,10 @@ spec:
                     description: Whether to enable secondaries to serve read-only
                       traffic. Defaults to false
                     type: boolean
+                  name:
+                    description: The name of the instance. This is the unique identifier
+                      for the instance
+                    type: string
                   nodeCount:
                     description: |-
                       The number of nodes in the instance, composed of 1 primary and 0 or more secondaries. Defaults to
@@ -198,6 +202,10 @@ spec:
                     description: Whether to enable secondaries to serve read-only
                       traffic. Defaults to false
                     type: boolean
+                  name:
+                    description: The name of the instance. This is the unique identifier
+                      for the instance
+                    type: string
                   nodeCount:
                     description: |-
                       The number of nodes in the instance, composed of 1 primary and 0 or more secondaries. Defaults to
@@ -343,6 +351,11 @@ spec:
             required:
             - forProvider
             type: object
+            x-kubernetes-validations:
+            - message: spec.forProvider.name is a required parameter
+              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
+                || ''Update'' in self.managementPolicies) || has(self.forProvider.name)
+                || (has(self.initProvider) && has(self.initProvider.name))'
           status:
             description: DatabaseInstanceStatus defines the observed state of DatabaseInstance.
             properties:
@@ -477,6 +490,10 @@ spec:
                       traffic. Defaults to false
                     type: boolean
                   id:
+                    type: string
+                  name:
+                    description: The name of the instance. This is the unique identifier
+                      for the instance
                     type: string
                   nodeCount:
                     description: |-
@@ -715,6 +732,10 @@ spec:
                     description: Whether to enable secondaries to serve read-only
                       traffic. Defaults to false
                     type: boolean
+                  name:
+                    description: The name of the instance. This is the unique identifier
+                      for the instance
+                    type: string
                   nodeCount:
                     description: |-
                       The number of nodes in the instance, composed of 1 primary and 0 or more secondaries. Defaults to
@@ -812,6 +833,10 @@ spec:
                     description: Whether to enable secondaries to serve read-only
                       traffic. Defaults to false
                     type: boolean
+                  name:
+                    description: The name of the instance. This is the unique identifier
+                      for the instance
+                    type: string
                   nodeCount:
                     description: |-
                       The number of nodes in the instance, composed of 1 primary and 0 or more secondaries. Defaults to
@@ -957,6 +982,11 @@ spec:
             required:
             - forProvider
             type: object
+            x-kubernetes-validations:
+            - message: spec.forProvider.name is a required parameter
+              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
+                || ''Update'' in self.managementPolicies) || has(self.forProvider.name)
+                || (has(self.initProvider) && has(self.initProvider.name))'
           status:
             description: DatabaseInstanceStatus defines the observed state of DatabaseInstance.
             properties:
@@ -1091,6 +1121,10 @@ spec:
                       traffic. Defaults to false
                     type: boolean
                   id:
+                    type: string
+                  name:
+                    description: The name of the instance. This is the unique identifier
+                      for the instance
                     type: string
                   nodeCount:
                     description: |-

@@ -124,6 +124,11 @@ func (in *AccountFederationPolicyObservation) DeepCopyInto(out *AccountFederatio
 		*out = new(string)
 		**out = **in
 	}
+	if in.Name != nil {
+		in, out := &in.Name, &out.Name
+		*out = new(string)
+		**out = **in
+	}
 	if in.OidcPolicy != nil {
 		in, out := &in.OidcPolicy, &out.OidcPolicy
 		*out = new(OidcPolicyObservation)
@@ -493,6 +498,11 @@ func (in *ServicePrincipalFederationPolicyObservation) DeepCopyInto(out *Service
 	}
 	if in.ID != nil {
 		in, out := &in.ID, &out.ID
+		*out = new(string)
+		**out = **in
+	}
+	if in.Name != nil {
+		in, out := &in.Name, &out.Name
 		*out = new(string)
 		**out = **in
 	}

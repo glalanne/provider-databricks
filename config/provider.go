@@ -143,6 +143,7 @@ func getProviderWithMode(fwProvider fwprovider.Provider, sdkProvider *tfschema.P
 		config.WithTerraformPluginFrameworkProvider(fwProvider),
 		config.WithTerraformPluginFrameworkIncludeList(TerraformPluginFrameworkResourceList(mode)),
 	}
+
 	if mode == generationModeV1Beta1 {
 		providerOpts = append(providerOpts, config.WithSchemaTraversers(&config.SingletonListEmbedder{}))
 	}

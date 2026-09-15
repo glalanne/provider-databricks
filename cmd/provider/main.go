@@ -191,7 +191,7 @@ func main() {
 			},
 		},
 		Provider:              clusterProvider,
-		SetupFn:               clients.TerraformSetupBuilder(clusterProvider.TerraformProvider),
+		SetupFn:               clients.TerraformSetupBuilder(fwProvider, clusterProvider.TerraformProvider),
 		PollJitter:            pollJitter,
 		OperationTrackerStore: tjcontroller.NewOperationStore(logr),
 	}
@@ -210,7 +210,7 @@ func main() {
 			},
 		},
 		Provider:              namespacedProvider,
-		SetupFn:               clients.TerraformSetupBuilder(namespacedProvider.TerraformProvider),
+		SetupFn:               clients.TerraformSetupBuilder(fwProvider, namespacedProvider.TerraformProvider),
 		PollJitter:            pollJitter,
 		OperationTrackerStore: tjcontroller.NewOperationStore(logr),
 		StartWebhooks:         *certsDir != "",

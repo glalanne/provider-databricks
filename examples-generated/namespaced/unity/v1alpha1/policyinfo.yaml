@@ -17,6 +17,7 @@ spec:
     matchColumns:
     - alias: pii_col
       condition: hasTag('pii')
+    name: pii_data_policy
     onSecurableFullname: main
     onSecurableType: CATALOG
     policyType: POLICY_TYPE_ROW_FILTER

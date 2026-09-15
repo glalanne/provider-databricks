@@ -118,7 +118,22 @@ func (tr *Job) LateInitialize(attrs []byte) (bool, error) {
 		return false, errors.Wrap(err, "failed to unmarshal Terraform state parameters for late-initialization")
 	}
 	opts := []resource.GenericLateInitializerOption{resource.WithZeroValueJSONOmitEmptyFilter(resource.CNameWildcard)}
+	opts = append(opts, resource.WithNameFilter("Continuous"))
+	opts = append(opts, resource.WithNameFilter("Deployment"))
+	opts = append(opts, resource.WithNameFilter("EmailNotifications"))
+	opts = append(opts, resource.WithNameFilter("Environment"))
 	opts = append(opts, resource.WithNameFilter("Format"))
+	opts = append(opts, resource.WithNameFilter("GitSource"))
+	opts = append(opts, resource.WithNameFilter("Health"))
+	opts = append(opts, resource.WithNameFilter("Library"))
+	opts = append(opts, resource.WithNameFilter("NotificationSettings"))
+	opts = append(opts, resource.WithNameFilter("Parameter"))
+	opts = append(opts, resource.WithNameFilter("Queue"))
+	opts = append(opts, resource.WithNameFilter("RunJobTask"))
+	opts = append(opts, resource.WithNameFilter("Schedule"))
+	opts = append(opts, resource.WithNameFilter("Tags"))
+	opts = append(opts, resource.WithNameFilter("Trigger"))
+	opts = append(opts, resource.WithNameFilter("WebhookNotifications"))
 
 	li := resource.NewGenericLateInitializer(opts...)
 	return li.LateInitialize(&tr.Spec.ForProvider, params)
