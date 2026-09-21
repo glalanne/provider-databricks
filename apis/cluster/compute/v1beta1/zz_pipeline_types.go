@@ -3225,8 +3225,6 @@ type PipelineInitParameters struct {
 
 	IngestionDefinition *IngestionDefinitionInitParameters `json:"ingestionDefinition,omitempty" tf:"ingestion_definition,omitempty"`
 
-	LatestUpdates []LatestUpdatesInitParameters `json:"latestUpdates,omitempty" tf:"latest_updates,omitempty"`
-
 	// Specifies pipeline code.
 	Library []PipelineLibraryInitParameters `json:"library,omitempty" tf:"library,omitempty"`
 
@@ -3563,9 +3561,6 @@ type PipelineParameters struct {
 
 	// +kubebuilder:validation:Optional
 	IngestionDefinition *IngestionDefinitionParameters `json:"ingestionDefinition,omitempty" tf:"ingestion_definition,omitempty"`
-
-	// +kubebuilder:validation:Optional
-	LatestUpdates []LatestUpdatesParameters `json:"latestUpdates,omitempty" tf:"latest_updates,omitempty"`
 
 	// Specifies pipeline code.
 	// +kubebuilder:validation:Optional
