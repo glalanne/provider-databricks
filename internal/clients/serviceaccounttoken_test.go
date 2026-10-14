@@ -83,13 +83,13 @@ func tokenFor(kubeObjs ...client.Object) *fake.ClientBuilder {
 func saSpec(ns, name, authority string) *namespacedv1beta1.ProviderConfigSpec {
 	return &namespacedv1beta1.ProviderConfigSpec{
 		Credentials: namespacedv1beta1.ProviderCredentials{
-			Source:            namespacedv1beta1.CredentialsSourceServiceAccountToken,
+			Source:            namespacedv1beta1.CredentialsSourceServiceAccount,
 			ServiceAccountRef: &namespacedv1beta1.ServiceAccountReference{Name: name, Namespace: ref(ns)},
+			TokenExchange: &namespacedv1beta1.TokenExchange{
+				AzureAD: &namespacedv1beta1.AzureADTokenExchange{AuthorityHost: ref(authority)},
+			},
 		},
 		Host: ref(testHost),
-		TokenExchange: &namespacedv1beta1.TokenExchange{
-			AzureAD: &namespacedv1beta1.AzureADTokenExchange{AuthorityHost: ref(authority)},
-		},
 	}
 }
 
@@ -150,14 +150,29 @@ func TestServiceAccountTokenAuth(t *testing.T) {
 		}
 	})
 
-	t.Run("clientID and tenantID on the ProviderConfig override the annotations", func(t *testing.T) {
+	t.Run("clientID and tenantID in tokenExchange.azureAD override the annotations", func(t *testing.T) {
 		const specClientID = "33333333-3333-3333-3333-333333333333"
 		entra := fakeEntra(t, specClientID, "sa-token:dp-a/dp-a")
 		bare := &corev1.ServiceAccount{ObjectMeta: metav1.ObjectMeta{Namespace: "dp-a", Name: "dp-a"}}
 		kube := tokenFor(bare).Build()
 
 		spec := saSpec("dp-a", "dp-a", entra.URL)
-		spec.ClientID, spec.TenantID = ref(specClientID), ref(testTenantID)
+		azureAD := spec.Credentials.TokenExchange.AzureAD
+		azureAD.ClientID, azureAD.TenantID = ref(specClientID), ref(testTenantID)
+		ps := &terraform.Setup{Configuration: map[string]any{}}
+		if err := serviceAccountTokenAuth(context.Background(), kube, spec, ps, NewTokenCache()); err != nil {
+			t.Fatalf("serviceAccountTokenAuth() error: %v", err)
+		}
+	})
+
+	// The top-level clientID and tenantID belong to the Azure-derived sources;
+	// this source reads its IDs only from tokenExchange.azureAD.
+	t.Run("top-level clientID and tenantID are ignored", func(t *testing.T) {
+		entra := fakeEntra(t, testClientID, "sa-token:dp-a/dp-a")
+		kube := tokenFor(annotatedSA("dp-a", "dp-a")).Build()
+
+		spec := saSpec("dp-a", "dp-a", entra.URL)
+		spec.ClientID, spec.TenantID = ref("33333333-3333-3333-3333-333333333333"), ref("44444444-4444-4444-4444-444444444444")
 		ps := &terraform.Setup{Configuration: map[string]any{}}
 		if err := serviceAccountTokenAuth(context.Background(), kube, spec, ps, NewTokenCache()); err != nil {
 			t.Fatalf("serviceAccountTokenAuth() error: %v", err)
@@ -172,7 +187,8 @@ func TestServiceAccountTokenAuth(t *testing.T) {
 		kube := tokenFor(annotatedSA("dp-b", "dp-b")).Build()
 
 		spec := saSpec("dp-b", "dp-b", entra.URL)
-		spec.ClientID, spec.TenantID = ref(testClientID), ref(testTenantID) // dp-b names dp-a's identity
+		azureAD := spec.Credentials.TokenExchange.AzureAD
+		azureAD.ClientID, azureAD.TenantID = ref(testClientID), ref(testTenantID) // dp-b names dp-a's identity
 		ps := &terraform.Setup{Configuration: map[string]any{}}
 		err := serviceAccountTokenAuth(context.Background(), kube, spec, ps, NewTokenCache())
 		if err == nil || !strings.Contains(err.Error(), "AADSTS700213") || !strings.Contains(err.Error(), "dp-b/dp-b") {
@@ -216,10 +232,10 @@ func TestServiceAccountTokenAuth(t *testing.T) {
 			spec: func(a string) *namespacedv1beta1.ProviderConfigSpec {
 				s := saSpec("dp-a", "dp-a", a)
 				other := namespacedv1beta1.TokenExchangeType("Other")
-				s.TokenExchange.Type = &other
+				s.Credentials.TokenExchange.Type = &other
 				return s
 			},
-			want: `unsupported tokenExchange.type "Other"`,
+			want: `unsupported credentials.tokenExchange.type "Other"`,
 		},
 		"service account without client ID annotation": {
 			spec: func(a string) *namespacedv1beta1.ProviderConfigSpec { return saSpec("dp-a", "dp-a", a) },
@@ -248,7 +264,7 @@ func TestEnrichLocalServiceAccountRef(t *testing.T) {
 	mg := &workspacev1beta1.Directory{ObjectMeta: metav1.ObjectMeta{Namespace: "dp-a", Name: "dir"}}
 	pc := func(ns *string) *namespacedv1beta1.ProviderConfig {
 		return &namespacedv1beta1.ProviderConfig{Spec: namespacedv1beta1.ProviderConfigSpec{Credentials: namespacedv1beta1.ProviderCredentials{
-			Source:            namespacedv1beta1.CredentialsSourceServiceAccountToken,
+			Source:            namespacedv1beta1.CredentialsSourceServiceAccount,
 			ServiceAccountRef: &namespacedv1beta1.ServiceAccountReference{Name: "dp-a", Namespace: ns},
 		}}}
 	}
@@ -289,7 +305,7 @@ func TestResolveProviderConfigRejectsOtherNamespaceServiceAccount(t *testing.T) 
 		ObjectMeta: metav1.ObjectMeta{Namespace: "dp-b", Name: "default"},
 		Spec: namespacedv1beta1.ProviderConfigSpec{
 			Credentials: namespacedv1beta1.ProviderCredentials{
-				Source:            namespacedv1beta1.CredentialsSourceServiceAccountToken,
+				Source:            namespacedv1beta1.CredentialsSourceServiceAccount,
 				ServiceAccountRef: &namespacedv1beta1.ServiceAccountReference{Name: "dp-a", Namespace: ref("dp-a")},
 			},
 			Host: ref(testHost),

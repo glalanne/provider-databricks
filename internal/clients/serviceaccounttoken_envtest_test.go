@@ -77,7 +77,7 @@ func TestEnvtestCELRules(t *testing.T) {
 	nsPC := func(name string, mutate func(*namespacedv1beta1.ProviderConfigSpec)) *namespacedv1beta1.ProviderConfig {
 		spec := namespacedv1beta1.ProviderConfigSpec{
 			Credentials: namespacedv1beta1.ProviderCredentials{
-				Source:            namespacedv1beta1.CredentialsSourceServiceAccountToken,
+				Source:            namespacedv1beta1.CredentialsSourceServiceAccount,
 				ServiceAccountRef: &namespacedv1beta1.ServiceAccountReference{Name: "dp-a"},
 			},
 			Host: ref(testHost),
@@ -90,7 +90,7 @@ func TestEnvtestCELRules(t *testing.T) {
 	legacyPC := func(name string, mutate func(*clusterv1beta1.ProviderConfigSpec)) *clusterv1beta1.ProviderConfig {
 		spec := clusterv1beta1.ProviderConfigSpec{
 			Credentials: clusterv1beta1.ProviderCredentials{
-				Source:            clusterv1beta1.CredentialsSourceServiceAccountToken,
+				Source:            clusterv1beta1.CredentialsSourceServiceAccount,
 				ServiceAccountRef: &clusterv1beta1.ServiceAccountReference{Name: "dp-a", Namespace: ref("dp-a")},
 			},
 			Host: ref(testHost),
@@ -105,10 +105,14 @@ func TestEnvtestCELRules(t *testing.T) {
 		obj     client.Object
 		wantErr string // empty = must be accepted
 	}{
-		"namespaced: valid ServiceAccountToken": {obj: nsPC("ok", nil)},
+		"namespaced: valid ServiceAccount": {obj: nsPC("ok", nil)},
 		"namespaced: valid with tokenExchange and audiences": {obj: nsPC("ok-full", func(s *namespacedv1beta1.ProviderConfigSpec) {
 			typ := namespacedv1beta1.TokenExchangeAzureAD
-			s.TokenExchange = &namespacedv1beta1.TokenExchange{Type: &typ, AzureAD: &namespacedv1beta1.AzureADTokenExchange{AuthorityHost: ref("https://login.microsoftonline.com/")}}
+			s.Credentials.TokenExchange = &namespacedv1beta1.TokenExchange{Type: &typ, AzureAD: &namespacedv1beta1.AzureADTokenExchange{
+				ClientID:      ref(testClientID),
+				TenantID:      ref(testTenantID),
+				AuthorityHost: ref("https://login.microsoftonline.com/"),
+			}}
 			s.Credentials.ServiceAccountRef.Audiences = []string{"databricks://dp-a/ok-full"}
 		})},
 		"namespaced: valid account-level": {obj: nsPC("ok-account", func(s *namespacedv1beta1.ProviderConfigSpec) {
@@ -120,8 +124,8 @@ func TestEnvtestCELRules(t *testing.T) {
 		"namespaced: empty service account name": {obj: nsPC("empty-name", func(s *namespacedv1beta1.ProviderConfigSpec) { s.Credentials.ServiceAccountRef.Name = "" }), wantErr: "spec.credentials.serviceAccountRef.name"},
 		"namespaced: unknown exchange type": {obj: nsPC("bad-type", func(s *namespacedv1beta1.ProviderConfigSpec) {
 			typ := namespacedv1beta1.TokenExchangeType("Other")
-			s.TokenExchange = &namespacedv1beta1.TokenExchange{Type: &typ}
-		}), wantErr: "spec.tokenExchange.type"},
+			s.Credentials.TokenExchange = &namespacedv1beta1.TokenExchange{Type: &typ}
+		}), wantErr: "spec.credentials.tokenExchange.type"},
 		"namespaced: duplicate audiences": {obj: nsPC("dup-aud", func(s *namespacedv1beta1.ProviderConfigSpec) {
 			s.Credentials.ServiceAccountRef.Audiences = []string{"x", "x"}
 		}), wantErr: "Duplicate value"},

@@ -145,7 +145,7 @@ func main() {
 		},
 		// ServiceAccounts are read directly rather than through the cache: a
 		// cached read would start a cluster-wide watch and need cluster-wide
-		// list/watch permission, while ServiceAccountToken ProviderConfigs
+		// list/watch permission, while ServiceAccount ProviderConfigs
 		// only grant the provider access to their own service account.
 		Client: client.Options{
 			Cache: &client.CacheOptions{DisableFor: []client.Object{&corev1.ServiceAccount{}}},

@@ -56,16 +56,14 @@ spec:
                   AccountID is the Databricks account ID, for account-level operations
                   through the accounts console host (for example
                   https://accounts.azuredatabricks.net). Used when Credentials.Source is
-                  ServiceAccountToken; leave unset for a workspace host.
+                  ServiceAccount; leave unset for a workspace host.
                 type: string
               clientID:
                 description: |-
                   ClientID is the user-assigned managed identity's ID
                   when Credentials.Source is `InjectedIdentity`. If unset and
                   Credentials.Source is `InjectedIdentity`, then a system-assigned
-                  managed identity is used. When Credentials.Source is
-                  ServiceAccountToken, it defaults to the service account's
-                  azure.workload.identity/client-id annotation.
+                  managed identity is used.
                 type: string
               credentials:
                 description: Credentials required to authenticate to this provider.
@@ -114,7 +112,7 @@ spec:
                   serviceAccountRef:
                     description: |-
                       ServiceAccountRef selects the service account the provider requests
-                      tokens for when Source is ServiceAccountToken.
+                      tokens for when Source is ServiceAccount.
                     properties:
                       audiences:
                         description: |-
@@ -147,14 +145,48 @@ spec:
                     - OIDCTokenFile
                     - Upbound
                     - Filesystem
-                    - ServiceAccountToken
+                    - ServiceAccount
                     type: string
+                  tokenExchange:
+                    description: |-
+                      TokenExchange configures how the service account's token is exchanged
+                      for an access token when Source is ServiceAccount. Defaults to type
+                      AzureAD.
+                    properties:
+                      azureAD:
+                        description: AzureAD holds settings specific to the AzureAD
+                          exchange.
+                        properties:
+                          authorityHost:
+                            description: |-
+                              AuthorityHost of the Entra ID token endpoint. Defaults to
+                              https://login.microsoftonline.com/.
+                            type: string
+                          clientID:
+                            description: |-
+                              ClientID of the managed identity (or app registration) whose federated
+                              credential trusts the service account. Defaults to the service
+                              account's azure.workload.identity/client-id annotation.
+                            type: string
+                          tenantID:
+                            description: |-
+                              TenantID of the identity. Defaults to the service account's
+                              azure.workload.identity/tenant-id annotation.
+                            type: string
+                        type: object
+                      type:
+                        description: Type of the exchange. Defaults to AzureAD when
+                          omitted.
+                        enum:
+                        - AzureAD
+                        type: string
+                    type: object
                 required:
                 - source
                 type: object
                 x-kubernetes-validations:
-                - message: serviceAccountRef is required when source is ServiceAccountToken
-                  rule: self.source != 'ServiceAccountToken' || has(self.serviceAccountRef)
+                - message: serviceAccountRef is required when source is ServiceAccount
+                  rule: self.source != 'ServiceAccount' || has(self.serviceAccountRef)
               environment:
                 description: |-
                   The Cloud Environment which should be used. Possible values are "public",
@@ -164,7 +196,7 @@ spec:
                 description: |-
                   Host is the Databricks workspace URL (or the accounts console URL for
                   account-level operations) the provider calls. Required when
-                  Credentials.Source is ServiceAccountToken.
+                  Credentials.Source is ServiceAccount.
                 type: string
               msiEndpoint:
                 description: |-
@@ -222,41 +254,18 @@ spec:
                 description: |-
                   TenantID is the Azure AD tenant ID to be used.
                   If unset, tenant ID from Credentials will be used.
-                  Required if Credentials.Source is InjectedIdentity. When
-                  Credentials.Source is ServiceAccountToken, it defaults to the service
-                  account's azure.workload.identity/tenant-id annotation.
+                  Required if Credentials.Source is InjectedIdentity.
                 type: string
-              tokenExchange:
-                description: |-
-                  TokenExchange configures how a workload token is exchanged for an
-                  access token when Credentials.Source is ServiceAccountToken. Defaults
-                  to type AzureAD.
-                properties:
-                  azureAD:
-                    description: AzureAD holds settings specific to the AzureAD exchange.
-                    properties:
-                      authorityHost:
-                        description: |-
-                          AuthorityHost of the Entra ID token endpoint. Defaults to
-                          https://login.microsoftonline.com/.
-                        type: string
-                    type: object
-                  type:
-                    description: Type of the exchange. Defaults to AzureAD when omitted.
-                    enum:
-                    - AzureAD
-                    type: string
-                type: object
             required:
             - credentials
             type: object
             x-kubernetes-validations:
             - message: serviceAccountRef with a namespace is required when credentials.source
-                is ServiceAccountToken
-              rule: self.credentials.source != 'ServiceAccountToken' || (has(self.credentials.serviceAccountRef)
+                is ServiceAccount
+              rule: self.credentials.source != 'ServiceAccount' || (has(self.credentials.serviceAccountRef)
                 && has(self.credentials.serviceAccountRef.namespace))
-            - message: host is required when credentials.source is ServiceAccountToken
-              rule: self.credentials.source != 'ServiceAccountToken' || has(self.host)
+            - message: host is required when credentials.source is ServiceAccount
+              rule: self.credentials.source != 'ServiceAccount' || has(self.host)
           status:
             description: A ProviderConfigStatus reflects the observed state of a ProviderConfig.
             properties:

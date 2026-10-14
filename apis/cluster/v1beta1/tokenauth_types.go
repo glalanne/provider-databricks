@@ -8,13 +8,13 @@ import (
 	xpv2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 )
 
-// CredentialsSourceServiceAccountToken makes the provider request a
+// CredentialsSourceServiceAccount makes the provider request a
 // short-lived token for a Kubernetes service account (TokenRequest API) and
 // exchange it for an access token, instead of reading stored credentials.
-const CredentialsSourceServiceAccountToken xpv2.CredentialsSource = "ServiceAccountToken"
+const CredentialsSourceServiceAccount xpv2.CredentialsSource = "ServiceAccount"
 
 // ServiceAccountReference selects the Kubernetes service account the provider
-// requests tokens for when Credentials.Source is ServiceAccountToken. The
+// requests tokens for when Credentials.Source is ServiceAccount. The
 // token's subject (system:serviceaccount:<namespace>:<name>) is what the
 // identity provider trusts, which binds the identity to that namespace.
 type ServiceAccountReference struct {
@@ -57,11 +57,19 @@ type TokenExchange struct {
 	AzureAD *AzureADTokenExchange `json:"azureAD,omitempty"`
 }
 
-// AzureADTokenExchange holds settings specific to the AzureAD exchange. The
-// client and tenant IDs come from the service account's
-// azure.workload.identity/client-id and azure.workload.identity/tenant-id
-// annotations; this API has no clientID or tenantID fields.
+// AzureADTokenExchange holds settings specific to the AzureAD exchange.
 type AzureADTokenExchange struct {
+	// ClientID of the managed identity (or app registration) whose federated
+	// credential trusts the service account. Defaults to the service
+	// account's azure.workload.identity/client-id annotation.
+	// +optional
+	ClientID *string `json:"clientID,omitempty"`
+
+	// TenantID of the identity. Defaults to the service account's
+	// azure.workload.identity/tenant-id annotation.
+	// +optional
+	TenantID *string `json:"tenantID,omitempty"`
+
 	// AuthorityHost of the Entra ID token endpoint. Defaults to
 	// https://login.microsoftonline.com/.
 	// +optional

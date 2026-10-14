@@ -16,19 +16,23 @@ func TestLegacyToModernProviderConfigSpecCarriesTokenAuthFields(t *testing.T) {
 	azureAD := clusterv1beta1.TokenExchangeAzureAD
 	legacy := &clusterv1beta1.ProviderConfig{Spec: clusterv1beta1.ProviderConfigSpec{
 		Credentials: clusterv1beta1.ProviderCredentials{
-			Source: clusterv1beta1.CredentialsSourceServiceAccountToken,
+			Source: clusterv1beta1.CredentialsSourceServiceAccount,
 			ServiceAccountRef: &clusterv1beta1.ServiceAccountReference{
 				Name:      "dp-canary",
 				Namespace: ref("dp-ns"),
 				Audiences: []string{"extra"},
 			},
+			TokenExchange: &clusterv1beta1.TokenExchange{
+				Type: &azureAD,
+				AzureAD: &clusterv1beta1.AzureADTokenExchange{
+					ClientID:      ref("11111111-1111-1111-1111-111111111111"),
+					TenantID:      ref("22222222-2222-2222-2222-222222222222"),
+					AuthorityHost: ref("https://login.example/"),
+				},
+			},
 		},
 		Host:      ref("https://adb-1.0.azuredatabricks.net"),
 		AccountID: ref("00000000-0000-0000-0000-000000000001"),
-		TokenExchange: &clusterv1beta1.TokenExchange{
-			Type:    &azureAD,
-			AzureAD: &clusterv1beta1.AzureADTokenExchange{AuthorityHost: ref("https://login.example/")},
-		},
 	}}
 
 	got, err := legacyToModernProviderConfigSpec(legacy)
@@ -39,19 +43,23 @@ func TestLegacyToModernProviderConfigSpecCarriesTokenAuthFields(t *testing.T) {
 	modernAzureAD := namespacedv1beta1.TokenExchangeAzureAD
 	want := &namespacedv1beta1.ProviderConfigSpec{
 		Credentials: namespacedv1beta1.ProviderCredentials{
-			Source: namespacedv1beta1.CredentialsSourceServiceAccountToken,
+			Source: namespacedv1beta1.CredentialsSourceServiceAccount,
 			ServiceAccountRef: &namespacedv1beta1.ServiceAccountReference{
 				Name:      "dp-canary",
 				Namespace: ref("dp-ns"),
 				Audiences: []string{"extra"},
 			},
+			TokenExchange: &namespacedv1beta1.TokenExchange{
+				Type: &modernAzureAD,
+				AzureAD: &namespacedv1beta1.AzureADTokenExchange{
+					ClientID:      ref("11111111-1111-1111-1111-111111111111"),
+					TenantID:      ref("22222222-2222-2222-2222-222222222222"),
+					AuthorityHost: ref("https://login.example/"),
+				},
+			},
 		},
 		Host:      ref("https://adb-1.0.azuredatabricks.net"),
 		AccountID: ref("00000000-0000-0000-0000-000000000001"),
-		TokenExchange: &namespacedv1beta1.TokenExchange{
-			Type:    &modernAzureAD,
-			AzureAD: &namespacedv1beta1.AzureADTokenExchange{AuthorityHost: ref("https://login.example/")},
-		},
 	}
 	if diff := cmp.Diff(want, got); diff != "" {
 		t.Errorf("legacyToModernProviderConfigSpec() (-want +got):\n%s", diff)

@@ -25,13 +25,13 @@ const (
 	authTypePAT = "pat"
 
 	errServiceAccountOtherNamespace = "serviceAccountRef.namespace %q is not allowed: a namespaced ProviderConfig can only use service accounts in its own namespace %q"
-	errNoServiceAccountRef          = "credentials.serviceAccountRef is required when credentials.source is ServiceAccountToken"
+	errNoServiceAccountRef          = "credentials.serviceAccountRef is required when credentials.source is ServiceAccount"
 	errNoServiceAccountNamespace    = "credentials.serviceAccountRef.namespace is required on a cluster-scoped ProviderConfig"
-	errNoHost                       = "host is required when credentials.source is ServiceAccountToken"
-	errUnsupportedTokenExchange     = "unsupported tokenExchange.type %q"
+	errNoHost                       = "host is required when credentials.source is ServiceAccount"
+	errUnsupportedTokenExchange     = "unsupported credentials.tokenExchange.type %q"
 	errGetServiceAccount            = "cannot get service account %s/%s to read its workload identity annotations"
-	errNoClientID                   = "no client ID: set clientID, or annotate service account %s/%s with " + annotationAzureClientID
-	errNoTenantID                   = "no tenant ID: set tenantID, or annotate service account %s/%s with " + annotationAzureTenantID
+	errNoClientID                   = "no client ID: set credentials.tokenExchange.azureAD.clientID, or annotate service account %s/%s with " + annotationAzureClientID
+	errNoTenantID                   = "no tenant ID: set credentials.tokenExchange.azureAD.tenantID, or annotate service account %s/%s with " + annotationAzureTenantID
 	errServiceAccountToken          = "cannot obtain an access token for service account %s/%s"
 )
 
@@ -113,8 +113,8 @@ func serviceAccountRef(pcSpec *namespacedv1beta1.ProviderConfigSpec) (*namespace
 // type, defaulting to AzureAD.
 func newExchanger(ctx context.Context, kube client.Client, pcSpec *namespacedv1beta1.ProviderConfigSpec, ns, name string) (Exchanger, error) {
 	exchangeType := namespacedv1beta1.TokenExchangeAzureAD
-	if pcSpec.TokenExchange != nil && pcSpec.TokenExchange.Type != nil {
-		exchangeType = *pcSpec.TokenExchange.Type
+	if te := pcSpec.Credentials.TokenExchange; te != nil && te.Type != nil {
+		exchangeType = *te.Type
 	}
 	switch exchangeType { //nolint:exhaustive // a new type must be handled explicitly
 	case namespacedv1beta1.TokenExchangeAzureAD:
@@ -129,10 +129,14 @@ func newExchanger(ctx context.Context, kube client.Client, pcSpec *namespacedv1b
 }
 
 // azureADExchanger builds the Entra ID exchanger. clientID and tenantID come
-// from the ProviderConfig, or default to the service account's workload
-// identity annotations.
+// from credentials.tokenExchange.azureAD, or default to the service account's
+// workload identity annotations.
 func azureADExchanger(ctx context.Context, kube client.Client, pcSpec *namespacedv1beta1.ProviderConfigSpec, ns, name string) (*AzureADExchanger, error) {
-	clientID, tenantID := deref(pcSpec.ClientID), deref(pcSpec.TenantID)
+	var settings namespacedv1beta1.AzureADTokenExchange
+	if te := pcSpec.Credentials.TokenExchange; te != nil && te.AzureAD != nil {
+		settings = *te.AzureAD
+	}
+	clientID, tenantID := deref(settings.ClientID), deref(settings.TenantID)
 	if clientID == "" || tenantID == "" {
 		sa := &corev1.ServiceAccount{}
 		if err := kube.Get(ctx, types.NamespacedName{Namespace: ns, Name: name}, sa); err != nil {
@@ -152,11 +156,7 @@ func azureADExchanger(ctx context.Context, kube client.Client, pcSpec *namespace
 		return nil, errors.Errorf(errNoTenantID, ns, name)
 	}
 
-	ex := &AzureADExchanger{ClientID: clientID, TenantID: tenantID}
-	if te := pcSpec.TokenExchange; te != nil && te.AzureAD != nil {
-		ex.AuthorityHost = deref(te.AzureAD.AuthorityHost)
-	}
-	return ex, nil
+	return &AzureADExchanger{ClientID: clientID, TenantID: tenantID, AuthorityHost: deref(settings.AuthorityHost)}, nil
 }
 
 // withAudience returns required followed by the extra audiences, without

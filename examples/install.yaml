@@ -6,7 +6,7 @@ spec:
   package: xpkg.upbound.io/lalanne/provider-databricks:v3.0.0
   # controllerConfigRef: # This is optional if you want to have more logs to troubleshoot
   #   name: debug-config
-  # runtimeConfigRef: # Needed for credentials.source ServiceAccountToken (see below)
+  # runtimeConfigRef: # Needed for credentials.source ServiceAccount (see below)
   #   name: provider-databricks
 
 # This is optional if you want to have more logs to troubleshoot
@@ -21,8 +21,8 @@ spec:
 #   - --debug
 #   replicas: 1
 
-# Needed for credentials.source ServiceAccountToken: gives the provider a stable service account name, which the
-# per-namespace RoleBindings in namespaced/providerconfig-serviceaccounttoken.yaml refer to.
+# Needed for credentials.source ServiceAccount: gives the provider a stable service account name, which the
+# per-namespace RoleBindings in namespaced/providerconfig-serviceaccount.yaml refer to.
 # ---
 # apiVersion: pkg.crossplane.io/v1beta1
 # kind: DeploymentRuntimeConfig

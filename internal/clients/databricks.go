@@ -95,7 +95,7 @@ func TerraformSetupBuilder(fwProvider fwprovider.Provider, tfProvider *schema.Pr
 			err = oidcAuth(pcSpec, &ps)
 		case credentialsSourceUpbound:
 			err = upboundAuth(pcSpec, &ps)
-		case namespacedv1beta1.CredentialsSourceServiceAccountToken:
+		case namespacedv1beta1.CredentialsSourceServiceAccount:
 			err = serviceAccountTokenAuth(ctx, client, pcSpec, &ps, defaultTokenCache)
 		default:
 			err = defaultAuth(ctx, pcSpec, &ps, client)
