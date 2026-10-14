@@ -8,13 +8,13 @@ import (
 	xpv2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 )
 
-// CredentialsSourceServiceAccount makes the provider request a
-// short-lived token for a Kubernetes service account (TokenRequest API) and
-// exchange it for an access token, instead of reading stored credentials.
-const CredentialsSourceServiceAccount xpv2.CredentialsSource = "ServiceAccount"
+// CredentialsSourceOIDCTokenRequest makes the provider request a
+// short-lived OIDC token for a Kubernetes service account (TokenRequest API)
+// and exchange it for an access token, instead of reading stored credentials.
+const CredentialsSourceOIDCTokenRequest xpv2.CredentialsSource = "OIDCTokenRequest"
 
 // ServiceAccountReference selects the Kubernetes service account the provider
-// requests tokens for when Credentials.Source is ServiceAccount. The
+// requests tokens for when Credentials.Source is OIDCTokenRequest. The
 // token's subject (system:serviceaccount:<namespace>:<name>) is what the
 // identity provider trusts, which binds the identity to that namespace.
 type ServiceAccountReference struct {

@@ -25,9 +25,9 @@ const (
 	authTypePAT = "pat"
 
 	errServiceAccountOtherNamespace = "serviceAccountRef.namespace %q is not allowed: a namespaced ProviderConfig can only use service accounts in its own namespace %q"
-	errNoServiceAccountRef          = "credentials.serviceAccountRef is required when credentials.source is ServiceAccount"
+	errNoServiceAccountRef          = "credentials.serviceAccountRef is required when credentials.source is OIDCTokenRequest"
 	errNoServiceAccountNamespace    = "credentials.serviceAccountRef.namespace is required on a cluster-scoped ProviderConfig"
-	errNoHost                       = "host is required when credentials.source is ServiceAccount"
+	errNoHost                       = "host is required when credentials.source is OIDCTokenRequest"
 	errUnsupportedTokenExchange     = "unsupported credentials.tokenExchange.type %q"
 	errGetServiceAccount            = "cannot get service account %s/%s to read its workload identity annotations"
 	errNoClientID                   = "no client ID: set credentials.tokenExchange.azureAD.clientID, or annotate service account %s/%s with " + annotationAzureClientID

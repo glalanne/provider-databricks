@@ -77,7 +77,7 @@ func TestEnvtestCELRules(t *testing.T) {
 	nsPC := func(name string, mutate func(*namespacedv1beta1.ProviderConfigSpec)) *namespacedv1beta1.ProviderConfig {
 		spec := namespacedv1beta1.ProviderConfigSpec{
 			Credentials: namespacedv1beta1.ProviderCredentials{
-				Source:            namespacedv1beta1.CredentialsSourceServiceAccount,
+				Source:            namespacedv1beta1.CredentialsSourceOIDCTokenRequest,
 				ServiceAccountRef: &namespacedv1beta1.ServiceAccountReference{Name: "dp-a"},
 			},
 			Host: ref(testHost),
@@ -90,7 +90,7 @@ func TestEnvtestCELRules(t *testing.T) {
 	legacyPC := func(name string, mutate func(*clusterv1beta1.ProviderConfigSpec)) *clusterv1beta1.ProviderConfig {
 		spec := clusterv1beta1.ProviderConfigSpec{
 			Credentials: clusterv1beta1.ProviderCredentials{
-				Source:            clusterv1beta1.CredentialsSourceServiceAccount,
+				Source:            clusterv1beta1.CredentialsSourceOIDCTokenRequest,
 				ServiceAccountRef: &clusterv1beta1.ServiceAccountReference{Name: "dp-a", Namespace: ref("dp-a")},
 			},
 			Host: ref(testHost),
@@ -105,7 +105,7 @@ func TestEnvtestCELRules(t *testing.T) {
 		obj     client.Object
 		wantErr string // empty = must be accepted
 	}{
-		"namespaced: valid ServiceAccount": {obj: nsPC("ok", nil)},
+		"namespaced: valid OIDCTokenRequest": {obj: nsPC("ok", nil)},
 		"namespaced: valid with tokenExchange and audiences": {obj: nsPC("ok-full", func(s *namespacedv1beta1.ProviderConfigSpec) {
 			typ := namespacedv1beta1.TokenExchangeAzureAD
 			s.Credentials.TokenExchange = &namespacedv1beta1.TokenExchange{Type: &typ, AzureAD: &namespacedv1beta1.AzureADTokenExchange{

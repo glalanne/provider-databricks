@@ -56,7 +56,7 @@ spec:
                   AccountID is the Databricks account ID, for account-level operations
                   through the accounts console host (for example
                   https://accounts.azuredatabricks.net). Used when Credentials.Source is
-                  ServiceAccount; leave unset for a workspace host.
+                  OIDCTokenRequest; leave unset for a workspace host.
                 type: string
               clientID:
                 description: |-
@@ -112,7 +112,7 @@ spec:
                   serviceAccountRef:
                     description: |-
                       ServiceAccountRef selects the service account the provider requests
-                      tokens for when Source is ServiceAccount.
+                      tokens for when Source is OIDCTokenRequest.
                     properties:
                       audiences:
                         description: |-
@@ -145,12 +145,12 @@ spec:
                     - OIDCTokenFile
                     - Upbound
                     - Filesystem
-                    - ServiceAccount
+                    - OIDCTokenRequest
                     type: string
                   tokenExchange:
                     description: |-
                       TokenExchange configures how the service account's token is exchanged
-                      for an access token when Source is ServiceAccount. Defaults to type
+                      for an access token when Source is OIDCTokenRequest. Defaults to type
                       AzureAD.
                     properties:
                       azureAD:
@@ -185,8 +185,8 @@ spec:
                 - source
                 type: object
                 x-kubernetes-validations:
-                - message: serviceAccountRef is required when source is ServiceAccount
-                  rule: self.source != 'ServiceAccount' || has(self.serviceAccountRef)
+                - message: serviceAccountRef is required when source is OIDCTokenRequest
+                  rule: self.source != 'OIDCTokenRequest' || has(self.serviceAccountRef)
               environment:
                 description: |-
                   The Cloud Environment which should be used. Possible values are "public",
@@ -196,7 +196,7 @@ spec:
                 description: |-
                   Host is the Databricks workspace URL (or the accounts console URL for
                   account-level operations) the provider calls. Required when
-                  Credentials.Source is ServiceAccount.
+                  Credentials.Source is OIDCTokenRequest.
                 type: string
               msiEndpoint:
                 description: |-
@@ -261,11 +261,11 @@ spec:
             type: object
             x-kubernetes-validations:
             - message: serviceAccountRef with a namespace is required when credentials.source
-                is ServiceAccount
-              rule: self.credentials.source != 'ServiceAccount' || (has(self.credentials.serviceAccountRef)
+                is OIDCTokenRequest
+              rule: self.credentials.source != 'OIDCTokenRequest' || (has(self.credentials.serviceAccountRef)
                 && has(self.credentials.serviceAccountRef.namespace))
-            - message: host is required when credentials.source is ServiceAccount
-              rule: self.credentials.source != 'ServiceAccount' || has(self.host)
+            - message: host is required when credentials.source is OIDCTokenRequest
+              rule: self.credentials.source != 'OIDCTokenRequest' || has(self.host)
           status:
             description: A ProviderConfigStatus reflects the observed state of a ProviderConfig.
             properties:

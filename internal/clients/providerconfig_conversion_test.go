@@ -16,7 +16,7 @@ func TestLegacyToModernProviderConfigSpecCarriesTokenAuthFields(t *testing.T) {
 	azureAD := clusterv1beta1.TokenExchangeAzureAD
 	legacy := &clusterv1beta1.ProviderConfig{Spec: clusterv1beta1.ProviderConfigSpec{
 		Credentials: clusterv1beta1.ProviderCredentials{
-			Source: clusterv1beta1.CredentialsSourceServiceAccount,
+			Source: clusterv1beta1.CredentialsSourceOIDCTokenRequest,
 			ServiceAccountRef: &clusterv1beta1.ServiceAccountReference{
 				Name:      "dp-canary",
 				Namespace: ref("dp-ns"),
@@ -43,7 +43,7 @@ func TestLegacyToModernProviderConfigSpecCarriesTokenAuthFields(t *testing.T) {
 	modernAzureAD := namespacedv1beta1.TokenExchangeAzureAD
 	want := &namespacedv1beta1.ProviderConfigSpec{
 		Credentials: namespacedv1beta1.ProviderCredentials{
-			Source: namespacedv1beta1.CredentialsSourceServiceAccount,
+			Source: namespacedv1beta1.CredentialsSourceOIDCTokenRequest,
 			ServiceAccountRef: &namespacedv1beta1.ServiceAccountReference{
 				Name:      "dp-canary",
 				Namespace: ref("dp-ns"),

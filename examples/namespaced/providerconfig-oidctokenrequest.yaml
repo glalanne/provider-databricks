@@ -60,7 +60,7 @@ metadata:
   namespace: team-a
 spec:
   credentials:
-    source: ServiceAccount
+    source: OIDCTokenRequest
     serviceAccountRef:
       name: databricks
     tokenExchange:

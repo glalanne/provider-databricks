@@ -83,7 +83,7 @@ func tokenFor(kubeObjs ...client.Object) *fake.ClientBuilder {
 func saSpec(ns, name, authority string) *namespacedv1beta1.ProviderConfigSpec {
 	return &namespacedv1beta1.ProviderConfigSpec{
 		Credentials: namespacedv1beta1.ProviderCredentials{
-			Source:            namespacedv1beta1.CredentialsSourceServiceAccount,
+			Source:            namespacedv1beta1.CredentialsSourceOIDCTokenRequest,
 			ServiceAccountRef: &namespacedv1beta1.ServiceAccountReference{Name: name, Namespace: ref(ns)},
 			TokenExchange: &namespacedv1beta1.TokenExchange{
 				AzureAD: &namespacedv1beta1.AzureADTokenExchange{AuthorityHost: ref(authority)},
@@ -264,7 +264,7 @@ func TestEnrichLocalServiceAccountRef(t *testing.T) {
 	mg := &workspacev1beta1.Directory{ObjectMeta: metav1.ObjectMeta{Namespace: "dp-a", Name: "dir"}}
 	pc := func(ns *string) *namespacedv1beta1.ProviderConfig {
 		return &namespacedv1beta1.ProviderConfig{Spec: namespacedv1beta1.ProviderConfigSpec{Credentials: namespacedv1beta1.ProviderCredentials{
-			Source:            namespacedv1beta1.CredentialsSourceServiceAccount,
+			Source:            namespacedv1beta1.CredentialsSourceOIDCTokenRequest,
 			ServiceAccountRef: &namespacedv1beta1.ServiceAccountReference{Name: "dp-a", Namespace: ns},
 		}}}
 	}
@@ -305,7 +305,7 @@ func TestResolveProviderConfigRejectsOtherNamespaceServiceAccount(t *testing.T) 
 		ObjectMeta: metav1.ObjectMeta{Namespace: "dp-b", Name: "default"},
 		Spec: namespacedv1beta1.ProviderConfigSpec{
 			Credentials: namespacedv1beta1.ProviderCredentials{
-				Source:            namespacedv1beta1.CredentialsSourceServiceAccount,
+				Source:            namespacedv1beta1.CredentialsSourceOIDCTokenRequest,
 				ServiceAccountRef: &namespacedv1beta1.ServiceAccountReference{Name: "dp-a", Namespace: ref("dp-a")},
 			},
 			Host: ref(testHost),

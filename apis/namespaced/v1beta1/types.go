@@ -12,7 +12,7 @@ import (
 )
 
 // A ProviderConfigSpec defines the desired state of a ProviderConfig.
-// +kubebuilder:validation:XValidation:rule="self.credentials.source != 'ServiceAccount' || has(self.host)",message="host is required when credentials.source is ServiceAccount"
+// +kubebuilder:validation:XValidation:rule="self.credentials.source != 'OIDCTokenRequest' || has(self.host)",message="host is required when credentials.source is OIDCTokenRequest"
 type ProviderConfigSpec struct {
 	// +optional
 	// +kubebuilder:validation:XValidation:rule="!has(self.exponentialFailureRateLimiter) || !has(self.exponentialFailureRateLimiter.baseDelay) || has(self.exponentialFailureRateLimiter.maxDelay) || duration(self.exponentialFailureRateLimiter.baseDelay) <= duration('60s')",message="when maxDelay is omitted it defaults to 60s; baseDelay must be <= 60s"
@@ -23,14 +23,14 @@ type ProviderConfigSpec struct {
 
 	// Host is the Databricks workspace URL (or the accounts console URL for
 	// account-level operations) the provider calls. Required when
-	// Credentials.Source is ServiceAccount.
+	// Credentials.Source is OIDCTokenRequest.
 	// +optional
 	Host *string `json:"host,omitempty"`
 
 	// AccountID is the Databricks account ID, for account-level operations
 	// through the accounts console host (for example
 	// https://accounts.azuredatabricks.net). Used when Credentials.Source is
-	// ServiceAccount; leave unset for a workspace host.
+	// OIDCTokenRequest; leave unset for a workspace host.
 	// +optional
 	AccountID *string `json:"accountID,omitempty"`
 
@@ -70,19 +70,19 @@ type ProviderConfigSpec struct {
 }
 
 // ProviderCredentials required to authenticate.
-// +kubebuilder:validation:XValidation:rule="self.source != 'ServiceAccount' || has(self.serviceAccountRef)",message="serviceAccountRef is required when source is ServiceAccount"
+// +kubebuilder:validation:XValidation:rule="self.source != 'OIDCTokenRequest' || has(self.serviceAccountRef)",message="serviceAccountRef is required when source is OIDCTokenRequest"
 type ProviderCredentials struct {
 	// Source of the provider credentials.
-	// +kubebuilder:validation:Enum=None;Secret;UserAssignedManagedIdentity;SystemAssignedManagedIdentity;OIDCTokenFile;Upbound;Filesystem;ServiceAccount
+	// +kubebuilder:validation:Enum=None;Secret;UserAssignedManagedIdentity;SystemAssignedManagedIdentity;OIDCTokenFile;Upbound;Filesystem;OIDCTokenRequest
 	Source xpv2.CredentialsSource `json:"source"`
 
 	// ServiceAccountRef selects the service account the provider requests
-	// tokens for when Source is ServiceAccount.
+	// tokens for when Source is OIDCTokenRequest.
 	// +optional
 	ServiceAccountRef *ServiceAccountReference `json:"serviceAccountRef,omitempty"`
 
 	// TokenExchange configures how the service account's token is exchanged
-	// for an access token when Source is ServiceAccount. Defaults to type
+	// for an access token when Source is OIDCTokenRequest. Defaults to type
 	// AzureAD.
 	// +optional
 	TokenExchange *TokenExchange `json:"tokenExchange,omitempty"`
@@ -126,7 +126,7 @@ type ClusterProviderConfig struct {
 	metav1.ObjectMeta `json:"metadata,omitempty"`
 
 	// A ProviderConfigSpec defines the desired state of a ClusterProviderConfig.
-	// +kubebuilder:validation:XValidation:rule="self.credentials.source != 'ServiceAccount' || (has(self.credentials.serviceAccountRef) && has(self.credentials.serviceAccountRef.namespace))",message="serviceAccountRef with a namespace is required when credentials.source is ServiceAccount"
+	// +kubebuilder:validation:XValidation:rule="self.credentials.source != 'OIDCTokenRequest' || (has(self.credentials.serviceAccountRef) && has(self.credentials.serviceAccountRef.namespace))",message="serviceAccountRef with a namespace is required when credentials.source is OIDCTokenRequest"
 	Spec   ProviderConfigSpec   `json:"spec"`
 	Status ProviderConfigStatus `json:"status,omitempty"`
 }
