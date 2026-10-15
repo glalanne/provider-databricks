@@ -56,11 +56,11 @@ func enrichLocalServiceAccountRef(pc *namespacedv1beta1.ProviderConfig, mg xpres
 	return nil
 }
 
-// serviceAccountTokenAuth configures the Terraform provider with an access
+// oidcTokenRequestAuth configures the Terraform provider with an access
 // token obtained for the ProviderConfig's service account. The service
 // account's namespace must already be resolved: by enrichLocalServiceAccountRef
 // for a namespaced ProviderConfig, or set explicitly on a cluster-scoped one.
-func serviceAccountTokenAuth(ctx context.Context, kube client.Client, pcSpec *namespacedv1beta1.ProviderConfigSpec, ps *terraform.Setup, cache *TokenCache) error {
+func oidcTokenRequestAuth(ctx context.Context, kube client.Client, pcSpec *namespacedv1beta1.ProviderConfigSpec, ps *terraform.Setup, cache *TokenCache) error {
 	ref, err := serviceAccountRef(pcSpec)
 	if err != nil {
 		return err

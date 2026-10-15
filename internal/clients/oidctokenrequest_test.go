@@ -93,14 +93,14 @@ func saSpec(ns, name, authority string) *namespacedv1beta1.ProviderConfigSpec {
 	}
 }
 
-func TestServiceAccountTokenAuth(t *testing.T) {
+func TestOIDCTokenRequestAuth(t *testing.T) {
 	t.Run("configures host and the exchanged token from the service account's annotations", func(t *testing.T) {
 		entra := fakeEntra(t, testClientID, "sa-token:dp-a/dp-a")
 		kube := tokenFor(annotatedSA("dp-a", "dp-a")).Build()
 
 		ps := &terraform.Setup{Configuration: map[string]any{}}
-		if err := serviceAccountTokenAuth(context.Background(), kube, saSpec("dp-a", "dp-a", entra.URL), ps, NewTokenCache()); err != nil {
-			t.Fatalf("serviceAccountTokenAuth() error: %v", err)
+		if err := oidcTokenRequestAuth(context.Background(), kube, saSpec("dp-a", "dp-a", entra.URL), ps, NewTokenCache()); err != nil {
+			t.Fatalf("oidcTokenRequestAuth() error: %v", err)
 		}
 		want := map[string]any{keyHost: testHost, keyAuthType: authTypePAT, keyAuthToken: "entra-access-token"}
 		if diff := cmp.Diff(want, map[string]any(ps.Configuration)); diff != "" {
@@ -116,8 +116,8 @@ func TestServiceAccountTokenAuth(t *testing.T) {
 		spec.Host = ref("https://accounts.azuredatabricks.net")
 		spec.AccountID = ref("00000000-0000-0000-0000-000000000001")
 		ps := &terraform.Setup{Configuration: map[string]any{}}
-		if err := serviceAccountTokenAuth(context.Background(), kube, spec, ps, NewTokenCache()); err != nil {
-			t.Fatalf("serviceAccountTokenAuth() error: %v", err)
+		if err := oidcTokenRequestAuth(context.Background(), kube, spec, ps, NewTokenCache()); err != nil {
+			t.Fatalf("oidcTokenRequestAuth() error: %v", err)
 		}
 		want := map[string]any{
 			keyHost:      "https://accounts.azuredatabricks.net",
@@ -142,8 +142,8 @@ func TestServiceAccountTokenAuth(t *testing.T) {
 		spec := saSpec("dp-a", "dp-a", entra.URL)
 		spec.Credentials.ServiceAccountRef.Audiences = []string{AzureADTokenExchangeAudience, "databricks://dp-a/default"}
 		ps := &terraform.Setup{Configuration: map[string]any{}}
-		if err := serviceAccountTokenAuth(context.Background(), kube, spec, ps, NewTokenCache()); err != nil {
-			t.Fatalf("serviceAccountTokenAuth() error: %v", err)
+		if err := oidcTokenRequestAuth(context.Background(), kube, spec, ps, NewTokenCache()); err != nil {
+			t.Fatalf("oidcTokenRequestAuth() error: %v", err)
 		}
 		if diff := cmp.Diff([]string{AzureADTokenExchangeAudience, "databricks://dp-a/default"}, got); diff != "" {
 			t.Errorf("audiences (-want +got):\n%s", diff)
@@ -160,8 +160,8 @@ func TestServiceAccountTokenAuth(t *testing.T) {
 		azureAD := spec.Credentials.TokenExchange.AzureAD
 		azureAD.ClientID, azureAD.TenantID = ref(specClientID), ref(testTenantID)
 		ps := &terraform.Setup{Configuration: map[string]any{}}
-		if err := serviceAccountTokenAuth(context.Background(), kube, spec, ps, NewTokenCache()); err != nil {
-			t.Fatalf("serviceAccountTokenAuth() error: %v", err)
+		if err := oidcTokenRequestAuth(context.Background(), kube, spec, ps, NewTokenCache()); err != nil {
+			t.Fatalf("oidcTokenRequestAuth() error: %v", err)
 		}
 	})
 
@@ -174,8 +174,8 @@ func TestServiceAccountTokenAuth(t *testing.T) {
 		spec := saSpec("dp-a", "dp-a", entra.URL)
 		spec.ClientID, spec.TenantID = ref("33333333-3333-3333-3333-333333333333"), ref("44444444-4444-4444-4444-444444444444")
 		ps := &terraform.Setup{Configuration: map[string]any{}}
-		if err := serviceAccountTokenAuth(context.Background(), kube, spec, ps, NewTokenCache()); err != nil {
-			t.Fatalf("serviceAccountTokenAuth() error: %v", err)
+		if err := oidcTokenRequestAuth(context.Background(), kube, spec, ps, NewTokenCache()); err != nil {
+			t.Fatalf("oidcTokenRequestAuth() error: %v", err)
 		}
 	})
 
@@ -190,9 +190,9 @@ func TestServiceAccountTokenAuth(t *testing.T) {
 		azureAD := spec.Credentials.TokenExchange.AzureAD
 		azureAD.ClientID, azureAD.TenantID = ref(testClientID), ref(testTenantID) // dp-b names dp-a's identity
 		ps := &terraform.Setup{Configuration: map[string]any{}}
-		err := serviceAccountTokenAuth(context.Background(), kube, spec, ps, NewTokenCache())
+		err := oidcTokenRequestAuth(context.Background(), kube, spec, ps, NewTokenCache())
 		if err == nil || !strings.Contains(err.Error(), "AADSTS700213") || !strings.Contains(err.Error(), "dp-b/dp-b") {
-			t.Fatalf("serviceAccountTokenAuth() error = %v, want an Entra refusal naming dp-b/dp-b", err)
+			t.Fatalf("oidcTokenRequestAuth() error = %v, want an Entra refusal naming dp-b/dp-b", err)
 		}
 		if len(ps.Configuration) != 0 {
 			t.Errorf("configuration = %v, want nothing set on failure", ps.Configuration)
@@ -252,9 +252,9 @@ func TestServiceAccountTokenAuth(t *testing.T) {
 			entra := fakeEntra(t, testClientID, "sa-token:dp-a/dp-a")
 			kube := tokenFor(tc.objs...).Build()
 			ps := &terraform.Setup{Configuration: map[string]any{}}
-			err := serviceAccountTokenAuth(context.Background(), kube, tc.spec(entra.URL), ps, NewTokenCache())
+			err := oidcTokenRequestAuth(context.Background(), kube, tc.spec(entra.URL), ps, NewTokenCache())
 			if err == nil || !strings.Contains(err.Error(), tc.want) {
-				t.Fatalf("serviceAccountTokenAuth() error = %v, want it to contain %q", err, tc.want)
+				t.Fatalf("oidcTokenRequestAuth() error = %v, want it to contain %q", err, tc.want)
 			}
 		})
 	}
