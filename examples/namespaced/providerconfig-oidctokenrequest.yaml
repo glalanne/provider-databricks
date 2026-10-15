@@ -1,0 +1,68 @@
+# SPDX-FileCopyrightText: 2026 The Crossplane Authors <https://crossplane.io>
+#
+# SPDX-License-Identifier: CC0-1.0
+
+# Passwordless authentication as a namespace's own Azure managed identity.
+#
+# The provider requests a short-lived token for the service account below and exchanges it at Entra ID for an access
+# token as the managed identity. Prerequisites:
+# - the provider runs with a stable service account name (see the DeploymentRuntimeConfig in ../install.yaml);
+# - the managed identity has a federated identity credential with the cluster's service account issuer, subject
+#   system:serviceaccount:team-a:databricks and audience api://AzureADTokenExchange;
+# - the managed identity is a service principal in the Databricks workspace, with the permissions it needs.
+#
+# A namespaced ProviderConfig can only use service accounts in its own namespace.
+
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: databricks
+  namespace: team-a
+  annotations:
+    # Read when credentials.tokenExchange.azureAD.clientID and tenantID are not set.
+    azure.workload.identity/client-id: 00000000-0000-0000-0000-000000000000
+    azure.workload.identity/tenant-id: 00000000-0000-0000-0000-000000000000
+---
+# The namespace's opt-in: lets the provider request tokens for, and read, this one service account.
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: provider-databricks-tokenrequest
+  namespace: team-a
+rules:
+  - apiGroups: [""]
+    resources: ["serviceaccounts/token"]
+    resourceNames: ["databricks"]
+    verbs: ["create"]
+  - apiGroups: [""]
+    resources: ["serviceaccounts"]
+    resourceNames: ["databricks"]
+    verbs: ["get"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: provider-databricks-tokenrequest
+  namespace: team-a
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: provider-databricks-tokenrequest
+subjects:
+  - kind: ServiceAccount
+    name: provider-databricks
+    namespace: crossplane-system
+---
+apiVersion: databricks.m.crossplane.io/v1beta1
+kind: ProviderConfig
+metadata:
+  name: default
+  namespace: team-a
+spec:
+  credentials:
+    source: OIDCTokenRequest
+    serviceAccountRef:
+      name: databricks
+    tokenExchange:
+      type: AzureAD # the default
+  host: https://adb-1234567890123456.7.azuredatabricks.net

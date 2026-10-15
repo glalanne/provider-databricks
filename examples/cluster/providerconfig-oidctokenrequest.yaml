@@ -1,0 +1,20 @@
+# SPDX-FileCopyrightText: 2026 The Crossplane Authors <https://crossplane.io>
+#
+# SPDX-License-Identifier: CC0-1.0
+
+# Passwordless authentication for the legacy cluster-scoped API. See
+# ../namespaced/providerconfig-oidctokenrequest.yaml for the ServiceAccount, Role and RoleBinding the service
+# account's namespace needs, and ../namespaced/clusterproviderconfig-oidctokenrequest.yaml for an account-level
+# example.
+
+apiVersion: databricks.crossplane.io/v1beta1
+kind: ProviderConfig
+metadata:
+  name: oidctokenrequest
+spec:
+  credentials:
+    source: OIDCTokenRequest
+    serviceAccountRef:
+      name: databricks
+      namespace: platform # required: this ProviderConfig is cluster-scoped
+  host: https://adb-1234567890123456.7.azuredatabricks.net

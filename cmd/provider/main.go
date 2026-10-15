@@ -31,6 +31,7 @@ import (
 	"k8s.io/client-go/tools/leaderelection/resourcelock"
 	ctrl "sigs.k8s.io/controller-runtime"
 	"sigs.k8s.io/controller-runtime/pkg/cache"
+	"sigs.k8s.io/controller-runtime/pkg/client"
 	"sigs.k8s.io/controller-runtime/pkg/log/zap"
 	"sigs.k8s.io/controller-runtime/pkg/manager"
 	"sigs.k8s.io/controller-runtime/pkg/metrics"
@@ -38,6 +39,7 @@ import (
 	"sigs.k8s.io/controller-runtime/pkg/webhook"
 
 	authv1 "k8s.io/api/authorization/v1"
+	corev1 "k8s.io/api/core/v1"
 
 	changelogsv1alpha1 "github.com/crossplane/crossplane-runtime/v2/apis/changelogs/proto/v1alpha1"
 	"github.com/databricks/terraform-provider-databricks/xpprovider"
@@ -140,6 +142,13 @@ func main() {
 		LeaderElectionID: "crossplane-leader-election-provider-databricks",
 		Cache: cache.Options{
 			SyncPeriod: syncInterval,
+		},
+		// ServiceAccounts are read directly rather than through the cache: a
+		// cached read would start a cluster-wide watch and need cluster-wide
+		// list/watch permission, while OIDCTokenRequest ProviderConfigs
+		// only grant the provider access to their own service account.
+		Client: client.Options{
+			Cache: &client.CacheOptions{DisableFor: []client.Object{&corev1.ServiceAccount{}}},
 		},
 		Metrics: metricsserver.Options{
 			BindAddress: *metricsBindAddress,
