@@ -234,7 +234,7 @@ var TerraformPluginFrameworkExternalNameConfigs = map[string]config.ExternalName
 	"databricks_ai_search_endpoint":                              config.IdentifierFromProvider,
 	"databricks_ai_search_index":                                 config.IdentifierFromProvider,
 	"databricks_alert_v2":                                        config.IdentifierFromProvider,
-	"databricks_budget_policy":                                   common.CompositeExternalName("policy_id"),
+	"databricks_budget_policy":                                   common.BudgetPolicyExternalName,
 	"databricks_data_classification_catalog_config":              config.IdentifierFromProvider,
 	"databricks_data_quality_refresh":                            common.DataQualityRefreshExternalName,
 	"databricks_database_instance":                               config.IdentifierFromProvider,
