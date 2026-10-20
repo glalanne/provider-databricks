@@ -11,7 +11,11 @@ import (
 func Configure(p *config.Provider) {
 	p.AddResourceConfigurator("databricks_catalog", func(r *config.Resource) {
 		r.ShortGroup = "unity"
-		r.SchemaElementOptions.SetAddToObservation("provisioning_info")
+
+		if s, ok := r.TerraformResource.Schema["provisioning_info"]; ok {
+			s.Optional = false
+			s.Computed = true
+		}
 
 		r.TerraformCustomDiff = func(
 			diff *terraform.InstanceDiff,
@@ -21,8 +25,6 @@ func Configure(p *config.Provider) {
 			if diff == nil {
 				return diff, nil
 			}
-
-			delete(diff.Attributes, "provisioning_info.#")
 
 			for k := range diff.Attributes {
 				if strings.HasPrefix(k, "provisioning_info.") {

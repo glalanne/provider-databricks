@@ -35902,13 +35902,6 @@ func (in *PipelineInitParameters) DeepCopyInto(out *PipelineInitParameters) {
 		*out = new(IngestionDefinitionInitParameters)
 		(*in).DeepCopyInto(*out)
 	}
-	if in.LatestUpdates != nil {
-		in, out := &in.LatestUpdates, &out.LatestUpdates
-		*out = make([]LatestUpdatesInitParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
-	}
 	if in.Library != nil {
 		in, out := &in.Library, &out.Library
 		*out = make([]PipelineLibraryInitParameters, len(*in))
@@ -36666,13 +36659,6 @@ func (in *PipelineParameters) DeepCopyInto(out *PipelineParameters) {
 		in, out := &in.IngestionDefinition, &out.IngestionDefinition
 		*out = new(IngestionDefinitionParameters)
 		(*in).DeepCopyInto(*out)
-	}
-	if in.LatestUpdates != nil {
-		in, out := &in.LatestUpdates, &out.LatestUpdates
-		*out = make([]LatestUpdatesParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
 	}
 	if in.Library != nil {
 		in, out := &in.Library, &out.Library

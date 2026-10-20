@@ -1839,19 +1839,6 @@ spec:
                           type: array
                       type: object
                     type: array
-                  latestUpdates:
-                    items:
-                      properties:
-                        creationTime:
-                          type: string
-                        state:
-                          type: string
-                        updateId:
-                          description: Canonical unique identifier of the Lakeflow
-                            Declarative Pipeline.
-                          type: string
-                      type: object
-                    type: array
                   library:
                     description: Specifies pipeline code.
                     items:
@@ -3918,19 +3905,6 @@ spec:
                                 type: array
                             type: object
                           type: array
-                      type: object
-                    type: array
-                  latestUpdates:
-                    items:
-                      properties:
-                        creationTime:
-                          type: string
-                        state:
-                          type: string
-                        updateId:
-                          description: Canonical unique identifier of the Lakeflow
-                            Declarative Pipeline.
-                          type: string
                       type: object
                     type: array
                   library:
@@ -7941,19 +7915,6 @@ spec:
                             type: object
                         type: object
                     type: object
-                  latestUpdates:
-                    items:
-                      properties:
-                        creationTime:
-                          type: string
-                        state:
-                          type: string
-                        updateId:
-                          description: Canonical unique identifier of the Lakeflow
-                            Declarative Pipeline.
-                          type: string
-                      type: object
-                    type: array
                   library:
                     description: Specifies pipeline code.
                     items:
@@ -9791,19 +9752,6 @@ spec:
                             type: object
                         type: object
                     type: object
-                  latestUpdates:
-                    items:
-                      properties:
-                        creationTime:
-                          type: string
-                        state:
-                          type: string
-                        updateId:
-                          description: Canonical unique identifier of the Lakeflow
-                            Declarative Pipeline.
-                          type: string
-                      type: object
-                    type: array
                   library:
                     description: Specifies pipeline code.
                     items:
