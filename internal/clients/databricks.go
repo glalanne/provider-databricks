@@ -95,6 +95,8 @@ func TerraformSetupBuilder(fwProvider fwprovider.Provider, tfProvider *schema.Pr
 			err = oidcAuth(pcSpec, &ps)
 		case credentialsSourceUpbound:
 			err = upboundAuth(pcSpec, &ps)
+		case namespacedv1beta1.CredentialsSourceOIDCTokenRequest:
+			err = oidcTokenRequestAuth(ctx, client, pcSpec, &ps, defaultTokenCache)
 		default:
 			err = defaultAuth(ctx, pcSpec, &ps, client)
 		}
@@ -333,6 +335,9 @@ func resolveProviderConfigModern(ctx context.Context, crClient client.Client, mg
 	switch pc := pcObj.(type) {
 	case *namespacedv1beta1.ProviderConfig:
 		enrichLocalSecretRefs(pc, mg)
+		if err := enrichLocalServiceAccountRef(pc, mg); err != nil {
+			return nil, err
+		}
 		pcSpec = pc.Spec
 	case *namespacedv1beta1.ClusterProviderConfig:
 		pcSpec = pc.Spec

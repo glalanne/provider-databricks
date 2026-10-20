@@ -51,6 +51,13 @@ spec:
           spec:
             description: A ProviderConfigSpec defines the desired state of a ProviderConfig.
             properties:
+              accountID:
+                description: |-
+                  AccountID is the Databricks account ID, for account-level operations
+                  through the accounts console host (for example
+                  https://accounts.azuredatabricks.net). Used when Credentials.Source is
+                  OIDCTokenRequest; leave unset for a workspace host.
+                type: string
               clientID:
                 description: |-
                   ClientID is the user-assigned managed identity's ID
@@ -102,6 +109,32 @@ spec:
                     - name
                     - namespace
                     type: object
+                  serviceAccountRef:
+                    description: |-
+                      ServiceAccountRef selects the service account the provider requests
+                      tokens for when Source is OIDCTokenRequest.
+                    properties:
+                      audiences:
+                        description: |-
+                          Audiences requested on the token in addition to the one the token
+                          exchange requires (api://AzureADTokenExchange for AzureAD).
+                        items:
+                          type: string
+                        type: array
+                        x-kubernetes-list-type: set
+                      name:
+                        description: Name of the service account.
+                        minLength: 1
+                        type: string
+                      namespace:
+                        description: |-
+                          Namespace of the service account. Required on a ClusterProviderConfig;
+                          a namespaced ProviderConfig always uses its own namespace and is
+                          rejected if this names another one.
+                        type: string
+                    required:
+                    - name
+                    type: object
                   source:
                     description: Source of the provider credentials.
                     enum:
@@ -112,14 +145,58 @@ spec:
                     - OIDCTokenFile
                     - Upbound
                     - Filesystem
+                    - OIDCTokenRequest
                     type: string
+                  tokenExchange:
+                    description: |-
+                      TokenExchange configures how the service account's token is exchanged
+                      for an access token when Source is OIDCTokenRequest. Defaults to type
+                      AzureAD.
+                    properties:
+                      azureAD:
+                        description: AzureAD holds settings specific to the AzureAD
+                          exchange.
+                        properties:
+                          authorityHost:
+                            description: |-
+                              AuthorityHost of the Entra ID token endpoint. Defaults to
+                              https://login.microsoftonline.com/.
+                            type: string
+                          clientID:
+                            description: |-
+                              ClientID of the managed identity (or app registration) whose federated
+                              credential trusts the service account. Defaults to the service
+                              account's azure.workload.identity/client-id annotation.
+                            type: string
+                          tenantID:
+                            description: |-
+                              TenantID of the identity. Defaults to the service account's
+                              azure.workload.identity/tenant-id annotation.
+                            type: string
+                        type: object
+                      type:
+                        description: Type of the exchange. Defaults to AzureAD when
+                          omitted.
+                        enum:
+                        - AzureAD
+                        type: string
+                    type: object
                 required:
                 - source
                 type: object
+                x-kubernetes-validations:
+                - message: serviceAccountRef is required when source is OIDCTokenRequest
+                  rule: self.source != 'OIDCTokenRequest' || has(self.serviceAccountRef)
               environment:
                 description: |-
                   The Cloud Environment which should be used. Possible values are "public",
                   "usgovernment", "german", and "china". Defaults to "public".
+                type: string
+              host:
+                description: |-
+                  Host is the Databricks workspace URL (or the accounts console URL for
+                  account-level operations) the provider calls. Required when
+                  Credentials.Source is OIDCTokenRequest.
                 type: string
               msiEndpoint:
                 description: |-
@@ -182,6 +259,9 @@ spec:
             required:
             - credentials
             type: object
+            x-kubernetes-validations:
+            - message: host is required when credentials.source is OIDCTokenRequest
+              rule: self.credentials.source != 'OIDCTokenRequest' || has(self.host)
           status:
             description: A ProviderConfigStatus reflects the observed state of a ProviderConfig.
             properties:
