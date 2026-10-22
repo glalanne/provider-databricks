@@ -18,9 +18,6 @@ type RepoInitParameters struct {
 	// name of the branch for initial checkout. If not specified, the default branch of the repository will be used.  Conflicts with tag.  If branch is removed, and tag isn't specified, then the repository will stay at the previously checked out state.
 	Branch *string `json:"branch,omitempty" tf:"branch,omitempty"`
 
-	// Hash of the HEAD commit at time of the last executed operation. It won't change if you manually perform pull operation via UI or API
-	CommitHash *string `json:"commitHash,omitempty" tf:"commit_hash,omitempty"`
-
 	// case insensitive name of the Git provider.  Following values are supported right now (could be a subject for a change, consult Repos API documentation): gitHub, gitHubEnterprise, bitbucketCloud, bitbucketServer, azureDevOpsServices, gitLab, gitLabEnterpriseEdition, awsCodeCommit.
 	GitProvider *string `json:"gitProvider,omitempty" tf:"git_provider,omitempty"`
 
@@ -76,10 +73,6 @@ type RepoParameters struct {
 	// name of the branch for initial checkout. If not specified, the default branch of the repository will be used.  Conflicts with tag.  If branch is removed, and tag isn't specified, then the repository will stay at the previously checked out state.
 	// +kubebuilder:validation:Optional
 	Branch *string `json:"branch,omitempty" tf:"branch,omitempty"`
-
-	// Hash of the HEAD commit at time of the last executed operation. It won't change if you manually perform pull operation via UI or API
-	// +kubebuilder:validation:Optional
-	CommitHash *string `json:"commitHash,omitempty" tf:"commit_hash,omitempty"`
 
 	// case insensitive name of the Git provider.  Following values are supported right now (could be a subject for a change, consult Repos API documentation): gitHub, gitHubEnterprise, bitbucketCloud, bitbucketServer, azureDevOpsServices, gitLab, gitLabEnterpriseEdition, awsCodeCommit.
 	// +kubebuilder:validation:Optional

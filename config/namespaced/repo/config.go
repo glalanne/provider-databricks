@@ -6,5 +6,10 @@ import "github.com/crossplane/upjet/v2/pkg/config"
 func Configure(p *config.Provider) {
 	p.AddResourceConfigurator("databricks_repo", func(r *config.Resource) {
 		r.ShortGroup = "workspace"
+
+		if s, ok := r.TerraformResource.Schema["commit_hash"]; ok {
+			s.Optional = false
+			s.Computed = true
+		}
 	})
 }
