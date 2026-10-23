@@ -18,4 +18,4 @@ spec:
         testing.upbound.io/example-name: example
     for_each: ${data.databricks_clusters.all.ids}
     pypi:
-      package: databricks-cli
+    - package: databricks-cli

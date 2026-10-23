@@ -291,6 +291,18 @@ spec:
                         description: 'Possible values are: ALLOW_ALL, RESTRICT_TOKENS_AND_JOB_RUN_AS'
                         type: string
                     type: object
+                  effectiveWorkspaceLabel:
+                    description: Effective setting value for workspace_label setting.
+                      This is the final effective value of setting. To set a value
+                      use workspace_label
+                    properties:
+                      color:
+                        description: (string, optional)
+                        type: string
+                      label:
+                        description: (string, optional)
+                        type: string
+                    type: object
                   integerVal:
                     description: Setting value for integer type setting. This is the
                       setting value set by consumers, check effective_integer_val
@@ -342,6 +354,18 @@ spec:
                     properties:
                       value:
                         description: (boolean, optional)
+                        type: string
+                    type: object
+                  workspaceLabel:
+                    description: Setting value for workspace_label setting. This is
+                      the setting value set by consumers, check effective_workspace_label
+                      for final setting value
+                    properties:
+                      color:
+                        description: (string, optional)
+                        type: string
+                      label:
+                        description: (string, optional)
                         type: string
                     type: object
                 type: object
@@ -577,6 +601,18 @@ spec:
                         description: 'Possible values are: ALLOW_ALL, RESTRICT_TOKENS_AND_JOB_RUN_AS'
                         type: string
                     type: object
+                  effectiveWorkspaceLabel:
+                    description: Effective setting value for workspace_label setting.
+                      This is the final effective value of setting. To set a value
+                      use workspace_label
+                    properties:
+                      color:
+                        description: (string, optional)
+                        type: string
+                      label:
+                        description: (string, optional)
+                        type: string
+                    type: object
                   integerVal:
                     description: Setting value for integer type setting. This is the
                       setting value set by consumers, check effective_integer_val
@@ -628,6 +664,18 @@ spec:
                     properties:
                       value:
                         description: (boolean, optional)
+                        type: string
+                    type: object
+                  workspaceLabel:
+                    description: Setting value for workspace_label setting. This is
+                      the setting value set by consumers, check effective_workspace_label
+                      for final setting value
+                    properties:
+                      color:
+                        description: (string, optional)
+                        type: string
+                      label:
+                        description: (string, optional)
                         type: string
                     type: object
                 type: object
@@ -998,6 +1046,18 @@ spec:
                         description: (boolean, optional)
                         type: string
                     type: object
+                  effectiveWorkspaceLabel:
+                    description: Effective setting value for workspace_label setting.
+                      This is the final effective value of setting. To set a value
+                      use workspace_label
+                    properties:
+                      color:
+                        description: (string, optional)
+                        type: string
+                      label:
+                        description: (string, optional)
+                        type: string
+                    type: object
                   id:
                     type: string
                   integerVal:
@@ -1051,6 +1111,18 @@ spec:
                     properties:
                       value:
                         description: (boolean, optional)
+                        type: string
+                    type: object
+                  workspaceLabel:
+                    description: Setting value for workspace_label setting. This is
+                      the setting value set by consumers, check effective_workspace_label
+                      for final setting value
+                    properties:
+                      color:
+                        description: (string, optional)
+                        type: string
+                      label:
+                        description: (string, optional)
                         type: string
                     type: object
                 type: object

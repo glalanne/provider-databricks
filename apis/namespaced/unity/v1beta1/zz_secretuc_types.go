@@ -43,7 +43,7 @@ type SecretUcInitParameters struct {
 	// the effective_value field (via GetSecret with include_value set to true) to read the
 	// secret value. The maximum size is 60 KiB (pre-encryption). Accepted content includes
 	// passwords, tokens, keys, and other sensitive credential data
-	Value *string `json:"value,omitempty" tf:"value,omitempty"`
+	ValueSecretRef v2.LocalSecretKeySelector `json:"valueSecretRef" tf:"-"`
 }
 
 type SecretUcObservation struct {
@@ -63,10 +63,6 @@ type SecretUcObservation struct {
 	// The effective owner of the secret, which may differ from the directly-set owner due to
 	// inheritance
 	EffectiveOwner *string `json:"effectiveOwner,omitempty" tf:"effective_owner,omitempty"`
-
-	// The secret value. Only populated in responses when you have the READ_SECRET
-	// privilege and include_value is set to true in the request. The maximum size is 60 KiB
-	EffectiveValue *string `json:"effectiveValue,omitempty" tf:"effective_value,omitempty"`
 
 	// User-provided expiration time of the secret. This field indicates when the secret should no
 	// longer be used and may be displayed as a warning in the UI. It is purely informational and
@@ -99,12 +95,6 @@ type SecretUcObservation struct {
 
 	// The principal that last updated the secret
 	UpdatedBy *string `json:"updatedBy,omitempty" tf:"updated_by,omitempty"`
-
-	// The secret value to store. This field is input-only and is not returned in responses — use
-	// the effective_value field (via GetSecret with include_value set to true) to read the
-	// secret value. The maximum size is 60 KiB (pre-encryption). Accepted content includes
-	// passwords, tokens, keys, and other sensitive credential data
-	Value *string `json:"value,omitempty" tf:"value,omitempty"`
 }
 
 type SecretUcParameters struct {
@@ -145,7 +135,7 @@ type SecretUcParameters struct {
 	// secret value. The maximum size is 60 KiB (pre-encryption). Accepted content includes
 	// passwords, tokens, keys, and other sensitive credential data
 	// +kubebuilder:validation:Optional
-	Value *string `json:"value,omitempty" tf:"value,omitempty"`
+	ValueSecretRef v2.LocalSecretKeySelector `json:"valueSecretRef" tf:"-"`
 }
 
 type SecretUcProviderConfigInitParameters struct {
@@ -206,7 +196,7 @@ type SecretUc struct {
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.catalogName) || (has(self.initProvider) && has(self.initProvider.catalogName))",message="spec.forProvider.catalogName is a required parameter"
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.name) || (has(self.initProvider) && has(self.initProvider.name))",message="spec.forProvider.name is a required parameter"
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.schemaName) || (has(self.initProvider) && has(self.initProvider.schemaName))",message="spec.forProvider.schemaName is a required parameter"
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.value) || (has(self.initProvider) && has(self.initProvider.value))",message="spec.forProvider.value is a required parameter"
+	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.valueSecretRef)",message="spec.forProvider.valueSecretRef is a required parameter"
 	Spec   SecretUcSpec   `json:"spec"`
 	Status SecretUcStatus `json:"status,omitempty"`
 }

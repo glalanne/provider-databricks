@@ -399,6 +399,9 @@ spec:
                       Client-provided identifier for the failover group. Used to construct the
                       resource name as {parent}/failover-groups/{failover_group_id}
                     type: string
+                  hasReplicationPointBlockingErrors:
+                    description: True if errors currently block the replication point
+                    type: boolean
                   id:
                     type: string
                   initialPrimaryRegion:
@@ -406,6 +409,14 @@ spec:
                       Initial primary region. Used only in Create requests to set the starting
                       primary region. Not returned in responses
                     type: string
+                  initialReplicationProgress:
+                    description: Initial replication progress of all in-scope assets.
+                      Set only when the FailoverGroup is in INITIAL_REPLICATION state
+                    properties:
+                      completed:
+                        description: Percent complete, 0-100
+                        type: number
+                    type: object
                   name:
                     description: Resource name for this location
                     type: string

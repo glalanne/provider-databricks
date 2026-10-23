@@ -49,6 +49,17 @@ A few exemples are provided [here](./examples/) to show case how to configure th
 
 ## Developing
 
+Run unit and API round-trip tests:
+```console
+make test
+```
+
+Library resources retain the Terraform Plugin SDKv2 implementation used by the
+generated controllers. Provider configuration restores that implementation when
+the upstream provider omits it in favor of Plugin Framework, for both runtime
+and code generation, preserving the list-shaped blocks in both API versions.
+No `USE_SDK_V2_RESOURCES` environment override is required.
+
 Run code-generation pipeline:
 ```console
 make generate

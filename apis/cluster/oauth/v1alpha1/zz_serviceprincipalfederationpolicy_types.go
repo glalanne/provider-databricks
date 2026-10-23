@@ -18,7 +18,8 @@ type ServicePrincipalFederationPolicyInitParameters struct {
 	// Description of the federation policy
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
 
-	// (OidcFederationPolicy, optional)
+	// audit_mode INCLUDE is required on both this message field and its leaf fields so the OIDC
+	// policy configuration is captured in create/update audit logs (see go/auditlogs)
 	OidcPolicy *ServicePrincipalFederationPolicyOidcPolicyInitParameters `json:"oidcPolicy,omitempty" tf:"oidc_policy,omitempty"`
 
 	// The ID of the federation policy. Output only
@@ -46,7 +47,8 @@ type ServicePrincipalFederationPolicyObservation struct {
 	// request URL
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
-	// (OidcFederationPolicy, optional)
+	// audit_mode INCLUDE is required on both this message field and its leaf fields so the OIDC
+	// policy configuration is captured in create/update audit logs (see go/auditlogs)
 	OidcPolicy *ServicePrincipalFederationPolicyOidcPolicyObservation `json:"oidcPolicy,omitempty" tf:"oidc_policy,omitempty"`
 
 	// The ID of the federation policy. Output only
@@ -185,7 +187,8 @@ type ServicePrincipalFederationPolicyParameters struct {
 	// +kubebuilder:validation:Optional
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
 
-	// (OidcFederationPolicy, optional)
+	// audit_mode INCLUDE is required on both this message field and its leaf fields so the OIDC
+	// policy configuration is captured in create/update audit logs (see go/auditlogs)
 	// +kubebuilder:validation:Optional
 	OidcPolicy *ServicePrincipalFederationPolicyOidcPolicyParameters `json:"oidcPolicy,omitempty" tf:"oidc_policy,omitempty"`
 

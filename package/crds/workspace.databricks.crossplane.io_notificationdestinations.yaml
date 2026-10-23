@@ -82,6 +82,41 @@ spec:
                       It must contain exactly one of the following blocks:'
                     items:
                       properties:
+                        databricksAppSlack:
+                          items:
+                            properties:
+                              channelId:
+                                description: Slack channel ID for notifications.
+                                type: string
+                              channelIdSet:
+                                type: boolean
+                              teamId:
+                                description: The unique ID of the Notification Destination.
+                                type: string
+                              teamIdSet:
+                                type: boolean
+                            type: object
+                          type: array
+                        databricksAppTeams:
+                          items:
+                            properties:
+                              channelId:
+                                description: Slack channel ID for notifications.
+                                type: string
+                              channelIdSet:
+                                type: boolean
+                              teamId:
+                                description: The unique ID of the Notification Destination.
+                                type: string
+                              teamIdSet:
+                                type: boolean
+                              tenantId:
+                                description: Tenant ID for Microsoft Teams App.
+                                type: string
+                              tenantIdSet:
+                                type: boolean
+                            type: object
+                          type: array
                         email:
                           description: 'The email configuration of the Notification
                             Destination. It must contain the following:'
@@ -390,6 +425,41 @@ spec:
                       It must contain exactly one of the following blocks:'
                     items:
                       properties:
+                        databricksAppSlack:
+                          items:
+                            properties:
+                              channelId:
+                                description: Slack channel ID for notifications.
+                                type: string
+                              channelIdSet:
+                                type: boolean
+                              teamId:
+                                description: The unique ID of the Notification Destination.
+                                type: string
+                              teamIdSet:
+                                type: boolean
+                            type: object
+                          type: array
+                        databricksAppTeams:
+                          items:
+                            properties:
+                              channelId:
+                                description: Slack channel ID for notifications.
+                                type: string
+                              channelIdSet:
+                                type: boolean
+                              teamId:
+                                description: The unique ID of the Notification Destination.
+                                type: string
+                              teamIdSet:
+                                type: boolean
+                              tenantId:
+                                description: Tenant ID for Microsoft Teams App.
+                                type: string
+                              tenantIdSet:
+                                type: boolean
+                            type: object
+                          type: array
                         email:
                           description: 'The email configuration of the Notification
                             Destination. It must contain the following:'
@@ -782,6 +852,41 @@ spec:
                       It must contain exactly one of the following blocks:'
                     items:
                       properties:
+                        databricksAppSlack:
+                          items:
+                            properties:
+                              channelId:
+                                description: Slack channel ID for notifications.
+                                type: string
+                              channelIdSet:
+                                type: boolean
+                              teamId:
+                                description: The unique ID of the Notification Destination.
+                                type: string
+                              teamIdSet:
+                                type: boolean
+                            type: object
+                          type: array
+                        databricksAppTeams:
+                          items:
+                            properties:
+                              channelId:
+                                description: Slack channel ID for notifications.
+                                type: string
+                              channelIdSet:
+                                type: boolean
+                              teamId:
+                                description: The unique ID of the Notification Destination.
+                                type: string
+                              teamIdSet:
+                                type: boolean
+                              tenantId:
+                                description: Tenant ID for Microsoft Teams App.
+                                type: string
+                              tenantIdSet:
+                                type: boolean
+                            type: object
+                          type: array
                         email:
                           description: 'The email configuration of the Notification
                             Destination. It must contain the following:'
@@ -999,6 +1104,37 @@ spec:
                     description: 'The configuration of the Notification Destination.
                       It must contain exactly one of the following blocks:'
                     properties:
+                      databricksAppSlack:
+                        properties:
+                          channelId:
+                            description: Slack channel ID for notifications.
+                            type: string
+                          channelIdSet:
+                            type: boolean
+                          teamId:
+                            description: The unique ID of the Notification Destination.
+                            type: string
+                          teamIdSet:
+                            type: boolean
+                        type: object
+                      databricksAppTeams:
+                        properties:
+                          channelId:
+                            description: Slack channel ID for notifications.
+                            type: string
+                          channelIdSet:
+                            type: boolean
+                          teamId:
+                            description: The unique ID of the Notification Destination.
+                            type: string
+                          teamIdSet:
+                            type: boolean
+                          tenantId:
+                            description: Tenant ID for Microsoft Teams App.
+                            type: string
+                          tenantIdSet:
+                            type: boolean
+                        type: object
                       email:
                         description: 'The email configuration of the Notification
                           Destination. It must contain the following:'
@@ -1293,6 +1429,37 @@ spec:
                     description: 'The configuration of the Notification Destination.
                       It must contain exactly one of the following blocks:'
                     properties:
+                      databricksAppSlack:
+                        properties:
+                          channelId:
+                            description: Slack channel ID for notifications.
+                            type: string
+                          channelIdSet:
+                            type: boolean
+                          teamId:
+                            description: The unique ID of the Notification Destination.
+                            type: string
+                          teamIdSet:
+                            type: boolean
+                        type: object
+                      databricksAppTeams:
+                        properties:
+                          channelId:
+                            description: Slack channel ID for notifications.
+                            type: string
+                          channelIdSet:
+                            type: boolean
+                          teamId:
+                            description: The unique ID of the Notification Destination.
+                            type: string
+                          teamIdSet:
+                            type: boolean
+                          tenantId:
+                            description: Tenant ID for Microsoft Teams App.
+                            type: string
+                          tenantIdSet:
+                            type: boolean
+                        type: object
                       email:
                         description: 'The email configuration of the Notification
                           Destination. It must contain the following:'
@@ -1671,6 +1838,37 @@ spec:
                     description: 'The configuration of the Notification Destination.
                       It must contain exactly one of the following blocks:'
                     properties:
+                      databricksAppSlack:
+                        properties:
+                          channelId:
+                            description: Slack channel ID for notifications.
+                            type: string
+                          channelIdSet:
+                            type: boolean
+                          teamId:
+                            description: The unique ID of the Notification Destination.
+                            type: string
+                          teamIdSet:
+                            type: boolean
+                        type: object
+                      databricksAppTeams:
+                        properties:
+                          channelId:
+                            description: Slack channel ID for notifications.
+                            type: string
+                          channelIdSet:
+                            type: boolean
+                          teamId:
+                            description: The unique ID of the Notification Destination.
+                            type: string
+                          teamIdSet:
+                            type: boolean
+                          tenantId:
+                            description: Tenant ID for Microsoft Teams App.
+                            type: string
+                          tenantIdSet:
+                            type: boolean
+                        type: object
                       email:
                         description: 'The email configuration of the Notification
                           Destination. It must contain the following:'

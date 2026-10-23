@@ -58,8 +58,8 @@ github.com/crossplane/upjet/v2 v2.5.1 h1:2kLIlmuN6bhym/iLvcOkTCLUe61a9iwA34atLvb
 github.com/crossplane/upjet/v2 v2.5.1/go.mod h1:mk+Me18gPUhsQMWgg225vOsGeFocD9/GYI6opMSgHzk=
 github.com/cyphar/filepath-securejoin v0.4.1 h1:JyxxyPEaktOD+GAnqIqTf9A8tHyAG22rowi7HkoSU1s=
 github.com/cyphar/filepath-securejoin v0.4.1/go.mod h1:Sdj7gXlvMcPZsbhwhQ33GguGLDGQL7h7bg04C/+u9jI=
-github.com/databricks/databricks-sdk-go v0.160.0 h1:vwgT/11y2vMw41BxcKbUUqarg45lmoEdukk9yYJg5AM=
-github.com/databricks/databricks-sdk-go v0.160.0/go.mod h1:C5LNgGe6hGuRrTwoxFmuup3XtQQEaqtq0e+K8IFDIS4=
+github.com/databricks/databricks-sdk-go v0.190.0 h1:kU2Bq0RGZInRYk35JbdX/w5CFDAUoNyikT5Ze1YdURg=
+github.com/databricks/databricks-sdk-go v0.190.0/go.mod h1:udBw6nxkaqa0fgPQ7ZW1kGFkltQncYx+qFJeVFmxtz8=
 github.com/dave/jennifer v1.7.1 h1:B4jJJDHelWcDhlRQxWeo0Npa/pYKBLrirAQoTN45txo=
 github.com/dave/jennifer v1.7.1/go.mod h1:nXbxhEmQfOZhWml3D1cDK5M1FLnMSozpbFN/m3RmGZc=
 github.com/davecgh/go-spew v1.1.0/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
@@ -89,8 +89,8 @@ github.com/fxamacker/cbor/v2 v2.9.1 h1:2rWm8B193Ll4VdjsJY28jxs70IdDsHRWgQYAI80+r
 github.com/fxamacker/cbor/v2 v2.9.1/go.mod h1:vM4b+DJCtHn+zz7h3FFp/hDAI9WNWCsZj23V5ytsSxQ=
 github.com/getkin/kin-openapi v0.144.0 h1:hIRcTH+KjLfkLpYU6bSSfdFpi0fZi1fp+hSPi4aQu9Y=
 github.com/getkin/kin-openapi v0.144.0/go.mod h1:3BH9M9XDe/y9M5DSvEocVYAYq1w0qrhJHjC/vZi0AaY=
-github.com/glalanne/terraform-provider-databricks v0.0.0-20260723222646-e6fba0af255a h1:zt/Cd3ouIXfkRc3ARlcW3FZNd8LB91BnjZYhuABkJI0=
-github.com/glalanne/terraform-provider-databricks v0.0.0-20260723222646-e6fba0af255a/go.mod h1:f/SVugQO/RQsLAYXENC32XPkALIzKrp5+/xIWbG1lDE=
+github.com/glalanne/terraform-provider-databricks v0.0.0-20261023173452-2783b6033dd3 h1:AfhfCcUFTYt2/vhRMOX/JnCX7LxyDNL0LoyFsIzVLdg=
+github.com/glalanne/terraform-provider-databricks v0.0.0-20261023173452-2783b6033dd3/go.mod h1:e8B+2Ns18k1LI4SUjFBnysT62R8LD3t+fkE1g+51efU=
 github.com/go-git/gcfg v1.5.1-0.20230307220236-3a3c6141e376 h1:+zs/tPmkDkHx3U66DAb0lQFJrpS6731Oaa12ikc+DiI=
 github.com/go-git/gcfg v1.5.1-0.20230307220236-3a3c6141e376/go.mod h1:an3vInlBmSxCcxctByoQdvwPiA7DTK7jaaFDBTtu0ic=
 github.com/go-git/go-billy/v5 v5.8.0 h1:I8hjc3LbBlXTtVuFNJuwYuMiHvQJDq1AT6u4DwDzZG0=

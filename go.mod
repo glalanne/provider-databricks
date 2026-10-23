@@ -10,7 +10,7 @@ require (
 	github.com/crossplane/crossplane-tools v0.0.0-20260715161912-60e57f817ad1
 	github.com/crossplane/crossplane/apis/v2 v2.4.3
 	github.com/crossplane/upjet/v2 v2.5.1
-	github.com/databricks/databricks-sdk-go v0.160.0
+	github.com/databricks/databricks-sdk-go v0.190.0
 	github.com/databricks/terraform-provider-databricks v1.139.0
 	github.com/google/go-cmp v0.7.0
 	github.com/hashicorp/terraform-json v0.29.0
@@ -195,6 +195,6 @@ require (
 	sigs.k8s.io/yaml v1.6.0 // indirect
 )
 
-replace github.com/databricks/terraform-provider-databricks => github.com/glalanne/terraform-provider-databricks v0.0.0-20260723222646-e6fba0af255a
+replace github.com/databricks/terraform-provider-databricks => github.com/glalanne/terraform-provider-databricks v0.0.0-20261023173452-2783b6033dd3
 
 tool golang.org/x/tools/cmd/goimports

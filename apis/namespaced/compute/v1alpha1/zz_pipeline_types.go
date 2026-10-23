@@ -13,6 +13,44 @@ import (
 	v2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 )
 
+type APISourceConnectorConfigInitParameters struct {
+
+	// +mapType=granular
+	Configs map[string]*string `json:"configs,omitempty" tf:"configs,omitempty"`
+}
+
+type APISourceConnectorConfigObservation struct {
+
+	// +mapType=granular
+	Configs map[string]*string `json:"configs,omitempty" tf:"configs,omitempty"`
+}
+
+type APISourceConnectorConfigParameters struct {
+
+	// +kubebuilder:validation:Optional
+	// +mapType=granular
+	Configs map[string]*string `json:"configs,omitempty" tf:"configs,omitempty"`
+}
+
+type APISourceConnectorOptionsInitParameters struct {
+
+	// +mapType=granular
+	Options map[string]*string `json:"options,omitempty" tf:"options,omitempty"`
+}
+
+type APISourceConnectorOptionsObservation struct {
+
+	// +mapType=granular
+	Options map[string]*string `json:"options,omitempty" tf:"options,omitempty"`
+}
+
+type APISourceConnectorOptionsParameters struct {
+
+	// +kubebuilder:validation:Optional
+	// +mapType=granular
+	Options map[string]*string `json:"options,omitempty" tf:"options,omitempty"`
+}
+
 type AutoFullRefreshPolicyInitParameters struct {
 	Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
 
@@ -32,6 +70,92 @@ type AutoFullRefreshPolicyParameters struct {
 
 	// +kubebuilder:validation:Optional
 	MinIntervalHours *float64 `json:"minIntervalHours,omitempty" tf:"min_interval_hours,omitempty"`
+}
+
+type AvroOptionsInitParameters struct {
+	ParseMode *string `json:"parseMode,omitempty" tf:"parse_mode,omitempty"`
+
+	// The default schema (database) where tables are read from or published to. The presence of this attribute implies that the pipeline is in direct publishing mode.
+	Schema *string `json:"schema,omitempty" tf:"schema,omitempty"`
+
+	SchemaFilePath *string `json:"schemaFilePath,omitempty" tf:"schema_file_path,omitempty"`
+
+	SchemaRegistry []SchemaRegistryInitParameters `json:"schemaRegistry,omitempty" tf:"schema_registry,omitempty"`
+}
+
+type AvroOptionsObservation struct {
+	ParseMode *string `json:"parseMode,omitempty" tf:"parse_mode,omitempty"`
+
+	// The default schema (database) where tables are read from or published to. The presence of this attribute implies that the pipeline is in direct publishing mode.
+	Schema *string `json:"schema,omitempty" tf:"schema,omitempty"`
+
+	SchemaFilePath *string `json:"schemaFilePath,omitempty" tf:"schema_file_path,omitempty"`
+
+	SchemaRegistry []SchemaRegistryObservation `json:"schemaRegistry,omitempty" tf:"schema_registry,omitempty"`
+}
+
+type AvroOptionsParameters struct {
+
+	// +kubebuilder:validation:Optional
+	ParseMode *string `json:"parseMode,omitempty" tf:"parse_mode,omitempty"`
+
+	// The default schema (database) where tables are read from or published to. The presence of this attribute implies that the pipeline is in direct publishing mode.
+	// +kubebuilder:validation:Optional
+	Schema *string `json:"schema,omitempty" tf:"schema,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	SchemaFilePath *string `json:"schemaFilePath,omitempty" tf:"schema_file_path,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	SchemaRegistry []SchemaRegistryParameters `json:"schemaRegistry,omitempty" tf:"schema_registry,omitempty"`
+}
+
+type AvroOptionsSchemaRegistryConfluentOptionsInitParameters struct {
+	Subject *string `json:"subject,omitempty" tf:"subject,omitempty"`
+}
+
+type AvroOptionsSchemaRegistryConfluentOptionsObservation struct {
+	Subject *string `json:"subject,omitempty" tf:"subject,omitempty"`
+}
+
+type AvroOptionsSchemaRegistryConfluentOptionsParameters struct {
+
+	// +kubebuilder:validation:Optional
+	Subject *string `json:"subject,omitempty" tf:"subject,omitempty"`
+}
+
+type AvroOptionsSchemaRegistryInitParameters struct {
+	ConfluentOptions []AvroOptionsSchemaRegistryConfluentOptionsInitParameters `json:"confluentOptions,omitempty" tf:"confluent_options,omitempty"`
+
+	// Immutable. The Unity Catalog connection this ingestion pipeline uses to communicate with the source. Specify either ingestion_gateway_id or connection_name.
+	ConnectionName *string `json:"connectionName,omitempty" tf:"connection_name,omitempty"`
+
+	// A user-friendly name for this pipeline. The name can be used to identify pipeline jobs in the UI.
+	ProtobufMessageName *string `json:"protobufMessageName,omitempty" tf:"protobuf_message_name,omitempty"`
+}
+
+type AvroOptionsSchemaRegistryObservation struct {
+	ConfluentOptions []AvroOptionsSchemaRegistryConfluentOptionsObservation `json:"confluentOptions,omitempty" tf:"confluent_options,omitempty"`
+
+	// Immutable. The Unity Catalog connection this ingestion pipeline uses to communicate with the source. Specify either ingestion_gateway_id or connection_name.
+	ConnectionName *string `json:"connectionName,omitempty" tf:"connection_name,omitempty"`
+
+	// A user-friendly name for this pipeline. The name can be used to identify pipeline jobs in the UI.
+	ProtobufMessageName *string `json:"protobufMessageName,omitempty" tf:"protobuf_message_name,omitempty"`
+}
+
+type AvroOptionsSchemaRegistryParameters struct {
+
+	// +kubebuilder:validation:Optional
+	ConfluentOptions []AvroOptionsSchemaRegistryConfluentOptionsParameters `json:"confluentOptions,omitempty" tf:"confluent_options,omitempty"`
+
+	// Immutable. The Unity Catalog connection this ingestion pipeline uses to communicate with the source. Specify either ingestion_gateway_id or connection_name.
+	// +kubebuilder:validation:Optional
+	ConnectionName *string `json:"connectionName,omitempty" tf:"connection_name,omitempty"`
+
+	// A user-friendly name for this pipeline. The name can be used to identify pipeline jobs in the UI.
+	// +kubebuilder:validation:Optional
+	ProtobufMessageName *string `json:"protobufMessageName,omitempty" tf:"protobuf_message_name,omitempty"`
 }
 
 type CatalogInitParameters struct {
@@ -609,6 +733,20 @@ type ConfluenceOptionsParameters struct {
 	IncludeConfluenceSpaces []*string `json:"includeConfluenceSpaces,omitempty" tf:"include_confluence_spaces,omitempty"`
 }
 
+type ConfluentOptionsInitParameters struct {
+	Subject *string `json:"subject,omitempty" tf:"subject,omitempty"`
+}
+
+type ConfluentOptionsObservation struct {
+	Subject *string `json:"subject,omitempty" tf:"subject,omitempty"`
+}
+
+type ConfluentOptionsParameters struct {
+
+	// +kubebuilder:validation:Optional
+	Subject *string `json:"subject,omitempty" tf:"subject,omitempty"`
+}
+
 type ConnectionParametersInitParameters struct {
 
 	// The name of default catalog in Unity Catalog. Change of this parameter forces recreation of the pipeline if you switch from  (Conflicts with storage).
@@ -626,6 +764,25 @@ type ConnectionParametersParameters struct {
 	// The name of default catalog in Unity Catalog. Change of this parameter forces recreation of the pipeline if you switch from  (Conflicts with storage).
 	// +kubebuilder:validation:Optional
 	SourceCatalog *string `json:"sourceCatalog,omitempty" tf:"source_catalog,omitempty"`
+}
+
+type ConnectorOptionsAPISourceConnectorOptionsInitParameters struct {
+
+	// +mapType=granular
+	Options map[string]*string `json:"options,omitempty" tf:"options,omitempty"`
+}
+
+type ConnectorOptionsAPISourceConnectorOptionsObservation struct {
+
+	// +mapType=granular
+	Options map[string]*string `json:"options,omitempty" tf:"options,omitempty"`
+}
+
+type ConnectorOptionsAPISourceConnectorOptionsParameters struct {
+
+	// +kubebuilder:validation:Optional
+	// +mapType=granular
+	Options map[string]*string `json:"options,omitempty" tf:"options,omitempty"`
 }
 
 type ConnectorOptionsConfluenceOptionsInitParameters struct {
@@ -712,6 +869,8 @@ type ConnectorOptionsGoogleAdsOptionsParameters struct {
 }
 
 type ConnectorOptionsInitParameters struct {
+	APISourceConnectorOptions []APISourceConnectorOptionsInitParameters `json:"apiSourceConnectorOptions,omitempty" tf:"api_source_connector_options,omitempty"`
+
 	ConfluenceOptions []ConfluenceOptionsInitParameters `json:"confluenceOptions,omitempty" tf:"confluence_options,omitempty"`
 
 	GdriveOptions []GdriveOptionsInitParameters `json:"gdriveOptions,omitempty" tf:"gdrive_options,omitempty"`
@@ -722,9 +881,17 @@ type ConnectorOptionsInitParameters struct {
 
 	KafkaOptions []KafkaOptionsInitParameters `json:"kafkaOptions,omitempty" tf:"kafka_options,omitempty"`
 
+	LinkedinAdsOptions []LinkedinAdsOptionsInitParameters `json:"linkedinAdsOptions,omitempty" tf:"linkedin_ads_options,omitempty"`
+
+	MarketoOptions []MarketoOptionsInitParameters `json:"marketoOptions,omitempty" tf:"marketo_options,omitempty"`
+
 	MetaAdsOptions []MetaAdsOptionsInitParameters `json:"metaAdsOptions,omitempty" tf:"meta_ads_options,omitempty"`
 
 	OutlookOptions []OutlookOptionsInitParameters `json:"outlookOptions,omitempty" tf:"outlook_options,omitempty"`
+
+	RabbitmqOptions []RabbitmqOptionsInitParameters `json:"rabbitmqOptions,omitempty" tf:"rabbitmq_options,omitempty"`
+
+	RedditAdsOptions []RedditAdsOptionsInitParameters `json:"redditAdsOptions,omitempty" tf:"reddit_ads_options,omitempty"`
 
 	SharepointOptions []SharepointOptionsInitParameters `json:"sharepointOptions,omitempty" tf:"sharepoint_options,omitempty"`
 
@@ -808,6 +975,83 @@ type ConnectorOptionsKafkaOptionsParameters struct {
 
 	// +kubebuilder:validation:Optional
 	ValueTransformer []KafkaOptionsValueTransformerParameters `json:"valueTransformer,omitempty" tf:"value_transformer,omitempty"`
+}
+
+type ConnectorOptionsLinkedinAdsOptionsCustomReportOptionsInitParameters struct {
+	EntityGranularity []*string `json:"entityGranularity,omitempty" tf:"entity_granularity,omitempty"`
+
+	Finder *string `json:"finder,omitempty" tf:"finder,omitempty"`
+
+	Metrics []*string `json:"metrics,omitempty" tf:"metrics,omitempty"`
+
+	TimeGranularity *string `json:"timeGranularity,omitempty" tf:"time_granularity,omitempty"`
+}
+
+type ConnectorOptionsLinkedinAdsOptionsCustomReportOptionsObservation struct {
+	EntityGranularity []*string `json:"entityGranularity,omitempty" tf:"entity_granularity,omitempty"`
+
+	Finder *string `json:"finder,omitempty" tf:"finder,omitempty"`
+
+	Metrics []*string `json:"metrics,omitempty" tf:"metrics,omitempty"`
+
+	TimeGranularity *string `json:"timeGranularity,omitempty" tf:"time_granularity,omitempty"`
+}
+
+type ConnectorOptionsLinkedinAdsOptionsCustomReportOptionsParameters struct {
+
+	// +kubebuilder:validation:Optional
+	EntityGranularity []*string `json:"entityGranularity,omitempty" tf:"entity_granularity,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	Finder *string `json:"finder" tf:"finder,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	Metrics []*string `json:"metrics,omitempty" tf:"metrics,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	TimeGranularity *string `json:"timeGranularity,omitempty" tf:"time_granularity,omitempty"`
+}
+
+type ConnectorOptionsLinkedinAdsOptionsInitParameters struct {
+	CustomReportOptions []ConnectorOptionsLinkedinAdsOptionsCustomReportOptionsInitParameters `json:"customReportOptions,omitempty" tf:"custom_report_options,omitempty"`
+
+	LookbackWindowDays *float64 `json:"lookbackWindowDays,omitempty" tf:"lookback_window_days,omitempty"`
+
+	SyncStartDate *string `json:"syncStartDate,omitempty" tf:"sync_start_date,omitempty"`
+}
+
+type ConnectorOptionsLinkedinAdsOptionsObservation struct {
+	CustomReportOptions []ConnectorOptionsLinkedinAdsOptionsCustomReportOptionsObservation `json:"customReportOptions,omitempty" tf:"custom_report_options,omitempty"`
+
+	LookbackWindowDays *float64 `json:"lookbackWindowDays,omitempty" tf:"lookback_window_days,omitempty"`
+
+	SyncStartDate *string `json:"syncStartDate,omitempty" tf:"sync_start_date,omitempty"`
+}
+
+type ConnectorOptionsLinkedinAdsOptionsParameters struct {
+
+	// +kubebuilder:validation:Optional
+	CustomReportOptions []ConnectorOptionsLinkedinAdsOptionsCustomReportOptionsParameters `json:"customReportOptions,omitempty" tf:"custom_report_options,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	LookbackWindowDays *float64 `json:"lookbackWindowDays,omitempty" tf:"lookback_window_days,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	SyncStartDate *string `json:"syncStartDate,omitempty" tf:"sync_start_date,omitempty"`
+}
+
+type ConnectorOptionsMarketoOptionsInitParameters struct {
+	SyncStartDate *string `json:"syncStartDate,omitempty" tf:"sync_start_date,omitempty"`
+}
+
+type ConnectorOptionsMarketoOptionsObservation struct {
+	SyncStartDate *string `json:"syncStartDate,omitempty" tf:"sync_start_date,omitempty"`
+}
+
+type ConnectorOptionsMarketoOptionsParameters struct {
+
+	// +kubebuilder:validation:Optional
+	SyncStartDate *string `json:"syncStartDate,omitempty" tf:"sync_start_date,omitempty"`
 }
 
 type ConnectorOptionsMetaAdsOptionsCustomReportOptionsInitParameters struct {
@@ -930,6 +1174,8 @@ type ConnectorOptionsMetaAdsOptionsParameters struct {
 }
 
 type ConnectorOptionsObservation struct {
+	APISourceConnectorOptions []APISourceConnectorOptionsObservation `json:"apiSourceConnectorOptions,omitempty" tf:"api_source_connector_options,omitempty"`
+
 	ConfluenceOptions []ConfluenceOptionsObservation `json:"confluenceOptions,omitempty" tf:"confluence_options,omitempty"`
 
 	GdriveOptions []GdriveOptionsObservation `json:"gdriveOptions,omitempty" tf:"gdrive_options,omitempty"`
@@ -940,9 +1186,17 @@ type ConnectorOptionsObservation struct {
 
 	KafkaOptions []KafkaOptionsObservation `json:"kafkaOptions,omitempty" tf:"kafka_options,omitempty"`
 
+	LinkedinAdsOptions []LinkedinAdsOptionsObservation `json:"linkedinAdsOptions,omitempty" tf:"linkedin_ads_options,omitempty"`
+
+	MarketoOptions []MarketoOptionsObservation `json:"marketoOptions,omitempty" tf:"marketo_options,omitempty"`
+
 	MetaAdsOptions []MetaAdsOptionsObservation `json:"metaAdsOptions,omitempty" tf:"meta_ads_options,omitempty"`
 
 	OutlookOptions []OutlookOptionsObservation `json:"outlookOptions,omitempty" tf:"outlook_options,omitempty"`
+
+	RabbitmqOptions []RabbitmqOptionsObservation `json:"rabbitmqOptions,omitempty" tf:"rabbitmq_options,omitempty"`
+
+	RedditAdsOptions []RedditAdsOptionsObservation `json:"redditAdsOptions,omitempty" tf:"reddit_ads_options,omitempty"`
 
 	SharepointOptions []SharepointOptionsObservation `json:"sharepointOptions,omitempty" tf:"sharepoint_options,omitempty"`
 
@@ -1033,6 +1287,9 @@ type ConnectorOptionsOutlookOptionsParameters struct {
 type ConnectorOptionsParameters struct {
 
 	// +kubebuilder:validation:Optional
+	APISourceConnectorOptions []APISourceConnectorOptionsParameters `json:"apiSourceConnectorOptions,omitempty" tf:"api_source_connector_options,omitempty"`
+
+	// +kubebuilder:validation:Optional
 	ConfluenceOptions []ConfluenceOptionsParameters `json:"confluenceOptions,omitempty" tf:"confluence_options,omitempty"`
 
 	// +kubebuilder:validation:Optional
@@ -1048,10 +1305,22 @@ type ConnectorOptionsParameters struct {
 	KafkaOptions []KafkaOptionsParameters `json:"kafkaOptions,omitempty" tf:"kafka_options,omitempty"`
 
 	// +kubebuilder:validation:Optional
+	LinkedinAdsOptions []LinkedinAdsOptionsParameters `json:"linkedinAdsOptions,omitempty" tf:"linkedin_ads_options,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	MarketoOptions []MarketoOptionsParameters `json:"marketoOptions,omitempty" tf:"marketo_options,omitempty"`
+
+	// +kubebuilder:validation:Optional
 	MetaAdsOptions []MetaAdsOptionsParameters `json:"metaAdsOptions,omitempty" tf:"meta_ads_options,omitempty"`
 
 	// +kubebuilder:validation:Optional
 	OutlookOptions []OutlookOptionsParameters `json:"outlookOptions,omitempty" tf:"outlook_options,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	RabbitmqOptions []RabbitmqOptionsParameters `json:"rabbitmqOptions,omitempty" tf:"rabbitmq_options,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	RedditAdsOptions []RedditAdsOptionsParameters `json:"redditAdsOptions,omitempty" tf:"reddit_ads_options,omitempty"`
 
 	// +kubebuilder:validation:Optional
 	SharepointOptions []SharepointOptionsParameters `json:"sharepointOptions,omitempty" tf:"sharepoint_options,omitempty"`
@@ -1064,6 +1333,69 @@ type ConnectorOptionsParameters struct {
 
 	// +kubebuilder:validation:Optional
 	ZendeskSupportOptions []ZendeskSupportOptionsParameters `json:"zendeskSupportOptions,omitempty" tf:"zendesk_support_options,omitempty"`
+}
+
+type ConnectorOptionsRabbitmqOptionsInitParameters struct {
+	Queue *string `json:"queue,omitempty" tf:"queue,omitempty"`
+}
+
+type ConnectorOptionsRabbitmqOptionsObservation struct {
+	Queue *string `json:"queue,omitempty" tf:"queue,omitempty"`
+}
+
+type ConnectorOptionsRabbitmqOptionsParameters struct {
+
+	// +kubebuilder:validation:Optional
+	Queue *string `json:"queue" tf:"queue,omitempty"`
+}
+
+type ConnectorOptionsRedditAdsOptionsCustomReportOptionsInitParameters struct {
+	Breakdowns []*string `json:"breakdowns,omitempty" tf:"breakdowns,omitempty"`
+
+	Fields []*string `json:"fields,omitempty" tf:"fields,omitempty"`
+}
+
+type ConnectorOptionsRedditAdsOptionsCustomReportOptionsObservation struct {
+	Breakdowns []*string `json:"breakdowns,omitempty" tf:"breakdowns,omitempty"`
+
+	Fields []*string `json:"fields,omitempty" tf:"fields,omitempty"`
+}
+
+type ConnectorOptionsRedditAdsOptionsCustomReportOptionsParameters struct {
+
+	// +kubebuilder:validation:Optional
+	Breakdowns []*string `json:"breakdowns,omitempty" tf:"breakdowns,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	Fields []*string `json:"fields,omitempty" tf:"fields,omitempty"`
+}
+
+type ConnectorOptionsRedditAdsOptionsInitParameters struct {
+	CustomReportOptions []ConnectorOptionsRedditAdsOptionsCustomReportOptionsInitParameters `json:"customReportOptions,omitempty" tf:"custom_report_options,omitempty"`
+
+	LookbackWindowDays *float64 `json:"lookbackWindowDays,omitempty" tf:"lookback_window_days,omitempty"`
+
+	SyncStartDate *string `json:"syncStartDate,omitempty" tf:"sync_start_date,omitempty"`
+}
+
+type ConnectorOptionsRedditAdsOptionsObservation struct {
+	CustomReportOptions []ConnectorOptionsRedditAdsOptionsCustomReportOptionsObservation `json:"customReportOptions,omitempty" tf:"custom_report_options,omitempty"`
+
+	LookbackWindowDays *float64 `json:"lookbackWindowDays,omitempty" tf:"lookback_window_days,omitempty"`
+
+	SyncStartDate *string `json:"syncStartDate,omitempty" tf:"sync_start_date,omitempty"`
+}
+
+type ConnectorOptionsRedditAdsOptionsParameters struct {
+
+	// +kubebuilder:validation:Optional
+	CustomReportOptions []ConnectorOptionsRedditAdsOptionsCustomReportOptionsParameters `json:"customReportOptions,omitempty" tf:"custom_report_options,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	LookbackWindowDays *float64 `json:"lookbackWindowDays,omitempty" tf:"lookback_window_days,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	SyncStartDate *string `json:"syncStartDate,omitempty" tf:"sync_start_date,omitempty"`
 }
 
 type ConnectorOptionsSharepointOptionsFileIngestionOptionsInitParameters struct {
@@ -1460,6 +1792,27 @@ type EventLogParameters struct {
 	// The default schema (database) where tables are read from or published to. The presence of this attribute implies that the pipeline is in direct publishing mode.
 	// +kubebuilder:validation:Optional
 	Schema *string `json:"schema,omitempty" tf:"schema,omitempty"`
+}
+
+type FanoutOptionsInitParameters struct {
+	FanoutBy *string `json:"fanoutBy,omitempty" tf:"fanout_by,omitempty"`
+
+	Transforms []TransformsInitParameters `json:"transforms,omitempty" tf:"transforms,omitempty"`
+}
+
+type FanoutOptionsObservation struct {
+	FanoutBy *string `json:"fanoutBy,omitempty" tf:"fanout_by,omitempty"`
+
+	Transforms []TransformsObservation `json:"transforms,omitempty" tf:"transforms,omitempty"`
+}
+
+type FanoutOptionsParameters struct {
+
+	// +kubebuilder:validation:Optional
+	FanoutBy *string `json:"fanoutBy,omitempty" tf:"fanout_by,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	Transforms []TransformsParameters `json:"transforms,omitempty" tf:"transforms,omitempty"`
 }
 
 type FileFiltersInitParameters struct {
@@ -2385,24 +2738,52 @@ type KafkaOptionsInitParameters struct {
 }
 
 type KafkaOptionsKeyTransformerInitParameters struct {
+	AvroOptions []KeyTransformerAvroOptionsInitParameters `json:"avroOptions,omitempty" tf:"avro_options,omitempty"`
+
 	Format *string `json:"format,omitempty" tf:"format,omitempty"`
 
+	InputColumn *string `json:"inputColumn,omitempty" tf:"input_column,omitempty"`
+
 	JSONOptions []KeyTransformerJSONOptionsInitParameters `json:"jsonOptions,omitempty" tf:"json_options,omitempty"`
+
+	OutputColumn *string `json:"outputColumn,omitempty" tf:"output_column,omitempty"`
+
+	ProtobufOptions []KeyTransformerProtobufOptionsInitParameters `json:"protobufOptions,omitempty" tf:"protobuf_options,omitempty"`
 }
 
 type KafkaOptionsKeyTransformerObservation struct {
+	AvroOptions []KeyTransformerAvroOptionsObservation `json:"avroOptions,omitempty" tf:"avro_options,omitempty"`
+
 	Format *string `json:"format,omitempty" tf:"format,omitempty"`
 
+	InputColumn *string `json:"inputColumn,omitempty" tf:"input_column,omitempty"`
+
 	JSONOptions []KeyTransformerJSONOptionsObservation `json:"jsonOptions,omitempty" tf:"json_options,omitempty"`
+
+	OutputColumn *string `json:"outputColumn,omitempty" tf:"output_column,omitempty"`
+
+	ProtobufOptions []KeyTransformerProtobufOptionsObservation `json:"protobufOptions,omitempty" tf:"protobuf_options,omitempty"`
 }
 
 type KafkaOptionsKeyTransformerParameters struct {
 
 	// +kubebuilder:validation:Optional
+	AvroOptions []KeyTransformerAvroOptionsParameters `json:"avroOptions,omitempty" tf:"avro_options,omitempty"`
+
+	// +kubebuilder:validation:Optional
 	Format *string `json:"format,omitempty" tf:"format,omitempty"`
 
 	// +kubebuilder:validation:Optional
+	InputColumn *string `json:"inputColumn,omitempty" tf:"input_column,omitempty"`
+
+	// +kubebuilder:validation:Optional
 	JSONOptions []KeyTransformerJSONOptionsParameters `json:"jsonOptions,omitempty" tf:"json_options,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	OutputColumn *string `json:"outputColumn,omitempty" tf:"output_column,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	ProtobufOptions []KeyTransformerProtobufOptionsParameters `json:"protobufOptions,omitempty" tf:"protobuf_options,omitempty"`
 }
 
 type KafkaOptionsObservation struct {
@@ -2448,10 +2829,56 @@ type KafkaOptionsParameters struct {
 	ValueTransformer []ValueTransformerParameters `json:"valueTransformer,omitempty" tf:"value_transformer,omitempty"`
 }
 
+type KafkaOptionsValueTransformerAvroOptionsInitParameters struct {
+	ParseMode *string `json:"parseMode,omitempty" tf:"parse_mode,omitempty"`
+
+	// The default schema (database) where tables are read from or published to. The presence of this attribute implies that the pipeline is in direct publishing mode.
+	Schema *string `json:"schema,omitempty" tf:"schema,omitempty"`
+
+	SchemaFilePath *string `json:"schemaFilePath,omitempty" tf:"schema_file_path,omitempty"`
+
+	SchemaRegistry []ValueTransformerAvroOptionsSchemaRegistryInitParameters `json:"schemaRegistry,omitempty" tf:"schema_registry,omitempty"`
+}
+
+type KafkaOptionsValueTransformerAvroOptionsObservation struct {
+	ParseMode *string `json:"parseMode,omitempty" tf:"parse_mode,omitempty"`
+
+	// The default schema (database) where tables are read from or published to. The presence of this attribute implies that the pipeline is in direct publishing mode.
+	Schema *string `json:"schema,omitempty" tf:"schema,omitempty"`
+
+	SchemaFilePath *string `json:"schemaFilePath,omitempty" tf:"schema_file_path,omitempty"`
+
+	SchemaRegistry []ValueTransformerAvroOptionsSchemaRegistryObservation `json:"schemaRegistry,omitempty" tf:"schema_registry,omitempty"`
+}
+
+type KafkaOptionsValueTransformerAvroOptionsParameters struct {
+
+	// +kubebuilder:validation:Optional
+	ParseMode *string `json:"parseMode,omitempty" tf:"parse_mode,omitempty"`
+
+	// The default schema (database) where tables are read from or published to. The presence of this attribute implies that the pipeline is in direct publishing mode.
+	// +kubebuilder:validation:Optional
+	Schema *string `json:"schema,omitempty" tf:"schema,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	SchemaFilePath *string `json:"schemaFilePath,omitempty" tf:"schema_file_path,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	SchemaRegistry []ValueTransformerAvroOptionsSchemaRegistryParameters `json:"schemaRegistry,omitempty" tf:"schema_registry,omitempty"`
+}
+
 type KafkaOptionsValueTransformerInitParameters struct {
+	AvroOptions []KafkaOptionsValueTransformerAvroOptionsInitParameters `json:"avroOptions,omitempty" tf:"avro_options,omitempty"`
+
 	Format *string `json:"format,omitempty" tf:"format,omitempty"`
 
+	InputColumn *string `json:"inputColumn,omitempty" tf:"input_column,omitempty"`
+
 	JSONOptions []KafkaOptionsValueTransformerJSONOptionsInitParameters `json:"jsonOptions,omitempty" tf:"json_options,omitempty"`
+
+	OutputColumn *string `json:"outputColumn,omitempty" tf:"output_column,omitempty"`
+
+	ProtobufOptions []KafkaOptionsValueTransformerProtobufOptionsInitParameters `json:"protobufOptions,omitempty" tf:"protobuf_options,omitempty"`
 }
 
 type KafkaOptionsValueTransformerJSONOptionsInitParameters struct {
@@ -2500,24 +2927,217 @@ type KafkaOptionsValueTransformerJSONOptionsParameters struct {
 }
 
 type KafkaOptionsValueTransformerObservation struct {
+	AvroOptions []KafkaOptionsValueTransformerAvroOptionsObservation `json:"avroOptions,omitempty" tf:"avro_options,omitempty"`
+
 	Format *string `json:"format,omitempty" tf:"format,omitempty"`
 
+	InputColumn *string `json:"inputColumn,omitempty" tf:"input_column,omitempty"`
+
 	JSONOptions []KafkaOptionsValueTransformerJSONOptionsObservation `json:"jsonOptions,omitempty" tf:"json_options,omitempty"`
+
+	OutputColumn *string `json:"outputColumn,omitempty" tf:"output_column,omitempty"`
+
+	ProtobufOptions []KafkaOptionsValueTransformerProtobufOptionsObservation `json:"protobufOptions,omitempty" tf:"protobuf_options,omitempty"`
 }
 
 type KafkaOptionsValueTransformerParameters struct {
 
 	// +kubebuilder:validation:Optional
+	AvroOptions []KafkaOptionsValueTransformerAvroOptionsParameters `json:"avroOptions,omitempty" tf:"avro_options,omitempty"`
+
+	// +kubebuilder:validation:Optional
 	Format *string `json:"format,omitempty" tf:"format,omitempty"`
 
 	// +kubebuilder:validation:Optional
+	InputColumn *string `json:"inputColumn,omitempty" tf:"input_column,omitempty"`
+
+	// +kubebuilder:validation:Optional
 	JSONOptions []KafkaOptionsValueTransformerJSONOptionsParameters `json:"jsonOptions,omitempty" tf:"json_options,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	OutputColumn *string `json:"outputColumn,omitempty" tf:"output_column,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	ProtobufOptions []KafkaOptionsValueTransformerProtobufOptionsParameters `json:"protobufOptions,omitempty" tf:"protobuf_options,omitempty"`
+}
+
+type KafkaOptionsValueTransformerProtobufOptionsInitParameters struct {
+	DescFilePath *string `json:"descFilePath,omitempty" tf:"desc_file_path,omitempty"`
+
+	// A user-friendly name for this pipeline. The name can be used to identify pipeline jobs in the UI.
+	MessageName *string `json:"messageName,omitempty" tf:"message_name,omitempty"`
+
+	ParseMode *string `json:"parseMode,omitempty" tf:"parse_mode,omitempty"`
+
+	RecursiveFieldsMaxDepth *float64 `json:"recursiveFieldsMaxDepth,omitempty" tf:"recursive_fields_max_depth,omitempty"`
+
+	SchemaRegistry []KafkaOptionsValueTransformerProtobufOptionsSchemaRegistryInitParameters `json:"schemaRegistry,omitempty" tf:"schema_registry,omitempty"`
+}
+
+type KafkaOptionsValueTransformerProtobufOptionsObservation struct {
+	DescFilePath *string `json:"descFilePath,omitempty" tf:"desc_file_path,omitempty"`
+
+	// A user-friendly name for this pipeline. The name can be used to identify pipeline jobs in the UI.
+	MessageName *string `json:"messageName,omitempty" tf:"message_name,omitempty"`
+
+	ParseMode *string `json:"parseMode,omitempty" tf:"parse_mode,omitempty"`
+
+	RecursiveFieldsMaxDepth *float64 `json:"recursiveFieldsMaxDepth,omitempty" tf:"recursive_fields_max_depth,omitempty"`
+
+	SchemaRegistry []KafkaOptionsValueTransformerProtobufOptionsSchemaRegistryObservation `json:"schemaRegistry,omitempty" tf:"schema_registry,omitempty"`
+}
+
+type KafkaOptionsValueTransformerProtobufOptionsParameters struct {
+
+	// +kubebuilder:validation:Optional
+	DescFilePath *string `json:"descFilePath,omitempty" tf:"desc_file_path,omitempty"`
+
+	// A user-friendly name for this pipeline. The name can be used to identify pipeline jobs in the UI.
+	// +kubebuilder:validation:Optional
+	MessageName *string `json:"messageName,omitempty" tf:"message_name,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	ParseMode *string `json:"parseMode,omitempty" tf:"parse_mode,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	RecursiveFieldsMaxDepth *float64 `json:"recursiveFieldsMaxDepth,omitempty" tf:"recursive_fields_max_depth,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	SchemaRegistry []KafkaOptionsValueTransformerProtobufOptionsSchemaRegistryParameters `json:"schemaRegistry,omitempty" tf:"schema_registry,omitempty"`
+}
+
+type KafkaOptionsValueTransformerProtobufOptionsSchemaRegistryInitParameters struct {
+	ConfluentOptions []ValueTransformerProtobufOptionsSchemaRegistryConfluentOptionsInitParameters `json:"confluentOptions,omitempty" tf:"confluent_options,omitempty"`
+
+	// Immutable. The Unity Catalog connection this ingestion pipeline uses to communicate with the source. Specify either ingestion_gateway_id or connection_name.
+	ConnectionName *string `json:"connectionName,omitempty" tf:"connection_name,omitempty"`
+
+	// A user-friendly name for this pipeline. The name can be used to identify pipeline jobs in the UI.
+	ProtobufMessageName *string `json:"protobufMessageName,omitempty" tf:"protobuf_message_name,omitempty"`
+}
+
+type KafkaOptionsValueTransformerProtobufOptionsSchemaRegistryObservation struct {
+	ConfluentOptions []ValueTransformerProtobufOptionsSchemaRegistryConfluentOptionsObservation `json:"confluentOptions,omitempty" tf:"confluent_options,omitempty"`
+
+	// Immutable. The Unity Catalog connection this ingestion pipeline uses to communicate with the source. Specify either ingestion_gateway_id or connection_name.
+	ConnectionName *string `json:"connectionName,omitempty" tf:"connection_name,omitempty"`
+
+	// A user-friendly name for this pipeline. The name can be used to identify pipeline jobs in the UI.
+	ProtobufMessageName *string `json:"protobufMessageName,omitempty" tf:"protobuf_message_name,omitempty"`
+}
+
+type KafkaOptionsValueTransformerProtobufOptionsSchemaRegistryParameters struct {
+
+	// +kubebuilder:validation:Optional
+	ConfluentOptions []ValueTransformerProtobufOptionsSchemaRegistryConfluentOptionsParameters `json:"confluentOptions,omitempty" tf:"confluent_options,omitempty"`
+
+	// Immutable. The Unity Catalog connection this ingestion pipeline uses to communicate with the source. Specify either ingestion_gateway_id or connection_name.
+	// +kubebuilder:validation:Optional
+	ConnectionName *string `json:"connectionName,omitempty" tf:"connection_name,omitempty"`
+
+	// A user-friendly name for this pipeline. The name can be used to identify pipeline jobs in the UI.
+	// +kubebuilder:validation:Optional
+	ProtobufMessageName *string `json:"protobufMessageName,omitempty" tf:"protobuf_message_name,omitempty"`
+}
+
+type KeyTransformerAvroOptionsInitParameters struct {
+	ParseMode *string `json:"parseMode,omitempty" tf:"parse_mode,omitempty"`
+
+	// The default schema (database) where tables are read from or published to. The presence of this attribute implies that the pipeline is in direct publishing mode.
+	Schema *string `json:"schema,omitempty" tf:"schema,omitempty"`
+
+	SchemaFilePath *string `json:"schemaFilePath,omitempty" tf:"schema_file_path,omitempty"`
+
+	SchemaRegistry []KeyTransformerAvroOptionsSchemaRegistryInitParameters `json:"schemaRegistry,omitempty" tf:"schema_registry,omitempty"`
+}
+
+type KeyTransformerAvroOptionsObservation struct {
+	ParseMode *string `json:"parseMode,omitempty" tf:"parse_mode,omitempty"`
+
+	// The default schema (database) where tables are read from or published to. The presence of this attribute implies that the pipeline is in direct publishing mode.
+	Schema *string `json:"schema,omitempty" tf:"schema,omitempty"`
+
+	SchemaFilePath *string `json:"schemaFilePath,omitempty" tf:"schema_file_path,omitempty"`
+
+	SchemaRegistry []KeyTransformerAvroOptionsSchemaRegistryObservation `json:"schemaRegistry,omitempty" tf:"schema_registry,omitempty"`
+}
+
+type KeyTransformerAvroOptionsParameters struct {
+
+	// +kubebuilder:validation:Optional
+	ParseMode *string `json:"parseMode,omitempty" tf:"parse_mode,omitempty"`
+
+	// The default schema (database) where tables are read from or published to. The presence of this attribute implies that the pipeline is in direct publishing mode.
+	// +kubebuilder:validation:Optional
+	Schema *string `json:"schema,omitempty" tf:"schema,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	SchemaFilePath *string `json:"schemaFilePath,omitempty" tf:"schema_file_path,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	SchemaRegistry []KeyTransformerAvroOptionsSchemaRegistryParameters `json:"schemaRegistry,omitempty" tf:"schema_registry,omitempty"`
+}
+
+type KeyTransformerAvroOptionsSchemaRegistryConfluentOptionsInitParameters struct {
+	Subject *string `json:"subject,omitempty" tf:"subject,omitempty"`
+}
+
+type KeyTransformerAvroOptionsSchemaRegistryConfluentOptionsObservation struct {
+	Subject *string `json:"subject,omitempty" tf:"subject,omitempty"`
+}
+
+type KeyTransformerAvroOptionsSchemaRegistryConfluentOptionsParameters struct {
+
+	// +kubebuilder:validation:Optional
+	Subject *string `json:"subject,omitempty" tf:"subject,omitempty"`
+}
+
+type KeyTransformerAvroOptionsSchemaRegistryInitParameters struct {
+	ConfluentOptions []KeyTransformerAvroOptionsSchemaRegistryConfluentOptionsInitParameters `json:"confluentOptions,omitempty" tf:"confluent_options,omitempty"`
+
+	// Immutable. The Unity Catalog connection this ingestion pipeline uses to communicate with the source. Specify either ingestion_gateway_id or connection_name.
+	ConnectionName *string `json:"connectionName,omitempty" tf:"connection_name,omitempty"`
+
+	// A user-friendly name for this pipeline. The name can be used to identify pipeline jobs in the UI.
+	ProtobufMessageName *string `json:"protobufMessageName,omitempty" tf:"protobuf_message_name,omitempty"`
+}
+
+type KeyTransformerAvroOptionsSchemaRegistryObservation struct {
+	ConfluentOptions []KeyTransformerAvroOptionsSchemaRegistryConfluentOptionsObservation `json:"confluentOptions,omitempty" tf:"confluent_options,omitempty"`
+
+	// Immutable. The Unity Catalog connection this ingestion pipeline uses to communicate with the source. Specify either ingestion_gateway_id or connection_name.
+	ConnectionName *string `json:"connectionName,omitempty" tf:"connection_name,omitempty"`
+
+	// A user-friendly name for this pipeline. The name can be used to identify pipeline jobs in the UI.
+	ProtobufMessageName *string `json:"protobufMessageName,omitempty" tf:"protobuf_message_name,omitempty"`
+}
+
+type KeyTransformerAvroOptionsSchemaRegistryParameters struct {
+
+	// +kubebuilder:validation:Optional
+	ConfluentOptions []KeyTransformerAvroOptionsSchemaRegistryConfluentOptionsParameters `json:"confluentOptions,omitempty" tf:"confluent_options,omitempty"`
+
+	// Immutable. The Unity Catalog connection this ingestion pipeline uses to communicate with the source. Specify either ingestion_gateway_id or connection_name.
+	// +kubebuilder:validation:Optional
+	ConnectionName *string `json:"connectionName,omitempty" tf:"connection_name,omitempty"`
+
+	// A user-friendly name for this pipeline. The name can be used to identify pipeline jobs in the UI.
+	// +kubebuilder:validation:Optional
+	ProtobufMessageName *string `json:"protobufMessageName,omitempty" tf:"protobuf_message_name,omitempty"`
 }
 
 type KeyTransformerInitParameters struct {
+	AvroOptions []AvroOptionsInitParameters `json:"avroOptions,omitempty" tf:"avro_options,omitempty"`
+
 	Format *string `json:"format,omitempty" tf:"format,omitempty"`
 
+	InputColumn *string `json:"inputColumn,omitempty" tf:"input_column,omitempty"`
+
 	JSONOptions []JSONOptionsInitParameters `json:"jsonOptions,omitempty" tf:"json_options,omitempty"`
+
+	OutputColumn *string `json:"outputColumn,omitempty" tf:"output_column,omitempty"`
+
+	ProtobufOptions []ProtobufOptionsInitParameters `json:"protobufOptions,omitempty" tf:"protobuf_options,omitempty"`
 }
 
 type KeyTransformerJSONOptionsInitParameters struct {
@@ -2566,18 +3186,131 @@ type KeyTransformerJSONOptionsParameters struct {
 }
 
 type KeyTransformerObservation struct {
+	AvroOptions []AvroOptionsObservation `json:"avroOptions,omitempty" tf:"avro_options,omitempty"`
+
 	Format *string `json:"format,omitempty" tf:"format,omitempty"`
 
+	InputColumn *string `json:"inputColumn,omitempty" tf:"input_column,omitempty"`
+
 	JSONOptions []JSONOptionsObservation `json:"jsonOptions,omitempty" tf:"json_options,omitempty"`
+
+	OutputColumn *string `json:"outputColumn,omitempty" tf:"output_column,omitempty"`
+
+	ProtobufOptions []ProtobufOptionsObservation `json:"protobufOptions,omitempty" tf:"protobuf_options,omitempty"`
 }
 
 type KeyTransformerParameters struct {
 
 	// +kubebuilder:validation:Optional
+	AvroOptions []AvroOptionsParameters `json:"avroOptions,omitempty" tf:"avro_options,omitempty"`
+
+	// +kubebuilder:validation:Optional
 	Format *string `json:"format,omitempty" tf:"format,omitempty"`
 
 	// +kubebuilder:validation:Optional
+	InputColumn *string `json:"inputColumn,omitempty" tf:"input_column,omitempty"`
+
+	// +kubebuilder:validation:Optional
 	JSONOptions []JSONOptionsParameters `json:"jsonOptions,omitempty" tf:"json_options,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	OutputColumn *string `json:"outputColumn,omitempty" tf:"output_column,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	ProtobufOptions []ProtobufOptionsParameters `json:"protobufOptions,omitempty" tf:"protobuf_options,omitempty"`
+}
+
+type KeyTransformerProtobufOptionsInitParameters struct {
+	DescFilePath *string `json:"descFilePath,omitempty" tf:"desc_file_path,omitempty"`
+
+	// A user-friendly name for this pipeline. The name can be used to identify pipeline jobs in the UI.
+	MessageName *string `json:"messageName,omitempty" tf:"message_name,omitempty"`
+
+	ParseMode *string `json:"parseMode,omitempty" tf:"parse_mode,omitempty"`
+
+	RecursiveFieldsMaxDepth *float64 `json:"recursiveFieldsMaxDepth,omitempty" tf:"recursive_fields_max_depth,omitempty"`
+
+	SchemaRegistry []KeyTransformerProtobufOptionsSchemaRegistryInitParameters `json:"schemaRegistry,omitempty" tf:"schema_registry,omitempty"`
+}
+
+type KeyTransformerProtobufOptionsObservation struct {
+	DescFilePath *string `json:"descFilePath,omitempty" tf:"desc_file_path,omitempty"`
+
+	// A user-friendly name for this pipeline. The name can be used to identify pipeline jobs in the UI.
+	MessageName *string `json:"messageName,omitempty" tf:"message_name,omitempty"`
+
+	ParseMode *string `json:"parseMode,omitempty" tf:"parse_mode,omitempty"`
+
+	RecursiveFieldsMaxDepth *float64 `json:"recursiveFieldsMaxDepth,omitempty" tf:"recursive_fields_max_depth,omitempty"`
+
+	SchemaRegistry []KeyTransformerProtobufOptionsSchemaRegistryObservation `json:"schemaRegistry,omitempty" tf:"schema_registry,omitempty"`
+}
+
+type KeyTransformerProtobufOptionsParameters struct {
+
+	// +kubebuilder:validation:Optional
+	DescFilePath *string `json:"descFilePath,omitempty" tf:"desc_file_path,omitempty"`
+
+	// A user-friendly name for this pipeline. The name can be used to identify pipeline jobs in the UI.
+	// +kubebuilder:validation:Optional
+	MessageName *string `json:"messageName,omitempty" tf:"message_name,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	ParseMode *string `json:"parseMode,omitempty" tf:"parse_mode,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	RecursiveFieldsMaxDepth *float64 `json:"recursiveFieldsMaxDepth,omitempty" tf:"recursive_fields_max_depth,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	SchemaRegistry []KeyTransformerProtobufOptionsSchemaRegistryParameters `json:"schemaRegistry,omitempty" tf:"schema_registry,omitempty"`
+}
+
+type KeyTransformerProtobufOptionsSchemaRegistryConfluentOptionsInitParameters struct {
+	Subject *string `json:"subject,omitempty" tf:"subject,omitempty"`
+}
+
+type KeyTransformerProtobufOptionsSchemaRegistryConfluentOptionsObservation struct {
+	Subject *string `json:"subject,omitempty" tf:"subject,omitempty"`
+}
+
+type KeyTransformerProtobufOptionsSchemaRegistryConfluentOptionsParameters struct {
+
+	// +kubebuilder:validation:Optional
+	Subject *string `json:"subject,omitempty" tf:"subject,omitempty"`
+}
+
+type KeyTransformerProtobufOptionsSchemaRegistryInitParameters struct {
+	ConfluentOptions []KeyTransformerProtobufOptionsSchemaRegistryConfluentOptionsInitParameters `json:"confluentOptions,omitempty" tf:"confluent_options,omitempty"`
+
+	// Immutable. The Unity Catalog connection this ingestion pipeline uses to communicate with the source. Specify either ingestion_gateway_id or connection_name.
+	ConnectionName *string `json:"connectionName,omitempty" tf:"connection_name,omitempty"`
+
+	// A user-friendly name for this pipeline. The name can be used to identify pipeline jobs in the UI.
+	ProtobufMessageName *string `json:"protobufMessageName,omitempty" tf:"protobuf_message_name,omitempty"`
+}
+
+type KeyTransformerProtobufOptionsSchemaRegistryObservation struct {
+	ConfluentOptions []KeyTransformerProtobufOptionsSchemaRegistryConfluentOptionsObservation `json:"confluentOptions,omitempty" tf:"confluent_options,omitempty"`
+
+	// Immutable. The Unity Catalog connection this ingestion pipeline uses to communicate with the source. Specify either ingestion_gateway_id or connection_name.
+	ConnectionName *string `json:"connectionName,omitempty" tf:"connection_name,omitempty"`
+
+	// A user-friendly name for this pipeline. The name can be used to identify pipeline jobs in the UI.
+	ProtobufMessageName *string `json:"protobufMessageName,omitempty" tf:"protobuf_message_name,omitempty"`
+}
+
+type KeyTransformerProtobufOptionsSchemaRegistryParameters struct {
+
+	// +kubebuilder:validation:Optional
+	ConfluentOptions []KeyTransformerProtobufOptionsSchemaRegistryConfluentOptionsParameters `json:"confluentOptions,omitempty" tf:"confluent_options,omitempty"`
+
+	// Immutable. The Unity Catalog connection this ingestion pipeline uses to communicate with the source. Specify either ingestion_gateway_id or connection_name.
+	// +kubebuilder:validation:Optional
+	ConnectionName *string `json:"connectionName,omitempty" tf:"connection_name,omitempty"`
+
+	// A user-friendly name for this pipeline. The name can be used to identify pipeline jobs in the UI.
+	// +kubebuilder:validation:Optional
+	ProtobufMessageName *string `json:"protobufMessageName,omitempty" tf:"protobuf_message_name,omitempty"`
 }
 
 type LatestUpdatesInitParameters struct {
@@ -2625,6 +3358,69 @@ type LibraryFileParameters struct {
 	Path *string `json:"path" tf:"path,omitempty"`
 }
 
+type LinkedinAdsOptionsCustomReportOptionsInitParameters struct {
+	EntityGranularity []*string `json:"entityGranularity,omitempty" tf:"entity_granularity,omitempty"`
+
+	Finder *string `json:"finder,omitempty" tf:"finder,omitempty"`
+
+	Metrics []*string `json:"metrics,omitempty" tf:"metrics,omitempty"`
+
+	TimeGranularity *string `json:"timeGranularity,omitempty" tf:"time_granularity,omitempty"`
+}
+
+type LinkedinAdsOptionsCustomReportOptionsObservation struct {
+	EntityGranularity []*string `json:"entityGranularity,omitempty" tf:"entity_granularity,omitempty"`
+
+	Finder *string `json:"finder,omitempty" tf:"finder,omitempty"`
+
+	Metrics []*string `json:"metrics,omitempty" tf:"metrics,omitempty"`
+
+	TimeGranularity *string `json:"timeGranularity,omitempty" tf:"time_granularity,omitempty"`
+}
+
+type LinkedinAdsOptionsCustomReportOptionsParameters struct {
+
+	// +kubebuilder:validation:Optional
+	EntityGranularity []*string `json:"entityGranularity,omitempty" tf:"entity_granularity,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	Finder *string `json:"finder" tf:"finder,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	Metrics []*string `json:"metrics,omitempty" tf:"metrics,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	TimeGranularity *string `json:"timeGranularity,omitempty" tf:"time_granularity,omitempty"`
+}
+
+type LinkedinAdsOptionsInitParameters struct {
+	CustomReportOptions []LinkedinAdsOptionsCustomReportOptionsInitParameters `json:"customReportOptions,omitempty" tf:"custom_report_options,omitempty"`
+
+	LookbackWindowDays *float64 `json:"lookbackWindowDays,omitempty" tf:"lookback_window_days,omitempty"`
+
+	SyncStartDate *string `json:"syncStartDate,omitempty" tf:"sync_start_date,omitempty"`
+}
+
+type LinkedinAdsOptionsObservation struct {
+	CustomReportOptions []LinkedinAdsOptionsCustomReportOptionsObservation `json:"customReportOptions,omitempty" tf:"custom_report_options,omitempty"`
+
+	LookbackWindowDays *float64 `json:"lookbackWindowDays,omitempty" tf:"lookback_window_days,omitempty"`
+
+	SyncStartDate *string `json:"syncStartDate,omitempty" tf:"sync_start_date,omitempty"`
+}
+
+type LinkedinAdsOptionsParameters struct {
+
+	// +kubebuilder:validation:Optional
+	CustomReportOptions []LinkedinAdsOptionsCustomReportOptionsParameters `json:"customReportOptions,omitempty" tf:"custom_report_options,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	LookbackWindowDays *float64 `json:"lookbackWindowDays,omitempty" tf:"lookback_window_days,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	SyncStartDate *string `json:"syncStartDate,omitempty" tf:"sync_start_date,omitempty"`
+}
+
 type ManualInitParameters struct {
 }
 
@@ -2632,6 +3428,20 @@ type ManualObservation struct {
 }
 
 type ManualParameters struct {
+}
+
+type MarketoOptionsInitParameters struct {
+	SyncStartDate *string `json:"syncStartDate,omitempty" tf:"sync_start_date,omitempty"`
+}
+
+type MarketoOptionsObservation struct {
+	SyncStartDate *string `json:"syncStartDate,omitempty" tf:"sync_start_date,omitempty"`
+}
+
+type MarketoOptionsParameters struct {
+
+	// +kubebuilder:validation:Optional
+	SyncStartDate *string `json:"syncStartDate,omitempty" tf:"sync_start_date,omitempty"`
 }
 
 type MetaAdsOptionsCustomReportOptionsInitParameters struct {
@@ -3233,6 +4043,8 @@ type PipelineInitParameters struct {
 
 	Notification []NotificationInitParameters `json:"notification,omitempty" tf:"notification,omitempty"`
 
+	ParentPath *string `json:"parentPath,omitempty" tf:"parent_path,omitempty"`
+
 	// A flag indicating whether to use Photon engine. The default value is false.
 	Photon *bool `json:"photon,omitempty" tf:"photon,omitempty"`
 
@@ -3437,6 +4249,8 @@ type PipelineObservation struct {
 
 	Notification []NotificationObservation `json:"notification,omitempty" tf:"notification,omitempty"`
 
+	ParentPath *string `json:"parentPath,omitempty" tf:"parent_path,omitempty"`
+
 	// A flag indicating whether to use Photon engine. The default value is false.
 	Photon *bool `json:"photon,omitempty" tf:"photon,omitempty"`
 
@@ -3573,6 +4387,9 @@ type PipelineParameters struct {
 	// +kubebuilder:validation:Optional
 	Notification []NotificationParameters `json:"notification,omitempty" tf:"notification,omitempty"`
 
+	// +kubebuilder:validation:Optional
+	ParentPath *string `json:"parentPath,omitempty" tf:"parent_path,omitempty"`
+
 	// A flag indicating whether to use Photon engine. The default value is false.
 	// +kubebuilder:validation:Optional
 	Photon *bool `json:"photon,omitempty" tf:"photon,omitempty"`
@@ -3654,6 +4471,9 @@ type PipelineProviderConfigParameters struct {
 
 type PipelineRunAsInitParameters struct {
 
+	// A user-friendly name for this pipeline. The name can be used to identify pipeline jobs in the UI.
+	GroupName *string `json:"groupName,omitempty" tf:"group_name,omitempty"`
+
 	// The application ID of an active service principal. Setting this field requires the servicePrincipal/user role.
 	ServicePrincipalName *string `json:"servicePrincipalName,omitempty" tf:"service_principal_name,omitempty"`
 
@@ -3663,6 +4483,9 @@ type PipelineRunAsInitParameters struct {
 
 type PipelineRunAsObservation struct {
 
+	// A user-friendly name for this pipeline. The name can be used to identify pipeline jobs in the UI.
+	GroupName *string `json:"groupName,omitempty" tf:"group_name,omitempty"`
+
 	// The application ID of an active service principal. Setting this field requires the servicePrincipal/user role.
 	ServicePrincipalName *string `json:"servicePrincipalName,omitempty" tf:"service_principal_name,omitempty"`
 
@@ -3671,6 +4494,10 @@ type PipelineRunAsObservation struct {
 }
 
 type PipelineRunAsParameters struct {
+
+	// A user-friendly name for this pipeline. The name can be used to identify pipeline jobs in the UI.
+	// +kubebuilder:validation:Optional
+	GroupName *string `json:"groupName,omitempty" tf:"group_name,omitempty"`
 
 	// The application ID of an active service principal. Setting this field requires the servicePrincipal/user role.
 	// +kubebuilder:validation:Optional
@@ -3716,6 +4543,99 @@ type PostgresParameters struct {
 	SlotConfig []SlotConfigParameters `json:"slotConfig,omitempty" tf:"slot_config,omitempty"`
 }
 
+type ProtobufOptionsInitParameters struct {
+	DescFilePath *string `json:"descFilePath,omitempty" tf:"desc_file_path,omitempty"`
+
+	// A user-friendly name for this pipeline. The name can be used to identify pipeline jobs in the UI.
+	MessageName *string `json:"messageName,omitempty" tf:"message_name,omitempty"`
+
+	ParseMode *string `json:"parseMode,omitempty" tf:"parse_mode,omitempty"`
+
+	RecursiveFieldsMaxDepth *float64 `json:"recursiveFieldsMaxDepth,omitempty" tf:"recursive_fields_max_depth,omitempty"`
+
+	SchemaRegistry []ProtobufOptionsSchemaRegistryInitParameters `json:"schemaRegistry,omitempty" tf:"schema_registry,omitempty"`
+}
+
+type ProtobufOptionsObservation struct {
+	DescFilePath *string `json:"descFilePath,omitempty" tf:"desc_file_path,omitempty"`
+
+	// A user-friendly name for this pipeline. The name can be used to identify pipeline jobs in the UI.
+	MessageName *string `json:"messageName,omitempty" tf:"message_name,omitempty"`
+
+	ParseMode *string `json:"parseMode,omitempty" tf:"parse_mode,omitempty"`
+
+	RecursiveFieldsMaxDepth *float64 `json:"recursiveFieldsMaxDepth,omitempty" tf:"recursive_fields_max_depth,omitempty"`
+
+	SchemaRegistry []ProtobufOptionsSchemaRegistryObservation `json:"schemaRegistry,omitempty" tf:"schema_registry,omitempty"`
+}
+
+type ProtobufOptionsParameters struct {
+
+	// +kubebuilder:validation:Optional
+	DescFilePath *string `json:"descFilePath,omitempty" tf:"desc_file_path,omitempty"`
+
+	// A user-friendly name for this pipeline. The name can be used to identify pipeline jobs in the UI.
+	// +kubebuilder:validation:Optional
+	MessageName *string `json:"messageName,omitempty" tf:"message_name,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	ParseMode *string `json:"parseMode,omitempty" tf:"parse_mode,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	RecursiveFieldsMaxDepth *float64 `json:"recursiveFieldsMaxDepth,omitempty" tf:"recursive_fields_max_depth,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	SchemaRegistry []ProtobufOptionsSchemaRegistryParameters `json:"schemaRegistry,omitempty" tf:"schema_registry,omitempty"`
+}
+
+type ProtobufOptionsSchemaRegistryConfluentOptionsInitParameters struct {
+	Subject *string `json:"subject,omitempty" tf:"subject,omitempty"`
+}
+
+type ProtobufOptionsSchemaRegistryConfluentOptionsObservation struct {
+	Subject *string `json:"subject,omitempty" tf:"subject,omitempty"`
+}
+
+type ProtobufOptionsSchemaRegistryConfluentOptionsParameters struct {
+
+	// +kubebuilder:validation:Optional
+	Subject *string `json:"subject,omitempty" tf:"subject,omitempty"`
+}
+
+type ProtobufOptionsSchemaRegistryInitParameters struct {
+	ConfluentOptions []SchemaRegistryConfluentOptionsInitParameters `json:"confluentOptions,omitempty" tf:"confluent_options,omitempty"`
+
+	// Immutable. The Unity Catalog connection this ingestion pipeline uses to communicate with the source. Specify either ingestion_gateway_id or connection_name.
+	ConnectionName *string `json:"connectionName,omitempty" tf:"connection_name,omitempty"`
+
+	// A user-friendly name for this pipeline. The name can be used to identify pipeline jobs in the UI.
+	ProtobufMessageName *string `json:"protobufMessageName,omitempty" tf:"protobuf_message_name,omitempty"`
+}
+
+type ProtobufOptionsSchemaRegistryObservation struct {
+	ConfluentOptions []SchemaRegistryConfluentOptionsObservation `json:"confluentOptions,omitempty" tf:"confluent_options,omitempty"`
+
+	// Immutable. The Unity Catalog connection this ingestion pipeline uses to communicate with the source. Specify either ingestion_gateway_id or connection_name.
+	ConnectionName *string `json:"connectionName,omitempty" tf:"connection_name,omitempty"`
+
+	// A user-friendly name for this pipeline. The name can be used to identify pipeline jobs in the UI.
+	ProtobufMessageName *string `json:"protobufMessageName,omitempty" tf:"protobuf_message_name,omitempty"`
+}
+
+type ProtobufOptionsSchemaRegistryParameters struct {
+
+	// +kubebuilder:validation:Optional
+	ConfluentOptions []SchemaRegistryConfluentOptionsParameters `json:"confluentOptions,omitempty" tf:"confluent_options,omitempty"`
+
+	// Immutable. The Unity Catalog connection this ingestion pipeline uses to communicate with the source. Specify either ingestion_gateway_id or connection_name.
+	// +kubebuilder:validation:Optional
+	ConnectionName *string `json:"connectionName,omitempty" tf:"connection_name,omitempty"`
+
+	// A user-friendly name for this pipeline. The name can be used to identify pipeline jobs in the UI.
+	// +kubebuilder:validation:Optional
+	ProtobufMessageName *string `json:"protobufMessageName,omitempty" tf:"protobuf_message_name,omitempty"`
+}
+
 type QueryBasedConnectorConfigInitParameters struct {
 	CursorColumns []*string `json:"cursorColumns,omitempty" tf:"cursor_columns,omitempty"`
 
@@ -3742,6 +4662,69 @@ type QueryBasedConnectorConfigParameters struct {
 
 	// +kubebuilder:validation:Optional
 	HardDeletionSyncMinIntervalInSeconds *float64 `json:"hardDeletionSyncMinIntervalInSeconds,omitempty" tf:"hard_deletion_sync_min_interval_in_seconds,omitempty"`
+}
+
+type RabbitmqOptionsInitParameters struct {
+	Queue *string `json:"queue,omitempty" tf:"queue,omitempty"`
+}
+
+type RabbitmqOptionsObservation struct {
+	Queue *string `json:"queue,omitempty" tf:"queue,omitempty"`
+}
+
+type RabbitmqOptionsParameters struct {
+
+	// +kubebuilder:validation:Optional
+	Queue *string `json:"queue" tf:"queue,omitempty"`
+}
+
+type RedditAdsOptionsCustomReportOptionsInitParameters struct {
+	Breakdowns []*string `json:"breakdowns,omitempty" tf:"breakdowns,omitempty"`
+
+	Fields []*string `json:"fields,omitempty" tf:"fields,omitempty"`
+}
+
+type RedditAdsOptionsCustomReportOptionsObservation struct {
+	Breakdowns []*string `json:"breakdowns,omitempty" tf:"breakdowns,omitempty"`
+
+	Fields []*string `json:"fields,omitempty" tf:"fields,omitempty"`
+}
+
+type RedditAdsOptionsCustomReportOptionsParameters struct {
+
+	// +kubebuilder:validation:Optional
+	Breakdowns []*string `json:"breakdowns,omitempty" tf:"breakdowns,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	Fields []*string `json:"fields,omitempty" tf:"fields,omitempty"`
+}
+
+type RedditAdsOptionsInitParameters struct {
+	CustomReportOptions []RedditAdsOptionsCustomReportOptionsInitParameters `json:"customReportOptions,omitempty" tf:"custom_report_options,omitempty"`
+
+	LookbackWindowDays *float64 `json:"lookbackWindowDays,omitempty" tf:"lookback_window_days,omitempty"`
+
+	SyncStartDate *string `json:"syncStartDate,omitempty" tf:"sync_start_date,omitempty"`
+}
+
+type RedditAdsOptionsObservation struct {
+	CustomReportOptions []RedditAdsOptionsCustomReportOptionsObservation `json:"customReportOptions,omitempty" tf:"custom_report_options,omitempty"`
+
+	LookbackWindowDays *float64 `json:"lookbackWindowDays,omitempty" tf:"lookback_window_days,omitempty"`
+
+	SyncStartDate *string `json:"syncStartDate,omitempty" tf:"sync_start_date,omitempty"`
+}
+
+type RedditAdsOptionsParameters struct {
+
+	// +kubebuilder:validation:Optional
+	CustomReportOptions []RedditAdsOptionsCustomReportOptionsParameters `json:"customReportOptions,omitempty" tf:"custom_report_options,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	LookbackWindowDays *float64 `json:"lookbackWindowDays,omitempty" tf:"lookback_window_days,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	SyncStartDate *string `json:"syncStartDate,omitempty" tf:"sync_start_date,omitempty"`
 }
 
 type ReportInitParameters struct {
@@ -3861,6 +4844,8 @@ type SchemaInitParameters struct {
 	// The default schema (database) where tables are read from or published to. The presence of this attribute implies that the pipeline is in direct publishing mode.
 	DestinationSchema *string `json:"destinationSchema,omitempty" tf:"destination_schema,omitempty"`
 
+	FanoutOptions []FanoutOptionsInitParameters `json:"fanoutOptions,omitempty" tf:"fanout_options,omitempty"`
+
 	// The name of default catalog in Unity Catalog. Change of this parameter forces recreation of the pipeline if you switch from  (Conflicts with storage).
 	SourceCatalog *string `json:"sourceCatalog,omitempty" tf:"source_catalog,omitempty"`
 
@@ -3879,6 +4864,8 @@ type SchemaObservation struct {
 
 	// The default schema (database) where tables are read from or published to. The presence of this attribute implies that the pipeline is in direct publishing mode.
 	DestinationSchema *string `json:"destinationSchema,omitempty" tf:"destination_schema,omitempty"`
+
+	FanoutOptions []FanoutOptionsObservation `json:"fanoutOptions,omitempty" tf:"fanout_options,omitempty"`
 
 	// The name of default catalog in Unity Catalog. Change of this parameter forces recreation of the pipeline if you switch from  (Conflicts with storage).
 	SourceCatalog *string `json:"sourceCatalog,omitempty" tf:"source_catalog,omitempty"`
@@ -3903,17 +4890,68 @@ type SchemaParameters struct {
 	// +kubebuilder:validation:Optional
 	DestinationSchema *string `json:"destinationSchema" tf:"destination_schema,omitempty"`
 
+	// +kubebuilder:validation:Optional
+	FanoutOptions []FanoutOptionsParameters `json:"fanoutOptions,omitempty" tf:"fanout_options,omitempty"`
+
 	// The name of default catalog in Unity Catalog. Change of this parameter forces recreation of the pipeline if you switch from  (Conflicts with storage).
 	// +kubebuilder:validation:Optional
 	SourceCatalog *string `json:"sourceCatalog,omitempty" tf:"source_catalog,omitempty"`
 
 	// The default schema (database) where tables are read from or published to. The presence of this attribute implies that the pipeline is in direct publishing mode.
 	// +kubebuilder:validation:Optional
-	SourceSchema *string `json:"sourceSchema" tf:"source_schema,omitempty"`
+	SourceSchema *string `json:"sourceSchema,omitempty" tf:"source_schema,omitempty"`
 
 	// Configuration settings to control the ingestion of tables. These settings are applied to all tables in the pipeline.
 	// +kubebuilder:validation:Optional
 	TableConfiguration []SchemaTableConfigurationParameters `json:"tableConfiguration,omitempty" tf:"table_configuration,omitempty"`
+}
+
+type SchemaRegistryConfluentOptionsInitParameters struct {
+	Subject *string `json:"subject,omitempty" tf:"subject,omitempty"`
+}
+
+type SchemaRegistryConfluentOptionsObservation struct {
+	Subject *string `json:"subject,omitempty" tf:"subject,omitempty"`
+}
+
+type SchemaRegistryConfluentOptionsParameters struct {
+
+	// +kubebuilder:validation:Optional
+	Subject *string `json:"subject,omitempty" tf:"subject,omitempty"`
+}
+
+type SchemaRegistryInitParameters struct {
+	ConfluentOptions []ConfluentOptionsInitParameters `json:"confluentOptions,omitempty" tf:"confluent_options,omitempty"`
+
+	// Immutable. The Unity Catalog connection this ingestion pipeline uses to communicate with the source. Specify either ingestion_gateway_id or connection_name.
+	ConnectionName *string `json:"connectionName,omitempty" tf:"connection_name,omitempty"`
+
+	// A user-friendly name for this pipeline. The name can be used to identify pipeline jobs in the UI.
+	ProtobufMessageName *string `json:"protobufMessageName,omitempty" tf:"protobuf_message_name,omitempty"`
+}
+
+type SchemaRegistryObservation struct {
+	ConfluentOptions []ConfluentOptionsObservation `json:"confluentOptions,omitempty" tf:"confluent_options,omitempty"`
+
+	// Immutable. The Unity Catalog connection this ingestion pipeline uses to communicate with the source. Specify either ingestion_gateway_id or connection_name.
+	ConnectionName *string `json:"connectionName,omitempty" tf:"connection_name,omitempty"`
+
+	// A user-friendly name for this pipeline. The name can be used to identify pipeline jobs in the UI.
+	ProtobufMessageName *string `json:"protobufMessageName,omitempty" tf:"protobuf_message_name,omitempty"`
+}
+
+type SchemaRegistryParameters struct {
+
+	// +kubebuilder:validation:Optional
+	ConfluentOptions []ConfluentOptionsParameters `json:"confluentOptions,omitempty" tf:"confluent_options,omitempty"`
+
+	// Immutable. The Unity Catalog connection this ingestion pipeline uses to communicate with the source. Specify either ingestion_gateway_id or connection_name.
+	// +kubebuilder:validation:Optional
+	ConnectionName *string `json:"connectionName,omitempty" tf:"connection_name,omitempty"`
+
+	// A user-friendly name for this pipeline. The name can be used to identify pipeline jobs in the UI.
+	// +kubebuilder:validation:Optional
+	ProtobufMessageName *string `json:"protobufMessageName,omitempty" tf:"protobuf_message_name,omitempty"`
 }
 
 type SchemaTableConfigurationInitParameters struct {
@@ -4222,6 +5260,7 @@ type SmartsheetOptionsParameters struct {
 }
 
 type SourceConfigurationsInitParameters struct {
+	APISourceConnectorConfig []APISourceConnectorConfigInitParameters `json:"apiSourceConnectorConfig,omitempty" tf:"api_source_connector_config,omitempty"`
 
 	// The name of default catalog in Unity Catalog. Change of this parameter forces recreation of the pipeline if you switch from  (Conflicts with storage).
 	Catalog []CatalogInitParameters `json:"catalog,omitempty" tf:"catalog,omitempty"`
@@ -4230,6 +5269,7 @@ type SourceConfigurationsInitParameters struct {
 }
 
 type SourceConfigurationsObservation struct {
+	APISourceConnectorConfig []APISourceConnectorConfigObservation `json:"apiSourceConnectorConfig,omitempty" tf:"api_source_connector_config,omitempty"`
 
 	// The name of default catalog in Unity Catalog. Change of this parameter forces recreation of the pipeline if you switch from  (Conflicts with storage).
 	Catalog []CatalogObservation `json:"catalog,omitempty" tf:"catalog,omitempty"`
@@ -4238,6 +5278,9 @@ type SourceConfigurationsObservation struct {
 }
 
 type SourceConfigurationsParameters struct {
+
+	// +kubebuilder:validation:Optional
+	APISourceConnectorConfig []APISourceConnectorConfigParameters `json:"apiSourceConnectorConfig,omitempty" tf:"api_source_connector_config,omitempty"`
 
 	// The name of default catalog in Unity Catalog. Change of this parameter forces recreation of the pipeline if you switch from  (Conflicts with storage).
 	// +kubebuilder:validation:Optional
@@ -4457,6 +5500,8 @@ type TableConfigurationWorkdayReportParametersReportParametersParameters struct 
 }
 
 type TableConnectorOptionsInitParameters struct {
+	APISourceConnectorOptions []ConnectorOptionsAPISourceConnectorOptionsInitParameters `json:"apiSourceConnectorOptions,omitempty" tf:"api_source_connector_options,omitempty"`
+
 	ConfluenceOptions []ConnectorOptionsConfluenceOptionsInitParameters `json:"confluenceOptions,omitempty" tf:"confluence_options,omitempty"`
 
 	GdriveOptions []ConnectorOptionsGdriveOptionsInitParameters `json:"gdriveOptions,omitempty" tf:"gdrive_options,omitempty"`
@@ -4467,9 +5512,17 @@ type TableConnectorOptionsInitParameters struct {
 
 	KafkaOptions []ConnectorOptionsKafkaOptionsInitParameters `json:"kafkaOptions,omitempty" tf:"kafka_options,omitempty"`
 
+	LinkedinAdsOptions []ConnectorOptionsLinkedinAdsOptionsInitParameters `json:"linkedinAdsOptions,omitempty" tf:"linkedin_ads_options,omitempty"`
+
+	MarketoOptions []ConnectorOptionsMarketoOptionsInitParameters `json:"marketoOptions,omitempty" tf:"marketo_options,omitempty"`
+
 	MetaAdsOptions []ConnectorOptionsMetaAdsOptionsInitParameters `json:"metaAdsOptions,omitempty" tf:"meta_ads_options,omitempty"`
 
 	OutlookOptions []ConnectorOptionsOutlookOptionsInitParameters `json:"outlookOptions,omitempty" tf:"outlook_options,omitempty"`
+
+	RabbitmqOptions []ConnectorOptionsRabbitmqOptionsInitParameters `json:"rabbitmqOptions,omitempty" tf:"rabbitmq_options,omitempty"`
+
+	RedditAdsOptions []ConnectorOptionsRedditAdsOptionsInitParameters `json:"redditAdsOptions,omitempty" tf:"reddit_ads_options,omitempty"`
 
 	SharepointOptions []ConnectorOptionsSharepointOptionsInitParameters `json:"sharepointOptions,omitempty" tf:"sharepoint_options,omitempty"`
 
@@ -4481,6 +5534,8 @@ type TableConnectorOptionsInitParameters struct {
 }
 
 type TableConnectorOptionsObservation struct {
+	APISourceConnectorOptions []ConnectorOptionsAPISourceConnectorOptionsObservation `json:"apiSourceConnectorOptions,omitempty" tf:"api_source_connector_options,omitempty"`
+
 	ConfluenceOptions []ConnectorOptionsConfluenceOptionsObservation `json:"confluenceOptions,omitempty" tf:"confluence_options,omitempty"`
 
 	GdriveOptions []ConnectorOptionsGdriveOptionsObservation `json:"gdriveOptions,omitempty" tf:"gdrive_options,omitempty"`
@@ -4491,9 +5546,17 @@ type TableConnectorOptionsObservation struct {
 
 	KafkaOptions []ConnectorOptionsKafkaOptionsObservation `json:"kafkaOptions,omitempty" tf:"kafka_options,omitempty"`
 
+	LinkedinAdsOptions []ConnectorOptionsLinkedinAdsOptionsObservation `json:"linkedinAdsOptions,omitempty" tf:"linkedin_ads_options,omitempty"`
+
+	MarketoOptions []ConnectorOptionsMarketoOptionsObservation `json:"marketoOptions,omitempty" tf:"marketo_options,omitempty"`
+
 	MetaAdsOptions []ConnectorOptionsMetaAdsOptionsObservation `json:"metaAdsOptions,omitempty" tf:"meta_ads_options,omitempty"`
 
 	OutlookOptions []ConnectorOptionsOutlookOptionsObservation `json:"outlookOptions,omitempty" tf:"outlook_options,omitempty"`
+
+	RabbitmqOptions []ConnectorOptionsRabbitmqOptionsObservation `json:"rabbitmqOptions,omitempty" tf:"rabbitmq_options,omitempty"`
+
+	RedditAdsOptions []ConnectorOptionsRedditAdsOptionsObservation `json:"redditAdsOptions,omitempty" tf:"reddit_ads_options,omitempty"`
 
 	SharepointOptions []ConnectorOptionsSharepointOptionsObservation `json:"sharepointOptions,omitempty" tf:"sharepoint_options,omitempty"`
 
@@ -4505,6 +5568,9 @@ type TableConnectorOptionsObservation struct {
 }
 
 type TableConnectorOptionsParameters struct {
+
+	// +kubebuilder:validation:Optional
+	APISourceConnectorOptions []ConnectorOptionsAPISourceConnectorOptionsParameters `json:"apiSourceConnectorOptions,omitempty" tf:"api_source_connector_options,omitempty"`
 
 	// +kubebuilder:validation:Optional
 	ConfluenceOptions []ConnectorOptionsConfluenceOptionsParameters `json:"confluenceOptions,omitempty" tf:"confluence_options,omitempty"`
@@ -4522,10 +5588,22 @@ type TableConnectorOptionsParameters struct {
 	KafkaOptions []ConnectorOptionsKafkaOptionsParameters `json:"kafkaOptions,omitempty" tf:"kafka_options,omitempty"`
 
 	// +kubebuilder:validation:Optional
+	LinkedinAdsOptions []ConnectorOptionsLinkedinAdsOptionsParameters `json:"linkedinAdsOptions,omitempty" tf:"linkedin_ads_options,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	MarketoOptions []ConnectorOptionsMarketoOptionsParameters `json:"marketoOptions,omitempty" tf:"marketo_options,omitempty"`
+
+	// +kubebuilder:validation:Optional
 	MetaAdsOptions []ConnectorOptionsMetaAdsOptionsParameters `json:"metaAdsOptions,omitempty" tf:"meta_ads_options,omitempty"`
 
 	// +kubebuilder:validation:Optional
 	OutlookOptions []ConnectorOptionsOutlookOptionsParameters `json:"outlookOptions,omitempty" tf:"outlook_options,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	RabbitmqOptions []ConnectorOptionsRabbitmqOptionsParameters `json:"rabbitmqOptions,omitempty" tf:"rabbitmq_options,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	RedditAdsOptions []ConnectorOptionsRedditAdsOptionsParameters `json:"redditAdsOptions,omitempty" tf:"reddit_ads_options,omitempty"`
 
 	// +kubebuilder:validation:Optional
 	SharepointOptions []ConnectorOptionsSharepointOptionsParameters `json:"sharepointOptions,omitempty" tf:"sharepoint_options,omitempty"`
@@ -4611,7 +5689,7 @@ type TableParameters struct {
 	SourceSchema *string `json:"sourceSchema,omitempty" tf:"source_schema,omitempty"`
 
 	// +kubebuilder:validation:Optional
-	SourceTable *string `json:"sourceTable" tf:"source_table,omitempty"`
+	SourceTable *string `json:"sourceTable,omitempty" tf:"source_table,omitempty"`
 
 	// Configuration settings to control the ingestion of tables. These settings are applied to all tables in the pipeline.
 	// +kubebuilder:validation:Optional
@@ -4911,10 +5989,377 @@ type TiktokAdsOptionsParameters struct {
 	SyncStartDate *string `json:"syncStartDate,omitempty" tf:"sync_start_date,omitempty"`
 }
 
-type ValueTransformerInitParameters struct {
+type TransformsAvroOptionsInitParameters struct {
+	ParseMode *string `json:"parseMode,omitempty" tf:"parse_mode,omitempty"`
+
+	// The default schema (database) where tables are read from or published to. The presence of this attribute implies that the pipeline is in direct publishing mode.
+	Schema *string `json:"schema,omitempty" tf:"schema,omitempty"`
+
+	SchemaFilePath *string `json:"schemaFilePath,omitempty" tf:"schema_file_path,omitempty"`
+
+	SchemaRegistry []TransformsAvroOptionsSchemaRegistryInitParameters `json:"schemaRegistry,omitempty" tf:"schema_registry,omitempty"`
+}
+
+type TransformsAvroOptionsObservation struct {
+	ParseMode *string `json:"parseMode,omitempty" tf:"parse_mode,omitempty"`
+
+	// The default schema (database) where tables are read from or published to. The presence of this attribute implies that the pipeline is in direct publishing mode.
+	Schema *string `json:"schema,omitempty" tf:"schema,omitempty"`
+
+	SchemaFilePath *string `json:"schemaFilePath,omitempty" tf:"schema_file_path,omitempty"`
+
+	SchemaRegistry []TransformsAvroOptionsSchemaRegistryObservation `json:"schemaRegistry,omitempty" tf:"schema_registry,omitempty"`
+}
+
+type TransformsAvroOptionsParameters struct {
+
+	// +kubebuilder:validation:Optional
+	ParseMode *string `json:"parseMode,omitempty" tf:"parse_mode,omitempty"`
+
+	// The default schema (database) where tables are read from or published to. The presence of this attribute implies that the pipeline is in direct publishing mode.
+	// +kubebuilder:validation:Optional
+	Schema *string `json:"schema,omitempty" tf:"schema,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	SchemaFilePath *string `json:"schemaFilePath,omitempty" tf:"schema_file_path,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	SchemaRegistry []TransformsAvroOptionsSchemaRegistryParameters `json:"schemaRegistry,omitempty" tf:"schema_registry,omitempty"`
+}
+
+type TransformsAvroOptionsSchemaRegistryConfluentOptionsInitParameters struct {
+	Subject *string `json:"subject,omitempty" tf:"subject,omitempty"`
+}
+
+type TransformsAvroOptionsSchemaRegistryConfluentOptionsObservation struct {
+	Subject *string `json:"subject,omitempty" tf:"subject,omitempty"`
+}
+
+type TransformsAvroOptionsSchemaRegistryConfluentOptionsParameters struct {
+
+	// +kubebuilder:validation:Optional
+	Subject *string `json:"subject,omitempty" tf:"subject,omitempty"`
+}
+
+type TransformsAvroOptionsSchemaRegistryInitParameters struct {
+	ConfluentOptions []TransformsAvroOptionsSchemaRegistryConfluentOptionsInitParameters `json:"confluentOptions,omitempty" tf:"confluent_options,omitempty"`
+
+	// Immutable. The Unity Catalog connection this ingestion pipeline uses to communicate with the source. Specify either ingestion_gateway_id or connection_name.
+	ConnectionName *string `json:"connectionName,omitempty" tf:"connection_name,omitempty"`
+
+	// A user-friendly name for this pipeline. The name can be used to identify pipeline jobs in the UI.
+	ProtobufMessageName *string `json:"protobufMessageName,omitempty" tf:"protobuf_message_name,omitempty"`
+}
+
+type TransformsAvroOptionsSchemaRegistryObservation struct {
+	ConfluentOptions []TransformsAvroOptionsSchemaRegistryConfluentOptionsObservation `json:"confluentOptions,omitempty" tf:"confluent_options,omitempty"`
+
+	// Immutable. The Unity Catalog connection this ingestion pipeline uses to communicate with the source. Specify either ingestion_gateway_id or connection_name.
+	ConnectionName *string `json:"connectionName,omitempty" tf:"connection_name,omitempty"`
+
+	// A user-friendly name for this pipeline. The name can be used to identify pipeline jobs in the UI.
+	ProtobufMessageName *string `json:"protobufMessageName,omitempty" tf:"protobuf_message_name,omitempty"`
+}
+
+type TransformsAvroOptionsSchemaRegistryParameters struct {
+
+	// +kubebuilder:validation:Optional
+	ConfluentOptions []TransformsAvroOptionsSchemaRegistryConfluentOptionsParameters `json:"confluentOptions,omitempty" tf:"confluent_options,omitempty"`
+
+	// Immutable. The Unity Catalog connection this ingestion pipeline uses to communicate with the source. Specify either ingestion_gateway_id or connection_name.
+	// +kubebuilder:validation:Optional
+	ConnectionName *string `json:"connectionName,omitempty" tf:"connection_name,omitempty"`
+
+	// A user-friendly name for this pipeline. The name can be used to identify pipeline jobs in the UI.
+	// +kubebuilder:validation:Optional
+	ProtobufMessageName *string `json:"protobufMessageName,omitempty" tf:"protobuf_message_name,omitempty"`
+}
+
+type TransformsInitParameters struct {
+	AvroOptions []TransformsAvroOptionsInitParameters `json:"avroOptions,omitempty" tf:"avro_options,omitempty"`
+
 	Format *string `json:"format,omitempty" tf:"format,omitempty"`
 
+	InputColumn *string `json:"inputColumn,omitempty" tf:"input_column,omitempty"`
+
+	JSONOptions []TransformsJSONOptionsInitParameters `json:"jsonOptions,omitempty" tf:"json_options,omitempty"`
+
+	OutputColumn *string `json:"outputColumn,omitempty" tf:"output_column,omitempty"`
+
+	ProtobufOptions []TransformsProtobufOptionsInitParameters `json:"protobufOptions,omitempty" tf:"protobuf_options,omitempty"`
+}
+
+type TransformsJSONOptionsInitParameters struct {
+	AsVariant *bool `json:"asVariant,omitempty" tf:"as_variant,omitempty"`
+
+	// The default schema (database) where tables are read from or published to. The presence of this attribute implies that the pipeline is in direct publishing mode.
+	Schema *string `json:"schema,omitempty" tf:"schema,omitempty"`
+
+	SchemaEvolutionMode *string `json:"schemaEvolutionMode,omitempty" tf:"schema_evolution_mode,omitempty"`
+
+	SchemaFilePath *string `json:"schemaFilePath,omitempty" tf:"schema_file_path,omitempty"`
+
+	SchemaHints *string `json:"schemaHints,omitempty" tf:"schema_hints,omitempty"`
+}
+
+type TransformsJSONOptionsObservation struct {
+	AsVariant *bool `json:"asVariant,omitempty" tf:"as_variant,omitempty"`
+
+	// The default schema (database) where tables are read from or published to. The presence of this attribute implies that the pipeline is in direct publishing mode.
+	Schema *string `json:"schema,omitempty" tf:"schema,omitempty"`
+
+	SchemaEvolutionMode *string `json:"schemaEvolutionMode,omitempty" tf:"schema_evolution_mode,omitempty"`
+
+	SchemaFilePath *string `json:"schemaFilePath,omitempty" tf:"schema_file_path,omitempty"`
+
+	SchemaHints *string `json:"schemaHints,omitempty" tf:"schema_hints,omitempty"`
+}
+
+type TransformsJSONOptionsParameters struct {
+
+	// +kubebuilder:validation:Optional
+	AsVariant *bool `json:"asVariant,omitempty" tf:"as_variant,omitempty"`
+
+	// The default schema (database) where tables are read from or published to. The presence of this attribute implies that the pipeline is in direct publishing mode.
+	// +kubebuilder:validation:Optional
+	Schema *string `json:"schema,omitempty" tf:"schema,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	SchemaEvolutionMode *string `json:"schemaEvolutionMode,omitempty" tf:"schema_evolution_mode,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	SchemaFilePath *string `json:"schemaFilePath,omitempty" tf:"schema_file_path,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	SchemaHints *string `json:"schemaHints,omitempty" tf:"schema_hints,omitempty"`
+}
+
+type TransformsObservation struct {
+	AvroOptions []TransformsAvroOptionsObservation `json:"avroOptions,omitempty" tf:"avro_options,omitempty"`
+
+	Format *string `json:"format,omitempty" tf:"format,omitempty"`
+
+	InputColumn *string `json:"inputColumn,omitempty" tf:"input_column,omitempty"`
+
+	JSONOptions []TransformsJSONOptionsObservation `json:"jsonOptions,omitempty" tf:"json_options,omitempty"`
+
+	OutputColumn *string `json:"outputColumn,omitempty" tf:"output_column,omitempty"`
+
+	ProtobufOptions []TransformsProtobufOptionsObservation `json:"protobufOptions,omitempty" tf:"protobuf_options,omitempty"`
+}
+
+type TransformsParameters struct {
+
+	// +kubebuilder:validation:Optional
+	AvroOptions []TransformsAvroOptionsParameters `json:"avroOptions,omitempty" tf:"avro_options,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	Format *string `json:"format,omitempty" tf:"format,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	InputColumn *string `json:"inputColumn,omitempty" tf:"input_column,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	JSONOptions []TransformsJSONOptionsParameters `json:"jsonOptions,omitempty" tf:"json_options,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	OutputColumn *string `json:"outputColumn,omitempty" tf:"output_column,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	ProtobufOptions []TransformsProtobufOptionsParameters `json:"protobufOptions,omitempty" tf:"protobuf_options,omitempty"`
+}
+
+type TransformsProtobufOptionsInitParameters struct {
+	DescFilePath *string `json:"descFilePath,omitempty" tf:"desc_file_path,omitempty"`
+
+	// A user-friendly name for this pipeline. The name can be used to identify pipeline jobs in the UI.
+	MessageName *string `json:"messageName,omitempty" tf:"message_name,omitempty"`
+
+	ParseMode *string `json:"parseMode,omitempty" tf:"parse_mode,omitempty"`
+
+	RecursiveFieldsMaxDepth *float64 `json:"recursiveFieldsMaxDepth,omitempty" tf:"recursive_fields_max_depth,omitempty"`
+
+	SchemaRegistry []TransformsProtobufOptionsSchemaRegistryInitParameters `json:"schemaRegistry,omitempty" tf:"schema_registry,omitempty"`
+}
+
+type TransformsProtobufOptionsObservation struct {
+	DescFilePath *string `json:"descFilePath,omitempty" tf:"desc_file_path,omitempty"`
+
+	// A user-friendly name for this pipeline. The name can be used to identify pipeline jobs in the UI.
+	MessageName *string `json:"messageName,omitempty" tf:"message_name,omitempty"`
+
+	ParseMode *string `json:"parseMode,omitempty" tf:"parse_mode,omitempty"`
+
+	RecursiveFieldsMaxDepth *float64 `json:"recursiveFieldsMaxDepth,omitempty" tf:"recursive_fields_max_depth,omitempty"`
+
+	SchemaRegistry []TransformsProtobufOptionsSchemaRegistryObservation `json:"schemaRegistry,omitempty" tf:"schema_registry,omitempty"`
+}
+
+type TransformsProtobufOptionsParameters struct {
+
+	// +kubebuilder:validation:Optional
+	DescFilePath *string `json:"descFilePath,omitempty" tf:"desc_file_path,omitempty"`
+
+	// A user-friendly name for this pipeline. The name can be used to identify pipeline jobs in the UI.
+	// +kubebuilder:validation:Optional
+	MessageName *string `json:"messageName,omitempty" tf:"message_name,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	ParseMode *string `json:"parseMode,omitempty" tf:"parse_mode,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	RecursiveFieldsMaxDepth *float64 `json:"recursiveFieldsMaxDepth,omitempty" tf:"recursive_fields_max_depth,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	SchemaRegistry []TransformsProtobufOptionsSchemaRegistryParameters `json:"schemaRegistry,omitempty" tf:"schema_registry,omitempty"`
+}
+
+type TransformsProtobufOptionsSchemaRegistryConfluentOptionsInitParameters struct {
+	Subject *string `json:"subject,omitempty" tf:"subject,omitempty"`
+}
+
+type TransformsProtobufOptionsSchemaRegistryConfluentOptionsObservation struct {
+	Subject *string `json:"subject,omitempty" tf:"subject,omitempty"`
+}
+
+type TransformsProtobufOptionsSchemaRegistryConfluentOptionsParameters struct {
+
+	// +kubebuilder:validation:Optional
+	Subject *string `json:"subject,omitempty" tf:"subject,omitempty"`
+}
+
+type TransformsProtobufOptionsSchemaRegistryInitParameters struct {
+	ConfluentOptions []TransformsProtobufOptionsSchemaRegistryConfluentOptionsInitParameters `json:"confluentOptions,omitempty" tf:"confluent_options,omitempty"`
+
+	// Immutable. The Unity Catalog connection this ingestion pipeline uses to communicate with the source. Specify either ingestion_gateway_id or connection_name.
+	ConnectionName *string `json:"connectionName,omitempty" tf:"connection_name,omitempty"`
+
+	// A user-friendly name for this pipeline. The name can be used to identify pipeline jobs in the UI.
+	ProtobufMessageName *string `json:"protobufMessageName,omitempty" tf:"protobuf_message_name,omitempty"`
+}
+
+type TransformsProtobufOptionsSchemaRegistryObservation struct {
+	ConfluentOptions []TransformsProtobufOptionsSchemaRegistryConfluentOptionsObservation `json:"confluentOptions,omitempty" tf:"confluent_options,omitempty"`
+
+	// Immutable. The Unity Catalog connection this ingestion pipeline uses to communicate with the source. Specify either ingestion_gateway_id or connection_name.
+	ConnectionName *string `json:"connectionName,omitempty" tf:"connection_name,omitempty"`
+
+	// A user-friendly name for this pipeline. The name can be used to identify pipeline jobs in the UI.
+	ProtobufMessageName *string `json:"protobufMessageName,omitempty" tf:"protobuf_message_name,omitempty"`
+}
+
+type TransformsProtobufOptionsSchemaRegistryParameters struct {
+
+	// +kubebuilder:validation:Optional
+	ConfluentOptions []TransformsProtobufOptionsSchemaRegistryConfluentOptionsParameters `json:"confluentOptions,omitempty" tf:"confluent_options,omitempty"`
+
+	// Immutable. The Unity Catalog connection this ingestion pipeline uses to communicate with the source. Specify either ingestion_gateway_id or connection_name.
+	// +kubebuilder:validation:Optional
+	ConnectionName *string `json:"connectionName,omitempty" tf:"connection_name,omitempty"`
+
+	// A user-friendly name for this pipeline. The name can be used to identify pipeline jobs in the UI.
+	// +kubebuilder:validation:Optional
+	ProtobufMessageName *string `json:"protobufMessageName,omitempty" tf:"protobuf_message_name,omitempty"`
+}
+
+type ValueTransformerAvroOptionsInitParameters struct {
+	ParseMode *string `json:"parseMode,omitempty" tf:"parse_mode,omitempty"`
+
+	// The default schema (database) where tables are read from or published to. The presence of this attribute implies that the pipeline is in direct publishing mode.
+	Schema *string `json:"schema,omitempty" tf:"schema,omitempty"`
+
+	SchemaFilePath *string `json:"schemaFilePath,omitempty" tf:"schema_file_path,omitempty"`
+
+	SchemaRegistry []AvroOptionsSchemaRegistryInitParameters `json:"schemaRegistry,omitempty" tf:"schema_registry,omitempty"`
+}
+
+type ValueTransformerAvroOptionsObservation struct {
+	ParseMode *string `json:"parseMode,omitempty" tf:"parse_mode,omitempty"`
+
+	// The default schema (database) where tables are read from or published to. The presence of this attribute implies that the pipeline is in direct publishing mode.
+	Schema *string `json:"schema,omitempty" tf:"schema,omitempty"`
+
+	SchemaFilePath *string `json:"schemaFilePath,omitempty" tf:"schema_file_path,omitempty"`
+
+	SchemaRegistry []AvroOptionsSchemaRegistryObservation `json:"schemaRegistry,omitempty" tf:"schema_registry,omitempty"`
+}
+
+type ValueTransformerAvroOptionsParameters struct {
+
+	// +kubebuilder:validation:Optional
+	ParseMode *string `json:"parseMode,omitempty" tf:"parse_mode,omitempty"`
+
+	// The default schema (database) where tables are read from or published to. The presence of this attribute implies that the pipeline is in direct publishing mode.
+	// +kubebuilder:validation:Optional
+	Schema *string `json:"schema,omitempty" tf:"schema,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	SchemaFilePath *string `json:"schemaFilePath,omitempty" tf:"schema_file_path,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	SchemaRegistry []AvroOptionsSchemaRegistryParameters `json:"schemaRegistry,omitempty" tf:"schema_registry,omitempty"`
+}
+
+type ValueTransformerAvroOptionsSchemaRegistryConfluentOptionsInitParameters struct {
+	Subject *string `json:"subject,omitempty" tf:"subject,omitempty"`
+}
+
+type ValueTransformerAvroOptionsSchemaRegistryConfluentOptionsObservation struct {
+	Subject *string `json:"subject,omitempty" tf:"subject,omitempty"`
+}
+
+type ValueTransformerAvroOptionsSchemaRegistryConfluentOptionsParameters struct {
+
+	// +kubebuilder:validation:Optional
+	Subject *string `json:"subject,omitempty" tf:"subject,omitempty"`
+}
+
+type ValueTransformerAvroOptionsSchemaRegistryInitParameters struct {
+	ConfluentOptions []ValueTransformerAvroOptionsSchemaRegistryConfluentOptionsInitParameters `json:"confluentOptions,omitempty" tf:"confluent_options,omitempty"`
+
+	// Immutable. The Unity Catalog connection this ingestion pipeline uses to communicate with the source. Specify either ingestion_gateway_id or connection_name.
+	ConnectionName *string `json:"connectionName,omitempty" tf:"connection_name,omitempty"`
+
+	// A user-friendly name for this pipeline. The name can be used to identify pipeline jobs in the UI.
+	ProtobufMessageName *string `json:"protobufMessageName,omitempty" tf:"protobuf_message_name,omitempty"`
+}
+
+type ValueTransformerAvroOptionsSchemaRegistryObservation struct {
+	ConfluentOptions []ValueTransformerAvroOptionsSchemaRegistryConfluentOptionsObservation `json:"confluentOptions,omitempty" tf:"confluent_options,omitempty"`
+
+	// Immutable. The Unity Catalog connection this ingestion pipeline uses to communicate with the source. Specify either ingestion_gateway_id or connection_name.
+	ConnectionName *string `json:"connectionName,omitempty" tf:"connection_name,omitempty"`
+
+	// A user-friendly name for this pipeline. The name can be used to identify pipeline jobs in the UI.
+	ProtobufMessageName *string `json:"protobufMessageName,omitempty" tf:"protobuf_message_name,omitempty"`
+}
+
+type ValueTransformerAvroOptionsSchemaRegistryParameters struct {
+
+	// +kubebuilder:validation:Optional
+	ConfluentOptions []ValueTransformerAvroOptionsSchemaRegistryConfluentOptionsParameters `json:"confluentOptions,omitempty" tf:"confluent_options,omitempty"`
+
+	// Immutable. The Unity Catalog connection this ingestion pipeline uses to communicate with the source. Specify either ingestion_gateway_id or connection_name.
+	// +kubebuilder:validation:Optional
+	ConnectionName *string `json:"connectionName,omitempty" tf:"connection_name,omitempty"`
+
+	// A user-friendly name for this pipeline. The name can be used to identify pipeline jobs in the UI.
+	// +kubebuilder:validation:Optional
+	ProtobufMessageName *string `json:"protobufMessageName,omitempty" tf:"protobuf_message_name,omitempty"`
+}
+
+type ValueTransformerInitParameters struct {
+	AvroOptions []ValueTransformerAvroOptionsInitParameters `json:"avroOptions,omitempty" tf:"avro_options,omitempty"`
+
+	Format *string `json:"format,omitempty" tf:"format,omitempty"`
+
+	InputColumn *string `json:"inputColumn,omitempty" tf:"input_column,omitempty"`
+
 	JSONOptions []ValueTransformerJSONOptionsInitParameters `json:"jsonOptions,omitempty" tf:"json_options,omitempty"`
+
+	OutputColumn *string `json:"outputColumn,omitempty" tf:"output_column,omitempty"`
+
+	ProtobufOptions []ValueTransformerProtobufOptionsInitParameters `json:"protobufOptions,omitempty" tf:"protobuf_options,omitempty"`
 }
 
 type ValueTransformerJSONOptionsInitParameters struct {
@@ -4963,18 +6408,131 @@ type ValueTransformerJSONOptionsParameters struct {
 }
 
 type ValueTransformerObservation struct {
+	AvroOptions []ValueTransformerAvroOptionsObservation `json:"avroOptions,omitempty" tf:"avro_options,omitempty"`
+
 	Format *string `json:"format,omitempty" tf:"format,omitempty"`
 
+	InputColumn *string `json:"inputColumn,omitempty" tf:"input_column,omitempty"`
+
 	JSONOptions []ValueTransformerJSONOptionsObservation `json:"jsonOptions,omitempty" tf:"json_options,omitempty"`
+
+	OutputColumn *string `json:"outputColumn,omitempty" tf:"output_column,omitempty"`
+
+	ProtobufOptions []ValueTransformerProtobufOptionsObservation `json:"protobufOptions,omitempty" tf:"protobuf_options,omitempty"`
 }
 
 type ValueTransformerParameters struct {
 
 	// +kubebuilder:validation:Optional
+	AvroOptions []ValueTransformerAvroOptionsParameters `json:"avroOptions,omitempty" tf:"avro_options,omitempty"`
+
+	// +kubebuilder:validation:Optional
 	Format *string `json:"format,omitempty" tf:"format,omitempty"`
 
 	// +kubebuilder:validation:Optional
+	InputColumn *string `json:"inputColumn,omitempty" tf:"input_column,omitempty"`
+
+	// +kubebuilder:validation:Optional
 	JSONOptions []ValueTransformerJSONOptionsParameters `json:"jsonOptions,omitempty" tf:"json_options,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	OutputColumn *string `json:"outputColumn,omitempty" tf:"output_column,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	ProtobufOptions []ValueTransformerProtobufOptionsParameters `json:"protobufOptions,omitempty" tf:"protobuf_options,omitempty"`
+}
+
+type ValueTransformerProtobufOptionsInitParameters struct {
+	DescFilePath *string `json:"descFilePath,omitempty" tf:"desc_file_path,omitempty"`
+
+	// A user-friendly name for this pipeline. The name can be used to identify pipeline jobs in the UI.
+	MessageName *string `json:"messageName,omitempty" tf:"message_name,omitempty"`
+
+	ParseMode *string `json:"parseMode,omitempty" tf:"parse_mode,omitempty"`
+
+	RecursiveFieldsMaxDepth *float64 `json:"recursiveFieldsMaxDepth,omitempty" tf:"recursive_fields_max_depth,omitempty"`
+
+	SchemaRegistry []ValueTransformerProtobufOptionsSchemaRegistryInitParameters `json:"schemaRegistry,omitempty" tf:"schema_registry,omitempty"`
+}
+
+type ValueTransformerProtobufOptionsObservation struct {
+	DescFilePath *string `json:"descFilePath,omitempty" tf:"desc_file_path,omitempty"`
+
+	// A user-friendly name for this pipeline. The name can be used to identify pipeline jobs in the UI.
+	MessageName *string `json:"messageName,omitempty" tf:"message_name,omitempty"`
+
+	ParseMode *string `json:"parseMode,omitempty" tf:"parse_mode,omitempty"`
+
+	RecursiveFieldsMaxDepth *float64 `json:"recursiveFieldsMaxDepth,omitempty" tf:"recursive_fields_max_depth,omitempty"`
+
+	SchemaRegistry []ValueTransformerProtobufOptionsSchemaRegistryObservation `json:"schemaRegistry,omitempty" tf:"schema_registry,omitempty"`
+}
+
+type ValueTransformerProtobufOptionsParameters struct {
+
+	// +kubebuilder:validation:Optional
+	DescFilePath *string `json:"descFilePath,omitempty" tf:"desc_file_path,omitempty"`
+
+	// A user-friendly name for this pipeline. The name can be used to identify pipeline jobs in the UI.
+	// +kubebuilder:validation:Optional
+	MessageName *string `json:"messageName,omitempty" tf:"message_name,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	ParseMode *string `json:"parseMode,omitempty" tf:"parse_mode,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	RecursiveFieldsMaxDepth *float64 `json:"recursiveFieldsMaxDepth,omitempty" tf:"recursive_fields_max_depth,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	SchemaRegistry []ValueTransformerProtobufOptionsSchemaRegistryParameters `json:"schemaRegistry,omitempty" tf:"schema_registry,omitempty"`
+}
+
+type ValueTransformerProtobufOptionsSchemaRegistryConfluentOptionsInitParameters struct {
+	Subject *string `json:"subject,omitempty" tf:"subject,omitempty"`
+}
+
+type ValueTransformerProtobufOptionsSchemaRegistryConfluentOptionsObservation struct {
+	Subject *string `json:"subject,omitempty" tf:"subject,omitempty"`
+}
+
+type ValueTransformerProtobufOptionsSchemaRegistryConfluentOptionsParameters struct {
+
+	// +kubebuilder:validation:Optional
+	Subject *string `json:"subject,omitempty" tf:"subject,omitempty"`
+}
+
+type ValueTransformerProtobufOptionsSchemaRegistryInitParameters struct {
+	ConfluentOptions []ProtobufOptionsSchemaRegistryConfluentOptionsInitParameters `json:"confluentOptions,omitempty" tf:"confluent_options,omitempty"`
+
+	// Immutable. The Unity Catalog connection this ingestion pipeline uses to communicate with the source. Specify either ingestion_gateway_id or connection_name.
+	ConnectionName *string `json:"connectionName,omitempty" tf:"connection_name,omitempty"`
+
+	// A user-friendly name for this pipeline. The name can be used to identify pipeline jobs in the UI.
+	ProtobufMessageName *string `json:"protobufMessageName,omitempty" tf:"protobuf_message_name,omitempty"`
+}
+
+type ValueTransformerProtobufOptionsSchemaRegistryObservation struct {
+	ConfluentOptions []ProtobufOptionsSchemaRegistryConfluentOptionsObservation `json:"confluentOptions,omitempty" tf:"confluent_options,omitempty"`
+
+	// Immutable. The Unity Catalog connection this ingestion pipeline uses to communicate with the source. Specify either ingestion_gateway_id or connection_name.
+	ConnectionName *string `json:"connectionName,omitempty" tf:"connection_name,omitempty"`
+
+	// A user-friendly name for this pipeline. The name can be used to identify pipeline jobs in the UI.
+	ProtobufMessageName *string `json:"protobufMessageName,omitempty" tf:"protobuf_message_name,omitempty"`
+}
+
+type ValueTransformerProtobufOptionsSchemaRegistryParameters struct {
+
+	// +kubebuilder:validation:Optional
+	ConfluentOptions []ProtobufOptionsSchemaRegistryConfluentOptionsParameters `json:"confluentOptions,omitempty" tf:"confluent_options,omitempty"`
+
+	// Immutable. The Unity Catalog connection this ingestion pipeline uses to communicate with the source. Specify either ingestion_gateway_id or connection_name.
+	// +kubebuilder:validation:Optional
+	ConnectionName *string `json:"connectionName,omitempty" tf:"connection_name,omitempty"`
+
+	// A user-friendly name for this pipeline. The name can be used to identify pipeline jobs in the UI.
+	// +kubebuilder:validation:Optional
+	ProtobufMessageName *string `json:"protobufMessageName,omitempty" tf:"protobuf_message_name,omitempty"`
 }
 
 type WorkdayReportParametersInitParameters struct {

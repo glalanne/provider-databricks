@@ -109,6 +109,28 @@ spec:
                           ID of an existing pipeline to bin-pack this synced table into.
                           At most one of existing_pipeline_id and new_pipeline_spec should be defined.
                         type: string
+                      extraColumns:
+                        description: Extra PostgreSQL-only columns to add to the synced
+                          table
+                        items:
+                          properties:
+                            columnName:
+                              description: Name of the column
+                              type: string
+                            columnType:
+                              description: PostgreSQL type of the column, for example
+                                "tsvector" or "vector(1024)"
+                              type: string
+                            compute:
+                              description: |-
+                                SQL expression used to compute the column's value, for example
+                                "to_tsvector('english', content)"
+                              type: string
+                            maintenance:
+                              description: 'Possible values are: STORED_GENERATED'
+                              type: string
+                          type: object
+                        type: array
                       newPipelineSpec:
                         description: |-
                           Specification for creating a new pipeline.
@@ -117,6 +139,12 @@ spec:
                           budgetPolicyId:
                             description: Budget policy to set on the newly created
                               pipeline
+                            type: string
+                          pipelineChannel:
+                            description: |-
+                              Release channel of the underlying pipeline's runtime.
+                              Some source table configurations (e.g., read-time CDF) require PREVIEW.
+                              Defaults to CURRENT if not specified. Possible values are: CURRENT, PREVIEW
                             type: string
                           storageCatalog:
                             description: |-
@@ -158,17 +186,17 @@ spec:
                         items:
                           properties:
                             columnName:
-                              description: Name of the source column whose target
-                                PostgreSQL type should be overridden
+                              description: Name of the column
                               type: string
                             pgType:
                               description: 'PostgreSQL-specific target type to use
-                                for the column. Possible values are: PG_SPECIFIC_TYPE_VECTOR'
+                                for the column. Possible values are: PG_SPECIFIC_TYPE_HALFVEC,
+                                PG_SPECIFIC_TYPE_VARCHAR, PG_SPECIFIC_TYPE_VECTOR'
                               type: string
                             size:
                               description: |-
-                                Size parameter for the target type. Required when pg_type is PG_SPECIFIC_TYPE_VECTOR
-                                or PG_SPECIFIC_TYPE_HALFVEC (specifies the vector dimension, e.g., 1024)
+                                Size parameter for the target type, for types that take one (e.g. vector
+                                dimension, varchar length). Required when the chosen pg_type needs a size
                               type: number
                           type: object
                         type: array
@@ -226,6 +254,28 @@ spec:
                           ID of an existing pipeline to bin-pack this synced table into.
                           At most one of existing_pipeline_id and new_pipeline_spec should be defined.
                         type: string
+                      extraColumns:
+                        description: Extra PostgreSQL-only columns to add to the synced
+                          table
+                        items:
+                          properties:
+                            columnName:
+                              description: Name of the column
+                              type: string
+                            columnType:
+                              description: PostgreSQL type of the column, for example
+                                "tsvector" or "vector(1024)"
+                              type: string
+                            compute:
+                              description: |-
+                                SQL expression used to compute the column's value, for example
+                                "to_tsvector('english', content)"
+                              type: string
+                            maintenance:
+                              description: 'Possible values are: STORED_GENERATED'
+                              type: string
+                          type: object
+                        type: array
                       newPipelineSpec:
                         description: |-
                           Specification for creating a new pipeline.
@@ -234,6 +284,12 @@ spec:
                           budgetPolicyId:
                             description: Budget policy to set on the newly created
                               pipeline
+                            type: string
+                          pipelineChannel:
+                            description: |-
+                              Release channel of the underlying pipeline's runtime.
+                              Some source table configurations (e.g., read-time CDF) require PREVIEW.
+                              Defaults to CURRENT if not specified. Possible values are: CURRENT, PREVIEW
                             type: string
                           storageCatalog:
                             description: |-
@@ -275,17 +331,17 @@ spec:
                         items:
                           properties:
                             columnName:
-                              description: Name of the source column whose target
-                                PostgreSQL type should be overridden
+                              description: Name of the column
                               type: string
                             pgType:
                               description: 'PostgreSQL-specific target type to use
-                                for the column. Possible values are: PG_SPECIFIC_TYPE_VECTOR'
+                                for the column. Possible values are: PG_SPECIFIC_TYPE_HALFVEC,
+                                PG_SPECIFIC_TYPE_VARCHAR, PG_SPECIFIC_TYPE_VECTOR'
                               type: string
                             size:
                               description: |-
-                                Size parameter for the target type. Required when pg_type is PG_SPECIFIC_TYPE_VECTOR
-                                or PG_SPECIFIC_TYPE_HALFVEC (specifies the vector dimension, e.g., 1024)
+                                Size parameter for the target type, for types that take one (e.g. vector
+                                dimension, varchar length). Required when the chosen pg_type needs a size
                               type: number
                           type: object
                         type: array
@@ -436,6 +492,28 @@ spec:
                           ID of an existing pipeline to bin-pack this synced table into.
                           At most one of existing_pipeline_id and new_pipeline_spec should be defined.
                         type: string
+                      extraColumns:
+                        description: Extra PostgreSQL-only columns to add to the synced
+                          table
+                        items:
+                          properties:
+                            columnName:
+                              description: Name of the column
+                              type: string
+                            columnType:
+                              description: PostgreSQL type of the column, for example
+                                "tsvector" or "vector(1024)"
+                              type: string
+                            compute:
+                              description: |-
+                                SQL expression used to compute the column's value, for example
+                                "to_tsvector('english', content)"
+                              type: string
+                            maintenance:
+                              description: 'Possible values are: STORED_GENERATED'
+                              type: string
+                          type: object
+                        type: array
                       newPipelineSpec:
                         description: |-
                           Specification for creating a new pipeline.
@@ -444,6 +522,12 @@ spec:
                           budgetPolicyId:
                             description: Budget policy to set on the newly created
                               pipeline
+                            type: string
+                          pipelineChannel:
+                            description: |-
+                              Release channel of the underlying pipeline's runtime.
+                              Some source table configurations (e.g., read-time CDF) require PREVIEW.
+                              Defaults to CURRENT if not specified. Possible values are: CURRENT, PREVIEW
                             type: string
                           storageCatalog:
                             description: |-
@@ -485,17 +569,17 @@ spec:
                         items:
                           properties:
                             columnName:
-                              description: Name of the source column whose target
-                                PostgreSQL type should be overridden
+                              description: Name of the column
                               type: string
                             pgType:
                               description: 'PostgreSQL-specific target type to use
-                                for the column. Possible values are: PG_SPECIFIC_TYPE_VECTOR'
+                                for the column. Possible values are: PG_SPECIFIC_TYPE_HALFVEC,
+                                PG_SPECIFIC_TYPE_VARCHAR, PG_SPECIFIC_TYPE_VECTOR'
                               type: string
                             size:
                               description: |-
-                                Size parameter for the target type. Required when pg_type is PG_SPECIFIC_TYPE_VECTOR
-                                or PG_SPECIFIC_TYPE_HALFVEC (specifies the vector dimension, e.g., 1024)
+                                Size parameter for the target type, for types that take one (e.g. vector
+                                dimension, varchar length). Required when the chosen pg_type needs a size
                               type: number
                           type: object
                         type: array
