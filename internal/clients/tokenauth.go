@@ -12,6 +12,7 @@ import (
 	"time"
 
 	"github.com/pkg/errors"
+	"golang.org/x/sync/singleflight"
 	authenticationv1 "k8s.io/api/authentication/v1"
 	corev1 "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
@@ -49,12 +50,14 @@ const (
 	// evictionInterval bounds how often the cache looks for entries to drop.
 	evictionInterval = 10 * time.Minute
 
-	// exchangeTimeout bounds a token exchange that the authority accepts but
-	// never answers. The reconcile's deadline (three minutes for this
-	// provider's controllers) also applies; this is shorter, because a stuck
-	// exchange holds its identity's cache lock.
+	// exchangeTimeout bounds obtaining an access token: the service account
+	// token request and the exchange, including an exchange the authority
+	// accepts but never answers. Concurrent callers for an identity share one
+	// attempt that no single caller's deadline cancels, so this is its only
+	// bound.
 	exchangeTimeout = 30 * time.Second
 
+	errTokenPanic      = "obtaining an access token panicked: %v"
 	errRequestSAToken  = "cannot request a token for service account %s/%s"
 	errEmptySAToken    = "token request for service account %s/%s returned an empty token"
 	errExchangeRequest = "cannot build the token exchange request"
@@ -135,9 +138,11 @@ func (s *ServiceAccountTokenSource) Token(ctx context.Context) (string, error) {
 	return tr.Status.Token, nil
 }
 
-// CacheKey identifies the service account and the audiences requested.
+// CacheKey identifies the service account and the audiences requested. Each
+// field is quoted, so different sources never share a key, whatever their
+// fields contain.
 func (s *ServiceAccountTokenSource) CacheKey() string {
-	return fmt.Sprintf("serviceaccount:%s/%s|%s", s.Namespace, s.Name, strings.Join(s.Audiences, ","))
+	return fmt.Sprintf("serviceaccount:%q/%q|%q", s.Namespace, s.Name, s.Audiences)
 }
 
 // AzureADExchanger exchanges a federated JWT for an Entra ID access token
@@ -220,8 +225,9 @@ func (e *AzureADExchanger) Audience() string {
 }
 
 // CacheKey identifies the Entra identity and scope the token is issued for.
+// Each field is quoted, so different identities never share a key.
 func (e *AzureADExchanger) CacheKey() string {
-	return fmt.Sprintf("azuread:%s|%s|%s|%s", e.authorityHost(), e.TenantID, e.ClientID, e.scope())
+	return fmt.Sprintf("azuread:%q|%q|%q|%q", e.authorityHost(), e.TenantID, e.ClientID, e.scope())
 }
 
 func (e *AzureADExchanger) tokenEndpoint() string {
@@ -285,82 +291,110 @@ func parseExpiresIn(raw json.RawMessage) (int64, error) {
 // a new Terraform setup on every connect).
 type TokenCache struct {
 	mu        sync.Mutex
-	entries   map[string]*cacheEntry
+	entries   map[string]*AccessToken
 	lastEvict time.Time
+	// inflight lets concurrent requests for the same identity share a single
+	// exchange, while a slow exchange for one identity doesn't block the
+	// others.
+	inflight singleflight.Group
 	// Now returns the current time. Defaults to time.Now.
 	Now func() time.Time
 }
 
-// cacheEntry has its own lock, so a slow exchange for one identity doesn't
-// block the others, while concurrent requests for the same identity wait for
-// a single exchange.
-type cacheEntry struct {
-	mu    sync.Mutex
-	token *AccessToken
-}
-
 // NewTokenCache returns an empty cache.
 func NewTokenCache() *TokenCache {
-	return &TokenCache{entries: map[string]*cacheEntry{}}
+	return &TokenCache{entries: map[string]*AccessToken{}}
 }
 
 // Get returns a cached access token for the source/exchanger pair, or obtains
 // a new one when none is cached or the cached one needs refreshing (see
-// AccessToken.needsRefresh). Failures are not cached.
+// AccessToken.needsRefresh). Concurrent callers for the same pair share one
+// attempt, and each stops waiting when its own ctx is done. Failures are not
+// cached.
 func (c *TokenCache) Get(ctx context.Context, src TokenSource, ex Exchanger) (*AccessToken, error) {
-	key := src.CacheKey() + "->" + ex.CacheKey()
+	key := cacheKey(src, ex)
+	if t := c.cached(key); t != nil {
+		return t, nil
+	}
+	ch := c.inflight.DoChan(key, func() (any, error) {
+		return c.refresh(ctx, key, src, ex)
+	})
+	select {
+	case r := <-ch:
+		if r.Err != nil {
+			return nil, r.Err
+		}
+		return r.Val.(*AccessToken), nil
+	case <-ctx.Done():
+		return nil, ctx.Err()
+	}
+}
+
+// cacheKey combines the source's and the exchanger's keys. Quoting each keeps
+// the combination unambiguous, whatever they contain.
+func cacheKey(src TokenSource, ex Exchanger) string {
+	return fmt.Sprintf("%q->%q", src.CacheKey(), ex.CacheKey())
+}
+
+// cached returns the token cached for key if it doesn't need refreshing yet.
+func (c *TokenCache) cached(key string) *AccessToken {
 	now := c.now()
-
 	c.mu.Lock()
+	defer c.mu.Unlock()
 	c.evictLocked(now)
-	e, ok := c.entries[key]
-	if !ok {
-		e = &cacheEntry{}
-		c.entries[key] = e
+	if t := c.entries[key]; t != nil && !t.needsRefresh(now) {
+		return t
 	}
-	c.mu.Unlock()
+	return nil
+}
 
-	e.mu.Lock()
-	defer e.mu.Unlock()
-	if e.token != nil && !e.token.needsRefresh(now) {
-		return e.token, nil
+// refresh obtains a new access token for key and caches it. It runs once for
+// all of key's concurrent callers, so it has its own deadline rather than the
+// context of whichever caller started it.
+func (c *TokenCache) refresh(ctx context.Context, key string, src TokenSource, ex Exchanger) (t *AccessToken, err error) {
+	// singleflight runs this in its own goroutine and re-panics there, where
+	// nothing can recover it, so a panic would otherwise crash the provider.
+	defer func() {
+		if r := recover(); r != nil {
+			t, err = nil, errors.Errorf(errTokenPanic, r)
+		}
+	}()
+	// Another refresh may have finished between the caller's lookup and this
+	// one starting.
+	if fresh := c.cached(key); fresh != nil {
+		return fresh, nil
 	}
 
+	ctx, cancel := context.WithTimeout(context.WithoutCancel(ctx), exchangeTimeout)
+	defer cancel()
 	jwt, err := src.Token(ctx)
 	if err != nil {
 		return nil, err
 	}
-	t, err := ex.Exchange(ctx, jwt)
+	t, err = ex.Exchange(ctx, jwt)
 	if err != nil {
 		return nil, err
 	}
-	e.token = t
+	c.mu.Lock()
+	c.entries[key] = t
+	c.mu.Unlock()
 	return t, nil
 }
 
-// evictLocked drops entries that would be refreshed on their next use anyway
-// (or never obtained a token) and that no caller holds, so identities that are
-// no longer configured, or old cache keys after a ProviderConfig change, don't
-// accumulate. With maxTokenReuse, an unused entry lives at most about an hour
-// plus evictionInterval. Runs with c.mu held, at most once per
-// evictionInterval.
-//
-// A caller that looked up an entry but hasn't locked it yet may still use it
-// after it is dropped; it then caches into the dropped entry, and the next
-// caller exchanges again. That costs one extra exchange, never a wrong token.
+// evictLocked drops entries that would be refreshed on their next use anyway,
+// so identities that are no longer configured, or old cache keys after a
+// ProviderConfig change, don't accumulate. With maxTokenReuse, an unused entry
+// lives at most about an hour plus evictionInterval. Runs with c.mu held, at
+// most once per evictionInterval.
 func (c *TokenCache) evictLocked(now time.Time) {
 	if now.Sub(c.lastEvict) < evictionInterval {
 		return
 	}
 	c.lastEvict = now
-	for k, e := range c.entries {
-		if !e.mu.TryLock() {
-			continue
-		}
-		if e.token == nil || e.token.needsRefresh(now) {
+	for k, t := range c.entries {
+		if t.needsRefresh(now) {
 			delete(c.entries, k)
 		}
-		e.mu.Unlock()
 	}
 }
 

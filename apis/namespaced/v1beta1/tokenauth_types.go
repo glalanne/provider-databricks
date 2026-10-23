@@ -58,6 +58,24 @@ type TokenExchange struct {
 	AzureAD *AzureADTokenExchange `json:"azureAD,omitempty"`
 }
 
+// AzureAuthorityHost is an Entra ID authority host the AzureAD exchange may
+// send the service account's token to.
+// +kubebuilder:validation:Enum="https://login.microsoftonline.com/";"https://login.microsoftonline.us/";"https://login.chinacloudapi.cn/";"https://login.partner.microsoftonline.cn/"
+type AzureAuthorityHost string
+
+const (
+	// AzureAuthorityHostPublic is the Entra ID authority for the Azure public
+	// cloud, and the default.
+	AzureAuthorityHostPublic AzureAuthorityHost = "https://login.microsoftonline.com/"
+	// AzureAuthorityHostUSGovernment is the Entra ID authority for Azure
+	// Government.
+	AzureAuthorityHostUSGovernment AzureAuthorityHost = "https://login.microsoftonline.us/"
+	// AzureAuthorityHostChina is the Entra ID authority for Azure China.
+	AzureAuthorityHostChina AzureAuthorityHost = "https://login.chinacloudapi.cn/"
+	// AzureAuthorityHostChinaPartner is Azure China's newer Entra ID authority.
+	AzureAuthorityHostChinaPartner AzureAuthorityHost = "https://login.partner.microsoftonline.cn/"
+)
+
 // AzureADTokenExchange holds settings specific to the AzureAD exchange.
 type AzureADTokenExchange struct {
 	// ClientID of the managed identity (or app registration) whose federated
@@ -71,8 +89,9 @@ type AzureADTokenExchange struct {
 	// +optional
 	TenantID *string `json:"tenantID,omitempty"`
 
-	// AuthorityHost of the Entra ID token endpoint. Defaults to
-	// https://login.microsoftonline.com/.
+	// AuthorityHost of the Entra ID token endpoint: one of the Entra ID
+	// authorities for the Azure public, Government or China clouds, with a
+	// trailing slash. Defaults to https://login.microsoftonline.com/.
 	// +optional
-	AuthorityHost *string `json:"authorityHost,omitempty"`
+	AuthorityHost *AzureAuthorityHost `json:"authorityHost,omitempty"`
 }

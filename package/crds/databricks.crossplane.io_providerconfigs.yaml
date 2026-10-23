@@ -151,8 +151,14 @@ spec:
                         properties:
                           authorityHost:
                             description: |-
-                              AuthorityHost of the Entra ID token endpoint. Defaults to
-                              https://login.microsoftonline.com/.
+                              AuthorityHost of the Entra ID token endpoint: one of the Entra ID
+                              authorities for the Azure public, Government or China clouds, with a
+                              trailing slash. Defaults to https://login.microsoftonline.com/.
+                            enum:
+                            - https://login.microsoftonline.com/
+                            - https://login.microsoftonline.us/
+                            - https://login.chinacloudapi.cn/
+                            - https://login.partner.microsoftonline.cn/
                             type: string
                           clientID:
                             description: |-

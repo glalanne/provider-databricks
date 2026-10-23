@@ -100,6 +100,11 @@ func TestEnvtestCELRules(t *testing.T) {
 		}
 		return &clusterv1beta1.ProviderConfig{ObjectMeta: metav1.ObjectMeta{Name: name}, Spec: spec}
 	}
+	withAuthority := func(host namespacedv1beta1.AzureAuthorityHost) func(*namespacedv1beta1.ProviderConfigSpec) {
+		return func(s *namespacedv1beta1.ProviderConfigSpec) {
+			s.Credentials.TokenExchange = &namespacedv1beta1.TokenExchange{AzureAD: &namespacedv1beta1.AzureADTokenExchange{AuthorityHost: &host}}
+		}
+	}
 
 	cases := map[string]struct {
 		obj     client.Object
@@ -111,10 +116,22 @@ func TestEnvtestCELRules(t *testing.T) {
 			s.Credentials.TokenExchange = &namespacedv1beta1.TokenExchange{Type: &typ, AzureAD: &namespacedv1beta1.AzureADTokenExchange{
 				ClientID:      ref(testClientID),
 				TenantID:      ref(testTenantID),
-				AuthorityHost: ref("https://login.microsoftonline.com/"),
+				AuthorityHost: ref(namespacedv1beta1.AzureAuthorityHostPublic),
 			}}
 			s.Credentials.ServiceAccountRef.Audiences = []string{"databricks://dp-a/ok-full"}
 		})},
+		"namespaced: US Government authority host": {obj: nsPC("authority-us", withAuthority(namespacedv1beta1.AzureAuthorityHostUSGovernment))},
+		"namespaced: China authority host":         {obj: nsPC("authority-cn", withAuthority(namespacedv1beta1.AzureAuthorityHostChina))},
+		"namespaced: China partner authority host": {obj: nsPC("authority-cn-partner", withAuthority(namespacedv1beta1.AzureAuthorityHostChinaPartner))},
+		"namespaced: authority host over plain HTTP": {
+			obj: nsPC("authority-http", withAuthority("http://login.microsoftonline.com/")), wantErr: "authorityHost: Unsupported value",
+		},
+		"namespaced: authority host that isn't an Entra authority": {
+			obj: nsPC("authority-other", withAuthority("https://login.example/")), wantErr: "authorityHost: Unsupported value",
+		},
+		"namespaced: authority host without the trailing slash": {
+			obj: nsPC("authority-no-slash", withAuthority("https://login.microsoftonline.com")), wantErr: "authorityHost: Unsupported value",
+		},
 		"namespaced: valid account-level": {obj: nsPC("ok-account", func(s *namespacedv1beta1.ProviderConfigSpec) {
 			s.Host = ref("https://accounts.azuredatabricks.net")
 			s.AccountID = ref("00000000-0000-0000-0000-000000000001")
@@ -150,6 +167,13 @@ func TestEnvtestCELRules(t *testing.T) {
 			ObjectMeta: metav1.ObjectMeta{Name: "cluster-no-ref"},
 			Spec:       nsPC("unused", func(s *namespacedv1beta1.ProviderConfigSpec) { s.Credentials.ServiceAccountRef = nil }).Spec,
 		}, wantErr: "serviceAccountRef with a namespace is required"},
+		"cluster-scoped: authority host that isn't an Entra authority": {obj: &namespacedv1beta1.ClusterProviderConfig{
+			ObjectMeta: metav1.ObjectMeta{Name: "cluster-authority-other"},
+			Spec: nsPC("unused", func(s *namespacedv1beta1.ProviderConfigSpec) {
+				s.Credentials.ServiceAccountRef.Namespace = ref("dp-a")
+				withAuthority("https://login.example/")(s)
+			}).Spec,
+		}, wantErr: "authorityHost: Unsupported value"},
 		"cluster-scoped: existing Secret config unaffected": {obj: &namespacedv1beta1.ClusterProviderConfig{
 			ObjectMeta: metav1.ObjectMeta{Name: "cluster-secret"},
 			Spec: namespacedv1beta1.ProviderConfigSpec{Credentials: namespacedv1beta1.ProviderCredentials{
@@ -162,6 +186,11 @@ func TestEnvtestCELRules(t *testing.T) {
 		"legacy: valid":             {obj: legacyPC("legacy-ok", nil)},
 		"legacy: missing namespace": {obj: legacyPC("legacy-no-ns", func(s *clusterv1beta1.ProviderConfigSpec) { s.Credentials.ServiceAccountRef.Namespace = nil }), wantErr: "serviceAccountRef with a namespace is required"},
 		"legacy: missing host":      {obj: legacyPC("legacy-no-host", func(s *clusterv1beta1.ProviderConfigSpec) { s.Host = nil }), wantErr: "host is required"},
+		"legacy: authority host that isn't an Entra authority": {obj: legacyPC("legacy-authority-other", func(s *clusterv1beta1.ProviderConfigSpec) {
+			s.Credentials.TokenExchange = &clusterv1beta1.TokenExchange{AzureAD: &clusterv1beta1.AzureADTokenExchange{
+				AuthorityHost: ref(clusterv1beta1.AzureAuthorityHost("https://login.example/")),
+			}}
+		}), wantErr: "authorityHost: Unsupported value"},
 	}
 	for name, tc := range cases {
 		t.Run(name, func(t *testing.T) {

@@ -27,7 +27,7 @@ func TestLegacyToModernProviderConfigSpecCarriesTokenAuthFields(t *testing.T) {
 				AzureAD: &clusterv1beta1.AzureADTokenExchange{
 					ClientID:      ref("11111111-1111-1111-1111-111111111111"),
 					TenantID:      ref("22222222-2222-2222-2222-222222222222"),
-					AuthorityHost: ref("https://login.example/"),
+					AuthorityHost: ref(clusterv1beta1.AzureAuthorityHostUSGovernment),
 				},
 			},
 		},
@@ -54,7 +54,7 @@ func TestLegacyToModernProviderConfigSpecCarriesTokenAuthFields(t *testing.T) {
 				AzureAD: &namespacedv1beta1.AzureADTokenExchange{
 					ClientID:      ref("11111111-1111-1111-1111-111111111111"),
 					TenantID:      ref("22222222-2222-2222-2222-222222222222"),
-					AuthorityHost: ref("https://login.example/"),
+					AuthorityHost: ref(namespacedv1beta1.AzureAuthorityHostUSGovernment),
 				},
 			},
 		},
