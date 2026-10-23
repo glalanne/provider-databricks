@@ -5,9 +5,9 @@ import (
 	"net/http"
 	"net/http/httptest"
 	"strings"
-	"sync"
 	"sync/atomic"
 	"testing"
+	"testing/synctest"
 	"time"
 
 	"github.com/google/go-cmp/cmp"
@@ -239,32 +239,26 @@ func (e *countingExchanger) Exchange(_ context.Context, jwt string) (*AccessToke
 func (e *countingExchanger) Audience() string { return "test-audience" }
 func (e *countingExchanger) CacheKey() string { return e.key }
 
-// blockingExchanger holds every exchange until release is closed. entered is
-// closed when the first exchange starts.
+// blockingExchanger holds every exchange until release is closed or the
+// exchange's context ends. Create it inside the synctest bubble that uses it,
+// so that an exchange waiting on release counts as durably blocked.
 type blockingExchanger struct {
-	now         func() time.Time
-	entered     chan struct{}
-	enterOnce   sync.Once
-	release     chan struct{}
-	calls       atomic.Int32
-	hadDeadline atomic.Bool
+	release chan struct{}
+	calls   atomic.Int32
 }
 
-func newBlockingExchanger(now func() time.Time) *blockingExchanger {
-	return &blockingExchanger{now: now, entered: make(chan struct{}), release: make(chan struct{})}
+func newBlockingExchanger() *blockingExchanger {
+	return &blockingExchanger{release: make(chan struct{})}
 }
 
 func (e *blockingExchanger) Exchange(ctx context.Context, jwt string) (*AccessToken, error) {
 	e.calls.Add(1)
-	_, ok := ctx.Deadline()
-	e.hadDeadline.Store(ok)
-	e.enterOnce.Do(func() { close(e.entered) })
 	select {
 	case <-e.release:
 	case <-ctx.Done():
 		return nil, ctx.Err()
 	}
-	now := e.now()
+	now := time.Now()
 	return &AccessToken{Value: "access-for-" + jwt, IssuedAt: now, ExpiresAt: now.Add(time.Hour)}, nil
 }
 func (e *blockingExchanger) Audience() string { return "test-audience" }
@@ -407,87 +401,6 @@ func TestTokenCache(t *testing.T) {
 		}
 	})
 
-	t.Run("concurrent callers share one exchange", func(t *testing.T) {
-		c := NewTokenCache()
-		c.Now = clock
-		src := &countingSource{key: "sa"}
-		ex := newBlockingExchanger(clock)
-
-		const callers = 5
-		var wg sync.WaitGroup
-		tokens := make(chan *AccessToken, callers)
-		for range callers {
-			wg.Go(func() {
-				got, err := c.Get(context.Background(), src, ex)
-				if err != nil {
-					t.Error(err)
-					return
-				}
-				tokens <- got
-			})
-		}
-		<-ex.entered
-		close(ex.release)
-		wg.Wait()
-		close(tokens)
-
-		for got := range tokens {
-			if got.Value != "access-for-jwt-sa" {
-				t.Errorf("Get() = %q, want access-for-jwt-sa", got.Value)
-			}
-		}
-		if ex.calls.Load() != 1 {
-			t.Errorf("exchanger calls = %d, want 1 shared by %d callers", ex.calls.Load(), callers)
-		}
-	})
-
-	t.Run("a caller that gives up doesn't cancel the exchange for the others", func(t *testing.T) {
-		c := NewTokenCache()
-		c.Now = clock
-		src := &countingSource{key: "sa"}
-		ex := newBlockingExchanger(clock)
-
-		ctx, cancel := context.WithCancel(context.Background())
-		gaveUp := make(chan error, 1)
-		go func() {
-			_, err := c.Get(ctx, src, ex)
-			gaveUp <- err
-		}()
-		<-ex.entered
-		cancel()
-		if err := <-gaveUp; !errors.Is(err, context.Canceled) {
-			t.Fatalf("Get() error = %v, want context.Canceled while the exchange is still running", err)
-		}
-
-		waited := make(chan *AccessToken, 1)
-		go func() {
-			got, err := c.Get(context.Background(), src, ex)
-			if err != nil {
-				t.Error(err)
-			}
-			waited <- got
-		}()
-		close(ex.release)
-		if got := <-waited; got == nil || got.Value != "access-for-jwt-sa" {
-			t.Fatalf("Get() = %v, want the token from the exchange the first caller started", got)
-		}
-		if ex.calls.Load() != 1 {
-			t.Errorf("exchanger calls = %d, want 1 (cancelling the first caller restarted the exchange)", ex.calls.Load())
-		}
-		if !ex.hadDeadline.Load() {
-			t.Error("the exchange ran without a deadline of its own")
-		}
-	})
-
-	t.Run("a panic while obtaining a token is returned as an error", func(t *testing.T) {
-		c := NewTokenCache()
-		c.Now = clock
-		_, err := c.Get(context.Background(), &countingSource{key: "sa"}, panickingExchanger{})
-		if err == nil || !strings.Contains(err.Error(), "exchanger bug") {
-			t.Fatalf("Get() error = %v, want the panic as an error", err)
-		}
-	})
-
 	t.Run("refuses the cached token when the hourly re-exchange fails", func(t *testing.T) {
 		c := NewTokenCache()
 		c.Now = clock
@@ -535,5 +448,126 @@ func TestTokenCache(t *testing.T) {
 		if ex.calls.Load() != 2 {
 			t.Errorf("exchanger calls = %d, want 2 (failures retried)", ex.calls.Load())
 		}
+	})
+
+	t.Run("a refresh that finds a fresh token reuses it", func(t *testing.T) {
+		// Get looks for a cached token before it starts a refresh, so another
+		// refresh can cache one in between; refresh must hand that one out
+		// instead of exchanging again.
+		c := NewTokenCache()
+		c.Now = clock
+		src := &countingSource{key: "sa"}
+		ex := &countingExchanger{key: "id", lifetime: time.Hour, now: clock}
+		cached, err := c.Get(context.Background(), src, ex)
+		if err != nil {
+			t.Fatal(err)
+		}
+		got, err := c.refresh(context.Background(), cacheKey(src, ex), src, ex)
+		if err != nil || got != cached {
+			t.Fatalf("refresh() = %v, %v; want the cached token", got, err)
+		}
+		if src.calls.Load() != 1 || ex.calls.Load() != 1 {
+			t.Errorf("calls: source %d, exchanger %d; want 1 each", src.calls.Load(), ex.calls.Load())
+		}
+	})
+}
+
+// TestTokenCacheConcurrency runs in synctest bubbles: a goroutine left blocked
+// fails the test as a deadlock instead of hanging it, a goroutine left running
+// fails it as a leak, and time is fake, so timeouts take no real time.
+func TestTokenCacheConcurrency(t *testing.T) {
+	t.Run("concurrent callers share one exchange", func(t *testing.T) {
+		synctest.Test(t, func(t *testing.T) {
+			c := NewTokenCache()
+			src := &countingSource{key: "sa"}
+			ex := newBlockingExchanger()
+
+			const callers = 5
+			tokens := make(chan *AccessToken, callers)
+			for range callers {
+				go func() {
+					got, err := c.Get(t.Context(), src, ex)
+					if err != nil {
+						t.Error(err)
+					}
+					tokens <- got
+				}()
+			}
+			synctest.Wait()
+			if got := ex.calls.Load(); got != 1 {
+				t.Errorf("exchanges started = %d with %d callers waiting, want 1", got, callers)
+			}
+
+			close(ex.release)
+			for range callers {
+				if got := <-tokens; got == nil || got.Value != "access-for-jwt-sa" {
+					t.Errorf("Get() = %v, want access-for-jwt-sa", got)
+				}
+			}
+		})
+	})
+
+	t.Run("a caller that gives up doesn't cancel the exchange for the others", func(t *testing.T) {
+		synctest.Test(t, func(t *testing.T) {
+			c := NewTokenCache()
+			src := &countingSource{key: "sa"}
+			ex := newBlockingExchanger()
+
+			ctx, cancel := context.WithCancel(t.Context())
+			gaveUp := make(chan error, 1)
+			go func() {
+				_, err := c.Get(ctx, src, ex)
+				gaveUp <- err
+			}()
+			synctest.Wait()
+			cancel()
+			if err := <-gaveUp; !errors.Is(err, context.Canceled) {
+				t.Errorf("Get() error = %v, want context.Canceled while the exchange is still running", err)
+			}
+
+			waited := make(chan *AccessToken, 1)
+			go func() {
+				got, err := c.Get(t.Context(), src, ex)
+				if err != nil {
+					t.Error(err)
+				}
+				waited <- got
+			}()
+			synctest.Wait()
+			if got := ex.calls.Load(); got != 1 {
+				t.Errorf("exchanges started = %d, want 1 (the second caller joins the first caller's exchange)", got)
+			}
+
+			close(ex.release)
+			if got := <-waited; got == nil || got.Value != "access-for-jwt-sa" {
+				t.Errorf("Get() = %v, want the token from the exchange the first caller started", got)
+			}
+		})
+	})
+
+	t.Run("an exchange that never answers is cut off at exchangeTimeout", func(t *testing.T) {
+		synctest.Test(t, func(t *testing.T) {
+			c := NewTokenCache()
+			ex := newBlockingExchanger() // never released
+
+			start := time.Now()
+			_, err := c.Get(t.Context(), &countingSource{key: "sa"}, ex)
+			if !errors.Is(err, context.DeadlineExceeded) {
+				t.Errorf("Get() error = %v, want context.DeadlineExceeded", err)
+			}
+			if waited := time.Since(start); waited != exchangeTimeout {
+				t.Errorf("Get() gave up after %s, want exchangeTimeout (%s)", waited, exchangeTimeout)
+			}
+		})
+	})
+
+	t.Run("a panic while obtaining a token is returned as an error", func(t *testing.T) {
+		synctest.Test(t, func(t *testing.T) {
+			c := NewTokenCache()
+			_, err := c.Get(t.Context(), &countingSource{key: "sa"}, panickingExchanger{})
+			if err == nil || !strings.Contains(err.Error(), "exchanger bug") {
+				t.Errorf("Get() error = %v, want the panic as an error", err)
+			}
+		})
 	})
 }
