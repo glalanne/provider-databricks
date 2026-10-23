@@ -9,7 +9,7 @@
 package v1alpha1
 
 import (
-	v2 "github.com/crossplane/crossplane/apis/v2/core/v2"
+	"github.com/crossplane/crossplane/apis/v2/core/v2"
 	runtime "k8s.io/apimachinery/pkg/runtime"
 )
 
@@ -2484,6 +2484,11 @@ func (in *RepoInitParameters) DeepCopyInto(out *RepoInitParameters) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.GitCredentialID != nil {
+		in, out := &in.GitCredentialID, &out.GitCredentialID
+		*out = new(float64)
+		**out = **in
+	}
 	if in.GitProvider != nil {
 		in, out := &in.GitProvider, &out.GitProvider
 		*out = new(string)
@@ -2647,6 +2652,11 @@ func (in *RepoParameters) DeepCopyInto(out *RepoParameters) {
 	if in.CommitHash != nil {
 		in, out := &in.CommitHash, &out.CommitHash
 		*out = new(string)
+		**out = **in
+	}
+	if in.GitCredentialID != nil {
+		in, out := &in.GitCredentialID, &out.GitCredentialID
+		*out = new(float64)
 		**out = **in
 	}
 	if in.GitProvider != nil {

@@ -2479,12 +2479,14 @@ func (in *RepoInitParameters) DeepCopyInto(out *RepoInitParameters) {
 		*out = new(string)
 		**out = **in
 	}
-	if in.GitCredentialID != nil {
-		in, out := &in.GitCredentialID, &out.GitCredentialID
-		*out = new(float64)
 	if in.CommitHash != nil {
 		in, out := &in.CommitHash, &out.CommitHash
 		*out = new(string)
+		**out = **in
+	}
+	if in.GitCredentialID != nil {
+		in, out := &in.GitCredentialID, &out.GitCredentialID
+		*out = new(float64)
 		**out = **in
 	}
 	if in.GitProvider != nil {
@@ -2650,6 +2652,11 @@ func (in *RepoParameters) DeepCopyInto(out *RepoParameters) {
 	if in.CommitHash != nil {
 		in, out := &in.CommitHash, &out.CommitHash
 		*out = new(string)
+		**out = **in
+	}
+	if in.GitCredentialID != nil {
+		in, out := &in.GitCredentialID, &out.GitCredentialID
+		*out = new(float64)
 		**out = **in
 	}
 	if in.GitProvider != nil {
