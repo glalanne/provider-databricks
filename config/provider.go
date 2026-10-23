@@ -118,7 +118,7 @@ func GetProviderNamespacedV1Alpha1Legacy(_ context.Context, fwProvider fwprovide
 	return pc, nil
 }
 
-func getProviderWithMode(fwProvider fwprovider.Provider, sdkProvider *tfschema.Provider, generationProvider bool, rootGroup string, mode generationMode) (*config.Provider, error) {
+func ensureSDKLibrary(sdkProvider *tfschema.Provider) {
 	// Upstream defaults Library to Plugin Framework, but our generated
 	// controllers and existing APIs still require its SDKv2 implementation.
 	// HACK: Invistigate for later if we can remove this manual addition of the library resource.
@@ -132,6 +132,10 @@ func getProviderWithMode(fwProvider fwprovider.Provider, sdkProvider *tfschema.P
 		}
 		sdkProvider.ResourcesMap["databricks_library"] = resources["databricks_library"]
 	}
+}
+
+func getProviderWithMode(fwProvider fwprovider.Provider, sdkProvider *tfschema.Provider, generationProvider bool, rootGroup string, mode generationMode) (*config.Provider, error) {
+	ensureSDKLibrary(sdkProvider)
 
 	if generationProvider {
 		p, err := getProviderSchema(providerSchema)
