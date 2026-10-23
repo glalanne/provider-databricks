@@ -83,6 +83,17 @@ spec:
                   gcpEndpoint:
                     items:
                       properties:
+                        allVpcScServices:
+                          type: boolean
+                        googleApiEndpoints:
+                          items:
+                            properties:
+                              endpoints:
+                                items:
+                                  type: string
+                                type: array
+                            type: object
+                          type: array
                         serviceAttachment:
                           type: string
                       type: object
@@ -227,6 +238,17 @@ spec:
                   gcpEndpoint:
                     items:
                       properties:
+                        allVpcScServices:
+                          type: boolean
+                        googleApiEndpoints:
+                          items:
+                            properties:
+                              endpoints:
+                                items:
+                                  type: string
+                                type: array
+                            type: object
+                          type: array
                         serviceAttachment:
                           type: string
                       type: object
@@ -448,6 +470,17 @@ spec:
                   gcpEndpoint:
                     items:
                       properties:
+                        allVpcScServices:
+                          type: boolean
+                        googleApiEndpoints:
+                          items:
+                            properties:
+                              endpoints:
+                                items:
+                                  type: string
+                                type: array
+                            type: object
+                          type: array
                         pscEndpointUri:
                           type: string
                         serviceAttachment:
@@ -622,6 +655,15 @@ spec:
                     type: string
                   gcpEndpoint:
                     properties:
+                      allVpcScServices:
+                        type: boolean
+                      googleApiEndpoints:
+                        properties:
+                          endpoints:
+                            items:
+                              type: string
+                            type: array
+                        type: object
                       serviceAttachment:
                         type: string
                     type: object
@@ -764,6 +806,15 @@ spec:
                     type: string
                   gcpEndpoint:
                     properties:
+                      allVpcScServices:
+                        type: boolean
+                      googleApiEndpoints:
+                        properties:
+                          endpoints:
+                            items:
+                              type: string
+                            type: array
+                        type: object
                       serviceAttachment:
                         type: string
                     type: object
@@ -983,6 +1034,15 @@ spec:
                     type: string
                   gcpEndpoint:
                     properties:
+                      allVpcScServices:
+                        type: boolean
+                      googleApiEndpoints:
+                        properties:
+                          endpoints:
+                            items:
+                              type: string
+                            type: array
+                        type: object
                       pscEndpointUri:
                         type: string
                       serviceAttachment:

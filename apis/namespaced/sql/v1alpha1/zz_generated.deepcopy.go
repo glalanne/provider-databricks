@@ -5294,6 +5294,11 @@ func (in *SQLEndpointInitParameters) DeepCopyInto(out *SQLEndpointInitParameters
 		*out = new(string)
 		**out = **in
 	}
+	if in.CustomerVersionLabel != nil {
+		in, out := &in.CustomerVersionLabel, &out.CustomerVersionLabel
+		*out = new(string)
+		**out = **in
+	}
 	if in.DataSourceID != nil {
 		in, out := &in.DataSourceID, &out.DataSourceID
 		*out = new(string)
@@ -5312,6 +5317,11 @@ func (in *SQLEndpointInitParameters) DeepCopyInto(out *SQLEndpointInitParameters
 	if in.InstanceProfileArn != nil {
 		in, out := &in.InstanceProfileArn, &out.InstanceProfileArn
 		*out = new(string)
+		**out = **in
+	}
+	if in.MaxDbu != nil {
+		in, out := &in.MaxDbu, &out.MaxDbu
+		*out = new(float64)
 		**out = **in
 	}
 	if in.MaxNumClusters != nil {
@@ -5341,9 +5351,19 @@ func (in *SQLEndpointInitParameters) DeepCopyInto(out *SQLEndpointInitParameters
 			(*in)[i].DeepCopyInto(&(*out)[i])
 		}
 	}
+	if in.ReydenClusterSizeMultiplier != nil {
+		in, out := &in.ReydenClusterSizeMultiplier, &out.ReydenClusterSizeMultiplier
+		*out = new(float64)
+		**out = **in
+	}
 	if in.SpotInstancePolicy != nil {
 		in, out := &in.SpotInstancePolicy, &out.SpotInstancePolicy
 		*out = new(string)
+		**out = **in
+	}
+	if in.StatementTimeout != nil {
+		in, out := &in.StatementTimeout, &out.StatementTimeout
+		*out = new(float64)
 		**out = **in
 	}
 	if in.Tags != nil {
@@ -5427,6 +5447,11 @@ func (in *SQLEndpointObservation) DeepCopyInto(out *SQLEndpointObservation) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.CustomerVersionLabel != nil {
+		in, out := &in.CustomerVersionLabel, &out.CustomerVersionLabel
+		*out = new(string)
+		**out = **in
+	}
 	if in.DataSourceID != nil {
 		in, out := &in.DataSourceID, &out.DataSourceID
 		*out = new(string)
@@ -5462,6 +5487,11 @@ func (in *SQLEndpointObservation) DeepCopyInto(out *SQLEndpointObservation) {
 	if in.JdbcURL != nil {
 		in, out := &in.JdbcURL, &out.JdbcURL
 		*out = new(string)
+		**out = **in
+	}
+	if in.MaxDbu != nil {
+		in, out := &in.MaxDbu, &out.MaxDbu
+		*out = new(float64)
 		**out = **in
 	}
 	if in.MaxNumClusters != nil {
@@ -5508,6 +5538,11 @@ func (in *SQLEndpointObservation) DeepCopyInto(out *SQLEndpointObservation) {
 			(*in)[i].DeepCopyInto(&(*out)[i])
 		}
 	}
+	if in.ReydenClusterSizeMultiplier != nil {
+		in, out := &in.ReydenClusterSizeMultiplier, &out.ReydenClusterSizeMultiplier
+		*out = new(float64)
+		**out = **in
+	}
 	if in.SpotInstancePolicy != nil {
 		in, out := &in.SpotInstancePolicy, &out.SpotInstancePolicy
 		*out = new(string)
@@ -5516,6 +5551,11 @@ func (in *SQLEndpointObservation) DeepCopyInto(out *SQLEndpointObservation) {
 	if in.State != nil {
 		in, out := &in.State, &out.State
 		*out = new(string)
+		**out = **in
+	}
+	if in.StatementTimeout != nil {
+		in, out := &in.StatementTimeout, &out.StatementTimeout
+		*out = new(float64)
 		**out = **in
 	}
 	if in.Tags != nil {
@@ -5562,6 +5602,11 @@ func (in *SQLEndpointParameters) DeepCopyInto(out *SQLEndpointParameters) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.CustomerVersionLabel != nil {
+		in, out := &in.CustomerVersionLabel, &out.CustomerVersionLabel
+		*out = new(string)
+		**out = **in
+	}
 	if in.DataSourceID != nil {
 		in, out := &in.DataSourceID, &out.DataSourceID
 		*out = new(string)
@@ -5580,6 +5625,11 @@ func (in *SQLEndpointParameters) DeepCopyInto(out *SQLEndpointParameters) {
 	if in.InstanceProfileArn != nil {
 		in, out := &in.InstanceProfileArn, &out.InstanceProfileArn
 		*out = new(string)
+		**out = **in
+	}
+	if in.MaxDbu != nil {
+		in, out := &in.MaxDbu, &out.MaxDbu
+		*out = new(float64)
 		**out = **in
 	}
 	if in.MaxNumClusters != nil {
@@ -5609,9 +5659,19 @@ func (in *SQLEndpointParameters) DeepCopyInto(out *SQLEndpointParameters) {
 			(*in)[i].DeepCopyInto(&(*out)[i])
 		}
 	}
+	if in.ReydenClusterSizeMultiplier != nil {
+		in, out := &in.ReydenClusterSizeMultiplier, &out.ReydenClusterSizeMultiplier
+		*out = new(float64)
+		**out = **in
+	}
 	if in.SpotInstancePolicy != nil {
 		in, out := &in.SpotInstancePolicy, &out.SpotInstancePolicy
 		*out = new(string)
+		**out = **in
+	}
+	if in.StatementTimeout != nil {
+		in, out := &in.StatementTimeout, &out.StatementTimeout
+		*out = new(float64)
 		**out = **in
 	}
 	if in.Tags != nil {

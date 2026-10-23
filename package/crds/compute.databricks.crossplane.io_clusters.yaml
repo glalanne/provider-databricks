@@ -378,6 +378,8 @@ spec:
                       use NONE or legacy mode NO_ISOLATION.  If kind is specified,
                       then the following options are available:'
                     type: string
+                  dependencyMode:
+                    type: string
                   dockerImage:
                     items:
                       properties:
@@ -437,6 +439,9 @@ spec:
                           items:
                             type: string
                           type: array
+                        awsContextId:
+                          description: Canonical unique identifier for the cluster.
+                          type: string
                       type: object
                     type: array
                   driverNodeTypeId:
@@ -817,6 +822,9 @@ spec:
                           items:
                             type: string
                           type: array
+                        awsContextId:
+                          description: Canonical unique identifier for the cluster.
+                          type: string
                       type: object
                     type: array
                   workloadType:
@@ -1154,6 +1162,8 @@ spec:
                       use NONE or legacy mode NO_ISOLATION.  If kind is specified,
                       then the following options are available:'
                     type: string
+                  dependencyMode:
+                    type: string
                   dockerImage:
                     items:
                       properties:
@@ -1215,6 +1225,9 @@ spec:
                           items:
                             type: string
                           type: array
+                        awsContextId:
+                          description: Canonical unique identifier for the cluster.
+                          type: string
                       type: object
                     type: array
                   driverNodeTypeId:
@@ -1595,6 +1608,9 @@ spec:
                           items:
                             type: string
                           type: array
+                        awsContextId:
+                          description: Canonical unique identifier for the cluster.
+                          type: string
                       type: object
                     type: array
                   workloadType:
@@ -2028,6 +2044,8 @@ spec:
                       Name: , and any workspace and pool tags.'
                     type: object
                     x-kubernetes-map-type: granular
+                  dependencyMode:
+                    type: string
                   dockerImage:
                     items:
                       properties:
@@ -2069,6 +2087,9 @@ spec:
                           items:
                             type: string
                           type: array
+                        awsContextId:
+                          description: Canonical unique identifier for the cluster.
+                          type: string
                       type: object
                     type: array
                   driverNodeTypeId:
@@ -2458,6 +2479,9 @@ spec:
                           items:
                             type: string
                           type: array
+                        awsContextId:
+                          description: Canonical unique identifier for the cluster.
+                          type: string
                       type: object
                     type: array
                   workloadType:
@@ -2880,6 +2904,8 @@ spec:
                       use NONE or legacy mode NO_ISOLATION.  If kind is specified,
                       then the following options are available:'
                     type: string
+                  dependencyMode:
+                    type: string
                   dockerImage:
                     properties:
                       basicAuth:
@@ -2933,6 +2959,9 @@ spec:
                         items:
                           type: string
                         type: array
+                      awsContextId:
+                        description: Canonical unique identifier for the cluster.
+                        type: string
                     type: object
                   driverNodeTypeId:
                     description: The node type of the Spark driver. This field is
@@ -3285,6 +3314,9 @@ spec:
                         items:
                           type: string
                         type: array
+                      awsContextId:
+                        description: Canonical unique identifier for the cluster.
+                        type: string
                     type: object
                   workloadType:
                     properties:
@@ -3592,6 +3624,8 @@ spec:
                       use NONE or legacy mode NO_ISOLATION.  If kind is specified,
                       then the following options are available:'
                     type: string
+                  dependencyMode:
+                    type: string
                   dockerImage:
                     properties:
                       basicAuth:
@@ -3647,6 +3681,9 @@ spec:
                         items:
                           type: string
                         type: array
+                      awsContextId:
+                        description: Canonical unique identifier for the cluster.
+                        type: string
                     type: object
                   driverNodeTypeId:
                     description: The node type of the Spark driver. This field is
@@ -3999,6 +4036,9 @@ spec:
                         items:
                           type: string
                         type: array
+                      awsContextId:
+                        description: Canonical unique identifier for the cluster.
+                        type: string
                     type: object
                   workloadType:
                     properties:
@@ -4402,6 +4442,8 @@ spec:
                       Name: , and any workspace and pool tags.'
                     type: object
                     x-kubernetes-map-type: granular
+                  dependencyMode:
+                    type: string
                   dockerImage:
                     properties:
                       basicAuth:
@@ -4437,6 +4479,9 @@ spec:
                         items:
                           type: string
                         type: array
+                      awsContextId:
+                        description: Canonical unique identifier for the cluster.
+                        type: string
                     type: object
                   driverNodeTypeId:
                     description: The node type of the Spark driver. This field is
@@ -4798,6 +4843,9 @@ spec:
                         items:
                           type: string
                         type: array
+                      awsContextId:
+                        description: Canonical unique identifier for the cluster.
+                        type: string
                     type: object
                   workloadType:
                     properties:

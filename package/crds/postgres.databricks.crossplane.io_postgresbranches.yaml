@@ -181,7 +181,7 @@ spec:
                       expireTime:
                         description: |-
                           Absolute expiration timestamp. When set, the branch will expire at this time.
-                          Mutually exclusive with ttl and no_expiry. When updating, use spec.expiration in the update_mask
+                          Mutually exclusive with ttl and no_expiry
                         type: string
                       isProtected:
                         description: When set to true, protects the branch from deletion
@@ -192,7 +192,7 @@ spec:
                         description: |-
                           Explicitly disable expiration. When set to true, the branch will not expire.
                           If set to false, the request is invalid; provide either ttl or expire_time instead.
-                          Mutually exclusive with expire_time and ttl. When updating, use spec.expiration in the update_mask
+                          Mutually exclusive with expire_time and ttl
                         type: boolean
                       sourceBranch:
                         description: |-
@@ -208,10 +208,18 @@ spec:
                         description: The point in time on the source branch from which
                           this branch was created
                         type: string
+                      sourceSnapshot:
+                        description: |-
+                          The snapshot this branch was created from. When set, the branch's data
+                          comes from the snapshot rather than a source branch, so source_branch,
+                          source_branch_lsn, and source_branch_time must be empty. The snapshot must
+                          be AVAILABLE and belong to this branch's project.
+                          Format: projects/{project_id}/snapshots/{snapshot_id}
+                        type: string
                       ttl:
                         description: |-
                           Relative time-to-live duration. When set, the branch will expire at creation_time + ttl.
-                          Mutually exclusive with expire_time and no_expiry. When updating, use spec.expiration in the update_mask
+                          Mutually exclusive with expire_time and no_expiry
                         type: string
                     type: object
                 type: object
@@ -337,7 +345,7 @@ spec:
                       expireTime:
                         description: |-
                           Absolute expiration timestamp. When set, the branch will expire at this time.
-                          Mutually exclusive with ttl and no_expiry. When updating, use spec.expiration in the update_mask
+                          Mutually exclusive with ttl and no_expiry
                         type: string
                       isProtected:
                         description: When set to true, protects the branch from deletion
@@ -348,7 +356,7 @@ spec:
                         description: |-
                           Explicitly disable expiration. When set to true, the branch will not expire.
                           If set to false, the request is invalid; provide either ttl or expire_time instead.
-                          Mutually exclusive with expire_time and ttl. When updating, use spec.expiration in the update_mask
+                          Mutually exclusive with expire_time and ttl
                         type: boolean
                       sourceBranch:
                         description: |-
@@ -364,10 +372,18 @@ spec:
                         description: The point in time on the source branch from which
                           this branch was created
                         type: string
+                      sourceSnapshot:
+                        description: |-
+                          The snapshot this branch was created from. When set, the branch's data
+                          comes from the snapshot rather than a source branch, so source_branch,
+                          source_branch_lsn, and source_branch_time must be empty. The snapshot must
+                          be AVAILABLE and belong to this branch's project.
+                          Format: projects/{project_id}/snapshots/{snapshot_id}
+                        type: string
                       ttl:
                         description: |-
                           Relative time-to-live duration. When set, the branch will expire at creation_time + ttl.
-                          Mutually exclusive with expire_time and no_expiry. When updating, use spec.expiration in the update_mask
+                          Mutually exclusive with expire_time and no_expiry
                         type: string
                     type: object
                 type: object
@@ -510,7 +526,7 @@ spec:
                       expireTime:
                         description: |-
                           Absolute expiration timestamp. When set, the branch will expire at this time.
-                          Mutually exclusive with ttl and no_expiry. When updating, use spec.expiration in the update_mask
+                          Mutually exclusive with ttl and no_expiry
                         type: string
                       isProtected:
                         description: When set to true, protects the branch from deletion
@@ -521,7 +537,7 @@ spec:
                         description: |-
                           Explicitly disable expiration. When set to true, the branch will not expire.
                           If set to false, the request is invalid; provide either ttl or expire_time instead.
-                          Mutually exclusive with expire_time and ttl. When updating, use spec.expiration in the update_mask
+                          Mutually exclusive with expire_time and ttl
                         type: boolean
                       sourceBranch:
                         description: |-
@@ -537,10 +553,18 @@ spec:
                         description: The point in time on the source branch from which
                           this branch was created
                         type: string
+                      sourceSnapshot:
+                        description: |-
+                          The snapshot this branch was created from. When set, the branch's data
+                          comes from the snapshot rather than a source branch, so source_branch,
+                          source_branch_lsn, and source_branch_time must be empty. The snapshot must
+                          be AVAILABLE and belong to this branch's project.
+                          Format: projects/{project_id}/snapshots/{snapshot_id}
+                        type: string
                       ttl:
                         description: |-
                           Relative time-to-live duration. When set, the branch will expire at creation_time + ttl.
-                          Mutually exclusive with expire_time and no_expiry. When updating, use spec.expiration in the update_mask
+                          Mutually exclusive with expire_time and no_expiry
                         type: string
                     type: object
                   status:
@@ -566,7 +590,7 @@ spec:
                       expireTime:
                         description: |-
                           Absolute expiration timestamp. When set, the branch will expire at this time.
-                          Mutually exclusive with ttl and no_expiry. When updating, use spec.expiration in the update_mask
+                          Mutually exclusive with ttl and no_expiry
                         type: string
                       isProtected:
                         description: When set to true, protects the branch from deletion
@@ -599,6 +623,14 @@ spec:
                       sourceBranchTime:
                         description: The point in time on the source branch from which
                           this branch was created
+                        type: string
+                      sourceSnapshot:
+                        description: |-
+                          The snapshot this branch was created from. When set, the branch's data
+                          comes from the snapshot rather than a source branch, so source_branch,
+                          source_branch_lsn, and source_branch_time must be empty. The snapshot must
+                          be AVAILABLE and belong to this branch's project.
+                          Format: projects/{project_id}/snapshots/{snapshot_id}
                         type: string
                       stateChangeTime:
                         description: A timestamp indicating when the current_state

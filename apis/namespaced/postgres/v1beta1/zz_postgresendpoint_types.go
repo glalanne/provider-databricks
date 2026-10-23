@@ -233,7 +233,7 @@ type PostgresEndpointSpecInitParameters struct {
 
 	// When set to true, explicitly disables automatic suspension (never suspend).
 	// Should be set to true when provided.
-	// Mutually exclusive with suspend_timeout_duration. When updating, use spec.suspension in the update_mask
+	// Mutually exclusive with suspend_timeout_duration
 	NoSuspension *bool `json:"noSuspension,omitempty" tf:"no_suspension,omitempty"`
 
 	// (EndpointSettings, optional)
@@ -241,7 +241,7 @@ type PostgresEndpointSpecInitParameters struct {
 
 	// Duration of inactivity after which the compute endpoint is automatically suspended.
 	// If specified should be between 60s and 604800s (1 minute to 1 week).
-	// Mutually exclusive with no_suspension. When updating, use spec.suspension in the update_mask
+	// Mutually exclusive with no_suspension
 	SuspendTimeoutDuration *string `json:"suspendTimeoutDuration,omitempty" tf:"suspend_timeout_duration,omitempty"`
 }
 
@@ -270,7 +270,7 @@ type PostgresEndpointSpecObservation struct {
 
 	// When set to true, explicitly disables automatic suspension (never suspend).
 	// Should be set to true when provided.
-	// Mutually exclusive with suspend_timeout_duration. When updating, use spec.suspension in the update_mask
+	// Mutually exclusive with suspend_timeout_duration
 	NoSuspension *bool `json:"noSuspension,omitempty" tf:"no_suspension,omitempty"`
 
 	// (EndpointSettings, optional)
@@ -278,7 +278,7 @@ type PostgresEndpointSpecObservation struct {
 
 	// Duration of inactivity after which the compute endpoint is automatically suspended.
 	// If specified should be between 60s and 604800s (1 minute to 1 week).
-	// Mutually exclusive with no_suspension. When updating, use spec.suspension in the update_mask
+	// Mutually exclusive with no_suspension
 	SuspendTimeoutDuration *string `json:"suspendTimeoutDuration,omitempty" tf:"suspend_timeout_duration,omitempty"`
 }
 
@@ -312,7 +312,7 @@ type PostgresEndpointSpecParameters struct {
 
 	// When set to true, explicitly disables automatic suspension (never suspend).
 	// Should be set to true when provided.
-	// Mutually exclusive with suspend_timeout_duration. When updating, use spec.suspension in the update_mask
+	// Mutually exclusive with suspend_timeout_duration
 	// +kubebuilder:validation:Optional
 	NoSuspension *bool `json:"noSuspension,omitempty" tf:"no_suspension,omitempty"`
 
@@ -322,7 +322,7 @@ type PostgresEndpointSpecParameters struct {
 
 	// Duration of inactivity after which the compute endpoint is automatically suspended.
 	// If specified should be between 60s and 604800s (1 minute to 1 week).
-	// Mutually exclusive with no_suspension. When updating, use spec.suspension in the update_mask
+	// Mutually exclusive with no_suspension
 	// +kubebuilder:validation:Optional
 	SuspendTimeoutDuration *string `json:"suspendTimeoutDuration,omitempty" tf:"suspend_timeout_duration,omitempty"`
 }
@@ -373,7 +373,7 @@ type PostgresEndpointStatusObservation struct {
 
 	// Duration of inactivity after which the compute endpoint is automatically suspended.
 	// If specified should be between 60s and 604800s (1 minute to 1 week).
-	// Mutually exclusive with no_suspension. When updating, use spec.suspension in the update_mask
+	// Mutually exclusive with no_suspension
 	SuspendTimeoutDuration *string `json:"suspendTimeoutDuration,omitempty" tf:"suspend_timeout_duration,omitempty"`
 }
 

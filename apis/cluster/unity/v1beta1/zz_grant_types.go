@@ -65,9 +65,15 @@ type GrantInitParameters struct {
 
 	Function *string `json:"function,omitempty" tf:"function,omitempty"`
 
+	McpService *string `json:"mcpService,omitempty" tf:"mcp_service,omitempty"`
+
 	Metastore *string `json:"metastore,omitempty" tf:"metastore,omitempty"`
 
 	Model *string `json:"model,omitempty" tf:"model,omitempty"`
+
+	ModelProviderService *string `json:"modelProviderService,omitempty" tf:"model_provider_service,omitempty"`
+
+	ModelService *string `json:"modelService,omitempty" tf:"model_service,omitempty"`
 
 	Pipeline *string `json:"pipeline,omitempty" tf:"pipeline,omitempty"`
 
@@ -104,6 +110,8 @@ type GrantInitParameters struct {
 	// Selector for a Schema in unity to populate schema.
 	// +kubebuilder:validation:Optional
 	SchemaSelector *v2.Selector `json:"schemaSelector,omitempty" tf:"-"`
+
+	Secret *string `json:"secret,omitempty" tf:"secret,omitempty"`
 
 	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/cluster/sharing/v1beta1.Share
 	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/v2/pkg/resource.ExtractParamPath("name",false)
@@ -157,9 +165,15 @@ type GrantObservation struct {
 
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
+	McpService *string `json:"mcpService,omitempty" tf:"mcp_service,omitempty"`
+
 	Metastore *string `json:"metastore,omitempty" tf:"metastore,omitempty"`
 
 	Model *string `json:"model,omitempty" tf:"model,omitempty"`
+
+	ModelProviderService *string `json:"modelProviderService,omitempty" tf:"model_provider_service,omitempty"`
+
+	ModelService *string `json:"modelService,omitempty" tf:"model_service,omitempty"`
 
 	Pipeline *string `json:"pipeline,omitempty" tf:"pipeline,omitempty"`
 
@@ -176,6 +190,8 @@ type GrantObservation struct {
 	Recipient *string `json:"recipient,omitempty" tf:"recipient,omitempty"`
 
 	Schema *string `json:"schema,omitempty" tf:"schema,omitempty"`
+
+	Secret *string `json:"secret,omitempty" tf:"secret,omitempty"`
 
 	Share *string `json:"share,omitempty" tf:"share,omitempty"`
 
@@ -244,10 +260,19 @@ type GrantParameters struct {
 	Function *string `json:"function,omitempty" tf:"function,omitempty"`
 
 	// +kubebuilder:validation:Optional
+	McpService *string `json:"mcpService,omitempty" tf:"mcp_service,omitempty"`
+
+	// +kubebuilder:validation:Optional
 	Metastore *string `json:"metastore,omitempty" tf:"metastore,omitempty"`
 
 	// +kubebuilder:validation:Optional
 	Model *string `json:"model,omitempty" tf:"model,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	ModelProviderService *string `json:"modelProviderService,omitempty" tf:"model_provider_service,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	ModelService *string `json:"modelService,omitempty" tf:"model_service,omitempty"`
 
 	// +kubebuilder:validation:Optional
 	Pipeline *string `json:"pipeline,omitempty" tf:"pipeline,omitempty"`
@@ -290,6 +315,9 @@ type GrantParameters struct {
 	// Selector for a Schema in unity to populate schema.
 	// +kubebuilder:validation:Optional
 	SchemaSelector *v2.Selector `json:"schemaSelector,omitempty" tf:"-"`
+
+	// +kubebuilder:validation:Optional
+	Secret *string `json:"secret,omitempty" tf:"secret,omitempty"`
 
 	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/cluster/sharing/v1beta1.Share
 	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/v2/pkg/resource.ExtractParamPath("name",false)

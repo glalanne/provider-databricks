@@ -107,12 +107,62 @@ spec:
                             constant:
                               description: A constant literal
                               type: string
+                            functionArgExpression:
+                              description: |-
+                                An expression evaluated at query time. Wraps per-request expression variants
+                                (e.g., tag introspection) so new variants can be added without extending the
+                                FunctionArgument oneof
+                              properties:
+                                tagIntrospection:
+                                  description: An expression that introspects tags
+                                    at query time
+                                  properties:
+                                    columnTagValue:
+                                      description: Extracts the value of a column-level
+                                        tag
+                                      properties:
+                                        columnAlias:
+                                          description: The alias from MATCH COLUMNS
+                                            that identifies the column
+                                          type: string
+                                        tagKey:
+                                          description: 1024 matches the max_length
+                                            on FunctionArgument.constant above
+                                          type: string
+                                      type: object
+                                    tagValue:
+                                      description: The governed tag value, when the
+                                        policy references a specific value
+                                      properties:
+                                        tagKey:
+                                          description: 1024 matches the max_length
+                                            on FunctionArgument.constant above
+                                          type: string
+                                      type: object
+                                  type: object
+                              type: object
                           type: object
                         type: array
                     type: object
                   comment:
                     description: Optional description of the policy
                     type: string
+                  deny:
+                    description: |-
+                      Options for deny policies. Valid only if policy_type is POLICY_TYPE_DENY.
+                      Required on create and optional on update. When specified on update,
+                      the new options will replace the existing options as a whole
+                    properties:
+                      privileges:
+                        description: |-
+                          List of privileges to deny.
+                          When any of these privileges are requested, the policy will deny access
+                          if the principal and condition match.
+                          Required on create and update
+                        items:
+                          type: string
+                        type: array
+                    type: object
                   exceptPrincipals:
                     description: Optional list of user or group names that should
                       be excluded from the policy
@@ -122,9 +172,24 @@ spec:
                   forSecurableType:
                     description: |-
                       Type of securables that the policy should take effect on.
-                      Only TABLE is supported at this moment.
-                      Required on create and optional on update. Possible values are: CATALOG, CLEAN_ROOM, CONNECTION, CREDENTIAL, EXTERNAL_LOCATION, EXTERNAL_METADATA, FUNCTION, METASTORE, PIPELINE, PROVIDER, RECIPIENT, SCHEMA, SHARE, STAGING_TABLE, STORAGE_CREDENTIAL, TABLE, VOLUME
+                      Required on create and optional on update. Possible values are: AGENT_SERVICE, CATALOG, CLEAN_ROOM, CONNECTION, CREDENTIAL, EXTERNAL_LOCATION, EXTERNAL_METADATA, FUNCTION, MCP_SERVICE, METASTORE, MODEL, MODEL_PROVIDER_SERVICE, MODEL_SERVICE, PIPELINE, PROVIDER, RECIPIENT, SCHEMA, SHARE, SKILL, STAGING_TABLE, STORAGE_CREDENTIAL, TABLE, VOLUME
                     type: string
+                  grant:
+                    description: |-
+                      Options for grant policies. Valid only if policy_type is POLICY_TYPE_GRANT.
+                      Required on create and optional on update. When specified on update,
+                      the new options will replace the existing options as a whole
+                    properties:
+                      privileges:
+                        description: |-
+                          List of privileges to deny.
+                          When any of these privileges are requested, the policy will deny access
+                          if the principal and condition match.
+                          Required on create and update
+                        items:
+                          type: string
+                        type: array
+                    type: object
                   matchColumns:
                     description: |-
                       Optional list of condition expressions used to match table columns.
@@ -155,11 +220,12 @@ spec:
                     description: |-
                       Type of the securable on which the policy is defined.
                       Only CATALOG, SCHEMA and TABLE are supported at this moment.
-                      Required on create. Possible values are: CATALOG, CLEAN_ROOM, CONNECTION, CREDENTIAL, EXTERNAL_LOCATION, EXTERNAL_METADATA, FUNCTION, METASTORE, PIPELINE, PROVIDER, RECIPIENT, SCHEMA, SHARE, STAGING_TABLE, STORAGE_CREDENTIAL, TABLE, VOLUME
+                      Required on create. Possible values are: AGENT_SERVICE, CATALOG, CLEAN_ROOM, CONNECTION, CREDENTIAL, EXTERNAL_LOCATION, EXTERNAL_METADATA, FUNCTION, MCP_SERVICE, METASTORE, MODEL, MODEL_PROVIDER_SERVICE, MODEL_SERVICE, PIPELINE, PROVIDER, RECIPIENT, SCHEMA, SHARE, SKILL, STAGING_TABLE, STORAGE_CREDENTIAL, TABLE, VOLUME
                     type: string
                   policyType:
                     description: 'Type of the policy. Required on create. Possible
-                      values are: POLICY_TYPE_COLUMN_MASK, POLICY_TYPE_ROW_FILTER'
+                      values are: POLICY_TYPE_COLUMN_MASK, POLICY_TYPE_DENY, POLICY_TYPE_GRANT,
+                      POLICY_TYPE_ROW_FILTER'
                     type: string
                   providerConfig:
                     description: Configure the provider for management through account
@@ -196,6 +262,40 @@ spec:
                             constant:
                               description: A constant literal
                               type: string
+                            functionArgExpression:
+                              description: |-
+                                An expression evaluated at query time. Wraps per-request expression variants
+                                (e.g., tag introspection) so new variants can be added without extending the
+                                FunctionArgument oneof
+                              properties:
+                                tagIntrospection:
+                                  description: An expression that introspects tags
+                                    at query time
+                                  properties:
+                                    columnTagValue:
+                                      description: Extracts the value of a column-level
+                                        tag
+                                      properties:
+                                        columnAlias:
+                                          description: The alias from MATCH COLUMNS
+                                            that identifies the column
+                                          type: string
+                                        tagKey:
+                                          description: 1024 matches the max_length
+                                            on FunctionArgument.constant above
+                                          type: string
+                                      type: object
+                                    tagValue:
+                                      description: The governed tag value, when the
+                                        policy references a specific value
+                                      properties:
+                                        tagKey:
+                                          description: 1024 matches the max_length
+                                            on FunctionArgument.constant above
+                                          type: string
+                                      type: object
+                                  type: object
+                              type: object
                           type: object
                         type: array
                     type: object
@@ -254,12 +354,62 @@ spec:
                             constant:
                               description: A constant literal
                               type: string
+                            functionArgExpression:
+                              description: |-
+                                An expression evaluated at query time. Wraps per-request expression variants
+                                (e.g., tag introspection) so new variants can be added without extending the
+                                FunctionArgument oneof
+                              properties:
+                                tagIntrospection:
+                                  description: An expression that introspects tags
+                                    at query time
+                                  properties:
+                                    columnTagValue:
+                                      description: Extracts the value of a column-level
+                                        tag
+                                      properties:
+                                        columnAlias:
+                                          description: The alias from MATCH COLUMNS
+                                            that identifies the column
+                                          type: string
+                                        tagKey:
+                                          description: 1024 matches the max_length
+                                            on FunctionArgument.constant above
+                                          type: string
+                                      type: object
+                                    tagValue:
+                                      description: The governed tag value, when the
+                                        policy references a specific value
+                                      properties:
+                                        tagKey:
+                                          description: 1024 matches the max_length
+                                            on FunctionArgument.constant above
+                                          type: string
+                                      type: object
+                                  type: object
+                              type: object
                           type: object
                         type: array
                     type: object
                   comment:
                     description: Optional description of the policy
                     type: string
+                  deny:
+                    description: |-
+                      Options for deny policies. Valid only if policy_type is POLICY_TYPE_DENY.
+                      Required on create and optional on update. When specified on update,
+                      the new options will replace the existing options as a whole
+                    properties:
+                      privileges:
+                        description: |-
+                          List of privileges to deny.
+                          When any of these privileges are requested, the policy will deny access
+                          if the principal and condition match.
+                          Required on create and update
+                        items:
+                          type: string
+                        type: array
+                    type: object
                   exceptPrincipals:
                     description: Optional list of user or group names that should
                       be excluded from the policy
@@ -269,9 +419,24 @@ spec:
                   forSecurableType:
                     description: |-
                       Type of securables that the policy should take effect on.
-                      Only TABLE is supported at this moment.
-                      Required on create and optional on update. Possible values are: CATALOG, CLEAN_ROOM, CONNECTION, CREDENTIAL, EXTERNAL_LOCATION, EXTERNAL_METADATA, FUNCTION, METASTORE, PIPELINE, PROVIDER, RECIPIENT, SCHEMA, SHARE, STAGING_TABLE, STORAGE_CREDENTIAL, TABLE, VOLUME
+                      Required on create and optional on update. Possible values are: AGENT_SERVICE, CATALOG, CLEAN_ROOM, CONNECTION, CREDENTIAL, EXTERNAL_LOCATION, EXTERNAL_METADATA, FUNCTION, MCP_SERVICE, METASTORE, MODEL, MODEL_PROVIDER_SERVICE, MODEL_SERVICE, PIPELINE, PROVIDER, RECIPIENT, SCHEMA, SHARE, SKILL, STAGING_TABLE, STORAGE_CREDENTIAL, TABLE, VOLUME
                     type: string
+                  grant:
+                    description: |-
+                      Options for grant policies. Valid only if policy_type is POLICY_TYPE_GRANT.
+                      Required on create and optional on update. When specified on update,
+                      the new options will replace the existing options as a whole
+                    properties:
+                      privileges:
+                        description: |-
+                          List of privileges to deny.
+                          When any of these privileges are requested, the policy will deny access
+                          if the principal and condition match.
+                          Required on create and update
+                        items:
+                          type: string
+                        type: array
+                    type: object
                   matchColumns:
                     description: |-
                       Optional list of condition expressions used to match table columns.
@@ -302,11 +467,12 @@ spec:
                     description: |-
                       Type of the securable on which the policy is defined.
                       Only CATALOG, SCHEMA and TABLE are supported at this moment.
-                      Required on create. Possible values are: CATALOG, CLEAN_ROOM, CONNECTION, CREDENTIAL, EXTERNAL_LOCATION, EXTERNAL_METADATA, FUNCTION, METASTORE, PIPELINE, PROVIDER, RECIPIENT, SCHEMA, SHARE, STAGING_TABLE, STORAGE_CREDENTIAL, TABLE, VOLUME
+                      Required on create. Possible values are: AGENT_SERVICE, CATALOG, CLEAN_ROOM, CONNECTION, CREDENTIAL, EXTERNAL_LOCATION, EXTERNAL_METADATA, FUNCTION, MCP_SERVICE, METASTORE, MODEL, MODEL_PROVIDER_SERVICE, MODEL_SERVICE, PIPELINE, PROVIDER, RECIPIENT, SCHEMA, SHARE, SKILL, STAGING_TABLE, STORAGE_CREDENTIAL, TABLE, VOLUME
                     type: string
                   policyType:
                     description: 'Type of the policy. Required on create. Possible
-                      values are: POLICY_TYPE_COLUMN_MASK, POLICY_TYPE_ROW_FILTER'
+                      values are: POLICY_TYPE_COLUMN_MASK, POLICY_TYPE_DENY, POLICY_TYPE_GRANT,
+                      POLICY_TYPE_ROW_FILTER'
                     type: string
                   providerConfig:
                     description: Configure the provider for management through account
@@ -343,6 +509,40 @@ spec:
                             constant:
                               description: A constant literal
                               type: string
+                            functionArgExpression:
+                              description: |-
+                                An expression evaluated at query time. Wraps per-request expression variants
+                                (e.g., tag introspection) so new variants can be added without extending the
+                                FunctionArgument oneof
+                              properties:
+                                tagIntrospection:
+                                  description: An expression that introspects tags
+                                    at query time
+                                  properties:
+                                    columnTagValue:
+                                      description: Extracts the value of a column-level
+                                        tag
+                                      properties:
+                                        columnAlias:
+                                          description: The alias from MATCH COLUMNS
+                                            that identifies the column
+                                          type: string
+                                        tagKey:
+                                          description: 1024 matches the max_length
+                                            on FunctionArgument.constant above
+                                          type: string
+                                      type: object
+                                    tagValue:
+                                      description: The governed tag value, when the
+                                        policy references a specific value
+                                      properties:
+                                        tagKey:
+                                          description: 1024 matches the max_length
+                                            on FunctionArgument.constant above
+                                          type: string
+                                      type: object
+                                  type: object
+                              type: object
                           type: object
                         type: array
                     type: object
@@ -492,6 +692,40 @@ spec:
                             constant:
                               description: A constant literal
                               type: string
+                            functionArgExpression:
+                              description: |-
+                                An expression evaluated at query time. Wraps per-request expression variants
+                                (e.g., tag introspection) so new variants can be added without extending the
+                                FunctionArgument oneof
+                              properties:
+                                tagIntrospection:
+                                  description: An expression that introspects tags
+                                    at query time
+                                  properties:
+                                    columnTagValue:
+                                      description: Extracts the value of a column-level
+                                        tag
+                                      properties:
+                                        columnAlias:
+                                          description: The alias from MATCH COLUMNS
+                                            that identifies the column
+                                          type: string
+                                        tagKey:
+                                          description: 1024 matches the max_length
+                                            on FunctionArgument.constant above
+                                          type: string
+                                      type: object
+                                    tagValue:
+                                      description: The governed tag value, when the
+                                        policy references a specific value
+                                      properties:
+                                        tagKey:
+                                          description: 1024 matches the max_length
+                                            on FunctionArgument.constant above
+                                          type: string
+                                      type: object
+                                  type: object
+                              type: object
                           type: object
                         type: array
                     type: object
@@ -506,6 +740,22 @@ spec:
                     description: Username of the user who created the policy. Output
                       only
                     type: string
+                  deny:
+                    description: |-
+                      Options for deny policies. Valid only if policy_type is POLICY_TYPE_DENY.
+                      Required on create and optional on update. When specified on update,
+                      the new options will replace the existing options as a whole
+                    properties:
+                      privileges:
+                        description: |-
+                          List of privileges to deny.
+                          When any of these privileges are requested, the policy will deny access
+                          if the principal and condition match.
+                          Required on create and update
+                        items:
+                          type: string
+                        type: array
+                    type: object
                   exceptPrincipals:
                     description: Optional list of user or group names that should
                       be excluded from the policy
@@ -515,9 +765,39 @@ spec:
                   forSecurableType:
                     description: |-
                       Type of securables that the policy should take effect on.
-                      Only TABLE is supported at this moment.
-                      Required on create and optional on update. Possible values are: CATALOG, CLEAN_ROOM, CONNECTION, CREDENTIAL, EXTERNAL_LOCATION, EXTERNAL_METADATA, FUNCTION, METASTORE, PIPELINE, PROVIDER, RECIPIENT, SCHEMA, SHARE, STAGING_TABLE, STORAGE_CREDENTIAL, TABLE, VOLUME
+                      Required on create and optional on update. Possible values are: AGENT_SERVICE, CATALOG, CLEAN_ROOM, CONNECTION, CREDENTIAL, EXTERNAL_LOCATION, EXTERNAL_METADATA, FUNCTION, MCP_SERVICE, METASTORE, MODEL, MODEL_PROVIDER_SERVICE, MODEL_SERVICE, PIPELINE, PROVIDER, RECIPIENT, SCHEMA, SHARE, SKILL, STAGING_TABLE, STORAGE_CREDENTIAL, TABLE, VOLUME
                     type: string
+                  governedTags:
+                    description: Governed tag keys and values referenced by this policy's
+                      conditions and function arguments. Output only
+                    items:
+                      properties:
+                        tagKey:
+                          description: 1024 matches the max_length on FunctionArgument.constant
+                            above
+                          type: string
+                        tagValue:
+                          description: The governed tag value, when the policy references
+                            a specific value
+                          type: string
+                      type: object
+                    type: array
+                  grant:
+                    description: |-
+                      Options for grant policies. Valid only if policy_type is POLICY_TYPE_GRANT.
+                      Required on create and optional on update. When specified on update,
+                      the new options will replace the existing options as a whole
+                    properties:
+                      privileges:
+                        description: |-
+                          List of privileges to deny.
+                          When any of these privileges are requested, the policy will deny access
+                          if the principal and condition match.
+                          Required on create and update
+                        items:
+                          type: string
+                        type: array
+                    type: object
                   id:
                     description: Unique identifier of the policy. This field is output
                       only and is generated by the system
@@ -552,11 +832,12 @@ spec:
                     description: |-
                       Type of the securable on which the policy is defined.
                       Only CATALOG, SCHEMA and TABLE are supported at this moment.
-                      Required on create. Possible values are: CATALOG, CLEAN_ROOM, CONNECTION, CREDENTIAL, EXTERNAL_LOCATION, EXTERNAL_METADATA, FUNCTION, METASTORE, PIPELINE, PROVIDER, RECIPIENT, SCHEMA, SHARE, STAGING_TABLE, STORAGE_CREDENTIAL, TABLE, VOLUME
+                      Required on create. Possible values are: AGENT_SERVICE, CATALOG, CLEAN_ROOM, CONNECTION, CREDENTIAL, EXTERNAL_LOCATION, EXTERNAL_METADATA, FUNCTION, MCP_SERVICE, METASTORE, MODEL, MODEL_PROVIDER_SERVICE, MODEL_SERVICE, PIPELINE, PROVIDER, RECIPIENT, SCHEMA, SHARE, SKILL, STAGING_TABLE, STORAGE_CREDENTIAL, TABLE, VOLUME
                     type: string
                   policyType:
                     description: 'Type of the policy. Required on create. Possible
-                      values are: POLICY_TYPE_COLUMN_MASK, POLICY_TYPE_ROW_FILTER'
+                      values are: POLICY_TYPE_COLUMN_MASK, POLICY_TYPE_DENY, POLICY_TYPE_GRANT,
+                      POLICY_TYPE_ROW_FILTER'
                     type: string
                   providerConfig:
                     description: Configure the provider for management through account
@@ -593,6 +874,40 @@ spec:
                             constant:
                               description: A constant literal
                               type: string
+                            functionArgExpression:
+                              description: |-
+                                An expression evaluated at query time. Wraps per-request expression variants
+                                (e.g., tag introspection) so new variants can be added without extending the
+                                FunctionArgument oneof
+                              properties:
+                                tagIntrospection:
+                                  description: An expression that introspects tags
+                                    at query time
+                                  properties:
+                                    columnTagValue:
+                                      description: Extracts the value of a column-level
+                                        tag
+                                      properties:
+                                        columnAlias:
+                                          description: The alias from MATCH COLUMNS
+                                            that identifies the column
+                                          type: string
+                                        tagKey:
+                                          description: 1024 matches the max_length
+                                            on FunctionArgument.constant above
+                                          type: string
+                                      type: object
+                                    tagValue:
+                                      description: The governed tag value, when the
+                                        policy references a specific value
+                                      properties:
+                                        tagKey:
+                                          description: 1024 matches the max_length
+                                            on FunctionArgument.constant above
+                                          type: string
+                                      type: object
+                                  type: object
+                              type: object
                           type: object
                         type: array
                     type: object
@@ -768,12 +1083,62 @@ spec:
                             constant:
                               description: A constant literal
                               type: string
+                            functionArgExpression:
+                              description: |-
+                                An expression evaluated at query time. Wraps per-request expression variants
+                                (e.g., tag introspection) so new variants can be added without extending the
+                                FunctionArgument oneof
+                              properties:
+                                tagIntrospection:
+                                  description: An expression that introspects tags
+                                    at query time
+                                  properties:
+                                    columnTagValue:
+                                      description: Extracts the value of a column-level
+                                        tag
+                                      properties:
+                                        columnAlias:
+                                          description: The alias from MATCH COLUMNS
+                                            that identifies the column
+                                          type: string
+                                        tagKey:
+                                          description: 1024 matches the max_length
+                                            on FunctionArgument.constant above
+                                          type: string
+                                      type: object
+                                    tagValue:
+                                      description: The governed tag value, when the
+                                        policy references a specific value
+                                      properties:
+                                        tagKey:
+                                          description: 1024 matches the max_length
+                                            on FunctionArgument.constant above
+                                          type: string
+                                      type: object
+                                  type: object
+                              type: object
                           type: object
                         type: array
                     type: object
                   comment:
                     description: Optional description of the policy
                     type: string
+                  deny:
+                    description: |-
+                      Options for deny policies. Valid only if policy_type is POLICY_TYPE_DENY.
+                      Required on create and optional on update. When specified on update,
+                      the new options will replace the existing options as a whole
+                    properties:
+                      privileges:
+                        description: |-
+                          List of privileges to deny.
+                          When any of these privileges are requested, the policy will deny access
+                          if the principal and condition match.
+                          Required on create and update
+                        items:
+                          type: string
+                        type: array
+                    type: object
                   exceptPrincipals:
                     description: Optional list of user or group names that should
                       be excluded from the policy
@@ -783,9 +1148,24 @@ spec:
                   forSecurableType:
                     description: |-
                       Type of securables that the policy should take effect on.
-                      Only TABLE is supported at this moment.
-                      Required on create and optional on update. Possible values are: CATALOG, CLEAN_ROOM, CONNECTION, CREDENTIAL, EXTERNAL_LOCATION, EXTERNAL_METADATA, FUNCTION, METASTORE, PIPELINE, PROVIDER, RECIPIENT, SCHEMA, SHARE, STAGING_TABLE, STORAGE_CREDENTIAL, TABLE, VOLUME
+                      Required on create and optional on update. Possible values are: AGENT_SERVICE, CATALOG, CLEAN_ROOM, CONNECTION, CREDENTIAL, EXTERNAL_LOCATION, EXTERNAL_METADATA, FUNCTION, MCP_SERVICE, METASTORE, MODEL, MODEL_PROVIDER_SERVICE, MODEL_SERVICE, PIPELINE, PROVIDER, RECIPIENT, SCHEMA, SHARE, SKILL, STAGING_TABLE, STORAGE_CREDENTIAL, TABLE, VOLUME
                     type: string
+                  grant:
+                    description: |-
+                      Options for grant policies. Valid only if policy_type is POLICY_TYPE_GRANT.
+                      Required on create and optional on update. When specified on update,
+                      the new options will replace the existing options as a whole
+                    properties:
+                      privileges:
+                        description: |-
+                          List of privileges to deny.
+                          When any of these privileges are requested, the policy will deny access
+                          if the principal and condition match.
+                          Required on create and update
+                        items:
+                          type: string
+                        type: array
+                    type: object
                   matchColumns:
                     description: |-
                       Optional list of condition expressions used to match table columns.
@@ -816,11 +1196,12 @@ spec:
                     description: |-
                       Type of the securable on which the policy is defined.
                       Only CATALOG, SCHEMA and TABLE are supported at this moment.
-                      Required on create. Possible values are: CATALOG, CLEAN_ROOM, CONNECTION, CREDENTIAL, EXTERNAL_LOCATION, EXTERNAL_METADATA, FUNCTION, METASTORE, PIPELINE, PROVIDER, RECIPIENT, SCHEMA, SHARE, STAGING_TABLE, STORAGE_CREDENTIAL, TABLE, VOLUME
+                      Required on create. Possible values are: AGENT_SERVICE, CATALOG, CLEAN_ROOM, CONNECTION, CREDENTIAL, EXTERNAL_LOCATION, EXTERNAL_METADATA, FUNCTION, MCP_SERVICE, METASTORE, MODEL, MODEL_PROVIDER_SERVICE, MODEL_SERVICE, PIPELINE, PROVIDER, RECIPIENT, SCHEMA, SHARE, SKILL, STAGING_TABLE, STORAGE_CREDENTIAL, TABLE, VOLUME
                     type: string
                   policyType:
                     description: 'Type of the policy. Required on create. Possible
-                      values are: POLICY_TYPE_COLUMN_MASK, POLICY_TYPE_ROW_FILTER'
+                      values are: POLICY_TYPE_COLUMN_MASK, POLICY_TYPE_DENY, POLICY_TYPE_GRANT,
+                      POLICY_TYPE_ROW_FILTER'
                     type: string
                   providerConfig:
                     description: Configure the provider for management through account
@@ -857,6 +1238,40 @@ spec:
                             constant:
                               description: A constant literal
                               type: string
+                            functionArgExpression:
+                              description: |-
+                                An expression evaluated at query time. Wraps per-request expression variants
+                                (e.g., tag introspection) so new variants can be added without extending the
+                                FunctionArgument oneof
+                              properties:
+                                tagIntrospection:
+                                  description: An expression that introspects tags
+                                    at query time
+                                  properties:
+                                    columnTagValue:
+                                      description: Extracts the value of a column-level
+                                        tag
+                                      properties:
+                                        columnAlias:
+                                          description: The alias from MATCH COLUMNS
+                                            that identifies the column
+                                          type: string
+                                        tagKey:
+                                          description: 1024 matches the max_length
+                                            on FunctionArgument.constant above
+                                          type: string
+                                      type: object
+                                    tagValue:
+                                      description: The governed tag value, when the
+                                        policy references a specific value
+                                      properties:
+                                        tagKey:
+                                          description: 1024 matches the max_length
+                                            on FunctionArgument.constant above
+                                          type: string
+                                      type: object
+                                  type: object
+                              type: object
                           type: object
                         type: array
                     type: object
@@ -915,12 +1330,62 @@ spec:
                             constant:
                               description: A constant literal
                               type: string
+                            functionArgExpression:
+                              description: |-
+                                An expression evaluated at query time. Wraps per-request expression variants
+                                (e.g., tag introspection) so new variants can be added without extending the
+                                FunctionArgument oneof
+                              properties:
+                                tagIntrospection:
+                                  description: An expression that introspects tags
+                                    at query time
+                                  properties:
+                                    columnTagValue:
+                                      description: Extracts the value of a column-level
+                                        tag
+                                      properties:
+                                        columnAlias:
+                                          description: The alias from MATCH COLUMNS
+                                            that identifies the column
+                                          type: string
+                                        tagKey:
+                                          description: 1024 matches the max_length
+                                            on FunctionArgument.constant above
+                                          type: string
+                                      type: object
+                                    tagValue:
+                                      description: The governed tag value, when the
+                                        policy references a specific value
+                                      properties:
+                                        tagKey:
+                                          description: 1024 matches the max_length
+                                            on FunctionArgument.constant above
+                                          type: string
+                                      type: object
+                                  type: object
+                              type: object
                           type: object
                         type: array
                     type: object
                   comment:
                     description: Optional description of the policy
                     type: string
+                  deny:
+                    description: |-
+                      Options for deny policies. Valid only if policy_type is POLICY_TYPE_DENY.
+                      Required on create and optional on update. When specified on update,
+                      the new options will replace the existing options as a whole
+                    properties:
+                      privileges:
+                        description: |-
+                          List of privileges to deny.
+                          When any of these privileges are requested, the policy will deny access
+                          if the principal and condition match.
+                          Required on create and update
+                        items:
+                          type: string
+                        type: array
+                    type: object
                   exceptPrincipals:
                     description: Optional list of user or group names that should
                       be excluded from the policy
@@ -930,9 +1395,24 @@ spec:
                   forSecurableType:
                     description: |-
                       Type of securables that the policy should take effect on.
-                      Only TABLE is supported at this moment.
-                      Required on create and optional on update. Possible values are: CATALOG, CLEAN_ROOM, CONNECTION, CREDENTIAL, EXTERNAL_LOCATION, EXTERNAL_METADATA, FUNCTION, METASTORE, PIPELINE, PROVIDER, RECIPIENT, SCHEMA, SHARE, STAGING_TABLE, STORAGE_CREDENTIAL, TABLE, VOLUME
+                      Required on create and optional on update. Possible values are: AGENT_SERVICE, CATALOG, CLEAN_ROOM, CONNECTION, CREDENTIAL, EXTERNAL_LOCATION, EXTERNAL_METADATA, FUNCTION, MCP_SERVICE, METASTORE, MODEL, MODEL_PROVIDER_SERVICE, MODEL_SERVICE, PIPELINE, PROVIDER, RECIPIENT, SCHEMA, SHARE, SKILL, STAGING_TABLE, STORAGE_CREDENTIAL, TABLE, VOLUME
                     type: string
+                  grant:
+                    description: |-
+                      Options for grant policies. Valid only if policy_type is POLICY_TYPE_GRANT.
+                      Required on create and optional on update. When specified on update,
+                      the new options will replace the existing options as a whole
+                    properties:
+                      privileges:
+                        description: |-
+                          List of privileges to deny.
+                          When any of these privileges are requested, the policy will deny access
+                          if the principal and condition match.
+                          Required on create and update
+                        items:
+                          type: string
+                        type: array
+                    type: object
                   matchColumns:
                     description: |-
                       Optional list of condition expressions used to match table columns.
@@ -963,11 +1443,12 @@ spec:
                     description: |-
                       Type of the securable on which the policy is defined.
                       Only CATALOG, SCHEMA and TABLE are supported at this moment.
-                      Required on create. Possible values are: CATALOG, CLEAN_ROOM, CONNECTION, CREDENTIAL, EXTERNAL_LOCATION, EXTERNAL_METADATA, FUNCTION, METASTORE, PIPELINE, PROVIDER, RECIPIENT, SCHEMA, SHARE, STAGING_TABLE, STORAGE_CREDENTIAL, TABLE, VOLUME
+                      Required on create. Possible values are: AGENT_SERVICE, CATALOG, CLEAN_ROOM, CONNECTION, CREDENTIAL, EXTERNAL_LOCATION, EXTERNAL_METADATA, FUNCTION, MCP_SERVICE, METASTORE, MODEL, MODEL_PROVIDER_SERVICE, MODEL_SERVICE, PIPELINE, PROVIDER, RECIPIENT, SCHEMA, SHARE, SKILL, STAGING_TABLE, STORAGE_CREDENTIAL, TABLE, VOLUME
                     type: string
                   policyType:
                     description: 'Type of the policy. Required on create. Possible
-                      values are: POLICY_TYPE_COLUMN_MASK, POLICY_TYPE_ROW_FILTER'
+                      values are: POLICY_TYPE_COLUMN_MASK, POLICY_TYPE_DENY, POLICY_TYPE_GRANT,
+                      POLICY_TYPE_ROW_FILTER'
                     type: string
                   providerConfig:
                     description: Configure the provider for management through account
@@ -1004,6 +1485,40 @@ spec:
                             constant:
                               description: A constant literal
                               type: string
+                            functionArgExpression:
+                              description: |-
+                                An expression evaluated at query time. Wraps per-request expression variants
+                                (e.g., tag introspection) so new variants can be added without extending the
+                                FunctionArgument oneof
+                              properties:
+                                tagIntrospection:
+                                  description: An expression that introspects tags
+                                    at query time
+                                  properties:
+                                    columnTagValue:
+                                      description: Extracts the value of a column-level
+                                        tag
+                                      properties:
+                                        columnAlias:
+                                          description: The alias from MATCH COLUMNS
+                                            that identifies the column
+                                          type: string
+                                        tagKey:
+                                          description: 1024 matches the max_length
+                                            on FunctionArgument.constant above
+                                          type: string
+                                      type: object
+                                    tagValue:
+                                      description: The governed tag value, when the
+                                        policy references a specific value
+                                      properties:
+                                        tagKey:
+                                          description: 1024 matches the max_length
+                                            on FunctionArgument.constant above
+                                          type: string
+                                      type: object
+                                  type: object
+                              type: object
                           type: object
                         type: array
                     type: object
@@ -1153,6 +1668,40 @@ spec:
                             constant:
                               description: A constant literal
                               type: string
+                            functionArgExpression:
+                              description: |-
+                                An expression evaluated at query time. Wraps per-request expression variants
+                                (e.g., tag introspection) so new variants can be added without extending the
+                                FunctionArgument oneof
+                              properties:
+                                tagIntrospection:
+                                  description: An expression that introspects tags
+                                    at query time
+                                  properties:
+                                    columnTagValue:
+                                      description: Extracts the value of a column-level
+                                        tag
+                                      properties:
+                                        columnAlias:
+                                          description: The alias from MATCH COLUMNS
+                                            that identifies the column
+                                          type: string
+                                        tagKey:
+                                          description: 1024 matches the max_length
+                                            on FunctionArgument.constant above
+                                          type: string
+                                      type: object
+                                    tagValue:
+                                      description: The governed tag value, when the
+                                        policy references a specific value
+                                      properties:
+                                        tagKey:
+                                          description: 1024 matches the max_length
+                                            on FunctionArgument.constant above
+                                          type: string
+                                      type: object
+                                  type: object
+                              type: object
                           type: object
                         type: array
                     type: object
@@ -1167,6 +1716,22 @@ spec:
                     description: Username of the user who created the policy. Output
                       only
                     type: string
+                  deny:
+                    description: |-
+                      Options for deny policies. Valid only if policy_type is POLICY_TYPE_DENY.
+                      Required on create and optional on update. When specified on update,
+                      the new options will replace the existing options as a whole
+                    properties:
+                      privileges:
+                        description: |-
+                          List of privileges to deny.
+                          When any of these privileges are requested, the policy will deny access
+                          if the principal and condition match.
+                          Required on create and update
+                        items:
+                          type: string
+                        type: array
+                    type: object
                   exceptPrincipals:
                     description: Optional list of user or group names that should
                       be excluded from the policy
@@ -1176,9 +1741,39 @@ spec:
                   forSecurableType:
                     description: |-
                       Type of securables that the policy should take effect on.
-                      Only TABLE is supported at this moment.
-                      Required on create and optional on update. Possible values are: CATALOG, CLEAN_ROOM, CONNECTION, CREDENTIAL, EXTERNAL_LOCATION, EXTERNAL_METADATA, FUNCTION, METASTORE, PIPELINE, PROVIDER, RECIPIENT, SCHEMA, SHARE, STAGING_TABLE, STORAGE_CREDENTIAL, TABLE, VOLUME
+                      Required on create and optional on update. Possible values are: AGENT_SERVICE, CATALOG, CLEAN_ROOM, CONNECTION, CREDENTIAL, EXTERNAL_LOCATION, EXTERNAL_METADATA, FUNCTION, MCP_SERVICE, METASTORE, MODEL, MODEL_PROVIDER_SERVICE, MODEL_SERVICE, PIPELINE, PROVIDER, RECIPIENT, SCHEMA, SHARE, SKILL, STAGING_TABLE, STORAGE_CREDENTIAL, TABLE, VOLUME
                     type: string
+                  governedTags:
+                    description: Governed tag keys and values referenced by this policy's
+                      conditions and function arguments. Output only
+                    items:
+                      properties:
+                        tagKey:
+                          description: 1024 matches the max_length on FunctionArgument.constant
+                            above
+                          type: string
+                        tagValue:
+                          description: The governed tag value, when the policy references
+                            a specific value
+                          type: string
+                      type: object
+                    type: array
+                  grant:
+                    description: |-
+                      Options for grant policies. Valid only if policy_type is POLICY_TYPE_GRANT.
+                      Required on create and optional on update. When specified on update,
+                      the new options will replace the existing options as a whole
+                    properties:
+                      privileges:
+                        description: |-
+                          List of privileges to deny.
+                          When any of these privileges are requested, the policy will deny access
+                          if the principal and condition match.
+                          Required on create and update
+                        items:
+                          type: string
+                        type: array
+                    type: object
                   id:
                     description: Unique identifier of the policy. This field is output
                       only and is generated by the system
@@ -1213,11 +1808,12 @@ spec:
                     description: |-
                       Type of the securable on which the policy is defined.
                       Only CATALOG, SCHEMA and TABLE are supported at this moment.
-                      Required on create. Possible values are: CATALOG, CLEAN_ROOM, CONNECTION, CREDENTIAL, EXTERNAL_LOCATION, EXTERNAL_METADATA, FUNCTION, METASTORE, PIPELINE, PROVIDER, RECIPIENT, SCHEMA, SHARE, STAGING_TABLE, STORAGE_CREDENTIAL, TABLE, VOLUME
+                      Required on create. Possible values are: AGENT_SERVICE, CATALOG, CLEAN_ROOM, CONNECTION, CREDENTIAL, EXTERNAL_LOCATION, EXTERNAL_METADATA, FUNCTION, MCP_SERVICE, METASTORE, MODEL, MODEL_PROVIDER_SERVICE, MODEL_SERVICE, PIPELINE, PROVIDER, RECIPIENT, SCHEMA, SHARE, SKILL, STAGING_TABLE, STORAGE_CREDENTIAL, TABLE, VOLUME
                     type: string
                   policyType:
                     description: 'Type of the policy. Required on create. Possible
-                      values are: POLICY_TYPE_COLUMN_MASK, POLICY_TYPE_ROW_FILTER'
+                      values are: POLICY_TYPE_COLUMN_MASK, POLICY_TYPE_DENY, POLICY_TYPE_GRANT,
+                      POLICY_TYPE_ROW_FILTER'
                     type: string
                   providerConfig:
                     description: Configure the provider for management through account
@@ -1254,6 +1850,40 @@ spec:
                             constant:
                               description: A constant literal
                               type: string
+                            functionArgExpression:
+                              description: |-
+                                An expression evaluated at query time. Wraps per-request expression variants
+                                (e.g., tag introspection) so new variants can be added without extending the
+                                FunctionArgument oneof
+                              properties:
+                                tagIntrospection:
+                                  description: An expression that introspects tags
+                                    at query time
+                                  properties:
+                                    columnTagValue:
+                                      description: Extracts the value of a column-level
+                                        tag
+                                      properties:
+                                        columnAlias:
+                                          description: The alias from MATCH COLUMNS
+                                            that identifies the column
+                                          type: string
+                                        tagKey:
+                                          description: 1024 matches the max_length
+                                            on FunctionArgument.constant above
+                                          type: string
+                                      type: object
+                                    tagValue:
+                                      description: The governed tag value, when the
+                                        policy references a specific value
+                                      properties:
+                                        tagKey:
+                                          description: 1024 matches the max_length
+                                            on FunctionArgument.constant above
+                                          type: string
+                                      type: object
+                                  type: object
+                              type: object
                           type: object
                         type: array
                     type: object

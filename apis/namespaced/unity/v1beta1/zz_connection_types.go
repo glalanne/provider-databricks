@@ -32,6 +32,9 @@ type ConnectionInitParameters struct {
 	// Username of current owner of the connection.
 	Owner *string `json:"owner,omitempty" tf:"owner,omitempty"`
 
+	// Parent schema of a schema-level connection, in the format schemas/{catalog}.{schema}. When set, the connection is created inside that schema and its full_name becomes {catalog}.{schema}.{name}; when omitted, the connection is metastore-level. Change forces creation of a new resource.
+	Parent *string `json:"parent,omitempty" tf:"parent,omitempty"`
+
 	// A map of key-value properties attached to the securable. Change forces creation of a new resource.
 	// +mapType=granular
 	Properties map[string]*string `json:"properties,omitempty" tf:"properties,omitempty"`
@@ -41,6 +44,9 @@ type ConnectionInitParameters struct {
 
 	// If the connection is read only. Change forces creation of a new resource.
 	ReadOnly *bool `json:"readOnly,omitempty" tf:"read_only,omitempty"`
+
+	// +mapType=granular
+	Secrets map[string]*string `json:"secrets,omitempty" tf:"secrets,omitempty"`
 }
 
 type ConnectionObservation struct {
@@ -69,7 +75,7 @@ type ConnectionObservation struct {
 	// Full name of connection.
 	FullName *string `json:"fullName,omitempty" tf:"full_name,omitempty"`
 
-	// ID of this connection in form of <metastore_id>|<name>.
+	// ID of this connection, in the form <metastore_id>|<full_name>. For a metastore-level connection full_name is the connection name; for a schema-level connection (parent set) it is <catalog>.<schema>.<name>.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
 	// Unique identifier of parent metastore.
@@ -80,6 +86,9 @@ type ConnectionObservation struct {
 
 	// Username of current owner of the connection.
 	Owner *string `json:"owner,omitempty" tf:"owner,omitempty"`
+
+	// Parent schema of a schema-level connection, in the format schemas/{catalog}.{schema}. When set, the connection is created inside that schema and its full_name becomes {catalog}.{schema}.{name}; when omitted, the connection is metastore-level. Change forces creation of a new resource.
+	Parent *string `json:"parent,omitempty" tf:"parent,omitempty"`
 
 	// A map of key-value properties attached to the securable. Change forces creation of a new resource.
 	// +mapType=granular
@@ -93,6 +102,9 @@ type ConnectionObservation struct {
 
 	// If the connection is read only. Change forces creation of a new resource.
 	ReadOnly *bool `json:"readOnly,omitempty" tf:"read_only,omitempty"`
+
+	// +mapType=granular
+	Secrets map[string]*string `json:"secrets,omitempty" tf:"secrets,omitempty"`
 
 	// Securable type.
 	SecurableType *string `json:"securableType,omitempty" tf:"securable_type,omitempty"`
@@ -133,6 +145,10 @@ type ConnectionParameters struct {
 	// +kubebuilder:validation:Optional
 	Owner *string `json:"owner,omitempty" tf:"owner,omitempty"`
 
+	// Parent schema of a schema-level connection, in the format schemas/{catalog}.{schema}. When set, the connection is created inside that schema and its full_name becomes {catalog}.{schema}.{name}; when omitted, the connection is metastore-level. Change forces creation of a new resource.
+	// +kubebuilder:validation:Optional
+	Parent *string `json:"parent,omitempty" tf:"parent,omitempty"`
+
 	// A map of key-value properties attached to the securable. Change forces creation of a new resource.
 	// +kubebuilder:validation:Optional
 	// +mapType=granular
@@ -145,6 +161,10 @@ type ConnectionParameters struct {
 	// If the connection is read only. Change forces creation of a new resource.
 	// +kubebuilder:validation:Optional
 	ReadOnly *bool `json:"readOnly,omitempty" tf:"read_only,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	// +mapType=granular
+	Secrets map[string]*string `json:"secrets,omitempty" tf:"secrets,omitempty"`
 }
 
 type ConnectionProviderConfigInitParameters struct {

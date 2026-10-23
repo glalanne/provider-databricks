@@ -67,7 +67,9 @@ spec:
                     description: Description of the federation policy
                     type: string
                   oidcPolicy:
-                    description: (OidcFederationPolicy, optional)
+                    description: |-
+                      audit_mode INCLUDE is required on both this message field and its leaf fields so the OIDC
+                      policy configuration is captured in create/update audit logs (see go/auditlogs)
                     properties:
                       audiences:
                         description: |-
@@ -138,7 +140,9 @@ spec:
                     description: Description of the federation policy
                     type: string
                   oidcPolicy:
-                    description: (OidcFederationPolicy, optional)
+                    description: |-
+                      audit_mode INCLUDE is required on both this message field and its leaf fields so the OIDC
+                      policy configuration is captured in create/update audit logs (see go/auditlogs)
                     properties:
                       audiences:
                         description: |-
@@ -274,7 +278,9 @@ spec:
                       request URL
                     type: string
                   oidcPolicy:
-                    description: (OidcFederationPolicy, optional)
+                    description: |-
+                      audit_mode INCLUDE is required on both this message field and its leaf fields so the OIDC
+                      policy configuration is captured in create/update audit logs (see go/auditlogs)
                     properties:
                       audiences:
                         description: |-
@@ -448,7 +454,9 @@ spec:
                     description: Description of the federation policy
                     type: string
                   oidcPolicy:
-                    description: (OidcFederationPolicy, optional)
+                    description: |-
+                      audit_mode INCLUDE is required on both this message field and its leaf fields so the OIDC
+                      policy configuration is captured in create/update audit logs (see go/auditlogs)
                     properties:
                       audiences:
                         description: |-
@@ -519,7 +527,9 @@ spec:
                     description: Description of the federation policy
                     type: string
                   oidcPolicy:
-                    description: (OidcFederationPolicy, optional)
+                    description: |-
+                      audit_mode INCLUDE is required on both this message field and its leaf fields so the OIDC
+                      policy configuration is captured in create/update audit logs (see go/auditlogs)
                     properties:
                       audiences:
                         description: |-
@@ -655,7 +665,9 @@ spec:
                       request URL
                     type: string
                   oidcPolicy:
-                    description: (OidcFederationPolicy, optional)
+                    description: |-
+                      audit_mode INCLUDE is required on both this message field and its leaf fields so the OIDC
+                      policy configuration is captured in create/update audit logs (see go/auditlogs)
                     properties:
                       audiences:
                         description: |-

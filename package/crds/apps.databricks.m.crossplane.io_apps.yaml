@@ -76,12 +76,29 @@ spec:
                   description:
                     description: The description of the app.
                     type: string
+                  forwardUserAccessToken:
+                    type: boolean
                   gitRepository:
                     description: Git repository configuration for app deployments
                       (see below). When specified, deployments can reference code
                       from this repository by providing only the git reference (branch,
                       tag, or commit).
                     properties:
+                      autoDeploy:
+                        description: When true, the app is automatically redeployed
+                          on push events to the branch configured in git_source. This
+                          requires git_source to specify a branch; a tag or commit
+                          cannot be used, because automatic deployment is triggered
+                          by pushes to a branch. Automatic deployment is currently
+                          supported only for the gitHub and azureDevOpsServices providers.
+                        type: boolean
+                      callerCredentialId:
+                        description: ID of a personal access token Git credential
+                          owned by the caller, used to grant the app's service principal
+                          access to this repository. This is only applied when the
+                          app is created and is not returned by the service; changing
+                          it on an existing app is not supported.
+                        type: number
                       provider:
                         description: 'Git provider. Case insensitive. Supported values:
                           gitHub, gitHubEnterprise, bitbucketCloud, bitbucketServer,
@@ -89,6 +106,64 @@ spec:
                         type: string
                       url:
                         description: URL of the Git repository.
+                        type: string
+                    type: object
+                  gitSource:
+                    description: The Git source to deploy from, specifying the reference
+                      to check out and an optional path to the app source code within
+                      the repository configured in git_repository (see below).
+                    properties:
+                      branch:
+                        description: Git branch to check out and deploy from. Required
+                          when git_repository.auto_deploy is true, since automatic
+                          deployment tracks pushes to a branch.
+                        type: string
+                      commit:
+                        description: Git commit SHA to check out and deploy from.
+                        type: string
+                      gitRepository:
+                        description: Git repository configuration for app deployments
+                          (see below). When specified, deployments can reference code
+                          from this repository by providing only the git reference
+                          (branch, tag, or commit).
+                        properties:
+                          autoDeploy:
+                            description: When true, the app is automatically redeployed
+                              on push events to the branch configured in git_source.
+                              This requires git_source to specify a branch; a tag
+                              or commit cannot be used, because automatic deployment
+                              is triggered by pushes to a branch. Automatic deployment
+                              is currently supported only for the gitHub and azureDevOpsServices
+                              providers.
+                            type: boolean
+                          callerCredentialId:
+                            description: ID of a personal access token Git credential
+                              owned by the caller, used to grant the app's service
+                              principal access to this repository. This is only applied
+                              when the app is created and is not returned by the service;
+                              changing it on an existing app is not supported.
+                            type: number
+                          provider:
+                            description: 'Git provider. Case insensitive. Supported
+                              values: gitHub, gitHubEnterprise, bitbucketCloud, bitbucketServer,
+                              azureDevOpsServices, gitLab, gitLabEnterpriseEdition,
+                              awsCodeCommit.'
+                            type: string
+                          url:
+                            description: URL of the Git repository.
+                            type: string
+                        type: object
+                      resolvedCommit:
+                        type: string
+                      sourceCodePath:
+                        description: Workspace filesystem path of the source code
+                          to deploy from, as an alternative to Git-based deployment
+                          (git_repository/git_source). This value is not returned
+                          by the service; the workspace path of the last active deployment
+                          is exported as default_source_code_path.
+                        type: string
+                      tag:
+                        description: Git tag to check out and deploy from.
                         type: string
                     type: object
                   name:
@@ -192,8 +267,9 @@ spec:
                           description: attribute
                           properties:
                             branch:
-                              description: The resource path of the Lakebase Autoscaling
-                                branch to grant permission on (e.g. projects/proj-abc123/branches/branch-xyz789).
+                              description: Git branch to check out and deploy from.
+                                Required when git_repository.auto_deploy is true,
+                                since automatic deployment tracks pushes to a branch.
                               type: string
                             database:
                               description: attribute
@@ -266,6 +342,12 @@ spec:
                           type: object
                       type: object
                     type: array
+                  sourceCodePath:
+                    description: Workspace filesystem path of the source code to deploy
+                      from, as an alternative to Git-based deployment (git_repository/git_source).
+                      This value is not returned by the service; the workspace path
+                      of the last active deployment is exported as default_source_code_path.
+                    type: string
                   space:
                     type: string
                   telemetryExportDestinations:
@@ -329,12 +411,29 @@ spec:
                   description:
                     description: The description of the app.
                     type: string
+                  forwardUserAccessToken:
+                    type: boolean
                   gitRepository:
                     description: Git repository configuration for app deployments
                       (see below). When specified, deployments can reference code
                       from this repository by providing only the git reference (branch,
                       tag, or commit).
                     properties:
+                      autoDeploy:
+                        description: When true, the app is automatically redeployed
+                          on push events to the branch configured in git_source. This
+                          requires git_source to specify a branch; a tag or commit
+                          cannot be used, because automatic deployment is triggered
+                          by pushes to a branch. Automatic deployment is currently
+                          supported only for the gitHub and azureDevOpsServices providers.
+                        type: boolean
+                      callerCredentialId:
+                        description: ID of a personal access token Git credential
+                          owned by the caller, used to grant the app's service principal
+                          access to this repository. This is only applied when the
+                          app is created and is not returned by the service; changing
+                          it on an existing app is not supported.
+                        type: number
                       provider:
                         description: 'Git provider. Case insensitive. Supported values:
                           gitHub, gitHubEnterprise, bitbucketCloud, bitbucketServer,
@@ -342,6 +441,64 @@ spec:
                         type: string
                       url:
                         description: URL of the Git repository.
+                        type: string
+                    type: object
+                  gitSource:
+                    description: The Git source to deploy from, specifying the reference
+                      to check out and an optional path to the app source code within
+                      the repository configured in git_repository (see below).
+                    properties:
+                      branch:
+                        description: Git branch to check out and deploy from. Required
+                          when git_repository.auto_deploy is true, since automatic
+                          deployment tracks pushes to a branch.
+                        type: string
+                      commit:
+                        description: Git commit SHA to check out and deploy from.
+                        type: string
+                      gitRepository:
+                        description: Git repository configuration for app deployments
+                          (see below). When specified, deployments can reference code
+                          from this repository by providing only the git reference
+                          (branch, tag, or commit).
+                        properties:
+                          autoDeploy:
+                            description: When true, the app is automatically redeployed
+                              on push events to the branch configured in git_source.
+                              This requires git_source to specify a branch; a tag
+                              or commit cannot be used, because automatic deployment
+                              is triggered by pushes to a branch. Automatic deployment
+                              is currently supported only for the gitHub and azureDevOpsServices
+                              providers.
+                            type: boolean
+                          callerCredentialId:
+                            description: ID of a personal access token Git credential
+                              owned by the caller, used to grant the app's service
+                              principal access to this repository. This is only applied
+                              when the app is created and is not returned by the service;
+                              changing it on an existing app is not supported.
+                            type: number
+                          provider:
+                            description: 'Git provider. Case insensitive. Supported
+                              values: gitHub, gitHubEnterprise, bitbucketCloud, bitbucketServer,
+                              azureDevOpsServices, gitLab, gitLabEnterpriseEdition,
+                              awsCodeCommit.'
+                            type: string
+                          url:
+                            description: URL of the Git repository.
+                            type: string
+                        type: object
+                      resolvedCommit:
+                        type: string
+                      sourceCodePath:
+                        description: Workspace filesystem path of the source code
+                          to deploy from, as an alternative to Git-based deployment
+                          (git_repository/git_source). This value is not returned
+                          by the service; the workspace path of the last active deployment
+                          is exported as default_source_code_path.
+                        type: string
+                      tag:
+                        description: Git tag to check out and deploy from.
                         type: string
                     type: object
                   name:
@@ -445,8 +602,9 @@ spec:
                           description: attribute
                           properties:
                             branch:
-                              description: The resource path of the Lakebase Autoscaling
-                                branch to grant permission on (e.g. projects/proj-abc123/branches/branch-xyz789).
+                              description: Git branch to check out and deploy from.
+                                Required when git_repository.auto_deploy is true,
+                                since automatic deployment tracks pushes to a branch.
                               type: string
                             database:
                               description: attribute
@@ -519,6 +677,12 @@ spec:
                           type: object
                       type: object
                     type: array
+                  sourceCodePath:
+                    description: Workspace filesystem path of the source code to deploy
+                      from, as an alternative to Git-based deployment (git_repository/git_source).
+                      This value is not returned by the service; the workspace path
+                      of the last active deployment is exported as default_source_code_path.
+                    type: string
                   space:
                     type: string
                   telemetryExportDestinations:
@@ -641,8 +805,11 @@ spec:
                         description: attribute
                         properties:
                           sourceCodePath:
-                            description: The workspace file system path of the source
-                              code used to create the deployment.
+                            description: Workspace filesystem path of the source code
+                              to deploy from, as an alternative to Git-based deployment
+                              (git_repository/git_source). This value is not returned
+                              by the service; the workspace path of the last active
+                              deployment is exported as default_source_code_path.
                             type: string
                         type: object
                       deploymentId:
@@ -663,12 +830,18 @@ spec:
                           type: object
                         type: array
                       gitSource:
+                        description: The Git source to deploy from, specifying the
+                          reference to check out and an optional path to the app source
+                          code within the repository configured in git_repository
+                          (see below).
                         properties:
                           branch:
-                            description: The resource path of the Lakebase Autoscaling
-                              branch to grant permission on (e.g. projects/proj-abc123/branches/branch-xyz789).
+                            description: Git branch to check out and deploy from.
+                              Required when git_repository.auto_deploy is true, since
+                              automatic deployment tracks pushes to a branch.
                             type: string
                           commit:
+                            description: Git commit SHA to check out and deploy from.
                             type: string
                           gitRepository:
                             description: Git repository configuration for app deployments
@@ -676,6 +849,23 @@ spec:
                               code from this repository by providing only the git
                               reference (branch, tag, or commit).
                             properties:
+                              autoDeploy:
+                                description: When true, the app is automatically redeployed
+                                  on push events to the branch configured in git_source.
+                                  This requires git_source to specify a branch; a
+                                  tag or commit cannot be used, because automatic
+                                  deployment is triggered by pushes to a branch. Automatic
+                                  deployment is currently supported only for the gitHub
+                                  and azureDevOpsServices providers.
+                                type: boolean
+                              callerCredentialId:
+                                description: ID of a personal access token Git credential
+                                  owned by the caller, used to grant the app's service
+                                  principal access to this repository. This is only
+                                  applied when the app is created and is not returned
+                                  by the service; changing it on an existing app is
+                                  not supported.
+                                type: number
                               provider:
                                 description: 'Git provider. Case insensitive. Supported
                                   values: gitHub, gitHubEnterprise, bitbucketCloud,
@@ -689,18 +879,32 @@ spec:
                           resolvedCommit:
                             type: string
                           sourceCodePath:
-                            description: The workspace file system path of the source
-                              code used to create the deployment.
+                            description: Workspace filesystem path of the source code
+                              to deploy from, as an alternative to Git-based deployment
+                              (git_repository/git_source). This value is not returned
+                              by the service; the workspace path of the last active
+                              deployment is exported as default_source_code_path.
                             type: string
                           tag:
+                            description: Git tag to check out and deploy from.
+                            type: string
+                        type: object
+                      healthCheck:
+                        properties:
+                          path:
+                            type: string
+                          timeout:
                             type: string
                         type: object
                       mode:
                         description: The deployment mode (AUTO_SYNC or SNAPSHOT).
                         type: string
                       sourceCodePath:
-                        description: The workspace file system path of the source
-                          code used to create the deployment.
+                        description: Workspace filesystem path of the source code
+                          to deploy from, as an alternative to Git-based deployment
+                          (git_repository/git_source). This value is not returned
+                          by the service; the workspace path of the last active deployment
+                          is exported as default_source_code_path.
                         type: string
                       status:
                         description: attribute
@@ -757,6 +961,64 @@ spec:
                   creator:
                     description: The email of the user that created the app.
                     type: string
+                  defaultGitSource:
+                    description: The Git source to deploy from, specifying the reference
+                      to check out and an optional path to the app source code within
+                      the repository configured in git_repository (see below).
+                    properties:
+                      branch:
+                        description: Git branch to check out and deploy from. Required
+                          when git_repository.auto_deploy is true, since automatic
+                          deployment tracks pushes to a branch.
+                        type: string
+                      commit:
+                        description: Git commit SHA to check out and deploy from.
+                        type: string
+                      gitRepository:
+                        description: Git repository configuration for app deployments
+                          (see below). When specified, deployments can reference code
+                          from this repository by providing only the git reference
+                          (branch, tag, or commit).
+                        properties:
+                          autoDeploy:
+                            description: When true, the app is automatically redeployed
+                              on push events to the branch configured in git_source.
+                              This requires git_source to specify a branch; a tag
+                              or commit cannot be used, because automatic deployment
+                              is triggered by pushes to a branch. Automatic deployment
+                              is currently supported only for the gitHub and azureDevOpsServices
+                              providers.
+                            type: boolean
+                          callerCredentialId:
+                            description: ID of a personal access token Git credential
+                              owned by the caller, used to grant the app's service
+                              principal access to this repository. This is only applied
+                              when the app is created and is not returned by the service;
+                              changing it on an existing app is not supported.
+                            type: number
+                          provider:
+                            description: 'Git provider. Case insensitive. Supported
+                              values: gitHub, gitHubEnterprise, bitbucketCloud, bitbucketServer,
+                              azureDevOpsServices, gitLab, gitLabEnterpriseEdition,
+                              awsCodeCommit.'
+                            type: string
+                          url:
+                            description: URL of the Git repository.
+                            type: string
+                        type: object
+                      resolvedCommit:
+                        type: string
+                      sourceCodePath:
+                        description: Workspace filesystem path of the source code
+                          to deploy from, as an alternative to Git-based deployment
+                          (git_repository/git_source). This value is not returned
+                          by the service; the workspace path of the last active deployment
+                          is exported as default_source_code_path.
+                        type: string
+                      tag:
+                        description: Git tag to check out and deploy from.
+                        type: string
+                    type: object
                   defaultSourceCodePath:
                     description: The default workspace file system path of the source
                       code from which app deployment are created. This field tracks
@@ -777,12 +1039,29 @@ spec:
                     items:
                       type: string
                     type: array
+                  forwardUserAccessToken:
+                    type: boolean
                   gitRepository:
                     description: Git repository configuration for app deployments
                       (see below). When specified, deployments can reference code
                       from this repository by providing only the git reference (branch,
                       tag, or commit).
                     properties:
+                      autoDeploy:
+                        description: When true, the app is automatically redeployed
+                          on push events to the branch configured in git_source. This
+                          requires git_source to specify a branch; a tag or commit
+                          cannot be used, because automatic deployment is triggered
+                          by pushes to a branch. Automatic deployment is currently
+                          supported only for the gitHub and azureDevOpsServices providers.
+                        type: boolean
+                      callerCredentialId:
+                        description: ID of a personal access token Git credential
+                          owned by the caller, used to grant the app's service principal
+                          access to this repository. This is only applied when the
+                          app is created and is not returned by the service; changing
+                          it on an existing app is not supported.
+                        type: number
                       provider:
                         description: 'Git provider. Case insensitive. Supported values:
                           gitHub, gitHubEnterprise, bitbucketCloud, bitbucketServer,
@@ -790,6 +1069,64 @@ spec:
                         type: string
                       url:
                         description: URL of the Git repository.
+                        type: string
+                    type: object
+                  gitSource:
+                    description: The Git source to deploy from, specifying the reference
+                      to check out and an optional path to the app source code within
+                      the repository configured in git_repository (see below).
+                    properties:
+                      branch:
+                        description: Git branch to check out and deploy from. Required
+                          when git_repository.auto_deploy is true, since automatic
+                          deployment tracks pushes to a branch.
+                        type: string
+                      commit:
+                        description: Git commit SHA to check out and deploy from.
+                        type: string
+                      gitRepository:
+                        description: Git repository configuration for app deployments
+                          (see below). When specified, deployments can reference code
+                          from this repository by providing only the git reference
+                          (branch, tag, or commit).
+                        properties:
+                          autoDeploy:
+                            description: When true, the app is automatically redeployed
+                              on push events to the branch configured in git_source.
+                              This requires git_source to specify a branch; a tag
+                              or commit cannot be used, because automatic deployment
+                              is triggered by pushes to a branch. Automatic deployment
+                              is currently supported only for the gitHub and azureDevOpsServices
+                              providers.
+                            type: boolean
+                          callerCredentialId:
+                            description: ID of a personal access token Git credential
+                              owned by the caller, used to grant the app's service
+                              principal access to this repository. This is only applied
+                              when the app is created and is not returned by the service;
+                              changing it on an existing app is not supported.
+                            type: number
+                          provider:
+                            description: 'Git provider. Case insensitive. Supported
+                              values: gitHub, gitHubEnterprise, bitbucketCloud, bitbucketServer,
+                              azureDevOpsServices, gitLab, gitLabEnterpriseEdition,
+                              awsCodeCommit.'
+                            type: string
+                          url:
+                            description: URL of the Git repository.
+                            type: string
+                        type: object
+                      resolvedCommit:
+                        type: string
+                      sourceCodePath:
+                        description: Workspace filesystem path of the source code
+                          to deploy from, as an alternative to Git-based deployment
+                          (git_repository/git_source). This value is not returned
+                          by the service; the workspace path of the last active deployment
+                          is exported as default_source_code_path.
+                        type: string
+                      tag:
+                        description: Git tag to check out and deploy from.
                         type: string
                     type: object
                   id:
@@ -829,8 +1166,11 @@ spec:
                         description: attribute
                         properties:
                           sourceCodePath:
-                            description: The workspace file system path of the source
-                              code used to create the deployment.
+                            description: Workspace filesystem path of the source code
+                              to deploy from, as an alternative to Git-based deployment
+                              (git_repository/git_source). This value is not returned
+                              by the service; the workspace path of the last active
+                              deployment is exported as default_source_code_path.
                             type: string
                         type: object
                       deploymentId:
@@ -851,12 +1191,18 @@ spec:
                           type: object
                         type: array
                       gitSource:
+                        description: The Git source to deploy from, specifying the
+                          reference to check out and an optional path to the app source
+                          code within the repository configured in git_repository
+                          (see below).
                         properties:
                           branch:
-                            description: The resource path of the Lakebase Autoscaling
-                              branch to grant permission on (e.g. projects/proj-abc123/branches/branch-xyz789).
+                            description: Git branch to check out and deploy from.
+                              Required when git_repository.auto_deploy is true, since
+                              automatic deployment tracks pushes to a branch.
                             type: string
                           commit:
+                            description: Git commit SHA to check out and deploy from.
                             type: string
                           gitRepository:
                             description: Git repository configuration for app deployments
@@ -864,6 +1210,23 @@ spec:
                               code from this repository by providing only the git
                               reference (branch, tag, or commit).
                             properties:
+                              autoDeploy:
+                                description: When true, the app is automatically redeployed
+                                  on push events to the branch configured in git_source.
+                                  This requires git_source to specify a branch; a
+                                  tag or commit cannot be used, because automatic
+                                  deployment is triggered by pushes to a branch. Automatic
+                                  deployment is currently supported only for the gitHub
+                                  and azureDevOpsServices providers.
+                                type: boolean
+                              callerCredentialId:
+                                description: ID of a personal access token Git credential
+                                  owned by the caller, used to grant the app's service
+                                  principal access to this repository. This is only
+                                  applied when the app is created and is not returned
+                                  by the service; changing it on an existing app is
+                                  not supported.
+                                type: number
                               provider:
                                 description: 'Git provider. Case insensitive. Supported
                                   values: gitHub, gitHubEnterprise, bitbucketCloud,
@@ -877,18 +1240,32 @@ spec:
                           resolvedCommit:
                             type: string
                           sourceCodePath:
-                            description: The workspace file system path of the source
-                              code used to create the deployment.
+                            description: Workspace filesystem path of the source code
+                              to deploy from, as an alternative to Git-based deployment
+                              (git_repository/git_source). This value is not returned
+                              by the service; the workspace path of the last active
+                              deployment is exported as default_source_code_path.
                             type: string
                           tag:
+                            description: Git tag to check out and deploy from.
+                            type: string
+                        type: object
+                      healthCheck:
+                        properties:
+                          path:
+                            type: string
+                          timeout:
                             type: string
                         type: object
                       mode:
                         description: The deployment mode (AUTO_SYNC or SNAPSHOT).
                         type: string
                       sourceCodePath:
-                        description: The workspace file system path of the source
-                          code used to create the deployment.
+                        description: Workspace filesystem path of the source code
+                          to deploy from, as an alternative to Git-based deployment
+                          (git_repository/git_source). This value is not returned
+                          by the service; the workspace path of the last active deployment
+                          is exported as default_source_code_path.
                         type: string
                       status:
                         description: attribute
@@ -998,8 +1375,9 @@ spec:
                           description: attribute
                           properties:
                             branch:
-                              description: The resource path of the Lakebase Autoscaling
-                                branch to grant permission on (e.g. projects/proj-abc123/branches/branch-xyz789).
+                              description: Git branch to check out and deploy from.
+                                Required when git_repository.auto_deploy is true,
+                                since automatic deployment tracks pushes to a branch.
                               type: string
                             database:
                               description: attribute
@@ -1082,6 +1460,12 @@ spec:
                     type: number
                   servicePrincipalName:
                     description: name of the app service principal
+                    type: string
+                  sourceCodePath:
+                    description: Workspace filesystem path of the source code to deploy
+                      from, as an alternative to Git-based deployment (git_repository/git_source).
+                      This value is not returned by the service; the workspace path
+                      of the last active deployment is exported as default_source_code_path.
                     type: string
                   space:
                     type: string
@@ -1253,12 +1637,29 @@ spec:
                   description:
                     description: The description of the app.
                     type: string
+                  forwardUserAccessToken:
+                    type: boolean
                   gitRepository:
                     description: Git repository configuration for app deployments
                       (see below). When specified, deployments can reference code
                       from this repository by providing only the git reference (branch,
                       tag, or commit).
                     properties:
+                      autoDeploy:
+                        description: When true, the app is automatically redeployed
+                          on push events to the branch configured in git_source. This
+                          requires git_source to specify a branch; a tag or commit
+                          cannot be used, because automatic deployment is triggered
+                          by pushes to a branch. Automatic deployment is currently
+                          supported only for the gitHub and azureDevOpsServices providers.
+                        type: boolean
+                      callerCredentialId:
+                        description: ID of a personal access token Git credential
+                          owned by the caller, used to grant the app's service principal
+                          access to this repository. This is only applied when the
+                          app is created and is not returned by the service; changing
+                          it on an existing app is not supported.
+                        type: number
                       provider:
                         description: 'Git provider. Case insensitive. Supported values:
                           gitHub, gitHubEnterprise, bitbucketCloud, bitbucketServer,
@@ -1266,6 +1667,64 @@ spec:
                         type: string
                       url:
                         description: URL of the Git repository.
+                        type: string
+                    type: object
+                  gitSource:
+                    description: The Git source to deploy from, specifying the reference
+                      to check out and an optional path to the app source code within
+                      the repository configured in git_repository (see below).
+                    properties:
+                      branch:
+                        description: Git branch to check out and deploy from. Required
+                          when git_repository.auto_deploy is true, since automatic
+                          deployment tracks pushes to a branch.
+                        type: string
+                      commit:
+                        description: Git commit SHA to check out and deploy from.
+                        type: string
+                      gitRepository:
+                        description: Git repository configuration for app deployments
+                          (see below). When specified, deployments can reference code
+                          from this repository by providing only the git reference
+                          (branch, tag, or commit).
+                        properties:
+                          autoDeploy:
+                            description: When true, the app is automatically redeployed
+                              on push events to the branch configured in git_source.
+                              This requires git_source to specify a branch; a tag
+                              or commit cannot be used, because automatic deployment
+                              is triggered by pushes to a branch. Automatic deployment
+                              is currently supported only for the gitHub and azureDevOpsServices
+                              providers.
+                            type: boolean
+                          callerCredentialId:
+                            description: ID of a personal access token Git credential
+                              owned by the caller, used to grant the app's service
+                              principal access to this repository. This is only applied
+                              when the app is created and is not returned by the service;
+                              changing it on an existing app is not supported.
+                            type: number
+                          provider:
+                            description: 'Git provider. Case insensitive. Supported
+                              values: gitHub, gitHubEnterprise, bitbucketCloud, bitbucketServer,
+                              azureDevOpsServices, gitLab, gitLabEnterpriseEdition,
+                              awsCodeCommit.'
+                            type: string
+                          url:
+                            description: URL of the Git repository.
+                            type: string
+                        type: object
+                      resolvedCommit:
+                        type: string
+                      sourceCodePath:
+                        description: Workspace filesystem path of the source code
+                          to deploy from, as an alternative to Git-based deployment
+                          (git_repository/git_source). This value is not returned
+                          by the service; the workspace path of the last active deployment
+                          is exported as default_source_code_path.
+                        type: string
+                      tag:
+                        description: Git tag to check out and deploy from.
                         type: string
                     type: object
                   name:
@@ -1369,8 +1828,9 @@ spec:
                           description: attribute
                           properties:
                             branch:
-                              description: The resource path of the Lakebase Autoscaling
-                                branch to grant permission on (e.g. projects/proj-abc123/branches/branch-xyz789).
+                              description: Git branch to check out and deploy from.
+                                Required when git_repository.auto_deploy is true,
+                                since automatic deployment tracks pushes to a branch.
                               type: string
                             database:
                               description: attribute
@@ -1443,6 +1903,12 @@ spec:
                           type: object
                       type: object
                     type: array
+                  sourceCodePath:
+                    description: Workspace filesystem path of the source code to deploy
+                      from, as an alternative to Git-based deployment (git_repository/git_source).
+                      This value is not returned by the service; the workspace path
+                      of the last active deployment is exported as default_source_code_path.
+                    type: string
                   space:
                     type: string
                   telemetryExportDestinations:
@@ -1506,12 +1972,29 @@ spec:
                   description:
                     description: The description of the app.
                     type: string
+                  forwardUserAccessToken:
+                    type: boolean
                   gitRepository:
                     description: Git repository configuration for app deployments
                       (see below). When specified, deployments can reference code
                       from this repository by providing only the git reference (branch,
                       tag, or commit).
                     properties:
+                      autoDeploy:
+                        description: When true, the app is automatically redeployed
+                          on push events to the branch configured in git_source. This
+                          requires git_source to specify a branch; a tag or commit
+                          cannot be used, because automatic deployment is triggered
+                          by pushes to a branch. Automatic deployment is currently
+                          supported only for the gitHub and azureDevOpsServices providers.
+                        type: boolean
+                      callerCredentialId:
+                        description: ID of a personal access token Git credential
+                          owned by the caller, used to grant the app's service principal
+                          access to this repository. This is only applied when the
+                          app is created and is not returned by the service; changing
+                          it on an existing app is not supported.
+                        type: number
                       provider:
                         description: 'Git provider. Case insensitive. Supported values:
                           gitHub, gitHubEnterprise, bitbucketCloud, bitbucketServer,
@@ -1519,6 +2002,64 @@ spec:
                         type: string
                       url:
                         description: URL of the Git repository.
+                        type: string
+                    type: object
+                  gitSource:
+                    description: The Git source to deploy from, specifying the reference
+                      to check out and an optional path to the app source code within
+                      the repository configured in git_repository (see below).
+                    properties:
+                      branch:
+                        description: Git branch to check out and deploy from. Required
+                          when git_repository.auto_deploy is true, since automatic
+                          deployment tracks pushes to a branch.
+                        type: string
+                      commit:
+                        description: Git commit SHA to check out and deploy from.
+                        type: string
+                      gitRepository:
+                        description: Git repository configuration for app deployments
+                          (see below). When specified, deployments can reference code
+                          from this repository by providing only the git reference
+                          (branch, tag, or commit).
+                        properties:
+                          autoDeploy:
+                            description: When true, the app is automatically redeployed
+                              on push events to the branch configured in git_source.
+                              This requires git_source to specify a branch; a tag
+                              or commit cannot be used, because automatic deployment
+                              is triggered by pushes to a branch. Automatic deployment
+                              is currently supported only for the gitHub and azureDevOpsServices
+                              providers.
+                            type: boolean
+                          callerCredentialId:
+                            description: ID of a personal access token Git credential
+                              owned by the caller, used to grant the app's service
+                              principal access to this repository. This is only applied
+                              when the app is created and is not returned by the service;
+                              changing it on an existing app is not supported.
+                            type: number
+                          provider:
+                            description: 'Git provider. Case insensitive. Supported
+                              values: gitHub, gitHubEnterprise, bitbucketCloud, bitbucketServer,
+                              azureDevOpsServices, gitLab, gitLabEnterpriseEdition,
+                              awsCodeCommit.'
+                            type: string
+                          url:
+                            description: URL of the Git repository.
+                            type: string
+                        type: object
+                      resolvedCommit:
+                        type: string
+                      sourceCodePath:
+                        description: Workspace filesystem path of the source code
+                          to deploy from, as an alternative to Git-based deployment
+                          (git_repository/git_source). This value is not returned
+                          by the service; the workspace path of the last active deployment
+                          is exported as default_source_code_path.
+                        type: string
+                      tag:
+                        description: Git tag to check out and deploy from.
                         type: string
                     type: object
                   name:
@@ -1622,8 +2163,9 @@ spec:
                           description: attribute
                           properties:
                             branch:
-                              description: The resource path of the Lakebase Autoscaling
-                                branch to grant permission on (e.g. projects/proj-abc123/branches/branch-xyz789).
+                              description: Git branch to check out and deploy from.
+                                Required when git_repository.auto_deploy is true,
+                                since automatic deployment tracks pushes to a branch.
                               type: string
                             database:
                               description: attribute
@@ -1696,6 +2238,12 @@ spec:
                           type: object
                       type: object
                     type: array
+                  sourceCodePath:
+                    description: Workspace filesystem path of the source code to deploy
+                      from, as an alternative to Git-based deployment (git_repository/git_source).
+                      This value is not returned by the service; the workspace path
+                      of the last active deployment is exported as default_source_code_path.
+                    type: string
                   space:
                     type: string
                   telemetryExportDestinations:
@@ -1818,8 +2366,11 @@ spec:
                         description: attribute
                         properties:
                           sourceCodePath:
-                            description: The workspace file system path of the source
-                              code used to create the deployment.
+                            description: Workspace filesystem path of the source code
+                              to deploy from, as an alternative to Git-based deployment
+                              (git_repository/git_source). This value is not returned
+                              by the service; the workspace path of the last active
+                              deployment is exported as default_source_code_path.
                             type: string
                         type: object
                       deploymentId:
@@ -1840,12 +2391,18 @@ spec:
                           type: object
                         type: array
                       gitSource:
+                        description: The Git source to deploy from, specifying the
+                          reference to check out and an optional path to the app source
+                          code within the repository configured in git_repository
+                          (see below).
                         properties:
                           branch:
-                            description: The resource path of the Lakebase Autoscaling
-                              branch to grant permission on (e.g. projects/proj-abc123/branches/branch-xyz789).
+                            description: Git branch to check out and deploy from.
+                              Required when git_repository.auto_deploy is true, since
+                              automatic deployment tracks pushes to a branch.
                             type: string
                           commit:
+                            description: Git commit SHA to check out and deploy from.
                             type: string
                           gitRepository:
                             description: Git repository configuration for app deployments
@@ -1853,6 +2410,23 @@ spec:
                               code from this repository by providing only the git
                               reference (branch, tag, or commit).
                             properties:
+                              autoDeploy:
+                                description: When true, the app is automatically redeployed
+                                  on push events to the branch configured in git_source.
+                                  This requires git_source to specify a branch; a
+                                  tag or commit cannot be used, because automatic
+                                  deployment is triggered by pushes to a branch. Automatic
+                                  deployment is currently supported only for the gitHub
+                                  and azureDevOpsServices providers.
+                                type: boolean
+                              callerCredentialId:
+                                description: ID of a personal access token Git credential
+                                  owned by the caller, used to grant the app's service
+                                  principal access to this repository. This is only
+                                  applied when the app is created and is not returned
+                                  by the service; changing it on an existing app is
+                                  not supported.
+                                type: number
                               provider:
                                 description: 'Git provider. Case insensitive. Supported
                                   values: gitHub, gitHubEnterprise, bitbucketCloud,
@@ -1866,18 +2440,32 @@ spec:
                           resolvedCommit:
                             type: string
                           sourceCodePath:
-                            description: The workspace file system path of the source
-                              code used to create the deployment.
+                            description: Workspace filesystem path of the source code
+                              to deploy from, as an alternative to Git-based deployment
+                              (git_repository/git_source). This value is not returned
+                              by the service; the workspace path of the last active
+                              deployment is exported as default_source_code_path.
                             type: string
                           tag:
+                            description: Git tag to check out and deploy from.
+                            type: string
+                        type: object
+                      healthCheck:
+                        properties:
+                          path:
+                            type: string
+                          timeout:
                             type: string
                         type: object
                       mode:
                         description: The deployment mode (AUTO_SYNC or SNAPSHOT).
                         type: string
                       sourceCodePath:
-                        description: The workspace file system path of the source
-                          code used to create the deployment.
+                        description: Workspace filesystem path of the source code
+                          to deploy from, as an alternative to Git-based deployment
+                          (git_repository/git_source). This value is not returned
+                          by the service; the workspace path of the last active deployment
+                          is exported as default_source_code_path.
                         type: string
                       status:
                         description: attribute
@@ -1934,6 +2522,64 @@ spec:
                   creator:
                     description: The email of the user that created the app.
                     type: string
+                  defaultGitSource:
+                    description: The Git source to deploy from, specifying the reference
+                      to check out and an optional path to the app source code within
+                      the repository configured in git_repository (see below).
+                    properties:
+                      branch:
+                        description: Git branch to check out and deploy from. Required
+                          when git_repository.auto_deploy is true, since automatic
+                          deployment tracks pushes to a branch.
+                        type: string
+                      commit:
+                        description: Git commit SHA to check out and deploy from.
+                        type: string
+                      gitRepository:
+                        description: Git repository configuration for app deployments
+                          (see below). When specified, deployments can reference code
+                          from this repository by providing only the git reference
+                          (branch, tag, or commit).
+                        properties:
+                          autoDeploy:
+                            description: When true, the app is automatically redeployed
+                              on push events to the branch configured in git_source.
+                              This requires git_source to specify a branch; a tag
+                              or commit cannot be used, because automatic deployment
+                              is triggered by pushes to a branch. Automatic deployment
+                              is currently supported only for the gitHub and azureDevOpsServices
+                              providers.
+                            type: boolean
+                          callerCredentialId:
+                            description: ID of a personal access token Git credential
+                              owned by the caller, used to grant the app's service
+                              principal access to this repository. This is only applied
+                              when the app is created and is not returned by the service;
+                              changing it on an existing app is not supported.
+                            type: number
+                          provider:
+                            description: 'Git provider. Case insensitive. Supported
+                              values: gitHub, gitHubEnterprise, bitbucketCloud, bitbucketServer,
+                              azureDevOpsServices, gitLab, gitLabEnterpriseEdition,
+                              awsCodeCommit.'
+                            type: string
+                          url:
+                            description: URL of the Git repository.
+                            type: string
+                        type: object
+                      resolvedCommit:
+                        type: string
+                      sourceCodePath:
+                        description: Workspace filesystem path of the source code
+                          to deploy from, as an alternative to Git-based deployment
+                          (git_repository/git_source). This value is not returned
+                          by the service; the workspace path of the last active deployment
+                          is exported as default_source_code_path.
+                        type: string
+                      tag:
+                        description: Git tag to check out and deploy from.
+                        type: string
+                    type: object
                   defaultSourceCodePath:
                     description: The default workspace file system path of the source
                       code from which app deployment are created. This field tracks
@@ -1954,12 +2600,29 @@ spec:
                     items:
                       type: string
                     type: array
+                  forwardUserAccessToken:
+                    type: boolean
                   gitRepository:
                     description: Git repository configuration for app deployments
                       (see below). When specified, deployments can reference code
                       from this repository by providing only the git reference (branch,
                       tag, or commit).
                     properties:
+                      autoDeploy:
+                        description: When true, the app is automatically redeployed
+                          on push events to the branch configured in git_source. This
+                          requires git_source to specify a branch; a tag or commit
+                          cannot be used, because automatic deployment is triggered
+                          by pushes to a branch. Automatic deployment is currently
+                          supported only for the gitHub and azureDevOpsServices providers.
+                        type: boolean
+                      callerCredentialId:
+                        description: ID of a personal access token Git credential
+                          owned by the caller, used to grant the app's service principal
+                          access to this repository. This is only applied when the
+                          app is created and is not returned by the service; changing
+                          it on an existing app is not supported.
+                        type: number
                       provider:
                         description: 'Git provider. Case insensitive. Supported values:
                           gitHub, gitHubEnterprise, bitbucketCloud, bitbucketServer,
@@ -1967,6 +2630,64 @@ spec:
                         type: string
                       url:
                         description: URL of the Git repository.
+                        type: string
+                    type: object
+                  gitSource:
+                    description: The Git source to deploy from, specifying the reference
+                      to check out and an optional path to the app source code within
+                      the repository configured in git_repository (see below).
+                    properties:
+                      branch:
+                        description: Git branch to check out and deploy from. Required
+                          when git_repository.auto_deploy is true, since automatic
+                          deployment tracks pushes to a branch.
+                        type: string
+                      commit:
+                        description: Git commit SHA to check out and deploy from.
+                        type: string
+                      gitRepository:
+                        description: Git repository configuration for app deployments
+                          (see below). When specified, deployments can reference code
+                          from this repository by providing only the git reference
+                          (branch, tag, or commit).
+                        properties:
+                          autoDeploy:
+                            description: When true, the app is automatically redeployed
+                              on push events to the branch configured in git_source.
+                              This requires git_source to specify a branch; a tag
+                              or commit cannot be used, because automatic deployment
+                              is triggered by pushes to a branch. Automatic deployment
+                              is currently supported only for the gitHub and azureDevOpsServices
+                              providers.
+                            type: boolean
+                          callerCredentialId:
+                            description: ID of a personal access token Git credential
+                              owned by the caller, used to grant the app's service
+                              principal access to this repository. This is only applied
+                              when the app is created and is not returned by the service;
+                              changing it on an existing app is not supported.
+                            type: number
+                          provider:
+                            description: 'Git provider. Case insensitive. Supported
+                              values: gitHub, gitHubEnterprise, bitbucketCloud, bitbucketServer,
+                              azureDevOpsServices, gitLab, gitLabEnterpriseEdition,
+                              awsCodeCommit.'
+                            type: string
+                          url:
+                            description: URL of the Git repository.
+                            type: string
+                        type: object
+                      resolvedCommit:
+                        type: string
+                      sourceCodePath:
+                        description: Workspace filesystem path of the source code
+                          to deploy from, as an alternative to Git-based deployment
+                          (git_repository/git_source). This value is not returned
+                          by the service; the workspace path of the last active deployment
+                          is exported as default_source_code_path.
+                        type: string
+                      tag:
+                        description: Git tag to check out and deploy from.
                         type: string
                     type: object
                   id:
@@ -2006,8 +2727,11 @@ spec:
                         description: attribute
                         properties:
                           sourceCodePath:
-                            description: The workspace file system path of the source
-                              code used to create the deployment.
+                            description: Workspace filesystem path of the source code
+                              to deploy from, as an alternative to Git-based deployment
+                              (git_repository/git_source). This value is not returned
+                              by the service; the workspace path of the last active
+                              deployment is exported as default_source_code_path.
                             type: string
                         type: object
                       deploymentId:
@@ -2028,12 +2752,18 @@ spec:
                           type: object
                         type: array
                       gitSource:
+                        description: The Git source to deploy from, specifying the
+                          reference to check out and an optional path to the app source
+                          code within the repository configured in git_repository
+                          (see below).
                         properties:
                           branch:
-                            description: The resource path of the Lakebase Autoscaling
-                              branch to grant permission on (e.g. projects/proj-abc123/branches/branch-xyz789).
+                            description: Git branch to check out and deploy from.
+                              Required when git_repository.auto_deploy is true, since
+                              automatic deployment tracks pushes to a branch.
                             type: string
                           commit:
+                            description: Git commit SHA to check out and deploy from.
                             type: string
                           gitRepository:
                             description: Git repository configuration for app deployments
@@ -2041,6 +2771,23 @@ spec:
                               code from this repository by providing only the git
                               reference (branch, tag, or commit).
                             properties:
+                              autoDeploy:
+                                description: When true, the app is automatically redeployed
+                                  on push events to the branch configured in git_source.
+                                  This requires git_source to specify a branch; a
+                                  tag or commit cannot be used, because automatic
+                                  deployment is triggered by pushes to a branch. Automatic
+                                  deployment is currently supported only for the gitHub
+                                  and azureDevOpsServices providers.
+                                type: boolean
+                              callerCredentialId:
+                                description: ID of a personal access token Git credential
+                                  owned by the caller, used to grant the app's service
+                                  principal access to this repository. This is only
+                                  applied when the app is created and is not returned
+                                  by the service; changing it on an existing app is
+                                  not supported.
+                                type: number
                               provider:
                                 description: 'Git provider. Case insensitive. Supported
                                   values: gitHub, gitHubEnterprise, bitbucketCloud,
@@ -2054,18 +2801,32 @@ spec:
                           resolvedCommit:
                             type: string
                           sourceCodePath:
-                            description: The workspace file system path of the source
-                              code used to create the deployment.
+                            description: Workspace filesystem path of the source code
+                              to deploy from, as an alternative to Git-based deployment
+                              (git_repository/git_source). This value is not returned
+                              by the service; the workspace path of the last active
+                              deployment is exported as default_source_code_path.
                             type: string
                           tag:
+                            description: Git tag to check out and deploy from.
+                            type: string
+                        type: object
+                      healthCheck:
+                        properties:
+                          path:
+                            type: string
+                          timeout:
                             type: string
                         type: object
                       mode:
                         description: The deployment mode (AUTO_SYNC or SNAPSHOT).
                         type: string
                       sourceCodePath:
-                        description: The workspace file system path of the source
-                          code used to create the deployment.
+                        description: Workspace filesystem path of the source code
+                          to deploy from, as an alternative to Git-based deployment
+                          (git_repository/git_source). This value is not returned
+                          by the service; the workspace path of the last active deployment
+                          is exported as default_source_code_path.
                         type: string
                       status:
                         description: attribute
@@ -2175,8 +2936,9 @@ spec:
                           description: attribute
                           properties:
                             branch:
-                              description: The resource path of the Lakebase Autoscaling
-                                branch to grant permission on (e.g. projects/proj-abc123/branches/branch-xyz789).
+                              description: Git branch to check out and deploy from.
+                                Required when git_repository.auto_deploy is true,
+                                since automatic deployment tracks pushes to a branch.
                               type: string
                             database:
                               description: attribute
@@ -2259,6 +3021,12 @@ spec:
                     type: number
                   servicePrincipalName:
                     description: name of the app service principal
+                    type: string
+                  sourceCodePath:
+                    description: Workspace filesystem path of the source code to deploy
+                      from, as an alternative to Git-based deployment (git_repository/git_source).
+                      This value is not returned by the service; the workspace path
+                      of the last active deployment is exported as default_source_code_path.
                     type: string
                   space:
                     type: string

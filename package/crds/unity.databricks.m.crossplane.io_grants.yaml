@@ -394,9 +394,15 @@ spec:
                     type: object
                   function:
                     type: string
+                  mcpService:
+                    type: string
                   metastore:
                     type: string
                   model:
+                    type: string
+                  modelProviderService:
+                    type: string
+                  modelService:
                     type: string
                   pipeline:
                     type: string
@@ -589,6 +595,8 @@ spec:
                             type: string
                         type: object
                     type: object
+                  secret:
+                    type: string
                   share:
                     type: string
                   shareRef:
@@ -1185,9 +1193,15 @@ spec:
                     type: object
                   function:
                     type: string
+                  mcpService:
+                    type: string
                   metastore:
                     type: string
                   model:
+                    type: string
+                  modelProviderService:
+                    type: string
+                  modelService:
                     type: string
                   pipeline:
                     type: string
@@ -1380,6 +1394,8 @@ spec:
                             type: string
                         type: object
                     type: object
+                  secret:
+                    type: string
                   share:
                     type: string
                   shareRef:
@@ -1711,9 +1727,15 @@ spec:
                     type: string
                   id:
                     type: string
+                  mcpService:
+                    type: string
                   metastore:
                     type: string
                   model:
+                    type: string
+                  modelProviderService:
+                    type: string
+                  modelService:
                     type: string
                   pipeline:
                     type: string
@@ -1743,6 +1765,8 @@ spec:
                   recipient:
                     type: string
                   schema:
+                    type: string
+                  secret:
                     type: string
                   share:
                     type: string
@@ -2193,9 +2217,15 @@ spec:
                     type: object
                   function:
                     type: string
+                  mcpService:
+                    type: string
                   metastore:
                     type: string
                   model:
+                    type: string
+                  modelProviderService:
+                    type: string
+                  modelService:
                     type: string
                   pipeline:
                     type: string
@@ -2386,6 +2416,8 @@ spec:
                             type: string
                         type: object
                     type: object
+                  secret:
+                    type: string
                   share:
                     type: string
                   shareRef:
@@ -2982,9 +3014,15 @@ spec:
                     type: object
                   function:
                     type: string
+                  mcpService:
+                    type: string
                   metastore:
                     type: string
                   model:
+                    type: string
+                  modelProviderService:
+                    type: string
+                  modelService:
                     type: string
                   pipeline:
                     type: string
@@ -3175,6 +3213,8 @@ spec:
                             type: string
                         type: object
                     type: object
+                  secret:
+                    type: string
                   share:
                     type: string
                   shareRef:
@@ -3506,9 +3546,15 @@ spec:
                     type: string
                   id:
                     type: string
+                  mcpService:
+                    type: string
                   metastore:
                     type: string
                   model:
+                    type: string
+                  modelProviderService:
+                    type: string
+                  modelService:
                     type: string
                   pipeline:
                     type: string
@@ -3536,6 +3582,8 @@ spec:
                   recipient:
                     type: string
                   schema:
+                    type: string
+                  secret:
                     type: string
                   share:
                     type: string

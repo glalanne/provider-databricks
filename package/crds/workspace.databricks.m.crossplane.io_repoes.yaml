@@ -68,6 +68,10 @@ spec:
                       with tag.  If branch is removed, and tag isn't specified, then
                       the repository will stay at the previously checked out state.
                     type: string
+                  gitCredentialId:
+                    description: The ID of the Git credential (databricks_git_credential)
+                      to use for authentication with the Git provider remote.
+                    type: number
                   gitProvider:
                     description: 'case insensitive name of the Git provider.  Following
                       values are supported right now (could be a subject for a change,
@@ -132,6 +136,10 @@ spec:
                       with tag.  If branch is removed, and tag isn't specified, then
                       the repository will stay at the previously checked out state.
                     type: string
+                  gitCredentialId:
+                    description: The ID of the Git credential (databricks_git_credential)
+                      to use for authentication with the Git provider remote.
+                    type: number
                   gitProvider:
                     description: 'case insensitive name of the Git provider.  Following
                       values are supported right now (could be a subject for a change,
@@ -256,6 +264,10 @@ spec:
                       operation. It won't change if you manually perform pull operation
                       via UI or API
                     type: string
+                  gitCredentialId:
+                    description: The ID of the Git credential (databricks_git_credential)
+                      to use for authentication with the Git provider remote.
+                    type: number
                   gitProvider:
                     description: 'case insensitive name of the Git provider.  Following
                       values are supported right now (could be a subject for a change,
@@ -422,6 +434,10 @@ spec:
                       with tag.  If branch is removed, and tag isn't specified, then
                       the repository will stay at the previously checked out state.
                     type: string
+                  gitCredentialId:
+                    description: The ID of the Git credential (databricks_git_credential)
+                      to use for authentication with the Git provider remote.
+                    type: number
                   gitProvider:
                     description: 'case insensitive name of the Git provider.  Following
                       values are supported right now (could be a subject for a change,
@@ -482,6 +498,10 @@ spec:
                       with tag.  If branch is removed, and tag isn't specified, then
                       the repository will stay at the previously checked out state.
                     type: string
+                  gitCredentialId:
+                    description: The ID of the Git credential (databricks_git_credential)
+                      to use for authentication with the Git provider remote.
+                    type: number
                   gitProvider:
                     description: 'case insensitive name of the Git provider.  Following
                       values are supported right now (could be a subject for a change,
@@ -602,6 +622,10 @@ spec:
                       operation. It won't change if you manually perform pull operation
                       via UI or API
                     type: string
+                  gitCredentialId:
+                    description: The ID of the Git credential (databricks_git_credential)
+                      to use for authentication with the Git provider remote.
+                    type: number
                   gitProvider:
                     description: 'case insensitive name of the Git provider.  Following
                       values are supported right now (could be a subject for a change,

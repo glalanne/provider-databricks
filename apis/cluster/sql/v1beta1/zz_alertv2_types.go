@@ -21,11 +21,17 @@ type AlertV2InitParameters struct {
 	// Custom summary for the alert. support mustache template
 	CustomSummary *string `json:"customSummary,omitempty" tf:"custom_summary,omitempty"`
 
+	// The format used to interpret the custom_summary and custom_description templates.
+	CustomTemplateFormat *string `json:"customTemplateFormat,omitempty" tf:"custom_template_format,omitempty"`
+
 	// The display name of the alert
 	DisplayName *string `json:"displayName,omitempty" tf:"display_name,omitempty"`
 
 	// (AlertV2Evaluation, required)
 	Evaluation *EvaluationInitParameters `json:"evaluation,omitempty" tf:"evaluation,omitempty"`
+
+	// A list of parameters to pass into the alert SQL query statement containing parameter markers. Static values only.
+	Parameters []ParametersInitParameters `json:"parameters,omitempty" tf:"parameters,omitempty"`
 
 	// The workspace path of the folder containing the alert. Can only be set on create, and cannot be updated
 	ParentPath *string `json:"parentPath,omitempty" tf:"parent_path,omitempty"`
@@ -66,6 +72,9 @@ type AlertV2Observation struct {
 	// Custom summary for the alert. support mustache template
 	CustomSummary *string `json:"customSummary,omitempty" tf:"custom_summary,omitempty"`
 
+	// The format used to interpret the custom_summary and custom_description templates.
+	CustomTemplateFormat *string `json:"customTemplateFormat,omitempty" tf:"custom_template_format,omitempty"`
+
 	// The display name of the alert
 	DisplayName *string `json:"displayName,omitempty" tf:"display_name,omitempty"`
 
@@ -77,7 +86,7 @@ type AlertV2Observation struct {
 	// (AlertV2Evaluation, required)
 	Evaluation *EvaluationObservation `json:"evaluation,omitempty" tf:"evaluation,omitempty"`
 
-	// UUID identifying the alert
+	// The canonical identifier of the alert to retrieve information about
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
 	// Indicates whether the query is trashed. Possible values are: ACTIVE, DELETED
@@ -85,6 +94,9 @@ type AlertV2Observation struct {
 
 	// The owner's username. This field is set to "Unavailable" if the user has been deleted
 	OwnerUserName *string `json:"ownerUserName,omitempty" tf:"owner_user_name,omitempty"`
+
+	// A list of parameters to pass into the alert SQL query statement containing parameter markers. Static values only.
+	Parameters []ParametersObservation `json:"parameters,omitempty" tf:"parameters,omitempty"`
 
 	// The workspace path of the folder containing the alert. Can only be set on create, and cannot be updated
 	ParentPath *string `json:"parentPath,omitempty" tf:"parent_path,omitempty"`
@@ -127,6 +139,10 @@ type AlertV2Parameters struct {
 	// +kubebuilder:validation:Optional
 	CustomSummary *string `json:"customSummary,omitempty" tf:"custom_summary,omitempty"`
 
+	// The format used to interpret the custom_summary and custom_description templates.
+	// +kubebuilder:validation:Optional
+	CustomTemplateFormat *string `json:"customTemplateFormat,omitempty" tf:"custom_template_format,omitempty"`
+
 	// The display name of the alert
 	// +kubebuilder:validation:Optional
 	DisplayName *string `json:"displayName,omitempty" tf:"display_name,omitempty"`
@@ -134,6 +150,10 @@ type AlertV2Parameters struct {
 	// (AlertV2Evaluation, required)
 	// +kubebuilder:validation:Optional
 	Evaluation *EvaluationParameters `json:"evaluation,omitempty" tf:"evaluation,omitempty"`
+
+	// A list of parameters to pass into the alert SQL query statement containing parameter markers. Static values only.
+	// +kubebuilder:validation:Optional
+	Parameters []ParametersParameters `json:"parameters,omitempty" tf:"parameters,omitempty"`
 
 	// The workspace path of the folder containing the alert. Can only be set on create, and cannot be updated
 	// +kubebuilder:validation:Optional
@@ -292,7 +312,7 @@ type EvaluationThresholdInitParameters struct {
 	// (AlertV2OperandColumn, optional)
 	Column *ThresholdColumnInitParameters `json:"column,omitempty" tf:"column,omitempty"`
 
-	// (AlertV2OperandValue, optional)
+	// The value bound to the parameter, represented as a string. If omitted, the value is interpreted as NULL
 	Value *ThresholdValueInitParameters `json:"value,omitempty" tf:"value,omitempty"`
 }
 
@@ -301,7 +321,7 @@ type EvaluationThresholdObservation struct {
 	// (AlertV2OperandColumn, optional)
 	Column *ThresholdColumnObservation `json:"column,omitempty" tf:"column,omitempty"`
 
-	// (AlertV2OperandValue, optional)
+	// The value bound to the parameter, represented as a string. If omitted, the value is interpreted as NULL
 	Value *ThresholdValueObservation `json:"value,omitempty" tf:"value,omitempty"`
 }
 
@@ -311,7 +331,7 @@ type EvaluationThresholdParameters struct {
 	// +kubebuilder:validation:Optional
 	Column *ThresholdColumnParameters `json:"column,omitempty" tf:"column,omitempty"`
 
-	// (AlertV2OperandValue, optional)
+	// The value bound to the parameter, represented as a string. If omitted, the value is interpreted as NULL
 	// +kubebuilder:validation:Optional
 	Value *ThresholdValueParameters `json:"value,omitempty" tf:"value,omitempty"`
 }
@@ -367,6 +387,51 @@ type NotificationParameters struct {
 	// (list of AlertV2Subscription, optional)
 	// +kubebuilder:validation:Optional
 	Subscriptions []SubscriptionsParameters `json:"subscriptions,omitempty" tf:"subscriptions,omitempty"`
+}
+
+type ParametersInitParameters struct {
+
+	// The name of the parameter. Reference it in the query text as :name. Required, must be
+	// non-empty, and must be unique across the alert's parameters
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// The SQL data type of the parameter, for example STRING, INT, or DECIMAL(10, 2). If no type is given
+	// the type is assumed to be STRING. Complex types such as ARRAY, MAP, and STRUCT are not supported
+	Type *string `json:"type,omitempty" tf:"type,omitempty"`
+
+	// The value bound to the parameter, represented as a string. If omitted, the value is interpreted as NULL
+	Value *string `json:"value,omitempty" tf:"value,omitempty"`
+}
+
+type ParametersObservation struct {
+
+	// The name of the parameter. Reference it in the query text as :name. Required, must be
+	// non-empty, and must be unique across the alert's parameters
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// The SQL data type of the parameter, for example STRING, INT, or DECIMAL(10, 2). If no type is given
+	// the type is assumed to be STRING. Complex types such as ARRAY, MAP, and STRUCT are not supported
+	Type *string `json:"type,omitempty" tf:"type,omitempty"`
+
+	// The value bound to the parameter, represented as a string. If omitted, the value is interpreted as NULL
+	Value *string `json:"value,omitempty" tf:"value,omitempty"`
+}
+
+type ParametersParameters struct {
+
+	// The name of the parameter. Reference it in the query text as :name. Required, must be
+	// non-empty, and must be unique across the alert's parameters
+	// +kubebuilder:validation:Optional
+	Name *string `json:"name" tf:"name,omitempty"`
+
+	// The SQL data type of the parameter, for example STRING, INT, or DECIMAL(10, 2). If no type is given
+	// the type is assumed to be STRING. Complex types such as ARRAY, MAP, and STRUCT are not supported
+	// +kubebuilder:validation:Optional
+	Type *string `json:"type,omitempty" tf:"type,omitempty"`
+
+	// The value bound to the parameter, represented as a string. If omitted, the value is interpreted as NULL
+	// +kubebuilder:validation:Optional
+	Value *string `json:"value,omitempty" tf:"value,omitempty"`
 }
 
 type RunAsInitParameters struct {
@@ -457,7 +522,8 @@ type SourceInitParameters struct {
 	// (string, optional)
 	Display *string `json:"display,omitempty" tf:"display,omitempty"`
 
-	// (string, required)
+	// The name of the parameter. Reference it in the query text as :name. Required, must be
+	// non-empty, and must be unique across the alert's parameters
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 }
 
@@ -469,7 +535,8 @@ type SourceObservation struct {
 	// (string, optional)
 	Display *string `json:"display,omitempty" tf:"display,omitempty"`
 
-	// (string, required)
+	// The name of the parameter. Reference it in the query text as :name. Required, must be
+	// non-empty, and must be unique across the alert's parameters
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 }
 
@@ -483,7 +550,8 @@ type SourceParameters struct {
 	// +kubebuilder:validation:Optional
 	Display *string `json:"display,omitempty" tf:"display,omitempty"`
 
-	// (string, required)
+	// The name of the parameter. Reference it in the query text as :name. Required, must be
+	// non-empty, and must be unique across the alert's parameters
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name" tf:"name,omitempty"`
 }
@@ -525,7 +593,8 @@ type ThresholdColumnInitParameters struct {
 	// (string, optional)
 	Display *string `json:"display,omitempty" tf:"display,omitempty"`
 
-	// (string, required)
+	// The name of the parameter. Reference it in the query text as :name. Required, must be
+	// non-empty, and must be unique across the alert's parameters
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 }
 
@@ -537,7 +606,8 @@ type ThresholdColumnObservation struct {
 	// (string, optional)
 	Display *string `json:"display,omitempty" tf:"display,omitempty"`
 
-	// (string, required)
+	// The name of the parameter. Reference it in the query text as :name. Required, must be
+	// non-empty, and must be unique across the alert's parameters
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 }
 
@@ -551,7 +621,8 @@ type ThresholdColumnParameters struct {
 	// +kubebuilder:validation:Optional
 	Display *string `json:"display,omitempty" tf:"display,omitempty"`
 
-	// (string, required)
+	// The name of the parameter. Reference it in the query text as :name. Required, must be
+	// non-empty, and must be unique across the alert's parameters
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name" tf:"name,omitempty"`
 }

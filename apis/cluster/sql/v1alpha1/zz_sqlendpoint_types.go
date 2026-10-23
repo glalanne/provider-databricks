@@ -120,6 +120,8 @@ type SQLEndpointInitParameters struct {
 	// The size of the clusters allocated to the endpoint: "2X-Small", "X-Small", "Small", "Medium", "Large", "X-Large", "2X-Large", "3X-Large", "4X-Large", "5X-Large".
 	ClusterSize *string `json:"clusterSize,omitempty" tf:"cluster_size,omitempty"`
 
+	CustomerVersionLabel *string `json:"customerVersionLabel,omitempty" tf:"customer_version_label,omitempty"`
+
 	// (Deprecated, will be removed) ID of the data source for this endpoint. This is used to bind an Databricks SQL query to an endpoint.
 	DataSourceID *string `json:"dataSourceId,omitempty" tf:"data_source_id,omitempty"`
 
@@ -130,6 +132,8 @@ type SQLEndpointInitParameters struct {
 	EnableServerlessCompute *bool `json:"enableServerlessCompute,omitempty" tf:"enable_serverless_compute,omitempty"`
 
 	InstanceProfileArn *string `json:"instanceProfileArn,omitempty" tf:"instance_profile_arn,omitempty"`
+
+	MaxDbu *float64 `json:"maxDbu,omitempty" tf:"max_dbu,omitempty"`
 
 	// Maximum number of clusters available when a SQL warehouse is running. This field is required. If multi-cluster load balancing is not enabled, this is default to 1.
 	MaxNumClusters *float64 `json:"maxNumClusters,omitempty" tf:"max_num_clusters,omitempty"`
@@ -147,8 +151,12 @@ type SQLEndpointInitParameters struct {
 	// Configure the provider for management through account provider. This block consists of the following fields:
 	ProviderConfig []SQLEndpointProviderConfigInitParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
 
+	ReydenClusterSizeMultiplier *float64 `json:"reydenClusterSizeMultiplier,omitempty" tf:"reyden_cluster_size_multiplier,omitempty"`
+
 	// The spot policy to use for allocating instances to clusters: COST_OPTIMIZED or RELIABILITY_OPTIMIZED. This field is optional. Default is COST_OPTIMIZED.
 	SpotInstancePolicy *string `json:"spotInstancePolicy,omitempty" tf:"spot_instance_policy,omitempty"`
+
+	StatementTimeout *float64 `json:"statementTimeout,omitempty" tf:"statement_timeout,omitempty"`
 
 	// Databricks tags all endpoint resources with these tags.
 	Tags []TagsInitParameters `json:"tags,omitempty" tf:"tags,omitempty"`
@@ -171,6 +179,8 @@ type SQLEndpointObservation struct {
 	// The username of the user who created the endpoint.
 	CreatorName *string `json:"creatorName,omitempty" tf:"creator_name,omitempty"`
 
+	CustomerVersionLabel *string `json:"customerVersionLabel,omitempty" tf:"customer_version_label,omitempty"`
+
 	// (Deprecated, will be removed) ID of the data source for this endpoint. This is used to bind an Databricks SQL query to an endpoint.
 	DataSourceID *string `json:"dataSourceId,omitempty" tf:"data_source_id,omitempty"`
 
@@ -190,6 +200,8 @@ type SQLEndpointObservation struct {
 
 	// JDBC connection string.
 	JdbcURL *string `json:"jdbcUrl,omitempty" tf:"jdbc_url,omitempty"`
+
+	MaxDbu *float64 `json:"maxDbu,omitempty" tf:"max_dbu,omitempty"`
 
 	// Maximum number of clusters available when a SQL warehouse is running. This field is required. If multi-cluster load balancing is not enabled, this is default to 1.
 	MaxNumClusters *float64 `json:"maxNumClusters,omitempty" tf:"max_num_clusters,omitempty"`
@@ -216,11 +228,15 @@ type SQLEndpointObservation struct {
 	// Configure the provider for management through account provider. This block consists of the following fields:
 	ProviderConfig []SQLEndpointProviderConfigObservation `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
 
+	ReydenClusterSizeMultiplier *float64 `json:"reydenClusterSizeMultiplier,omitempty" tf:"reyden_cluster_size_multiplier,omitempty"`
+
 	// The spot policy to use for allocating instances to clusters: COST_OPTIMIZED or RELIABILITY_OPTIMIZED. This field is optional. Default is COST_OPTIMIZED.
 	SpotInstancePolicy *string `json:"spotInstancePolicy,omitempty" tf:"spot_instance_policy,omitempty"`
 
 	// The current state of the endpoint.
 	State *string `json:"state,omitempty" tf:"state,omitempty"`
+
+	StatementTimeout *float64 `json:"statementTimeout,omitempty" tf:"statement_timeout,omitempty"`
 
 	// Databricks tags all endpoint resources with these tags.
 	Tags []TagsObservation `json:"tags,omitempty" tf:"tags,omitempty"`
@@ -243,6 +259,9 @@ type SQLEndpointParameters struct {
 	// +kubebuilder:validation:Optional
 	ClusterSize *string `json:"clusterSize,omitempty" tf:"cluster_size,omitempty"`
 
+	// +kubebuilder:validation:Optional
+	CustomerVersionLabel *string `json:"customerVersionLabel,omitempty" tf:"customer_version_label,omitempty"`
+
 	// (Deprecated, will be removed) ID of the data source for this endpoint. This is used to bind an Databricks SQL query to an endpoint.
 	// +kubebuilder:validation:Optional
 	DataSourceID *string `json:"dataSourceId,omitempty" tf:"data_source_id,omitempty"`
@@ -257,6 +276,9 @@ type SQLEndpointParameters struct {
 
 	// +kubebuilder:validation:Optional
 	InstanceProfileArn *string `json:"instanceProfileArn,omitempty" tf:"instance_profile_arn,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	MaxDbu *float64 `json:"maxDbu,omitempty" tf:"max_dbu,omitempty"`
 
 	// Maximum number of clusters available when a SQL warehouse is running. This field is required. If multi-cluster load balancing is not enabled, this is default to 1.
 	// +kubebuilder:validation:Optional
@@ -279,9 +301,15 @@ type SQLEndpointParameters struct {
 	// +kubebuilder:validation:Optional
 	ProviderConfig []SQLEndpointProviderConfigParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
 
+	// +kubebuilder:validation:Optional
+	ReydenClusterSizeMultiplier *float64 `json:"reydenClusterSizeMultiplier,omitempty" tf:"reyden_cluster_size_multiplier,omitempty"`
+
 	// The spot policy to use for allocating instances to clusters: COST_OPTIMIZED or RELIABILITY_OPTIMIZED. This field is optional. Default is COST_OPTIMIZED.
 	// +kubebuilder:validation:Optional
 	SpotInstancePolicy *string `json:"spotInstancePolicy,omitempty" tf:"spot_instance_policy,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	StatementTimeout *float64 `json:"statementTimeout,omitempty" tf:"statement_timeout,omitempty"`
 
 	// Databricks tags all endpoint resources with these tags.
 	// +kubebuilder:validation:Optional
