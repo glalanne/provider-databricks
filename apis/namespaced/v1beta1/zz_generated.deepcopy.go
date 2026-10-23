@@ -28,7 +28,7 @@ func (in *AzureADTokenExchange) DeepCopyInto(out *AzureADTokenExchange) {
 	}
 	if in.AuthorityHost != nil {
 		in, out := &in.AuthorityHost, &out.AuthorityHost
-		*out = new(string)
+		*out = new(AzureAuthorityHost)
 		**out = **in
 	}
 }

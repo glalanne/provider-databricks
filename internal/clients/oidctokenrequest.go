@@ -171,9 +171,9 @@ func withAudience(required string, extra []string) []string {
 	return out
 }
 
-func deref(s *string) string {
+func deref[T ~string](s *T) string {
 	if s == nil {
 		return ""
 	}
-	return *s
+	return string(*s)
 }

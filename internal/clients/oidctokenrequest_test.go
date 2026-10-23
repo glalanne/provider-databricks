@@ -86,7 +86,7 @@ func saSpec(ns, name, authority string) *namespacedv1beta1.ProviderConfigSpec {
 			Source:            namespacedv1beta1.CredentialsSourceOIDCTokenRequest,
 			ServiceAccountRef: &namespacedv1beta1.ServiceAccountReference{Name: name, Namespace: ref(ns)},
 			TokenExchange: &namespacedv1beta1.TokenExchange{
-				AzureAD: &namespacedv1beta1.AzureADTokenExchange{AuthorityHost: ref(authority)},
+				AzureAD: &namespacedv1beta1.AzureADTokenExchange{AuthorityHost: ref(namespacedv1beta1.AzureAuthorityHost(authority))},
 			},
 		},
 		Host: ref(testHost),
