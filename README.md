@@ -100,11 +100,23 @@ make e2e
 
 ### Offline diff client
 
-The internal diff server uses a separate SDKv2 client setup. It never reads
+The internal diff server uses a separate SDKv2 and Framework client setup.
+It never reads
 credential Secrets, requests service account tokens, runs authentication CLIs,
 or loads Databricks environment variables or profiles. Authentication uses a
 local placeholder PAT, and host metadata discovery is disabled. Normal
 reconciliation continues to use the regular authenticated client.
+
+Start the server without a kubeconfig or Kubernetes cluster:
+
+```console
+provider internal diff-server --address 127.0.0.1:9099
+```
+
+The caller supplies ProviderConfigs and reference objects through the request's
+`kubernetes_object_store`. Namespaced resources can use either a local
+ProviderConfig or a ClusterProviderConfig. Framework configuration receives the
+same isolated, egress-guarded client as SDKv2 configuration.
 
 ProviderConfigs are still resolved using the supplied Kubernetes client. Set
 `spec.host` and, for account-level resources, `spec.accountID` on the
@@ -121,6 +133,14 @@ Run the client unit tests:
 
 ```console
 go test ./internal/clients
+```
+
+The provider integration test builds the binary, starts it without Kubernetes
+configuration, and exercises real gRPC plans for both scopes and Terraform
+execution modes:
+
+```console
+go test ./cmd/provider -run TestDiffServerWithoutKubernetes
 ```
 
 The egress regression tests run in fresh subprocesses with an HTTP/HTTPS

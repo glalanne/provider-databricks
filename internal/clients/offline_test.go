@@ -17,6 +17,7 @@ import (
 	"github.com/databricks/terraform-provider-databricks/common"
 	"github.com/databricks/terraform-provider-databricks/xpprovider"
 	"github.com/google/go-cmp/cmp"
+	fwprovider "github.com/hashicorp/terraform-plugin-framework/provider"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
 	tfsdk "github.com/hashicorp/terraform-plugin-sdk/v2/terraform"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
@@ -58,7 +59,17 @@ func offlineTestProvider(t *testing.T) *schema.Provider {
 	if err != nil {
 		t.Fatal(err)
 	}
+
 	return p
+}
+
+func offlineTestSetupBuilder(t *testing.T, p *schema.Provider) terraform.SetupFn {
+	t.Helper()
+	fw, _, err := xpprovider.GetProvider(t.Context())
+	if err != nil {
+		t.Fatal(err)
+	}
+	return OfflineTerraformSetupBuilder(fw, p)
 }
 
 func offlineTestSetup(t *testing.T, p *schema.Provider, spec namespacedv1beta1.ProviderConfigSpec) terraform.Setup {
@@ -85,7 +96,7 @@ func offlineTestSetup(t *testing.T, p *schema.Provider, spec namespacedv1beta1.P
 	}).Build()
 	mg := &workspacev1beta1.Notebook{ObjectMeta: metav1.ObjectMeta{Name: "notebook", Namespace: "test", UID: "test-uid"}}
 	mg.SetProviderConfigReference(&xpv2.ProviderConfigReference{Kind: "ProviderConfig", Name: "default"})
-	ps, err := OfflineTerraformSetupBuilder(p)(context.Background(), kube, mg)
+	ps, err := offlineTestSetupBuilder(t, p)(context.Background(), kube, mg)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -180,6 +191,11 @@ func TestOfflineClientBlocksRequests(t *testing.T) {
 		t.Run(host, func(t *testing.T) {
 			ps := offlineTestSetup(t, p, namespacedv1beta1.ProviderConfigSpec{Host: ref(host), AccountID: ref("offline-account")})
 			meta := offlineTestMeta(t, ps)
+			var configured fwprovider.ConfigureResponse
+			ps.FrameworkProvider.Configure(t.Context(), fwprovider.ConfigureRequest{}, &configured)
+			if configured.Diagnostics.HasError() || configured.ResourceData != meta || configured.DataSourceData != meta {
+				t.Fatal("Framework resources did not receive the isolated guarded client")
+			}
 			if meta.Config.Host != host || meta.Config.AccountID != "offline-account" {
 				t.Fatal("ProviderConfig host/account ID were not preserved")
 			}
@@ -296,7 +312,7 @@ func TestOfflineProviderConfigResolution(t *testing.T) {
 		mg := &clusterworkspacev1beta1.Notebook{ObjectMeta: metav1.ObjectMeta{Name: "legacy", UID: "legacy-uid"}}
 		mg.SetProviderConfigReference(&xpv2.Reference{Name: "default"})
 		kube := fake.NewClientBuilder().WithScheme(s).WithObjects(pc).Build()
-		ps, err := OfflineTerraformSetupBuilder(p)(context.Background(), kube, mg)
+		ps, err := offlineTestSetupBuilder(t, p)(context.Background(), kube, mg)
 		if err != nil {
 			t.Fatal(err)
 		}
@@ -312,17 +328,8 @@ func TestOfflineProviderConfigResolution(t *testing.T) {
 			if kind == "ClusterProviderConfig" {
 				pc = &namespacedv1beta1.ClusterProviderConfig{ObjectMeta: metav1.ObjectMeta{Name: "default"}}
 			}
-			kube := fake.NewClientBuilder().WithScheme(s).WithObjects(pc).WithInterceptorFuncs(interceptor.Funcs{
-				Get: func(ctx context.Context, c client.WithWatch, key client.ObjectKey, obj client.Object, opts ...client.GetOption) error {
-					// Unlike the API server, the fake client does not ignore a
-					// namespace supplied for a cluster-scoped object.
-					if _, ok := obj.(*namespacedv1beta1.ClusterProviderConfig); ok {
-						key.Namespace = ""
-					}
-					return c.Get(ctx, key, obj, opts...)
-				},
-			}).Build()
-			if _, err := OfflineTerraformSetupBuilder(p)(context.Background(), kube, mg); err != nil {
+			kube := fake.NewClientBuilder().WithScheme(s).WithObjects(pc).Build()
+			if _, err := offlineTestSetupBuilder(t, p)(context.Background(), kube, mg); err != nil {
 				t.Fatal(err)
 			}
 		})
@@ -340,7 +347,7 @@ func TestOfflineProviderConfigResolution(t *testing.T) {
 			mg := &workspacev1beta1.Notebook{}
 			mg.SetProviderConfigReference(tc.ref)
 			kube := fake.NewClientBuilder().WithScheme(s).Build()
-			ps, err := OfflineTerraformSetupBuilder(p)(context.Background(), kube, mg)
+			ps, err := offlineTestSetupBuilder(t, p)(context.Background(), kube, mg)
 			if err == nil || !strings.Contains(err.Error(), tc.want) || ps.Meta != nil {
 				t.Fatalf("expected empty setup and %q error, got %+v, %v", tc.want, ps, err)
 			}

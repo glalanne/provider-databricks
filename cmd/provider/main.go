@@ -127,9 +127,6 @@ func main() {
 	logr.Debug("Starting", "sync-interval", syncInterval.String(),
 		"poll-interval", pollInterval.String(), "poll-jitter", pollJitter, "max-reconcile-rate", *maxReconcileRate)
 
-	cfg, err := ctrl.GetConfig()
-	kingpin.FatalIfError(err, "Cannot get API server rest config")
-
 	ctx := context.Background()
 	fwProvider, sdkProvider, err := xpprovider.GetProvider(ctx)
 	kingpin.FatalIfError(err, "Cannot get the Terraform framework and SDK providers")
@@ -152,13 +149,16 @@ func main() {
 		s := diffserver.NewServer(
 			diffserver.WithProviderConfigurations(clusterProvider, namespacedProvider),
 			diffserver.WithLogger(logr),
-			diffserver.WithTerraformSetupFn(clients.OfflineTerraformSetupBuilder(sdkProvider)),
+			diffserver.WithTerraformSetupFn(clients.OfflineTerraformSetupBuilder(fwProvider, sdkProvider)),
 		)
 		kingpin.FatalIfError(s.Serve(ctrl.SetupSignalHandler(), *diffNetwork, *diffAddress, diffScheme), "Cannot run the diff gRPC server")
 		return
 	case startCmd.FullCommand():
 		// the provider's controllers are started below.
 	}
+
+	cfg, err := ctrl.GetConfig()
+	kingpin.FatalIfError(err, "Cannot get API server rest config")
 
 	// Get the TLS certs directory from the environment variables set by
 	// Crossplane if they're available.

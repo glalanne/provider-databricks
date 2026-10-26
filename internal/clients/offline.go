@@ -15,6 +15,7 @@ import (
 	dbconfig "github.com/databricks/databricks-sdk-go/config"
 	"github.com/databricks/terraform-provider-databricks/commands"
 	"github.com/databricks/terraform-provider-databricks/common"
+	fwprovider "github.com/hashicorp/terraform-plugin-framework/provider"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/diag"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
 	"github.com/pkg/errors"
@@ -29,12 +30,12 @@ const (
 	offlineToken = "offline-diff-placeholder"
 )
 
-// OfflineTerraformSetupBuilder configures SDKv2 provider meta for the diff
+// OfflineTerraformSetupBuilder configures SDKv2 and Framework provider meta for the diff
 // server without reading credentials or contacting Databricks. ProviderConfig
 // resolution still uses the supplied Kubernetes client; host and account ID
 // must be set in its spec if they affect the diff. Secrets are never read.
 // Unlike normal reconciliation, API-dependent diffs fail as unsupported.
-func OfflineTerraformSetupBuilder(tfProvider *schema.Provider) terraform.SetupFn {
+func OfflineTerraformSetupBuilder(fwProvider fwprovider.Provider, tfProvider *schema.Provider) terraform.SetupFn {
 	return func(ctx context.Context, kube client.Client, mg xpresource.Managed) (terraform.Setup, error) {
 		pcSpec, err := resolveProviderConfig(ctx, kube, mg)
 		if err != nil {
@@ -52,8 +53,21 @@ func OfflineTerraformSetupBuilder(tfProvider *schema.Provider) terraform.SetupFn
 		if err := configureNoForkDBXClient(ctx, &ps, p); err != nil {
 			return terraform.Setup{}, errors.Wrap(err, "failed to configure the offline Databricks client")
 		}
+		ps.FrameworkProvider = offlineFrameworkProvider{Provider: fwProvider, meta: ps.Meta}
 		return ps, nil
 	}
+}
+
+// Override only Configure: resource factories and schemas remain upstream's,
+// while every resource receives the same per-request, egress-guarded client.
+type offlineFrameworkProvider struct {
+	fwprovider.Provider
+	meta any
+}
+
+func (p offlineFrameworkProvider) Configure(_ context.Context, _ fwprovider.ConfigureRequest, resp *fwprovider.ConfigureResponse) {
+	resp.ResourceData = p.meta
+	resp.DataSourceData = p.meta
 }
 
 func offlineConfiguration(pcSpec *namespacedv1beta1.ProviderConfigSpec) map[string]any {
