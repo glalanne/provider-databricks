@@ -204,6 +204,11 @@ func main() {
 		LeaderElectionID: "crossplane-leader-election-provider-databricks",
 		Cache: cache.Options{
 			SyncPeriod: syncInterval,
+			ByObject: map[client.Object]cache.ByObject{
+				&apiextensionsv1.CustomResourceDefinition{}: {
+					Transform: customresourcesgate.TransformStripCRDSchema,
+				},
+			},
 		},
 		Metrics: metricsserver.Options{
 			BindAddress: *metricsBindAddress,
