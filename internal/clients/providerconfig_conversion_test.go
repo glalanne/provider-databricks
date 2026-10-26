@@ -14,7 +14,7 @@ import (
 
 // The legacy cluster-scoped ProviderConfig is converted to the namespaced spec
 // by a JSON round-trip, which silently drops any field the two trees don't
-// share. Every field added for service account token auth must survive it.
+// share. Every OIDCTokenRequest field must survive it.
 func TestLegacyToModernProviderConfigSpecCarriesTokenAuthFields(t *testing.T) {
 	azureAD := clusterv1beta1.TokenExchangeAzureAD
 	legacy := &clusterv1beta1.ProviderConfig{Spec: clusterv1beta1.ProviderConfigSpec{
@@ -69,10 +69,9 @@ func TestLegacyToModernProviderConfigSpecCarriesTokenAuthFields(t *testing.T) {
 	}
 }
 
-// TestLegacyAndModernTokenExchangeSchemasMatch keeps the two API trees in
-// step. The round-trip above drops what one tree has and the other lacks, so
-// a tokenExchange type, settings member or rule added to only one of them
-// would be lost without an error.
+// TestLegacyAndModernTokenExchangeSchemasMatch keeps the API trees in step:
+// the round-trip above silently drops a settings member only one tree has,
+// and a type or rule in only one makes them validate differently.
 func TestLegacyAndModernTokenExchangeSchemasMatch(t *testing.T) {
 	type specSchema struct {
 		Properties struct {

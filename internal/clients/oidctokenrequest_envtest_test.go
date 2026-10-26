@@ -90,8 +90,8 @@ func checkCreate(ctx context.Context, t *testing.T, c client.Client, obj client.
 	}
 }
 
-// TestEnvtestCELRules proves the CRD validation rules compile and are enforced
-// by a real API server, and that existing configs are unaffected.
+// TestEnvtestCELRules checks that a real API server enforces the CRDs' CEL
+// rules, enums, patterns and lengths, and accepts other credential sources.
 func TestEnvtestCELRules(t *testing.T) {
 	_, _, admin := startEnvtest(t, providerConfigCRDs...)
 	ctx := context.Background()
@@ -245,7 +245,7 @@ func TestEnvtestCELRules(t *testing.T) {
 		"namespaced: duplicate audiences": {obj: nsPC("dup-aud", func(s *namespacedv1beta1.ProviderConfigSpec) {
 			s.Credentials.ServiceAccountRef.Audiences = []string{"x", "x"}
 		}), wantErr: "Duplicate value"},
-		"namespaced: existing Secret config unaffected": {obj: &namespacedv1beta1.ProviderConfig{
+		"namespaced: valid Secret config": {obj: &namespacedv1beta1.ProviderConfig{
 			ObjectMeta: metav1.ObjectMeta{Namespace: "dp-a", Name: "secret"},
 			Spec: namespacedv1beta1.ProviderConfigSpec{Credentials: namespacedv1beta1.ProviderCredentials{
 				Source: xpv2.CredentialsSourceSecret,
@@ -292,7 +292,7 @@ func TestEnvtestCELRules(t *testing.T) {
 				s.Credentials.ServiceAccountRef.Namespace = ref(strings.Repeat("a", 64))
 			}).Spec,
 		}, wantErr: "spec.credentials.serviceAccountRef.namespace: Too long"},
-		"cluster-scoped: existing Secret config unaffected": {obj: &namespacedv1beta1.ClusterProviderConfig{
+		"cluster-scoped: valid Secret config": {obj: &namespacedv1beta1.ClusterProviderConfig{
 			ObjectMeta: metav1.ObjectMeta{Name: "cluster-secret"},
 			Spec: namespacedv1beta1.ProviderConfigSpec{Credentials: namespacedv1beta1.ProviderCredentials{
 				Source: xpv2.CredentialsSourceSecret,
@@ -341,7 +341,7 @@ func TestEnvtestCELRules(t *testing.T) {
 }
 
 // withExtraExchangeType copies the CRD at path into dir with typ added to the
-// tokenExchange.type enum, standing in for an exchange type added later.
+// tokenExchange.type enum, standing in for another exchange type.
 func withExtraExchangeType(t *testing.T, path, dir, typ string) string {
 	t.Helper()
 	raw, err := os.ReadFile(path)
@@ -359,10 +359,9 @@ func withExtraExchangeType(t *testing.T, path, dir, typ string) string {
 	return out
 }
 
-// TestEnvtestTokenExchangeIsolation adds a second tokenExchange.type to the
-// CRDs, standing in for one added later, and checks that AzureAD's rules stay
-// with AzureAD: its settings can't be used with another type, and its host
-// rule doesn't apply to one.
+// TestEnvtestTokenExchangeIsolation adds another tokenExchange.type to the
+// CRDs and checks that AzureAD's rules stay with AzureAD: its settings can't
+// be used with the other type, and its host rule doesn't apply to it.
 func TestEnvtestTokenExchangeIsolation(t *testing.T) {
 	const other = "Example"
 	dir := t.TempDir()
@@ -406,7 +405,7 @@ func TestEnvtestTokenExchangeIsolation(t *testing.T) {
 			obj:     nsPC("other-azuread", other, testHost, &namespacedv1beta1.AzureADTokenExchange{ClientID: ref(testClientID)}),
 			wantErr: "azureAD is only allowed when type is AzureAD",
 		},
-		"namespaced: AzureAD still restricts host": {
+		"namespaced: AzureAD restricts host": {
 			obj:     nsPC("azuread-host", namespacedv1beta1.TokenExchangeAzureAD, "https://databricks.example", nil),
 			wantErr: "host must be an https URL on an Azure Databricks domain",
 		},
@@ -438,10 +437,9 @@ func jwtClaims(t *testing.T, token string) map[string]any {
 	return claims
 }
 
-// TestEnvtestOptInRBAC proves the permissions model against a real API
-// server: a provider identity with only a namespace's opt-in Role can mint
-// tokens for that one service account and read it, can't for any other, and
-// reads service accounts without cluster-wide list/watch.
+// TestEnvtestOptInRBAC checks against a real API server that a provider with
+// only a namespace's opt-in Role can mint tokens for, and read, just the
+// service accounts it names, without cluster-wide list/watch.
 func TestEnvtestOptInRBAC(t *testing.T) {
 	env, s, admin := startEnvtest(t, providerConfigCRDs...)
 	ctx := context.Background()
@@ -453,7 +451,7 @@ func TestEnvtestOptInRBAC(t *testing.T) {
 		annotatedSA("dp-a", "other"),
 		annotatedSA("dp-b", "dp-b"),
 		// The namespace's opt-in: the provider may mint tokens for, and read,
-		// this one service account. Nothing cluster-wide.
+		// only the service accounts named here. Nothing cluster-wide.
 		&rbacv1.Role{
 			ObjectMeta: metav1.ObjectMeta{Namespace: "dp-a", Name: "provider-databricks-tokenrequest"},
 			Rules: []rbacv1.PolicyRule{

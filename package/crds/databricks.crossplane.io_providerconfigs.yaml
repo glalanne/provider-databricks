@@ -53,10 +53,9 @@ spec:
             properties:
               accountID:
                 description: |-
-                  AccountID is the Databricks account ID (a GUID), for account-level
-                  operations through the accounts console host (for example
-                  https://accounts.azuredatabricks.net). Used when Credentials.Source is
-                  OIDCTokenRequest; leave unset for a workspace host.
+                  AccountID is the Databricks account ID (a GUID) for an accounts console
+                  host, e.g. https://accounts.azuredatabricks.net. Used when
+                  Credentials.Source is OIDCTokenRequest; leave unset for a workspace host.
                 pattern: ^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$
                 type: string
               credentials:
@@ -110,8 +109,8 @@ spec:
                     properties:
                       audiences:
                         description: |-
-                          Audiences requested on the token in addition to the one the token
-                          exchange requires (api://AzureADTokenExchange for AzureAD).
+                          Audiences requested on the token besides the one the exchange requires
+                          (api://AzureADTokenExchange for AzureAD).
                         items:
                           type: string
                         type: array
@@ -124,7 +123,7 @@ spec:
                       namespace:
                         description: |-
                           Namespace of the service account. Required: this ProviderConfig is
-                          cluster-scoped, so there is no namespace to default to.
+                          cluster-scoped.
                         maxLength: 63
                         pattern: ^[a-z0-9]([-a-z0-9]*[a-z0-9])?$
                         type: string
@@ -146,18 +145,16 @@ spec:
                   tokenExchange:
                     description: |-
                       TokenExchange configures how the service account's token is exchanged
-                      for an access token when Source is OIDCTokenRequest. Defaults to type
-                      AzureAD.
+                      for an access token when Source is OIDCTokenRequest. Defaults to AzureAD.
                     properties:
                       azureAD:
-                        description: AzureAD holds settings specific to the AzureAD
-                          exchange.
+                        description: AzureAD holds settings for the AzureAD exchange.
                         properties:
                           authorityHost:
                             description: |-
-                              AuthorityHost of the Entra ID token endpoint: one of the Entra ID
-                              authorities for the Azure public, Government or China clouds, with a
-                              trailing slash. Defaults to https://login.microsoftonline.com/.
+                              AuthorityHost of the Entra ID token endpoint, with a trailing slash, for
+                              the Azure public, Government or China cloud. Defaults to
+                              https://login.microsoftonline.com/.
                             enum:
                             - https://login.microsoftonline.com/
                             - https://login.microsoftonline.us/
@@ -179,8 +176,7 @@ spec:
                             type: string
                         type: object
                       type:
-                        description: Type of the exchange. Defaults to AzureAD when
-                          omitted.
+                        description: Type of the exchange. Defaults to AzureAD.
                         enum:
                         - AzureAD
                         type: string
@@ -200,12 +196,11 @@ spec:
                     && has(self.serviceAccountRef.namespace))
               host:
                 description: |-
-                  Host is the Databricks workspace URL (or the accounts console URL for
-                  account-level operations) the provider calls, and sends the access token
-                  to. Required when Credentials.Source is OIDCTokenRequest. With the
-                  AzureAD token exchange (the default), it must be an https URL on an
-                  Azure Databricks domain (azuredatabricks.net, databricks.azure.us or
-                  databricks.azure.cn), with no port or path.
+                  Host is the Databricks workspace or accounts console URL the provider
+                  calls with its access token. Required when Credentials.Source is
+                  OIDCTokenRequest. With tokenExchange.type AzureAD (the default), it must
+                  be an https URL on an Azure Databricks domain (azuredatabricks.net,
+                  databricks.azure.us or databricks.azure.cn), with no port or path.
                 type: string
             required:
             - credentials

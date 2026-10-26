@@ -2,12 +2,9 @@
 #
 # SPDX-License-Identifier: CC0-1.0
 
-# Passwordless authentication for shared, cluster-scoped configurations. Same mechanism as
-# providerconfig-oidctokenrequest.yaml, with the service account in a namespace the platform controls; that namespace
-# needs the same ServiceAccount, Role and RoleBinding.
-#
-# Any namespace can reference a ClusterProviderConfig, whatever its credential source, so use these for identities that
-# are meant to be shared.
+# Shared, cluster-scoped passwordless authentication, as in providerconfig-oidctokenrequest.yaml but with the
+# ServiceAccount, Role and RoleBinding in a namespace the platform controls. Any namespace can reference any
+# ClusterProviderConfig, so use these for identities meant to be shared.
 
 apiVersion: databricks.m.crossplane.io/v1beta1
 kind: ClusterProviderConfig

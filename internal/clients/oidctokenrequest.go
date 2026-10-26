@@ -14,9 +14,8 @@ import (
 )
 
 const (
-	// annotationAzureClientID and annotationAzureTenantID are the Azure
-	// workload identity annotations on a service account naming the managed
-	// identity it is federated with.
+	// annotationAzureClientID and annotationAzureTenantID name the identity a
+	// service account is federated with (Azure workload identity annotations).
 	annotationAzureClientID = "azure.workload.identity/client-id"
 	annotationAzureTenantID = "azure.workload.identity/tenant-id"
 
@@ -35,14 +34,13 @@ const (
 	errServiceAccountToken          = "cannot obtain an access token for service account %s/%s"
 )
 
-// defaultTokenCache is shared by all reconciles in the process, so each
-// identity is exchanged once per token lifetime rather than once per connect.
+// defaultTokenCache is shared by all reconciles, so an identity is
+// re-exchanged only when its cached token needs refreshing.
 var defaultTokenCache = NewTokenCache()
 
 // enrichLocalServiceAccountRef pins a namespaced ProviderConfig's
-// serviceAccountRef to the managed resource's namespace (the ProviderConfig's
-// own), rejecting any other. Like enrichLocalSecretRefs for secrets, this is
-// what stops one namespace from using another namespace's identity.
+// serviceAccountRef to its own namespace (the managed resource's), rejecting
+// any other, the way enrichLocalSecretRefs scopes secrets.
 func enrichLocalServiceAccountRef(pc *namespacedv1beta1.ProviderConfig, mg xpresource.Managed) error {
 	ref := pc.Spec.Credentials.ServiceAccountRef
 	if ref == nil {
@@ -56,10 +54,9 @@ func enrichLocalServiceAccountRef(pc *namespacedv1beta1.ProviderConfig, mg xpres
 	return nil
 }
 
-// oidcTokenRequestAuth configures the Terraform provider with an access
-// token obtained for the ProviderConfig's service account. The service
-// account's namespace must already be resolved: by enrichLocalServiceAccountRef
-// for a namespaced ProviderConfig, or set explicitly on a cluster-scoped one.
+// oidcTokenRequestAuth configures the Terraform provider with an access token
+// for the ProviderConfig's service account, whose namespace must already be
+// set: by enrichLocalServiceAccountRef, or explicitly on a cluster-scoped one.
 func oidcTokenRequestAuth(ctx context.Context, kube client.Client, pcSpec *namespacedv1beta1.ProviderConfigSpec, ps *terraform.Setup, cache *TokenCache) error {
 	ref, err := serviceAccountRef(pcSpec)
 	if err != nil {
@@ -92,9 +89,9 @@ func oidcTokenRequestAuth(ctx context.Context, kube client.Client, pcSpec *names
 	return nil
 }
 
-// serviceAccountRef returns the validated service account reference. The CRDs'
-// CEL rules enforce this too, but old API servers may not evaluate CEL, and a
-// namespaced ProviderConfig's namespace is only filled in at resolve time.
+// serviceAccountRef checks that the service account reference, its namespace
+// and the host are set before oidcTokenRequestAuth dereferences them. The CRDs
+// require them too; a namespaced ProviderConfig's namespace is set on resolve.
 func serviceAccountRef(pcSpec *namespacedv1beta1.ProviderConfigSpec) (*namespacedv1beta1.ServiceAccountReference, error) {
 	ref := pcSpec.Credentials.ServiceAccountRef
 	if ref == nil {
@@ -109,8 +106,7 @@ func serviceAccountRef(pcSpec *namespacedv1beta1.ProviderConfigSpec) (*namespace
 	return ref, nil
 }
 
-// newExchanger returns the exchanger for the ProviderConfig's tokenExchange
-// type, defaulting to AzureAD.
+// newExchanger returns the exchanger for tokenExchange.type (default AzureAD).
 func newExchanger(ctx context.Context, kube client.Client, pcSpec *namespacedv1beta1.ProviderConfigSpec, ns, name string) (Exchanger, error) {
 	exchangeType := namespacedv1beta1.TokenExchangeAzureAD
 	if te := pcSpec.Credentials.TokenExchange; te != nil && te.Type != nil {
@@ -131,8 +127,7 @@ func newExchanger(ctx context.Context, kube client.Client, pcSpec *namespacedv1b
 }
 
 // azureADExchanger builds the Entra ID exchanger. clientID and tenantID come
-// from credentials.tokenExchange.azureAD, or default to the service account's
-// workload identity annotations.
+// from tokenExchange.azureAD, else the service account's annotations.
 func azureADExchanger(ctx context.Context, kube client.Client, pcSpec *namespacedv1beta1.ProviderConfigSpec, ns, name string) (*AzureADExchanger, error) {
 	var settings namespacedv1beta1.AzureADTokenExchange
 	if te := pcSpec.Credentials.TokenExchange; te != nil && te.AzureAD != nil {
@@ -161,8 +156,7 @@ func azureADExchanger(ctx context.Context, kube client.Client, pcSpec *namespace
 	return &AzureADExchanger{ClientID: clientID, TenantID: tenantID, AuthorityHost: deref(settings.AuthorityHost)}, nil
 }
 
-// withAudience returns required followed by the extra audiences, without
-// duplicates.
+// withAudience returns required followed by the extras, without duplicates.
 func withAudience(required string, extra []string) []string {
 	out := []string{required}
 	for _, a := range extra {

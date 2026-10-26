@@ -20,8 +20,8 @@ import (
 )
 
 const (
-	// AzureADTokenExchangeAudience is the audience Entra ID expects on a
-	// federated token used as a client assertion.
+	// AzureADTokenExchangeAudience is the audience Entra ID requires on a
+	// federated client assertion.
 	AzureADTokenExchangeAudience = "api://AzureADTokenExchange"
 
 	// AzureDatabricksScope requests an Entra ID access token for the Azure
@@ -35,26 +35,22 @@ const (
 	// service account tokens. 600 is the minimum the API server accepts.
 	serviceAccountTokenExpirationSeconds = 600
 
-	// tokenRefreshSkew is the minimum remaining lifetime of a cached access
-	// token handed out. Tokens are normally refreshed earlier, at half their
-	// lifetime, because upjet's async operations keep the token they started
-	// with for the whole operation.
+	// tokenRefreshSkew is the minimum lifetime left on a cached token handed
+	// out. Tokens are normally refreshed at half their lifetime, since upjet's
+	// async operations keep their starting token until they finish.
 	tokenRefreshSkew = 5 * time.Minute
 
-	// maxTokenReuse caps how long a cached access token is reused, whatever its
-	// lifetime. Entra ID issues managed identity tokens valid for about 24
-	// hours; re-exchanging hourly means revoking the namespace's RBAC or the
-	// federated credential takes effect in the provider within an hour.
+	// maxTokenReuse caps reuse of a cached token, whatever its lifetime (Entra
+	// ID's managed identity tokens last about 24 hours), so revoking the opt-in
+	// RBAC or the federated credential takes effect within an hour.
 	maxTokenReuse = time.Hour
 
 	// evictionInterval bounds how often the cache looks for entries to drop.
 	evictionInterval = 10 * time.Minute
 
-	// exchangeTimeout bounds obtaining an access token: the service account
-	// token request and the exchange, including an exchange the authority
-	// accepts but never answers. Concurrent callers for an identity share one
-	// attempt that no single caller's deadline cancels, so this is its only
-	// bound.
+	// exchangeTimeout bounds requesting and exchanging a service account token,
+	// even if the authority never answers. It's the only bound, as concurrent
+	// callers share the attempt and no caller's deadline cancels it.
 	exchangeTimeout = 30 * time.Second
 
 	errTokenPanic      = "obtaining an access token panicked: %v"
@@ -75,10 +71,8 @@ type AccessToken struct {
 }
 
 // needsRefresh reports whether a cached token should be replaced: once it is
-// maxTokenReuse old, once half its lifetime has passed, or when less than
-// tokenRefreshSkew remains. Handing out only tokens with at least half their
-// lifetime left leaves room for long-running operations that keep the token;
-// the age cap bounds how long a revoked identity keeps working.
+// maxTokenReuse old, half its lifetime has passed, or less than
+// tokenRefreshSkew remains.
 func (t *AccessToken) needsRefresh(now time.Time) bool {
 	remaining := t.ExpiresAt.Sub(now)
 	return now.Sub(t.IssuedAt) >= maxTokenReuse ||
@@ -86,18 +80,15 @@ func (t *AccessToken) needsRefresh(now time.Time) bool {
 		remaining < t.ExpiresAt.Sub(t.IssuedAt)/2
 }
 
-// TokenSource returns a JWT that identifies a workload, to be presented to an
-// Exchanger.
+// TokenSource returns a workload's JWT for an Exchanger.
 type TokenSource interface {
 	// Token returns the JWT.
 	Token(ctx context.Context) (string, error)
-	// CacheKey identifies the workload the token is issued for. Two sources
-	// with the same key produce interchangeable tokens.
+	// CacheKey identifies the workload: equal keys mean interchangeable tokens.
 	CacheKey() string
 }
 
-// Exchanger trades a workload JWT for an access token the downstream API
-// accepts.
+// Exchanger trades a workload JWT for an access token the API accepts.
 type Exchanger interface {
 	// Audience the workload JWT must carry for this exchange.
 	Audience() string
@@ -107,10 +98,9 @@ type Exchanger interface {
 	CacheKey() string
 }
 
-// ServiceAccountTokenSource requests short-lived tokens for a Kubernetes
-// service account through the TokenRequest API. The token's subject is
-// system:serviceaccount:<Namespace>:<Name>, which is what binds the resulting
-// identity to that namespace.
+// ServiceAccountTokenSource requests short-lived service account tokens
+// (TokenRequest API). Their subject, system:serviceaccount:<Namespace>:<Name>,
+// binds the resulting identity to that namespace.
 type ServiceAccountTokenSource struct {
 	Client    client.Client
 	Namespace string
@@ -138,22 +128,19 @@ func (s *ServiceAccountTokenSource) Token(ctx context.Context) (string, error) {
 	return tr.Status.Token, nil
 }
 
-// CacheKey identifies the service account and the audiences requested. Each
-// field is quoted, so different sources never share a key, whatever their
-// fields contain.
+// CacheKey identifies the service account and audiences, quoting each field so
+// different sources never share a key.
 func (s *ServiceAccountTokenSource) CacheKey() string {
 	return fmt.Sprintf("serviceaccount:%q/%q|%q", s.Namespace, s.Name, s.Audiences)
 }
 
 // AzureADExchanger exchanges a federated JWT for an Entra ID access token
 // using the OAuth 2.0 client credentials grant with a JWT client assertion
-// (RFC 7523), the same exchange Azure workload identity performs.
+// (RFC 7523), as Azure workload identity does.
 type AzureADExchanger struct {
-	// HTTPClient used for the exchange. Defaults to a client with a
-	// 30-second timeout.
+	// HTTPClient for the exchange. Defaults to one with a 30-second timeout.
 	HTTPClient *http.Client
-	// AuthorityHost, e.g. https://login.microsoftonline.com/. Defaults to
-	// DefaultAzureAuthorityHost.
+	// AuthorityHost defaults to DefaultAzureAuthorityHost.
 	AuthorityHost string
 	TenantID      string
 	ClientID      string
@@ -224,8 +211,8 @@ func (e *AzureADExchanger) Audience() string {
 	return AzureADTokenExchangeAudience
 }
 
-// CacheKey identifies the Entra identity and scope the token is issued for.
-// Each field is quoted, so different identities never share a key.
+// CacheKey identifies the Entra identity and scope, quoting each field so
+// different identities never share a key.
 func (e *AzureADExchanger) CacheKey() string {
 	return fmt.Sprintf("azuread:%q|%q|%q|%q", e.authorityHost(), e.TenantID, e.ClientID, e.scope())
 }
@@ -286,16 +273,14 @@ func parseExpiresIn(raw json.RawMessage) (int64, error) {
 	return n.Int64()
 }
 
-// TokenCache caches access tokens per workload and identity, so that a token
-// is exchanged once per lifetime rather than once per reconcile (upjet builds
-// a new Terraform setup on every connect).
+// TokenCache caches access tokens per workload and identity, since upjet
+// builds a new Terraform setup on every connect.
 type TokenCache struct {
 	mu        sync.Mutex
 	entries   map[string]*AccessToken
 	lastEvict time.Time
-	// inflight lets concurrent requests for the same identity share a single
-	// exchange, while a slow exchange for one identity doesn't block the
-	// others.
+	// inflight shares one exchange among concurrent requests for an identity,
+	// without one identity's slow exchange blocking the others.
 	inflight singleflight.Group
 	// Now returns the current time. Defaults to time.Now.
 	Now func() time.Time
@@ -306,11 +291,9 @@ func NewTokenCache() *TokenCache {
 	return &TokenCache{entries: map[string]*AccessToken{}}
 }
 
-// Get returns a cached access token for the source/exchanger pair, or obtains
-// a new one when none is cached or the cached one needs refreshing (see
-// AccessToken.needsRefresh). Concurrent callers for the same pair share one
-// attempt, and each stops waiting when its own ctx is done. Failures are not
-// cached.
+// Get returns the source/exchanger pair's cached access token, or a new one if
+// none is cached or it needs refreshing. Concurrent callers for a pair share
+// one attempt; each stops waiting when its ctx is done. Failures aren't cached.
 func (c *TokenCache) Get(ctx context.Context, src TokenSource, ex Exchanger) (*AccessToken, error) {
 	key := cacheKey(src, ex)
 	if t := c.cached(key); t != nil {
@@ -348,9 +331,8 @@ func (c *TokenCache) cached(key string) *AccessToken {
 	return nil
 }
 
-// refresh obtains a new access token for key and caches it. It runs once for
-// all of key's concurrent callers, so it has its own deadline rather than the
-// context of whichever caller started it.
+// refresh obtains and caches a new token for key. It serves all of key's
+// concurrent callers, so it has its own deadline, not the first caller's.
 func (c *TokenCache) refresh(ctx context.Context, key string, src TokenSource, ex Exchanger) (t *AccessToken, err error) {
 	// singleflight runs this in its own goroutine and re-panics there, where
 	// nothing can recover it, so a panic would otherwise crash the provider.
@@ -359,8 +341,7 @@ func (c *TokenCache) refresh(ctx context.Context, key string, src TokenSource, e
 			t, err = nil, errors.Errorf(errTokenPanic, r)
 		}
 	}()
-	// Another refresh may have finished between the caller's lookup and this
-	// one starting.
+	// Another refresh may have finished since the caller's lookup.
 	if fresh := c.cached(key); fresh != nil {
 		return fresh, nil
 	}
@@ -381,11 +362,10 @@ func (c *TokenCache) refresh(ctx context.Context, key string, src TokenSource, e
 	return t, nil
 }
 
-// evictLocked drops entries that would be refreshed on their next use anyway,
-// so identities that are no longer configured, or old cache keys after a
-// ProviderConfig change, don't accumulate. With maxTokenReuse, an unused entry
-// lives at most about an hour plus evictionInterval. Runs with c.mu held, at
-// most once per evictionInterval.
+// evictLocked drops entries due for refresh, so unused identities and keys
+// left by ProviderConfig changes don't accumulate; an unused entry lasts at
+// most about maxTokenReuse plus evictionInterval. Runs with c.mu held, at most
+// once per evictionInterval.
 func (c *TokenCache) evictLocked(now time.Time) {
 	if now.Sub(c.lastEvict) < evictionInterval {
 		return

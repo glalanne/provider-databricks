@@ -22,19 +22,17 @@ type ProviderConfigSpec struct {
 	// Credentials required to authenticate to this provider.
 	Credentials ProviderCredentials `json:"credentials"`
 
-	// Host is the Databricks workspace URL (or the accounts console URL for
-	// account-level operations) the provider calls, and sends the access token
-	// to. Required when Credentials.Source is OIDCTokenRequest. With the
-	// AzureAD token exchange (the default), it must be an https URL on an
-	// Azure Databricks domain (azuredatabricks.net, databricks.azure.us or
-	// databricks.azure.cn), with no port or path.
+	// Host is the Databricks workspace or accounts console URL the provider
+	// calls with its access token. Required when Credentials.Source is
+	// OIDCTokenRequest. With tokenExchange.type AzureAD (the default), it must
+	// be an https URL on an Azure Databricks domain (azuredatabricks.net,
+	// databricks.azure.us or databricks.azure.cn), with no port or path.
 	// +optional
 	Host *string `json:"host,omitempty"`
 
-	// AccountID is the Databricks account ID (a GUID), for account-level
-	// operations through the accounts console host (for example
-	// https://accounts.azuredatabricks.net). Used when Credentials.Source is
-	// OIDCTokenRequest; leave unset for a workspace host.
+	// AccountID is the Databricks account ID (a GUID) for an accounts console
+	// host, e.g. https://accounts.azuredatabricks.net. Used when
+	// Credentials.Source is OIDCTokenRequest; leave unset for a workspace host.
 	// +kubebuilder:validation:Pattern=`^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$`
 	// +optional
 	AccountID *string `json:"accountID,omitempty"`
@@ -87,8 +85,7 @@ type ProviderCredentials struct {
 	ServiceAccountRef *ServiceAccountReference `json:"serviceAccountRef,omitempty"`
 
 	// TokenExchange configures how the service account's token is exchanged
-	// for an access token when Source is OIDCTokenRequest. Defaults to type
-	// AzureAD.
+	// for an access token when Source is OIDCTokenRequest. Defaults to AzureAD.
 	// +optional
 	TokenExchange *TokenExchange `json:"tokenExchange,omitempty"`
 

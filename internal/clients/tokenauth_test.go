@@ -418,9 +418,8 @@ func TestTokenCache(t *testing.T) {
 			t.Fatal(err)
 		}
 
-		// The identity is revoked (federated credential, RBAC or identity
-		// removed): the cached token is still valid at Entra ID, but past
-		// maxTokenReuse it must not be handed out again.
+		// Revocation (federated credential, RBAC or identity removed): the cached
+		// token is unexpired, but past maxTokenReuse it mustn't be handed out.
 		ex.fail = true
 		now = now.Add(5 * time.Minute)
 		if _, ok := c.entries[cacheKey(src, ex)]; !ok {
@@ -451,9 +450,8 @@ func TestTokenCache(t *testing.T) {
 	})
 
 	t.Run("a refresh that finds a fresh token reuses it", func(t *testing.T) {
-		// Get looks for a cached token before it starts a refresh, so another
-		// refresh can cache one in between; refresh must hand that one out
-		// instead of exchanging again.
+		// Another refresh can cache a token between Get's lookup and this
+		// refresh, which must hand that one out instead of exchanging again.
 		c := NewTokenCache()
 		c.Now = clock
 		src := &countingSource{key: "sa"}
@@ -472,9 +470,9 @@ func TestTokenCache(t *testing.T) {
 	})
 }
 
-// TestTokenCacheConcurrency runs in synctest bubbles: a goroutine left blocked
-// fails the test as a deadlock instead of hanging it, a goroutine left running
-// fails it as a leak, and time is fake, so timeouts take no real time.
+// TestTokenCacheConcurrency runs in synctest bubbles: a goroutine left blocked,
+// during or after the test, fails it as a deadlock instead of hanging, and
+// fake time makes timeouts instant.
 func TestTokenCacheConcurrency(t *testing.T) {
 	t.Run("concurrent callers share one exchange", func(t *testing.T) {
 		synctest.Test(t, func(t *testing.T) {
