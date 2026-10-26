@@ -121,6 +121,18 @@ from proxying. Offline setup, authentication, diffs, and derived clients must
 produce zero recorded requests. Neither listener forwards requests. This tests
 the exercised HTTP paths, not an OS-level network sandbox.
 
+### BudgetPolicy identifier handling
+
+Both cluster-scoped and namespaced BudgetPolicy resources treat a Terraform
+Read state with a missing, null, or empty `policy_id` as absent, even if the
+state object itself is non-null. Unknown or malformed identifiers fail
+reconciliation instead of being treated as permission to create a policy.
+An existing non-empty identifier continues to be used as the external name.
+
+Before reconciling a resource without an identifier, check whether its policy
+already exists in Databricks. If it does, set `crossplane.io/external-name` to
+the real policy ID to import it rather than creating another policy.
+
 ## Report a Bug
 
 For filing bugs, suggesting improvements, or requesting new features, please
