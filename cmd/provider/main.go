@@ -25,9 +25,12 @@ import (
 	"github.com/crossplane/crossplane-runtime/v2/pkg/statemetrics"
 	tjcontroller "github.com/crossplane/upjet/v2/pkg/controller"
 	"github.com/crossplane/upjet/v2/pkg/controller/conversion"
+	"github.com/crossplane/upjet/v2/pkg/diffserver"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials/insecure"
+	"k8s.io/apimachinery/pkg/runtime"
 	"k8s.io/apimachinery/pkg/runtime/schema"
+	clientgoscheme "k8s.io/client-go/kubernetes/scheme"
 	"k8s.io/client-go/tools/leaderelection/resourcelock"
 	ctrl "sigs.k8s.io/controller-runtime"
 	"sigs.k8s.io/controller-runtime/pkg/cache"
@@ -79,10 +82,12 @@ func main() {
 		maxReconcileRate        = app.Flag("max-reconcile-rate", "The global maximum rate per second at which resources may checked for drift from the desired state.").Default("100").Int()
 		webhookPort             = app.Flag("webhook-port", "The port the webhook listens on").Default("9443").Envar("WEBHOOK_PORT").Int()
 		metricsBindAddress      = app.Flag("metrics-bind-address", "The address the metrics server listens on").Default(":8080").Envar("METRICS_BIND_ADDRESS").String()
+		healthProbeBindAddress  = app.Flag("health-probe-bind-addr", "The address the health/readiness probe server listens on").Default(":8081").Envar("HEALTH_PROBE_BIND_ADDRESS").String()
 		changelogsSocketPath    = app.Flag("changelogs-socket-path", "Path for changelogs socket (if enabled)").Default("/var/run/changelogs/changelogs.sock").Envar("CHANGELOGS_SOCKET_PATH").String()
 
 		enableManagementPolicies = app.Flag("enable-management-policies", "Enable support for Management Policies.").Default("true").Envar("ENABLE_MANAGEMENT_POLICIES").Bool()
 		enableChangeLogs         = app.Flag("enable-changelogs", "Enable support for capturing change logs during reconciliation.").Default("false").Envar("ENABLE_CHANGE_LOGS").Bool()
+		enableSecretCache        = app.Flag("enable-secret-cache", "Enable caching of Secret objects. When true, Secrets are served from the informer cache instead of direct API calls. This reduces API server load but increases memory usage.").Default("true").Envar("ENABLE_SECRET_CACHE").Bool()
 
 		certsDirSet = false
 		// we record whether the command-line option "--certs-dir" was supplied
@@ -91,9 +96,19 @@ func main() {
 			certsDirSet = true
 			return nil
 		}).String()
+
+		// Running the provider's controllers is the default command, so that
+		// the provider keeps behaving as it did before the internal commands
+		// were introduced, i.e. when it's invoked without any arguments.
+		startCmd = app.Command("start", "Start the provider's controllers.").Default()
+
+		internalCmd   = app.Command("internal", "Commands used internally by the Crossplane ecosystem. No compatibility guarantees are made for them.")
+		diffServerCmd = internalCmd.Command("diff-server", "Start a gRPC server serving the provider diff services.")
+		diffNetwork   = diffServerCmd.Flag("network", "The network the diff gRPC server listens on.").Default("tcp").Envar("DIFF_SERVER_NETWORK").Enum("tcp", "unix")
+		diffAddress   = diffServerCmd.Flag("address", "The address the diff gRPC server listens on. A socket path when the network is unix.").Default(":9099").Envar("DIFF_SERVER_ADDRESS").String()
 	)
 
-	kingpin.MustParse(app.Parse(os.Args[1:]))
+	cmd := kingpin.MustParse(app.Parse(os.Args[1:]))
 	log.Default().SetOutput(io.Discard)
 	ctrl.SetLogger(zap.New(zap.WriteTo(io.Discard)))
 
@@ -114,6 +129,36 @@ func main() {
 
 	cfg, err := ctrl.GetConfig()
 	kingpin.FatalIfError(err, "Cannot get API server rest config")
+
+	ctx := context.Background()
+	fwProvider, sdkProvider, err := xpprovider.GetProvider(ctx)
+	kingpin.FatalIfError(err, "Cannot get the Terraform framework and SDK providers")
+
+	clusterProvider, err := config.GetProvider(ctx, fwProvider, sdkProvider, false)
+	kingpin.FatalIfError(err, "Cannot initialize the cluster provider configuration")
+
+	namespacedProvider, err := config.GetProviderNamespaced(ctx, fwProvider, sdkProvider, false)
+	kingpin.FatalIfError(err, "Cannot initialize the namespaced provider configuration")
+
+	switch cmd {
+	case diffServerCmd.FullCommand():
+		// The diff server only needs to deserialize this provider's managed
+		// resources, so its scheme holds just the provider's APIs.
+		diffScheme := runtime.NewScheme()
+		kingpin.FatalIfError(corev1.AddToScheme(diffScheme), "Cannot add Kubernetes core APIs to the diff server scheme")
+		kingpin.FatalIfError(clusterapis.AddToScheme(diffScheme), "Cannot add cluster-scoped Databricks APIs to the diff server scheme")
+		kingpin.FatalIfError(namespacedapis.AddToScheme(diffScheme), "Cannot add namespaced Databricks APIs to the diff server scheme")
+
+		s := diffserver.NewServer(
+			diffserver.WithProviderConfigurations(clusterProvider, namespacedProvider),
+			diffserver.WithLogger(logr),
+			diffserver.WithTerraformSetupFn(clients.OfflineTerraformSetupBuilder(sdkProvider)),
+		)
+		kingpin.FatalIfError(s.Serve(ctrl.SetupSignalHandler(), *diffNetwork, *diffAddress, diffScheme), "Cannot run the diff gRPC server")
+		return
+	case startCmd.FullCommand():
+		// the provider's controllers are started below.
+	}
 
 	// Get the TLS certs directory from the environment variables set by
 	// Crossplane if they're available.
@@ -137,17 +182,28 @@ func main() {
 		}
 	}
 
+	var clientOpts client.Options
+	if !*enableSecretCache {
+		clientOpts = client.Options{
+			Cache: &client.CacheOptions{
+				DisableFor: []client.Object{&corev1.Secret{}, &corev1.ServiceAccount{}},
+			},
+		}
+	}
+
+	scheme := runtime.NewScheme()
+	kingpin.FatalIfError(clientgoscheme.AddToScheme(scheme), "Cannot add clientgo scheme")
+	kingpin.FatalIfError(clusterapis.AddToScheme(scheme), "Cannot add cluster-scoped Databricks APIs to scheme")
+	kingpin.FatalIfError(namespacedapis.AddToScheme(scheme), "Cannot add namespaced Databricks APIs to scheme")
+	kingpin.FatalIfError(apiextensionsv1.AddToScheme(scheme), "Cannot register k8s apiextensions APIs to scheme")
+
 	mgr, err := ctrl.NewManager(cfg, ctrl.Options{
+		Scheme:           scheme,
+		Client:           clientOpts,
 		LeaderElection:   *leaderElection,
 		LeaderElectionID: "crossplane-leader-election-provider-databricks",
 		Cache: cache.Options{
 			SyncPeriod: syncInterval,
-		},
-		// ServiceAccounts bypass the cache, which would need cluster-wide
-		// list/watch; OIDCTokenRequest opt-ins only grant get on the service
-		// accounts they name.
-		Client: client.Options{
-			Cache: &client.CacheOptions{DisableFor: []client.Object{&corev1.ServiceAccount{}}},
 		},
 		Metrics: metricsserver.Options{
 			BindAddress: *metricsBindAddress,
@@ -157,33 +213,24 @@ func main() {
 				CertDir: *certsDir,
 				Port:    *webhookPort,
 			}),
+		HealthProbeBindAddress:     *healthProbeBindAddress,
 		LeaderElectionResourceLock: resourcelock.LeasesResourceLock,
 		LeaseDuration:              func() *time.Duration { d := 60 * time.Second; return &d }(),
 		RenewDeadline:              func() *time.Duration { d := 50 * time.Second; return &d }(),
 	})
 
 	kingpin.FatalIfError(err, "Cannot create controller manager")
-	kingpin.FatalIfError(clusterapis.AddToScheme(mgr.GetScheme()), "Cannot add cluster-scoped Azure APIs to scheme")
-	kingpin.FatalIfError(resolverapis.BuildScheme(clusterapis.AddToSchemes), "Cannot register the cluster-scoped Azure APIs with the API resolver's runtime scheme")
-	kingpin.FatalIfError(namespacedapis.AddToScheme(mgr.GetScheme()), "Cannot add namespace-scoped Azure APIs to scheme")
-	kingpin.FatalIfError(resolverapis.BuildScheme(namespacedapis.AddToSchemes), "Cannot register the namespace-scoped Azure APIs with the API resolver's runtime scheme")
-	kingpin.FatalIfError(apiextensionsv1.AddToScheme(mgr.GetScheme()), "Cannot add api-extensions APIs to scheme")
+	if len(*certsDir) > 0 {
+		kingpin.FatalIfError(mgr.AddReadyzCheck("webhook", mgr.GetWebhookServer().StartedChecker()), "Cannot add webhook server readyz checker to controller manager")
+	}
+	kingpin.FatalIfError(resolverapis.BuildScheme(clusterapis.AddToSchemes), "Cannot register the cluster-scoped Databricks APIs with the API resolver's runtime scheme")
+	kingpin.FatalIfError(resolverapis.BuildScheme(namespacedapis.AddToSchemes), "Cannot register the namespace-scoped Databricks APIs with the API resolver's runtime scheme")
 
 	metricRecorder := managed.NewMRMetricRecorder()
 	stateMetrics := statemetrics.NewMRStateMetrics()
 
 	metrics.Registry.MustRegister(metricRecorder)
 	metrics.Registry.MustRegister(stateMetrics)
-
-	ctx := context.Background()
-	fwProvider, sdkProvider, err := xpprovider.GetProvider(ctx)
-	kingpin.FatalIfError(err, "Cannot get the Terraform framework and SDK providers")
-
-	clusterProvider, err := config.GetProvider(ctx, fwProvider, sdkProvider, false)
-	kingpin.FatalIfError(err, "Cannot initialize the cluster provider configuration")
-
-	namespacedProvider, err := config.GetProviderNamespaced(ctx, fwProvider, sdkProvider, false)
-	kingpin.FatalIfError(err, "Cannot initialize the namespaced provider configuration")
 
 	clusterOpts := tjcontroller.Options{
 		Options: xpcontroller.Options{

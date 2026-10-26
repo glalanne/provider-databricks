@@ -6,11 +6,12 @@ require (
 	dario.cat/mergo v1.0.2
 	github.com/alecthomas/kingpin/v2 v2.4.0
 	github.com/crossplane/crossplane-runtime v1.20.12
-	github.com/crossplane/crossplane-runtime/v2 v2.4.3
+	github.com/crossplane/crossplane-runtime/v2 v2.5.0-rc.0.0.20260908074656-9b2fb6b1d1ff
 	github.com/crossplane/crossplane-tools v0.0.0-20260715161912-60e57f817ad1
 	github.com/crossplane/crossplane/apis/v2 v2.4.3
 	github.com/crossplane/upjet/v2 v2.5.1
 	github.com/databricks/databricks-sdk-go v0.190.0
+	github.com/crossplane/upjet/v2 v2.5.1-0.20261020144946-71d99c50eea3
 	github.com/databricks/terraform-provider-databricks v1.139.0
 	github.com/google/go-cmp v0.7.0
 	github.com/hashicorp/terraform-json v0.29.0
