@@ -1,9 +1,12 @@
 package clients
 
 import (
+	"os"
+	"path/filepath"
 	"testing"
 
 	"github.com/google/go-cmp/cmp"
+	"k8s.io/apimachinery/pkg/util/yaml"
 
 	clusterv1beta1 "github.com/glalanne/provider-databricks/apis/cluster/v1beta1"
 	namespacedv1beta1 "github.com/glalanne/provider-databricks/apis/namespaced/v1beta1"
@@ -63,6 +66,63 @@ func TestLegacyToModernProviderConfigSpecCarriesTokenAuthFields(t *testing.T) {
 	}
 	if diff := cmp.Diff(want, got); diff != "" {
 		t.Errorf("legacyToModernProviderConfigSpec() (-want +got):\n%s", diff)
+	}
+}
+
+// TestLegacyAndModernTokenExchangeSchemasMatch keeps the two API trees in
+// step. The round-trip above drops what one tree has and the other lacks, so
+// a tokenExchange type, settings member or rule added to only one of them
+// would be lost without an error.
+func TestLegacyAndModernTokenExchangeSchemasMatch(t *testing.T) {
+	type specSchema struct {
+		Properties struct {
+			Credentials struct {
+				Properties struct {
+					TokenExchange map[string]any `json:"tokenExchange"`
+				} `json:"properties"`
+			} `json:"credentials"`
+		} `json:"properties"`
+		Rules []map[string]any `json:"x-kubernetes-validations"`
+	}
+	load := func(file string) specSchema {
+		t.Helper()
+		raw, err := os.ReadFile(filepath.Join("..", "..", "package", "crds", file))
+		if err != nil {
+			t.Fatal(err)
+		}
+		var crd struct {
+			Spec struct {
+				Versions []struct {
+					Schema struct {
+						OpenAPIV3Schema struct {
+							Properties struct {
+								Spec specSchema `json:"spec"`
+							} `json:"properties"`
+						} `json:"openAPIV3Schema"`
+					} `json:"schema"`
+				} `json:"versions"`
+			} `json:"spec"`
+		}
+		if err := yaml.Unmarshal(raw, &crd); err != nil {
+			t.Fatal(err)
+		}
+		if len(crd.Spec.Versions) != 1 {
+			t.Fatalf("%s has %d versions, want 1", file, len(crd.Spec.Versions))
+		}
+		s := crd.Spec.Versions[0].Schema.OpenAPIV3Schema.Properties.Spec
+		if s.Properties.Credentials.Properties.TokenExchange == nil || len(s.Rules) == 0 {
+			t.Fatalf("%s has no credentials.tokenExchange schema or spec rules", file)
+		}
+		return s
+	}
+
+	modern := load("databricks.m.crossplane.io_providerconfigs.yaml")
+	legacy := load("databricks.crossplane.io_providerconfigs.yaml")
+	if diff := cmp.Diff(modern.Properties.Credentials.Properties.TokenExchange, legacy.Properties.Credentials.Properties.TokenExchange); diff != "" {
+		t.Errorf("credentials.tokenExchange differs between the namespaced and legacy CRDs (-namespaced +legacy):\n%s", diff)
+	}
+	if diff := cmp.Diff(modern.Rules, legacy.Rules); diff != "" {
+		t.Errorf("spec rules differ between the namespaced and legacy CRDs (-namespaced +legacy):\n%s", diff)
 	}
 }
 

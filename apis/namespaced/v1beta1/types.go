@@ -13,6 +13,7 @@ import (
 
 // A ProviderConfigSpec defines the desired state of a ProviderConfig.
 // +kubebuilder:validation:XValidation:rule="self.credentials.source != 'OIDCTokenRequest' || has(self.host)",message="host is required when credentials.source is OIDCTokenRequest"
+// +kubebuilder:validation:XValidation:rule=`self.credentials.source != 'OIDCTokenRequest' || !has(self.host) || (has(self.credentials.tokenExchange) && has(self.credentials.tokenExchange.type) && self.credentials.tokenExchange.type != 'AzureAD') || self.host.matches(r'^https://([a-z0-9]([a-z0-9-]*[a-z0-9])?\.)+(azuredatabricks\.net|databricks\.azure\.us|databricks\.azure\.cn)/?$')`,message="host must be an https URL on an Azure Databricks domain (azuredatabricks.net, databricks.azure.us or databricks.azure.cn), with no port or path, when tokenExchange.type is AzureAD (the default)",fieldPath=".host"
 type ProviderConfigSpec struct {
 	// +optional
 	// +kubebuilder:validation:XValidation:rule="!has(self.exponentialFailureRateLimiter) || !has(self.exponentialFailureRateLimiter.baseDelay) || has(self.exponentialFailureRateLimiter.maxDelay) || duration(self.exponentialFailureRateLimiter.baseDelay) <= duration('60s')",message="when maxDelay is omitted it defaults to 60s; baseDelay must be <= 60s"
@@ -22,15 +23,19 @@ type ProviderConfigSpec struct {
 	Credentials ProviderCredentials `json:"credentials"`
 
 	// Host is the Databricks workspace URL (or the accounts console URL for
-	// account-level operations) the provider calls. Required when
-	// Credentials.Source is OIDCTokenRequest.
+	// account-level operations) the provider calls, and sends the access token
+	// to. Required when Credentials.Source is OIDCTokenRequest. With the
+	// AzureAD token exchange (the default), it must be an https URL on an
+	// Azure Databricks domain (azuredatabricks.net, databricks.azure.us or
+	// databricks.azure.cn), with no port or path.
 	// +optional
 	Host *string `json:"host,omitempty"`
 
-	// AccountID is the Databricks account ID, for account-level operations
-	// through the accounts console host (for example
+	// AccountID is the Databricks account ID (a GUID), for account-level
+	// operations through the accounts console host (for example
 	// https://accounts.azuredatabricks.net). Used when Credentials.Source is
 	// OIDCTokenRequest; leave unset for a workspace host.
+	// +kubebuilder:validation:Pattern=`^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$`
 	// +optional
 	AccountID *string `json:"accountID,omitempty"`
 

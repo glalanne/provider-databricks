@@ -9,7 +9,9 @@ import (
 	"context"
 	"encoding/base64"
 	"encoding/json"
+	"os"
 	"path/filepath"
+	"regexp"
 	"strings"
 	"testing"
 	"time"
@@ -29,14 +31,20 @@ import (
 	namespacedv1beta1 "github.com/glalanne/provider-databricks/apis/namespaced/v1beta1"
 )
 
-func startEnvtest(t *testing.T) (*envtest.Environment, *runtime.Scheme, client.Client) {
+var (
+	legacyProviderConfigCRD = filepath.Join("..", "..", "package", "crds", "databricks.crossplane.io_providerconfigs.yaml")
+	providerConfigCRD       = filepath.Join("..", "..", "package", "crds", "databricks.m.crossplane.io_providerconfigs.yaml")
+	providerConfigCRDs      = []string{
+		legacyProviderConfigCRD,
+		providerConfigCRD,
+		filepath.Join("..", "..", "package", "crds", "databricks.m.crossplane.io_clusterproviderconfigs.yaml"),
+	}
+)
+
+func startEnvtest(t *testing.T, crds ...string) (*envtest.Environment, *runtime.Scheme, client.Client) {
 	t.Helper()
 	env := &envtest.Environment{
-		CRDDirectoryPaths: []string{
-			filepath.Join("..", "..", "package", "crds", "databricks.crossplane.io_providerconfigs.yaml"),
-			filepath.Join("..", "..", "package", "crds", "databricks.m.crossplane.io_providerconfigs.yaml"),
-			filepath.Join("..", "..", "package", "crds", "databricks.m.crossplane.io_clusterproviderconfigs.yaml"),
-		},
+		CRDDirectoryPaths:     crds,
 		ErrorIfCRDPathMissing: true,
 	}
 	cfg, err := env.Start()
@@ -67,10 +75,25 @@ func mustCreate(ctx context.Context, t *testing.T, c client.Client, objs ...clie
 	}
 }
 
+// checkCreate creates obj and checks the API server's verdict: accepted when
+// wantErr is empty, otherwise rejected with an error containing wantErr.
+func checkCreate(ctx context.Context, t *testing.T, c client.Client, obj client.Object, wantErr string) {
+	t.Helper()
+	err := c.Create(ctx, obj)
+	switch {
+	case wantErr == "" && err != nil:
+		t.Fatalf("rejected, want accepted: %v", err)
+	case wantErr != "" && err == nil:
+		t.Fatalf("accepted, want rejection containing %q", wantErr)
+	case wantErr != "" && !strings.Contains(err.Error(), wantErr):
+		t.Fatalf("rejected with %v, want it to contain %q", err, wantErr)
+	}
+}
+
 // TestEnvtestCELRules proves the CRD validation rules compile and are enforced
 // by a real API server, and that existing configs are unaffected.
 func TestEnvtestCELRules(t *testing.T) {
-	_, _, admin := startEnvtest(t)
+	_, _, admin := startEnvtest(t, providerConfigCRDs...)
 	ctx := context.Background()
 	mustCreate(ctx, t, admin, &corev1.Namespace{ObjectMeta: metav1.ObjectMeta{Name: "dp-a"}})
 
@@ -105,6 +128,17 @@ func TestEnvtestCELRules(t *testing.T) {
 			s.Credentials.TokenExchange = &namespacedv1beta1.TokenExchange{AzureAD: &namespacedv1beta1.AzureADTokenExchange{AuthorityHost: &host}}
 		}
 	}
+	withHost := func(host string) func(*namespacedv1beta1.ProviderConfigSpec) {
+		return func(s *namespacedv1beta1.ProviderConfigSpec) { s.Host = &host }
+	}
+	withAzureAD := func(clientID, tenantID string) func(*namespacedv1beta1.ProviderConfigSpec) {
+		return func(s *namespacedv1beta1.ProviderConfigSpec) {
+			s.Credentials.TokenExchange = &namespacedv1beta1.TokenExchange{AzureAD: &namespacedv1beta1.AzureADTokenExchange{ClientID: &clientID, TenantID: &tenantID}}
+		}
+	}
+	withSA := func(name string) func(*namespacedv1beta1.ProviderConfigSpec) {
+		return func(s *namespacedv1beta1.ProviderConfigSpec) { s.Credentials.ServiceAccountRef.Name = name }
+	}
 
 	cases := map[string]struct {
 		obj     client.Object
@@ -131,6 +165,71 @@ func TestEnvtestCELRules(t *testing.T) {
 		},
 		"namespaced: authority host without the trailing slash": {
 			obj: nsPC("authority-no-slash", withAuthority("https://login.microsoftonline.com")), wantErr: "authorityHost: Unsupported value",
+		},
+		"namespaced: US Government workspace host": {obj: nsPC("host-us", withHost("https://adb-1234567890123456.7.databricks.azure.us"))},
+		"namespaced: China workspace host":         {obj: nsPC("host-cn", withHost("https://adb-1234567890123456.7.databricks.azure.cn"))},
+		"namespaced: host with a trailing slash":   {obj: nsPC("host-slash", withHost(testHost+"/"))},
+		"namespaced: host over plain HTTP": {
+			obj: nsPC("host-http", withHost("http://adb-1234567890123456.7.azuredatabricks.net")), wantErr: "host must be an https URL on an Azure Databricks domain",
+		},
+		"namespaced: host that isn't Azure Databricks": {
+			obj: nsPC("host-other", withHost("https://databricks.example")), wantErr: "host must be an https URL on an Azure Databricks domain",
+		},
+		"namespaced: Databricks on AWS host": {
+			obj: nsPC("host-aws", withHost("https://dbc-12345678-9abc.cloud.databricks.com")), wantErr: "host must be an https URL on an Azure Databricks domain",
+		},
+		"namespaced: host without a scheme": {
+			obj: nsPC("host-no-scheme", withHost("adb-1234567890123456.7.azuredatabricks.net")), wantErr: "host must be an https URL on an Azure Databricks domain",
+		},
+		"namespaced: host with a port": {
+			obj: nsPC("host-port", withHost(testHost+":443")), wantErr: "host must be an https URL on an Azure Databricks domain",
+		},
+		"namespaced: host with a path": {
+			obj: nsPC("host-path", withHost(testHost+"/api")), wantErr: "host must be an https URL on an Azure Databricks domain",
+		},
+		"namespaced: host with an Azure Databricks domain inside a longer hostname": {
+			obj: nsPC("host-longer", withHost(testHost+".example")), wantErr: "host must be an https URL on an Azure Databricks domain",
+		},
+		"namespaced: host that isn't Azure Databricks, with tokenExchange.type AzureAD": {obj: nsPC("host-other-typed", func(s *namespacedv1beta1.ProviderConfigSpec) {
+			typ := namespacedv1beta1.TokenExchangeAzureAD
+			s.Credentials.TokenExchange = &namespacedv1beta1.TokenExchange{Type: &typ}
+			s.Host = ref("https://databricks.example")
+		}), wantErr: "host must be an https URL on an Azure Databricks domain"},
+		"namespaced: host that isn't Azure Databricks, with AzureAD settings and no type": {obj: nsPC("host-other-untyped", func(s *namespacedv1beta1.ProviderConfigSpec) {
+			withAzureAD(testClientID, testTenantID)(s)
+			s.Host = ref("https://databricks.example")
+		}), wantErr: "host must be an https URL on an Azure Databricks domain"},
+		"namespaced: Secret config's host isn't checked": {obj: &namespacedv1beta1.ProviderConfig{
+			ObjectMeta: metav1.ObjectMeta{Namespace: "dp-a", Name: "secret-host"},
+			Spec: namespacedv1beta1.ProviderConfigSpec{
+				Credentials: namespacedv1beta1.ProviderCredentials{
+					Source: xpv2.CredentialsSourceSecret,
+					CommonCredentialSelectors: xpv2.CommonCredentialSelectors{SecretRef: &xpv2.SecretKeySelector{
+						SecretReference: xpv2.SecretReference{Namespace: "dp-a", Name: "creds"}, Key: "credential",
+					}},
+				},
+				Host: ref("https://databricks.example"),
+			},
+		}},
+		"namespaced: client and tenant IDs in upper case": {
+			obj: nsPC("ids-upper", withAzureAD("AAAAAAAA-BBBB-CCCC-DDDD-EEEEEEEEEEEE", "FFFFFFFF-AAAA-BBBB-CCCC-DDDDDDDDDDDD")),
+		},
+		"namespaced: client ID that isn't a GUID": {
+			obj: nsPC("client-not-guid", withAzureAD("databricks-sp", testTenantID)), wantErr: "spec.credentials.tokenExchange.azureAD.clientID in body should match",
+		},
+		"namespaced: tenant ID that isn't a GUID": {
+			obj: nsPC("tenant-not-guid", withAzureAD(testClientID, "contoso.onmicrosoft.com")), wantErr: "spec.credentials.tokenExchange.azureAD.tenantID in body should match",
+		},
+		"namespaced: account ID that isn't a GUID": {obj: nsPC("account-not-guid", func(s *namespacedv1beta1.ProviderConfigSpec) {
+			s.Host = ref("https://accounts.azuredatabricks.net")
+			s.AccountID = ref("my-account")
+		}), wantErr: "spec.accountID in body should match"},
+		"namespaced: service account name with a dot": {obj: nsPC("sa-dotted", withSA("databricks.sa"))},
+		"namespaced: service account name that isn't a DNS subdomain": {
+			obj: nsPC("sa-not-subdomain", withSA("Databricks_SA")), wantErr: "spec.credentials.serviceAccountRef.name in body should match",
+		},
+		"namespaced: service account name that's too long": {
+			obj: nsPC("sa-too-long", withSA(strings.Repeat("a", 254))), wantErr: "spec.credentials.serviceAccountRef.name: Too long",
 		},
 		"namespaced: valid account-level": {obj: nsPC("ok-account", func(s *namespacedv1beta1.ProviderConfigSpec) {
 			s.Host = ref("https://accounts.azuredatabricks.net")
@@ -174,6 +273,25 @@ func TestEnvtestCELRules(t *testing.T) {
 				withAuthority("https://login.example/")(s)
 			}).Spec,
 		}, wantErr: "authorityHost: Unsupported value"},
+		"cluster-scoped: host that isn't Azure Databricks": {obj: &namespacedv1beta1.ClusterProviderConfig{
+			ObjectMeta: metav1.ObjectMeta{Name: "cluster-host-other"},
+			Spec: nsPC("unused", func(s *namespacedv1beta1.ProviderConfigSpec) {
+				s.Credentials.ServiceAccountRef.Namespace = ref("dp-a")
+				withHost("https://databricks.example")(s)
+			}).Spec,
+		}, wantErr: "host must be an https URL on an Azure Databricks domain"},
+		"cluster-scoped: service account namespace that isn't a DNS label": {obj: &namespacedv1beta1.ClusterProviderConfig{
+			ObjectMeta: metav1.ObjectMeta{Name: "cluster-ns-not-label"},
+			Spec: nsPC("unused", func(s *namespacedv1beta1.ProviderConfigSpec) {
+				s.Credentials.ServiceAccountRef.Namespace = ref("team.a")
+			}).Spec,
+		}, wantErr: "spec.credentials.serviceAccountRef.namespace in body should match"},
+		"cluster-scoped: service account namespace that's too long": {obj: &namespacedv1beta1.ClusterProviderConfig{
+			ObjectMeta: metav1.ObjectMeta{Name: "cluster-ns-too-long"},
+			Spec: nsPC("unused", func(s *namespacedv1beta1.ProviderConfigSpec) {
+				s.Credentials.ServiceAccountRef.Namespace = ref(strings.Repeat("a", 64))
+			}).Spec,
+		}, wantErr: "spec.credentials.serviceAccountRef.namespace: Too long"},
 		"cluster-scoped: existing Secret config unaffected": {obj: &namespacedv1beta1.ClusterProviderConfig{
 			ObjectMeta: metav1.ObjectMeta{Name: "cluster-secret"},
 			Spec: namespacedv1beta1.ProviderConfigSpec{Credentials: namespacedv1beta1.ProviderCredentials{
@@ -191,19 +309,115 @@ func TestEnvtestCELRules(t *testing.T) {
 				AuthorityHost: ref(clusterv1beta1.AzureAuthorityHost("https://login.example/")),
 			}}
 		}), wantErr: "authorityHost: Unsupported value"},
+		"legacy: host that isn't Azure Databricks": {obj: legacyPC("legacy-host-other", func(s *clusterv1beta1.ProviderConfigSpec) {
+			s.Host = ref("https://databricks.example")
+		}), wantErr: "host must be an https URL on an Azure Databricks domain"},
+		"legacy: client ID that isn't a GUID": {obj: legacyPC("legacy-client-not-guid", func(s *clusterv1beta1.ProviderConfigSpec) {
+			s.Credentials.TokenExchange = &clusterv1beta1.TokenExchange{AzureAD: &clusterv1beta1.AzureADTokenExchange{ClientID: ref("databricks-sp")}}
+		}), wantErr: "spec.credentials.tokenExchange.azureAD.clientID in body should match"},
+		"legacy: tenant ID that isn't a GUID": {obj: legacyPC("legacy-tenant-not-guid", func(s *clusterv1beta1.ProviderConfigSpec) {
+			s.Credentials.TokenExchange = &clusterv1beta1.TokenExchange{AzureAD: &clusterv1beta1.AzureADTokenExchange{TenantID: ref("contoso.onmicrosoft.com")}}
+		}), wantErr: "spec.credentials.tokenExchange.azureAD.tenantID in body should match"},
+		"legacy: account ID that isn't a GUID": {obj: legacyPC("legacy-account-not-guid", func(s *clusterv1beta1.ProviderConfigSpec) {
+			s.Host = ref("https://accounts.azuredatabricks.net")
+			s.AccountID = ref("my-account")
+		}), wantErr: "spec.accountID in body should match"},
+		"legacy: service account name that isn't a DNS subdomain": {obj: legacyPC("legacy-sa-not-subdomain", func(s *clusterv1beta1.ProviderConfigSpec) {
+			s.Credentials.ServiceAccountRef.Name = "Databricks_SA"
+		}), wantErr: "spec.credentials.serviceAccountRef.name in body should match"},
+		"legacy: service account name that's too long": {obj: legacyPC("legacy-sa-too-long", func(s *clusterv1beta1.ProviderConfigSpec) {
+			s.Credentials.ServiceAccountRef.Name = strings.Repeat("a", 254)
+		}), wantErr: "spec.credentials.serviceAccountRef.name: Too long"},
+		"legacy: service account namespace that isn't a DNS label": {obj: legacyPC("legacy-ns-not-label", func(s *clusterv1beta1.ProviderConfigSpec) {
+			s.Credentials.ServiceAccountRef.Namespace = ref("team.a")
+		}), wantErr: "spec.credentials.serviceAccountRef.namespace in body should match"},
+		"legacy: service account namespace that's too long": {obj: legacyPC("legacy-ns-too-long", func(s *clusterv1beta1.ProviderConfigSpec) {
+			s.Credentials.ServiceAccountRef.Namespace = ref(strings.Repeat("a", 64))
+		}), wantErr: "spec.credentials.serviceAccountRef.namespace: Too long"},
 	}
 	for name, tc := range cases {
-		t.Run(name, func(t *testing.T) {
-			err := admin.Create(ctx, tc.obj)
-			switch {
-			case tc.wantErr == "" && err != nil:
-				t.Fatalf("rejected, want accepted: %v", err)
-			case tc.wantErr != "" && err == nil:
-				t.Fatalf("accepted, want rejection containing %q", tc.wantErr)
-			case tc.wantErr != "" && !strings.Contains(err.Error(), tc.wantErr):
-				t.Fatalf("rejected with %v, want it to contain %q", err, tc.wantErr)
-			}
-		})
+		t.Run(name, func(t *testing.T) { checkCreate(ctx, t, admin, tc.obj, tc.wantErr) })
+	}
+}
+
+// withExtraExchangeType copies the CRD at path into dir with typ added to the
+// tokenExchange.type enum, standing in for an exchange type added later.
+func withExtraExchangeType(t *testing.T, path, dir, typ string) string {
+	t.Helper()
+	raw, err := os.ReadFile(path)
+	if err != nil {
+		t.Fatal(err)
+	}
+	enum := regexp.MustCompile(`(?m)^(\s*)- AzureAD$`)
+	if n := len(enum.FindAll(raw, -1)); n != 1 {
+		t.Fatalf("%s has %d AzureAD enum entries, want 1", path, n)
+	}
+	out := filepath.Join(dir, filepath.Base(path))
+	if err := os.WriteFile(out, enum.ReplaceAll(raw, []byte("${1}- AzureAD\n${1}- "+typ)), 0o600); err != nil {
+		t.Fatal(err)
+	}
+	return out
+}
+
+// TestEnvtestTokenExchangeIsolation adds a second tokenExchange.type to the
+// CRDs, standing in for one added later, and checks that AzureAD's rules stay
+// with AzureAD: its settings can't be used with another type, and its host
+// rule doesn't apply to one.
+func TestEnvtestTokenExchangeIsolation(t *testing.T) {
+	const other = "Example"
+	dir := t.TempDir()
+	_, _, admin := startEnvtest(t, withExtraExchangeType(t, legacyProviderConfigCRD, dir, other), withExtraExchangeType(t, providerConfigCRD, dir, other))
+	ctx := context.Background()
+	mustCreate(ctx, t, admin, &corev1.Namespace{ObjectMeta: metav1.ObjectMeta{Name: "dp-a"}})
+
+	nsPC := func(name string, typ namespacedv1beta1.TokenExchangeType, host string, azureAD *namespacedv1beta1.AzureADTokenExchange) *namespacedv1beta1.ProviderConfig {
+		return &namespacedv1beta1.ProviderConfig{
+			ObjectMeta: metav1.ObjectMeta{Namespace: "dp-a", Name: name},
+			Spec: namespacedv1beta1.ProviderConfigSpec{
+				Credentials: namespacedv1beta1.ProviderCredentials{
+					Source:            namespacedv1beta1.CredentialsSourceOIDCTokenRequest,
+					ServiceAccountRef: &namespacedv1beta1.ServiceAccountReference{Name: "dp-a"},
+					TokenExchange:     &namespacedv1beta1.TokenExchange{Type: &typ, AzureAD: azureAD},
+				},
+				Host: &host,
+			},
+		}
+	}
+	legacyPC := func(name string, typ clusterv1beta1.TokenExchangeType, host string, azureAD *clusterv1beta1.AzureADTokenExchange) *clusterv1beta1.ProviderConfig {
+		return &clusterv1beta1.ProviderConfig{
+			ObjectMeta: metav1.ObjectMeta{Name: name},
+			Spec: clusterv1beta1.ProviderConfigSpec{
+				Credentials: clusterv1beta1.ProviderCredentials{
+					Source:            clusterv1beta1.CredentialsSourceOIDCTokenRequest,
+					ServiceAccountRef: &clusterv1beta1.ServiceAccountReference{Name: "dp-a", Namespace: ref("dp-a")},
+					TokenExchange:     &clusterv1beta1.TokenExchange{Type: &typ, AzureAD: azureAD},
+				},
+				Host: &host,
+			},
+		}
+	}
+
+	cases := map[string]struct {
+		obj     client.Object
+		wantErr string // empty = must be accepted
+	}{
+		"namespaced: another type with a non-Azure host": {obj: nsPC("other-host", other, "https://databricks.example", nil)},
+		"namespaced: another type with azureAD settings": {
+			obj:     nsPC("other-azuread", other, testHost, &namespacedv1beta1.AzureADTokenExchange{ClientID: ref(testClientID)}),
+			wantErr: "azureAD is only allowed when type is AzureAD",
+		},
+		"namespaced: AzureAD still restricts host": {
+			obj:     nsPC("azuread-host", namespacedv1beta1.TokenExchangeAzureAD, "https://databricks.example", nil),
+			wantErr: "host must be an https URL on an Azure Databricks domain",
+		},
+		"legacy: another type with a non-Azure host": {obj: legacyPC("legacy-other-host", other, "https://databricks.example", nil)},
+		"legacy: another type with azureAD settings": {
+			obj:     legacyPC("legacy-other-azuread", other, testHost, &clusterv1beta1.AzureADTokenExchange{ClientID: ref(testClientID)}),
+			wantErr: "azureAD is only allowed when type is AzureAD",
+		},
+	}
+	for name, tc := range cases {
+		t.Run(name, func(t *testing.T) { checkCreate(ctx, t, admin, tc.obj, tc.wantErr) })
 	}
 }
 
@@ -229,7 +443,7 @@ func jwtClaims(t *testing.T, token string) map[string]any {
 // tokens for that one service account and read it, can't for any other, and
 // reads service accounts without cluster-wide list/watch.
 func TestEnvtestOptInRBAC(t *testing.T) {
-	env, s, admin := startEnvtest(t)
+	env, s, admin := startEnvtest(t, providerConfigCRDs...)
 	ctx := context.Background()
 
 	mustCreate(ctx, t, admin,

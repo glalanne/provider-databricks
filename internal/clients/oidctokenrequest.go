@@ -116,7 +116,9 @@ func newExchanger(ctx context.Context, kube client.Client, pcSpec *namespacedv1b
 	if te := pcSpec.Credentials.TokenExchange; te != nil && te.Type != nil {
 		exchangeType = *te.Type
 	}
-	switch exchangeType { //nolint:exhaustive // a new type must be handled explicitly
+	// The exhaustive linter requires a case here for every TokenExchangeType;
+	// default only catches a value this binary doesn't know.
+	switch exchangeType {
 	case namespacedv1beta1.TokenExchangeAzureAD:
 		ex, err := azureADExchanger(ctx, kube, pcSpec, ns, name)
 		if err != nil {
