@@ -87,6 +87,40 @@ End to end tests:
 make e2e
 ```
 
+### Offline diff client
+
+The internal diff server uses a separate SDKv2 client setup. It never reads
+credential Secrets, requests service account tokens, runs authentication CLIs,
+or loads Databricks environment variables or profiles. Authentication uses a
+local placeholder PAT, and host metadata discovery is disabled. Normal
+reconciliation continues to use the regular authenticated client.
+
+ProviderConfigs are still resolved using the supplied Kubernetes client. Set
+`spec.host` and, for account-level resources, `spec.accountID` on the
+ProviderConfig when these affect a diff; values stored only in credential
+Secrets are intentionally unavailable. Without a host, the client uses a
+reserved `.invalid` workspace hostname.
+
+Outbound requests from the client, including derived workspace and account
+clients, are blocked. Diffs that require an API call return Upjet's
+diff-computation-not-supported error rather than fabricated API responses.
+This setup is for offline diff computation only, not reconciliation.
+
+Run the client unit tests:
+
+```console
+go test ./internal/clients
+```
+
+The egress regression tests run in fresh subprocesses with an HTTP/HTTPS
+recording proxy, without replacing `http.DefaultTransport`. Positive controls
+verify that normal SDK discovery, authentication, API calls, API-dependent
+`CustomizeDiff` hooks, and separately constructed HTTP transports reach the
+proxy. A separate recording listener covers loopback URLs, which Go excludes
+from proxying. Offline setup, authentication, diffs, and derived clients must
+produce zero recorded requests. Neither listener forwards requests. This tests
+the exercised HTTP paths, not an OS-level network sandbox.
+
 ## Report a Bug
 
 For filing bugs, suggesting improvements, or requesting new features, please
