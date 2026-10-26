@@ -39,7 +39,8 @@ type ServiceAccountReference struct {
 }
 
 // TokenExchangeType selects how a workload token is exchanged for an access
-// token Databricks accepts.
+// token Databricks accepts. Each type needs its own rule on
+// ProviderConfigSpec restricting host to the domains that accept its token.
 // +kubebuilder:validation:Enum=AzureAD
 type TokenExchangeType string
 

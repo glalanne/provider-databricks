@@ -147,26 +147,47 @@ func TestEnvtestCELRules(t *testing.T) {
 		"namespaced: China workspace host":         {obj: nsPC("host-cn", withHost("https://adb-1234567890123456.7.databricks.azure.cn"))},
 		"namespaced: host with a trailing slash":   {obj: nsPC("host-slash", withHost(testHost+"/"))},
 		"namespaced: host over plain HTTP": {
-			obj: nsPC("host-http", withHost("http://adb-1234567890123456.7.azuredatabricks.net")), wantErr: "spec.host in body should match",
+			obj: nsPC("host-http", withHost("http://adb-1234567890123456.7.azuredatabricks.net")), wantErr: "host must be an https URL on an Azure Databricks domain",
 		},
 		"namespaced: host that isn't Azure Databricks": {
-			obj: nsPC("host-other", withHost("https://databricks.example")), wantErr: "spec.host in body should match",
+			obj: nsPC("host-other", withHost("https://databricks.example")), wantErr: "host must be an https URL on an Azure Databricks domain",
 		},
 		"namespaced: Databricks on AWS host": {
-			obj: nsPC("host-aws", withHost("https://dbc-12345678-9abc.cloud.databricks.com")), wantErr: "spec.host in body should match",
+			obj: nsPC("host-aws", withHost("https://dbc-12345678-9abc.cloud.databricks.com")), wantErr: "host must be an https URL on an Azure Databricks domain",
 		},
 		"namespaced: host without a scheme": {
-			obj: nsPC("host-no-scheme", withHost("adb-1234567890123456.7.azuredatabricks.net")), wantErr: "spec.host in body should match",
+			obj: nsPC("host-no-scheme", withHost("adb-1234567890123456.7.azuredatabricks.net")), wantErr: "host must be an https URL on an Azure Databricks domain",
 		},
 		"namespaced: host with a port": {
-			obj: nsPC("host-port", withHost(testHost+":443")), wantErr: "spec.host in body should match",
+			obj: nsPC("host-port", withHost(testHost+":443")), wantErr: "host must be an https URL on an Azure Databricks domain",
 		},
 		"namespaced: host with a path": {
-			obj: nsPC("host-path", withHost(testHost+"/api")), wantErr: "spec.host in body should match",
+			obj: nsPC("host-path", withHost(testHost+"/api")), wantErr: "host must be an https URL on an Azure Databricks domain",
 		},
 		"namespaced: host with an Azure Databricks domain inside a longer hostname": {
-			obj: nsPC("host-longer", withHost(testHost+".example")), wantErr: "spec.host in body should match",
+			obj: nsPC("host-longer", withHost(testHost+".example")), wantErr: "host must be an https URL on an Azure Databricks domain",
 		},
+		"namespaced: host that isn't Azure Databricks, with tokenExchange.type AzureAD": {obj: nsPC("host-other-typed", func(s *namespacedv1beta1.ProviderConfigSpec) {
+			typ := namespacedv1beta1.TokenExchangeAzureAD
+			s.Credentials.TokenExchange = &namespacedv1beta1.TokenExchange{Type: &typ}
+			s.Host = ref("https://databricks.example")
+		}), wantErr: "host must be an https URL on an Azure Databricks domain"},
+		"namespaced: host that isn't Azure Databricks, with AzureAD settings and no type": {obj: nsPC("host-other-untyped", func(s *namespacedv1beta1.ProviderConfigSpec) {
+			withAzureAD(testClientID, testTenantID)(s)
+			s.Host = ref("https://databricks.example")
+		}), wantErr: "host must be an https URL on an Azure Databricks domain"},
+		"namespaced: Secret config's host isn't checked": {obj: &namespacedv1beta1.ProviderConfig{
+			ObjectMeta: metav1.ObjectMeta{Namespace: "dp-a", Name: "secret-host"},
+			Spec: namespacedv1beta1.ProviderConfigSpec{
+				Credentials: namespacedv1beta1.ProviderCredentials{
+					Source: xpv2.CredentialsSourceSecret,
+					CommonCredentialSelectors: xpv2.CommonCredentialSelectors{SecretRef: &xpv2.SecretKeySelector{
+						SecretReference: xpv2.SecretReference{Namespace: "dp-a", Name: "creds"}, Key: "credential",
+					}},
+				},
+				Host: ref("https://databricks.example"),
+			},
+		}},
 		"namespaced: client and tenant IDs in upper case": {
 			obj: nsPC("ids-upper", withAzureAD("AAAAAAAA-BBBB-CCCC-DDDD-EEEEEEEEEEEE", "FFFFFFFF-AAAA-BBBB-CCCC-DDDDDDDDDDDD")),
 		},
@@ -235,7 +256,7 @@ func TestEnvtestCELRules(t *testing.T) {
 				s.Credentials.ServiceAccountRef.Namespace = ref("dp-a")
 				withHost("https://databricks.example")(s)
 			}).Spec,
-		}, wantErr: "spec.host in body should match"},
+		}, wantErr: "host must be an https URL on an Azure Databricks domain"},
 		"cluster-scoped: service account namespace that isn't a DNS label": {obj: &namespacedv1beta1.ClusterProviderConfig{
 			ObjectMeta: metav1.ObjectMeta{Name: "cluster-ns-not-label"},
 			Spec: nsPC("unused", func(s *namespacedv1beta1.ProviderConfigSpec) {
@@ -267,7 +288,7 @@ func TestEnvtestCELRules(t *testing.T) {
 		}), wantErr: "authorityHost: Unsupported value"},
 		"legacy: host that isn't Azure Databricks": {obj: legacyPC("legacy-host-other", func(s *clusterv1beta1.ProviderConfigSpec) {
 			s.Host = ref("https://databricks.example")
-		}), wantErr: "spec.host in body should match"},
+		}), wantErr: "host must be an https URL on an Azure Databricks domain"},
 		"legacy: client ID that isn't a GUID": {obj: legacyPC("legacy-client-not-guid", func(s *clusterv1beta1.ProviderConfigSpec) {
 			s.Credentials.TokenExchange = &clusterv1beta1.TokenExchange{AzureAD: &clusterv1beta1.AzureADTokenExchange{ClientID: ref("databricks-sp")}}
 		}), wantErr: "spec.credentials.tokenExchange.azureAD.clientID in body should match"},

@@ -12,16 +12,17 @@ import (
 
 // A ProviderConfigSpec defines the desired state of a ProviderConfig.
 // +kubebuilder:validation:XValidation:rule="self.credentials.source != 'OIDCTokenRequest' || has(self.host)",message="host is required when credentials.source is OIDCTokenRequest"
+// +kubebuilder:validation:XValidation:rule=`self.credentials.source != 'OIDCTokenRequest' || !has(self.host) || (has(self.credentials.tokenExchange) && has(self.credentials.tokenExchange.type) && self.credentials.tokenExchange.type != 'AzureAD') || self.host.matches(r'^https://([a-z0-9]([a-z0-9-]*[a-z0-9])?\.)+(azuredatabricks\.net|databricks\.azure\.us|databricks\.azure\.cn)/?$')`,message="host must be an https URL on an Azure Databricks domain (azuredatabricks.net, databricks.azure.us or databricks.azure.cn), with no port or path, when tokenExchange.type is AzureAD (the default)",fieldPath=".host"
 type ProviderConfigSpec struct {
 	// Credentials required to authenticate to this provider.
 	Credentials ProviderCredentials `json:"credentials"`
 
 	// Host is the Databricks workspace URL (or the accounts console URL for
 	// account-level operations) the provider calls, and sends the access token
-	// to. Required when Credentials.Source is OIDCTokenRequest. Must be an
-	// https URL on an Azure Databricks domain (azuredatabricks.net,
-	// databricks.azure.us or databricks.azure.cn), with no port or path.
-	// +kubebuilder:validation:Pattern=`^https://([a-z0-9]([a-z0-9-]*[a-z0-9])?\.)+(azuredatabricks\.net|databricks\.azure\.us|databricks\.azure\.cn)/?$`
+	// to. Required when Credentials.Source is OIDCTokenRequest. With the
+	// AzureAD token exchange (the default), it must be an https URL on an
+	// Azure Databricks domain (azuredatabricks.net, databricks.azure.us or
+	// databricks.azure.cn), with no port or path.
 	// +optional
 	Host *string `json:"host,omitempty"`
 
