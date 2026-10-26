@@ -143,10 +143,9 @@ func main() {
 		Cache: cache.Options{
 			SyncPeriod: syncInterval,
 		},
-		// ServiceAccounts are read directly rather than through the cache: a
-		// cached read would start a cluster-wide watch and need cluster-wide
-		// list/watch permission, while OIDCTokenRequest ProviderConfigs
-		// only grant the provider access to their own service account.
+		// ServiceAccounts bypass the cache, which would need cluster-wide
+		// list/watch; OIDCTokenRequest opt-ins only grant get on the service
+		// accounts they name.
 		Client: client.Options{
 			Cache: &client.CacheOptions{DisableFor: []client.Object{&corev1.ServiceAccount{}}},
 		},

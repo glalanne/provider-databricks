@@ -8,15 +8,13 @@ import (
 	xpv2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 )
 
-// CredentialsSourceOIDCTokenRequest makes the provider request a
-// short-lived OIDC token for a Kubernetes service account (TokenRequest API)
-// and exchange it for an access token, instead of reading stored credentials.
+// CredentialsSourceOIDCTokenRequest exchanges a service account's short-lived
+// OIDC token (TokenRequest API) for an access token; no stored credentials.
 const CredentialsSourceOIDCTokenRequest xpv2.CredentialsSource = "OIDCTokenRequest"
 
-// ServiceAccountReference selects the Kubernetes service account the provider
-// requests tokens for when Credentials.Source is OIDCTokenRequest. The
-// token's subject (system:serviceaccount:<namespace>:<name>) is what the
-// identity provider trusts, which binds the identity to that namespace.
+// ServiceAccountReference selects the service account the provider requests
+// tokens for. The token's subject, system:serviceaccount:<namespace>:<name>,
+// is what the identity provider trusts, binding the identity to the namespace.
 type ServiceAccountReference struct {
 	// Name of the service account.
 	// +kubebuilder:validation:MaxLength=253
@@ -24,43 +22,41 @@ type ServiceAccountReference struct {
 	Name string `json:"name"`
 
 	// Namespace of the service account. Required on a ClusterProviderConfig;
-	// a namespaced ProviderConfig always uses its own namespace and is
-	// rejected if this names another one.
+	// on a ProviderConfig it defaults to, and must be, its own namespace.
 	// +kubebuilder:validation:MaxLength=63
 	// +kubebuilder:validation:Pattern=`^[a-z0-9]([-a-z0-9]*[a-z0-9])?$`
 	// +optional
 	Namespace *string `json:"namespace,omitempty"`
 
-	// Audiences requested on the token in addition to the one the token
-	// exchange requires (api://AzureADTokenExchange for AzureAD).
+	// Audiences requested on the token besides the one the exchange requires
+	// (api://AzureADTokenExchange for AzureAD).
 	// +optional
 	// +listType=set
 	Audiences []string `json:"audiences,omitempty"`
 }
 
-// TokenExchangeType selects how a workload token is exchanged for an access
-// token Databricks accepts. A new type adds its settings member to
-// TokenExchange with a rule allowing it only with that type, and can add its
-// own host validation on ProviderConfigSpec.
+// TokenExchangeType selects how a workload token becomes an access token
+// Databricks accepts. A new type adds its settings as TokenExchange.<Type>,
+// such as TokenExchange.AzureAD, allowed only with that type, and can add its
+// own host rule to ProviderConfigSpec.
 // +kubebuilder:validation:Enum=AzureAD
 type TokenExchangeType string
 
 const (
 	// TokenExchangeAzureAD exchanges the token at Entra ID (RFC 7523 client
-	// assertion) for an access token for the Azure Databricks application.
+	// assertion) for an Azure Databricks access token.
 	TokenExchangeAzureAD TokenExchangeType = "AzureAD"
 )
 
-// TokenExchange configures how a workload token is exchanged for an access
-// token. Each type has its own optional member for type-specific settings,
-// allowed only with that type.
+// TokenExchange configures the exchange. Each type has an optional settings
+// member, allowed only with that type.
 // +kubebuilder:validation:XValidation:rule="!has(self.azureAD) || !has(self.type) || self.type == 'AzureAD'",message="azureAD is only allowed when type is AzureAD (the default)",fieldPath=".azureAD"
 type TokenExchange struct {
-	// Type of the exchange. Defaults to AzureAD when omitted.
+	// Type of the exchange. Defaults to AzureAD.
 	// +optional
 	Type *TokenExchangeType `json:"type,omitempty"`
 
-	// AzureAD holds settings specific to the AzureAD exchange.
+	// AzureAD holds settings for the AzureAD exchange.
 	// +optional
 	AzureAD *AzureADTokenExchange `json:"azureAD,omitempty"`
 }
@@ -71,19 +67,17 @@ type TokenExchange struct {
 type AzureAuthorityHost string
 
 const (
-	// AzureAuthorityHostPublic is the Entra ID authority for the Azure public
-	// cloud, and the default.
+	// AzureAuthorityHostPublic is the public cloud's authority, and the default.
 	AzureAuthorityHostPublic AzureAuthorityHost = "https://login.microsoftonline.com/"
-	// AzureAuthorityHostUSGovernment is the Entra ID authority for Azure
-	// Government.
+	// AzureAuthorityHostUSGovernment is Azure Government's authority.
 	AzureAuthorityHostUSGovernment AzureAuthorityHost = "https://login.microsoftonline.us/"
-	// AzureAuthorityHostChina is the Entra ID authority for Azure China.
+	// AzureAuthorityHostChina is Azure China's authority.
 	AzureAuthorityHostChina AzureAuthorityHost = "https://login.chinacloudapi.cn/"
-	// AzureAuthorityHostChinaPartner is Azure China's newer Entra ID authority.
+	// AzureAuthorityHostChinaPartner is Azure China's newer authority.
 	AzureAuthorityHostChinaPartner AzureAuthorityHost = "https://login.partner.microsoftonline.cn/"
 )
 
-// AzureADTokenExchange holds settings specific to the AzureAD exchange.
+// AzureADTokenExchange holds settings for the AzureAD exchange.
 type AzureADTokenExchange struct {
 	// ClientID of the managed identity (or app registration) whose federated
 	// credential trusts the service account, as a GUID. Defaults to the
@@ -98,9 +92,9 @@ type AzureADTokenExchange struct {
 	// +optional
 	TenantID *string `json:"tenantID,omitempty"`
 
-	// AuthorityHost of the Entra ID token endpoint: one of the Entra ID
-	// authorities for the Azure public, Government or China clouds, with a
-	// trailing slash. Defaults to https://login.microsoftonline.com/.
+	// AuthorityHost of the Entra ID token endpoint, with a trailing slash, for
+	// the Azure public, Government or China cloud. Defaults to
+	// https://login.microsoftonline.com/.
 	// +optional
 	AuthorityHost *AzureAuthorityHost `json:"authorityHost,omitempty"`
 }

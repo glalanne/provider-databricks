@@ -165,8 +165,8 @@ func TestOIDCTokenRequestAuth(t *testing.T) {
 		}
 	})
 
-	// The top-level clientID and tenantID belong to the Azure-derived sources;
-	// this source reads its IDs only from tokenExchange.azureAD.
+	// The top-level clientID and tenantID belong to other credential sources;
+	// OIDCTokenRequest reads tokenExchange.azureAD and the SA's annotations.
 	t.Run("top-level clientID and tenantID are ignored", func(t *testing.T) {
 		entra := fakeEntra(t, testClientID, "sa-token:dp-a/dp-a")
 		kube := tokenFor(annotatedSA("dp-a", "dp-a")).Build()
@@ -179,10 +179,9 @@ func TestOIDCTokenRequestAuth(t *testing.T) {
 		}
 	})
 
-	// The confused-deputy case at the identity provider: knowing another data
-	// product's client ID isn't enough, because the token names the wrong
-	// service account and that identity only trusts its own.
-	t.Run("another data product's client ID is refused for this namespace's token", func(t *testing.T) {
+	// Confused deputy at the identity provider: naming an identity's client ID
+	// isn't enough if it doesn't trust the token's service account.
+	t.Run("an identity that doesn't trust the service account refuses its token", func(t *testing.T) {
 		entra := fakeEntra(t, testClientID, "sa-token:dp-a/dp-a") // dp-a's identity trusts only dp-a's SA
 		kube := tokenFor(annotatedSA("dp-b", "dp-b")).Build()
 
@@ -297,9 +296,8 @@ func TestEnrichLocalServiceAccountRef(t *testing.T) {
 	})
 }
 
-// The confused-deputy case at the provider: a namespaced ProviderConfig can't
-// point at a service account in another namespace, so it can never obtain
-// another namespace's token in the first place.
+// Confused deputy at the provider: a namespaced ProviderConfig can't name a
+// service account in another namespace, so it never gets a token for one.
 func TestResolveProviderConfigRejectsOtherNamespaceServiceAccount(t *testing.T) {
 	pc := &namespacedv1beta1.ProviderConfig{
 		ObjectMeta: metav1.ObjectMeta{Namespace: "dp-b", Name: "default"},
@@ -322,9 +320,8 @@ func TestResolveProviderConfigRejectsOtherNamespaceServiceAccount(t *testing.T) 
 	}
 }
 
-// The existing Secret path must be untouched by this change: the same secret
-// produces exactly the same Terraform configuration.
-func TestDefaultAuthSecretUnchanged(t *testing.T) {
+// The Secret source copies the secret's keys into the Terraform configuration.
+func TestDefaultAuthSecret(t *testing.T) {
 	secret := &corev1.Secret{
 		ObjectMeta: metav1.ObjectMeta{Namespace: "dp-a", Name: "creds"},
 		Data: map[string][]byte{"credential": []byte(`{

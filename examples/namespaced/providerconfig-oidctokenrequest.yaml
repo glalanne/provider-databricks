@@ -2,10 +2,8 @@
 #
 # SPDX-License-Identifier: CC0-1.0
 
-# Passwordless authentication as a namespace's own Azure managed identity.
-#
-# The provider requests a short-lived token for the service account below and exchanges it at Entra ID for an access
-# token as the managed identity. Prerequisites:
+# Passwordless authentication: the provider requests a short-lived token for the service account below and exchanges it
+# at Entra ID for an access token as the managed identity federated with it. Prerequisites:
 # - the provider runs with a stable service account name (see the DeploymentRuntimeConfig in ../install.yaml);
 # - the managed identity has a federated identity credential with the cluster's service account issuer, subject
 #   system:serviceaccount:team-a:databricks and audience api://AzureADTokenExchange;
@@ -19,11 +17,11 @@ metadata:
   name: databricks
   namespace: team-a
   annotations:
-    # Read when credentials.tokenExchange.azureAD.clientID and tenantID are not set.
+    # Fallbacks for credentials.tokenExchange.azureAD.clientID and tenantID.
     azure.workload.identity/client-id: 00000000-0000-0000-0000-000000000000
     azure.workload.identity/tenant-id: 00000000-0000-0000-0000-000000000000
 ---
-# The namespace's opt-in: lets the provider request tokens for, and read, this one service account.
+# The namespace's opt-in: lets the provider request tokens for, and read, only the service accounts named here.
 apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
 metadata:
