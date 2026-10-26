@@ -39,8 +39,9 @@ type ServiceAccountReference struct {
 }
 
 // TokenExchangeType selects how a workload token is exchanged for an access
-// token Databricks accepts. Each type needs its own rule on
-// ProviderConfigSpec restricting host to the domains that accept its token.
+// token Databricks accepts. Each type needs its own rules: one on
+// ProviderConfigSpec restricting host to the domains that accept its token,
+// and one on TokenExchange allowing its settings member only with that type.
 // +kubebuilder:validation:Enum=AzureAD
 type TokenExchangeType string
 
@@ -51,7 +52,9 @@ const (
 )
 
 // TokenExchange configures how a workload token is exchanged for an access
-// token. Each type has its own optional member for type-specific settings.
+// token. Each type has its own optional member for type-specific settings,
+// allowed only with that type.
+// +kubebuilder:validation:XValidation:rule="!has(self.azureAD) || !has(self.type) || self.type == 'AzureAD'",message="azureAD is only allowed when type is AzureAD (the default)",fieldPath=".azureAD"
 type TokenExchange struct {
 	// Type of the exchange. Defaults to AzureAD when omitted.
 	// +optional

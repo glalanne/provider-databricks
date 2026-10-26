@@ -193,6 +193,11 @@ spec:
                         - AzureAD
                         type: string
                     type: object
+                    x-kubernetes-validations:
+                    - fieldPath: .azureAD
+                      message: azureAD is only allowed when type is AzureAD (the default)
+                      rule: '!has(self.azureAD) || !has(self.type) || self.type ==
+                        ''AzureAD'''
                 required:
                 - source
                 type: object
