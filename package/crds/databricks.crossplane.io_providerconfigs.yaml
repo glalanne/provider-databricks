@@ -53,10 +53,11 @@ spec:
             properties:
               accountID:
                 description: |-
-                  AccountID is the Databricks account ID, for account-level operations
-                  through the accounts console host (for example
+                  AccountID is the Databricks account ID (a GUID), for account-level
+                  operations through the accounts console host (for example
                   https://accounts.azuredatabricks.net). Used when Credentials.Source is
                   OIDCTokenRequest; leave unset for a workspace host.
+                pattern: ^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$
                 type: string
               credentials:
                 description: Credentials required to authenticate to this provider.
@@ -117,12 +118,15 @@ spec:
                         x-kubernetes-list-type: set
                       name:
                         description: Name of the service account.
-                        minLength: 1
+                        maxLength: 253
+                        pattern: ^[a-z0-9]([-a-z0-9]*[a-z0-9])?(\.[a-z0-9]([-a-z0-9]*[a-z0-9])?)*$
                         type: string
                       namespace:
                         description: |-
                           Namespace of the service account. Required: this ProviderConfig is
                           cluster-scoped, so there is no namespace to default to.
+                        maxLength: 63
+                        pattern: ^[a-z0-9]([-a-z0-9]*[a-z0-9])?$
                         type: string
                     required:
                     - name
@@ -163,13 +167,15 @@ spec:
                           clientID:
                             description: |-
                               ClientID of the managed identity (or app registration) whose federated
-                              credential trusts the service account. Defaults to the service
-                              account's azure.workload.identity/client-id annotation.
+                              credential trusts the service account, as a GUID. Defaults to the
+                              service account's azure.workload.identity/client-id annotation.
+                            pattern: ^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$
                             type: string
                           tenantID:
                             description: |-
-                              TenantID of the identity. Defaults to the service account's
+                              TenantID of the identity, as a GUID. Defaults to the service account's
                               azure.workload.identity/tenant-id annotation.
+                            pattern: ^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$
                             type: string
                         type: object
                       type:
@@ -190,8 +196,11 @@ spec:
               host:
                 description: |-
                   Host is the Databricks workspace URL (or the accounts console URL for
-                  account-level operations) the provider calls. Required when
-                  Credentials.Source is OIDCTokenRequest.
+                  account-level operations) the provider calls, and sends the access token
+                  to. Required when Credentials.Source is OIDCTokenRequest. Must be an
+                  https URL on an Azure Databricks domain (azuredatabricks.net,
+                  databricks.azure.us or databricks.azure.cn), with no port or path.
+                pattern: ^https://([a-z0-9]([a-z0-9-]*[a-z0-9])?\.)+(azuredatabricks\.net|databricks\.azure\.us|databricks\.azure\.cn)/?$
                 type: string
             required:
             - credentials

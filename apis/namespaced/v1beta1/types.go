@@ -22,15 +22,19 @@ type ProviderConfigSpec struct {
 	Credentials ProviderCredentials `json:"credentials"`
 
 	// Host is the Databricks workspace URL (or the accounts console URL for
-	// account-level operations) the provider calls. Required when
-	// Credentials.Source is OIDCTokenRequest.
+	// account-level operations) the provider calls, and sends the access token
+	// to. Required when Credentials.Source is OIDCTokenRequest. Must be an
+	// https URL on an Azure Databricks domain (azuredatabricks.net,
+	// databricks.azure.us or databricks.azure.cn), with no port or path.
+	// +kubebuilder:validation:Pattern=`^https://([a-z0-9]([a-z0-9-]*[a-z0-9])?\.)+(azuredatabricks\.net|databricks\.azure\.us|databricks\.azure\.cn)/?$`
 	// +optional
 	Host *string `json:"host,omitempty"`
 
-	// AccountID is the Databricks account ID, for account-level operations
-	// through the accounts console host (for example
+	// AccountID is the Databricks account ID (a GUID), for account-level
+	// operations through the accounts console host (for example
 	// https://accounts.azuredatabricks.net). Used when Credentials.Source is
 	// OIDCTokenRequest; leave unset for a workspace host.
+	// +kubebuilder:validation:Pattern=`^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$`
 	// +optional
 	AccountID *string `json:"accountID,omitempty"`
 

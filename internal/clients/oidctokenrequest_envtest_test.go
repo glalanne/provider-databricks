@@ -105,6 +105,17 @@ func TestEnvtestCELRules(t *testing.T) {
 			s.Credentials.TokenExchange = &namespacedv1beta1.TokenExchange{AzureAD: &namespacedv1beta1.AzureADTokenExchange{AuthorityHost: &host}}
 		}
 	}
+	withHost := func(host string) func(*namespacedv1beta1.ProviderConfigSpec) {
+		return func(s *namespacedv1beta1.ProviderConfigSpec) { s.Host = &host }
+	}
+	withAzureAD := func(clientID, tenantID string) func(*namespacedv1beta1.ProviderConfigSpec) {
+		return func(s *namespacedv1beta1.ProviderConfigSpec) {
+			s.Credentials.TokenExchange = &namespacedv1beta1.TokenExchange{AzureAD: &namespacedv1beta1.AzureADTokenExchange{ClientID: &clientID, TenantID: &tenantID}}
+		}
+	}
+	withSA := func(name string) func(*namespacedv1beta1.ProviderConfigSpec) {
+		return func(s *namespacedv1beta1.ProviderConfigSpec) { s.Credentials.ServiceAccountRef.Name = name }
+	}
 
 	cases := map[string]struct {
 		obj     client.Object
@@ -131,6 +142,50 @@ func TestEnvtestCELRules(t *testing.T) {
 		},
 		"namespaced: authority host without the trailing slash": {
 			obj: nsPC("authority-no-slash", withAuthority("https://login.microsoftonline.com")), wantErr: "authorityHost: Unsupported value",
+		},
+		"namespaced: US Government workspace host": {obj: nsPC("host-us", withHost("https://adb-1234567890123456.7.databricks.azure.us"))},
+		"namespaced: China workspace host":         {obj: nsPC("host-cn", withHost("https://adb-1234567890123456.7.databricks.azure.cn"))},
+		"namespaced: host with a trailing slash":   {obj: nsPC("host-slash", withHost(testHost+"/"))},
+		"namespaced: host over plain HTTP": {
+			obj: nsPC("host-http", withHost("http://adb-1234567890123456.7.azuredatabricks.net")), wantErr: "spec.host in body should match",
+		},
+		"namespaced: host that isn't Azure Databricks": {
+			obj: nsPC("host-other", withHost("https://databricks.example")), wantErr: "spec.host in body should match",
+		},
+		"namespaced: Databricks on AWS host": {
+			obj: nsPC("host-aws", withHost("https://dbc-12345678-9abc.cloud.databricks.com")), wantErr: "spec.host in body should match",
+		},
+		"namespaced: host without a scheme": {
+			obj: nsPC("host-no-scheme", withHost("adb-1234567890123456.7.azuredatabricks.net")), wantErr: "spec.host in body should match",
+		},
+		"namespaced: host with a port": {
+			obj: nsPC("host-port", withHost(testHost+":443")), wantErr: "spec.host in body should match",
+		},
+		"namespaced: host with a path": {
+			obj: nsPC("host-path", withHost(testHost+"/api")), wantErr: "spec.host in body should match",
+		},
+		"namespaced: host with an Azure Databricks domain inside a longer hostname": {
+			obj: nsPC("host-longer", withHost(testHost+".example")), wantErr: "spec.host in body should match",
+		},
+		"namespaced: client and tenant IDs in upper case": {
+			obj: nsPC("ids-upper", withAzureAD("AAAAAAAA-BBBB-CCCC-DDDD-EEEEEEEEEEEE", "FFFFFFFF-AAAA-BBBB-CCCC-DDDDDDDDDDDD")),
+		},
+		"namespaced: client ID that isn't a GUID": {
+			obj: nsPC("client-not-guid", withAzureAD("databricks-sp", testTenantID)), wantErr: "spec.credentials.tokenExchange.azureAD.clientID in body should match",
+		},
+		"namespaced: tenant ID that isn't a GUID": {
+			obj: nsPC("tenant-not-guid", withAzureAD(testClientID, "contoso.onmicrosoft.com")), wantErr: "spec.credentials.tokenExchange.azureAD.tenantID in body should match",
+		},
+		"namespaced: account ID that isn't a GUID": {obj: nsPC("account-not-guid", func(s *namespacedv1beta1.ProviderConfigSpec) {
+			s.Host = ref("https://accounts.azuredatabricks.net")
+			s.AccountID = ref("my-account")
+		}), wantErr: "spec.accountID in body should match"},
+		"namespaced: service account name with a dot": {obj: nsPC("sa-dotted", withSA("databricks.sa"))},
+		"namespaced: service account name that isn't a DNS subdomain": {
+			obj: nsPC("sa-not-subdomain", withSA("Databricks_SA")), wantErr: "spec.credentials.serviceAccountRef.name in body should match",
+		},
+		"namespaced: service account name that's too long": {
+			obj: nsPC("sa-too-long", withSA(strings.Repeat("a", 254))), wantErr: "spec.credentials.serviceAccountRef.name: Too long",
 		},
 		"namespaced: valid account-level": {obj: nsPC("ok-account", func(s *namespacedv1beta1.ProviderConfigSpec) {
 			s.Host = ref("https://accounts.azuredatabricks.net")
@@ -174,6 +229,25 @@ func TestEnvtestCELRules(t *testing.T) {
 				withAuthority("https://login.example/")(s)
 			}).Spec,
 		}, wantErr: "authorityHost: Unsupported value"},
+		"cluster-scoped: host that isn't Azure Databricks": {obj: &namespacedv1beta1.ClusterProviderConfig{
+			ObjectMeta: metav1.ObjectMeta{Name: "cluster-host-other"},
+			Spec: nsPC("unused", func(s *namespacedv1beta1.ProviderConfigSpec) {
+				s.Credentials.ServiceAccountRef.Namespace = ref("dp-a")
+				withHost("https://databricks.example")(s)
+			}).Spec,
+		}, wantErr: "spec.host in body should match"},
+		"cluster-scoped: service account namespace that isn't a DNS label": {obj: &namespacedv1beta1.ClusterProviderConfig{
+			ObjectMeta: metav1.ObjectMeta{Name: "cluster-ns-not-label"},
+			Spec: nsPC("unused", func(s *namespacedv1beta1.ProviderConfigSpec) {
+				s.Credentials.ServiceAccountRef.Namespace = ref("team.a")
+			}).Spec,
+		}, wantErr: "spec.credentials.serviceAccountRef.namespace in body should match"},
+		"cluster-scoped: service account namespace that's too long": {obj: &namespacedv1beta1.ClusterProviderConfig{
+			ObjectMeta: metav1.ObjectMeta{Name: "cluster-ns-too-long"},
+			Spec: nsPC("unused", func(s *namespacedv1beta1.ProviderConfigSpec) {
+				s.Credentials.ServiceAccountRef.Namespace = ref(strings.Repeat("a", 64))
+			}).Spec,
+		}, wantErr: "spec.credentials.serviceAccountRef.namespace: Too long"},
 		"cluster-scoped: existing Secret config unaffected": {obj: &namespacedv1beta1.ClusterProviderConfig{
 			ObjectMeta: metav1.ObjectMeta{Name: "cluster-secret"},
 			Spec: namespacedv1beta1.ProviderConfigSpec{Credentials: namespacedv1beta1.ProviderCredentials{
@@ -191,6 +265,31 @@ func TestEnvtestCELRules(t *testing.T) {
 				AuthorityHost: ref(clusterv1beta1.AzureAuthorityHost("https://login.example/")),
 			}}
 		}), wantErr: "authorityHost: Unsupported value"},
+		"legacy: host that isn't Azure Databricks": {obj: legacyPC("legacy-host-other", func(s *clusterv1beta1.ProviderConfigSpec) {
+			s.Host = ref("https://databricks.example")
+		}), wantErr: "spec.host in body should match"},
+		"legacy: client ID that isn't a GUID": {obj: legacyPC("legacy-client-not-guid", func(s *clusterv1beta1.ProviderConfigSpec) {
+			s.Credentials.TokenExchange = &clusterv1beta1.TokenExchange{AzureAD: &clusterv1beta1.AzureADTokenExchange{ClientID: ref("databricks-sp")}}
+		}), wantErr: "spec.credentials.tokenExchange.azureAD.clientID in body should match"},
+		"legacy: tenant ID that isn't a GUID": {obj: legacyPC("legacy-tenant-not-guid", func(s *clusterv1beta1.ProviderConfigSpec) {
+			s.Credentials.TokenExchange = &clusterv1beta1.TokenExchange{AzureAD: &clusterv1beta1.AzureADTokenExchange{TenantID: ref("contoso.onmicrosoft.com")}}
+		}), wantErr: "spec.credentials.tokenExchange.azureAD.tenantID in body should match"},
+		"legacy: account ID that isn't a GUID": {obj: legacyPC("legacy-account-not-guid", func(s *clusterv1beta1.ProviderConfigSpec) {
+			s.Host = ref("https://accounts.azuredatabricks.net")
+			s.AccountID = ref("my-account")
+		}), wantErr: "spec.accountID in body should match"},
+		"legacy: service account name that isn't a DNS subdomain": {obj: legacyPC("legacy-sa-not-subdomain", func(s *clusterv1beta1.ProviderConfigSpec) {
+			s.Credentials.ServiceAccountRef.Name = "Databricks_SA"
+		}), wantErr: "spec.credentials.serviceAccountRef.name in body should match"},
+		"legacy: service account name that's too long": {obj: legacyPC("legacy-sa-too-long", func(s *clusterv1beta1.ProviderConfigSpec) {
+			s.Credentials.ServiceAccountRef.Name = strings.Repeat("a", 254)
+		}), wantErr: "spec.credentials.serviceAccountRef.name: Too long"},
+		"legacy: service account namespace that isn't a DNS label": {obj: legacyPC("legacy-ns-not-label", func(s *clusterv1beta1.ProviderConfigSpec) {
+			s.Credentials.ServiceAccountRef.Namespace = ref("team.a")
+		}), wantErr: "spec.credentials.serviceAccountRef.namespace in body should match"},
+		"legacy: service account namespace that's too long": {obj: legacyPC("legacy-ns-too-long", func(s *clusterv1beta1.ProviderConfigSpec) {
+			s.Credentials.ServiceAccountRef.Namespace = ref(strings.Repeat("a", 64))
+		}), wantErr: "spec.credentials.serviceAccountRef.namespace: Too long"},
 	}
 	for name, tc := range cases {
 		t.Run(name, func(t *testing.T) {

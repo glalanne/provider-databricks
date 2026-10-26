@@ -19,12 +19,15 @@ const CredentialsSourceOIDCTokenRequest xpv2.CredentialsSource = "OIDCTokenReque
 // identity provider trusts, which binds the identity to that namespace.
 type ServiceAccountReference struct {
 	// Name of the service account.
-	// +kubebuilder:validation:MinLength=1
+	// +kubebuilder:validation:MaxLength=253
+	// +kubebuilder:validation:Pattern=`^[a-z0-9]([-a-z0-9]*[a-z0-9])?(\.[a-z0-9]([-a-z0-9]*[a-z0-9])?)*$`
 	Name string `json:"name"`
 
 	// Namespace of the service account. Required on a ClusterProviderConfig;
 	// a namespaced ProviderConfig always uses its own namespace and is
 	// rejected if this names another one.
+	// +kubebuilder:validation:MaxLength=63
+	// +kubebuilder:validation:Pattern=`^[a-z0-9]([-a-z0-9]*[a-z0-9])?$`
 	// +optional
 	Namespace *string `json:"namespace,omitempty"`
 
@@ -79,13 +82,15 @@ const (
 // AzureADTokenExchange holds settings specific to the AzureAD exchange.
 type AzureADTokenExchange struct {
 	// ClientID of the managed identity (or app registration) whose federated
-	// credential trusts the service account. Defaults to the service
-	// account's azure.workload.identity/client-id annotation.
+	// credential trusts the service account, as a GUID. Defaults to the
+	// service account's azure.workload.identity/client-id annotation.
+	// +kubebuilder:validation:Pattern=`^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$`
 	// +optional
 	ClientID *string `json:"clientID,omitempty"`
 
-	// TenantID of the identity. Defaults to the service account's
+	// TenantID of the identity, as a GUID. Defaults to the service account's
 	// azure.workload.identity/tenant-id annotation.
+	// +kubebuilder:validation:Pattern=`^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$`
 	// +optional
 	TenantID *string `json:"tenantID,omitempty"`
 
