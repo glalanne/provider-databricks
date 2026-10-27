@@ -1,0 +1,12 @@
+
+
+apiVersion: pkg.crossplane.io/v1
+kind: Provider
+metadata:
+  annotations:
+    simulate.crossplane.io/runtime-development-api-groups: "billing.databricks.m.crossplane.io"
+    simulate.crossplane.io/runtime: Development
+    simulate.crossplane.io/runtime-docker-publish-address: "0.0.0.0"
+    simulate.crossplane.io/runtime-docker-target: "docker-host"
+    simulate.crossplane.io/runtime-development-target: localhost:9099
+  name: provider-databricks

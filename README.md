@@ -42,6 +42,9 @@ Notice that in this example Provider resource is referencing ControllerConfig wi
 
 You can see the API reference [here](https://doc.crds.dev/github.com/glalanne/provider-databricks).
 
+See the [authentication guide](./docs/Authentication.md) for credential sources,
+service-principal authentication, and passwordless OIDC token exchange.
+
 ## Exemples
 
 A few exemples are provided [here](./examples/) to show case how to configure the provider, and how to use some resources
