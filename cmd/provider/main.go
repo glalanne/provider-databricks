@@ -160,27 +160,7 @@ func main() {
 	cfg, err := ctrl.GetConfig()
 	kingpin.FatalIfError(err, "Cannot get API server rest config")
 
-	// Get the TLS certs directory from the environment variables set by
-	// Crossplane if they're available.
-	// In older XP versions we used WEBHOOK_TLS_CERT_DIR, in newer versions
-	// we use TLS_SERVER_CERTS_DIR. If an explicit certs dir is not supplied
-	// via the command-line options, then these environment variables are used
-	// instead.
-	if !certsDirSet {
-		// backwards-compatibility concerns
-		xpCertsDir := os.Getenv(certsDirEnvVar)
-		if xpCertsDir == "" {
-			xpCertsDir = os.Getenv(tlsServerCertDirEnvVar)
-		}
-		if xpCertsDir == "" {
-			xpCertsDir = os.Getenv(webhookTLSCertDirEnvVar)
-		}
-		// we probably don't need this condition but just to be on the
-		// safe side, if we are missing any kingpin machinery details...
-		if xpCertsDir != "" {
-			*certsDir = xpCertsDir
-		}
-	}
+	*certsDir = resolveCertsDir(*certsDir, certsDirSet)
 
 	var clientOpts client.Options
 	if !*enableSecretCache {
@@ -325,6 +305,19 @@ func main() {
 	}
 	kingpin.FatalIfError(conversion.RegisterConversions(clusterOpts.Provider, namespacedOpts.Provider, mgr.GetScheme()), "Cannot initialize the webhook conversion registry")
 	kingpin.FatalIfError(mgr.Start(ctrl.SetupSignalHandler()), "Cannot start controller manager")
+}
+
+func resolveCertsDir(configured string, explicit bool) string {
+	if explicit {
+		return configured
+	}
+	// Prefer the provider setting, then current and legacy Crossplane settings.
+	for _, name := range []string{certsDirEnvVar, tlsServerCertDirEnvVar, webhookTLSCertDirEnvVar} {
+		if dir := os.Getenv(name); dir != "" {
+			return dir
+		}
+	}
+	return configured
 }
 
 func canWatchCRD(ctx context.Context, mgr manager.Manager) (bool, error) {

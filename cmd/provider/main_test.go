@@ -18,6 +18,33 @@ import (
 	"google.golang.org/protobuf/types/known/structpb"
 )
 
+func TestResolveCertsDir(t *testing.T) {
+	for _, tc := range []struct {
+		name                      string
+		configured                string
+		explicit                  bool
+		provider, current, legacy string
+		want                      string
+	}{
+		{name: "default", configured: tlsServerCertDir, want: tlsServerCertDir},
+		{name: "empty fallback", want: ""},
+		{name: "legacy", configured: tlsServerCertDir, legacy: "/legacy", want: "/legacy"},
+		{name: "current overrides legacy", current: "/current", legacy: "/legacy", want: "/current"},
+		{name: "provider overrides Crossplane", provider: "/provider", current: "/current", legacy: "/legacy", want: "/provider"},
+		{name: "explicit overrides environment", configured: "/explicit", explicit: true, provider: "/provider", current: "/current", legacy: "/legacy", want: "/explicit"},
+		{name: "explicit empty disables certificates", explicit: true, provider: "/provider", current: "/current", legacy: "/legacy", want: ""},
+	} {
+		t.Run(tc.name, func(t *testing.T) {
+			t.Setenv(certsDirEnvVar, tc.provider)
+			t.Setenv(tlsServerCertDirEnvVar, tc.current)
+			t.Setenv(webhookTLSCertDirEnvVar, tc.legacy)
+			if got := resolveCertsDir(tc.configured, tc.explicit); got != tc.want {
+				t.Errorf("resolveCertsDir() = %q, want %q", got, tc.want)
+			}
+		})
+	}
+}
+
 func TestDiffServerWithoutKubernetes(t *testing.T) {
 	dir := t.TempDir()
 	binary := filepath.Join(dir, "provider")
@@ -141,8 +168,8 @@ func TestDiffServerWithoutKubernetes(t *testing.T) {
 					if err != nil {
 						t.Fatal(err)
 					}
-					if response.Action != diff.Action_ACTION_CREATE {
-						t.Fatalf("action=%v, want CREATE", response.Action)
+					if response.GetAction() != diff.Action_ACTION_CREATE {
+						t.Fatalf("action=%v, want CREATE", response.GetAction())
 					}
 				}
 				if resource.kind == "BudgetPolicy" {
@@ -168,8 +195,8 @@ func TestDiffServerWithoutKubernetes(t *testing.T) {
 						if err != nil {
 							t.Fatal(err)
 						}
-						if response.Action != tc.action {
-							t.Fatalf("existing policy action=%v, want %v: %v", response.Action, tc.action, response)
+						if response.GetAction() != tc.action {
+							t.Fatalf("existing policy action=%v, want %v: %v", response.GetAction(), tc.action, response)
 						}
 					}
 				}

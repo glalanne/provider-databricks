@@ -47,7 +47,7 @@ func OfflineTerraformSetupBuilder(fwProvider fwprovider.Provider, tfProvider *sc
 		// The upstream Configure callback has no per-client SDK customization
 		// hook. Replace it on this copy so the egress guard is installed before
 		// SDK config resolution (which otherwise performs host discovery).
-		p.ConfigureFunc = nil
+		p.ConfigureFunc = nil //nolint:staticcheck // Clear the legacy callback too, so no upstream authentication path can run.
 		p.ConfigureProvider = nil
 		p.ConfigureContextFunc = configureOfflineDatabricksClient
 		if err := configureNoForkDBXClient(ctx, &ps, p); err != nil {

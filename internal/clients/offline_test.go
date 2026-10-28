@@ -154,7 +154,7 @@ func TestOfflineAuthentication(t *testing.T) {
 				t.Fatalf("environment leaked into offline config: host=%q account=%q", cfg.Host, cfg.AccountID)
 			}
 			for i := 0; i < 2; i++ {
-				req, err := http.NewRequest(http.MethodGet, offlineHost, nil)
+				req, err := http.NewRequestWithContext(t.Context(), http.MethodGet, offlineHost, nil)
 				if err != nil {
 					t.Fatal(err)
 				}
@@ -175,7 +175,10 @@ func TestOfflineAuthentication(t *testing.T) {
 		Loaders:              []dbconfig.Loader{offlineConfigLoader{}},
 		HostMetadataResolver: func(context.Context, string) (*dbconfig.HostMetadata, error) { return nil, nil },
 	}
-	req, _ := http.NewRequest(http.MethodGet, testHost, nil)
+	req, err := http.NewRequestWithContext(t.Context(), http.MethodGet, testHost, nil)
+	if err != nil {
+		t.Fatal(err)
+	}
 	if err := normal.Authenticate(req); err != nil {
 		t.Fatal(err)
 	}
@@ -208,12 +211,12 @@ func TestOfflineClientBlocksRequests(t *testing.T) {
 				}
 			}
 			check(meta.Get(ctx, "/api/2.0/test", nil, nil))
-			if meta.Config.IsAccountClient() {
+			if meta.Config.ConfigType() == dbconfig.AccountConfig {
 				a, err := meta.AccountClient()
 				if err != nil {
 					t.Fatal(err)
 				}
-				_, err = a.Groups.ListAll(ctx, iam.ListAccountGroupsRequest{})
+				_, err = a.GroupsV2.ListAll(ctx, iam.ListAccountGroupsRequest{})
 				check(err)
 			} else {
 				w, err := meta.WorkspaceClient()
@@ -233,11 +236,14 @@ func TestOfflineClientBlocksRequests(t *testing.T) {
 }
 
 func TestOfflineTransportError(t *testing.T) {
-	req, err := http.NewRequest(http.MethodPost, "https://user:password@host.invalid/api/2.0/test?sensitive-query=secret", strings.NewReader("sensitive-body"))
+	req, err := http.NewRequestWithContext(t.Context(), http.MethodPost, "https://user:password@host.invalid/api/2.0/test?sensitive-query=secret", strings.NewReader("sensitive-body"))
 	if err != nil {
 		t.Fatal(err)
 	}
 	resp, err := (offlineTransport{}).RoundTrip(req)
+	if resp != nil && resp.Body != nil {
+		defer resp.Body.Close()
+	}
 	if resp != nil || !errors.Is(err, diffserver.ErrDiffComputationNotSupported) {
 		t.Fatalf("expected no response and an unsupported diff error, got %v, %v", resp, err)
 	}

@@ -285,12 +285,12 @@ func exerciseOfflineEgressPaths(t *testing.T) {
 				blocked(c.Do(ctx, method, "/api/2.0/test", nil, nil, nil, nil))
 			}
 			blocked(c.Do(ctx, http.MethodGet, "https://absolute-target.invalid/api/2.0/test", nil, nil, nil, nil))
-			if c.Config.IsAccountClient() {
+			if c.Config.ConfigType() == dbconfig.AccountConfig {
 				a, err := c.AccountClient()
 				if err != nil {
 					t.Fatal(err)
 				}
-				_, err = a.Groups.ListAll(ctx, iam.ListAccountGroupsRequest{})
+				_, err = a.GroupsV2.ListAll(ctx, iam.ListAccountGroupsRequest{})
 				blocked(err)
 			} else {
 				w, err := c.WorkspaceClient()
@@ -308,7 +308,7 @@ func exerciseOfflineEgressPaths(t *testing.T) {
 				blocked(derived.Get(ctx, "/api/2.0/test", nil, nil))
 			}
 			// Exercise the real Terraform CustomizeDiff path with usable meta.
-			if c.Config.IsAccountClient() {
+			if c.Config.ConfigType() == dbconfig.AccountConfig {
 				return
 			}
 			_, err := p.ResourcesMap["databricks_cluster_policy"].Diff(ctx,
