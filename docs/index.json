@@ -2,5 +2,9 @@
 	{
 		"name": "Quickstart",
 		"location": "Quickstart.md"
+	},
+	{
+		"name": "Authentication",
+		"location": "Authentication.md"
 	}
 ]

@@ -3,7 +3,7 @@ apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
   annotations:
-    controller-gen.kubebuilder.io/version: v0.21.0
+    controller-gen.kubebuilder.io/version: v0.23.0
   name: rfaaccessrequestdestinations.unity.databricks.crossplane.io
 spec:
   group: unity.databricks.crossplane.io
@@ -92,7 +92,7 @@ spec:
                             This field is used to denote whether the destination is the email of the owner of the securable object.
                             The special destination cannot be assigned to a securable and only represents the default destination of the securable.
                             The securable types that support default special destinations are: "catalog", "external_location", "connection", "credential", and "metastore".
-                            The destination_type of a special_destination is always EMAIL. Possible values are: SPECIAL_DESTINATION_CATALOG_OWNER, SPECIAL_DESTINATION_CONNECTION_OWNER, SPECIAL_DESTINATION_CREDENTIAL_OWNER, SPECIAL_DESTINATION_EXTERNAL_LOCATION_OWNER, SPECIAL_DESTINATION_METASTORE_OWNER
+                            The destination_type of a special_destination is always EMAIL. Possible values are: SPECIAL_DESTINATION_CATALOG_OWNER, SPECIAL_DESTINATION_CONNECTION_OWNER, SPECIAL_DESTINATION_CREDENTIAL_OWNER, SPECIAL_DESTINATION_EXTERNAL_LOCATION_OWNER, SPECIAL_DESTINATION_FUNCTION_OWNER, SPECIAL_DESTINATION_METASTORE_OWNER, SPECIAL_DESTINATION_REGISTERED_MODEL_OWNER, SPECIAL_DESTINATION_SCHEMA_OWNER, SPECIAL_DESTINATION_TABLE_OWNER, SPECIAL_DESTINATION_VOLUME_OWNER
                           type: string
                       type: object
                     type: array
@@ -123,7 +123,7 @@ spec:
                       type:
                         description: |-
                           Required. The type of securable (catalog/schema/table).
-                          Optional if resource_name is present. Possible values are: CATALOG, CLEAN_ROOM, CONNECTION, CREDENTIAL, EXTERNAL_LOCATION, EXTERNAL_METADATA, FUNCTION, METASTORE, PIPELINE, PROVIDER, RECIPIENT, SCHEMA, SHARE, STAGING_TABLE, STORAGE_CREDENTIAL, TABLE, VOLUME
+                          Optional if resource_name is present. Possible values are: AGENT_SERVICE, CATALOG, CLEAN_ROOM, CONNECTION, CREDENTIAL, EXTERNAL_LOCATION, EXTERNAL_METADATA, FUNCTION, MCP_SERVICE, METASTORE, MODEL, MODEL_PROVIDER_SERVICE, MODEL_SERVICE, PIPELINE, PROVIDER, RECIPIENT, SCHEMA, SHARE, SKILL, STAGING_TABLE, STORAGE_CREDENTIAL, TABLE, VOLUME
                         type: string
                     type: object
                 type: object
@@ -158,7 +158,7 @@ spec:
                             This field is used to denote whether the destination is the email of the owner of the securable object.
                             The special destination cannot be assigned to a securable and only represents the default destination of the securable.
                             The securable types that support default special destinations are: "catalog", "external_location", "connection", "credential", and "metastore".
-                            The destination_type of a special_destination is always EMAIL. Possible values are: SPECIAL_DESTINATION_CATALOG_OWNER, SPECIAL_DESTINATION_CONNECTION_OWNER, SPECIAL_DESTINATION_CREDENTIAL_OWNER, SPECIAL_DESTINATION_EXTERNAL_LOCATION_OWNER, SPECIAL_DESTINATION_METASTORE_OWNER
+                            The destination_type of a special_destination is always EMAIL. Possible values are: SPECIAL_DESTINATION_CATALOG_OWNER, SPECIAL_DESTINATION_CONNECTION_OWNER, SPECIAL_DESTINATION_CREDENTIAL_OWNER, SPECIAL_DESTINATION_EXTERNAL_LOCATION_OWNER, SPECIAL_DESTINATION_FUNCTION_OWNER, SPECIAL_DESTINATION_METASTORE_OWNER, SPECIAL_DESTINATION_REGISTERED_MODEL_OWNER, SPECIAL_DESTINATION_SCHEMA_OWNER, SPECIAL_DESTINATION_TABLE_OWNER, SPECIAL_DESTINATION_VOLUME_OWNER
                           type: string
                       type: object
                     type: array
@@ -189,7 +189,7 @@ spec:
                       type:
                         description: |-
                           Required. The type of securable (catalog/schema/table).
-                          Optional if resource_name is present. Possible values are: CATALOG, CLEAN_ROOM, CONNECTION, CREDENTIAL, EXTERNAL_LOCATION, EXTERNAL_METADATA, FUNCTION, METASTORE, PIPELINE, PROVIDER, RECIPIENT, SCHEMA, SHARE, STAGING_TABLE, STORAGE_CREDENTIAL, TABLE, VOLUME
+                          Optional if resource_name is present. Possible values are: AGENT_SERVICE, CATALOG, CLEAN_ROOM, CONNECTION, CREDENTIAL, EXTERNAL_LOCATION, EXTERNAL_METADATA, FUNCTION, MCP_SERVICE, METASTORE, MODEL, MODEL_PROVIDER_SERVICE, MODEL_SERVICE, PIPELINE, PROVIDER, RECIPIENT, SCHEMA, SHARE, SKILL, STAGING_TABLE, STORAGE_CREDENTIAL, TABLE, VOLUME
                         type: string
                     type: object
                 type: object
@@ -313,7 +313,7 @@ spec:
                       type:
                         description: |-
                           Required. The type of securable (catalog/schema/table).
-                          Optional if resource_name is present. Possible values are: CATALOG, CLEAN_ROOM, CONNECTION, CREDENTIAL, EXTERNAL_LOCATION, EXTERNAL_METADATA, FUNCTION, METASTORE, PIPELINE, PROVIDER, RECIPIENT, SCHEMA, SHARE, STAGING_TABLE, STORAGE_CREDENTIAL, TABLE, VOLUME
+                          Optional if resource_name is present. Possible values are: AGENT_SERVICE, CATALOG, CLEAN_ROOM, CONNECTION, CREDENTIAL, EXTERNAL_LOCATION, EXTERNAL_METADATA, FUNCTION, MCP_SERVICE, METASTORE, MODEL, MODEL_PROVIDER_SERVICE, MODEL_SERVICE, PIPELINE, PROVIDER, RECIPIENT, SCHEMA, SHARE, SKILL, STAGING_TABLE, STORAGE_CREDENTIAL, TABLE, VOLUME
                         type: string
                     type: object
                   destinations:
@@ -334,7 +334,7 @@ spec:
                             This field is used to denote whether the destination is the email of the owner of the securable object.
                             The special destination cannot be assigned to a securable and only represents the default destination of the securable.
                             The securable types that support default special destinations are: "catalog", "external_location", "connection", "credential", and "metastore".
-                            The destination_type of a special_destination is always EMAIL. Possible values are: SPECIAL_DESTINATION_CATALOG_OWNER, SPECIAL_DESTINATION_CONNECTION_OWNER, SPECIAL_DESTINATION_CREDENTIAL_OWNER, SPECIAL_DESTINATION_EXTERNAL_LOCATION_OWNER, SPECIAL_DESTINATION_METASTORE_OWNER
+                            The destination_type of a special_destination is always EMAIL. Possible values are: SPECIAL_DESTINATION_CATALOG_OWNER, SPECIAL_DESTINATION_CONNECTION_OWNER, SPECIAL_DESTINATION_CREDENTIAL_OWNER, SPECIAL_DESTINATION_EXTERNAL_LOCATION_OWNER, SPECIAL_DESTINATION_FUNCTION_OWNER, SPECIAL_DESTINATION_METASTORE_OWNER, SPECIAL_DESTINATION_REGISTERED_MODEL_OWNER, SPECIAL_DESTINATION_SCHEMA_OWNER, SPECIAL_DESTINATION_TABLE_OWNER, SPECIAL_DESTINATION_VOLUME_OWNER
                           type: string
                       type: object
                     type: array
@@ -372,7 +372,7 @@ spec:
                       type:
                         description: |-
                           Required. The type of securable (catalog/schema/table).
-                          Optional if resource_name is present. Possible values are: CATALOG, CLEAN_ROOM, CONNECTION, CREDENTIAL, EXTERNAL_LOCATION, EXTERNAL_METADATA, FUNCTION, METASTORE, PIPELINE, PROVIDER, RECIPIENT, SCHEMA, SHARE, STAGING_TABLE, STORAGE_CREDENTIAL, TABLE, VOLUME
+                          Optional if resource_name is present. Possible values are: AGENT_SERVICE, CATALOG, CLEAN_ROOM, CONNECTION, CREDENTIAL, EXTERNAL_LOCATION, EXTERNAL_METADATA, FUNCTION, MCP_SERVICE, METASTORE, MODEL, MODEL_PROVIDER_SERVICE, MODEL_SERVICE, PIPELINE, PROVIDER, RECIPIENT, SCHEMA, SHARE, SKILL, STAGING_TABLE, STORAGE_CREDENTIAL, TABLE, VOLUME
                         type: string
                     type: object
                   securableType:

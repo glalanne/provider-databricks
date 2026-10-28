@@ -21,6 +21,9 @@ type RepoInitParameters struct {
 	// Hash of the HEAD commit at time of the last executed operation. It won't change if you manually perform pull operation via UI or API
 	CommitHash *string `json:"commitHash,omitempty" tf:"commit_hash,omitempty"`
 
+	// The ID of the Git credential (databricks_git_credential) to use for authentication with the Git provider remote.
+	GitCredentialID *float64 `json:"gitCredentialId,omitempty" tf:"git_credential_id,omitempty"`
+
 	// case insensitive name of the Git provider.  Following values are supported right now (could be a subject for a change, consult Repos API documentation): gitHub, gitHubEnterprise, bitbucketCloud, bitbucketServer, azureDevOpsServices, gitLab, gitLabEnterpriseEdition, awsCodeCommit.
 	GitProvider *string `json:"gitProvider,omitempty" tf:"git_provider,omitempty"`
 
@@ -46,6 +49,9 @@ type RepoObservation struct {
 
 	// Hash of the HEAD commit at time of the last executed operation. It won't change if you manually perform pull operation via UI or API
 	CommitHash *string `json:"commitHash,omitempty" tf:"commit_hash,omitempty"`
+
+	// The ID of the Git credential (databricks_git_credential) to use for authentication with the Git provider remote.
+	GitCredentialID *float64 `json:"gitCredentialId,omitempty" tf:"git_credential_id,omitempty"`
 
 	// case insensitive name of the Git provider.  Following values are supported right now (could be a subject for a change, consult Repos API documentation): gitHub, gitHubEnterprise, bitbucketCloud, bitbucketServer, azureDevOpsServices, gitLab, gitLabEnterpriseEdition, awsCodeCommit.
 	GitProvider *string `json:"gitProvider,omitempty" tf:"git_provider,omitempty"`
@@ -80,6 +86,10 @@ type RepoParameters struct {
 	// Hash of the HEAD commit at time of the last executed operation. It won't change if you manually perform pull operation via UI or API
 	// +kubebuilder:validation:Optional
 	CommitHash *string `json:"commitHash,omitempty" tf:"commit_hash,omitempty"`
+
+	// The ID of the Git credential (databricks_git_credential) to use for authentication with the Git provider remote.
+	// +kubebuilder:validation:Optional
+	GitCredentialID *float64 `json:"gitCredentialId,omitempty" tf:"git_credential_id,omitempty"`
 
 	// case insensitive name of the Git provider.  Following values are supported right now (could be a subject for a change, consult Repos API documentation): gitHub, gitHubEnterprise, bitbucketCloud, bitbucketServer, azureDevOpsServices, gitLab, gitLabEnterpriseEdition, awsCodeCommit.
 	// +kubebuilder:validation:Optional

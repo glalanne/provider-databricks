@@ -12,8 +12,13 @@ metadata:
   name: this
   namespace: upbound-system
 spec:
+  providerConfigRef:
+    kind: ClusterProviderConfig
+    name: default
   forProvider:
     customTags:
     - key: mykey
       value: myvalue
+    - key: mykey2
+      value: myvalue2
     policyName: my-budget-policy

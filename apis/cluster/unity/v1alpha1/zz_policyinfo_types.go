@@ -70,6 +70,140 @@ type ColumnMaskParameters struct {
 	Using []UsingParameters `json:"using,omitempty" tf:"using,omitempty"`
 }
 
+type ColumnTagValueInitParameters struct {
+
+	// The alias from MATCH COLUMNS that identifies the column
+	ColumnAlias *string `json:"columnAlias,omitempty" tf:"column_alias,omitempty"`
+
+	// 1024 matches the max_length on FunctionArgument.constant above
+	TagKey *string `json:"tagKey,omitempty" tf:"tag_key,omitempty"`
+}
+
+type ColumnTagValueObservation struct {
+
+	// The alias from MATCH COLUMNS that identifies the column
+	ColumnAlias *string `json:"columnAlias,omitempty" tf:"column_alias,omitempty"`
+
+	// 1024 matches the max_length on FunctionArgument.constant above
+	TagKey *string `json:"tagKey,omitempty" tf:"tag_key,omitempty"`
+}
+
+type ColumnTagValueParameters struct {
+
+	// The alias from MATCH COLUMNS that identifies the column
+	// +kubebuilder:validation:Optional
+	ColumnAlias *string `json:"columnAlias" tf:"column_alias,omitempty"`
+
+	// 1024 matches the max_length on FunctionArgument.constant above
+	// +kubebuilder:validation:Optional
+	TagKey *string `json:"tagKey" tf:"tag_key,omitempty"`
+}
+
+type DenyInitParameters struct {
+
+	// List of privileges to deny.
+	// When any of these privileges are requested, the policy will deny access
+	// if the principal and condition match.
+	// Required on create and update
+	Privileges []*string `json:"privileges,omitempty" tf:"privileges,omitempty"`
+}
+
+type DenyObservation struct {
+
+	// List of privileges to deny.
+	// When any of these privileges are requested, the policy will deny access
+	// if the principal and condition match.
+	// Required on create and update
+	Privileges []*string `json:"privileges,omitempty" tf:"privileges,omitempty"`
+}
+
+type DenyParameters struct {
+
+	// List of privileges to deny.
+	// When any of these privileges are requested, the policy will deny access
+	// if the principal and condition match.
+	// Required on create and update
+	// +kubebuilder:validation:Optional
+	Privileges []*string `json:"privileges" tf:"privileges,omitempty"`
+}
+
+type FunctionArgExpressionInitParameters struct {
+
+	// An expression that introspects tags at query time
+	TagIntrospection *TagIntrospectionInitParameters `json:"tagIntrospection,omitempty" tf:"tag_introspection,omitempty"`
+}
+
+type FunctionArgExpressionObservation struct {
+
+	// An expression that introspects tags at query time
+	TagIntrospection *TagIntrospectionObservation `json:"tagIntrospection,omitempty" tf:"tag_introspection,omitempty"`
+}
+
+type FunctionArgExpressionParameters struct {
+
+	// An expression that introspects tags at query time
+	// +kubebuilder:validation:Optional
+	TagIntrospection *TagIntrospectionParameters `json:"tagIntrospection,omitempty" tf:"tag_introspection,omitempty"`
+}
+
+type FunctionArgExpressionTagIntrospectionInitParameters struct {
+
+	// Extracts the value of a column-level tag
+	ColumnTagValue *TagIntrospectionColumnTagValueInitParameters `json:"columnTagValue,omitempty" tf:"column_tag_value,omitempty"`
+
+	// The governed tag value, when the policy references a specific value
+	TagValue *TagIntrospectionTagValueInitParameters `json:"tagValue,omitempty" tf:"tag_value,omitempty"`
+}
+
+type FunctionArgExpressionTagIntrospectionObservation struct {
+
+	// Extracts the value of a column-level tag
+	ColumnTagValue *TagIntrospectionColumnTagValueObservation `json:"columnTagValue,omitempty" tf:"column_tag_value,omitempty"`
+
+	// The governed tag value, when the policy references a specific value
+	TagValue *TagIntrospectionTagValueObservation `json:"tagValue,omitempty" tf:"tag_value,omitempty"`
+}
+
+type FunctionArgExpressionTagIntrospectionParameters struct {
+
+	// Extracts the value of a column-level tag
+	// +kubebuilder:validation:Optional
+	ColumnTagValue *TagIntrospectionColumnTagValueParameters `json:"columnTagValue,omitempty" tf:"column_tag_value,omitempty"`
+
+	// The governed tag value, when the policy references a specific value
+	// +kubebuilder:validation:Optional
+	TagValue *TagIntrospectionTagValueParameters `json:"tagValue,omitempty" tf:"tag_value,omitempty"`
+}
+
+type GovernedTagsInitParameters struct {
+
+	// 1024 matches the max_length on FunctionArgument.constant above
+	TagKey *string `json:"tagKey,omitempty" tf:"tag_key,omitempty"`
+
+	// The governed tag value, when the policy references a specific value
+	TagValue *string `json:"tagValue,omitempty" tf:"tag_value,omitempty"`
+}
+
+type GovernedTagsObservation struct {
+
+	// 1024 matches the max_length on FunctionArgument.constant above
+	TagKey *string `json:"tagKey,omitempty" tf:"tag_key,omitempty"`
+
+	// The governed tag value, when the policy references a specific value
+	TagValue *string `json:"tagValue,omitempty" tf:"tag_value,omitempty"`
+}
+
+type GovernedTagsParameters struct {
+
+	// 1024 matches the max_length on FunctionArgument.constant above
+	// +kubebuilder:validation:Optional
+	TagKey *string `json:"tagKey" tf:"tag_key,omitempty"`
+
+	// The governed tag value, when the policy references a specific value
+	// +kubebuilder:validation:Optional
+	TagValue *string `json:"tagValue,omitempty" tf:"tag_value,omitempty"`
+}
+
 type MatchColumnsInitParameters struct {
 
 	// The alias of a matched column
@@ -99,6 +233,34 @@ type MatchColumnsParameters struct {
 	Condition *string `json:"condition,omitempty" tf:"condition,omitempty"`
 }
 
+type PolicyInfoGrantInitParameters struct {
+
+	// List of privileges to deny.
+	// When any of these privileges are requested, the policy will deny access
+	// if the principal and condition match.
+	// Required on create and update
+	Privileges []*string `json:"privileges,omitempty" tf:"privileges,omitempty"`
+}
+
+type PolicyInfoGrantObservation struct {
+
+	// List of privileges to deny.
+	// When any of these privileges are requested, the policy will deny access
+	// if the principal and condition match.
+	// Required on create and update
+	Privileges []*string `json:"privileges,omitempty" tf:"privileges,omitempty"`
+}
+
+type PolicyInfoGrantParameters struct {
+
+	// List of privileges to deny.
+	// When any of these privileges are requested, the policy will deny access
+	// if the principal and condition match.
+	// Required on create and update
+	// +kubebuilder:validation:Optional
+	Privileges []*string `json:"privileges" tf:"privileges,omitempty"`
+}
+
 type PolicyInfoInitParameters struct {
 
 	// Options for column mask policies. Valid only if policy_type is POLICY_TYPE_COLUMN_MASK.
@@ -109,13 +271,22 @@ type PolicyInfoInitParameters struct {
 	// Optional description of the policy
 	Comment *string `json:"comment,omitempty" tf:"comment,omitempty"`
 
+	// Options for deny policies. Valid only if policy_type is POLICY_TYPE_DENY.
+	// Required on create and optional on update. When specified on update,
+	// the new options will replace the existing options as a whole
+	Deny *DenyInitParameters `json:"deny,omitempty" tf:"deny,omitempty"`
+
 	// Optional list of user or group names that should be excluded from the policy
 	ExceptPrincipals []*string `json:"exceptPrincipals,omitempty" tf:"except_principals,omitempty"`
 
 	// Type of securables that the policy should take effect on.
-	// Only TABLE is supported at this moment.
-	// Required on create and optional on update. Possible values are: CATALOG, CLEAN_ROOM, CONNECTION, CREDENTIAL, EXTERNAL_LOCATION, EXTERNAL_METADATA, FUNCTION, METASTORE, PIPELINE, PROVIDER, RECIPIENT, SCHEMA, SHARE, STAGING_TABLE, STORAGE_CREDENTIAL, TABLE, VOLUME
+	// Required on create and optional on update. Possible values are: AGENT_SERVICE, CATALOG, CLEAN_ROOM, CONNECTION, CREDENTIAL, EXTERNAL_LOCATION, EXTERNAL_METADATA, FUNCTION, MCP_SERVICE, METASTORE, MODEL, MODEL_PROVIDER_SERVICE, MODEL_SERVICE, PIPELINE, PROVIDER, RECIPIENT, SCHEMA, SHARE, SKILL, STAGING_TABLE, STORAGE_CREDENTIAL, TABLE, VOLUME
 	ForSecurableType *string `json:"forSecurableType,omitempty" tf:"for_securable_type,omitempty"`
+
+	// Options for grant policies. Valid only if policy_type is POLICY_TYPE_GRANT.
+	// Required on create and optional on update. When specified on update,
+	// the new options will replace the existing options as a whole
+	Grant *PolicyInfoGrantInitParameters `json:"grant,omitempty" tf:"grant,omitempty"`
 
 	// Optional list of condition expressions used to match table columns.
 	// Only valid when for_securable_type is TABLE.
@@ -132,10 +303,10 @@ type PolicyInfoInitParameters struct {
 
 	// Type of the securable on which the policy is defined.
 	// Only CATALOG, SCHEMA and TABLE are supported at this moment.
-	// Required on create. Possible values are: CATALOG, CLEAN_ROOM, CONNECTION, CREDENTIAL, EXTERNAL_LOCATION, EXTERNAL_METADATA, FUNCTION, METASTORE, PIPELINE, PROVIDER, RECIPIENT, SCHEMA, SHARE, STAGING_TABLE, STORAGE_CREDENTIAL, TABLE, VOLUME
+	// Required on create. Possible values are: AGENT_SERVICE, CATALOG, CLEAN_ROOM, CONNECTION, CREDENTIAL, EXTERNAL_LOCATION, EXTERNAL_METADATA, FUNCTION, MCP_SERVICE, METASTORE, MODEL, MODEL_PROVIDER_SERVICE, MODEL_SERVICE, PIPELINE, PROVIDER, RECIPIENT, SCHEMA, SHARE, SKILL, STAGING_TABLE, STORAGE_CREDENTIAL, TABLE, VOLUME
 	OnSecurableType *string `json:"onSecurableType,omitempty" tf:"on_securable_type,omitempty"`
 
-	// Type of the policy. Required on create. Possible values are: POLICY_TYPE_COLUMN_MASK, POLICY_TYPE_ROW_FILTER
+	// Type of the policy. Required on create. Possible values are: POLICY_TYPE_COLUMN_MASK, POLICY_TYPE_DENY, POLICY_TYPE_GRANT, POLICY_TYPE_ROW_FILTER
 	PolicyType *string `json:"policyType,omitempty" tf:"policy_type,omitempty"`
 
 	// Configure the provider for management through account provider.
@@ -170,13 +341,25 @@ type PolicyInfoObservation struct {
 	// Username of the user who created the policy. Output only
 	CreatedBy *string `json:"createdBy,omitempty" tf:"created_by,omitempty"`
 
+	// Options for deny policies. Valid only if policy_type is POLICY_TYPE_DENY.
+	// Required on create and optional on update. When specified on update,
+	// the new options will replace the existing options as a whole
+	Deny *DenyObservation `json:"deny,omitempty" tf:"deny,omitempty"`
+
 	// Optional list of user or group names that should be excluded from the policy
 	ExceptPrincipals []*string `json:"exceptPrincipals,omitempty" tf:"except_principals,omitempty"`
 
 	// Type of securables that the policy should take effect on.
-	// Only TABLE is supported at this moment.
-	// Required on create and optional on update. Possible values are: CATALOG, CLEAN_ROOM, CONNECTION, CREDENTIAL, EXTERNAL_LOCATION, EXTERNAL_METADATA, FUNCTION, METASTORE, PIPELINE, PROVIDER, RECIPIENT, SCHEMA, SHARE, STAGING_TABLE, STORAGE_CREDENTIAL, TABLE, VOLUME
+	// Required on create and optional on update. Possible values are: AGENT_SERVICE, CATALOG, CLEAN_ROOM, CONNECTION, CREDENTIAL, EXTERNAL_LOCATION, EXTERNAL_METADATA, FUNCTION, MCP_SERVICE, METASTORE, MODEL, MODEL_PROVIDER_SERVICE, MODEL_SERVICE, PIPELINE, PROVIDER, RECIPIENT, SCHEMA, SHARE, SKILL, STAGING_TABLE, STORAGE_CREDENTIAL, TABLE, VOLUME
 	ForSecurableType *string `json:"forSecurableType,omitempty" tf:"for_securable_type,omitempty"`
+
+	// Governed tag keys and values referenced by this policy's conditions and function arguments. Output only
+	GovernedTags []GovernedTagsObservation `json:"governedTags,omitempty" tf:"governed_tags,omitempty"`
+
+	// Options for grant policies. Valid only if policy_type is POLICY_TYPE_GRANT.
+	// Required on create and optional on update. When specified on update,
+	// the new options will replace the existing options as a whole
+	Grant *PolicyInfoGrantObservation `json:"grant,omitempty" tf:"grant,omitempty"`
 
 	// Unique identifier of the policy. This field is output only and is generated by the system
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
@@ -196,10 +379,10 @@ type PolicyInfoObservation struct {
 
 	// Type of the securable on which the policy is defined.
 	// Only CATALOG, SCHEMA and TABLE are supported at this moment.
-	// Required on create. Possible values are: CATALOG, CLEAN_ROOM, CONNECTION, CREDENTIAL, EXTERNAL_LOCATION, EXTERNAL_METADATA, FUNCTION, METASTORE, PIPELINE, PROVIDER, RECIPIENT, SCHEMA, SHARE, STAGING_TABLE, STORAGE_CREDENTIAL, TABLE, VOLUME
+	// Required on create. Possible values are: AGENT_SERVICE, CATALOG, CLEAN_ROOM, CONNECTION, CREDENTIAL, EXTERNAL_LOCATION, EXTERNAL_METADATA, FUNCTION, MCP_SERVICE, METASTORE, MODEL, MODEL_PROVIDER_SERVICE, MODEL_SERVICE, PIPELINE, PROVIDER, RECIPIENT, SCHEMA, SHARE, SKILL, STAGING_TABLE, STORAGE_CREDENTIAL, TABLE, VOLUME
 	OnSecurableType *string `json:"onSecurableType,omitempty" tf:"on_securable_type,omitempty"`
 
-	// Type of the policy. Required on create. Possible values are: POLICY_TYPE_COLUMN_MASK, POLICY_TYPE_ROW_FILTER
+	// Type of the policy. Required on create. Possible values are: POLICY_TYPE_COLUMN_MASK, POLICY_TYPE_DENY, POLICY_TYPE_GRANT, POLICY_TYPE_ROW_FILTER
 	PolicyType *string `json:"policyType,omitempty" tf:"policy_type,omitempty"`
 
 	// Configure the provider for management through account provider.
@@ -236,15 +419,26 @@ type PolicyInfoParameters struct {
 	// +kubebuilder:validation:Optional
 	Comment *string `json:"comment,omitempty" tf:"comment,omitempty"`
 
+	// Options for deny policies. Valid only if policy_type is POLICY_TYPE_DENY.
+	// Required on create and optional on update. When specified on update,
+	// the new options will replace the existing options as a whole
+	// +kubebuilder:validation:Optional
+	Deny *DenyParameters `json:"deny,omitempty" tf:"deny,omitempty"`
+
 	// Optional list of user or group names that should be excluded from the policy
 	// +kubebuilder:validation:Optional
 	ExceptPrincipals []*string `json:"exceptPrincipals,omitempty" tf:"except_principals,omitempty"`
 
 	// Type of securables that the policy should take effect on.
-	// Only TABLE is supported at this moment.
-	// Required on create and optional on update. Possible values are: CATALOG, CLEAN_ROOM, CONNECTION, CREDENTIAL, EXTERNAL_LOCATION, EXTERNAL_METADATA, FUNCTION, METASTORE, PIPELINE, PROVIDER, RECIPIENT, SCHEMA, SHARE, STAGING_TABLE, STORAGE_CREDENTIAL, TABLE, VOLUME
+	// Required on create and optional on update. Possible values are: AGENT_SERVICE, CATALOG, CLEAN_ROOM, CONNECTION, CREDENTIAL, EXTERNAL_LOCATION, EXTERNAL_METADATA, FUNCTION, MCP_SERVICE, METASTORE, MODEL, MODEL_PROVIDER_SERVICE, MODEL_SERVICE, PIPELINE, PROVIDER, RECIPIENT, SCHEMA, SHARE, SKILL, STAGING_TABLE, STORAGE_CREDENTIAL, TABLE, VOLUME
 	// +kubebuilder:validation:Optional
 	ForSecurableType *string `json:"forSecurableType,omitempty" tf:"for_securable_type,omitempty"`
+
+	// Options for grant policies. Valid only if policy_type is POLICY_TYPE_GRANT.
+	// Required on create and optional on update. When specified on update,
+	// the new options will replace the existing options as a whole
+	// +kubebuilder:validation:Optional
+	Grant *PolicyInfoGrantParameters `json:"grant,omitempty" tf:"grant,omitempty"`
 
 	// Optional list of condition expressions used to match table columns.
 	// Only valid when for_securable_type is TABLE.
@@ -264,11 +458,11 @@ type PolicyInfoParameters struct {
 
 	// Type of the securable on which the policy is defined.
 	// Only CATALOG, SCHEMA and TABLE are supported at this moment.
-	// Required on create. Possible values are: CATALOG, CLEAN_ROOM, CONNECTION, CREDENTIAL, EXTERNAL_LOCATION, EXTERNAL_METADATA, FUNCTION, METASTORE, PIPELINE, PROVIDER, RECIPIENT, SCHEMA, SHARE, STAGING_TABLE, STORAGE_CREDENTIAL, TABLE, VOLUME
+	// Required on create. Possible values are: AGENT_SERVICE, CATALOG, CLEAN_ROOM, CONNECTION, CREDENTIAL, EXTERNAL_LOCATION, EXTERNAL_METADATA, FUNCTION, MCP_SERVICE, METASTORE, MODEL, MODEL_PROVIDER_SERVICE, MODEL_SERVICE, PIPELINE, PROVIDER, RECIPIENT, SCHEMA, SHARE, SKILL, STAGING_TABLE, STORAGE_CREDENTIAL, TABLE, VOLUME
 	// +kubebuilder:validation:Optional
 	OnSecurableType *string `json:"onSecurableType,omitempty" tf:"on_securable_type,omitempty"`
 
-	// Type of the policy. Required on create. Possible values are: POLICY_TYPE_COLUMN_MASK, POLICY_TYPE_ROW_FILTER
+	// Type of the policy. Required on create. Possible values are: POLICY_TYPE_COLUMN_MASK, POLICY_TYPE_DENY, POLICY_TYPE_GRANT, POLICY_TYPE_ROW_FILTER
 	// +kubebuilder:validation:Optional
 	PolicyType *string `json:"policyType,omitempty" tf:"policy_type,omitempty"`
 
@@ -359,6 +553,11 @@ type RowFilterUsingInitParameters struct {
 
 	// A constant literal
 	Constant *string `json:"constant,omitempty" tf:"constant,omitempty"`
+
+	// An expression evaluated at query time. Wraps per-request expression variants
+	// (e.g., tag introspection) so new variants can be added without extending the
+	// FunctionArgument oneof
+	FunctionArgExpression *UsingFunctionArgExpressionInitParameters `json:"functionArgExpression,omitempty" tf:"function_arg_expression,omitempty"`
 }
 
 type RowFilterUsingObservation struct {
@@ -368,6 +567,11 @@ type RowFilterUsingObservation struct {
 
 	// A constant literal
 	Constant *string `json:"constant,omitempty" tf:"constant,omitempty"`
+
+	// An expression evaluated at query time. Wraps per-request expression variants
+	// (e.g., tag introspection) so new variants can be added without extending the
+	// FunctionArgument oneof
+	FunctionArgExpression *UsingFunctionArgExpressionObservation `json:"functionArgExpression,omitempty" tf:"function_arg_expression,omitempty"`
 }
 
 type RowFilterUsingParameters struct {
@@ -379,6 +583,127 @@ type RowFilterUsingParameters struct {
 	// A constant literal
 	// +kubebuilder:validation:Optional
 	Constant *string `json:"constant,omitempty" tf:"constant,omitempty"`
+
+	// An expression evaluated at query time. Wraps per-request expression variants
+	// (e.g., tag introspection) so new variants can be added without extending the
+	// FunctionArgument oneof
+	// +kubebuilder:validation:Optional
+	FunctionArgExpression *UsingFunctionArgExpressionParameters `json:"functionArgExpression,omitempty" tf:"function_arg_expression,omitempty"`
+}
+
+type TagIntrospectionColumnTagValueInitParameters struct {
+
+	// The alias from MATCH COLUMNS that identifies the column
+	ColumnAlias *string `json:"columnAlias,omitempty" tf:"column_alias,omitempty"`
+
+	// 1024 matches the max_length on FunctionArgument.constant above
+	TagKey *string `json:"tagKey,omitempty" tf:"tag_key,omitempty"`
+}
+
+type TagIntrospectionColumnTagValueObservation struct {
+
+	// The alias from MATCH COLUMNS that identifies the column
+	ColumnAlias *string `json:"columnAlias,omitempty" tf:"column_alias,omitempty"`
+
+	// 1024 matches the max_length on FunctionArgument.constant above
+	TagKey *string `json:"tagKey,omitempty" tf:"tag_key,omitempty"`
+}
+
+type TagIntrospectionColumnTagValueParameters struct {
+
+	// The alias from MATCH COLUMNS that identifies the column
+	// +kubebuilder:validation:Optional
+	ColumnAlias *string `json:"columnAlias" tf:"column_alias,omitempty"`
+
+	// 1024 matches the max_length on FunctionArgument.constant above
+	// +kubebuilder:validation:Optional
+	TagKey *string `json:"tagKey" tf:"tag_key,omitempty"`
+}
+
+type TagIntrospectionInitParameters struct {
+
+	// Extracts the value of a column-level tag
+	ColumnTagValue *ColumnTagValueInitParameters `json:"columnTagValue,omitempty" tf:"column_tag_value,omitempty"`
+
+	// The governed tag value, when the policy references a specific value
+	TagValue *TagValueInitParameters `json:"tagValue,omitempty" tf:"tag_value,omitempty"`
+}
+
+type TagIntrospectionObservation struct {
+
+	// Extracts the value of a column-level tag
+	ColumnTagValue *ColumnTagValueObservation `json:"columnTagValue,omitempty" tf:"column_tag_value,omitempty"`
+
+	// The governed tag value, when the policy references a specific value
+	TagValue *TagValueObservation `json:"tagValue,omitempty" tf:"tag_value,omitempty"`
+}
+
+type TagIntrospectionParameters struct {
+
+	// Extracts the value of a column-level tag
+	// +kubebuilder:validation:Optional
+	ColumnTagValue *ColumnTagValueParameters `json:"columnTagValue,omitempty" tf:"column_tag_value,omitempty"`
+
+	// The governed tag value, when the policy references a specific value
+	// +kubebuilder:validation:Optional
+	TagValue *TagValueParameters `json:"tagValue,omitempty" tf:"tag_value,omitempty"`
+}
+
+type TagIntrospectionTagValueInitParameters struct {
+
+	// 1024 matches the max_length on FunctionArgument.constant above
+	TagKey *string `json:"tagKey,omitempty" tf:"tag_key,omitempty"`
+}
+
+type TagIntrospectionTagValueObservation struct {
+
+	// 1024 matches the max_length on FunctionArgument.constant above
+	TagKey *string `json:"tagKey,omitempty" tf:"tag_key,omitempty"`
+}
+
+type TagIntrospectionTagValueParameters struct {
+
+	// 1024 matches the max_length on FunctionArgument.constant above
+	// +kubebuilder:validation:Optional
+	TagKey *string `json:"tagKey" tf:"tag_key,omitempty"`
+}
+
+type TagValueInitParameters struct {
+
+	// 1024 matches the max_length on FunctionArgument.constant above
+	TagKey *string `json:"tagKey,omitempty" tf:"tag_key,omitempty"`
+}
+
+type TagValueObservation struct {
+
+	// 1024 matches the max_length on FunctionArgument.constant above
+	TagKey *string `json:"tagKey,omitempty" tf:"tag_key,omitempty"`
+}
+
+type TagValueParameters struct {
+
+	// 1024 matches the max_length on FunctionArgument.constant above
+	// +kubebuilder:validation:Optional
+	TagKey *string `json:"tagKey" tf:"tag_key,omitempty"`
+}
+
+type UsingFunctionArgExpressionInitParameters struct {
+
+	// An expression that introspects tags at query time
+	TagIntrospection *FunctionArgExpressionTagIntrospectionInitParameters `json:"tagIntrospection,omitempty" tf:"tag_introspection,omitempty"`
+}
+
+type UsingFunctionArgExpressionObservation struct {
+
+	// An expression that introspects tags at query time
+	TagIntrospection *FunctionArgExpressionTagIntrospectionObservation `json:"tagIntrospection,omitempty" tf:"tag_introspection,omitempty"`
+}
+
+type UsingFunctionArgExpressionParameters struct {
+
+	// An expression that introspects tags at query time
+	// +kubebuilder:validation:Optional
+	TagIntrospection *FunctionArgExpressionTagIntrospectionParameters `json:"tagIntrospection,omitempty" tf:"tag_introspection,omitempty"`
 }
 
 type UsingInitParameters struct {
@@ -388,6 +713,11 @@ type UsingInitParameters struct {
 
 	// A constant literal
 	Constant *string `json:"constant,omitempty" tf:"constant,omitempty"`
+
+	// An expression evaluated at query time. Wraps per-request expression variants
+	// (e.g., tag introspection) so new variants can be added without extending the
+	// FunctionArgument oneof
+	FunctionArgExpression *FunctionArgExpressionInitParameters `json:"functionArgExpression,omitempty" tf:"function_arg_expression,omitempty"`
 }
 
 type UsingObservation struct {
@@ -397,6 +727,11 @@ type UsingObservation struct {
 
 	// A constant literal
 	Constant *string `json:"constant,omitempty" tf:"constant,omitempty"`
+
+	// An expression evaluated at query time. Wraps per-request expression variants
+	// (e.g., tag introspection) so new variants can be added without extending the
+	// FunctionArgument oneof
+	FunctionArgExpression *FunctionArgExpressionObservation `json:"functionArgExpression,omitempty" tf:"function_arg_expression,omitempty"`
 }
 
 type UsingParameters struct {
@@ -408,6 +743,12 @@ type UsingParameters struct {
 	// A constant literal
 	// +kubebuilder:validation:Optional
 	Constant *string `json:"constant,omitempty" tf:"constant,omitempty"`
+
+	// An expression evaluated at query time. Wraps per-request expression variants
+	// (e.g., tag introspection) so new variants can be added without extending the
+	// FunctionArgument oneof
+	// +kubebuilder:validation:Optional
+	FunctionArgExpression *FunctionArgExpressionParameters `json:"functionArgExpression,omitempty" tf:"function_arg_expression,omitempty"`
 }
 
 // PolicyInfoSpec defines the desired state of PolicyInfo

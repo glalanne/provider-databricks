@@ -3,7 +3,7 @@ apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
   annotations:
-    controller-gen.kubebuilder.io/version: v0.21.0
+    controller-gen.kubebuilder.io/version: v0.23.0
   name: providerconfigs.databricks.m.crossplane.io
 spec:
   group: databricks.m.crossplane.io
@@ -51,6 +51,13 @@ spec:
           spec:
             description: A ProviderConfigSpec defines the desired state of a ProviderConfig.
             properties:
+              accountID:
+                description: |-
+                  AccountID is the Databricks account ID (a GUID) for an accounts console
+                  host, e.g. https://accounts.azuredatabricks.net. Used when
+                  Credentials.Source is OIDCTokenRequest; leave unset for a workspace host.
+                pattern: ^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$
+                type: string
               clientID:
                 description: |-
                   ClientID is the user-assigned managed identity's ID
@@ -102,6 +109,34 @@ spec:
                     - name
                     - namespace
                     type: object
+                  serviceAccountRef:
+                    description: |-
+                      ServiceAccountRef selects the service account the provider requests
+                      tokens for when Source is OIDCTokenRequest.
+                    properties:
+                      audiences:
+                        description: |-
+                          Audiences requested on the token besides the one the exchange requires
+                          (api://AzureADTokenExchange for AzureAD).
+                        items:
+                          type: string
+                        type: array
+                        x-kubernetes-list-type: set
+                      name:
+                        description: Name of the service account.
+                        maxLength: 253
+                        pattern: ^[a-z0-9]([-a-z0-9]*[a-z0-9])?(\.[a-z0-9]([-a-z0-9]*[a-z0-9])?)*$
+                        type: string
+                      namespace:
+                        description: |-
+                          Namespace of the service account. Required on a ClusterProviderConfig;
+                          on a ProviderConfig it defaults to, and must be, its own namespace.
+                        maxLength: 63
+                        pattern: ^[a-z0-9]([-a-z0-9]*[a-z0-9])?$
+                        type: string
+                    required:
+                    - name
+                    type: object
                   source:
                     description: Source of the provider credentials.
                     enum:
@@ -112,14 +147,70 @@ spec:
                     - OIDCTokenFile
                     - Upbound
                     - Filesystem
+                    - OIDCTokenRequest
                     type: string
+                  tokenExchange:
+                    description: |-
+                      TokenExchange configures how the service account's token is exchanged
+                      for an access token when Source is OIDCTokenRequest. Defaults to AzureAD.
+                    properties:
+                      azureAD:
+                        description: AzureAD holds settings for the AzureAD exchange.
+                        properties:
+                          authorityHost:
+                            description: |-
+                              AuthorityHost of the Entra ID token endpoint, with a trailing slash, for
+                              the Azure public, Government or China cloud. Defaults to
+                              https://login.microsoftonline.com/.
+                            enum:
+                            - https://login.microsoftonline.com/
+                            - https://login.microsoftonline.us/
+                            - https://login.chinacloudapi.cn/
+                            - https://login.partner.microsoftonline.cn/
+                            type: string
+                          clientID:
+                            description: |-
+                              ClientID of the managed identity (or app registration) whose federated
+                              credential trusts the service account, as a GUID. Defaults to the
+                              service account's azure.workload.identity/client-id annotation.
+                            pattern: ^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$
+                            type: string
+                          tenantID:
+                            description: |-
+                              TenantID of the identity, as a GUID. Defaults to the service account's
+                              azure.workload.identity/tenant-id annotation.
+                            pattern: ^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$
+                            type: string
+                        type: object
+                      type:
+                        description: Type of the exchange. Defaults to AzureAD.
+                        enum:
+                        - AzureAD
+                        type: string
+                    type: object
+                    x-kubernetes-validations:
+                    - fieldPath: .azureAD
+                      message: azureAD is only allowed when type is AzureAD (the default)
+                      rule: '!has(self.azureAD) || !has(self.type) || self.type ==
+                        ''AzureAD'''
                 required:
                 - source
                 type: object
+                x-kubernetes-validations:
+                - message: serviceAccountRef is required when source is OIDCTokenRequest
+                  rule: self.source != 'OIDCTokenRequest' || has(self.serviceAccountRef)
               environment:
                 description: |-
                   The Cloud Environment which should be used. Possible values are "public",
                   "usgovernment", "german", and "china". Defaults to "public".
+                type: string
+              host:
+                description: |-
+                  Host is the Databricks workspace or accounts console URL the provider
+                  calls with its access token. Required when Credentials.Source is
+                  OIDCTokenRequest. With tokenExchange.type AzureAD (the default), it must
+                  be an https URL on an Azure Databricks domain (azuredatabricks.net,
+                  databricks.azure.us or databricks.azure.cn), with no port or path.
                 type: string
               msiEndpoint:
                 description: |-
@@ -182,6 +273,16 @@ spec:
             required:
             - credentials
             type: object
+            x-kubernetes-validations:
+            - message: host is required when credentials.source is OIDCTokenRequest
+              rule: self.credentials.source != 'OIDCTokenRequest' || has(self.host)
+            - fieldPath: .host
+              message: host must be an https URL on an Azure Databricks domain (azuredatabricks.net,
+                databricks.azure.us or databricks.azure.cn), with no port or path,
+                when tokenExchange.type is AzureAD (the default)
+              rule: self.credentials.source != 'OIDCTokenRequest' || !has(self.host)
+                || (has(self.credentials.tokenExchange) && has(self.credentials.tokenExchange.type)
+                && self.credentials.tokenExchange.type != 'AzureAD') || self.host.matches(r'^https://([a-z0-9]([a-z0-9-]*[a-z0-9])?\.)+(azuredatabricks\.net|databricks\.azure\.us|databricks\.azure\.cn)/?$')
           status:
             description: A ProviderConfigStatus reflects the observed state of a ProviderConfig.
             properties:

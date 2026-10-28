@@ -16,20 +16,20 @@ import (
 type ActionConfigurationsInitParameters struct {
 	ActionConfigurationID *string `json:"actionConfigurationId,omitempty" tf:"action_configuration_id,omitempty"`
 
-	// The type of action to take when the budget alert is triggered. (Enum: EMAIL_NOTIFICATION)
+	// The type of action to take when the budget alert is triggered. (Enum: EMAIL_NOTIFICATION, BLOCK_USAGE). Note: BLOCK_USAGE action type is only supported on AI Gateway-scoped budgets.
 	ActionType *string `json:"actionType,omitempty" tf:"action_type,omitempty"`
 
-	// The target of the action. For EMAIL_NOTIFICATION, this is the email address to send the notification to.
+	// For EMAIL_NOTIFICATION action type, this is the email address to send the notification to. Required if the action_type is EMAIL_NOTIFICATION. Does not apply to the BLOCK_USAGE action type, and this field must be omitted in that case.
 	Target *string `json:"target,omitempty" tf:"target,omitempty"`
 }
 
 type ActionConfigurationsObservation struct {
 	ActionConfigurationID *string `json:"actionConfigurationId,omitempty" tf:"action_configuration_id,omitempty"`
 
-	// The type of action to take when the budget alert is triggered. (Enum: EMAIL_NOTIFICATION)
+	// The type of action to take when the budget alert is triggered. (Enum: EMAIL_NOTIFICATION, BLOCK_USAGE). Note: BLOCK_USAGE action type is only supported on AI Gateway-scoped budgets.
 	ActionType *string `json:"actionType,omitempty" tf:"action_type,omitempty"`
 
-	// The target of the action. For EMAIL_NOTIFICATION, this is the email address to send the notification to.
+	// For EMAIL_NOTIFICATION action type, this is the email address to send the notification to. Required if the action_type is EMAIL_NOTIFICATION. Does not apply to the BLOCK_USAGE action type, and this field must be omitted in that case.
 	Target *string `json:"target,omitempty" tf:"target,omitempty"`
 }
 
@@ -38,11 +38,11 @@ type ActionConfigurationsParameters struct {
 	// +kubebuilder:validation:Optional
 	ActionConfigurationID *string `json:"actionConfigurationId,omitempty" tf:"action_configuration_id,omitempty"`
 
-	// The type of action to take when the budget alert is triggered. (Enum: EMAIL_NOTIFICATION)
+	// The type of action to take when the budget alert is triggered. (Enum: EMAIL_NOTIFICATION, BLOCK_USAGE). Note: BLOCK_USAGE action type is only supported on AI Gateway-scoped budgets.
 	// +kubebuilder:validation:Optional
 	ActionType *string `json:"actionType,omitempty" tf:"action_type,omitempty"`
 
-	// The target of the action. For EMAIL_NOTIFICATION, this is the email address to send the notification to.
+	// For EMAIL_NOTIFICATION action type, this is the email address to send the notification to. Required if the action_type is EMAIL_NOTIFICATION. Does not apply to the BLOCK_USAGE action type, and this field must be omitted in that case.
 	// +kubebuilder:validation:Optional
 	Target *string `json:"target,omitempty" tf:"target,omitempty"`
 }
@@ -54,11 +54,17 @@ type AlertConfigurationsInitParameters struct {
 
 	AlertConfigurationID *string `json:"alertConfigurationId,omitempty" tf:"alert_configuration_id,omitempty"`
 
+	// Per-principal threshold overrides for this alert. Only applies to per-user alerts (scope_type = ALERT_CONFIGURATION_SCOPE_TYPE_PER_USER); ignored for shared alerts. Consists of the following fields:
+	PrincipalOverrides []PrincipalOverridesInitParameters `json:"principalOverrides,omitempty" tf:"principal_overrides,omitempty"`
+
 	// The threshold for the budget alert to determine if it is in a triggered state. The number is evaluated based on quantity_type.
 	QuantityThreshold *string `json:"quantityThreshold,omitempty" tf:"quantity_threshold,omitempty"`
 
 	// The way to calculate cost for this budget alert. This is what quantity_threshold is measured in. (Enum: LIST_PRICE_DOLLARS_USD)
 	QuantityType *string `json:"quantityType,omitempty" tf:"quantity_type,omitempty"`
+
+	// How the alert threshold is evaluated. Determines whether spend is tracked in aggregate or per individual user. (Enum: ALERT_CONFIGURATION_SCOPE_TYPE_SHARED, ALERT_CONFIGURATION_SCOPE_TYPE_PER_USER)
+	ScopeType *string `json:"scopeType,omitempty" tf:"scope_type,omitempty"`
 
 	// The time window of usage data for the budget. (Enum: MONTH)
 	TimePeriod *string `json:"timePeriod,omitempty" tf:"time_period,omitempty"`
@@ -74,11 +80,17 @@ type AlertConfigurationsObservation struct {
 
 	AlertConfigurationID *string `json:"alertConfigurationId,omitempty" tf:"alert_configuration_id,omitempty"`
 
+	// Per-principal threshold overrides for this alert. Only applies to per-user alerts (scope_type = ALERT_CONFIGURATION_SCOPE_TYPE_PER_USER); ignored for shared alerts. Consists of the following fields:
+	PrincipalOverrides []PrincipalOverridesObservation `json:"principalOverrides,omitempty" tf:"principal_overrides,omitempty"`
+
 	// The threshold for the budget alert to determine if it is in a triggered state. The number is evaluated based on quantity_type.
 	QuantityThreshold *string `json:"quantityThreshold,omitempty" tf:"quantity_threshold,omitempty"`
 
 	// The way to calculate cost for this budget alert. This is what quantity_threshold is measured in. (Enum: LIST_PRICE_DOLLARS_USD)
 	QuantityType *string `json:"quantityType,omitempty" tf:"quantity_type,omitempty"`
+
+	// How the alert threshold is evaluated. Determines whether spend is tracked in aggregate or per individual user. (Enum: ALERT_CONFIGURATION_SCOPE_TYPE_SHARED, ALERT_CONFIGURATION_SCOPE_TYPE_PER_USER)
+	ScopeType *string `json:"scopeType,omitempty" tf:"scope_type,omitempty"`
 
 	// The time window of usage data for the budget. (Enum: MONTH)
 	TimePeriod *string `json:"timePeriod,omitempty" tf:"time_period,omitempty"`
@@ -96,6 +108,10 @@ type AlertConfigurationsParameters struct {
 	// +kubebuilder:validation:Optional
 	AlertConfigurationID *string `json:"alertConfigurationId,omitempty" tf:"alert_configuration_id,omitempty"`
 
+	// Per-principal threshold overrides for this alert. Only applies to per-user alerts (scope_type = ALERT_CONFIGURATION_SCOPE_TYPE_PER_USER); ignored for shared alerts. Consists of the following fields:
+	// +kubebuilder:validation:Optional
+	PrincipalOverrides []PrincipalOverridesParameters `json:"principalOverrides,omitempty" tf:"principal_overrides,omitempty"`
+
 	// The threshold for the budget alert to determine if it is in a triggered state. The number is evaluated based on quantity_type.
 	// +kubebuilder:validation:Optional
 	QuantityThreshold *string `json:"quantityThreshold,omitempty" tf:"quantity_threshold,omitempty"`
@@ -103,6 +119,10 @@ type AlertConfigurationsParameters struct {
 	// The way to calculate cost for this budget alert. This is what quantity_threshold is measured in. (Enum: LIST_PRICE_DOLLARS_USD)
 	// +kubebuilder:validation:Optional
 	QuantityType *string `json:"quantityType,omitempty" tf:"quantity_type,omitempty"`
+
+	// How the alert threshold is evaluated. Determines whether spend is tracked in aggregate or per individual user. (Enum: ALERT_CONFIGURATION_SCOPE_TYPE_SHARED, ALERT_CONFIGURATION_SCOPE_TYPE_PER_USER)
+	// +kubebuilder:validation:Optional
+	ScopeType *string `json:"scopeType,omitempty" tf:"scope_type,omitempty"`
 
 	// The time window of usage data for the budget. (Enum: MONTH)
 	// +kubebuilder:validation:Optional
@@ -130,6 +150,9 @@ type BudgetInitParameters struct {
 
 	Filter *FilterInitParameters `json:"filter,omitempty" tf:"filter,omitempty"`
 
+	// The resource scope for this budget. Determines whether the budget tracks all resources or a specific resource. (Enum: BUDGET_RESOURCE_TYPE_ALL_RESOURCES, BUDGET_RESOURCE_TYPE_UNITY_AI_GATEWAY)
+	ResourceType *string `json:"resourceType,omitempty" tf:"resource_type,omitempty"`
+
 	UpdateTime *float64 `json:"updateTime,omitempty" tf:"update_time,omitempty"`
 }
 
@@ -151,6 +174,9 @@ type BudgetObservation struct {
 	Filter *FilterObservation `json:"filter,omitempty" tf:"filter,omitempty"`
 
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
+	// The resource scope for this budget. Determines whether the budget tracks all resources or a specific resource. (Enum: BUDGET_RESOURCE_TYPE_ALL_RESOURCES, BUDGET_RESOURCE_TYPE_UNITY_AI_GATEWAY)
+	ResourceType *string `json:"resourceType,omitempty" tf:"resource_type,omitempty"`
 
 	UpdateTime *float64 `json:"updateTime,omitempty" tf:"update_time,omitempty"`
 }
@@ -177,6 +203,10 @@ type BudgetParameters struct {
 
 	// +kubebuilder:validation:Optional
 	Filter *FilterParameters `json:"filter,omitempty" tf:"filter,omitempty"`
+
+	// The resource scope for this budget. Determines whether the budget tracks all resources or a specific resource. (Enum: BUDGET_RESOURCE_TYPE_ALL_RESOURCES, BUDGET_RESOURCE_TYPE_UNITY_AI_GATEWAY)
+	// +kubebuilder:validation:Optional
+	ResourceType *string `json:"resourceType,omitempty" tf:"resource_type,omitempty"`
 
 	// +kubebuilder:validation:Optional
 	UpdateTime *float64 `json:"updateTime,omitempty" tf:"update_time,omitempty"`
@@ -209,6 +239,55 @@ type FilterParameters struct {
 	// Filter by workspace ID (if empty, include usage all usage for this account). Consists of the following fields:
 	// +kubebuilder:validation:Optional
 	WorkspaceID *WorkspaceIDParameters `json:"workspaceId,omitempty" tf:"workspace_id,omitempty"`
+}
+
+type PrincipalOverridesInitParameters struct {
+
+	// Dollar amount that overrides the parent alert's quantity_threshold for this principal.
+	OverrideThreshold *string `json:"overrideThreshold,omitempty" tf:"override_threshold,omitempty"`
+
+	// Account-level principal id (user, group, or service principal).
+	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/cluster/security/v1beta1.Group
+	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/v2/pkg/resource.ExtractResourceID()
+	PrincipalID *float64 `json:"principalId,omitempty" tf:"principal_id,omitempty"`
+
+	// Reference to a Group in security to populate principalId.
+	// +kubebuilder:validation:Optional
+	PrincipalIDRef *v2.Reference `json:"principalIdRef,omitempty" tf:"-"`
+
+	// Selector for a Group in security to populate principalId.
+	// +kubebuilder:validation:Optional
+	PrincipalIDSelector *v2.Selector `json:"principalIdSelector,omitempty" tf:"-"`
+}
+
+type PrincipalOverridesObservation struct {
+
+	// Dollar amount that overrides the parent alert's quantity_threshold for this principal.
+	OverrideThreshold *string `json:"overrideThreshold,omitempty" tf:"override_threshold,omitempty"`
+
+	// Account-level principal id (user, group, or service principal).
+	PrincipalID *float64 `json:"principalId,omitempty" tf:"principal_id,omitempty"`
+}
+
+type PrincipalOverridesParameters struct {
+
+	// Dollar amount that overrides the parent alert's quantity_threshold for this principal.
+	// +kubebuilder:validation:Optional
+	OverrideThreshold *string `json:"overrideThreshold,omitempty" tf:"override_threshold,omitempty"`
+
+	// Account-level principal id (user, group, or service principal).
+	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/cluster/security/v1beta1.Group
+	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/v2/pkg/resource.ExtractResourceID()
+	// +kubebuilder:validation:Optional
+	PrincipalID *float64 `json:"principalId,omitempty" tf:"principal_id,omitempty"`
+
+	// Reference to a Group in security to populate principalId.
+	// +kubebuilder:validation:Optional
+	PrincipalIDRef *v2.Reference `json:"principalIdRef,omitempty" tf:"-"`
+
+	// Selector for a Group in security to populate principalId.
+	// +kubebuilder:validation:Optional
+	PrincipalIDSelector *v2.Selector `json:"principalIdSelector,omitempty" tf:"-"`
 }
 
 type TagsInitParameters struct {

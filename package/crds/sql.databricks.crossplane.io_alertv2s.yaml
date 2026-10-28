@@ -3,7 +3,7 @@ apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
   annotations:
-    controller-gen.kubebuilder.io/version: v0.21.0
+    controller-gen.kubebuilder.io/version: v0.23.0
   name: alertv2s.sql.databricks.crossplane.io
 spec:
   group: sql.databricks.crossplane.io
@@ -79,6 +79,10 @@ spec:
                   customSummary:
                     description: Custom summary for the alert. support mustache template
                     type: string
+                  customTemplateFormat:
+                    description: The format used to interpret the custom_summary and
+                      custom_description templates.
+                    type: string
                   displayName:
                     description: The display name of the alert
                     type: string
@@ -136,7 +140,9 @@ spec:
                             description: (string, optional)
                             type: string
                           name:
-                            description: (string, required)
+                            description: |-
+                              The name of the parameter. Reference it in the query text as :name. Required, must be
+                              non-empty, and must be unique across the alert's parameters
                             type: string
                         type: object
                       threshold:
@@ -156,11 +162,15 @@ spec:
                                 description: (string, optional)
                                 type: string
                               name:
-                                description: (string, required)
+                                description: |-
+                                  The name of the parameter. Reference it in the query text as :name. Required, must be
+                                  non-empty, and must be unique across the alert's parameters
                                 type: string
                             type: object
                           value:
-                            description: (AlertV2OperandValue, optional)
+                            description: The value bound to the parameter, represented
+                              as a string. If omitted, the value is interpreted as
+                              NULL
                             properties:
                               boolValue:
                                 description: (boolean, optional)
@@ -174,6 +184,27 @@ spec:
                             type: object
                         type: object
                     type: object
+                  parameters:
+                    description: A list of parameters to pass into the alert SQL query
+                      statement containing parameter markers. Static values only.
+                    items:
+                      properties:
+                        name:
+                          description: |-
+                            The name of the parameter. Reference it in the query text as :name. Required, must be
+                            non-empty, and must be unique across the alert's parameters
+                          type: string
+                        type:
+                          description: |-
+                            The SQL data type of the parameter, for example STRING, INT, or DECIMAL(10, 2). If no type is given
+                            the type is assumed to be STRING. Complex types such as ARRAY, MAP, and STRUCT are not supported
+                          type: string
+                        value:
+                          description: The value bound to the parameter, represented
+                            as a string. If omitted, the value is interpreted as NULL
+                          type: string
+                      type: object
+                    type: array
                   parentPath:
                     description: The workspace path of the folder containing the alert.
                       Can only be set on create, and cannot be updated
@@ -259,6 +290,10 @@ spec:
                   customSummary:
                     description: Custom summary for the alert. support mustache template
                     type: string
+                  customTemplateFormat:
+                    description: The format used to interpret the custom_summary and
+                      custom_description templates.
+                    type: string
                   displayName:
                     description: The display name of the alert
                     type: string
@@ -316,7 +351,9 @@ spec:
                             description: (string, optional)
                             type: string
                           name:
-                            description: (string, required)
+                            description: |-
+                              The name of the parameter. Reference it in the query text as :name. Required, must be
+                              non-empty, and must be unique across the alert's parameters
                             type: string
                         type: object
                       threshold:
@@ -336,11 +373,15 @@ spec:
                                 description: (string, optional)
                                 type: string
                               name:
-                                description: (string, required)
+                                description: |-
+                                  The name of the parameter. Reference it in the query text as :name. Required, must be
+                                  non-empty, and must be unique across the alert's parameters
                                 type: string
                             type: object
                           value:
-                            description: (AlertV2OperandValue, optional)
+                            description: The value bound to the parameter, represented
+                              as a string. If omitted, the value is interpreted as
+                              NULL
                             properties:
                               boolValue:
                                 description: (boolean, optional)
@@ -354,6 +395,27 @@ spec:
                             type: object
                         type: object
                     type: object
+                  parameters:
+                    description: A list of parameters to pass into the alert SQL query
+                      statement containing parameter markers. Static values only.
+                    items:
+                      properties:
+                        name:
+                          description: |-
+                            The name of the parameter. Reference it in the query text as :name. Required, must be
+                            non-empty, and must be unique across the alert's parameters
+                          type: string
+                        type:
+                          description: |-
+                            The SQL data type of the parameter, for example STRING, INT, or DECIMAL(10, 2). If no type is given
+                            the type is assumed to be STRING. Complex types such as ARRAY, MAP, and STRUCT are not supported
+                          type: string
+                        value:
+                          description: The value bound to the parameter, represented
+                            as a string. If omitted, the value is interpreted as NULL
+                          type: string
+                      type: object
+                    type: array
                   parentPath:
                     description: The workspace path of the folder containing the alert.
                       Can only be set on create, and cannot be updated
@@ -541,6 +603,10 @@ spec:
                   customSummary:
                     description: Custom summary for the alert. support mustache template
                     type: string
+                  customTemplateFormat:
+                    description: The format used to interpret the custom_summary and
+                      custom_description templates.
+                    type: string
                   displayName:
                     description: The display name of the alert
                     type: string
@@ -627,7 +693,9 @@ spec:
                             description: (string, optional)
                             type: string
                           name:
-                            description: (string, required)
+                            description: |-
+                              The name of the parameter. Reference it in the query text as :name. Required, must be
+                              non-empty, and must be unique across the alert's parameters
                             type: string
                         type: object
                       state:
@@ -651,11 +719,15 @@ spec:
                                 description: (string, optional)
                                 type: string
                               name:
-                                description: (string, required)
+                                description: |-
+                                  The name of the parameter. Reference it in the query text as :name. Required, must be
+                                  non-empty, and must be unique across the alert's parameters
                                 type: string
                             type: object
                           value:
-                            description: (AlertV2OperandValue, optional)
+                            description: The value bound to the parameter, represented
+                              as a string. If omitted, the value is interpreted as
+                              NULL
                             properties:
                               boolValue:
                                 description: (boolean, optional)
@@ -670,7 +742,8 @@ spec:
                         type: object
                     type: object
                   id:
-                    description: UUID identifying the alert
+                    description: The canonical identifier of the alert to retrieve
+                      information about
                     type: string
                   lifecycleState:
                     description: 'Indicates whether the query is trashed. Possible
@@ -680,6 +753,27 @@ spec:
                     description: The owner's username. This field is set to "Unavailable"
                       if the user has been deleted
                     type: string
+                  parameters:
+                    description: A list of parameters to pass into the alert SQL query
+                      statement containing parameter markers. Static values only.
+                    items:
+                      properties:
+                        name:
+                          description: |-
+                            The name of the parameter. Reference it in the query text as :name. Required, must be
+                            non-empty, and must be unique across the alert's parameters
+                          type: string
+                        type:
+                          description: |-
+                            The SQL data type of the parameter, for example STRING, INT, or DECIMAL(10, 2). If no type is given
+                            the type is assumed to be STRING. Complex types such as ARRAY, MAP, and STRUCT are not supported
+                          type: string
+                        value:
+                          description: The value bound to the parameter, represented
+                            as a string. If omitted, the value is interpreted as NULL
+                          type: string
+                      type: object
+                    type: array
                   parentPath:
                     description: The workspace path of the folder containing the alert.
                       Can only be set on create, and cannot be updated

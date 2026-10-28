@@ -34,8 +34,14 @@ type SecretInitParameters struct {
 	// +kubebuilder:validation:Optional
 	ScopeSelector *v2.NamespacedSelector `json:"scopeSelector,omitempty" tf:"-"`
 
-	// (String) super secret sensitive value.
-	StringValueSecretRef v2.LocalSecretKeySelector `json:"stringValueSecretRef" tf:"-"`
+	// (String) Specifies text data that you want to encrypt and store in the secret. This is required if string_value_wo is not set.
+	StringValueSecretRef *v2.LocalSecretKeySelector `json:"stringValueSecretRef,omitempty" tf:"-"`
+
+	// (String) Specifies text data that you want to encrypt and store in the secret. This is required if string_value is not set.
+	StringValueWoSecretRef *v2.LocalSecretKeySelector `json:"stringValueWoSecretRef,omitempty" tf:"-"`
+
+	// (Integer) Use together with string_value_wo to trigger an update. Increment this value when an update to string_value_wo is required.
+	StringValueWoVersion *float64 `json:"stringValueWoVersion,omitempty" tf:"string_value_wo_version,omitempty"`
 }
 
 type SecretObservation struct {
@@ -57,6 +63,9 @@ type SecretObservation struct {
 
 	// (String) name of databricks secret scope. Must consist of alphanumeric characters, dashes, underscores, and periods, and may not exceed 128 characters.
 	Scope *string `json:"scope,omitempty" tf:"scope,omitempty"`
+
+	// (Integer) Use together with string_value_wo to trigger an update. Increment this value when an update to string_value_wo is required.
+	StringValueWoVersion *float64 `json:"stringValueWoVersion,omitempty" tf:"string_value_wo_version,omitempty"`
 }
 
 type SecretParameters struct {
@@ -83,9 +92,17 @@ type SecretParameters struct {
 	// +kubebuilder:validation:Optional
 	ScopeSelector *v2.NamespacedSelector `json:"scopeSelector,omitempty" tf:"-"`
 
-	// (String) super secret sensitive value.
+	// (String) Specifies text data that you want to encrypt and store in the secret. This is required if string_value_wo is not set.
 	// +kubebuilder:validation:Optional
-	StringValueSecretRef v2.LocalSecretKeySelector `json:"stringValueSecretRef" tf:"-"`
+	StringValueSecretRef *v2.LocalSecretKeySelector `json:"stringValueSecretRef,omitempty" tf:"-"`
+
+	// (String) Specifies text data that you want to encrypt and store in the secret. This is required if string_value is not set.
+	// +kubebuilder:validation:Optional
+	StringValueWoSecretRef *v2.LocalSecretKeySelector `json:"stringValueWoSecretRef,omitempty" tf:"-"`
+
+	// (Integer) Use together with string_value_wo to trigger an update. Increment this value when an update to string_value_wo is required.
+	// +kubebuilder:validation:Optional
+	StringValueWoVersion *float64 `json:"stringValueWoVersion,omitempty" tf:"string_value_wo_version,omitempty"`
 }
 
 type SecretProviderConfigInitParameters struct {
@@ -144,7 +161,6 @@ type Secret struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.key) || (has(self.initProvider) && has(self.initProvider.key))",message="spec.forProvider.key is a required parameter"
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.stringValueSecretRef)",message="spec.forProvider.stringValueSecretRef is a required parameter"
 	Spec   SecretSpec   `json:"spec"`
 	Status SecretStatus `json:"status,omitempty"`
 }

@@ -118,6 +118,19 @@ func (tr *Credential) LateInitialize(attrs []byte) (bool, error) {
 		return false, errors.Wrap(err, "failed to unmarshal Terraform state parameters for late-initialization")
 	}
 	opts := []resource.GenericLateInitializerOption{resource.WithZeroValueJSONOmitEmptyFilter(resource.CNameWildcard)}
+	opts = append(opts, resource.WithNameFilter("AwsIAMRole.ExternalID"))
+	opts = append(opts, resource.WithNameFilter("AwsIAMRole.UnityCatalogIAMArn"))
+	opts = append(opts, resource.WithNameFilter("AzureManagedIdentity.CredentialID"))
+	opts = append(opts, resource.WithNameFilter("CreatedAt"))
+	opts = append(opts, resource.WithNameFilter("CreatedBy"))
+	opts = append(opts, resource.WithNameFilter("DatabricksGCPServiceAccount.CredentialID"))
+	opts = append(opts, resource.WithNameFilter("DatabricksGCPServiceAccount.Email"))
+	opts = append(opts, resource.WithNameFilter("DatabricksGCPServiceAccount.PrivateKeyID"))
+	opts = append(opts, resource.WithNameFilter("FullName"))
+	opts = append(opts, resource.WithNameFilter("MetastoreID"))
+	opts = append(opts, resource.WithNameFilter("UpdatedAt"))
+	opts = append(opts, resource.WithNameFilter("UpdatedBy"))
+	opts = append(opts, resource.WithNameFilter("UsedForManagedStorage"))
 
 	li := resource.NewGenericLateInitializer(opts...)
 	return li.LateInitialize(&tr.Spec.ForProvider, params)

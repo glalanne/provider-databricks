@@ -1,0 +1,39 @@
+# SPDX-FileCopyrightText: 2026 The Crossplane Authors <https://crossplane.io>
+#
+# SPDX-License-Identifier: CC0-1.0
+
+# Shared, cluster-scoped passwordless authentication, as in providerconfig-oidctokenrequest.yaml but with the
+# ServiceAccount, Role and RoleBinding in a namespace the platform controls. Any namespace can reference any
+# ClusterProviderConfig, so use these for identities meant to be shared.
+
+apiVersion: databricks.m.crossplane.io/v1beta1
+kind: ClusterProviderConfig
+metadata:
+  name: workspace
+spec:
+  credentials:
+    source: OIDCTokenRequest
+    serviceAccountRef:
+      name: databricks
+      namespace: platform # required on a cluster-scoped config
+  host: https://adb-1234567890123456.7.azuredatabricks.net
+---
+# Account-level operations: the accounts console host and the account ID. The managed identity must be a service
+# principal in the Databricks account, with the account role the resources need.
+apiVersion: databricks.m.crossplane.io/v1beta1
+kind: ClusterProviderConfig
+metadata:
+  name: account
+spec:
+  credentials:
+    source: OIDCTokenRequest
+    serviceAccountRef:
+      name: databricks-account
+      namespace: platform
+    tokenExchange:
+      azureAD:
+        # Instead of the service account's annotations:
+        clientID: 00000000-0000-0000-0000-000000000000
+        tenantID: 00000000-0000-0000-0000-000000000000
+  host: https://accounts.azuredatabricks.net
+  accountID: 00000000-0000-0000-0000-000000000000

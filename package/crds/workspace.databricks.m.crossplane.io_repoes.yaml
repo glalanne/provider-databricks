@@ -3,7 +3,7 @@ apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
   annotations:
-    controller-gen.kubebuilder.io/version: v0.21.0
+    controller-gen.kubebuilder.io/version: v0.23.0
   name: repoes.workspace.databricks.m.crossplane.io
 spec:
   group: workspace.databricks.m.crossplane.io
@@ -73,6 +73,10 @@ spec:
                       operation. It won't change if you manually perform pull operation
                       via UI or API
                     type: string
+                  gitCredentialId:
+                    description: The ID of the Git credential (databricks_git_credential)
+                      to use for authentication with the Git provider remote.
+                    type: number
                   gitProvider:
                     description: 'case insensitive name of the Git provider.  Following
                       values are supported right now (could be a subject for a change,
@@ -142,6 +146,10 @@ spec:
                       operation. It won't change if you manually perform pull operation
                       via UI or API
                     type: string
+                  gitCredentialId:
+                    description: The ID of the Git credential (databricks_git_credential)
+                      to use for authentication with the Git provider remote.
+                    type: number
                   gitProvider:
                     description: 'case insensitive name of the Git provider.  Following
                       values are supported right now (could be a subject for a change,
@@ -266,6 +274,10 @@ spec:
                       operation. It won't change if you manually perform pull operation
                       via UI or API
                     type: string
+                  gitCredentialId:
+                    description: The ID of the Git credential (databricks_git_credential)
+                      to use for authentication with the Git provider remote.
+                    type: number
                   gitProvider:
                     description: 'case insensitive name of the Git provider.  Following
                       values are supported right now (could be a subject for a change,
@@ -437,6 +449,10 @@ spec:
                       operation. It won't change if you manually perform pull operation
                       via UI or API
                     type: string
+                  gitCredentialId:
+                    description: The ID of the Git credential (databricks_git_credential)
+                      to use for authentication with the Git provider remote.
+                    type: number
                   gitProvider:
                     description: 'case insensitive name of the Git provider.  Following
                       values are supported right now (could be a subject for a change,
@@ -502,6 +518,10 @@ spec:
                       operation. It won't change if you manually perform pull operation
                       via UI or API
                     type: string
+                  gitCredentialId:
+                    description: The ID of the Git credential (databricks_git_credential)
+                      to use for authentication with the Git provider remote.
+                    type: number
                   gitProvider:
                     description: 'case insensitive name of the Git provider.  Following
                       values are supported right now (could be a subject for a change,
@@ -622,6 +642,10 @@ spec:
                       operation. It won't change if you manually perform pull operation
                       via UI or API
                     type: string
+                  gitCredentialId:
+                    description: The ID of the Git credential (databricks_git_credential)
+                      to use for authentication with the Git provider remote.
+                    type: number
                   gitProvider:
                     description: 'case insensitive name of the Git provider.  Following
                       values are supported right now (could be a subject for a change,

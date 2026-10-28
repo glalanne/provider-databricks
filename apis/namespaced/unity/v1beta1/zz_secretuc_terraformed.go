@@ -21,7 +21,7 @@ func (mg *SecretUc) GetTerraformResourceType() string {
 
 // GetConnectionDetailsMapping for this SecretUc
 func (tr *SecretUc) GetConnectionDetailsMapping() map[string]string {
-	return nil
+	return map[string]string{"effective_value": "status.atProvider.effectiveValue", "value": "valueSecretRef"}
 }
 
 // GetObservation of this SecretUc

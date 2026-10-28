@@ -14,6 +14,9 @@ import (
 )
 
 type ConfigInitParameters struct {
+	DatabricksAppSlack *DatabricksAppSlackInitParameters `json:"databricksAppSlack,omitempty" tf:"databricks_app_slack,omitempty"`
+
+	DatabricksAppTeams *DatabricksAppTeamsInitParameters `json:"databricksAppTeams,omitempty" tf:"databricks_app_teams,omitempty"`
 
 	// The email configuration of the Notification Destination. It must contain the following:
 	Email *EmailInitParameters `json:"email,omitempty" tf:"email,omitempty"`
@@ -32,6 +35,9 @@ type ConfigInitParameters struct {
 }
 
 type ConfigObservation struct {
+	DatabricksAppSlack *DatabricksAppSlackObservation `json:"databricksAppSlack,omitempty" tf:"databricks_app_slack,omitempty"`
+
+	DatabricksAppTeams *DatabricksAppTeamsObservation `json:"databricksAppTeams,omitempty" tf:"databricks_app_teams,omitempty"`
 
 	// The email configuration of the Notification Destination. It must contain the following:
 	Email *EmailObservation `json:"email,omitempty" tf:"email,omitempty"`
@@ -50,6 +56,12 @@ type ConfigObservation struct {
 }
 
 type ConfigParameters struct {
+
+	// +kubebuilder:validation:Optional
+	DatabricksAppSlack *DatabricksAppSlackParameters `json:"databricksAppSlack,omitempty" tf:"databricks_app_slack,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	DatabricksAppTeams *DatabricksAppTeamsParameters `json:"databricksAppTeams,omitempty" tf:"databricks_app_teams,omitempty"`
 
 	// The email configuration of the Notification Destination. It must contain the following:
 	// +kubebuilder:validation:Optional
@@ -70,6 +82,109 @@ type ConfigParameters struct {
 	// The Slack configuration of the Notification Destination. It must contain the following:
 	// +kubebuilder:validation:Optional
 	Slack *SlackParameters `json:"slack,omitempty" tf:"slack,omitempty"`
+}
+
+type DatabricksAppSlackInitParameters struct {
+
+	// Slack channel ID for notifications.
+	ChannelID *string `json:"channelId,omitempty" tf:"channel_id,omitempty"`
+
+	ChannelIDSet *bool `json:"channelIdSet,omitempty" tf:"channel_id_set,omitempty"`
+
+	// The unique ID of the Notification Destination.
+	TeamID *string `json:"teamId,omitempty" tf:"team_id,omitempty"`
+
+	TeamIDSet *bool `json:"teamIdSet,omitempty" tf:"team_id_set,omitempty"`
+}
+
+type DatabricksAppSlackObservation struct {
+
+	// Slack channel ID for notifications.
+	ChannelID *string `json:"channelId,omitempty" tf:"channel_id,omitempty"`
+
+	ChannelIDSet *bool `json:"channelIdSet,omitempty" tf:"channel_id_set,omitempty"`
+
+	// The unique ID of the Notification Destination.
+	TeamID *string `json:"teamId,omitempty" tf:"team_id,omitempty"`
+
+	TeamIDSet *bool `json:"teamIdSet,omitempty" tf:"team_id_set,omitempty"`
+}
+
+type DatabricksAppSlackParameters struct {
+
+	// Slack channel ID for notifications.
+	// +kubebuilder:validation:Optional
+	ChannelID *string `json:"channelId,omitempty" tf:"channel_id,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	ChannelIDSet *bool `json:"channelIdSet,omitempty" tf:"channel_id_set,omitempty"`
+
+	// The unique ID of the Notification Destination.
+	// +kubebuilder:validation:Optional
+	TeamID *string `json:"teamId,omitempty" tf:"team_id,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	TeamIDSet *bool `json:"teamIdSet,omitempty" tf:"team_id_set,omitempty"`
+}
+
+type DatabricksAppTeamsInitParameters struct {
+
+	// Slack channel ID for notifications.
+	ChannelID *string `json:"channelId,omitempty" tf:"channel_id,omitempty"`
+
+	ChannelIDSet *bool `json:"channelIdSet,omitempty" tf:"channel_id_set,omitempty"`
+
+	// The unique ID of the Notification Destination.
+	TeamID *string `json:"teamId,omitempty" tf:"team_id,omitempty"`
+
+	TeamIDSet *bool `json:"teamIdSet,omitempty" tf:"team_id_set,omitempty"`
+
+	// Tenant ID for Microsoft Teams App.
+	TenantID *string `json:"tenantId,omitempty" tf:"tenant_id,omitempty"`
+
+	TenantIDSet *bool `json:"tenantIdSet,omitempty" tf:"tenant_id_set,omitempty"`
+}
+
+type DatabricksAppTeamsObservation struct {
+
+	// Slack channel ID for notifications.
+	ChannelID *string `json:"channelId,omitempty" tf:"channel_id,omitempty"`
+
+	ChannelIDSet *bool `json:"channelIdSet,omitempty" tf:"channel_id_set,omitempty"`
+
+	// The unique ID of the Notification Destination.
+	TeamID *string `json:"teamId,omitempty" tf:"team_id,omitempty"`
+
+	TeamIDSet *bool `json:"teamIdSet,omitempty" tf:"team_id_set,omitempty"`
+
+	// Tenant ID for Microsoft Teams App.
+	TenantID *string `json:"tenantId,omitempty" tf:"tenant_id,omitempty"`
+
+	TenantIDSet *bool `json:"tenantIdSet,omitempty" tf:"tenant_id_set,omitempty"`
+}
+
+type DatabricksAppTeamsParameters struct {
+
+	// Slack channel ID for notifications.
+	// +kubebuilder:validation:Optional
+	ChannelID *string `json:"channelId,omitempty" tf:"channel_id,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	ChannelIDSet *bool `json:"channelIdSet,omitempty" tf:"channel_id_set,omitempty"`
+
+	// The unique ID of the Notification Destination.
+	// +kubebuilder:validation:Optional
+	TeamID *string `json:"teamId,omitempty" tf:"team_id,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	TeamIDSet *bool `json:"teamIdSet,omitempty" tf:"team_id_set,omitempty"`
+
+	// Tenant ID for Microsoft Teams App.
+	// +kubebuilder:validation:Optional
+	TenantID *string `json:"tenantId,omitempty" tf:"tenant_id,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	TenantIDSet *bool `json:"tenantIdSet,omitempty" tf:"tenant_id_set,omitempty"`
 }
 
 type EmailInitParameters struct {

@@ -681,6 +681,35 @@ type WorkspaceSettingV2EffectiveStringValParameters struct {
 	Value *string `json:"value,omitempty" tf:"value,omitempty"`
 }
 
+type WorkspaceSettingV2EffectiveWorkspaceLabelInitParameters struct {
+
+	// (string, optional)
+	Color *string `json:"color,omitempty" tf:"color,omitempty"`
+
+	// (string, optional)
+	Label *string `json:"label,omitempty" tf:"label,omitempty"`
+}
+
+type WorkspaceSettingV2EffectiveWorkspaceLabelObservation struct {
+
+	// (string, optional)
+	Color *string `json:"color,omitempty" tf:"color,omitempty"`
+
+	// (string, optional)
+	Label *string `json:"label,omitempty" tf:"label,omitempty"`
+}
+
+type WorkspaceSettingV2EffectiveWorkspaceLabelParameters struct {
+
+	// (string, optional)
+	// +kubebuilder:validation:Optional
+	Color *string `json:"color,omitempty" tf:"color,omitempty"`
+
+	// (string, optional)
+	// +kubebuilder:validation:Optional
+	Label *string `json:"label,omitempty" tf:"label,omitempty"`
+}
+
 type WorkspaceSettingV2InitParameters struct {
 
 	// Setting value for aibi_dashboard_embedding_access_policy setting. This is the setting value set by consumers, check effective_aibi_dashboard_embedding_access_policy for final setting value
@@ -716,6 +745,9 @@ type WorkspaceSettingV2InitParameters struct {
 	// Effective setting value for restrict_workspace_admins setting. This is the final effective value of setting. To set a value use restrict_workspace_admins
 	EffectiveRestrictWorkspaceAdmins *WorkspaceSettingV2EffectiveRestrictWorkspaceAdminsInitParameters `json:"effectiveRestrictWorkspaceAdmins,omitempty" tf:"effective_restrict_workspace_admins,omitempty"`
 
+	// Effective setting value for workspace_label setting. This is the final effective value of setting. To set a value use workspace_label
+	EffectiveWorkspaceLabel *WorkspaceSettingV2EffectiveWorkspaceLabelInitParameters `json:"effectiveWorkspaceLabel,omitempty" tf:"effective_workspace_label,omitempty"`
+
 	// Setting value for integer type setting. This is the setting value set by consumers, check effective_integer_val for final setting value
 	IntegerVal *WorkspaceSettingV2IntegerValInitParameters `json:"integerVal,omitempty" tf:"integer_val,omitempty"`
 
@@ -736,6 +768,9 @@ type WorkspaceSettingV2InitParameters struct {
 
 	// Setting value for string type setting. This is the setting value set by consumers, check effective_string_val for final setting value
 	StringVal *WorkspaceSettingV2StringValInitParameters `json:"stringVal,omitempty" tf:"string_val,omitempty"`
+
+	// Setting value for workspace_label setting. This is the setting value set by consumers, check effective_workspace_label for final setting value
+	WorkspaceLabel *WorkspaceSettingV2WorkspaceLabelInitParameters `json:"workspaceLabel,omitempty" tf:"workspace_label,omitempty"`
 }
 
 type WorkspaceSettingV2IntegerValInitParameters struct {
@@ -810,6 +845,9 @@ type WorkspaceSettingV2Observation struct {
 	// Effective setting value for string type setting. This is the final effective value of setting. To set a value use string_val
 	EffectiveStringVal *WorkspaceSettingV2EffectiveStringValObservation `json:"effectiveStringVal,omitempty" tf:"effective_string_val,omitempty"`
 
+	// Effective setting value for workspace_label setting. This is the final effective value of setting. To set a value use workspace_label
+	EffectiveWorkspaceLabel *WorkspaceSettingV2EffectiveWorkspaceLabelObservation `json:"effectiveWorkspaceLabel,omitempty" tf:"effective_workspace_label,omitempty"`
+
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
 	// Setting value for integer type setting. This is the setting value set by consumers, check effective_integer_val for final setting value
@@ -832,6 +870,9 @@ type WorkspaceSettingV2Observation struct {
 
 	// Setting value for string type setting. This is the setting value set by consumers, check effective_string_val for final setting value
 	StringVal *WorkspaceSettingV2StringValObservation `json:"stringVal,omitempty" tf:"string_val,omitempty"`
+
+	// Setting value for workspace_label setting. This is the setting value set by consumers, check effective_workspace_label for final setting value
+	WorkspaceLabel *WorkspaceSettingV2WorkspaceLabelObservation `json:"workspaceLabel,omitempty" tf:"workspace_label,omitempty"`
 }
 
 type WorkspaceSettingV2OperationalEmailCustomRecipientInitParameters struct {
@@ -899,6 +940,10 @@ type WorkspaceSettingV2Parameters struct {
 	// +kubebuilder:validation:Optional
 	EffectiveRestrictWorkspaceAdmins *WorkspaceSettingV2EffectiveRestrictWorkspaceAdminsParameters `json:"effectiveRestrictWorkspaceAdmins,omitempty" tf:"effective_restrict_workspace_admins,omitempty"`
 
+	// Effective setting value for workspace_label setting. This is the final effective value of setting. To set a value use workspace_label
+	// +kubebuilder:validation:Optional
+	EffectiveWorkspaceLabel *WorkspaceSettingV2EffectiveWorkspaceLabelParameters `json:"effectiveWorkspaceLabel,omitempty" tf:"effective_workspace_label,omitempty"`
+
 	// Setting value for integer type setting. This is the setting value set by consumers, check effective_integer_val for final setting value
 	// +kubebuilder:validation:Optional
 	IntegerVal *WorkspaceSettingV2IntegerValParameters `json:"integerVal,omitempty" tf:"integer_val,omitempty"`
@@ -926,6 +971,10 @@ type WorkspaceSettingV2Parameters struct {
 	// Setting value for string type setting. This is the setting value set by consumers, check effective_string_val for final setting value
 	// +kubebuilder:validation:Optional
 	StringVal *WorkspaceSettingV2StringValParameters `json:"stringVal,omitempty" tf:"string_val,omitempty"`
+
+	// Setting value for workspace_label setting. This is the setting value set by consumers, check effective_workspace_label for final setting value
+	// +kubebuilder:validation:Optional
+	WorkspaceLabel *WorkspaceSettingV2WorkspaceLabelParameters `json:"workspaceLabel,omitempty" tf:"workspace_label,omitempty"`
 }
 
 type WorkspaceSettingV2PersonalComputeInitParameters struct {
@@ -1015,6 +1064,35 @@ type WorkspaceSettingV2StringValParameters struct {
 	// (boolean, optional)
 	// +kubebuilder:validation:Optional
 	Value *string `json:"value,omitempty" tf:"value,omitempty"`
+}
+
+type WorkspaceSettingV2WorkspaceLabelInitParameters struct {
+
+	// (string, optional)
+	Color *string `json:"color,omitempty" tf:"color,omitempty"`
+
+	// (string, optional)
+	Label *string `json:"label,omitempty" tf:"label,omitempty"`
+}
+
+type WorkspaceSettingV2WorkspaceLabelObservation struct {
+
+	// (string, optional)
+	Color *string `json:"color,omitempty" tf:"color,omitempty"`
+
+	// (string, optional)
+	Label *string `json:"label,omitempty" tf:"label,omitempty"`
+}
+
+type WorkspaceSettingV2WorkspaceLabelParameters struct {
+
+	// (string, optional)
+	// +kubebuilder:validation:Optional
+	Color *string `json:"color,omitempty" tf:"color,omitempty"`
+
+	// (string, optional)
+	// +kubebuilder:validation:Optional
+	Label *string `json:"label,omitempty" tf:"label,omitempty"`
 }
 
 // WorkspaceSettingV2Spec defines the desired state of WorkspaceSettingV2
