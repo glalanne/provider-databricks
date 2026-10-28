@@ -1,9 +1,12 @@
 package common
 
 import (
+	"context"
 	"fmt"
 
 	"github.com/crossplane/upjet/v2/pkg/config"
+	rschema "github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-go/tftypes"
 )
 
 // IdentifierArgumentExternalName is an external-name configuration for
@@ -36,3 +39,40 @@ func IdentifierArgumentExternalName(field string) config.ExternalName {
 }
 
 var BudgetPolicyExternalName = IdentifierArgumentExternalName("policy_id")
+
+// BudgetPolicyIsStateEmpty prevents a non-null Read result without an identifier
+// from being treated as an existing policy and passed to the external-name
+// extractor. Unknown or malformed state must not authorize resource creation.
+func BudgetPolicyIsStateEmpty(_ context.Context, state tftypes.Value, _ rschema.Schema) (bool, error) {
+	if !state.IsKnown() {
+		return false, fmt.Errorf("cannot check BudgetPolicy existence: Terraform state is unknown")
+	}
+	if state.IsNull() {
+		return true, nil
+	}
+	if _, ok := state.Type().(tftypes.Object); !ok {
+		return false, fmt.Errorf("cannot check BudgetPolicy existence: expected object state, got %s", state.Type())
+	}
+	var attributes map[string]tftypes.Value
+	if err := state.As(&attributes); err != nil {
+		return false, fmt.Errorf("cannot decode BudgetPolicy state: %w", err)
+	}
+	id, ok := attributes["policy_id"]
+	if !ok {
+		return true, nil
+	}
+	if !id.IsKnown() {
+		return false, fmt.Errorf("cannot check BudgetPolicy existence: policy_id is unknown")
+	}
+	if !id.Type().Is(tftypes.String) {
+		return false, fmt.Errorf("cannot check BudgetPolicy existence: expected string policy_id, got %s", id.Type())
+	}
+	if id.IsNull() {
+		return true, nil
+	}
+	var policyID string
+	if err := id.As(&policyID); err != nil {
+		return false, fmt.Errorf("cannot decode BudgetPolicy policy_id: %w", err)
+	}
+	return policyID == "", nil
+}

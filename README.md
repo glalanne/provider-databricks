@@ -42,6 +42,9 @@ Notice that in this example Provider resource is referencing ControllerConfig wi
 
 You can see the API reference [here](https://doc.crds.dev/github.com/glalanne/provider-databricks).
 
+See the [authentication guide](./docs/Authentication.md) for credential sources,
+service-principal authentication, and passwordless OIDC token exchange.
+
 ## Exemples
 
 A few exemples are provided [here](./examples/) to show case how to configure the provider, and how to use some resources
@@ -97,6 +100,72 @@ End to end tests:
 
 make e2e
 ```
+
+### Offline diff client
+
+The internal diff server uses a separate SDKv2 and Framework client setup.
+It never reads
+credential Secrets, requests service account tokens, runs authentication CLIs,
+or loads Databricks environment variables or profiles. Authentication uses a
+local placeholder PAT, and host metadata discovery is disabled. Normal
+reconciliation continues to use the regular authenticated client.
+
+Start the server without a kubeconfig or Kubernetes cluster:
+
+```console
+provider internal diff-server --address 127.0.0.1:9099
+```
+
+The caller supplies ProviderConfigs and reference objects through the request's
+`kubernetes_object_store`. Namespaced resources can use either a local
+ProviderConfig or a ClusterProviderConfig. Framework configuration receives the
+same isolated, egress-guarded client as SDKv2 configuration.
+
+ProviderConfigs are still resolved using the supplied Kubernetes client. Set
+`spec.host` and, for account-level resources, `spec.accountID` on the
+ProviderConfig when these affect a diff; values stored only in credential
+Secrets are intentionally unavailable. Without a host, the client uses a
+reserved `.invalid` workspace hostname.
+
+Outbound requests from the client, including derived workspace and account
+clients, are blocked. Diffs that require an API call return Upjet's
+diff-computation-not-supported error rather than fabricated API responses.
+This setup is for offline diff computation only, not reconciliation.
+
+Run the client unit tests:
+
+```console
+go test ./internal/clients
+```
+
+The provider integration test builds the binary, starts it without Kubernetes
+configuration, and exercises real gRPC plans for both scopes and Terraform
+execution modes:
+
+```console
+go test ./cmd/provider -run TestDiffServerWithoutKubernetes
+```
+
+The egress regression tests run in fresh subprocesses with an HTTP/HTTPS
+recording proxy, without replacing `http.DefaultTransport`. Positive controls
+verify that normal SDK discovery, authentication, API calls, API-dependent
+`CustomizeDiff` hooks, and separately constructed HTTP transports reach the
+proxy. A separate recording listener covers loopback URLs, which Go excludes
+from proxying. Offline setup, authentication, diffs, and derived clients must
+produce zero recorded requests. Neither listener forwards requests. This tests
+the exercised HTTP paths, not an OS-level network sandbox.
+
+### BudgetPolicy identifier handling
+
+Both cluster-scoped and namespaced BudgetPolicy resources treat a Terraform
+Read state with a missing, null, or empty `policy_id` as absent, even if the
+state object itself is non-null. Unknown or malformed identifiers fail
+reconciliation instead of being treated as permission to create a policy.
+An existing non-empty identifier continues to be used as the external name.
+
+Before reconciling a resource without an identifier, check whether its policy
+already exists in Databricks. If it does, set `crossplane.io/external-name` to
+the real policy ID to import it rather than creating another policy.
 
 ## Report a Bug
 
