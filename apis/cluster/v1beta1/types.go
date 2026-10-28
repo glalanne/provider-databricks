@@ -34,7 +34,7 @@ type ProviderConfigSpec struct {
 }
 
 // ProviderCredentials required to authenticate.
-// +kubebuilder:validation:XValidation:rule="self.source != 'OIDCTokenRequest' || (has(self.serviceAccountRef) && has(self.serviceAccountRef.namespace))",message="serviceAccountRef with a namespace is required when source is OIDCTokenRequest"
+// +kubebuilder:validation:XValidation:rule="self.source != 'OIDCTokenRequest' || (has(self.serviceAccountRef) && has(self.serviceAccountRef.__namespace__))",message="serviceAccountRef with a namespace is required when source is OIDCTokenRequest"
 type ProviderCredentials struct {
 	// Source of the provider credentials.
 	// +kubebuilder:validation:Enum=None;Secret;UserAssignedManagedIdentity;SystemAssignedManagedIdentity;OIDCTokenFile;Upbound;Filesystem;OIDCTokenRequest

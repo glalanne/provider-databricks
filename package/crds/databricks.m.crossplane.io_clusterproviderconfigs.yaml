@@ -277,7 +277,7 @@ spec:
             - message: serviceAccountRef with a namespace is required when credentials.source
                 is OIDCTokenRequest
               rule: self.credentials.source != 'OIDCTokenRequest' || (has(self.credentials.serviceAccountRef)
-                && has(self.credentials.serviceAccountRef.namespace))
+                && has(self.credentials.serviceAccountRef.__namespace__))
             - message: host is required when credentials.source is OIDCTokenRequest
               rule: self.credentials.source != 'OIDCTokenRequest' || has(self.host)
             - fieldPath: .host

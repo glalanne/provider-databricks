@@ -128,7 +128,7 @@ type ClusterProviderConfig struct {
 	metav1.ObjectMeta `json:"metadata,omitempty"`
 
 	// A ProviderConfigSpec defines the desired state of a ClusterProviderConfig.
-	// +kubebuilder:validation:XValidation:rule="self.credentials.source != 'OIDCTokenRequest' || (has(self.credentials.serviceAccountRef) && has(self.credentials.serviceAccountRef.namespace))",message="serviceAccountRef with a namespace is required when credentials.source is OIDCTokenRequest"
+	// +kubebuilder:validation:XValidation:rule="self.credentials.source != 'OIDCTokenRequest' || (has(self.credentials.serviceAccountRef) && has(self.credentials.serviceAccountRef.__namespace__))",message="serviceAccountRef with a namespace is required when credentials.source is OIDCTokenRequest"
 	Spec   ProviderConfigSpec   `json:"spec"`
 	Status ProviderConfigStatus `json:"status,omitempty"`
 }
