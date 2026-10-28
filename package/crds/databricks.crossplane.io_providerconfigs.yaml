@@ -193,7 +193,7 @@ spec:
                 - message: serviceAccountRef with a namespace is required when source
                     is OIDCTokenRequest
                   rule: self.source != 'OIDCTokenRequest' || (has(self.serviceAccountRef)
-                    && has(self.serviceAccountRef.namespace))
+                    && has(self.serviceAccountRef.__namespace__))
               host:
                 description: |-
                   Host is the Databricks workspace or accounts console URL the provider
