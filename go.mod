@@ -200,6 +200,6 @@ require (
 	sigs.k8s.io/yaml v1.6.0 // indirect
 )
 
-replace github.com/databricks/terraform-provider-databricks => github.com/glalanne/terraform-provider-databricks v0.0.0-20261023173452-2783b6033dd3
+replace github.com/databricks/terraform-provider-databricks => github.com/glalanne/terraform-provider-databricks d1ae2f796d48
 
 tool golang.org/x/tools/cmd/goimports
