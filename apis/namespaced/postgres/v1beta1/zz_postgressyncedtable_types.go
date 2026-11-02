@@ -29,6 +29,58 @@ type DeltaTableSyncInfoObservation struct {
 type DeltaTableSyncInfoParameters struct {
 }
 
+type ExtraColumnsInitParameters struct {
+
+	// Name of the column
+	ColumnName *string `json:"columnName,omitempty" tf:"column_name,omitempty"`
+
+	// PostgreSQL type of the column, for example "tsvector" or "vector(1024)"
+	ColumnType *string `json:"columnType,omitempty" tf:"column_type,omitempty"`
+
+	// SQL expression used to compute the column's value, for example
+	// "to_tsvector('english', content)"
+	Compute *string `json:"compute,omitempty" tf:"compute,omitempty"`
+
+	// Possible values are: STORED_GENERATED
+	Maintenance *string `json:"maintenance,omitempty" tf:"maintenance,omitempty"`
+}
+
+type ExtraColumnsObservation struct {
+
+	// Name of the column
+	ColumnName *string `json:"columnName,omitempty" tf:"column_name,omitempty"`
+
+	// PostgreSQL type of the column, for example "tsvector" or "vector(1024)"
+	ColumnType *string `json:"columnType,omitempty" tf:"column_type,omitempty"`
+
+	// SQL expression used to compute the column's value, for example
+	// "to_tsvector('english', content)"
+	Compute *string `json:"compute,omitempty" tf:"compute,omitempty"`
+
+	// Possible values are: STORED_GENERATED
+	Maintenance *string `json:"maintenance,omitempty" tf:"maintenance,omitempty"`
+}
+
+type ExtraColumnsParameters struct {
+
+	// Name of the column
+	// +kubebuilder:validation:Optional
+	ColumnName *string `json:"columnName" tf:"column_name,omitempty"`
+
+	// PostgreSQL type of the column, for example "tsvector" or "vector(1024)"
+	// +kubebuilder:validation:Optional
+	ColumnType *string `json:"columnType" tf:"column_type,omitempty"`
+
+	// SQL expression used to compute the column's value, for example
+	// "to_tsvector('english', content)"
+	// +kubebuilder:validation:Optional
+	Compute *string `json:"compute,omitempty" tf:"compute,omitempty"`
+
+	// Possible values are: STORED_GENERATED
+	// +kubebuilder:validation:Optional
+	Maintenance *string `json:"maintenance,omitempty" tf:"maintenance,omitempty"`
+}
+
 type LastSyncInitParameters struct {
 }
 
@@ -56,6 +108,11 @@ type NewPipelineSpecInitParameters struct {
 	// Budget policy to set on the newly created pipeline
 	BudgetPolicyID *string `json:"budgetPolicyId,omitempty" tf:"budget_policy_id,omitempty"`
 
+	// Release channel of the underlying pipeline's runtime.
+	// Some source table configurations (e.g., read-time CDF) require PREVIEW.
+	// Defaults to CURRENT if not specified. Possible values are: CURRENT, PREVIEW
+	PipelineChannel *string `json:"pipelineChannel,omitempty" tf:"pipeline_channel,omitempty"`
+
 	// UC catalog for the pipeline to store intermediate files (checkpoints, event logs etc).
 	// This needs to be a standard catalog where the user has permissions to create Delta tables
 	StorageCatalog *string `json:"storageCatalog,omitempty" tf:"storage_catalog,omitempty"`
@@ -69,6 +126,11 @@ type NewPipelineSpecObservation struct {
 
 	// Budget policy to set on the newly created pipeline
 	BudgetPolicyID *string `json:"budgetPolicyId,omitempty" tf:"budget_policy_id,omitempty"`
+
+	// Release channel of the underlying pipeline's runtime.
+	// Some source table configurations (e.g., read-time CDF) require PREVIEW.
+	// Defaults to CURRENT if not specified. Possible values are: CURRENT, PREVIEW
+	PipelineChannel *string `json:"pipelineChannel,omitempty" tf:"pipeline_channel,omitempty"`
 
 	// UC catalog for the pipeline to store intermediate files (checkpoints, event logs etc).
 	// This needs to be a standard catalog where the user has permissions to create Delta tables
@@ -84,6 +146,12 @@ type NewPipelineSpecParameters struct {
 	// Budget policy to set on the newly created pipeline
 	// +kubebuilder:validation:Optional
 	BudgetPolicyID *string `json:"budgetPolicyId,omitempty" tf:"budget_policy_id,omitempty"`
+
+	// Release channel of the underlying pipeline's runtime.
+	// Some source table configurations (e.g., read-time CDF) require PREVIEW.
+	// Defaults to CURRENT if not specified. Possible values are: CURRENT, PREVIEW
+	// +kubebuilder:validation:Optional
+	PipelineChannel *string `json:"pipelineChannel,omitempty" tf:"pipeline_channel,omitempty"`
 
 	// UC catalog for the pipeline to store intermediate files (checkpoints, event logs etc).
 	// This needs to be a standard catalog where the user has permissions to create Delta tables
@@ -216,6 +284,9 @@ type PostgresSyncedTableSpecInitParameters struct {
 	// At most one of existing_pipeline_id and new_pipeline_spec should be defined.
 	ExistingPipelineID *string `json:"existingPipelineId,omitempty" tf:"existing_pipeline_id,omitempty"`
 
+	// Extra PostgreSQL-only columns to add to the synced table
+	ExtraColumns []ExtraColumnsInitParameters `json:"extraColumns,omitempty" tf:"extra_columns,omitempty"`
+
 	// Specification for creating a new pipeline.
 	// At most one of existing_pipeline_id and new_pipeline_spec should be defined.
 	NewPipelineSpec *NewPipelineSpecInitParameters `json:"newPipelineSpec,omitempty" tf:"new_pipeline_spec,omitempty"`
@@ -258,6 +329,9 @@ type PostgresSyncedTableSpecObservation struct {
 	// ID of an existing pipeline to bin-pack this synced table into.
 	// At most one of existing_pipeline_id and new_pipeline_spec should be defined.
 	ExistingPipelineID *string `json:"existingPipelineId,omitempty" tf:"existing_pipeline_id,omitempty"`
+
+	// Extra PostgreSQL-only columns to add to the synced table
+	ExtraColumns []ExtraColumnsObservation `json:"extraColumns,omitempty" tf:"extra_columns,omitempty"`
 
 	// Specification for creating a new pipeline.
 	// At most one of existing_pipeline_id and new_pipeline_spec should be defined.
@@ -305,6 +379,10 @@ type PostgresSyncedTableSpecParameters struct {
 	// At most one of existing_pipeline_id and new_pipeline_spec should be defined.
 	// +kubebuilder:validation:Optional
 	ExistingPipelineID *string `json:"existingPipelineId,omitempty" tf:"existing_pipeline_id,omitempty"`
+
+	// Extra PostgreSQL-only columns to add to the synced table
+	// +kubebuilder:validation:Optional
+	ExtraColumns []ExtraColumnsParameters `json:"extraColumns,omitempty" tf:"extra_columns,omitempty"`
 
 	// Specification for creating a new pipeline.
 	// At most one of existing_pipeline_id and new_pipeline_spec should be defined.
@@ -379,42 +457,42 @@ type PostgresSyncedTableStatusParameters struct {
 
 type TypeOverridesInitParameters struct {
 
-	// Name of the source column whose target PostgreSQL type should be overridden
+	// Name of the column
 	ColumnName *string `json:"columnName,omitempty" tf:"column_name,omitempty"`
 
-	// PostgreSQL-specific target type to use for the column. Possible values are: PG_SPECIFIC_TYPE_VECTOR
+	// PostgreSQL-specific target type to use for the column. Possible values are: PG_SPECIFIC_TYPE_HALFVEC, PG_SPECIFIC_TYPE_VARCHAR, PG_SPECIFIC_TYPE_VECTOR
 	PgType *string `json:"pgType,omitempty" tf:"pg_type,omitempty"`
 
-	// Size parameter for the target type. Required when pg_type is PG_SPECIFIC_TYPE_VECTOR
-	// or PG_SPECIFIC_TYPE_HALFVEC (specifies the vector dimension, e.g., 1024)
+	// Size parameter for the target type, for types that take one (e.g. vector
+	// dimension, varchar length). Required when the chosen pg_type needs a size
 	Size *float64 `json:"size,omitempty" tf:"size,omitempty"`
 }
 
 type TypeOverridesObservation struct {
 
-	// Name of the source column whose target PostgreSQL type should be overridden
+	// Name of the column
 	ColumnName *string `json:"columnName,omitempty" tf:"column_name,omitempty"`
 
-	// PostgreSQL-specific target type to use for the column. Possible values are: PG_SPECIFIC_TYPE_VECTOR
+	// PostgreSQL-specific target type to use for the column. Possible values are: PG_SPECIFIC_TYPE_HALFVEC, PG_SPECIFIC_TYPE_VARCHAR, PG_SPECIFIC_TYPE_VECTOR
 	PgType *string `json:"pgType,omitempty" tf:"pg_type,omitempty"`
 
-	// Size parameter for the target type. Required when pg_type is PG_SPECIFIC_TYPE_VECTOR
-	// or PG_SPECIFIC_TYPE_HALFVEC (specifies the vector dimension, e.g., 1024)
+	// Size parameter for the target type, for types that take one (e.g. vector
+	// dimension, varchar length). Required when the chosen pg_type needs a size
 	Size *float64 `json:"size,omitempty" tf:"size,omitempty"`
 }
 
 type TypeOverridesParameters struct {
 
-	// Name of the source column whose target PostgreSQL type should be overridden
+	// Name of the column
 	// +kubebuilder:validation:Optional
 	ColumnName *string `json:"columnName" tf:"column_name,omitempty"`
 
-	// PostgreSQL-specific target type to use for the column. Possible values are: PG_SPECIFIC_TYPE_VECTOR
+	// PostgreSQL-specific target type to use for the column. Possible values are: PG_SPECIFIC_TYPE_HALFVEC, PG_SPECIFIC_TYPE_VARCHAR, PG_SPECIFIC_TYPE_VECTOR
 	// +kubebuilder:validation:Optional
 	PgType *string `json:"pgType" tf:"pg_type,omitempty"`
 
-	// Size parameter for the target type. Required when pg_type is PG_SPECIFIC_TYPE_VECTOR
-	// or PG_SPECIFIC_TYPE_HALFVEC (specifies the vector dimension, e.g., 1024)
+	// Size parameter for the target type, for types that take one (e.g. vector
+	// dimension, varchar length). Required when the chosen pg_type needs a size
 	// +kubebuilder:validation:Optional
 	Size *float64 `json:"size,omitempty" tf:"size,omitempty"`
 }

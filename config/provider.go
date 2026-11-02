@@ -16,6 +16,8 @@ import (
 	"github.com/crossplane/upjet/v2/pkg/schema/traverser"
 	conversiontfjson "github.com/crossplane/upjet/v2/pkg/types/conversion/tfjson"
 	uname "github.com/crossplane/upjet/v2/pkg/types/name"
+	"github.com/databricks/terraform-provider-databricks/clusters"
+	dbcommon "github.com/databricks/terraform-provider-databricks/common"
 	tfjson "github.com/hashicorp/terraform-json"
 	fwprovider "github.com/hashicorp/terraform-plugin-framework/provider"
 	tfschema "github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
@@ -116,7 +118,25 @@ func GetProviderNamespacedV1Alpha1Legacy(_ context.Context, fwProvider fwprovide
 	return pc, nil
 }
 
+func ensureSDKLibrary(sdkProvider *tfschema.Provider) {
+	// Upstream defaults Library to Plugin Framework, but our generated
+	// controllers and existing APIs still require its SDKv2 implementation.
+	// HACK: Invistigate for later if we can remove this manual addition of the library resource.
+	if sdkProvider != nil && sdkProvider.ResourcesMap["databricks_library"] == nil {
+		resources := map[string]*tfschema.Resource{
+			"databricks_library": clusters.ResourceLibrary().ToResource(),
+		}
+		dbcommon.AddContextToAllResources(&tfschema.Provider{ResourcesMap: resources}, resourcePrefix)
+		if sdkProvider.ResourcesMap == nil {
+			sdkProvider.ResourcesMap = make(map[string]*tfschema.Resource)
+		}
+		sdkProvider.ResourcesMap["databricks_library"] = resources["databricks_library"]
+	}
+}
+
 func getProviderWithMode(fwProvider fwprovider.Provider, sdkProvider *tfschema.Provider, generationProvider bool, rootGroup string, mode generationMode) (*config.Provider, error) {
+	ensureSDKLibrary(sdkProvider)
+
 	if generationProvider {
 		p, err := getProviderSchema(providerSchema)
 		if err != nil {
@@ -148,6 +168,14 @@ func getProviderWithMode(fwProvider fwprovider.Provider, sdkProvider *tfschema.P
 		providerOpts = append(providerOpts, config.WithSchemaTraversers(&config.SingletonListEmbedder{}))
 	}
 	pc := config.NewProvider([]byte(providerSchema), resourcePrefix, modulePath, []byte(providerMetadata), providerOpts...)
+
+	// Library uses list-shaped blocks in both published API versions.
+	// Restoring its SDK schema must not introduce object conversions.
+	if library := pc.Resources["databricks_library"]; library != nil {
+		for _, path := range library.TFListConversionPaths() {
+			library.RemoveSingletonListConversion(path)
+		}
+	}
 
 	// Rename resources to make it more pleasing to the eye
 	for _, r := range pc.Resources {

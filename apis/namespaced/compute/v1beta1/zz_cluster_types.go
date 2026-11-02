@@ -302,6 +302,8 @@ type ClusterInitParameters struct {
 	// Select the security features of the cluster (see API docs for full list of values). Unity Catalog requires SINGLE_USER or USER_ISOLATION mode. LEGACY_PASSTHROUGH for passthrough cluster and LEGACY_TABLE_ACL for Table ACL cluster. If omitted, default security features are enabled. To disable security features use NONE or legacy mode NO_ISOLATION.  If kind is specified, then the following options are available:
 	DataSecurityMode *string `json:"dataSecurityMode,omitempty" tf:"data_security_mode,omitempty"`
 
+	DependencyMode *string `json:"dependencyMode,omitempty" tf:"dependency_mode,omitempty"`
+
 	DockerImage *DockerImageInitParameters `json:"dockerImage,omitempty" tf:"docker_image,omitempty"`
 
 	// similar to instance_pool_id, but for driver node. If omitted, and instance_pool_id is specified, then the driver will be allocated from that pool.
@@ -493,6 +495,8 @@ type ClusterObservation struct {
 	// +mapType=granular
 	DefaultTags map[string]*string `json:"defaultTags,omitempty" tf:"default_tags,omitempty"`
 
+	DependencyMode *string `json:"dependencyMode,omitempty" tf:"dependency_mode,omitempty"`
+
 	DockerImage *DockerImageObservation `json:"dockerImage,omitempty" tf:"docker_image,omitempty"`
 
 	// similar to instance_pool_id, but for driver node. If omitted, and instance_pool_id is specified, then the driver will be allocated from that pool.
@@ -629,6 +633,9 @@ type ClusterParameters struct {
 	// Select the security features of the cluster (see API docs for full list of values). Unity Catalog requires SINGLE_USER or USER_ISOLATION mode. LEGACY_PASSTHROUGH for passthrough cluster and LEGACY_TABLE_ACL for Table ACL cluster. If omitted, default security features are enabled. To disable security features use NONE or legacy mode NO_ISOLATION.  If kind is specified, then the following options are available:
 	// +kubebuilder:validation:Optional
 	DataSecurityMode *string `json:"dataSecurityMode,omitempty" tf:"data_security_mode,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	DependencyMode *string `json:"dependencyMode,omitempty" tf:"dependency_mode,omitempty"`
 
 	// +kubebuilder:validation:Optional
 	DockerImage *DockerImageParameters `json:"dockerImage,omitempty" tf:"docker_image,omitempty"`
@@ -819,12 +826,18 @@ type DriverNodeTypeFlexibilityInitParameters struct {
 
 	// list of alternative node types that will be used if main node type isn't available.  Follow the documentation for requirements on selection of alternative node types.
 	AlternateNodeTypeIds []*string `json:"alternateNodeTypeIds,omitempty" tf:"alternate_node_type_ids,omitempty"`
+
+	// Canonical unique identifier for the cluster.
+	AwsContextID *string `json:"awsContextId,omitempty" tf:"aws_context_id,omitempty"`
 }
 
 type DriverNodeTypeFlexibilityObservation struct {
 
 	// list of alternative node types that will be used if main node type isn't available.  Follow the documentation for requirements on selection of alternative node types.
 	AlternateNodeTypeIds []*string `json:"alternateNodeTypeIds,omitempty" tf:"alternate_node_type_ids,omitempty"`
+
+	// Canonical unique identifier for the cluster.
+	AwsContextID *string `json:"awsContextId,omitempty" tf:"aws_context_id,omitempty"`
 }
 
 type DriverNodeTypeFlexibilityParameters struct {
@@ -832,6 +845,10 @@ type DriverNodeTypeFlexibilityParameters struct {
 	// list of alternative node types that will be used if main node type isn't available.  Follow the documentation for requirements on selection of alternative node types.
 	// +kubebuilder:validation:Optional
 	AlternateNodeTypeIds []*string `json:"alternateNodeTypeIds,omitempty" tf:"alternate_node_type_ids,omitempty"`
+
+	// Canonical unique identifier for the cluster.
+	// +kubebuilder:validation:Optional
+	AwsContextID *string `json:"awsContextId,omitempty" tf:"aws_context_id,omitempty"`
 }
 
 type FileInitParameters struct {
@@ -1410,12 +1427,18 @@ type WorkerNodeTypeFlexibilityInitParameters struct {
 
 	// list of alternative node types that will be used if main node type isn't available.  Follow the documentation for requirements on selection of alternative node types.
 	AlternateNodeTypeIds []*string `json:"alternateNodeTypeIds,omitempty" tf:"alternate_node_type_ids,omitempty"`
+
+	// Canonical unique identifier for the cluster.
+	AwsContextID *string `json:"awsContextId,omitempty" tf:"aws_context_id,omitempty"`
 }
 
 type WorkerNodeTypeFlexibilityObservation struct {
 
 	// list of alternative node types that will be used if main node type isn't available.  Follow the documentation for requirements on selection of alternative node types.
 	AlternateNodeTypeIds []*string `json:"alternateNodeTypeIds,omitempty" tf:"alternate_node_type_ids,omitempty"`
+
+	// Canonical unique identifier for the cluster.
+	AwsContextID *string `json:"awsContextId,omitempty" tf:"aws_context_id,omitempty"`
 }
 
 type WorkerNodeTypeFlexibilityParameters struct {
@@ -1423,6 +1446,10 @@ type WorkerNodeTypeFlexibilityParameters struct {
 	// list of alternative node types that will be used if main node type isn't available.  Follow the documentation for requirements on selection of alternative node types.
 	// +kubebuilder:validation:Optional
 	AlternateNodeTypeIds []*string `json:"alternateNodeTypeIds,omitempty" tf:"alternate_node_type_ids,omitempty"`
+
+	// Canonical unique identifier for the cluster.
+	// +kubebuilder:validation:Optional
+	AwsContextID *string `json:"awsContextId,omitempty" tf:"aws_context_id,omitempty"`
 }
 
 type WorkloadTypeInitParameters struct {

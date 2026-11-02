@@ -95,6 +95,8 @@ func TerraformSetupBuilder(fwProvider fwprovider.Provider, tfProvider *schema.Pr
 			err = oidcAuth(pcSpec, &ps)
 		case credentialsSourceUpbound:
 			err = upboundAuth(pcSpec, &ps)
+		case namespacedv1beta1.CredentialsSourceOIDCTokenRequest:
+			err = oidcTokenRequestAuth(ctx, client, pcSpec, &ps, defaultTokenCache)
 		default:
 			err = defaultAuth(ctx, pcSpec, &ps, client)
 		}
@@ -324,8 +326,11 @@ func resolveProviderConfigModern(ctx context.Context, crClient client.Client, mg
 		return nil, errors.Errorf("referenced provider config kind %q is not a provider config type %s/%s", configRef.Kind, mg.GetNamespace(), mg.GetName())
 	}
 
-	// Namespace will be ignored if the PC is a cluster-scoped type
-	if err := crClient.Get(ctx, types.NamespacedName{Name: configRef.Name, Namespace: mg.GetNamespace()}, pcObj); err != nil {
+	key := types.NamespacedName{Name: configRef.Name}
+	if _, namespaced := pcObj.(*namespacedv1beta1.ProviderConfig); namespaced {
+		key.Namespace = mg.GetNamespace()
+	}
+	if err := crClient.Get(ctx, key, pcObj); err != nil {
 		return nil, errors.Wrap(err, errGetProviderConfig)
 	}
 
@@ -333,6 +338,9 @@ func resolveProviderConfigModern(ctx context.Context, crClient client.Client, mg
 	switch pc := pcObj.(type) {
 	case *namespacedv1beta1.ProviderConfig:
 		enrichLocalSecretRefs(pc, mg)
+		if err := enrichLocalServiceAccountRef(pc, mg); err != nil {
+			return nil, err
+		}
 		pcSpec = pc.Spec
 	case *namespacedv1beta1.ClusterProviderConfig:
 		pcSpec = pc.Spec

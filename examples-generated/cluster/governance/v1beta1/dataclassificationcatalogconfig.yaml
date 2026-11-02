@@ -12,13 +12,9 @@ metadata:
   name: example
 spec:
   forProvider:
-    autoTagConfigs:
-    - autoTaggingMode: AUTO_TAGGING_ENABLED
-      classificationTag: class.credit_card
-    - autoTaggingMode: AUTO_TAGGING_ENABLED
-      classificationTag: class.email
     includedSchemas:
       names:
       - sales
       - marketing
       - customer_data
+    parent: catalogs/prod_catalog

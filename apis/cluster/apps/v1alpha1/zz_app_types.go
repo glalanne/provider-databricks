@@ -21,12 +21,15 @@ type ActiveDeploymentInitParameters struct {
 
 	EnvVars []EnvVarsInitParameters `json:"envVars,omitempty" tf:"env_vars,omitempty"`
 
+	// The Git source to deploy from, specifying the reference to check out and an optional path to the app source code within the repository configured in git_repository (see below).
 	GitSource *GitSourceInitParameters `json:"gitSource,omitempty" tf:"git_source,omitempty"`
+
+	HealthCheck *HealthCheckInitParameters `json:"healthCheck,omitempty" tf:"health_check,omitempty"`
 
 	// The deployment mode (AUTO_SYNC or SNAPSHOT).
 	Mode *string `json:"mode,omitempty" tf:"mode,omitempty"`
 
-	// The workspace file system path of the source code used to create the deployment.
+	// Workspace filesystem path of the source code to deploy from, as an alternative to Git-based deployment (git_repository/git_source). This value is not returned by the service; the workspace path of the last active deployment is exported as default_source_code_path.
 	SourceCodePath *string `json:"sourceCodePath,omitempty" tf:"source_code_path,omitempty"`
 }
 
@@ -47,12 +50,15 @@ type ActiveDeploymentObservation struct {
 
 	EnvVars []EnvVarsObservation `json:"envVars,omitempty" tf:"env_vars,omitempty"`
 
+	// The Git source to deploy from, specifying the reference to check out and an optional path to the app source code within the repository configured in git_repository (see below).
 	GitSource *GitSourceObservation `json:"gitSource,omitempty" tf:"git_source,omitempty"`
+
+	HealthCheck *HealthCheckObservation `json:"healthCheck,omitempty" tf:"health_check,omitempty"`
 
 	// The deployment mode (AUTO_SYNC or SNAPSHOT).
 	Mode *string `json:"mode,omitempty" tf:"mode,omitempty"`
 
-	// The workspace file system path of the source code used to create the deployment.
+	// Workspace filesystem path of the source code to deploy from, as an alternative to Git-based deployment (git_repository/git_source). This value is not returned by the service; the workspace path of the last active deployment is exported as default_source_code_path.
 	SourceCodePath *string `json:"sourceCodePath,omitempty" tf:"source_code_path,omitempty"`
 
 	// attribute
@@ -74,19 +80,29 @@ type ActiveDeploymentParameters struct {
 	// +kubebuilder:validation:Optional
 	EnvVars []EnvVarsParameters `json:"envVars,omitempty" tf:"env_vars,omitempty"`
 
+	// The Git source to deploy from, specifying the reference to check out and an optional path to the app source code within the repository configured in git_repository (see below).
 	// +kubebuilder:validation:Optional
 	GitSource *GitSourceParameters `json:"gitSource,omitempty" tf:"git_source,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	HealthCheck *HealthCheckParameters `json:"healthCheck,omitempty" tf:"health_check,omitempty"`
 
 	// The deployment mode (AUTO_SYNC or SNAPSHOT).
 	// +kubebuilder:validation:Optional
 	Mode *string `json:"mode,omitempty" tf:"mode,omitempty"`
 
-	// The workspace file system path of the source code used to create the deployment.
+	// Workspace filesystem path of the source code to deploy from, as an alternative to Git-based deployment (git_repository/git_source). This value is not returned by the service; the workspace path of the last active deployment is exported as default_source_code_path.
 	// +kubebuilder:validation:Optional
 	SourceCodePath *string `json:"sourceCodePath,omitempty" tf:"source_code_path,omitempty"`
 }
 
 type AppGitRepositoryInitParameters struct {
+
+	// When true, the app is automatically redeployed on push events to the branch configured in git_source. This requires git_source to specify a branch; a tag or commit cannot be used, because automatic deployment is triggered by pushes to a branch. Automatic deployment is currently supported only for the gitHub and azureDevOpsServices providers.
+	AutoDeploy *bool `json:"autoDeploy,omitempty" tf:"auto_deploy,omitempty"`
+
+	// ID of a personal access token Git credential owned by the caller, used to grant the app's service principal access to this repository. This is only applied when the app is created and is not returned by the service; changing it on an existing app is not supported.
+	CallerCredentialID *float64 `json:"callerCredentialId,omitempty" tf:"caller_credential_id,omitempty"`
 
 	// Git provider. Case insensitive. Supported values: gitHub, gitHubEnterprise, bitbucketCloud, bitbucketServer, azureDevOpsServices, gitLab, gitLabEnterpriseEdition, awsCodeCommit.
 	Provider *string `json:"provider,omitempty" tf:"provider,omitempty"`
@@ -97,6 +113,12 @@ type AppGitRepositoryInitParameters struct {
 
 type AppGitRepositoryObservation struct {
 
+	// When true, the app is automatically redeployed on push events to the branch configured in git_source. This requires git_source to specify a branch; a tag or commit cannot be used, because automatic deployment is triggered by pushes to a branch. Automatic deployment is currently supported only for the gitHub and azureDevOpsServices providers.
+	AutoDeploy *bool `json:"autoDeploy,omitempty" tf:"auto_deploy,omitempty"`
+
+	// ID of a personal access token Git credential owned by the caller, used to grant the app's service principal access to this repository. This is only applied when the app is created and is not returned by the service; changing it on an existing app is not supported.
+	CallerCredentialID *float64 `json:"callerCredentialId,omitempty" tf:"caller_credential_id,omitempty"`
+
 	// Git provider. Case insensitive. Supported values: gitHub, gitHubEnterprise, bitbucketCloud, bitbucketServer, azureDevOpsServices, gitLab, gitLabEnterpriseEdition, awsCodeCommit.
 	Provider *string `json:"provider,omitempty" tf:"provider,omitempty"`
 
@@ -106,6 +128,14 @@ type AppGitRepositoryObservation struct {
 
 type AppGitRepositoryParameters struct {
 
+	// When true, the app is automatically redeployed on push events to the branch configured in git_source. This requires git_source to specify a branch; a tag or commit cannot be used, because automatic deployment is triggered by pushes to a branch. Automatic deployment is currently supported only for the gitHub and azureDevOpsServices providers.
+	// +kubebuilder:validation:Optional
+	AutoDeploy *bool `json:"autoDeploy,omitempty" tf:"auto_deploy,omitempty"`
+
+	// ID of a personal access token Git credential owned by the caller, used to grant the app's service principal access to this repository. This is only applied when the app is created and is not returned by the service; changing it on an existing app is not supported.
+	// +kubebuilder:validation:Optional
+	CallerCredentialID *float64 `json:"callerCredentialId,omitempty" tf:"caller_credential_id,omitempty"`
+
 	// Git provider. Case insensitive. Supported values: gitHub, gitHubEnterprise, bitbucketCloud, bitbucketServer, azureDevOpsServices, gitLab, gitLabEnterpriseEdition, awsCodeCommit.
 	// +kubebuilder:validation:Optional
 	Provider *string `json:"provider" tf:"provider,omitempty"`
@@ -113,6 +143,72 @@ type AppGitRepositoryParameters struct {
 	// URL of the Git repository.
 	// +kubebuilder:validation:Optional
 	URL *string `json:"url" tf:"url,omitempty"`
+}
+
+type AppGitSourceInitParameters struct {
+
+	// Git branch to check out and deploy from. Required when git_repository.auto_deploy is true, since automatic deployment tracks pushes to a branch.
+	Branch *string `json:"branch,omitempty" tf:"branch,omitempty"`
+
+	// Git commit SHA to check out and deploy from.
+	Commit *string `json:"commit,omitempty" tf:"commit,omitempty"`
+
+	// Git repository configuration for app deployments (see below). When specified, deployments can reference code from this repository by providing only the git reference (branch, tag, or commit).
+	GitRepository *GitSourceGitRepositoryInitParameters `json:"gitRepository,omitempty" tf:"git_repository,omitempty"`
+
+	ResolvedCommit *string `json:"resolvedCommit,omitempty" tf:"resolved_commit,omitempty"`
+
+	// Workspace filesystem path of the source code to deploy from, as an alternative to Git-based deployment (git_repository/git_source). This value is not returned by the service; the workspace path of the last active deployment is exported as default_source_code_path.
+	SourceCodePath *string `json:"sourceCodePath,omitempty" tf:"source_code_path,omitempty"`
+
+	// Git tag to check out and deploy from.
+	Tag *string `json:"tag,omitempty" tf:"tag,omitempty"`
+}
+
+type AppGitSourceObservation struct {
+
+	// Git branch to check out and deploy from. Required when git_repository.auto_deploy is true, since automatic deployment tracks pushes to a branch.
+	Branch *string `json:"branch,omitempty" tf:"branch,omitempty"`
+
+	// Git commit SHA to check out and deploy from.
+	Commit *string `json:"commit,omitempty" tf:"commit,omitempty"`
+
+	// Git repository configuration for app deployments (see below). When specified, deployments can reference code from this repository by providing only the git reference (branch, tag, or commit).
+	GitRepository *GitSourceGitRepositoryObservation `json:"gitRepository,omitempty" tf:"git_repository,omitempty"`
+
+	ResolvedCommit *string `json:"resolvedCommit,omitempty" tf:"resolved_commit,omitempty"`
+
+	// Workspace filesystem path of the source code to deploy from, as an alternative to Git-based deployment (git_repository/git_source). This value is not returned by the service; the workspace path of the last active deployment is exported as default_source_code_path.
+	SourceCodePath *string `json:"sourceCodePath,omitempty" tf:"source_code_path,omitempty"`
+
+	// Git tag to check out and deploy from.
+	Tag *string `json:"tag,omitempty" tf:"tag,omitempty"`
+}
+
+type AppGitSourceParameters struct {
+
+	// Git branch to check out and deploy from. Required when git_repository.auto_deploy is true, since automatic deployment tracks pushes to a branch.
+	// +kubebuilder:validation:Optional
+	Branch *string `json:"branch,omitempty" tf:"branch,omitempty"`
+
+	// Git commit SHA to check out and deploy from.
+	// +kubebuilder:validation:Optional
+	Commit *string `json:"commit,omitempty" tf:"commit,omitempty"`
+
+	// Git repository configuration for app deployments (see below). When specified, deployments can reference code from this repository by providing only the git reference (branch, tag, or commit).
+	// +kubebuilder:validation:Optional
+	GitRepository *GitSourceGitRepositoryParameters `json:"gitRepository,omitempty" tf:"git_repository,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	ResolvedCommit *string `json:"resolvedCommit,omitempty" tf:"resolved_commit,omitempty"`
+
+	// Workspace filesystem path of the source code to deploy from, as an alternative to Git-based deployment (git_repository/git_source). This value is not returned by the service; the workspace path of the last active deployment is exported as default_source_code_path.
+	// +kubebuilder:validation:Optional
+	SourceCodePath *string `json:"sourceCodePath,omitempty" tf:"source_code_path,omitempty"`
+
+	// Git tag to check out and deploy from.
+	// +kubebuilder:validation:Optional
+	Tag *string `json:"tag,omitempty" tf:"tag,omitempty"`
 }
 
 type AppInitParameters struct {
@@ -130,8 +226,13 @@ type AppInitParameters struct {
 	// The description of the app.
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
 
+	ForwardUserAccessToken *bool `json:"forwardUserAccessToken,omitempty" tf:"forward_user_access_token,omitempty"`
+
 	// Git repository configuration for app deployments (see below). When specified, deployments can reference code from this repository by providing only the git reference (branch, tag, or commit).
 	GitRepository *AppGitRepositoryInitParameters `json:"gitRepository,omitempty" tf:"git_repository,omitempty"`
+
+	// The Git source to deploy from, specifying the reference to check out and an optional path to the app source code within the repository configured in git_repository (see below).
+	GitSource *AppGitSourceInitParameters `json:"gitSource,omitempty" tf:"git_source,omitempty"`
 
 	// The name of the app. The name must contain only lowercase alphanumeric characters and hyphens. It must be unique within the workspace.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
@@ -142,6 +243,9 @@ type AppInitParameters struct {
 
 	// A list of resources that the app have access to.
 	Resources []ResourcesInitParameters `json:"resources,omitempty" tf:"resources,omitempty"`
+
+	// Workspace filesystem path of the source code to deploy from, as an alternative to Git-based deployment (git_repository/git_source). This value is not returned by the service; the workspace path of the last active deployment is exported as default_source_code_path.
+	SourceCodePath *string `json:"sourceCodePath,omitempty" tf:"source_code_path,omitempty"`
 
 	Space *string `json:"space,omitempty" tf:"space,omitempty"`
 
@@ -182,6 +286,9 @@ type AppObservation struct {
 	// The email of the user that created the app.
 	Creator *string `json:"creator,omitempty" tf:"creator,omitempty"`
 
+	// The Git source to deploy from, specifying the reference to check out and an optional path to the app source code within the repository configured in git_repository (see below).
+	DefaultGitSource *DefaultGitSourceObservation `json:"defaultGitSource,omitempty" tf:"default_git_source,omitempty"`
+
 	// The default workspace file system path of the source code from which app deployment are created. This field tracks the workspace source code path of the last active deployment.
 	DefaultSourceCodePath *string `json:"defaultSourceCodePath,omitempty" tf:"default_source_code_path,omitempty"`
 
@@ -197,8 +304,13 @@ type AppObservation struct {
 	// A list of effective api scopes granted to the user access token.
 	EffectiveUserAPIScopes []*string `json:"effectiveUserApiScopes,omitempty" tf:"effective_user_api_scopes,omitempty"`
 
+	ForwardUserAccessToken *bool `json:"forwardUserAccessToken,omitempty" tf:"forward_user_access_token,omitempty"`
+
 	// Git repository configuration for app deployments (see below). When specified, deployments can reference code from this repository by providing only the git reference (branch, tag, or commit).
 	GitRepository *AppGitRepositoryObservation `json:"gitRepository,omitempty" tf:"git_repository,omitempty"`
+
+	// The Git source to deploy from, specifying the reference to check out and an optional path to the app source code within the repository configured in git_repository (see below).
+	GitSource *AppGitSourceObservation `json:"gitSource,omitempty" tf:"git_source,omitempty"`
 
 	// Id of the SQL warehouse to grant permission on.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
@@ -230,6 +342,9 @@ type AppObservation struct {
 
 	// name of the app service principal
 	ServicePrincipalName *string `json:"servicePrincipalName,omitempty" tf:"service_principal_name,omitempty"`
+
+	// Workspace filesystem path of the source code to deploy from, as an alternative to Git-based deployment (git_repository/git_source). This value is not returned by the service; the workspace path of the last active deployment is exported as default_source_code_path.
+	SourceCodePath *string `json:"sourceCodePath,omitempty" tf:"source_code_path,omitempty"`
 
 	Space *string `json:"space,omitempty" tf:"space,omitempty"`
 
@@ -275,9 +390,16 @@ type AppParameters struct {
 	// +kubebuilder:validation:Optional
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
 
+	// +kubebuilder:validation:Optional
+	ForwardUserAccessToken *bool `json:"forwardUserAccessToken,omitempty" tf:"forward_user_access_token,omitempty"`
+
 	// Git repository configuration for app deployments (see below). When specified, deployments can reference code from this repository by providing only the git reference (branch, tag, or commit).
 	// +kubebuilder:validation:Optional
 	GitRepository *AppGitRepositoryParameters `json:"gitRepository,omitempty" tf:"git_repository,omitempty"`
+
+	// The Git source to deploy from, specifying the reference to check out and an optional path to the app source code within the repository configured in git_repository (see below).
+	// +kubebuilder:validation:Optional
+	GitSource *AppGitSourceParameters `json:"gitSource,omitempty" tf:"git_source,omitempty"`
 
 	// The name of the app. The name must contain only lowercase alphanumeric characters and hyphens. It must be unique within the workspace.
 	// +kubebuilder:validation:Optional
@@ -292,6 +414,10 @@ type AppParameters struct {
 	// A list of resources that the app have access to.
 	// +kubebuilder:validation:Optional
 	Resources []ResourcesParameters `json:"resources,omitempty" tf:"resources,omitempty"`
+
+	// Workspace filesystem path of the source code to deploy from, as an alternative to Git-based deployment (git_repository/git_source). This value is not returned by the service; the workspace path of the last active deployment is exported as default_source_code_path.
+	// +kubebuilder:validation:Optional
+	SourceCodePath *string `json:"sourceCodePath,omitempty" tf:"source_code_path,omitempty"`
 
 	// +kubebuilder:validation:Optional
 	Space *string `json:"space,omitempty" tf:"space,omitempty"`
@@ -381,21 +507,124 @@ type DatabaseParameters struct {
 	Permission *string `json:"permission" tf:"permission,omitempty"`
 }
 
+type DefaultGitSourceGitRepositoryInitParameters struct {
+
+	// When true, the app is automatically redeployed on push events to the branch configured in git_source. This requires git_source to specify a branch; a tag or commit cannot be used, because automatic deployment is triggered by pushes to a branch. Automatic deployment is currently supported only for the gitHub and azureDevOpsServices providers.
+	AutoDeploy *bool `json:"autoDeploy,omitempty" tf:"auto_deploy,omitempty"`
+
+	// ID of a personal access token Git credential owned by the caller, used to grant the app's service principal access to this repository. This is only applied when the app is created and is not returned by the service; changing it on an existing app is not supported.
+	CallerCredentialID *float64 `json:"callerCredentialId,omitempty" tf:"caller_credential_id,omitempty"`
+
+	// Git provider. Case insensitive. Supported values: gitHub, gitHubEnterprise, bitbucketCloud, bitbucketServer, azureDevOpsServices, gitLab, gitLabEnterpriseEdition, awsCodeCommit.
+	Provider *string `json:"provider,omitempty" tf:"provider,omitempty"`
+
+	// URL of the Git repository.
+	URL *string `json:"url,omitempty" tf:"url,omitempty"`
+}
+
+type DefaultGitSourceGitRepositoryObservation struct {
+
+	// When true, the app is automatically redeployed on push events to the branch configured in git_source. This requires git_source to specify a branch; a tag or commit cannot be used, because automatic deployment is triggered by pushes to a branch. Automatic deployment is currently supported only for the gitHub and azureDevOpsServices providers.
+	AutoDeploy *bool `json:"autoDeploy,omitempty" tf:"auto_deploy,omitempty"`
+
+	// ID of a personal access token Git credential owned by the caller, used to grant the app's service principal access to this repository. This is only applied when the app is created and is not returned by the service; changing it on an existing app is not supported.
+	CallerCredentialID *float64 `json:"callerCredentialId,omitempty" tf:"caller_credential_id,omitempty"`
+
+	// Git provider. Case insensitive. Supported values: gitHub, gitHubEnterprise, bitbucketCloud, bitbucketServer, azureDevOpsServices, gitLab, gitLabEnterpriseEdition, awsCodeCommit.
+	Provider *string `json:"provider,omitempty" tf:"provider,omitempty"`
+
+	// URL of the Git repository.
+	URL *string `json:"url,omitempty" tf:"url,omitempty"`
+}
+
+type DefaultGitSourceGitRepositoryParameters struct {
+
+	// When true, the app is automatically redeployed on push events to the branch configured in git_source. This requires git_source to specify a branch; a tag or commit cannot be used, because automatic deployment is triggered by pushes to a branch. Automatic deployment is currently supported only for the gitHub and azureDevOpsServices providers.
+	// +kubebuilder:validation:Optional
+	AutoDeploy *bool `json:"autoDeploy,omitempty" tf:"auto_deploy,omitempty"`
+
+	// ID of a personal access token Git credential owned by the caller, used to grant the app's service principal access to this repository. This is only applied when the app is created and is not returned by the service; changing it on an existing app is not supported.
+	// +kubebuilder:validation:Optional
+	CallerCredentialID *float64 `json:"callerCredentialId,omitempty" tf:"caller_credential_id,omitempty"`
+
+	// Git provider. Case insensitive. Supported values: gitHub, gitHubEnterprise, bitbucketCloud, bitbucketServer, azureDevOpsServices, gitLab, gitLabEnterpriseEdition, awsCodeCommit.
+	// +kubebuilder:validation:Optional
+	Provider *string `json:"provider" tf:"provider,omitempty"`
+
+	// URL of the Git repository.
+	// +kubebuilder:validation:Optional
+	URL *string `json:"url" tf:"url,omitempty"`
+}
+
+type DefaultGitSourceInitParameters struct {
+
+	// Git branch to check out and deploy from. Required when git_repository.auto_deploy is true, since automatic deployment tracks pushes to a branch.
+	Branch *string `json:"branch,omitempty" tf:"branch,omitempty"`
+
+	// Git commit SHA to check out and deploy from.
+	Commit *string `json:"commit,omitempty" tf:"commit,omitempty"`
+
+	// Workspace filesystem path of the source code to deploy from, as an alternative to Git-based deployment (git_repository/git_source). This value is not returned by the service; the workspace path of the last active deployment is exported as default_source_code_path.
+	SourceCodePath *string `json:"sourceCodePath,omitempty" tf:"source_code_path,omitempty"`
+
+	// Git tag to check out and deploy from.
+	Tag *string `json:"tag,omitempty" tf:"tag,omitempty"`
+}
+
+type DefaultGitSourceObservation struct {
+
+	// Git branch to check out and deploy from. Required when git_repository.auto_deploy is true, since automatic deployment tracks pushes to a branch.
+	Branch *string `json:"branch,omitempty" tf:"branch,omitempty"`
+
+	// Git commit SHA to check out and deploy from.
+	Commit *string `json:"commit,omitempty" tf:"commit,omitempty"`
+
+	// Git repository configuration for app deployments (see below). When specified, deployments can reference code from this repository by providing only the git reference (branch, tag, or commit).
+	GitRepository *DefaultGitSourceGitRepositoryObservation `json:"gitRepository,omitempty" tf:"git_repository,omitempty"`
+
+	ResolvedCommit *string `json:"resolvedCommit,omitempty" tf:"resolved_commit,omitempty"`
+
+	// Workspace filesystem path of the source code to deploy from, as an alternative to Git-based deployment (git_repository/git_source). This value is not returned by the service; the workspace path of the last active deployment is exported as default_source_code_path.
+	SourceCodePath *string `json:"sourceCodePath,omitempty" tf:"source_code_path,omitempty"`
+
+	// Git tag to check out and deploy from.
+	Tag *string `json:"tag,omitempty" tf:"tag,omitempty"`
+}
+
+type DefaultGitSourceParameters struct {
+
+	// Git branch to check out and deploy from. Required when git_repository.auto_deploy is true, since automatic deployment tracks pushes to a branch.
+	// +kubebuilder:validation:Optional
+	Branch *string `json:"branch,omitempty" tf:"branch,omitempty"`
+
+	// Git commit SHA to check out and deploy from.
+	// +kubebuilder:validation:Optional
+	Commit *string `json:"commit,omitempty" tf:"commit,omitempty"`
+
+	// Workspace filesystem path of the source code to deploy from, as an alternative to Git-based deployment (git_repository/git_source). This value is not returned by the service; the workspace path of the last active deployment is exported as default_source_code_path.
+	// +kubebuilder:validation:Optional
+	SourceCodePath *string `json:"sourceCodePath,omitempty" tf:"source_code_path,omitempty"`
+
+	// Git tag to check out and deploy from.
+	// +kubebuilder:validation:Optional
+	Tag *string `json:"tag,omitempty" tf:"tag,omitempty"`
+}
+
 type DeploymentArtifactsInitParameters struct {
 
-	// The workspace file system path of the source code used to create the deployment.
+	// Workspace filesystem path of the source code to deploy from, as an alternative to Git-based deployment (git_repository/git_source). This value is not returned by the service; the workspace path of the last active deployment is exported as default_source_code_path.
 	SourceCodePath *string `json:"sourceCodePath,omitempty" tf:"source_code_path,omitempty"`
 }
 
 type DeploymentArtifactsObservation struct {
 
-	// The workspace file system path of the source code used to create the deployment.
+	// Workspace filesystem path of the source code to deploy from, as an alternative to Git-based deployment (git_repository/git_source). This value is not returned by the service; the workspace path of the last active deployment is exported as default_source_code_path.
 	SourceCodePath *string `json:"sourceCodePath,omitempty" tf:"source_code_path,omitempty"`
 }
 
 type DeploymentArtifactsParameters struct {
 
-	// The workspace file system path of the source code used to create the deployment.
+	// Workspace filesystem path of the source code to deploy from, as an alternative to Git-based deployment (git_repository/git_source). This value is not returned by the service; the workspace path of the last active deployment is exported as default_source_code_path.
 	// +kubebuilder:validation:Optional
 	SourceCodePath *string `json:"sourceCodePath,omitempty" tf:"source_code_path,omitempty"`
 }
@@ -503,6 +732,12 @@ type GenieSpaceParameters struct {
 
 type GitRepositoryInitParameters struct {
 
+	// When true, the app is automatically redeployed on push events to the branch configured in git_source. This requires git_source to specify a branch; a tag or commit cannot be used, because automatic deployment is triggered by pushes to a branch. Automatic deployment is currently supported only for the gitHub and azureDevOpsServices providers.
+	AutoDeploy *bool `json:"autoDeploy,omitempty" tf:"auto_deploy,omitempty"`
+
+	// ID of a personal access token Git credential owned by the caller, used to grant the app's service principal access to this repository. This is only applied when the app is created and is not returned by the service; changing it on an existing app is not supported.
+	CallerCredentialID *float64 `json:"callerCredentialId,omitempty" tf:"caller_credential_id,omitempty"`
+
 	// Git provider. Case insensitive. Supported values: gitHub, gitHubEnterprise, bitbucketCloud, bitbucketServer, azureDevOpsServices, gitLab, gitLabEnterpriseEdition, awsCodeCommit.
 	Provider *string `json:"provider,omitempty" tf:"provider,omitempty"`
 
@@ -512,6 +747,12 @@ type GitRepositoryInitParameters struct {
 
 type GitRepositoryObservation struct {
 
+	// When true, the app is automatically redeployed on push events to the branch configured in git_source. This requires git_source to specify a branch; a tag or commit cannot be used, because automatic deployment is triggered by pushes to a branch. Automatic deployment is currently supported only for the gitHub and azureDevOpsServices providers.
+	AutoDeploy *bool `json:"autoDeploy,omitempty" tf:"auto_deploy,omitempty"`
+
+	// ID of a personal access token Git credential owned by the caller, used to grant the app's service principal access to this repository. This is only applied when the app is created and is not returned by the service; changing it on an existing app is not supported.
+	CallerCredentialID *float64 `json:"callerCredentialId,omitempty" tf:"caller_credential_id,omitempty"`
+
 	// Git provider. Case insensitive. Supported values: gitHub, gitHubEnterprise, bitbucketCloud, bitbucketServer, azureDevOpsServices, gitLab, gitLabEnterpriseEdition, awsCodeCommit.
 	Provider *string `json:"provider,omitempty" tf:"provider,omitempty"`
 
@@ -520,6 +761,14 @@ type GitRepositoryObservation struct {
 }
 
 type GitRepositoryParameters struct {
+
+	// When true, the app is automatically redeployed on push events to the branch configured in git_source. This requires git_source to specify a branch; a tag or commit cannot be used, because automatic deployment is triggered by pushes to a branch. Automatic deployment is currently supported only for the gitHub and azureDevOpsServices providers.
+	// +kubebuilder:validation:Optional
+	AutoDeploy *bool `json:"autoDeploy,omitempty" tf:"auto_deploy,omitempty"`
+
+	// ID of a personal access token Git credential owned by the caller, used to grant the app's service principal access to this repository. This is only applied when the app is created and is not returned by the service; changing it on an existing app is not supported.
+	// +kubebuilder:validation:Optional
+	CallerCredentialID *float64 `json:"callerCredentialId,omitempty" tf:"caller_credential_id,omitempty"`
 
 	// Git provider. Case insensitive. Supported values: gitHub, gitHubEnterprise, bitbucketCloud, bitbucketServer, azureDevOpsServices, gitLab, gitLabEnterpriseEdition, awsCodeCommit.
 	// +kubebuilder:validation:Optional
@@ -532,6 +781,12 @@ type GitRepositoryParameters struct {
 
 type GitSourceGitRepositoryInitParameters struct {
 
+	// When true, the app is automatically redeployed on push events to the branch configured in git_source. This requires git_source to specify a branch; a tag or commit cannot be used, because automatic deployment is triggered by pushes to a branch. Automatic deployment is currently supported only for the gitHub and azureDevOpsServices providers.
+	AutoDeploy *bool `json:"autoDeploy,omitempty" tf:"auto_deploy,omitempty"`
+
+	// ID of a personal access token Git credential owned by the caller, used to grant the app's service principal access to this repository. This is only applied when the app is created and is not returned by the service; changing it on an existing app is not supported.
+	CallerCredentialID *float64 `json:"callerCredentialId,omitempty" tf:"caller_credential_id,omitempty"`
+
 	// Git provider. Case insensitive. Supported values: gitHub, gitHubEnterprise, bitbucketCloud, bitbucketServer, azureDevOpsServices, gitLab, gitLabEnterpriseEdition, awsCodeCommit.
 	Provider *string `json:"provider,omitempty" tf:"provider,omitempty"`
 
@@ -541,6 +796,12 @@ type GitSourceGitRepositoryInitParameters struct {
 
 type GitSourceGitRepositoryObservation struct {
 
+	// When true, the app is automatically redeployed on push events to the branch configured in git_source. This requires git_source to specify a branch; a tag or commit cannot be used, because automatic deployment is triggered by pushes to a branch. Automatic deployment is currently supported only for the gitHub and azureDevOpsServices providers.
+	AutoDeploy *bool `json:"autoDeploy,omitempty" tf:"auto_deploy,omitempty"`
+
+	// ID of a personal access token Git credential owned by the caller, used to grant the app's service principal access to this repository. This is only applied when the app is created and is not returned by the service; changing it on an existing app is not supported.
+	CallerCredentialID *float64 `json:"callerCredentialId,omitempty" tf:"caller_credential_id,omitempty"`
+
 	// Git provider. Case insensitive. Supported values: gitHub, gitHubEnterprise, bitbucketCloud, bitbucketServer, azureDevOpsServices, gitLab, gitLabEnterpriseEdition, awsCodeCommit.
 	Provider *string `json:"provider,omitempty" tf:"provider,omitempty"`
 
@@ -549,6 +810,14 @@ type GitSourceGitRepositoryObservation struct {
 }
 
 type GitSourceGitRepositoryParameters struct {
+
+	// When true, the app is automatically redeployed on push events to the branch configured in git_source. This requires git_source to specify a branch; a tag or commit cannot be used, because automatic deployment is triggered by pushes to a branch. Automatic deployment is currently supported only for the gitHub and azureDevOpsServices providers.
+	// +kubebuilder:validation:Optional
+	AutoDeploy *bool `json:"autoDeploy,omitempty" tf:"auto_deploy,omitempty"`
+
+	// ID of a personal access token Git credential owned by the caller, used to grant the app's service principal access to this repository. This is only applied when the app is created and is not returned by the service; changing it on an existing app is not supported.
+	// +kubebuilder:validation:Optional
+	CallerCredentialID *float64 `json:"callerCredentialId,omitempty" tf:"caller_credential_id,omitempty"`
 
 	// Git provider. Case insensitive. Supported values: gitHub, gitHubEnterprise, bitbucketCloud, bitbucketServer, azureDevOpsServices, gitLab, gitLabEnterpriseEdition, awsCodeCommit.
 	// +kubebuilder:validation:Optional
@@ -561,22 +830,25 @@ type GitSourceGitRepositoryParameters struct {
 
 type GitSourceInitParameters struct {
 
-	// The resource path of the Lakebase Autoscaling branch to grant permission on (e.g. projects/proj-abc123/branches/branch-xyz789).
+	// Git branch to check out and deploy from. Required when git_repository.auto_deploy is true, since automatic deployment tracks pushes to a branch.
 	Branch *string `json:"branch,omitempty" tf:"branch,omitempty"`
 
+	// Git commit SHA to check out and deploy from.
 	Commit *string `json:"commit,omitempty" tf:"commit,omitempty"`
 
-	// The workspace file system path of the source code used to create the deployment.
+	// Workspace filesystem path of the source code to deploy from, as an alternative to Git-based deployment (git_repository/git_source). This value is not returned by the service; the workspace path of the last active deployment is exported as default_source_code_path.
 	SourceCodePath *string `json:"sourceCodePath,omitempty" tf:"source_code_path,omitempty"`
 
+	// Git tag to check out and deploy from.
 	Tag *string `json:"tag,omitempty" tf:"tag,omitempty"`
 }
 
 type GitSourceObservation struct {
 
-	// The resource path of the Lakebase Autoscaling branch to grant permission on (e.g. projects/proj-abc123/branches/branch-xyz789).
+	// Git branch to check out and deploy from. Required when git_repository.auto_deploy is true, since automatic deployment tracks pushes to a branch.
 	Branch *string `json:"branch,omitempty" tf:"branch,omitempty"`
 
+	// Git commit SHA to check out and deploy from.
 	Commit *string `json:"commit,omitempty" tf:"commit,omitempty"`
 
 	// Git repository configuration for app deployments (see below). When specified, deployments can reference code from this repository by providing only the git reference (branch, tag, or commit).
@@ -584,27 +856,51 @@ type GitSourceObservation struct {
 
 	ResolvedCommit *string `json:"resolvedCommit,omitempty" tf:"resolved_commit,omitempty"`
 
-	// The workspace file system path of the source code used to create the deployment.
+	// Workspace filesystem path of the source code to deploy from, as an alternative to Git-based deployment (git_repository/git_source). This value is not returned by the service; the workspace path of the last active deployment is exported as default_source_code_path.
 	SourceCodePath *string `json:"sourceCodePath,omitempty" tf:"source_code_path,omitempty"`
 
+	// Git tag to check out and deploy from.
 	Tag *string `json:"tag,omitempty" tf:"tag,omitempty"`
 }
 
 type GitSourceParameters struct {
 
-	// The resource path of the Lakebase Autoscaling branch to grant permission on (e.g. projects/proj-abc123/branches/branch-xyz789).
+	// Git branch to check out and deploy from. Required when git_repository.auto_deploy is true, since automatic deployment tracks pushes to a branch.
 	// +kubebuilder:validation:Optional
 	Branch *string `json:"branch,omitempty" tf:"branch,omitempty"`
 
+	// Git commit SHA to check out and deploy from.
 	// +kubebuilder:validation:Optional
 	Commit *string `json:"commit,omitempty" tf:"commit,omitempty"`
 
-	// The workspace file system path of the source code used to create the deployment.
+	// Workspace filesystem path of the source code to deploy from, as an alternative to Git-based deployment (git_repository/git_source). This value is not returned by the service; the workspace path of the last active deployment is exported as default_source_code_path.
 	// +kubebuilder:validation:Optional
 	SourceCodePath *string `json:"sourceCodePath,omitempty" tf:"source_code_path,omitempty"`
 
+	// Git tag to check out and deploy from.
 	// +kubebuilder:validation:Optional
 	Tag *string `json:"tag,omitempty" tf:"tag,omitempty"`
+}
+
+type HealthCheckInitParameters struct {
+	Path *string `json:"path,omitempty" tf:"path,omitempty"`
+
+	Timeout *string `json:"timeout,omitempty" tf:"timeout,omitempty"`
+}
+
+type HealthCheckObservation struct {
+	Path *string `json:"path,omitempty" tf:"path,omitempty"`
+
+	Timeout *string `json:"timeout,omitempty" tf:"timeout,omitempty"`
+}
+
+type HealthCheckParameters struct {
+
+	// +kubebuilder:validation:Optional
+	Path *string `json:"path,omitempty" tf:"path,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	Timeout *string `json:"timeout,omitempty" tf:"timeout,omitempty"`
 }
 
 type JobInitParameters struct {
@@ -638,19 +934,19 @@ type JobParameters struct {
 
 type PendingDeploymentDeploymentArtifactsInitParameters struct {
 
-	// The workspace file system path of the source code used to create the deployment.
+	// Workspace filesystem path of the source code to deploy from, as an alternative to Git-based deployment (git_repository/git_source). This value is not returned by the service; the workspace path of the last active deployment is exported as default_source_code_path.
 	SourceCodePath *string `json:"sourceCodePath,omitempty" tf:"source_code_path,omitempty"`
 }
 
 type PendingDeploymentDeploymentArtifactsObservation struct {
 
-	// The workspace file system path of the source code used to create the deployment.
+	// Workspace filesystem path of the source code to deploy from, as an alternative to Git-based deployment (git_repository/git_source). This value is not returned by the service; the workspace path of the last active deployment is exported as default_source_code_path.
 	SourceCodePath *string `json:"sourceCodePath,omitempty" tf:"source_code_path,omitempty"`
 }
 
 type PendingDeploymentDeploymentArtifactsParameters struct {
 
-	// The workspace file system path of the source code used to create the deployment.
+	// Workspace filesystem path of the source code to deploy from, as an alternative to Git-based deployment (git_repository/git_source). This value is not returned by the service; the workspace path of the last active deployment is exported as default_source_code_path.
 	// +kubebuilder:validation:Optional
 	SourceCodePath *string `json:"sourceCodePath,omitempty" tf:"source_code_path,omitempty"`
 }
@@ -688,52 +984,128 @@ type PendingDeploymentEnvVarsParameters struct {
 	ValueFrom *string `json:"valueFrom,omitempty" tf:"value_from,omitempty"`
 }
 
+type PendingDeploymentGitSourceGitRepositoryInitParameters struct {
+
+	// When true, the app is automatically redeployed on push events to the branch configured in git_source. This requires git_source to specify a branch; a tag or commit cannot be used, because automatic deployment is triggered by pushes to a branch. Automatic deployment is currently supported only for the gitHub and azureDevOpsServices providers.
+	AutoDeploy *bool `json:"autoDeploy,omitempty" tf:"auto_deploy,omitempty"`
+
+	// ID of a personal access token Git credential owned by the caller, used to grant the app's service principal access to this repository. This is only applied when the app is created and is not returned by the service; changing it on an existing app is not supported.
+	CallerCredentialID *float64 `json:"callerCredentialId,omitempty" tf:"caller_credential_id,omitempty"`
+
+	// Git provider. Case insensitive. Supported values: gitHub, gitHubEnterprise, bitbucketCloud, bitbucketServer, azureDevOpsServices, gitLab, gitLabEnterpriseEdition, awsCodeCommit.
+	Provider *string `json:"provider,omitempty" tf:"provider,omitempty"`
+
+	// URL of the Git repository.
+	URL *string `json:"url,omitempty" tf:"url,omitempty"`
+}
+
+type PendingDeploymentGitSourceGitRepositoryObservation struct {
+
+	// When true, the app is automatically redeployed on push events to the branch configured in git_source. This requires git_source to specify a branch; a tag or commit cannot be used, because automatic deployment is triggered by pushes to a branch. Automatic deployment is currently supported only for the gitHub and azureDevOpsServices providers.
+	AutoDeploy *bool `json:"autoDeploy,omitempty" tf:"auto_deploy,omitempty"`
+
+	// ID of a personal access token Git credential owned by the caller, used to grant the app's service principal access to this repository. This is only applied when the app is created and is not returned by the service; changing it on an existing app is not supported.
+	CallerCredentialID *float64 `json:"callerCredentialId,omitempty" tf:"caller_credential_id,omitempty"`
+
+	// Git provider. Case insensitive. Supported values: gitHub, gitHubEnterprise, bitbucketCloud, bitbucketServer, azureDevOpsServices, gitLab, gitLabEnterpriseEdition, awsCodeCommit.
+	Provider *string `json:"provider,omitempty" tf:"provider,omitempty"`
+
+	// URL of the Git repository.
+	URL *string `json:"url,omitempty" tf:"url,omitempty"`
+}
+
+type PendingDeploymentGitSourceGitRepositoryParameters struct {
+
+	// When true, the app is automatically redeployed on push events to the branch configured in git_source. This requires git_source to specify a branch; a tag or commit cannot be used, because automatic deployment is triggered by pushes to a branch. Automatic deployment is currently supported only for the gitHub and azureDevOpsServices providers.
+	// +kubebuilder:validation:Optional
+	AutoDeploy *bool `json:"autoDeploy,omitempty" tf:"auto_deploy,omitempty"`
+
+	// ID of a personal access token Git credential owned by the caller, used to grant the app's service principal access to this repository. This is only applied when the app is created and is not returned by the service; changing it on an existing app is not supported.
+	// +kubebuilder:validation:Optional
+	CallerCredentialID *float64 `json:"callerCredentialId,omitempty" tf:"caller_credential_id,omitempty"`
+
+	// Git provider. Case insensitive. Supported values: gitHub, gitHubEnterprise, bitbucketCloud, bitbucketServer, azureDevOpsServices, gitLab, gitLabEnterpriseEdition, awsCodeCommit.
+	// +kubebuilder:validation:Optional
+	Provider *string `json:"provider" tf:"provider,omitempty"`
+
+	// URL of the Git repository.
+	// +kubebuilder:validation:Optional
+	URL *string `json:"url" tf:"url,omitempty"`
+}
+
 type PendingDeploymentGitSourceInitParameters struct {
 
-	// The resource path of the Lakebase Autoscaling branch to grant permission on (e.g. projects/proj-abc123/branches/branch-xyz789).
+	// Git branch to check out and deploy from. Required when git_repository.auto_deploy is true, since automatic deployment tracks pushes to a branch.
 	Branch *string `json:"branch,omitempty" tf:"branch,omitempty"`
 
+	// Git commit SHA to check out and deploy from.
 	Commit *string `json:"commit,omitempty" tf:"commit,omitempty"`
 
-	// The workspace file system path of the source code used to create the deployment.
+	// Workspace filesystem path of the source code to deploy from, as an alternative to Git-based deployment (git_repository/git_source). This value is not returned by the service; the workspace path of the last active deployment is exported as default_source_code_path.
 	SourceCodePath *string `json:"sourceCodePath,omitempty" tf:"source_code_path,omitempty"`
 
+	// Git tag to check out and deploy from.
 	Tag *string `json:"tag,omitempty" tf:"tag,omitempty"`
 }
 
 type PendingDeploymentGitSourceObservation struct {
 
-	// The resource path of the Lakebase Autoscaling branch to grant permission on (e.g. projects/proj-abc123/branches/branch-xyz789).
+	// Git branch to check out and deploy from. Required when git_repository.auto_deploy is true, since automatic deployment tracks pushes to a branch.
 	Branch *string `json:"branch,omitempty" tf:"branch,omitempty"`
 
+	// Git commit SHA to check out and deploy from.
 	Commit *string `json:"commit,omitempty" tf:"commit,omitempty"`
 
 	// Git repository configuration for app deployments (see below). When specified, deployments can reference code from this repository by providing only the git reference (branch, tag, or commit).
-	GitRepository *GitSourceGitRepositoryObservation `json:"gitRepository,omitempty" tf:"git_repository,omitempty"`
+	GitRepository *PendingDeploymentGitSourceGitRepositoryObservation `json:"gitRepository,omitempty" tf:"git_repository,omitempty"`
 
 	ResolvedCommit *string `json:"resolvedCommit,omitempty" tf:"resolved_commit,omitempty"`
 
-	// The workspace file system path of the source code used to create the deployment.
+	// Workspace filesystem path of the source code to deploy from, as an alternative to Git-based deployment (git_repository/git_source). This value is not returned by the service; the workspace path of the last active deployment is exported as default_source_code_path.
 	SourceCodePath *string `json:"sourceCodePath,omitempty" tf:"source_code_path,omitempty"`
 
+	// Git tag to check out and deploy from.
 	Tag *string `json:"tag,omitempty" tf:"tag,omitempty"`
 }
 
 type PendingDeploymentGitSourceParameters struct {
 
-	// The resource path of the Lakebase Autoscaling branch to grant permission on (e.g. projects/proj-abc123/branches/branch-xyz789).
+	// Git branch to check out and deploy from. Required when git_repository.auto_deploy is true, since automatic deployment tracks pushes to a branch.
 	// +kubebuilder:validation:Optional
 	Branch *string `json:"branch,omitempty" tf:"branch,omitempty"`
 
+	// Git commit SHA to check out and deploy from.
 	// +kubebuilder:validation:Optional
 	Commit *string `json:"commit,omitempty" tf:"commit,omitempty"`
 
-	// The workspace file system path of the source code used to create the deployment.
+	// Workspace filesystem path of the source code to deploy from, as an alternative to Git-based deployment (git_repository/git_source). This value is not returned by the service; the workspace path of the last active deployment is exported as default_source_code_path.
 	// +kubebuilder:validation:Optional
 	SourceCodePath *string `json:"sourceCodePath,omitempty" tf:"source_code_path,omitempty"`
 
+	// Git tag to check out and deploy from.
 	// +kubebuilder:validation:Optional
 	Tag *string `json:"tag,omitempty" tf:"tag,omitempty"`
+}
+
+type PendingDeploymentHealthCheckInitParameters struct {
+	Path *string `json:"path,omitempty" tf:"path,omitempty"`
+
+	Timeout *string `json:"timeout,omitempty" tf:"timeout,omitempty"`
+}
+
+type PendingDeploymentHealthCheckObservation struct {
+	Path *string `json:"path,omitempty" tf:"path,omitempty"`
+
+	Timeout *string `json:"timeout,omitempty" tf:"timeout,omitempty"`
+}
+
+type PendingDeploymentHealthCheckParameters struct {
+
+	// +kubebuilder:validation:Optional
+	Path *string `json:"path,omitempty" tf:"path,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	Timeout *string `json:"timeout,omitempty" tf:"timeout,omitempty"`
 }
 
 type PendingDeploymentInitParameters struct {
@@ -744,12 +1116,15 @@ type PendingDeploymentInitParameters struct {
 
 	EnvVars []PendingDeploymentEnvVarsInitParameters `json:"envVars,omitempty" tf:"env_vars,omitempty"`
 
+	// The Git source to deploy from, specifying the reference to check out and an optional path to the app source code within the repository configured in git_repository (see below).
 	GitSource *PendingDeploymentGitSourceInitParameters `json:"gitSource,omitempty" tf:"git_source,omitempty"`
+
+	HealthCheck *PendingDeploymentHealthCheckInitParameters `json:"healthCheck,omitempty" tf:"health_check,omitempty"`
 
 	// The deployment mode (AUTO_SYNC or SNAPSHOT).
 	Mode *string `json:"mode,omitempty" tf:"mode,omitempty"`
 
-	// The workspace file system path of the source code used to create the deployment.
+	// Workspace filesystem path of the source code to deploy from, as an alternative to Git-based deployment (git_repository/git_source). This value is not returned by the service; the workspace path of the last active deployment is exported as default_source_code_path.
 	SourceCodePath *string `json:"sourceCodePath,omitempty" tf:"source_code_path,omitempty"`
 }
 
@@ -770,12 +1145,15 @@ type PendingDeploymentObservation struct {
 
 	EnvVars []PendingDeploymentEnvVarsObservation `json:"envVars,omitempty" tf:"env_vars,omitempty"`
 
+	// The Git source to deploy from, specifying the reference to check out and an optional path to the app source code within the repository configured in git_repository (see below).
 	GitSource *PendingDeploymentGitSourceObservation `json:"gitSource,omitempty" tf:"git_source,omitempty"`
+
+	HealthCheck *PendingDeploymentHealthCheckObservation `json:"healthCheck,omitempty" tf:"health_check,omitempty"`
 
 	// The deployment mode (AUTO_SYNC or SNAPSHOT).
 	Mode *string `json:"mode,omitempty" tf:"mode,omitempty"`
 
-	// The workspace file system path of the source code used to create the deployment.
+	// Workspace filesystem path of the source code to deploy from, as an alternative to Git-based deployment (git_repository/git_source). This value is not returned by the service; the workspace path of the last active deployment is exported as default_source_code_path.
 	SourceCodePath *string `json:"sourceCodePath,omitempty" tf:"source_code_path,omitempty"`
 
 	// attribute
@@ -797,14 +1175,18 @@ type PendingDeploymentParameters struct {
 	// +kubebuilder:validation:Optional
 	EnvVars []PendingDeploymentEnvVarsParameters `json:"envVars,omitempty" tf:"env_vars,omitempty"`
 
+	// The Git source to deploy from, specifying the reference to check out and an optional path to the app source code within the repository configured in git_repository (see below).
 	// +kubebuilder:validation:Optional
 	GitSource *PendingDeploymentGitSourceParameters `json:"gitSource,omitempty" tf:"git_source,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	HealthCheck *PendingDeploymentHealthCheckParameters `json:"healthCheck,omitempty" tf:"health_check,omitempty"`
 
 	// The deployment mode (AUTO_SYNC or SNAPSHOT).
 	// +kubebuilder:validation:Optional
 	Mode *string `json:"mode,omitempty" tf:"mode,omitempty"`
 
-	// The workspace file system path of the source code used to create the deployment.
+	// Workspace filesystem path of the source code to deploy from, as an alternative to Git-based deployment (git_repository/git_source). This value is not returned by the service; the workspace path of the last active deployment is exported as default_source_code_path.
 	// +kubebuilder:validation:Optional
 	SourceCodePath *string `json:"sourceCodePath,omitempty" tf:"source_code_path,omitempty"`
 }
@@ -826,7 +1208,7 @@ type PendingDeploymentStatusParameters struct {
 
 type PostgresInitParameters struct {
 
-	// The resource path of the Lakebase Autoscaling branch to grant permission on (e.g. projects/proj-abc123/branches/branch-xyz789).
+	// Git branch to check out and deploy from. Required when git_repository.auto_deploy is true, since automatic deployment tracks pushes to a branch.
 	Branch *string `json:"branch,omitempty" tf:"branch,omitempty"`
 
 	// attribute
@@ -838,7 +1220,7 @@ type PostgresInitParameters struct {
 
 type PostgresObservation struct {
 
-	// The resource path of the Lakebase Autoscaling branch to grant permission on (e.g. projects/proj-abc123/branches/branch-xyz789).
+	// Git branch to check out and deploy from. Required when git_repository.auto_deploy is true, since automatic deployment tracks pushes to a branch.
 	Branch *string `json:"branch,omitempty" tf:"branch,omitempty"`
 
 	// attribute
@@ -850,7 +1232,7 @@ type PostgresObservation struct {
 
 type PostgresParameters struct {
 
-	// The resource path of the Lakebase Autoscaling branch to grant permission on (e.g. projects/proj-abc123/branches/branch-xyz789).
+	// Git branch to check out and deploy from. Required when git_repository.auto_deploy is true, since automatic deployment tracks pushes to a branch.
 	// +kubebuilder:validation:Optional
 	Branch *string `json:"branch,omitempty" tf:"branch,omitempty"`
 

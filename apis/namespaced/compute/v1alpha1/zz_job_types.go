@@ -41,7 +41,7 @@ type AIRuntimeTaskDeploymentsParameters struct {
 
 	// If source is GIT: Relative path to the file in the repository specified in the git_source block with SQL commands to execute. If source is WORKSPACE: Absolute path to the file in the workspace with SQL commands to execute.
 	// +kubebuilder:validation:Optional
-	CommandPath *string `json:"commandPath" tf:"command_path,omitempty"`
+	CommandPath *string `json:"commandPath,omitempty" tf:"command_path,omitempty"`
 
 	// Task level compute configuration. This block is documented below.
 	// +kubebuilder:validation:Optional
@@ -53,38 +53,84 @@ type AIRuntimeTaskDeploymentsParameters struct {
 }
 
 type AIRuntimeTaskInitParameters struct {
+
+	// If source is GIT: Relative path to the file in the repository specified in the git_source block with SQL commands to execute. If source is WORKSPACE: Absolute path to the file in the workspace with SQL commands to execute.
+	CodeSourcePath *string `json:"codeSourcePath,omitempty" tf:"code_source_path,omitempty"`
+
 	Deployments []DeploymentsInitParameters `json:"deployments,omitempty" tf:"deployments,omitempty"`
 
+	// URL to be monitored for file arrivals. The path must point to the root or a subpath of the external location. Please note that the URL must have a trailing slash character (/).
+	DockerImageURL *string `json:"dockerImageUrl,omitempty" tf:"docker_image_url,omitempty"`
+
 	Experiment *string `json:"experiment,omitempty" tf:"experiment,omitempty"`
+
+	MlflowArtifactLocation *string `json:"mlflowArtifactLocation,omitempty" tf:"mlflow_artifact_location,omitempty"`
 
 	MlflowExperimentDirectory *string `json:"mlflowExperimentDirectory,omitempty" tf:"mlflow_experiment_directory,omitempty"`
 
 	MlflowRun *string `json:"mlflowRun,omitempty" tf:"mlflow_run,omitempty"`
+
+	PriorityClass *string `json:"priorityClass,omitempty" tf:"priority_class,omitempty"`
+
+	// If source is GIT: Relative path to the file in the repository specified in the git_source block with SQL commands to execute. If source is WORKSPACE: Absolute path to the file in the workspace with SQL commands to execute.
+	UnityCatalogImagePath *string `json:"unityCatalogImagePath,omitempty" tf:"unity_catalog_image_path,omitempty"`
 }
 
 type AIRuntimeTaskObservation struct {
+
+	// If source is GIT: Relative path to the file in the repository specified in the git_source block with SQL commands to execute. If source is WORKSPACE: Absolute path to the file in the workspace with SQL commands to execute.
+	CodeSourcePath *string `json:"codeSourcePath,omitempty" tf:"code_source_path,omitempty"`
+
 	Deployments []DeploymentsObservation `json:"deployments,omitempty" tf:"deployments,omitempty"`
 
+	// URL to be monitored for file arrivals. The path must point to the root or a subpath of the external location. Please note that the URL must have a trailing slash character (/).
+	DockerImageURL *string `json:"dockerImageUrl,omitempty" tf:"docker_image_url,omitempty"`
+
 	Experiment *string `json:"experiment,omitempty" tf:"experiment,omitempty"`
+
+	MlflowArtifactLocation *string `json:"mlflowArtifactLocation,omitempty" tf:"mlflow_artifact_location,omitempty"`
 
 	MlflowExperimentDirectory *string `json:"mlflowExperimentDirectory,omitempty" tf:"mlflow_experiment_directory,omitempty"`
 
 	MlflowRun *string `json:"mlflowRun,omitempty" tf:"mlflow_run,omitempty"`
+
+	PriorityClass *string `json:"priorityClass,omitempty" tf:"priority_class,omitempty"`
+
+	// If source is GIT: Relative path to the file in the repository specified in the git_source block with SQL commands to execute. If source is WORKSPACE: Absolute path to the file in the workspace with SQL commands to execute.
+	UnityCatalogImagePath *string `json:"unityCatalogImagePath,omitempty" tf:"unity_catalog_image_path,omitempty"`
 }
 
 type AIRuntimeTaskParameters struct {
 
+	// If source is GIT: Relative path to the file in the repository specified in the git_source block with SQL commands to execute. If source is WORKSPACE: Absolute path to the file in the workspace with SQL commands to execute.
+	// +kubebuilder:validation:Optional
+	CodeSourcePath *string `json:"codeSourcePath,omitempty" tf:"code_source_path,omitempty"`
+
 	// +kubebuilder:validation:Optional
 	Deployments []DeploymentsParameters `json:"deployments" tf:"deployments,omitempty"`
+
+	// URL to be monitored for file arrivals. The path must point to the root or a subpath of the external location. Please note that the URL must have a trailing slash character (/).
+	// +kubebuilder:validation:Optional
+	DockerImageURL *string `json:"dockerImageUrl,omitempty" tf:"docker_image_url,omitempty"`
 
 	// +kubebuilder:validation:Optional
 	Experiment *string `json:"experiment" tf:"experiment,omitempty"`
 
 	// +kubebuilder:validation:Optional
+	MlflowArtifactLocation *string `json:"mlflowArtifactLocation,omitempty" tf:"mlflow_artifact_location,omitempty"`
+
+	// +kubebuilder:validation:Optional
 	MlflowExperimentDirectory *string `json:"mlflowExperimentDirectory,omitempty" tf:"mlflow_experiment_directory,omitempty"`
 
 	// +kubebuilder:validation:Optional
 	MlflowRun *string `json:"mlflowRun,omitempty" tf:"mlflow_run,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	PriorityClass *string `json:"priorityClass,omitempty" tf:"priority_class,omitempty"`
+
+	// If source is GIT: Relative path to the file in the repository specified in the git_source block with SQL commands to execute. If source is WORKSPACE: Absolute path to the file in the workspace with SQL commands to execute.
+	// +kubebuilder:validation:Optional
+	UnityCatalogImagePath *string `json:"unityCatalogImagePath,omitempty" tf:"unity_catalog_image_path,omitempty"`
 }
 
 type AlertInitParameters struct {
@@ -160,6 +206,10 @@ type AlertTaskInitParameters struct {
 	// (String) identifier of the Databricks Alert (databricks_alert).
 	AlertID *string `json:"alertId,omitempty" tf:"alert_id,omitempty"`
 
+	// Parameters for the task
+	// +mapType=granular
+	Parameters map[string]*string `json:"parameters,omitempty" tf:"parameters,omitempty"`
+
 	// The list of subscribers to send the snapshot of the dashboard to.
 	Subscribers []SubscribersInitParameters `json:"subscribers,omitempty" tf:"subscribers,omitempty"`
 
@@ -174,6 +224,10 @@ type AlertTaskObservation struct {
 
 	// (String) identifier of the Databricks Alert (databricks_alert).
 	AlertID *string `json:"alertId,omitempty" tf:"alert_id,omitempty"`
+
+	// Parameters for the task
+	// +mapType=granular
+	Parameters map[string]*string `json:"parameters,omitempty" tf:"parameters,omitempty"`
 
 	// The list of subscribers to send the snapshot of the dashboard to.
 	Subscribers []SubscribersObservation `json:"subscribers,omitempty" tf:"subscribers,omitempty"`
@@ -190,6 +244,11 @@ type AlertTaskParameters struct {
 	// (String) identifier of the Databricks Alert (databricks_alert).
 	// +kubebuilder:validation:Optional
 	AlertID *string `json:"alertId,omitempty" tf:"alert_id,omitempty"`
+
+	// Parameters for the task
+	// +kubebuilder:validation:Optional
+	// +mapType=granular
+	Parameters map[string]*string `json:"parameters,omitempty" tf:"parameters,omitempty"`
 
 	// The list of subscribers to send the snapshot of the dashboard to.
 	// +kubebuilder:validation:Optional
@@ -231,6 +290,76 @@ type AlertTaskSubscribersParameters struct {
 	// A snapshot of the dashboard will be sent to the user's email when the user_name field is present.
 	// +kubebuilder:validation:Optional
 	UserName *string `json:"userName,omitempty" tf:"user_name,omitempty"`
+}
+
+type AttachmentDataAttachmentInitParameters struct {
+	FileFormat *string `json:"fileFormat,omitempty" tf:"file_format,omitempty"`
+
+	IncludeAppliedFilters *bool `json:"includeAppliedFilters,omitempty" tf:"include_applied_filters,omitempty"`
+
+	Widgets []DataAttachmentWidgetsInitParameters `json:"widgets,omitempty" tf:"widgets,omitempty"`
+}
+
+type AttachmentDataAttachmentObservation struct {
+	FileFormat *string `json:"fileFormat,omitempty" tf:"file_format,omitempty"`
+
+	IncludeAppliedFilters *bool `json:"includeAppliedFilters,omitempty" tf:"include_applied_filters,omitempty"`
+
+	Widgets []DataAttachmentWidgetsObservation `json:"widgets,omitempty" tf:"widgets,omitempty"`
+}
+
+type AttachmentDataAttachmentParameters struct {
+
+	// +kubebuilder:validation:Optional
+	FileFormat *string `json:"fileFormat" tf:"file_format,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	IncludeAppliedFilters *bool `json:"includeAppliedFilters,omitempty" tf:"include_applied_filters,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	Widgets []DataAttachmentWidgetsParameters `json:"widgets" tf:"widgets,omitempty"`
+}
+
+type AttachmentInitParameters struct {
+	DataAttachment []DataAttachmentInitParameters `json:"dataAttachment,omitempty" tf:"data_attachment,omitempty"`
+
+	PageAttachment []PageAttachmentInitParameters `json:"pageAttachment,omitempty" tf:"page_attachment,omitempty"`
+}
+
+type AttachmentObservation struct {
+	DataAttachment []DataAttachmentObservation `json:"dataAttachment,omitempty" tf:"data_attachment,omitempty"`
+
+	PageAttachment []PageAttachmentObservation `json:"pageAttachment,omitempty" tf:"page_attachment,omitempty"`
+}
+
+type AttachmentPageAttachmentInitParameters struct {
+	PageIds []*string `json:"pageIds,omitempty" tf:"page_ids,omitempty"`
+
+	PageSelection *string `json:"pageSelection,omitempty" tf:"page_selection,omitempty"`
+}
+
+type AttachmentPageAttachmentObservation struct {
+	PageIds []*string `json:"pageIds,omitempty" tf:"page_ids,omitempty"`
+
+	PageSelection *string `json:"pageSelection,omitempty" tf:"page_selection,omitempty"`
+}
+
+type AttachmentPageAttachmentParameters struct {
+
+	// +kubebuilder:validation:Optional
+	PageIds []*string `json:"pageIds,omitempty" tf:"page_ids,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	PageSelection *string `json:"pageSelection,omitempty" tf:"page_selection,omitempty"`
+}
+
+type AttachmentParameters struct {
+
+	// +kubebuilder:validation:Optional
+	DataAttachment []DataAttachmentParameters `json:"dataAttachment,omitempty" tf:"data_attachment,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	PageAttachment []PageAttachmentParameters `json:"pageAttachment,omitempty" tf:"page_attachment,omitempty"`
 }
 
 type AzureAttributesLogAnalyticsInfoInitParameters struct {
@@ -418,12 +547,18 @@ type ComputeInitParameters struct {
 	AcceleratorCount *float64 `json:"acceleratorCount,omitempty" tf:"accelerator_count,omitempty"`
 
 	AcceleratorType *string `json:"acceleratorType,omitempty" tf:"accelerator_type,omitempty"`
+
+	// ID of the system notification that is notified when an event defined in webhook_notifications is triggered.
+	ProvisionedCapacityID *string `json:"provisionedCapacityId,omitempty" tf:"provisioned_capacity_id,omitempty"`
 }
 
 type ComputeObservation struct {
 	AcceleratorCount *float64 `json:"acceleratorCount,omitempty" tf:"accelerator_count,omitempty"`
 
 	AcceleratorType *string `json:"acceleratorType,omitempty" tf:"accelerator_type,omitempty"`
+
+	// ID of the system notification that is notified when an event defined in webhook_notifications is triggered.
+	ProvisionedCapacityID *string `json:"provisionedCapacityId,omitempty" tf:"provisioned_capacity_id,omitempty"`
 }
 
 type ComputeParameters struct {
@@ -433,6 +568,10 @@ type ComputeParameters struct {
 
 	// +kubebuilder:validation:Optional
 	AcceleratorType *string `json:"acceleratorType" tf:"accelerator_type,omitempty"`
+
+	// ID of the system notification that is notified when an event defined in webhook_notifications is triggered.
+	// +kubebuilder:validation:Optional
+	ProvisionedCapacityID *string `json:"provisionedCapacityId,omitempty" tf:"provisioned_capacity_id,omitempty"`
 }
 
 type ConditionTaskInitParameters struct {
@@ -475,6 +614,7 @@ type ConditionTaskParameters struct {
 }
 
 type ContinuousInitParameters struct {
+	MaintenanceWindow []MaintenanceWindowInitParameters `json:"maintenanceWindow,omitempty" tf:"maintenance_window,omitempty"`
 
 	// Indicate whether this continuous job is paused or not. Either PAUSED or UNPAUSED. When the pause_status field is omitted in the block, the server will default to using UNPAUSED as a value for pause_status.
 	PauseStatus *string `json:"pauseStatus,omitempty" tf:"pause_status,omitempty"`
@@ -483,7 +623,39 @@ type ContinuousInitParameters struct {
 	TaskRetryMode *string `json:"taskRetryMode,omitempty" tf:"task_retry_mode,omitempty"`
 }
 
+type ContinuousMaintenanceWindowInitParameters struct {
+	DayOfWeek *string `json:"dayOfWeek,omitempty" tf:"day_of_week,omitempty"`
+
+	StartHour *float64 `json:"startHour,omitempty" tf:"start_hour,omitempty"`
+
+	// A Java timezone ID. The schedule for a job will be resolved with respect to this timezone. See Java TimeZone for details. This field is required.
+	TimezoneID *string `json:"timezoneId,omitempty" tf:"timezone_id,omitempty"`
+}
+
+type ContinuousMaintenanceWindowObservation struct {
+	DayOfWeek *string `json:"dayOfWeek,omitempty" tf:"day_of_week,omitempty"`
+
+	StartHour *float64 `json:"startHour,omitempty" tf:"start_hour,omitempty"`
+
+	// A Java timezone ID. The schedule for a job will be resolved with respect to this timezone. See Java TimeZone for details. This field is required.
+	TimezoneID *string `json:"timezoneId,omitempty" tf:"timezone_id,omitempty"`
+}
+
+type ContinuousMaintenanceWindowParameters struct {
+
+	// +kubebuilder:validation:Optional
+	DayOfWeek *string `json:"dayOfWeek" tf:"day_of_week,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	StartHour *float64 `json:"startHour" tf:"start_hour,omitempty"`
+
+	// A Java timezone ID. The schedule for a job will be resolved with respect to this timezone. See Java TimeZone for details. This field is required.
+	// +kubebuilder:validation:Optional
+	TimezoneID *string `json:"timezoneId" tf:"timezone_id,omitempty"`
+}
+
 type ContinuousObservation struct {
+	MaintenanceWindow []MaintenanceWindowObservation `json:"maintenanceWindow,omitempty" tf:"maintenance_window,omitempty"`
 
 	// Indicate whether this continuous job is paused or not. Either PAUSED or UNPAUSED. When the pause_status field is omitted in the block, the server will default to using UNPAUSED as a value for pause_status.
 	PauseStatus *string `json:"pauseStatus,omitempty" tf:"pause_status,omitempty"`
@@ -493,6 +665,9 @@ type ContinuousObservation struct {
 }
 
 type ContinuousParameters struct {
+
+	// +kubebuilder:validation:Optional
+	MaintenanceWindow []MaintenanceWindowParameters `json:"maintenanceWindow,omitempty" tf:"maintenance_window,omitempty"`
 
 	// Indicate whether this continuous job is paused or not. Either PAUSED or UNPAUSED. When the pause_status field is omitted in the block, the server will default to using UNPAUSED as a value for pause_status.
 	// +kubebuilder:validation:Optional
@@ -649,6 +824,7 @@ type DashboardTaskParameters struct {
 }
 
 type DashboardTaskSubscriptionInitParameters struct {
+	Attachment []SubscriptionAttachmentInitParameters `json:"attachment,omitempty" tf:"attachment,omitempty"`
 
 	// Allows users to specify a custom subject line on the email sent to subscribers.
 	CustomSubject *string `json:"customSubject,omitempty" tf:"custom_subject,omitempty"`
@@ -661,6 +837,7 @@ type DashboardTaskSubscriptionInitParameters struct {
 }
 
 type DashboardTaskSubscriptionObservation struct {
+	Attachment []SubscriptionAttachmentObservation `json:"attachment,omitempty" tf:"attachment,omitempty"`
 
 	// Allows users to specify a custom subject line on the email sent to subscribers.
 	CustomSubject *string `json:"customSubject,omitempty" tf:"custom_subject,omitempty"`
@@ -673,6 +850,9 @@ type DashboardTaskSubscriptionObservation struct {
 }
 
 type DashboardTaskSubscriptionParameters struct {
+
+	// +kubebuilder:validation:Optional
+	Attachment []SubscriptionAttachmentParameters `json:"attachment,omitempty" tf:"attachment,omitempty"`
 
 	// Allows users to specify a custom subject line on the email sent to subscribers.
 	// +kubebuilder:validation:Optional
@@ -714,6 +894,63 @@ type DashboardTaskSubscriptionSubscribersParameters struct {
 	// A snapshot of the dashboard will be sent to the user's email when the user_name field is present.
 	// +kubebuilder:validation:Optional
 	UserName *string `json:"userName,omitempty" tf:"user_name,omitempty"`
+}
+
+type DataAttachmentInitParameters struct {
+	FileFormat *string `json:"fileFormat,omitempty" tf:"file_format,omitempty"`
+
+	IncludeAppliedFilters *bool `json:"includeAppliedFilters,omitempty" tf:"include_applied_filters,omitempty"`
+
+	Widgets []WidgetsInitParameters `json:"widgets,omitempty" tf:"widgets,omitempty"`
+}
+
+type DataAttachmentObservation struct {
+	FileFormat *string `json:"fileFormat,omitempty" tf:"file_format,omitempty"`
+
+	IncludeAppliedFilters *bool `json:"includeAppliedFilters,omitempty" tf:"include_applied_filters,omitempty"`
+
+	Widgets []WidgetsObservation `json:"widgets,omitempty" tf:"widgets,omitempty"`
+}
+
+type DataAttachmentParameters struct {
+
+	// +kubebuilder:validation:Optional
+	FileFormat *string `json:"fileFormat" tf:"file_format,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	IncludeAppliedFilters *bool `json:"includeAppliedFilters,omitempty" tf:"include_applied_filters,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	Widgets []WidgetsParameters `json:"widgets" tf:"widgets,omitempty"`
+}
+
+type DataAttachmentWidgetsInitParameters struct {
+
+	// ID of the system notification that is notified when an event defined in webhook_notifications is triggered.
+	PageID *string `json:"pageId,omitempty" tf:"page_id,omitempty"`
+
+	// ID of the system notification that is notified when an event defined in webhook_notifications is triggered.
+	WidgetID *string `json:"widgetId,omitempty" tf:"widget_id,omitempty"`
+}
+
+type DataAttachmentWidgetsObservation struct {
+
+	// ID of the system notification that is notified when an event defined in webhook_notifications is triggered.
+	PageID *string `json:"pageId,omitempty" tf:"page_id,omitempty"`
+
+	// ID of the system notification that is notified when an event defined in webhook_notifications is triggered.
+	WidgetID *string `json:"widgetId,omitempty" tf:"widget_id,omitempty"`
+}
+
+type DataAttachmentWidgetsParameters struct {
+
+	// ID of the system notification that is notified when an event defined in webhook_notifications is triggered.
+	// +kubebuilder:validation:Optional
+	PageID *string `json:"pageId" tf:"page_id,omitempty"`
+
+	// ID of the system notification that is notified when an event defined in webhook_notifications is triggered.
+	// +kubebuilder:validation:Optional
+	WidgetID *string `json:"widgetId" tf:"widget_id,omitempty"`
 }
 
 type DbtCloudTaskInitParameters struct {
@@ -950,12 +1187,18 @@ type DeploymentsComputeInitParameters struct {
 	AcceleratorCount *float64 `json:"acceleratorCount,omitempty" tf:"accelerator_count,omitempty"`
 
 	AcceleratorType *string `json:"acceleratorType,omitempty" tf:"accelerator_type,omitempty"`
+
+	// ID of the system notification that is notified when an event defined in webhook_notifications is triggered.
+	ProvisionedCapacityID *string `json:"provisionedCapacityId,omitempty" tf:"provisioned_capacity_id,omitempty"`
 }
 
 type DeploymentsComputeObservation struct {
 	AcceleratorCount *float64 `json:"acceleratorCount,omitempty" tf:"accelerator_count,omitempty"`
 
 	AcceleratorType *string `json:"acceleratorType,omitempty" tf:"accelerator_type,omitempty"`
+
+	// ID of the system notification that is notified when an event defined in webhook_notifications is triggered.
+	ProvisionedCapacityID *string `json:"provisionedCapacityId,omitempty" tf:"provisioned_capacity_id,omitempty"`
 }
 
 type DeploymentsComputeParameters struct {
@@ -965,6 +1208,10 @@ type DeploymentsComputeParameters struct {
 
 	// +kubebuilder:validation:Optional
 	AcceleratorType *string `json:"acceleratorType" tf:"accelerator_type,omitempty"`
+
+	// ID of the system notification that is notified when an event defined in webhook_notifications is triggered.
+	// +kubebuilder:validation:Optional
+	ProvisionedCapacityID *string `json:"provisionedCapacityId,omitempty" tf:"provisioned_capacity_id,omitempty"`
 }
 
 type DeploymentsInitParameters struct {
@@ -995,7 +1242,7 @@ type DeploymentsParameters struct {
 
 	// If source is GIT: Relative path to the file in the repository specified in the git_source block with SQL commands to execute. If source is WORKSPACE: Absolute path to the file in the workspace with SQL commands to execute.
 	// +kubebuilder:validation:Optional
-	CommandPath *string `json:"commandPath" tf:"command_path,omitempty"`
+	CommandPath *string `json:"commandPath,omitempty" tf:"command_path,omitempty"`
 
 	// Task level compute configuration. This block is documented below.
 	// +kubebuilder:validation:Optional
@@ -1040,6 +1287,10 @@ type EmailNotificationsInitParameters struct {
 	// (List) list of notification IDs to call when the run fails. A maximum of 3 destinations can be specified.
 	OnFailure []*string `json:"onFailure,omitempty" tf:"on_failure,omitempty"`
 
+	OnMaintenanceComplete []*string `json:"onMaintenanceComplete,omitempty" tf:"on_maintenance_complete,omitempty"`
+
+	OnMaintenanceStart []*string `json:"onMaintenanceStart,omitempty" tf:"on_maintenance_start,omitempty"`
+
 	// (List) list of notification IDs to call when the run starts. A maximum of 3 destinations can be specified.
 	OnStart []*string `json:"onStart,omitempty" tf:"on_start,omitempty"`
 
@@ -1060,6 +1311,10 @@ type EmailNotificationsObservation struct {
 
 	// (List) list of notification IDs to call when the run fails. A maximum of 3 destinations can be specified.
 	OnFailure []*string `json:"onFailure,omitempty" tf:"on_failure,omitempty"`
+
+	OnMaintenanceComplete []*string `json:"onMaintenanceComplete,omitempty" tf:"on_maintenance_complete,omitempty"`
+
+	OnMaintenanceStart []*string `json:"onMaintenanceStart,omitempty" tf:"on_maintenance_start,omitempty"`
 
 	// (List) list of notification IDs to call when the run starts. A maximum of 3 destinations can be specified.
 	OnStart []*string `json:"onStart,omitempty" tf:"on_start,omitempty"`
@@ -1084,6 +1339,12 @@ type EmailNotificationsParameters struct {
 	// (List) list of notification IDs to call when the run fails. A maximum of 3 destinations can be specified.
 	// +kubebuilder:validation:Optional
 	OnFailure []*string `json:"onFailure,omitempty" tf:"on_failure,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	OnMaintenanceComplete []*string `json:"onMaintenanceComplete,omitempty" tf:"on_maintenance_complete,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	OnMaintenanceStart []*string `json:"onMaintenanceStart,omitempty" tf:"on_maintenance_start,omitempty"`
 
 	// (List) list of notification IDs to call when the run starts. A maximum of 3 destinations can be specified.
 	// +kubebuilder:validation:Optional
@@ -1125,6 +1386,54 @@ type EnvironmentParameters struct {
 	// block describing the Environment. Consists of following attributes:
 	// +kubebuilder:validation:Optional
 	Spec []SpecParameters `json:"spec,omitempty" tf:"spec,omitempty"`
+}
+
+type EnvironmentVariablesInitParameters struct {
+	EnvironmentVariablesKey *string `json:"environmentVariablesKey,omitempty" tf:"environment_variables_key,omitempty"`
+
+	// block describing the Environment. Consists of following attributes:
+	Spec []EnvironmentVariablesSpecInitParameters `json:"spec,omitempty" tf:"spec,omitempty"`
+}
+
+type EnvironmentVariablesObservation struct {
+	EnvironmentVariablesKey *string `json:"environmentVariablesKey,omitempty" tf:"environment_variables_key,omitempty"`
+
+	// block describing the Environment. Consists of following attributes:
+	Spec []EnvironmentVariablesSpecObservation `json:"spec,omitempty" tf:"spec,omitempty"`
+}
+
+type EnvironmentVariablesParameters struct {
+
+	// +kubebuilder:validation:Optional
+	EnvironmentVariablesKey *string `json:"environmentVariablesKey" tf:"environment_variables_key,omitempty"`
+
+	// block describing the Environment. Consists of following attributes:
+	// +kubebuilder:validation:Optional
+	Spec []EnvironmentVariablesSpecParameters `json:"spec,omitempty" tf:"spec,omitempty"`
+}
+
+type EnvironmentVariablesSpecInitParameters struct {
+	Files []*string `json:"files,omitempty" tf:"files,omitempty"`
+
+	// +mapType=granular
+	Variables map[string]*string `json:"variables,omitempty" tf:"variables,omitempty"`
+}
+
+type EnvironmentVariablesSpecObservation struct {
+	Files []*string `json:"files,omitempty" tf:"files,omitempty"`
+
+	// +mapType=granular
+	Variables map[string]*string `json:"variables,omitempty" tf:"variables,omitempty"`
+}
+
+type EnvironmentVariablesSpecParameters struct {
+
+	// +kubebuilder:validation:Optional
+	Files []*string `json:"files,omitempty" tf:"files,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	// +mapType=granular
+	Variables map[string]*string `json:"variables,omitempty" tf:"variables,omitempty"`
 }
 
 type FileArrivalInitParameters struct {
@@ -1314,6 +1623,10 @@ type ForEachTaskTaskEmailNotificationsInitParameters struct {
 	// (List) list of notification IDs to call when the run fails. A maximum of 3 destinations can be specified.
 	OnFailure []*string `json:"onFailure,omitempty" tf:"on_failure,omitempty"`
 
+	OnMaintenanceComplete []*string `json:"onMaintenanceComplete,omitempty" tf:"on_maintenance_complete,omitempty"`
+
+	OnMaintenanceStart []*string `json:"onMaintenanceStart,omitempty" tf:"on_maintenance_start,omitempty"`
+
 	// (List) list of notification IDs to call when the run starts. A maximum of 3 destinations can be specified.
 	OnStart []*string `json:"onStart,omitempty" tf:"on_start,omitempty"`
 
@@ -1334,6 +1647,10 @@ type ForEachTaskTaskEmailNotificationsObservation struct {
 
 	// (List) list of notification IDs to call when the run fails. A maximum of 3 destinations can be specified.
 	OnFailure []*string `json:"onFailure,omitempty" tf:"on_failure,omitempty"`
+
+	OnMaintenanceComplete []*string `json:"onMaintenanceComplete,omitempty" tf:"on_maintenance_complete,omitempty"`
+
+	OnMaintenanceStart []*string `json:"onMaintenanceStart,omitempty" tf:"on_maintenance_start,omitempty"`
 
 	// (List) list of notification IDs to call when the run starts. A maximum of 3 destinations can be specified.
 	OnStart []*string `json:"onStart,omitempty" tf:"on_start,omitempty"`
@@ -1358,6 +1675,12 @@ type ForEachTaskTaskEmailNotificationsParameters struct {
 	// (List) list of notification IDs to call when the run fails. A maximum of 3 destinations can be specified.
 	// +kubebuilder:validation:Optional
 	OnFailure []*string `json:"onFailure,omitempty" tf:"on_failure,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	OnMaintenanceComplete []*string `json:"onMaintenanceComplete,omitempty" tf:"on_maintenance_complete,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	OnMaintenanceStart []*string `json:"onMaintenanceStart,omitempty" tf:"on_maintenance_start,omitempty"`
 
 	// (List) list of notification IDs to call when the run starts. A maximum of 3 destinations can be specified.
 	// +kubebuilder:validation:Optional
@@ -1418,6 +1741,8 @@ type ForEachTaskTaskInitParameters struct {
 
 	// identifier of an environment block that is used to specify libraries.  Required for some tasks (spark_python_task, python_wheel_task, ...) running on serverless compute.
 	EnvironmentKey *string `json:"environmentKey,omitempty" tf:"environment_key,omitempty"`
+
+	EnvironmentVariablesKey *string `json:"environmentVariablesKey,omitempty" tf:"environment_variables_key,omitempty"`
 
 	// If existing_cluster_id, the ID of an existing cluster that will be used for all runs of this job. When running jobs on an existing cluster, you may need to manually restart the cluster if it stops responding. We strongly suggest to use new_cluster for greater reliability.
 	ExistingClusterID *string `json:"existingClusterId,omitempty" tf:"existing_cluster_id,omitempty"`
@@ -1538,6 +1863,8 @@ type ForEachTaskTaskObservation struct {
 
 	// identifier of an environment block that is used to specify libraries.  Required for some tasks (spark_python_task, python_wheel_task, ...) running on serverless compute.
 	EnvironmentKey *string `json:"environmentKey,omitempty" tf:"environment_key,omitempty"`
+
+	EnvironmentVariablesKey *string `json:"environmentVariablesKey,omitempty" tf:"environment_variables_key,omitempty"`
 
 	// If existing_cluster_id, the ID of an existing cluster that will be used for all runs of this job. When running jobs on an existing cluster, you may need to manually restart the cluster if it stops responding. We strongly suggest to use new_cluster for greater reliability.
 	ExistingClusterID *string `json:"existingClusterId,omitempty" tf:"existing_cluster_id,omitempty"`
@@ -1673,6 +2000,9 @@ type ForEachTaskTaskParameters struct {
 	// identifier of an environment block that is used to specify libraries.  Required for some tasks (spark_python_task, python_wheel_task, ...) running on serverless compute.
 	// +kubebuilder:validation:Optional
 	EnvironmentKey *string `json:"environmentKey,omitempty" tf:"environment_key,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	EnvironmentVariablesKey *string `json:"environmentVariablesKey,omitempty" tf:"environment_variables_key,omitempty"`
 
 	// If existing_cluster_id, the ID of an existing cluster that will be used for all runs of this job. When running jobs on an existing cluster, you may need to manually restart the cluster if it stops responding. We strongly suggest to use new_cluster for greater reliability.
 	// +kubebuilder:validation:Optional
@@ -2108,6 +2438,9 @@ type JobClusterInitParameters struct {
 
 	// Block with almost the same set of parameters as for databricks_cluster resource, except following (check the REST API documentation for full list of supported parameters):
 	NewCluster []NewClusterInitParameters `json:"newCluster,omitempty" tf:"new_cluster,omitempty"`
+
+	// ID of the system notification that is notified when an event defined in webhook_notifications is triggered.
+	ServerlessComputeID *string `json:"serverlessComputeId,omitempty" tf:"serverless_compute_id,omitempty"`
 }
 
 type JobClusterObservation struct {
@@ -2117,6 +2450,9 @@ type JobClusterObservation struct {
 
 	// Block with almost the same set of parameters as for databricks_cluster resource, except following (check the REST API documentation for full list of supported parameters):
 	NewCluster []NewClusterObservation `json:"newCluster,omitempty" tf:"new_cluster,omitempty"`
+
+	// ID of the system notification that is notified when an event defined in webhook_notifications is triggered.
+	ServerlessComputeID *string `json:"serverlessComputeId,omitempty" tf:"serverless_compute_id,omitempty"`
 }
 
 type JobClusterParameters struct {
@@ -2127,7 +2463,11 @@ type JobClusterParameters struct {
 
 	// Block with almost the same set of parameters as for databricks_cluster resource, except following (check the REST API documentation for full list of supported parameters):
 	// +kubebuilder:validation:Optional
-	NewCluster []NewClusterParameters `json:"newCluster" tf:"new_cluster,omitempty"`
+	NewCluster []NewClusterParameters `json:"newCluster,omitempty" tf:"new_cluster,omitempty"`
+
+	// ID of the system notification that is notified when an event defined in webhook_notifications is triggered.
+	// +kubebuilder:validation:Optional
+	ServerlessComputeID *string `json:"serverlessComputeId,omitempty" tf:"serverless_compute_id,omitempty"`
 }
 
 type JobInitParameters struct {
@@ -2152,6 +2492,8 @@ type JobInitParameters struct {
 	// An optional description for the job. The maximum length is 1024 characters in UTF-8 encoding.
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
 
+	DurationTarget *string `json:"durationTarget,omitempty" tf:"duration_target,omitempty"`
+
 	// If "UI_LOCKED", the user interface for the job will be locked. If "EDITABLE" (the default), the user interface will be editable.
 	EditMode *string `json:"editMode,omitempty" tf:"edit_mode,omitempty"`
 
@@ -2159,6 +2501,8 @@ type JobInitParameters struct {
 	EmailNotifications []EmailNotificationsInitParameters `json:"emailNotifications,omitempty" tf:"email_notifications,omitempty"`
 
 	Environment []EnvironmentInitParameters `json:"environment,omitempty" tf:"environment,omitempty"`
+
+	EnvironmentVariables []EnvironmentVariablesInitParameters `json:"environmentVariables,omitempty" tf:"environment_variables,omitempty"`
 
 	// Identifier of the interactive cluster to run job on.  Note: running tasks on interactive clusters may lead to increased costs!
 	ExistingClusterID *string `json:"existingClusterId,omitempty" tf:"existing_cluster_id,omitempty"`
@@ -2252,6 +2596,8 @@ type JobInitParameters struct {
 
 	// The conditions that triggers the job to start. See trigger Configuration Block below.
 	Trigger []TriggerInitParameters `json:"trigger,omitempty" tf:"trigger,omitempty"`
+
+	Triggers []TriggersInitParameters `json:"triggers,omitempty" tf:"triggers,omitempty"`
 
 	// ID of the system notification that is notified when an event defined in webhook_notifications is triggered.
 	UsagePolicyID *string `json:"usagePolicyId,omitempty" tf:"usage_policy_id,omitempty"`
@@ -2648,16 +2994,26 @@ type JobNewClusterDockerImageParameters struct {
 
 type JobNewClusterDriverNodeTypeFlexibilityInitParameters struct {
 	AlternateNodeTypeIds []*string `json:"alternateNodeTypeIds,omitempty" tf:"alternate_node_type_ids,omitempty"`
+
+	// ID of the system notification that is notified when an event defined in webhook_notifications is triggered.
+	AwsContextID *string `json:"awsContextId,omitempty" tf:"aws_context_id,omitempty"`
 }
 
 type JobNewClusterDriverNodeTypeFlexibilityObservation struct {
 	AlternateNodeTypeIds []*string `json:"alternateNodeTypeIds,omitempty" tf:"alternate_node_type_ids,omitempty"`
+
+	// ID of the system notification that is notified when an event defined in webhook_notifications is triggered.
+	AwsContextID *string `json:"awsContextId,omitempty" tf:"aws_context_id,omitempty"`
 }
 
 type JobNewClusterDriverNodeTypeFlexibilityParameters struct {
 
 	// +kubebuilder:validation:Optional
 	AlternateNodeTypeIds []*string `json:"alternateNodeTypeIds,omitempty" tf:"alternate_node_type_ids,omitempty"`
+
+	// ID of the system notification that is notified when an event defined in webhook_notifications is triggered.
+	// +kubebuilder:validation:Optional
+	AwsContextID *string `json:"awsContextId,omitempty" tf:"aws_context_id,omitempty"`
 }
 
 type JobNewClusterGCPAttributesInitParameters struct {
@@ -2750,6 +3106,8 @@ type JobNewClusterInitParameters struct {
 	CustomTags map[string]*string `json:"customTags,omitempty" tf:"custom_tags,omitempty"`
 
 	DataSecurityMode *string `json:"dataSecurityMode,omitempty" tf:"data_security_mode,omitempty"`
+
+	DependencyMode *string `json:"dependencyMode,omitempty" tf:"dependency_mode,omitempty"`
 
 	DockerImage []JobNewClusterDockerImageInitParameters `json:"dockerImage,omitempty" tf:"docker_image,omitempty"`
 
@@ -3054,6 +3412,8 @@ type JobNewClusterObservation struct {
 
 	DataSecurityMode *string `json:"dataSecurityMode,omitempty" tf:"data_security_mode,omitempty"`
 
+	DependencyMode *string `json:"dependencyMode,omitempty" tf:"dependency_mode,omitempty"`
+
 	DockerImage []JobNewClusterDockerImageObservation `json:"dockerImage,omitempty" tf:"docker_image,omitempty"`
 
 	// ID of the system notification that is notified when an event defined in webhook_notifications is triggered.
@@ -3158,6 +3518,9 @@ type JobNewClusterParameters struct {
 
 	// +kubebuilder:validation:Optional
 	DataSecurityMode *string `json:"dataSecurityMode,omitempty" tf:"data_security_mode,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	DependencyMode *string `json:"dependencyMode,omitempty" tf:"dependency_mode,omitempty"`
 
 	// +kubebuilder:validation:Optional
 	DockerImage []JobNewClusterDockerImageParameters `json:"dockerImage,omitempty" tf:"docker_image,omitempty"`
@@ -3277,16 +3640,26 @@ type JobNewClusterProviderConfigParameters struct {
 
 type JobNewClusterWorkerNodeTypeFlexibilityInitParameters struct {
 	AlternateNodeTypeIds []*string `json:"alternateNodeTypeIds,omitempty" tf:"alternate_node_type_ids,omitempty"`
+
+	// ID of the system notification that is notified when an event defined in webhook_notifications is triggered.
+	AwsContextID *string `json:"awsContextId,omitempty" tf:"aws_context_id,omitempty"`
 }
 
 type JobNewClusterWorkerNodeTypeFlexibilityObservation struct {
 	AlternateNodeTypeIds []*string `json:"alternateNodeTypeIds,omitempty" tf:"alternate_node_type_ids,omitempty"`
+
+	// ID of the system notification that is notified when an event defined in webhook_notifications is triggered.
+	AwsContextID *string `json:"awsContextId,omitempty" tf:"aws_context_id,omitempty"`
 }
 
 type JobNewClusterWorkerNodeTypeFlexibilityParameters struct {
 
 	// +kubebuilder:validation:Optional
 	AlternateNodeTypeIds []*string `json:"alternateNodeTypeIds,omitempty" tf:"alternate_node_type_ids,omitempty"`
+
+	// ID of the system notification that is notified when an event defined in webhook_notifications is triggered.
+	// +kubebuilder:validation:Optional
+	AwsContextID *string `json:"awsContextId,omitempty" tf:"aws_context_id,omitempty"`
 }
 
 type JobNewClusterWorkloadTypeInitParameters struct {
@@ -3325,6 +3698,8 @@ type JobObservation struct {
 	// An optional description for the job. The maximum length is 1024 characters in UTF-8 encoding.
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
 
+	DurationTarget *string `json:"durationTarget,omitempty" tf:"duration_target,omitempty"`
+
 	// If "UI_LOCKED", the user interface for the job will be locked. If "EDITABLE" (the default), the user interface will be editable.
 	EditMode *string `json:"editMode,omitempty" tf:"edit_mode,omitempty"`
 
@@ -3332,6 +3707,8 @@ type JobObservation struct {
 	EmailNotifications []EmailNotificationsObservation `json:"emailNotifications,omitempty" tf:"email_notifications,omitempty"`
 
 	Environment []EnvironmentObservation `json:"environment,omitempty" tf:"environment,omitempty"`
+
+	EnvironmentVariables []EnvironmentVariablesObservation `json:"environmentVariables,omitempty" tf:"environment_variables,omitempty"`
 
 	// Identifier of the interactive cluster to run job on.  Note: running tasks on interactive clusters may lead to increased costs!
 	ExistingClusterID *string `json:"existingClusterId,omitempty" tf:"existing_cluster_id,omitempty"`
@@ -3429,6 +3806,8 @@ type JobObservation struct {
 	// The conditions that triggers the job to start. See trigger Configuration Block below.
 	Trigger []TriggerObservation `json:"trigger,omitempty" tf:"trigger,omitempty"`
 
+	Triggers []TriggersObservation `json:"triggers,omitempty" tf:"triggers,omitempty"`
+
 	// URL to be monitored for file arrivals. The path must point to the root or a subpath of the external location. Please note that the URL must have a trailing slash character (/).
 	URL *string `json:"url,omitempty" tf:"url,omitempty"`
 
@@ -3468,6 +3847,9 @@ type JobParameters struct {
 	// +kubebuilder:validation:Optional
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
 
+	// +kubebuilder:validation:Optional
+	DurationTarget *string `json:"durationTarget,omitempty" tf:"duration_target,omitempty"`
+
 	// If "UI_LOCKED", the user interface for the job will be locked. If "EDITABLE" (the default), the user interface will be editable.
 	// +kubebuilder:validation:Optional
 	EditMode *string `json:"editMode,omitempty" tf:"edit_mode,omitempty"`
@@ -3478,6 +3860,9 @@ type JobParameters struct {
 
 	// +kubebuilder:validation:Optional
 	Environment []EnvironmentParameters `json:"environment,omitempty" tf:"environment,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	EnvironmentVariables []EnvironmentVariablesParameters `json:"environmentVariables,omitempty" tf:"environment_variables,omitempty"`
 
 	// Identifier of the interactive cluster to run job on.  Note: running tasks on interactive clusters may lead to increased costs!
 	// +kubebuilder:validation:Optional
@@ -3602,6 +3987,9 @@ type JobParameters struct {
 	// The conditions that triggers the job to start. See trigger Configuration Block below.
 	// +kubebuilder:validation:Optional
 	Trigger []TriggerParameters `json:"trigger,omitempty" tf:"trigger,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	Triggers []TriggersParameters `json:"triggers,omitempty" tf:"triggers,omitempty"`
 
 	// ID of the system notification that is notified when an event defined in webhook_notifications is triggered.
 	// +kubebuilder:validation:Optional
@@ -4224,16 +4612,26 @@ type JobTaskNewClusterDockerImageParameters struct {
 
 type JobTaskNewClusterDriverNodeTypeFlexibilityInitParameters struct {
 	AlternateNodeTypeIds []*string `json:"alternateNodeTypeIds,omitempty" tf:"alternate_node_type_ids,omitempty"`
+
+	// ID of the system notification that is notified when an event defined in webhook_notifications is triggered.
+	AwsContextID *string `json:"awsContextId,omitempty" tf:"aws_context_id,omitempty"`
 }
 
 type JobTaskNewClusterDriverNodeTypeFlexibilityObservation struct {
 	AlternateNodeTypeIds []*string `json:"alternateNodeTypeIds,omitempty" tf:"alternate_node_type_ids,omitempty"`
+
+	// ID of the system notification that is notified when an event defined in webhook_notifications is triggered.
+	AwsContextID *string `json:"awsContextId,omitempty" tf:"aws_context_id,omitempty"`
 }
 
 type JobTaskNewClusterDriverNodeTypeFlexibilityParameters struct {
 
 	// +kubebuilder:validation:Optional
 	AlternateNodeTypeIds []*string `json:"alternateNodeTypeIds,omitempty" tf:"alternate_node_type_ids,omitempty"`
+
+	// ID of the system notification that is notified when an event defined in webhook_notifications is triggered.
+	// +kubebuilder:validation:Optional
+	AwsContextID *string `json:"awsContextId,omitempty" tf:"aws_context_id,omitempty"`
 }
 
 type JobTaskNewClusterGCPAttributesInitParameters struct {
@@ -4328,6 +4726,8 @@ type JobTaskNewClusterInitParameters struct {
 	CustomTags map[string]*string `json:"customTags,omitempty" tf:"custom_tags,omitempty"`
 
 	DataSecurityMode *string `json:"dataSecurityMode,omitempty" tf:"data_security_mode,omitempty"`
+
+	DependencyMode *string `json:"dependencyMode,omitempty" tf:"dependency_mode,omitempty"`
 
 	DockerImage []JobTaskNewClusterDockerImageInitParameters `json:"dockerImage,omitempty" tf:"docker_image,omitempty"`
 
@@ -4779,6 +5179,8 @@ type JobTaskNewClusterObservation struct {
 
 	DataSecurityMode *string `json:"dataSecurityMode,omitempty" tf:"data_security_mode,omitempty"`
 
+	DependencyMode *string `json:"dependencyMode,omitempty" tf:"dependency_mode,omitempty"`
+
 	DockerImage []JobTaskNewClusterDockerImageObservation `json:"dockerImage,omitempty" tf:"docker_image,omitempty"`
 
 	// ID of the system notification that is notified when an event defined in webhook_notifications is triggered.
@@ -4886,6 +5288,9 @@ type JobTaskNewClusterParameters struct {
 
 	// +kubebuilder:validation:Optional
 	DataSecurityMode *string `json:"dataSecurityMode,omitempty" tf:"data_security_mode,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	DependencyMode *string `json:"dependencyMode,omitempty" tf:"dependency_mode,omitempty"`
 
 	// +kubebuilder:validation:Optional
 	DockerImage []JobTaskNewClusterDockerImageParameters `json:"dockerImage,omitempty" tf:"docker_image,omitempty"`
@@ -5005,16 +5410,26 @@ type JobTaskNewClusterProviderConfigParameters struct {
 
 type JobTaskNewClusterWorkerNodeTypeFlexibilityInitParameters struct {
 	AlternateNodeTypeIds []*string `json:"alternateNodeTypeIds,omitempty" tf:"alternate_node_type_ids,omitempty"`
+
+	// ID of the system notification that is notified when an event defined in webhook_notifications is triggered.
+	AwsContextID *string `json:"awsContextId,omitempty" tf:"aws_context_id,omitempty"`
 }
 
 type JobTaskNewClusterWorkerNodeTypeFlexibilityObservation struct {
 	AlternateNodeTypeIds []*string `json:"alternateNodeTypeIds,omitempty" tf:"alternate_node_type_ids,omitempty"`
+
+	// ID of the system notification that is notified when an event defined in webhook_notifications is triggered.
+	AwsContextID *string `json:"awsContextId,omitempty" tf:"aws_context_id,omitempty"`
 }
 
 type JobTaskNewClusterWorkerNodeTypeFlexibilityParameters struct {
 
 	// +kubebuilder:validation:Optional
 	AlternateNodeTypeIds []*string `json:"alternateNodeTypeIds,omitempty" tf:"alternate_node_type_ids,omitempty"`
+
+	// ID of the system notification that is notified when an event defined in webhook_notifications is triggered.
+	// +kubebuilder:validation:Optional
+	AwsContextID *string `json:"awsContextId,omitempty" tf:"aws_context_id,omitempty"`
 }
 
 type JobTaskNewClusterWorkloadTypeClientsInitParameters struct {
@@ -5530,6 +5945,10 @@ type JobWebhookNotificationsInitParameters struct {
 	// (List) list of notification IDs to call when the run fails. A maximum of 3 destinations can be specified.
 	OnFailure []JobWebhookNotificationsOnFailureInitParameters `json:"onFailure,omitempty" tf:"on_failure,omitempty"`
 
+	OnMaintenanceComplete []JobWebhookNotificationsOnMaintenanceCompleteInitParameters `json:"onMaintenanceComplete,omitempty" tf:"on_maintenance_complete,omitempty"`
+
+	OnMaintenanceStart []JobWebhookNotificationsOnMaintenanceStartInitParameters `json:"onMaintenanceStart,omitempty" tf:"on_maintenance_start,omitempty"`
+
 	// (List) list of notification IDs to call when the run starts. A maximum of 3 destinations can be specified.
 	OnStart []JobWebhookNotificationsOnStartInitParameters `json:"onStart,omitempty" tf:"on_start,omitempty"`
 
@@ -5547,6 +5966,10 @@ type JobWebhookNotificationsObservation struct {
 
 	// (List) list of notification IDs to call when the run fails. A maximum of 3 destinations can be specified.
 	OnFailure []JobWebhookNotificationsOnFailureObservation `json:"onFailure,omitempty" tf:"on_failure,omitempty"`
+
+	OnMaintenanceComplete []JobWebhookNotificationsOnMaintenanceCompleteObservation `json:"onMaintenanceComplete,omitempty" tf:"on_maintenance_complete,omitempty"`
+
+	OnMaintenanceStart []JobWebhookNotificationsOnMaintenanceStartObservation `json:"onMaintenanceStart,omitempty" tf:"on_maintenance_start,omitempty"`
 
 	// (List) list of notification IDs to call when the run starts. A maximum of 3 destinations can be specified.
 	OnStart []JobWebhookNotificationsOnStartObservation `json:"onStart,omitempty" tf:"on_start,omitempty"`
@@ -5590,6 +6013,44 @@ type JobWebhookNotificationsOnFailureObservation struct {
 }
 
 type JobWebhookNotificationsOnFailureParameters struct {
+
+	// ID of the system notification that is notified when an event defined in webhook_notifications is triggered.
+	// +kubebuilder:validation:Optional
+	ID *string `json:"id" tf:"id,omitempty"`
+}
+
+type JobWebhookNotificationsOnMaintenanceCompleteInitParameters struct {
+
+	// ID of the system notification that is notified when an event defined in webhook_notifications is triggered.
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+}
+
+type JobWebhookNotificationsOnMaintenanceCompleteObservation struct {
+
+	// ID of the system notification that is notified when an event defined in webhook_notifications is triggered.
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+}
+
+type JobWebhookNotificationsOnMaintenanceCompleteParameters struct {
+
+	// ID of the system notification that is notified when an event defined in webhook_notifications is triggered.
+	// +kubebuilder:validation:Optional
+	ID *string `json:"id" tf:"id,omitempty"`
+}
+
+type JobWebhookNotificationsOnMaintenanceStartInitParameters struct {
+
+	// ID of the system notification that is notified when an event defined in webhook_notifications is triggered.
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+}
+
+type JobWebhookNotificationsOnMaintenanceStartObservation struct {
+
+	// ID of the system notification that is notified when an event defined in webhook_notifications is triggered.
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+}
+
+type JobWebhookNotificationsOnMaintenanceStartParameters struct {
 
 	// ID of the system notification that is notified when an event defined in webhook_notifications is triggered.
 	// +kubebuilder:validation:Optional
@@ -5662,6 +6123,12 @@ type JobWebhookNotificationsParameters struct {
 	// (List) list of notification IDs to call when the run fails. A maximum of 3 destinations can be specified.
 	// +kubebuilder:validation:Optional
 	OnFailure []JobWebhookNotificationsOnFailureParameters `json:"onFailure,omitempty" tf:"on_failure,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	OnMaintenanceComplete []JobWebhookNotificationsOnMaintenanceCompleteParameters `json:"onMaintenanceComplete,omitempty" tf:"on_maintenance_complete,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	OnMaintenanceStart []JobWebhookNotificationsOnMaintenanceStartParameters `json:"onMaintenanceStart,omitempty" tf:"on_maintenance_start,omitempty"`
 
 	// (List) list of notification IDs to call when the run starts. A maximum of 3 destinations can be specified.
 	// +kubebuilder:validation:Optional
@@ -5763,6 +6230,37 @@ type LibraryPypiParameters struct {
 
 	// +kubebuilder:validation:Optional
 	Repo *string `json:"repo,omitempty" tf:"repo,omitempty"`
+}
+
+type MaintenanceWindowInitParameters struct {
+	DayOfWeek *string `json:"dayOfWeek,omitempty" tf:"day_of_week,omitempty"`
+
+	StartHour *float64 `json:"startHour,omitempty" tf:"start_hour,omitempty"`
+
+	// A Java timezone ID. The schedule for a job will be resolved with respect to this timezone. See Java TimeZone for details. This field is required.
+	TimezoneID *string `json:"timezoneId,omitempty" tf:"timezone_id,omitempty"`
+}
+
+type MaintenanceWindowObservation struct {
+	DayOfWeek *string `json:"dayOfWeek,omitempty" tf:"day_of_week,omitempty"`
+
+	StartHour *float64 `json:"startHour,omitempty" tf:"start_hour,omitempty"`
+
+	// A Java timezone ID. The schedule for a job will be resolved with respect to this timezone. See Java TimeZone for details. This field is required.
+	TimezoneID *string `json:"timezoneId,omitempty" tf:"timezone_id,omitempty"`
+}
+
+type MaintenanceWindowParameters struct {
+
+	// +kubebuilder:validation:Optional
+	DayOfWeek *string `json:"dayOfWeek" tf:"day_of_week,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	StartHour *float64 `json:"startHour" tf:"start_hour,omitempty"`
+
+	// A Java timezone ID. The schedule for a job will be resolved with respect to this timezone. See Java TimeZone for details. This field is required.
+	// +kubebuilder:validation:Optional
+	TimezoneID *string `json:"timezoneId" tf:"timezone_id,omitempty"`
 }
 
 type ModelInitParameters struct {
@@ -6204,16 +6702,26 @@ type NewClusterDockerImageParameters struct {
 
 type NewClusterDriverNodeTypeFlexibilityInitParameters struct {
 	AlternateNodeTypeIds []*string `json:"alternateNodeTypeIds,omitempty" tf:"alternate_node_type_ids,omitempty"`
+
+	// ID of the system notification that is notified when an event defined in webhook_notifications is triggered.
+	AwsContextID *string `json:"awsContextId,omitempty" tf:"aws_context_id,omitempty"`
 }
 
 type NewClusterDriverNodeTypeFlexibilityObservation struct {
 	AlternateNodeTypeIds []*string `json:"alternateNodeTypeIds,omitempty" tf:"alternate_node_type_ids,omitempty"`
+
+	// ID of the system notification that is notified when an event defined in webhook_notifications is triggered.
+	AwsContextID *string `json:"awsContextId,omitempty" tf:"aws_context_id,omitempty"`
 }
 
 type NewClusterDriverNodeTypeFlexibilityParameters struct {
 
 	// +kubebuilder:validation:Optional
 	AlternateNodeTypeIds []*string `json:"alternateNodeTypeIds,omitempty" tf:"alternate_node_type_ids,omitempty"`
+
+	// ID of the system notification that is notified when an event defined in webhook_notifications is triggered.
+	// +kubebuilder:validation:Optional
+	AwsContextID *string `json:"awsContextId,omitempty" tf:"aws_context_id,omitempty"`
 }
 
 type NewClusterGCPAttributesInitParameters struct {
@@ -6308,6 +6816,8 @@ type NewClusterInitParameters struct {
 	CustomTags map[string]*string `json:"customTags,omitempty" tf:"custom_tags,omitempty"`
 
 	DataSecurityMode *string `json:"dataSecurityMode,omitempty" tf:"data_security_mode,omitempty"`
+
+	DependencyMode *string `json:"dependencyMode,omitempty" tf:"dependency_mode,omitempty"`
 
 	DockerImage []NewClusterDockerImageInitParameters `json:"dockerImage,omitempty" tf:"docker_image,omitempty"`
 
@@ -6759,6 +7269,8 @@ type NewClusterObservation struct {
 
 	DataSecurityMode *string `json:"dataSecurityMode,omitempty" tf:"data_security_mode,omitempty"`
 
+	DependencyMode *string `json:"dependencyMode,omitempty" tf:"dependency_mode,omitempty"`
+
 	DockerImage []NewClusterDockerImageObservation `json:"dockerImage,omitempty" tf:"docker_image,omitempty"`
 
 	// ID of the system notification that is notified when an event defined in webhook_notifications is triggered.
@@ -6866,6 +7378,9 @@ type NewClusterParameters struct {
 
 	// +kubebuilder:validation:Optional
 	DataSecurityMode *string `json:"dataSecurityMode,omitempty" tf:"data_security_mode,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	DependencyMode *string `json:"dependencyMode,omitempty" tf:"dependency_mode,omitempty"`
 
 	// +kubebuilder:validation:Optional
 	DockerImage []NewClusterDockerImageParameters `json:"dockerImage,omitempty" tf:"docker_image,omitempty"`
@@ -6985,16 +7500,26 @@ type NewClusterProviderConfigParameters struct {
 
 type NewClusterWorkerNodeTypeFlexibilityInitParameters struct {
 	AlternateNodeTypeIds []*string `json:"alternateNodeTypeIds,omitempty" tf:"alternate_node_type_ids,omitempty"`
+
+	// ID of the system notification that is notified when an event defined in webhook_notifications is triggered.
+	AwsContextID *string `json:"awsContextId,omitempty" tf:"aws_context_id,omitempty"`
 }
 
 type NewClusterWorkerNodeTypeFlexibilityObservation struct {
 	AlternateNodeTypeIds []*string `json:"alternateNodeTypeIds,omitempty" tf:"alternate_node_type_ids,omitempty"`
+
+	// ID of the system notification that is notified when an event defined in webhook_notifications is triggered.
+	AwsContextID *string `json:"awsContextId,omitempty" tf:"aws_context_id,omitempty"`
 }
 
 type NewClusterWorkerNodeTypeFlexibilityParameters struct {
 
 	// +kubebuilder:validation:Optional
 	AlternateNodeTypeIds []*string `json:"alternateNodeTypeIds,omitempty" tf:"alternate_node_type_ids,omitempty"`
+
+	// ID of the system notification that is notified when an event defined in webhook_notifications is triggered.
+	// +kubebuilder:validation:Optional
+	AwsContextID *string `json:"awsContextId,omitempty" tf:"aws_context_id,omitempty"`
 }
 
 type NewClusterWorkloadTypeClientsInitParameters struct {
@@ -7189,6 +7714,44 @@ type OnFailureParameters struct {
 	ID *string `json:"id" tf:"id,omitempty"`
 }
 
+type OnMaintenanceCompleteInitParameters struct {
+
+	// ID of the system notification that is notified when an event defined in webhook_notifications is triggered.
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+}
+
+type OnMaintenanceCompleteObservation struct {
+
+	// ID of the system notification that is notified when an event defined in webhook_notifications is triggered.
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+}
+
+type OnMaintenanceCompleteParameters struct {
+
+	// ID of the system notification that is notified when an event defined in webhook_notifications is triggered.
+	// +kubebuilder:validation:Optional
+	ID *string `json:"id" tf:"id,omitempty"`
+}
+
+type OnMaintenanceStartInitParameters struct {
+
+	// ID of the system notification that is notified when an event defined in webhook_notifications is triggered.
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+}
+
+type OnMaintenanceStartObservation struct {
+
+	// ID of the system notification that is notified when an event defined in webhook_notifications is triggered.
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+}
+
+type OnMaintenanceStartParameters struct {
+
+	// ID of the system notification that is notified when an event defined in webhook_notifications is triggered.
+	// +kubebuilder:validation:Optional
+	ID *string `json:"id" tf:"id,omitempty"`
+}
+
 type OnStartInitParameters struct {
 
 	// ID of the system notification that is notified when an event defined in webhook_notifications is triggered.
@@ -7244,6 +7807,27 @@ type OnSuccessParameters struct {
 	// ID of the system notification that is notified when an event defined in webhook_notifications is triggered.
 	// +kubebuilder:validation:Optional
 	ID *string `json:"id" tf:"id,omitempty"`
+}
+
+type PageAttachmentInitParameters struct {
+	PageIds []*string `json:"pageIds,omitempty" tf:"page_ids,omitempty"`
+
+	PageSelection *string `json:"pageSelection,omitempty" tf:"page_selection,omitempty"`
+}
+
+type PageAttachmentObservation struct {
+	PageIds []*string `json:"pageIds,omitempty" tf:"page_ids,omitempty"`
+
+	PageSelection *string `json:"pageSelection,omitempty" tf:"page_selection,omitempty"`
+}
+
+type PageAttachmentParameters struct {
+
+	// +kubebuilder:validation:Optional
+	PageIds []*string `json:"pageIds,omitempty" tf:"page_ids,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	PageSelection *string `json:"pageSelection,omitempty" tf:"page_selection,omitempty"`
 }
 
 type ParameterInitParameters struct {
@@ -8436,6 +9020,8 @@ type SpecInitParameters struct {
 
 	// (list of strings) List of pip dependencies, as supported by the version of pip in this environment. Each dependency is a pip requirement file line.  See API docs for more information.
 	JavaDependencies []*string `json:"javaDependencies,omitempty" tf:"java_dependencies,omitempty"`
+
+	ProjectEnvironment *string `json:"projectEnvironment,omitempty" tf:"project_environment,omitempty"`
 }
 
 type SpecObservation struct {
@@ -8451,6 +9037,8 @@ type SpecObservation struct {
 
 	// (list of strings) List of pip dependencies, as supported by the version of pip in this environment. Each dependency is a pip requirement file line.  See API docs for more information.
 	JavaDependencies []*string `json:"javaDependencies,omitempty" tf:"java_dependencies,omitempty"`
+
+	ProjectEnvironment *string `json:"projectEnvironment,omitempty" tf:"project_environment,omitempty"`
 }
 
 type SpecParameters struct {
@@ -8472,6 +9060,9 @@ type SpecParameters struct {
 	// (list of strings) List of pip dependencies, as supported by the version of pip in this environment. Each dependency is a pip requirement file line.  See API docs for more information.
 	// +kubebuilder:validation:Optional
 	JavaDependencies []*string `json:"javaDependencies,omitempty" tf:"java_dependencies,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	ProjectEnvironment *string `json:"projectEnvironment,omitempty" tf:"project_environment,omitempty"`
 }
 
 type SubscribersInitParameters struct {
@@ -8503,7 +9094,29 @@ type SubscribersParameters struct {
 	UserName *string `json:"userName,omitempty" tf:"user_name,omitempty"`
 }
 
+type SubscriptionAttachmentInitParameters struct {
+	DataAttachment []AttachmentDataAttachmentInitParameters `json:"dataAttachment,omitempty" tf:"data_attachment,omitempty"`
+
+	PageAttachment []AttachmentPageAttachmentInitParameters `json:"pageAttachment,omitempty" tf:"page_attachment,omitempty"`
+}
+
+type SubscriptionAttachmentObservation struct {
+	DataAttachment []AttachmentDataAttachmentObservation `json:"dataAttachment,omitempty" tf:"data_attachment,omitempty"`
+
+	PageAttachment []AttachmentPageAttachmentObservation `json:"pageAttachment,omitempty" tf:"page_attachment,omitempty"`
+}
+
+type SubscriptionAttachmentParameters struct {
+
+	// +kubebuilder:validation:Optional
+	DataAttachment []AttachmentDataAttachmentParameters `json:"dataAttachment,omitempty" tf:"data_attachment,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	PageAttachment []AttachmentPageAttachmentParameters `json:"pageAttachment,omitempty" tf:"page_attachment,omitempty"`
+}
+
 type SubscriptionInitParameters struct {
+	Attachment []AttachmentInitParameters `json:"attachment,omitempty" tf:"attachment,omitempty"`
 
 	// Allows users to specify a custom subject line on the email sent to subscribers.
 	CustomSubject *string `json:"customSubject,omitempty" tf:"custom_subject,omitempty"`
@@ -8516,6 +9129,7 @@ type SubscriptionInitParameters struct {
 }
 
 type SubscriptionObservation struct {
+	Attachment []AttachmentObservation `json:"attachment,omitempty" tf:"attachment,omitempty"`
 
 	// Allows users to specify a custom subject line on the email sent to subscribers.
 	CustomSubject *string `json:"customSubject,omitempty" tf:"custom_subject,omitempty"`
@@ -8528,6 +9142,9 @@ type SubscriptionObservation struct {
 }
 
 type SubscriptionParameters struct {
+
+	// +kubebuilder:validation:Optional
+	Attachment []AttachmentParameters `json:"attachment,omitempty" tf:"attachment,omitempty"`
 
 	// Allows users to specify a custom subject line on the email sent to subscribers.
 	// +kubebuilder:validation:Optional
@@ -8699,44 +9316,94 @@ type TablesParameters struct {
 }
 
 type TaskAIRuntimeTaskInitParameters struct {
+
+	// If source is GIT: Relative path to the file in the repository specified in the git_source block with SQL commands to execute. If source is WORKSPACE: Absolute path to the file in the workspace with SQL commands to execute.
+	CodeSourcePath *string `json:"codeSourcePath,omitempty" tf:"code_source_path,omitempty"`
+
 	Deployments []AIRuntimeTaskDeploymentsInitParameters `json:"deployments,omitempty" tf:"deployments,omitempty"`
 
+	// URL to be monitored for file arrivals. The path must point to the root or a subpath of the external location. Please note that the URL must have a trailing slash character (/).
+	DockerImageURL *string `json:"dockerImageUrl,omitempty" tf:"docker_image_url,omitempty"`
+
 	Experiment *string `json:"experiment,omitempty" tf:"experiment,omitempty"`
+
+	MlflowArtifactLocation *string `json:"mlflowArtifactLocation,omitempty" tf:"mlflow_artifact_location,omitempty"`
 
 	MlflowExperimentDirectory *string `json:"mlflowExperimentDirectory,omitempty" tf:"mlflow_experiment_directory,omitempty"`
 
 	MlflowRun *string `json:"mlflowRun,omitempty" tf:"mlflow_run,omitempty"`
+
+	PriorityClass *string `json:"priorityClass,omitempty" tf:"priority_class,omitempty"`
+
+	// If source is GIT: Relative path to the file in the repository specified in the git_source block with SQL commands to execute. If source is WORKSPACE: Absolute path to the file in the workspace with SQL commands to execute.
+	UnityCatalogImagePath *string `json:"unityCatalogImagePath,omitempty" tf:"unity_catalog_image_path,omitempty"`
 }
 
 type TaskAIRuntimeTaskObservation struct {
+
+	// If source is GIT: Relative path to the file in the repository specified in the git_source block with SQL commands to execute. If source is WORKSPACE: Absolute path to the file in the workspace with SQL commands to execute.
+	CodeSourcePath *string `json:"codeSourcePath,omitempty" tf:"code_source_path,omitempty"`
+
 	Deployments []AIRuntimeTaskDeploymentsObservation `json:"deployments,omitempty" tf:"deployments,omitempty"`
 
+	// URL to be monitored for file arrivals. The path must point to the root or a subpath of the external location. Please note that the URL must have a trailing slash character (/).
+	DockerImageURL *string `json:"dockerImageUrl,omitempty" tf:"docker_image_url,omitempty"`
+
 	Experiment *string `json:"experiment,omitempty" tf:"experiment,omitempty"`
+
+	MlflowArtifactLocation *string `json:"mlflowArtifactLocation,omitempty" tf:"mlflow_artifact_location,omitempty"`
 
 	MlflowExperimentDirectory *string `json:"mlflowExperimentDirectory,omitempty" tf:"mlflow_experiment_directory,omitempty"`
 
 	MlflowRun *string `json:"mlflowRun,omitempty" tf:"mlflow_run,omitempty"`
+
+	PriorityClass *string `json:"priorityClass,omitempty" tf:"priority_class,omitempty"`
+
+	// If source is GIT: Relative path to the file in the repository specified in the git_source block with SQL commands to execute. If source is WORKSPACE: Absolute path to the file in the workspace with SQL commands to execute.
+	UnityCatalogImagePath *string `json:"unityCatalogImagePath,omitempty" tf:"unity_catalog_image_path,omitempty"`
 }
 
 type TaskAIRuntimeTaskParameters struct {
 
+	// If source is GIT: Relative path to the file in the repository specified in the git_source block with SQL commands to execute. If source is WORKSPACE: Absolute path to the file in the workspace with SQL commands to execute.
+	// +kubebuilder:validation:Optional
+	CodeSourcePath *string `json:"codeSourcePath,omitempty" tf:"code_source_path,omitempty"`
+
 	// +kubebuilder:validation:Optional
 	Deployments []AIRuntimeTaskDeploymentsParameters `json:"deployments" tf:"deployments,omitempty"`
+
+	// URL to be monitored for file arrivals. The path must point to the root or a subpath of the external location. Please note that the URL must have a trailing slash character (/).
+	// +kubebuilder:validation:Optional
+	DockerImageURL *string `json:"dockerImageUrl,omitempty" tf:"docker_image_url,omitempty"`
 
 	// +kubebuilder:validation:Optional
 	Experiment *string `json:"experiment" tf:"experiment,omitempty"`
 
 	// +kubebuilder:validation:Optional
+	MlflowArtifactLocation *string `json:"mlflowArtifactLocation,omitempty" tf:"mlflow_artifact_location,omitempty"`
+
+	// +kubebuilder:validation:Optional
 	MlflowExperimentDirectory *string `json:"mlflowExperimentDirectory,omitempty" tf:"mlflow_experiment_directory,omitempty"`
 
 	// +kubebuilder:validation:Optional
 	MlflowRun *string `json:"mlflowRun,omitempty" tf:"mlflow_run,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	PriorityClass *string `json:"priorityClass,omitempty" tf:"priority_class,omitempty"`
+
+	// If source is GIT: Relative path to the file in the repository specified in the git_source block with SQL commands to execute. If source is WORKSPACE: Absolute path to the file in the workspace with SQL commands to execute.
+	// +kubebuilder:validation:Optional
+	UnityCatalogImagePath *string `json:"unityCatalogImagePath,omitempty" tf:"unity_catalog_image_path,omitempty"`
 }
 
 type TaskAlertTaskInitParameters struct {
 
 	// (String) identifier of the Databricks Alert (databricks_alert).
 	AlertID *string `json:"alertId,omitempty" tf:"alert_id,omitempty"`
+
+	// Parameters for the task
+	// +mapType=granular
+	Parameters map[string]*string `json:"parameters,omitempty" tf:"parameters,omitempty"`
 
 	// The list of subscribers to send the snapshot of the dashboard to.
 	Subscribers []AlertTaskSubscribersInitParameters `json:"subscribers,omitempty" tf:"subscribers,omitempty"`
@@ -8753,6 +9420,10 @@ type TaskAlertTaskObservation struct {
 	// (String) identifier of the Databricks Alert (databricks_alert).
 	AlertID *string `json:"alertId,omitempty" tf:"alert_id,omitempty"`
 
+	// Parameters for the task
+	// +mapType=granular
+	Parameters map[string]*string `json:"parameters,omitempty" tf:"parameters,omitempty"`
+
 	// The list of subscribers to send the snapshot of the dashboard to.
 	Subscribers []AlertTaskSubscribersObservation `json:"subscribers,omitempty" tf:"subscribers,omitempty"`
 
@@ -8768,6 +9439,11 @@ type TaskAlertTaskParameters struct {
 	// (String) identifier of the Databricks Alert (databricks_alert).
 	// +kubebuilder:validation:Optional
 	AlertID *string `json:"alertId,omitempty" tf:"alert_id,omitempty"`
+
+	// Parameters for the task
+	// +kubebuilder:validation:Optional
+	// +mapType=granular
+	Parameters map[string]*string `json:"parameters,omitempty" tf:"parameters,omitempty"`
 
 	// The list of subscribers to send the snapshot of the dashboard to.
 	// +kubebuilder:validation:Optional
@@ -9136,6 +9812,10 @@ type TaskEmailNotificationsInitParameters struct {
 	// (List) list of notification IDs to call when the run fails. A maximum of 3 destinations can be specified.
 	OnFailure []*string `json:"onFailure,omitempty" tf:"on_failure,omitempty"`
 
+	OnMaintenanceComplete []*string `json:"onMaintenanceComplete,omitempty" tf:"on_maintenance_complete,omitempty"`
+
+	OnMaintenanceStart []*string `json:"onMaintenanceStart,omitempty" tf:"on_maintenance_start,omitempty"`
+
 	// (List) list of notification IDs to call when the run starts. A maximum of 3 destinations can be specified.
 	OnStart []*string `json:"onStart,omitempty" tf:"on_start,omitempty"`
 
@@ -9156,6 +9836,10 @@ type TaskEmailNotificationsObservation struct {
 
 	// (List) list of notification IDs to call when the run fails. A maximum of 3 destinations can be specified.
 	OnFailure []*string `json:"onFailure,omitempty" tf:"on_failure,omitempty"`
+
+	OnMaintenanceComplete []*string `json:"onMaintenanceComplete,omitempty" tf:"on_maintenance_complete,omitempty"`
+
+	OnMaintenanceStart []*string `json:"onMaintenanceStart,omitempty" tf:"on_maintenance_start,omitempty"`
 
 	// (List) list of notification IDs to call when the run starts. A maximum of 3 destinations can be specified.
 	OnStart []*string `json:"onStart,omitempty" tf:"on_start,omitempty"`
@@ -9180,6 +9864,12 @@ type TaskEmailNotificationsParameters struct {
 	// (List) list of notification IDs to call when the run fails. A maximum of 3 destinations can be specified.
 	// +kubebuilder:validation:Optional
 	OnFailure []*string `json:"onFailure,omitempty" tf:"on_failure,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	OnMaintenanceComplete []*string `json:"onMaintenanceComplete,omitempty" tf:"on_maintenance_complete,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	OnMaintenanceStart []*string `json:"onMaintenanceStart,omitempty" tf:"on_maintenance_start,omitempty"`
 
 	// (List) list of notification IDs to call when the run starts. A maximum of 3 destinations can be specified.
 	// +kubebuilder:validation:Optional
@@ -9412,6 +10102,8 @@ type TaskInitParameters struct {
 
 	// identifier of an environment block that is used to specify libraries.  Required for some tasks (spark_python_task, python_wheel_task, ...) running on serverless compute.
 	EnvironmentKey *string `json:"environmentKey,omitempty" tf:"environment_key,omitempty"`
+
+	EnvironmentVariablesKey *string `json:"environmentVariablesKey,omitempty" tf:"environment_variables_key,omitempty"`
 
 	// If existing_cluster_id, the ID of an existing cluster that will be used for all runs of this job. When running jobs on an existing cluster, you may need to manually restart the cluster if it stops responding. We strongly suggest to use new_cluster for greater reliability.
 	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/namespaced/compute/v1alpha1.Cluster
@@ -10039,16 +10731,26 @@ type TaskNewClusterDockerImageParameters struct {
 
 type TaskNewClusterDriverNodeTypeFlexibilityInitParameters struct {
 	AlternateNodeTypeIds []*string `json:"alternateNodeTypeIds,omitempty" tf:"alternate_node_type_ids,omitempty"`
+
+	// ID of the system notification that is notified when an event defined in webhook_notifications is triggered.
+	AwsContextID *string `json:"awsContextId,omitempty" tf:"aws_context_id,omitempty"`
 }
 
 type TaskNewClusterDriverNodeTypeFlexibilityObservation struct {
 	AlternateNodeTypeIds []*string `json:"alternateNodeTypeIds,omitempty" tf:"alternate_node_type_ids,omitempty"`
+
+	// ID of the system notification that is notified when an event defined in webhook_notifications is triggered.
+	AwsContextID *string `json:"awsContextId,omitempty" tf:"aws_context_id,omitempty"`
 }
 
 type TaskNewClusterDriverNodeTypeFlexibilityParameters struct {
 
 	// +kubebuilder:validation:Optional
 	AlternateNodeTypeIds []*string `json:"alternateNodeTypeIds,omitempty" tf:"alternate_node_type_ids,omitempty"`
+
+	// ID of the system notification that is notified when an event defined in webhook_notifications is triggered.
+	// +kubebuilder:validation:Optional
+	AwsContextID *string `json:"awsContextId,omitempty" tf:"aws_context_id,omitempty"`
 }
 
 type TaskNewClusterGCPAttributesInitParameters struct {
@@ -10141,6 +10843,8 @@ type TaskNewClusterInitParameters struct {
 	CustomTags map[string]*string `json:"customTags,omitempty" tf:"custom_tags,omitempty"`
 
 	DataSecurityMode *string `json:"dataSecurityMode,omitempty" tf:"data_security_mode,omitempty"`
+
+	DependencyMode *string `json:"dependencyMode,omitempty" tf:"dependency_mode,omitempty"`
 
 	DockerImage []TaskNewClusterDockerImageInitParameters `json:"dockerImage,omitempty" tf:"docker_image,omitempty"`
 
@@ -10590,6 +11294,8 @@ type TaskNewClusterObservation struct {
 
 	DataSecurityMode *string `json:"dataSecurityMode,omitempty" tf:"data_security_mode,omitempty"`
 
+	DependencyMode *string `json:"dependencyMode,omitempty" tf:"dependency_mode,omitempty"`
+
 	DockerImage []TaskNewClusterDockerImageObservation `json:"dockerImage,omitempty" tf:"docker_image,omitempty"`
 
 	// ID of the system notification that is notified when an event defined in webhook_notifications is triggered.
@@ -10694,6 +11400,9 @@ type TaskNewClusterParameters struct {
 
 	// +kubebuilder:validation:Optional
 	DataSecurityMode *string `json:"dataSecurityMode,omitempty" tf:"data_security_mode,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	DependencyMode *string `json:"dependencyMode,omitempty" tf:"dependency_mode,omitempty"`
 
 	// +kubebuilder:validation:Optional
 	DockerImage []TaskNewClusterDockerImageParameters `json:"dockerImage,omitempty" tf:"docker_image,omitempty"`
@@ -10813,16 +11522,26 @@ type TaskNewClusterProviderConfigParameters struct {
 
 type TaskNewClusterWorkerNodeTypeFlexibilityInitParameters struct {
 	AlternateNodeTypeIds []*string `json:"alternateNodeTypeIds,omitempty" tf:"alternate_node_type_ids,omitempty"`
+
+	// ID of the system notification that is notified when an event defined in webhook_notifications is triggered.
+	AwsContextID *string `json:"awsContextId,omitempty" tf:"aws_context_id,omitempty"`
 }
 
 type TaskNewClusterWorkerNodeTypeFlexibilityObservation struct {
 	AlternateNodeTypeIds []*string `json:"alternateNodeTypeIds,omitempty" tf:"alternate_node_type_ids,omitempty"`
+
+	// ID of the system notification that is notified when an event defined in webhook_notifications is triggered.
+	AwsContextID *string `json:"awsContextId,omitempty" tf:"aws_context_id,omitempty"`
 }
 
 type TaskNewClusterWorkerNodeTypeFlexibilityParameters struct {
 
 	// +kubebuilder:validation:Optional
 	AlternateNodeTypeIds []*string `json:"alternateNodeTypeIds,omitempty" tf:"alternate_node_type_ids,omitempty"`
+
+	// ID of the system notification that is notified when an event defined in webhook_notifications is triggered.
+	// +kubebuilder:validation:Optional
+	AwsContextID *string `json:"awsContextId,omitempty" tf:"aws_context_id,omitempty"`
 }
 
 type TaskNewClusterWorkloadTypeClientsInitParameters struct {
@@ -10998,6 +11717,8 @@ type TaskObservation struct {
 	// identifier of an environment block that is used to specify libraries.  Required for some tasks (spark_python_task, python_wheel_task, ...) running on serverless compute.
 	EnvironmentKey *string `json:"environmentKey,omitempty" tf:"environment_key,omitempty"`
 
+	EnvironmentVariablesKey *string `json:"environmentVariablesKey,omitempty" tf:"environment_variables_key,omitempty"`
+
 	// If existing_cluster_id, the ID of an existing cluster that will be used for all runs of this job. When running jobs on an existing cluster, you may need to manually restart the cluster if it stops responding. We strongly suggest to use new_cluster for greater reliability.
 	ExistingClusterID *string `json:"existingClusterId,omitempty" tf:"existing_cluster_id,omitempty"`
 
@@ -11135,6 +11856,9 @@ type TaskParameters struct {
 	// identifier of an environment block that is used to specify libraries.  Required for some tasks (spark_python_task, python_wheel_task, ...) running on serverless compute.
 	// +kubebuilder:validation:Optional
 	EnvironmentKey *string `json:"environmentKey,omitempty" tf:"environment_key,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	EnvironmentVariablesKey *string `json:"environmentVariablesKey,omitempty" tf:"environment_variables_key,omitempty"`
 
 	// If existing_cluster_id, the ID of an existing cluster that will be used for all runs of this job. When running jobs on an existing cluster, you may need to manually restart the cluster if it stops responding. We strongly suggest to use new_cluster for greater reliability.
 	// +crossplane:generate:reference:type=github.com/glalanne/provider-databricks/apis/namespaced/compute/v1alpha1.Cluster
@@ -11796,6 +12520,10 @@ type TaskWebhookNotificationsInitParameters struct {
 	// (List) list of notification IDs to call when the run fails. A maximum of 3 destinations can be specified.
 	OnFailure []WebhookNotificationsOnFailureInitParameters `json:"onFailure,omitempty" tf:"on_failure,omitempty"`
 
+	OnMaintenanceComplete []WebhookNotificationsOnMaintenanceCompleteInitParameters `json:"onMaintenanceComplete,omitempty" tf:"on_maintenance_complete,omitempty"`
+
+	OnMaintenanceStart []WebhookNotificationsOnMaintenanceStartInitParameters `json:"onMaintenanceStart,omitempty" tf:"on_maintenance_start,omitempty"`
+
 	// (List) list of notification IDs to call when the run starts. A maximum of 3 destinations can be specified.
 	OnStart []WebhookNotificationsOnStartInitParameters `json:"onStart,omitempty" tf:"on_start,omitempty"`
 
@@ -11813,6 +12541,10 @@ type TaskWebhookNotificationsObservation struct {
 
 	// (List) list of notification IDs to call when the run fails. A maximum of 3 destinations can be specified.
 	OnFailure []WebhookNotificationsOnFailureObservation `json:"onFailure,omitempty" tf:"on_failure,omitempty"`
+
+	OnMaintenanceComplete []WebhookNotificationsOnMaintenanceCompleteObservation `json:"onMaintenanceComplete,omitempty" tf:"on_maintenance_complete,omitempty"`
+
+	OnMaintenanceStart []WebhookNotificationsOnMaintenanceStartObservation `json:"onMaintenanceStart,omitempty" tf:"on_maintenance_start,omitempty"`
 
 	// (List) list of notification IDs to call when the run starts. A maximum of 3 destinations can be specified.
 	OnStart []WebhookNotificationsOnStartObservation `json:"onStart,omitempty" tf:"on_start,omitempty"`
@@ -11833,6 +12565,12 @@ type TaskWebhookNotificationsParameters struct {
 	// (List) list of notification IDs to call when the run fails. A maximum of 3 destinations can be specified.
 	// +kubebuilder:validation:Optional
 	OnFailure []WebhookNotificationsOnFailureParameters `json:"onFailure,omitempty" tf:"on_failure,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	OnMaintenanceComplete []WebhookNotificationsOnMaintenanceCompleteParameters `json:"onMaintenanceComplete,omitempty" tf:"on_maintenance_complete,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	OnMaintenanceStart []WebhookNotificationsOnMaintenanceStartParameters `json:"onMaintenanceStart,omitempty" tf:"on_maintenance_start,omitempty"`
 
 	// (List) list of notification IDs to call when the run starts. A maximum of 3 destinations can be specified.
 	// +kubebuilder:validation:Optional
@@ -11949,6 +12687,352 @@ type TriggerSQLConditionParameters struct {
 	WarehouseID *string `json:"warehouseId" tf:"warehouse_id,omitempty"`
 }
 
+type TriggersContinuousInitParameters struct {
+	MaintenanceWindow []ContinuousMaintenanceWindowInitParameters `json:"maintenanceWindow,omitempty" tf:"maintenance_window,omitempty"`
+
+	// Controls task level retry behaviour. Allowed values are:
+	TaskRetryMode *string `json:"taskRetryMode,omitempty" tf:"task_retry_mode,omitempty"`
+}
+
+type TriggersContinuousObservation struct {
+	MaintenanceWindow []ContinuousMaintenanceWindowObservation `json:"maintenanceWindow,omitempty" tf:"maintenance_window,omitempty"`
+
+	// Controls task level retry behaviour. Allowed values are:
+	TaskRetryMode *string `json:"taskRetryMode,omitempty" tf:"task_retry_mode,omitempty"`
+}
+
+type TriggersContinuousParameters struct {
+
+	// +kubebuilder:validation:Optional
+	MaintenanceWindow []ContinuousMaintenanceWindowParameters `json:"maintenanceWindow,omitempty" tf:"maintenance_window,omitempty"`
+
+	// Controls task level retry behaviour. Allowed values are:
+	// +kubebuilder:validation:Optional
+	TaskRetryMode *string `json:"taskRetryMode,omitempty" tf:"task_retry_mode,omitempty"`
+}
+
+type TriggersFileArrivalInitParameters struct {
+
+	// If set, the trigger starts a run only after the specified amount of time passed since the last time the trigger fired. The minimum allowed value is 60 seconds.
+	MinTimeBetweenTriggersSeconds *float64 `json:"minTimeBetweenTriggersSeconds,omitempty" tf:"min_time_between_triggers_seconds,omitempty"`
+
+	// URL to be monitored for file arrivals. The path must point to the root or a subpath of the external location. Please note that the URL must have a trailing slash character (/).
+	URL *string `json:"url,omitempty" tf:"url,omitempty"`
+
+	// If set, the trigger starts a run only after no file activity has occurred for the specified amount of time. This makes it possible to wait for a batch of incoming files to arrive before triggering a run. The minimum allowed value is 60 seconds.
+	WaitAfterLastChangeSeconds *float64 `json:"waitAfterLastChangeSeconds,omitempty" tf:"wait_after_last_change_seconds,omitempty"`
+}
+
+type TriggersFileArrivalObservation struct {
+
+	// If set, the trigger starts a run only after the specified amount of time passed since the last time the trigger fired. The minimum allowed value is 60 seconds.
+	MinTimeBetweenTriggersSeconds *float64 `json:"minTimeBetweenTriggersSeconds,omitempty" tf:"min_time_between_triggers_seconds,omitempty"`
+
+	// URL to be monitored for file arrivals. The path must point to the root or a subpath of the external location. Please note that the URL must have a trailing slash character (/).
+	URL *string `json:"url,omitempty" tf:"url,omitempty"`
+
+	// If set, the trigger starts a run only after no file activity has occurred for the specified amount of time. This makes it possible to wait for a batch of incoming files to arrive before triggering a run. The minimum allowed value is 60 seconds.
+	WaitAfterLastChangeSeconds *float64 `json:"waitAfterLastChangeSeconds,omitempty" tf:"wait_after_last_change_seconds,omitempty"`
+}
+
+type TriggersFileArrivalParameters struct {
+
+	// If set, the trigger starts a run only after the specified amount of time passed since the last time the trigger fired. The minimum allowed value is 60 seconds.
+	// +kubebuilder:validation:Optional
+	MinTimeBetweenTriggersSeconds *float64 `json:"minTimeBetweenTriggersSeconds,omitempty" tf:"min_time_between_triggers_seconds,omitempty"`
+
+	// URL to be monitored for file arrivals. The path must point to the root or a subpath of the external location. Please note that the URL must have a trailing slash character (/).
+	// +kubebuilder:validation:Optional
+	URL *string `json:"url" tf:"url,omitempty"`
+
+	// If set, the trigger starts a run only after no file activity has occurred for the specified amount of time. This makes it possible to wait for a batch of incoming files to arrive before triggering a run. The minimum allowed value is 60 seconds.
+	// +kubebuilder:validation:Optional
+	WaitAfterLastChangeSeconds *float64 `json:"waitAfterLastChangeSeconds,omitempty" tf:"wait_after_last_change_seconds,omitempty"`
+}
+
+type TriggersInitParameters struct {
+
+	// Configuration block to configure pause status. See continuous Configuration Block.
+	Continuous []TriggersContinuousInitParameters `json:"continuous,omitempty" tf:"continuous,omitempty"`
+
+	// configuration block to define a trigger for File Arrival events consisting of following attributes:
+	FileArrival []TriggersFileArrivalInitParameters `json:"fileArrival,omitempty" tf:"file_arrival,omitempty"`
+
+	Model []TriggersModelInitParameters `json:"model,omitempty" tf:"model,omitempty"`
+
+	// Indicate whether this trigger is paused or not. Either PAUSED or UNPAUSED. When the pause_status field is omitted in the block, the server will default to using UNPAUSED as a value for pause_status.
+	PauseStatus *string `json:"pauseStatus,omitempty" tf:"pause_status,omitempty"`
+
+	// configuration block to define a trigger for Periodic Triggers consisting of the following attributes:
+	Periodic []TriggersPeriodicInitParameters `json:"periodic,omitempty" tf:"periodic,omitempty"`
+
+	// The table(s) condition based on which to trigger a job run.  Possible values are ANY_UPDATED, ALL_UPDATED.
+	SQLCondition []TriggersSQLConditionInitParameters `json:"sqlCondition,omitempty" tf:"sql_condition,omitempty"`
+
+	// An optional periodic schedule for this job. The default behavior is that the job runs when triggered by clicking Run Now in the Jobs UI or sending an API request to runNow. See schedule Configuration Block below.
+	Schedule []TriggersScheduleInitParameters `json:"schedule,omitempty" tf:"schedule,omitempty"`
+
+	// configuration block to define a trigger for Table Updates consisting of following attributes:
+	TableUpdate []TriggersTableUpdateInitParameters `json:"tableUpdate,omitempty" tf:"table_update,omitempty"`
+}
+
+type TriggersModelInitParameters struct {
+	Aliases []*string `json:"aliases,omitempty" tf:"aliases,omitempty"`
+
+	// The table(s) condition based on which to trigger a job run.  Possible values are ANY_UPDATED, ALL_UPDATED.
+	Condition *string `json:"condition,omitempty" tf:"condition,omitempty"`
+
+	// If set, the trigger starts a run only after the specified amount of time passed since the last time the trigger fired. The minimum allowed value is 60 seconds.
+	MinTimeBetweenTriggersSeconds *float64 `json:"minTimeBetweenTriggersSeconds,omitempty" tf:"min_time_between_triggers_seconds,omitempty"`
+
+	// An optional name for the job. The default value is Untitled.
+	SecurableName *string `json:"securableName,omitempty" tf:"securable_name,omitempty"`
+
+	// If set, the trigger starts a run only after no file activity has occurred for the specified amount of time. This makes it possible to wait for a batch of incoming files to arrive before triggering a run. The minimum allowed value is 60 seconds.
+	WaitAfterLastChangeSeconds *float64 `json:"waitAfterLastChangeSeconds,omitempty" tf:"wait_after_last_change_seconds,omitempty"`
+}
+
+type TriggersModelObservation struct {
+	Aliases []*string `json:"aliases,omitempty" tf:"aliases,omitempty"`
+
+	// The table(s) condition based on which to trigger a job run.  Possible values are ANY_UPDATED, ALL_UPDATED.
+	Condition *string `json:"condition,omitempty" tf:"condition,omitempty"`
+
+	// If set, the trigger starts a run only after the specified amount of time passed since the last time the trigger fired. The minimum allowed value is 60 seconds.
+	MinTimeBetweenTriggersSeconds *float64 `json:"minTimeBetweenTriggersSeconds,omitempty" tf:"min_time_between_triggers_seconds,omitempty"`
+
+	// An optional name for the job. The default value is Untitled.
+	SecurableName *string `json:"securableName,omitempty" tf:"securable_name,omitempty"`
+
+	// If set, the trigger starts a run only after no file activity has occurred for the specified amount of time. This makes it possible to wait for a batch of incoming files to arrive before triggering a run. The minimum allowed value is 60 seconds.
+	WaitAfterLastChangeSeconds *float64 `json:"waitAfterLastChangeSeconds,omitempty" tf:"wait_after_last_change_seconds,omitempty"`
+}
+
+type TriggersModelParameters struct {
+
+	// +kubebuilder:validation:Optional
+	Aliases []*string `json:"aliases,omitempty" tf:"aliases,omitempty"`
+
+	// The table(s) condition based on which to trigger a job run.  Possible values are ANY_UPDATED, ALL_UPDATED.
+	// +kubebuilder:validation:Optional
+	Condition *string `json:"condition" tf:"condition,omitempty"`
+
+	// If set, the trigger starts a run only after the specified amount of time passed since the last time the trigger fired. The minimum allowed value is 60 seconds.
+	// +kubebuilder:validation:Optional
+	MinTimeBetweenTriggersSeconds *float64 `json:"minTimeBetweenTriggersSeconds,omitempty" tf:"min_time_between_triggers_seconds,omitempty"`
+
+	// An optional name for the job. The default value is Untitled.
+	// +kubebuilder:validation:Optional
+	SecurableName *string `json:"securableName,omitempty" tf:"securable_name,omitempty"`
+
+	// If set, the trigger starts a run only after no file activity has occurred for the specified amount of time. This makes it possible to wait for a batch of incoming files to arrive before triggering a run. The minimum allowed value is 60 seconds.
+	// +kubebuilder:validation:Optional
+	WaitAfterLastChangeSeconds *float64 `json:"waitAfterLastChangeSeconds,omitempty" tf:"wait_after_last_change_seconds,omitempty"`
+}
+
+type TriggersObservation struct {
+
+	// Configuration block to configure pause status. See continuous Configuration Block.
+	Continuous []TriggersContinuousObservation `json:"continuous,omitempty" tf:"continuous,omitempty"`
+
+	// configuration block to define a trigger for File Arrival events consisting of following attributes:
+	FileArrival []TriggersFileArrivalObservation `json:"fileArrival,omitempty" tf:"file_arrival,omitempty"`
+
+	Model []TriggersModelObservation `json:"model,omitempty" tf:"model,omitempty"`
+
+	// Indicate whether this trigger is paused or not. Either PAUSED or UNPAUSED. When the pause_status field is omitted in the block, the server will default to using UNPAUSED as a value for pause_status.
+	PauseStatus *string `json:"pauseStatus,omitempty" tf:"pause_status,omitempty"`
+
+	// configuration block to define a trigger for Periodic Triggers consisting of the following attributes:
+	Periodic []TriggersPeriodicObservation `json:"periodic,omitempty" tf:"periodic,omitempty"`
+
+	// The table(s) condition based on which to trigger a job run.  Possible values are ANY_UPDATED, ALL_UPDATED.
+	SQLCondition []TriggersSQLConditionObservation `json:"sqlCondition,omitempty" tf:"sql_condition,omitempty"`
+
+	// An optional periodic schedule for this job. The default behavior is that the job runs when triggered by clicking Run Now in the Jobs UI or sending an API request to runNow. See schedule Configuration Block below.
+	Schedule []TriggersScheduleObservation `json:"schedule,omitempty" tf:"schedule,omitempty"`
+
+	// configuration block to define a trigger for Table Updates consisting of following attributes:
+	TableUpdate []TriggersTableUpdateObservation `json:"tableUpdate,omitempty" tf:"table_update,omitempty"`
+}
+
+type TriggersParameters struct {
+
+	// Configuration block to configure pause status. See continuous Configuration Block.
+	// +kubebuilder:validation:Optional
+	Continuous []TriggersContinuousParameters `json:"continuous,omitempty" tf:"continuous,omitempty"`
+
+	// configuration block to define a trigger for File Arrival events consisting of following attributes:
+	// +kubebuilder:validation:Optional
+	FileArrival []TriggersFileArrivalParameters `json:"fileArrival,omitempty" tf:"file_arrival,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	Model []TriggersModelParameters `json:"model,omitempty" tf:"model,omitempty"`
+
+	// Indicate whether this trigger is paused or not. Either PAUSED or UNPAUSED. When the pause_status field is omitted in the block, the server will default to using UNPAUSED as a value for pause_status.
+	// +kubebuilder:validation:Optional
+	PauseStatus *string `json:"pauseStatus,omitempty" tf:"pause_status,omitempty"`
+
+	// configuration block to define a trigger for Periodic Triggers consisting of the following attributes:
+	// +kubebuilder:validation:Optional
+	Periodic []TriggersPeriodicParameters `json:"periodic,omitempty" tf:"periodic,omitempty"`
+
+	// The table(s) condition based on which to trigger a job run.  Possible values are ANY_UPDATED, ALL_UPDATED.
+	// +kubebuilder:validation:Optional
+	SQLCondition []TriggersSQLConditionParameters `json:"sqlCondition,omitempty" tf:"sql_condition,omitempty"`
+
+	// An optional periodic schedule for this job. The default behavior is that the job runs when triggered by clicking Run Now in the Jobs UI or sending an API request to runNow. See schedule Configuration Block below.
+	// +kubebuilder:validation:Optional
+	Schedule []TriggersScheduleParameters `json:"schedule,omitempty" tf:"schedule,omitempty"`
+
+	// configuration block to define a trigger for Table Updates consisting of following attributes:
+	// +kubebuilder:validation:Optional
+	TableUpdate []TriggersTableUpdateParameters `json:"tableUpdate,omitempty" tf:"table_update,omitempty"`
+}
+
+type TriggersPeriodicInitParameters struct {
+
+	// Specifies the interval at which the job should run.
+	Interval *float64 `json:"interval,omitempty" tf:"interval,omitempty"`
+
+	// The unit of time for the interval.  Possible values are: DAYS, HOURS, WEEKS.
+	Unit *string `json:"unit,omitempty" tf:"unit,omitempty"`
+}
+
+type TriggersPeriodicObservation struct {
+
+	// Specifies the interval at which the job should run.
+	Interval *float64 `json:"interval,omitempty" tf:"interval,omitempty"`
+
+	// The unit of time for the interval.  Possible values are: DAYS, HOURS, WEEKS.
+	Unit *string `json:"unit,omitempty" tf:"unit,omitempty"`
+}
+
+type TriggersPeriodicParameters struct {
+
+	// Specifies the interval at which the job should run.
+	// +kubebuilder:validation:Optional
+	Interval *float64 `json:"interval" tf:"interval,omitempty"`
+
+	// The unit of time for the interval.  Possible values are: DAYS, HOURS, WEEKS.
+	// +kubebuilder:validation:Optional
+	Unit *string `json:"unit" tf:"unit,omitempty"`
+}
+
+type TriggersSQLConditionInitParameters struct {
+
+	// ID of the system notification that is notified when an event defined in webhook_notifications is triggered.
+	SQLQueryID *string `json:"sqlQueryId,omitempty" tf:"sql_query_id,omitempty"`
+
+	TriggerMode *string `json:"triggerMode,omitempty" tf:"trigger_mode,omitempty"`
+
+	// The warehouse id to execute the dashboard with for the schedule. If not specified, will use the default warehouse of dashboard
+	WarehouseID *string `json:"warehouseId,omitempty" tf:"warehouse_id,omitempty"`
+}
+
+type TriggersSQLConditionObservation struct {
+
+	// ID of the system notification that is notified when an event defined in webhook_notifications is triggered.
+	SQLQueryID *string `json:"sqlQueryId,omitempty" tf:"sql_query_id,omitempty"`
+
+	TriggerMode *string `json:"triggerMode,omitempty" tf:"trigger_mode,omitempty"`
+
+	// The warehouse id to execute the dashboard with for the schedule. If not specified, will use the default warehouse of dashboard
+	WarehouseID *string `json:"warehouseId,omitempty" tf:"warehouse_id,omitempty"`
+}
+
+type TriggersSQLConditionParameters struct {
+
+	// ID of the system notification that is notified when an event defined in webhook_notifications is triggered.
+	// +kubebuilder:validation:Optional
+	SQLQueryID *string `json:"sqlQueryId" tf:"sql_query_id,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	TriggerMode *string `json:"triggerMode,omitempty" tf:"trigger_mode,omitempty"`
+
+	// The warehouse id to execute the dashboard with for the schedule. If not specified, will use the default warehouse of dashboard
+	// +kubebuilder:validation:Optional
+	WarehouseID *string `json:"warehouseId" tf:"warehouse_id,omitempty"`
+}
+
+type TriggersScheduleInitParameters struct {
+
+	// A Cron expression using Quartz syntax that describes the schedule for a job. This field is required.
+	QuartzCronExpression *string `json:"quartzCronExpression,omitempty" tf:"quartz_cron_expression,omitempty"`
+
+	// A Java timezone ID. The schedule for a job will be resolved with respect to this timezone. See Java TimeZone for details. This field is required.
+	TimezoneID *string `json:"timezoneId,omitempty" tf:"timezone_id,omitempty"`
+}
+
+type TriggersScheduleObservation struct {
+
+	// A Cron expression using Quartz syntax that describes the schedule for a job. This field is required.
+	QuartzCronExpression *string `json:"quartzCronExpression,omitempty" tf:"quartz_cron_expression,omitempty"`
+
+	// A Java timezone ID. The schedule for a job will be resolved with respect to this timezone. See Java TimeZone for details. This field is required.
+	TimezoneID *string `json:"timezoneId,omitempty" tf:"timezone_id,omitempty"`
+}
+
+type TriggersScheduleParameters struct {
+
+	// A Cron expression using Quartz syntax that describes the schedule for a job. This field is required.
+	// +kubebuilder:validation:Optional
+	QuartzCronExpression *string `json:"quartzCronExpression" tf:"quartz_cron_expression,omitempty"`
+
+	// A Java timezone ID. The schedule for a job will be resolved with respect to this timezone. See Java TimeZone for details. This field is required.
+	// +kubebuilder:validation:Optional
+	TimezoneID *string `json:"timezoneId" tf:"timezone_id,omitempty"`
+}
+
+type TriggersTableUpdateInitParameters struct {
+
+	// The table(s) condition based on which to trigger a job run.  Possible values are ANY_UPDATED, ALL_UPDATED.
+	Condition *string `json:"condition,omitempty" tf:"condition,omitempty"`
+
+	// If set, the trigger starts a run only after the specified amount of time passed since the last time the trigger fired. The minimum allowed value is 60 seconds.
+	MinTimeBetweenTriggersSeconds *float64 `json:"minTimeBetweenTriggersSeconds,omitempty" tf:"min_time_between_triggers_seconds,omitempty"`
+
+	// A non-empty list of tables to monitor for changes. The table name must be in the format catalog_name.schema_name.table_name.
+	TableNames []*string `json:"tableNames,omitempty" tf:"table_names,omitempty"`
+
+	// If set, the trigger starts a run only after no file activity has occurred for the specified amount of time. This makes it possible to wait for a batch of incoming files to arrive before triggering a run. The minimum allowed value is 60 seconds.
+	WaitAfterLastChangeSeconds *float64 `json:"waitAfterLastChangeSeconds,omitempty" tf:"wait_after_last_change_seconds,omitempty"`
+}
+
+type TriggersTableUpdateObservation struct {
+
+	// The table(s) condition based on which to trigger a job run.  Possible values are ANY_UPDATED, ALL_UPDATED.
+	Condition *string `json:"condition,omitempty" tf:"condition,omitempty"`
+
+	// If set, the trigger starts a run only after the specified amount of time passed since the last time the trigger fired. The minimum allowed value is 60 seconds.
+	MinTimeBetweenTriggersSeconds *float64 `json:"minTimeBetweenTriggersSeconds,omitempty" tf:"min_time_between_triggers_seconds,omitempty"`
+
+	// A non-empty list of tables to monitor for changes. The table name must be in the format catalog_name.schema_name.table_name.
+	TableNames []*string `json:"tableNames,omitempty" tf:"table_names,omitempty"`
+
+	// If set, the trigger starts a run only after no file activity has occurred for the specified amount of time. This makes it possible to wait for a batch of incoming files to arrive before triggering a run. The minimum allowed value is 60 seconds.
+	WaitAfterLastChangeSeconds *float64 `json:"waitAfterLastChangeSeconds,omitempty" tf:"wait_after_last_change_seconds,omitempty"`
+}
+
+type TriggersTableUpdateParameters struct {
+
+	// The table(s) condition based on which to trigger a job run.  Possible values are ANY_UPDATED, ALL_UPDATED.
+	// +kubebuilder:validation:Optional
+	Condition *string `json:"condition,omitempty" tf:"condition,omitempty"`
+
+	// If set, the trigger starts a run only after the specified amount of time passed since the last time the trigger fired. The minimum allowed value is 60 seconds.
+	// +kubebuilder:validation:Optional
+	MinTimeBetweenTriggersSeconds *float64 `json:"minTimeBetweenTriggersSeconds,omitempty" tf:"min_time_between_triggers_seconds,omitempty"`
+
+	// A non-empty list of tables to monitor for changes. The table name must be in the format catalog_name.schema_name.table_name.
+	// +kubebuilder:validation:Optional
+	TableNames []*string `json:"tableNames" tf:"table_names,omitempty"`
+
+	// If set, the trigger starts a run only after no file activity has occurred for the specified amount of time. This makes it possible to wait for a batch of incoming files to arrive before triggering a run. The minimum allowed value is 60 seconds.
+	// +kubebuilder:validation:Optional
+	WaitAfterLastChangeSeconds *float64 `json:"waitAfterLastChangeSeconds,omitempty" tf:"wait_after_last_change_seconds,omitempty"`
+}
+
 type WebhookNotificationsInitParameters struct {
 
 	// (List) list of notification IDs to call when the duration of a run exceeds the threshold specified by the RUN_DURATION_SECONDS metric in the health block.
@@ -11956,6 +13040,10 @@ type WebhookNotificationsInitParameters struct {
 
 	// (List) list of notification IDs to call when the run fails. A maximum of 3 destinations can be specified.
 	OnFailure []OnFailureInitParameters `json:"onFailure,omitempty" tf:"on_failure,omitempty"`
+
+	OnMaintenanceComplete []OnMaintenanceCompleteInitParameters `json:"onMaintenanceComplete,omitempty" tf:"on_maintenance_complete,omitempty"`
+
+	OnMaintenanceStart []OnMaintenanceStartInitParameters `json:"onMaintenanceStart,omitempty" tf:"on_maintenance_start,omitempty"`
 
 	// (List) list of notification IDs to call when the run starts. A maximum of 3 destinations can be specified.
 	OnStart []OnStartInitParameters `json:"onStart,omitempty" tf:"on_start,omitempty"`
@@ -11974,6 +13062,10 @@ type WebhookNotificationsObservation struct {
 
 	// (List) list of notification IDs to call when the run fails. A maximum of 3 destinations can be specified.
 	OnFailure []OnFailureObservation `json:"onFailure,omitempty" tf:"on_failure,omitempty"`
+
+	OnMaintenanceComplete []OnMaintenanceCompleteObservation `json:"onMaintenanceComplete,omitempty" tf:"on_maintenance_complete,omitempty"`
+
+	OnMaintenanceStart []OnMaintenanceStartObservation `json:"onMaintenanceStart,omitempty" tf:"on_maintenance_start,omitempty"`
 
 	// (List) list of notification IDs to call when the run starts. A maximum of 3 destinations can be specified.
 	OnStart []OnStartObservation `json:"onStart,omitempty" tf:"on_start,omitempty"`
@@ -12017,6 +13109,44 @@ type WebhookNotificationsOnFailureObservation struct {
 }
 
 type WebhookNotificationsOnFailureParameters struct {
+
+	// ID of the system notification that is notified when an event defined in webhook_notifications is triggered.
+	// +kubebuilder:validation:Optional
+	ID *string `json:"id" tf:"id,omitempty"`
+}
+
+type WebhookNotificationsOnMaintenanceCompleteInitParameters struct {
+
+	// ID of the system notification that is notified when an event defined in webhook_notifications is triggered.
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+}
+
+type WebhookNotificationsOnMaintenanceCompleteObservation struct {
+
+	// ID of the system notification that is notified when an event defined in webhook_notifications is triggered.
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+}
+
+type WebhookNotificationsOnMaintenanceCompleteParameters struct {
+
+	// ID of the system notification that is notified when an event defined in webhook_notifications is triggered.
+	// +kubebuilder:validation:Optional
+	ID *string `json:"id" tf:"id,omitempty"`
+}
+
+type WebhookNotificationsOnMaintenanceStartInitParameters struct {
+
+	// ID of the system notification that is notified when an event defined in webhook_notifications is triggered.
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+}
+
+type WebhookNotificationsOnMaintenanceStartObservation struct {
+
+	// ID of the system notification that is notified when an event defined in webhook_notifications is triggered.
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+}
+
+type WebhookNotificationsOnMaintenanceStartParameters struct {
 
 	// ID of the system notification that is notified when an event defined in webhook_notifications is triggered.
 	// +kubebuilder:validation:Optional
@@ -12090,6 +13220,12 @@ type WebhookNotificationsParameters struct {
 	// +kubebuilder:validation:Optional
 	OnFailure []OnFailureParameters `json:"onFailure,omitempty" tf:"on_failure,omitempty"`
 
+	// +kubebuilder:validation:Optional
+	OnMaintenanceComplete []OnMaintenanceCompleteParameters `json:"onMaintenanceComplete,omitempty" tf:"on_maintenance_complete,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	OnMaintenanceStart []OnMaintenanceStartParameters `json:"onMaintenanceStart,omitempty" tf:"on_maintenance_start,omitempty"`
+
 	// (List) list of notification IDs to call when the run starts. A maximum of 3 destinations can be specified.
 	// +kubebuilder:validation:Optional
 	OnStart []OnStartParameters `json:"onStart,omitempty" tf:"on_start,omitempty"`
@@ -12101,6 +13237,35 @@ type WebhookNotificationsParameters struct {
 	// (List) list of notification IDs to call when the run completes successfully. A maximum of 3 destinations can be specified.
 	// +kubebuilder:validation:Optional
 	OnSuccess []OnSuccessParameters `json:"onSuccess,omitempty" tf:"on_success,omitempty"`
+}
+
+type WidgetsInitParameters struct {
+
+	// ID of the system notification that is notified when an event defined in webhook_notifications is triggered.
+	PageID *string `json:"pageId,omitempty" tf:"page_id,omitempty"`
+
+	// ID of the system notification that is notified when an event defined in webhook_notifications is triggered.
+	WidgetID *string `json:"widgetId,omitempty" tf:"widget_id,omitempty"`
+}
+
+type WidgetsObservation struct {
+
+	// ID of the system notification that is notified when an event defined in webhook_notifications is triggered.
+	PageID *string `json:"pageId,omitempty" tf:"page_id,omitempty"`
+
+	// ID of the system notification that is notified when an event defined in webhook_notifications is triggered.
+	WidgetID *string `json:"widgetId,omitempty" tf:"widget_id,omitempty"`
+}
+
+type WidgetsParameters struct {
+
+	// ID of the system notification that is notified when an event defined in webhook_notifications is triggered.
+	// +kubebuilder:validation:Optional
+	PageID *string `json:"pageId" tf:"page_id,omitempty"`
+
+	// ID of the system notification that is notified when an event defined in webhook_notifications is triggered.
+	// +kubebuilder:validation:Optional
+	WidgetID *string `json:"widgetId" tf:"widget_id,omitempty"`
 }
 
 type WorkloadTypeClientsInitParameters struct {

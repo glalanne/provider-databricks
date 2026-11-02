@@ -407,6 +407,11 @@ type AllowRulesDestinationParameters struct {
 
 type AllowRulesDestinationWorkspaceAPIInitParameters struct {
 
+	// Inverse of scopes: matches every API scope EXCEPT those listed here
+	// ("allow all except"). Mutually exclusive with scopes — a single
+	// destination may set at most one of the two
+	ExcludedScopes []*string `json:"excludedScopes,omitempty" tf:"excluded_scopes,omitempty"`
+
 	// Qualifies the breadth of API access for the listed scopes. See ApiScopeQualifier. Possible values are: API_SCOPE_QUALIFIER_ALL, API_SCOPE_QUALIFIER_READ
 	ScopeQualifier *string `json:"scopeQualifier,omitempty" tf:"scope_qualifier,omitempty"`
 
@@ -416,6 +421,11 @@ type AllowRulesDestinationWorkspaceAPIInitParameters struct {
 
 type AllowRulesDestinationWorkspaceAPIObservation struct {
 
+	// Inverse of scopes: matches every API scope EXCEPT those listed here
+	// ("allow all except"). Mutually exclusive with scopes — a single
+	// destination may set at most one of the two
+	ExcludedScopes []*string `json:"excludedScopes,omitempty" tf:"excluded_scopes,omitempty"`
+
 	// Qualifies the breadth of API access for the listed scopes. See ApiScopeQualifier. Possible values are: API_SCOPE_QUALIFIER_ALL, API_SCOPE_QUALIFIER_READ
 	ScopeQualifier *string `json:"scopeQualifier,omitempty" tf:"scope_qualifier,omitempty"`
 
@@ -424,6 +434,12 @@ type AllowRulesDestinationWorkspaceAPIObservation struct {
 }
 
 type AllowRulesDestinationWorkspaceAPIParameters struct {
+
+	// Inverse of scopes: matches every API scope EXCEPT those listed here
+	// ("allow all except"). Mutually exclusive with scopes — a single
+	// destination may set at most one of the two
+	// +kubebuilder:validation:Optional
+	ExcludedScopes []*string `json:"excludedScopes,omitempty" tf:"excluded_scopes,omitempty"`
 
 	// Qualifies the breadth of API access for the listed scopes. See ApiScopeQualifier. Possible values are: API_SCOPE_QUALIFIER_ALL, API_SCOPE_QUALIFIER_READ
 	// +kubebuilder:validation:Optional
@@ -455,31 +471,39 @@ type AllowRulesDestinationWorkspaceUIParameters struct {
 
 type AllowRulesInitParameters struct {
 
-	// (CustomerFacingIngressNetworkPolicyAuthentication, optional)
+	// The authenticated identity the request must match. When unset, the rule matches
+	// all users and service principals
 	Authentication *AuthenticationInitParameters `json:"authentication,omitempty" tf:"authentication,omitempty"`
 
-	// (CustomerFacingIngressNetworkPolicyRequestDestination, optional)
+	// The destination the request must match — the resource being accessed, for example
+	// the workspace UI or workspace APIs. See RequestDestination
 	Destination *DestinationInitParameters `json:"destination,omitempty" tf:"destination,omitempty"`
 
 	// The label for this ingress rule
 	Label *string `json:"label,omitempty" tf:"label,omitempty"`
 
-	// (CustomerFacingIngressNetworkPolicyCrossWorkspaceRequestOrigin, optional)
+	// The origin the request must match — the source workspace the request comes from,
+	// either specific source workspaces or any source workspace in any account. See
+	// CrossWorkspaceRequestOrigin
 	Origin *OriginInitParameters `json:"origin,omitempty" tf:"origin,omitempty"`
 }
 
 type AllowRulesObservation struct {
 
-	// (CustomerFacingIngressNetworkPolicyAuthentication, optional)
+	// The authenticated identity the request must match. When unset, the rule matches
+	// all users and service principals
 	Authentication *AuthenticationObservation `json:"authentication,omitempty" tf:"authentication,omitempty"`
 
-	// (CustomerFacingIngressNetworkPolicyRequestDestination, optional)
+	// The destination the request must match — the resource being accessed, for example
+	// the workspace UI or workspace APIs. See RequestDestination
 	Destination *DestinationObservation `json:"destination,omitempty" tf:"destination,omitempty"`
 
 	// The label for this ingress rule
 	Label *string `json:"label,omitempty" tf:"label,omitempty"`
 
-	// (CustomerFacingIngressNetworkPolicyCrossWorkspaceRequestOrigin, optional)
+	// The origin the request must match — the source workspace the request comes from,
+	// either specific source workspaces or any source workspace in any account. See
+	// CrossWorkspaceRequestOrigin
 	Origin *OriginObservation `json:"origin,omitempty" tf:"origin,omitempty"`
 }
 
@@ -628,11 +652,13 @@ type AllowRulesOriginSelectedWorkspacesParameters struct {
 
 type AllowRulesParameters struct {
 
-	// (CustomerFacingIngressNetworkPolicyAuthentication, optional)
+	// The authenticated identity the request must match. When unset, the rule matches
+	// all users and service principals
 	// +kubebuilder:validation:Optional
 	Authentication *AuthenticationParameters `json:"authentication,omitempty" tf:"authentication,omitempty"`
 
-	// (CustomerFacingIngressNetworkPolicyRequestDestination, optional)
+	// The destination the request must match — the resource being accessed, for example
+	// the workspace UI or workspace APIs. See RequestDestination
 	// +kubebuilder:validation:Optional
 	Destination *DestinationParameters `json:"destination,omitempty" tf:"destination,omitempty"`
 
@@ -640,7 +666,9 @@ type AllowRulesParameters struct {
 	// +kubebuilder:validation:Optional
 	Label *string `json:"label,omitempty" tf:"label,omitempty"`
 
-	// (CustomerFacingIngressNetworkPolicyCrossWorkspaceRequestOrigin, optional)
+	// The origin the request must match — the source workspace the request comes from,
+	// either specific source workspaces or any source workspace in any account. See
+	// CrossWorkspaceRequestOrigin
 	// +kubebuilder:validation:Optional
 	Origin *OriginParameters `json:"origin,omitempty" tf:"origin,omitempty"`
 }
@@ -666,7 +694,8 @@ type AllowedDatabricksDestinationsParameters struct {
 
 type AllowedInternetDestinationsInitParameters struct {
 
-	// (CustomerFacingIngressNetworkPolicyRequestDestination, optional)
+	// The destination the request must match — the resource being accessed, for example
+	// the workspace UI or workspace APIs. See RequestDestination
 	Destination *string `json:"destination,omitempty" tf:"destination,omitempty"`
 
 	// The type of internet destination. Currently only DNS_NAME is supported. Possible values are: DNS_NAME
@@ -675,7 +704,8 @@ type AllowedInternetDestinationsInitParameters struct {
 
 type AllowedInternetDestinationsObservation struct {
 
-	// (CustomerFacingIngressNetworkPolicyRequestDestination, optional)
+	// The destination the request must match — the resource being accessed, for example
+	// the workspace UI or workspace APIs. See RequestDestination
 	Destination *string `json:"destination,omitempty" tf:"destination,omitempty"`
 
 	// The type of internet destination. Currently only DNS_NAME is supported. Possible values are: DNS_NAME
@@ -684,7 +714,8 @@ type AllowedInternetDestinationsObservation struct {
 
 type AllowedInternetDestinationsParameters struct {
 
-	// (CustomerFacingIngressNetworkPolicyRequestDestination, optional)
+	// The destination the request must match — the resource being accessed, for example
+	// the workspace UI or workspace APIs. See RequestDestination
 	// +kubebuilder:validation:Optional
 	Destination *string `json:"destination,omitempty" tf:"destination,omitempty"`
 
@@ -831,7 +862,8 @@ type AuthenticationParameters struct {
 
 type BlockedInternetDestinationsInitParameters struct {
 
-	// (CustomerFacingIngressNetworkPolicyRequestDestination, optional)
+	// The destination the request must match — the resource being accessed, for example
+	// the workspace UI or workspace APIs. See RequestDestination
 	Destination *string `json:"destination,omitempty" tf:"destination,omitempty"`
 
 	// The type of internet destination. Currently only DNS_NAME is supported. Possible values are: DNS_NAME
@@ -840,7 +872,8 @@ type BlockedInternetDestinationsInitParameters struct {
 
 type BlockedInternetDestinationsObservation struct {
 
-	// (CustomerFacingIngressNetworkPolicyRequestDestination, optional)
+	// The destination the request must match — the resource being accessed, for example
+	// the workspace UI or workspace APIs. See RequestDestination
 	Destination *string `json:"destination,omitempty" tf:"destination,omitempty"`
 
 	// The type of internet destination. Currently only DNS_NAME is supported. Possible values are: DNS_NAME
@@ -849,7 +882,8 @@ type BlockedInternetDestinationsObservation struct {
 
 type BlockedInternetDestinationsParameters struct {
 
-	// (CustomerFacingIngressNetworkPolicyRequestDestination, optional)
+	// The destination the request must match — the resource being accessed, for example
+	// the workspace UI or workspace APIs. See RequestDestination
 	// +kubebuilder:validation:Optional
 	Destination *string `json:"destination,omitempty" tf:"destination,omitempty"`
 
@@ -1118,6 +1152,11 @@ type CrossWorkspaceAccessAllowRulesDestinationParameters struct {
 
 type CrossWorkspaceAccessAllowRulesDestinationWorkspaceAPIInitParameters struct {
 
+	// Inverse of scopes: matches every API scope EXCEPT those listed here
+	// ("allow all except"). Mutually exclusive with scopes — a single
+	// destination may set at most one of the two
+	ExcludedScopes []*string `json:"excludedScopes,omitempty" tf:"excluded_scopes,omitempty"`
+
 	// Qualifies the breadth of API access for the listed scopes. See ApiScopeQualifier. Possible values are: API_SCOPE_QUALIFIER_ALL, API_SCOPE_QUALIFIER_READ
 	ScopeQualifier *string `json:"scopeQualifier,omitempty" tf:"scope_qualifier,omitempty"`
 
@@ -1127,6 +1166,11 @@ type CrossWorkspaceAccessAllowRulesDestinationWorkspaceAPIInitParameters struct 
 
 type CrossWorkspaceAccessAllowRulesDestinationWorkspaceAPIObservation struct {
 
+	// Inverse of scopes: matches every API scope EXCEPT those listed here
+	// ("allow all except"). Mutually exclusive with scopes — a single
+	// destination may set at most one of the two
+	ExcludedScopes []*string `json:"excludedScopes,omitempty" tf:"excluded_scopes,omitempty"`
+
 	// Qualifies the breadth of API access for the listed scopes. See ApiScopeQualifier. Possible values are: API_SCOPE_QUALIFIER_ALL, API_SCOPE_QUALIFIER_READ
 	ScopeQualifier *string `json:"scopeQualifier,omitempty" tf:"scope_qualifier,omitempty"`
 
@@ -1135,6 +1179,12 @@ type CrossWorkspaceAccessAllowRulesDestinationWorkspaceAPIObservation struct {
 }
 
 type CrossWorkspaceAccessAllowRulesDestinationWorkspaceAPIParameters struct {
+
+	// Inverse of scopes: matches every API scope EXCEPT those listed here
+	// ("allow all except"). Mutually exclusive with scopes — a single
+	// destination may set at most one of the two
+	// +kubebuilder:validation:Optional
+	ExcludedScopes []*string `json:"excludedScopes,omitempty" tf:"excluded_scopes,omitempty"`
 
 	// Qualifies the breadth of API access for the listed scopes. See ApiScopeQualifier. Possible values are: API_SCOPE_QUALIFIER_ALL, API_SCOPE_QUALIFIER_READ
 	// +kubebuilder:validation:Optional
@@ -1166,31 +1216,39 @@ type CrossWorkspaceAccessAllowRulesDestinationWorkspaceUIParameters struct {
 
 type CrossWorkspaceAccessAllowRulesInitParameters struct {
 
-	// (CustomerFacingIngressNetworkPolicyAuthentication, optional)
+	// The authenticated identity the request must match. When unset, the rule matches
+	// all users and service principals
 	Authentication *CrossWorkspaceAccessAllowRulesAuthenticationInitParameters `json:"authentication,omitempty" tf:"authentication,omitempty"`
 
-	// (CustomerFacingIngressNetworkPolicyRequestDestination, optional)
+	// The destination the request must match — the resource being accessed, for example
+	// the workspace UI or workspace APIs. See RequestDestination
 	Destination *CrossWorkspaceAccessAllowRulesDestinationInitParameters `json:"destination,omitempty" tf:"destination,omitempty"`
 
 	// The label for this ingress rule
 	Label *string `json:"label,omitempty" tf:"label,omitempty"`
 
-	// (CustomerFacingIngressNetworkPolicyCrossWorkspaceRequestOrigin, optional)
+	// The origin the request must match — the source workspace the request comes from,
+	// either specific source workspaces or any source workspace in any account. See
+	// CrossWorkspaceRequestOrigin
 	Origin *CrossWorkspaceAccessAllowRulesOriginInitParameters `json:"origin,omitempty" tf:"origin,omitempty"`
 }
 
 type CrossWorkspaceAccessAllowRulesObservation struct {
 
-	// (CustomerFacingIngressNetworkPolicyAuthentication, optional)
+	// The authenticated identity the request must match. When unset, the rule matches
+	// all users and service principals
 	Authentication *CrossWorkspaceAccessAllowRulesAuthenticationObservation `json:"authentication,omitempty" tf:"authentication,omitempty"`
 
-	// (CustomerFacingIngressNetworkPolicyRequestDestination, optional)
+	// The destination the request must match — the resource being accessed, for example
+	// the workspace UI or workspace APIs. See RequestDestination
 	Destination *CrossWorkspaceAccessAllowRulesDestinationObservation `json:"destination,omitempty" tf:"destination,omitempty"`
 
 	// The label for this ingress rule
 	Label *string `json:"label,omitempty" tf:"label,omitempty"`
 
-	// (CustomerFacingIngressNetworkPolicyCrossWorkspaceRequestOrigin, optional)
+	// The origin the request must match — the source workspace the request comes from,
+	// either specific source workspaces or any source workspace in any account. See
+	// CrossWorkspaceRequestOrigin
 	Origin *CrossWorkspaceAccessAllowRulesOriginObservation `json:"origin,omitempty" tf:"origin,omitempty"`
 }
 
@@ -1225,11 +1283,13 @@ type CrossWorkspaceAccessAllowRulesOriginParameters struct {
 
 type CrossWorkspaceAccessAllowRulesParameters struct {
 
-	// (CustomerFacingIngressNetworkPolicyAuthentication, optional)
+	// The authenticated identity the request must match. When unset, the rule matches
+	// all users and service principals
 	// +kubebuilder:validation:Optional
 	Authentication *CrossWorkspaceAccessAllowRulesAuthenticationParameters `json:"authentication,omitempty" tf:"authentication,omitempty"`
 
-	// (CustomerFacingIngressNetworkPolicyRequestDestination, optional)
+	// The destination the request must match — the resource being accessed, for example
+	// the workspace UI or workspace APIs. See RequestDestination
 	// +kubebuilder:validation:Optional
 	Destination *CrossWorkspaceAccessAllowRulesDestinationParameters `json:"destination,omitempty" tf:"destination,omitempty"`
 
@@ -1237,7 +1297,9 @@ type CrossWorkspaceAccessAllowRulesParameters struct {
 	// +kubebuilder:validation:Optional
 	Label *string `json:"label,omitempty" tf:"label,omitempty"`
 
-	// (CustomerFacingIngressNetworkPolicyCrossWorkspaceRequestOrigin, optional)
+	// The origin the request must match — the source workspace the request comes from,
+	// either specific source workspaces or any source workspace in any account. See
+	// CrossWorkspaceRequestOrigin
 	// +kubebuilder:validation:Optional
 	Origin *CrossWorkspaceAccessAllowRulesOriginParameters `json:"origin,omitempty" tf:"origin,omitempty"`
 }
@@ -1502,6 +1564,11 @@ type CrossWorkspaceAccessDenyRulesDestinationParameters struct {
 
 type CrossWorkspaceAccessDenyRulesDestinationWorkspaceAPIInitParameters struct {
 
+	// Inverse of scopes: matches every API scope EXCEPT those listed here
+	// ("allow all except"). Mutually exclusive with scopes — a single
+	// destination may set at most one of the two
+	ExcludedScopes []*string `json:"excludedScopes,omitempty" tf:"excluded_scopes,omitempty"`
+
 	// Qualifies the breadth of API access for the listed scopes. See ApiScopeQualifier. Possible values are: API_SCOPE_QUALIFIER_ALL, API_SCOPE_QUALIFIER_READ
 	ScopeQualifier *string `json:"scopeQualifier,omitempty" tf:"scope_qualifier,omitempty"`
 
@@ -1511,6 +1578,11 @@ type CrossWorkspaceAccessDenyRulesDestinationWorkspaceAPIInitParameters struct {
 
 type CrossWorkspaceAccessDenyRulesDestinationWorkspaceAPIObservation struct {
 
+	// Inverse of scopes: matches every API scope EXCEPT those listed here
+	// ("allow all except"). Mutually exclusive with scopes — a single
+	// destination may set at most one of the two
+	ExcludedScopes []*string `json:"excludedScopes,omitempty" tf:"excluded_scopes,omitempty"`
+
 	// Qualifies the breadth of API access for the listed scopes. See ApiScopeQualifier. Possible values are: API_SCOPE_QUALIFIER_ALL, API_SCOPE_QUALIFIER_READ
 	ScopeQualifier *string `json:"scopeQualifier,omitempty" tf:"scope_qualifier,omitempty"`
 
@@ -1519,6 +1591,12 @@ type CrossWorkspaceAccessDenyRulesDestinationWorkspaceAPIObservation struct {
 }
 
 type CrossWorkspaceAccessDenyRulesDestinationWorkspaceAPIParameters struct {
+
+	// Inverse of scopes: matches every API scope EXCEPT those listed here
+	// ("allow all except"). Mutually exclusive with scopes — a single
+	// destination may set at most one of the two
+	// +kubebuilder:validation:Optional
+	ExcludedScopes []*string `json:"excludedScopes,omitempty" tf:"excluded_scopes,omitempty"`
 
 	// Qualifies the breadth of API access for the listed scopes. See ApiScopeQualifier. Possible values are: API_SCOPE_QUALIFIER_ALL, API_SCOPE_QUALIFIER_READ
 	// +kubebuilder:validation:Optional
@@ -1550,31 +1628,39 @@ type CrossWorkspaceAccessDenyRulesDestinationWorkspaceUIParameters struct {
 
 type CrossWorkspaceAccessDenyRulesInitParameters struct {
 
-	// (CustomerFacingIngressNetworkPolicyAuthentication, optional)
+	// The authenticated identity the request must match. When unset, the rule matches
+	// all users and service principals
 	Authentication *CrossWorkspaceAccessDenyRulesAuthenticationInitParameters `json:"authentication,omitempty" tf:"authentication,omitempty"`
 
-	// (CustomerFacingIngressNetworkPolicyRequestDestination, optional)
+	// The destination the request must match — the resource being accessed, for example
+	// the workspace UI or workspace APIs. See RequestDestination
 	Destination *CrossWorkspaceAccessDenyRulesDestinationInitParameters `json:"destination,omitempty" tf:"destination,omitempty"`
 
 	// The label for this ingress rule
 	Label *string `json:"label,omitempty" tf:"label,omitempty"`
 
-	// (CustomerFacingIngressNetworkPolicyCrossWorkspaceRequestOrigin, optional)
+	// The origin the request must match — the source workspace the request comes from,
+	// either specific source workspaces or any source workspace in any account. See
+	// CrossWorkspaceRequestOrigin
 	Origin *CrossWorkspaceAccessDenyRulesOriginInitParameters `json:"origin,omitempty" tf:"origin,omitempty"`
 }
 
 type CrossWorkspaceAccessDenyRulesObservation struct {
 
-	// (CustomerFacingIngressNetworkPolicyAuthentication, optional)
+	// The authenticated identity the request must match. When unset, the rule matches
+	// all users and service principals
 	Authentication *CrossWorkspaceAccessDenyRulesAuthenticationObservation `json:"authentication,omitempty" tf:"authentication,omitempty"`
 
-	// (CustomerFacingIngressNetworkPolicyRequestDestination, optional)
+	// The destination the request must match — the resource being accessed, for example
+	// the workspace UI or workspace APIs. See RequestDestination
 	Destination *CrossWorkspaceAccessDenyRulesDestinationObservation `json:"destination,omitempty" tf:"destination,omitempty"`
 
 	// The label for this ingress rule
 	Label *string `json:"label,omitempty" tf:"label,omitempty"`
 
-	// (CustomerFacingIngressNetworkPolicyCrossWorkspaceRequestOrigin, optional)
+	// The origin the request must match — the source workspace the request comes from,
+	// either specific source workspaces or any source workspace in any account. See
+	// CrossWorkspaceRequestOrigin
 	Origin *CrossWorkspaceAccessDenyRulesOriginObservation `json:"origin,omitempty" tf:"origin,omitempty"`
 }
 
@@ -1609,11 +1695,13 @@ type CrossWorkspaceAccessDenyRulesOriginParameters struct {
 
 type CrossWorkspaceAccessDenyRulesParameters struct {
 
-	// (CustomerFacingIngressNetworkPolicyAuthentication, optional)
+	// The authenticated identity the request must match. When unset, the rule matches
+	// all users and service principals
 	// +kubebuilder:validation:Optional
 	Authentication *CrossWorkspaceAccessDenyRulesAuthenticationParameters `json:"authentication,omitempty" tf:"authentication,omitempty"`
 
-	// (CustomerFacingIngressNetworkPolicyRequestDestination, optional)
+	// The destination the request must match — the resource being accessed, for example
+	// the workspace UI or workspace APIs. See RequestDestination
 	// +kubebuilder:validation:Optional
 	Destination *CrossWorkspaceAccessDenyRulesDestinationParameters `json:"destination,omitempty" tf:"destination,omitempty"`
 
@@ -1621,46 +1709,57 @@ type CrossWorkspaceAccessDenyRulesParameters struct {
 	// +kubebuilder:validation:Optional
 	Label *string `json:"label,omitempty" tf:"label,omitempty"`
 
-	// (CustomerFacingIngressNetworkPolicyCrossWorkspaceRequestOrigin, optional)
+	// The origin the request must match — the source workspace the request comes from,
+	// either specific source workspaces or any source workspace in any account. See
+	// CrossWorkspaceRequestOrigin
 	// +kubebuilder:validation:Optional
 	Origin *CrossWorkspaceAccessDenyRulesOriginParameters `json:"origin,omitempty" tf:"origin,omitempty"`
 }
 
 type CrossWorkspaceAccessInitParameters struct {
 
-	// (list of CustomerFacingIngressNetworkPolicyCrossWorkspaceIngressRule, optional)
+	// Allow rules are evaluated after deny rules. A request matching any allow rule is
+	// allowed; a request matching no rule is denied by default. Only applies when
+	// restriction_mode is RESTRICTED_ACCESS
 	AllowRules []AllowRulesInitParameters `json:"allowRules,omitempty" tf:"allow_rules,omitempty"`
 
-	// (list of CustomerFacingIngressNetworkPolicyCrossWorkspaceIngressRule, optional)
+	// Deny rules are evaluated first. A request matching any deny rule is denied,
+	// regardless of allow rules. Only applies when restriction_mode is RESTRICTED_ACCESS
 	DenyRules []DenyRulesInitParameters `json:"denyRules,omitempty" tf:"deny_rules,omitempty"`
 
-	// Possible values are: FULL_ACCESS, RESTRICTED_ACCESS
+	// The restriction mode for cross-workspace access. Possible values are: FULL_ACCESS, LEGACY_MODE, RESTRICTED_ACCESS
 	RestrictionMode *string `json:"restrictionMode,omitempty" tf:"restriction_mode,omitempty"`
 }
 
 type CrossWorkspaceAccessObservation struct {
 
-	// (list of CustomerFacingIngressNetworkPolicyCrossWorkspaceIngressRule, optional)
+	// Allow rules are evaluated after deny rules. A request matching any allow rule is
+	// allowed; a request matching no rule is denied by default. Only applies when
+	// restriction_mode is RESTRICTED_ACCESS
 	AllowRules []AllowRulesObservation `json:"allowRules,omitempty" tf:"allow_rules,omitempty"`
 
-	// (list of CustomerFacingIngressNetworkPolicyCrossWorkspaceIngressRule, optional)
+	// Deny rules are evaluated first. A request matching any deny rule is denied,
+	// regardless of allow rules. Only applies when restriction_mode is RESTRICTED_ACCESS
 	DenyRules []DenyRulesObservation `json:"denyRules,omitempty" tf:"deny_rules,omitempty"`
 
-	// Possible values are: FULL_ACCESS, RESTRICTED_ACCESS
+	// The restriction mode for cross-workspace access. Possible values are: FULL_ACCESS, LEGACY_MODE, RESTRICTED_ACCESS
 	RestrictionMode *string `json:"restrictionMode,omitempty" tf:"restriction_mode,omitempty"`
 }
 
 type CrossWorkspaceAccessParameters struct {
 
-	// (list of CustomerFacingIngressNetworkPolicyCrossWorkspaceIngressRule, optional)
+	// Allow rules are evaluated after deny rules. A request matching any allow rule is
+	// allowed; a request matching no rule is denied by default. Only applies when
+	// restriction_mode is RESTRICTED_ACCESS
 	// +kubebuilder:validation:Optional
 	AllowRules []AllowRulesParameters `json:"allowRules,omitempty" tf:"allow_rules,omitempty"`
 
-	// (list of CustomerFacingIngressNetworkPolicyCrossWorkspaceIngressRule, optional)
+	// Deny rules are evaluated first. A request matching any deny rule is denied,
+	// regardless of allow rules. Only applies when restriction_mode is RESTRICTED_ACCESS
 	// +kubebuilder:validation:Optional
 	DenyRules []DenyRulesParameters `json:"denyRules,omitempty" tf:"deny_rules,omitempty"`
 
-	// Possible values are: FULL_ACCESS, RESTRICTED_ACCESS
+	// The restriction mode for cross-workspace access. Possible values are: FULL_ACCESS, LEGACY_MODE, RESTRICTED_ACCESS
 	// +kubebuilder:validation:Optional
 	RestrictionMode *string `json:"restrictionMode" tf:"restriction_mode,omitempty"`
 }
@@ -1925,6 +2024,11 @@ type DenyRulesDestinationParameters struct {
 
 type DenyRulesDestinationWorkspaceAPIInitParameters struct {
 
+	// Inverse of scopes: matches every API scope EXCEPT those listed here
+	// ("allow all except"). Mutually exclusive with scopes — a single
+	// destination may set at most one of the two
+	ExcludedScopes []*string `json:"excludedScopes,omitempty" tf:"excluded_scopes,omitempty"`
+
 	// Qualifies the breadth of API access for the listed scopes. See ApiScopeQualifier. Possible values are: API_SCOPE_QUALIFIER_ALL, API_SCOPE_QUALIFIER_READ
 	ScopeQualifier *string `json:"scopeQualifier,omitempty" tf:"scope_qualifier,omitempty"`
 
@@ -1934,6 +2038,11 @@ type DenyRulesDestinationWorkspaceAPIInitParameters struct {
 
 type DenyRulesDestinationWorkspaceAPIObservation struct {
 
+	// Inverse of scopes: matches every API scope EXCEPT those listed here
+	// ("allow all except"). Mutually exclusive with scopes — a single
+	// destination may set at most one of the two
+	ExcludedScopes []*string `json:"excludedScopes,omitempty" tf:"excluded_scopes,omitempty"`
+
 	// Qualifies the breadth of API access for the listed scopes. See ApiScopeQualifier. Possible values are: API_SCOPE_QUALIFIER_ALL, API_SCOPE_QUALIFIER_READ
 	ScopeQualifier *string `json:"scopeQualifier,omitempty" tf:"scope_qualifier,omitempty"`
 
@@ -1942,6 +2051,12 @@ type DenyRulesDestinationWorkspaceAPIObservation struct {
 }
 
 type DenyRulesDestinationWorkspaceAPIParameters struct {
+
+	// Inverse of scopes: matches every API scope EXCEPT those listed here
+	// ("allow all except"). Mutually exclusive with scopes — a single
+	// destination may set at most one of the two
+	// +kubebuilder:validation:Optional
+	ExcludedScopes []*string `json:"excludedScopes,omitempty" tf:"excluded_scopes,omitempty"`
 
 	// Qualifies the breadth of API access for the listed scopes. See ApiScopeQualifier. Possible values are: API_SCOPE_QUALIFIER_ALL, API_SCOPE_QUALIFIER_READ
 	// +kubebuilder:validation:Optional
@@ -1973,31 +2088,39 @@ type DenyRulesDestinationWorkspaceUIParameters struct {
 
 type DenyRulesInitParameters struct {
 
-	// (CustomerFacingIngressNetworkPolicyAuthentication, optional)
+	// The authenticated identity the request must match. When unset, the rule matches
+	// all users and service principals
 	Authentication *DenyRulesAuthenticationInitParameters `json:"authentication,omitempty" tf:"authentication,omitempty"`
 
-	// (CustomerFacingIngressNetworkPolicyRequestDestination, optional)
+	// The destination the request must match — the resource being accessed, for example
+	// the workspace UI or workspace APIs. See RequestDestination
 	Destination *DenyRulesDestinationInitParameters `json:"destination,omitempty" tf:"destination,omitempty"`
 
 	// The label for this ingress rule
 	Label *string `json:"label,omitempty" tf:"label,omitempty"`
 
-	// (CustomerFacingIngressNetworkPolicyCrossWorkspaceRequestOrigin, optional)
+	// The origin the request must match — the source workspace the request comes from,
+	// either specific source workspaces or any source workspace in any account. See
+	// CrossWorkspaceRequestOrigin
 	Origin *DenyRulesOriginInitParameters `json:"origin,omitempty" tf:"origin,omitempty"`
 }
 
 type DenyRulesObservation struct {
 
-	// (CustomerFacingIngressNetworkPolicyAuthentication, optional)
+	// The authenticated identity the request must match. When unset, the rule matches
+	// all users and service principals
 	Authentication *DenyRulesAuthenticationObservation `json:"authentication,omitempty" tf:"authentication,omitempty"`
 
-	// (CustomerFacingIngressNetworkPolicyRequestDestination, optional)
+	// The destination the request must match — the resource being accessed, for example
+	// the workspace UI or workspace APIs. See RequestDestination
 	Destination *DenyRulesDestinationObservation `json:"destination,omitempty" tf:"destination,omitempty"`
 
 	// The label for this ingress rule
 	Label *string `json:"label,omitempty" tf:"label,omitempty"`
 
-	// (CustomerFacingIngressNetworkPolicyCrossWorkspaceRequestOrigin, optional)
+	// The origin the request must match — the source workspace the request comes from,
+	// either specific source workspaces or any source workspace in any account. See
+	// CrossWorkspaceRequestOrigin
 	Origin *DenyRulesOriginObservation `json:"origin,omitempty" tf:"origin,omitempty"`
 }
 
@@ -2108,11 +2231,13 @@ type DenyRulesOriginSelectedWorkspacesParameters struct {
 
 type DenyRulesParameters struct {
 
-	// (CustomerFacingIngressNetworkPolicyAuthentication, optional)
+	// The authenticated identity the request must match. When unset, the rule matches
+	// all users and service principals
 	// +kubebuilder:validation:Optional
 	Authentication *DenyRulesAuthenticationParameters `json:"authentication,omitempty" tf:"authentication,omitempty"`
 
-	// (CustomerFacingIngressNetworkPolicyRequestDestination, optional)
+	// The destination the request must match — the resource being accessed, for example
+	// the workspace UI or workspace APIs. See RequestDestination
 	// +kubebuilder:validation:Optional
 	Destination *DenyRulesDestinationParameters `json:"destination,omitempty" tf:"destination,omitempty"`
 
@@ -2120,7 +2245,9 @@ type DenyRulesParameters struct {
 	// +kubebuilder:validation:Optional
 	Label *string `json:"label,omitempty" tf:"label,omitempty"`
 
-	// (CustomerFacingIngressNetworkPolicyCrossWorkspaceRequestOrigin, optional)
+	// The origin the request must match — the source workspace the request comes from,
+	// either specific source workspaces or any source workspace in any account. See
+	// CrossWorkspaceRequestOrigin
 	// +kubebuilder:validation:Optional
 	Origin *DenyRulesOriginParameters `json:"origin,omitempty" tf:"origin,omitempty"`
 }
@@ -2327,6 +2454,11 @@ type DestinationParameters struct {
 
 type DestinationWorkspaceAPIInitParameters struct {
 
+	// Inverse of scopes: matches every API scope EXCEPT those listed here
+	// ("allow all except"). Mutually exclusive with scopes — a single
+	// destination may set at most one of the two
+	ExcludedScopes []*string `json:"excludedScopes,omitempty" tf:"excluded_scopes,omitempty"`
+
 	// Qualifies the breadth of API access for the listed scopes. See ApiScopeQualifier. Possible values are: API_SCOPE_QUALIFIER_ALL, API_SCOPE_QUALIFIER_READ
 	ScopeQualifier *string `json:"scopeQualifier,omitempty" tf:"scope_qualifier,omitempty"`
 
@@ -2336,6 +2468,11 @@ type DestinationWorkspaceAPIInitParameters struct {
 
 type DestinationWorkspaceAPIObservation struct {
 
+	// Inverse of scopes: matches every API scope EXCEPT those listed here
+	// ("allow all except"). Mutually exclusive with scopes — a single
+	// destination may set at most one of the two
+	ExcludedScopes []*string `json:"excludedScopes,omitempty" tf:"excluded_scopes,omitempty"`
+
 	// Qualifies the breadth of API access for the listed scopes. See ApiScopeQualifier. Possible values are: API_SCOPE_QUALIFIER_ALL, API_SCOPE_QUALIFIER_READ
 	ScopeQualifier *string `json:"scopeQualifier,omitempty" tf:"scope_qualifier,omitempty"`
 
@@ -2344,6 +2481,12 @@ type DestinationWorkspaceAPIObservation struct {
 }
 
 type DestinationWorkspaceAPIParameters struct {
+
+	// Inverse of scopes: matches every API scope EXCEPT those listed here
+	// ("allow all except"). Mutually exclusive with scopes — a single
+	// destination may set at most one of the two
+	// +kubebuilder:validation:Optional
+	ExcludedScopes []*string `json:"excludedScopes,omitempty" tf:"excluded_scopes,omitempty"`
 
 	// Qualifies the breadth of API access for the listed scopes. See ApiScopeQualifier. Possible values are: API_SCOPE_QUALIFIER_ALL, API_SCOPE_QUALIFIER_READ
 	// +kubebuilder:validation:Optional
@@ -2480,39 +2623,48 @@ type IncludedIPRangesParameters struct {
 
 type IngressDryRunCrossWorkspaceAccessInitParameters struct {
 
-	// (list of CustomerFacingIngressNetworkPolicyCrossWorkspaceIngressRule, optional)
+	// Allow rules are evaluated after deny rules. A request matching any allow rule is
+	// allowed; a request matching no rule is denied by default. Only applies when
+	// restriction_mode is RESTRICTED_ACCESS
 	AllowRules []CrossWorkspaceAccessAllowRulesInitParameters `json:"allowRules,omitempty" tf:"allow_rules,omitempty"`
 
-	// (list of CustomerFacingIngressNetworkPolicyCrossWorkspaceIngressRule, optional)
+	// Deny rules are evaluated first. A request matching any deny rule is denied,
+	// regardless of allow rules. Only applies when restriction_mode is RESTRICTED_ACCESS
 	DenyRules []CrossWorkspaceAccessDenyRulesInitParameters `json:"denyRules,omitempty" tf:"deny_rules,omitempty"`
 
-	// Possible values are: FULL_ACCESS, RESTRICTED_ACCESS
+	// The restriction mode for cross-workspace access. Possible values are: FULL_ACCESS, LEGACY_MODE, RESTRICTED_ACCESS
 	RestrictionMode *string `json:"restrictionMode,omitempty" tf:"restriction_mode,omitempty"`
 }
 
 type IngressDryRunCrossWorkspaceAccessObservation struct {
 
-	// (list of CustomerFacingIngressNetworkPolicyCrossWorkspaceIngressRule, optional)
+	// Allow rules are evaluated after deny rules. A request matching any allow rule is
+	// allowed; a request matching no rule is denied by default. Only applies when
+	// restriction_mode is RESTRICTED_ACCESS
 	AllowRules []CrossWorkspaceAccessAllowRulesObservation `json:"allowRules,omitempty" tf:"allow_rules,omitempty"`
 
-	// (list of CustomerFacingIngressNetworkPolicyCrossWorkspaceIngressRule, optional)
+	// Deny rules are evaluated first. A request matching any deny rule is denied,
+	// regardless of allow rules. Only applies when restriction_mode is RESTRICTED_ACCESS
 	DenyRules []CrossWorkspaceAccessDenyRulesObservation `json:"denyRules,omitempty" tf:"deny_rules,omitempty"`
 
-	// Possible values are: FULL_ACCESS, RESTRICTED_ACCESS
+	// The restriction mode for cross-workspace access. Possible values are: FULL_ACCESS, LEGACY_MODE, RESTRICTED_ACCESS
 	RestrictionMode *string `json:"restrictionMode,omitempty" tf:"restriction_mode,omitempty"`
 }
 
 type IngressDryRunCrossWorkspaceAccessParameters struct {
 
-	// (list of CustomerFacingIngressNetworkPolicyCrossWorkspaceIngressRule, optional)
+	// Allow rules are evaluated after deny rules. A request matching any allow rule is
+	// allowed; a request matching no rule is denied by default. Only applies when
+	// restriction_mode is RESTRICTED_ACCESS
 	// +kubebuilder:validation:Optional
 	AllowRules []CrossWorkspaceAccessAllowRulesParameters `json:"allowRules,omitempty" tf:"allow_rules,omitempty"`
 
-	// (list of CustomerFacingIngressNetworkPolicyCrossWorkspaceIngressRule, optional)
+	// Deny rules are evaluated first. A request matching any deny rule is denied,
+	// regardless of allow rules. Only applies when restriction_mode is RESTRICTED_ACCESS
 	// +kubebuilder:validation:Optional
 	DenyRules []CrossWorkspaceAccessDenyRulesParameters `json:"denyRules,omitempty" tf:"deny_rules,omitempty"`
 
-	// Possible values are: FULL_ACCESS, RESTRICTED_ACCESS
+	// The restriction mode for cross-workspace access. Possible values are: FULL_ACCESS, LEGACY_MODE, RESTRICTED_ACCESS
 	// +kubebuilder:validation:Optional
 	RestrictionMode *string `json:"restrictionMode" tf:"restriction_mode,omitempty"`
 }
@@ -2564,41 +2716,51 @@ type IngressDryRunParameters struct {
 
 type IngressDryRunPrivateAccessAllowRulesInitParameters struct {
 
-	// (CustomerFacingIngressNetworkPolicyAuthentication, optional)
+	// The authenticated identity the request must match. When unset, the rule matches
+	// all users and service principals
 	Authentication *PrivateAccessAllowRulesAuthenticationInitParameters `json:"authentication,omitempty" tf:"authentication,omitempty"`
 
-	// (CustomerFacingIngressNetworkPolicyRequestDestination, optional)
+	// The destination the request must match — the resource being accessed, for example
+	// the workspace UI or workspace APIs. See RequestDestination
 	Destination *PrivateAccessAllowRulesDestinationInitParameters `json:"destination,omitempty" tf:"destination,omitempty"`
 
 	// The label for this ingress rule
 	Label *string `json:"label,omitempty" tf:"label,omitempty"`
 
-	// (CustomerFacingIngressNetworkPolicyCrossWorkspaceRequestOrigin, optional)
+	// The origin the request must match — the source workspace the request comes from,
+	// either specific source workspaces or any source workspace in any account. See
+	// CrossWorkspaceRequestOrigin
 	Origin *PrivateAccessAllowRulesOriginInitParameters `json:"origin,omitempty" tf:"origin,omitempty"`
 }
 
 type IngressDryRunPrivateAccessAllowRulesObservation struct {
 
-	// (CustomerFacingIngressNetworkPolicyAuthentication, optional)
+	// The authenticated identity the request must match. When unset, the rule matches
+	// all users and service principals
 	Authentication *PrivateAccessAllowRulesAuthenticationObservation `json:"authentication,omitempty" tf:"authentication,omitempty"`
 
-	// (CustomerFacingIngressNetworkPolicyRequestDestination, optional)
+	// The destination the request must match — the resource being accessed, for example
+	// the workspace UI or workspace APIs. See RequestDestination
 	Destination *PrivateAccessAllowRulesDestinationObservation `json:"destination,omitempty" tf:"destination,omitempty"`
 
 	// The label for this ingress rule
 	Label *string `json:"label,omitempty" tf:"label,omitempty"`
 
-	// (CustomerFacingIngressNetworkPolicyCrossWorkspaceRequestOrigin, optional)
+	// The origin the request must match — the source workspace the request comes from,
+	// either specific source workspaces or any source workspace in any account. See
+	// CrossWorkspaceRequestOrigin
 	Origin *PrivateAccessAllowRulesOriginObservation `json:"origin,omitempty" tf:"origin,omitempty"`
 }
 
 type IngressDryRunPrivateAccessAllowRulesParameters struct {
 
-	// (CustomerFacingIngressNetworkPolicyAuthentication, optional)
+	// The authenticated identity the request must match. When unset, the rule matches
+	// all users and service principals
 	// +kubebuilder:validation:Optional
 	Authentication *PrivateAccessAllowRulesAuthenticationParameters `json:"authentication,omitempty" tf:"authentication,omitempty"`
 
-	// (CustomerFacingIngressNetworkPolicyRequestDestination, optional)
+	// The destination the request must match — the resource being accessed, for example
+	// the workspace UI or workspace APIs. See RequestDestination
 	// +kubebuilder:validation:Optional
 	Destination *PrivateAccessAllowRulesDestinationParameters `json:"destination,omitempty" tf:"destination,omitempty"`
 
@@ -2606,7 +2768,9 @@ type IngressDryRunPrivateAccessAllowRulesParameters struct {
 	// +kubebuilder:validation:Optional
 	Label *string `json:"label,omitempty" tf:"label,omitempty"`
 
-	// (CustomerFacingIngressNetworkPolicyCrossWorkspaceRequestOrigin, optional)
+	// The origin the request must match — the source workspace the request comes from,
+	// either specific source workspaces or any source workspace in any account. See
+	// CrossWorkspaceRequestOrigin
 	// +kubebuilder:validation:Optional
 	Origin *PrivateAccessAllowRulesOriginParameters `json:"origin,omitempty" tf:"origin,omitempty"`
 }
@@ -2737,31 +2901,39 @@ type IngressDryRunPrivateAccessDenyRulesDestinationParameters struct {
 
 type IngressDryRunPrivateAccessDenyRulesInitParameters struct {
 
-	// (CustomerFacingIngressNetworkPolicyAuthentication, optional)
+	// The authenticated identity the request must match. When unset, the rule matches
+	// all users and service principals
 	Authentication *IngressDryRunPrivateAccessDenyRulesAuthenticationInitParameters `json:"authentication,omitempty" tf:"authentication,omitempty"`
 
-	// (CustomerFacingIngressNetworkPolicyRequestDestination, optional)
+	// The destination the request must match — the resource being accessed, for example
+	// the workspace UI or workspace APIs. See RequestDestination
 	Destination *IngressDryRunPrivateAccessDenyRulesDestinationInitParameters `json:"destination,omitempty" tf:"destination,omitempty"`
 
 	// The label for this ingress rule
 	Label *string `json:"label,omitempty" tf:"label,omitempty"`
 
-	// (CustomerFacingIngressNetworkPolicyCrossWorkspaceRequestOrigin, optional)
+	// The origin the request must match — the source workspace the request comes from,
+	// either specific source workspaces or any source workspace in any account. See
+	// CrossWorkspaceRequestOrigin
 	Origin *IngressDryRunPrivateAccessDenyRulesOriginInitParameters `json:"origin,omitempty" tf:"origin,omitempty"`
 }
 
 type IngressDryRunPrivateAccessDenyRulesObservation struct {
 
-	// (CustomerFacingIngressNetworkPolicyAuthentication, optional)
+	// The authenticated identity the request must match. When unset, the rule matches
+	// all users and service principals
 	Authentication *IngressDryRunPrivateAccessDenyRulesAuthenticationObservation `json:"authentication,omitempty" tf:"authentication,omitempty"`
 
-	// (CustomerFacingIngressNetworkPolicyRequestDestination, optional)
+	// The destination the request must match — the resource being accessed, for example
+	// the workspace UI or workspace APIs. See RequestDestination
 	Destination *IngressDryRunPrivateAccessDenyRulesDestinationObservation `json:"destination,omitempty" tf:"destination,omitempty"`
 
 	// The label for this ingress rule
 	Label *string `json:"label,omitempty" tf:"label,omitempty"`
 
-	// (CustomerFacingIngressNetworkPolicyCrossWorkspaceRequestOrigin, optional)
+	// The origin the request must match — the source workspace the request comes from,
+	// either specific source workspaces or any source workspace in any account. See
+	// CrossWorkspaceRequestOrigin
 	Origin *IngressDryRunPrivateAccessDenyRulesOriginObservation `json:"origin,omitempty" tf:"origin,omitempty"`
 }
 
@@ -2834,11 +3006,13 @@ type IngressDryRunPrivateAccessDenyRulesOriginParameters struct {
 
 type IngressDryRunPrivateAccessDenyRulesParameters struct {
 
-	// (CustomerFacingIngressNetworkPolicyAuthentication, optional)
+	// The authenticated identity the request must match. When unset, the rule matches
+	// all users and service principals
 	// +kubebuilder:validation:Optional
 	Authentication *IngressDryRunPrivateAccessDenyRulesAuthenticationParameters `json:"authentication,omitempty" tf:"authentication,omitempty"`
 
-	// (CustomerFacingIngressNetworkPolicyRequestDestination, optional)
+	// The destination the request must match — the resource being accessed, for example
+	// the workspace UI or workspace APIs. See RequestDestination
 	// +kubebuilder:validation:Optional
 	Destination *IngressDryRunPrivateAccessDenyRulesDestinationParameters `json:"destination,omitempty" tf:"destination,omitempty"`
 
@@ -2846,46 +3020,57 @@ type IngressDryRunPrivateAccessDenyRulesParameters struct {
 	// +kubebuilder:validation:Optional
 	Label *string `json:"label,omitempty" tf:"label,omitempty"`
 
-	// (CustomerFacingIngressNetworkPolicyCrossWorkspaceRequestOrigin, optional)
+	// The origin the request must match — the source workspace the request comes from,
+	// either specific source workspaces or any source workspace in any account. See
+	// CrossWorkspaceRequestOrigin
 	// +kubebuilder:validation:Optional
 	Origin *IngressDryRunPrivateAccessDenyRulesOriginParameters `json:"origin,omitempty" tf:"origin,omitempty"`
 }
 
 type IngressDryRunPrivateAccessInitParameters struct {
 
-	// (list of CustomerFacingIngressNetworkPolicyCrossWorkspaceIngressRule, optional)
+	// Allow rules are evaluated after deny rules. A request matching any allow rule is
+	// allowed; a request matching no rule is denied by default. Only applies when
+	// restriction_mode is RESTRICTED_ACCESS
 	AllowRules []IngressDryRunPrivateAccessAllowRulesInitParameters `json:"allowRules,omitempty" tf:"allow_rules,omitempty"`
 
-	// (list of CustomerFacingIngressNetworkPolicyCrossWorkspaceIngressRule, optional)
+	// Deny rules are evaluated first. A request matching any deny rule is denied,
+	// regardless of allow rules. Only applies when restriction_mode is RESTRICTED_ACCESS
 	DenyRules []IngressDryRunPrivateAccessDenyRulesInitParameters `json:"denyRules,omitempty" tf:"deny_rules,omitempty"`
 
-	// Possible values are: FULL_ACCESS, RESTRICTED_ACCESS
+	// The restriction mode for cross-workspace access. Possible values are: FULL_ACCESS, LEGACY_MODE, RESTRICTED_ACCESS
 	RestrictionMode *string `json:"restrictionMode,omitempty" tf:"restriction_mode,omitempty"`
 }
 
 type IngressDryRunPrivateAccessObservation struct {
 
-	// (list of CustomerFacingIngressNetworkPolicyCrossWorkspaceIngressRule, optional)
+	// Allow rules are evaluated after deny rules. A request matching any allow rule is
+	// allowed; a request matching no rule is denied by default. Only applies when
+	// restriction_mode is RESTRICTED_ACCESS
 	AllowRules []IngressDryRunPrivateAccessAllowRulesObservation `json:"allowRules,omitempty" tf:"allow_rules,omitempty"`
 
-	// (list of CustomerFacingIngressNetworkPolicyCrossWorkspaceIngressRule, optional)
+	// Deny rules are evaluated first. A request matching any deny rule is denied,
+	// regardless of allow rules. Only applies when restriction_mode is RESTRICTED_ACCESS
 	DenyRules []IngressDryRunPrivateAccessDenyRulesObservation `json:"denyRules,omitempty" tf:"deny_rules,omitempty"`
 
-	// Possible values are: FULL_ACCESS, RESTRICTED_ACCESS
+	// The restriction mode for cross-workspace access. Possible values are: FULL_ACCESS, LEGACY_MODE, RESTRICTED_ACCESS
 	RestrictionMode *string `json:"restrictionMode,omitempty" tf:"restriction_mode,omitempty"`
 }
 
 type IngressDryRunPrivateAccessParameters struct {
 
-	// (list of CustomerFacingIngressNetworkPolicyCrossWorkspaceIngressRule, optional)
+	// Allow rules are evaluated after deny rules. A request matching any allow rule is
+	// allowed; a request matching no rule is denied by default. Only applies when
+	// restriction_mode is RESTRICTED_ACCESS
 	// +kubebuilder:validation:Optional
 	AllowRules []IngressDryRunPrivateAccessAllowRulesParameters `json:"allowRules,omitempty" tf:"allow_rules,omitempty"`
 
-	// (list of CustomerFacingIngressNetworkPolicyCrossWorkspaceIngressRule, optional)
+	// Deny rules are evaluated first. A request matching any deny rule is denied,
+	// regardless of allow rules. Only applies when restriction_mode is RESTRICTED_ACCESS
 	// +kubebuilder:validation:Optional
 	DenyRules []IngressDryRunPrivateAccessDenyRulesParameters `json:"denyRules,omitempty" tf:"deny_rules,omitempty"`
 
-	// Possible values are: FULL_ACCESS, RESTRICTED_ACCESS
+	// The restriction mode for cross-workspace access. Possible values are: FULL_ACCESS, LEGACY_MODE, RESTRICTED_ACCESS
 	// +kubebuilder:validation:Optional
 	RestrictionMode *string `json:"restrictionMode" tf:"restriction_mode,omitempty"`
 }
@@ -3150,6 +3335,11 @@ type IngressDryRunPublicAccessAllowRulesDestinationParameters struct {
 
 type IngressDryRunPublicAccessAllowRulesDestinationWorkspaceAPIInitParameters struct {
 
+	// Inverse of scopes: matches every API scope EXCEPT those listed here
+	// ("allow all except"). Mutually exclusive with scopes — a single
+	// destination may set at most one of the two
+	ExcludedScopes []*string `json:"excludedScopes,omitempty" tf:"excluded_scopes,omitempty"`
+
 	// Qualifies the breadth of API access for the listed scopes. See ApiScopeQualifier. Possible values are: API_SCOPE_QUALIFIER_ALL, API_SCOPE_QUALIFIER_READ
 	ScopeQualifier *string `json:"scopeQualifier,omitempty" tf:"scope_qualifier,omitempty"`
 
@@ -3159,6 +3349,11 @@ type IngressDryRunPublicAccessAllowRulesDestinationWorkspaceAPIInitParameters st
 
 type IngressDryRunPublicAccessAllowRulesDestinationWorkspaceAPIObservation struct {
 
+	// Inverse of scopes: matches every API scope EXCEPT those listed here
+	// ("allow all except"). Mutually exclusive with scopes — a single
+	// destination may set at most one of the two
+	ExcludedScopes []*string `json:"excludedScopes,omitempty" tf:"excluded_scopes,omitempty"`
+
 	// Qualifies the breadth of API access for the listed scopes. See ApiScopeQualifier. Possible values are: API_SCOPE_QUALIFIER_ALL, API_SCOPE_QUALIFIER_READ
 	ScopeQualifier *string `json:"scopeQualifier,omitempty" tf:"scope_qualifier,omitempty"`
 
@@ -3167,6 +3362,12 @@ type IngressDryRunPublicAccessAllowRulesDestinationWorkspaceAPIObservation struc
 }
 
 type IngressDryRunPublicAccessAllowRulesDestinationWorkspaceAPIParameters struct {
+
+	// Inverse of scopes: matches every API scope EXCEPT those listed here
+	// ("allow all except"). Mutually exclusive with scopes — a single
+	// destination may set at most one of the two
+	// +kubebuilder:validation:Optional
+	ExcludedScopes []*string `json:"excludedScopes,omitempty" tf:"excluded_scopes,omitempty"`
 
 	// Qualifies the breadth of API access for the listed scopes. See ApiScopeQualifier. Possible values are: API_SCOPE_QUALIFIER_ALL, API_SCOPE_QUALIFIER_READ
 	// +kubebuilder:validation:Optional
@@ -3198,31 +3399,39 @@ type IngressDryRunPublicAccessAllowRulesDestinationWorkspaceUIParameters struct 
 
 type IngressDryRunPublicAccessAllowRulesInitParameters struct {
 
-	// (CustomerFacingIngressNetworkPolicyAuthentication, optional)
+	// The authenticated identity the request must match. When unset, the rule matches
+	// all users and service principals
 	Authentication *IngressDryRunPublicAccessAllowRulesAuthenticationInitParameters `json:"authentication,omitempty" tf:"authentication,omitempty"`
 
-	// (CustomerFacingIngressNetworkPolicyRequestDestination, optional)
+	// The destination the request must match — the resource being accessed, for example
+	// the workspace UI or workspace APIs. See RequestDestination
 	Destination *IngressDryRunPublicAccessAllowRulesDestinationInitParameters `json:"destination,omitempty" tf:"destination,omitempty"`
 
 	// The label for this ingress rule
 	Label *string `json:"label,omitempty" tf:"label,omitempty"`
 
-	// (CustomerFacingIngressNetworkPolicyCrossWorkspaceRequestOrigin, optional)
+	// The origin the request must match — the source workspace the request comes from,
+	// either specific source workspaces or any source workspace in any account. See
+	// CrossWorkspaceRequestOrigin
 	Origin *IngressDryRunPublicAccessAllowRulesOriginInitParameters `json:"origin,omitempty" tf:"origin,omitempty"`
 }
 
 type IngressDryRunPublicAccessAllowRulesObservation struct {
 
-	// (CustomerFacingIngressNetworkPolicyAuthentication, optional)
+	// The authenticated identity the request must match. When unset, the rule matches
+	// all users and service principals
 	Authentication *IngressDryRunPublicAccessAllowRulesAuthenticationObservation `json:"authentication,omitempty" tf:"authentication,omitempty"`
 
-	// (CustomerFacingIngressNetworkPolicyRequestDestination, optional)
+	// The destination the request must match — the resource being accessed, for example
+	// the workspace UI or workspace APIs. See RequestDestination
 	Destination *IngressDryRunPublicAccessAllowRulesDestinationObservation `json:"destination,omitempty" tf:"destination,omitempty"`
 
 	// The label for this ingress rule
 	Label *string `json:"label,omitempty" tf:"label,omitempty"`
 
-	// (CustomerFacingIngressNetworkPolicyCrossWorkspaceRequestOrigin, optional)
+	// The origin the request must match — the source workspace the request comes from,
+	// either specific source workspaces or any source workspace in any account. See
+	// CrossWorkspaceRequestOrigin
 	Origin *IngressDryRunPublicAccessAllowRulesOriginObservation `json:"origin,omitempty" tf:"origin,omitempty"`
 }
 
@@ -3267,11 +3476,13 @@ type IngressDryRunPublicAccessAllowRulesOriginParameters struct {
 
 type IngressDryRunPublicAccessAllowRulesParameters struct {
 
-	// (CustomerFacingIngressNetworkPolicyAuthentication, optional)
+	// The authenticated identity the request must match. When unset, the rule matches
+	// all users and service principals
 	// +kubebuilder:validation:Optional
 	Authentication *IngressDryRunPublicAccessAllowRulesAuthenticationParameters `json:"authentication,omitempty" tf:"authentication,omitempty"`
 
-	// (CustomerFacingIngressNetworkPolicyRequestDestination, optional)
+	// The destination the request must match — the resource being accessed, for example
+	// the workspace UI or workspace APIs. See RequestDestination
 	// +kubebuilder:validation:Optional
 	Destination *IngressDryRunPublicAccessAllowRulesDestinationParameters `json:"destination,omitempty" tf:"destination,omitempty"`
 
@@ -3279,7 +3490,9 @@ type IngressDryRunPublicAccessAllowRulesParameters struct {
 	// +kubebuilder:validation:Optional
 	Label *string `json:"label,omitempty" tf:"label,omitempty"`
 
-	// (CustomerFacingIngressNetworkPolicyCrossWorkspaceRequestOrigin, optional)
+	// The origin the request must match — the source workspace the request comes from,
+	// either specific source workspaces or any source workspace in any account. See
+	// CrossWorkspaceRequestOrigin
 	// +kubebuilder:validation:Optional
 	Origin *IngressDryRunPublicAccessAllowRulesOriginParameters `json:"origin,omitempty" tf:"origin,omitempty"`
 }
@@ -3544,6 +3757,11 @@ type IngressDryRunPublicAccessDenyRulesDestinationParameters struct {
 
 type IngressDryRunPublicAccessDenyRulesDestinationWorkspaceAPIInitParameters struct {
 
+	// Inverse of scopes: matches every API scope EXCEPT those listed here
+	// ("allow all except"). Mutually exclusive with scopes — a single
+	// destination may set at most one of the two
+	ExcludedScopes []*string `json:"excludedScopes,omitempty" tf:"excluded_scopes,omitempty"`
+
 	// Qualifies the breadth of API access for the listed scopes. See ApiScopeQualifier. Possible values are: API_SCOPE_QUALIFIER_ALL, API_SCOPE_QUALIFIER_READ
 	ScopeQualifier *string `json:"scopeQualifier,omitempty" tf:"scope_qualifier,omitempty"`
 
@@ -3553,6 +3771,11 @@ type IngressDryRunPublicAccessDenyRulesDestinationWorkspaceAPIInitParameters str
 
 type IngressDryRunPublicAccessDenyRulesDestinationWorkspaceAPIObservation struct {
 
+	// Inverse of scopes: matches every API scope EXCEPT those listed here
+	// ("allow all except"). Mutually exclusive with scopes — a single
+	// destination may set at most one of the two
+	ExcludedScopes []*string `json:"excludedScopes,omitempty" tf:"excluded_scopes,omitempty"`
+
 	// Qualifies the breadth of API access for the listed scopes. See ApiScopeQualifier. Possible values are: API_SCOPE_QUALIFIER_ALL, API_SCOPE_QUALIFIER_READ
 	ScopeQualifier *string `json:"scopeQualifier,omitempty" tf:"scope_qualifier,omitempty"`
 
@@ -3561,6 +3784,12 @@ type IngressDryRunPublicAccessDenyRulesDestinationWorkspaceAPIObservation struct
 }
 
 type IngressDryRunPublicAccessDenyRulesDestinationWorkspaceAPIParameters struct {
+
+	// Inverse of scopes: matches every API scope EXCEPT those listed here
+	// ("allow all except"). Mutually exclusive with scopes — a single
+	// destination may set at most one of the two
+	// +kubebuilder:validation:Optional
+	ExcludedScopes []*string `json:"excludedScopes,omitempty" tf:"excluded_scopes,omitempty"`
 
 	// Qualifies the breadth of API access for the listed scopes. See ApiScopeQualifier. Possible values are: API_SCOPE_QUALIFIER_ALL, API_SCOPE_QUALIFIER_READ
 	// +kubebuilder:validation:Optional
@@ -3592,31 +3821,39 @@ type IngressDryRunPublicAccessDenyRulesDestinationWorkspaceUIParameters struct {
 
 type IngressDryRunPublicAccessDenyRulesInitParameters struct {
 
-	// (CustomerFacingIngressNetworkPolicyAuthentication, optional)
+	// The authenticated identity the request must match. When unset, the rule matches
+	// all users and service principals
 	Authentication *IngressDryRunPublicAccessDenyRulesAuthenticationInitParameters `json:"authentication,omitempty" tf:"authentication,omitempty"`
 
-	// (CustomerFacingIngressNetworkPolicyRequestDestination, optional)
+	// The destination the request must match — the resource being accessed, for example
+	// the workspace UI or workspace APIs. See RequestDestination
 	Destination *IngressDryRunPublicAccessDenyRulesDestinationInitParameters `json:"destination,omitempty" tf:"destination,omitempty"`
 
 	// The label for this ingress rule
 	Label *string `json:"label,omitempty" tf:"label,omitempty"`
 
-	// (CustomerFacingIngressNetworkPolicyCrossWorkspaceRequestOrigin, optional)
+	// The origin the request must match — the source workspace the request comes from,
+	// either specific source workspaces or any source workspace in any account. See
+	// CrossWorkspaceRequestOrigin
 	Origin *IngressDryRunPublicAccessDenyRulesOriginInitParameters `json:"origin,omitempty" tf:"origin,omitempty"`
 }
 
 type IngressDryRunPublicAccessDenyRulesObservation struct {
 
-	// (CustomerFacingIngressNetworkPolicyAuthentication, optional)
+	// The authenticated identity the request must match. When unset, the rule matches
+	// all users and service principals
 	Authentication *IngressDryRunPublicAccessDenyRulesAuthenticationObservation `json:"authentication,omitempty" tf:"authentication,omitempty"`
 
-	// (CustomerFacingIngressNetworkPolicyRequestDestination, optional)
+	// The destination the request must match — the resource being accessed, for example
+	// the workspace UI or workspace APIs. See RequestDestination
 	Destination *IngressDryRunPublicAccessDenyRulesDestinationObservation `json:"destination,omitempty" tf:"destination,omitempty"`
 
 	// The label for this ingress rule
 	Label *string `json:"label,omitempty" tf:"label,omitempty"`
 
-	// (CustomerFacingIngressNetworkPolicyCrossWorkspaceRequestOrigin, optional)
+	// The origin the request must match — the source workspace the request comes from,
+	// either specific source workspaces or any source workspace in any account. See
+	// CrossWorkspaceRequestOrigin
 	Origin *IngressDryRunPublicAccessDenyRulesOriginObservation `json:"origin,omitempty" tf:"origin,omitempty"`
 }
 
@@ -3661,11 +3898,13 @@ type IngressDryRunPublicAccessDenyRulesOriginParameters struct {
 
 type IngressDryRunPublicAccessDenyRulesParameters struct {
 
-	// (CustomerFacingIngressNetworkPolicyAuthentication, optional)
+	// The authenticated identity the request must match. When unset, the rule matches
+	// all users and service principals
 	// +kubebuilder:validation:Optional
 	Authentication *IngressDryRunPublicAccessDenyRulesAuthenticationParameters `json:"authentication,omitempty" tf:"authentication,omitempty"`
 
-	// (CustomerFacingIngressNetworkPolicyRequestDestination, optional)
+	// The destination the request must match — the resource being accessed, for example
+	// the workspace UI or workspace APIs. See RequestDestination
 	// +kubebuilder:validation:Optional
 	Destination *IngressDryRunPublicAccessDenyRulesDestinationParameters `json:"destination,omitempty" tf:"destination,omitempty"`
 
@@ -3673,46 +3912,57 @@ type IngressDryRunPublicAccessDenyRulesParameters struct {
 	// +kubebuilder:validation:Optional
 	Label *string `json:"label,omitempty" tf:"label,omitempty"`
 
-	// (CustomerFacingIngressNetworkPolicyCrossWorkspaceRequestOrigin, optional)
+	// The origin the request must match — the source workspace the request comes from,
+	// either specific source workspaces or any source workspace in any account. See
+	// CrossWorkspaceRequestOrigin
 	// +kubebuilder:validation:Optional
 	Origin *IngressDryRunPublicAccessDenyRulesOriginParameters `json:"origin,omitempty" tf:"origin,omitempty"`
 }
 
 type IngressDryRunPublicAccessInitParameters struct {
 
-	// (list of CustomerFacingIngressNetworkPolicyCrossWorkspaceIngressRule, optional)
+	// Allow rules are evaluated after deny rules. A request matching any allow rule is
+	// allowed; a request matching no rule is denied by default. Only applies when
+	// restriction_mode is RESTRICTED_ACCESS
 	AllowRules []IngressDryRunPublicAccessAllowRulesInitParameters `json:"allowRules,omitempty" tf:"allow_rules,omitempty"`
 
-	// (list of CustomerFacingIngressNetworkPolicyCrossWorkspaceIngressRule, optional)
+	// Deny rules are evaluated first. A request matching any deny rule is denied,
+	// regardless of allow rules. Only applies when restriction_mode is RESTRICTED_ACCESS
 	DenyRules []IngressDryRunPublicAccessDenyRulesInitParameters `json:"denyRules,omitempty" tf:"deny_rules,omitempty"`
 
-	// Possible values are: FULL_ACCESS, RESTRICTED_ACCESS
+	// The restriction mode for cross-workspace access. Possible values are: FULL_ACCESS, LEGACY_MODE, RESTRICTED_ACCESS
 	RestrictionMode *string `json:"restrictionMode,omitempty" tf:"restriction_mode,omitempty"`
 }
 
 type IngressDryRunPublicAccessObservation struct {
 
-	// (list of CustomerFacingIngressNetworkPolicyCrossWorkspaceIngressRule, optional)
+	// Allow rules are evaluated after deny rules. A request matching any allow rule is
+	// allowed; a request matching no rule is denied by default. Only applies when
+	// restriction_mode is RESTRICTED_ACCESS
 	AllowRules []IngressDryRunPublicAccessAllowRulesObservation `json:"allowRules,omitempty" tf:"allow_rules,omitempty"`
 
-	// (list of CustomerFacingIngressNetworkPolicyCrossWorkspaceIngressRule, optional)
+	// Deny rules are evaluated first. A request matching any deny rule is denied,
+	// regardless of allow rules. Only applies when restriction_mode is RESTRICTED_ACCESS
 	DenyRules []IngressDryRunPublicAccessDenyRulesObservation `json:"denyRules,omitempty" tf:"deny_rules,omitempty"`
 
-	// Possible values are: FULL_ACCESS, RESTRICTED_ACCESS
+	// The restriction mode for cross-workspace access. Possible values are: FULL_ACCESS, LEGACY_MODE, RESTRICTED_ACCESS
 	RestrictionMode *string `json:"restrictionMode,omitempty" tf:"restriction_mode,omitempty"`
 }
 
 type IngressDryRunPublicAccessParameters struct {
 
-	// (list of CustomerFacingIngressNetworkPolicyCrossWorkspaceIngressRule, optional)
+	// Allow rules are evaluated after deny rules. A request matching any allow rule is
+	// allowed; a request matching no rule is denied by default. Only applies when
+	// restriction_mode is RESTRICTED_ACCESS
 	// +kubebuilder:validation:Optional
 	AllowRules []IngressDryRunPublicAccessAllowRulesParameters `json:"allowRules,omitempty" tf:"allow_rules,omitempty"`
 
-	// (list of CustomerFacingIngressNetworkPolicyCrossWorkspaceIngressRule, optional)
+	// Deny rules are evaluated first. A request matching any deny rule is denied,
+	// regardless of allow rules. Only applies when restriction_mode is RESTRICTED_ACCESS
 	// +kubebuilder:validation:Optional
 	DenyRules []IngressDryRunPublicAccessDenyRulesParameters `json:"denyRules,omitempty" tf:"deny_rules,omitempty"`
 
-	// Possible values are: FULL_ACCESS, RESTRICTED_ACCESS
+	// The restriction mode for cross-workspace access. Possible values are: FULL_ACCESS, LEGACY_MODE, RESTRICTED_ACCESS
 	// +kubebuilder:validation:Optional
 	RestrictionMode *string `json:"restrictionMode" tf:"restriction_mode,omitempty"`
 }
@@ -3801,7 +4051,7 @@ type NetworkAccessInitParameters struct {
 	// Optional. When policy_enforcement is not provided, we default to ENFORCE_MODE_ALL_SERVICES
 	PolicyEnforcement *PolicyEnforcementInitParameters `json:"policyEnforcement,omitempty" tf:"policy_enforcement,omitempty"`
 
-	// Possible values are: FULL_ACCESS, RESTRICTED_ACCESS
+	// The restriction mode for cross-workspace access. Possible values are: FULL_ACCESS, LEGACY_MODE, RESTRICTED_ACCESS
 	RestrictionMode *string `json:"restrictionMode,omitempty" tf:"restriction_mode,omitempty"`
 }
 
@@ -3825,7 +4075,7 @@ type NetworkAccessObservation struct {
 	// Optional. When policy_enforcement is not provided, we default to ENFORCE_MODE_ALL_SERVICES
 	PolicyEnforcement *PolicyEnforcementObservation `json:"policyEnforcement,omitempty" tf:"policy_enforcement,omitempty"`
 
-	// Possible values are: FULL_ACCESS, RESTRICTED_ACCESS
+	// The restriction mode for cross-workspace access. Possible values are: FULL_ACCESS, LEGACY_MODE, RESTRICTED_ACCESS
 	RestrictionMode *string `json:"restrictionMode,omitempty" tf:"restriction_mode,omitempty"`
 }
 
@@ -3854,7 +4104,7 @@ type NetworkAccessParameters struct {
 	// +kubebuilder:validation:Optional
 	PolicyEnforcement *PolicyEnforcementParameters `json:"policyEnforcement,omitempty" tf:"policy_enforcement,omitempty"`
 
-	// Possible values are: FULL_ACCESS, RESTRICTED_ACCESS
+	// The restriction mode for cross-workspace access. Possible values are: FULL_ACCESS, LEGACY_MODE, RESTRICTED_ACCESS
 	// +kubebuilder:validation:Optional
 	RestrictionMode *string `json:"restrictionMode" tf:"restriction_mode,omitempty"`
 }
@@ -4262,6 +4512,11 @@ type PrivateAccessAllowRulesDestinationParameters struct {
 
 type PrivateAccessAllowRulesDestinationWorkspaceAPIInitParameters struct {
 
+	// Inverse of scopes: matches every API scope EXCEPT those listed here
+	// ("allow all except"). Mutually exclusive with scopes — a single
+	// destination may set at most one of the two
+	ExcludedScopes []*string `json:"excludedScopes,omitempty" tf:"excluded_scopes,omitempty"`
+
 	// Qualifies the breadth of API access for the listed scopes. See ApiScopeQualifier. Possible values are: API_SCOPE_QUALIFIER_ALL, API_SCOPE_QUALIFIER_READ
 	ScopeQualifier *string `json:"scopeQualifier,omitempty" tf:"scope_qualifier,omitempty"`
 
@@ -4271,6 +4526,11 @@ type PrivateAccessAllowRulesDestinationWorkspaceAPIInitParameters struct {
 
 type PrivateAccessAllowRulesDestinationWorkspaceAPIObservation struct {
 
+	// Inverse of scopes: matches every API scope EXCEPT those listed here
+	// ("allow all except"). Mutually exclusive with scopes — a single
+	// destination may set at most one of the two
+	ExcludedScopes []*string `json:"excludedScopes,omitempty" tf:"excluded_scopes,omitempty"`
+
 	// Qualifies the breadth of API access for the listed scopes. See ApiScopeQualifier. Possible values are: API_SCOPE_QUALIFIER_ALL, API_SCOPE_QUALIFIER_READ
 	ScopeQualifier *string `json:"scopeQualifier,omitempty" tf:"scope_qualifier,omitempty"`
 
@@ -4279,6 +4539,12 @@ type PrivateAccessAllowRulesDestinationWorkspaceAPIObservation struct {
 }
 
 type PrivateAccessAllowRulesDestinationWorkspaceAPIParameters struct {
+
+	// Inverse of scopes: matches every API scope EXCEPT those listed here
+	// ("allow all except"). Mutually exclusive with scopes — a single
+	// destination may set at most one of the two
+	// +kubebuilder:validation:Optional
+	ExcludedScopes []*string `json:"excludedScopes,omitempty" tf:"excluded_scopes,omitempty"`
 
 	// Qualifies the breadth of API access for the listed scopes. See ApiScopeQualifier. Possible values are: API_SCOPE_QUALIFIER_ALL, API_SCOPE_QUALIFIER_READ
 	// +kubebuilder:validation:Optional
@@ -4310,31 +4576,39 @@ type PrivateAccessAllowRulesDestinationWorkspaceUIParameters struct {
 
 type PrivateAccessAllowRulesInitParameters struct {
 
-	// (CustomerFacingIngressNetworkPolicyAuthentication, optional)
+	// The authenticated identity the request must match. When unset, the rule matches
+	// all users and service principals
 	Authentication *AllowRulesAuthenticationInitParameters `json:"authentication,omitempty" tf:"authentication,omitempty"`
 
-	// (CustomerFacingIngressNetworkPolicyRequestDestination, optional)
+	// The destination the request must match — the resource being accessed, for example
+	// the workspace UI or workspace APIs. See RequestDestination
 	Destination *AllowRulesDestinationInitParameters `json:"destination,omitempty" tf:"destination,omitempty"`
 
 	// The label for this ingress rule
 	Label *string `json:"label,omitempty" tf:"label,omitempty"`
 
-	// (CustomerFacingIngressNetworkPolicyCrossWorkspaceRequestOrigin, optional)
+	// The origin the request must match — the source workspace the request comes from,
+	// either specific source workspaces or any source workspace in any account. See
+	// CrossWorkspaceRequestOrigin
 	Origin *AllowRulesOriginInitParameters `json:"origin,omitempty" tf:"origin,omitempty"`
 }
 
 type PrivateAccessAllowRulesObservation struct {
 
-	// (CustomerFacingIngressNetworkPolicyAuthentication, optional)
+	// The authenticated identity the request must match. When unset, the rule matches
+	// all users and service principals
 	Authentication *AllowRulesAuthenticationObservation `json:"authentication,omitempty" tf:"authentication,omitempty"`
 
-	// (CustomerFacingIngressNetworkPolicyRequestDestination, optional)
+	// The destination the request must match — the resource being accessed, for example
+	// the workspace UI or workspace APIs. See RequestDestination
 	Destination *AllowRulesDestinationObservation `json:"destination,omitempty" tf:"destination,omitempty"`
 
 	// The label for this ingress rule
 	Label *string `json:"label,omitempty" tf:"label,omitempty"`
 
-	// (CustomerFacingIngressNetworkPolicyCrossWorkspaceRequestOrigin, optional)
+	// The origin the request must match — the source workspace the request comes from,
+	// either specific source workspaces or any source workspace in any account. See
+	// CrossWorkspaceRequestOrigin
 	Origin *AllowRulesOriginObservation `json:"origin,omitempty" tf:"origin,omitempty"`
 }
 
@@ -4407,11 +4681,13 @@ type PrivateAccessAllowRulesOriginParameters struct {
 
 type PrivateAccessAllowRulesParameters struct {
 
-	// (CustomerFacingIngressNetworkPolicyAuthentication, optional)
+	// The authenticated identity the request must match. When unset, the rule matches
+	// all users and service principals
 	// +kubebuilder:validation:Optional
 	Authentication *AllowRulesAuthenticationParameters `json:"authentication,omitempty" tf:"authentication,omitempty"`
 
-	// (CustomerFacingIngressNetworkPolicyRequestDestination, optional)
+	// The destination the request must match — the resource being accessed, for example
+	// the workspace UI or workspace APIs. See RequestDestination
 	// +kubebuilder:validation:Optional
 	Destination *AllowRulesDestinationParameters `json:"destination,omitempty" tf:"destination,omitempty"`
 
@@ -4419,7 +4695,9 @@ type PrivateAccessAllowRulesParameters struct {
 	// +kubebuilder:validation:Optional
 	Label *string `json:"label,omitempty" tf:"label,omitempty"`
 
-	// (CustomerFacingIngressNetworkPolicyCrossWorkspaceRequestOrigin, optional)
+	// The origin the request must match — the source workspace the request comes from,
+	// either specific source workspaces or any source workspace in any account. See
+	// CrossWorkspaceRequestOrigin
 	// +kubebuilder:validation:Optional
 	Origin *AllowRulesOriginParameters `json:"origin,omitempty" tf:"origin,omitempty"`
 }
@@ -4684,6 +4962,11 @@ type PrivateAccessDenyRulesDestinationParameters struct {
 
 type PrivateAccessDenyRulesDestinationWorkspaceAPIInitParameters struct {
 
+	// Inverse of scopes: matches every API scope EXCEPT those listed here
+	// ("allow all except"). Mutually exclusive with scopes — a single
+	// destination may set at most one of the two
+	ExcludedScopes []*string `json:"excludedScopes,omitempty" tf:"excluded_scopes,omitempty"`
+
 	// Qualifies the breadth of API access for the listed scopes. See ApiScopeQualifier. Possible values are: API_SCOPE_QUALIFIER_ALL, API_SCOPE_QUALIFIER_READ
 	ScopeQualifier *string `json:"scopeQualifier,omitempty" tf:"scope_qualifier,omitempty"`
 
@@ -4693,6 +4976,11 @@ type PrivateAccessDenyRulesDestinationWorkspaceAPIInitParameters struct {
 
 type PrivateAccessDenyRulesDestinationWorkspaceAPIObservation struct {
 
+	// Inverse of scopes: matches every API scope EXCEPT those listed here
+	// ("allow all except"). Mutually exclusive with scopes — a single
+	// destination may set at most one of the two
+	ExcludedScopes []*string `json:"excludedScopes,omitempty" tf:"excluded_scopes,omitempty"`
+
 	// Qualifies the breadth of API access for the listed scopes. See ApiScopeQualifier. Possible values are: API_SCOPE_QUALIFIER_ALL, API_SCOPE_QUALIFIER_READ
 	ScopeQualifier *string `json:"scopeQualifier,omitempty" tf:"scope_qualifier,omitempty"`
 
@@ -4701,6 +4989,12 @@ type PrivateAccessDenyRulesDestinationWorkspaceAPIObservation struct {
 }
 
 type PrivateAccessDenyRulesDestinationWorkspaceAPIParameters struct {
+
+	// Inverse of scopes: matches every API scope EXCEPT those listed here
+	// ("allow all except"). Mutually exclusive with scopes — a single
+	// destination may set at most one of the two
+	// +kubebuilder:validation:Optional
+	ExcludedScopes []*string `json:"excludedScopes,omitempty" tf:"excluded_scopes,omitempty"`
 
 	// Qualifies the breadth of API access for the listed scopes. See ApiScopeQualifier. Possible values are: API_SCOPE_QUALIFIER_ALL, API_SCOPE_QUALIFIER_READ
 	// +kubebuilder:validation:Optional
@@ -4732,31 +5026,39 @@ type PrivateAccessDenyRulesDestinationWorkspaceUIParameters struct {
 
 type PrivateAccessDenyRulesInitParameters struct {
 
-	// (CustomerFacingIngressNetworkPolicyAuthentication, optional)
+	// The authenticated identity the request must match. When unset, the rule matches
+	// all users and service principals
 	Authentication *PrivateAccessDenyRulesAuthenticationInitParameters `json:"authentication,omitempty" tf:"authentication,omitempty"`
 
-	// (CustomerFacingIngressNetworkPolicyRequestDestination, optional)
+	// The destination the request must match — the resource being accessed, for example
+	// the workspace UI or workspace APIs. See RequestDestination
 	Destination *PrivateAccessDenyRulesDestinationInitParameters `json:"destination,omitempty" tf:"destination,omitempty"`
 
 	// The label for this ingress rule
 	Label *string `json:"label,omitempty" tf:"label,omitempty"`
 
-	// (CustomerFacingIngressNetworkPolicyCrossWorkspaceRequestOrigin, optional)
+	// The origin the request must match — the source workspace the request comes from,
+	// either specific source workspaces or any source workspace in any account. See
+	// CrossWorkspaceRequestOrigin
 	Origin *PrivateAccessDenyRulesOriginInitParameters `json:"origin,omitempty" tf:"origin,omitempty"`
 }
 
 type PrivateAccessDenyRulesObservation struct {
 
-	// (CustomerFacingIngressNetworkPolicyAuthentication, optional)
+	// The authenticated identity the request must match. When unset, the rule matches
+	// all users and service principals
 	Authentication *PrivateAccessDenyRulesAuthenticationObservation `json:"authentication,omitempty" tf:"authentication,omitempty"`
 
-	// (CustomerFacingIngressNetworkPolicyRequestDestination, optional)
+	// The destination the request must match — the resource being accessed, for example
+	// the workspace UI or workspace APIs. See RequestDestination
 	Destination *PrivateAccessDenyRulesDestinationObservation `json:"destination,omitempty" tf:"destination,omitempty"`
 
 	// The label for this ingress rule
 	Label *string `json:"label,omitempty" tf:"label,omitempty"`
 
-	// (CustomerFacingIngressNetworkPolicyCrossWorkspaceRequestOrigin, optional)
+	// The origin the request must match — the source workspace the request comes from,
+	// either specific source workspaces or any source workspace in any account. See
+	// CrossWorkspaceRequestOrigin
 	Origin *PrivateAccessDenyRulesOriginObservation `json:"origin,omitempty" tf:"origin,omitempty"`
 }
 
@@ -4829,11 +5131,13 @@ type PrivateAccessDenyRulesOriginParameters struct {
 
 type PrivateAccessDenyRulesParameters struct {
 
-	// (CustomerFacingIngressNetworkPolicyAuthentication, optional)
+	// The authenticated identity the request must match. When unset, the rule matches
+	// all users and service principals
 	// +kubebuilder:validation:Optional
 	Authentication *PrivateAccessDenyRulesAuthenticationParameters `json:"authentication,omitempty" tf:"authentication,omitempty"`
 
-	// (CustomerFacingIngressNetworkPolicyRequestDestination, optional)
+	// The destination the request must match — the resource being accessed, for example
+	// the workspace UI or workspace APIs. See RequestDestination
 	// +kubebuilder:validation:Optional
 	Destination *PrivateAccessDenyRulesDestinationParameters `json:"destination,omitempty" tf:"destination,omitempty"`
 
@@ -4841,46 +5145,57 @@ type PrivateAccessDenyRulesParameters struct {
 	// +kubebuilder:validation:Optional
 	Label *string `json:"label,omitempty" tf:"label,omitempty"`
 
-	// (CustomerFacingIngressNetworkPolicyCrossWorkspaceRequestOrigin, optional)
+	// The origin the request must match — the source workspace the request comes from,
+	// either specific source workspaces or any source workspace in any account. See
+	// CrossWorkspaceRequestOrigin
 	// +kubebuilder:validation:Optional
 	Origin *PrivateAccessDenyRulesOriginParameters `json:"origin,omitempty" tf:"origin,omitempty"`
 }
 
 type PrivateAccessInitParameters struct {
 
-	// (list of CustomerFacingIngressNetworkPolicyCrossWorkspaceIngressRule, optional)
+	// Allow rules are evaluated after deny rules. A request matching any allow rule is
+	// allowed; a request matching no rule is denied by default. Only applies when
+	// restriction_mode is RESTRICTED_ACCESS
 	AllowRules []PrivateAccessAllowRulesInitParameters `json:"allowRules,omitempty" tf:"allow_rules,omitempty"`
 
-	// (list of CustomerFacingIngressNetworkPolicyCrossWorkspaceIngressRule, optional)
+	// Deny rules are evaluated first. A request matching any deny rule is denied,
+	// regardless of allow rules. Only applies when restriction_mode is RESTRICTED_ACCESS
 	DenyRules []PrivateAccessDenyRulesInitParameters `json:"denyRules,omitempty" tf:"deny_rules,omitempty"`
 
-	// Possible values are: FULL_ACCESS, RESTRICTED_ACCESS
+	// The restriction mode for cross-workspace access. Possible values are: FULL_ACCESS, LEGACY_MODE, RESTRICTED_ACCESS
 	RestrictionMode *string `json:"restrictionMode,omitempty" tf:"restriction_mode,omitempty"`
 }
 
 type PrivateAccessObservation struct {
 
-	// (list of CustomerFacingIngressNetworkPolicyCrossWorkspaceIngressRule, optional)
+	// Allow rules are evaluated after deny rules. A request matching any allow rule is
+	// allowed; a request matching no rule is denied by default. Only applies when
+	// restriction_mode is RESTRICTED_ACCESS
 	AllowRules []PrivateAccessAllowRulesObservation `json:"allowRules,omitempty" tf:"allow_rules,omitempty"`
 
-	// (list of CustomerFacingIngressNetworkPolicyCrossWorkspaceIngressRule, optional)
+	// Deny rules are evaluated first. A request matching any deny rule is denied,
+	// regardless of allow rules. Only applies when restriction_mode is RESTRICTED_ACCESS
 	DenyRules []PrivateAccessDenyRulesObservation `json:"denyRules,omitempty" tf:"deny_rules,omitempty"`
 
-	// Possible values are: FULL_ACCESS, RESTRICTED_ACCESS
+	// The restriction mode for cross-workspace access. Possible values are: FULL_ACCESS, LEGACY_MODE, RESTRICTED_ACCESS
 	RestrictionMode *string `json:"restrictionMode,omitempty" tf:"restriction_mode,omitempty"`
 }
 
 type PrivateAccessParameters struct {
 
-	// (list of CustomerFacingIngressNetworkPolicyCrossWorkspaceIngressRule, optional)
+	// Allow rules are evaluated after deny rules. A request matching any allow rule is
+	// allowed; a request matching no rule is denied by default. Only applies when
+	// restriction_mode is RESTRICTED_ACCESS
 	// +kubebuilder:validation:Optional
 	AllowRules []PrivateAccessAllowRulesParameters `json:"allowRules,omitempty" tf:"allow_rules,omitempty"`
 
-	// (list of CustomerFacingIngressNetworkPolicyCrossWorkspaceIngressRule, optional)
+	// Deny rules are evaluated first. A request matching any deny rule is denied,
+	// regardless of allow rules. Only applies when restriction_mode is RESTRICTED_ACCESS
 	// +kubebuilder:validation:Optional
 	DenyRules []PrivateAccessDenyRulesParameters `json:"denyRules,omitempty" tf:"deny_rules,omitempty"`
 
-	// Possible values are: FULL_ACCESS, RESTRICTED_ACCESS
+	// The restriction mode for cross-workspace access. Possible values are: FULL_ACCESS, LEGACY_MODE, RESTRICTED_ACCESS
 	// +kubebuilder:validation:Optional
 	RestrictionMode *string `json:"restrictionMode" tf:"restriction_mode,omitempty"`
 }
@@ -5145,6 +5460,11 @@ type PublicAccessAllowRulesDestinationParameters struct {
 
 type PublicAccessAllowRulesDestinationWorkspaceAPIInitParameters struct {
 
+	// Inverse of scopes: matches every API scope EXCEPT those listed here
+	// ("allow all except"). Mutually exclusive with scopes — a single
+	// destination may set at most one of the two
+	ExcludedScopes []*string `json:"excludedScopes,omitempty" tf:"excluded_scopes,omitempty"`
+
 	// Qualifies the breadth of API access for the listed scopes. See ApiScopeQualifier. Possible values are: API_SCOPE_QUALIFIER_ALL, API_SCOPE_QUALIFIER_READ
 	ScopeQualifier *string `json:"scopeQualifier,omitempty" tf:"scope_qualifier,omitempty"`
 
@@ -5154,6 +5474,11 @@ type PublicAccessAllowRulesDestinationWorkspaceAPIInitParameters struct {
 
 type PublicAccessAllowRulesDestinationWorkspaceAPIObservation struct {
 
+	// Inverse of scopes: matches every API scope EXCEPT those listed here
+	// ("allow all except"). Mutually exclusive with scopes — a single
+	// destination may set at most one of the two
+	ExcludedScopes []*string `json:"excludedScopes,omitempty" tf:"excluded_scopes,omitempty"`
+
 	// Qualifies the breadth of API access for the listed scopes. See ApiScopeQualifier. Possible values are: API_SCOPE_QUALIFIER_ALL, API_SCOPE_QUALIFIER_READ
 	ScopeQualifier *string `json:"scopeQualifier,omitempty" tf:"scope_qualifier,omitempty"`
 
@@ -5162,6 +5487,12 @@ type PublicAccessAllowRulesDestinationWorkspaceAPIObservation struct {
 }
 
 type PublicAccessAllowRulesDestinationWorkspaceAPIParameters struct {
+
+	// Inverse of scopes: matches every API scope EXCEPT those listed here
+	// ("allow all except"). Mutually exclusive with scopes — a single
+	// destination may set at most one of the two
+	// +kubebuilder:validation:Optional
+	ExcludedScopes []*string `json:"excludedScopes,omitempty" tf:"excluded_scopes,omitempty"`
 
 	// Qualifies the breadth of API access for the listed scopes. See ApiScopeQualifier. Possible values are: API_SCOPE_QUALIFIER_ALL, API_SCOPE_QUALIFIER_READ
 	// +kubebuilder:validation:Optional
@@ -5193,31 +5524,39 @@ type PublicAccessAllowRulesDestinationWorkspaceUIParameters struct {
 
 type PublicAccessAllowRulesInitParameters struct {
 
-	// (CustomerFacingIngressNetworkPolicyAuthentication, optional)
+	// The authenticated identity the request must match. When unset, the rule matches
+	// all users and service principals
 	Authentication *PublicAccessAllowRulesAuthenticationInitParameters `json:"authentication,omitempty" tf:"authentication,omitempty"`
 
-	// (CustomerFacingIngressNetworkPolicyRequestDestination, optional)
+	// The destination the request must match — the resource being accessed, for example
+	// the workspace UI or workspace APIs. See RequestDestination
 	Destination *PublicAccessAllowRulesDestinationInitParameters `json:"destination,omitempty" tf:"destination,omitempty"`
 
 	// The label for this ingress rule
 	Label *string `json:"label,omitempty" tf:"label,omitempty"`
 
-	// (CustomerFacingIngressNetworkPolicyCrossWorkspaceRequestOrigin, optional)
+	// The origin the request must match — the source workspace the request comes from,
+	// either specific source workspaces or any source workspace in any account. See
+	// CrossWorkspaceRequestOrigin
 	Origin *PublicAccessAllowRulesOriginInitParameters `json:"origin,omitempty" tf:"origin,omitempty"`
 }
 
 type PublicAccessAllowRulesObservation struct {
 
-	// (CustomerFacingIngressNetworkPolicyAuthentication, optional)
+	// The authenticated identity the request must match. When unset, the rule matches
+	// all users and service principals
 	Authentication *PublicAccessAllowRulesAuthenticationObservation `json:"authentication,omitempty" tf:"authentication,omitempty"`
 
-	// (CustomerFacingIngressNetworkPolicyRequestDestination, optional)
+	// The destination the request must match — the resource being accessed, for example
+	// the workspace UI or workspace APIs. See RequestDestination
 	Destination *PublicAccessAllowRulesDestinationObservation `json:"destination,omitempty" tf:"destination,omitempty"`
 
 	// The label for this ingress rule
 	Label *string `json:"label,omitempty" tf:"label,omitempty"`
 
-	// (CustomerFacingIngressNetworkPolicyCrossWorkspaceRequestOrigin, optional)
+	// The origin the request must match — the source workspace the request comes from,
+	// either specific source workspaces or any source workspace in any account. See
+	// CrossWorkspaceRequestOrigin
 	Origin *PublicAccessAllowRulesOriginObservation `json:"origin,omitempty" tf:"origin,omitempty"`
 }
 
@@ -5262,11 +5601,13 @@ type PublicAccessAllowRulesOriginParameters struct {
 
 type PublicAccessAllowRulesParameters struct {
 
-	// (CustomerFacingIngressNetworkPolicyAuthentication, optional)
+	// The authenticated identity the request must match. When unset, the rule matches
+	// all users and service principals
 	// +kubebuilder:validation:Optional
 	Authentication *PublicAccessAllowRulesAuthenticationParameters `json:"authentication,omitempty" tf:"authentication,omitempty"`
 
-	// (CustomerFacingIngressNetworkPolicyRequestDestination, optional)
+	// The destination the request must match — the resource being accessed, for example
+	// the workspace UI or workspace APIs. See RequestDestination
 	// +kubebuilder:validation:Optional
 	Destination *PublicAccessAllowRulesDestinationParameters `json:"destination,omitempty" tf:"destination,omitempty"`
 
@@ -5274,7 +5615,9 @@ type PublicAccessAllowRulesParameters struct {
 	// +kubebuilder:validation:Optional
 	Label *string `json:"label,omitempty" tf:"label,omitempty"`
 
-	// (CustomerFacingIngressNetworkPolicyCrossWorkspaceRequestOrigin, optional)
+	// The origin the request must match — the source workspace the request comes from,
+	// either specific source workspaces or any source workspace in any account. See
+	// CrossWorkspaceRequestOrigin
 	// +kubebuilder:validation:Optional
 	Origin *PublicAccessAllowRulesOriginParameters `json:"origin,omitempty" tf:"origin,omitempty"`
 }
@@ -5539,6 +5882,11 @@ type PublicAccessDenyRulesDestinationParameters struct {
 
 type PublicAccessDenyRulesDestinationWorkspaceAPIInitParameters struct {
 
+	// Inverse of scopes: matches every API scope EXCEPT those listed here
+	// ("allow all except"). Mutually exclusive with scopes — a single
+	// destination may set at most one of the two
+	ExcludedScopes []*string `json:"excludedScopes,omitempty" tf:"excluded_scopes,omitempty"`
+
 	// Qualifies the breadth of API access for the listed scopes. See ApiScopeQualifier. Possible values are: API_SCOPE_QUALIFIER_ALL, API_SCOPE_QUALIFIER_READ
 	ScopeQualifier *string `json:"scopeQualifier,omitempty" tf:"scope_qualifier,omitempty"`
 
@@ -5548,6 +5896,11 @@ type PublicAccessDenyRulesDestinationWorkspaceAPIInitParameters struct {
 
 type PublicAccessDenyRulesDestinationWorkspaceAPIObservation struct {
 
+	// Inverse of scopes: matches every API scope EXCEPT those listed here
+	// ("allow all except"). Mutually exclusive with scopes — a single
+	// destination may set at most one of the two
+	ExcludedScopes []*string `json:"excludedScopes,omitempty" tf:"excluded_scopes,omitempty"`
+
 	// Qualifies the breadth of API access for the listed scopes. See ApiScopeQualifier. Possible values are: API_SCOPE_QUALIFIER_ALL, API_SCOPE_QUALIFIER_READ
 	ScopeQualifier *string `json:"scopeQualifier,omitempty" tf:"scope_qualifier,omitempty"`
 
@@ -5556,6 +5909,12 @@ type PublicAccessDenyRulesDestinationWorkspaceAPIObservation struct {
 }
 
 type PublicAccessDenyRulesDestinationWorkspaceAPIParameters struct {
+
+	// Inverse of scopes: matches every API scope EXCEPT those listed here
+	// ("allow all except"). Mutually exclusive with scopes — a single
+	// destination may set at most one of the two
+	// +kubebuilder:validation:Optional
+	ExcludedScopes []*string `json:"excludedScopes,omitempty" tf:"excluded_scopes,omitempty"`
 
 	// Qualifies the breadth of API access for the listed scopes. See ApiScopeQualifier. Possible values are: API_SCOPE_QUALIFIER_ALL, API_SCOPE_QUALIFIER_READ
 	// +kubebuilder:validation:Optional
@@ -5587,31 +5946,39 @@ type PublicAccessDenyRulesDestinationWorkspaceUIParameters struct {
 
 type PublicAccessDenyRulesInitParameters struct {
 
-	// (CustomerFacingIngressNetworkPolicyAuthentication, optional)
+	// The authenticated identity the request must match. When unset, the rule matches
+	// all users and service principals
 	Authentication *PublicAccessDenyRulesAuthenticationInitParameters `json:"authentication,omitempty" tf:"authentication,omitempty"`
 
-	// (CustomerFacingIngressNetworkPolicyRequestDestination, optional)
+	// The destination the request must match — the resource being accessed, for example
+	// the workspace UI or workspace APIs. See RequestDestination
 	Destination *PublicAccessDenyRulesDestinationInitParameters `json:"destination,omitempty" tf:"destination,omitempty"`
 
 	// The label for this ingress rule
 	Label *string `json:"label,omitempty" tf:"label,omitempty"`
 
-	// (CustomerFacingIngressNetworkPolicyCrossWorkspaceRequestOrigin, optional)
+	// The origin the request must match — the source workspace the request comes from,
+	// either specific source workspaces or any source workspace in any account. See
+	// CrossWorkspaceRequestOrigin
 	Origin *PublicAccessDenyRulesOriginInitParameters `json:"origin,omitempty" tf:"origin,omitempty"`
 }
 
 type PublicAccessDenyRulesObservation struct {
 
-	// (CustomerFacingIngressNetworkPolicyAuthentication, optional)
+	// The authenticated identity the request must match. When unset, the rule matches
+	// all users and service principals
 	Authentication *PublicAccessDenyRulesAuthenticationObservation `json:"authentication,omitempty" tf:"authentication,omitempty"`
 
-	// (CustomerFacingIngressNetworkPolicyRequestDestination, optional)
+	// The destination the request must match — the resource being accessed, for example
+	// the workspace UI or workspace APIs. See RequestDestination
 	Destination *PublicAccessDenyRulesDestinationObservation `json:"destination,omitempty" tf:"destination,omitempty"`
 
 	// The label for this ingress rule
 	Label *string `json:"label,omitempty" tf:"label,omitempty"`
 
-	// (CustomerFacingIngressNetworkPolicyCrossWorkspaceRequestOrigin, optional)
+	// The origin the request must match — the source workspace the request comes from,
+	// either specific source workspaces or any source workspace in any account. See
+	// CrossWorkspaceRequestOrigin
 	Origin *PublicAccessDenyRulesOriginObservation `json:"origin,omitempty" tf:"origin,omitempty"`
 }
 
@@ -5656,11 +6023,13 @@ type PublicAccessDenyRulesOriginParameters struct {
 
 type PublicAccessDenyRulesParameters struct {
 
-	// (CustomerFacingIngressNetworkPolicyAuthentication, optional)
+	// The authenticated identity the request must match. When unset, the rule matches
+	// all users and service principals
 	// +kubebuilder:validation:Optional
 	Authentication *PublicAccessDenyRulesAuthenticationParameters `json:"authentication,omitempty" tf:"authentication,omitempty"`
 
-	// (CustomerFacingIngressNetworkPolicyRequestDestination, optional)
+	// The destination the request must match — the resource being accessed, for example
+	// the workspace UI or workspace APIs. See RequestDestination
 	// +kubebuilder:validation:Optional
 	Destination *PublicAccessDenyRulesDestinationParameters `json:"destination,omitempty" tf:"destination,omitempty"`
 
@@ -5668,46 +6037,57 @@ type PublicAccessDenyRulesParameters struct {
 	// +kubebuilder:validation:Optional
 	Label *string `json:"label,omitempty" tf:"label,omitempty"`
 
-	// (CustomerFacingIngressNetworkPolicyCrossWorkspaceRequestOrigin, optional)
+	// The origin the request must match — the source workspace the request comes from,
+	// either specific source workspaces or any source workspace in any account. See
+	// CrossWorkspaceRequestOrigin
 	// +kubebuilder:validation:Optional
 	Origin *PublicAccessDenyRulesOriginParameters `json:"origin,omitempty" tf:"origin,omitempty"`
 }
 
 type PublicAccessInitParameters struct {
 
-	// (list of CustomerFacingIngressNetworkPolicyCrossWorkspaceIngressRule, optional)
+	// Allow rules are evaluated after deny rules. A request matching any allow rule is
+	// allowed; a request matching no rule is denied by default. Only applies when
+	// restriction_mode is RESTRICTED_ACCESS
 	AllowRules []PublicAccessAllowRulesInitParameters `json:"allowRules,omitempty" tf:"allow_rules,omitempty"`
 
-	// (list of CustomerFacingIngressNetworkPolicyCrossWorkspaceIngressRule, optional)
+	// Deny rules are evaluated first. A request matching any deny rule is denied,
+	// regardless of allow rules. Only applies when restriction_mode is RESTRICTED_ACCESS
 	DenyRules []PublicAccessDenyRulesInitParameters `json:"denyRules,omitempty" tf:"deny_rules,omitempty"`
 
-	// Possible values are: FULL_ACCESS, RESTRICTED_ACCESS
+	// The restriction mode for cross-workspace access. Possible values are: FULL_ACCESS, LEGACY_MODE, RESTRICTED_ACCESS
 	RestrictionMode *string `json:"restrictionMode,omitempty" tf:"restriction_mode,omitempty"`
 }
 
 type PublicAccessObservation struct {
 
-	// (list of CustomerFacingIngressNetworkPolicyCrossWorkspaceIngressRule, optional)
+	// Allow rules are evaluated after deny rules. A request matching any allow rule is
+	// allowed; a request matching no rule is denied by default. Only applies when
+	// restriction_mode is RESTRICTED_ACCESS
 	AllowRules []PublicAccessAllowRulesObservation `json:"allowRules,omitempty" tf:"allow_rules,omitempty"`
 
-	// (list of CustomerFacingIngressNetworkPolicyCrossWorkspaceIngressRule, optional)
+	// Deny rules are evaluated first. A request matching any deny rule is denied,
+	// regardless of allow rules. Only applies when restriction_mode is RESTRICTED_ACCESS
 	DenyRules []PublicAccessDenyRulesObservation `json:"denyRules,omitempty" tf:"deny_rules,omitempty"`
 
-	// Possible values are: FULL_ACCESS, RESTRICTED_ACCESS
+	// The restriction mode for cross-workspace access. Possible values are: FULL_ACCESS, LEGACY_MODE, RESTRICTED_ACCESS
 	RestrictionMode *string `json:"restrictionMode,omitempty" tf:"restriction_mode,omitempty"`
 }
 
 type PublicAccessParameters struct {
 
-	// (list of CustomerFacingIngressNetworkPolicyCrossWorkspaceIngressRule, optional)
+	// Allow rules are evaluated after deny rules. A request matching any allow rule is
+	// allowed; a request matching no rule is denied by default. Only applies when
+	// restriction_mode is RESTRICTED_ACCESS
 	// +kubebuilder:validation:Optional
 	AllowRules []PublicAccessAllowRulesParameters `json:"allowRules,omitempty" tf:"allow_rules,omitempty"`
 
-	// (list of CustomerFacingIngressNetworkPolicyCrossWorkspaceIngressRule, optional)
+	// Deny rules are evaluated first. A request matching any deny rule is denied,
+	// regardless of allow rules. Only applies when restriction_mode is RESTRICTED_ACCESS
 	// +kubebuilder:validation:Optional
 	DenyRules []PublicAccessDenyRulesParameters `json:"denyRules,omitempty" tf:"deny_rules,omitempty"`
 
-	// Possible values are: FULL_ACCESS, RESTRICTED_ACCESS
+	// The restriction mode for cross-workspace access. Possible values are: FULL_ACCESS, LEGACY_MODE, RESTRICTED_ACCESS
 	// +kubebuilder:validation:Optional
 	RestrictionMode *string `json:"restrictionMode" tf:"restriction_mode,omitempty"`
 }
@@ -5733,6 +6113,11 @@ type SelectedWorkspacesParameters struct {
 
 type WorkspaceAPIInitParameters struct {
 
+	// Inverse of scopes: matches every API scope EXCEPT those listed here
+	// ("allow all except"). Mutually exclusive with scopes — a single
+	// destination may set at most one of the two
+	ExcludedScopes []*string `json:"excludedScopes,omitempty" tf:"excluded_scopes,omitempty"`
+
 	// Qualifies the breadth of API access for the listed scopes. See ApiScopeQualifier. Possible values are: API_SCOPE_QUALIFIER_ALL, API_SCOPE_QUALIFIER_READ
 	ScopeQualifier *string `json:"scopeQualifier,omitempty" tf:"scope_qualifier,omitempty"`
 
@@ -5742,6 +6127,11 @@ type WorkspaceAPIInitParameters struct {
 
 type WorkspaceAPIObservation struct {
 
+	// Inverse of scopes: matches every API scope EXCEPT those listed here
+	// ("allow all except"). Mutually exclusive with scopes — a single
+	// destination may set at most one of the two
+	ExcludedScopes []*string `json:"excludedScopes,omitempty" tf:"excluded_scopes,omitempty"`
+
 	// Qualifies the breadth of API access for the listed scopes. See ApiScopeQualifier. Possible values are: API_SCOPE_QUALIFIER_ALL, API_SCOPE_QUALIFIER_READ
 	ScopeQualifier *string `json:"scopeQualifier,omitempty" tf:"scope_qualifier,omitempty"`
 
@@ -5750,6 +6140,12 @@ type WorkspaceAPIObservation struct {
 }
 
 type WorkspaceAPIParameters struct {
+
+	// Inverse of scopes: matches every API scope EXCEPT those listed here
+	// ("allow all except"). Mutually exclusive with scopes — a single
+	// destination may set at most one of the two
+	// +kubebuilder:validation:Optional
+	ExcludedScopes []*string `json:"excludedScopes,omitempty" tf:"excluded_scopes,omitempty"`
 
 	// Qualifies the breadth of API access for the listed scopes. See ApiScopeQualifier. Possible values are: API_SCOPE_QUALIFIER_ALL, API_SCOPE_QUALIFIER_READ
 	// +kubebuilder:validation:Optional

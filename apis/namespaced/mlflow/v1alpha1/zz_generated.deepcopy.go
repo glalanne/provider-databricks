@@ -1432,6 +1432,11 @@ func (in *UcTraceLocationInitParameters) DeepCopyInto(out *UcTraceLocationInitPa
 		*out = new(string)
 		**out = **in
 	}
+	if in.EffectiveTablePrefix != nil {
+		in, out := &in.EffectiveTablePrefix, &out.EffectiveTablePrefix
+		*out = new(string)
+		**out = **in
+	}
 	if in.Schema != nil {
 		in, out := &in.Schema, &out.Schema
 		*out = new(string)
@@ -1462,6 +1467,11 @@ func (in *UcTraceLocationObservation) DeepCopyInto(out *UcTraceLocationObservati
 		*out = new(string)
 		**out = **in
 	}
+	if in.EffectiveTablePrefix != nil {
+		in, out := &in.EffectiveTablePrefix, &out.EffectiveTablePrefix
+		*out = new(string)
+		**out = **in
+	}
 	if in.Schema != nil {
 		in, out := &in.Schema, &out.Schema
 		*out = new(string)
@@ -1489,6 +1499,11 @@ func (in *UcTraceLocationParameters) DeepCopyInto(out *UcTraceLocationParameters
 	*out = *in
 	if in.Catalog != nil {
 		in, out := &in.Catalog, &out.Catalog
+		*out = new(string)
+		**out = **in
+	}
+	if in.EffectiveTablePrefix != nil {
+		in, out := &in.EffectiveTablePrefix, &out.EffectiveTablePrefix
 		*out = new(string)
 		**out = **in
 	}

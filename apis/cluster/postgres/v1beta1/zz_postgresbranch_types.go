@@ -145,7 +145,7 @@ type ProviderConfigParameters struct {
 type SpecInitParameters struct {
 
 	// Absolute expiration timestamp. When set, the branch will expire at this time.
-	// Mutually exclusive with ttl and no_expiry. When updating, use spec.expiration in the update_mask
+	// Mutually exclusive with ttl and no_expiry
 	ExpireTime *string `json:"expireTime,omitempty" tf:"expire_time,omitempty"`
 
 	// When set to true, protects the branch from deletion and reset. Associated compute endpoints and the project cannot be deleted while the branch is protected
@@ -153,7 +153,7 @@ type SpecInitParameters struct {
 
 	// Explicitly disable expiration. When set to true, the branch will not expire.
 	// If set to false, the request is invalid; provide either ttl or expire_time instead.
-	// Mutually exclusive with expire_time and ttl. When updating, use spec.expiration in the update_mask
+	// Mutually exclusive with expire_time and ttl
 	NoExpiry *bool `json:"noExpiry,omitempty" tf:"no_expiry,omitempty"`
 
 	// The name of the source branch from which this branch was created (data lineage for point-in-time recovery).
@@ -167,15 +167,22 @@ type SpecInitParameters struct {
 	// The point in time on the source branch from which this branch was created
 	SourceBranchTime *string `json:"sourceBranchTime,omitempty" tf:"source_branch_time,omitempty"`
 
+	// The snapshot this branch was created from. When set, the branch's data
+	// comes from the snapshot rather than a source branch, so source_branch,
+	// source_branch_lsn, and source_branch_time must be empty. The snapshot must
+	// be AVAILABLE and belong to this branch's project.
+	// Format: projects/{project_id}/snapshots/{snapshot_id}
+	SourceSnapshot *string `json:"sourceSnapshot,omitempty" tf:"source_snapshot,omitempty"`
+
 	// Relative time-to-live duration. When set, the branch will expire at creation_time + ttl.
-	// Mutually exclusive with expire_time and no_expiry. When updating, use spec.expiration in the update_mask
+	// Mutually exclusive with expire_time and no_expiry
 	TTL *string `json:"ttl,omitempty" tf:"ttl,omitempty"`
 }
 
 type SpecObservation struct {
 
 	// Absolute expiration timestamp. When set, the branch will expire at this time.
-	// Mutually exclusive with ttl and no_expiry. When updating, use spec.expiration in the update_mask
+	// Mutually exclusive with ttl and no_expiry
 	ExpireTime *string `json:"expireTime,omitempty" tf:"expire_time,omitempty"`
 
 	// When set to true, protects the branch from deletion and reset. Associated compute endpoints and the project cannot be deleted while the branch is protected
@@ -183,7 +190,7 @@ type SpecObservation struct {
 
 	// Explicitly disable expiration. When set to true, the branch will not expire.
 	// If set to false, the request is invalid; provide either ttl or expire_time instead.
-	// Mutually exclusive with expire_time and ttl. When updating, use spec.expiration in the update_mask
+	// Mutually exclusive with expire_time and ttl
 	NoExpiry *bool `json:"noExpiry,omitempty" tf:"no_expiry,omitempty"`
 
 	// The name of the source branch from which this branch was created (data lineage for point-in-time recovery).
@@ -197,15 +204,22 @@ type SpecObservation struct {
 	// The point in time on the source branch from which this branch was created
 	SourceBranchTime *string `json:"sourceBranchTime,omitempty" tf:"source_branch_time,omitempty"`
 
+	// The snapshot this branch was created from. When set, the branch's data
+	// comes from the snapshot rather than a source branch, so source_branch,
+	// source_branch_lsn, and source_branch_time must be empty. The snapshot must
+	// be AVAILABLE and belong to this branch's project.
+	// Format: projects/{project_id}/snapshots/{snapshot_id}
+	SourceSnapshot *string `json:"sourceSnapshot,omitempty" tf:"source_snapshot,omitempty"`
+
 	// Relative time-to-live duration. When set, the branch will expire at creation_time + ttl.
-	// Mutually exclusive with expire_time and no_expiry. When updating, use spec.expiration in the update_mask
+	// Mutually exclusive with expire_time and no_expiry
 	TTL *string `json:"ttl,omitempty" tf:"ttl,omitempty"`
 }
 
 type SpecParameters struct {
 
 	// Absolute expiration timestamp. When set, the branch will expire at this time.
-	// Mutually exclusive with ttl and no_expiry. When updating, use spec.expiration in the update_mask
+	// Mutually exclusive with ttl and no_expiry
 	// +kubebuilder:validation:Optional
 	ExpireTime *string `json:"expireTime,omitempty" tf:"expire_time,omitempty"`
 
@@ -215,7 +229,7 @@ type SpecParameters struct {
 
 	// Explicitly disable expiration. When set to true, the branch will not expire.
 	// If set to false, the request is invalid; provide either ttl or expire_time instead.
-	// Mutually exclusive with expire_time and ttl. When updating, use spec.expiration in the update_mask
+	// Mutually exclusive with expire_time and ttl
 	// +kubebuilder:validation:Optional
 	NoExpiry *bool `json:"noExpiry,omitempty" tf:"no_expiry,omitempty"`
 
@@ -233,8 +247,16 @@ type SpecParameters struct {
 	// +kubebuilder:validation:Optional
 	SourceBranchTime *string `json:"sourceBranchTime,omitempty" tf:"source_branch_time,omitempty"`
 
+	// The snapshot this branch was created from. When set, the branch's data
+	// comes from the snapshot rather than a source branch, so source_branch,
+	// source_branch_lsn, and source_branch_time must be empty. The snapshot must
+	// be AVAILABLE and belong to this branch's project.
+	// Format: projects/{project_id}/snapshots/{snapshot_id}
+	// +kubebuilder:validation:Optional
+	SourceSnapshot *string `json:"sourceSnapshot,omitempty" tf:"source_snapshot,omitempty"`
+
 	// Relative time-to-live duration. When set, the branch will expire at creation_time + ttl.
-	// Mutually exclusive with expire_time and no_expiry. When updating, use spec.expiration in the update_mask
+	// Mutually exclusive with expire_time and no_expiry
 	// +kubebuilder:validation:Optional
 	TTL *string `json:"ttl,omitempty" tf:"ttl,omitempty"`
 }
@@ -258,7 +280,7 @@ type StatusObservation struct {
 	DeleteTime *string `json:"deleteTime,omitempty" tf:"delete_time,omitempty"`
 
 	// Absolute expiration timestamp. When set, the branch will expire at this time.
-	// Mutually exclusive with ttl and no_expiry. When updating, use spec.expiration in the update_mask
+	// Mutually exclusive with ttl and no_expiry
 	ExpireTime *string `json:"expireTime,omitempty" tf:"expire_time,omitempty"`
 
 	// When set to true, protects the branch from deletion and reset. Associated compute endpoints and the project cannot be deleted while the branch is protected
@@ -284,6 +306,13 @@ type StatusObservation struct {
 
 	// The point in time on the source branch from which this branch was created
 	SourceBranchTime *string `json:"sourceBranchTime,omitempty" tf:"source_branch_time,omitempty"`
+
+	// The snapshot this branch was created from. When set, the branch's data
+	// comes from the snapshot rather than a source branch, so source_branch,
+	// source_branch_lsn, and source_branch_time must be empty. The snapshot must
+	// be AVAILABLE and belong to this branch's project.
+	// Format: projects/{project_id}/snapshots/{snapshot_id}
+	SourceSnapshot *string `json:"sourceSnapshot,omitempty" tf:"source_snapshot,omitempty"`
 
 	// A timestamp indicating when the current_state began
 	StateChangeTime *string `json:"stateChangeTime,omitempty" tf:"state_change_time,omitempty"`

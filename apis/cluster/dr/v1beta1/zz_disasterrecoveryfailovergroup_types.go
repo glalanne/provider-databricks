@@ -71,11 +71,17 @@ type DisasterRecoveryFailoverGroupObservation struct {
 	// resource name as {parent}/failover-groups/{failover_group_id}
 	FailoverGroupID *string `json:"failoverGroupId,omitempty" tf:"failover_group_id,omitempty"`
 
+	// True if errors currently block the replication point
+	HasReplicationPointBlockingErrors *bool `json:"hasReplicationPointBlockingErrors,omitempty" tf:"has_replication_point_blocking_errors,omitempty"`
+
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
 	// Initial primary region. Used only in Create requests to set the starting
 	// primary region. Not returned in responses
 	InitialPrimaryRegion *string `json:"initialPrimaryRegion,omitempty" tf:"initial_primary_region,omitempty"`
+
+	// Initial replication progress of all in-scope assets. Set only when the FailoverGroup is in INITIAL_REPLICATION state
+	InitialReplicationProgress *InitialReplicationProgressObservation `json:"initialReplicationProgress,omitempty" tf:"initial_replication_progress,omitempty"`
 
 	// Resource name for this location
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
@@ -129,6 +135,18 @@ type DisasterRecoveryFailoverGroupParameters struct {
 	// Workspace sets, each containing workspaces that replicate to each other
 	// +kubebuilder:validation:Optional
 	WorkspaceSets []WorkspaceSetsParameters `json:"workspaceSets,omitempty" tf:"workspace_sets,omitempty"`
+}
+
+type InitialReplicationProgressInitParameters struct {
+}
+
+type InitialReplicationProgressObservation struct {
+
+	// Percent complete, 0-100
+	Completed *float64 `json:"completed,omitempty" tf:"completed,omitempty"`
+}
+
+type InitialReplicationProgressParameters struct {
 }
 
 type LocationMappingsInitParameters struct {

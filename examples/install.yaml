@@ -6,6 +6,8 @@ spec:
   package: xpkg.upbound.io/lalanne/provider-databricks:v3.0.0
   # controllerConfigRef: # This is optional if you want to have more logs to troubleshoot
   #   name: debug-config
+  # runtimeConfigRef: # Needed for credentials.source OIDCTokenRequest (see below)
+  #   name: provider-databricks
 
 # This is optional if you want to have more logs to troubleshoot
 # ---
@@ -18,3 +20,15 @@ spec:
 #   args:
 #   - --debug
 #   replicas: 1
+
+# Needed for credentials.source OIDCTokenRequest: gives the provider a stable service account name, which the
+# per-namespace RoleBindings in namespaced/providerconfig-oidctokenrequest.yaml refer to.
+# ---
+# apiVersion: pkg.crossplane.io/v1beta1
+# kind: DeploymentRuntimeConfig
+# metadata:
+#   name: provider-databricks
+# spec:
+#   serviceAccountTemplate:
+#     metadata:
+#       name: provider-databricks

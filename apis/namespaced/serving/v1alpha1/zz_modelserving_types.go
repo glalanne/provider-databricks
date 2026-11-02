@@ -156,6 +156,9 @@ type AmazonBedrockConfigInitParameters struct {
 
 	// ARN of the instance profile that the served model will use to access AWS resources.
 	InstanceProfileArn *string `json:"instanceProfileArn,omitempty" tf:"instance_profile_arn,omitempty"`
+
+	// The name of the model serving endpoint. This field is required and must be unique across a workspace. An endpoint name can consist of alphanumeric characters, dashes, and underscores. NOTE: Changing this name will delete the existing endpoint and create a new endpoint with the updated name.
+	UcServiceCredentialName *string `json:"ucServiceCredentialName,omitempty" tf:"uc_service_credential_name,omitempty"`
 }
 
 type AmazonBedrockConfigObservation struct {
@@ -174,6 +177,9 @@ type AmazonBedrockConfigObservation struct {
 
 	// ARN of the instance profile that the served model will use to access AWS resources.
 	InstanceProfileArn *string `json:"instanceProfileArn,omitempty" tf:"instance_profile_arn,omitempty"`
+
+	// The name of the model serving endpoint. This field is required and must be unique across a workspace. An endpoint name can consist of alphanumeric characters, dashes, and underscores. NOTE: Changing this name will delete the existing endpoint and create a new endpoint with the updated name.
+	UcServiceCredentialName *string `json:"ucServiceCredentialName,omitempty" tf:"uc_service_credential_name,omitempty"`
 }
 
 type AmazonBedrockConfigParameters struct {
@@ -205,6 +211,10 @@ type AmazonBedrockConfigParameters struct {
 	// ARN of the instance profile that the served model will use to access AWS resources.
 	// +kubebuilder:validation:Optional
 	InstanceProfileArn *string `json:"instanceProfileArn,omitempty" tf:"instance_profile_arn,omitempty"`
+
+	// The name of the model serving endpoint. This field is required and must be unique across a workspace. An endpoint name can consist of alphanumeric characters, dashes, and underscores. NOTE: Changing this name will delete the existing endpoint and create a new endpoint with the updated name.
+	// +kubebuilder:validation:Optional
+	UcServiceCredentialName *string `json:"ucServiceCredentialName,omitempty" tf:"uc_service_credential_name,omitempty"`
 }
 
 type AnthropicConfigInitParameters struct {
@@ -1631,6 +1641,41 @@ type ServedModelsParameters struct {
 	WorkloadType *string `json:"workloadType,omitempty" tf:"workload_type,omitempty"`
 }
 
+type TableNamesInitParameters struct {
+	AnnotationsTable *string `json:"annotationsTable,omitempty" tf:"annotations_table,omitempty"`
+
+	LogsTable *string `json:"logsTable,omitempty" tf:"logs_table,omitempty"`
+
+	MetricsTable *string `json:"metricsTable,omitempty" tf:"metrics_table,omitempty"`
+
+	TracesTable *string `json:"tracesTable,omitempty" tf:"traces_table,omitempty"`
+}
+
+type TableNamesObservation struct {
+	AnnotationsTable *string `json:"annotationsTable,omitempty" tf:"annotations_table,omitempty"`
+
+	LogsTable *string `json:"logsTable,omitempty" tf:"logs_table,omitempty"`
+
+	MetricsTable *string `json:"metricsTable,omitempty" tf:"metrics_table,omitempty"`
+
+	TracesTable *string `json:"tracesTable,omitempty" tf:"traces_table,omitempty"`
+}
+
+type TableNamesParameters struct {
+
+	// +kubebuilder:validation:Optional
+	AnnotationsTable *string `json:"annotationsTable,omitempty" tf:"annotations_table,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	LogsTable *string `json:"logsTable,omitempty" tf:"logs_table,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	MetricsTable *string `json:"metricsTable,omitempty" tf:"metrics_table,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	TracesTable *string `json:"tracesTable,omitempty" tf:"traces_table,omitempty"`
+}
+
 type TagsInitParameters struct {
 
 	// The key field for a tag.
@@ -1687,22 +1732,44 @@ type TelemetryConfigInferenceTableConfigParameters struct {
 }
 
 type TelemetryConfigInitParameters struct {
+	EnabledTelemetryFeatures []*string `json:"enabledTelemetryFeatures,omitempty" tf:"enabled_telemetry_features,omitempty"`
 
 	// Block describing the configuration of usage tracking. Consists of the following attributes:
 	InferenceTableConfig []TelemetryConfigInferenceTableConfigInitParameters `json:"inferenceTableConfig,omitempty" tf:"inference_table_config,omitempty"`
+
+	TableNames []TableNamesInitParameters `json:"tableNames,omitempty" tf:"table_names,omitempty"`
+
+	// Equal to the name argument and used to identify the serving endpoint.
+	TelemetryProfileID *string `json:"telemetryProfileId,omitempty" tf:"telemetry_profile_id,omitempty"`
 }
 
 type TelemetryConfigObservation struct {
+	EnabledTelemetryFeatures []*string `json:"enabledTelemetryFeatures,omitempty" tf:"enabled_telemetry_features,omitempty"`
 
 	// Block describing the configuration of usage tracking. Consists of the following attributes:
 	InferenceTableConfig []TelemetryConfigInferenceTableConfigObservation `json:"inferenceTableConfig,omitempty" tf:"inference_table_config,omitempty"`
+
+	TableNames []TableNamesObservation `json:"tableNames,omitempty" tf:"table_names,omitempty"`
+
+	// Equal to the name argument and used to identify the serving endpoint.
+	TelemetryProfileID *string `json:"telemetryProfileId,omitempty" tf:"telemetry_profile_id,omitempty"`
 }
 
 type TelemetryConfigParameters struct {
 
+	// +kubebuilder:validation:Optional
+	EnabledTelemetryFeatures []*string `json:"enabledTelemetryFeatures,omitempty" tf:"enabled_telemetry_features,omitempty"`
+
 	// Block describing the configuration of usage tracking. Consists of the following attributes:
 	// +kubebuilder:validation:Optional
 	InferenceTableConfig []TelemetryConfigInferenceTableConfigParameters `json:"inferenceTableConfig,omitempty" tf:"inference_table_config,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	TableNames []TableNamesParameters `json:"tableNames,omitempty" tf:"table_names,omitempty"`
+
+	// Equal to the name argument and used to identify the serving endpoint.
+	// +kubebuilder:validation:Optional
+	TelemetryProfileID *string `json:"telemetryProfileId,omitempty" tf:"telemetry_profile_id,omitempty"`
 }
 
 type TrafficConfigInitParameters struct {

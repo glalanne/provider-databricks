@@ -38,6 +38,7 @@ type MlflowExperimentInitParameters struct {
 	// Tags for the MLflow experiment.
 	Tags []TagsInitParameters `json:"tags,omitempty" tf:"tags,omitempty"`
 
+	// Unity Catalog location where the experiment's traces are stored. Cannot be changed after the experiment is created; changing it forces replacement of the experiment. This block consists of the following fields:
 	TraceLocation *TraceLocationInitParameters `json:"traceLocation,omitempty" tf:"trace_location,omitempty"`
 }
 
@@ -69,6 +70,7 @@ type MlflowExperimentObservation struct {
 	// Tags for the MLflow experiment.
 	Tags []TagsObservation `json:"tags,omitempty" tf:"tags,omitempty"`
 
+	// Unity Catalog location where the experiment's traces are stored. Cannot be changed after the experiment is created; changing it forces replacement of the experiment. This block consists of the following fields:
 	TraceLocation *TraceLocationObservation `json:"traceLocation,omitempty" tf:"trace_location,omitempty"`
 }
 
@@ -106,6 +108,7 @@ type MlflowExperimentParameters struct {
 	// +kubebuilder:validation:Optional
 	Tags []TagsParameters `json:"tags,omitempty" tf:"tags,omitempty"`
 
+	// Unity Catalog location where the experiment's traces are stored. Cannot be changed after the experiment is created; changing it forces replacement of the experiment. This block consists of the following fields:
 	// +kubebuilder:validation:Optional
 	TraceLocation *TraceLocationParameters `json:"traceLocation,omitempty" tf:"trace_location,omitempty"`
 }
@@ -151,43 +154,69 @@ type TagsParameters struct {
 }
 
 type TraceLocationInitParameters struct {
+
+	// The Unity Catalog storage location. This block consists of the following fields:
 	UcTraceLocation *UcTraceLocationInitParameters `json:"ucTraceLocation,omitempty" tf:"uc_trace_location,omitempty"`
 }
 
 type TraceLocationObservation struct {
+
+	// The Unity Catalog storage location. This block consists of the following fields:
 	UcTraceLocation *UcTraceLocationObservation `json:"ucTraceLocation,omitempty" tf:"uc_trace_location,omitempty"`
 }
 
 type TraceLocationParameters struct {
 
+	// The Unity Catalog storage location. This block consists of the following fields:
 	// +kubebuilder:validation:Optional
 	UcTraceLocation *UcTraceLocationParameters `json:"ucTraceLocation,omitempty" tf:"uc_trace_location,omitempty"`
 }
 
 type UcTraceLocationInitParameters struct {
+
+	// Name of the Unity Catalog catalog.
 	Catalog *string `json:"catalog,omitempty" tf:"catalog,omitempty"`
 
+	// (Computed) The trace-table prefix actually in effect: table_prefix if it was set on creation, otherwise the server-generated default.
+	EffectiveTablePrefix *string `json:"effectiveTablePrefix,omitempty" tf:"effective_table_prefix,omitempty"`
+
+	// Name of the Unity Catalog schema within catalog.
 	Schema *string `json:"schema,omitempty" tf:"schema,omitempty"`
 
+	// Prefix for the generated trace tables (named {catalog}.{schema}.{table_prefix}_otel_*). If omitted, the server generates a default prefix derived from the experiment ID; the field then stays empty and the resolved value is available in effective_table_prefix.
 	TablePrefix *string `json:"tablePrefix,omitempty" tf:"table_prefix,omitempty"`
 }
 
 type UcTraceLocationObservation struct {
+
+	// Name of the Unity Catalog catalog.
 	Catalog *string `json:"catalog,omitempty" tf:"catalog,omitempty"`
 
+	// (Computed) The trace-table prefix actually in effect: table_prefix if it was set on creation, otherwise the server-generated default.
+	EffectiveTablePrefix *string `json:"effectiveTablePrefix,omitempty" tf:"effective_table_prefix,omitempty"`
+
+	// Name of the Unity Catalog schema within catalog.
 	Schema *string `json:"schema,omitempty" tf:"schema,omitempty"`
 
+	// Prefix for the generated trace tables (named {catalog}.{schema}.{table_prefix}_otel_*). If omitted, the server generates a default prefix derived from the experiment ID; the field then stays empty and the resolved value is available in effective_table_prefix.
 	TablePrefix *string `json:"tablePrefix,omitempty" tf:"table_prefix,omitempty"`
 }
 
 type UcTraceLocationParameters struct {
 
+	// Name of the Unity Catalog catalog.
 	// +kubebuilder:validation:Optional
 	Catalog *string `json:"catalog" tf:"catalog,omitempty"`
 
+	// (Computed) The trace-table prefix actually in effect: table_prefix if it was set on creation, otherwise the server-generated default.
+	// +kubebuilder:validation:Optional
+	EffectiveTablePrefix *string `json:"effectiveTablePrefix,omitempty" tf:"effective_table_prefix,omitempty"`
+
+	// Name of the Unity Catalog schema within catalog.
 	// +kubebuilder:validation:Optional
 	Schema *string `json:"schema" tf:"schema,omitempty"`
 
+	// Prefix for the generated trace tables (named {catalog}.{schema}.{table_prefix}_otel_*). If omitted, the server generates a default prefix derived from the experiment ID; the field then stays empty and the resolved value is available in effective_table_prefix.
 	// +kubebuilder:validation:Optional
 	TablePrefix *string `json:"tablePrefix,omitempty" tf:"table_prefix,omitempty"`
 }

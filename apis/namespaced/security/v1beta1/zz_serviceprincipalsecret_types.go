@@ -31,6 +31,8 @@ type ServicePrincipalSecretInitParameters struct {
 	// Configure the provider for management through account provider. This block consists of the following fields:
 	ProviderConfig *ServicePrincipalSecretProviderConfigInitParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
 
+	Scopes []*string `json:"scopes,omitempty" tf:"scopes,omitempty"`
+
 	// Secret Hash.
 	SecretHash *string `json:"secretHash,omitempty" tf:"secret_hash,omitempty"`
 
@@ -81,6 +83,8 @@ type ServicePrincipalSecretObservation struct {
 	// Configure the provider for management through account provider. This block consists of the following fields:
 	ProviderConfig *ServicePrincipalSecretProviderConfigObservation `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
 
+	Scopes []*string `json:"scopes,omitempty" tf:"scopes,omitempty"`
+
 	// Secret Hash.
 	SecretHash *string `json:"secretHash,omitempty" tf:"secret_hash,omitempty"`
 
@@ -119,6 +123,9 @@ type ServicePrincipalSecretParameters struct {
 	// Configure the provider for management through account provider. This block consists of the following fields:
 	// +kubebuilder:validation:Optional
 	ProviderConfig *ServicePrincipalSecretProviderConfigParameters `json:"providerConfig,omitempty" tf:"provider_config,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	Scopes []*string `json:"scopes,omitempty" tf:"scopes,omitempty"`
 
 	// Secret Hash.
 	// +kubebuilder:validation:Optional

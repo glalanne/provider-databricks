@@ -14,10 +14,18 @@ import (
 )
 
 type GCPEndpointInitParameters struct {
+	AllVPCScServices *bool `json:"allVpcScServices,omitempty" tf:"all_vpc_sc_services,omitempty"`
+
+	GoogleAPIEndpoints *GoogleAPIEndpointsInitParameters `json:"googleApiEndpoints,omitempty" tf:"google_api_endpoints,omitempty"`
+
 	ServiceAttachment *string `json:"serviceAttachment,omitempty" tf:"service_attachment,omitempty"`
 }
 
 type GCPEndpointObservation struct {
+	AllVPCScServices *bool `json:"allVpcScServices,omitempty" tf:"all_vpc_sc_services,omitempty"`
+
+	GoogleAPIEndpoints *GoogleAPIEndpointsObservation `json:"googleApiEndpoints,omitempty" tf:"google_api_endpoints,omitempty"`
+
 	PscEndpointURI *string `json:"pscEndpointUri,omitempty" tf:"psc_endpoint_uri,omitempty"`
 
 	ServiceAttachment *string `json:"serviceAttachment,omitempty" tf:"service_attachment,omitempty"`
@@ -26,7 +34,27 @@ type GCPEndpointObservation struct {
 type GCPEndpointParameters struct {
 
 	// +kubebuilder:validation:Optional
+	AllVPCScServices *bool `json:"allVpcScServices,omitempty" tf:"all_vpc_sc_services,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	GoogleAPIEndpoints *GoogleAPIEndpointsParameters `json:"googleApiEndpoints,omitempty" tf:"google_api_endpoints,omitempty"`
+
+	// +kubebuilder:validation:Optional
 	ServiceAttachment *string `json:"serviceAttachment,omitempty" tf:"service_attachment,omitempty"`
+}
+
+type GoogleAPIEndpointsInitParameters struct {
+	Endpoints []*string `json:"endpoints,omitempty" tf:"endpoints,omitempty"`
+}
+
+type GoogleAPIEndpointsObservation struct {
+	Endpoints []*string `json:"endpoints,omitempty" tf:"endpoints,omitempty"`
+}
+
+type GoogleAPIEndpointsParameters struct {
+
+	// +kubebuilder:validation:Optional
+	Endpoints []*string `json:"endpoints,omitempty" tf:"endpoints,omitempty"`
 }
 
 type MwsNccPrivateEndpointRuleInitParameters struct {
