@@ -162,15 +162,6 @@ func main() {
 
 	*certsDir = resolveCertsDir(*certsDir, certsDirSet)
 
-	var clientOpts client.Options
-	if !*enableSecretCache {
-		clientOpts = client.Options{
-			Cache: &client.CacheOptions{
-				DisableFor: []client.Object{&corev1.Secret{}, &corev1.ServiceAccount{}},
-			},
-		}
-	}
-
 	scheme := runtime.NewScheme()
 	kingpin.FatalIfError(clientgoscheme.AddToScheme(scheme), "Cannot add clientgo scheme")
 	kingpin.FatalIfError(clusterapis.AddToScheme(scheme), "Cannot add cluster-scoped Databricks APIs to scheme")
@@ -179,7 +170,7 @@ func main() {
 
 	mgr, err := ctrl.NewManager(cfg, ctrl.Options{
 		Scheme:           scheme,
-		Client:           clientOpts,
+		Client:           clientOptions(*enableSecretCache),
 		LeaderElection:   *leaderElection,
 		LeaderElectionID: "crossplane-leader-election-provider-databricks",
 		Cache: cache.Options{
@@ -318,6 +309,17 @@ func resolveCertsDir(configured string, explicit bool) string {
 		}
 	}
 	return configured
+}
+
+// clientOptions keeps ServiceAccounts out of the cache, which would need
+// cluster-wide list/watch; OIDCTokenRequest opt-ins only grant get on the
+// service accounts they name. Secrets are cached only if cacheSecrets is true.
+func clientOptions(cacheSecrets bool) client.Options {
+	uncached := []client.Object{&corev1.ServiceAccount{}}
+	if !cacheSecrets {
+		uncached = append(uncached, &corev1.Secret{})
+	}
+	return client.Options{Cache: &client.CacheOptions{DisableFor: uncached}}
 }
 
 func canWatchCRD(ctx context.Context, mgr manager.Manager) (bool, error) {

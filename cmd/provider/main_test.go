@@ -2,11 +2,13 @@ package main
 
 import (
 	"context"
+	"fmt"
 	"net/http"
 	"net/http/httptest"
 	"os"
 	"os/exec"
 	"path/filepath"
+	"slices"
 	"strings"
 	"sync/atomic"
 	"testing"
@@ -40,6 +42,28 @@ func TestResolveCertsDir(t *testing.T) {
 			t.Setenv(webhookTLSCertDirEnvVar, tc.legacy)
 			if got := resolveCertsDir(tc.configured, tc.explicit); got != tc.want {
 				t.Errorf("resolveCertsDir() = %q, want %q", got, tc.want)
+			}
+		})
+	}
+}
+
+func TestClientOptions(t *testing.T) {
+	for _, tc := range []struct {
+		name         string
+		cacheSecrets bool
+		want         []string
+	}{
+		{name: "secret cache", cacheSecrets: true, want: []string{"*v1.ServiceAccount"}},
+		{name: "no secret cache", cacheSecrets: false, want: []string{"*v1.ServiceAccount", "*v1.Secret"}},
+	} {
+		t.Run(tc.name, func(t *testing.T) {
+			uncached := clientOptions(tc.cacheSecrets).Cache.DisableFor
+			got := make([]string, 0, len(uncached))
+			for _, obj := range uncached {
+				got = append(got, fmt.Sprintf("%T", obj))
+			}
+			if !slices.Equal(got, tc.want) {
+				t.Errorf("clientOptions(%t) uncached = %v, want %v", tc.cacheSecrets, got, tc.want)
 			}
 		})
 	}
